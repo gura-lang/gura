@@ -37,14 +37,14 @@ String Object_wx_Event::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Event, wxEvent)
+Gura_DeclareMethodAlias(wx_Event, __wxEvent, "wxEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, wxEvent)
+Gura_ImplementMethod(wx_Event, __wxEvent)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_Event, wxEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, Clone)
+Gura_DeclareMethodAlias(wx_Event, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, Clone)
+Gura_ImplementMethod(wx_Event, __Clone)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Event, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetEventObject)
+Gura_DeclareMethodAlias(wx_Event, __GetEventObject, "GetEventObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetEventObject)
+Gura_ImplementMethod(wx_Event, __GetEventObject)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Event, GetEventObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetEventType)
+Gura_DeclareMethodAlias(wx_Event, __GetEventType, "GetEventType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetEventType)
+Gura_ImplementMethod(wx_Event, __GetEventType)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Event, GetEventType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetEventCategory)
+Gura_DeclareMethodAlias(wx_Event, __GetEventCategory, "GetEventCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetEventCategory)
+Gura_ImplementMethod(wx_Event, __GetEventCategory)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_Event, GetEventCategory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetId)
+Gura_DeclareMethodAlias(wx_Event, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetId)
+Gura_ImplementMethod(wx_Event, __GetId)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Event, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetEventUserData)
+Gura_DeclareMethodAlias(wx_Event, __GetEventUserData, "GetEventUserData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetEventUserData)
+Gura_ImplementMethod(wx_Event, __GetEventUserData)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Event, GetEventUserData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetSkipped)
+Gura_DeclareMethodAlias(wx_Event, __GetSkipped, "GetSkipped")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetSkipped)
+Gura_ImplementMethod(wx_Event, __GetSkipped)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_Event, GetSkipped)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, GetTimestamp)
+Gura_DeclareMethodAlias(wx_Event, __GetTimestamp, "GetTimestamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, GetTimestamp)
+Gura_ImplementMethod(wx_Event, __GetTimestamp)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_Event, GetTimestamp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, IsCommandEvent)
+Gura_DeclareMethodAlias(wx_Event, __IsCommandEvent, "IsCommandEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, IsCommandEvent)
+Gura_ImplementMethod(wx_Event, __IsCommandEvent)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_Event, IsCommandEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, ResumePropagation)
+Gura_DeclareMethodAlias(wx_Event, __ResumePropagation, "ResumePropagation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "propagationLevel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, ResumePropagation)
+Gura_ImplementMethod(wx_Event, __ResumePropagation)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_Event, ResumePropagation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, SetEventObject)
+Gura_DeclareMethodAlias(wx_Event, __SetEventObject, "SetEventObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, SetEventObject)
+Gura_ImplementMethod(wx_Event, __SetEventObject)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_Event, SetEventObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, SetEventType)
+Gura_DeclareMethodAlias(wx_Event, __SetEventType, "SetEventType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, SetEventType)
+Gura_ImplementMethod(wx_Event, __SetEventType)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_Event, SetEventType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, SetId)
+Gura_DeclareMethodAlias(wx_Event, __SetId, "SetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, SetId)
+Gura_ImplementMethod(wx_Event, __SetId)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_Event, SetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, SetTimestamp)
+Gura_DeclareMethodAlias(wx_Event, __SetTimestamp, "SetTimestamp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timeStamp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, SetTimestamp)
+Gura_ImplementMethod(wx_Event, __SetTimestamp)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,12 +246,12 @@ Gura_ImplementMethod(wx_Event, SetTimestamp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, ShouldPropagate)
+Gura_DeclareMethodAlias(wx_Event, __ShouldPropagate, "ShouldPropagate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, ShouldPropagate)
+Gura_ImplementMethod(wx_Event, __ShouldPropagate)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,13 +259,13 @@ Gura_ImplementMethod(wx_Event, ShouldPropagate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, Skip)
+Gura_DeclareMethodAlias(wx_Event, __Skip, "Skip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Event, Skip)
+Gura_ImplementMethod(wx_Event, __Skip)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,12 +274,12 @@ Gura_ImplementMethod(wx_Event, Skip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Event, StopPropagation)
+Gura_DeclareMethodAlias(wx_Event, __StopPropagation, "StopPropagation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Event, StopPropagation)
+Gura_ImplementMethod(wx_Event, __StopPropagation)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,24 +292,24 @@ Gura_ImplementMethod(wx_Event, StopPropagation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Event)
 {
-	Gura_AssignMethod(wx_Event, wxEvent);
-	Gura_AssignMethod(wx_Event, Clone);
-	Gura_AssignMethod(wx_Event, GetEventObject);
-	Gura_AssignMethod(wx_Event, GetEventType);
-	Gura_AssignMethod(wx_Event, GetEventCategory);
-	Gura_AssignMethod(wx_Event, GetId);
-	Gura_AssignMethod(wx_Event, GetEventUserData);
-	Gura_AssignMethod(wx_Event, GetSkipped);
-	Gura_AssignMethod(wx_Event, GetTimestamp);
-	Gura_AssignMethod(wx_Event, IsCommandEvent);
-	Gura_AssignMethod(wx_Event, ResumePropagation);
-	Gura_AssignMethod(wx_Event, SetEventObject);
-	Gura_AssignMethod(wx_Event, SetEventType);
-	Gura_AssignMethod(wx_Event, SetId);
-	Gura_AssignMethod(wx_Event, SetTimestamp);
-	Gura_AssignMethod(wx_Event, ShouldPropagate);
-	Gura_AssignMethod(wx_Event, Skip);
-	Gura_AssignMethod(wx_Event, StopPropagation);
+	Gura_AssignMethod(wx_Event, __wxEvent);
+	Gura_AssignMethod(wx_Event, __Clone);
+	Gura_AssignMethod(wx_Event, __GetEventObject);
+	Gura_AssignMethod(wx_Event, __GetEventType);
+	Gura_AssignMethod(wx_Event, __GetEventCategory);
+	Gura_AssignMethod(wx_Event, __GetId);
+	Gura_AssignMethod(wx_Event, __GetEventUserData);
+	Gura_AssignMethod(wx_Event, __GetSkipped);
+	Gura_AssignMethod(wx_Event, __GetTimestamp);
+	Gura_AssignMethod(wx_Event, __IsCommandEvent);
+	Gura_AssignMethod(wx_Event, __ResumePropagation);
+	Gura_AssignMethod(wx_Event, __SetEventObject);
+	Gura_AssignMethod(wx_Event, __SetEventType);
+	Gura_AssignMethod(wx_Event, __SetId);
+	Gura_AssignMethod(wx_Event, __SetTimestamp);
+	Gura_AssignMethod(wx_Event, __ShouldPropagate);
+	Gura_AssignMethod(wx_Event, __Skip);
+	Gura_AssignMethod(wx_Event, __StopPropagation);
 }
 
 Gura_ImplementDescendantCreator(wx_Event)

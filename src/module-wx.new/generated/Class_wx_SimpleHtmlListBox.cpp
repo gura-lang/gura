@@ -37,7 +37,7 @@ String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
+Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox, "wxSimpleHtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
+Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox)
 {
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
+Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1, "wxSimpleHtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
+Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1)
 {
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2)
+Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2, "wxSimpleHtmlListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2)
+Gura_ImplementMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2)
 {
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
+Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
+Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create)
 {
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
+Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_SimpleHtmlListBox, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
+Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create_1)
 {
 	Object_wx_SimpleHtmlListBox *pThis = Object_wx_SimpleHtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,11 +175,11 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, Create_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SimpleHtmlListBox)
 {
-	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_1);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, wxSimpleHtmlListBox_2);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, Create);
-	Gura_AssignMethod(wx_SimpleHtmlListBox, Create_1);
+	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox);
+	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_1);
+	Gura_AssignMethod(wx_SimpleHtmlListBox, __wxSimpleHtmlListBox_2);
+	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create);
+	Gura_AssignMethod(wx_SimpleHtmlListBox, __Create_1);
 }
 
 Gura_ImplementDescendantCreator(wx_SimpleHtmlListBox)

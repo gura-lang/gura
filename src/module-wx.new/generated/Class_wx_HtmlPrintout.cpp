@@ -37,13 +37,13 @@ String Object_wx_HtmlPrintout::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlPrintout, wxHtmlPrintout)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __wxHtmlPrintout, "wxHtmlPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, wxHtmlPrintout)
+Gura_ImplementMethod(wx_HtmlPrintout, __wxHtmlPrintout)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_HtmlPrintout, wxHtmlPrintout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, AddFilter)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __AddFilter, "AddFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, AddFilter)
+Gura_ImplementMethod(wx_HtmlPrintout, __AddFilter)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, AddFilter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetFonts)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetFonts, "SetFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normal_face", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetFonts)
 	//DeclareArg(env, "sizes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetFonts)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetFonts)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,14 +86,14 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetFooter)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetFooter, "SetFooter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "footer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetFooter)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetFooter)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,14 +103,14 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetFooter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetHeader)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetHeader, "SetHeader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetHeader)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetHeader)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,13 +120,13 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHeader)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlFile)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetHtmlFile, "SetHtmlFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "htmlfile", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlFile)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetHtmlFile)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlText)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetHtmlText, "SetHtmlText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetHtmlText)
 	//DeclareArg(env, "isdir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlText)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetHtmlText)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetHtmlText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlPrintout, SetMargins)
+Gura_DeclareMethodAlias(wx_HtmlPrintout, __SetMargins, "SetMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "top", VTYPE_number, OCCUR_Once);
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_HtmlPrintout, SetMargins)
 	//DeclareArg(env, "spaces", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlPrintout, SetMargins)
+Gura_ImplementMethod(wx_HtmlPrintout, __SetMargins)
 {
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,14 +182,14 @@ Gura_ImplementMethod(wx_HtmlPrintout, SetMargins)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlPrintout)
 {
-	Gura_AssignMethod(wx_HtmlPrintout, wxHtmlPrintout);
-	Gura_AssignMethod(wx_HtmlPrintout, AddFilter);
-	Gura_AssignMethod(wx_HtmlPrintout, SetFonts);
-	Gura_AssignMethod(wx_HtmlPrintout, SetFooter);
-	Gura_AssignMethod(wx_HtmlPrintout, SetHeader);
-	Gura_AssignMethod(wx_HtmlPrintout, SetHtmlFile);
-	Gura_AssignMethod(wx_HtmlPrintout, SetHtmlText);
-	Gura_AssignMethod(wx_HtmlPrintout, SetMargins);
+	Gura_AssignMethod(wx_HtmlPrintout, __wxHtmlPrintout);
+	Gura_AssignMethod(wx_HtmlPrintout, __AddFilter);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetFonts);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetFooter);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetHeader);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetHtmlFile);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetHtmlText);
+	Gura_AssignMethod(wx_HtmlPrintout, __SetMargins);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlPrintout)

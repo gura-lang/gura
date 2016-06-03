@@ -37,7 +37,7 @@ String Object_wx_DocChildFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DocChildFrame, wxDocChildFrame)
+Gura_DeclareMethodAlias(wx_DocChildFrame, __wxDocChildFrame, "wxDocChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareMethod(wx_DocChildFrame, wxDocChildFrame)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, wxDocChildFrame)
+Gura_ImplementMethod(wx_DocChildFrame, __wxDocChildFrame)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,12 +68,12 @@ Gura_ImplementMethod(wx_DocChildFrame, wxDocChildFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocChildFrame, GetDocument)
+Gura_DeclareMethodAlias(wx_DocChildFrame, __GetDocument, "GetDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, GetDocument)
+Gura_ImplementMethod(wx_DocChildFrame, __GetDocument)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,12 +81,12 @@ Gura_ImplementMethod(wx_DocChildFrame, GetDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocChildFrame, GetView)
+Gura_DeclareMethodAlias(wx_DocChildFrame, __GetView, "GetView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, GetView)
+Gura_ImplementMethod(wx_DocChildFrame, __GetView)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_DocChildFrame, GetView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocChildFrame, SetDocument)
+Gura_DeclareMethodAlias(wx_DocChildFrame, __SetDocument, "SetDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, SetDocument)
+Gura_ImplementMethod(wx_DocChildFrame, __SetDocument)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_DocChildFrame, SetDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocChildFrame, SetView)
+Gura_DeclareMethodAlias(wx_DocChildFrame, __SetView, "SetView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "view", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocChildFrame, SetView)
+Gura_ImplementMethod(wx_DocChildFrame, __SetView)
 {
 	Object_wx_DocChildFrame *pThis = Object_wx_DocChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,11 +129,11 @@ Gura_ImplementMethod(wx_DocChildFrame, SetView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 {
-	Gura_AssignMethod(wx_DocChildFrame, wxDocChildFrame);
-	Gura_AssignMethod(wx_DocChildFrame, GetDocument);
-	Gura_AssignMethod(wx_DocChildFrame, GetView);
-	Gura_AssignMethod(wx_DocChildFrame, SetDocument);
-	Gura_AssignMethod(wx_DocChildFrame, SetView);
+	Gura_AssignMethod(wx_DocChildFrame, __wxDocChildFrame);
+	Gura_AssignMethod(wx_DocChildFrame, __GetDocument);
+	Gura_AssignMethod(wx_DocChildFrame, __GetView);
+	Gura_AssignMethod(wx_DocChildFrame, __SetDocument);
+	Gura_AssignMethod(wx_DocChildFrame, __SetView);
 }
 
 Gura_ImplementDescendantCreator(wx_DocChildFrame)

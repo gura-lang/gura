@@ -37,14 +37,14 @@ String Object_wx_SplitterEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SplitterEvent, wxSplitterEvent)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __wxSplitterEvent, "wxSplitterEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "splitter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, wxSplitterEvent)
+Gura_ImplementMethod(wx_SplitterEvent, __wxSplitterEvent)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_SplitterEvent, wxSplitterEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplitterEvent, GetSashPosition)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __GetSashPosition, "GetSashPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
+Gura_ImplementMethod(wx_SplitterEvent, __GetSashPosition)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_SplitterEvent, GetSashPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplitterEvent, GetWindowBeingRemoved)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __GetWindowBeingRemoved, "GetWindowBeingRemoved")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
+Gura_ImplementMethod(wx_SplitterEvent, __GetWindowBeingRemoved)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_SplitterEvent, GetWindowBeingRemoved)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplitterEvent, GetX)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __GetX, "GetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, GetX)
+Gura_ImplementMethod(wx_SplitterEvent, __GetX)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_SplitterEvent, GetX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplitterEvent, GetY)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __GetY, "GetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, GetY)
+Gura_ImplementMethod(wx_SplitterEvent, __GetY)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_SplitterEvent, GetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplitterEvent, SetSashPosition)
+Gura_DeclareMethodAlias(wx_SplitterEvent, __SetSashPosition, "SetSashPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplitterEvent, SetSashPosition)
+Gura_ImplementMethod(wx_SplitterEvent, __SetSashPosition)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_SplitterEvent, SetSashPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplitterEvent)
 {
-	Gura_AssignMethod(wx_SplitterEvent, wxSplitterEvent);
-	Gura_AssignMethod(wx_SplitterEvent, GetSashPosition);
-	Gura_AssignMethod(wx_SplitterEvent, GetWindowBeingRemoved);
-	Gura_AssignMethod(wx_SplitterEvent, GetX);
-	Gura_AssignMethod(wx_SplitterEvent, GetY);
-	Gura_AssignMethod(wx_SplitterEvent, SetSashPosition);
+	Gura_AssignMethod(wx_SplitterEvent, __wxSplitterEvent);
+	Gura_AssignMethod(wx_SplitterEvent, __GetSashPosition);
+	Gura_AssignMethod(wx_SplitterEvent, __GetWindowBeingRemoved);
+	Gura_AssignMethod(wx_SplitterEvent, __GetX);
+	Gura_AssignMethod(wx_SplitterEvent, __GetY);
+	Gura_AssignMethod(wx_SplitterEvent, __SetSashPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_SplitterEvent)

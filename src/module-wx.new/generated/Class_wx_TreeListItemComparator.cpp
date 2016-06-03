@@ -37,12 +37,12 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeListItemComparator, wxTreeListItemComparator)
+Gura_DeclareMethodAlias(wx_TreeListItemComparator, __wxTreeListItemComparator, "wxTreeListItemComparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListItemComparator, wxTreeListItemComparator)
+Gura_ImplementMethod(wx_TreeListItemComparator, __wxTreeListItemComparator)
 {
 	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TreeListItemComparator, wxTreeListItemComparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListItemComparator, Compare)
+Gura_DeclareMethodAlias(wx_TreeListItemComparator, __Compare, "Compare")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "treelist", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_TreeListItemComparator, Compare)
 	//DeclareArg(env, "second", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListItemComparator, Compare)
+Gura_ImplementMethod(wx_TreeListItemComparator, __Compare)
 {
 	Object_wx_TreeListItemComparator *pThis = Object_wx_TreeListItemComparator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_TreeListItemComparator, Compare)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItemComparator)
 {
-	Gura_AssignMethod(wx_TreeListItemComparator, wxTreeListItemComparator);
-	Gura_AssignMethod(wx_TreeListItemComparator, Compare);
+	Gura_AssignMethod(wx_TreeListItemComparator, __wxTreeListItemComparator);
+	Gura_AssignMethod(wx_TreeListItemComparator, __Compare);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeListItemComparator)

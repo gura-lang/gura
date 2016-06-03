@@ -37,13 +37,13 @@ String Object_wx_IdManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IdManager, ReserveId)
+Gura_DeclareMethodAlias(wx_IdManager, __ReserveId, "ReserveId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IdManager, ReserveId)
+Gura_ImplementMethod(wx_IdManager, __ReserveId)
 {
 	Object_wx_IdManager *pThis = Object_wx_IdManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_IdManager, ReserveId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IdManager, UnreserveId)
+Gura_DeclareMethodAlias(wx_IdManager, __UnreserveId, "UnreserveId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IdManager, UnreserveId)
+Gura_ImplementMethod(wx_IdManager, __UnreserveId)
 {
 	Object_wx_IdManager *pThis = Object_wx_IdManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_IdManager, UnreserveId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdManager)
 {
-	Gura_AssignMethod(wx_IdManager, ReserveId);
-	Gura_AssignMethod(wx_IdManager, UnreserveId);
+	Gura_AssignMethod(wx_IdManager, __ReserveId);
+	Gura_AssignMethod(wx_IdManager, __UnreserveId);
 }
 
 Gura_ImplementDescendantCreator(wx_IdManager)

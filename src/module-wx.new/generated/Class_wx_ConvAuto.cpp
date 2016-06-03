@@ -37,13 +37,13 @@ String Object_wx_ConvAuto::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ConvAuto, wxConvAuto)
+Gura_DeclareMethodAlias(wx_ConvAuto, __wxConvAuto, "wxConvAuto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, wxConvAuto)
+Gura_ImplementMethod(wx_ConvAuto, __wxConvAuto)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_ConvAuto, wxConvAuto)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, GetBOM)
+Gura_DeclareMethodAlias(wx_ConvAuto, __GetBOM, "GetBOM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, GetBOM)
+Gura_ImplementMethod(wx_ConvAuto, __GetBOM)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_ConvAuto, GetBOM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, GetBOMChars)
+Gura_DeclareMethodAlias(wx_ConvAuto, __GetBOMChars, "GetBOMChars")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bom", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, GetBOMChars)
+Gura_ImplementMethod(wx_ConvAuto, __GetBOMChars)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_ConvAuto, GetBOMChars)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, DisableFallbackEncoding)
+Gura_DeclareMethodAlias(wx_ConvAuto, __DisableFallbackEncoding, "DisableFallbackEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, DisableFallbackEncoding)
+Gura_ImplementMethod(wx_ConvAuto, __DisableFallbackEncoding)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_ConvAuto, DisableFallbackEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, GetFallbackEncoding)
+Gura_DeclareMethodAlias(wx_ConvAuto, __GetFallbackEncoding, "GetFallbackEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, GetFallbackEncoding)
+Gura_ImplementMethod(wx_ConvAuto, __GetFallbackEncoding)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_ConvAuto, GetFallbackEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, SetFallbackEncoding)
+Gura_DeclareMethodAlias(wx_ConvAuto, __SetFallbackEncoding, "SetFallbackEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, SetFallbackEncoding)
+Gura_ImplementMethod(wx_ConvAuto, __SetFallbackEncoding)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,14 +123,14 @@ Gura_ImplementMethod(wx_ConvAuto, SetFallbackEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConvAuto, DetectBOM)
+Gura_DeclareMethodAlias(wx_ConvAuto, __DetectBOM, "DetectBOM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "srcLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConvAuto, DetectBOM)
+Gura_ImplementMethod(wx_ConvAuto, __DetectBOM)
 {
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_ConvAuto, DetectBOM)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConvAuto)
 {
-	Gura_AssignMethod(wx_ConvAuto, wxConvAuto);
-	Gura_AssignMethod(wx_ConvAuto, GetBOM);
-	Gura_AssignMethod(wx_ConvAuto, GetBOMChars);
-	Gura_AssignMethod(wx_ConvAuto, DisableFallbackEncoding);
-	Gura_AssignMethod(wx_ConvAuto, GetFallbackEncoding);
-	Gura_AssignMethod(wx_ConvAuto, SetFallbackEncoding);
-	Gura_AssignMethod(wx_ConvAuto, DetectBOM);
+	Gura_AssignMethod(wx_ConvAuto, __wxConvAuto);
+	Gura_AssignMethod(wx_ConvAuto, __GetBOM);
+	Gura_AssignMethod(wx_ConvAuto, __GetBOMChars);
+	Gura_AssignMethod(wx_ConvAuto, __DisableFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, __GetFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, __SetFallbackEncoding);
+	Gura_AssignMethod(wx_ConvAuto, __DetectBOM);
 }
 
 Gura_ImplementDescendantCreator(wx_ConvAuto)

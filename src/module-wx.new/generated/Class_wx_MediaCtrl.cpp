@@ -37,12 +37,12 @@ String Object_wx_MediaCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MediaCtrl, wxMediaCtrl)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __wxMediaCtrl, "wxMediaCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, wxMediaCtrl)
+Gura_ImplementMethod(wx_MediaCtrl, __wxMediaCtrl)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MediaCtrl, wxMediaCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, wxMediaCtrl_1)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __wxMediaCtrl_1, "wxMediaCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_MediaCtrl, wxMediaCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, wxMediaCtrl_1)
+Gura_ImplementMethod(wx_MediaCtrl, __wxMediaCtrl_1)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_MediaCtrl, wxMediaCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Create)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_MediaCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Create)
+Gura_ImplementMethod(wx_MediaCtrl, __Create)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_MediaCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, GetBestSize)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __GetBestSize, "GetBestSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, GetBestSize)
+Gura_ImplementMethod(wx_MediaCtrl, __GetBestSize)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_MediaCtrl, GetBestSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, GetPlaybackRate)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __GetPlaybackRate, "GetPlaybackRate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, GetPlaybackRate)
+Gura_ImplementMethod(wx_MediaCtrl, __GetPlaybackRate)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_MediaCtrl, GetPlaybackRate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, GetState)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __GetState, "GetState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, GetState)
+Gura_ImplementMethod(wx_MediaCtrl, __GetState)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_MediaCtrl, GetState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, GetVolume)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __GetVolume, "GetVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, GetVolume)
+Gura_ImplementMethod(wx_MediaCtrl, __GetVolume)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_MediaCtrl, GetVolume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Length)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Length, "Length")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Length)
+Gura_ImplementMethod(wx_MediaCtrl, __Length)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_MediaCtrl, Length)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Load)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Load)
+Gura_ImplementMethod(wx_MediaCtrl, __Load)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_MediaCtrl, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Load_1)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Load_1, "Load_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Load_1)
+Gura_ImplementMethod(wx_MediaCtrl, __Load_1)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,14 +207,14 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Load_2)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Load_2, "Load_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proxy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Load_2)
+Gura_ImplementMethod(wx_MediaCtrl, __Load_2)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_MediaCtrl, Load_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, LoadURI)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __LoadURI, "LoadURI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, LoadURI)
+Gura_ImplementMethod(wx_MediaCtrl, __LoadURI)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,14 +239,14 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURI)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, LoadURIWithProxy)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __LoadURIWithProxy, "LoadURIWithProxy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proxy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, LoadURIWithProxy)
+Gura_ImplementMethod(wx_MediaCtrl, __LoadURIWithProxy)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,12 +256,12 @@ Gura_ImplementMethod(wx_MediaCtrl, LoadURIWithProxy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Pause)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Pause, "Pause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Pause)
+Gura_ImplementMethod(wx_MediaCtrl, __Pause)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,12 +269,12 @@ Gura_ImplementMethod(wx_MediaCtrl, Pause)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Play)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Play, "Play")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Play)
+Gura_ImplementMethod(wx_MediaCtrl, __Play)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,14 +282,14 @@ Gura_ImplementMethod(wx_MediaCtrl, Play)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Seek)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Seek, "Seek")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "where", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Seek)
+Gura_ImplementMethod(wx_MediaCtrl, __Seek)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,13 +299,13 @@ Gura_ImplementMethod(wx_MediaCtrl, Seek)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, SetPlaybackRate)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __SetPlaybackRate, "SetPlaybackRate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dRate", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, SetPlaybackRate)
+Gura_ImplementMethod(wx_MediaCtrl, __SetPlaybackRate)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,13 +314,13 @@ Gura_ImplementMethod(wx_MediaCtrl, SetPlaybackRate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, SetVolume)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __SetVolume, "SetVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dVolume", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, SetVolume)
+Gura_ImplementMethod(wx_MediaCtrl, __SetVolume)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -329,13 +329,13 @@ Gura_ImplementMethod(wx_MediaCtrl, SetVolume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, ShowPlayerControls)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __ShowPlayerControls, "ShowPlayerControls")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, ShowPlayerControls)
+Gura_ImplementMethod(wx_MediaCtrl, __ShowPlayerControls)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -344,12 +344,12 @@ Gura_ImplementMethod(wx_MediaCtrl, ShowPlayerControls)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Stop)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Stop)
+Gura_ImplementMethod(wx_MediaCtrl, __Stop)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,12 +357,12 @@ Gura_ImplementMethod(wx_MediaCtrl, Stop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MediaCtrl, Tell)
+Gura_DeclareMethodAlias(wx_MediaCtrl, __Tell, "Tell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MediaCtrl, Tell)
+Gura_ImplementMethod(wx_MediaCtrl, __Tell)
 {
 	Object_wx_MediaCtrl *pThis = Object_wx_MediaCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,27 +375,27 @@ Gura_ImplementMethod(wx_MediaCtrl, Tell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MediaCtrl)
 {
-	Gura_AssignMethod(wx_MediaCtrl, wxMediaCtrl);
-	Gura_AssignMethod(wx_MediaCtrl, wxMediaCtrl_1);
-	Gura_AssignMethod(wx_MediaCtrl, Create);
-	Gura_AssignMethod(wx_MediaCtrl, GetBestSize);
-	Gura_AssignMethod(wx_MediaCtrl, GetPlaybackRate);
-	Gura_AssignMethod(wx_MediaCtrl, GetState);
-	Gura_AssignMethod(wx_MediaCtrl, GetVolume);
-	Gura_AssignMethod(wx_MediaCtrl, Length);
-	Gura_AssignMethod(wx_MediaCtrl, Load);
-	Gura_AssignMethod(wx_MediaCtrl, Load_1);
-	Gura_AssignMethod(wx_MediaCtrl, Load_2);
-	Gura_AssignMethod(wx_MediaCtrl, LoadURI);
-	Gura_AssignMethod(wx_MediaCtrl, LoadURIWithProxy);
-	Gura_AssignMethod(wx_MediaCtrl, Pause);
-	Gura_AssignMethod(wx_MediaCtrl, Play);
-	Gura_AssignMethod(wx_MediaCtrl, Seek);
-	Gura_AssignMethod(wx_MediaCtrl, SetPlaybackRate);
-	Gura_AssignMethod(wx_MediaCtrl, SetVolume);
-	Gura_AssignMethod(wx_MediaCtrl, ShowPlayerControls);
-	Gura_AssignMethod(wx_MediaCtrl, Stop);
-	Gura_AssignMethod(wx_MediaCtrl, Tell);
+	Gura_AssignMethod(wx_MediaCtrl, __wxMediaCtrl);
+	Gura_AssignMethod(wx_MediaCtrl, __wxMediaCtrl_1);
+	Gura_AssignMethod(wx_MediaCtrl, __Create);
+	Gura_AssignMethod(wx_MediaCtrl, __GetBestSize);
+	Gura_AssignMethod(wx_MediaCtrl, __GetPlaybackRate);
+	Gura_AssignMethod(wx_MediaCtrl, __GetState);
+	Gura_AssignMethod(wx_MediaCtrl, __GetVolume);
+	Gura_AssignMethod(wx_MediaCtrl, __Length);
+	Gura_AssignMethod(wx_MediaCtrl, __Load);
+	Gura_AssignMethod(wx_MediaCtrl, __Load_1);
+	Gura_AssignMethod(wx_MediaCtrl, __Load_2);
+	Gura_AssignMethod(wx_MediaCtrl, __LoadURI);
+	Gura_AssignMethod(wx_MediaCtrl, __LoadURIWithProxy);
+	Gura_AssignMethod(wx_MediaCtrl, __Pause);
+	Gura_AssignMethod(wx_MediaCtrl, __Play);
+	Gura_AssignMethod(wx_MediaCtrl, __Seek);
+	Gura_AssignMethod(wx_MediaCtrl, __SetPlaybackRate);
+	Gura_AssignMethod(wx_MediaCtrl, __SetVolume);
+	Gura_AssignMethod(wx_MediaCtrl, __ShowPlayerControls);
+	Gura_AssignMethod(wx_MediaCtrl, __Stop);
+	Gura_AssignMethod(wx_MediaCtrl, __Tell);
 }
 
 Gura_ImplementDescendantCreator(wx_MediaCtrl)

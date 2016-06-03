@@ -37,12 +37,12 @@ String Object_wx_AuiTabContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiTabContainer, wxAuiTabContainer)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __wxAuiTabContainer, "wxAuiTabContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, wxAuiTabContainer)
+Gura_ImplementMethod(wx_AuiTabContainer, __wxAuiTabContainer)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, wxAuiTabContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetArtProvider)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "art", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetArtProvider)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetArtProvider)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetArtProvider)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetArtProvider, "GetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetArtProvider)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetArtProvider)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetFlags)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetFlags)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetFlags)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetFlags)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetFlags)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetFlags)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,14 +106,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, AddPage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __AddPage, "AddPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, AddPage)
+Gura_ImplementMethod(wx_AuiTabContainer, __AddPage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, AddPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, InsertPage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __InsertPage, "InsertPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -131,7 +131,7 @@ Gura_DeclareMethod(wx_AuiTabContainer, InsertPage)
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, InsertPage)
+Gura_ImplementMethod(wx_AuiTabContainer, __InsertPage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,14 +142,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, InsertPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, MovePage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __MovePage, "MovePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newIdx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, MovePage)
+Gura_ImplementMethod(wx_AuiTabContainer, __MovePage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, MovePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, RemovePage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __RemovePage, "RemovePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, RemovePage)
+Gura_ImplementMethod(wx_AuiTabContainer, __RemovePage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, RemovePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetActivePage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetActivePage, "SetActivePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetActivePage)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,13 +189,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetActivePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetActivePage_1)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetActivePage_1, "SetActivePage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetActivePage_1)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage_1)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,12 +204,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetActivePage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetNoneActive)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetNoneActive, "SetNoneActive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetNoneActive)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetNoneActive)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,12 +217,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetNoneActive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetActivePage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetActivePage, "GetActivePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetActivePage)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetActivePage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetActivePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, TabHitTest)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __TabHitTest, "TabHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -238,7 +238,7 @@ Gura_DeclareMethod(wx_AuiTabContainer, TabHitTest)
 	//DeclareArg(env, "hit", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, TabHitTest)
+Gura_ImplementMethod(wx_AuiTabContainer, __TabHitTest)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, TabHitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, ButtonHitTest)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __ButtonHitTest, "ButtonHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -257,7 +257,7 @@ Gura_DeclareMethod(wx_AuiTabContainer, ButtonHitTest)
 	//DeclareArg(env, "hit", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, ButtonHitTest)
+Gura_ImplementMethod(wx_AuiTabContainer, __ButtonHitTest)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,13 +268,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, ButtonHitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetWindowFromIdx)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetWindowFromIdx, "GetWindowFromIdx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetWindowFromIdx)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetWindowFromIdx)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,13 +283,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetWindowFromIdx)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetIdxFromWindow)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetIdxFromWindow, "GetIdxFromWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetIdxFromWindow)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetIdxFromWindow)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,12 +298,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetIdxFromWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetPageCount)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPageCount, "GetPageCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetPageCount)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetPageCount)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,13 +311,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetPageCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetPage)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPage, "GetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetPage)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetPage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -326,13 +326,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetPage_1)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPage_1, "GetPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetPage_1)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetPage_1)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -341,12 +341,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetPage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetPages)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPages, "GetPages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetPages)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetPages)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -354,13 +354,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetPages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetNormalFont)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetNormalFont, "SetNormalFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normalFont", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetNormalFont)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetNormalFont)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -369,13 +369,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetNormalFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetSelectedFont)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetSelectedFont, "SetSelectedFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selectedFont", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetSelectedFont)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetSelectedFont)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -384,13 +384,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetSelectedFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetMeasuringFont)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetMeasuringFont, "SetMeasuringFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "measuringFont", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetMeasuringFont)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetMeasuringFont)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -399,13 +399,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetMeasuringFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetColour)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetColour)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetColour)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -414,13 +414,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetActiveColour)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetActiveColour, "SetActiveColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetActiveColour)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetActiveColour)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -429,12 +429,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetActiveColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, DoShowHide)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __DoShowHide, "DoShowHide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, DoShowHide)
+Gura_ImplementMethod(wx_AuiTabContainer, __DoShowHide)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -442,13 +442,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, DoShowHide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetRect)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetRect, "SetRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetRect)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetRect)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,13 +457,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, RemoveButton)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __RemoveButton, "RemoveButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, RemoveButton)
+Gura_ImplementMethod(wx_AuiTabContainer, __RemoveButton)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, RemoveButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, AddButton)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __AddButton, "AddButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -481,7 +481,7 @@ Gura_DeclareMethod(wx_AuiTabContainer, AddButton)
 	//DeclareArg(env, "disabledBitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, AddButton)
+Gura_ImplementMethod(wx_AuiTabContainer, __AddButton)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -493,12 +493,12 @@ Gura_ImplementMethod(wx_AuiTabContainer, AddButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, GetTabOffset)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetTabOffset, "GetTabOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, GetTabOffset)
+Gura_ImplementMethod(wx_AuiTabContainer, __GetTabOffset)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -506,13 +506,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, GetTabOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, SetTabOffset)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetTabOffset, "SetTabOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, SetTabOffset)
+Gura_ImplementMethod(wx_AuiTabContainer, __SetTabOffset)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -521,7 +521,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, SetTabOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, IsTabVisible)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __IsTabVisible, "IsTabVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tabPage", VTYPE_number, OCCUR_Once);
@@ -530,7 +530,7 @@ Gura_DeclareMethod(wx_AuiTabContainer, IsTabVisible)
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, IsTabVisible)
+Gura_ImplementMethod(wx_AuiTabContainer, __IsTabVisible)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -542,14 +542,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, IsTabVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, MakeTabVisible)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __MakeTabVisible, "MakeTabVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tabPage", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, MakeTabVisible)
+Gura_ImplementMethod(wx_AuiTabContainer, __MakeTabVisible)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -559,14 +559,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, MakeTabVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiTabContainer, Render)
+Gura_DeclareMethodAlias(wx_AuiTabContainer, __Render, "Render")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiTabContainer, Render)
+Gura_ImplementMethod(wx_AuiTabContainer, __Render)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -581,41 +581,41 @@ Gura_ImplementMethod(wx_AuiTabContainer, Render)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiTabContainer)
 {
-	Gura_AssignMethod(wx_AuiTabContainer, wxAuiTabContainer);
-	Gura_AssignMethod(wx_AuiTabContainer, SetArtProvider);
-	Gura_AssignMethod(wx_AuiTabContainer, GetArtProvider);
-	Gura_AssignMethod(wx_AuiTabContainer, SetFlags);
-	Gura_AssignMethod(wx_AuiTabContainer, GetFlags);
-	Gura_AssignMethod(wx_AuiTabContainer, AddPage);
-	Gura_AssignMethod(wx_AuiTabContainer, InsertPage);
-	Gura_AssignMethod(wx_AuiTabContainer, MovePage);
-	Gura_AssignMethod(wx_AuiTabContainer, RemovePage);
-	Gura_AssignMethod(wx_AuiTabContainer, SetActivePage);
-	Gura_AssignMethod(wx_AuiTabContainer, SetActivePage_1);
-	Gura_AssignMethod(wx_AuiTabContainer, SetNoneActive);
-	Gura_AssignMethod(wx_AuiTabContainer, GetActivePage);
-	Gura_AssignMethod(wx_AuiTabContainer, TabHitTest);
-	Gura_AssignMethod(wx_AuiTabContainer, ButtonHitTest);
-	Gura_AssignMethod(wx_AuiTabContainer, GetWindowFromIdx);
-	Gura_AssignMethod(wx_AuiTabContainer, GetIdxFromWindow);
-	Gura_AssignMethod(wx_AuiTabContainer, GetPageCount);
-	Gura_AssignMethod(wx_AuiTabContainer, GetPage);
-	Gura_AssignMethod(wx_AuiTabContainer, GetPage_1);
-	Gura_AssignMethod(wx_AuiTabContainer, GetPages);
-	Gura_AssignMethod(wx_AuiTabContainer, SetNormalFont);
-	Gura_AssignMethod(wx_AuiTabContainer, SetSelectedFont);
-	Gura_AssignMethod(wx_AuiTabContainer, SetMeasuringFont);
-	Gura_AssignMethod(wx_AuiTabContainer, SetColour);
-	Gura_AssignMethod(wx_AuiTabContainer, SetActiveColour);
-	Gura_AssignMethod(wx_AuiTabContainer, DoShowHide);
-	Gura_AssignMethod(wx_AuiTabContainer, SetRect);
-	Gura_AssignMethod(wx_AuiTabContainer, RemoveButton);
-	Gura_AssignMethod(wx_AuiTabContainer, AddButton);
-	Gura_AssignMethod(wx_AuiTabContainer, GetTabOffset);
-	Gura_AssignMethod(wx_AuiTabContainer, SetTabOffset);
-	Gura_AssignMethod(wx_AuiTabContainer, IsTabVisible);
-	Gura_AssignMethod(wx_AuiTabContainer, MakeTabVisible);
-	Gura_AssignMethod(wx_AuiTabContainer, Render);
+	Gura_AssignMethod(wx_AuiTabContainer, __wxAuiTabContainer);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetArtProvider);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetArtProvider);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetFlags);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetFlags);
+	Gura_AssignMethod(wx_AuiTabContainer, __AddPage);
+	Gura_AssignMethod(wx_AuiTabContainer, __InsertPage);
+	Gura_AssignMethod(wx_AuiTabContainer, __MovePage);
+	Gura_AssignMethod(wx_AuiTabContainer, __RemovePage);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetActivePage);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetActivePage_1);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetNoneActive);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetActivePage);
+	Gura_AssignMethod(wx_AuiTabContainer, __TabHitTest);
+	Gura_AssignMethod(wx_AuiTabContainer, __ButtonHitTest);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetWindowFromIdx);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetIdxFromWindow);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetPageCount);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetPage);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetPage_1);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetPages);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetNormalFont);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetSelectedFont);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetMeasuringFont);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetColour);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetActiveColour);
+	Gura_AssignMethod(wx_AuiTabContainer, __DoShowHide);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetRect);
+	Gura_AssignMethod(wx_AuiTabContainer, __RemoveButton);
+	Gura_AssignMethod(wx_AuiTabContainer, __AddButton);
+	Gura_AssignMethod(wx_AuiTabContainer, __GetTabOffset);
+	Gura_AssignMethod(wx_AuiTabContainer, __SetTabOffset);
+	Gura_AssignMethod(wx_AuiTabContainer, __IsTabVisible);
+	Gura_AssignMethod(wx_AuiTabContainer, __MakeTabVisible);
+	Gura_AssignMethod(wx_AuiTabContainer, __Render);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiTabContainer)

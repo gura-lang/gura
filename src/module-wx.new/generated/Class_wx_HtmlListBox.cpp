@@ -37,7 +37,7 @@ String Object_wx_HtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlListBox, wxHtmlListBox)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __wxHtmlListBox, "wxHtmlListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_HtmlListBox, wxHtmlListBox)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, wxHtmlListBox)
+Gura_ImplementMethod(wx_HtmlListBox, __wxHtmlListBox)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,12 +62,12 @@ Gura_ImplementMethod(wx_HtmlListBox, wxHtmlListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, wxHtmlListBox_1)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __wxHtmlListBox_1, "wxHtmlListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, wxHtmlListBox_1)
+Gura_ImplementMethod(wx_HtmlListBox, __wxHtmlListBox_1)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HtmlListBox, wxHtmlListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, Create)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_HtmlListBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, Create)
+Gura_ImplementMethod(wx_HtmlListBox, __Create)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_HtmlListBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __GetFileSystem, "GetFileSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
+Gura_ImplementMethod(wx_HtmlListBox, __GetFileSystem)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, GetFileSystem_1)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __GetFileSystem_1, "GetFileSystem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
+Gura_ImplementMethod(wx_HtmlListBox, __GetFileSystem_1)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,14 +126,14 @@ Gura_ImplementMethod(wx_HtmlListBox, GetFileSystem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, OnLinkClicked)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __OnLinkClicked, "OnLinkClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, OnLinkClicked)
+Gura_ImplementMethod(wx_HtmlListBox, __OnLinkClicked)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_HtmlListBox, OnLinkClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextBgColour)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __GetSelectedTextBgColour, "GetSelectedTextBgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colBg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
+Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextBgColour)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextBgColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, GetSelectedTextColour)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __GetSelectedTextColour, "GetSelectedTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colFg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
+Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextColour)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_HtmlListBox, GetSelectedTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, OnGetItemMarkup)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __OnGetItemMarkup, "OnGetItemMarkup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, OnGetItemMarkup)
+Gura_ImplementMethod(wx_HtmlListBox, __OnGetItemMarkup)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItemMarkup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlListBox, OnGetItem)
+Gura_DeclareMethodAlias(wx_HtmlListBox, __OnGetItem, "OnGetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlListBox, OnGetItem)
+Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,16 +208,16 @@ Gura_ImplementMethod(wx_HtmlListBox, OnGetItem)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlListBox)
 {
-	Gura_AssignMethod(wx_HtmlListBox, wxHtmlListBox);
-	Gura_AssignMethod(wx_HtmlListBox, wxHtmlListBox_1);
-	Gura_AssignMethod(wx_HtmlListBox, Create);
-	Gura_AssignMethod(wx_HtmlListBox, GetFileSystem);
-	Gura_AssignMethod(wx_HtmlListBox, GetFileSystem_1);
-	Gura_AssignMethod(wx_HtmlListBox, OnLinkClicked);
-	Gura_AssignMethod(wx_HtmlListBox, GetSelectedTextBgColour);
-	Gura_AssignMethod(wx_HtmlListBox, GetSelectedTextColour);
-	Gura_AssignMethod(wx_HtmlListBox, OnGetItemMarkup);
-	Gura_AssignMethod(wx_HtmlListBox, OnGetItem);
+	Gura_AssignMethod(wx_HtmlListBox, __wxHtmlListBox);
+	Gura_AssignMethod(wx_HtmlListBox, __wxHtmlListBox_1);
+	Gura_AssignMethod(wx_HtmlListBox, __Create);
+	Gura_AssignMethod(wx_HtmlListBox, __GetFileSystem);
+	Gura_AssignMethod(wx_HtmlListBox, __GetFileSystem_1);
+	Gura_AssignMethod(wx_HtmlListBox, __OnLinkClicked);
+	Gura_AssignMethod(wx_HtmlListBox, __GetSelectedTextBgColour);
+	Gura_AssignMethod(wx_HtmlListBox, __GetSelectedTextColour);
+	Gura_AssignMethod(wx_HtmlListBox, __OnGetItemMarkup);
+	Gura_AssignMethod(wx_HtmlListBox, __OnGetItem);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlListBox)

@@ -37,14 +37,14 @@ String Object_wx_HeaderCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent, "wxHeaderCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent_1, "wxHeaderCtrlEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent_1)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, GetColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, GetColumn)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __GetColumn)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, GetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, SetColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __SetColumn, "SetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, SetColumn)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetColumn)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, SetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, GetWidth)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, GetWidth)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __GetWidth)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, SetWidth)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __SetWidth, "SetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, SetWidth)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetWidth)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, SetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, GetNewOrder)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __GetNewOrder, "GetNewOrder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, GetNewOrder)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __GetNewOrder)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, GetNewOrder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlEvent, SetNewOrder)
+Gura_DeclareMethodAlias(wx_HeaderCtrlEvent, __SetNewOrder, "SetNewOrder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "order", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlEvent, SetNewOrder)
+Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetNewOrder)
 {
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,14 +158,14 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, SetNewOrder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlEvent)
 {
-	Gura_AssignMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, wxHeaderCtrlEvent_1);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, GetColumn);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, SetColumn);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, GetWidth);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, SetWidth);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, GetNewOrder);
-	Gura_AssignMethod(wx_HeaderCtrlEvent, SetNewOrder);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __wxHeaderCtrlEvent_1);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __GetColumn);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __SetColumn);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __GetWidth);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __SetWidth);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __GetNewOrder);
+	Gura_AssignMethod(wx_HeaderCtrlEvent, __SetNewOrder);
 }
 
 Gura_ImplementDescendantCreator(wx_HeaderCtrlEvent)

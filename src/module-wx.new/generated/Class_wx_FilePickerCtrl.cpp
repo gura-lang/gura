@@ -37,12 +37,12 @@ String Object_wx_FilePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FilePickerCtrl, wxFilePickerCtrl)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __wxFilePickerCtrl, "wxFilePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl)
+Gura_ImplementMethod(wx_FilePickerCtrl, __wxFilePickerCtrl)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __wxFilePickerCtrl_1, "wxFilePickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
+Gura_ImplementMethod(wx_FilePickerCtrl, __wxFilePickerCtrl_1)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, Create)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_DeclareMethod(wx_FilePickerCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, Create)
+Gura_ImplementMethod(wx_FilePickerCtrl, __Create)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_FilePickerCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, GetFileName)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __GetFileName, "GetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, GetFileName)
+Gura_ImplementMethod(wx_FilePickerCtrl, __GetFileName)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_FilePickerCtrl, GetFileName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, GetPath)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
+Gura_ImplementMethod(wx_FilePickerCtrl, __GetPath)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_FilePickerCtrl, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, SetFileName)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __SetFileName, "SetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, SetFileName)
+Gura_ImplementMethod(wx_FilePickerCtrl, __SetFileName)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_FilePickerCtrl, SetFileName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, SetInitialDirectory)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __SetInitialDirectory, "SetInitialDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, SetInitialDirectory)
+Gura_ImplementMethod(wx_FilePickerCtrl, __SetInitialDirectory)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_FilePickerCtrl, SetInitialDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilePickerCtrl, SetPath)
+Gura_DeclareMethodAlias(wx_FilePickerCtrl, __SetPath, "SetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilePickerCtrl, SetPath)
+Gura_ImplementMethod(wx_FilePickerCtrl, __SetPath)
 {
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,14 +192,14 @@ Gura_ImplementMethod(wx_FilePickerCtrl, SetPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilePickerCtrl)
 {
-	Gura_AssignMethod(wx_FilePickerCtrl, wxFilePickerCtrl);
-	Gura_AssignMethod(wx_FilePickerCtrl, wxFilePickerCtrl_1);
-	Gura_AssignMethod(wx_FilePickerCtrl, Create);
-	Gura_AssignMethod(wx_FilePickerCtrl, GetFileName);
-	Gura_AssignMethod(wx_FilePickerCtrl, GetPath);
-	Gura_AssignMethod(wx_FilePickerCtrl, SetFileName);
-	Gura_AssignMethod(wx_FilePickerCtrl, SetInitialDirectory);
-	Gura_AssignMethod(wx_FilePickerCtrl, SetPath);
+	Gura_AssignMethod(wx_FilePickerCtrl, __wxFilePickerCtrl);
+	Gura_AssignMethod(wx_FilePickerCtrl, __wxFilePickerCtrl_1);
+	Gura_AssignMethod(wx_FilePickerCtrl, __Create);
+	Gura_AssignMethod(wx_FilePickerCtrl, __GetFileName);
+	Gura_AssignMethod(wx_FilePickerCtrl, __GetPath);
+	Gura_AssignMethod(wx_FilePickerCtrl, __SetFileName);
+	Gura_AssignMethod(wx_FilePickerCtrl, __SetInitialDirectory);
+	Gura_AssignMethod(wx_FilePickerCtrl, __SetPath);
 }
 
 Gura_ImplementDescendantCreator(wx_FilePickerCtrl)

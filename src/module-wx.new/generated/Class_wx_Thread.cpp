@@ -37,13 +37,13 @@ String Object_wx_Thread::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Thread, wxThread)
+Gura_DeclareMethodAlias(wx_Thread, __wxThread, "wxThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, wxThread)
+Gura_ImplementMethod(wx_Thread, __wxThread)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_Thread, wxThread)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Create)
+Gura_DeclareMethodAlias(wx_Thread, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stackSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, Create)
+Gura_ImplementMethod(wx_Thread, __Create)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_Thread, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Delete)
+Gura_DeclareMethodAlias(wx_Thread, __Delete, "Delete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "waitMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, Delete)
+Gura_ImplementMethod(wx_Thread, __Delete)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_Thread, Delete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetCPUCount)
+Gura_DeclareMethodAlias(wx_Thread, __GetCPUCount, "GetCPUCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetCPUCount)
+Gura_ImplementMethod(wx_Thread, __GetCPUCount)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_Thread, GetCPUCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetCurrentId)
+Gura_DeclareMethodAlias(wx_Thread, __GetCurrentId, "GetCurrentId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetCurrentId)
+Gura_ImplementMethod(wx_Thread, __GetCurrentId)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_Thread, GetCurrentId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetId)
+Gura_DeclareMethodAlias(wx_Thread, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetId)
+Gura_ImplementMethod(wx_Thread, __GetId)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_Thread, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, MSWGetHandle)
+Gura_DeclareMethodAlias(wx_Thread, __MSWGetHandle, "MSWGetHandle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, MSWGetHandle)
+Gura_ImplementMethod(wx_Thread, __MSWGetHandle)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_Thread, MSWGetHandle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetKind)
+Gura_DeclareMethodAlias(wx_Thread, __GetKind, "GetKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetKind)
+Gura_ImplementMethod(wx_Thread, __GetKind)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_Thread, GetKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetMainId)
+Gura_DeclareMethodAlias(wx_Thread, __GetMainId, "GetMainId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetMainId)
+Gura_ImplementMethod(wx_Thread, __GetMainId)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_Thread, GetMainId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, GetPriority)
+Gura_DeclareMethodAlias(wx_Thread, __GetPriority, "GetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, GetPriority)
+Gura_ImplementMethod(wx_Thread, __GetPriority)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_Thread, GetPriority)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, IsAlive)
+Gura_DeclareMethodAlias(wx_Thread, __IsAlive, "IsAlive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, IsAlive)
+Gura_ImplementMethod(wx_Thread, __IsAlive)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_Thread, IsAlive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, IsDetached)
+Gura_DeclareMethodAlias(wx_Thread, __IsDetached, "IsDetached")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, IsDetached)
+Gura_ImplementMethod(wx_Thread, __IsDetached)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,12 +201,12 @@ Gura_ImplementMethod(wx_Thread, IsDetached)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, IsMain)
+Gura_DeclareMethodAlias(wx_Thread, __IsMain, "IsMain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, IsMain)
+Gura_ImplementMethod(wx_Thread, __IsMain)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,12 +214,12 @@ Gura_ImplementMethod(wx_Thread, IsMain)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, IsPaused)
+Gura_DeclareMethodAlias(wx_Thread, __IsPaused, "IsPaused")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, IsPaused)
+Gura_ImplementMethod(wx_Thread, __IsPaused)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,12 +227,12 @@ Gura_ImplementMethod(wx_Thread, IsPaused)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, IsRunning)
+Gura_DeclareMethodAlias(wx_Thread, __IsRunning, "IsRunning")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, IsRunning)
+Gura_ImplementMethod(wx_Thread, __IsRunning)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,12 +240,12 @@ Gura_ImplementMethod(wx_Thread, IsRunning)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Kill)
+Gura_DeclareMethodAlias(wx_Thread, __Kill, "Kill")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Kill)
+Gura_ImplementMethod(wx_Thread, __Kill)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,12 +253,12 @@ Gura_ImplementMethod(wx_Thread, Kill)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Pause)
+Gura_DeclareMethodAlias(wx_Thread, __Pause, "Pause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Pause)
+Gura_ImplementMethod(wx_Thread, __Pause)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,12 +266,12 @@ Gura_ImplementMethod(wx_Thread, Pause)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Resume)
+Gura_DeclareMethodAlias(wx_Thread, __Resume, "Resume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Resume)
+Gura_ImplementMethod(wx_Thread, __Resume)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -279,12 +279,12 @@ Gura_ImplementMethod(wx_Thread, Resume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Run)
+Gura_DeclareMethodAlias(wx_Thread, __Run, "Run")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Run)
+Gura_ImplementMethod(wx_Thread, __Run)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,13 +292,13 @@ Gura_ImplementMethod(wx_Thread, Run)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, SetConcurrency)
+Gura_DeclareMethodAlias(wx_Thread, __SetConcurrency, "SetConcurrency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, SetConcurrency)
+Gura_ImplementMethod(wx_Thread, __SetConcurrency)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -307,13 +307,13 @@ Gura_ImplementMethod(wx_Thread, SetConcurrency)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, SetPriority)
+Gura_DeclareMethodAlias(wx_Thread, __SetPriority, "SetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "priority", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, SetPriority)
+Gura_ImplementMethod(wx_Thread, __SetPriority)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,13 +322,13 @@ Gura_ImplementMethod(wx_Thread, SetPriority)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Sleep)
+Gura_DeclareMethodAlias(wx_Thread, __Sleep, "Sleep")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, Sleep)
+Gura_ImplementMethod(wx_Thread, __Sleep)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -337,12 +337,12 @@ Gura_ImplementMethod(wx_Thread, Sleep)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, TestDestroy)
+Gura_DeclareMethodAlias(wx_Thread, __TestDestroy, "TestDestroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, TestDestroy)
+Gura_ImplementMethod(wx_Thread, __TestDestroy)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -350,12 +350,12 @@ Gura_ImplementMethod(wx_Thread, TestDestroy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, This)
+Gura_DeclareMethodAlias(wx_Thread, __This, "This")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, This)
+Gura_ImplementMethod(wx_Thread, __This)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -363,13 +363,13 @@ Gura_ImplementMethod(wx_Thread, This)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Wait)
+Gura_DeclareMethodAlias(wx_Thread, __Wait, "Wait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, Wait)
+Gura_ImplementMethod(wx_Thread, __Wait)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -378,12 +378,12 @@ Gura_ImplementMethod(wx_Thread, Wait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Yield)
+Gura_DeclareMethodAlias(wx_Thread, __Yield, "Yield")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Yield)
+Gura_ImplementMethod(wx_Thread, __Yield)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -391,12 +391,12 @@ Gura_ImplementMethod(wx_Thread, Yield)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Entry)
+Gura_DeclareMethodAlias(wx_Thread, __Entry, "Entry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, Entry)
+Gura_ImplementMethod(wx_Thread, __Entry)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -404,13 +404,13 @@ Gura_ImplementMethod(wx_Thread, Entry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, Exit)
+Gura_DeclareMethodAlias(wx_Thread, __Exit, "Exit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "exitcode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Thread, Exit)
+Gura_ImplementMethod(wx_Thread, __Exit)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -419,12 +419,12 @@ Gura_ImplementMethod(wx_Thread, Exit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Thread, OnExit)
+Gura_DeclareMethodAlias(wx_Thread, __OnExit, "OnExit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Thread, OnExit)
+Gura_ImplementMethod(wx_Thread, __OnExit)
 {
 	Object_wx_Thread *pThis = Object_wx_Thread::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -437,35 +437,35 @@ Gura_ImplementMethod(wx_Thread, OnExit)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Thread)
 {
-	Gura_AssignMethod(wx_Thread, wxThread);
-	Gura_AssignMethod(wx_Thread, Create);
-	Gura_AssignMethod(wx_Thread, Delete);
-	Gura_AssignMethod(wx_Thread, GetCPUCount);
-	Gura_AssignMethod(wx_Thread, GetCurrentId);
-	Gura_AssignMethod(wx_Thread, GetId);
-	Gura_AssignMethod(wx_Thread, MSWGetHandle);
-	Gura_AssignMethod(wx_Thread, GetKind);
-	Gura_AssignMethod(wx_Thread, GetMainId);
-	Gura_AssignMethod(wx_Thread, GetPriority);
-	Gura_AssignMethod(wx_Thread, IsAlive);
-	Gura_AssignMethod(wx_Thread, IsDetached);
-	Gura_AssignMethod(wx_Thread, IsMain);
-	Gura_AssignMethod(wx_Thread, IsPaused);
-	Gura_AssignMethod(wx_Thread, IsRunning);
-	Gura_AssignMethod(wx_Thread, Kill);
-	Gura_AssignMethod(wx_Thread, Pause);
-	Gura_AssignMethod(wx_Thread, Resume);
-	Gura_AssignMethod(wx_Thread, Run);
-	Gura_AssignMethod(wx_Thread, SetConcurrency);
-	Gura_AssignMethod(wx_Thread, SetPriority);
-	Gura_AssignMethod(wx_Thread, Sleep);
-	Gura_AssignMethod(wx_Thread, TestDestroy);
-	Gura_AssignMethod(wx_Thread, This);
-	Gura_AssignMethod(wx_Thread, Wait);
-	Gura_AssignMethod(wx_Thread, Yield);
-	Gura_AssignMethod(wx_Thread, Entry);
-	Gura_AssignMethod(wx_Thread, Exit);
-	Gura_AssignMethod(wx_Thread, OnExit);
+	Gura_AssignMethod(wx_Thread, __wxThread);
+	Gura_AssignMethod(wx_Thread, __Create);
+	Gura_AssignMethod(wx_Thread, __Delete);
+	Gura_AssignMethod(wx_Thread, __GetCPUCount);
+	Gura_AssignMethod(wx_Thread, __GetCurrentId);
+	Gura_AssignMethod(wx_Thread, __GetId);
+	Gura_AssignMethod(wx_Thread, __MSWGetHandle);
+	Gura_AssignMethod(wx_Thread, __GetKind);
+	Gura_AssignMethod(wx_Thread, __GetMainId);
+	Gura_AssignMethod(wx_Thread, __GetPriority);
+	Gura_AssignMethod(wx_Thread, __IsAlive);
+	Gura_AssignMethod(wx_Thread, __IsDetached);
+	Gura_AssignMethod(wx_Thread, __IsMain);
+	Gura_AssignMethod(wx_Thread, __IsPaused);
+	Gura_AssignMethod(wx_Thread, __IsRunning);
+	Gura_AssignMethod(wx_Thread, __Kill);
+	Gura_AssignMethod(wx_Thread, __Pause);
+	Gura_AssignMethod(wx_Thread, __Resume);
+	Gura_AssignMethod(wx_Thread, __Run);
+	Gura_AssignMethod(wx_Thread, __SetConcurrency);
+	Gura_AssignMethod(wx_Thread, __SetPriority);
+	Gura_AssignMethod(wx_Thread, __Sleep);
+	Gura_AssignMethod(wx_Thread, __TestDestroy);
+	Gura_AssignMethod(wx_Thread, __This);
+	Gura_AssignMethod(wx_Thread, __Wait);
+	Gura_AssignMethod(wx_Thread, __Yield);
+	Gura_AssignMethod(wx_Thread, __Entry);
+	Gura_AssignMethod(wx_Thread, __Exit);
+	Gura_AssignMethod(wx_Thread, __OnExit);
 }
 
 Gura_ImplementDescendantCreator(wx_Thread)

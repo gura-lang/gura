@@ -37,7 +37,7 @@ String Object_wx_PreviewCanvas::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PreviewCanvas, wxPreviewCanvas)
+Gura_DeclareMethodAlias(wx_PreviewCanvas, __wxPreviewCanvas, "wxPreviewCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_PreviewCanvas, wxPreviewCanvas)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewCanvas, wxPreviewCanvas)
+Gura_ImplementMethod(wx_PreviewCanvas, __wxPreviewCanvas)
 {
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,13 +62,13 @@ Gura_ImplementMethod(wx_PreviewCanvas, wxPreviewCanvas)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewCanvas, OnPaint)
+Gura_DeclareMethodAlias(wx_PreviewCanvas, __OnPaint, "OnPaint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
+Gura_ImplementMethod(wx_PreviewCanvas, __OnPaint)
 {
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,8 +82,8 @@ Gura_ImplementMethod(wx_PreviewCanvas, OnPaint)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewCanvas)
 {
-	Gura_AssignMethod(wx_PreviewCanvas, wxPreviewCanvas);
-	Gura_AssignMethod(wx_PreviewCanvas, OnPaint);
+	Gura_AssignMethod(wx_PreviewCanvas, __wxPreviewCanvas);
+	Gura_AssignMethod(wx_PreviewCanvas, __OnPaint);
 }
 
 Gura_ImplementDescendantCreator(wx_PreviewCanvas)

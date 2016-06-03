@@ -37,14 +37,14 @@ String Object_wx_HashTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HashTable, wxHashTable)
+Gura_DeclareMethodAlias(wx_HashTable, __wxHashTable, "wxHashTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, wxHashTable)
+Gura_ImplementMethod(wx_HashTable, __wxHashTable)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_HashTable, wxHashTable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, BeginFind)
+Gura_DeclareMethodAlias(wx_HashTable, __BeginFind, "BeginFind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashTable, BeginFind)
+Gura_ImplementMethod(wx_HashTable, __BeginFind)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_HashTable, BeginFind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Clear)
+Gura_DeclareMethodAlias(wx_HashTable, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashTable, Clear)
+Gura_ImplementMethod(wx_HashTable, __Clear)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_HashTable, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Delete)
+Gura_DeclareMethodAlias(wx_HashTable, __Delete, "Delete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Delete)
+Gura_ImplementMethod(wx_HashTable, __Delete)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_HashTable, Delete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Delete_1)
+Gura_DeclareMethodAlias(wx_HashTable, __Delete_1, "Delete_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Delete_1)
+Gura_ImplementMethod(wx_HashTable, __Delete_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_HashTable, Delete_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, DeleteContents)
+Gura_DeclareMethodAlias(wx_HashTable, __DeleteContents, "DeleteContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, DeleteContents)
+Gura_ImplementMethod(wx_HashTable, __DeleteContents)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_HashTable, DeleteContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Get)
+Gura_DeclareMethodAlias(wx_HashTable, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Get)
+Gura_ImplementMethod(wx_HashTable, __Get)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_HashTable, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Get_1)
+Gura_DeclareMethodAlias(wx_HashTable, __Get_1, "Get_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Get_1)
+Gura_ImplementMethod(wx_HashTable, __Get_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_HashTable, Get_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, GetCount)
+Gura_DeclareMethodAlias(wx_HashTable, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashTable, GetCount)
+Gura_ImplementMethod(wx_HashTable, __GetCount)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_HashTable, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, MakeKey)
+Gura_DeclareMethodAlias(wx_HashTable, __MakeKey, "MakeKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, MakeKey)
+Gura_ImplementMethod(wx_HashTable, __MakeKey)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_HashTable, MakeKey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Next)
+Gura_DeclareMethodAlias(wx_HashTable, __Next, "Next")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashTable, Next)
+Gura_ImplementMethod(wx_HashTable, __Next)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,14 +196,14 @@ Gura_ImplementMethod(wx_HashTable, Next)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Put)
+Gura_DeclareMethodAlias(wx_HashTable, __Put, "Put")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Put)
+Gura_ImplementMethod(wx_HashTable, __Put)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,14 +213,14 @@ Gura_ImplementMethod(wx_HashTable, Put)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashTable, Put_1)
+Gura_DeclareMethodAlias(wx_HashTable, __Put_1, "Put_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashTable, Put_1)
+Gura_ImplementMethod(wx_HashTable, __Put_1)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,19 +235,19 @@ Gura_ImplementMethod(wx_HashTable, Put_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashTable)
 {
-	Gura_AssignMethod(wx_HashTable, wxHashTable);
-	Gura_AssignMethod(wx_HashTable, BeginFind);
-	Gura_AssignMethod(wx_HashTable, Clear);
-	Gura_AssignMethod(wx_HashTable, Delete);
-	Gura_AssignMethod(wx_HashTable, Delete_1);
-	Gura_AssignMethod(wx_HashTable, DeleteContents);
-	Gura_AssignMethod(wx_HashTable, Get);
-	Gura_AssignMethod(wx_HashTable, Get_1);
-	Gura_AssignMethod(wx_HashTable, GetCount);
-	Gura_AssignMethod(wx_HashTable, MakeKey);
-	Gura_AssignMethod(wx_HashTable, Next);
-	Gura_AssignMethod(wx_HashTable, Put);
-	Gura_AssignMethod(wx_HashTable, Put_1);
+	Gura_AssignMethod(wx_HashTable, __wxHashTable);
+	Gura_AssignMethod(wx_HashTable, __BeginFind);
+	Gura_AssignMethod(wx_HashTable, __Clear);
+	Gura_AssignMethod(wx_HashTable, __Delete);
+	Gura_AssignMethod(wx_HashTable, __Delete_1);
+	Gura_AssignMethod(wx_HashTable, __DeleteContents);
+	Gura_AssignMethod(wx_HashTable, __Get);
+	Gura_AssignMethod(wx_HashTable, __Get_1);
+	Gura_AssignMethod(wx_HashTable, __GetCount);
+	Gura_AssignMethod(wx_HashTable, __MakeKey);
+	Gura_AssignMethod(wx_HashTable, __Next);
+	Gura_AssignMethod(wx_HashTable, __Put);
+	Gura_AssignMethod(wx_HashTable, __Put_1);
 }
 
 Gura_ImplementDescendantCreator(wx_HashTable)

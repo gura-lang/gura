@@ -37,12 +37,12 @@ String Object_wx_MessageOutput::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MessageOutput, Get)
+Gura_DeclareMethodAlias(wx_MessageOutput, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageOutput, Get)
+Gura_ImplementMethod(wx_MessageOutput, __Get)
 {
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_MessageOutput, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageOutput, Set)
+Gura_DeclareMethodAlias(wx_MessageOutput, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msgout", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutput, Set)
+Gura_ImplementMethod(wx_MessageOutput, __Set)
 {
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_MessageOutput, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageOutput, Printf)
+Gura_DeclareMethodAlias(wx_MessageOutput, __Printf, "Printf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutput, Printf)
+Gura_ImplementMethod(wx_MessageOutput, __Printf)
 {
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_MessageOutput, Printf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageOutput, Output)
+Gura_DeclareMethodAlias(wx_MessageOutput, __Output, "Output")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutput, Output)
+Gura_ImplementMethod(wx_MessageOutput, __Output)
 {
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,10 +100,10 @@ Gura_ImplementMethod(wx_MessageOutput, Output)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutput)
 {
-	Gura_AssignMethod(wx_MessageOutput, Get);
-	Gura_AssignMethod(wx_MessageOutput, Set);
-	Gura_AssignMethod(wx_MessageOutput, Printf);
-	Gura_AssignMethod(wx_MessageOutput, Output);
+	Gura_AssignMethod(wx_MessageOutput, __Get);
+	Gura_AssignMethod(wx_MessageOutput, __Set);
+	Gura_AssignMethod(wx_MessageOutput, __Printf);
+	Gura_AssignMethod(wx_MessageOutput, __Output);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutput)

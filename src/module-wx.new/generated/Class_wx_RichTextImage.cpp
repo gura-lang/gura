@@ -37,13 +37,13 @@ String Object_wx_RichTextImage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage)
+Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage, "wxRichTextImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage)
+Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage_1)
+Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_1, "wxRichTextImage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage_1)
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_1)
+Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_1)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage_2)
+Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_2, "wxRichTextImage_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageBlock", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage_2)
 	//DeclareArg(env, "charStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_2)
+Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_2)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,12 +90,12 @@ Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, wxRichTextImage_3)
+Gura_DeclareMethodAlias(wx_RichTextImage, __wxRichTextImage_3, "wxRichTextImage_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_3)
+Gura_ImplementMethod(wx_RichTextImage, __wxRichTextImage_3)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RichTextImage, wxRichTextImage_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, Draw)
+Gura_DeclareMethodAlias(wx_RichTextImage, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_RichTextImage, Draw)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, Draw)
+Gura_ImplementMethod(wx_RichTextImage, __Draw)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_RichTextImage, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, Layout)
+Gura_DeclareMethodAlias(wx_RichTextImage, __Layout, "Layout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -140,7 +140,7 @@ Gura_DeclareMethod(wx_RichTextImage, Layout)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, Layout)
+Gura_ImplementMethod(wx_RichTextImage, __Layout)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RichTextImage, Layout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetRangeSize)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetRangeSize, "GetRangeSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -167,7 +167,7 @@ Gura_DeclareMethod(wx_RichTextImage, GetRangeSize)
 	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetRangeSize)
+Gura_ImplementMethod(wx_RichTextImage, __GetRangeSize)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_RichTextImage, GetRangeSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetNaturalSize)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetNaturalSize, "GetNaturalSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetNaturalSize)
+Gura_ImplementMethod(wx_RichTextImage, __GetNaturalSize)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_RichTextImage, GetNaturalSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, IsEmpty)
+Gura_DeclareMethodAlias(wx_RichTextImage, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, IsEmpty)
+Gura_ImplementMethod(wx_RichTextImage, __IsEmpty)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,12 +210,12 @@ Gura_ImplementMethod(wx_RichTextImage, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, CanEditProperties)
+Gura_DeclareMethodAlias(wx_RichTextImage, __CanEditProperties, "CanEditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, CanEditProperties)
+Gura_ImplementMethod(wx_RichTextImage, __CanEditProperties)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,14 +223,14 @@ Gura_ImplementMethod(wx_RichTextImage, CanEditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, EditProperties)
+Gura_DeclareMethodAlias(wx_RichTextImage, __EditProperties, "EditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, EditProperties)
+Gura_ImplementMethod(wx_RichTextImage, __EditProperties)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,12 +240,12 @@ Gura_ImplementMethod(wx_RichTextImage, EditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetPropertiesMenuLabel)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetPropertiesMenuLabel, "GetPropertiesMenuLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetPropertiesMenuLabel)
+Gura_ImplementMethod(wx_RichTextImage, __GetPropertiesMenuLabel)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,12 +253,12 @@ Gura_ImplementMethod(wx_RichTextImage, GetPropertiesMenuLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, UsesParagraphAttributes)
+Gura_DeclareMethodAlias(wx_RichTextImage, __UsesParagraphAttributes, "UsesParagraphAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, UsesParagraphAttributes)
+Gura_ImplementMethod(wx_RichTextImage, __UsesParagraphAttributes)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_RichTextImage, UsesParagraphAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, ImportFromXML)
+Gura_DeclareMethodAlias(wx_RichTextImage, __ImportFromXML, "ImportFromXML")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -275,7 +275,7 @@ Gura_DeclareMethod(wx_RichTextImage, ImportFromXML)
 	//DeclareArg(env, "recurse", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, ImportFromXML)
+Gura_ImplementMethod(wx_RichTextImage, __ImportFromXML)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_RichTextImage, ImportFromXML)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, ExportXML)
+Gura_DeclareMethodAlias(wx_RichTextImage, __ExportXML, "ExportXML")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -295,7 +295,7 @@ Gura_DeclareMethod(wx_RichTextImage, ExportXML)
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, ExportXML)
+Gura_ImplementMethod(wx_RichTextImage, __ExportXML)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -306,14 +306,14 @@ Gura_ImplementMethod(wx_RichTextImage, ExportXML)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, ExportXML_1)
+Gura_DeclareMethodAlias(wx_RichTextImage, __ExportXML_1, "ExportXML_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, ExportXML_1)
+Gura_ImplementMethod(wx_RichTextImage, __ExportXML_1)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,12 +323,12 @@ Gura_ImplementMethod(wx_RichTextImage, ExportXML_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, IsFloatable)
+Gura_DeclareMethodAlias(wx_RichTextImage, __IsFloatable, "IsFloatable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, IsFloatable)
+Gura_ImplementMethod(wx_RichTextImage, __IsFloatable)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -336,12 +336,12 @@ Gura_ImplementMethod(wx_RichTextImage, IsFloatable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetXMLNodeName)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetXMLNodeName, "GetXMLNodeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetXMLNodeName)
+Gura_ImplementMethod(wx_RichTextImage, __GetXMLNodeName)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,12 +349,12 @@ Gura_ImplementMethod(wx_RichTextImage, GetXMLNodeName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetImageCache)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetImageCache, "GetImageCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetImageCache)
+Gura_ImplementMethod(wx_RichTextImage, __GetImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,13 +362,13 @@ Gura_ImplementMethod(wx_RichTextImage, GetImageCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, SetImageCache)
+Gura_DeclareMethodAlias(wx_RichTextImage, __SetImageCache, "SetImageCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, SetImageCache)
+Gura_ImplementMethod(wx_RichTextImage, __SetImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -377,12 +377,12 @@ Gura_ImplementMethod(wx_RichTextImage, SetImageCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, ResetImageCache)
+Gura_DeclareMethodAlias(wx_RichTextImage, __ResetImageCache, "ResetImageCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, ResetImageCache)
+Gura_ImplementMethod(wx_RichTextImage, __ResetImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,12 +390,12 @@ Gura_ImplementMethod(wx_RichTextImage, ResetImageCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetImageBlock)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetImageBlock, "GetImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetImageBlock)
+Gura_ImplementMethod(wx_RichTextImage, __GetImageBlock)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -403,12 +403,12 @@ Gura_ImplementMethod(wx_RichTextImage, GetImageBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetOriginalImageSize)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetOriginalImageSize, "GetOriginalImageSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetOriginalImageSize)
+Gura_ImplementMethod(wx_RichTextImage, __GetOriginalImageSize)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -416,13 +416,13 @@ Gura_ImplementMethod(wx_RichTextImage, GetOriginalImageSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, SetOriginalImageSize)
+Gura_DeclareMethodAlias(wx_RichTextImage, __SetOriginalImageSize, "SetOriginalImageSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, SetOriginalImageSize)
+Gura_ImplementMethod(wx_RichTextImage, __SetOriginalImageSize)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -431,13 +431,13 @@ Gura_ImplementMethod(wx_RichTextImage, SetOriginalImageSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, Copy)
+Gura_DeclareMethodAlias(wx_RichTextImage, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, Copy)
+Gura_ImplementMethod(wx_RichTextImage, __Copy)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -446,12 +446,12 @@ Gura_ImplementMethod(wx_RichTextImage, Copy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, Clone)
+Gura_DeclareMethodAlias(wx_RichTextImage, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, Clone)
+Gura_ImplementMethod(wx_RichTextImage, __Clone)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_RichTextImage, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, LoadImageCache)
+Gura_DeclareMethodAlias(wx_RichTextImage, __LoadImageCache, "LoadImageCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -469,7 +469,7 @@ Gura_DeclareMethod(wx_RichTextImage, LoadImageCache)
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, LoadImageCache)
+Gura_ImplementMethod(wx_RichTextImage, __LoadImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -482,7 +482,7 @@ Gura_ImplementMethod(wx_RichTextImage, LoadImageCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, LoadAndScaleImageCache)
+Gura_DeclareMethodAlias(wx_RichTextImage, __LoadAndScaleImageCache, "LoadAndScaleImageCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -491,7 +491,7 @@ Gura_DeclareMethod(wx_RichTextImage, LoadAndScaleImageCache)
 	//DeclareArg(env, "changed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, LoadAndScaleImageCache)
+Gura_ImplementMethod(wx_RichTextImage, __LoadAndScaleImageCache)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -503,12 +503,12 @@ Gura_ImplementMethod(wx_RichTextImage, LoadAndScaleImageCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, GetImageState)
+Gura_DeclareMethodAlias(wx_RichTextImage, __GetImageState, "GetImageState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, GetImageState)
+Gura_ImplementMethod(wx_RichTextImage, __GetImageState)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -516,13 +516,13 @@ Gura_ImplementMethod(wx_RichTextImage, GetImageState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImage, SetImageState)
+Gura_DeclareMethodAlias(wx_RichTextImage, __SetImageState, "SetImageState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImage, SetImageState)
+Gura_ImplementMethod(wx_RichTextImage, __SetImageState)
 {
 	Object_wx_RichTextImage *pThis = Object_wx_RichTextImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -536,36 +536,36 @@ Gura_ImplementMethod(wx_RichTextImage, SetImageState)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextImage)
 {
-	Gura_AssignMethod(wx_RichTextImage, wxRichTextImage);
-	Gura_AssignMethod(wx_RichTextImage, wxRichTextImage_1);
-	Gura_AssignMethod(wx_RichTextImage, wxRichTextImage_2);
-	Gura_AssignMethod(wx_RichTextImage, wxRichTextImage_3);
-	Gura_AssignMethod(wx_RichTextImage, Draw);
-	Gura_AssignMethod(wx_RichTextImage, Layout);
-	Gura_AssignMethod(wx_RichTextImage, GetRangeSize);
-	Gura_AssignMethod(wx_RichTextImage, GetNaturalSize);
-	Gura_AssignMethod(wx_RichTextImage, IsEmpty);
-	Gura_AssignMethod(wx_RichTextImage, CanEditProperties);
-	Gura_AssignMethod(wx_RichTextImage, EditProperties);
-	Gura_AssignMethod(wx_RichTextImage, GetPropertiesMenuLabel);
-	Gura_AssignMethod(wx_RichTextImage, UsesParagraphAttributes);
-	Gura_AssignMethod(wx_RichTextImage, ImportFromXML);
-	Gura_AssignMethod(wx_RichTextImage, ExportXML);
-	Gura_AssignMethod(wx_RichTextImage, ExportXML_1);
-	Gura_AssignMethod(wx_RichTextImage, IsFloatable);
-	Gura_AssignMethod(wx_RichTextImage, GetXMLNodeName);
-	Gura_AssignMethod(wx_RichTextImage, GetImageCache);
-	Gura_AssignMethod(wx_RichTextImage, SetImageCache);
-	Gura_AssignMethod(wx_RichTextImage, ResetImageCache);
-	Gura_AssignMethod(wx_RichTextImage, GetImageBlock);
-	Gura_AssignMethod(wx_RichTextImage, GetOriginalImageSize);
-	Gura_AssignMethod(wx_RichTextImage, SetOriginalImageSize);
-	Gura_AssignMethod(wx_RichTextImage, Copy);
-	Gura_AssignMethod(wx_RichTextImage, Clone);
-	Gura_AssignMethod(wx_RichTextImage, LoadImageCache);
-	Gura_AssignMethod(wx_RichTextImage, LoadAndScaleImageCache);
-	Gura_AssignMethod(wx_RichTextImage, GetImageState);
-	Gura_AssignMethod(wx_RichTextImage, SetImageState);
+	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage);
+	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_1);
+	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_2);
+	Gura_AssignMethod(wx_RichTextImage, __wxRichTextImage_3);
+	Gura_AssignMethod(wx_RichTextImage, __Draw);
+	Gura_AssignMethod(wx_RichTextImage, __Layout);
+	Gura_AssignMethod(wx_RichTextImage, __GetRangeSize);
+	Gura_AssignMethod(wx_RichTextImage, __GetNaturalSize);
+	Gura_AssignMethod(wx_RichTextImage, __IsEmpty);
+	Gura_AssignMethod(wx_RichTextImage, __CanEditProperties);
+	Gura_AssignMethod(wx_RichTextImage, __EditProperties);
+	Gura_AssignMethod(wx_RichTextImage, __GetPropertiesMenuLabel);
+	Gura_AssignMethod(wx_RichTextImage, __UsesParagraphAttributes);
+	Gura_AssignMethod(wx_RichTextImage, __ImportFromXML);
+	Gura_AssignMethod(wx_RichTextImage, __ExportXML);
+	Gura_AssignMethod(wx_RichTextImage, __ExportXML_1);
+	Gura_AssignMethod(wx_RichTextImage, __IsFloatable);
+	Gura_AssignMethod(wx_RichTextImage, __GetXMLNodeName);
+	Gura_AssignMethod(wx_RichTextImage, __GetImageCache);
+	Gura_AssignMethod(wx_RichTextImage, __SetImageCache);
+	Gura_AssignMethod(wx_RichTextImage, __ResetImageCache);
+	Gura_AssignMethod(wx_RichTextImage, __GetImageBlock);
+	Gura_AssignMethod(wx_RichTextImage, __GetOriginalImageSize);
+	Gura_AssignMethod(wx_RichTextImage, __SetOriginalImageSize);
+	Gura_AssignMethod(wx_RichTextImage, __Copy);
+	Gura_AssignMethod(wx_RichTextImage, __Clone);
+	Gura_AssignMethod(wx_RichTextImage, __LoadImageCache);
+	Gura_AssignMethod(wx_RichTextImage, __LoadAndScaleImageCache);
+	Gura_AssignMethod(wx_RichTextImage, __GetImageState);
+	Gura_AssignMethod(wx_RichTextImage, __SetImageState);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextImage)

@@ -37,14 +37,14 @@ String Object_wx_AuiNotebookEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
+Gura_DeclareMethodAlias(wx_AuiNotebookEvent, __wxAuiNotebookEvent, "wxAuiNotebookEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
+Gura_ImplementMethod(wx_AuiNotebookEvent, __wxAuiNotebookEvent)
 {
 	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiNotebookEvent, Clone)
+Gura_DeclareMethodAlias(wx_AuiNotebookEvent, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiNotebookEvent, Clone)
+Gura_ImplementMethod(wx_AuiNotebookEvent, __Clone)
 {
 	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_AuiNotebookEvent, Clone)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiNotebookEvent)
 {
-	Gura_AssignMethod(wx_AuiNotebookEvent, wxAuiNotebookEvent);
-	Gura_AssignMethod(wx_AuiNotebookEvent, Clone);
+	Gura_AssignMethod(wx_AuiNotebookEvent, __wxAuiNotebookEvent);
+	Gura_AssignMethod(wx_AuiNotebookEvent, __Clone);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiNotebookEvent)

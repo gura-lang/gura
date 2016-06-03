@@ -37,12 +37,12 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextFontTable, wxRichTextFontTable)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __wxRichTextFontTable, "wxRichTextFontTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, wxRichTextFontTable)
+Gura_ImplementMethod(wx_RichTextFontTable, __wxRichTextFontTable)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_RichTextFontTable, wxRichTextFontTable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFontTable, wxRichTextFontTable_1)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __wxRichTextFontTable_1, "wxRichTextFontTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, wxRichTextFontTable_1)
+Gura_ImplementMethod(wx_RichTextFontTable, __wxRichTextFontTable_1)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_RichTextFontTable, wxRichTextFontTable_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFontTable, IsOk)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, IsOk)
+Gura_ImplementMethod(wx_RichTextFontTable, __IsOk)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_RichTextFontTable, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFontTable, FindFont)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __FindFont, "FindFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fontSpec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, FindFont)
+Gura_ImplementMethod(wx_RichTextFontTable, __FindFont)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_RichTextFontTable, FindFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFontTable, Clear)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, Clear)
+Gura_ImplementMethod(wx_RichTextFontTable, __Clear)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_RichTextFontTable, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFontTable, SetFontScale)
+Gura_DeclareMethodAlias(wx_RichTextFontTable, __SetFontScale, "SetFontScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fontScale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFontTable, SetFontScale)
+Gura_ImplementMethod(wx_RichTextFontTable, __SetFontScale)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_RichTextFontTable, SetFontScale)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFontTable)
 {
-	Gura_AssignMethod(wx_RichTextFontTable, wxRichTextFontTable);
-	Gura_AssignMethod(wx_RichTextFontTable, wxRichTextFontTable_1);
-	Gura_AssignMethod(wx_RichTextFontTable, IsOk);
-	Gura_AssignMethod(wx_RichTextFontTable, FindFont);
-	Gura_AssignMethod(wx_RichTextFontTable, Clear);
-	Gura_AssignMethod(wx_RichTextFontTable, SetFontScale);
+	Gura_AssignMethod(wx_RichTextFontTable, __wxRichTextFontTable);
+	Gura_AssignMethod(wx_RichTextFontTable, __wxRichTextFontTable_1);
+	Gura_AssignMethod(wx_RichTextFontTable, __IsOk);
+	Gura_AssignMethod(wx_RichTextFontTable, __FindFont);
+	Gura_AssignMethod(wx_RichTextFontTable, __Clear);
+	Gura_AssignMethod(wx_RichTextFontTable, __SetFontScale);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFontTable)

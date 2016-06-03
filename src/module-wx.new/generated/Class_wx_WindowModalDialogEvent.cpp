@@ -37,14 +37,14 @@ String Object_wx_WindowModalDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent)
+Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent, "wxWindowModalDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent)
+Gura_ImplementMethod(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WindowModalDialogEvent, GetDialog)
+Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __GetDialog, "GetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WindowModalDialogEvent, GetDialog)
+Gura_ImplementMethod(wx_WindowModalDialogEvent, __GetDialog)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, GetDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WindowModalDialogEvent, GetReturnCode)
+Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __GetReturnCode, "GetReturnCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WindowModalDialogEvent, GetReturnCode)
+Gura_ImplementMethod(wx_WindowModalDialogEvent, __GetReturnCode)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, GetReturnCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WindowModalDialogEvent, Clone)
+Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WindowModalDialogEvent, Clone)
+Gura_ImplementMethod(wx_WindowModalDialogEvent, __Clone)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_WindowModalDialogEvent, Clone)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowModalDialogEvent)
 {
-	Gura_AssignMethod(wx_WindowModalDialogEvent, wxWindowModalDialogEvent);
-	Gura_AssignMethod(wx_WindowModalDialogEvent, GetDialog);
-	Gura_AssignMethod(wx_WindowModalDialogEvent, GetReturnCode);
-	Gura_AssignMethod(wx_WindowModalDialogEvent, Clone);
+	Gura_AssignMethod(wx_WindowModalDialogEvent, __wxWindowModalDialogEvent);
+	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetDialog);
+	Gura_AssignMethod(wx_WindowModalDialogEvent, __GetReturnCode);
+	Gura_AssignMethod(wx_WindowModalDialogEvent, __Clone);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowModalDialogEvent)

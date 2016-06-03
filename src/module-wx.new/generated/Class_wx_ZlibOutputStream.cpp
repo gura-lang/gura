@@ -37,7 +37,7 @@ String Object_wx_ZlibOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream)
+Gura_DeclareMethodAlias(wx_ZlibOutputStream, __wxZlibOutputStream, "wxZlibOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream)
+Gura_ImplementMethod(wx_ZlibOutputStream, __wxZlibOutputStream)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
+Gura_DeclareMethodAlias(wx_ZlibOutputStream, __wxZlibOutputStream_1, "wxZlibOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
+Gura_ImplementMethod(wx_ZlibOutputStream, __wxZlibOutputStream_1)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_ZlibOutputStream, wxZlibOutputStream_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZlibOutputStream, CanHandleGZip)
+Gura_DeclareMethodAlias(wx_ZlibOutputStream, __CanHandleGZip, "CanHandleGZip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZlibOutputStream, CanHandleGZip)
+Gura_ImplementMethod(wx_ZlibOutputStream, __CanHandleGZip)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_ZlibOutputStream, CanHandleGZip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZlibOutputStream, SetDictionary)
+Gura_DeclareMethodAlias(wx_ZlibOutputStream, __SetDictionary, "SetDictionary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "datalen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary)
+Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZlibOutputStream, SetDictionary_1)
+Gura_DeclareMethodAlias(wx_ZlibOutputStream, __SetDictionary_1, "SetDictionary_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary_1)
+Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary_1)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,11 +125,11 @@ Gura_ImplementMethod(wx_ZlibOutputStream, SetDictionary_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZlibOutputStream)
 {
-	Gura_AssignMethod(wx_ZlibOutputStream, wxZlibOutputStream);
-	Gura_AssignMethod(wx_ZlibOutputStream, wxZlibOutputStream_1);
-	Gura_AssignMethod(wx_ZlibOutputStream, CanHandleGZip);
-	Gura_AssignMethod(wx_ZlibOutputStream, SetDictionary);
-	Gura_AssignMethod(wx_ZlibOutputStream, SetDictionary_1);
+	Gura_AssignMethod(wx_ZlibOutputStream, __wxZlibOutputStream);
+	Gura_AssignMethod(wx_ZlibOutputStream, __wxZlibOutputStream_1);
+	Gura_AssignMethod(wx_ZlibOutputStream, __CanHandleGZip);
+	Gura_AssignMethod(wx_ZlibOutputStream, __SetDictionary);
+	Gura_AssignMethod(wx_ZlibOutputStream, __SetDictionary_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ZlibOutputStream)

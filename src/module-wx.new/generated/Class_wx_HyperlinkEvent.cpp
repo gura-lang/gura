@@ -37,7 +37,7 @@ String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
+Gura_DeclareMethodAlias(wx_HyperlinkEvent, __wxHyperlinkEvent, "wxHyperlinkEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
+Gura_ImplementMethod(wx_HyperlinkEvent, __wxHyperlinkEvent)
 {
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_HyperlinkEvent, wxHyperlinkEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkEvent, GetURL)
+Gura_DeclareMethodAlias(wx_HyperlinkEvent, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
+Gura_ImplementMethod(wx_HyperlinkEvent, __GetURL)
 {
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_HyperlinkEvent, GetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkEvent, SetURL)
+Gura_DeclareMethodAlias(wx_HyperlinkEvent, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkEvent, SetURL)
+Gura_ImplementMethod(wx_HyperlinkEvent, __SetURL)
 {
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_HyperlinkEvent, SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkEvent)
 {
-	Gura_AssignMethod(wx_HyperlinkEvent, wxHyperlinkEvent);
-	Gura_AssignMethod(wx_HyperlinkEvent, GetURL);
-	Gura_AssignMethod(wx_HyperlinkEvent, SetURL);
+	Gura_AssignMethod(wx_HyperlinkEvent, __wxHyperlinkEvent);
+	Gura_AssignMethod(wx_HyperlinkEvent, __GetURL);
+	Gura_AssignMethod(wx_HyperlinkEvent, __SetURL);
 }
 
 Gura_ImplementDescendantCreator(wx_HyperlinkEvent)

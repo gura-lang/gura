@@ -37,7 +37,7 @@ String Object_wx_HtmlBookRecord::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlBookRecord, wxHtmlBookRecord)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __wxHtmlBookRecord, "wxHtmlBookRecord")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bookfile", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_HtmlBookRecord, wxHtmlBookRecord)
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, wxHtmlBookRecord)
+Gura_ImplementMethod(wx_HtmlBookRecord, __wxHtmlBookRecord)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, wxHtmlBookRecord)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetBookFile)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetBookFile, "GetBookFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetBookFile)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetBookFile)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetBookFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetTitle)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetTitle)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetTitle)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetStart)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetStart, "GetStart")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetStart)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetStart)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetBasePath)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetBasePath, "GetBasePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetBasePath)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetBasePath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,14 +110,14 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetBasePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, SetContentsRange)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __SetContentsRange, "SetContentsRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, SetContentsRange)
+Gura_ImplementMethod(wx_HtmlBookRecord, __SetContentsRange)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, SetContentsRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetContentsStart)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetContentsStart, "GetContentsStart")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetContentsStart)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetContentsStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetContentsStart)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetContentsEnd)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetContentsEnd, "GetContentsEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetContentsEnd)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetContentsEnd)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetContentsEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, SetTitle)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __SetTitle, "SetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, SetTitle)
+Gura_ImplementMethod(wx_HtmlBookRecord, __SetTitle)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_HtmlBookRecord, SetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, SetBasePath)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __SetBasePath, "SetBasePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, SetBasePath)
+Gura_ImplementMethod(wx_HtmlBookRecord, __SetBasePath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_HtmlBookRecord, SetBasePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, SetStart)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __SetStart, "SetStart")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, SetStart)
+Gura_ImplementMethod(wx_HtmlBookRecord, __SetStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_HtmlBookRecord, SetStart)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlBookRecord, GetFullPath)
+Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetFullPath, "GetFullPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlBookRecord, GetFullPath)
+Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,18 +218,18 @@ Gura_ImplementMethod(wx_HtmlBookRecord, GetFullPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlBookRecord)
 {
-	Gura_AssignMethod(wx_HtmlBookRecord, wxHtmlBookRecord);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetBookFile);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetTitle);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetStart);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetBasePath);
-	Gura_AssignMethod(wx_HtmlBookRecord, SetContentsRange);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetContentsStart);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetContentsEnd);
-	Gura_AssignMethod(wx_HtmlBookRecord, SetTitle);
-	Gura_AssignMethod(wx_HtmlBookRecord, SetBasePath);
-	Gura_AssignMethod(wx_HtmlBookRecord, SetStart);
-	Gura_AssignMethod(wx_HtmlBookRecord, GetFullPath);
+	Gura_AssignMethod(wx_HtmlBookRecord, __wxHtmlBookRecord);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetBookFile);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetTitle);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetStart);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetBasePath);
+	Gura_AssignMethod(wx_HtmlBookRecord, __SetContentsRange);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetContentsStart);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetContentsEnd);
+	Gura_AssignMethod(wx_HtmlBookRecord, __SetTitle);
+	Gura_AssignMethod(wx_HtmlBookRecord, __SetBasePath);
+	Gura_AssignMethod(wx_HtmlBookRecord, __SetStart);
+	Gura_AssignMethod(wx_HtmlBookRecord, __GetFullPath);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlBookRecord)

@@ -37,12 +37,12 @@ String Object_wx_RichTextProperties::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextProperties, wxRichTextProperties)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __wxRichTextProperties, "wxRichTextProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, wxRichTextProperties)
+Gura_ImplementMethod(wx_RichTextProperties, __wxRichTextProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_RichTextProperties, wxRichTextProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, wxRichTextProperties_1)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __wxRichTextProperties_1, "wxRichTextProperties_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, wxRichTextProperties_1)
+Gura_ImplementMethod(wx_RichTextProperties, __wxRichTextProperties_1)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,28 +63,13 @@ Gura_ImplementMethod(wx_RichTextProperties, wxRichTextProperties_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, operator=)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "props", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, operator=)
-{
-	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
-	if (pThis->IsInvalid(env)) return Value::Nil;
-	//int props = arg.GetNumber(0)
-	//pThis->GetEntity()->operator=();
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(wx_RichTextProperties, Copy)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "props", VTYPE_number, OCCUR_Once);
-}
-
-Gura_ImplementMethod(wx_RichTextProperties, Copy)
+Gura_ImplementMethod(wx_RichTextProperties, __Copy)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +78,12 @@ Gura_ImplementMethod(wx_RichTextProperties, Copy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, Clear)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, Clear)
+Gura_ImplementMethod(wx_RichTextProperties, __Clear)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +91,12 @@ Gura_ImplementMethod(wx_RichTextProperties, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetProperties)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetProperties, "GetProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetProperties)
+Gura_ImplementMethod(wx_RichTextProperties, __GetProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +104,12 @@ Gura_ImplementMethod(wx_RichTextProperties, GetProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetProperties_1)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetProperties_1, "GetProperties_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetProperties_1)
+Gura_ImplementMethod(wx_RichTextProperties, __GetProperties_1)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,13 +117,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetProperties_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperties)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperties, "SetProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "props", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperties)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +132,12 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetPropertyNames)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetPropertyNames, "GetPropertyNames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetPropertyNames)
+Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyNames)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +145,12 @@ Gura_ImplementMethod(wx_RichTextProperties, GetPropertyNames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetCount)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetCount)
+Gura_ImplementMethod(wx_RichTextProperties, __GetCount)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +158,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, HasProperty)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __HasProperty, "HasProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, HasProperty)
+Gura_ImplementMethod(wx_RichTextProperties, __HasProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +173,13 @@ Gura_ImplementMethod(wx_RichTextProperties, HasProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, Find)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, Find)
+Gura_ImplementMethod(wx_RichTextProperties, __Find)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +188,13 @@ Gura_ImplementMethod(wx_RichTextProperties, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, Remove)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, Remove)
+Gura_ImplementMethod(wx_RichTextProperties, __Remove)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,13 +203,13 @@ Gura_ImplementMethod(wx_RichTextProperties, Remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetProperty)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetProperty, "GetProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetProperty)
+Gura_ImplementMethod(wx_RichTextProperties, __GetProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +218,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, FindOrCreateProperty)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __FindOrCreateProperty, "FindOrCreateProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, FindOrCreateProperty)
+Gura_ImplementMethod(wx_RichTextProperties, __FindOrCreateProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +233,13 @@ Gura_ImplementMethod(wx_RichTextProperties, FindOrCreateProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetPropertyString)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetPropertyString, "GetPropertyString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetPropertyString)
+Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyString)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,13 +248,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetPropertyString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetPropertyLong)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetPropertyLong, "GetPropertyLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetPropertyLong)
+Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyLong)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,13 +263,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetPropertyLong)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetPropertyBool)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetPropertyBool, "GetPropertyBool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetPropertyBool)
+Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyBool)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -293,13 +278,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetPropertyBool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, GetPropertyDouble)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __GetPropertyDouble, "GetPropertyDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, GetPropertyDouble)
+Gura_ImplementMethod(wx_RichTextProperties, __GetPropertyDouble)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -308,13 +293,13 @@ Gura_ImplementMethod(wx_RichTextProperties, GetPropertyDouble)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty, "SetProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,14 +308,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_1)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_1, "SetProperty_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_1)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_1)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,14 +325,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_2)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_2, "SetProperty_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_2)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_2)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,14 +342,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_3)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_3, "SetProperty_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_3)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_3)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -374,14 +359,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_4)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_4, "SetProperty_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_4)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_4)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -391,14 +376,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_5)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_5, "SetProperty_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_5)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_5)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -408,14 +393,14 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_5)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, SetProperty_6)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __SetProperty_6, "SetProperty_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, SetProperty_6)
+Gura_ImplementMethod(wx_RichTextProperties, __SetProperty_6)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -425,13 +410,13 @@ Gura_ImplementMethod(wx_RichTextProperties, SetProperty_6)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, RemoveProperties)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __RemoveProperties, "RemoveProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "properties", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, RemoveProperties)
+Gura_ImplementMethod(wx_RichTextProperties, __RemoveProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -440,13 +425,13 @@ Gura_ImplementMethod(wx_RichTextProperties, RemoveProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextProperties, MergeProperties)
+Gura_DeclareMethodAlias(wx_RichTextProperties, __MergeProperties, "MergeProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "properties", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextProperties, MergeProperties)
+Gura_ImplementMethod(wx_RichTextProperties, __MergeProperties)
 {
 	Object_wx_RichTextProperties *pThis = Object_wx_RichTextProperties::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,34 +445,33 @@ Gura_ImplementMethod(wx_RichTextProperties, MergeProperties)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextProperties)
 {
-	Gura_AssignMethod(wx_RichTextProperties, wxRichTextProperties);
-	Gura_AssignMethod(wx_RichTextProperties, wxRichTextProperties_1);
-	Gura_AssignMethod(wx_RichTextProperties, operator=);
-	Gura_AssignMethod(wx_RichTextProperties, Copy);
-	Gura_AssignMethod(wx_RichTextProperties, Clear);
-	Gura_AssignMethod(wx_RichTextProperties, GetProperties);
-	Gura_AssignMethod(wx_RichTextProperties, GetProperties_1);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperties);
-	Gura_AssignMethod(wx_RichTextProperties, GetPropertyNames);
-	Gura_AssignMethod(wx_RichTextProperties, GetCount);
-	Gura_AssignMethod(wx_RichTextProperties, HasProperty);
-	Gura_AssignMethod(wx_RichTextProperties, Find);
-	Gura_AssignMethod(wx_RichTextProperties, Remove);
-	Gura_AssignMethod(wx_RichTextProperties, GetProperty);
-	Gura_AssignMethod(wx_RichTextProperties, FindOrCreateProperty);
-	Gura_AssignMethod(wx_RichTextProperties, GetPropertyString);
-	Gura_AssignMethod(wx_RichTextProperties, GetPropertyLong);
-	Gura_AssignMethod(wx_RichTextProperties, GetPropertyBool);
-	Gura_AssignMethod(wx_RichTextProperties, GetPropertyDouble);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_1);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_2);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_3);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_4);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_5);
-	Gura_AssignMethod(wx_RichTextProperties, SetProperty_6);
-	Gura_AssignMethod(wx_RichTextProperties, RemoveProperties);
-	Gura_AssignMethod(wx_RichTextProperties, MergeProperties);
+	Gura_AssignMethod(wx_RichTextProperties, __wxRichTextProperties);
+	Gura_AssignMethod(wx_RichTextProperties, __wxRichTextProperties_1);
+	Gura_AssignMethod(wx_RichTextProperties, __Copy);
+	Gura_AssignMethod(wx_RichTextProperties, __Clear);
+	Gura_AssignMethod(wx_RichTextProperties, __GetProperties);
+	Gura_AssignMethod(wx_RichTextProperties, __GetProperties_1);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperties);
+	Gura_AssignMethod(wx_RichTextProperties, __GetPropertyNames);
+	Gura_AssignMethod(wx_RichTextProperties, __GetCount);
+	Gura_AssignMethod(wx_RichTextProperties, __HasProperty);
+	Gura_AssignMethod(wx_RichTextProperties, __Find);
+	Gura_AssignMethod(wx_RichTextProperties, __Remove);
+	Gura_AssignMethod(wx_RichTextProperties, __GetProperty);
+	Gura_AssignMethod(wx_RichTextProperties, __FindOrCreateProperty);
+	Gura_AssignMethod(wx_RichTextProperties, __GetPropertyString);
+	Gura_AssignMethod(wx_RichTextProperties, __GetPropertyLong);
+	Gura_AssignMethod(wx_RichTextProperties, __GetPropertyBool);
+	Gura_AssignMethod(wx_RichTextProperties, __GetPropertyDouble);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_1);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_2);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_3);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_4);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_5);
+	Gura_AssignMethod(wx_RichTextProperties, __SetProperty_6);
+	Gura_AssignMethod(wx_RichTextProperties, __RemoveProperties);
+	Gura_AssignMethod(wx_RichTextProperties, __MergeProperties);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextProperties)

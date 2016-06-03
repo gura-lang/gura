@@ -37,13 +37,13 @@ String Object_wx_Printer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Printer, wxPrinter)
+Gura_DeclareMethodAlias(wx_Printer, __wxPrinter, "wxPrinter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, wxPrinter)
+Gura_ImplementMethod(wx_Printer, __wxPrinter)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_Printer, wxPrinter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, CreateAbortWindow)
+Gura_DeclareMethodAlias(wx_Printer, __CreateAbortWindow, "CreateAbortWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, CreateAbortWindow)
+Gura_ImplementMethod(wx_Printer, __CreateAbortWindow)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_Printer, CreateAbortWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, GetAbort)
+Gura_DeclareMethodAlias(wx_Printer, __GetAbort, "GetAbort")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printer, GetAbort)
+Gura_ImplementMethod(wx_Printer, __GetAbort)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_Printer, GetAbort)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, GetLastError)
+Gura_DeclareMethodAlias(wx_Printer, __GetLastError, "GetLastError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printer, GetLastError)
+Gura_ImplementMethod(wx_Printer, __GetLastError)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_Printer, GetLastError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, GetPrintDialogData)
+Gura_DeclareMethodAlias(wx_Printer, __GetPrintDialogData, "GetPrintDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
+Gura_ImplementMethod(wx_Printer, __GetPrintDialogData)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_Printer, GetPrintDialogData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, Print)
+Gura_DeclareMethodAlias(wx_Printer, __Print, "Print")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_DeclareMethod(wx_Printer, Print)
 	//DeclareArg(env, "prompt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, Print)
+Gura_ImplementMethod(wx_Printer, __Print)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_Printer, Print)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, PrintDialog)
+Gura_DeclareMethodAlias(wx_Printer, __PrintDialog, "PrintDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, PrintDialog)
+Gura_ImplementMethod(wx_Printer, __PrintDialog)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_Printer, PrintDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, ReportError)
+Gura_DeclareMethodAlias(wx_Printer, __ReportError, "ReportError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -150,7 +150,7 @@ Gura_DeclareMethod(wx_Printer, ReportError)
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, ReportError)
+Gura_ImplementMethod(wx_Printer, __ReportError)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_Printer, ReportError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printer, Setup)
+Gura_DeclareMethodAlias(wx_Printer, __Setup, "Setup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printer, Setup)
+Gura_ImplementMethod(wx_Printer, __Setup)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,15 +181,15 @@ Gura_ImplementMethod(wx_Printer, Setup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printer)
 {
-	Gura_AssignMethod(wx_Printer, wxPrinter);
-	Gura_AssignMethod(wx_Printer, CreateAbortWindow);
-	Gura_AssignMethod(wx_Printer, GetAbort);
-	Gura_AssignMethod(wx_Printer, GetLastError);
-	Gura_AssignMethod(wx_Printer, GetPrintDialogData);
-	Gura_AssignMethod(wx_Printer, Print);
-	Gura_AssignMethod(wx_Printer, PrintDialog);
-	Gura_AssignMethod(wx_Printer, ReportError);
-	Gura_AssignMethod(wx_Printer, Setup);
+	Gura_AssignMethod(wx_Printer, __wxPrinter);
+	Gura_AssignMethod(wx_Printer, __CreateAbortWindow);
+	Gura_AssignMethod(wx_Printer, __GetAbort);
+	Gura_AssignMethod(wx_Printer, __GetLastError);
+	Gura_AssignMethod(wx_Printer, __GetPrintDialogData);
+	Gura_AssignMethod(wx_Printer, __Print);
+	Gura_AssignMethod(wx_Printer, __PrintDialog);
+	Gura_AssignMethod(wx_Printer, __ReportError);
+	Gura_AssignMethod(wx_Printer, __Setup);
 }
 
 Gura_ImplementDescendantCreator(wx_Printer)

@@ -37,12 +37,12 @@ String Object_wx_TCPServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TCPServer, wxTCPServer)
+Gura_DeclareMethodAlias(wx_TCPServer, __wxTCPServer, "wxTCPServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPServer, wxTCPServer)
+Gura_ImplementMethod(wx_TCPServer, __wxTCPServer)
 {
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_TCPServer, wxTCPServer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPServer, Create)
+Gura_DeclareMethodAlias(wx_TCPServer, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPServer, Create)
+Gura_ImplementMethod(wx_TCPServer, __Create)
 {
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_TCPServer, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPServer, OnAcceptConnection)
+Gura_DeclareMethodAlias(wx_TCPServer, __OnAcceptConnection, "OnAcceptConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPServer, OnAcceptConnection)
+Gura_ImplementMethod(wx_TCPServer, __OnAcceptConnection)
 {
 	Object_wx_TCPServer *pThis = Object_wx_TCPServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_TCPServer, OnAcceptConnection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPServer)
 {
-	Gura_AssignMethod(wx_TCPServer, wxTCPServer);
-	Gura_AssignMethod(wx_TCPServer, Create);
-	Gura_AssignMethod(wx_TCPServer, OnAcceptConnection);
+	Gura_AssignMethod(wx_TCPServer, __wxTCPServer);
+	Gura_AssignMethod(wx_TCPServer, __Create);
+	Gura_AssignMethod(wx_TCPServer, __OnAcceptConnection);
 }
 
 Gura_ImplementDescendantCreator(wx_TCPServer)

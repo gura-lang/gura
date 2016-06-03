@@ -37,12 +37,12 @@ String Object_wx_AcceleratorTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable)
+Gura_DeclareMethodAlias(wx_AcceleratorTable, __wxAcceleratorTable, "wxAcceleratorTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
+Gura_ImplementMethod(wx_AcceleratorTable, __wxAcceleratorTable)
 {
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable_1)
+Gura_DeclareMethodAlias(wx_AcceleratorTable, __wxAcceleratorTable_1, "wxAcceleratorTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "entries", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_1)
+Gura_ImplementMethod(wx_AcceleratorTable, __wxAcceleratorTable_1)
 {
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorTable, wxAcceleratorTable_2)
+Gura_DeclareMethodAlias(wx_AcceleratorTable, __wxAcceleratorTable_2, "wxAcceleratorTable_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "resource", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_2)
+Gura_ImplementMethod(wx_AcceleratorTable, __wxAcceleratorTable_2)
 {
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_AcceleratorTable, wxAcceleratorTable_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorTable, IsOk)
+Gura_DeclareMethodAlias(wx_AcceleratorTable, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
+Gura_ImplementMethod(wx_AcceleratorTable, __IsOk)
 {
 	Object_wx_AcceleratorTable *pThis = Object_wx_AcceleratorTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,10 +100,10 @@ Gura_ImplementMethod(wx_AcceleratorTable, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorTable)
 {
-	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable);
-	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable_1);
-	Gura_AssignMethod(wx_AcceleratorTable, wxAcceleratorTable_2);
-	Gura_AssignMethod(wx_AcceleratorTable, IsOk);
+	Gura_AssignMethod(wx_AcceleratorTable, __wxAcceleratorTable);
+	Gura_AssignMethod(wx_AcceleratorTable, __wxAcceleratorTable_1);
+	Gura_AssignMethod(wx_AcceleratorTable, __wxAcceleratorTable_2);
+	Gura_AssignMethod(wx_AcceleratorTable, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_AcceleratorTable)

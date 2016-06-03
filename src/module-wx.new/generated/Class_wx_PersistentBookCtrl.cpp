@@ -37,13 +37,13 @@ String Object_wx_PersistentBookCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl)
+Gura_DeclareMethodAlias(wx_PersistentBookCtrl, __wxPersistentBookCtrl, "wxPersistentBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl)
+Gura_ImplementMethod(wx_PersistentBookCtrl, __wxPersistentBookCtrl)
 {
 	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentBookCtrl, Save)
+Gura_DeclareMethodAlias(wx_PersistentBookCtrl, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentBookCtrl, Save)
+Gura_ImplementMethod(wx_PersistentBookCtrl, __Save)
 {
 	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PersistentBookCtrl, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentBookCtrl, Restore)
+Gura_DeclareMethodAlias(wx_PersistentBookCtrl, __Restore, "Restore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentBookCtrl, Restore)
+Gura_ImplementMethod(wx_PersistentBookCtrl, __Restore)
 {
 	Object_wx_PersistentBookCtrl *pThis = Object_wx_PersistentBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_PersistentBookCtrl, Restore)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentBookCtrl)
 {
-	Gura_AssignMethod(wx_PersistentBookCtrl, wxPersistentBookCtrl);
-	Gura_AssignMethod(wx_PersistentBookCtrl, Save);
-	Gura_AssignMethod(wx_PersistentBookCtrl, Restore);
+	Gura_AssignMethod(wx_PersistentBookCtrl, __wxPersistentBookCtrl);
+	Gura_AssignMethod(wx_PersistentBookCtrl, __Save);
+	Gura_AssignMethod(wx_PersistentBookCtrl, __Restore);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistentBookCtrl)

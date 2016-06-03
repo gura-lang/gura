@@ -37,7 +37,7 @@ String Object_wx_ContextHelpButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ContextHelpButton, wxContextHelpButton)
+Gura_DeclareMethodAlias(wx_ContextHelpButton, __wxContextHelpButton, "wxContextHelpButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_ContextHelpButton, wxContextHelpButton)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextHelpButton, wxContextHelpButton)
+Gura_ImplementMethod(wx_ContextHelpButton, __wxContextHelpButton)
 {
 	Object_wx_ContextHelpButton *pThis = Object_wx_ContextHelpButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ContextHelpButton, wxContextHelpButton)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextHelpButton)
 {
-	Gura_AssignMethod(wx_ContextHelpButton, wxContextHelpButton);
+	Gura_AssignMethod(wx_ContextHelpButton, __wxContextHelpButton);
 }
 
 Gura_ImplementDescendantCreator(wx_ContextHelpButton)

@@ -37,7 +37,7 @@ String Object_wx_GridColumnHeaderRendererDefault::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridColumnHeaderRendererDefault, DrawBorder)
+Gura_DeclareMethodAlias(wx_GridColumnHeaderRendererDefault, __DrawBorder, "DrawBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_GridColumnHeaderRendererDefault, DrawBorder)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridColumnHeaderRendererDefault, DrawBorder)
+Gura_ImplementMethod(wx_GridColumnHeaderRendererDefault, __DrawBorder)
 {
 	Object_wx_GridColumnHeaderRendererDefault *pThis = Object_wx_GridColumnHeaderRendererDefault::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_GridColumnHeaderRendererDefault, DrawBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridColumnHeaderRendererDefault)
 {
-	Gura_AssignMethod(wx_GridColumnHeaderRendererDefault, DrawBorder);
+	Gura_AssignMethod(wx_GridColumnHeaderRendererDefault, __DrawBorder);
 }
 
 Gura_ImplementDescendantCreator(wx_GridColumnHeaderRendererDefault)

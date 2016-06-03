@@ -37,13 +37,13 @@ String Object_wx_StringInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StringInputStream, wxStringInputStream)
+Gura_DeclareMethodAlias(wx_StringInputStream, __wxStringInputStream, "wxStringInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringInputStream, wxStringInputStream)
+Gura_ImplementMethod(wx_StringInputStream, __wxStringInputStream)
 {
 	Object_wx_StringInputStream *pThis = Object_wx_StringInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_StringInputStream, wxStringInputStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringInputStream)
 {
-	Gura_AssignMethod(wx_StringInputStream, wxStringInputStream);
+	Gura_AssignMethod(wx_StringInputStream, __wxStringInputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_StringInputStream)

@@ -37,12 +37,12 @@ String Object_wx_WebKitBeforeLoadEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, IsCancelled)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __IsCancelled, "IsCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, IsCancelled)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __IsCancelled)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, IsCancelled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, Cancel)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __Cancel, "Cancel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cancel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, Cancel)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __Cancel)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, Cancel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, GetURL)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetURL)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetURL)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, SetURL)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetURL)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetURL)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, SetNavigationType)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __SetNavigationType, "SetNavigationType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "navType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetNavigationType)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetNavigationType)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, SetNavigationType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, GetNavigationType)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __GetNavigationType, "GetNavigationType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetNavigationType)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, GetNavigationType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent)
+Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent, "wxWebKitBeforeLoadEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent)
+Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitBeforeLoadEvent)
 {
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, IsCancelled);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, Cancel);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, GetURL);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, SetURL);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, SetNavigationType);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, GetNavigationType);
-	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, wxWebKitBeforeLoadEvent);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __IsCancelled);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __Cancel);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __GetURL);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __SetURL);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __SetNavigationType);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType);
+	Gura_AssignMethod(wx_WebKitBeforeLoadEvent, __wxWebKitBeforeLoadEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitBeforeLoadEvent)

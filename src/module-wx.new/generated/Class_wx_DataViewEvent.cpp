@@ -37,14 +37,14 @@ String Object_wx_DataViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewEvent, wxDataViewEvent)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __wxDataViewEvent, "wxDataViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, wxDataViewEvent)
+Gura_ImplementMethod(wx_DataViewEvent, __wxDataViewEvent)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_DataViewEvent, wxDataViewEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetColumn)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetColumn)
+Gura_ImplementMethod(wx_DataViewEvent, __GetColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDataViewColumn)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataViewColumn, "GetDataViewColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDataViewColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataViewColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetModel)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetModel, "GetModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetModel)
+Gura_ImplementMethod(wx_DataViewEvent, __GetModel)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetModel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetPosition)
+Gura_ImplementMethod(wx_DataViewEvent, __GetPosition)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetValue)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetValue)
+Gura_ImplementMethod(wx_DataViewEvent, __GetValue)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, IsEditCancelled)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __IsEditCancelled, "IsEditCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, IsEditCancelled)
+Gura_ImplementMethod(wx_DataViewEvent, __IsEditCancelled)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_DataViewEvent, IsEditCancelled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetColumn)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetColumn, "SetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetColumn)
+Gura_ImplementMethod(wx_DataViewEvent, __SetColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDataViewColumn)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDataViewColumn, "SetDataViewColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDataViewColumn)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDataViewColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataViewColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetModel)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetModel, "SetModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "model", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetModel)
+Gura_ImplementMethod(wx_DataViewEvent, __SetModel)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetModel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetValue)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetValue)
+Gura_ImplementMethod(wx_DataViewEvent, __SetValue)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDataObject)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDataObject, "SetDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDataObject)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDataObject)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,12 +207,12 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDataFormat)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataFormat, "GetDataFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDataFormat)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDataFormat)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,12 +220,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDataSize)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataSize, "GetDataSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDataSize)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDataSize)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,12 +233,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDataBuffer)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataBuffer, "GetDataBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDataBuffer)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDataBuffer)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,13 +246,13 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDragFlags)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDragFlags, "SetDragFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDragFlags)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDragFlags)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,12 +261,12 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDragFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDropEffect)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDropEffect, "GetDropEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDropEffect)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDropEffect)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,12 +274,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDropEffect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetCacheFrom)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetCacheFrom, "GetCacheFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetCacheFrom)
+Gura_ImplementMethod(wx_DataViewEvent, __GetCacheFrom)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,12 +287,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetCacheFrom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetCacheTo)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetCacheTo, "GetCacheTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetCacheTo)
+Gura_ImplementMethod(wx_DataViewEvent, __GetCacheTo)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -300,12 +300,12 @@ Gura_ImplementMethod(wx_DataViewEvent, GetCacheTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetItem)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetItem)
+Gura_ImplementMethod(wx_DataViewEvent, __GetItem)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -313,13 +313,13 @@ Gura_ImplementMethod(wx_DataViewEvent, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetItem)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetItem, "SetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetItem)
+Gura_ImplementMethod(wx_DataViewEvent, __SetItem)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -328,13 +328,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetEditCanceled)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetEditCanceled, "SetEditCanceled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "editCancelled", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetEditCanceled)
+Gura_ImplementMethod(wx_DataViewEvent, __SetEditCanceled)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,14 +343,14 @@ Gura_ImplementMethod(wx_DataViewEvent, SetEditCanceled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetPosition)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetPosition)
+Gura_ImplementMethod(wx_DataViewEvent, __SetPosition)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,14 +360,14 @@ Gura_ImplementMethod(wx_DataViewEvent, SetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetCache)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetCache, "SetCache")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetCache)
+Gura_ImplementMethod(wx_DataViewEvent, __SetCache)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -377,12 +377,12 @@ Gura_ImplementMethod(wx_DataViewEvent, SetCache)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDataObject)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataObject, "GetDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDataObject)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDataObject)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,13 +390,13 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDataFormat)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDataFormat, "SetDataFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDataFormat)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDataFormat)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -405,13 +405,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDataSize)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDataSize, "SetDataSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDataSize)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDataSize)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -420,13 +420,13 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDataBuffer)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDataBuffer, "SetDataBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDataBuffer)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDataBuffer)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -435,12 +435,12 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDataBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, GetDragFlags)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDragFlags, "GetDragFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, GetDragFlags)
+Gura_ImplementMethod(wx_DataViewEvent, __GetDragFlags)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -448,13 +448,13 @@ Gura_ImplementMethod(wx_DataViewEvent, GetDragFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewEvent, SetDropEffect)
+Gura_DeclareMethodAlias(wx_DataViewEvent, __SetDropEffect, "SetDropEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "effect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewEvent, SetDropEffect)
+Gura_ImplementMethod(wx_DataViewEvent, __SetDropEffect)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -468,36 +468,36 @@ Gura_ImplementMethod(wx_DataViewEvent, SetDropEffect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewEvent)
 {
-	Gura_AssignMethod(wx_DataViewEvent, wxDataViewEvent);
-	Gura_AssignMethod(wx_DataViewEvent, GetColumn);
-	Gura_AssignMethod(wx_DataViewEvent, GetDataViewColumn);
-	Gura_AssignMethod(wx_DataViewEvent, GetModel);
-	Gura_AssignMethod(wx_DataViewEvent, GetPosition);
-	Gura_AssignMethod(wx_DataViewEvent, GetValue);
-	Gura_AssignMethod(wx_DataViewEvent, IsEditCancelled);
-	Gura_AssignMethod(wx_DataViewEvent, SetColumn);
-	Gura_AssignMethod(wx_DataViewEvent, SetDataViewColumn);
-	Gura_AssignMethod(wx_DataViewEvent, SetModel);
-	Gura_AssignMethod(wx_DataViewEvent, SetValue);
-	Gura_AssignMethod(wx_DataViewEvent, SetDataObject);
-	Gura_AssignMethod(wx_DataViewEvent, GetDataFormat);
-	Gura_AssignMethod(wx_DataViewEvent, GetDataSize);
-	Gura_AssignMethod(wx_DataViewEvent, GetDataBuffer);
-	Gura_AssignMethod(wx_DataViewEvent, SetDragFlags);
-	Gura_AssignMethod(wx_DataViewEvent, GetDropEffect);
-	Gura_AssignMethod(wx_DataViewEvent, GetCacheFrom);
-	Gura_AssignMethod(wx_DataViewEvent, GetCacheTo);
-	Gura_AssignMethod(wx_DataViewEvent, GetItem);
-	Gura_AssignMethod(wx_DataViewEvent, SetItem);
-	Gura_AssignMethod(wx_DataViewEvent, SetEditCanceled);
-	Gura_AssignMethod(wx_DataViewEvent, SetPosition);
-	Gura_AssignMethod(wx_DataViewEvent, SetCache);
-	Gura_AssignMethod(wx_DataViewEvent, GetDataObject);
-	Gura_AssignMethod(wx_DataViewEvent, SetDataFormat);
-	Gura_AssignMethod(wx_DataViewEvent, SetDataSize);
-	Gura_AssignMethod(wx_DataViewEvent, SetDataBuffer);
-	Gura_AssignMethod(wx_DataViewEvent, GetDragFlags);
-	Gura_AssignMethod(wx_DataViewEvent, SetDropEffect);
+	Gura_AssignMethod(wx_DataViewEvent, __wxDataViewEvent);
+	Gura_AssignMethod(wx_DataViewEvent, __GetColumn);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDataViewColumn);
+	Gura_AssignMethod(wx_DataViewEvent, __GetModel);
+	Gura_AssignMethod(wx_DataViewEvent, __GetPosition);
+	Gura_AssignMethod(wx_DataViewEvent, __GetValue);
+	Gura_AssignMethod(wx_DataViewEvent, __IsEditCancelled);
+	Gura_AssignMethod(wx_DataViewEvent, __SetColumn);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDataViewColumn);
+	Gura_AssignMethod(wx_DataViewEvent, __SetModel);
+	Gura_AssignMethod(wx_DataViewEvent, __SetValue);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDataObject);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDataFormat);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDataSize);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDataBuffer);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDragFlags);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDropEffect);
+	Gura_AssignMethod(wx_DataViewEvent, __GetCacheFrom);
+	Gura_AssignMethod(wx_DataViewEvent, __GetCacheTo);
+	Gura_AssignMethod(wx_DataViewEvent, __GetItem);
+	Gura_AssignMethod(wx_DataViewEvent, __SetItem);
+	Gura_AssignMethod(wx_DataViewEvent, __SetEditCanceled);
+	Gura_AssignMethod(wx_DataViewEvent, __SetPosition);
+	Gura_AssignMethod(wx_DataViewEvent, __SetCache);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDataObject);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDataFormat);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDataSize);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDataBuffer);
+	Gura_AssignMethod(wx_DataViewEvent, __GetDragFlags);
+	Gura_AssignMethod(wx_DataViewEvent, __SetDropEffect);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewEvent)

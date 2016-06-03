@@ -37,7 +37,7 @@ String Object_wx_SingleChoiceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __wxSingleChoiceDialog, "wxSingleChoiceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __wxSingleChoiceDialog)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog_1)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __wxSingleChoiceDialog_1, "wxSingleChoiceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog_1)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog_1)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __wxSingleChoiceDialog_1)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelection)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __GetSelection)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, GetSelectionData)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __GetSelectionData, "GetSelectionData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionData)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __GetSelectionData)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetSelectionData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, GetStringSelection)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __GetStringSelection, "GetStringSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __GetStringSelection)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, GetStringSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, SetSelection)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selection", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __SetSelection)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleChoiceDialog, ShowModal)
+Gura_DeclareMethodAlias(wx_SingleChoiceDialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
+Gura_ImplementMethod(wx_SingleChoiceDialog, __ShowModal)
 {
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleChoiceDialog)
 {
-	Gura_AssignMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog);
-	Gura_AssignMethod(wx_SingleChoiceDialog, wxSingleChoiceDialog_1);
-	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelection);
-	Gura_AssignMethod(wx_SingleChoiceDialog, GetSelectionData);
-	Gura_AssignMethod(wx_SingleChoiceDialog, GetStringSelection);
-	Gura_AssignMethod(wx_SingleChoiceDialog, SetSelection);
-	Gura_AssignMethod(wx_SingleChoiceDialog, ShowModal);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __wxSingleChoiceDialog);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __wxSingleChoiceDialog_1);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __GetSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __GetSelectionData);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __GetStringSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __SetSelection);
+	Gura_AssignMethod(wx_SingleChoiceDialog, __ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_SingleChoiceDialog)

@@ -37,12 +37,12 @@ String Object_wx_DataViewItemAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewItemAttr, wxDataViewItemAttr)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __wxDataViewItemAttr, "wxDataViewItemAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, wxDataViewItemAttr)
+Gura_ImplementMethod(wx_DataViewItemAttr, __wxDataViewItemAttr)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DataViewItemAttr, wxDataViewItemAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, SetBold)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __SetBold, "SetBold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, SetBold)
+Gura_ImplementMethod(wx_DataViewItemAttr, __SetBold)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_DataViewItemAttr, SetBold)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, SetColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, SetColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __SetColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_DataViewItemAttr, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, SetBackgroundColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __SetBackgroundColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_DataViewItemAttr, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, SetItalic)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __SetItalic, "SetItalic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, SetItalic)
+Gura_ImplementMethod(wx_DataViewItemAttr, __SetItalic)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, SetItalic)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, HasColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __HasColour, "HasColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, HasColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __HasColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, HasColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, GetColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, GetColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __GetColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, HasFont)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __HasFont, "HasFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, HasFont)
+Gura_ImplementMethod(wx_DataViewItemAttr, __HasFont)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, HasFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, GetBold)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __GetBold, "GetBold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, GetBold)
+Gura_ImplementMethod(wx_DataViewItemAttr, __GetBold)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, GetBold)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, GetItalic)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __GetItalic, "GetItalic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, GetItalic)
+Gura_ImplementMethod(wx_DataViewItemAttr, __GetItalic)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, GetItalic)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, HasBackgroundColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __HasBackgroundColour, "HasBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, HasBackgroundColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __HasBackgroundColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, HasBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, GetBackgroundColour)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __GetBackgroundColour, "GetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, GetBackgroundColour)
+Gura_ImplementMethod(wx_DataViewItemAttr, __GetBackgroundColour)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,12 +201,12 @@ Gura_ImplementMethod(wx_DataViewItemAttr, GetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, IsDefault)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __IsDefault, "IsDefault")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, IsDefault)
+Gura_ImplementMethod(wx_DataViewItemAttr, __IsDefault)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,13 +214,13 @@ Gura_ImplementMethod(wx_DataViewItemAttr, IsDefault)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItemAttr, GetEffectiveFont)
+Gura_DeclareMethodAlias(wx_DataViewItemAttr, __GetEffectiveFont, "GetEffectiveFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItemAttr, GetEffectiveFont)
+Gura_ImplementMethod(wx_DataViewItemAttr, __GetEffectiveFont)
 {
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,20 +234,20 @@ Gura_ImplementMethod(wx_DataViewItemAttr, GetEffectiveFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewItemAttr)
 {
-	Gura_AssignMethod(wx_DataViewItemAttr, wxDataViewItemAttr);
-	Gura_AssignMethod(wx_DataViewItemAttr, SetBold);
-	Gura_AssignMethod(wx_DataViewItemAttr, SetColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, SetBackgroundColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, SetItalic);
-	Gura_AssignMethod(wx_DataViewItemAttr, HasColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, GetColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, HasFont);
-	Gura_AssignMethod(wx_DataViewItemAttr, GetBold);
-	Gura_AssignMethod(wx_DataViewItemAttr, GetItalic);
-	Gura_AssignMethod(wx_DataViewItemAttr, HasBackgroundColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, GetBackgroundColour);
-	Gura_AssignMethod(wx_DataViewItemAttr, IsDefault);
-	Gura_AssignMethod(wx_DataViewItemAttr, GetEffectiveFont);
+	Gura_AssignMethod(wx_DataViewItemAttr, __wxDataViewItemAttr);
+	Gura_AssignMethod(wx_DataViewItemAttr, __SetBold);
+	Gura_AssignMethod(wx_DataViewItemAttr, __SetColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __SetBackgroundColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __SetItalic);
+	Gura_AssignMethod(wx_DataViewItemAttr, __HasColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __GetColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __HasFont);
+	Gura_AssignMethod(wx_DataViewItemAttr, __GetBold);
+	Gura_AssignMethod(wx_DataViewItemAttr, __GetItalic);
+	Gura_AssignMethod(wx_DataViewItemAttr, __HasBackgroundColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __GetBackgroundColour);
+	Gura_AssignMethod(wx_DataViewItemAttr, __IsDefault);
+	Gura_AssignMethod(wx_DataViewItemAttr, __GetEffectiveFont);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewItemAttr)

@@ -37,12 +37,12 @@ String Object_wx_SpinCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SpinCtrl, wxSpinCtrl)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __wxSpinCtrl, "wxSpinCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, wxSpinCtrl)
+Gura_ImplementMethod(wx_SpinCtrl, __wxSpinCtrl)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_SpinCtrl, wxSpinCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, wxSpinCtrl_1)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __wxSpinCtrl_1, "wxSpinCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareMethod(wx_SpinCtrl, wxSpinCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, wxSpinCtrl_1)
+Gura_ImplementMethod(wx_SpinCtrl, __wxSpinCtrl_1)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_SpinCtrl, wxSpinCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, Create)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_DeclareMethod(wx_SpinCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, Create)
+Gura_ImplementMethod(wx_SpinCtrl, __Create)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_SpinCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, GetBase)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __GetBase, "GetBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, GetBase)
+Gura_ImplementMethod(wx_SpinCtrl, __GetBase)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_SpinCtrl, GetBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, GetMax)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __GetMax, "GetMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, GetMax)
+Gura_ImplementMethod(wx_SpinCtrl, __GetMax)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_SpinCtrl, GetMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, GetMin)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __GetMin, "GetMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, GetMin)
+Gura_ImplementMethod(wx_SpinCtrl, __GetMin)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_SpinCtrl, GetMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, GetValue)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, GetValue)
+Gura_ImplementMethod(wx_SpinCtrl, __GetValue)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_SpinCtrl, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, SetBase)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __SetBase, "SetBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, SetBase)
+Gura_ImplementMethod(wx_SpinCtrl, __SetBase)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,14 +183,14 @@ Gura_ImplementMethod(wx_SpinCtrl, SetBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, SetRange)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "minVal", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxVal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, SetRange)
+Gura_ImplementMethod(wx_SpinCtrl, __SetRange)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,14 +200,14 @@ Gura_ImplementMethod(wx_SpinCtrl, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, SetSelection)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, SetSelection)
+Gura_ImplementMethod(wx_SpinCtrl, __SetSelection)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,13 +217,13 @@ Gura_ImplementMethod(wx_SpinCtrl, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, SetValue)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, SetValue)
+Gura_ImplementMethod(wx_SpinCtrl, __SetValue)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_SpinCtrl, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinCtrl, SetValue_1)
+Gura_DeclareMethodAlias(wx_SpinCtrl, __SetValue_1, "SetValue_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinCtrl, SetValue_1)
+Gura_ImplementMethod(wx_SpinCtrl, __SetValue_1)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,18 +252,18 @@ Gura_ImplementMethod(wx_SpinCtrl, SetValue_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinCtrl)
 {
-	Gura_AssignMethod(wx_SpinCtrl, wxSpinCtrl);
-	Gura_AssignMethod(wx_SpinCtrl, wxSpinCtrl_1);
-	Gura_AssignMethod(wx_SpinCtrl, Create);
-	Gura_AssignMethod(wx_SpinCtrl, GetBase);
-	Gura_AssignMethod(wx_SpinCtrl, GetMax);
-	Gura_AssignMethod(wx_SpinCtrl, GetMin);
-	Gura_AssignMethod(wx_SpinCtrl, GetValue);
-	Gura_AssignMethod(wx_SpinCtrl, SetBase);
-	Gura_AssignMethod(wx_SpinCtrl, SetRange);
-	Gura_AssignMethod(wx_SpinCtrl, SetSelection);
-	Gura_AssignMethod(wx_SpinCtrl, SetValue);
-	Gura_AssignMethod(wx_SpinCtrl, SetValue_1);
+	Gura_AssignMethod(wx_SpinCtrl, __wxSpinCtrl);
+	Gura_AssignMethod(wx_SpinCtrl, __wxSpinCtrl_1);
+	Gura_AssignMethod(wx_SpinCtrl, __Create);
+	Gura_AssignMethod(wx_SpinCtrl, __GetBase);
+	Gura_AssignMethod(wx_SpinCtrl, __GetMax);
+	Gura_AssignMethod(wx_SpinCtrl, __GetMin);
+	Gura_AssignMethod(wx_SpinCtrl, __GetValue);
+	Gura_AssignMethod(wx_SpinCtrl, __SetBase);
+	Gura_AssignMethod(wx_SpinCtrl, __SetRange);
+	Gura_AssignMethod(wx_SpinCtrl, __SetSelection);
+	Gura_AssignMethod(wx_SpinCtrl, __SetValue);
+	Gura_AssignMethod(wx_SpinCtrl, __SetValue_1);
 }
 
 Gura_ImplementDescendantCreator(wx_SpinCtrl)

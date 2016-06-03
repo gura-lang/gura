@@ -37,7 +37,7 @@ String Object_wx_ZipEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ZipEntry, wxZipEntry)
+Gura_DeclareMethodAlias(wx_ZipEntry, __wxZipEntry, "wxZipEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_ZipEntry, wxZipEntry)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, wxZipEntry)
+Gura_ImplementMethod(wx_ZipEntry, __wxZipEntry)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_ZipEntry, wxZipEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, wxZipEntry_1)
+Gura_DeclareMethodAlias(wx_ZipEntry, __wxZipEntry_1, "wxZipEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, wxZipEntry_1)
+Gura_ImplementMethod(wx_ZipEntry, __wxZipEntry_1)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_ZipEntry, wxZipEntry_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, Clone)
+Gura_DeclareMethodAlias(wx_ZipEntry, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, Clone)
+Gura_ImplementMethod(wx_ZipEntry, __Clone)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_ZipEntry, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetComment)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetComment, "GetComment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetComment)
+Gura_ImplementMethod(wx_ZipEntry, __GetComment)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_ZipEntry, GetComment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetComment)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetComment, "SetComment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "comment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetComment)
+Gura_ImplementMethod(wx_ZipEntry, __SetComment)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetComment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetExternalAttributes)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetExternalAttributes, "GetExternalAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetExternalAttributes)
+Gura_ImplementMethod(wx_ZipEntry, __GetExternalAttributes)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_ZipEntry, GetExternalAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetExternalAttributes)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetExternalAttributes, "SetExternalAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetExternalAttributes)
+Gura_ImplementMethod(wx_ZipEntry, __SetExternalAttributes)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetExternalAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetExtra)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetExtra, "GetExtra")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetExtra)
+Gura_ImplementMethod(wx_ZipEntry, __GetExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetExtra)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetExtraLen)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetExtraLen, "GetExtraLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetExtraLen)
+Gura_ImplementMethod(wx_ZipEntry, __GetExtraLen)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_ZipEntry, GetExtraLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetExtra)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetExtra, "SetExtra")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "extra", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetExtra)
+Gura_ImplementMethod(wx_ZipEntry, __SetExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetExtra)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetLocalExtra)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetLocalExtra, "GetLocalExtra")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetLocalExtra)
+Gura_ImplementMethod(wx_ZipEntry, __GetLocalExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetLocalExtra)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetLocalExtraLen)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetLocalExtraLen, "GetLocalExtraLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetLocalExtraLen)
+Gura_ImplementMethod(wx_ZipEntry, __GetLocalExtraLen)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,14 +209,14 @@ Gura_ImplementMethod(wx_ZipEntry, GetLocalExtraLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetLocalExtra)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetLocalExtra, "SetLocalExtra")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "extra", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetLocalExtra)
+Gura_ImplementMethod(wx_ZipEntry, __SetLocalExtra)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,12 +226,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetLocalExtra)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetMethod)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetMethod, "GetMethod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetMethod)
+Gura_ImplementMethod(wx_ZipEntry, __GetMethod)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_ZipEntry, GetMethod)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetMethod)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetMethod, "SetMethod")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetMethod)
+Gura_ImplementMethod(wx_ZipEntry, __SetMethod)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetMethod)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetMode)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetMode, "GetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetMode)
+Gura_ImplementMethod(wx_ZipEntry, __GetMode)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,13 +267,13 @@ Gura_ImplementMethod(wx_ZipEntry, GetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetMode)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetMode, "SetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetMode)
+Gura_ImplementMethod(wx_ZipEntry, __SetMode)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,12 +282,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetSystemMadeBy)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetSystemMadeBy, "GetSystemMadeBy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetSystemMadeBy)
+Gura_ImplementMethod(wx_ZipEntry, __GetSystemMadeBy)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,13 +295,13 @@ Gura_ImplementMethod(wx_ZipEntry, GetSystemMadeBy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetSystemMadeBy)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetSystemMadeBy, "SetSystemMadeBy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "system", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetSystemMadeBy)
+Gura_ImplementMethod(wx_ZipEntry, __SetSystemMadeBy)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -310,12 +310,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetSystemMadeBy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetCompressedSize)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetCompressedSize, "GetCompressedSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetCompressedSize)
+Gura_ImplementMethod(wx_ZipEntry, __GetCompressedSize)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,12 +323,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetCompressedSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetCrc)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetCrc, "GetCrc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetCrc)
+Gura_ImplementMethod(wx_ZipEntry, __GetCrc)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -336,12 +336,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetCrc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetFlags)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetFlags)
+Gura_ImplementMethod(wx_ZipEntry, __GetFlags)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_ZipEntry, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetInternalName)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetInternalName, "GetInternalName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -357,7 +357,7 @@ Gura_DeclareMethod(wx_ZipEntry, GetInternalName)
 	//DeclareArg(env, "pIsDir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetInternalName)
+Gura_ImplementMethod(wx_ZipEntry, __GetInternalName)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,12 +368,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetInternalName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, GetInternalName_1)
+Gura_DeclareMethodAlias(wx_ZipEntry, __GetInternalName_1, "GetInternalName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, GetInternalName_1)
+Gura_ImplementMethod(wx_ZipEntry, __GetInternalName_1)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,12 +381,12 @@ Gura_ImplementMethod(wx_ZipEntry, GetInternalName_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, IsMadeByUnix)
+Gura_DeclareMethodAlias(wx_ZipEntry, __IsMadeByUnix, "IsMadeByUnix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, IsMadeByUnix)
+Gura_ImplementMethod(wx_ZipEntry, __IsMadeByUnix)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -394,12 +394,12 @@ Gura_ImplementMethod(wx_ZipEntry, IsMadeByUnix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, IsText)
+Gura_DeclareMethodAlias(wx_ZipEntry, __IsText, "IsText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, IsText)
+Gura_ImplementMethod(wx_ZipEntry, __IsText)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -407,13 +407,13 @@ Gura_ImplementMethod(wx_ZipEntry, IsText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetIsText)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetIsText, "SetIsText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "isText", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetIsText)
+Gura_ImplementMethod(wx_ZipEntry, __SetIsText)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -422,13 +422,13 @@ Gura_ImplementMethod(wx_ZipEntry, SetIsText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, SetNotifier)
+Gura_DeclareMethodAlias(wx_ZipEntry, __SetNotifier, "SetNotifier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "notifier", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, SetNotifier)
+Gura_ImplementMethod(wx_ZipEntry, __SetNotifier)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -437,12 +437,12 @@ Gura_ImplementMethod(wx_ZipEntry, SetNotifier)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipEntry, UnsetNotifier)
+Gura_DeclareMethodAlias(wx_ZipEntry, __UnsetNotifier, "UnsetNotifier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipEntry, UnsetNotifier)
+Gura_ImplementMethod(wx_ZipEntry, __UnsetNotifier)
 {
 	Object_wx_ZipEntry *pThis = Object_wx_ZipEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -455,35 +455,35 @@ Gura_ImplementMethod(wx_ZipEntry, UnsetNotifier)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipEntry)
 {
-	Gura_AssignMethod(wx_ZipEntry, wxZipEntry);
-	Gura_AssignMethod(wx_ZipEntry, wxZipEntry_1);
-	Gura_AssignMethod(wx_ZipEntry, Clone);
-	Gura_AssignMethod(wx_ZipEntry, GetComment);
-	Gura_AssignMethod(wx_ZipEntry, SetComment);
-	Gura_AssignMethod(wx_ZipEntry, GetExternalAttributes);
-	Gura_AssignMethod(wx_ZipEntry, SetExternalAttributes);
-	Gura_AssignMethod(wx_ZipEntry, GetExtra);
-	Gura_AssignMethod(wx_ZipEntry, GetExtraLen);
-	Gura_AssignMethod(wx_ZipEntry, SetExtra);
-	Gura_AssignMethod(wx_ZipEntry, GetLocalExtra);
-	Gura_AssignMethod(wx_ZipEntry, GetLocalExtraLen);
-	Gura_AssignMethod(wx_ZipEntry, SetLocalExtra);
-	Gura_AssignMethod(wx_ZipEntry, GetMethod);
-	Gura_AssignMethod(wx_ZipEntry, SetMethod);
-	Gura_AssignMethod(wx_ZipEntry, GetMode);
-	Gura_AssignMethod(wx_ZipEntry, SetMode);
-	Gura_AssignMethod(wx_ZipEntry, GetSystemMadeBy);
-	Gura_AssignMethod(wx_ZipEntry, SetSystemMadeBy);
-	Gura_AssignMethod(wx_ZipEntry, GetCompressedSize);
-	Gura_AssignMethod(wx_ZipEntry, GetCrc);
-	Gura_AssignMethod(wx_ZipEntry, GetFlags);
-	Gura_AssignMethod(wx_ZipEntry, GetInternalName);
-	Gura_AssignMethod(wx_ZipEntry, GetInternalName_1);
-	Gura_AssignMethod(wx_ZipEntry, IsMadeByUnix);
-	Gura_AssignMethod(wx_ZipEntry, IsText);
-	Gura_AssignMethod(wx_ZipEntry, SetIsText);
-	Gura_AssignMethod(wx_ZipEntry, SetNotifier);
-	Gura_AssignMethod(wx_ZipEntry, UnsetNotifier);
+	Gura_AssignMethod(wx_ZipEntry, __wxZipEntry);
+	Gura_AssignMethod(wx_ZipEntry, __wxZipEntry_1);
+	Gura_AssignMethod(wx_ZipEntry, __Clone);
+	Gura_AssignMethod(wx_ZipEntry, __GetComment);
+	Gura_AssignMethod(wx_ZipEntry, __SetComment);
+	Gura_AssignMethod(wx_ZipEntry, __GetExternalAttributes);
+	Gura_AssignMethod(wx_ZipEntry, __SetExternalAttributes);
+	Gura_AssignMethod(wx_ZipEntry, __GetExtra);
+	Gura_AssignMethod(wx_ZipEntry, __GetExtraLen);
+	Gura_AssignMethod(wx_ZipEntry, __SetExtra);
+	Gura_AssignMethod(wx_ZipEntry, __GetLocalExtra);
+	Gura_AssignMethod(wx_ZipEntry, __GetLocalExtraLen);
+	Gura_AssignMethod(wx_ZipEntry, __SetLocalExtra);
+	Gura_AssignMethod(wx_ZipEntry, __GetMethod);
+	Gura_AssignMethod(wx_ZipEntry, __SetMethod);
+	Gura_AssignMethod(wx_ZipEntry, __GetMode);
+	Gura_AssignMethod(wx_ZipEntry, __SetMode);
+	Gura_AssignMethod(wx_ZipEntry, __GetSystemMadeBy);
+	Gura_AssignMethod(wx_ZipEntry, __SetSystemMadeBy);
+	Gura_AssignMethod(wx_ZipEntry, __GetCompressedSize);
+	Gura_AssignMethod(wx_ZipEntry, __GetCrc);
+	Gura_AssignMethod(wx_ZipEntry, __GetFlags);
+	Gura_AssignMethod(wx_ZipEntry, __GetInternalName);
+	Gura_AssignMethod(wx_ZipEntry, __GetInternalName_1);
+	Gura_AssignMethod(wx_ZipEntry, __IsMadeByUnix);
+	Gura_AssignMethod(wx_ZipEntry, __IsText);
+	Gura_AssignMethod(wx_ZipEntry, __SetIsText);
+	Gura_AssignMethod(wx_ZipEntry, __SetNotifier);
+	Gura_AssignMethod(wx_ZipEntry, __UnsetNotifier);
 }
 
 Gura_ImplementDescendantCreator(wx_ZipEntry)

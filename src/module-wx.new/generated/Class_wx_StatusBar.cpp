@@ -37,12 +37,12 @@ String Object_wx_StatusBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StatusBar, wxStatusBar)
+Gura_DeclareMethodAlias(wx_StatusBar, __wxStatusBar, "wxStatusBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StatusBar, wxStatusBar)
+Gura_ImplementMethod(wx_StatusBar, __wxStatusBar)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_StatusBar, wxStatusBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, wxStatusBar_1)
+Gura_DeclareMethodAlias(wx_StatusBar, __wxStatusBar_1, "wxStatusBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_StatusBar, wxStatusBar_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, wxStatusBar_1)
+Gura_ImplementMethod(wx_StatusBar, __wxStatusBar_1)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_StatusBar, wxStatusBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, Create)
+Gura_DeclareMethodAlias(wx_StatusBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_StatusBar, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, Create)
+Gura_ImplementMethod(wx_StatusBar, __Create)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,14 +92,14 @@ Gura_ImplementMethod(wx_StatusBar, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetFieldRect)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetFieldRect, "GetFieldRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetFieldRect)
+Gura_ImplementMethod(wx_StatusBar, __GetFieldRect)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,12 +109,12 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetFieldsCount)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetFieldsCount, "GetFieldsCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetFieldsCount)
+Gura_ImplementMethod(wx_StatusBar, __GetFieldsCount)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,13 +122,13 @@ Gura_ImplementMethod(wx_StatusBar, GetFieldsCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetField)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetField, "GetField")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetField)
+Gura_ImplementMethod(wx_StatusBar, __GetField)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,12 +137,12 @@ Gura_ImplementMethod(wx_StatusBar, GetField)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetBorders)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetBorders, "GetBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetBorders)
+Gura_ImplementMethod(wx_StatusBar, __GetBorders)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_StatusBar, GetBorders)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetStatusText)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetStatusText, "GetStatusText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetStatusText)
+Gura_ImplementMethod(wx_StatusBar, __GetStatusText)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetStatusWidth)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetStatusWidth, "GetStatusWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetStatusWidth)
+Gura_ImplementMethod(wx_StatusBar, __GetStatusWidth)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, GetStatusStyle)
+Gura_DeclareMethodAlias(wx_StatusBar, __GetStatusStyle, "GetStatusStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, GetStatusStyle)
+Gura_ImplementMethod(wx_StatusBar, __GetStatusStyle)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,13 +195,13 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, PopStatusText)
+Gura_DeclareMethodAlias(wx_StatusBar, __PopStatusText, "PopStatusText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "field", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, PopStatusText)
+Gura_ImplementMethod(wx_StatusBar, __PopStatusText)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,14 +210,14 @@ Gura_ImplementMethod(wx_StatusBar, PopStatusText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, PushStatusText)
+Gura_DeclareMethodAlias(wx_StatusBar, __PushStatusText, "PushStatusText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "field", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, PushStatusText)
+Gura_ImplementMethod(wx_StatusBar, __PushStatusText)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,14 +227,14 @@ Gura_ImplementMethod(wx_StatusBar, PushStatusText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, SetFieldsCount)
+Gura_DeclareMethodAlias(wx_StatusBar, __SetFieldsCount, "SetFieldsCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "widths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, SetFieldsCount)
+Gura_ImplementMethod(wx_StatusBar, __SetFieldsCount)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_StatusBar, SetFieldsCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, SetMinHeight)
+Gura_DeclareMethodAlias(wx_StatusBar, __SetMinHeight, "SetMinHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, SetMinHeight)
+Gura_ImplementMethod(wx_StatusBar, __SetMinHeight)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,14 +259,14 @@ Gura_ImplementMethod(wx_StatusBar, SetMinHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, SetStatusStyles)
+Gura_DeclareMethodAlias(wx_StatusBar, __SetStatusStyles, "SetStatusStyles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "styles", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, SetStatusStyles)
+Gura_ImplementMethod(wx_StatusBar, __SetStatusStyles)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,14 +276,14 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusStyles)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, SetStatusText)
+Gura_DeclareMethodAlias(wx_StatusBar, __SetStatusText, "SetStatusText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, SetStatusText)
+Gura_ImplementMethod(wx_StatusBar, __SetStatusText)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -293,14 +293,14 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StatusBar, SetStatusWidths)
+Gura_DeclareMethodAlias(wx_StatusBar, __SetStatusWidths, "SetStatusWidths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "widths_field", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StatusBar, SetStatusWidths)
+Gura_ImplementMethod(wx_StatusBar, __SetStatusWidths)
 {
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -315,23 +315,23 @@ Gura_ImplementMethod(wx_StatusBar, SetStatusWidths)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StatusBar)
 {
-	Gura_AssignMethod(wx_StatusBar, wxStatusBar);
-	Gura_AssignMethod(wx_StatusBar, wxStatusBar_1);
-	Gura_AssignMethod(wx_StatusBar, Create);
-	Gura_AssignMethod(wx_StatusBar, GetFieldRect);
-	Gura_AssignMethod(wx_StatusBar, GetFieldsCount);
-	Gura_AssignMethod(wx_StatusBar, GetField);
-	Gura_AssignMethod(wx_StatusBar, GetBorders);
-	Gura_AssignMethod(wx_StatusBar, GetStatusText);
-	Gura_AssignMethod(wx_StatusBar, GetStatusWidth);
-	Gura_AssignMethod(wx_StatusBar, GetStatusStyle);
-	Gura_AssignMethod(wx_StatusBar, PopStatusText);
-	Gura_AssignMethod(wx_StatusBar, PushStatusText);
-	Gura_AssignMethod(wx_StatusBar, SetFieldsCount);
-	Gura_AssignMethod(wx_StatusBar, SetMinHeight);
-	Gura_AssignMethod(wx_StatusBar, SetStatusStyles);
-	Gura_AssignMethod(wx_StatusBar, SetStatusText);
-	Gura_AssignMethod(wx_StatusBar, SetStatusWidths);
+	Gura_AssignMethod(wx_StatusBar, __wxStatusBar);
+	Gura_AssignMethod(wx_StatusBar, __wxStatusBar_1);
+	Gura_AssignMethod(wx_StatusBar, __Create);
+	Gura_AssignMethod(wx_StatusBar, __GetFieldRect);
+	Gura_AssignMethod(wx_StatusBar, __GetFieldsCount);
+	Gura_AssignMethod(wx_StatusBar, __GetField);
+	Gura_AssignMethod(wx_StatusBar, __GetBorders);
+	Gura_AssignMethod(wx_StatusBar, __GetStatusText);
+	Gura_AssignMethod(wx_StatusBar, __GetStatusWidth);
+	Gura_AssignMethod(wx_StatusBar, __GetStatusStyle);
+	Gura_AssignMethod(wx_StatusBar, __PopStatusText);
+	Gura_AssignMethod(wx_StatusBar, __PushStatusText);
+	Gura_AssignMethod(wx_StatusBar, __SetFieldsCount);
+	Gura_AssignMethod(wx_StatusBar, __SetMinHeight);
+	Gura_AssignMethod(wx_StatusBar, __SetStatusStyles);
+	Gura_AssignMethod(wx_StatusBar, __SetStatusText);
+	Gura_AssignMethod(wx_StatusBar, __SetStatusWidths);
 }
 
 Gura_ImplementDescendantCreator(wx_StatusBar)

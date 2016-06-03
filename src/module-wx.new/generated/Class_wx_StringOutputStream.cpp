@@ -37,14 +37,14 @@ String Object_wx_StringOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StringOutputStream, wxStringOutputStream)
+Gura_DeclareMethodAlias(wx_StringOutputStream, __wxStringOutputStream, "wxStringOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringOutputStream, wxStringOutputStream)
+Gura_ImplementMethod(wx_StringOutputStream, __wxStringOutputStream)
 {
 	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_StringOutputStream, wxStringOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringOutputStream, GetString)
+Gura_DeclareMethodAlias(wx_StringOutputStream, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringOutputStream, GetString)
+Gura_ImplementMethod(wx_StringOutputStream, __GetString)
 {
 	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_StringOutputStream, GetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringOutputStream)
 {
-	Gura_AssignMethod(wx_StringOutputStream, wxStringOutputStream);
-	Gura_AssignMethod(wx_StringOutputStream, GetString);
+	Gura_AssignMethod(wx_StringOutputStream, __wxStringOutputStream);
+	Gura_AssignMethod(wx_StringOutputStream, __GetString);
 }
 
 Gura_ImplementDescendantCreator(wx_StringOutputStream)

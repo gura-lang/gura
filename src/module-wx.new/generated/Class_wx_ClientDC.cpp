@@ -37,13 +37,13 @@ String Object_wx_ClientDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ClientDC, wxClientDC)
+Gura_DeclareMethodAlias(wx_ClientDC, __wxClientDC, "wxClientDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ClientDC, wxClientDC)
+Gura_ImplementMethod(wx_ClientDC, __wxClientDC)
 {
 	Object_wx_ClientDC *pThis = Object_wx_ClientDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_ClientDC, wxClientDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDC)
 {
-	Gura_AssignMethod(wx_ClientDC, wxClientDC);
+	Gura_AssignMethod(wx_ClientDC, __wxClientDC);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientDC)

@@ -37,13 +37,13 @@ String Object_wx_KeyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_KeyEvent, wxKeyEvent)
+Gura_DeclareMethodAlias(wx_KeyEvent, __wxKeyEvent, "wxKeyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyEventType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, wxKeyEvent)
+Gura_ImplementMethod(wx_KeyEvent, __wxKeyEvent)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_KeyEvent, wxKeyEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetKeyCode)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetKeyCode, "GetKeyCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetKeyCode)
+Gura_ImplementMethod(wx_KeyEvent, __GetKeyCode)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_KeyEvent, GetKeyCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, IsKeyInCategory)
+Gura_DeclareMethodAlias(wx_KeyEvent, __IsKeyInCategory, "IsKeyInCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "category", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, IsKeyInCategory)
+Gura_ImplementMethod(wx_KeyEvent, __IsKeyInCategory)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_KeyEvent, IsKeyInCategory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetPosition)
+Gura_ImplementMethod(wx_KeyEvent, __GetPosition)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,14 +93,14 @@ Gura_ImplementMethod(wx_KeyEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetPosition_1)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetPosition_1, "GetPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetPosition_1)
+Gura_ImplementMethod(wx_KeyEvent, __GetPosition_1)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetRawKeyCode)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetRawKeyCode, "GetRawKeyCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetRawKeyCode)
+Gura_ImplementMethod(wx_KeyEvent, __GetRawKeyCode)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetRawKeyCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetRawKeyFlags)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetRawKeyFlags, "GetRawKeyFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetRawKeyFlags)
+Gura_ImplementMethod(wx_KeyEvent, __GetRawKeyFlags)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetRawKeyFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetUnicodeKey)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetUnicodeKey, "GetUnicodeKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetUnicodeKey)
+Gura_ImplementMethod(wx_KeyEvent, __GetUnicodeKey)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetUnicodeKey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetX)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetX, "GetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetX)
+Gura_ImplementMethod(wx_KeyEvent, __GetX)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, GetY)
+Gura_DeclareMethodAlias(wx_KeyEvent, __GetY, "GetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, GetY)
+Gura_ImplementMethod(wx_KeyEvent, __GetY)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_KeyEvent, GetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, DoAllowNextEvent)
+Gura_DeclareMethodAlias(wx_KeyEvent, __DoAllowNextEvent, "DoAllowNextEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, DoAllowNextEvent)
+Gura_ImplementMethod(wx_KeyEvent, __DoAllowNextEvent)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_KeyEvent, DoAllowNextEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyEvent, IsNextEventAllowed)
+Gura_DeclareMethodAlias(wx_KeyEvent, __IsNextEventAllowed, "IsNextEventAllowed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyEvent, IsNextEventAllowed)
+Gura_ImplementMethod(wx_KeyEvent, __IsNextEventAllowed)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,18 +206,18 @@ Gura_ImplementMethod(wx_KeyEvent, IsNextEventAllowed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyEvent)
 {
-	Gura_AssignMethod(wx_KeyEvent, wxKeyEvent);
-	Gura_AssignMethod(wx_KeyEvent, GetKeyCode);
-	Gura_AssignMethod(wx_KeyEvent, IsKeyInCategory);
-	Gura_AssignMethod(wx_KeyEvent, GetPosition);
-	Gura_AssignMethod(wx_KeyEvent, GetPosition_1);
-	Gura_AssignMethod(wx_KeyEvent, GetRawKeyCode);
-	Gura_AssignMethod(wx_KeyEvent, GetRawKeyFlags);
-	Gura_AssignMethod(wx_KeyEvent, GetUnicodeKey);
-	Gura_AssignMethod(wx_KeyEvent, GetX);
-	Gura_AssignMethod(wx_KeyEvent, GetY);
-	Gura_AssignMethod(wx_KeyEvent, DoAllowNextEvent);
-	Gura_AssignMethod(wx_KeyEvent, IsNextEventAllowed);
+	Gura_AssignMethod(wx_KeyEvent, __wxKeyEvent);
+	Gura_AssignMethod(wx_KeyEvent, __GetKeyCode);
+	Gura_AssignMethod(wx_KeyEvent, __IsKeyInCategory);
+	Gura_AssignMethod(wx_KeyEvent, __GetPosition);
+	Gura_AssignMethod(wx_KeyEvent, __GetPosition_1);
+	Gura_AssignMethod(wx_KeyEvent, __GetRawKeyCode);
+	Gura_AssignMethod(wx_KeyEvent, __GetRawKeyFlags);
+	Gura_AssignMethod(wx_KeyEvent, __GetUnicodeKey);
+	Gura_AssignMethod(wx_KeyEvent, __GetX);
+	Gura_AssignMethod(wx_KeyEvent, __GetY);
+	Gura_AssignMethod(wx_KeyEvent, __DoAllowNextEvent);
+	Gura_AssignMethod(wx_KeyEvent, __IsNextEventAllowed);
 }
 
 Gura_ImplementDescendantCreator(wx_KeyEvent)

@@ -37,12 +37,12 @@ String Object_wx_Colour::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Colour, wxColour)
+Gura_DeclareMethodAlias(wx_Colour, __wxColour, "wxColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, wxColour)
+Gura_ImplementMethod(wx_Colour, __wxColour)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Colour, wxColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, wxColour_1)
+Gura_DeclareMethodAlias(wx_Colour, __wxColour_1, "wxColour_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_Colour, wxColour_1)
 	//DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, wxColour_1)
+Gura_ImplementMethod(wx_Colour, __wxColour_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_Colour, wxColour_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, wxColour_2)
+Gura_DeclareMethodAlias(wx_Colour, __wxColour_2, "wxColour_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colourName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, wxColour_2)
+Gura_ImplementMethod(wx_Colour, __wxColour_2)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_Colour, wxColour_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, wxColour_3)
+Gura_DeclareMethodAlias(wx_Colour, __wxColour_3, "wxColour_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colRGB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, wxColour_3)
+Gura_ImplementMethod(wx_Colour, __wxColour_3)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_Colour, wxColour_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, wxColour_4)
+Gura_DeclareMethodAlias(wx_Colour, __wxColour_4, "wxColour_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, wxColour_4)
+Gura_ImplementMethod(wx_Colour, __wxColour_4)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_Colour, wxColour_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Alpha)
+Gura_DeclareMethodAlias(wx_Colour, __Alpha, "Alpha")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, Alpha)
+Gura_ImplementMethod(wx_Colour, __Alpha)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_Colour, Alpha)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Blue)
+Gura_DeclareMethodAlias(wx_Colour, __Blue, "Blue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, Blue)
+Gura_ImplementMethod(wx_Colour, __Blue)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_Colour, Blue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, GetAsString)
+Gura_DeclareMethodAlias(wx_Colour, __GetAsString, "GetAsString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, GetAsString)
+Gura_ImplementMethod(wx_Colour, __GetAsString)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_Colour, GetAsString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, SetRGB)
+Gura_DeclareMethodAlias(wx_Colour, __SetRGB, "SetRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colRGB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, SetRGB)
+Gura_ImplementMethod(wx_Colour, __SetRGB)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_Colour, SetRGB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, SetRGBA)
+Gura_DeclareMethodAlias(wx_Colour, __SetRGBA, "SetRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colRGBA", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, SetRGBA)
+Gura_ImplementMethod(wx_Colour, __SetRGBA)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,12 +187,12 @@ Gura_ImplementMethod(wx_Colour, SetRGBA)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, GetRGB)
+Gura_DeclareMethodAlias(wx_Colour, __GetRGB, "GetRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, GetRGB)
+Gura_ImplementMethod(wx_Colour, __GetRGB)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,12 +200,12 @@ Gura_ImplementMethod(wx_Colour, GetRGB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, GetRGBA)
+Gura_DeclareMethodAlias(wx_Colour, __GetRGBA, "GetRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, GetRGBA)
+Gura_ImplementMethod(wx_Colour, __GetRGBA)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,12 +213,12 @@ Gura_ImplementMethod(wx_Colour, GetRGBA)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, GetPixel)
+Gura_DeclareMethodAlias(wx_Colour, __GetPixel, "GetPixel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, GetPixel)
+Gura_ImplementMethod(wx_Colour, __GetPixel)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,12 +226,12 @@ Gura_ImplementMethod(wx_Colour, GetPixel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Green)
+Gura_DeclareMethodAlias(wx_Colour, __Green, "Green")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, Green)
+Gura_ImplementMethod(wx_Colour, __Green)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,12 +239,12 @@ Gura_ImplementMethod(wx_Colour, Green)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, IsOk)
+Gura_DeclareMethodAlias(wx_Colour, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, IsOk)
+Gura_ImplementMethod(wx_Colour, __IsOk)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,12 +252,12 @@ Gura_ImplementMethod(wx_Colour, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Red)
+Gura_DeclareMethodAlias(wx_Colour, __Red, "Red")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Colour, Red)
+Gura_ImplementMethod(wx_Colour, __Red)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_Colour, Red)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Set)
+Gura_DeclareMethodAlias(wx_Colour, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -274,7 +274,7 @@ Gura_DeclareMethod(wx_Colour, Set)
 	//DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, Set)
+Gura_ImplementMethod(wx_Colour, __Set)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,13 +286,13 @@ Gura_ImplementMethod(wx_Colour, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Set_1)
+Gura_DeclareMethodAlias(wx_Colour, __Set_1, "Set_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "RGB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, Set_1)
+Gura_ImplementMethod(wx_Colour, __Set_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,13 +301,13 @@ Gura_ImplementMethod(wx_Colour, Set_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, Set_2)
+Gura_DeclareMethodAlias(wx_Colour, __Set_2, "Set_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, Set_2)
+Gura_ImplementMethod(wx_Colour, __Set_2)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_Colour, Set_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, MakeMono)
+Gura_DeclareMethodAlias(wx_Colour, __MakeMono, "MakeMono")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_Colour, MakeMono)
 	//DeclareArg(env, "on", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, MakeMono)
+Gura_ImplementMethod(wx_Colour, __MakeMono)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_Colour, MakeMono)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, MakeDisabled)
+Gura_DeclareMethodAlias(wx_Colour, __MakeDisabled, "MakeDisabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -346,7 +346,7 @@ Gura_DeclareMethod(wx_Colour, MakeDisabled)
 	//DeclareArg(env, "brightness", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, MakeDisabled)
+Gura_ImplementMethod(wx_Colour, __MakeDisabled)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -358,13 +358,13 @@ Gura_ImplementMethod(wx_Colour, MakeDisabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, MakeDisabled_1)
+Gura_DeclareMethodAlias(wx_Colour, __MakeDisabled_1, "MakeDisabled_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brightness", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, MakeDisabled_1)
+Gura_ImplementMethod(wx_Colour, __MakeDisabled_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_Colour, MakeDisabled_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, MakeGrey)
+Gura_DeclareMethodAlias(wx_Colour, __MakeGrey, "MakeGrey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -381,7 +381,7 @@ Gura_DeclareMethod(wx_Colour, MakeGrey)
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, MakeGrey)
+Gura_ImplementMethod(wx_Colour, __MakeGrey)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_Colour, MakeGrey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, MakeGrey_1)
+Gura_DeclareMethodAlias(wx_Colour, __MakeGrey_1, "MakeGrey_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -403,7 +403,7 @@ Gura_DeclareMethod(wx_Colour, MakeGrey_1)
 	//DeclareArg(env, "weight_b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, MakeGrey_1)
+Gura_ImplementMethod(wx_Colour, __MakeGrey_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_Colour, MakeGrey_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, AlphaBlend)
+Gura_DeclareMethodAlias(wx_Colour, __AlphaBlend, "AlphaBlend")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fg", VTYPE_number, OCCUR_Once);
@@ -425,7 +425,7 @@ Gura_DeclareMethod(wx_Colour, AlphaBlend)
 	//DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, AlphaBlend)
+Gura_ImplementMethod(wx_Colour, __AlphaBlend)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_Colour, AlphaBlend)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, ChangeLightness)
+Gura_DeclareMethodAlias(wx_Colour, __ChangeLightness, "ChangeLightness")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -445,7 +445,7 @@ Gura_DeclareMethod(wx_Colour, ChangeLightness)
 	//DeclareArg(env, "ialpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, ChangeLightness)
+Gura_ImplementMethod(wx_Colour, __ChangeLightness)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,13 +457,13 @@ Gura_ImplementMethod(wx_Colour, ChangeLightness)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Colour, ChangeLightness_1)
+Gura_DeclareMethodAlias(wx_Colour, __ChangeLightness_1, "ChangeLightness_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ialpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Colour, ChangeLightness_1)
+Gura_ImplementMethod(wx_Colour, __ChangeLightness_1)
 {
 	Object_wx_Colour *pThis = Object_wx_Colour::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,33 +477,33 @@ Gura_ImplementMethod(wx_Colour, ChangeLightness_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Colour)
 {
-	Gura_AssignMethod(wx_Colour, wxColour);
-	Gura_AssignMethod(wx_Colour, wxColour_1);
-	Gura_AssignMethod(wx_Colour, wxColour_2);
-	Gura_AssignMethod(wx_Colour, wxColour_3);
-	Gura_AssignMethod(wx_Colour, wxColour_4);
-	Gura_AssignMethod(wx_Colour, Alpha);
-	Gura_AssignMethod(wx_Colour, Blue);
-	Gura_AssignMethod(wx_Colour, GetAsString);
-	Gura_AssignMethod(wx_Colour, SetRGB);
-	Gura_AssignMethod(wx_Colour, SetRGBA);
-	Gura_AssignMethod(wx_Colour, GetRGB);
-	Gura_AssignMethod(wx_Colour, GetRGBA);
-	Gura_AssignMethod(wx_Colour, GetPixel);
-	Gura_AssignMethod(wx_Colour, Green);
-	Gura_AssignMethod(wx_Colour, IsOk);
-	Gura_AssignMethod(wx_Colour, Red);
-	Gura_AssignMethod(wx_Colour, Set);
-	Gura_AssignMethod(wx_Colour, Set_1);
-	Gura_AssignMethod(wx_Colour, Set_2);
-	Gura_AssignMethod(wx_Colour, MakeMono);
-	Gura_AssignMethod(wx_Colour, MakeDisabled);
-	Gura_AssignMethod(wx_Colour, MakeDisabled_1);
-	Gura_AssignMethod(wx_Colour, MakeGrey);
-	Gura_AssignMethod(wx_Colour, MakeGrey_1);
-	Gura_AssignMethod(wx_Colour, AlphaBlend);
-	Gura_AssignMethod(wx_Colour, ChangeLightness);
-	Gura_AssignMethod(wx_Colour, ChangeLightness_1);
+	Gura_AssignMethod(wx_Colour, __wxColour);
+	Gura_AssignMethod(wx_Colour, __wxColour_1);
+	Gura_AssignMethod(wx_Colour, __wxColour_2);
+	Gura_AssignMethod(wx_Colour, __wxColour_3);
+	Gura_AssignMethod(wx_Colour, __wxColour_4);
+	Gura_AssignMethod(wx_Colour, __Alpha);
+	Gura_AssignMethod(wx_Colour, __Blue);
+	Gura_AssignMethod(wx_Colour, __GetAsString);
+	Gura_AssignMethod(wx_Colour, __SetRGB);
+	Gura_AssignMethod(wx_Colour, __SetRGBA);
+	Gura_AssignMethod(wx_Colour, __GetRGB);
+	Gura_AssignMethod(wx_Colour, __GetRGBA);
+	Gura_AssignMethod(wx_Colour, __GetPixel);
+	Gura_AssignMethod(wx_Colour, __Green);
+	Gura_AssignMethod(wx_Colour, __IsOk);
+	Gura_AssignMethod(wx_Colour, __Red);
+	Gura_AssignMethod(wx_Colour, __Set);
+	Gura_AssignMethod(wx_Colour, __Set_1);
+	Gura_AssignMethod(wx_Colour, __Set_2);
+	Gura_AssignMethod(wx_Colour, __MakeMono);
+	Gura_AssignMethod(wx_Colour, __MakeDisabled);
+	Gura_AssignMethod(wx_Colour, __MakeDisabled_1);
+	Gura_AssignMethod(wx_Colour, __MakeGrey);
+	Gura_AssignMethod(wx_Colour, __MakeGrey_1);
+	Gura_AssignMethod(wx_Colour, __AlphaBlend);
+	Gura_AssignMethod(wx_Colour, __ChangeLightness);
+	Gura_AssignMethod(wx_Colour, __ChangeLightness_1);
 }
 
 Gura_ImplementDescendantCreator(wx_Colour)

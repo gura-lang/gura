@@ -37,7 +37,7 @@ String Object_wx_PreviewFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PreviewFrame, wxPreviewFrame)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __wxPreviewFrame, "wxPreviewFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_PreviewFrame, wxPreviewFrame)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, wxPreviewFrame)
+Gura_ImplementMethod(wx_PreviewFrame, __wxPreviewFrame)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,12 +64,12 @@ Gura_ImplementMethod(wx_PreviewFrame, wxPreviewFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, CreateCanvas)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __CreateCanvas, "CreateCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
+Gura_ImplementMethod(wx_PreviewFrame, __CreateCanvas)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,12 +77,12 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateCanvas)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, CreateControlBar)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __CreateControlBar, "CreateControlBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
+Gura_ImplementMethod(wx_PreviewFrame, __CreateControlBar)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,12 +90,12 @@ Gura_ImplementMethod(wx_PreviewFrame, CreateControlBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, Initialize)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __Initialize, "Initialize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, Initialize)
+Gura_ImplementMethod(wx_PreviewFrame, __Initialize)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,13 +103,13 @@ Gura_ImplementMethod(wx_PreviewFrame, Initialize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, InitializeWithModality)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __InitializeWithModality, "InitializeWithModality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, InitializeWithModality)
+Gura_ImplementMethod(wx_PreviewFrame, __InitializeWithModality)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_PreviewFrame, InitializeWithModality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewFrame, OnCloseWindow)
+Gura_DeclareMethodAlias(wx_PreviewFrame, __OnCloseWindow, "OnCloseWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
+Gura_ImplementMethod(wx_PreviewFrame, __OnCloseWindow)
 {
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_PreviewFrame, OnCloseWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewFrame)
 {
-	Gura_AssignMethod(wx_PreviewFrame, wxPreviewFrame);
-	Gura_AssignMethod(wx_PreviewFrame, CreateCanvas);
-	Gura_AssignMethod(wx_PreviewFrame, CreateControlBar);
-	Gura_AssignMethod(wx_PreviewFrame, Initialize);
-	Gura_AssignMethod(wx_PreviewFrame, InitializeWithModality);
-	Gura_AssignMethod(wx_PreviewFrame, OnCloseWindow);
+	Gura_AssignMethod(wx_PreviewFrame, __wxPreviewFrame);
+	Gura_AssignMethod(wx_PreviewFrame, __CreateCanvas);
+	Gura_AssignMethod(wx_PreviewFrame, __CreateControlBar);
+	Gura_AssignMethod(wx_PreviewFrame, __Initialize);
+	Gura_AssignMethod(wx_PreviewFrame, __InitializeWithModality);
+	Gura_AssignMethod(wx_PreviewFrame, __OnCloseWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_PreviewFrame)

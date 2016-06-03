@@ -37,12 +37,12 @@ String Object_wx_DDEServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DDEServer, wxDDEServer)
+Gura_DeclareMethodAlias(wx_DDEServer, __wxDDEServer, "wxDDEServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEServer, wxDDEServer)
+Gura_ImplementMethod(wx_DDEServer, __wxDDEServer)
 {
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DDEServer, wxDDEServer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEServer, Create)
+Gura_DeclareMethodAlias(wx_DDEServer, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEServer, Create)
+Gura_ImplementMethod(wx_DDEServer, __Create)
 {
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_DDEServer, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEServer, OnAcceptConnection)
+Gura_DeclareMethodAlias(wx_DDEServer, __OnAcceptConnection, "OnAcceptConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
+Gura_ImplementMethod(wx_DDEServer, __OnAcceptConnection)
 {
 	Object_wx_DDEServer *pThis = Object_wx_DDEServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_DDEServer, OnAcceptConnection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEServer)
 {
-	Gura_AssignMethod(wx_DDEServer, wxDDEServer);
-	Gura_AssignMethod(wx_DDEServer, Create);
-	Gura_AssignMethod(wx_DDEServer, OnAcceptConnection);
+	Gura_AssignMethod(wx_DDEServer, __wxDDEServer);
+	Gura_AssignMethod(wx_DDEServer, __Create);
+	Gura_AssignMethod(wx_DDEServer, __OnAcceptConnection);
 }
 
 Gura_ImplementDescendantCreator(wx_DDEServer)

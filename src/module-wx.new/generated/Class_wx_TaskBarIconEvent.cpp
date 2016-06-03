@@ -37,14 +37,14 @@ String Object_wx_TaskBarIconEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent)
+Gura_DeclareMethodAlias(wx_TaskBarIconEvent, __wxTaskBarIconEvent, "wxTaskBarIconEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tbIcon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent)
+Gura_ImplementMethod(wx_TaskBarIconEvent, __wxTaskBarIconEvent)
 {
 	Object_wx_TaskBarIconEvent *pThis = Object_wx_TaskBarIconEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIconEvent)
 {
-	Gura_AssignMethod(wx_TaskBarIconEvent, wxTaskBarIconEvent);
+	Gura_AssignMethod(wx_TaskBarIconEvent, __wxTaskBarIconEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarIconEvent)

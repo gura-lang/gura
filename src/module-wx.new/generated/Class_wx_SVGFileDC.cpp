@@ -37,7 +37,7 @@ String Object_wx_SVGFileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SVGFileDC, wxSVGFileDC)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __wxSVGFileDC, "wxSVGFileDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_SVGFileDC, wxSVGFileDC)
 	//DeclareArg(env, "dpi", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, wxSVGFileDC)
+Gura_ImplementMethod(wx_SVGFileDC, __wxSVGFileDC)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_SVGFileDC, wxSVGFileDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, EndDoc)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __EndDoc, "EndDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, EndDoc)
+Gura_ImplementMethod(wx_SVGFileDC, __EndDoc)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_SVGFileDC, EndDoc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, EndPage)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __EndPage, "EndPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, EndPage)
+Gura_ImplementMethod(wx_SVGFileDC, __EndPage)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_SVGFileDC, EndPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, Clear)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, Clear)
+Gura_ImplementMethod(wx_SVGFileDC, __Clear)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_SVGFileDC, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetBitmapHandler)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetBitmapHandler, "SetBitmapHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetBitmapHandler)
+Gura_ImplementMethod(wx_SVGFileDC, __SetBitmapHandler)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_SVGFileDC, SetBitmapHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetLogicalFunction)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetLogicalFunction, "SetLogicalFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "function", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetLogicalFunction)
+Gura_ImplementMethod(wx_SVGFileDC, __SetLogicalFunction)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_SVGFileDC, SetLogicalFunction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetClippingRegion)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetClippingRegion, "SetClippingRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -136,7 +136,7 @@ Gura_DeclareMethod(wx_SVGFileDC, SetClippingRegion)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion)
+Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetClippingRegion_1)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetClippingRegion_1, "SetClippingRegion_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_1)
+Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_1)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetClippingRegion_2)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetClippingRegion_2, "SetClippingRegion_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_2)
+Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_2)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetClippingRegion_3)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetClippingRegion_3, "SetClippingRegion_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_3)
+Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_3)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_SVGFileDC, SetClippingRegion_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, DestroyClippingRegion)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __DestroyClippingRegion, "DestroyClippingRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, DestroyClippingRegion)
+Gura_ImplementMethod(wx_SVGFileDC, __DestroyClippingRegion)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,14 +208,14 @@ Gura_ImplementMethod(wx_SVGFileDC, DestroyClippingRegion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, CrossHair)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __CrossHair, "CrossHair")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, CrossHair)
+Gura_ImplementMethod(wx_SVGFileDC, __CrossHair)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_SVGFileDC, CrossHair)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, FloodFill)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __FloodFill, "FloodFill")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -234,7 +234,7 @@ Gura_DeclareMethod(wx_SVGFileDC, FloodFill)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, FloodFill)
+Gura_ImplementMethod(wx_SVGFileDC, __FloodFill)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_SVGFileDC, FloodFill)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, GetClippingBox)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __GetClippingBox, "GetClippingBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -255,7 +255,7 @@ Gura_DeclareMethod(wx_SVGFileDC, GetClippingBox)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, GetClippingBox)
+Gura_ImplementMethod(wx_SVGFileDC, __GetClippingBox)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_SVGFileDC, GetClippingBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, GetPixel)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __GetPixel, "GetPixel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -275,7 +275,7 @@ Gura_DeclareMethod(wx_SVGFileDC, GetPixel)
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, GetPixel)
+Gura_ImplementMethod(wx_SVGFileDC, __GetPixel)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,13 +286,13 @@ Gura_ImplementMethod(wx_SVGFileDC, GetPixel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, SetPalette)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __SetPalette, "SetPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, SetPalette)
+Gura_ImplementMethod(wx_SVGFileDC, __SetPalette)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,13 +301,13 @@ Gura_ImplementMethod(wx_SVGFileDC, SetPalette)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SVGFileDC, StartDoc)
+Gura_DeclareMethodAlias(wx_SVGFileDC, __StartDoc, "StartDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGFileDC, StartDoc)
+Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 {
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,23 +321,23 @@ Gura_ImplementMethod(wx_SVGFileDC, StartDoc)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGFileDC)
 {
-	Gura_AssignMethod(wx_SVGFileDC, wxSVGFileDC);
-	Gura_AssignMethod(wx_SVGFileDC, EndDoc);
-	Gura_AssignMethod(wx_SVGFileDC, EndPage);
-	Gura_AssignMethod(wx_SVGFileDC, Clear);
-	Gura_AssignMethod(wx_SVGFileDC, SetBitmapHandler);
-	Gura_AssignMethod(wx_SVGFileDC, SetLogicalFunction);
-	Gura_AssignMethod(wx_SVGFileDC, SetClippingRegion);
-	Gura_AssignMethod(wx_SVGFileDC, SetClippingRegion_1);
-	Gura_AssignMethod(wx_SVGFileDC, SetClippingRegion_2);
-	Gura_AssignMethod(wx_SVGFileDC, SetClippingRegion_3);
-	Gura_AssignMethod(wx_SVGFileDC, DestroyClippingRegion);
-	Gura_AssignMethod(wx_SVGFileDC, CrossHair);
-	Gura_AssignMethod(wx_SVGFileDC, FloodFill);
-	Gura_AssignMethod(wx_SVGFileDC, GetClippingBox);
-	Gura_AssignMethod(wx_SVGFileDC, GetPixel);
-	Gura_AssignMethod(wx_SVGFileDC, SetPalette);
-	Gura_AssignMethod(wx_SVGFileDC, StartDoc);
+	Gura_AssignMethod(wx_SVGFileDC, __wxSVGFileDC);
+	Gura_AssignMethod(wx_SVGFileDC, __EndDoc);
+	Gura_AssignMethod(wx_SVGFileDC, __EndPage);
+	Gura_AssignMethod(wx_SVGFileDC, __Clear);
+	Gura_AssignMethod(wx_SVGFileDC, __SetBitmapHandler);
+	Gura_AssignMethod(wx_SVGFileDC, __SetLogicalFunction);
+	Gura_AssignMethod(wx_SVGFileDC, __SetClippingRegion);
+	Gura_AssignMethod(wx_SVGFileDC, __SetClippingRegion_1);
+	Gura_AssignMethod(wx_SVGFileDC, __SetClippingRegion_2);
+	Gura_AssignMethod(wx_SVGFileDC, __SetClippingRegion_3);
+	Gura_AssignMethod(wx_SVGFileDC, __DestroyClippingRegion);
+	Gura_AssignMethod(wx_SVGFileDC, __CrossHair);
+	Gura_AssignMethod(wx_SVGFileDC, __FloodFill);
+	Gura_AssignMethod(wx_SVGFileDC, __GetClippingBox);
+	Gura_AssignMethod(wx_SVGFileDC, __GetPixel);
+	Gura_AssignMethod(wx_SVGFileDC, __SetPalette);
+	Gura_AssignMethod(wx_SVGFileDC, __StartDoc);
 }
 
 Gura_ImplementDescendantCreator(wx_SVGFileDC)

@@ -37,7 +37,7 @@ String Object_wx_XmlDoctype::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_XmlDoctype, wxXmlDoctype)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __wxXmlDoctype, "wxXmlDoctype")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rootName", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_XmlDoctype, wxXmlDoctype)
 	//DeclareArg(env, "publicId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, wxXmlDoctype)
+Gura_ImplementMethod(wx_XmlDoctype, __wxXmlDoctype)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_XmlDoctype, wxXmlDoctype)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, Clear)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, Clear)
+Gura_ImplementMethod(wx_XmlDoctype, __Clear)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_XmlDoctype, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, GetRootName)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __GetRootName, "GetRootName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, GetRootName)
+Gura_ImplementMethod(wx_XmlDoctype, __GetRootName)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_XmlDoctype, GetRootName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, GetSystemId)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __GetSystemId, "GetSystemId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, GetSystemId)
+Gura_ImplementMethod(wx_XmlDoctype, __GetSystemId)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_XmlDoctype, GetSystemId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, GetPublicId)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __GetPublicId, "GetPublicId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, GetPublicId)
+Gura_ImplementMethod(wx_XmlDoctype, __GetPublicId)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_XmlDoctype, GetPublicId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, GetFullString)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __GetFullString, "GetFullString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, GetFullString)
+Gura_ImplementMethod(wx_XmlDoctype, __GetFullString)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_XmlDoctype, GetFullString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlDoctype, IsValid)
+Gura_DeclareMethodAlias(wx_XmlDoctype, __IsValid, "IsValid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlDoctype, IsValid)
+Gura_ImplementMethod(wx_XmlDoctype, __IsValid)
 {
 	Object_wx_XmlDoctype *pThis = Object_wx_XmlDoctype::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_XmlDoctype, IsValid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlDoctype)
 {
-	Gura_AssignMethod(wx_XmlDoctype, wxXmlDoctype);
-	Gura_AssignMethod(wx_XmlDoctype, Clear);
-	Gura_AssignMethod(wx_XmlDoctype, GetRootName);
-	Gura_AssignMethod(wx_XmlDoctype, GetSystemId);
-	Gura_AssignMethod(wx_XmlDoctype, GetPublicId);
-	Gura_AssignMethod(wx_XmlDoctype, GetFullString);
-	Gura_AssignMethod(wx_XmlDoctype, IsValid);
+	Gura_AssignMethod(wx_XmlDoctype, __wxXmlDoctype);
+	Gura_AssignMethod(wx_XmlDoctype, __Clear);
+	Gura_AssignMethod(wx_XmlDoctype, __GetRootName);
+	Gura_AssignMethod(wx_XmlDoctype, __GetSystemId);
+	Gura_AssignMethod(wx_XmlDoctype, __GetPublicId);
+	Gura_AssignMethod(wx_XmlDoctype, __GetFullString);
+	Gura_AssignMethod(wx_XmlDoctype, __IsValid);
 }
 
 Gura_ImplementDescendantCreator(wx_XmlDoctype)

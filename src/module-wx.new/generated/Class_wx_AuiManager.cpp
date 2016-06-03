@@ -37,14 +37,14 @@ String Object_wx_AuiManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiManager, wxAuiManager)
+Gura_DeclareMethodAlias(wx_AuiManager, __wxAuiManager, "wxAuiManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, wxAuiManager)
+Gura_ImplementMethod(wx_AuiManager, __wxAuiManager)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_AuiManager, wxAuiManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, AddPane)
+Gura_DeclareMethodAlias(wx_AuiManager, __AddPane, "AddPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pane_info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, AddPane)
+Gura_ImplementMethod(wx_AuiManager, __AddPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_AuiManager, AddPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, AddPane_1)
+Gura_DeclareMethodAlias(wx_AuiManager, __AddPane_1, "AddPane_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_AuiManager, AddPane_1)
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, AddPane_1)
+Gura_ImplementMethod(wx_AuiManager, __AddPane_1)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_AuiManager, AddPane_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, AddPane_2)
+Gura_DeclareMethodAlias(wx_AuiManager, __AddPane_2, "AddPane_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_DeclareMethod(wx_AuiManager, AddPane_2)
 	//DeclareArg(env, "drop_pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, AddPane_2)
+Gura_ImplementMethod(wx_AuiManager, __AddPane_2)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_AuiManager, AddPane_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, DetachPane)
+Gura_DeclareMethodAlias(wx_AuiManager, __DetachPane, "DetachPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, DetachPane)
+Gura_ImplementMethod(wx_AuiManager, __DetachPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -124,12 +124,12 @@ Gura_ImplementMethod(wx_AuiManager, DetachPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetAllPanes)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetAllPanes, "GetAllPanes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetAllPanes)
+Gura_ImplementMethod(wx_AuiManager, __GetAllPanes)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,12 +137,12 @@ Gura_ImplementMethod(wx_AuiManager, GetAllPanes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetArtProvider)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetArtProvider, "GetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetArtProvider)
+Gura_ImplementMethod(wx_AuiManager, __GetArtProvider)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,14 +150,14 @@ Gura_ImplementMethod(wx_AuiManager, GetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetDockSizeConstraint)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetDockSizeConstraint, "GetDockSizeConstraint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "widthpct", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "heightpct", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetDockSizeConstraint)
+Gura_ImplementMethod(wx_AuiManager, __GetDockSizeConstraint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,12 +167,12 @@ Gura_ImplementMethod(wx_AuiManager, GetDockSizeConstraint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetFlags)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetFlags)
+Gura_ImplementMethod(wx_AuiManager, __GetFlags)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,12 +180,12 @@ Gura_ImplementMethod(wx_AuiManager, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetManagedWindow)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetManagedWindow, "GetManagedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetManagedWindow)
+Gura_ImplementMethod(wx_AuiManager, __GetManagedWindow)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_AuiManager, GetManagedWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetManager)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetManager, "GetManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetManager)
+Gura_ImplementMethod(wx_AuiManager, __GetManager)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_AuiManager, GetManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetPane)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetPane, "GetPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetPane)
+Gura_ImplementMethod(wx_AuiManager, __GetPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,13 +223,13 @@ Gura_ImplementMethod(wx_AuiManager, GetPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, GetPane_1)
+Gura_DeclareMethodAlias(wx_AuiManager, __GetPane_1, "GetPane_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, GetPane_1)
+Gura_ImplementMethod(wx_AuiManager, __GetPane_1)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,12 +238,12 @@ Gura_ImplementMethod(wx_AuiManager, GetPane_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, HideHint)
+Gura_DeclareMethodAlias(wx_AuiManager, __HideHint, "HideHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, HideHint)
+Gura_ImplementMethod(wx_AuiManager, __HideHint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_AuiManager, HideHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, InsertPane)
+Gura_DeclareMethodAlias(wx_AuiManager, __InsertPane, "InsertPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -259,7 +259,7 @@ Gura_DeclareMethod(wx_AuiManager, InsertPane)
 	//DeclareArg(env, "insert_level", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, InsertPane)
+Gura_ImplementMethod(wx_AuiManager, __InsertPane)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,14 +270,14 @@ Gura_ImplementMethod(wx_AuiManager, InsertPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, LoadPaneInfo)
+Gura_DeclareMethodAlias(wx_AuiManager, __LoadPaneInfo, "LoadPaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pane_part", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, LoadPaneInfo)
+Gura_ImplementMethod(wx_AuiManager, __LoadPaneInfo)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,14 +287,14 @@ Gura_ImplementMethod(wx_AuiManager, LoadPaneInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, LoadPerspective)
+Gura_DeclareMethodAlias(wx_AuiManager, __LoadPerspective, "LoadPerspective")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "perspective", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "update", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, LoadPerspective)
+Gura_ImplementMethod(wx_AuiManager, __LoadPerspective)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,13 +304,13 @@ Gura_ImplementMethod(wx_AuiManager, LoadPerspective)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SavePaneInfo)
+Gura_DeclareMethodAlias(wx_AuiManager, __SavePaneInfo, "SavePaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SavePaneInfo)
+Gura_ImplementMethod(wx_AuiManager, __SavePaneInfo)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -319,12 +319,12 @@ Gura_ImplementMethod(wx_AuiManager, SavePaneInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SavePerspective)
+Gura_DeclareMethodAlias(wx_AuiManager, __SavePerspective, "SavePerspective")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SavePerspective)
+Gura_ImplementMethod(wx_AuiManager, __SavePerspective)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_AuiManager, SavePerspective)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SetArtProvider)
+Gura_DeclareMethodAlias(wx_AuiManager, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "art_provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SetArtProvider)
+Gura_ImplementMethod(wx_AuiManager, __SetArtProvider)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,14 +347,14 @@ Gura_ImplementMethod(wx_AuiManager, SetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SetDockSizeConstraint)
+Gura_DeclareMethodAlias(wx_AuiManager, __SetDockSizeConstraint, "SetDockSizeConstraint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "widthpct", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "heightpct", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SetDockSizeConstraint)
+Gura_ImplementMethod(wx_AuiManager, __SetDockSizeConstraint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,13 +364,13 @@ Gura_ImplementMethod(wx_AuiManager, SetDockSizeConstraint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SetFlags)
+Gura_DeclareMethodAlias(wx_AuiManager, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SetFlags)
+Gura_ImplementMethod(wx_AuiManager, __SetFlags)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -379,13 +379,13 @@ Gura_ImplementMethod(wx_AuiManager, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, SetManagedWindow)
+Gura_DeclareMethodAlias(wx_AuiManager, __SetManagedWindow, "SetManagedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, SetManagedWindow)
+Gura_ImplementMethod(wx_AuiManager, __SetManagedWindow)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -394,13 +394,13 @@ Gura_ImplementMethod(wx_AuiManager, SetManagedWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, ShowHint)
+Gura_DeclareMethodAlias(wx_AuiManager, __ShowHint, "ShowHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, ShowHint)
+Gura_ImplementMethod(wx_AuiManager, __ShowHint)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -409,12 +409,12 @@ Gura_ImplementMethod(wx_AuiManager, ShowHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, UnInit)
+Gura_DeclareMethodAlias(wx_AuiManager, __UnInit, "UnInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, UnInit)
+Gura_ImplementMethod(wx_AuiManager, __UnInit)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -422,12 +422,12 @@ Gura_ImplementMethod(wx_AuiManager, UnInit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, Update)
+Gura_DeclareMethodAlias(wx_AuiManager, __Update, "Update")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiManager, Update)
+Gura_ImplementMethod(wx_AuiManager, __Update)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -435,14 +435,14 @@ Gura_ImplementMethod(wx_AuiManager, Update)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiManager, ProcessDockResult)
+Gura_DeclareMethodAlias(wx_AuiManager, __ProcessDockResult, "ProcessDockResult")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "new_pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiManager, ProcessDockResult)
+Gura_ImplementMethod(wx_AuiManager, __ProcessDockResult)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,33 +457,33 @@ Gura_ImplementMethod(wx_AuiManager, ProcessDockResult)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiManager)
 {
-	Gura_AssignMethod(wx_AuiManager, wxAuiManager);
-	Gura_AssignMethod(wx_AuiManager, AddPane);
-	Gura_AssignMethod(wx_AuiManager, AddPane_1);
-	Gura_AssignMethod(wx_AuiManager, AddPane_2);
-	Gura_AssignMethod(wx_AuiManager, DetachPane);
-	Gura_AssignMethod(wx_AuiManager, GetAllPanes);
-	Gura_AssignMethod(wx_AuiManager, GetArtProvider);
-	Gura_AssignMethod(wx_AuiManager, GetDockSizeConstraint);
-	Gura_AssignMethod(wx_AuiManager, GetFlags);
-	Gura_AssignMethod(wx_AuiManager, GetManagedWindow);
-	Gura_AssignMethod(wx_AuiManager, GetManager);
-	Gura_AssignMethod(wx_AuiManager, GetPane);
-	Gura_AssignMethod(wx_AuiManager, GetPane_1);
-	Gura_AssignMethod(wx_AuiManager, HideHint);
-	Gura_AssignMethod(wx_AuiManager, InsertPane);
-	Gura_AssignMethod(wx_AuiManager, LoadPaneInfo);
-	Gura_AssignMethod(wx_AuiManager, LoadPerspective);
-	Gura_AssignMethod(wx_AuiManager, SavePaneInfo);
-	Gura_AssignMethod(wx_AuiManager, SavePerspective);
-	Gura_AssignMethod(wx_AuiManager, SetArtProvider);
-	Gura_AssignMethod(wx_AuiManager, SetDockSizeConstraint);
-	Gura_AssignMethod(wx_AuiManager, SetFlags);
-	Gura_AssignMethod(wx_AuiManager, SetManagedWindow);
-	Gura_AssignMethod(wx_AuiManager, ShowHint);
-	Gura_AssignMethod(wx_AuiManager, UnInit);
-	Gura_AssignMethod(wx_AuiManager, Update);
-	Gura_AssignMethod(wx_AuiManager, ProcessDockResult);
+	Gura_AssignMethod(wx_AuiManager, __wxAuiManager);
+	Gura_AssignMethod(wx_AuiManager, __AddPane);
+	Gura_AssignMethod(wx_AuiManager, __AddPane_1);
+	Gura_AssignMethod(wx_AuiManager, __AddPane_2);
+	Gura_AssignMethod(wx_AuiManager, __DetachPane);
+	Gura_AssignMethod(wx_AuiManager, __GetAllPanes);
+	Gura_AssignMethod(wx_AuiManager, __GetArtProvider);
+	Gura_AssignMethod(wx_AuiManager, __GetDockSizeConstraint);
+	Gura_AssignMethod(wx_AuiManager, __GetFlags);
+	Gura_AssignMethod(wx_AuiManager, __GetManagedWindow);
+	Gura_AssignMethod(wx_AuiManager, __GetManager);
+	Gura_AssignMethod(wx_AuiManager, __GetPane);
+	Gura_AssignMethod(wx_AuiManager, __GetPane_1);
+	Gura_AssignMethod(wx_AuiManager, __HideHint);
+	Gura_AssignMethod(wx_AuiManager, __InsertPane);
+	Gura_AssignMethod(wx_AuiManager, __LoadPaneInfo);
+	Gura_AssignMethod(wx_AuiManager, __LoadPerspective);
+	Gura_AssignMethod(wx_AuiManager, __SavePaneInfo);
+	Gura_AssignMethod(wx_AuiManager, __SavePerspective);
+	Gura_AssignMethod(wx_AuiManager, __SetArtProvider);
+	Gura_AssignMethod(wx_AuiManager, __SetDockSizeConstraint);
+	Gura_AssignMethod(wx_AuiManager, __SetFlags);
+	Gura_AssignMethod(wx_AuiManager, __SetManagedWindow);
+	Gura_AssignMethod(wx_AuiManager, __ShowHint);
+	Gura_AssignMethod(wx_AuiManager, __UnInit);
+	Gura_AssignMethod(wx_AuiManager, __Update);
+	Gura_AssignMethod(wx_AuiManager, __ProcessDockResult);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiManager)

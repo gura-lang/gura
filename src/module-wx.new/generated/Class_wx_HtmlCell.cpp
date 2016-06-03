@@ -37,12 +37,12 @@ String Object_wx_HtmlCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlCell, wxHtmlCell)
+Gura_DeclareMethodAlias(wx_HtmlCell, __wxHtmlCell, "wxHtmlCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, wxHtmlCell)
+Gura_ImplementMethod(wx_HtmlCell, __wxHtmlCell)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HtmlCell, wxHtmlCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, AdjustPagebreak)
+Gura_DeclareMethodAlias(wx_HtmlCell, __AdjustPagebreak, "AdjustPagebreak")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pagebreak", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_HtmlCell, AdjustPagebreak)
 	//DeclareArg(env, "pageHeight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, AdjustPagebreak)
+Gura_ImplementMethod(wx_HtmlCell, __AdjustPagebreak)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_HtmlCell, AdjustPagebreak)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, Draw)
+Gura_DeclareMethodAlias(wx_HtmlCell, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_HtmlCell, Draw)
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, Draw)
+Gura_ImplementMethod(wx_HtmlCell, __Draw)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_HtmlCell, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, DrawInvisible)
+Gura_DeclareMethodAlias(wx_HtmlCell, __DrawInvisible, "DrawInvisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_DeclareMethod(wx_HtmlCell, DrawInvisible)
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, DrawInvisible)
+Gura_ImplementMethod(wx_HtmlCell, __DrawInvisible)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,14 +115,14 @@ Gura_ImplementMethod(wx_HtmlCell, DrawInvisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, Find)
+Gura_DeclareMethodAlias(wx_HtmlCell, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "condition", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, Find)
+Gura_ImplementMethod(wx_HtmlCell, __Find)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_HtmlCell, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetDescent)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetDescent, "GetDescent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetDescent)
+Gura_ImplementMethod(wx_HtmlCell, __GetDescent)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetDescent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetFirstChild)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetFirstChild, "GetFirstChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetFirstChild)
+Gura_ImplementMethod(wx_HtmlCell, __GetFirstChild)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetFirstChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetHeight)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetHeight, "GetHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetHeight)
+Gura_ImplementMethod(wx_HtmlCell, __GetHeight)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetId)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetId)
+Gura_ImplementMethod(wx_HtmlCell, __GetId)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,14 +184,14 @@ Gura_ImplementMethod(wx_HtmlCell, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetLink)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetLink, "GetLink")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetLink)
+Gura_ImplementMethod(wx_HtmlCell, __GetLink)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_HtmlCell, GetLink)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetMouseCursor)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetMouseCursor, "GetMouseCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetMouseCursor)
+Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursor)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,14 +216,14 @@ Gura_ImplementMethod(wx_HtmlCell, GetMouseCursor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetMouseCursorAt)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetMouseCursorAt, "GetMouseCursorAt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rePos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetMouseCursorAt)
+Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursorAt)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,12 +233,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetMouseCursorAt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetNext)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetNext)
+Gura_ImplementMethod(wx_HtmlCell, __GetNext)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,12 +246,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetParent)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetParent, "GetParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetParent)
+Gura_ImplementMethod(wx_HtmlCell, __GetParent)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,12 +259,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetPosX)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetPosX, "GetPosX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetPosX)
+Gura_ImplementMethod(wx_HtmlCell, __GetPosX)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -272,12 +272,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetPosX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetPosY)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetPosY, "GetPosY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetPosY)
+Gura_ImplementMethod(wx_HtmlCell, __GetPosY)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,12 +285,12 @@ Gura_ImplementMethod(wx_HtmlCell, GetPosY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, GetWidth)
+Gura_DeclareMethodAlias(wx_HtmlCell, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, GetWidth)
+Gura_ImplementMethod(wx_HtmlCell, __GetWidth)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,13 +298,13 @@ Gura_ImplementMethod(wx_HtmlCell, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, Layout)
+Gura_DeclareMethodAlias(wx_HtmlCell, __Layout, "Layout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, Layout)
+Gura_ImplementMethod(wx_HtmlCell, __Layout)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_HtmlCell, Layout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, ProcessMouseClick)
+Gura_DeclareMethodAlias(wx_HtmlCell, __ProcessMouseClick, "ProcessMouseClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -321,7 +321,7 @@ Gura_DeclareMethod(wx_HtmlCell, ProcessMouseClick)
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, ProcessMouseClick)
+Gura_ImplementMethod(wx_HtmlCell, __ProcessMouseClick)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_HtmlCell, ProcessMouseClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, SetId)
+Gura_DeclareMethodAlias(wx_HtmlCell, __SetId, "SetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, SetId)
+Gura_ImplementMethod(wx_HtmlCell, __SetId)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,13 +347,13 @@ Gura_ImplementMethod(wx_HtmlCell, SetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, SetLink)
+Gura_DeclareMethodAlias(wx_HtmlCell, __SetLink, "SetLink")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, SetLink)
+Gura_ImplementMethod(wx_HtmlCell, __SetLink)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,13 +362,13 @@ Gura_ImplementMethod(wx_HtmlCell, SetLink)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, SetNext)
+Gura_DeclareMethodAlias(wx_HtmlCell, __SetNext, "SetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, SetNext)
+Gura_ImplementMethod(wx_HtmlCell, __SetNext)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -377,13 +377,13 @@ Gura_ImplementMethod(wx_HtmlCell, SetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, SetParent)
+Gura_DeclareMethodAlias(wx_HtmlCell, __SetParent, "SetParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, SetParent)
+Gura_ImplementMethod(wx_HtmlCell, __SetParent)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -392,14 +392,14 @@ Gura_ImplementMethod(wx_HtmlCell, SetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCell, SetPos)
+Gura_DeclareMethodAlias(wx_HtmlCell, __SetPos, "SetPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCell, SetPos)
+Gura_ImplementMethod(wx_HtmlCell, __SetPos)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -414,30 +414,30 @@ Gura_ImplementMethod(wx_HtmlCell, SetPos)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCell)
 {
-	Gura_AssignMethod(wx_HtmlCell, wxHtmlCell);
-	Gura_AssignMethod(wx_HtmlCell, AdjustPagebreak);
-	Gura_AssignMethod(wx_HtmlCell, Draw);
-	Gura_AssignMethod(wx_HtmlCell, DrawInvisible);
-	Gura_AssignMethod(wx_HtmlCell, Find);
-	Gura_AssignMethod(wx_HtmlCell, GetDescent);
-	Gura_AssignMethod(wx_HtmlCell, GetFirstChild);
-	Gura_AssignMethod(wx_HtmlCell, GetHeight);
-	Gura_AssignMethod(wx_HtmlCell, GetId);
-	Gura_AssignMethod(wx_HtmlCell, GetLink);
-	Gura_AssignMethod(wx_HtmlCell, GetMouseCursor);
-	Gura_AssignMethod(wx_HtmlCell, GetMouseCursorAt);
-	Gura_AssignMethod(wx_HtmlCell, GetNext);
-	Gura_AssignMethod(wx_HtmlCell, GetParent);
-	Gura_AssignMethod(wx_HtmlCell, GetPosX);
-	Gura_AssignMethod(wx_HtmlCell, GetPosY);
-	Gura_AssignMethod(wx_HtmlCell, GetWidth);
-	Gura_AssignMethod(wx_HtmlCell, Layout);
-	Gura_AssignMethod(wx_HtmlCell, ProcessMouseClick);
-	Gura_AssignMethod(wx_HtmlCell, SetId);
-	Gura_AssignMethod(wx_HtmlCell, SetLink);
-	Gura_AssignMethod(wx_HtmlCell, SetNext);
-	Gura_AssignMethod(wx_HtmlCell, SetParent);
-	Gura_AssignMethod(wx_HtmlCell, SetPos);
+	Gura_AssignMethod(wx_HtmlCell, __wxHtmlCell);
+	Gura_AssignMethod(wx_HtmlCell, __AdjustPagebreak);
+	Gura_AssignMethod(wx_HtmlCell, __Draw);
+	Gura_AssignMethod(wx_HtmlCell, __DrawInvisible);
+	Gura_AssignMethod(wx_HtmlCell, __Find);
+	Gura_AssignMethod(wx_HtmlCell, __GetDescent);
+	Gura_AssignMethod(wx_HtmlCell, __GetFirstChild);
+	Gura_AssignMethod(wx_HtmlCell, __GetHeight);
+	Gura_AssignMethod(wx_HtmlCell, __GetId);
+	Gura_AssignMethod(wx_HtmlCell, __GetLink);
+	Gura_AssignMethod(wx_HtmlCell, __GetMouseCursor);
+	Gura_AssignMethod(wx_HtmlCell, __GetMouseCursorAt);
+	Gura_AssignMethod(wx_HtmlCell, __GetNext);
+	Gura_AssignMethod(wx_HtmlCell, __GetParent);
+	Gura_AssignMethod(wx_HtmlCell, __GetPosX);
+	Gura_AssignMethod(wx_HtmlCell, __GetPosY);
+	Gura_AssignMethod(wx_HtmlCell, __GetWidth);
+	Gura_AssignMethod(wx_HtmlCell, __Layout);
+	Gura_AssignMethod(wx_HtmlCell, __ProcessMouseClick);
+	Gura_AssignMethod(wx_HtmlCell, __SetId);
+	Gura_AssignMethod(wx_HtmlCell, __SetLink);
+	Gura_AssignMethod(wx_HtmlCell, __SetNext);
+	Gura_AssignMethod(wx_HtmlCell, __SetParent);
+	Gura_AssignMethod(wx_HtmlCell, __SetPos);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlCell)

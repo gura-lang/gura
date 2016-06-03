@@ -37,13 +37,13 @@ String Object_wx_WebViewArchiveHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler)
+Gura_DeclareMethodAlias(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler, "wxWebViewArchiveHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler)
+Gura_ImplementMethod(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler)
 {
 	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewArchiveHandler, GetFile)
+Gura_DeclareMethodAlias(wx_WebViewArchiveHandler, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewArchiveHandler, GetFile)
+Gura_ImplementMethod(wx_WebViewArchiveHandler, __GetFile)
 {
 	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_WebViewArchiveHandler, GetFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewArchiveHandler)
 {
-	Gura_AssignMethod(wx_WebViewArchiveHandler, wxWebViewArchiveHandler);
-	Gura_AssignMethod(wx_WebViewArchiveHandler, GetFile);
+	Gura_AssignMethod(wx_WebViewArchiveHandler, __wxWebViewArchiveHandler);
+	Gura_AssignMethod(wx_WebViewArchiveHandler, __GetFile);
 }
 
 Gura_ImplementDescendantCreator(wx_WebViewArchiveHandler)

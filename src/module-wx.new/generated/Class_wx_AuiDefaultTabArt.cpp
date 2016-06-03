@@ -37,12 +37,12 @@ String Object_wx_AuiDefaultTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __wxAuiDefaultTabArt, "wxAuiDefaultTabArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __wxAuiDefaultTabArt)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, Clone)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, Clone)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __Clone)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetFlags)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetFlags)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetFlags)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,14 +78,14 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetSizingInfo)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetSizingInfo, "SetSizingInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tabCtrlSize", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tabCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSizingInfo)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetSizingInfo)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSizingInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetNormalFont)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetNormalFont, "SetNormalFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetNormalFont)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetNormalFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetNormalFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetSelectedFont)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetSelectedFont, "SetSelectedFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSelectedFont)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetSelectedFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetSelectedFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetMeasuringFont)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetMeasuringFont, "SetMeasuringFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetMeasuringFont)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetMeasuringFont)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetMeasuringFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetColour)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetColour)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetColour)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, SetActiveColour)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __SetActiveColour, "SetActiveColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, SetActiveColour)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __SetActiveColour)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, SetActiveColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawBackground)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __DrawBackground, "DrawBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -178,7 +178,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawBackground)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawBackground)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawBackground)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawTab)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __DrawTab, "DrawTab")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -202,7 +202,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawTab)
 	//DeclareArg(env, "xExtent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawTab)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawTab)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawTab)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawButton)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __DrawButton, "DrawButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -230,7 +230,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, DrawButton)
 	//DeclareArg(env, "outRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawButton)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __DrawButton)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -245,12 +245,12 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, DrawButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, GetIndentSize)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __GetIndentSize, "GetIndentSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, GetIndentSize)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetIndentSize)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, GetIndentSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, GetTabSize)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __GetTabSize, "GetTabSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -270,7 +270,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, GetTabSize)
 	//DeclareArg(env, "xExtent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, GetTabSize)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetTabSize)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, GetTabSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, ShowDropDown)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __ShowDropDown, "ShowDropDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
@@ -293,7 +293,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, ShowDropDown)
 	//DeclareArg(env, "activeIdx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, ShowDropDown)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __ShowDropDown)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, ShowDropDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
+Gura_DeclareMethodAlias(wx_AuiDefaultTabArt, __GetBestTabCtrlSize, "GetBestTabCtrlSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
@@ -312,7 +312,7 @@ Gura_DeclareMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
 	//DeclareArg(env, "requiredBmpSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
+Gura_ImplementMethod(wx_AuiDefaultTabArt, __GetBestTabCtrlSize)
 {
 	Object_wx_AuiDefaultTabArt *pThis = Object_wx_AuiDefaultTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -328,22 +328,22 @@ Gura_ImplementMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiDefaultTabArt)
 {
-	Gura_AssignMethod(wx_AuiDefaultTabArt, wxAuiDefaultTabArt);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, Clone);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetFlags);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetSizingInfo);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetNormalFont);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetSelectedFont);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetMeasuringFont);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetColour);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, SetActiveColour);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, DrawBackground);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, DrawTab);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, DrawButton);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, GetIndentSize);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, GetTabSize);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, ShowDropDown);
-	Gura_AssignMethod(wx_AuiDefaultTabArt, GetBestTabCtrlSize);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __wxAuiDefaultTabArt);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __Clone);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetFlags);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetSizingInfo);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetNormalFont);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetSelectedFont);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetMeasuringFont);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetColour);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __SetActiveColour);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __DrawBackground);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __DrawTab);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __DrawButton);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __GetIndentSize);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __GetTabSize);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __ShowDropDown);
+	Gura_AssignMethod(wx_AuiDefaultTabArt, __GetBestTabCtrlSize);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiDefaultTabArt)

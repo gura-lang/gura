@@ -37,7 +37,7 @@ String Object_wx_FileCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileCtrlEvent, wxFileCtrlEvent)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __wxFileCtrlEvent, "wxFileCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_FileCtrlEvent, wxFileCtrlEvent)
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, wxFileCtrlEvent)
+Gura_ImplementMethod(wx_FileCtrlEvent, __wxFileCtrlEvent)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_FileCtrlEvent, wxFileCtrlEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, GetDirectory)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetDirectory, "GetDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, GetDirectory)
+Gura_ImplementMethod(wx_FileCtrlEvent, __GetDirectory)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_FileCtrlEvent, GetDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, GetFile)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, GetFile)
+Gura_ImplementMethod(wx_FileCtrlEvent, __GetFile)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_FileCtrlEvent, GetFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, GetFiles)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFiles, "GetFiles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, GetFiles)
+Gura_ImplementMethod(wx_FileCtrlEvent, __GetFiles)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_FileCtrlEvent, GetFiles)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, GetFilterIndex)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFilterIndex, "GetFilterIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, GetFilterIndex)
+Gura_ImplementMethod(wx_FileCtrlEvent, __GetFilterIndex)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_FileCtrlEvent, GetFilterIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, SetFiles)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __SetFiles, "SetFiles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "files", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, SetFiles)
+Gura_ImplementMethod(wx_FileCtrlEvent, __SetFiles)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_FileCtrlEvent, SetFiles)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, SetDirectory)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __SetDirectory, "SetDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "directory", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, SetDirectory)
+Gura_ImplementMethod(wx_FileCtrlEvent, __SetDirectory)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_FileCtrlEvent, SetDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileCtrlEvent, SetFilterIndex)
+Gura_DeclareMethodAlias(wx_FileCtrlEvent, __SetFilterIndex, "SetFilterIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileCtrlEvent, SetFilterIndex)
+Gura_ImplementMethod(wx_FileCtrlEvent, __SetFilterIndex)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,14 +158,14 @@ Gura_ImplementMethod(wx_FileCtrlEvent, SetFilterIndex)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileCtrlEvent)
 {
-	Gura_AssignMethod(wx_FileCtrlEvent, wxFileCtrlEvent);
-	Gura_AssignMethod(wx_FileCtrlEvent, GetDirectory);
-	Gura_AssignMethod(wx_FileCtrlEvent, GetFile);
-	Gura_AssignMethod(wx_FileCtrlEvent, GetFiles);
-	Gura_AssignMethod(wx_FileCtrlEvent, GetFilterIndex);
-	Gura_AssignMethod(wx_FileCtrlEvent, SetFiles);
-	Gura_AssignMethod(wx_FileCtrlEvent, SetDirectory);
-	Gura_AssignMethod(wx_FileCtrlEvent, SetFilterIndex);
+	Gura_AssignMethod(wx_FileCtrlEvent, __wxFileCtrlEvent);
+	Gura_AssignMethod(wx_FileCtrlEvent, __GetDirectory);
+	Gura_AssignMethod(wx_FileCtrlEvent, __GetFile);
+	Gura_AssignMethod(wx_FileCtrlEvent, __GetFiles);
+	Gura_AssignMethod(wx_FileCtrlEvent, __GetFilterIndex);
+	Gura_AssignMethod(wx_FileCtrlEvent, __SetFiles);
+	Gura_AssignMethod(wx_FileCtrlEvent, __SetDirectory);
+	Gura_AssignMethod(wx_FileCtrlEvent, __SetFilterIndex);
 }
 
 Gura_ImplementDescendantCreator(wx_FileCtrlEvent)

@@ -37,7 +37,7 @@ String Object_wx_GBSizerItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem, "wxGBSizerItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem)
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem)
+Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_1)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_1, "wxGBSizerItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_1)
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_1)
+Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem_1)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_2)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __wxGBSizerItem_2, "wxGBSizerItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_GBSizerItem, wxGBSizerItem_2)
 	//DeclareArg(env, "userData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_2)
+Gura_ImplementMethod(wx_GBSizerItem, __wxGBSizerItem_2)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,14 +114,14 @@ Gura_ImplementMethod(wx_GBSizerItem, wxGBSizerItem_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetEndPos)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetEndPos, "GetEndPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetEndPos)
+Gura_ImplementMethod(wx_GBSizerItem, __GetEndPos)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,12 +131,12 @@ Gura_ImplementMethod(wx_GBSizerItem, GetEndPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetPos)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetPos, "GetPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetPos)
+Gura_ImplementMethod(wx_GBSizerItem, __GetPos)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,14 +144,14 @@ Gura_ImplementMethod(wx_GBSizerItem, GetPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetPos_1)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetPos_1, "GetPos_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetPos_1)
+Gura_ImplementMethod(wx_GBSizerItem, __GetPos_1)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,12 +161,12 @@ Gura_ImplementMethod(wx_GBSizerItem, GetPos_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetSpan)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetSpan, "GetSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetSpan)
+Gura_ImplementMethod(wx_GBSizerItem, __GetSpan)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,14 +174,14 @@ Gura_ImplementMethod(wx_GBSizerItem, GetSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetSpan_1)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetSpan_1, "GetSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetSpan_1)
+Gura_ImplementMethod(wx_GBSizerItem, __GetSpan_1)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_GBSizerItem, GetSpan_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, Intersects)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __Intersects, "Intersects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, Intersects)
+Gura_ImplementMethod(wx_GBSizerItem, __Intersects)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,14 +206,14 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, Intersects_1)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __Intersects_1, "Intersects_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, Intersects_1)
+Gura_ImplementMethod(wx_GBSizerItem, __Intersects_1)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,13 +223,13 @@ Gura_ImplementMethod(wx_GBSizerItem, Intersects_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, SetPos)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __SetPos, "SetPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, SetPos)
+Gura_ImplementMethod(wx_GBSizerItem, __SetPos)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,13 +238,13 @@ Gura_ImplementMethod(wx_GBSizerItem, SetPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, SetSpan)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __SetSpan, "SetSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, SetSpan)
+Gura_ImplementMethod(wx_GBSizerItem, __SetSpan)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,12 +253,12 @@ Gura_ImplementMethod(wx_GBSizerItem, SetSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, GetGBSizer)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __GetGBSizer, "GetGBSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, GetGBSizer)
+Gura_ImplementMethod(wx_GBSizerItem, __GetGBSizer)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,13 +266,13 @@ Gura_ImplementMethod(wx_GBSizerItem, GetGBSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBSizerItem, SetGBSizer)
+Gura_DeclareMethodAlias(wx_GBSizerItem, __SetGBSizer, "SetGBSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBSizerItem, SetGBSizer)
+Gura_ImplementMethod(wx_GBSizerItem, __SetGBSizer)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,20 +286,20 @@ Gura_ImplementMethod(wx_GBSizerItem, SetGBSizer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBSizerItem)
 {
-	Gura_AssignMethod(wx_GBSizerItem, wxGBSizerItem);
-	Gura_AssignMethod(wx_GBSizerItem, wxGBSizerItem_1);
-	Gura_AssignMethod(wx_GBSizerItem, wxGBSizerItem_2);
-	Gura_AssignMethod(wx_GBSizerItem, GetEndPos);
-	Gura_AssignMethod(wx_GBSizerItem, GetPos);
-	Gura_AssignMethod(wx_GBSizerItem, GetPos_1);
-	Gura_AssignMethod(wx_GBSizerItem, GetSpan);
-	Gura_AssignMethod(wx_GBSizerItem, GetSpan_1);
-	Gura_AssignMethod(wx_GBSizerItem, Intersects);
-	Gura_AssignMethod(wx_GBSizerItem, Intersects_1);
-	Gura_AssignMethod(wx_GBSizerItem, SetPos);
-	Gura_AssignMethod(wx_GBSizerItem, SetSpan);
-	Gura_AssignMethod(wx_GBSizerItem, GetGBSizer);
-	Gura_AssignMethod(wx_GBSizerItem, SetGBSizer);
+	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem);
+	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem_1);
+	Gura_AssignMethod(wx_GBSizerItem, __wxGBSizerItem_2);
+	Gura_AssignMethod(wx_GBSizerItem, __GetEndPos);
+	Gura_AssignMethod(wx_GBSizerItem, __GetPos);
+	Gura_AssignMethod(wx_GBSizerItem, __GetPos_1);
+	Gura_AssignMethod(wx_GBSizerItem, __GetSpan);
+	Gura_AssignMethod(wx_GBSizerItem, __GetSpan_1);
+	Gura_AssignMethod(wx_GBSizerItem, __Intersects);
+	Gura_AssignMethod(wx_GBSizerItem, __Intersects_1);
+	Gura_AssignMethod(wx_GBSizerItem, __SetPos);
+	Gura_AssignMethod(wx_GBSizerItem, __SetSpan);
+	Gura_AssignMethod(wx_GBSizerItem, __GetGBSizer);
+	Gura_AssignMethod(wx_GBSizerItem, __SetGBSizer);
 }
 
 Gura_ImplementDescendantCreator(wx_GBSizerItem)

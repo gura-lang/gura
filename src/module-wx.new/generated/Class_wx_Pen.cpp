@@ -37,12 +37,12 @@ String Object_wx_Pen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Pen, wxPen)
+Gura_DeclareMethodAlias(wx_Pen, __wxPen, "wxPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, wxPen)
+Gura_ImplementMethod(wx_Pen, __wxPen)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Pen, wxPen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, wxPen_1)
+Gura_DeclareMethodAlias(wx_Pen, __wxPen_1, "wxPen_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_Pen, wxPen_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, wxPen_1)
+Gura_ImplementMethod(wx_Pen, __wxPen_1)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,14 +69,14 @@ Gura_ImplementMethod(wx_Pen, wxPen_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, wxPen_2)
+Gura_DeclareMethodAlias(wx_Pen, __wxPen_2, "wxPen_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stipple", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, wxPen_2)
+Gura_ImplementMethod(wx_Pen, __wxPen_2)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_Pen, wxPen_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, wxPen_3)
+Gura_DeclareMethodAlias(wx_Pen, __wxPen_3, "wxPen_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, wxPen_3)
+Gura_ImplementMethod(wx_Pen, __wxPen_3)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_Pen, wxPen_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetCap)
+Gura_DeclareMethodAlias(wx_Pen, __GetCap, "GetCap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetCap)
+Gura_ImplementMethod(wx_Pen, __GetCap)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_Pen, GetCap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetColour)
+Gura_DeclareMethodAlias(wx_Pen, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetColour)
+Gura_ImplementMethod(wx_Pen, __GetColour)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_Pen, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetDashes)
+Gura_DeclareMethodAlias(wx_Pen, __GetDashes, "GetDashes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dashes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, GetDashes)
+Gura_ImplementMethod(wx_Pen, __GetDashes)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_Pen, GetDashes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetJoin)
+Gura_DeclareMethodAlias(wx_Pen, __GetJoin, "GetJoin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetJoin)
+Gura_ImplementMethod(wx_Pen, __GetJoin)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_Pen, GetJoin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetStipple)
+Gura_DeclareMethodAlias(wx_Pen, __GetStipple, "GetStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetStipple)
+Gura_ImplementMethod(wx_Pen, __GetStipple)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_Pen, GetStipple)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetStyle)
+Gura_DeclareMethodAlias(wx_Pen, __GetStyle, "GetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetStyle)
+Gura_ImplementMethod(wx_Pen, __GetStyle)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_Pen, GetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, GetWidth)
+Gura_DeclareMethodAlias(wx_Pen, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, GetWidth)
+Gura_ImplementMethod(wx_Pen, __GetWidth)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_Pen, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, IsOk)
+Gura_DeclareMethodAlias(wx_Pen, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, IsOk)
+Gura_ImplementMethod(wx_Pen, __IsOk)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,12 +207,12 @@ Gura_ImplementMethod(wx_Pen, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, IsNonTransparent)
+Gura_DeclareMethodAlias(wx_Pen, __IsNonTransparent, "IsNonTransparent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, IsNonTransparent)
+Gura_ImplementMethod(wx_Pen, __IsNonTransparent)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,12 +220,12 @@ Gura_ImplementMethod(wx_Pen, IsNonTransparent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, IsTransparent)
+Gura_DeclareMethodAlias(wx_Pen, __IsTransparent, "IsTransparent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Pen, IsTransparent)
+Gura_ImplementMethod(wx_Pen, __IsTransparent)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +233,13 @@ Gura_ImplementMethod(wx_Pen, IsTransparent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetCap)
+Gura_DeclareMethodAlias(wx_Pen, __SetCap, "SetCap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "capStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetCap)
+Gura_ImplementMethod(wx_Pen, __SetCap)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_Pen, SetCap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetColour)
+Gura_DeclareMethodAlias(wx_Pen, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetColour)
+Gura_ImplementMethod(wx_Pen, __SetColour)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_Pen, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetColour_1)
+Gura_DeclareMethodAlias(wx_Pen, __SetColour_1, "SetColour_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -271,7 +271,7 @@ Gura_DeclareMethod(wx_Pen, SetColour_1)
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetColour_1)
+Gura_ImplementMethod(wx_Pen, __SetColour_1)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,14 +282,14 @@ Gura_ImplementMethod(wx_Pen, SetColour_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetDashes)
+Gura_DeclareMethodAlias(wx_Pen, __SetDashes, "SetDashes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dash", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetDashes)
+Gura_ImplementMethod(wx_Pen, __SetDashes)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,13 +299,13 @@ Gura_ImplementMethod(wx_Pen, SetDashes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetJoin)
+Gura_DeclareMethodAlias(wx_Pen, __SetJoin, "SetJoin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "join_style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetJoin)
+Gura_ImplementMethod(wx_Pen, __SetJoin)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,13 +314,13 @@ Gura_ImplementMethod(wx_Pen, SetJoin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetStipple)
+Gura_DeclareMethodAlias(wx_Pen, __SetStipple, "SetStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stipple", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetStipple)
+Gura_ImplementMethod(wx_Pen, __SetStipple)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -329,13 +329,13 @@ Gura_ImplementMethod(wx_Pen, SetStipple)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetStyle)
+Gura_DeclareMethodAlias(wx_Pen, __SetStyle, "SetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetStyle)
+Gura_ImplementMethod(wx_Pen, __SetStyle)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -344,13 +344,13 @@ Gura_ImplementMethod(wx_Pen, SetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Pen, SetWidth)
+Gura_DeclareMethodAlias(wx_Pen, __SetWidth, "SetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Pen, SetWidth)
+Gura_ImplementMethod(wx_Pen, __SetWidth)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,28 +364,28 @@ Gura_ImplementMethod(wx_Pen, SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Pen)
 {
-	Gura_AssignMethod(wx_Pen, wxPen);
-	Gura_AssignMethod(wx_Pen, wxPen_1);
-	Gura_AssignMethod(wx_Pen, wxPen_2);
-	Gura_AssignMethod(wx_Pen, wxPen_3);
-	Gura_AssignMethod(wx_Pen, GetCap);
-	Gura_AssignMethod(wx_Pen, GetColour);
-	Gura_AssignMethod(wx_Pen, GetDashes);
-	Gura_AssignMethod(wx_Pen, GetJoin);
-	Gura_AssignMethod(wx_Pen, GetStipple);
-	Gura_AssignMethod(wx_Pen, GetStyle);
-	Gura_AssignMethod(wx_Pen, GetWidth);
-	Gura_AssignMethod(wx_Pen, IsOk);
-	Gura_AssignMethod(wx_Pen, IsNonTransparent);
-	Gura_AssignMethod(wx_Pen, IsTransparent);
-	Gura_AssignMethod(wx_Pen, SetCap);
-	Gura_AssignMethod(wx_Pen, SetColour);
-	Gura_AssignMethod(wx_Pen, SetColour_1);
-	Gura_AssignMethod(wx_Pen, SetDashes);
-	Gura_AssignMethod(wx_Pen, SetJoin);
-	Gura_AssignMethod(wx_Pen, SetStipple);
-	Gura_AssignMethod(wx_Pen, SetStyle);
-	Gura_AssignMethod(wx_Pen, SetWidth);
+	Gura_AssignMethod(wx_Pen, __wxPen);
+	Gura_AssignMethod(wx_Pen, __wxPen_1);
+	Gura_AssignMethod(wx_Pen, __wxPen_2);
+	Gura_AssignMethod(wx_Pen, __wxPen_3);
+	Gura_AssignMethod(wx_Pen, __GetCap);
+	Gura_AssignMethod(wx_Pen, __GetColour);
+	Gura_AssignMethod(wx_Pen, __GetDashes);
+	Gura_AssignMethod(wx_Pen, __GetJoin);
+	Gura_AssignMethod(wx_Pen, __GetStipple);
+	Gura_AssignMethod(wx_Pen, __GetStyle);
+	Gura_AssignMethod(wx_Pen, __GetWidth);
+	Gura_AssignMethod(wx_Pen, __IsOk);
+	Gura_AssignMethod(wx_Pen, __IsNonTransparent);
+	Gura_AssignMethod(wx_Pen, __IsTransparent);
+	Gura_AssignMethod(wx_Pen, __SetCap);
+	Gura_AssignMethod(wx_Pen, __SetColour);
+	Gura_AssignMethod(wx_Pen, __SetColour_1);
+	Gura_AssignMethod(wx_Pen, __SetDashes);
+	Gura_AssignMethod(wx_Pen, __SetJoin);
+	Gura_AssignMethod(wx_Pen, __SetStipple);
+	Gura_AssignMethod(wx_Pen, __SetStyle);
+	Gura_AssignMethod(wx_Pen, __SetWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_Pen)

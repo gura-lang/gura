@@ -37,12 +37,12 @@ String Object_wx_Position::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Position, wxPosition)
+Gura_DeclareMethodAlias(wx_Position, __wxPosition, "wxPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Position, wxPosition)
+Gura_ImplementMethod(wx_Position, __wxPosition)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_Position, wxPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, wxPosition_1)
+Gura_DeclareMethodAlias(wx_Position, __wxPosition_1, "wxPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Position, wxPosition_1)
+Gura_ImplementMethod(wx_Position, __wxPosition_1)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Position, wxPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, GetCol)
+Gura_DeclareMethodAlias(wx_Position, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Position, GetCol)
+Gura_ImplementMethod(wx_Position, __GetCol)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Position, GetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, GetColumn)
+Gura_DeclareMethodAlias(wx_Position, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Position, GetColumn)
+Gura_ImplementMethod(wx_Position, __GetColumn)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Position, GetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, GetRow)
+Gura_DeclareMethodAlias(wx_Position, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Position, GetRow)
+Gura_ImplementMethod(wx_Position, __GetRow)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_Position, GetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, SetCol)
+Gura_DeclareMethodAlias(wx_Position, __SetCol, "SetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Position, SetCol)
+Gura_ImplementMethod(wx_Position, __SetCol)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_Position, SetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, SetColumn)
+Gura_DeclareMethodAlias(wx_Position, __SetColumn, "SetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Position, SetColumn)
+Gura_ImplementMethod(wx_Position, __SetColumn)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,13 +136,13 @@ Gura_ImplementMethod(wx_Position, SetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Position, SetRow)
+Gura_DeclareMethodAlias(wx_Position, __SetRow, "SetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Position, SetRow)
+Gura_ImplementMethod(wx_Position, __SetRow)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,14 +156,14 @@ Gura_ImplementMethod(wx_Position, SetRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Position)
 {
-	Gura_AssignMethod(wx_Position, wxPosition);
-	Gura_AssignMethod(wx_Position, wxPosition_1);
-	Gura_AssignMethod(wx_Position, GetCol);
-	Gura_AssignMethod(wx_Position, GetColumn);
-	Gura_AssignMethod(wx_Position, GetRow);
-	Gura_AssignMethod(wx_Position, SetCol);
-	Gura_AssignMethod(wx_Position, SetColumn);
-	Gura_AssignMethod(wx_Position, SetRow);
+	Gura_AssignMethod(wx_Position, __wxPosition);
+	Gura_AssignMethod(wx_Position, __wxPosition_1);
+	Gura_AssignMethod(wx_Position, __GetCol);
+	Gura_AssignMethod(wx_Position, __GetColumn);
+	Gura_AssignMethod(wx_Position, __GetRow);
+	Gura_AssignMethod(wx_Position, __SetCol);
+	Gura_AssignMethod(wx_Position, __SetColumn);
+	Gura_AssignMethod(wx_Position, __SetRow);
 }
 
 Gura_ImplementDescendantCreator(wx_Position)

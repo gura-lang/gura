@@ -37,12 +37,12 @@ String Object_wx_CmdLineParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser, "wxCmdLineParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_1)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_1, "wxCmdLineParser_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_1)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_1)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_2)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_2, "wxCmdLineParser_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_2)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_2)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_3)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_3, "wxCmdLineParser_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_3)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_3)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_4)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_4, "wxCmdLineParser_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_4)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_4)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_5)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_5, "wxCmdLineParser_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_5)
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_5)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_5)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_5)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, wxCmdLineParser_6)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __wxCmdLineParser_6, "wxCmdLineParser_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_6)
+Gura_ImplementMethod(wx_CmdLineParser, __wxCmdLineParser_6)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_CmdLineParser, wxCmdLineParser_6)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddLongOption)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddLongOption, "AddLongOption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lng", VTYPE_number, OCCUR_Once);
@@ -159,7 +159,7 @@ Gura_DeclareMethod(wx_CmdLineParser, AddLongOption)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddLongOption)
+Gura_ImplementMethod(wx_CmdLineParser, __AddLongOption)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddLongOption)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddLongSwitch)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddLongSwitch, "AddLongSwitch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lng", VTYPE_number, OCCUR_Once);
@@ -179,7 +179,7 @@ Gura_DeclareMethod(wx_CmdLineParser, AddLongSwitch)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddLongSwitch)
+Gura_ImplementMethod(wx_CmdLineParser, __AddLongSwitch)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddLongSwitch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddOption)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddOption, "AddOption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -200,7 +200,7 @@ Gura_DeclareMethod(wx_CmdLineParser, AddOption)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddOption)
+Gura_ImplementMethod(wx_CmdLineParser, __AddOption)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddOption)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddParam)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddParam, "AddParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -221,7 +221,7 @@ Gura_DeclareMethod(wx_CmdLineParser, AddParam)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddParam)
+Gura_ImplementMethod(wx_CmdLineParser, __AddParam)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_CmdLineParser, AddParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddSwitch)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddSwitch, "AddSwitch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -241,7 +241,7 @@ Gura_DeclareMethod(wx_CmdLineParser, AddSwitch)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddSwitch)
+Gura_ImplementMethod(wx_CmdLineParser, __AddSwitch)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,13 +253,13 @@ Gura_ImplementMethod(wx_CmdLineParser, AddSwitch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AddUsageText)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AddUsageText, "AddUsageText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AddUsageText)
+Gura_ImplementMethod(wx_CmdLineParser, __AddUsageText)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,12 +268,12 @@ Gura_ImplementMethod(wx_CmdLineParser, AddUsageText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, AreLongOptionsEnabled)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __AreLongOptionsEnabled, "AreLongOptionsEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, AreLongOptionsEnabled)
+Gura_ImplementMethod(wx_CmdLineParser, __AreLongOptionsEnabled)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -281,14 +281,14 @@ Gura_ImplementMethod(wx_CmdLineParser, AreLongOptionsEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, ConvertStringToArgs)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __ConvertStringToArgs, "ConvertStringToArgs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, ConvertStringToArgs)
+Gura_ImplementMethod(wx_CmdLineParser, __ConvertStringToArgs)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,12 +298,12 @@ Gura_ImplementMethod(wx_CmdLineParser, ConvertStringToArgs)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, DisableLongOptions)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __DisableLongOptions, "DisableLongOptions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, DisableLongOptions)
+Gura_ImplementMethod(wx_CmdLineParser, __DisableLongOptions)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,13 +311,13 @@ Gura_ImplementMethod(wx_CmdLineParser, DisableLongOptions)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, EnableLongOptions)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __EnableLongOptions, "EnableLongOptions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, EnableLongOptions)
+Gura_ImplementMethod(wx_CmdLineParser, __EnableLongOptions)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -326,13 +326,13 @@ Gura_ImplementMethod(wx_CmdLineParser, EnableLongOptions)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Found)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Found, "Found")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Found)
+Gura_ImplementMethod(wx_CmdLineParser, __Found)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -341,13 +341,13 @@ Gura_ImplementMethod(wx_CmdLineParser, Found)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, FoundSwitch)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __FoundSwitch, "FoundSwitch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, FoundSwitch)
+Gura_ImplementMethod(wx_CmdLineParser, __FoundSwitch)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -356,14 +356,14 @@ Gura_ImplementMethod(wx_CmdLineParser, FoundSwitch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Found_1)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_1, "Found_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Found_1)
+Gura_ImplementMethod(wx_CmdLineParser, __Found_1)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,14 +373,14 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Found_2)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_2, "Found_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Found_2)
+Gura_ImplementMethod(wx_CmdLineParser, __Found_2)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,14 +390,14 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Found_3)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_3, "Found_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Found_3)
+Gura_ImplementMethod(wx_CmdLineParser, __Found_3)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -407,14 +407,14 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Found_4)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_4, "Found_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Found_4)
+Gura_ImplementMethod(wx_CmdLineParser, __Found_4)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -424,13 +424,13 @@ Gura_ImplementMethod(wx_CmdLineParser, Found_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, GetParam)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __GetParam, "GetParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, GetParam)
+Gura_ImplementMethod(wx_CmdLineParser, __GetParam)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -439,12 +439,12 @@ Gura_ImplementMethod(wx_CmdLineParser, GetParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, GetParamCount)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __GetParamCount, "GetParamCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, GetParamCount)
+Gura_ImplementMethod(wx_CmdLineParser, __GetParamCount)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -452,12 +452,12 @@ Gura_ImplementMethod(wx_CmdLineParser, GetParamCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, GetArguments)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __GetArguments, "GetArguments")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, GetArguments)
+Gura_ImplementMethod(wx_CmdLineParser, __GetArguments)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -465,13 +465,13 @@ Gura_ImplementMethod(wx_CmdLineParser, GetArguments)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Parse)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Parse, "Parse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "giveUsage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Parse)
+Gura_ImplementMethod(wx_CmdLineParser, __Parse)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -480,14 +480,14 @@ Gura_ImplementMethod(wx_CmdLineParser, Parse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetCmdLine, "SetCmdLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine)
+Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -497,14 +497,14 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine_1)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetCmdLine_1, "SetCmdLine_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_1)
+Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine_1)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -514,13 +514,13 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetCmdLine_2)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetCmdLine_2, "SetCmdLine_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_2)
+Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine_2)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -529,13 +529,13 @@ Gura_ImplementMethod(wx_CmdLineParser, SetCmdLine_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetDesc)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetDesc, "SetDesc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetDesc)
+Gura_ImplementMethod(wx_CmdLineParser, __SetDesc)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -544,13 +544,13 @@ Gura_ImplementMethod(wx_CmdLineParser, SetDesc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetLogo)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetLogo, "SetLogo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetLogo)
+Gura_ImplementMethod(wx_CmdLineParser, __SetLogo)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -559,13 +559,13 @@ Gura_ImplementMethod(wx_CmdLineParser, SetLogo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, SetSwitchChars)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __SetSwitchChars, "SetSwitchChars")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "switchChars", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, SetSwitchChars)
+Gura_ImplementMethod(wx_CmdLineParser, __SetSwitchChars)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -574,12 +574,12 @@ Gura_ImplementMethod(wx_CmdLineParser, SetSwitchChars)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, Usage)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __Usage, "Usage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, Usage)
+Gura_ImplementMethod(wx_CmdLineParser, __Usage)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -587,12 +587,12 @@ Gura_ImplementMethod(wx_CmdLineParser, Usage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineParser, GetUsageString)
+Gura_DeclareMethodAlias(wx_CmdLineParser, __GetUsageString, "GetUsageString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineParser, GetUsageString)
+Gura_ImplementMethod(wx_CmdLineParser, __GetUsageString)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -605,41 +605,41 @@ Gura_ImplementMethod(wx_CmdLineParser, GetUsageString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineParser)
 {
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_1);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_2);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_3);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_4);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_5);
-	Gura_AssignMethod(wx_CmdLineParser, wxCmdLineParser_6);
-	Gura_AssignMethod(wx_CmdLineParser, AddLongOption);
-	Gura_AssignMethod(wx_CmdLineParser, AddLongSwitch);
-	Gura_AssignMethod(wx_CmdLineParser, AddOption);
-	Gura_AssignMethod(wx_CmdLineParser, AddParam);
-	Gura_AssignMethod(wx_CmdLineParser, AddSwitch);
-	Gura_AssignMethod(wx_CmdLineParser, AddUsageText);
-	Gura_AssignMethod(wx_CmdLineParser, AreLongOptionsEnabled);
-	Gura_AssignMethod(wx_CmdLineParser, ConvertStringToArgs);
-	Gura_AssignMethod(wx_CmdLineParser, DisableLongOptions);
-	Gura_AssignMethod(wx_CmdLineParser, EnableLongOptions);
-	Gura_AssignMethod(wx_CmdLineParser, Found);
-	Gura_AssignMethod(wx_CmdLineParser, FoundSwitch);
-	Gura_AssignMethod(wx_CmdLineParser, Found_1);
-	Gura_AssignMethod(wx_CmdLineParser, Found_2);
-	Gura_AssignMethod(wx_CmdLineParser, Found_3);
-	Gura_AssignMethod(wx_CmdLineParser, Found_4);
-	Gura_AssignMethod(wx_CmdLineParser, GetParam);
-	Gura_AssignMethod(wx_CmdLineParser, GetParamCount);
-	Gura_AssignMethod(wx_CmdLineParser, GetArguments);
-	Gura_AssignMethod(wx_CmdLineParser, Parse);
-	Gura_AssignMethod(wx_CmdLineParser, SetCmdLine);
-	Gura_AssignMethod(wx_CmdLineParser, SetCmdLine_1);
-	Gura_AssignMethod(wx_CmdLineParser, SetCmdLine_2);
-	Gura_AssignMethod(wx_CmdLineParser, SetDesc);
-	Gura_AssignMethod(wx_CmdLineParser, SetLogo);
-	Gura_AssignMethod(wx_CmdLineParser, SetSwitchChars);
-	Gura_AssignMethod(wx_CmdLineParser, Usage);
-	Gura_AssignMethod(wx_CmdLineParser, GetUsageString);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_1);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_2);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_3);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_4);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_5);
+	Gura_AssignMethod(wx_CmdLineParser, __wxCmdLineParser_6);
+	Gura_AssignMethod(wx_CmdLineParser, __AddLongOption);
+	Gura_AssignMethod(wx_CmdLineParser, __AddLongSwitch);
+	Gura_AssignMethod(wx_CmdLineParser, __AddOption);
+	Gura_AssignMethod(wx_CmdLineParser, __AddParam);
+	Gura_AssignMethod(wx_CmdLineParser, __AddSwitch);
+	Gura_AssignMethod(wx_CmdLineParser, __AddUsageText);
+	Gura_AssignMethod(wx_CmdLineParser, __AreLongOptionsEnabled);
+	Gura_AssignMethod(wx_CmdLineParser, __ConvertStringToArgs);
+	Gura_AssignMethod(wx_CmdLineParser, __DisableLongOptions);
+	Gura_AssignMethod(wx_CmdLineParser, __EnableLongOptions);
+	Gura_AssignMethod(wx_CmdLineParser, __Found);
+	Gura_AssignMethod(wx_CmdLineParser, __FoundSwitch);
+	Gura_AssignMethod(wx_CmdLineParser, __Found_1);
+	Gura_AssignMethod(wx_CmdLineParser, __Found_2);
+	Gura_AssignMethod(wx_CmdLineParser, __Found_3);
+	Gura_AssignMethod(wx_CmdLineParser, __Found_4);
+	Gura_AssignMethod(wx_CmdLineParser, __GetParam);
+	Gura_AssignMethod(wx_CmdLineParser, __GetParamCount);
+	Gura_AssignMethod(wx_CmdLineParser, __GetArguments);
+	Gura_AssignMethod(wx_CmdLineParser, __Parse);
+	Gura_AssignMethod(wx_CmdLineParser, __SetCmdLine);
+	Gura_AssignMethod(wx_CmdLineParser, __SetCmdLine_1);
+	Gura_AssignMethod(wx_CmdLineParser, __SetCmdLine_2);
+	Gura_AssignMethod(wx_CmdLineParser, __SetDesc);
+	Gura_AssignMethod(wx_CmdLineParser, __SetLogo);
+	Gura_AssignMethod(wx_CmdLineParser, __SetSwitchChars);
+	Gura_AssignMethod(wx_CmdLineParser, __Usage);
+	Gura_AssignMethod(wx_CmdLineParser, __GetUsageString);
 }
 
 Gura_ImplementDescendantCreator(wx_CmdLineParser)

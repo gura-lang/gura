@@ -37,13 +37,13 @@ String Object_wx_Document::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Document, wxDocument)
+Gura_DeclareMethodAlias(wx_Document, __wxDocument, "wxDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, wxDocument)
+Gura_ImplementMethod(wx_Document, __wxDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_Document, wxDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, AddView)
+Gura_DeclareMethodAlias(wx_Document, __AddView, "AddView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "view", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, AddView)
+Gura_ImplementMethod(wx_Document, __AddView)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Document, AddView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, AlreadySaved)
+Gura_DeclareMethodAlias(wx_Document, __AlreadySaved, "AlreadySaved")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, AlreadySaved)
+Gura_ImplementMethod(wx_Document, __AlreadySaved)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Document, AlreadySaved)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, Activate)
+Gura_DeclareMethodAlias(wx_Document, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, Activate)
+Gura_ImplementMethod(wx_Document, __Activate)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Document, Activate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, Close)
+Gura_DeclareMethodAlias(wx_Document, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, Close)
+Gura_ImplementMethod(wx_Document, __Close)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_Document, Close)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, DeleteAllViews)
+Gura_DeclareMethodAlias(wx_Document, __DeleteAllViews, "DeleteAllViews")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, DeleteAllViews)
+Gura_ImplementMethod(wx_Document, __DeleteAllViews)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Document, DeleteAllViews)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, DeleteContents)
+Gura_DeclareMethodAlias(wx_Document, __DeleteContents, "DeleteContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, DeleteContents)
+Gura_ImplementMethod(wx_Document, __DeleteContents)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Document, DeleteContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetCommandProcessor)
+Gura_DeclareMethodAlias(wx_Document, __GetCommandProcessor, "GetCommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetCommandProcessor)
+Gura_ImplementMethod(wx_Document, __GetCommandProcessor)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_Document, GetCommandProcessor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetDocumentManager)
+Gura_DeclareMethodAlias(wx_Document, __GetDocumentManager, "GetDocumentManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetDocumentManager)
+Gura_ImplementMethod(wx_Document, __GetDocumentManager)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_Document, GetDocumentManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetDocumentName)
+Gura_DeclareMethodAlias(wx_Document, __GetDocumentName, "GetDocumentName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetDocumentName)
+Gura_ImplementMethod(wx_Document, __GetDocumentName)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_Document, GetDocumentName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetDocumentSaved)
+Gura_DeclareMethodAlias(wx_Document, __GetDocumentSaved, "GetDocumentSaved")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetDocumentSaved)
+Gura_ImplementMethod(wx_Document, __GetDocumentSaved)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_Document, GetDocumentSaved)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetDocumentTemplate)
+Gura_DeclareMethodAlias(wx_Document, __GetDocumentTemplate, "GetDocumentTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetDocumentTemplate)
+Gura_ImplementMethod(wx_Document, __GetDocumentTemplate)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_Document, GetDocumentTemplate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetDocumentWindow)
+Gura_DeclareMethodAlias(wx_Document, __GetDocumentWindow, "GetDocumentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetDocumentWindow)
+Gura_ImplementMethod(wx_Document, __GetDocumentWindow)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,12 +210,12 @@ Gura_ImplementMethod(wx_Document, GetDocumentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetFilename)
+Gura_DeclareMethodAlias(wx_Document, __GetFilename, "GetFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetFilename)
+Gura_ImplementMethod(wx_Document, __GetFilename)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,12 +223,12 @@ Gura_ImplementMethod(wx_Document, GetFilename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetFirstView)
+Gura_DeclareMethodAlias(wx_Document, __GetFirstView, "GetFirstView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetFirstView)
+Gura_ImplementMethod(wx_Document, __GetFirstView)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,12 +236,12 @@ Gura_ImplementMethod(wx_Document, GetFirstView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetTitle)
+Gura_DeclareMethodAlias(wx_Document, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetTitle)
+Gura_ImplementMethod(wx_Document, __GetTitle)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_Document, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetUserReadableName)
+Gura_DeclareMethodAlias(wx_Document, __GetUserReadableName, "GetUserReadableName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetUserReadableName)
+Gura_ImplementMethod(wx_Document, __GetUserReadableName)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,12 +262,12 @@ Gura_ImplementMethod(wx_Document, GetUserReadableName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetViewsVector)
+Gura_DeclareMethodAlias(wx_Document, __GetViewsVector, "GetViewsVector")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetViewsVector)
+Gura_ImplementMethod(wx_Document, __GetViewsVector)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,12 +275,12 @@ Gura_ImplementMethod(wx_Document, GetViewsVector)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetViews)
+Gura_DeclareMethodAlias(wx_Document, __GetViews, "GetViews")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetViews)
+Gura_ImplementMethod(wx_Document, __GetViews)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -288,12 +288,12 @@ Gura_ImplementMethod(wx_Document, GetViews)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, GetViews_1)
+Gura_DeclareMethodAlias(wx_Document, __GetViews_1, "GetViews_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, GetViews_1)
+Gura_ImplementMethod(wx_Document, __GetViews_1)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,12 +301,12 @@ Gura_ImplementMethod(wx_Document, GetViews_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, IsChildDocument)
+Gura_DeclareMethodAlias(wx_Document, __IsChildDocument, "IsChildDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, IsChildDocument)
+Gura_ImplementMethod(wx_Document, __IsChildDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,12 +314,12 @@ Gura_ImplementMethod(wx_Document, IsChildDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, IsModified)
+Gura_DeclareMethodAlias(wx_Document, __IsModified, "IsModified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, IsModified)
+Gura_ImplementMethod(wx_Document, __IsModified)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,13 +327,13 @@ Gura_ImplementMethod(wx_Document, IsModified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, LoadObject)
+Gura_DeclareMethodAlias(wx_Document, __LoadObject, "LoadObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, LoadObject)
+Gura_ImplementMethod(wx_Document, __LoadObject)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -342,13 +342,13 @@ Gura_ImplementMethod(wx_Document, LoadObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, LoadObject_1)
+Gura_DeclareMethodAlias(wx_Document, __LoadObject_1, "LoadObject_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, LoadObject_1)
+Gura_ImplementMethod(wx_Document, __LoadObject_1)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,13 +357,13 @@ Gura_ImplementMethod(wx_Document, LoadObject_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, Modify)
+Gura_DeclareMethodAlias(wx_Document, __Modify, "Modify")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "modify", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, Modify)
+Gura_ImplementMethod(wx_Document, __Modify)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -372,12 +372,12 @@ Gura_ImplementMethod(wx_Document, Modify)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnChangedViewList)
+Gura_DeclareMethodAlias(wx_Document, __OnChangedViewList, "OnChangedViewList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, OnChangedViewList)
+Gura_ImplementMethod(wx_Document, __OnChangedViewList)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -385,12 +385,12 @@ Gura_ImplementMethod(wx_Document, OnChangedViewList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnCloseDocument)
+Gura_DeclareMethodAlias(wx_Document, __OnCloseDocument, "OnCloseDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, OnCloseDocument)
+Gura_ImplementMethod(wx_Document, __OnCloseDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,14 +398,14 @@ Gura_ImplementMethod(wx_Document, OnCloseDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnCreate)
+Gura_DeclareMethodAlias(wx_Document, __OnCreate, "OnCreate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, OnCreate)
+Gura_ImplementMethod(wx_Document, __OnCreate)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -415,12 +415,12 @@ Gura_ImplementMethod(wx_Document, OnCreate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnCreateCommandProcessor)
+Gura_DeclareMethodAlias(wx_Document, __OnCreateCommandProcessor, "OnCreateCommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, OnCreateCommandProcessor)
+Gura_ImplementMethod(wx_Document, __OnCreateCommandProcessor)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -428,12 +428,12 @@ Gura_ImplementMethod(wx_Document, OnCreateCommandProcessor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnNewDocument)
+Gura_DeclareMethodAlias(wx_Document, __OnNewDocument, "OnNewDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, OnNewDocument)
+Gura_ImplementMethod(wx_Document, __OnNewDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -441,13 +441,13 @@ Gura_ImplementMethod(wx_Document, OnNewDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnOpenDocument)
+Gura_DeclareMethodAlias(wx_Document, __OnOpenDocument, "OnOpenDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, OnOpenDocument)
+Gura_ImplementMethod(wx_Document, __OnOpenDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -456,13 +456,13 @@ Gura_ImplementMethod(wx_Document, OnOpenDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnSaveDocument)
+Gura_DeclareMethodAlias(wx_Document, __OnSaveDocument, "OnSaveDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, OnSaveDocument)
+Gura_ImplementMethod(wx_Document, __OnSaveDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -471,12 +471,12 @@ Gura_ImplementMethod(wx_Document, OnSaveDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnSaveModified)
+Gura_DeclareMethodAlias(wx_Document, __OnSaveModified, "OnSaveModified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, OnSaveModified)
+Gura_ImplementMethod(wx_Document, __OnSaveModified)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -484,13 +484,13 @@ Gura_ImplementMethod(wx_Document, OnSaveModified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, RemoveView)
+Gura_DeclareMethodAlias(wx_Document, __RemoveView, "RemoveView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "view", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, RemoveView)
+Gura_ImplementMethod(wx_Document, __RemoveView)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -499,12 +499,12 @@ Gura_ImplementMethod(wx_Document, RemoveView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, Save)
+Gura_DeclareMethodAlias(wx_Document, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, Save)
+Gura_ImplementMethod(wx_Document, __Save)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -512,12 +512,12 @@ Gura_ImplementMethod(wx_Document, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SaveAs)
+Gura_DeclareMethodAlias(wx_Document, __SaveAs, "SaveAs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, SaveAs)
+Gura_ImplementMethod(wx_Document, __SaveAs)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -525,12 +525,12 @@ Gura_ImplementMethod(wx_Document, SaveAs)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, Revert)
+Gura_DeclareMethodAlias(wx_Document, __Revert, "Revert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Document, Revert)
+Gura_ImplementMethod(wx_Document, __Revert)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -538,13 +538,13 @@ Gura_ImplementMethod(wx_Document, Revert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SaveObject)
+Gura_DeclareMethodAlias(wx_Document, __SaveObject, "SaveObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SaveObject)
+Gura_ImplementMethod(wx_Document, __SaveObject)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -553,13 +553,13 @@ Gura_ImplementMethod(wx_Document, SaveObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SaveObject_1)
+Gura_DeclareMethodAlias(wx_Document, __SaveObject_1, "SaveObject_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SaveObject_1)
+Gura_ImplementMethod(wx_Document, __SaveObject_1)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -568,13 +568,13 @@ Gura_ImplementMethod(wx_Document, SaveObject_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetCommandProcessor)
+Gura_DeclareMethodAlias(wx_Document, __SetCommandProcessor, "SetCommandProcessor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "processor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetCommandProcessor)
+Gura_ImplementMethod(wx_Document, __SetCommandProcessor)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -583,13 +583,13 @@ Gura_ImplementMethod(wx_Document, SetCommandProcessor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetDocumentName)
+Gura_DeclareMethodAlias(wx_Document, __SetDocumentName, "SetDocumentName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetDocumentName)
+Gura_ImplementMethod(wx_Document, __SetDocumentName)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -598,13 +598,13 @@ Gura_ImplementMethod(wx_Document, SetDocumentName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetDocumentTemplate)
+Gura_DeclareMethodAlias(wx_Document, __SetDocumentTemplate, "SetDocumentTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "templ", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetDocumentTemplate)
+Gura_ImplementMethod(wx_Document, __SetDocumentTemplate)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -613,13 +613,13 @@ Gura_ImplementMethod(wx_Document, SetDocumentTemplate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetDocumentSaved)
+Gura_DeclareMethodAlias(wx_Document, __SetDocumentSaved, "SetDocumentSaved")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "saved", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetDocumentSaved)
+Gura_ImplementMethod(wx_Document, __SetDocumentSaved)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -628,14 +628,14 @@ Gura_ImplementMethod(wx_Document, SetDocumentSaved)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetFilename)
+Gura_DeclareMethodAlias(wx_Document, __SetFilename, "SetFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "notifyViews", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetFilename)
+Gura_ImplementMethod(wx_Document, __SetFilename)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -645,13 +645,13 @@ Gura_ImplementMethod(wx_Document, SetFilename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, OnChangeFilename)
+Gura_DeclareMethodAlias(wx_Document, __OnChangeFilename, "OnChangeFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "notifyViews", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, OnChangeFilename)
+Gura_ImplementMethod(wx_Document, __OnChangeFilename)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -660,13 +660,13 @@ Gura_ImplementMethod(wx_Document, OnChangeFilename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, SetTitle)
+Gura_DeclareMethodAlias(wx_Document, __SetTitle, "SetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, SetTitle)
+Gura_ImplementMethod(wx_Document, __SetTitle)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -675,14 +675,14 @@ Gura_ImplementMethod(wx_Document, SetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, UpdateAllViews)
+Gura_DeclareMethodAlias(wx_Document, __UpdateAllViews, "UpdateAllViews")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sender", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hint", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, UpdateAllViews)
+Gura_ImplementMethod(wx_Document, __UpdateAllViews)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -692,13 +692,13 @@ Gura_ImplementMethod(wx_Document, UpdateAllViews)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, DoSaveDocument)
+Gura_DeclareMethodAlias(wx_Document, __DoSaveDocument, "DoSaveDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, DoSaveDocument)
+Gura_ImplementMethod(wx_Document, __DoSaveDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -707,13 +707,13 @@ Gura_ImplementMethod(wx_Document, DoSaveDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Document, DoOpenDocument)
+Gura_DeclareMethodAlias(wx_Document, __DoOpenDocument, "DoOpenDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Document, DoOpenDocument)
+Gura_ImplementMethod(wx_Document, __DoOpenDocument)
 {
 	Object_wx_Document *pThis = Object_wx_Document::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -727,55 +727,55 @@ Gura_ImplementMethod(wx_Document, DoOpenDocument)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Document)
 {
-	Gura_AssignMethod(wx_Document, wxDocument);
-	Gura_AssignMethod(wx_Document, AddView);
-	Gura_AssignMethod(wx_Document, AlreadySaved);
-	Gura_AssignMethod(wx_Document, Activate);
-	Gura_AssignMethod(wx_Document, Close);
-	Gura_AssignMethod(wx_Document, DeleteAllViews);
-	Gura_AssignMethod(wx_Document, DeleteContents);
-	Gura_AssignMethod(wx_Document, GetCommandProcessor);
-	Gura_AssignMethod(wx_Document, GetDocumentManager);
-	Gura_AssignMethod(wx_Document, GetDocumentName);
-	Gura_AssignMethod(wx_Document, GetDocumentSaved);
-	Gura_AssignMethod(wx_Document, GetDocumentTemplate);
-	Gura_AssignMethod(wx_Document, GetDocumentWindow);
-	Gura_AssignMethod(wx_Document, GetFilename);
-	Gura_AssignMethod(wx_Document, GetFirstView);
-	Gura_AssignMethod(wx_Document, GetTitle);
-	Gura_AssignMethod(wx_Document, GetUserReadableName);
-	Gura_AssignMethod(wx_Document, GetViewsVector);
-	Gura_AssignMethod(wx_Document, GetViews);
-	Gura_AssignMethod(wx_Document, GetViews_1);
-	Gura_AssignMethod(wx_Document, IsChildDocument);
-	Gura_AssignMethod(wx_Document, IsModified);
-	Gura_AssignMethod(wx_Document, LoadObject);
-	Gura_AssignMethod(wx_Document, LoadObject_1);
-	Gura_AssignMethod(wx_Document, Modify);
-	Gura_AssignMethod(wx_Document, OnChangedViewList);
-	Gura_AssignMethod(wx_Document, OnCloseDocument);
-	Gura_AssignMethod(wx_Document, OnCreate);
-	Gura_AssignMethod(wx_Document, OnCreateCommandProcessor);
-	Gura_AssignMethod(wx_Document, OnNewDocument);
-	Gura_AssignMethod(wx_Document, OnOpenDocument);
-	Gura_AssignMethod(wx_Document, OnSaveDocument);
-	Gura_AssignMethod(wx_Document, OnSaveModified);
-	Gura_AssignMethod(wx_Document, RemoveView);
-	Gura_AssignMethod(wx_Document, Save);
-	Gura_AssignMethod(wx_Document, SaveAs);
-	Gura_AssignMethod(wx_Document, Revert);
-	Gura_AssignMethod(wx_Document, SaveObject);
-	Gura_AssignMethod(wx_Document, SaveObject_1);
-	Gura_AssignMethod(wx_Document, SetCommandProcessor);
-	Gura_AssignMethod(wx_Document, SetDocumentName);
-	Gura_AssignMethod(wx_Document, SetDocumentTemplate);
-	Gura_AssignMethod(wx_Document, SetDocumentSaved);
-	Gura_AssignMethod(wx_Document, SetFilename);
-	Gura_AssignMethod(wx_Document, OnChangeFilename);
-	Gura_AssignMethod(wx_Document, SetTitle);
-	Gura_AssignMethod(wx_Document, UpdateAllViews);
-	Gura_AssignMethod(wx_Document, DoSaveDocument);
-	Gura_AssignMethod(wx_Document, DoOpenDocument);
+	Gura_AssignMethod(wx_Document, __wxDocument);
+	Gura_AssignMethod(wx_Document, __AddView);
+	Gura_AssignMethod(wx_Document, __AlreadySaved);
+	Gura_AssignMethod(wx_Document, __Activate);
+	Gura_AssignMethod(wx_Document, __Close);
+	Gura_AssignMethod(wx_Document, __DeleteAllViews);
+	Gura_AssignMethod(wx_Document, __DeleteContents);
+	Gura_AssignMethod(wx_Document, __GetCommandProcessor);
+	Gura_AssignMethod(wx_Document, __GetDocumentManager);
+	Gura_AssignMethod(wx_Document, __GetDocumentName);
+	Gura_AssignMethod(wx_Document, __GetDocumentSaved);
+	Gura_AssignMethod(wx_Document, __GetDocumentTemplate);
+	Gura_AssignMethod(wx_Document, __GetDocumentWindow);
+	Gura_AssignMethod(wx_Document, __GetFilename);
+	Gura_AssignMethod(wx_Document, __GetFirstView);
+	Gura_AssignMethod(wx_Document, __GetTitle);
+	Gura_AssignMethod(wx_Document, __GetUserReadableName);
+	Gura_AssignMethod(wx_Document, __GetViewsVector);
+	Gura_AssignMethod(wx_Document, __GetViews);
+	Gura_AssignMethod(wx_Document, __GetViews_1);
+	Gura_AssignMethod(wx_Document, __IsChildDocument);
+	Gura_AssignMethod(wx_Document, __IsModified);
+	Gura_AssignMethod(wx_Document, __LoadObject);
+	Gura_AssignMethod(wx_Document, __LoadObject_1);
+	Gura_AssignMethod(wx_Document, __Modify);
+	Gura_AssignMethod(wx_Document, __OnChangedViewList);
+	Gura_AssignMethod(wx_Document, __OnCloseDocument);
+	Gura_AssignMethod(wx_Document, __OnCreate);
+	Gura_AssignMethod(wx_Document, __OnCreateCommandProcessor);
+	Gura_AssignMethod(wx_Document, __OnNewDocument);
+	Gura_AssignMethod(wx_Document, __OnOpenDocument);
+	Gura_AssignMethod(wx_Document, __OnSaveDocument);
+	Gura_AssignMethod(wx_Document, __OnSaveModified);
+	Gura_AssignMethod(wx_Document, __RemoveView);
+	Gura_AssignMethod(wx_Document, __Save);
+	Gura_AssignMethod(wx_Document, __SaveAs);
+	Gura_AssignMethod(wx_Document, __Revert);
+	Gura_AssignMethod(wx_Document, __SaveObject);
+	Gura_AssignMethod(wx_Document, __SaveObject_1);
+	Gura_AssignMethod(wx_Document, __SetCommandProcessor);
+	Gura_AssignMethod(wx_Document, __SetDocumentName);
+	Gura_AssignMethod(wx_Document, __SetDocumentTemplate);
+	Gura_AssignMethod(wx_Document, __SetDocumentSaved);
+	Gura_AssignMethod(wx_Document, __SetFilename);
+	Gura_AssignMethod(wx_Document, __OnChangeFilename);
+	Gura_AssignMethod(wx_Document, __SetTitle);
+	Gura_AssignMethod(wx_Document, __UpdateAllViews);
+	Gura_AssignMethod(wx_Document, __DoSaveDocument);
+	Gura_AssignMethod(wx_Document, __DoOpenDocument);
 }
 
 Gura_ImplementDescendantCreator(wx_Document)

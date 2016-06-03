@@ -37,7 +37,7 @@ String Object_wx_ProcessEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ProcessEvent, wxProcessEvent)
+Gura_DeclareMethodAlias(wx_ProcessEvent, __wxProcessEvent, "wxProcessEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_ProcessEvent, wxProcessEvent)
 	//DeclareArg(env, "exitcode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProcessEvent, wxProcessEvent)
+Gura_ImplementMethod(wx_ProcessEvent, __wxProcessEvent)
 {
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_ProcessEvent, wxProcessEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ProcessEvent, GetExitCode)
+Gura_DeclareMethodAlias(wx_ProcessEvent, __GetExitCode, "GetExitCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
+Gura_ImplementMethod(wx_ProcessEvent, __GetExitCode)
 {
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_ProcessEvent, GetExitCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ProcessEvent, GetPid)
+Gura_DeclareMethodAlias(wx_ProcessEvent, __GetPid, "GetPid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ProcessEvent, GetPid)
+Gura_ImplementMethod(wx_ProcessEvent, __GetPid)
 {
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_ProcessEvent, GetPid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProcessEvent)
 {
-	Gura_AssignMethod(wx_ProcessEvent, wxProcessEvent);
-	Gura_AssignMethod(wx_ProcessEvent, GetExitCode);
-	Gura_AssignMethod(wx_ProcessEvent, GetPid);
+	Gura_AssignMethod(wx_ProcessEvent, __wxProcessEvent);
+	Gura_AssignMethod(wx_ProcessEvent, __GetExitCode);
+	Gura_AssignMethod(wx_ProcessEvent, __GetPid);
 }
 
 Gura_ImplementDescendantCreator(wx_ProcessEvent)

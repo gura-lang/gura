@@ -37,13 +37,13 @@ String Object_wx_PreferencesEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PreferencesEditor, wxPreferencesEditor)
+Gura_DeclareMethodAlias(wx_PreferencesEditor, __wxPreferencesEditor, "wxPreferencesEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, wxPreferencesEditor)
+Gura_ImplementMethod(wx_PreferencesEditor, __wxPreferencesEditor)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_PreferencesEditor, wxPreferencesEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesEditor, AddPage)
+Gura_DeclareMethodAlias(wx_PreferencesEditor, __AddPage, "AddPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, AddPage)
+Gura_ImplementMethod(wx_PreferencesEditor, __AddPage)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_PreferencesEditor, AddPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesEditor, Show)
+Gura_DeclareMethodAlias(wx_PreferencesEditor, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, Show)
+Gura_ImplementMethod(wx_PreferencesEditor, __Show)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_PreferencesEditor, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesEditor, Dismiss)
+Gura_DeclareMethodAlias(wx_PreferencesEditor, __Dismiss, "Dismiss")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, Dismiss)
+Gura_ImplementMethod(wx_PreferencesEditor, __Dismiss)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_PreferencesEditor, Dismiss)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately)
+Gura_DeclareMethodAlias(wx_PreferencesEditor, __ShouldApplyChangesImmediately, "ShouldApplyChangesImmediately")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately)
+Gura_ImplementMethod(wx_PreferencesEditor, __ShouldApplyChangesImmediately)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,11 +113,11 @@ Gura_ImplementMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesEditor)
 {
-	Gura_AssignMethod(wx_PreferencesEditor, wxPreferencesEditor);
-	Gura_AssignMethod(wx_PreferencesEditor, AddPage);
-	Gura_AssignMethod(wx_PreferencesEditor, Show);
-	Gura_AssignMethod(wx_PreferencesEditor, Dismiss);
-	Gura_AssignMethod(wx_PreferencesEditor, ShouldApplyChangesImmediately);
+	Gura_AssignMethod(wx_PreferencesEditor, __wxPreferencesEditor);
+	Gura_AssignMethod(wx_PreferencesEditor, __AddPage);
+	Gura_AssignMethod(wx_PreferencesEditor, __Show);
+	Gura_AssignMethod(wx_PreferencesEditor, __Dismiss);
+	Gura_AssignMethod(wx_PreferencesEditor, __ShouldApplyChangesImmediately);
 }
 
 Gura_ImplementDescendantCreator(wx_PreferencesEditor)

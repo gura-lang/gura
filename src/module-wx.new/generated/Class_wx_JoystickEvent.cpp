@@ -37,7 +37,7 @@ String Object_wx_JoystickEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_JoystickEvent, wxJoystickEvent)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __wxJoystickEvent, "wxJoystickEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_JoystickEvent, wxJoystickEvent)
 	//DeclareArg(env, "change", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, wxJoystickEvent)
+Gura_ImplementMethod(wx_JoystickEvent, __wxJoystickEvent)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,13 +58,13 @@ Gura_ImplementMethod(wx_JoystickEvent, wxJoystickEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, ButtonDown)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonDown, "ButtonDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, ButtonDown)
+Gura_ImplementMethod(wx_JoystickEvent, __ButtonDown)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,13 +73,13 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, ButtonIsDown)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonIsDown, "ButtonIsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, ButtonIsDown)
+Gura_ImplementMethod(wx_JoystickEvent, __ButtonIsDown)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,13 +88,13 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonIsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, ButtonUp)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonUp, "ButtonUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, ButtonUp)
+Gura_ImplementMethod(wx_JoystickEvent, __ButtonUp)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,12 +103,12 @@ Gura_ImplementMethod(wx_JoystickEvent, ButtonUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, GetButtonChange)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __GetButtonChange, "GetButtonChange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, GetButtonChange)
+Gura_ImplementMethod(wx_JoystickEvent, __GetButtonChange)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_JoystickEvent, GetButtonChange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, GetButtonState)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __GetButtonState, "GetButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, GetButtonState)
+Gura_ImplementMethod(wx_JoystickEvent, __GetButtonState)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_JoystickEvent, GetButtonState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, GetJoystick)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __GetJoystick, "GetJoystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, GetJoystick)
+Gura_ImplementMethod(wx_JoystickEvent, __GetJoystick)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_JoystickEvent, GetJoystick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, GetPosition)
+Gura_ImplementMethod(wx_JoystickEvent, __GetPosition)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_JoystickEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, GetZPosition)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __GetZPosition, "GetZPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, GetZPosition)
+Gura_ImplementMethod(wx_JoystickEvent, __GetZPosition)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_JoystickEvent, GetZPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, IsButton)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __IsButton, "IsButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, IsButton)
+Gura_ImplementMethod(wx_JoystickEvent, __IsButton)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_JoystickEvent, IsButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, IsMove)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __IsMove, "IsMove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, IsMove)
+Gura_ImplementMethod(wx_JoystickEvent, __IsMove)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_JoystickEvent, IsMove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_JoystickEvent, IsZMove)
+Gura_DeclareMethodAlias(wx_JoystickEvent, __IsZMove, "IsZMove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_JoystickEvent, IsZMove)
+Gura_ImplementMethod(wx_JoystickEvent, __IsZMove)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,18 +212,18 @@ Gura_ImplementMethod(wx_JoystickEvent, IsZMove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_JoystickEvent)
 {
-	Gura_AssignMethod(wx_JoystickEvent, wxJoystickEvent);
-	Gura_AssignMethod(wx_JoystickEvent, ButtonDown);
-	Gura_AssignMethod(wx_JoystickEvent, ButtonIsDown);
-	Gura_AssignMethod(wx_JoystickEvent, ButtonUp);
-	Gura_AssignMethod(wx_JoystickEvent, GetButtonChange);
-	Gura_AssignMethod(wx_JoystickEvent, GetButtonState);
-	Gura_AssignMethod(wx_JoystickEvent, GetJoystick);
-	Gura_AssignMethod(wx_JoystickEvent, GetPosition);
-	Gura_AssignMethod(wx_JoystickEvent, GetZPosition);
-	Gura_AssignMethod(wx_JoystickEvent, IsButton);
-	Gura_AssignMethod(wx_JoystickEvent, IsMove);
-	Gura_AssignMethod(wx_JoystickEvent, IsZMove);
+	Gura_AssignMethod(wx_JoystickEvent, __wxJoystickEvent);
+	Gura_AssignMethod(wx_JoystickEvent, __ButtonDown);
+	Gura_AssignMethod(wx_JoystickEvent, __ButtonIsDown);
+	Gura_AssignMethod(wx_JoystickEvent, __ButtonUp);
+	Gura_AssignMethod(wx_JoystickEvent, __GetButtonChange);
+	Gura_AssignMethod(wx_JoystickEvent, __GetButtonState);
+	Gura_AssignMethod(wx_JoystickEvent, __GetJoystick);
+	Gura_AssignMethod(wx_JoystickEvent, __GetPosition);
+	Gura_AssignMethod(wx_JoystickEvent, __GetZPosition);
+	Gura_AssignMethod(wx_JoystickEvent, __IsButton);
+	Gura_AssignMethod(wx_JoystickEvent, __IsMove);
+	Gura_AssignMethod(wx_JoystickEvent, __IsZMove);
 }
 
 Gura_ImplementDescendantCreator(wx_JoystickEvent)

@@ -37,12 +37,12 @@ String Object_wx_MouseState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MouseState, wxMouseState)
+Gura_DeclareMethodAlias(wx_MouseState, __wxMouseState, "wxMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, wxMouseState)
+Gura_ImplementMethod(wx_MouseState, __wxMouseState)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_MouseState, wxMouseState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, GetX)
+Gura_DeclareMethodAlias(wx_MouseState, __GetX, "GetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, GetX)
+Gura_ImplementMethod(wx_MouseState, __GetX)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_MouseState, GetX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, GetY)
+Gura_DeclareMethodAlias(wx_MouseState, __GetY, "GetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, GetY)
+Gura_ImplementMethod(wx_MouseState, __GetY)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_MouseState, GetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, GetPosition)
+Gura_DeclareMethodAlias(wx_MouseState, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, GetPosition)
+Gura_ImplementMethod(wx_MouseState, __GetPosition)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,14 +89,14 @@ Gura_ImplementMethod(wx_MouseState, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, GetPosition_1)
+Gura_DeclareMethodAlias(wx_MouseState, __GetPosition_1, "GetPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, GetPosition_1)
+Gura_ImplementMethod(wx_MouseState, __GetPosition_1)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_MouseState, GetPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, LeftIsDown)
+Gura_DeclareMethodAlias(wx_MouseState, __LeftIsDown, "LeftIsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, LeftIsDown)
+Gura_ImplementMethod(wx_MouseState, __LeftIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_MouseState, LeftIsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, MiddleIsDown)
+Gura_DeclareMethodAlias(wx_MouseState, __MiddleIsDown, "MiddleIsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, MiddleIsDown)
+Gura_ImplementMethod(wx_MouseState, __MiddleIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_MouseState, MiddleIsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, RightIsDown)
+Gura_DeclareMethodAlias(wx_MouseState, __RightIsDown, "RightIsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, RightIsDown)
+Gura_ImplementMethod(wx_MouseState, __RightIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_MouseState, RightIsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, Aux1IsDown)
+Gura_DeclareMethodAlias(wx_MouseState, __Aux1IsDown, "Aux1IsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, Aux1IsDown)
+Gura_ImplementMethod(wx_MouseState, __Aux1IsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_MouseState, Aux1IsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, Aux2IsDown)
+Gura_DeclareMethodAlias(wx_MouseState, __Aux2IsDown, "Aux2IsDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseState, Aux2IsDown)
+Gura_ImplementMethod(wx_MouseState, __Aux2IsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_MouseState, Aux2IsDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetX)
+Gura_DeclareMethodAlias(wx_MouseState, __SetX, "SetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetX)
+Gura_ImplementMethod(wx_MouseState, __SetX)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_MouseState, SetX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetY)
+Gura_DeclareMethodAlias(wx_MouseState, __SetY, "SetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetY)
+Gura_ImplementMethod(wx_MouseState, __SetY)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_MouseState, SetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetPosition)
+Gura_DeclareMethodAlias(wx_MouseState, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetPosition)
+Gura_ImplementMethod(wx_MouseState, __SetPosition)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_MouseState, SetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetLeftDown)
+Gura_DeclareMethodAlias(wx_MouseState, __SetLeftDown, "SetLeftDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetLeftDown)
+Gura_ImplementMethod(wx_MouseState, __SetLeftDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_MouseState, SetLeftDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetMiddleDown)
+Gura_DeclareMethodAlias(wx_MouseState, __SetMiddleDown, "SetMiddleDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetMiddleDown)
+Gura_ImplementMethod(wx_MouseState, __SetMiddleDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,13 +246,13 @@ Gura_ImplementMethod(wx_MouseState, SetMiddleDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetRightDown)
+Gura_DeclareMethodAlias(wx_MouseState, __SetRightDown, "SetRightDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetRightDown)
+Gura_ImplementMethod(wx_MouseState, __SetRightDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,13 +261,13 @@ Gura_ImplementMethod(wx_MouseState, SetRightDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetAux1Down)
+Gura_DeclareMethodAlias(wx_MouseState, __SetAux1Down, "SetAux1Down")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetAux1Down)
+Gura_ImplementMethod(wx_MouseState, __SetAux1Down)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,13 +276,13 @@ Gura_ImplementMethod(wx_MouseState, SetAux1Down)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetAux2Down)
+Gura_DeclareMethodAlias(wx_MouseState, __SetAux2Down, "SetAux2Down")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetAux2Down)
+Gura_ImplementMethod(wx_MouseState, __SetAux2Down)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,13 +291,13 @@ Gura_ImplementMethod(wx_MouseState, SetAux2Down)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseState, SetState)
+Gura_DeclareMethodAlias(wx_MouseState, __SetState, "SetState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseState, SetState)
+Gura_ImplementMethod(wx_MouseState, __SetState)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,25 +311,25 @@ Gura_ImplementMethod(wx_MouseState, SetState)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseState)
 {
-	Gura_AssignMethod(wx_MouseState, wxMouseState);
-	Gura_AssignMethod(wx_MouseState, GetX);
-	Gura_AssignMethod(wx_MouseState, GetY);
-	Gura_AssignMethod(wx_MouseState, GetPosition);
-	Gura_AssignMethod(wx_MouseState, GetPosition_1);
-	Gura_AssignMethod(wx_MouseState, LeftIsDown);
-	Gura_AssignMethod(wx_MouseState, MiddleIsDown);
-	Gura_AssignMethod(wx_MouseState, RightIsDown);
-	Gura_AssignMethod(wx_MouseState, Aux1IsDown);
-	Gura_AssignMethod(wx_MouseState, Aux2IsDown);
-	Gura_AssignMethod(wx_MouseState, SetX);
-	Gura_AssignMethod(wx_MouseState, SetY);
-	Gura_AssignMethod(wx_MouseState, SetPosition);
-	Gura_AssignMethod(wx_MouseState, SetLeftDown);
-	Gura_AssignMethod(wx_MouseState, SetMiddleDown);
-	Gura_AssignMethod(wx_MouseState, SetRightDown);
-	Gura_AssignMethod(wx_MouseState, SetAux1Down);
-	Gura_AssignMethod(wx_MouseState, SetAux2Down);
-	Gura_AssignMethod(wx_MouseState, SetState);
+	Gura_AssignMethod(wx_MouseState, __wxMouseState);
+	Gura_AssignMethod(wx_MouseState, __GetX);
+	Gura_AssignMethod(wx_MouseState, __GetY);
+	Gura_AssignMethod(wx_MouseState, __GetPosition);
+	Gura_AssignMethod(wx_MouseState, __GetPosition_1);
+	Gura_AssignMethod(wx_MouseState, __LeftIsDown);
+	Gura_AssignMethod(wx_MouseState, __MiddleIsDown);
+	Gura_AssignMethod(wx_MouseState, __RightIsDown);
+	Gura_AssignMethod(wx_MouseState, __Aux1IsDown);
+	Gura_AssignMethod(wx_MouseState, __Aux2IsDown);
+	Gura_AssignMethod(wx_MouseState, __SetX);
+	Gura_AssignMethod(wx_MouseState, __SetY);
+	Gura_AssignMethod(wx_MouseState, __SetPosition);
+	Gura_AssignMethod(wx_MouseState, __SetLeftDown);
+	Gura_AssignMethod(wx_MouseState, __SetMiddleDown);
+	Gura_AssignMethod(wx_MouseState, __SetRightDown);
+	Gura_AssignMethod(wx_MouseState, __SetAux1Down);
+	Gura_AssignMethod(wx_MouseState, __SetAux2Down);
+	Gura_AssignMethod(wx_MouseState, __SetState);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseState)

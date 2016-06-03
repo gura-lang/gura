@@ -37,13 +37,13 @@ String Object_wx_TipProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TipProvider, wxTipProvider)
+Gura_DeclareMethodAlias(wx_TipProvider, __wxTipProvider, "wxTipProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipProvider, wxTipProvider)
+Gura_ImplementMethod(wx_TipProvider, __wxTipProvider)
 {
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_TipProvider, wxTipProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TipProvider, GetCurrentTip)
+Gura_DeclareMethodAlias(wx_TipProvider, __GetCurrentTip, "GetCurrentTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
+Gura_ImplementMethod(wx_TipProvider, __GetCurrentTip)
 {
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TipProvider, GetCurrentTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TipProvider, GetTip)
+Gura_DeclareMethodAlias(wx_TipProvider, __GetTip, "GetTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TipProvider, GetTip)
+Gura_ImplementMethod(wx_TipProvider, __GetTip)
 {
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_TipProvider, GetTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipProvider)
 {
-	Gura_AssignMethod(wx_TipProvider, wxTipProvider);
-	Gura_AssignMethod(wx_TipProvider, GetCurrentTip);
-	Gura_AssignMethod(wx_TipProvider, GetTip);
+	Gura_AssignMethod(wx_TipProvider, __wxTipProvider);
+	Gura_AssignMethod(wx_TipProvider, __GetCurrentTip);
+	Gura_AssignMethod(wx_TipProvider, __GetTip);
 }
 
 Gura_ImplementDescendantCreator(wx_TipProvider)

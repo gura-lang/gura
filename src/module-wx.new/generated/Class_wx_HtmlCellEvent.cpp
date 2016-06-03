@@ -37,7 +37,7 @@ String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
+Gura_DeclareMethodAlias(wx_HtmlCellEvent, __wxHtmlCellEvent, "wxHtmlCellEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
 	//DeclareArg(env, "ev", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
+Gura_ImplementMethod(wx_HtmlCellEvent, __wxHtmlCellEvent)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,12 +60,12 @@ Gura_ImplementMethod(wx_HtmlCellEvent, wxHtmlCellEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCellEvent, GetCell)
+Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetCell, "GetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
+Gura_ImplementMethod(wx_HtmlCellEvent, __GetCell)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCellEvent, GetLinkClicked)
+Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetLinkClicked, "GetLinkClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, GetLinkClicked)
+Gura_ImplementMethod(wx_HtmlCellEvent, __GetLinkClicked)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetLinkClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCellEvent, GetPoint)
+Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetPoint, "GetPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
+Gura_ImplementMethod(wx_HtmlCellEvent, __GetPoint)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_HtmlCellEvent, GetPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlCellEvent, SetLinkClicked)
+Gura_DeclareMethodAlias(wx_HtmlCellEvent, __SetLinkClicked, "SetLinkClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "linkclicked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
+Gura_ImplementMethod(wx_HtmlCellEvent, __SetLinkClicked)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,11 +119,11 @@ Gura_ImplementMethod(wx_HtmlCellEvent, SetLinkClicked)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlCellEvent)
 {
-	Gura_AssignMethod(wx_HtmlCellEvent, wxHtmlCellEvent);
-	Gura_AssignMethod(wx_HtmlCellEvent, GetCell);
-	Gura_AssignMethod(wx_HtmlCellEvent, GetLinkClicked);
-	Gura_AssignMethod(wx_HtmlCellEvent, GetPoint);
-	Gura_AssignMethod(wx_HtmlCellEvent, SetLinkClicked);
+	Gura_AssignMethod(wx_HtmlCellEvent, __wxHtmlCellEvent);
+	Gura_AssignMethod(wx_HtmlCellEvent, __GetCell);
+	Gura_AssignMethod(wx_HtmlCellEvent, __GetLinkClicked);
+	Gura_AssignMethod(wx_HtmlCellEvent, __GetPoint);
+	Gura_AssignMethod(wx_HtmlCellEvent, __SetLinkClicked);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlCellEvent)

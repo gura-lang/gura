@@ -37,7 +37,7 @@ String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PropertySheetDialog, wxPropertySheetDialog)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __wxPropertySheetDialog, "wxPropertySheetDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_PropertySheetDialog, wxPropertySheetDialog)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, wxPropertySheetDialog)
+Gura_ImplementMethod(wx_PropertySheetDialog, __wxPropertySheetDialog)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, wxPropertySheetDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, AddBookCtrl)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __AddBookCtrl, "AddBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, AddBookCtrl)
+Gura_ImplementMethod(wx_PropertySheetDialog, __AddBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, AddBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, Create)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_DeclareMethod(wx_PropertySheetDialog, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, Create)
+Gura_ImplementMethod(wx_PropertySheetDialog, __Create)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_PropertySheetDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, CreateBookCtrl)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __CreateBookCtrl, "CreateBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, CreateBookCtrl)
+Gura_ImplementMethod(wx_PropertySheetDialog, __CreateBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, CreateBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, CreateButtons)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __CreateButtons, "CreateButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, CreateButtons)
+Gura_ImplementMethod(wx_PropertySheetDialog, __CreateButtons)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_PropertySheetDialog, CreateButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, GetBookCtrl)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetBookCtrl, "GetBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, GetBookCtrl)
+Gura_ImplementMethod(wx_PropertySheetDialog, __GetBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, GetInnerSizer)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetInnerSizer, "GetInnerSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, GetInnerSizer)
+Gura_ImplementMethod(wx_PropertySheetDialog, __GetInnerSizer)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetInnerSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, GetSheetStyle)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetSheetStyle, "GetSheetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, GetSheetStyle)
+Gura_ImplementMethod(wx_PropertySheetDialog, __GetSheetStyle)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, GetSheetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, LayoutDialog)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __LayoutDialog, "LayoutDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "centreFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, LayoutDialog)
+Gura_ImplementMethod(wx_PropertySheetDialog, __LayoutDialog)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, LayoutDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, SetBookCtrl)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __SetBookCtrl, "SetBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bookCtrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, SetBookCtrl)
+Gura_ImplementMethod(wx_PropertySheetDialog, __SetBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertySheetDialog, SetSheetStyle)
+Gura_DeclareMethodAlias(wx_PropertySheetDialog, __SetSheetStyle, "SetSheetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetStyle)
+Gura_ImplementMethod(wx_PropertySheetDialog, __SetSheetStyle)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,17 +223,17 @@ Gura_ImplementMethod(wx_PropertySheetDialog, SetSheetStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertySheetDialog)
 {
-	Gura_AssignMethod(wx_PropertySheetDialog, wxPropertySheetDialog);
-	Gura_AssignMethod(wx_PropertySheetDialog, AddBookCtrl);
-	Gura_AssignMethod(wx_PropertySheetDialog, Create);
-	Gura_AssignMethod(wx_PropertySheetDialog, CreateBookCtrl);
-	Gura_AssignMethod(wx_PropertySheetDialog, CreateButtons);
-	Gura_AssignMethod(wx_PropertySheetDialog, GetBookCtrl);
-	Gura_AssignMethod(wx_PropertySheetDialog, GetInnerSizer);
-	Gura_AssignMethod(wx_PropertySheetDialog, GetSheetStyle);
-	Gura_AssignMethod(wx_PropertySheetDialog, LayoutDialog);
-	Gura_AssignMethod(wx_PropertySheetDialog, SetBookCtrl);
-	Gura_AssignMethod(wx_PropertySheetDialog, SetSheetStyle);
+	Gura_AssignMethod(wx_PropertySheetDialog, __wxPropertySheetDialog);
+	Gura_AssignMethod(wx_PropertySheetDialog, __AddBookCtrl);
+	Gura_AssignMethod(wx_PropertySheetDialog, __Create);
+	Gura_AssignMethod(wx_PropertySheetDialog, __CreateBookCtrl);
+	Gura_AssignMethod(wx_PropertySheetDialog, __CreateButtons);
+	Gura_AssignMethod(wx_PropertySheetDialog, __GetBookCtrl);
+	Gura_AssignMethod(wx_PropertySheetDialog, __GetInnerSizer);
+	Gura_AssignMethod(wx_PropertySheetDialog, __GetSheetStyle);
+	Gura_AssignMethod(wx_PropertySheetDialog, __LayoutDialog);
+	Gura_AssignMethod(wx_PropertySheetDialog, __SetBookCtrl);
+	Gura_AssignMethod(wx_PropertySheetDialog, __SetSheetStyle);
 }
 
 Gura_ImplementDescendantCreator(wx_PropertySheetDialog)

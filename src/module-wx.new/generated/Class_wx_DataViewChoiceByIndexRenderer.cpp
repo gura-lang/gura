@@ -37,7 +37,7 @@ String Object_wx_DataViewChoiceByIndexRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer)
+Gura_DeclareMethodAlias(wx_DataViewChoiceByIndexRenderer, __wxDataViewChoiceByIndexRenderer, "wxDataViewChoiceByIndexRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRend
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer)
+Gura_ImplementMethod(wx_DataViewChoiceByIndexRenderer, __wxDataViewChoiceByIndexRenderer)
 {
 	Object_wx_DataViewChoiceByIndexRenderer *pThis = Object_wx_DataViewChoiceByIndexRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRe
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceByIndexRenderer)
 {
-	Gura_AssignMethod(wx_DataViewChoiceByIndexRenderer, wxDataViewChoiceByIndexRenderer);
+	Gura_AssignMethod(wx_DataViewChoiceByIndexRenderer, __wxDataViewChoiceByIndexRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewChoiceByIndexRenderer)

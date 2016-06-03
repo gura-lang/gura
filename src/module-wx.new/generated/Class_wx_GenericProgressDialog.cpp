@@ -37,7 +37,7 @@ String Object_wx_GenericProgressDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __wxGenericProgressDialog, "wxGenericProgressDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
+Gura_ImplementMethod(wx_GenericProgressDialog, __wxGenericProgressDialog)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,12 +60,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, wxGenericProgressDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, GetValue)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, GetValue)
+Gura_ImplementMethod(wx_GenericProgressDialog, __GetValue)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, GetRange)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetRange, "GetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, GetRange)
+Gura_ImplementMethod(wx_GenericProgressDialog, __GetRange)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, GetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, GetMessage)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetMessage, "GetMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, GetMessage)
+Gura_ImplementMethod(wx_GenericProgressDialog, __GetMessage)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_GenericProgressDialog, GetMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, Pulse)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __Pulse, "Pulse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "newmsg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, Pulse)
+Gura_ImplementMethod(wx_GenericProgressDialog, __Pulse)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, Pulse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, Resume)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __Resume, "Resume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, Resume)
+Gura_ImplementMethod(wx_GenericProgressDialog, __Resume)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_GenericProgressDialog, Resume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, SetRange)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maximum", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, SetRange)
+Gura_ImplementMethod(wx_GenericProgressDialog, __SetRange)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,12 +144,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, WasCancelled)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __WasCancelled, "WasCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, WasCancelled)
+Gura_ImplementMethod(wx_GenericProgressDialog, __WasCancelled)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,12 +157,12 @@ Gura_ImplementMethod(wx_GenericProgressDialog, WasCancelled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, WasSkipped)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __WasSkipped, "WasSkipped")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, WasSkipped)
+Gura_ImplementMethod(wx_GenericProgressDialog, __WasSkipped)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, WasSkipped)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericProgressDialog, Update)
+Gura_DeclareMethodAlias(wx_GenericProgressDialog, __Update, "Update")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -178,7 +178,7 @@ Gura_DeclareMethod(wx_GenericProgressDialog, Update)
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericProgressDialog, Update)
+Gura_ImplementMethod(wx_GenericProgressDialog, __Update)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,16 +194,16 @@ Gura_ImplementMethod(wx_GenericProgressDialog, Update)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericProgressDialog)
 {
-	Gura_AssignMethod(wx_GenericProgressDialog, wxGenericProgressDialog);
-	Gura_AssignMethod(wx_GenericProgressDialog, GetValue);
-	Gura_AssignMethod(wx_GenericProgressDialog, GetRange);
-	Gura_AssignMethod(wx_GenericProgressDialog, GetMessage);
-	Gura_AssignMethod(wx_GenericProgressDialog, Pulse);
-	Gura_AssignMethod(wx_GenericProgressDialog, Resume);
-	Gura_AssignMethod(wx_GenericProgressDialog, SetRange);
-	Gura_AssignMethod(wx_GenericProgressDialog, WasCancelled);
-	Gura_AssignMethod(wx_GenericProgressDialog, WasSkipped);
-	Gura_AssignMethod(wx_GenericProgressDialog, Update);
+	Gura_AssignMethod(wx_GenericProgressDialog, __wxGenericProgressDialog);
+	Gura_AssignMethod(wx_GenericProgressDialog, __GetValue);
+	Gura_AssignMethod(wx_GenericProgressDialog, __GetRange);
+	Gura_AssignMethod(wx_GenericProgressDialog, __GetMessage);
+	Gura_AssignMethod(wx_GenericProgressDialog, __Pulse);
+	Gura_AssignMethod(wx_GenericProgressDialog, __Resume);
+	Gura_AssignMethod(wx_GenericProgressDialog, __SetRange);
+	Gura_AssignMethod(wx_GenericProgressDialog, __WasCancelled);
+	Gura_AssignMethod(wx_GenericProgressDialog, __WasSkipped);
+	Gura_AssignMethod(wx_GenericProgressDialog, __Update);
 }
 
 Gura_ImplementDescendantCreator(wx_GenericProgressDialog)

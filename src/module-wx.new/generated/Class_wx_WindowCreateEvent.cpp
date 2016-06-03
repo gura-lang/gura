@@ -37,13 +37,13 @@ String Object_wx_WindowCreateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WindowCreateEvent, wxWindowCreateEvent)
+Gura_DeclareMethodAlias(wx_WindowCreateEvent, __wxWindowCreateEvent, "wxWindowCreateEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowCreateEvent, wxWindowCreateEvent)
+Gura_ImplementMethod(wx_WindowCreateEvent, __wxWindowCreateEvent)
 {
 	Object_wx_WindowCreateEvent *pThis = Object_wx_WindowCreateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_WindowCreateEvent, wxWindowCreateEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WindowCreateEvent, GetWindow)
+Gura_DeclareMethodAlias(wx_WindowCreateEvent, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WindowCreateEvent, GetWindow)
+Gura_ImplementMethod(wx_WindowCreateEvent, __GetWindow)
 {
 	Object_wx_WindowCreateEvent *pThis = Object_wx_WindowCreateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_WindowCreateEvent, GetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowCreateEvent)
 {
-	Gura_AssignMethod(wx_WindowCreateEvent, wxWindowCreateEvent);
-	Gura_AssignMethod(wx_WindowCreateEvent, GetWindow);
+	Gura_AssignMethod(wx_WindowCreateEvent, __wxWindowCreateEvent);
+	Gura_AssignMethod(wx_WindowCreateEvent, __GetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowCreateEvent)

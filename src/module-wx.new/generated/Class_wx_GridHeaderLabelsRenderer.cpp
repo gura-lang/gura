@@ -37,7 +37,7 @@ String Object_wx_GridHeaderLabelsRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
+Gura_DeclareMethodAlias(wx_GridHeaderLabelsRenderer, __DrawLabel, "DrawLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
 	//DeclareArg(env, "textOrientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
+Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, __DrawLabel)
 {
 	Object_wx_GridHeaderLabelsRenderer *pThis = Object_wx_GridHeaderLabelsRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, DrawLabel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridHeaderLabelsRenderer)
 {
-	Gura_AssignMethod(wx_GridHeaderLabelsRenderer, DrawLabel);
+	Gura_AssignMethod(wx_GridHeaderLabelsRenderer, __DrawLabel);
 }
 
 Gura_ImplementDescendantCreator(wx_GridHeaderLabelsRenderer)

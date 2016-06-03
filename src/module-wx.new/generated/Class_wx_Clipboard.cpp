@@ -37,12 +37,12 @@ String Object_wx_Clipboard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Clipboard, wxClipboard)
+Gura_DeclareMethodAlias(wx_Clipboard, __wxClipboard, "wxClipboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, wxClipboard)
+Gura_ImplementMethod(wx_Clipboard, __wxClipboard)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_Clipboard, wxClipboard)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, AddData)
+Gura_DeclareMethodAlias(wx_Clipboard, __AddData, "AddData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Clipboard, AddData)
+Gura_ImplementMethod(wx_Clipboard, __AddData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_Clipboard, AddData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, Clear)
+Gura_DeclareMethodAlias(wx_Clipboard, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, Clear)
+Gura_ImplementMethod(wx_Clipboard, __Clear)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_Clipboard, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, Close)
+Gura_DeclareMethodAlias(wx_Clipboard, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, Close)
+Gura_ImplementMethod(wx_Clipboard, __Close)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_Clipboard, Close)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, Flush)
+Gura_DeclareMethodAlias(wx_Clipboard, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, Flush)
+Gura_ImplementMethod(wx_Clipboard, __Flush)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Clipboard, Flush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, GetData)
+Gura_DeclareMethodAlias(wx_Clipboard, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Clipboard, GetData)
+Gura_ImplementMethod(wx_Clipboard, __GetData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Clipboard, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, IsOpened)
+Gura_DeclareMethodAlias(wx_Clipboard, __IsOpened, "IsOpened")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, IsOpened)
+Gura_ImplementMethod(wx_Clipboard, __IsOpened)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_Clipboard, IsOpened)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, IsSupported)
+Gura_DeclareMethodAlias(wx_Clipboard, __IsSupported, "IsSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Clipboard, IsSupported)
+Gura_ImplementMethod(wx_Clipboard, __IsSupported)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_Clipboard, IsSupported)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, IsUsingPrimarySelection)
+Gura_DeclareMethodAlias(wx_Clipboard, __IsUsingPrimarySelection, "IsUsingPrimarySelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, IsUsingPrimarySelection)
+Gura_ImplementMethod(wx_Clipboard, __IsUsingPrimarySelection)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_Clipboard, IsUsingPrimarySelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, Open)
+Gura_DeclareMethodAlias(wx_Clipboard, __Open, "Open")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, Open)
+Gura_ImplementMethod(wx_Clipboard, __Open)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_Clipboard, Open)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, SetData)
+Gura_DeclareMethodAlias(wx_Clipboard, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Clipboard, SetData)
+Gura_ImplementMethod(wx_Clipboard, __SetData)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_Clipboard, SetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, UsePrimarySelection)
+Gura_DeclareMethodAlias(wx_Clipboard, __UsePrimarySelection, "UsePrimarySelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "primary", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Clipboard, UsePrimarySelection)
+Gura_ImplementMethod(wx_Clipboard, __UsePrimarySelection)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,12 +203,12 @@ Gura_ImplementMethod(wx_Clipboard, UsePrimarySelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Clipboard, Get)
+Gura_DeclareMethodAlias(wx_Clipboard, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Clipboard, Get)
+Gura_ImplementMethod(wx_Clipboard, __Get)
 {
 	Object_wx_Clipboard *pThis = Object_wx_Clipboard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,19 +221,19 @@ Gura_ImplementMethod(wx_Clipboard, Get)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Clipboard)
 {
-	Gura_AssignMethod(wx_Clipboard, wxClipboard);
-	Gura_AssignMethod(wx_Clipboard, AddData);
-	Gura_AssignMethod(wx_Clipboard, Clear);
-	Gura_AssignMethod(wx_Clipboard, Close);
-	Gura_AssignMethod(wx_Clipboard, Flush);
-	Gura_AssignMethod(wx_Clipboard, GetData);
-	Gura_AssignMethod(wx_Clipboard, IsOpened);
-	Gura_AssignMethod(wx_Clipboard, IsSupported);
-	Gura_AssignMethod(wx_Clipboard, IsUsingPrimarySelection);
-	Gura_AssignMethod(wx_Clipboard, Open);
-	Gura_AssignMethod(wx_Clipboard, SetData);
-	Gura_AssignMethod(wx_Clipboard, UsePrimarySelection);
-	Gura_AssignMethod(wx_Clipboard, Get);
+	Gura_AssignMethod(wx_Clipboard, __wxClipboard);
+	Gura_AssignMethod(wx_Clipboard, __AddData);
+	Gura_AssignMethod(wx_Clipboard, __Clear);
+	Gura_AssignMethod(wx_Clipboard, __Close);
+	Gura_AssignMethod(wx_Clipboard, __Flush);
+	Gura_AssignMethod(wx_Clipboard, __GetData);
+	Gura_AssignMethod(wx_Clipboard, __IsOpened);
+	Gura_AssignMethod(wx_Clipboard, __IsSupported);
+	Gura_AssignMethod(wx_Clipboard, __IsUsingPrimarySelection);
+	Gura_AssignMethod(wx_Clipboard, __Open);
+	Gura_AssignMethod(wx_Clipboard, __SetData);
+	Gura_AssignMethod(wx_Clipboard, __UsePrimarySelection);
+	Gura_AssignMethod(wx_Clipboard, __Get);
 }
 
 Gura_ImplementDescendantCreator(wx_Clipboard)

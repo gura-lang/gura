@@ -37,14 +37,14 @@ String Object_wx_FFileOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FFileOutputStream, wxFFileOutputStream)
+Gura_DeclareMethodAlias(wx_FFileOutputStream, __wxFFileOutputStream, "wxFFileOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream)
+Gura_ImplementMethod(wx_FFileOutputStream, __wxFFileOutputStream)
 {
 	Object_wx_FFileOutputStream *pThis = Object_wx_FFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FFileOutputStream, wxFFileOutputStream_1)
+Gura_DeclareMethodAlias(wx_FFileOutputStream, __wxFFileOutputStream_1, "wxFFileOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream_1)
+Gura_ImplementMethod(wx_FFileOutputStream, __wxFFileOutputStream_1)
 {
 	Object_wx_FFileOutputStream *pThis = Object_wx_FFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FFileOutputStream, wxFFileOutputStream_2)
+Gura_DeclareMethodAlias(wx_FFileOutputStream, __wxFFileOutputStream_2, "wxFFileOutputStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream_2)
+Gura_ImplementMethod(wx_FFileOutputStream, __wxFFileOutputStream_2)
 {
 	Object_wx_FFileOutputStream *pThis = Object_wx_FFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_FFileOutputStream, wxFFileOutputStream_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FFileOutputStream, IsOk)
+Gura_DeclareMethodAlias(wx_FFileOutputStream, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FFileOutputStream, IsOk)
+Gura_ImplementMethod(wx_FFileOutputStream, __IsOk)
 {
 	Object_wx_FFileOutputStream *pThis = Object_wx_FFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_FFileOutputStream, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FFileOutputStream, GetFile)
+Gura_DeclareMethodAlias(wx_FFileOutputStream, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FFileOutputStream, GetFile)
+Gura_ImplementMethod(wx_FFileOutputStream, __GetFile)
 {
 	Object_wx_FFileOutputStream *pThis = Object_wx_FFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,11 +115,11 @@ Gura_ImplementMethod(wx_FFileOutputStream, GetFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FFileOutputStream)
 {
-	Gura_AssignMethod(wx_FFileOutputStream, wxFFileOutputStream);
-	Gura_AssignMethod(wx_FFileOutputStream, wxFFileOutputStream_1);
-	Gura_AssignMethod(wx_FFileOutputStream, wxFFileOutputStream_2);
-	Gura_AssignMethod(wx_FFileOutputStream, IsOk);
-	Gura_AssignMethod(wx_FFileOutputStream, GetFile);
+	Gura_AssignMethod(wx_FFileOutputStream, __wxFFileOutputStream);
+	Gura_AssignMethod(wx_FFileOutputStream, __wxFFileOutputStream_1);
+	Gura_AssignMethod(wx_FFileOutputStream, __wxFFileOutputStream_2);
+	Gura_AssignMethod(wx_FFileOutputStream, __IsOk);
+	Gura_AssignMethod(wx_FFileOutputStream, __GetFile);
 }
 
 Gura_ImplementDescendantCreator(wx_FFileOutputStream)

@@ -37,12 +37,12 @@ String Object_wx_TreeItemData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeItemData, wxTreeItemData)
+Gura_DeclareMethodAlias(wx_TreeItemData, __wxTreeItemData, "wxTreeItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemData, wxTreeItemData)
+Gura_ImplementMethod(wx_TreeItemData, __wxTreeItemData)
 {
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_TreeItemData, wxTreeItemData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeItemData, GetId)
+Gura_DeclareMethodAlias(wx_TreeItemData, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemData, GetId)
+Gura_ImplementMethod(wx_TreeItemData, __GetId)
 {
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_TreeItemData, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeItemData, SetId)
+Gura_DeclareMethodAlias(wx_TreeItemData, __SetId, "SetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeItemData, SetId)
+Gura_ImplementMethod(wx_TreeItemData, __SetId)
 {
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_TreeItemData, SetId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeItemData)
 {
-	Gura_AssignMethod(wx_TreeItemData, wxTreeItemData);
-	Gura_AssignMethod(wx_TreeItemData, GetId);
-	Gura_AssignMethod(wx_TreeItemData, SetId);
+	Gura_AssignMethod(wx_TreeItemData, __wxTreeItemData);
+	Gura_AssignMethod(wx_TreeItemData, __GetId);
+	Gura_AssignMethod(wx_TreeItemData, __SetId);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeItemData)

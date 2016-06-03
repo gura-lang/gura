@@ -37,13 +37,13 @@ String Object_wx_BoxSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BoxSizer, wxBoxSizer)
+Gura_DeclareMethodAlias(wx_BoxSizer, __wxBoxSizer, "wxBoxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, wxBoxSizer)
+Gura_ImplementMethod(wx_BoxSizer, __wxBoxSizer)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_BoxSizer, wxBoxSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BoxSizer, AddSpacer)
+Gura_DeclareMethodAlias(wx_BoxSizer, __AddSpacer, "AddSpacer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, AddSpacer)
+Gura_ImplementMethod(wx_BoxSizer, __AddSpacer)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_BoxSizer, AddSpacer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BoxSizer, CalcMin)
+Gura_DeclareMethodAlias(wx_BoxSizer, __CalcMin, "CalcMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, CalcMin)
+Gura_ImplementMethod(wx_BoxSizer, __CalcMin)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_BoxSizer, CalcMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BoxSizer, GetOrientation)
+Gura_DeclareMethodAlias(wx_BoxSizer, __GetOrientation, "GetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
+Gura_ImplementMethod(wx_BoxSizer, __GetOrientation)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_BoxSizer, GetOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BoxSizer, SetOrientation)
+Gura_DeclareMethodAlias(wx_BoxSizer, __SetOrientation, "SetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, SetOrientation)
+Gura_ImplementMethod(wx_BoxSizer, __SetOrientation)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_BoxSizer, SetOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BoxSizer, RecalcSizes)
+Gura_DeclareMethodAlias(wx_BoxSizer, __RecalcSizes, "RecalcSizes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
+Gura_ImplementMethod(wx_BoxSizer, __RecalcSizes)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_BoxSizer, RecalcSizes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BoxSizer)
 {
-	Gura_AssignMethod(wx_BoxSizer, wxBoxSizer);
-	Gura_AssignMethod(wx_BoxSizer, AddSpacer);
-	Gura_AssignMethod(wx_BoxSizer, CalcMin);
-	Gura_AssignMethod(wx_BoxSizer, GetOrientation);
-	Gura_AssignMethod(wx_BoxSizer, SetOrientation);
-	Gura_AssignMethod(wx_BoxSizer, RecalcSizes);
+	Gura_AssignMethod(wx_BoxSizer, __wxBoxSizer);
+	Gura_AssignMethod(wx_BoxSizer, __AddSpacer);
+	Gura_AssignMethod(wx_BoxSizer, __CalcMin);
+	Gura_AssignMethod(wx_BoxSizer, __GetOrientation);
+	Gura_AssignMethod(wx_BoxSizer, __SetOrientation);
+	Gura_AssignMethod(wx_BoxSizer, __RecalcSizes);
 }
 
 Gura_ImplementDescendantCreator(wx_BoxSizer)

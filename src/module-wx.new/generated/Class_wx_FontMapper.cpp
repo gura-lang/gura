@@ -37,12 +37,12 @@ String Object_wx_FontMapper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontMapper, wxFontMapper)
+Gura_DeclareMethodAlias(wx_FontMapper, __wxFontMapper, "wxFontMapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontMapper, wxFontMapper)
+Gura_ImplementMethod(wx_FontMapper, __wxFontMapper)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_FontMapper, wxFontMapper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, CharsetToEncoding)
+Gura_DeclareMethodAlias(wx_FontMapper, __CharsetToEncoding, "CharsetToEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "charset", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, CharsetToEncoding)
+Gura_ImplementMethod(wx_FontMapper, __CharsetToEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_FontMapper, CharsetToEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, Get)
+Gura_DeclareMethodAlias(wx_FontMapper, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontMapper, Get)
+Gura_ImplementMethod(wx_FontMapper, __Get)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_FontMapper, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetAllEncodingNames)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetAllEncodingNames, "GetAllEncodingNames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetAllEncodingNames)
+Gura_ImplementMethod(wx_FontMapper, __GetAllEncodingNames)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAllEncodingNames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetAltForEncoding, "GetAltForEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding)
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
+Gura_ImplementMethod(wx_FontMapper, __GetAltForEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding_1)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetAltForEncoding_1, "GetAltForEncoding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
@@ -125,7 +125,7 @@ Gura_DeclareMethod(wx_FontMapper, GetAltForEncoding_1)
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding_1)
+Gura_ImplementMethod(wx_FontMapper, __GetAltForEncoding_1)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,13 +137,13 @@ Gura_ImplementMethod(wx_FontMapper, GetAltForEncoding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetEncoding)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetEncoding, "GetEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetEncoding)
+Gura_ImplementMethod(wx_FontMapper, __GetEncoding)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,13 +152,13 @@ Gura_ImplementMethod(wx_FontMapper, GetEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetEncodingDescription)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetEncodingDescription, "GetEncodingDescription")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetEncodingDescription)
+Gura_ImplementMethod(wx_FontMapper, __GetEncodingDescription)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,13 +167,13 @@ Gura_ImplementMethod(wx_FontMapper, GetEncodingDescription)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetEncodingFromName)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetEncodingFromName, "GetEncodingFromName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetEncodingFromName)
+Gura_ImplementMethod(wx_FontMapper, __GetEncodingFromName)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,13 +182,13 @@ Gura_ImplementMethod(wx_FontMapper, GetEncodingFromName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetEncodingName)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetEncodingName, "GetEncodingName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetEncodingName)
+Gura_ImplementMethod(wx_FontMapper, __GetEncodingName)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_FontMapper, GetEncodingName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, GetSupportedEncodingsCount)
+Gura_DeclareMethodAlias(wx_FontMapper, __GetSupportedEncodingsCount, "GetSupportedEncodingsCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontMapper, GetSupportedEncodingsCount)
+Gura_ImplementMethod(wx_FontMapper, __GetSupportedEncodingsCount)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,14 +210,14 @@ Gura_ImplementMethod(wx_FontMapper, GetSupportedEncodingsCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, IsEncodingAvailable)
+Gura_DeclareMethodAlias(wx_FontMapper, __IsEncodingAvailable, "IsEncodingAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "facename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, IsEncodingAvailable)
+Gura_ImplementMethod(wx_FontMapper, __IsEncodingAvailable)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,13 +227,13 @@ Gura_ImplementMethod(wx_FontMapper, IsEncodingAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, Set)
+Gura_DeclareMethodAlias(wx_FontMapper, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mapper", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, Set)
+Gura_ImplementMethod(wx_FontMapper, __Set)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,13 +242,13 @@ Gura_ImplementMethod(wx_FontMapper, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, SetConfigPath)
+Gura_DeclareMethodAlias(wx_FontMapper, __SetConfigPath, "SetConfigPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, SetConfigPath)
+Gura_ImplementMethod(wx_FontMapper, __SetConfigPath)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,13 +257,13 @@ Gura_ImplementMethod(wx_FontMapper, SetConfigPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, SetDialogParent)
+Gura_DeclareMethodAlias(wx_FontMapper, __SetDialogParent, "SetDialogParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, SetDialogParent)
+Gura_ImplementMethod(wx_FontMapper, __SetDialogParent)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -272,13 +272,13 @@ Gura_ImplementMethod(wx_FontMapper, SetDialogParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontMapper, SetDialogTitle)
+Gura_DeclareMethodAlias(wx_FontMapper, __SetDialogTitle, "SetDialogTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontMapper, SetDialogTitle)
+Gura_ImplementMethod(wx_FontMapper, __SetDialogTitle)
 {
 	Object_wx_FontMapper *pThis = Object_wx_FontMapper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,22 +292,22 @@ Gura_ImplementMethod(wx_FontMapper, SetDialogTitle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontMapper)
 {
-	Gura_AssignMethod(wx_FontMapper, wxFontMapper);
-	Gura_AssignMethod(wx_FontMapper, CharsetToEncoding);
-	Gura_AssignMethod(wx_FontMapper, Get);
-	Gura_AssignMethod(wx_FontMapper, GetAllEncodingNames);
-	Gura_AssignMethod(wx_FontMapper, GetAltForEncoding);
-	Gura_AssignMethod(wx_FontMapper, GetAltForEncoding_1);
-	Gura_AssignMethod(wx_FontMapper, GetEncoding);
-	Gura_AssignMethod(wx_FontMapper, GetEncodingDescription);
-	Gura_AssignMethod(wx_FontMapper, GetEncodingFromName);
-	Gura_AssignMethod(wx_FontMapper, GetEncodingName);
-	Gura_AssignMethod(wx_FontMapper, GetSupportedEncodingsCount);
-	Gura_AssignMethod(wx_FontMapper, IsEncodingAvailable);
-	Gura_AssignMethod(wx_FontMapper, Set);
-	Gura_AssignMethod(wx_FontMapper, SetConfigPath);
-	Gura_AssignMethod(wx_FontMapper, SetDialogParent);
-	Gura_AssignMethod(wx_FontMapper, SetDialogTitle);
+	Gura_AssignMethod(wx_FontMapper, __wxFontMapper);
+	Gura_AssignMethod(wx_FontMapper, __CharsetToEncoding);
+	Gura_AssignMethod(wx_FontMapper, __Get);
+	Gura_AssignMethod(wx_FontMapper, __GetAllEncodingNames);
+	Gura_AssignMethod(wx_FontMapper, __GetAltForEncoding);
+	Gura_AssignMethod(wx_FontMapper, __GetAltForEncoding_1);
+	Gura_AssignMethod(wx_FontMapper, __GetEncoding);
+	Gura_AssignMethod(wx_FontMapper, __GetEncodingDescription);
+	Gura_AssignMethod(wx_FontMapper, __GetEncodingFromName);
+	Gura_AssignMethod(wx_FontMapper, __GetEncodingName);
+	Gura_AssignMethod(wx_FontMapper, __GetSupportedEncodingsCount);
+	Gura_AssignMethod(wx_FontMapper, __IsEncodingAvailable);
+	Gura_AssignMethod(wx_FontMapper, __Set);
+	Gura_AssignMethod(wx_FontMapper, __SetConfigPath);
+	Gura_AssignMethod(wx_FontMapper, __SetDialogParent);
+	Gura_AssignMethod(wx_FontMapper, __SetDialogTitle);
 }
 
 Gura_ImplementDescendantCreator(wx_FontMapper)

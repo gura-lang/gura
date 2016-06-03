@@ -37,7 +37,7 @@ String Object_wx_GridCellFloatRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellFloatRenderer, wxGridCellFloatRenderer)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer, "wxGridCellFloatRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_GridCellFloatRenderer, wxGridCellFloatRenderer)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, wxGridCellFloatRenderer)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, wxGridCellFloatRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, GetFormat)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetFormat, "GetFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, GetFormat)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetFormat)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, GetFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, GetPrecision)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetPrecision, "GetPrecision")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, GetPrecision)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetPrecision)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, GetPrecision)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, GetWidth)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, GetWidth)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetWidth)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, SetFormat)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __SetFormat, "SetFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, SetFormat)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetFormat)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, SetParameters)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, SetParameters)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetParameters)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, SetPrecision)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __SetPrecision, "SetPrecision")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, SetPrecision)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetPrecision)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetPrecision)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatRenderer, SetWidth)
+Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __SetWidth, "SetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatRenderer, SetWidth)
+Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetWidth)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,14 +160,14 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatRenderer)
 {
-	Gura_AssignMethod(wx_GridCellFloatRenderer, wxGridCellFloatRenderer);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, GetFormat);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, GetPrecision);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, GetWidth);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, SetFormat);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, SetParameters);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, SetPrecision);
-	Gura_AssignMethod(wx_GridCellFloatRenderer, SetWidth);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __wxGridCellFloatRenderer);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetFormat);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetPrecision);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __GetWidth);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __SetFormat);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __SetParameters);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __SetPrecision);
+	Gura_AssignMethod(wx_GridCellFloatRenderer, __SetWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellFloatRenderer)

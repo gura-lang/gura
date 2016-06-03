@@ -37,12 +37,12 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __wxHyperlinkCtrl, "wxHyperlinkCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1, "wxHyperlinkCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, Create)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_HyperlinkCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __Create)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, GetHoverColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetHoverColour, "GetHoverColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __GetHoverColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetHoverColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, GetNormalColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetNormalColour, "GetNormalColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __GetNormalColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetNormalColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, GetURL)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, GetURL)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __GetURL)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisited)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetVisited, "GetVisited")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisited)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __GetVisited)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisited)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, GetVisitedColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetVisitedColour, "GetVisitedColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __GetVisitedColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, GetVisitedColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, SetHoverColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __SetHoverColour, "SetHoverColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, SetHoverColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __SetHoverColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetHoverColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, SetNormalColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __SetNormalColour, "SetNormalColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, SetNormalColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __SetNormalColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetNormalColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, SetURL)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, SetURL)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __SetURL)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,13 +218,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisited)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __SetVisited, "SetVisited")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visited", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisited)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisited)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +233,13 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisited)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HyperlinkCtrl, SetVisitedColour)
+Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __SetVisitedColour, "SetVisitedColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisitedColour)
+Gura_ImplementMethod(wx_HyperlinkCtrl, __SetVisitedColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,19 +253,19 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, SetVisitedColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HyperlinkCtrl)
 {
-	Gura_AssignMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl);
-	Gura_AssignMethod(wx_HyperlinkCtrl, wxHyperlinkCtrl_1);
-	Gura_AssignMethod(wx_HyperlinkCtrl, Create);
-	Gura_AssignMethod(wx_HyperlinkCtrl, GetHoverColour);
-	Gura_AssignMethod(wx_HyperlinkCtrl, GetNormalColour);
-	Gura_AssignMethod(wx_HyperlinkCtrl, GetURL);
-	Gura_AssignMethod(wx_HyperlinkCtrl, GetVisited);
-	Gura_AssignMethod(wx_HyperlinkCtrl, GetVisitedColour);
-	Gura_AssignMethod(wx_HyperlinkCtrl, SetHoverColour);
-	Gura_AssignMethod(wx_HyperlinkCtrl, SetNormalColour);
-	Gura_AssignMethod(wx_HyperlinkCtrl, SetURL);
-	Gura_AssignMethod(wx_HyperlinkCtrl, SetVisited);
-	Gura_AssignMethod(wx_HyperlinkCtrl, SetVisitedColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __wxHyperlinkCtrl_1);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __Create);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __GetHoverColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __GetNormalColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __GetURL);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __GetVisited);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __GetVisitedColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __SetHoverColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __SetNormalColour);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __SetURL);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __SetVisited);
+	Gura_AssignMethod(wx_HyperlinkCtrl, __SetVisitedColour);
 }
 
 Gura_ImplementDescendantCreator(wx_HyperlinkCtrl)

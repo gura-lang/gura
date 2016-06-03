@@ -37,12 +37,12 @@ String Object_wx_TimeSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TimeSpan, wxTimeSpan)
+Gura_DeclareMethodAlias(wx_TimeSpan, __wxTimeSpan, "wxTimeSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan)
+Gura_ImplementMethod(wx_TimeSpan, __wxTimeSpan)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, wxTimeSpan_1)
+Gura_DeclareMethodAlias(wx_TimeSpan, __wxTimeSpan_1, "wxTimeSpan_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_TimeSpan, wxTimeSpan_1)
 	//DeclareArg(env, "msec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan_1)
+Gura_ImplementMethod(wx_TimeSpan, __wxTimeSpan_1)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_TimeSpan, wxTimeSpan_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Abs)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Abs, "Abs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Abs)
+Gura_ImplementMethod(wx_TimeSpan, __Abs)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_TimeSpan, Abs)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Add)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Add)
+Gura_ImplementMethod(wx_TimeSpan, __Add)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_TimeSpan, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Add_1)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Add_1, "Add_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Add_1)
+Gura_ImplementMethod(wx_TimeSpan, __Add_1)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_TimeSpan, Add_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Day)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Day, "Day")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Day)
+Gura_ImplementMethod(wx_TimeSpan, __Day)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_TimeSpan, Day)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Days)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Days, "Days")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Days)
+Gura_ImplementMethod(wx_TimeSpan, __Days)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_TimeSpan, Days)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Format)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Format, "Format")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Format)
+Gura_ImplementMethod(wx_TimeSpan, __Format)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,12 +157,12 @@ Gura_ImplementMethod(wx_TimeSpan, Format)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetDays)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetDays, "GetDays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetDays)
+Gura_ImplementMethod(wx_TimeSpan, __GetDays)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,12 +170,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetDays)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetHours)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetHours, "GetHours")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetHours)
+Gura_ImplementMethod(wx_TimeSpan, __GetHours)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetHours)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetMilliseconds)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetMilliseconds, "GetMilliseconds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetMilliseconds)
+Gura_ImplementMethod(wx_TimeSpan, __GetMilliseconds)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetMilliseconds)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetMinutes)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetMinutes, "GetMinutes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetMinutes)
+Gura_ImplementMethod(wx_TimeSpan, __GetMinutes)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,12 +209,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetMinutes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetSeconds)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetSeconds, "GetSeconds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetSeconds)
+Gura_ImplementMethod(wx_TimeSpan, __GetSeconds)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetSeconds)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetValue)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetValue)
+Gura_ImplementMethod(wx_TimeSpan, __GetValue)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,12 +235,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, GetWeeks)
+Gura_DeclareMethodAlias(wx_TimeSpan, __GetWeeks, "GetWeeks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, GetWeeks)
+Gura_ImplementMethod(wx_TimeSpan, __GetWeeks)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,12 +248,12 @@ Gura_ImplementMethod(wx_TimeSpan, GetWeeks)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Hour)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Hour, "Hour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Hour)
+Gura_ImplementMethod(wx_TimeSpan, __Hour)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,13 +261,13 @@ Gura_ImplementMethod(wx_TimeSpan, Hour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Hours)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Hours, "Hours")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hours", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Hours)
+Gura_ImplementMethod(wx_TimeSpan, __Hours)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,13 +276,13 @@ Gura_ImplementMethod(wx_TimeSpan, Hours)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsEqualTo)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsEqualTo, "IsEqualTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ts", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsEqualTo)
+Gura_ImplementMethod(wx_TimeSpan, __IsEqualTo)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,13 +291,13 @@ Gura_ImplementMethod(wx_TimeSpan, IsEqualTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsLongerThan)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsLongerThan, "IsLongerThan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ts", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsLongerThan)
+Gura_ImplementMethod(wx_TimeSpan, __IsLongerThan)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -306,12 +306,12 @@ Gura_ImplementMethod(wx_TimeSpan, IsLongerThan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsNegative)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsNegative, "IsNegative")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsNegative)
+Gura_ImplementMethod(wx_TimeSpan, __IsNegative)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -319,12 +319,12 @@ Gura_ImplementMethod(wx_TimeSpan, IsNegative)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsNull)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsNull, "IsNull")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsNull)
+Gura_ImplementMethod(wx_TimeSpan, __IsNull)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,12 +332,12 @@ Gura_ImplementMethod(wx_TimeSpan, IsNull)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsPositive)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsPositive, "IsPositive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsPositive)
+Gura_ImplementMethod(wx_TimeSpan, __IsPositive)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -345,13 +345,13 @@ Gura_ImplementMethod(wx_TimeSpan, IsPositive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, IsShorterThan)
+Gura_DeclareMethodAlias(wx_TimeSpan, __IsShorterThan, "IsShorterThan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ts", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, IsShorterThan)
+Gura_ImplementMethod(wx_TimeSpan, __IsShorterThan)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,12 +360,12 @@ Gura_ImplementMethod(wx_TimeSpan, IsShorterThan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Millisecond)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Millisecond, "Millisecond")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Millisecond)
+Gura_ImplementMethod(wx_TimeSpan, __Millisecond)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,13 +373,13 @@ Gura_ImplementMethod(wx_TimeSpan, Millisecond)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Milliseconds)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Milliseconds, "Milliseconds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ms", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Milliseconds)
+Gura_ImplementMethod(wx_TimeSpan, __Milliseconds)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -388,12 +388,12 @@ Gura_ImplementMethod(wx_TimeSpan, Milliseconds)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Minute)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Minute, "Minute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Minute)
+Gura_ImplementMethod(wx_TimeSpan, __Minute)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -401,13 +401,13 @@ Gura_ImplementMethod(wx_TimeSpan, Minute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Minutes)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Minutes, "Minutes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Minutes)
+Gura_ImplementMethod(wx_TimeSpan, __Minutes)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -416,13 +416,13 @@ Gura_ImplementMethod(wx_TimeSpan, Minutes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Multiply)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Multiply, "Multiply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Multiply)
+Gura_ImplementMethod(wx_TimeSpan, __Multiply)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -431,13 +431,13 @@ Gura_ImplementMethod(wx_TimeSpan, Multiply)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Multiply_1)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Multiply_1, "Multiply_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Multiply_1)
+Gura_ImplementMethod(wx_TimeSpan, __Multiply_1)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -446,12 +446,12 @@ Gura_ImplementMethod(wx_TimeSpan, Multiply_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Neg)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Neg, "Neg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Neg)
+Gura_ImplementMethod(wx_TimeSpan, __Neg)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -459,12 +459,12 @@ Gura_ImplementMethod(wx_TimeSpan, Neg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Negate)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Negate, "Negate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Negate)
+Gura_ImplementMethod(wx_TimeSpan, __Negate)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -472,12 +472,12 @@ Gura_ImplementMethod(wx_TimeSpan, Negate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Second)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Second, "Second")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Second)
+Gura_ImplementMethod(wx_TimeSpan, __Second)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -485,13 +485,13 @@ Gura_ImplementMethod(wx_TimeSpan, Second)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Seconds)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Seconds, "Seconds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Seconds)
+Gura_ImplementMethod(wx_TimeSpan, __Seconds)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -500,13 +500,13 @@ Gura_ImplementMethod(wx_TimeSpan, Seconds)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Subtract)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Subtract, "Subtract")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Subtract)
+Gura_ImplementMethod(wx_TimeSpan, __Subtract)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -515,13 +515,13 @@ Gura_ImplementMethod(wx_TimeSpan, Subtract)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Subtract_1)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Subtract_1, "Subtract_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Subtract_1)
+Gura_ImplementMethod(wx_TimeSpan, __Subtract_1)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -530,12 +530,12 @@ Gura_ImplementMethod(wx_TimeSpan, Subtract_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Week)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Week, "Week")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Week)
+Gura_ImplementMethod(wx_TimeSpan, __Week)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -543,13 +543,13 @@ Gura_ImplementMethod(wx_TimeSpan, Week)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimeSpan, Weeks)
+Gura_DeclareMethodAlias(wx_TimeSpan, __Weeks, "Weeks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "weeks", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimeSpan, Weeks)
+Gura_ImplementMethod(wx_TimeSpan, __Weeks)
 {
 	Object_wx_TimeSpan *pThis = Object_wx_TimeSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -563,43 +563,43 @@ Gura_ImplementMethod(wx_TimeSpan, Weeks)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimeSpan)
 {
-	Gura_AssignMethod(wx_TimeSpan, wxTimeSpan);
-	Gura_AssignMethod(wx_TimeSpan, wxTimeSpan_1);
-	Gura_AssignMethod(wx_TimeSpan, Abs);
-	Gura_AssignMethod(wx_TimeSpan, Add);
-	Gura_AssignMethod(wx_TimeSpan, Add_1);
-	Gura_AssignMethod(wx_TimeSpan, Day);
-	Gura_AssignMethod(wx_TimeSpan, Days);
-	Gura_AssignMethod(wx_TimeSpan, Format);
-	Gura_AssignMethod(wx_TimeSpan, GetDays);
-	Gura_AssignMethod(wx_TimeSpan, GetHours);
-	Gura_AssignMethod(wx_TimeSpan, GetMilliseconds);
-	Gura_AssignMethod(wx_TimeSpan, GetMinutes);
-	Gura_AssignMethod(wx_TimeSpan, GetSeconds);
-	Gura_AssignMethod(wx_TimeSpan, GetValue);
-	Gura_AssignMethod(wx_TimeSpan, GetWeeks);
-	Gura_AssignMethod(wx_TimeSpan, Hour);
-	Gura_AssignMethod(wx_TimeSpan, Hours);
-	Gura_AssignMethod(wx_TimeSpan, IsEqualTo);
-	Gura_AssignMethod(wx_TimeSpan, IsLongerThan);
-	Gura_AssignMethod(wx_TimeSpan, IsNegative);
-	Gura_AssignMethod(wx_TimeSpan, IsNull);
-	Gura_AssignMethod(wx_TimeSpan, IsPositive);
-	Gura_AssignMethod(wx_TimeSpan, IsShorterThan);
-	Gura_AssignMethod(wx_TimeSpan, Millisecond);
-	Gura_AssignMethod(wx_TimeSpan, Milliseconds);
-	Gura_AssignMethod(wx_TimeSpan, Minute);
-	Gura_AssignMethod(wx_TimeSpan, Minutes);
-	Gura_AssignMethod(wx_TimeSpan, Multiply);
-	Gura_AssignMethod(wx_TimeSpan, Multiply_1);
-	Gura_AssignMethod(wx_TimeSpan, Neg);
-	Gura_AssignMethod(wx_TimeSpan, Negate);
-	Gura_AssignMethod(wx_TimeSpan, Second);
-	Gura_AssignMethod(wx_TimeSpan, Seconds);
-	Gura_AssignMethod(wx_TimeSpan, Subtract);
-	Gura_AssignMethod(wx_TimeSpan, Subtract_1);
-	Gura_AssignMethod(wx_TimeSpan, Week);
-	Gura_AssignMethod(wx_TimeSpan, Weeks);
+	Gura_AssignMethod(wx_TimeSpan, __wxTimeSpan);
+	Gura_AssignMethod(wx_TimeSpan, __wxTimeSpan_1);
+	Gura_AssignMethod(wx_TimeSpan, __Abs);
+	Gura_AssignMethod(wx_TimeSpan, __Add);
+	Gura_AssignMethod(wx_TimeSpan, __Add_1);
+	Gura_AssignMethod(wx_TimeSpan, __Day);
+	Gura_AssignMethod(wx_TimeSpan, __Days);
+	Gura_AssignMethod(wx_TimeSpan, __Format);
+	Gura_AssignMethod(wx_TimeSpan, __GetDays);
+	Gura_AssignMethod(wx_TimeSpan, __GetHours);
+	Gura_AssignMethod(wx_TimeSpan, __GetMilliseconds);
+	Gura_AssignMethod(wx_TimeSpan, __GetMinutes);
+	Gura_AssignMethod(wx_TimeSpan, __GetSeconds);
+	Gura_AssignMethod(wx_TimeSpan, __GetValue);
+	Gura_AssignMethod(wx_TimeSpan, __GetWeeks);
+	Gura_AssignMethod(wx_TimeSpan, __Hour);
+	Gura_AssignMethod(wx_TimeSpan, __Hours);
+	Gura_AssignMethod(wx_TimeSpan, __IsEqualTo);
+	Gura_AssignMethod(wx_TimeSpan, __IsLongerThan);
+	Gura_AssignMethod(wx_TimeSpan, __IsNegative);
+	Gura_AssignMethod(wx_TimeSpan, __IsNull);
+	Gura_AssignMethod(wx_TimeSpan, __IsPositive);
+	Gura_AssignMethod(wx_TimeSpan, __IsShorterThan);
+	Gura_AssignMethod(wx_TimeSpan, __Millisecond);
+	Gura_AssignMethod(wx_TimeSpan, __Milliseconds);
+	Gura_AssignMethod(wx_TimeSpan, __Minute);
+	Gura_AssignMethod(wx_TimeSpan, __Minutes);
+	Gura_AssignMethod(wx_TimeSpan, __Multiply);
+	Gura_AssignMethod(wx_TimeSpan, __Multiply_1);
+	Gura_AssignMethod(wx_TimeSpan, __Neg);
+	Gura_AssignMethod(wx_TimeSpan, __Negate);
+	Gura_AssignMethod(wx_TimeSpan, __Second);
+	Gura_AssignMethod(wx_TimeSpan, __Seconds);
+	Gura_AssignMethod(wx_TimeSpan, __Subtract);
+	Gura_AssignMethod(wx_TimeSpan, __Subtract_1);
+	Gura_AssignMethod(wx_TimeSpan, __Week);
+	Gura_AssignMethod(wx_TimeSpan, __Weeks);
 }
 
 Gura_ImplementDescendantCreator(wx_TimeSpan)

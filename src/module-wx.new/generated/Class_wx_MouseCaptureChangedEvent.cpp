@@ -37,14 +37,14 @@ String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent)
+Gura_DeclareMethodAlias(wx_MouseCaptureChangedEvent, __wxMouseCaptureChangedEvent, "wxMouseCaptureChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gainedCapture", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent)
+Gura_ImplementMethod(wx_MouseCaptureChangedEvent, __wxMouseCaptureChangedEvent)
 {
 	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
+Gura_DeclareMethodAlias(wx_MouseCaptureChangedEvent, __GetCapturedWindow, "GetCapturedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
+Gura_ImplementMethod(wx_MouseCaptureChangedEvent, __GetCapturedWindow)
 {
 	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseCaptureChangedEvent)
 {
-	Gura_AssignMethod(wx_MouseCaptureChangedEvent, wxMouseCaptureChangedEvent);
-	Gura_AssignMethod(wx_MouseCaptureChangedEvent, GetCapturedWindow);
+	Gura_AssignMethod(wx_MouseCaptureChangedEvent, __wxMouseCaptureChangedEvent);
+	Gura_AssignMethod(wx_MouseCaptureChangedEvent, __GetCapturedWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseCaptureChangedEvent)

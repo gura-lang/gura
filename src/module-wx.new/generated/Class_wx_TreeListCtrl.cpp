@@ -37,12 +37,12 @@ String Object_wx_TreeListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeListCtrl, wxTreeListCtrl)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __wxTreeListCtrl, "wxTreeListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, wxTreeListCtrl)
+Gura_ImplementMethod(wx_TreeListCtrl, __wxTreeListCtrl)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, wxTreeListCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, wxTreeListCtrl_1)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __wxTreeListCtrl_1, "wxTreeListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, wxTreeListCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, wxTreeListCtrl_1)
+Gura_ImplementMethod(wx_TreeListCtrl, __wxTreeListCtrl_1)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, wxTreeListCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, Create)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, Create)
+Gura_ImplementMethod(wx_TreeListCtrl, __Create)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, AssignImageList)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __AssignImageList, "AssignImageList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageList", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, AssignImageList)
+Gura_ImplementMethod(wx_TreeListCtrl, __AssignImageList)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, AssignImageList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetImageList)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetImageList, "SetImageList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageList", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetImageList)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetImageList)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetImageList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, AppendColumn)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __AppendColumn, "AppendColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, AppendColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, AppendColumn)
+Gura_ImplementMethod(wx_TreeListCtrl, __AppendColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, AppendColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetColumnCount)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetColumnCount, "GetColumnCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetColumnCount)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetColumnCount)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetColumnCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, DeleteColumn)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __DeleteColumn, "DeleteColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, DeleteColumn)
+Gura_ImplementMethod(wx_TreeListCtrl, __DeleteColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,12 +179,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, DeleteColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, ClearColumns)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __ClearColumns, "ClearColumns")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, ClearColumns)
+Gura_ImplementMethod(wx_TreeListCtrl, __ClearColumns)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,14 +192,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, ClearColumns)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetColumnWidth)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetColumnWidth, "SetColumnWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetColumnWidth)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetColumnWidth)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetColumnWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetColumnWidth)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetColumnWidth, "GetColumnWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetColumnWidth)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetColumnWidth)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetColumnWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, WidthFor)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __WidthFor, "WidthFor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, WidthFor)
+Gura_ImplementMethod(wx_TreeListCtrl, __WidthFor)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, WidthFor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, AppendItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __AppendItem, "AppendItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -249,7 +249,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, AppendItem)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, AppendItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __AppendItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, AppendItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, InsertItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __InsertItem, "InsertItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -273,7 +273,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, InsertItem)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, InsertItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __InsertItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, InsertItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, PrependItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __PrependItem, "PrependItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -297,7 +297,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, PrependItem)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, PrependItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __PrependItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -310,13 +310,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, PrependItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, DeleteItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __DeleteItem, "DeleteItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, DeleteItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __DeleteItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,12 +325,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, DeleteItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, DeleteAllItems)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __DeleteAllItems, "DeleteAllItems")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, DeleteAllItems)
+Gura_ImplementMethod(wx_TreeListCtrl, __DeleteAllItems)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,12 +338,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, DeleteAllItems)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetRootItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetRootItem, "GetRootItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetRootItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetRootItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -351,13 +351,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetRootItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetItemParent)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetItemParent, "GetItemParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetItemParent)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetItemParent)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -366,13 +366,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetItemParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetFirstChild)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetFirstChild, "GetFirstChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetFirstChild)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetFirstChild)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,13 +381,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetFirstChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetNextSibling)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetNextSibling, "GetNextSibling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetNextSibling)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetNextSibling)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -396,12 +396,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetNextSibling)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetFirstItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetFirstItem, "GetFirstItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetFirstItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetFirstItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -409,13 +409,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetFirstItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetNextItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetNextItem, "GetNextItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetNextItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetNextItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -424,14 +424,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetNextItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetItemText)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetItemText, "GetItemText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetItemText)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetItemText)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetItemText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetItemText)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetItemText, "SetItemText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -449,7 +449,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, SetItemText)
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetItemText)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetItemText)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,14 +460,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetItemText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetItemText_1)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetItemText_1, "SetItemText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetItemText_1)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetItemText_1)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,7 +477,7 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetItemText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetItemImage)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetItemImage, "SetItemImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -485,7 +485,7 @@ Gura_DeclareMethod(wx_TreeListCtrl, SetItemImage)
 	//DeclareArg(env, "opened", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetItemImage)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetItemImage)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -496,13 +496,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetItemImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetItemData)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetItemData, "GetItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetItemData)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetItemData)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -511,14 +511,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetItemData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetItemData)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetItemData, "SetItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetItemData)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetItemData)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -528,13 +528,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetItemData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, Expand)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __Expand, "Expand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, Expand)
+Gura_ImplementMethod(wx_TreeListCtrl, __Expand)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -543,13 +543,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, Expand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, Collapse)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __Collapse, "Collapse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, Collapse)
+Gura_ImplementMethod(wx_TreeListCtrl, __Collapse)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -558,13 +558,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, Collapse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, IsExpanded)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __IsExpanded, "IsExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, IsExpanded)
+Gura_ImplementMethod(wx_TreeListCtrl, __IsExpanded)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -573,12 +573,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, IsExpanded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetSelection)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetSelection)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetSelection)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -586,13 +586,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetSelections)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetSelections, "GetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selections", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetSelections)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetSelections)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -601,13 +601,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetSelections)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, Select)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __Select, "Select")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, Select)
+Gura_ImplementMethod(wx_TreeListCtrl, __Select)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -616,13 +616,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, Select)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, Unselect)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __Unselect, "Unselect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, Unselect)
+Gura_ImplementMethod(wx_TreeListCtrl, __Unselect)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -631,13 +631,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, Unselect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, IsSelected)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __IsSelected, "IsSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, IsSelected)
+Gura_ImplementMethod(wx_TreeListCtrl, __IsSelected)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -646,12 +646,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, IsSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SelectAll)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SelectAll, "SelectAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SelectAll)
+Gura_ImplementMethod(wx_TreeListCtrl, __SelectAll)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -659,12 +659,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, SelectAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, UnselectAll)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __UnselectAll, "UnselectAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, UnselectAll)
+Gura_ImplementMethod(wx_TreeListCtrl, __UnselectAll)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -672,13 +672,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, UnselectAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, EnsureVisible)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __EnsureVisible, "EnsureVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, EnsureVisible)
+Gura_ImplementMethod(wx_TreeListCtrl, __EnsureVisible)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -687,14 +687,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, EnsureVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, CheckItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __CheckItem, "CheckItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, CheckItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __CheckItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -704,14 +704,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, CheckItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, CheckItemRecursively)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __CheckItemRecursively, "CheckItemRecursively")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, CheckItemRecursively)
+Gura_ImplementMethod(wx_TreeListCtrl, __CheckItemRecursively)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -721,13 +721,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, CheckItemRecursively)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, UncheckItem)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __UncheckItem, "UncheckItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, UncheckItem)
+Gura_ImplementMethod(wx_TreeListCtrl, __UncheckItem)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -736,13 +736,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, UncheckItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, UpdateItemParentStateRecursively)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __UpdateItemParentStateRecursively, "UpdateItemParentStateRecursively")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, UpdateItemParentStateRecursively)
+Gura_ImplementMethod(wx_TreeListCtrl, __UpdateItemParentStateRecursively)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -751,13 +751,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, UpdateItemParentStateRecursively)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetCheckedState)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetCheckedState, "GetCheckedState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetCheckedState)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetCheckedState)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -766,14 +766,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetCheckedState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, AreAllChildrenInState)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __AreAllChildrenInState, "AreAllChildrenInState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, AreAllChildrenInState)
+Gura_ImplementMethod(wx_TreeListCtrl, __AreAllChildrenInState)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -783,14 +783,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, AreAllChildrenInState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetSortColumn)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetSortColumn, "SetSortColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ascendingOrder", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetSortColumn)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetSortColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -800,14 +800,14 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetSortColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetSortColumn)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetSortColumn, "GetSortColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ascendingOrder", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetSortColumn)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetSortColumn)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -817,13 +817,13 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetSortColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, SetItemComparator)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __SetItemComparator, "SetItemComparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "comparator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, SetItemComparator)
+Gura_ImplementMethod(wx_TreeListCtrl, __SetItemComparator)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -832,12 +832,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, SetItemComparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetView)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetView, "GetView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetView)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetView)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -845,12 +845,12 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListCtrl, GetDataView)
+Gura_DeclareMethodAlias(wx_TreeListCtrl, __GetDataView, "GetDataView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListCtrl, GetDataView)
+Gura_ImplementMethod(wx_TreeListCtrl, __GetDataView)
 {
 	Object_wx_TreeListCtrl *pThis = Object_wx_TreeListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -863,57 +863,57 @@ Gura_ImplementMethod(wx_TreeListCtrl, GetDataView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListCtrl)
 {
-	Gura_AssignMethod(wx_TreeListCtrl, wxTreeListCtrl);
-	Gura_AssignMethod(wx_TreeListCtrl, wxTreeListCtrl_1);
-	Gura_AssignMethod(wx_TreeListCtrl, Create);
-	Gura_AssignMethod(wx_TreeListCtrl, AssignImageList);
-	Gura_AssignMethod(wx_TreeListCtrl, SetImageList);
-	Gura_AssignMethod(wx_TreeListCtrl, AppendColumn);
-	Gura_AssignMethod(wx_TreeListCtrl, GetColumnCount);
-	Gura_AssignMethod(wx_TreeListCtrl, DeleteColumn);
-	Gura_AssignMethod(wx_TreeListCtrl, ClearColumns);
-	Gura_AssignMethod(wx_TreeListCtrl, SetColumnWidth);
-	Gura_AssignMethod(wx_TreeListCtrl, GetColumnWidth);
-	Gura_AssignMethod(wx_TreeListCtrl, WidthFor);
-	Gura_AssignMethod(wx_TreeListCtrl, AppendItem);
-	Gura_AssignMethod(wx_TreeListCtrl, InsertItem);
-	Gura_AssignMethod(wx_TreeListCtrl, PrependItem);
-	Gura_AssignMethod(wx_TreeListCtrl, DeleteItem);
-	Gura_AssignMethod(wx_TreeListCtrl, DeleteAllItems);
-	Gura_AssignMethod(wx_TreeListCtrl, GetRootItem);
-	Gura_AssignMethod(wx_TreeListCtrl, GetItemParent);
-	Gura_AssignMethod(wx_TreeListCtrl, GetFirstChild);
-	Gura_AssignMethod(wx_TreeListCtrl, GetNextSibling);
-	Gura_AssignMethod(wx_TreeListCtrl, GetFirstItem);
-	Gura_AssignMethod(wx_TreeListCtrl, GetNextItem);
-	Gura_AssignMethod(wx_TreeListCtrl, GetItemText);
-	Gura_AssignMethod(wx_TreeListCtrl, SetItemText);
-	Gura_AssignMethod(wx_TreeListCtrl, SetItemText_1);
-	Gura_AssignMethod(wx_TreeListCtrl, SetItemImage);
-	Gura_AssignMethod(wx_TreeListCtrl, GetItemData);
-	Gura_AssignMethod(wx_TreeListCtrl, SetItemData);
-	Gura_AssignMethod(wx_TreeListCtrl, Expand);
-	Gura_AssignMethod(wx_TreeListCtrl, Collapse);
-	Gura_AssignMethod(wx_TreeListCtrl, IsExpanded);
-	Gura_AssignMethod(wx_TreeListCtrl, GetSelection);
-	Gura_AssignMethod(wx_TreeListCtrl, GetSelections);
-	Gura_AssignMethod(wx_TreeListCtrl, Select);
-	Gura_AssignMethod(wx_TreeListCtrl, Unselect);
-	Gura_AssignMethod(wx_TreeListCtrl, IsSelected);
-	Gura_AssignMethod(wx_TreeListCtrl, SelectAll);
-	Gura_AssignMethod(wx_TreeListCtrl, UnselectAll);
-	Gura_AssignMethod(wx_TreeListCtrl, EnsureVisible);
-	Gura_AssignMethod(wx_TreeListCtrl, CheckItem);
-	Gura_AssignMethod(wx_TreeListCtrl, CheckItemRecursively);
-	Gura_AssignMethod(wx_TreeListCtrl, UncheckItem);
-	Gura_AssignMethod(wx_TreeListCtrl, UpdateItemParentStateRecursively);
-	Gura_AssignMethod(wx_TreeListCtrl, GetCheckedState);
-	Gura_AssignMethod(wx_TreeListCtrl, AreAllChildrenInState);
-	Gura_AssignMethod(wx_TreeListCtrl, SetSortColumn);
-	Gura_AssignMethod(wx_TreeListCtrl, GetSortColumn);
-	Gura_AssignMethod(wx_TreeListCtrl, SetItemComparator);
-	Gura_AssignMethod(wx_TreeListCtrl, GetView);
-	Gura_AssignMethod(wx_TreeListCtrl, GetDataView);
+	Gura_AssignMethod(wx_TreeListCtrl, __wxTreeListCtrl);
+	Gura_AssignMethod(wx_TreeListCtrl, __wxTreeListCtrl_1);
+	Gura_AssignMethod(wx_TreeListCtrl, __Create);
+	Gura_AssignMethod(wx_TreeListCtrl, __AssignImageList);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetImageList);
+	Gura_AssignMethod(wx_TreeListCtrl, __AppendColumn);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetColumnCount);
+	Gura_AssignMethod(wx_TreeListCtrl, __DeleteColumn);
+	Gura_AssignMethod(wx_TreeListCtrl, __ClearColumns);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetColumnWidth);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetColumnWidth);
+	Gura_AssignMethod(wx_TreeListCtrl, __WidthFor);
+	Gura_AssignMethod(wx_TreeListCtrl, __AppendItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __InsertItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __PrependItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __DeleteItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __DeleteAllItems);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetRootItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetItemParent);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetFirstChild);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetNextSibling);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetFirstItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetNextItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetItemText);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetItemText);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetItemText_1);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetItemImage);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetItemData);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetItemData);
+	Gura_AssignMethod(wx_TreeListCtrl, __Expand);
+	Gura_AssignMethod(wx_TreeListCtrl, __Collapse);
+	Gura_AssignMethod(wx_TreeListCtrl, __IsExpanded);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetSelection);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetSelections);
+	Gura_AssignMethod(wx_TreeListCtrl, __Select);
+	Gura_AssignMethod(wx_TreeListCtrl, __Unselect);
+	Gura_AssignMethod(wx_TreeListCtrl, __IsSelected);
+	Gura_AssignMethod(wx_TreeListCtrl, __SelectAll);
+	Gura_AssignMethod(wx_TreeListCtrl, __UnselectAll);
+	Gura_AssignMethod(wx_TreeListCtrl, __EnsureVisible);
+	Gura_AssignMethod(wx_TreeListCtrl, __CheckItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __CheckItemRecursively);
+	Gura_AssignMethod(wx_TreeListCtrl, __UncheckItem);
+	Gura_AssignMethod(wx_TreeListCtrl, __UpdateItemParentStateRecursively);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetCheckedState);
+	Gura_AssignMethod(wx_TreeListCtrl, __AreAllChildrenInState);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetSortColumn);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetSortColumn);
+	Gura_AssignMethod(wx_TreeListCtrl, __SetItemComparator);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetView);
+	Gura_AssignMethod(wx_TreeListCtrl, __GetDataView);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeListCtrl)

@@ -37,7 +37,7 @@ String Object_wx_RibbonPanelEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonPanelEvent, wxRibbonPanelEvent)
+Gura_DeclareMethodAlias(wx_RibbonPanelEvent, __wxRibbonPanelEvent, "wxRibbonPanelEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_RibbonPanelEvent, wxRibbonPanelEvent)
 	//DeclareArg(env, "panel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanelEvent, wxRibbonPanelEvent)
+Gura_ImplementMethod(wx_RibbonPanelEvent, __wxRibbonPanelEvent)
 {
 	Object_wx_RibbonPanelEvent *pThis = Object_wx_RibbonPanelEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_RibbonPanelEvent, wxRibbonPanelEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanelEvent, SetPanel)
+Gura_DeclareMethodAlias(wx_RibbonPanelEvent, __SetPanel, "SetPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanelEvent, SetPanel)
+Gura_ImplementMethod(wx_RibbonPanelEvent, __SetPanel)
 {
 	Object_wx_RibbonPanelEvent *pThis = Object_wx_RibbonPanelEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_RibbonPanelEvent, SetPanel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonPanelEvent)
 {
-	Gura_AssignMethod(wx_RibbonPanelEvent, wxRibbonPanelEvent);
-	Gura_AssignMethod(wx_RibbonPanelEvent, SetPanel);
+	Gura_AssignMethod(wx_RibbonPanelEvent, __wxRibbonPanelEvent);
+	Gura_AssignMethod(wx_RibbonPanelEvent, __SetPanel);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonPanelEvent)

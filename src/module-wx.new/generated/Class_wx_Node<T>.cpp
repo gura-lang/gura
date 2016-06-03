@@ -37,12 +37,12 @@ String Object_wx_Node<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Node<T>, GetData)
+Gura_DeclareMethodAlias(wx_Node<T>, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Node<T>, GetData)
+Gura_ImplementMethod(wx_Node<T>, __GetData)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_Node<T>, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Node<T>, GetNext)
+Gura_DeclareMethodAlias(wx_Node<T>, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Node<T>, GetNext)
+Gura_ImplementMethod(wx_Node<T>, __GetNext)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_Node<T>, GetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Node<T>, GetPrevious)
+Gura_DeclareMethodAlias(wx_Node<T>, __GetPrevious, "GetPrevious")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Node<T>, GetPrevious)
+Gura_ImplementMethod(wx_Node<T>, __GetPrevious)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_Node<T>, GetPrevious)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Node<T>, IndexOf)
+Gura_DeclareMethodAlias(wx_Node<T>, __IndexOf, "IndexOf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Node<T>, IndexOf)
+Gura_ImplementMethod(wx_Node<T>, __IndexOf)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,13 +89,13 @@ Gura_ImplementMethod(wx_Node<T>, IndexOf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Node<T>, SetData)
+Gura_DeclareMethodAlias(wx_Node<T>, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Node<T>, SetData)
+Gura_ImplementMethod(wx_Node<T>, __SetData)
 {
 	Object_wx_Node<T> *pThis = Object_wx_Node<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,11 +109,11 @@ Gura_ImplementMethod(wx_Node<T>, SetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Node<T>)
 {
-	Gura_AssignMethod(wx_Node<T>, GetData);
-	Gura_AssignMethod(wx_Node<T>, GetNext);
-	Gura_AssignMethod(wx_Node<T>, GetPrevious);
-	Gura_AssignMethod(wx_Node<T>, IndexOf);
-	Gura_AssignMethod(wx_Node<T>, SetData);
+	Gura_AssignMethod(wx_Node<T>, __GetData);
+	Gura_AssignMethod(wx_Node<T>, __GetNext);
+	Gura_AssignMethod(wx_Node<T>, __GetPrevious);
+	Gura_AssignMethod(wx_Node<T>, __IndexOf);
+	Gura_AssignMethod(wx_Node<T>, __SetData);
 }
 
 Gura_ImplementDescendantCreator(wx_Node<T>)

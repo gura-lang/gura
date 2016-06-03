@@ -37,13 +37,13 @@ String Object_wx_GridUpdateLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridUpdateLocker, wxGridUpdateLocker)
+Gura_DeclareMethodAlias(wx_GridUpdateLocker, __wxGridUpdateLocker, "wxGridUpdateLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridUpdateLocker, wxGridUpdateLocker)
+Gura_ImplementMethod(wx_GridUpdateLocker, __wxGridUpdateLocker)
 {
 	Object_wx_GridUpdateLocker *pThis = Object_wx_GridUpdateLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_GridUpdateLocker, wxGridUpdateLocker)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridUpdateLocker, Create)
+Gura_DeclareMethodAlias(wx_GridUpdateLocker, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridUpdateLocker, Create)
+Gura_ImplementMethod(wx_GridUpdateLocker, __Create)
 {
 	Object_wx_GridUpdateLocker *pThis = Object_wx_GridUpdateLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_GridUpdateLocker, Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridUpdateLocker)
 {
-	Gura_AssignMethod(wx_GridUpdateLocker, wxGridUpdateLocker);
-	Gura_AssignMethod(wx_GridUpdateLocker, Create);
+	Gura_AssignMethod(wx_GridUpdateLocker, __wxGridUpdateLocker);
+	Gura_AssignMethod(wx_GridUpdateLocker, __Create);
 }
 
 Gura_ImplementDescendantCreator(wx_GridUpdateLocker)

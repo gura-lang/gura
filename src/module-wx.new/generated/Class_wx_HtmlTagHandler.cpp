@@ -37,12 +37,12 @@ String Object_wx_HtmlTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __wxHtmlTagHandler, "wxHtmlTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
+Gura_ImplementMethod(wx_HtmlTagHandler, __wxHtmlTagHandler)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_HtmlTagHandler, wxHtmlTagHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, GetSupportedTags)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __GetSupportedTags, "GetSupportedTags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
+Gura_ImplementMethod(wx_HtmlTagHandler, __GetSupportedTags)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, GetSupportedTags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, HandleTag)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __HandleTag, "HandleTag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
+Gura_ImplementMethod(wx_HtmlTagHandler, __HandleTag)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, HandleTag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, SetParser)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __SetParser, "SetParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
+Gura_ImplementMethod(wx_HtmlTagHandler, __SetParser)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HtmlTagHandler, SetParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, GetParser)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __GetParser, "GetParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, GetParser)
+Gura_ImplementMethod(wx_HtmlTagHandler, __GetParser)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, GetParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, ParseInner)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __ParseInner, "ParseInner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
+Gura_ImplementMethod(wx_HtmlTagHandler, __ParseInner)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, ParseInner)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTagHandler, ParseInnerSource)
+Gura_DeclareMethodAlias(wx_HtmlTagHandler, __ParseInnerSource, "ParseInnerSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTagHandler, ParseInnerSource)
+Gura_ImplementMethod(wx_HtmlTagHandler, __ParseInnerSource)
 {
 	Object_wx_HtmlTagHandler *pThis = Object_wx_HtmlTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_HtmlTagHandler, ParseInnerSource)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagHandler)
 {
-	Gura_AssignMethod(wx_HtmlTagHandler, wxHtmlTagHandler);
-	Gura_AssignMethod(wx_HtmlTagHandler, GetSupportedTags);
-	Gura_AssignMethod(wx_HtmlTagHandler, HandleTag);
-	Gura_AssignMethod(wx_HtmlTagHandler, SetParser);
-	Gura_AssignMethod(wx_HtmlTagHandler, GetParser);
-	Gura_AssignMethod(wx_HtmlTagHandler, ParseInner);
-	Gura_AssignMethod(wx_HtmlTagHandler, ParseInnerSource);
+	Gura_AssignMethod(wx_HtmlTagHandler, __wxHtmlTagHandler);
+	Gura_AssignMethod(wx_HtmlTagHandler, __GetSupportedTags);
+	Gura_AssignMethod(wx_HtmlTagHandler, __HandleTag);
+	Gura_AssignMethod(wx_HtmlTagHandler, __SetParser);
+	Gura_AssignMethod(wx_HtmlTagHandler, __GetParser);
+	Gura_AssignMethod(wx_HtmlTagHandler, __ParseInner);
+	Gura_AssignMethod(wx_HtmlTagHandler, __ParseInnerSource);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlTagHandler)

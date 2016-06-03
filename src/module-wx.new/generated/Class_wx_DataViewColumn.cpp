@@ -37,7 +37,7 @@ String Object_wx_DataViewColumn::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn)
+Gura_DeclareMethodAlias(wx_DataViewColumn, __wxDataViewColumn, "wxDataViewColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn)
+Gura_ImplementMethod(wx_DataViewColumn, __wxDataViewColumn)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn_1)
+Gura_DeclareMethodAlias(wx_DataViewColumn, __wxDataViewColumn_1, "wxDataViewColumn_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareMethod(wx_DataViewColumn, wxDataViewColumn_1)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn_1)
+Gura_ImplementMethod(wx_DataViewColumn, __wxDataViewColumn_1)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,12 +87,12 @@ Gura_ImplementMethod(wx_DataViewColumn, wxDataViewColumn_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewColumn, GetModelColumn)
+Gura_DeclareMethodAlias(wx_DataViewColumn, __GetModelColumn, "GetModelColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
+Gura_ImplementMethod(wx_DataViewColumn, __GetModelColumn)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_DataViewColumn, GetModelColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewColumn, GetOwner)
+Gura_DeclareMethodAlias(wx_DataViewColumn, __GetOwner, "GetOwner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
+Gura_ImplementMethod(wx_DataViewColumn, __GetOwner)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_DataViewColumn, GetOwner)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewColumn, GetRenderer)
+Gura_DeclareMethodAlias(wx_DataViewColumn, __GetRenderer, "GetRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
+Gura_ImplementMethod(wx_DataViewColumn, __GetRenderer)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,11 +131,11 @@ Gura_ImplementMethod(wx_DataViewColumn, GetRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewColumn)
 {
-	Gura_AssignMethod(wx_DataViewColumn, wxDataViewColumn);
-	Gura_AssignMethod(wx_DataViewColumn, wxDataViewColumn_1);
-	Gura_AssignMethod(wx_DataViewColumn, GetModelColumn);
-	Gura_AssignMethod(wx_DataViewColumn, GetOwner);
-	Gura_AssignMethod(wx_DataViewColumn, GetRenderer);
+	Gura_AssignMethod(wx_DataViewColumn, __wxDataViewColumn);
+	Gura_AssignMethod(wx_DataViewColumn, __wxDataViewColumn_1);
+	Gura_AssignMethod(wx_DataViewColumn, __GetModelColumn);
+	Gura_AssignMethod(wx_DataViewColumn, __GetOwner);
+	Gura_AssignMethod(wx_DataViewColumn, __GetRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewColumn)

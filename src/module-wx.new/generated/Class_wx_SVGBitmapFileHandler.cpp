@@ -37,7 +37,7 @@ String Object_wx_SVGBitmapFileHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
+Gura_DeclareMethodAlias(wx_SVGBitmapFileHandler, __ProcessBitmap, "ProcessBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
+Gura_ImplementMethod(wx_SVGBitmapFileHandler, __ProcessBitmap)
 {
 	Object_wx_SVGBitmapFileHandler *pThis = Object_wx_SVGBitmapFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_SVGBitmapFileHandler, ProcessBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SVGBitmapFileHandler)
 {
-	Gura_AssignMethod(wx_SVGBitmapFileHandler, ProcessBitmap);
+	Gura_AssignMethod(wx_SVGBitmapFileHandler, __ProcessBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_SVGBitmapFileHandler)

@@ -37,12 +37,12 @@ String Object_wx_TCPClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TCPClient, wxTCPClient)
+Gura_DeclareMethodAlias(wx_TCPClient, __wxTCPClient, "wxTCPClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPClient, wxTCPClient)
+Gura_ImplementMethod(wx_TCPClient, __wxTCPClient)
 {
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TCPClient, wxTCPClient)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPClient, MakeConnection)
+Gura_DeclareMethodAlias(wx_TCPClient, __MakeConnection, "MakeConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_TCPClient, MakeConnection)
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPClient, MakeConnection)
+Gura_ImplementMethod(wx_TCPClient, __MakeConnection)
 {
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_TCPClient, MakeConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPClient, OnMakeConnection)
+Gura_DeclareMethodAlias(wx_TCPClient, __OnMakeConnection, "OnMakeConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPClient, OnMakeConnection)
+Gura_ImplementMethod(wx_TCPClient, __OnMakeConnection)
 {
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_TCPClient, OnMakeConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPClient, ValidHost)
+Gura_DeclareMethodAlias(wx_TCPClient, __ValidHost, "ValidHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPClient, ValidHost)
+Gura_ImplementMethod(wx_TCPClient, __ValidHost)
 {
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_TCPClient, ValidHost)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPClient)
 {
-	Gura_AssignMethod(wx_TCPClient, wxTCPClient);
-	Gura_AssignMethod(wx_TCPClient, MakeConnection);
-	Gura_AssignMethod(wx_TCPClient, OnMakeConnection);
-	Gura_AssignMethod(wx_TCPClient, ValidHost);
+	Gura_AssignMethod(wx_TCPClient, __wxTCPClient);
+	Gura_AssignMethod(wx_TCPClient, __MakeConnection);
+	Gura_AssignMethod(wx_TCPClient, __OnMakeConnection);
+	Gura_AssignMethod(wx_TCPClient, __ValidHost);
 }
 
 Gura_ImplementDescendantCreator(wx_TCPClient)

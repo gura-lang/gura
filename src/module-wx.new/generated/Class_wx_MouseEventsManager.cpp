@@ -37,12 +37,12 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MouseEventsManager, wxMouseEventsManager)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __wxMouseEventsManager, "wxMouseEventsManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, wxMouseEventsManager)
+Gura_ImplementMethod(wx_MouseEventsManager, __wxMouseEventsManager)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, wxMouseEventsManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, wxMouseEventsManager_1)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __wxMouseEventsManager_1, "wxMouseEventsManager_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, wxMouseEventsManager_1)
+Gura_ImplementMethod(wx_MouseEventsManager, __wxMouseEventsManager_1)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, wxMouseEventsManager_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, Create)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, Create)
+Gura_ImplementMethod(wx_MouseEventsManager, __Create)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseHitTest)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseHitTest, "MouseHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseHitTest)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseHitTest)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseHitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseClicked)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseClicked, "MouseClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseClicked)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseClicked)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,14 +110,14 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseDragBegin)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseDragBegin, "MouseDragBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseDragBegin)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragBegin)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,14 +127,14 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseDragBegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseDragging)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseDragging, "MouseDragging")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseDragging)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragging)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,14 +144,14 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseDragging)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseDragEnd)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseDragEnd, "MouseDragEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseDragEnd)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragEnd)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseDragEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseDragCancelled)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseDragCancelled, "MouseDragCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseDragCancelled)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragCancelled)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,13 +176,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseDragCancelled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseClickBegin)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseClickBegin, "MouseClickBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseClickBegin)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickBegin)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseClickBegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MouseEventsManager, MouseClickCancelled)
+Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseClickCancelled, "MouseClickCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MouseEventsManager, MouseClickCancelled)
+Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickCancelled)
 {
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -211,17 +211,17 @@ Gura_ImplementMethod(wx_MouseEventsManager, MouseClickCancelled)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MouseEventsManager)
 {
-	Gura_AssignMethod(wx_MouseEventsManager, wxMouseEventsManager);
-	Gura_AssignMethod(wx_MouseEventsManager, wxMouseEventsManager_1);
-	Gura_AssignMethod(wx_MouseEventsManager, Create);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseHitTest);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseClicked);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseDragBegin);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseDragging);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseDragEnd);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseDragCancelled);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseClickBegin);
-	Gura_AssignMethod(wx_MouseEventsManager, MouseClickCancelled);
+	Gura_AssignMethod(wx_MouseEventsManager, __wxMouseEventsManager);
+	Gura_AssignMethod(wx_MouseEventsManager, __wxMouseEventsManager_1);
+	Gura_AssignMethod(wx_MouseEventsManager, __Create);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseHitTest);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseClicked);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseDragBegin);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseDragging);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseDragEnd);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseDragCancelled);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseClickBegin);
+	Gura_AssignMethod(wx_MouseEventsManager, __MouseClickCancelled);
 }
 
 Gura_ImplementDescendantCreator(wx_MouseEventsManager)

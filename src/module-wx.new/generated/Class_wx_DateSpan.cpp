@@ -37,7 +37,7 @@ String Object_wx_DateSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DateSpan, wxDateSpan)
+Gura_DeclareMethodAlias(wx_DateSpan, __wxDateSpan, "wxDateSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "years", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_DateSpan, wxDateSpan)
 	//DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, wxDateSpan)
+Gura_ImplementMethod(wx_DateSpan, __wxDateSpan)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,13 +58,13 @@ Gura_ImplementMethod(wx_DateSpan, wxDateSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Add)
+Gura_DeclareMethodAlias(wx_DateSpan, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Add)
+Gura_ImplementMethod(wx_DateSpan, __Add)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,13 +73,13 @@ Gura_ImplementMethod(wx_DateSpan, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Add_1)
+Gura_DeclareMethodAlias(wx_DateSpan, __Add_1, "Add_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Add_1)
+Gura_ImplementMethod(wx_DateSpan, __Add_1)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_DateSpan, Add_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Day)
+Gura_DeclareMethodAlias(wx_DateSpan, __Day, "Day")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Day)
+Gura_ImplementMethod(wx_DateSpan, __Day)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_DateSpan, Day)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Days)
+Gura_DeclareMethodAlias(wx_DateSpan, __Days, "Days")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "days", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Days)
+Gura_ImplementMethod(wx_DateSpan, __Days)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_DateSpan, Days)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetDays)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetDays, "GetDays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetDays)
+Gura_ImplementMethod(wx_DateSpan, __GetDays)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_DateSpan, GetDays)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetMonths)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetMonths, "GetMonths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetMonths)
+Gura_ImplementMethod(wx_DateSpan, __GetMonths)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_DateSpan, GetMonths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetTotalMonths)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetTotalMonths, "GetTotalMonths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetTotalMonths)
+Gura_ImplementMethod(wx_DateSpan, __GetTotalMonths)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_DateSpan, GetTotalMonths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetTotalDays)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetTotalDays, "GetTotalDays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetTotalDays)
+Gura_ImplementMethod(wx_DateSpan, __GetTotalDays)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_DateSpan, GetTotalDays)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetWeeks)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetWeeks, "GetWeeks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetWeeks)
+Gura_ImplementMethod(wx_DateSpan, __GetWeeks)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_DateSpan, GetWeeks)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, GetYears)
+Gura_DeclareMethodAlias(wx_DateSpan, __GetYears, "GetYears")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, GetYears)
+Gura_ImplementMethod(wx_DateSpan, __GetYears)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_DateSpan, GetYears)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Month)
+Gura_DeclareMethodAlias(wx_DateSpan, __Month, "Month")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Month)
+Gura_ImplementMethod(wx_DateSpan, __Month)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_DateSpan, Month)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Months)
+Gura_DeclareMethodAlias(wx_DateSpan, __Months, "Months")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Months)
+Gura_ImplementMethod(wx_DateSpan, __Months)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_DateSpan, Months)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Multiply)
+Gura_DeclareMethodAlias(wx_DateSpan, __Multiply, "Multiply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Multiply)
+Gura_ImplementMethod(wx_DateSpan, __Multiply)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,13 +237,13 @@ Gura_ImplementMethod(wx_DateSpan, Multiply)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Multiply_1)
+Gura_DeclareMethodAlias(wx_DateSpan, __Multiply_1, "Multiply_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "factor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Multiply_1)
+Gura_ImplementMethod(wx_DateSpan, __Multiply_1)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,12 +252,12 @@ Gura_ImplementMethod(wx_DateSpan, Multiply_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Neg)
+Gura_DeclareMethodAlias(wx_DateSpan, __Neg, "Neg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Neg)
+Gura_ImplementMethod(wx_DateSpan, __Neg)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_DateSpan, Neg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Negate)
+Gura_DeclareMethodAlias(wx_DateSpan, __Negate, "Negate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Negate)
+Gura_ImplementMethod(wx_DateSpan, __Negate)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,13 +278,13 @@ Gura_ImplementMethod(wx_DateSpan, Negate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, SetDays)
+Gura_DeclareMethodAlias(wx_DateSpan, __SetDays, "SetDays")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, SetDays)
+Gura_ImplementMethod(wx_DateSpan, __SetDays)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -293,13 +293,13 @@ Gura_ImplementMethod(wx_DateSpan, SetDays)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, SetMonths)
+Gura_DeclareMethodAlias(wx_DateSpan, __SetMonths, "SetMonths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, SetMonths)
+Gura_ImplementMethod(wx_DateSpan, __SetMonths)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -308,13 +308,13 @@ Gura_ImplementMethod(wx_DateSpan, SetMonths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, SetWeeks)
+Gura_DeclareMethodAlias(wx_DateSpan, __SetWeeks, "SetWeeks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, SetWeeks)
+Gura_ImplementMethod(wx_DateSpan, __SetWeeks)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,13 +323,13 @@ Gura_ImplementMethod(wx_DateSpan, SetWeeks)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, SetYears)
+Gura_DeclareMethodAlias(wx_DateSpan, __SetYears, "SetYears")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, SetYears)
+Gura_ImplementMethod(wx_DateSpan, __SetYears)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,13 +338,13 @@ Gura_ImplementMethod(wx_DateSpan, SetYears)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Subtract)
+Gura_DeclareMethodAlias(wx_DateSpan, __Subtract, "Subtract")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Subtract)
+Gura_ImplementMethod(wx_DateSpan, __Subtract)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -353,13 +353,13 @@ Gura_ImplementMethod(wx_DateSpan, Subtract)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Subtract_1)
+Gura_DeclareMethodAlias(wx_DateSpan, __Subtract_1, "Subtract_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Subtract_1)
+Gura_ImplementMethod(wx_DateSpan, __Subtract_1)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,12 +368,12 @@ Gura_ImplementMethod(wx_DateSpan, Subtract_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Week)
+Gura_DeclareMethodAlias(wx_DateSpan, __Week, "Week")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Week)
+Gura_ImplementMethod(wx_DateSpan, __Week)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,13 +381,13 @@ Gura_ImplementMethod(wx_DateSpan, Week)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Weeks)
+Gura_DeclareMethodAlias(wx_DateSpan, __Weeks, "Weeks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "weeks", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Weeks)
+Gura_ImplementMethod(wx_DateSpan, __Weeks)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -396,12 +396,12 @@ Gura_ImplementMethod(wx_DateSpan, Weeks)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Year)
+Gura_DeclareMethodAlias(wx_DateSpan, __Year, "Year")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Year)
+Gura_ImplementMethod(wx_DateSpan, __Year)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -409,13 +409,13 @@ Gura_ImplementMethod(wx_DateSpan, Year)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateSpan, Years)
+Gura_DeclareMethodAlias(wx_DateSpan, __Years, "Years")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "years", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateSpan, Years)
+Gura_ImplementMethod(wx_DateSpan, __Years)
 {
 	Object_wx_DateSpan *pThis = Object_wx_DateSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -429,33 +429,33 @@ Gura_ImplementMethod(wx_DateSpan, Years)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateSpan)
 {
-	Gura_AssignMethod(wx_DateSpan, wxDateSpan);
-	Gura_AssignMethod(wx_DateSpan, Add);
-	Gura_AssignMethod(wx_DateSpan, Add_1);
-	Gura_AssignMethod(wx_DateSpan, Day);
-	Gura_AssignMethod(wx_DateSpan, Days);
-	Gura_AssignMethod(wx_DateSpan, GetDays);
-	Gura_AssignMethod(wx_DateSpan, GetMonths);
-	Gura_AssignMethod(wx_DateSpan, GetTotalMonths);
-	Gura_AssignMethod(wx_DateSpan, GetTotalDays);
-	Gura_AssignMethod(wx_DateSpan, GetWeeks);
-	Gura_AssignMethod(wx_DateSpan, GetYears);
-	Gura_AssignMethod(wx_DateSpan, Month);
-	Gura_AssignMethod(wx_DateSpan, Months);
-	Gura_AssignMethod(wx_DateSpan, Multiply);
-	Gura_AssignMethod(wx_DateSpan, Multiply_1);
-	Gura_AssignMethod(wx_DateSpan, Neg);
-	Gura_AssignMethod(wx_DateSpan, Negate);
-	Gura_AssignMethod(wx_DateSpan, SetDays);
-	Gura_AssignMethod(wx_DateSpan, SetMonths);
-	Gura_AssignMethod(wx_DateSpan, SetWeeks);
-	Gura_AssignMethod(wx_DateSpan, SetYears);
-	Gura_AssignMethod(wx_DateSpan, Subtract);
-	Gura_AssignMethod(wx_DateSpan, Subtract_1);
-	Gura_AssignMethod(wx_DateSpan, Week);
-	Gura_AssignMethod(wx_DateSpan, Weeks);
-	Gura_AssignMethod(wx_DateSpan, Year);
-	Gura_AssignMethod(wx_DateSpan, Years);
+	Gura_AssignMethod(wx_DateSpan, __wxDateSpan);
+	Gura_AssignMethod(wx_DateSpan, __Add);
+	Gura_AssignMethod(wx_DateSpan, __Add_1);
+	Gura_AssignMethod(wx_DateSpan, __Day);
+	Gura_AssignMethod(wx_DateSpan, __Days);
+	Gura_AssignMethod(wx_DateSpan, __GetDays);
+	Gura_AssignMethod(wx_DateSpan, __GetMonths);
+	Gura_AssignMethod(wx_DateSpan, __GetTotalMonths);
+	Gura_AssignMethod(wx_DateSpan, __GetTotalDays);
+	Gura_AssignMethod(wx_DateSpan, __GetWeeks);
+	Gura_AssignMethod(wx_DateSpan, __GetYears);
+	Gura_AssignMethod(wx_DateSpan, __Month);
+	Gura_AssignMethod(wx_DateSpan, __Months);
+	Gura_AssignMethod(wx_DateSpan, __Multiply);
+	Gura_AssignMethod(wx_DateSpan, __Multiply_1);
+	Gura_AssignMethod(wx_DateSpan, __Neg);
+	Gura_AssignMethod(wx_DateSpan, __Negate);
+	Gura_AssignMethod(wx_DateSpan, __SetDays);
+	Gura_AssignMethod(wx_DateSpan, __SetMonths);
+	Gura_AssignMethod(wx_DateSpan, __SetWeeks);
+	Gura_AssignMethod(wx_DateSpan, __SetYears);
+	Gura_AssignMethod(wx_DateSpan, __Subtract);
+	Gura_AssignMethod(wx_DateSpan, __Subtract_1);
+	Gura_AssignMethod(wx_DateSpan, __Week);
+	Gura_AssignMethod(wx_DateSpan, __Weeks);
+	Gura_AssignMethod(wx_DateSpan, __Year);
+	Gura_AssignMethod(wx_DateSpan, __Years);
 }
 
 Gura_ImplementDescendantCreator(wx_DateSpan)

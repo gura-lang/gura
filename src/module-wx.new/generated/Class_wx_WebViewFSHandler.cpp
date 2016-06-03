@@ -37,13 +37,13 @@ String Object_wx_WebViewFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebViewFSHandler, wxWebViewFSHandler)
+Gura_DeclareMethodAlias(wx_WebViewFSHandler, __wxWebViewFSHandler, "wxWebViewFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewFSHandler, wxWebViewFSHandler)
+Gura_ImplementMethod(wx_WebViewFSHandler, __wxWebViewFSHandler)
 {
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_WebViewFSHandler, wxWebViewFSHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewFSHandler, GetFile)
+Gura_DeclareMethodAlias(wx_WebViewFSHandler, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewFSHandler, GetFile)
+Gura_ImplementMethod(wx_WebViewFSHandler, __GetFile)
 {
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_WebViewFSHandler, GetFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewFSHandler)
 {
-	Gura_AssignMethod(wx_WebViewFSHandler, wxWebViewFSHandler);
-	Gura_AssignMethod(wx_WebViewFSHandler, GetFile);
+	Gura_AssignMethod(wx_WebViewFSHandler, __wxWebViewFSHandler);
+	Gura_AssignMethod(wx_WebViewFSHandler, __GetFile);
 }
 
 Gura_ImplementDescendantCreator(wx_WebViewFSHandler)

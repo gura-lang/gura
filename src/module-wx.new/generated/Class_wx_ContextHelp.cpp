@@ -37,14 +37,14 @@ String Object_wx_ContextHelp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ContextHelp, wxContextHelp)
+Gura_DeclareMethodAlias(wx_ContextHelp, __wxContextHelp, "wxContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "doNow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextHelp, wxContextHelp)
+Gura_ImplementMethod(wx_ContextHelp, __wxContextHelp)
 {
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_ContextHelp, wxContextHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ContextHelp, BeginContextHelp)
+Gura_DeclareMethodAlias(wx_ContextHelp, __BeginContextHelp, "BeginContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
+Gura_ImplementMethod(wx_ContextHelp, __BeginContextHelp)
 {
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_ContextHelp, BeginContextHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ContextHelp, EndContextHelp)
+Gura_DeclareMethodAlias(wx_ContextHelp, __EndContextHelp, "EndContextHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ContextHelp, EndContextHelp)
+Gura_ImplementMethod(wx_ContextHelp, __EndContextHelp)
 {
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_ContextHelp, EndContextHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextHelp)
 {
-	Gura_AssignMethod(wx_ContextHelp, wxContextHelp);
-	Gura_AssignMethod(wx_ContextHelp, BeginContextHelp);
-	Gura_AssignMethod(wx_ContextHelp, EndContextHelp);
+	Gura_AssignMethod(wx_ContextHelp, __wxContextHelp);
+	Gura_AssignMethod(wx_ContextHelp, __BeginContextHelp);
+	Gura_AssignMethod(wx_ContextHelp, __EndContextHelp);
 }
 
 Gura_ImplementDescendantCreator(wx_ContextHelp)

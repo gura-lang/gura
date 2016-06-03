@@ -37,13 +37,13 @@ String Object_wx_DCFontChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DCFontChanger, wxDCFontChanger)
+Gura_DeclareMethodAlias(wx_DCFontChanger, __wxDCFontChanger, "wxDCFontChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger)
+Gura_ImplementMethod(wx_DCFontChanger, __wxDCFontChanger)
 {
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCFontChanger, wxDCFontChanger_1)
+Gura_DeclareMethodAlias(wx_DCFontChanger, __wxDCFontChanger_1, "wxDCFontChanger_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger_1)
+Gura_ImplementMethod(wx_DCFontChanger, __wxDCFontChanger_1)
 {
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_DCFontChanger, wxDCFontChanger_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCFontChanger, Set)
+Gura_DeclareMethodAlias(wx_DCFontChanger, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCFontChanger, Set)
+Gura_ImplementMethod(wx_DCFontChanger, __Set)
 {
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_DCFontChanger, Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCFontChanger)
 {
-	Gura_AssignMethod(wx_DCFontChanger, wxDCFontChanger);
-	Gura_AssignMethod(wx_DCFontChanger, wxDCFontChanger_1);
-	Gura_AssignMethod(wx_DCFontChanger, Set);
+	Gura_AssignMethod(wx_DCFontChanger, __wxDCFontChanger);
+	Gura_AssignMethod(wx_DCFontChanger, __wxDCFontChanger_1);
+	Gura_AssignMethod(wx_DCFontChanger, __Set);
 }
 
 Gura_ImplementDescendantCreator(wx_DCFontChanger)

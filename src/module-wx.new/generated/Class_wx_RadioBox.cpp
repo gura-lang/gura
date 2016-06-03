@@ -37,12 +37,12 @@ String Object_wx_RadioBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RadioBox, wxRadioBox)
+Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox, "wxRadioBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, wxRadioBox)
+Gura_ImplementMethod(wx_RadioBox, __wxRadioBox)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RadioBox, wxRadioBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, wxRadioBox_1)
+Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_1, "wxRadioBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_DeclareMethod(wx_RadioBox, wxRadioBox_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, wxRadioBox_1)
+Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_1)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_RadioBox, wxRadioBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, wxRadioBox_2)
+Gura_DeclareMethodAlias(wx_RadioBox, __wxRadioBox_2, "wxRadioBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_RadioBox, wxRadioBox_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, wxRadioBox_2)
+Gura_ImplementMethod(wx_RadioBox, __wxRadioBox_2)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RadioBox, wxRadioBox_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, Create)
+Gura_DeclareMethodAlias(wx_RadioBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_DeclareMethod(wx_RadioBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, Create)
+Gura_ImplementMethod(wx_RadioBox, __Create)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RadioBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, Create_1)
+Gura_DeclareMethodAlias(wx_RadioBox, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -168,7 +168,7 @@ Gura_DeclareMethod(wx_RadioBox, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, Create_1)
+Gura_ImplementMethod(wx_RadioBox, __Create_1)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,14 +186,14 @@ Gura_ImplementMethod(wx_RadioBox, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, Enable)
+Gura_DeclareMethodAlias(wx_RadioBox, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, Enable)
+Gura_ImplementMethod(wx_RadioBox, __Enable)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,14 +203,14 @@ Gura_ImplementMethod(wx_RadioBox, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, FindString)
+Gura_DeclareMethodAlias(wx_RadioBox, __FindString, "FindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, FindString)
+Gura_ImplementMethod(wx_RadioBox, __FindString)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,12 +220,12 @@ Gura_ImplementMethod(wx_RadioBox, FindString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetColumnCount)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetColumnCount, "GetColumnCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetColumnCount)
+Gura_ImplementMethod(wx_RadioBox, __GetColumnCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +233,13 @@ Gura_ImplementMethod(wx_RadioBox, GetColumnCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetItemFromPoint)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetItemFromPoint, "GetItemFromPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetItemFromPoint)
+Gura_ImplementMethod(wx_RadioBox, __GetItemFromPoint)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_RadioBox, GetItemFromPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetItemHelpText)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetItemHelpText, "GetItemHelpText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetItemHelpText)
+Gura_ImplementMethod(wx_RadioBox, __GetItemHelpText)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,13 +263,13 @@ Gura_ImplementMethod(wx_RadioBox, GetItemHelpText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetItemToolTip)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetItemToolTip, "GetItemToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetItemToolTip)
+Gura_ImplementMethod(wx_RadioBox, __GetItemToolTip)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,12 +278,12 @@ Gura_ImplementMethod(wx_RadioBox, GetItemToolTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetRowCount)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetRowCount, "GetRowCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetRowCount)
+Gura_ImplementMethod(wx_RadioBox, __GetRowCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,13 +291,13 @@ Gura_ImplementMethod(wx_RadioBox, GetRowCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, IsItemEnabled)
+Gura_DeclareMethodAlias(wx_RadioBox, __IsItemEnabled, "IsItemEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, IsItemEnabled)
+Gura_ImplementMethod(wx_RadioBox, __IsItemEnabled)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -306,13 +306,13 @@ Gura_ImplementMethod(wx_RadioBox, IsItemEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, IsItemShown)
+Gura_DeclareMethodAlias(wx_RadioBox, __IsItemShown, "IsItemShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, IsItemShown)
+Gura_ImplementMethod(wx_RadioBox, __IsItemShown)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,14 +321,14 @@ Gura_ImplementMethod(wx_RadioBox, IsItemShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, SetItemHelpText)
+Gura_DeclareMethodAlias(wx_RadioBox, __SetItemHelpText, "SetItemHelpText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "helptext", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, SetItemHelpText)
+Gura_ImplementMethod(wx_RadioBox, __SetItemHelpText)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,14 +338,14 @@ Gura_ImplementMethod(wx_RadioBox, SetItemHelpText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, SetItemToolTip)
+Gura_DeclareMethodAlias(wx_RadioBox, __SetItemToolTip, "SetItemToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, SetItemToolTip)
+Gura_ImplementMethod(wx_RadioBox, __SetItemToolTip)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_RadioBox, SetItemToolTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, SetSelection)
+Gura_DeclareMethodAlias(wx_RadioBox, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, SetSelection)
+Gura_ImplementMethod(wx_RadioBox, __SetSelection)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,14 +370,14 @@ Gura_ImplementMethod(wx_RadioBox, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, Show)
+Gura_DeclareMethodAlias(wx_RadioBox, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, Show)
+Gura_ImplementMethod(wx_RadioBox, __Show)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -387,12 +387,12 @@ Gura_ImplementMethod(wx_RadioBox, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetCount)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetCount)
+Gura_ImplementMethod(wx_RadioBox, __GetCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -400,13 +400,13 @@ Gura_ImplementMethod(wx_RadioBox, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetString)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetString)
+Gura_ImplementMethod(wx_RadioBox, __GetString)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -415,14 +415,14 @@ Gura_ImplementMethod(wx_RadioBox, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, SetString)
+Gura_DeclareMethodAlias(wx_RadioBox, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RadioBox, SetString)
+Gura_ImplementMethod(wx_RadioBox, __SetString)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -432,12 +432,12 @@ Gura_ImplementMethod(wx_RadioBox, SetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RadioBox, GetSelection)
+Gura_DeclareMethodAlias(wx_RadioBox, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RadioBox, GetSelection)
+Gura_ImplementMethod(wx_RadioBox, __GetSelection)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -450,28 +450,28 @@ Gura_ImplementMethod(wx_RadioBox, GetSelection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RadioBox)
 {
-	Gura_AssignMethod(wx_RadioBox, wxRadioBox);
-	Gura_AssignMethod(wx_RadioBox, wxRadioBox_1);
-	Gura_AssignMethod(wx_RadioBox, wxRadioBox_2);
-	Gura_AssignMethod(wx_RadioBox, Create);
-	Gura_AssignMethod(wx_RadioBox, Create_1);
-	Gura_AssignMethod(wx_RadioBox, Enable);
-	Gura_AssignMethod(wx_RadioBox, FindString);
-	Gura_AssignMethod(wx_RadioBox, GetColumnCount);
-	Gura_AssignMethod(wx_RadioBox, GetItemFromPoint);
-	Gura_AssignMethod(wx_RadioBox, GetItemHelpText);
-	Gura_AssignMethod(wx_RadioBox, GetItemToolTip);
-	Gura_AssignMethod(wx_RadioBox, GetRowCount);
-	Gura_AssignMethod(wx_RadioBox, IsItemEnabled);
-	Gura_AssignMethod(wx_RadioBox, IsItemShown);
-	Gura_AssignMethod(wx_RadioBox, SetItemHelpText);
-	Gura_AssignMethod(wx_RadioBox, SetItemToolTip);
-	Gura_AssignMethod(wx_RadioBox, SetSelection);
-	Gura_AssignMethod(wx_RadioBox, Show);
-	Gura_AssignMethod(wx_RadioBox, GetCount);
-	Gura_AssignMethod(wx_RadioBox, GetString);
-	Gura_AssignMethod(wx_RadioBox, SetString);
-	Gura_AssignMethod(wx_RadioBox, GetSelection);
+	Gura_AssignMethod(wx_RadioBox, __wxRadioBox);
+	Gura_AssignMethod(wx_RadioBox, __wxRadioBox_1);
+	Gura_AssignMethod(wx_RadioBox, __wxRadioBox_2);
+	Gura_AssignMethod(wx_RadioBox, __Create);
+	Gura_AssignMethod(wx_RadioBox, __Create_1);
+	Gura_AssignMethod(wx_RadioBox, __Enable);
+	Gura_AssignMethod(wx_RadioBox, __FindString);
+	Gura_AssignMethod(wx_RadioBox, __GetColumnCount);
+	Gura_AssignMethod(wx_RadioBox, __GetItemFromPoint);
+	Gura_AssignMethod(wx_RadioBox, __GetItemHelpText);
+	Gura_AssignMethod(wx_RadioBox, __GetItemToolTip);
+	Gura_AssignMethod(wx_RadioBox, __GetRowCount);
+	Gura_AssignMethod(wx_RadioBox, __IsItemEnabled);
+	Gura_AssignMethod(wx_RadioBox, __IsItemShown);
+	Gura_AssignMethod(wx_RadioBox, __SetItemHelpText);
+	Gura_AssignMethod(wx_RadioBox, __SetItemToolTip);
+	Gura_AssignMethod(wx_RadioBox, __SetSelection);
+	Gura_AssignMethod(wx_RadioBox, __Show);
+	Gura_AssignMethod(wx_RadioBox, __GetCount);
+	Gura_AssignMethod(wx_RadioBox, __GetString);
+	Gura_AssignMethod(wx_RadioBox, __SetString);
+	Gura_AssignMethod(wx_RadioBox, __GetSelection);
 }
 
 Gura_ImplementDescendantCreator(wx_RadioBox)

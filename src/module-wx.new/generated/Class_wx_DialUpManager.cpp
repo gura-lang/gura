@@ -37,12 +37,12 @@ String Object_wx_DialUpManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DialUpManager, CancelDialing)
+Gura_DeclareMethodAlias(wx_DialUpManager, __CancelDialing, "CancelDialing")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, CancelDialing)
+Gura_ImplementMethod(wx_DialUpManager, __CancelDialing)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_DialUpManager, CancelDialing)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, Create)
+Gura_DeclareMethodAlias(wx_DialUpManager, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, Create)
+Gura_ImplementMethod(wx_DialUpManager, __Create)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_DialUpManager, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, Dial)
+Gura_DeclareMethodAlias(wx_DialUpManager, __Dial, "Dial")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nameOfISP", VTYPE_number, OCCUR_Once);
@@ -72,7 +72,7 @@ Gura_DeclareMethod(wx_DialUpManager, Dial)
 	//DeclareArg(env, "async", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, Dial)
+Gura_ImplementMethod(wx_DialUpManager, __Dial)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_DialUpManager, Dial)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
+Gura_DeclareMethodAlias(wx_DialUpManager, __DisableAutoCheckOnlineStatus, "DisableAutoCheckOnlineStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
+Gura_ImplementMethod(wx_DialUpManager, __DisableAutoCheckOnlineStatus)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
+Gura_DeclareMethodAlias(wx_DialUpManager, __EnableAutoCheckOnlineStatus, "EnableAutoCheckOnlineStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nSeconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
+Gura_ImplementMethod(wx_DialUpManager, __EnableAutoCheckOnlineStatus)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, GetISPNames)
+Gura_DeclareMethodAlias(wx_DialUpManager, __GetISPNames, "GetISPNames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "names", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
+Gura_ImplementMethod(wx_DialUpManager, __GetISPNames)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_DialUpManager, GetISPNames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, HangUp)
+Gura_DeclareMethodAlias(wx_DialUpManager, __HangUp, "HangUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, HangUp)
+Gura_ImplementMethod(wx_DialUpManager, __HangUp)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_DialUpManager, HangUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, IsAlwaysOnline)
+Gura_DeclareMethodAlias(wx_DialUpManager, __IsAlwaysOnline, "IsAlwaysOnline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, IsAlwaysOnline)
+Gura_ImplementMethod(wx_DialUpManager, __IsAlwaysOnline)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_DialUpManager, IsAlwaysOnline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, IsDialing)
+Gura_DeclareMethodAlias(wx_DialUpManager, __IsDialing, "IsDialing")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, IsDialing)
+Gura_ImplementMethod(wx_DialUpManager, __IsDialing)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,12 +166,12 @@ Gura_ImplementMethod(wx_DialUpManager, IsDialing)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, IsOk)
+Gura_DeclareMethodAlias(wx_DialUpManager, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, IsOk)
+Gura_ImplementMethod(wx_DialUpManager, __IsOk)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,12 +179,12 @@ Gura_ImplementMethod(wx_DialUpManager, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, IsOnline)
+Gura_DeclareMethodAlias(wx_DialUpManager, __IsOnline, "IsOnline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, IsOnline)
+Gura_ImplementMethod(wx_DialUpManager, __IsOnline)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,14 +192,14 @@ Gura_ImplementMethod(wx_DialUpManager, IsOnline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, SetConnectCommand)
+Gura_DeclareMethodAlias(wx_DialUpManager, __SetConnectCommand, "SetConnectCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandDial", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "commandHangup", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, SetConnectCommand)
+Gura_ImplementMethod(wx_DialUpManager, __SetConnectCommand)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_DialUpManager, SetConnectCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, SetOnlineStatus)
+Gura_DeclareMethodAlias(wx_DialUpManager, __SetOnlineStatus, "SetOnlineStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "isOnline", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, SetOnlineStatus)
+Gura_ImplementMethod(wx_DialUpManager, __SetOnlineStatus)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,14 +224,14 @@ Gura_ImplementMethod(wx_DialUpManager, SetOnlineStatus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialUpManager, SetWellKnownHost)
+Gura_DeclareMethodAlias(wx_DialUpManager, __SetWellKnownHost, "SetWellKnownHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hostname", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "portno", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialUpManager, SetWellKnownHost)
+Gura_ImplementMethod(wx_DialUpManager, __SetWellKnownHost)
 {
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,20 +246,20 @@ Gura_ImplementMethod(wx_DialUpManager, SetWellKnownHost)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialUpManager)
 {
-	Gura_AssignMethod(wx_DialUpManager, CancelDialing);
-	Gura_AssignMethod(wx_DialUpManager, Create);
-	Gura_AssignMethod(wx_DialUpManager, Dial);
-	Gura_AssignMethod(wx_DialUpManager, DisableAutoCheckOnlineStatus);
-	Gura_AssignMethod(wx_DialUpManager, EnableAutoCheckOnlineStatus);
-	Gura_AssignMethod(wx_DialUpManager, GetISPNames);
-	Gura_AssignMethod(wx_DialUpManager, HangUp);
-	Gura_AssignMethod(wx_DialUpManager, IsAlwaysOnline);
-	Gura_AssignMethod(wx_DialUpManager, IsDialing);
-	Gura_AssignMethod(wx_DialUpManager, IsOk);
-	Gura_AssignMethod(wx_DialUpManager, IsOnline);
-	Gura_AssignMethod(wx_DialUpManager, SetConnectCommand);
-	Gura_AssignMethod(wx_DialUpManager, SetOnlineStatus);
-	Gura_AssignMethod(wx_DialUpManager, SetWellKnownHost);
+	Gura_AssignMethod(wx_DialUpManager, __CancelDialing);
+	Gura_AssignMethod(wx_DialUpManager, __Create);
+	Gura_AssignMethod(wx_DialUpManager, __Dial);
+	Gura_AssignMethod(wx_DialUpManager, __DisableAutoCheckOnlineStatus);
+	Gura_AssignMethod(wx_DialUpManager, __EnableAutoCheckOnlineStatus);
+	Gura_AssignMethod(wx_DialUpManager, __GetISPNames);
+	Gura_AssignMethod(wx_DialUpManager, __HangUp);
+	Gura_AssignMethod(wx_DialUpManager, __IsAlwaysOnline);
+	Gura_AssignMethod(wx_DialUpManager, __IsDialing);
+	Gura_AssignMethod(wx_DialUpManager, __IsOk);
+	Gura_AssignMethod(wx_DialUpManager, __IsOnline);
+	Gura_AssignMethod(wx_DialUpManager, __SetConnectCommand);
+	Gura_AssignMethod(wx_DialUpManager, __SetOnlineStatus);
+	Gura_AssignMethod(wx_DialUpManager, __SetWellKnownHost);
 }
 
 Gura_ImplementDescendantCreator(wx_DialUpManager)

@@ -37,13 +37,13 @@ String Object_wx_ChildFocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ChildFocusEvent, wxChildFocusEvent)
+Gura_DeclareMethodAlias(wx_ChildFocusEvent, __wxChildFocusEvent, "wxChildFocusEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ChildFocusEvent, wxChildFocusEvent)
+Gura_ImplementMethod(wx_ChildFocusEvent, __wxChildFocusEvent)
 {
 	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_ChildFocusEvent, wxChildFocusEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ChildFocusEvent, GetWindow)
+Gura_DeclareMethodAlias(wx_ChildFocusEvent, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ChildFocusEvent, GetWindow)
+Gura_ImplementMethod(wx_ChildFocusEvent, __GetWindow)
 {
 	Object_wx_ChildFocusEvent *pThis = Object_wx_ChildFocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_ChildFocusEvent, GetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ChildFocusEvent)
 {
-	Gura_AssignMethod(wx_ChildFocusEvent, wxChildFocusEvent);
-	Gura_AssignMethod(wx_ChildFocusEvent, GetWindow);
+	Gura_AssignMethod(wx_ChildFocusEvent, __wxChildFocusEvent);
+	Gura_AssignMethod(wx_ChildFocusEvent, __GetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_ChildFocusEvent)

@@ -37,12 +37,12 @@ String Object_wx_ThumbBarButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ThumbBarButton, wxThumbBarButton)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __wxThumbBarButton, "wxThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, wxThumbBarButton)
+Gura_ImplementMethod(wx_ThumbBarButton, __wxThumbBarButton)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, wxThumbBarButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, wxThumbBarButton_1)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __wxThumbBarButton_1, "wxThumbBarButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_ThumbBarButton, wxThumbBarButton_1)
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, wxThumbBarButton_1)
+Gura_ImplementMethod(wx_ThumbBarButton, __wxThumbBarButton_1)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, wxThumbBarButton_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, Create)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_ThumbBarButton, Create)
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, Create)
+Gura_ImplementMethod(wx_ThumbBarButton, __Create)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, GetID)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __GetID, "GetID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, GetID)
+Gura_ImplementMethod(wx_ThumbBarButton, __GetID)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, GetID)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, GetIcon)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, GetIcon)
+Gura_ImplementMethod(wx_ThumbBarButton, __GetIcon)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, GetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, GetTooltip)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __GetTooltip, "GetTooltip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, GetTooltip)
+Gura_ImplementMethod(wx_ThumbBarButton, __GetTooltip)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, GetTooltip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, IsEnable)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __IsEnable, "IsEnable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, IsEnable)
+Gura_ImplementMethod(wx_ThumbBarButton, __IsEnable)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, IsEnable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, Enable)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, Enable)
+Gura_ImplementMethod(wx_ThumbBarButton, __Enable)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, Disable)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __Disable, "Disable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, Disable)
+Gura_ImplementMethod(wx_ThumbBarButton, __Disable)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, Disable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, IsDismissOnClick)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __IsDismissOnClick, "IsDismissOnClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, IsDismissOnClick)
+Gura_ImplementMethod(wx_ThumbBarButton, __IsDismissOnClick)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, IsDismissOnClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, EnableDismissOnClick)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __EnableDismissOnClick, "EnableDismissOnClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, EnableDismissOnClick)
+Gura_ImplementMethod(wx_ThumbBarButton, __EnableDismissOnClick)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,12 +216,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, EnableDismissOnClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, DisableDimissOnClick)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __DisableDimissOnClick, "DisableDimissOnClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, DisableDimissOnClick)
+Gura_ImplementMethod(wx_ThumbBarButton, __DisableDimissOnClick)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,12 +229,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, DisableDimissOnClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, HasBackground)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __HasBackground, "HasBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, HasBackground)
+Gura_ImplementMethod(wx_ThumbBarButton, __HasBackground)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,13 +242,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, HasBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, SetHasBackground)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __SetHasBackground, "SetHasBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "has", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, SetHasBackground)
+Gura_ImplementMethod(wx_ThumbBarButton, __SetHasBackground)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,12 +257,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, SetHasBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, IsShown)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __IsShown, "IsShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, IsShown)
+Gura_ImplementMethod(wx_ThumbBarButton, __IsShown)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, IsShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, Show)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "shown", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, Show)
+Gura_ImplementMethod(wx_ThumbBarButton, __Show)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,12 +285,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, Hide)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __Hide, "Hide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, Hide)
+Gura_ImplementMethod(wx_ThumbBarButton, __Hide)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,12 +298,12 @@ Gura_ImplementMethod(wx_ThumbBarButton, Hide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, IsInteractive)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __IsInteractive, "IsInteractive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, IsInteractive)
+Gura_ImplementMethod(wx_ThumbBarButton, __IsInteractive)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,13 +311,13 @@ Gura_ImplementMethod(wx_ThumbBarButton, IsInteractive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ThumbBarButton, SetInteractive)
+Gura_DeclareMethodAlias(wx_ThumbBarButton, __SetInteractive, "SetInteractive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "interactive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ThumbBarButton, SetInteractive)
+Gura_ImplementMethod(wx_ThumbBarButton, __SetInteractive)
 {
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -331,25 +331,25 @@ Gura_ImplementMethod(wx_ThumbBarButton, SetInteractive)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ThumbBarButton)
 {
-	Gura_AssignMethod(wx_ThumbBarButton, wxThumbBarButton);
-	Gura_AssignMethod(wx_ThumbBarButton, wxThumbBarButton_1);
-	Gura_AssignMethod(wx_ThumbBarButton, Create);
-	Gura_AssignMethod(wx_ThumbBarButton, GetID);
-	Gura_AssignMethod(wx_ThumbBarButton, GetIcon);
-	Gura_AssignMethod(wx_ThumbBarButton, GetTooltip);
-	Gura_AssignMethod(wx_ThumbBarButton, IsEnable);
-	Gura_AssignMethod(wx_ThumbBarButton, Enable);
-	Gura_AssignMethod(wx_ThumbBarButton, Disable);
-	Gura_AssignMethod(wx_ThumbBarButton, IsDismissOnClick);
-	Gura_AssignMethod(wx_ThumbBarButton, EnableDismissOnClick);
-	Gura_AssignMethod(wx_ThumbBarButton, DisableDimissOnClick);
-	Gura_AssignMethod(wx_ThumbBarButton, HasBackground);
-	Gura_AssignMethod(wx_ThumbBarButton, SetHasBackground);
-	Gura_AssignMethod(wx_ThumbBarButton, IsShown);
-	Gura_AssignMethod(wx_ThumbBarButton, Show);
-	Gura_AssignMethod(wx_ThumbBarButton, Hide);
-	Gura_AssignMethod(wx_ThumbBarButton, IsInteractive);
-	Gura_AssignMethod(wx_ThumbBarButton, SetInteractive);
+	Gura_AssignMethod(wx_ThumbBarButton, __wxThumbBarButton);
+	Gura_AssignMethod(wx_ThumbBarButton, __wxThumbBarButton_1);
+	Gura_AssignMethod(wx_ThumbBarButton, __Create);
+	Gura_AssignMethod(wx_ThumbBarButton, __GetID);
+	Gura_AssignMethod(wx_ThumbBarButton, __GetIcon);
+	Gura_AssignMethod(wx_ThumbBarButton, __GetTooltip);
+	Gura_AssignMethod(wx_ThumbBarButton, __IsEnable);
+	Gura_AssignMethod(wx_ThumbBarButton, __Enable);
+	Gura_AssignMethod(wx_ThumbBarButton, __Disable);
+	Gura_AssignMethod(wx_ThumbBarButton, __IsDismissOnClick);
+	Gura_AssignMethod(wx_ThumbBarButton, __EnableDismissOnClick);
+	Gura_AssignMethod(wx_ThumbBarButton, __DisableDimissOnClick);
+	Gura_AssignMethod(wx_ThumbBarButton, __HasBackground);
+	Gura_AssignMethod(wx_ThumbBarButton, __SetHasBackground);
+	Gura_AssignMethod(wx_ThumbBarButton, __IsShown);
+	Gura_AssignMethod(wx_ThumbBarButton, __Show);
+	Gura_AssignMethod(wx_ThumbBarButton, __Hide);
+	Gura_AssignMethod(wx_ThumbBarButton, __IsInteractive);
+	Gura_AssignMethod(wx_ThumbBarButton, __SetInteractive);
 }
 
 Gura_ImplementDescendantCreator(wx_ThumbBarButton)

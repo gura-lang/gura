@@ -37,12 +37,12 @@ String Object_wx_LogGui::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogGui, wxLogGui)
+Gura_DeclareMethodAlias(wx_LogGui, __wxLogGui, "wxLogGui")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, wxLogGui)
+Gura_ImplementMethod(wx_LogGui, __wxLogGui)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_LogGui, wxLogGui)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, Flush)
+Gura_DeclareMethodAlias(wx_LogGui, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, Flush)
+Gura_ImplementMethod(wx_LogGui, __Flush)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_LogGui, Flush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, GetTitle)
+Gura_DeclareMethodAlias(wx_LogGui, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, GetTitle)
+Gura_ImplementMethod(wx_LogGui, __GetTitle)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_LogGui, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, GetSeverityIcon)
+Gura_DeclareMethodAlias(wx_LogGui, __GetSeverityIcon, "GetSeverityIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, GetSeverityIcon)
+Gura_ImplementMethod(wx_LogGui, __GetSeverityIcon)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_LogGui, GetSeverityIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, Clear)
+Gura_DeclareMethodAlias(wx_LogGui, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogGui, Clear)
+Gura_ImplementMethod(wx_LogGui, __Clear)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_LogGui, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, DoShowSingleLogMessage)
+Gura_DeclareMethodAlias(wx_LogGui, __DoShowSingleLogMessage, "DoShowSingleLogMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_LogGui, DoShowSingleLogMessage)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogGui, DoShowSingleLogMessage)
+Gura_ImplementMethod(wx_LogGui, __DoShowSingleLogMessage)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_LogGui, DoShowSingleLogMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogGui, DoShowMultipleLogMessages)
+Gura_DeclareMethodAlias(wx_LogGui, __DoShowMultipleLogMessages, "DoShowMultipleLogMessages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "messages", VTYPE_number, OCCUR_Once);
@@ -131,7 +131,7 @@ Gura_DeclareMethod(wx_LogGui, DoShowMultipleLogMessages)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogGui, DoShowMultipleLogMessages)
+Gura_ImplementMethod(wx_LogGui, __DoShowMultipleLogMessages)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_LogGui, DoShowMultipleLogMessages)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogGui)
 {
-	Gura_AssignMethod(wx_LogGui, wxLogGui);
-	Gura_AssignMethod(wx_LogGui, Flush);
-	Gura_AssignMethod(wx_LogGui, GetTitle);
-	Gura_AssignMethod(wx_LogGui, GetSeverityIcon);
-	Gura_AssignMethod(wx_LogGui, Clear);
-	Gura_AssignMethod(wx_LogGui, DoShowSingleLogMessage);
-	Gura_AssignMethod(wx_LogGui, DoShowMultipleLogMessages);
+	Gura_AssignMethod(wx_LogGui, __wxLogGui);
+	Gura_AssignMethod(wx_LogGui, __Flush);
+	Gura_AssignMethod(wx_LogGui, __GetTitle);
+	Gura_AssignMethod(wx_LogGui, __GetSeverityIcon);
+	Gura_AssignMethod(wx_LogGui, __Clear);
+	Gura_AssignMethod(wx_LogGui, __DoShowSingleLogMessage);
+	Gura_AssignMethod(wx_LogGui, __DoShowMultipleLogMessages);
 }
 
 Gura_ImplementDescendantCreator(wx_LogGui)

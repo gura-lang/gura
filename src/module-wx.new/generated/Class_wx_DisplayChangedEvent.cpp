@@ -37,12 +37,12 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent)
+Gura_DeclareMethodAlias(wx_DisplayChangedEvent, __wxDisplayChangedEvent, "wxDisplayChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent)
+Gura_ImplementMethod(wx_DisplayChangedEvent, __wxDisplayChangedEvent)
 {
 	Object_wx_DisplayChangedEvent *pThis = Object_wx_DisplayChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DisplayChangedEvent)
 {
-	Gura_AssignMethod(wx_DisplayChangedEvent, wxDisplayChangedEvent);
+	Gura_AssignMethod(wx_DisplayChangedEvent, __wxDisplayChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_DisplayChangedEvent)

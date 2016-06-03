@@ -37,12 +37,12 @@ String Object_wx_AddRemoveCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __wxAddRemoveCtrl, "wxAddRemoveCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
+Gura_ImplementMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl)
 {
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
+Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1, "wxAddRemoveCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
+Gura_ImplementMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1)
 {
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveCtrl, Create)
+Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_AddRemoveCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, Create)
+Gura_ImplementMethod(wx_AddRemoveCtrl, __Create)
 {
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveCtrl, SetAdaptor)
+Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __SetAdaptor, "SetAdaptor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "adaptor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, SetAdaptor)
+Gura_ImplementMethod(wx_AddRemoveCtrl, __SetAdaptor)
 {
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,14 +115,14 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, SetAdaptor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
+Gura_DeclareMethodAlias(wx_AddRemoveCtrl, __SetButtonsToolTips, "SetButtonsToolTips")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addtip", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "removetip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
+Gura_ImplementMethod(wx_AddRemoveCtrl, __SetButtonsToolTips)
 {
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,11 +137,11 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, SetButtonsToolTips)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveCtrl)
 {
-	Gura_AssignMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl);
-	Gura_AssignMethod(wx_AddRemoveCtrl, wxAddRemoveCtrl_1);
-	Gura_AssignMethod(wx_AddRemoveCtrl, Create);
-	Gura_AssignMethod(wx_AddRemoveCtrl, SetAdaptor);
-	Gura_AssignMethod(wx_AddRemoveCtrl, SetButtonsToolTips);
+	Gura_AssignMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl);
+	Gura_AssignMethod(wx_AddRemoveCtrl, __wxAddRemoveCtrl_1);
+	Gura_AssignMethod(wx_AddRemoveCtrl, __Create);
+	Gura_AssignMethod(wx_AddRemoveCtrl, __SetAdaptor);
+	Gura_AssignMethod(wx_AddRemoveCtrl, __SetButtonsToolTips);
 }
 
 Gura_ImplementDescendantCreator(wx_AddRemoveCtrl)

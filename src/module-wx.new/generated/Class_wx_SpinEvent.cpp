@@ -37,14 +37,14 @@ String Object_wx_SpinEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SpinEvent, wxSpinEvent)
+Gura_DeclareMethodAlias(wx_SpinEvent, __wxSpinEvent, "wxSpinEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinEvent, wxSpinEvent)
+Gura_ImplementMethod(wx_SpinEvent, __wxSpinEvent)
 {
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_SpinEvent, wxSpinEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_SpinEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinEvent, GetPosition)
+Gura_ImplementMethod(wx_SpinEvent, __GetPosition)
 {
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_SpinEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinEvent, SetPosition)
+Gura_DeclareMethodAlias(wx_SpinEvent, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinEvent, SetPosition)
+Gura_ImplementMethod(wx_SpinEvent, __SetPosition)
 {
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_SpinEvent, SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinEvent)
 {
-	Gura_AssignMethod(wx_SpinEvent, wxSpinEvent);
-	Gura_AssignMethod(wx_SpinEvent, GetPosition);
-	Gura_AssignMethod(wx_SpinEvent, SetPosition);
+	Gura_AssignMethod(wx_SpinEvent, __wxSpinEvent);
+	Gura_AssignMethod(wx_SpinEvent, __GetPosition);
+	Gura_AssignMethod(wx_SpinEvent, __SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_SpinEvent)

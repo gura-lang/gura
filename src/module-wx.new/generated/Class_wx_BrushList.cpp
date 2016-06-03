@@ -37,14 +37,14 @@ String Object_wx_BrushList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BrushList, FindOrCreateBrush)
+Gura_DeclareMethodAlias(wx_BrushList, __FindOrCreateBrush, "FindOrCreateBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
+Gura_ImplementMethod(wx_BrushList, __FindOrCreateBrush)
 {
 	Object_wx_BrushList *pThis = Object_wx_BrushList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_BrushList, FindOrCreateBrush)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BrushList)
 {
-	Gura_AssignMethod(wx_BrushList, FindOrCreateBrush);
+	Gura_AssignMethod(wx_BrushList, __FindOrCreateBrush);
 }
 
 Gura_ImplementDescendantCreator(wx_BrushList)

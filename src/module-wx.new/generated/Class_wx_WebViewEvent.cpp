@@ -37,12 +37,12 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebViewEvent, wxWebViewEvent)
+Gura_DeclareMethodAlias(wx_WebViewEvent, __wxWebViewEvent, "wxWebViewEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent)
+Gura_ImplementMethod(wx_WebViewEvent, __wxWebViewEvent)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewEvent, wxWebViewEvent_1)
+Gura_DeclareMethodAlias(wx_WebViewEvent, __wxWebViewEvent_1, "wxWebViewEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_WebViewEvent, wxWebViewEvent_1)
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent_1)
+Gura_ImplementMethod(wx_WebViewEvent, __wxWebViewEvent_1)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_WebViewEvent, wxWebViewEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewEvent, GetTarget)
+Gura_DeclareMethodAlias(wx_WebViewEvent, __GetTarget, "GetTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, GetTarget)
+Gura_ImplementMethod(wx_WebViewEvent, __GetTarget)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_WebViewEvent, GetTarget)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewEvent, GetURL)
+Gura_DeclareMethodAlias(wx_WebViewEvent, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewEvent, GetURL)
+Gura_ImplementMethod(wx_WebViewEvent, __GetURL)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_WebViewEvent, GetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewEvent)
 {
-	Gura_AssignMethod(wx_WebViewEvent, wxWebViewEvent);
-	Gura_AssignMethod(wx_WebViewEvent, wxWebViewEvent_1);
-	Gura_AssignMethod(wx_WebViewEvent, GetTarget);
-	Gura_AssignMethod(wx_WebViewEvent, GetURL);
+	Gura_AssignMethod(wx_WebViewEvent, __wxWebViewEvent);
+	Gura_AssignMethod(wx_WebViewEvent, __wxWebViewEvent_1);
+	Gura_AssignMethod(wx_WebViewEvent, __GetTarget);
+	Gura_AssignMethod(wx_WebViewEvent, __GetURL);
 }
 
 Gura_ImplementDescendantCreator(wx_WebViewEvent)

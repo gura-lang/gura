@@ -37,13 +37,13 @@ String Object_wx_PersistenceManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PersistenceManager, Set)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Set)
+Gura_ImplementMethod(wx_PersistenceManager, __Set)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PersistenceManager, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Get)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Get)
+Gura_ImplementMethod(wx_PersistenceManager, __Get)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PersistenceManager, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, DisableSaving)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __DisableSaving, "DisableSaving")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, DisableSaving)
+Gura_ImplementMethod(wx_PersistenceManager, __DisableSaving)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_PersistenceManager, DisableSaving)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, DisableRestoring)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __DisableRestoring, "DisableRestoring")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, DisableRestoring)
+Gura_ImplementMethod(wx_PersistenceManager, __DisableRestoring)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_PersistenceManager, DisableRestoring)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Register)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Register, "Register")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Register)
+Gura_ImplementMethod(wx_PersistenceManager, __Register)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,14 +106,14 @@ Gura_ImplementMethod(wx_PersistenceManager, Register)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Register_1)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Register_1, "Register_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "po", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Register_1)
+Gura_ImplementMethod(wx_PersistenceManager, __Register_1)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_PersistenceManager, Register_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Find)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Find)
+Gura_ImplementMethod(wx_PersistenceManager, __Find)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_PersistenceManager, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Unregister)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Unregister, "Unregister")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Unregister)
+Gura_ImplementMethod(wx_PersistenceManager, __Unregister)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_PersistenceManager, Unregister)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Save)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Save)
+Gura_ImplementMethod(wx_PersistenceManager, __Save)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_PersistenceManager, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, Restore)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __Restore, "Restore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, Restore)
+Gura_ImplementMethod(wx_PersistenceManager, __Restore)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_PersistenceManager, Restore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, SaveAndUnregister)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __SaveAndUnregister, "SaveAndUnregister")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, SaveAndUnregister)
+Gura_ImplementMethod(wx_PersistenceManager, __SaveAndUnregister)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_PersistenceManager, SaveAndUnregister)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, RegisterAndRestore)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __RegisterAndRestore, "RegisterAndRestore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore)
+Gura_ImplementMethod(wx_PersistenceManager, __RegisterAndRestore)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,14 +213,14 @@ Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, RegisterAndRestore_1)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __RegisterAndRestore_1, "RegisterAndRestore_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "po", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore_1)
+Gura_ImplementMethod(wx_PersistenceManager, __RegisterAndRestore_1)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,12 +230,12 @@ Gura_ImplementMethod(wx_PersistenceManager, RegisterAndRestore_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, wxPersistenceManager)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __wxPersistenceManager, "wxPersistenceManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, wxPersistenceManager)
+Gura_ImplementMethod(wx_PersistenceManager, __wxPersistenceManager)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -243,12 +243,12 @@ Gura_ImplementMethod(wx_PersistenceManager, wxPersistenceManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, GetConfig)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __GetConfig, "GetConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, GetConfig)
+Gura_ImplementMethod(wx_PersistenceManager, __GetConfig)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,14 +256,14 @@ Gura_ImplementMethod(wx_PersistenceManager, GetConfig)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistenceManager, GetKey)
+Gura_DeclareMethodAlias(wx_PersistenceManager, __GetKey, "GetKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "who", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistenceManager, GetKey)
+Gura_ImplementMethod(wx_PersistenceManager, __GetKey)
 {
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,22 +278,22 @@ Gura_ImplementMethod(wx_PersistenceManager, GetKey)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistenceManager)
 {
-	Gura_AssignMethod(wx_PersistenceManager, Set);
-	Gura_AssignMethod(wx_PersistenceManager, Get);
-	Gura_AssignMethod(wx_PersistenceManager, DisableSaving);
-	Gura_AssignMethod(wx_PersistenceManager, DisableRestoring);
-	Gura_AssignMethod(wx_PersistenceManager, Register);
-	Gura_AssignMethod(wx_PersistenceManager, Register_1);
-	Gura_AssignMethod(wx_PersistenceManager, Find);
-	Gura_AssignMethod(wx_PersistenceManager, Unregister);
-	Gura_AssignMethod(wx_PersistenceManager, Save);
-	Gura_AssignMethod(wx_PersistenceManager, Restore);
-	Gura_AssignMethod(wx_PersistenceManager, SaveAndUnregister);
-	Gura_AssignMethod(wx_PersistenceManager, RegisterAndRestore);
-	Gura_AssignMethod(wx_PersistenceManager, RegisterAndRestore_1);
-	Gura_AssignMethod(wx_PersistenceManager, wxPersistenceManager);
-	Gura_AssignMethod(wx_PersistenceManager, GetConfig);
-	Gura_AssignMethod(wx_PersistenceManager, GetKey);
+	Gura_AssignMethod(wx_PersistenceManager, __Set);
+	Gura_AssignMethod(wx_PersistenceManager, __Get);
+	Gura_AssignMethod(wx_PersistenceManager, __DisableSaving);
+	Gura_AssignMethod(wx_PersistenceManager, __DisableRestoring);
+	Gura_AssignMethod(wx_PersistenceManager, __Register);
+	Gura_AssignMethod(wx_PersistenceManager, __Register_1);
+	Gura_AssignMethod(wx_PersistenceManager, __Find);
+	Gura_AssignMethod(wx_PersistenceManager, __Unregister);
+	Gura_AssignMethod(wx_PersistenceManager, __Save);
+	Gura_AssignMethod(wx_PersistenceManager, __Restore);
+	Gura_AssignMethod(wx_PersistenceManager, __SaveAndUnregister);
+	Gura_AssignMethod(wx_PersistenceManager, __RegisterAndRestore);
+	Gura_AssignMethod(wx_PersistenceManager, __RegisterAndRestore_1);
+	Gura_AssignMethod(wx_PersistenceManager, __wxPersistenceManager);
+	Gura_AssignMethod(wx_PersistenceManager, __GetConfig);
+	Gura_AssignMethod(wx_PersistenceManager, __GetKey);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistenceManager)

@@ -37,12 +37,12 @@ String Object_wx_SysColourChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent)
+Gura_DeclareMethodAlias(wx_SysColourChangedEvent, __wxSysColourChangedEvent, "wxSysColourChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent)
+Gura_ImplementMethod(wx_SysColourChangedEvent, __wxSysColourChangedEvent)
 {
 	Object_wx_SysColourChangedEvent *pThis = Object_wx_SysColourChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SysColourChangedEvent)
 {
-	Gura_AssignMethod(wx_SysColourChangedEvent, wxSysColourChangedEvent);
+	Gura_AssignMethod(wx_SysColourChangedEvent, __wxSysColourChangedEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_SysColourChangedEvent)

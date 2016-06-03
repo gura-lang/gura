@@ -37,12 +37,12 @@ String Object_wx_FileSystem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileSystem, wxFileSystem)
+Gura_DeclareMethodAlias(wx_FileSystem, __wxFileSystem, "wxFileSystem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystem, wxFileSystem)
+Gura_ImplementMethod(wx_FileSystem, __wxFileSystem)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FileSystem, wxFileSystem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, AddHandler)
+Gura_DeclareMethodAlias(wx_FileSystem, __AddHandler, "AddHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, AddHandler)
+Gura_ImplementMethod(wx_FileSystem, __AddHandler)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_FileSystem, AddHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, RemoveHandler)
+Gura_DeclareMethodAlias(wx_FileSystem, __RemoveHandler, "RemoveHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, RemoveHandler)
+Gura_ImplementMethod(wx_FileSystem, __RemoveHandler)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_FileSystem, RemoveHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, ChangePathTo)
+Gura_DeclareMethodAlias(wx_FileSystem, __ChangePathTo, "ChangePathTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "is_dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, ChangePathTo)
+Gura_ImplementMethod(wx_FileSystem, __ChangePathTo)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_FileSystem, ChangePathTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, FileNameToURL)
+Gura_DeclareMethodAlias(wx_FileSystem, __FileNameToURL, "FileNameToURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, FileNameToURL)
+Gura_ImplementMethod(wx_FileSystem, __FileNameToURL)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_FileSystem, FileNameToURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
+Gura_DeclareMethodAlias(wx_FileSystem, __FindFileInPath, "FindFileInPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pStr", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
+Gura_ImplementMethod(wx_FileSystem, __FindFileInPath)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,14 +131,14 @@ Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, FindFirst)
+Gura_DeclareMethodAlias(wx_FileSystem, __FindFirst, "FindFirst")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wildcard", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, FindFirst)
+Gura_ImplementMethod(wx_FileSystem, __FindFirst)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_FileSystem, FindFirst)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, FindNext)
+Gura_DeclareMethodAlias(wx_FileSystem, __FindNext, "FindNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystem, FindNext)
+Gura_ImplementMethod(wx_FileSystem, __FindNext)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,12 +161,12 @@ Gura_ImplementMethod(wx_FileSystem, FindNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, GetPath)
+Gura_DeclareMethodAlias(wx_FileSystem, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystem, GetPath)
+Gura_ImplementMethod(wx_FileSystem, __GetPath)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_FileSystem, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, HasHandlerForPath)
+Gura_DeclareMethodAlias(wx_FileSystem, __HasHandlerForPath, "HasHandlerForPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, HasHandlerForPath)
+Gura_ImplementMethod(wx_FileSystem, __HasHandlerForPath)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,14 +189,14 @@ Gura_ImplementMethod(wx_FileSystem, HasHandlerForPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, OpenFile)
+Gura_DeclareMethodAlias(wx_FileSystem, __OpenFile, "OpenFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, OpenFile)
+Gura_ImplementMethod(wx_FileSystem, __OpenFile)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,13 +206,13 @@ Gura_ImplementMethod(wx_FileSystem, OpenFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystem, URLToFileName)
+Gura_DeclareMethodAlias(wx_FileSystem, __URLToFileName, "URLToFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystem, URLToFileName)
+Gura_ImplementMethod(wx_FileSystem, __URLToFileName)
 {
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,18 +226,18 @@ Gura_ImplementMethod(wx_FileSystem, URLToFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystem)
 {
-	Gura_AssignMethod(wx_FileSystem, wxFileSystem);
-	Gura_AssignMethod(wx_FileSystem, AddHandler);
-	Gura_AssignMethod(wx_FileSystem, RemoveHandler);
-	Gura_AssignMethod(wx_FileSystem, ChangePathTo);
-	Gura_AssignMethod(wx_FileSystem, FileNameToURL);
-	Gura_AssignMethod(wx_FileSystem, FindFileInPath);
-	Gura_AssignMethod(wx_FileSystem, FindFirst);
-	Gura_AssignMethod(wx_FileSystem, FindNext);
-	Gura_AssignMethod(wx_FileSystem, GetPath);
-	Gura_AssignMethod(wx_FileSystem, HasHandlerForPath);
-	Gura_AssignMethod(wx_FileSystem, OpenFile);
-	Gura_AssignMethod(wx_FileSystem, URLToFileName);
+	Gura_AssignMethod(wx_FileSystem, __wxFileSystem);
+	Gura_AssignMethod(wx_FileSystem, __AddHandler);
+	Gura_AssignMethod(wx_FileSystem, __RemoveHandler);
+	Gura_AssignMethod(wx_FileSystem, __ChangePathTo);
+	Gura_AssignMethod(wx_FileSystem, __FileNameToURL);
+	Gura_AssignMethod(wx_FileSystem, __FindFileInPath);
+	Gura_AssignMethod(wx_FileSystem, __FindFirst);
+	Gura_AssignMethod(wx_FileSystem, __FindNext);
+	Gura_AssignMethod(wx_FileSystem, __GetPath);
+	Gura_AssignMethod(wx_FileSystem, __HasHandlerForPath);
+	Gura_AssignMethod(wx_FileSystem, __OpenFile);
+	Gura_AssignMethod(wx_FileSystem, __URLToFileName);
 }
 
 Gura_ImplementDescendantCreator(wx_FileSystem)

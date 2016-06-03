@@ -37,7 +37,7 @@ String Object_wx_Image::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Image, RGBValue)
+Gura_DeclareMethodAlias(wx_Image, __RGBValue, "RGBValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_Image, RGBValue)
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Image, RGBValue)
+Gura_ImplementMethod(wx_Image, __RGBValue)
 {
 	Object_wx_Image *pThis = Object_wx_Image::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_Image, RGBValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Image)
 {
-	Gura_AssignMethod(wx_Image, RGBValue);
+	Gura_AssignMethod(wx_Image, __RGBValue);
 }
 
 Gura_ImplementDescendantCreator(wx_Image)

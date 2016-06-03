@@ -37,14 +37,14 @@ String Object_wx_DataOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataOutputStream, wxDataOutputStream)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __wxDataOutputStream, "wxDataOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, wxDataOutputStream)
+Gura_ImplementMethod(wx_DataOutputStream, __wxDataOutputStream)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_DataOutputStream, wxDataOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, BigEndianOrdered)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __BigEndianOrdered, "BigEndianOrdered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "be_order", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, BigEndianOrdered)
+Gura_ImplementMethod(wx_DataOutputStream, __BigEndianOrdered)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_DataOutputStream, BigEndianOrdered)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, GetConv)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __GetConv, "GetConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, GetConv)
+Gura_ImplementMethod(wx_DataOutputStream, __GetConv)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_DataOutputStream, GetConv)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, SetConv)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __SetConv, "SetConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, SetConv)
+Gura_ImplementMethod(wx_DataOutputStream, __SetConv)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_DataOutputStream, SetConv)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, UseBasicPrecisions)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __UseBasicPrecisions, "UseBasicPrecisions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, UseBasicPrecisions)
+Gura_ImplementMethod(wx_DataOutputStream, __UseBasicPrecisions)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_DataOutputStream, UseBasicPrecisions)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, UseExtendedPrecision)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __UseExtendedPrecision, "UseExtendedPrecision")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, UseExtendedPrecision)
+Gura_ImplementMethod(wx_DataOutputStream, __UseExtendedPrecision)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_DataOutputStream, UseExtendedPrecision)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write8)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write8, "Write8")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i8", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write8)
+Gura_ImplementMethod(wx_DataOutputStream, __Write8)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,14 +138,14 @@ Gura_ImplementMethod(wx_DataOutputStream, Write8)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write8_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write8_1, "Write8_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write8_1)
+Gura_ImplementMethod(wx_DataOutputStream, __Write8_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_DataOutputStream, Write8_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write16)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write16, "Write16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i16", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write16)
+Gura_ImplementMethod(wx_DataOutputStream, __Write16)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_DataOutputStream, Write16)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write16_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write16_1, "Write16_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write16_1)
+Gura_ImplementMethod(wx_DataOutputStream, __Write16_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_DataOutputStream, Write16_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write32)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write32, "Write32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i32", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write32)
+Gura_ImplementMethod(wx_DataOutputStream, __Write32)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,14 +202,14 @@ Gura_ImplementMethod(wx_DataOutputStream, Write32)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write32_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write32_1, "Write32_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write32_1)
+Gura_ImplementMethod(wx_DataOutputStream, __Write32_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_DataOutputStream, Write32_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write64)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write64, "Write64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i64", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write64)
+Gura_ImplementMethod(wx_DataOutputStream, __Write64)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,14 +234,14 @@ Gura_ImplementMethod(wx_DataOutputStream, Write64)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, Write64_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __Write64_1, "Write64_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, Write64_1)
+Gura_ImplementMethod(wx_DataOutputStream, __Write64_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,13 +251,13 @@ Gura_ImplementMethod(wx_DataOutputStream, Write64_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, WriteFloat)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __WriteFloat, "WriteFloat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "f", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, WriteFloat)
+Gura_ImplementMethod(wx_DataOutputStream, __WriteFloat)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,14 +266,14 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteFloat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, WriteFloat_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __WriteFloat_1, "WriteFloat_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, WriteFloat_1)
+Gura_ImplementMethod(wx_DataOutputStream, __WriteFloat_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,13 +283,13 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteFloat_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, WriteDouble)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __WriteDouble, "WriteDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, WriteDouble)
+Gura_ImplementMethod(wx_DataOutputStream, __WriteDouble)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,14 +298,14 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteDouble)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, WriteDouble_1)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __WriteDouble_1, "WriteDouble_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, WriteDouble_1)
+Gura_ImplementMethod(wx_DataOutputStream, __WriteDouble_1)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -315,13 +315,13 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteDouble_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataOutputStream, WriteString)
+Gura_DeclareMethodAlias(wx_DataOutputStream, __WriteString, "WriteString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataOutputStream, WriteString)
+Gura_ImplementMethod(wx_DataOutputStream, __WriteString)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -335,25 +335,25 @@ Gura_ImplementMethod(wx_DataOutputStream, WriteString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataOutputStream)
 {
-	Gura_AssignMethod(wx_DataOutputStream, wxDataOutputStream);
-	Gura_AssignMethod(wx_DataOutputStream, BigEndianOrdered);
-	Gura_AssignMethod(wx_DataOutputStream, GetConv);
-	Gura_AssignMethod(wx_DataOutputStream, SetConv);
-	Gura_AssignMethod(wx_DataOutputStream, UseBasicPrecisions);
-	Gura_AssignMethod(wx_DataOutputStream, UseExtendedPrecision);
-	Gura_AssignMethod(wx_DataOutputStream, Write8);
-	Gura_AssignMethod(wx_DataOutputStream, Write8_1);
-	Gura_AssignMethod(wx_DataOutputStream, Write16);
-	Gura_AssignMethod(wx_DataOutputStream, Write16_1);
-	Gura_AssignMethod(wx_DataOutputStream, Write32);
-	Gura_AssignMethod(wx_DataOutputStream, Write32_1);
-	Gura_AssignMethod(wx_DataOutputStream, Write64);
-	Gura_AssignMethod(wx_DataOutputStream, Write64_1);
-	Gura_AssignMethod(wx_DataOutputStream, WriteFloat);
-	Gura_AssignMethod(wx_DataOutputStream, WriteFloat_1);
-	Gura_AssignMethod(wx_DataOutputStream, WriteDouble);
-	Gura_AssignMethod(wx_DataOutputStream, WriteDouble_1);
-	Gura_AssignMethod(wx_DataOutputStream, WriteString);
+	Gura_AssignMethod(wx_DataOutputStream, __wxDataOutputStream);
+	Gura_AssignMethod(wx_DataOutputStream, __BigEndianOrdered);
+	Gura_AssignMethod(wx_DataOutputStream, __GetConv);
+	Gura_AssignMethod(wx_DataOutputStream, __SetConv);
+	Gura_AssignMethod(wx_DataOutputStream, __UseBasicPrecisions);
+	Gura_AssignMethod(wx_DataOutputStream, __UseExtendedPrecision);
+	Gura_AssignMethod(wx_DataOutputStream, __Write8);
+	Gura_AssignMethod(wx_DataOutputStream, __Write8_1);
+	Gura_AssignMethod(wx_DataOutputStream, __Write16);
+	Gura_AssignMethod(wx_DataOutputStream, __Write16_1);
+	Gura_AssignMethod(wx_DataOutputStream, __Write32);
+	Gura_AssignMethod(wx_DataOutputStream, __Write32_1);
+	Gura_AssignMethod(wx_DataOutputStream, __Write64);
+	Gura_AssignMethod(wx_DataOutputStream, __Write64_1);
+	Gura_AssignMethod(wx_DataOutputStream, __WriteFloat);
+	Gura_AssignMethod(wx_DataOutputStream, __WriteFloat_1);
+	Gura_AssignMethod(wx_DataOutputStream, __WriteDouble);
+	Gura_AssignMethod(wx_DataOutputStream, __WriteDouble_1);
+	Gura_AssignMethod(wx_DataOutputStream, __WriteString);
 }
 
 Gura_ImplementDescendantCreator(wx_DataOutputStream)

@@ -37,13 +37,13 @@ String Object_wx_LogChain::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogChain, wxLogChain)
+Gura_DeclareMethodAlias(wx_LogChain, __wxLogChain, "wxLogChain")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogChain, wxLogChain)
+Gura_ImplementMethod(wx_LogChain, __wxLogChain)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_LogChain, wxLogChain)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogChain, DetachOldLog)
+Gura_DeclareMethodAlias(wx_LogChain, __DetachOldLog, "DetachOldLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogChain, DetachOldLog)
+Gura_ImplementMethod(wx_LogChain, __DetachOldLog)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_LogChain, DetachOldLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogChain, GetOldLog)
+Gura_DeclareMethodAlias(wx_LogChain, __GetOldLog, "GetOldLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogChain, GetOldLog)
+Gura_ImplementMethod(wx_LogChain, __GetOldLog)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_LogChain, GetOldLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogChain, IsPassingMessages)
+Gura_DeclareMethodAlias(wx_LogChain, __IsPassingMessages, "IsPassingMessages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogChain, IsPassingMessages)
+Gura_ImplementMethod(wx_LogChain, __IsPassingMessages)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_LogChain, IsPassingMessages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogChain, PassMessages)
+Gura_DeclareMethodAlias(wx_LogChain, __PassMessages, "PassMessages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "passMessages", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogChain, PassMessages)
+Gura_ImplementMethod(wx_LogChain, __PassMessages)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_LogChain, PassMessages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogChain, SetLog)
+Gura_DeclareMethodAlias(wx_LogChain, __SetLog, "SetLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogChain, SetLog)
+Gura_ImplementMethod(wx_LogChain, __SetLog)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_LogChain, SetLog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogChain)
 {
-	Gura_AssignMethod(wx_LogChain, wxLogChain);
-	Gura_AssignMethod(wx_LogChain, DetachOldLog);
-	Gura_AssignMethod(wx_LogChain, GetOldLog);
-	Gura_AssignMethod(wx_LogChain, IsPassingMessages);
-	Gura_AssignMethod(wx_LogChain, PassMessages);
-	Gura_AssignMethod(wx_LogChain, SetLog);
+	Gura_AssignMethod(wx_LogChain, __wxLogChain);
+	Gura_AssignMethod(wx_LogChain, __DetachOldLog);
+	Gura_AssignMethod(wx_LogChain, __GetOldLog);
+	Gura_AssignMethod(wx_LogChain, __IsPassingMessages);
+	Gura_AssignMethod(wx_LogChain, __PassMessages);
+	Gura_AssignMethod(wx_LogChain, __SetLog);
 }
 
 Gura_ImplementDescendantCreator(wx_LogChain)

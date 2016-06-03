@@ -37,12 +37,12 @@ String Object_wx_CalendarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CalendarEvent, wxCalendarEvent)
+Gura_DeclareMethodAlias(wx_CalendarEvent, __wxCalendarEvent, "wxCalendarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent)
+Gura_ImplementMethod(wx_CalendarEvent, __wxCalendarEvent)
 {
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarEvent, wxCalendarEvent_1)
+Gura_DeclareMethodAlias(wx_CalendarEvent, __wxCalendarEvent_1, "wxCalendarEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_CalendarEvent, wxCalendarEvent_1)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent_1)
+Gura_ImplementMethod(wx_CalendarEvent, __wxCalendarEvent_1)
 {
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_CalendarEvent, wxCalendarEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarEvent, GetWeekDay)
+Gura_DeclareMethodAlias(wx_CalendarEvent, __GetWeekDay, "GetWeekDay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarEvent, GetWeekDay)
+Gura_ImplementMethod(wx_CalendarEvent, __GetWeekDay)
 {
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_CalendarEvent, GetWeekDay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarEvent, SetWeekDay)
+Gura_DeclareMethodAlias(wx_CalendarEvent, __SetWeekDay, "SetWeekDay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarEvent, SetWeekDay)
+Gura_ImplementMethod(wx_CalendarEvent, __SetWeekDay)
 {
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_CalendarEvent, SetWeekDay)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarEvent)
 {
-	Gura_AssignMethod(wx_CalendarEvent, wxCalendarEvent);
-	Gura_AssignMethod(wx_CalendarEvent, wxCalendarEvent_1);
-	Gura_AssignMethod(wx_CalendarEvent, GetWeekDay);
-	Gura_AssignMethod(wx_CalendarEvent, SetWeekDay);
+	Gura_AssignMethod(wx_CalendarEvent, __wxCalendarEvent);
+	Gura_AssignMethod(wx_CalendarEvent, __wxCalendarEvent_1);
+	Gura_AssignMethod(wx_CalendarEvent, __GetWeekDay);
+	Gura_AssignMethod(wx_CalendarEvent, __SetWeekDay);
 }
 
 Gura_ImplementDescendantCreator(wx_CalendarEvent)

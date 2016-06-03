@@ -37,12 +37,12 @@ String Object_wx_TextBoxAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextBoxAttr, wxTextBoxAttr)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __wxTextBoxAttr, "wxTextBoxAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr)
+Gura_ImplementMethod(wx_TextBoxAttr, __wxTextBoxAttr)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, wxTextBoxAttr_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __wxTextBoxAttr_1, "wxTextBoxAttr_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __wxTextBoxAttr_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, wxTextBoxAttr_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, Init)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, Init)
+Gura_ImplementMethod(wx_TextBoxAttr, __Init)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, Reset)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, Reset)
+Gura_ImplementMethod(wx_TextBoxAttr, __Reset)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,14 +91,14 @@ Gura_ImplementMethod(wx_TextBoxAttr, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, EqPartial)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __EqPartial, "EqPartial")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, EqPartial)
+Gura_ImplementMethod(wx_TextBoxAttr, __EqPartial)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,14 +108,14 @@ Gura_ImplementMethod(wx_TextBoxAttr, EqPartial)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, Apply)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __Apply, "Apply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, Apply)
+Gura_ImplementMethod(wx_TextBoxAttr, __Apply)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_TextBoxAttr, Apply)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, CollectCommonAttributes)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __CollectCommonAttributes, "CollectCommonAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -133,7 +133,7 @@ Gura_DeclareMethod(wx_TextBoxAttr, CollectCommonAttributes)
 	//DeclareArg(env, "absentAttr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, CollectCommonAttributes)
+Gura_ImplementMethod(wx_TextBoxAttr, __CollectCommonAttributes)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, CollectCommonAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, RemoveStyle)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __RemoveStyle, "RemoveStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, RemoveStyle)
+Gura_ImplementMethod(wx_TextBoxAttr, __RemoveStyle)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, RemoveStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetFlags)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetFlags)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetFlags)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,12 +174,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetFlags)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetFlags)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetFlags)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasFlag)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasFlag, "HasFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasFlag)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, RemoveFlag)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __RemoveFlag, "RemoveFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, RemoveFlag)
+Gura_ImplementMethod(wx_TextBoxAttr, __RemoveFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,13 +217,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, RemoveFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, AddFlag)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __AddFlag, "AddFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, AddFlag)
+Gura_ImplementMethod(wx_TextBoxAttr, __AddFlag)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,12 +232,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, AddFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, IsDefault)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __IsDefault, "IsDefault")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, IsDefault)
+Gura_ImplementMethod(wx_TextBoxAttr, __IsDefault)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -245,12 +245,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, IsDefault)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetFloatMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetFloatMode, "GetFloatMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetFloatMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetFloatMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -258,13 +258,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetFloatMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetFloatMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetFloatMode, "SetFloatMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetFloatMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetFloatMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -273,12 +273,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetFloatMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasFloatMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasFloatMode, "HasFloatMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasFloatMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasFloatMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,12 +286,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasFloatMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, IsFloating)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __IsFloating, "IsFloating")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, IsFloating)
+Gura_ImplementMethod(wx_TextBoxAttr, __IsFloating)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,12 +299,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, IsFloating)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetClearMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetClearMode, "GetClearMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetClearMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetClearMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,13 +312,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetClearMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetClearMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetClearMode, "SetClearMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetClearMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetClearMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,12 +327,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetClearMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasClearMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasClearMode, "HasClearMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasClearMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasClearMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,12 +340,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasClearMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetCollapseBorders)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetCollapseBorders, "GetCollapseBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetCollapseBorders)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetCollapseBorders)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -353,13 +353,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetCollapseBorders)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetCollapseBorders)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetCollapseBorders, "SetCollapseBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "collapse", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetCollapseBorders)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetCollapseBorders)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,12 +368,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetCollapseBorders)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasCollapseBorders)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasCollapseBorders, "HasCollapseBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasCollapseBorders)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasCollapseBorders)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,12 +381,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasCollapseBorders)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetWhitespaceMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetWhitespaceMode, "GetWhitespaceMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetWhitespaceMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetWhitespaceMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -394,13 +394,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetWhitespaceMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetWhitespaceMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetWhitespaceMode, "SetWhitespaceMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "whitespace", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetWhitespaceMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetWhitespaceMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -409,12 +409,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetWhitespaceMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasWhitespaceMode)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasWhitespaceMode, "HasWhitespaceMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasWhitespaceMode)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasWhitespaceMode)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -422,12 +422,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasWhitespaceMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasCornerRadius)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasCornerRadius, "HasCornerRadius")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasCornerRadius)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasCornerRadius)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -435,12 +435,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasCornerRadius)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetCornerRadius)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetCornerRadius, "GetCornerRadius")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetCornerRadius)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -448,12 +448,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetCornerRadius_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetCornerRadius_1, "GetCornerRadius_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetCornerRadius_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -461,13 +461,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetCornerRadius_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetCornerRadius)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetCornerRadius, "SetCornerRadius")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetCornerRadius)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetCornerRadius)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -476,12 +476,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetCornerRadius)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetVerticalAlignment)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetVerticalAlignment, "GetVerticalAlignment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetVerticalAlignment)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetVerticalAlignment)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -489,13 +489,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetVerticalAlignment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetVerticalAlignment)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetVerticalAlignment, "SetVerticalAlignment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "verticalAlignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetVerticalAlignment)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetVerticalAlignment)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -504,12 +504,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetVerticalAlignment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasVerticalAlignment)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasVerticalAlignment, "HasVerticalAlignment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasVerticalAlignment)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasVerticalAlignment)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -517,12 +517,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasVerticalAlignment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMargins)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMargins, "GetMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMargins)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMargins)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -530,12 +530,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMargins)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMargins_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMargins_1, "GetMargins_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMargins_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMargins_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -543,12 +543,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMargins_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftMargin)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftMargin, "GetLeftMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftMargin)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -556,12 +556,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftMargin_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftMargin_1, "GetLeftMargin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftMargin_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -569,12 +569,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftMargin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightMargin)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightMargin, "GetRightMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightMargin)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -582,12 +582,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightMargin_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightMargin_1, "GetRightMargin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightMargin_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -595,12 +595,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightMargin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopMargin)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopMargin, "GetTopMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopMargin)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -608,12 +608,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopMargin_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopMargin_1, "GetTopMargin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopMargin_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -621,12 +621,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopMargin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomMargin)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomMargin, "GetBottomMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomMargin)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -634,12 +634,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomMargin_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomMargin_1, "GetBottomMargin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomMargin_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -647,12 +647,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomMargin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetPosition)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetPosition)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetPosition)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -660,12 +660,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetPosition_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetPosition_1, "GetPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetPosition_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetPosition_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -673,12 +673,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeft)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeft, "GetLeft")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeft)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeft)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -686,12 +686,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeft)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeft_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeft_1, "GetLeft_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeft_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeft_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -699,12 +699,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeft_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRight)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRight, "GetRight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRight)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRight)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -712,12 +712,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRight_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRight_1, "GetRight_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRight_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRight_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -725,12 +725,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRight_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTop)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTop, "GetTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTop)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTop)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -738,12 +738,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTop_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTop_1, "GetTop_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTop_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTop_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -751,12 +751,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTop_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottom)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottom, "GetBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottom)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottom)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -764,12 +764,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottom_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottom_1, "GetBottom_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottom_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottom_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -777,12 +777,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottom_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetPadding)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetPadding, "GetPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetPadding)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetPadding)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -790,12 +790,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetPadding_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetPadding_1, "GetPadding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetPadding_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetPadding_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -803,12 +803,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetPadding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftPadding)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftPadding, "GetLeftPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftPadding)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -816,12 +816,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftPadding_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftPadding_1, "GetLeftPadding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftPadding_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -829,12 +829,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftPadding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightPadding)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightPadding, "GetRightPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightPadding)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -842,12 +842,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightPadding_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightPadding_1, "GetRightPadding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightPadding_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -855,12 +855,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightPadding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopPadding)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopPadding, "GetTopPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopPadding)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -868,12 +868,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopPadding_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopPadding_1, "GetTopPadding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopPadding_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -881,12 +881,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopPadding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomPadding)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomPadding, "GetBottomPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomPadding)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -894,12 +894,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomPadding_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomPadding_1, "GetBottomPadding_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomPadding_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -907,12 +907,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomPadding_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBorder)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBorder, "GetBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBorder)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBorder)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -920,12 +920,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBorder_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBorder_1, "GetBorder_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBorder_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBorder_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -933,12 +933,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBorder_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftBorder)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftBorder, "GetLeftBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftBorder)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -946,12 +946,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftBorder_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftBorder_1, "GetLeftBorder_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftBorder_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -959,12 +959,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftBorder_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopBorder)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopBorder, "GetTopBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopBorder)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -972,12 +972,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopBorder_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopBorder_1, "GetTopBorder_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopBorder_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -985,12 +985,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopBorder_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightBorder)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightBorder, "GetRightBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightBorder)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -998,12 +998,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightBorder_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightBorder_1, "GetRightBorder_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightBorder_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1011,12 +1011,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightBorder_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomBorder)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomBorder, "GetBottomBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomBorder)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1024,12 +1024,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomBorder_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomBorder_1, "GetBottomBorder_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomBorder_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1037,12 +1037,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomBorder_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetOutline)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetOutline, "GetOutline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetOutline)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetOutline)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1050,12 +1050,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetOutline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetOutline_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetOutline_1, "GetOutline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetOutline_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetOutline_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1063,12 +1063,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetOutline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftOutline)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftOutline, "GetLeftOutline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftOutline)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1076,12 +1076,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetLeftOutline_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetLeftOutline_1, "GetLeftOutline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetLeftOutline_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1089,12 +1089,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetLeftOutline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopOutline)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopOutline, "GetTopOutline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopOutline)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1102,12 +1102,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetTopOutline_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetTopOutline_1, "GetTopOutline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetTopOutline_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1115,12 +1115,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetTopOutline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightOutline)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightOutline, "GetRightOutline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightOutline)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1128,12 +1128,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetRightOutline_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetRightOutline_1, "GetRightOutline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetRightOutline_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1141,12 +1141,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetRightOutline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomOutline)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomOutline, "GetBottomOutline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomOutline)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1154,12 +1154,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBottomOutline_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBottomOutline_1, "GetBottomOutline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBottomOutline_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1167,12 +1167,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBottomOutline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1180,12 +1180,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetSize_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetSize_1, "GetSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetSize_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetSize_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1193,12 +1193,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMinSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMinSize, "GetMinSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMinSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1206,12 +1206,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMinSize_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMinSize_1, "GetMinSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMinSize_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1219,12 +1219,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMinSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMaxSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMaxSize, "GetMaxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMaxSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1232,12 +1232,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetMaxSize_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetMaxSize_1, "GetMaxSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetMaxSize_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1245,13 +1245,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetMaxSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetSize, "SetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1260,13 +1260,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetMinSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetMinSize, "SetMinSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetMinSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetMinSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1275,13 +1275,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetMinSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetMaxSize)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetMaxSize, "SetMaxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetMaxSize)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetMaxSize)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1290,12 +1290,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetMaxSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetWidth)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetWidth)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetWidth)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1303,12 +1303,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetWidth_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetWidth_1, "GetWidth_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetWidth_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetWidth_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1316,12 +1316,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetWidth_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetHeight)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetHeight, "GetHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetHeight)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetHeight)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1329,12 +1329,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetHeight_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetHeight_1, "GetHeight_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetHeight_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetHeight_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1342,12 +1342,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetHeight_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetBoxStyleName)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetBoxStyleName, "GetBoxStyleName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetBoxStyleName)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetBoxStyleName)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1355,13 +1355,13 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetBoxStyleName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, SetBoxStyleName)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __SetBoxStyleName, "SetBoxStyleName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, SetBoxStyleName)
+Gura_ImplementMethod(wx_TextBoxAttr, __SetBoxStyleName)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1370,12 +1370,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, SetBoxStyleName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, HasBoxStyleName)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __HasBoxStyleName, "HasBoxStyleName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, HasBoxStyleName)
+Gura_ImplementMethod(wx_TextBoxAttr, __HasBoxStyleName)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1383,12 +1383,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, HasBoxStyleName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetShadow)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetShadow, "GetShadow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetShadow)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetShadow)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1396,12 +1396,12 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetShadow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextBoxAttr, GetShadow_1)
+Gura_DeclareMethodAlias(wx_TextBoxAttr, __GetShadow_1, "GetShadow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextBoxAttr, GetShadow_1)
+Gura_ImplementMethod(wx_TextBoxAttr, __GetShadow_1)
 {
 	Object_wx_TextBoxAttr *pThis = Object_wx_TextBoxAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1414,108 +1414,108 @@ Gura_ImplementMethod(wx_TextBoxAttr, GetShadow_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextBoxAttr)
 {
-	Gura_AssignMethod(wx_TextBoxAttr, wxTextBoxAttr);
-	Gura_AssignMethod(wx_TextBoxAttr, wxTextBoxAttr_1);
-	Gura_AssignMethod(wx_TextBoxAttr, Init);
-	Gura_AssignMethod(wx_TextBoxAttr, Reset);
-	Gura_AssignMethod(wx_TextBoxAttr, EqPartial);
-	Gura_AssignMethod(wx_TextBoxAttr, Apply);
-	Gura_AssignMethod(wx_TextBoxAttr, CollectCommonAttributes);
-	Gura_AssignMethod(wx_TextBoxAttr, RemoveStyle);
-	Gura_AssignMethod(wx_TextBoxAttr, SetFlags);
-	Gura_AssignMethod(wx_TextBoxAttr, GetFlags);
-	Gura_AssignMethod(wx_TextBoxAttr, HasFlag);
-	Gura_AssignMethod(wx_TextBoxAttr, RemoveFlag);
-	Gura_AssignMethod(wx_TextBoxAttr, AddFlag);
-	Gura_AssignMethod(wx_TextBoxAttr, IsDefault);
-	Gura_AssignMethod(wx_TextBoxAttr, GetFloatMode);
-	Gura_AssignMethod(wx_TextBoxAttr, SetFloatMode);
-	Gura_AssignMethod(wx_TextBoxAttr, HasFloatMode);
-	Gura_AssignMethod(wx_TextBoxAttr, IsFloating);
-	Gura_AssignMethod(wx_TextBoxAttr, GetClearMode);
-	Gura_AssignMethod(wx_TextBoxAttr, SetClearMode);
-	Gura_AssignMethod(wx_TextBoxAttr, HasClearMode);
-	Gura_AssignMethod(wx_TextBoxAttr, GetCollapseBorders);
-	Gura_AssignMethod(wx_TextBoxAttr, SetCollapseBorders);
-	Gura_AssignMethod(wx_TextBoxAttr, HasCollapseBorders);
-	Gura_AssignMethod(wx_TextBoxAttr, GetWhitespaceMode);
-	Gura_AssignMethod(wx_TextBoxAttr, SetWhitespaceMode);
-	Gura_AssignMethod(wx_TextBoxAttr, HasWhitespaceMode);
-	Gura_AssignMethod(wx_TextBoxAttr, HasCornerRadius);
-	Gura_AssignMethod(wx_TextBoxAttr, GetCornerRadius);
-	Gura_AssignMethod(wx_TextBoxAttr, GetCornerRadius_1);
-	Gura_AssignMethod(wx_TextBoxAttr, SetCornerRadius);
-	Gura_AssignMethod(wx_TextBoxAttr, GetVerticalAlignment);
-	Gura_AssignMethod(wx_TextBoxAttr, SetVerticalAlignment);
-	Gura_AssignMethod(wx_TextBoxAttr, HasVerticalAlignment);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMargins);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMargins_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftMargin);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftMargin_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightMargin);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightMargin_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopMargin);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopMargin_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomMargin);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomMargin_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetPosition);
-	Gura_AssignMethod(wx_TextBoxAttr, GetPosition_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeft);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeft_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRight);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRight_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTop);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTop_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottom);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottom_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetPadding);
-	Gura_AssignMethod(wx_TextBoxAttr, GetPadding_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftPadding);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftPadding_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightPadding);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightPadding_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopPadding);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopPadding_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomPadding);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomPadding_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBorder);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBorder_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftBorder);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftBorder_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopBorder);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopBorder_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightBorder);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightBorder_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomBorder);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomBorder_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetOutline);
-	Gura_AssignMethod(wx_TextBoxAttr, GetOutline_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftOutline);
-	Gura_AssignMethod(wx_TextBoxAttr, GetLeftOutline_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopOutline);
-	Gura_AssignMethod(wx_TextBoxAttr, GetTopOutline_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightOutline);
-	Gura_AssignMethod(wx_TextBoxAttr, GetRightOutline_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomOutline);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBottomOutline_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetSize);
-	Gura_AssignMethod(wx_TextBoxAttr, GetSize_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMinSize);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMinSize_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMaxSize);
-	Gura_AssignMethod(wx_TextBoxAttr, GetMaxSize_1);
-	Gura_AssignMethod(wx_TextBoxAttr, SetSize);
-	Gura_AssignMethod(wx_TextBoxAttr, SetMinSize);
-	Gura_AssignMethod(wx_TextBoxAttr, SetMaxSize);
-	Gura_AssignMethod(wx_TextBoxAttr, GetWidth);
-	Gura_AssignMethod(wx_TextBoxAttr, GetWidth_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetHeight);
-	Gura_AssignMethod(wx_TextBoxAttr, GetHeight_1);
-	Gura_AssignMethod(wx_TextBoxAttr, GetBoxStyleName);
-	Gura_AssignMethod(wx_TextBoxAttr, SetBoxStyleName);
-	Gura_AssignMethod(wx_TextBoxAttr, HasBoxStyleName);
-	Gura_AssignMethod(wx_TextBoxAttr, GetShadow);
-	Gura_AssignMethod(wx_TextBoxAttr, GetShadow_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __wxTextBoxAttr);
+	Gura_AssignMethod(wx_TextBoxAttr, __wxTextBoxAttr_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __Init);
+	Gura_AssignMethod(wx_TextBoxAttr, __Reset);
+	Gura_AssignMethod(wx_TextBoxAttr, __EqPartial);
+	Gura_AssignMethod(wx_TextBoxAttr, __Apply);
+	Gura_AssignMethod(wx_TextBoxAttr, __CollectCommonAttributes);
+	Gura_AssignMethod(wx_TextBoxAttr, __RemoveStyle);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetFlags);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetFlags);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasFlag);
+	Gura_AssignMethod(wx_TextBoxAttr, __RemoveFlag);
+	Gura_AssignMethod(wx_TextBoxAttr, __AddFlag);
+	Gura_AssignMethod(wx_TextBoxAttr, __IsDefault);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetFloatMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetFloatMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasFloatMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __IsFloating);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetClearMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetClearMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasClearMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetCollapseBorders);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetCollapseBorders);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasCollapseBorders);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetWhitespaceMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetWhitespaceMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasWhitespaceMode);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasCornerRadius);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetCornerRadius);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetCornerRadius_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetCornerRadius);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetVerticalAlignment);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetVerticalAlignment);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasVerticalAlignment);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMargins);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMargins_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftMargin);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftMargin_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightMargin);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightMargin_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopMargin);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopMargin_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomMargin);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomMargin_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetPosition);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetPosition_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeft);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeft_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRight);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRight_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTop);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTop_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottom);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottom_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetPadding);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetPadding_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftPadding);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftPadding_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightPadding);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightPadding_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopPadding);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopPadding_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomPadding);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomPadding_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBorder);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBorder_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftBorder);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftBorder_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopBorder);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopBorder_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightBorder);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightBorder_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomBorder);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomBorder_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetOutline);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetOutline_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftOutline);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetLeftOutline_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopOutline);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetTopOutline_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightOutline);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetRightOutline_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomOutline);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBottomOutline_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetSize_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMinSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMinSize_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMaxSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetMaxSize_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetMinSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetMaxSize);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetWidth);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetWidth_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetHeight);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetHeight_1);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetBoxStyleName);
+	Gura_AssignMethod(wx_TextBoxAttr, __SetBoxStyleName);
+	Gura_AssignMethod(wx_TextBoxAttr, __HasBoxStyleName);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetShadow);
+	Gura_AssignMethod(wx_TextBoxAttr, __GetShadow_1);
 }
 
 Gura_ImplementDescendantCreator(wx_TextBoxAttr)

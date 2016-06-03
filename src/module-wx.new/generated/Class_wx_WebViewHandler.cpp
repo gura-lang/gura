@@ -37,13 +37,13 @@ String Object_wx_WebViewHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebViewHandler, wxWebViewHandler)
+Gura_DeclareMethodAlias(wx_WebViewHandler, __wxWebViewHandler, "wxWebViewHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewHandler, wxWebViewHandler)
+Gura_ImplementMethod(wx_WebViewHandler, __wxWebViewHandler)
 {
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_WebViewHandler, wxWebViewHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewHandler, GetFile)
+Gura_DeclareMethodAlias(wx_WebViewHandler, __GetFile, "GetFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewHandler, GetFile)
+Gura_ImplementMethod(wx_WebViewHandler, __GetFile)
 {
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_WebViewHandler, GetFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewHandler, GetName)
+Gura_DeclareMethodAlias(wx_WebViewHandler, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewHandler, GetName)
+Gura_ImplementMethod(wx_WebViewHandler, __GetName)
 {
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_WebViewHandler, GetName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewHandler)
 {
-	Gura_AssignMethod(wx_WebViewHandler, wxWebViewHandler);
-	Gura_AssignMethod(wx_WebViewHandler, GetFile);
-	Gura_AssignMethod(wx_WebViewHandler, GetName);
+	Gura_AssignMethod(wx_WebViewHandler, __wxWebViewHandler);
+	Gura_AssignMethod(wx_WebViewHandler, __GetFile);
+	Gura_AssignMethod(wx_WebViewHandler, __GetName);
 }
 
 Gura_ImplementDescendantCreator(wx_WebViewHandler)

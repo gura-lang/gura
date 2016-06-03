@@ -37,12 +37,12 @@ String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DelegateRendererNative, wxDelegateRendererNative)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __wxDelegateRendererNative, "wxDelegateRendererNative")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, wxDelegateRendererNative)
+Gura_ImplementMethod(wx_DelegateRendererNative, __wxDelegateRendererNative)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, wxDelegateRendererNative)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, wxDelegateRendererNative_1)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __wxDelegateRendererNative_1, "wxDelegateRendererNative_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rendererNative", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, wxDelegateRendererNative_1)
+Gura_ImplementMethod(wx_DelegateRendererNative, __wxDelegateRendererNative_1)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, wxDelegateRendererNative_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawHeaderButton)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawHeaderButton, "DrawHeaderButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawHeaderButton)
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawHeaderButton)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawHeaderButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawHeaderButtonContents)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawHeaderButtonContents, "DrawHeaderButtonContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawHeaderButtonContents)
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawHeaderButtonContents)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButtonContents)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawHeaderButtonContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, GetHeaderButtonHeight)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetHeaderButtonHeight, "GetHeaderButtonHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, GetHeaderButtonHeight)
+Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonHeight)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,13 +130,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, GetHeaderButtonHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, GetHeaderButtonMargin)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetHeaderButtonMargin, "GetHeaderButtonMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, GetHeaderButtonMargin)
+Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonMargin)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, GetHeaderButtonMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawTreeItemButton)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawTreeItemButton, "DrawTreeItemButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawTreeItemButton)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawTreeItemButton)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawTreeItemButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawTreeItemButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawSplitterBorder)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawSplitterBorder, "DrawSplitterBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -175,7 +175,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawSplitterBorder)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawSplitterBorder)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawSplitterBorder)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawSplitterBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawSplitterSash)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawSplitterSash, "DrawSplitterSash")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -198,7 +198,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawSplitterSash)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawSplitterSash)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawSplitterSash)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawSplitterSash)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawComboBoxDropButton)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawComboBoxDropButton, "DrawComboBoxDropButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -221,7 +221,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawComboBoxDropButton)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawComboBoxDropButton)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawComboBoxDropButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawComboBoxDropButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawDropArrow)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawDropArrow, "DrawDropArrow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -242,7 +242,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawDropArrow)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawDropArrow)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawDropArrow)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawDropArrow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawCheckBox)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawCheckBox, "DrawCheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawCheckBox)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawCheckBox)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawCheckBox)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,13 +275,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawCheckBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, GetCheckBoxSize)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetCheckBoxSize, "GetCheckBoxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, GetCheckBoxSize)
+Gura_ImplementMethod(wx_DelegateRendererNative, __GetCheckBoxSize)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, GetCheckBoxSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawPushButton)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawPushButton, "DrawPushButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -299,7 +299,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawPushButton)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawPushButton)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawPushButton)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawPushButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawItemSelectionRect)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawItemSelectionRect, "DrawItemSelectionRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -320,7 +320,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawItemSelectionRect)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawItemSelectionRect)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawItemSelectionRect)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawItemSelectionRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, DrawFocusRect)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawFocusRect, "DrawFocusRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -341,7 +341,7 @@ Gura_DeclareMethod(wx_DelegateRendererNative, DrawFocusRect)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, DrawFocusRect)
+Gura_ImplementMethod(wx_DelegateRendererNative, __DrawFocusRect)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -353,13 +353,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, DrawFocusRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, GetSplitterParams)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetSplitterParams, "GetSplitterParams")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, GetSplitterParams)
+Gura_ImplementMethod(wx_DelegateRendererNative, __GetSplitterParams)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,12 +368,12 @@ Gura_ImplementMethod(wx_DelegateRendererNative, GetSplitterParams)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DelegateRendererNative, GetVersion)
+Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetVersion, "GetVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DelegateRendererNative, GetVersion)
+Gura_ImplementMethod(wx_DelegateRendererNative, __GetVersion)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -386,24 +386,24 @@ Gura_ImplementMethod(wx_DelegateRendererNative, GetVersion)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DelegateRendererNative)
 {
-	Gura_AssignMethod(wx_DelegateRendererNative, wxDelegateRendererNative);
-	Gura_AssignMethod(wx_DelegateRendererNative, wxDelegateRendererNative_1);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawHeaderButton);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawHeaderButtonContents);
-	Gura_AssignMethod(wx_DelegateRendererNative, GetHeaderButtonHeight);
-	Gura_AssignMethod(wx_DelegateRendererNative, GetHeaderButtonMargin);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawTreeItemButton);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawSplitterBorder);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawSplitterSash);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawComboBoxDropButton);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawDropArrow);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawCheckBox);
-	Gura_AssignMethod(wx_DelegateRendererNative, GetCheckBoxSize);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawPushButton);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawItemSelectionRect);
-	Gura_AssignMethod(wx_DelegateRendererNative, DrawFocusRect);
-	Gura_AssignMethod(wx_DelegateRendererNative, GetSplitterParams);
-	Gura_AssignMethod(wx_DelegateRendererNative, GetVersion);
+	Gura_AssignMethod(wx_DelegateRendererNative, __wxDelegateRendererNative);
+	Gura_AssignMethod(wx_DelegateRendererNative, __wxDelegateRendererNative_1);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawHeaderButton);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawHeaderButtonContents);
+	Gura_AssignMethod(wx_DelegateRendererNative, __GetHeaderButtonHeight);
+	Gura_AssignMethod(wx_DelegateRendererNative, __GetHeaderButtonMargin);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawTreeItemButton);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawSplitterBorder);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawSplitterSash);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawComboBoxDropButton);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawDropArrow);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawCheckBox);
+	Gura_AssignMethod(wx_DelegateRendererNative, __GetCheckBoxSize);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawPushButton);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawItemSelectionRect);
+	Gura_AssignMethod(wx_DelegateRendererNative, __DrawFocusRect);
+	Gura_AssignMethod(wx_DelegateRendererNative, __GetSplitterParams);
+	Gura_AssignMethod(wx_DelegateRendererNative, __GetVersion);
 }
 
 Gura_ImplementDescendantCreator(wx_DelegateRendererNative)

@@ -37,13 +37,13 @@ String Object_wx_PersistentObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PersistentObject, wxPersistentObject)
+Gura_DeclareMethodAlias(wx_PersistentObject, __wxPersistentObject, "wxPersistentObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, wxPersistentObject)
+Gura_ImplementMethod(wx_PersistentObject, __wxPersistentObject)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PersistentObject, wxPersistentObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, Save)
+Gura_DeclareMethodAlias(wx_PersistentObject, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, Save)
+Gura_ImplementMethod(wx_PersistentObject, __Save)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PersistentObject, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, Restore)
+Gura_DeclareMethodAlias(wx_PersistentObject, __Restore, "Restore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, Restore)
+Gura_ImplementMethod(wx_PersistentObject, __Restore)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_PersistentObject, Restore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, GetKind)
+Gura_DeclareMethodAlias(wx_PersistentObject, __GetKind, "GetKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, GetKind)
+Gura_ImplementMethod(wx_PersistentObject, __GetKind)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_PersistentObject, GetKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, GetName)
+Gura_DeclareMethodAlias(wx_PersistentObject, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, GetName)
+Gura_ImplementMethod(wx_PersistentObject, __GetName)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_PersistentObject, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, GetObject)
+Gura_DeclareMethodAlias(wx_PersistentObject, __GetObject, "GetObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, GetObject)
+Gura_ImplementMethod(wx_PersistentObject, __GetObject)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,14 +117,14 @@ Gura_ImplementMethod(wx_PersistentObject, GetObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, SaveValue)
+Gura_DeclareMethodAlias(wx_PersistentObject, __SaveValue, "SaveValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, SaveValue)
+Gura_ImplementMethod(wx_PersistentObject, __SaveValue)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,14 +134,14 @@ Gura_ImplementMethod(wx_PersistentObject, SaveValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentObject, RestoreValue)
+Gura_DeclareMethodAlias(wx_PersistentObject, __RestoreValue, "RestoreValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentObject, RestoreValue)
+Gura_ImplementMethod(wx_PersistentObject, __RestoreValue)
 {
 	Object_wx_PersistentObject *pThis = Object_wx_PersistentObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,14 +156,14 @@ Gura_ImplementMethod(wx_PersistentObject, RestoreValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentObject)
 {
-	Gura_AssignMethod(wx_PersistentObject, wxPersistentObject);
-	Gura_AssignMethod(wx_PersistentObject, Save);
-	Gura_AssignMethod(wx_PersistentObject, Restore);
-	Gura_AssignMethod(wx_PersistentObject, GetKind);
-	Gura_AssignMethod(wx_PersistentObject, GetName);
-	Gura_AssignMethod(wx_PersistentObject, GetObject);
-	Gura_AssignMethod(wx_PersistentObject, SaveValue);
-	Gura_AssignMethod(wx_PersistentObject, RestoreValue);
+	Gura_AssignMethod(wx_PersistentObject, __wxPersistentObject);
+	Gura_AssignMethod(wx_PersistentObject, __Save);
+	Gura_AssignMethod(wx_PersistentObject, __Restore);
+	Gura_AssignMethod(wx_PersistentObject, __GetKind);
+	Gura_AssignMethod(wx_PersistentObject, __GetName);
+	Gura_AssignMethod(wx_PersistentObject, __GetObject);
+	Gura_AssignMethod(wx_PersistentObject, __SaveValue);
+	Gura_AssignMethod(wx_PersistentObject, __RestoreValue);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistentObject)

@@ -37,13 +37,13 @@ String Object_wx_DropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DropTarget, wxDropTarget)
+Gura_DeclareMethodAlias(wx_DropTarget, __wxDropTarget, "wxDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, wxDropTarget)
+Gura_ImplementMethod(wx_DropTarget, __wxDropTarget)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_DropTarget, wxDropTarget)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, GetData)
+Gura_DeclareMethodAlias(wx_DropTarget, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DropTarget, GetData)
+Gura_ImplementMethod(wx_DropTarget, __GetData)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_DropTarget, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, OnData)
+Gura_DeclareMethodAlias(wx_DropTarget, __OnData, "OnData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareMethod(wx_DropTarget, OnData)
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, OnData)
+Gura_ImplementMethod(wx_DropTarget, __OnData)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_DropTarget, OnData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, OnDragOver)
+Gura_DeclareMethodAlias(wx_DropTarget, __OnDragOver, "OnDragOver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_DropTarget, OnDragOver)
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, OnDragOver)
+Gura_ImplementMethod(wx_DropTarget, __OnDragOver)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,14 +103,14 @@ Gura_ImplementMethod(wx_DropTarget, OnDragOver)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, OnDrop)
+Gura_DeclareMethodAlias(wx_DropTarget, __OnDrop, "OnDrop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, OnDrop)
+Gura_ImplementMethod(wx_DropTarget, __OnDrop)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_DropTarget, OnDrop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, OnEnter)
+Gura_DeclareMethodAlias(wx_DropTarget, __OnEnter, "OnEnter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_DeclareMethod(wx_DropTarget, OnEnter)
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, OnEnter)
+Gura_ImplementMethod(wx_DropTarget, __OnEnter)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_DropTarget, OnEnter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, OnLeave)
+Gura_DeclareMethodAlias(wx_DropTarget, __OnLeave, "OnLeave")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DropTarget, OnLeave)
+Gura_ImplementMethod(wx_DropTarget, __OnLeave)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_DropTarget, OnLeave)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, GetDataObject)
+Gura_DeclareMethodAlias(wx_DropTarget, __GetDataObject, "GetDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DropTarget, GetDataObject)
+Gura_ImplementMethod(wx_DropTarget, __GetDataObject)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_DropTarget, GetDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, SetDataObject)
+Gura_DeclareMethodAlias(wx_DropTarget, __SetDataObject, "SetDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, SetDataObject)
+Gura_ImplementMethod(wx_DropTarget, __SetDataObject)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_DropTarget, SetDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, SetDefaultAction)
+Gura_DeclareMethodAlias(wx_DropTarget, __SetDefaultAction, "SetDefaultAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DropTarget, SetDefaultAction)
+Gura_ImplementMethod(wx_DropTarget, __SetDefaultAction)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_DropTarget, SetDefaultAction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DropTarget, GetDefaultAction)
+Gura_DeclareMethodAlias(wx_DropTarget, __GetDefaultAction, "GetDefaultAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DropTarget, GetDefaultAction)
+Gura_ImplementMethod(wx_DropTarget, __GetDefaultAction)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,17 +213,17 @@ Gura_ImplementMethod(wx_DropTarget, GetDefaultAction)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DropTarget)
 {
-	Gura_AssignMethod(wx_DropTarget, wxDropTarget);
-	Gura_AssignMethod(wx_DropTarget, GetData);
-	Gura_AssignMethod(wx_DropTarget, OnData);
-	Gura_AssignMethod(wx_DropTarget, OnDragOver);
-	Gura_AssignMethod(wx_DropTarget, OnDrop);
-	Gura_AssignMethod(wx_DropTarget, OnEnter);
-	Gura_AssignMethod(wx_DropTarget, OnLeave);
-	Gura_AssignMethod(wx_DropTarget, GetDataObject);
-	Gura_AssignMethod(wx_DropTarget, SetDataObject);
-	Gura_AssignMethod(wx_DropTarget, SetDefaultAction);
-	Gura_AssignMethod(wx_DropTarget, GetDefaultAction);
+	Gura_AssignMethod(wx_DropTarget, __wxDropTarget);
+	Gura_AssignMethod(wx_DropTarget, __GetData);
+	Gura_AssignMethod(wx_DropTarget, __OnData);
+	Gura_AssignMethod(wx_DropTarget, __OnDragOver);
+	Gura_AssignMethod(wx_DropTarget, __OnDrop);
+	Gura_AssignMethod(wx_DropTarget, __OnEnter);
+	Gura_AssignMethod(wx_DropTarget, __OnLeave);
+	Gura_AssignMethod(wx_DropTarget, __GetDataObject);
+	Gura_AssignMethod(wx_DropTarget, __SetDataObject);
+	Gura_AssignMethod(wx_DropTarget, __SetDefaultAction);
+	Gura_AssignMethod(wx_DropTarget, __GetDefaultAction);
 }
 
 Gura_ImplementDescendantCreator(wx_DropTarget)

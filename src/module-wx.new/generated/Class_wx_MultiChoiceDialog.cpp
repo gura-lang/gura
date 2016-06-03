@@ -37,7 +37,7 @@ String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
+Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog, "wxMultiChoiceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
+Gura_ImplementMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
+Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1, "wxMultiChoiceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
+Gura_ImplementMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MultiChoiceDialog, GetSelections)
+Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __GetSelections, "GetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
+Gura_ImplementMethod(wx_MultiChoiceDialog, __GetSelections)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,13 +102,13 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, GetSelections)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MultiChoiceDialog, SetSelections)
+Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __SetSelections, "SetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selections", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
+Gura_ImplementMethod(wx_MultiChoiceDialog, __SetSelections)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, SetSelections)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MultiChoiceDialog, ShowModal)
+Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
+Gura_ImplementMethod(wx_MultiChoiceDialog, __ShowModal)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,11 +135,11 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MultiChoiceDialog)
 {
-	Gura_AssignMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog);
-	Gura_AssignMethod(wx_MultiChoiceDialog, wxMultiChoiceDialog_1);
-	Gura_AssignMethod(wx_MultiChoiceDialog, GetSelections);
-	Gura_AssignMethod(wx_MultiChoiceDialog, SetSelections);
-	Gura_AssignMethod(wx_MultiChoiceDialog, ShowModal);
+	Gura_AssignMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog);
+	Gura_AssignMethod(wx_MultiChoiceDialog, __wxMultiChoiceDialog_1);
+	Gura_AssignMethod(wx_MultiChoiceDialog, __GetSelections);
+	Gura_AssignMethod(wx_MultiChoiceDialog, __SetSelections);
+	Gura_AssignMethod(wx_MultiChoiceDialog, __ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_MultiChoiceDialog)

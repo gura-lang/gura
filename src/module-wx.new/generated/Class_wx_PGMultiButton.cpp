@@ -37,14 +37,14 @@ String Object_wx_PGMultiButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGMultiButton, wxPGMultiButton)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __wxPGMultiButton, "wxPGMultiButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, wxPGMultiButton)
+Gura_ImplementMethod(wx_PGMultiButton, __wxPGMultiButton)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_PGMultiButton, wxPGMultiButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, Add)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, Add)
+Gura_ImplementMethod(wx_PGMultiButton, __Add)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,14 +71,14 @@ Gura_ImplementMethod(wx_PGMultiButton, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, Add_1)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __Add_1, "Add_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, Add_1)
+Gura_ImplementMethod(wx_PGMultiButton, __Add_1)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_PGMultiButton, Add_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, Finalize)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __Finalize, "Finalize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "propGrid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, Finalize)
+Gura_ImplementMethod(wx_PGMultiButton, __Finalize)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_PGMultiButton, Finalize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, GetButton)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __GetButton, "GetButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, GetButton)
+Gura_ImplementMethod(wx_PGMultiButton, __GetButton)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,13 +120,13 @@ Gura_ImplementMethod(wx_PGMultiButton, GetButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, GetButtonId)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __GetButtonId, "GetButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, GetButtonId)
+Gura_ImplementMethod(wx_PGMultiButton, __GetButtonId)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,12 +135,12 @@ Gura_ImplementMethod(wx_PGMultiButton, GetButtonId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, GetCount)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, GetCount)
+Gura_ImplementMethod(wx_PGMultiButton, __GetCount)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_PGMultiButton, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGMultiButton, GetPrimarySize)
+Gura_DeclareMethodAlias(wx_PGMultiButton, __GetPrimarySize, "GetPrimarySize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGMultiButton, GetPrimarySize)
+Gura_ImplementMethod(wx_PGMultiButton, __GetPrimarySize)
 {
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_PGMultiButton, GetPrimarySize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGMultiButton)
 {
-	Gura_AssignMethod(wx_PGMultiButton, wxPGMultiButton);
-	Gura_AssignMethod(wx_PGMultiButton, Add);
-	Gura_AssignMethod(wx_PGMultiButton, Add_1);
-	Gura_AssignMethod(wx_PGMultiButton, Finalize);
-	Gura_AssignMethod(wx_PGMultiButton, GetButton);
-	Gura_AssignMethod(wx_PGMultiButton, GetButtonId);
-	Gura_AssignMethod(wx_PGMultiButton, GetCount);
-	Gura_AssignMethod(wx_PGMultiButton, GetPrimarySize);
+	Gura_AssignMethod(wx_PGMultiButton, __wxPGMultiButton);
+	Gura_AssignMethod(wx_PGMultiButton, __Add);
+	Gura_AssignMethod(wx_PGMultiButton, __Add_1);
+	Gura_AssignMethod(wx_PGMultiButton, __Finalize);
+	Gura_AssignMethod(wx_PGMultiButton, __GetButton);
+	Gura_AssignMethod(wx_PGMultiButton, __GetButtonId);
+	Gura_AssignMethod(wx_PGMultiButton, __GetCount);
+	Gura_AssignMethod(wx_PGMultiButton, __GetPrimarySize);
 }
 
 Gura_ImplementDescendantCreator(wx_PGMultiButton)

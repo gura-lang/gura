@@ -37,13 +37,13 @@ String Object_wx_StdInputStreamBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer)
+Gura_DeclareMethodAlias(wx_StdInputStreamBuffer, __wxStdInputStreamBuffer, "wxStdInputStreamBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer)
+Gura_ImplementMethod(wx_StdInputStreamBuffer, __wxStdInputStreamBuffer)
 {
 	Object_wx_StdInputStreamBuffer *pThis = Object_wx_StdInputStreamBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StdInputStreamBuffer)
 {
-	Gura_AssignMethod(wx_StdInputStreamBuffer, wxStdInputStreamBuffer);
+	Gura_AssignMethod(wx_StdInputStreamBuffer, __wxStdInputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_StdInputStreamBuffer)

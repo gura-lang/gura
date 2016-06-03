@@ -37,12 +37,12 @@ String Object_wx_SockAddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SockAddress, wxSockAddress)
+Gura_DeclareMethodAlias(wx_SockAddress, __wxSockAddress, "wxSockAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, wxSockAddress)
+Gura_ImplementMethod(wx_SockAddress, __wxSockAddress)
 {
 	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_SockAddress, wxSockAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SockAddress, Clear)
+Gura_DeclareMethodAlias(wx_SockAddress, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, Clear)
+Gura_ImplementMethod(wx_SockAddress, __Clear)
 {
 	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_SockAddress, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SockAddress, SockAddrLen)
+Gura_DeclareMethodAlias(wx_SockAddress, __SockAddrLen, "SockAddrLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, SockAddrLen)
+Gura_ImplementMethod(wx_SockAddress, __SockAddrLen)
 {
 	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_SockAddress, SockAddrLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SockAddress, GetAddressData)
+Gura_DeclareMethodAlias(wx_SockAddress, __GetAddressData, "GetAddressData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, GetAddressData)
+Gura_ImplementMethod(wx_SockAddress, __GetAddressData)
 {
 	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_SockAddress, GetAddressData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SockAddress, GetAddressDataLen)
+Gura_DeclareMethodAlias(wx_SockAddress, __GetAddressDataLen, "GetAddressDataLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SockAddress, GetAddressDataLen)
+Gura_ImplementMethod(wx_SockAddress, __GetAddressDataLen)
 {
 	Object_wx_SockAddress *pThis = Object_wx_SockAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,11 +107,11 @@ Gura_ImplementMethod(wx_SockAddress, GetAddressDataLen)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SockAddress)
 {
-	Gura_AssignMethod(wx_SockAddress, wxSockAddress);
-	Gura_AssignMethod(wx_SockAddress, Clear);
-	Gura_AssignMethod(wx_SockAddress, SockAddrLen);
-	Gura_AssignMethod(wx_SockAddress, GetAddressData);
-	Gura_AssignMethod(wx_SockAddress, GetAddressDataLen);
+	Gura_AssignMethod(wx_SockAddress, __wxSockAddress);
+	Gura_AssignMethod(wx_SockAddress, __Clear);
+	Gura_AssignMethod(wx_SockAddress, __SockAddrLen);
+	Gura_AssignMethod(wx_SockAddress, __GetAddressData);
+	Gura_AssignMethod(wx_SockAddress, __GetAddressDataLen);
 }
 
 Gura_ImplementDescendantCreator(wx_SockAddress)

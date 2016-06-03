@@ -37,13 +37,13 @@ String Object_wx_PropagationDisabler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PropagationDisabler, wxPropagationDisabler)
+Gura_DeclareMethodAlias(wx_PropagationDisabler, __wxPropagationDisabler, "wxPropagationDisabler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropagationDisabler, wxPropagationDisabler)
+Gura_ImplementMethod(wx_PropagationDisabler, __wxPropagationDisabler)
 {
 	Object_wx_PropagationDisabler *pThis = Object_wx_PropagationDisabler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_PropagationDisabler, wxPropagationDisabler)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropagationDisabler)
 {
-	Gura_AssignMethod(wx_PropagationDisabler, wxPropagationDisabler);
+	Gura_AssignMethod(wx_PropagationDisabler, __wxPropagationDisabler);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagationDisabler)

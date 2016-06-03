@@ -37,12 +37,12 @@ String Object_wx_GridStringTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridStringTable, wxGridStringTable)
+Gura_DeclareMethodAlias(wx_GridStringTable, __wxGridStringTable, "wxGridStringTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, wxGridStringTable)
+Gura_ImplementMethod(wx_GridStringTable, __wxGridStringTable)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_GridStringTable, wxGridStringTable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, wxGridStringTable_1)
+Gura_DeclareMethodAlias(wx_GridStringTable, __wxGridStringTable_1, "wxGridStringTable_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, wxGridStringTable_1)
+Gura_ImplementMethod(wx_GridStringTable, __wxGridStringTable_1)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_GridStringTable, wxGridStringTable_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, GetNumberRows)
+Gura_DeclareMethodAlias(wx_GridStringTable, __GetNumberRows, "GetNumberRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, GetNumberRows)
+Gura_ImplementMethod(wx_GridStringTable, __GetNumberRows)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_GridStringTable, GetNumberRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, GetNumberCols)
+Gura_DeclareMethodAlias(wx_GridStringTable, __GetNumberCols, "GetNumberCols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, GetNumberCols)
+Gura_ImplementMethod(wx_GridStringTable, __GetNumberCols)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,14 +93,14 @@ Gura_ImplementMethod(wx_GridStringTable, GetNumberCols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, GetValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, GetValue)
+Gura_ImplementMethod(wx_GridStringTable, __GetValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_GridStringTable, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, SetValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -118,7 +118,7 @@ Gura_DeclareMethod(wx_GridStringTable, SetValue)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, SetValue)
+Gura_ImplementMethod(wx_GridStringTable, __SetValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_GridStringTable, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, Clear)
+Gura_DeclareMethodAlias(wx_GridStringTable, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, Clear)
+Gura_ImplementMethod(wx_GridStringTable, __Clear)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,14 +142,14 @@ Gura_ImplementMethod(wx_GridStringTable, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, InsertRows)
+Gura_DeclareMethodAlias(wx_GridStringTable, __InsertRows, "InsertRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, InsertRows)
+Gura_ImplementMethod(wx_GridStringTable, __InsertRows)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_GridStringTable, InsertRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, AppendRows)
+Gura_DeclareMethodAlias(wx_GridStringTable, __AppendRows, "AppendRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, AppendRows)
+Gura_ImplementMethod(wx_GridStringTable, __AppendRows)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,14 +174,14 @@ Gura_ImplementMethod(wx_GridStringTable, AppendRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, DeleteRows)
+Gura_DeclareMethodAlias(wx_GridStringTable, __DeleteRows, "DeleteRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numRows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, DeleteRows)
+Gura_ImplementMethod(wx_GridStringTable, __DeleteRows)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,14 +191,14 @@ Gura_ImplementMethod(wx_GridStringTable, DeleteRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, InsertCols)
+Gura_DeclareMethodAlias(wx_GridStringTable, __InsertCols, "InsertCols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, InsertCols)
+Gura_ImplementMethod(wx_GridStringTable, __InsertCols)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_GridStringTable, InsertCols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, AppendCols)
+Gura_DeclareMethodAlias(wx_GridStringTable, __AppendCols, "AppendCols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, AppendCols)
+Gura_ImplementMethod(wx_GridStringTable, __AppendCols)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,14 +223,14 @@ Gura_ImplementMethod(wx_GridStringTable, AppendCols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, DeleteCols)
+Gura_DeclareMethodAlias(wx_GridStringTable, __DeleteCols, "DeleteCols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "numCols", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, DeleteCols)
+Gura_ImplementMethod(wx_GridStringTable, __DeleteCols)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,13 +240,13 @@ Gura_ImplementMethod(wx_GridStringTable, DeleteCols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, SetRowLabelValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __SetRowLabelValue, "SetRowLabelValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, SetRowLabelValue)
+Gura_ImplementMethod(wx_GridStringTable, __SetRowLabelValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,13 +255,13 @@ Gura_ImplementMethod(wx_GridStringTable, SetRowLabelValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, SetColLabelValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __SetColLabelValue, "SetColLabelValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, SetColLabelValue)
+Gura_ImplementMethod(wx_GridStringTable, __SetColLabelValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_GridStringTable, SetColLabelValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, GetRowLabelValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __GetRowLabelValue, "GetRowLabelValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, GetRowLabelValue)
+Gura_ImplementMethod(wx_GridStringTable, __GetRowLabelValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,13 +285,13 @@ Gura_ImplementMethod(wx_GridStringTable, GetRowLabelValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridStringTable, GetColLabelValue)
+Gura_DeclareMethodAlias(wx_GridStringTable, __GetColLabelValue, "GetColLabelValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridStringTable, GetColLabelValue)
+Gura_ImplementMethod(wx_GridStringTable, __GetColLabelValue)
 {
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -305,23 +305,23 @@ Gura_ImplementMethod(wx_GridStringTable, GetColLabelValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridStringTable)
 {
-	Gura_AssignMethod(wx_GridStringTable, wxGridStringTable);
-	Gura_AssignMethod(wx_GridStringTable, wxGridStringTable_1);
-	Gura_AssignMethod(wx_GridStringTable, GetNumberRows);
-	Gura_AssignMethod(wx_GridStringTable, GetNumberCols);
-	Gura_AssignMethod(wx_GridStringTable, GetValue);
-	Gura_AssignMethod(wx_GridStringTable, SetValue);
-	Gura_AssignMethod(wx_GridStringTable, Clear);
-	Gura_AssignMethod(wx_GridStringTable, InsertRows);
-	Gura_AssignMethod(wx_GridStringTable, AppendRows);
-	Gura_AssignMethod(wx_GridStringTable, DeleteRows);
-	Gura_AssignMethod(wx_GridStringTable, InsertCols);
-	Gura_AssignMethod(wx_GridStringTable, AppendCols);
-	Gura_AssignMethod(wx_GridStringTable, DeleteCols);
-	Gura_AssignMethod(wx_GridStringTable, SetRowLabelValue);
-	Gura_AssignMethod(wx_GridStringTable, SetColLabelValue);
-	Gura_AssignMethod(wx_GridStringTable, GetRowLabelValue);
-	Gura_AssignMethod(wx_GridStringTable, GetColLabelValue);
+	Gura_AssignMethod(wx_GridStringTable, __wxGridStringTable);
+	Gura_AssignMethod(wx_GridStringTable, __wxGridStringTable_1);
+	Gura_AssignMethod(wx_GridStringTable, __GetNumberRows);
+	Gura_AssignMethod(wx_GridStringTable, __GetNumberCols);
+	Gura_AssignMethod(wx_GridStringTable, __GetValue);
+	Gura_AssignMethod(wx_GridStringTable, __SetValue);
+	Gura_AssignMethod(wx_GridStringTable, __Clear);
+	Gura_AssignMethod(wx_GridStringTable, __InsertRows);
+	Gura_AssignMethod(wx_GridStringTable, __AppendRows);
+	Gura_AssignMethod(wx_GridStringTable, __DeleteRows);
+	Gura_AssignMethod(wx_GridStringTable, __InsertCols);
+	Gura_AssignMethod(wx_GridStringTable, __AppendCols);
+	Gura_AssignMethod(wx_GridStringTable, __DeleteCols);
+	Gura_AssignMethod(wx_GridStringTable, __SetRowLabelValue);
+	Gura_AssignMethod(wx_GridStringTable, __SetColLabelValue);
+	Gura_AssignMethod(wx_GridStringTable, __GetRowLabelValue);
+	Gura_AssignMethod(wx_GridStringTable, __GetColLabelValue);
 }
 
 Gura_ImplementDescendantCreator(wx_GridStringTable)

@@ -37,13 +37,13 @@ String Object_wx_ScopedArray::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ScopedArray, wxScopedArray)
+Gura_DeclareMethodAlias(wx_ScopedArray, __wxScopedArray, "wxScopedArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, wxScopedArray)
+Gura_ImplementMethod(wx_ScopedArray, __wxScopedArray)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_ScopedArray, wxScopedArray)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedArray, wxScopedArray_1)
+Gura_DeclareMethodAlias(wx_ScopedArray, __wxScopedArray_1, "wxScopedArray_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, wxScopedArray_1)
+Gura_ImplementMethod(wx_ScopedArray, __wxScopedArray_1)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_ScopedArray, wxScopedArray_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedArray, unspecified_bool_type)
+Gura_DeclareMethodAlias(wx_ScopedArray, __unspecified_bool_type, "unspecified_bool_type")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, unspecified_bool_type)
+Gura_ImplementMethod(wx_ScopedArray, __unspecified_bool_type)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_ScopedArray, unspecified_bool_type)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedArray, reset)
+Gura_DeclareMethodAlias(wx_ScopedArray, __reset, "reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, reset)
+Gura_ImplementMethod(wx_ScopedArray, __reset)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_ScopedArray, reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedArray, get)
+Gura_DeclareMethodAlias(wx_ScopedArray, __get, "get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, get)
+Gura_ImplementMethod(wx_ScopedArray, __get)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_ScopedArray, get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedArray, swap)
+Gura_DeclareMethodAlias(wx_ScopedArray, __swap, "swap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedArray, swap)
+Gura_ImplementMethod(wx_ScopedArray, __swap)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_ScopedArray, swap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedArray)
 {
-	Gura_AssignMethod(wx_ScopedArray, wxScopedArray);
-	Gura_AssignMethod(wx_ScopedArray, wxScopedArray_1);
-	Gura_AssignMethod(wx_ScopedArray, unspecified_bool_type);
-	Gura_AssignMethod(wx_ScopedArray, reset);
-	Gura_AssignMethod(wx_ScopedArray, get);
-	Gura_AssignMethod(wx_ScopedArray, swap);
+	Gura_AssignMethod(wx_ScopedArray, __wxScopedArray);
+	Gura_AssignMethod(wx_ScopedArray, __wxScopedArray_1);
+	Gura_AssignMethod(wx_ScopedArray, __unspecified_bool_type);
+	Gura_AssignMethod(wx_ScopedArray, __reset);
+	Gura_AssignMethod(wx_ScopedArray, __get);
+	Gura_AssignMethod(wx_ScopedArray, __swap);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedArray)

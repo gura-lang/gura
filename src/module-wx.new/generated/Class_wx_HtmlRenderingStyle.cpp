@@ -37,13 +37,13 @@ String Object_wx_HtmlRenderingStyle::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingStyle, __GetSelectedTextColour, "GetSelectedTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
+Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextColour)
 {
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingStyle, __GetSelectedTextBgColour, "GetSelectedTextBgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
+Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour)
 {
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingStyle)
 {
-	Gura_AssignMethod(wx_HtmlRenderingStyle, GetSelectedTextColour);
-	Gura_AssignMethod(wx_HtmlRenderingStyle, GetSelectedTextBgColour);
+	Gura_AssignMethod(wx_HtmlRenderingStyle, __GetSelectedTextColour);
+	Gura_AssignMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlRenderingStyle)

@@ -37,12 +37,12 @@ String Object_wx_DDEClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DDEClient, wxDDEClient)
+Gura_DeclareMethodAlias(wx_DDEClient, __wxDDEClient, "wxDDEClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEClient, wxDDEClient)
+Gura_ImplementMethod(wx_DDEClient, __wxDDEClient)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DDEClient, wxDDEClient)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEClient, MakeConnection)
+Gura_DeclareMethodAlias(wx_DDEClient, __MakeConnection, "MakeConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DDEClient, MakeConnection)
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEClient, MakeConnection)
+Gura_ImplementMethod(wx_DDEClient, __MakeConnection)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_DDEClient, MakeConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEClient, OnMakeConnection)
+Gura_DeclareMethodAlias(wx_DDEClient, __OnMakeConnection, "OnMakeConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEClient, OnMakeConnection)
+Gura_ImplementMethod(wx_DDEClient, __OnMakeConnection)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_DDEClient, OnMakeConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEClient, ValidHost)
+Gura_DeclareMethodAlias(wx_DDEClient, __ValidHost, "ValidHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEClient, ValidHost)
+Gura_ImplementMethod(wx_DDEClient, __ValidHost)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_DDEClient, ValidHost)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEClient)
 {
-	Gura_AssignMethod(wx_DDEClient, wxDDEClient);
-	Gura_AssignMethod(wx_DDEClient, MakeConnection);
-	Gura_AssignMethod(wx_DDEClient, OnMakeConnection);
-	Gura_AssignMethod(wx_DDEClient, ValidHost);
+	Gura_AssignMethod(wx_DDEClient, __wxDDEClient);
+	Gura_AssignMethod(wx_DDEClient, __MakeConnection);
+	Gura_AssignMethod(wx_DDEClient, __OnMakeConnection);
+	Gura_AssignMethod(wx_DDEClient, __ValidHost);
 }
 
 Gura_ImplementDescendantCreator(wx_DDEClient)

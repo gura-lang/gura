@@ -37,13 +37,13 @@ String Object_wx_HtmlTagsModule::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlTagsModule, FillHandlersTable)
+Gura_DeclareMethodAlias(wx_HtmlTagsModule, __FillHandlersTable, "FillHandlersTable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTagsModule, FillHandlersTable)
+Gura_ImplementMethod(wx_HtmlTagsModule, __FillHandlersTable)
 {
 	Object_wx_HtmlTagsModule *pThis = Object_wx_HtmlTagsModule::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_HtmlTagsModule, FillHandlersTable)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTagsModule)
 {
-	Gura_AssignMethod(wx_HtmlTagsModule, FillHandlersTable);
+	Gura_AssignMethod(wx_HtmlTagsModule, __FillHandlersTable);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlTagsModule)

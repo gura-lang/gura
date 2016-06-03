@@ -37,12 +37,12 @@ String Object_wx_PGEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGEditor, wxPGEditor)
+Gura_DeclareMethodAlias(wx_PGEditor, __wxPGEditor, "wxPGEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGEditor, wxPGEditor)
+Gura_ImplementMethod(wx_PGEditor, __wxPGEditor)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_PGEditor, wxPGEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, GetName)
+Gura_DeclareMethodAlias(wx_PGEditor, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGEditor, GetName)
+Gura_ImplementMethod(wx_PGEditor, __GetName)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_PGEditor, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, CreateControls)
+Gura_DeclareMethodAlias(wx_PGEditor, __CreateControls, "CreateControls")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
@@ -72,7 +72,7 @@ Gura_DeclareMethod(wx_PGEditor, CreateControls)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, CreateControls)
+Gura_ImplementMethod(wx_PGEditor, __CreateControls)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_PGEditor, CreateControls)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, UpdateControl)
+Gura_DeclareMethodAlias(wx_PGEditor, __UpdateControl, "UpdateControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, UpdateControl)
+Gura_ImplementMethod(wx_PGEditor, __UpdateControl)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_PGEditor, UpdateControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, DrawValue)
+Gura_DeclareMethodAlias(wx_PGEditor, __DrawValue, "DrawValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_PGEditor, DrawValue)
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, DrawValue)
+Gura_ImplementMethod(wx_PGEditor, __DrawValue)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_PGEditor, DrawValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, OnEvent)
+Gura_DeclareMethodAlias(wx_PGEditor, __OnEvent, "OnEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
@@ -131,7 +131,7 @@ Gura_DeclareMethod(wx_PGEditor, OnEvent)
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, OnEvent)
+Gura_ImplementMethod(wx_PGEditor, __OnEvent)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_PGEditor, OnEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, GetValueFromControl)
+Gura_DeclareMethodAlias(wx_PGEditor, __GetValueFromControl, "GetValueFromControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
@@ -151,7 +151,7 @@ Gura_DeclareMethod(wx_PGEditor, GetValueFromControl)
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, GetValueFromControl)
+Gura_ImplementMethod(wx_PGEditor, __GetValueFromControl)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,14 +162,14 @@ Gura_ImplementMethod(wx_PGEditor, GetValueFromControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, SetValueToUnspecified)
+Gura_DeclareMethodAlias(wx_PGEditor, __SetValueToUnspecified, "SetValueToUnspecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, SetValueToUnspecified)
+Gura_ImplementMethod(wx_PGEditor, __SetValueToUnspecified)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_PGEditor, SetValueToUnspecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, SetControlAppearance)
+Gura_DeclareMethodAlias(wx_PGEditor, __SetControlAppearance, "SetControlAppearance")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
@@ -190,7 +190,7 @@ Gura_DeclareMethod(wx_PGEditor, SetControlAppearance)
 	//DeclareArg(env, "unspecified", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, SetControlAppearance)
+Gura_ImplementMethod(wx_PGEditor, __SetControlAppearance)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_PGEditor, SetControlAppearance)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, SetControlStringValue)
+Gura_DeclareMethodAlias(wx_PGEditor, __SetControlStringValue, "SetControlStringValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
@@ -212,7 +212,7 @@ Gura_DeclareMethod(wx_PGEditor, SetControlStringValue)
 	//DeclareArg(env, "txt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, SetControlStringValue)
+Gura_ImplementMethod(wx_PGEditor, __SetControlStringValue)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_PGEditor, SetControlStringValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, SetControlIntValue)
+Gura_DeclareMethodAlias(wx_PGEditor, __SetControlIntValue, "SetControlIntValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_PGEditor, SetControlIntValue)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, SetControlIntValue)
+Gura_ImplementMethod(wx_PGEditor, __SetControlIntValue)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_PGEditor, SetControlIntValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, InsertItem)
+Gura_DeclareMethodAlias(wx_PGEditor, __InsertItem, "InsertItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
@@ -250,7 +250,7 @@ Gura_DeclareMethod(wx_PGEditor, InsertItem)
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, InsertItem)
+Gura_ImplementMethod(wx_PGEditor, __InsertItem)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,14 +261,14 @@ Gura_ImplementMethod(wx_PGEditor, InsertItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, DeleteItem)
+Gura_DeclareMethodAlias(wx_PGEditor, __DeleteItem, "DeleteItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, DeleteItem)
+Gura_ImplementMethod(wx_PGEditor, __DeleteItem)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,14 +278,14 @@ Gura_ImplementMethod(wx_PGEditor, DeleteItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, OnFocus)
+Gura_DeclareMethodAlias(wx_PGEditor, __OnFocus, "OnFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGEditor, OnFocus)
+Gura_ImplementMethod(wx_PGEditor, __OnFocus)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,12 +295,12 @@ Gura_ImplementMethod(wx_PGEditor, OnFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGEditor, CanContainCustomImage)
+Gura_DeclareMethodAlias(wx_PGEditor, __CanContainCustomImage, "CanContainCustomImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGEditor, CanContainCustomImage)
+Gura_ImplementMethod(wx_PGEditor, __CanContainCustomImage)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -313,21 +313,21 @@ Gura_ImplementMethod(wx_PGEditor, CanContainCustomImage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGEditor)
 {
-	Gura_AssignMethod(wx_PGEditor, wxPGEditor);
-	Gura_AssignMethod(wx_PGEditor, GetName);
-	Gura_AssignMethod(wx_PGEditor, CreateControls);
-	Gura_AssignMethod(wx_PGEditor, UpdateControl);
-	Gura_AssignMethod(wx_PGEditor, DrawValue);
-	Gura_AssignMethod(wx_PGEditor, OnEvent);
-	Gura_AssignMethod(wx_PGEditor, GetValueFromControl);
-	Gura_AssignMethod(wx_PGEditor, SetValueToUnspecified);
-	Gura_AssignMethod(wx_PGEditor, SetControlAppearance);
-	Gura_AssignMethod(wx_PGEditor, SetControlStringValue);
-	Gura_AssignMethod(wx_PGEditor, SetControlIntValue);
-	Gura_AssignMethod(wx_PGEditor, InsertItem);
-	Gura_AssignMethod(wx_PGEditor, DeleteItem);
-	Gura_AssignMethod(wx_PGEditor, OnFocus);
-	Gura_AssignMethod(wx_PGEditor, CanContainCustomImage);
+	Gura_AssignMethod(wx_PGEditor, __wxPGEditor);
+	Gura_AssignMethod(wx_PGEditor, __GetName);
+	Gura_AssignMethod(wx_PGEditor, __CreateControls);
+	Gura_AssignMethod(wx_PGEditor, __UpdateControl);
+	Gura_AssignMethod(wx_PGEditor, __DrawValue);
+	Gura_AssignMethod(wx_PGEditor, __OnEvent);
+	Gura_AssignMethod(wx_PGEditor, __GetValueFromControl);
+	Gura_AssignMethod(wx_PGEditor, __SetValueToUnspecified);
+	Gura_AssignMethod(wx_PGEditor, __SetControlAppearance);
+	Gura_AssignMethod(wx_PGEditor, __SetControlStringValue);
+	Gura_AssignMethod(wx_PGEditor, __SetControlIntValue);
+	Gura_AssignMethod(wx_PGEditor, __InsertItem);
+	Gura_AssignMethod(wx_PGEditor, __DeleteItem);
+	Gura_AssignMethod(wx_PGEditor, __OnFocus);
+	Gura_AssignMethod(wx_PGEditor, __CanContainCustomImage);
 }
 
 Gura_ImplementDescendantCreator(wx_PGEditor)

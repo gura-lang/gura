@@ -37,14 +37,14 @@ String Object_wx_MirrorDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MirrorDC, wxMirrorDC)
+Gura_DeclareMethodAlias(wx_MirrorDC, __wxMirrorDC, "wxMirrorDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mirror", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MirrorDC, wxMirrorDC)
+Gura_ImplementMethod(wx_MirrorDC, __wxMirrorDC)
 {
 	Object_wx_MirrorDC *pThis = Object_wx_MirrorDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_MirrorDC, wxMirrorDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MirrorDC)
 {
-	Gura_AssignMethod(wx_MirrorDC, wxMirrorDC);
+	Gura_AssignMethod(wx_MirrorDC, __wxMirrorDC);
 }
 
 Gura_ImplementDescendantCreator(wx_MirrorDC)

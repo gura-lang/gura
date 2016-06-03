@@ -37,12 +37,12 @@ String Object_wx_DataViewCustomRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewCustomRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, wxDataViewCustomRenderer)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer, "wxDataViewCustomRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, wxDataViewCustomRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, wxDataViewCustomRenderer)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, wxDataViewCustomRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, ActivateCell)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __ActivateCell, "ActivateCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, ActivateCell)
 	//DeclareArg(env, "mouseEvent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, ActivateCell)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __ActivateCell)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, ActivateCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, CreateEditorCtrl)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __CreateEditorCtrl, "CreateEditorCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, CreateEditorCtrl)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, CreateEditorCtrl)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __CreateEditorCtrl)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,12 +111,12 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, CreateEditorCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, GetAttr)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetAttr, "GetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, GetAttr)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetAttr)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -124,12 +124,12 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, GetSize)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, GetSize)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetSize)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,14 +137,14 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, GetValueFromEditorCtrl)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetValueFromEditorCtrl, "GetValueFromEditorCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "editor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, GetValueFromEditorCtrl)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetValueFromEditorCtrl)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,12 +154,12 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetValueFromEditorCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, HasEditorCtrl)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __HasEditorCtrl, "HasEditorCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, HasEditorCtrl)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __HasEditorCtrl)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, HasEditorCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __LeftClick, "LeftClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
@@ -177,7 +177,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, LeftClick)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __LeftClick)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, LeftClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -199,7 +199,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, Activate)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __Activate)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, Activate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, Render)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __Render, "Render")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -219,7 +219,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, Render)
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, Render)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __Render)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, Render)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, RenderText)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __RenderText, "RenderText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -240,7 +240,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, RenderText)
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, RenderText)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __RenderText)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, RenderText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __StartDrag, "StartDrag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_DataViewCustomRenderer, StartDrag)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __StartDrag)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,13 +276,13 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, StartDrag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewCustomRenderer, GetTextExtent)
+Gura_DeclareMethodAlias(wx_DataViewCustomRenderer, __GetTextExtent, "GetTextExtent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewCustomRenderer, GetTextExtent)
+Gura_ImplementMethod(wx_DataViewCustomRenderer, __GetTextExtent)
 {
 	Object_wx_DataViewCustomRenderer *pThis = Object_wx_DataViewCustomRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,20 +296,20 @@ Gura_ImplementMethod(wx_DataViewCustomRenderer, GetTextExtent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewCustomRenderer)
 {
-	Gura_AssignMethod(wx_DataViewCustomRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, wxDataViewCustomRenderer);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, ActivateCell);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, CreateEditorCtrl);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, GetAttr);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, GetSize);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, GetValueFromEditorCtrl);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, HasEditorCtrl);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, LeftClick);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, Activate);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, Render);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, RenderText);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, StartDrag);
-	Gura_AssignMethod(wx_DataViewCustomRenderer, GetTextExtent);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __wxDataViewCustomRenderer);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __ActivateCell);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __CreateEditorCtrl);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetAttr);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetSize);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetValueFromEditorCtrl);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __HasEditorCtrl);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __LeftClick);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __Activate);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __Render);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __RenderText);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __StartDrag);
+	Gura_AssignMethod(wx_DataViewCustomRenderer, __GetTextExtent);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewCustomRenderer)

@@ -37,12 +37,12 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MemoryFSHandler, wxMemoryFSHandler)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __wxMemoryFSHandler, "wxMemoryFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, wxMemoryFSHandler)
+Gura_ImplementMethod(wx_MemoryFSHandler, __wxMemoryFSHandler)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, wxMemoryFSHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryFSHandler, AddFile)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __AddFile, "AddFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFile)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, AddFile)
+Gura_ImplementMethod(wx_MemoryFSHandler, __AddFile)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, AddFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryFSHandler, AddFile_1)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __AddFile_1, "AddFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFile_1)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, AddFile_1)
+Gura_ImplementMethod(wx_MemoryFSHandler, __AddFile_1)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, AddFile_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __AddFileWithMimeType, "AddFileWithMimeType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType)
+Gura_ImplementMethod(wx_MemoryFSHandler, __AddFileWithMimeType)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __AddFileWithMimeType_1, "AddFileWithMimeType_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_DeclareMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
+Gura_ImplementMethod(wx_MemoryFSHandler, __AddFileWithMimeType_1)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,13 +128,13 @@ Gura_ImplementMethod(wx_MemoryFSHandler, AddFileWithMimeType_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryFSHandler, RemoveFile)
+Gura_DeclareMethodAlias(wx_MemoryFSHandler, __RemoveFile, "RemoveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryFSHandler, RemoveFile)
+Gura_ImplementMethod(wx_MemoryFSHandler, __RemoveFile)
 {
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_MemoryFSHandler, RemoveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 {
-	Gura_AssignMethod(wx_MemoryFSHandler, wxMemoryFSHandler);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFile);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFile_1);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFileWithMimeType);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFileWithMimeType_1);
-	Gura_AssignMethod(wx_MemoryFSHandler, RemoveFile);
+	Gura_AssignMethod(wx_MemoryFSHandler, __wxMemoryFSHandler);
+	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile);
+	Gura_AssignMethod(wx_MemoryFSHandler, __AddFile_1);
+	Gura_AssignMethod(wx_MemoryFSHandler, __AddFileWithMimeType);
+	Gura_AssignMethod(wx_MemoryFSHandler, __AddFileWithMimeType_1);
+	Gura_AssignMethod(wx_MemoryFSHandler, __RemoveFile);
 }
 
 Gura_ImplementDescendantCreator(wx_MemoryFSHandler)

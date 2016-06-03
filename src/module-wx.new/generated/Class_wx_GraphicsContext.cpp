@@ -37,13 +37,13 @@ String Object_wx_GraphicsContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsContext, Create)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create)
+Gura_ImplementMethod(wx_GraphicsContext, __Create)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_1)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_2)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_2, "Create_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "memoryDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_2)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_2)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_3)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_3, "Create_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printerDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_3)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_3)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_4)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_4, "Create_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "metaFileDC", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_4)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_4)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_5)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_5, "Create_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_5)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_5)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_5)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Create_6)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Create_6, "Create_6")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Create_6)
+Gura_ImplementMethod(wx_GraphicsContext, __Create_6)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Create_6)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Clip)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Clip, "Clip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Clip)
+Gura_ImplementMethod(wx_GraphicsContext, __Clip)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_GraphicsContext, Clip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Clip_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Clip_1, "Clip_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_GraphicsContext, Clip_1)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Clip_1)
+Gura_ImplementMethod(wx_GraphicsContext, __Clip_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,13 +176,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Clip_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, ConcatTransform)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __ConcatTransform, "ConcatTransform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "matrix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, ConcatTransform)
+Gura_ImplementMethod(wx_GraphicsContext, __ConcatTransform)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_GraphicsContext, ConcatTransform)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateBitmap)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateBitmap, "CreateBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateBitmap)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateBitmap)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,13 +206,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateBitmapFromImage)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateBitmapFromImage, "CreateBitmapFromImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateBitmapFromImage)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateBitmapFromImage)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateBitmapFromImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateSubBitmap)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateSubBitmap, "CreateSubBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateSubBitmap)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateSubBitmap)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateSubBitmap)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateSubBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateBrush)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateBrush, "CreateBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateBrush)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateBrush)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,14 +259,14 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateFont)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateFont, "CreateFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateFont)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateFont)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateFont_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateFont_1, "CreateFont_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizeInPixels", VTYPE_number, OCCUR_Once);
@@ -285,7 +285,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateFont_1)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateFont_1)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateFont_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,13 +297,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFont_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateFromNative)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateFromNative, "CreateFromNative")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateFromNative)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateFromNative)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,13 +312,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFromNative)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateFromNativeWindow)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateFromNativeWindow, "CreateFromNativeWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateFromNativeWindow)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateFromNativeWindow)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateFromNativeWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateLinearGradientBrush, "CreateLinearGradientBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -338,7 +338,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 	//DeclareArg(env, "c2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateLinearGradientBrush)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateLinearGradientBrush_1, "CreateLinearGradientBrush_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -362,7 +362,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
 	//DeclareArg(env, "stops", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateLinearGradientBrush_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateLinearGradientBrush_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateMatrix, "CreateMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
@@ -386,7 +386,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix)
 	//DeclareArg(env, "ty", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateMatrix)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -400,13 +400,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateMatrix_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateMatrix_1, "CreateMatrix_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix_1)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateMatrix_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -415,12 +415,12 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateMatrix_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreatePath)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreatePath, "CreatePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreatePath)
+Gura_ImplementMethod(wx_GraphicsContext, __CreatePath)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -428,13 +428,13 @@ Gura_ImplementMethod(wx_GraphicsContext, CreatePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreatePen)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreatePen, "CreatePen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreatePen)
+Gura_ImplementMethod(wx_GraphicsContext, __CreatePen)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -443,7 +443,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreatePen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateRadialGradientBrush, "CreateRadialGradientBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xo", VTYPE_number, OCCUR_Once);
@@ -455,7 +455,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 	//DeclareArg(env, "cColor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateRadialGradientBrush)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -470,7 +470,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __CreateRadialGradientBrush_1, "CreateRadialGradientBrush_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xo", VTYPE_number, OCCUR_Once);
@@ -481,7 +481,7 @@ Gura_DeclareMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
 	//DeclareArg(env, "stops", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
+Gura_ImplementMethod(wx_GraphicsContext, __CreateRadialGradientBrush_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_GraphicsContext, CreateRadialGradientBrush_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawBitmap, "DrawBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
@@ -505,7 +505,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawBitmap)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -518,7 +518,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawBitmap_1, "DrawBitmap_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
@@ -528,7 +528,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawBitmap_1)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap_1)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawBitmap_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawBitmap_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawEllipse)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawEllipse, "DrawEllipse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -550,7 +550,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawEllipse)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawEllipse)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawEllipse)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -562,7 +562,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawEllipse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawIcon)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawIcon, "DrawIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -572,7 +572,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawIcon)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawIcon)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawIcon)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -585,7 +585,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawLines)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawLines, "DrawLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -593,7 +593,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawLines)
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawLines)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawLines)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -604,14 +604,14 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawLines)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawPath)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawPath, "DrawPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawPath)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawPath)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawRectangle)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawRectangle, "DrawRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -630,7 +630,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawRectangle)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawRectangle)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawRectangle)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawRoundedRectangle)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawRoundedRectangle, "DrawRoundedRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -652,7 +652,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawRoundedRectangle)
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawRoundedRectangle)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawRoundedRectangle)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawRoundedRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawText)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawText, "DrawText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -673,7 +673,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawText)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawText)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -684,7 +684,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawText_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawText_1, "DrawText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -693,7 +693,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_1)
 	//DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawText_1)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawText_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -705,7 +705,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawText_2)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawText_2, "DrawText_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -714,7 +714,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_2)
 	//DeclareArg(env, "backgroundBrush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawText_2)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawText_2)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -726,7 +726,7 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DrawText_3)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DrawText_3, "DrawText_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -736,7 +736,7 @@ Gura_DeclareMethod(wx_GraphicsContext, DrawText_3)
 	//DeclareArg(env, "backgroundBrush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DrawText_3)
+Gura_ImplementMethod(wx_GraphicsContext, __DrawText_3)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -749,14 +749,14 @@ Gura_ImplementMethod(wx_GraphicsContext, DrawText_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, FillPath)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __FillPath, "FillPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, FillPath)
+Gura_ImplementMethod(wx_GraphicsContext, __FillPath)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -766,12 +766,12 @@ Gura_ImplementMethod(wx_GraphicsContext, FillPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetNativeContext)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetNativeContext, "GetNativeContext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
+Gura_ImplementMethod(wx_GraphicsContext, __GetNativeContext)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -779,14 +779,14 @@ Gura_ImplementMethod(wx_GraphicsContext, GetNativeContext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetPartialTextExtents)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetPartialTextExtents, "GetPartialTextExtents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "widths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetPartialTextExtents)
+Gura_ImplementMethod(wx_GraphicsContext, __GetPartialTextExtents)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -796,7 +796,7 @@ Gura_ImplementMethod(wx_GraphicsContext, GetPartialTextExtents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetTextExtent)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetTextExtent, "GetTextExtent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -806,7 +806,7 @@ Gura_DeclareMethod(wx_GraphicsContext, GetTextExtent)
 	//DeclareArg(env, "externalLeading", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetTextExtent)
+Gura_ImplementMethod(wx_GraphicsContext, __GetTextExtent)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -819,12 +819,12 @@ Gura_ImplementMethod(wx_GraphicsContext, GetTextExtent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetTransform)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetTransform, "GetTransform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetTransform)
+Gura_ImplementMethod(wx_GraphicsContext, __GetTransform)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -832,12 +832,12 @@ Gura_ImplementMethod(wx_GraphicsContext, GetTransform)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, ResetClip)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __ResetClip, "ResetClip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
+Gura_ImplementMethod(wx_GraphicsContext, __ResetClip)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -845,13 +845,13 @@ Gura_ImplementMethod(wx_GraphicsContext, ResetClip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Rotate)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Rotate, "Rotate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Rotate)
+Gura_ImplementMethod(wx_GraphicsContext, __Rotate)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -860,14 +860,14 @@ Gura_ImplementMethod(wx_GraphicsContext, Rotate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Scale)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Scale, "Scale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Scale)
+Gura_ImplementMethod(wx_GraphicsContext, __Scale)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -877,13 +877,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Scale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetBrush)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetBrush, "SetBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetBrush)
+Gura_ImplementMethod(wx_GraphicsContext, __SetBrush)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -892,13 +892,13 @@ Gura_ImplementMethod(wx_GraphicsContext, SetBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetBrush_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetBrush_1, "SetBrush_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetBrush_1)
+Gura_ImplementMethod(wx_GraphicsContext, __SetBrush_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -907,14 +907,14 @@ Gura_ImplementMethod(wx_GraphicsContext, SetBrush_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetFont)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetFont)
+Gura_ImplementMethod(wx_GraphicsContext, __SetFont)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -924,13 +924,13 @@ Gura_ImplementMethod(wx_GraphicsContext, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetFont_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetFont_1, "SetFont_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetFont_1)
+Gura_ImplementMethod(wx_GraphicsContext, __SetFont_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -939,13 +939,13 @@ Gura_ImplementMethod(wx_GraphicsContext, SetFont_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetPen)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetPen, "SetPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetPen)
+Gura_ImplementMethod(wx_GraphicsContext, __SetPen)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -954,13 +954,13 @@ Gura_ImplementMethod(wx_GraphicsContext, SetPen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetPen_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetPen_1, "SetPen_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetPen_1)
+Gura_ImplementMethod(wx_GraphicsContext, __SetPen_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -969,13 +969,13 @@ Gura_ImplementMethod(wx_GraphicsContext, SetPen_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetTransform)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetTransform, "SetTransform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "matrix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetTransform)
+Gura_ImplementMethod(wx_GraphicsContext, __SetTransform)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -984,7 +984,7 @@ Gura_ImplementMethod(wx_GraphicsContext, SetTransform)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StrokeLine)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StrokeLine, "StrokeLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -993,7 +993,7 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokeLine)
 	//DeclareArg(env, "y2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StrokeLine)
+Gura_ImplementMethod(wx_GraphicsContext, __StrokeLine)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1005,7 +1005,7 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokeLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StrokeLines)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StrokeLines, "StrokeLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -1013,7 +1013,7 @@ Gura_DeclareMethod(wx_GraphicsContext, StrokeLines)
 	//DeclareArg(env, "endPoints", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StrokeLines)
+Gura_ImplementMethod(wx_GraphicsContext, __StrokeLines)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1024,14 +1024,14 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokeLines)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StrokeLines_1)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StrokeLines_1, "StrokeLines_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StrokeLines_1)
+Gura_ImplementMethod(wx_GraphicsContext, __StrokeLines_1)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1041,13 +1041,13 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokeLines_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StrokePath)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StrokePath, "StrokePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StrokePath)
+Gura_ImplementMethod(wx_GraphicsContext, __StrokePath)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1056,14 +1056,14 @@ Gura_ImplementMethod(wx_GraphicsContext, StrokePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Translate)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Translate, "Translate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Translate)
+Gura_ImplementMethod(wx_GraphicsContext, __Translate)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1073,13 +1073,13 @@ Gura_ImplementMethod(wx_GraphicsContext, Translate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, BeginLayer)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __BeginLayer, "BeginLayer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "opacity", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, BeginLayer)
+Gura_ImplementMethod(wx_GraphicsContext, __BeginLayer)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1088,12 +1088,12 @@ Gura_ImplementMethod(wx_GraphicsContext, BeginLayer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, EndLayer)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __EndLayer, "EndLayer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, EndLayer)
+Gura_ImplementMethod(wx_GraphicsContext, __EndLayer)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1101,13 +1101,13 @@ Gura_ImplementMethod(wx_GraphicsContext, EndLayer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetAntialiasMode)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetAntialiasMode, "SetAntialiasMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "antialias", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetAntialiasMode)
+Gura_ImplementMethod(wx_GraphicsContext, __SetAntialiasMode)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1116,12 +1116,12 @@ Gura_ImplementMethod(wx_GraphicsContext, SetAntialiasMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetAntialiasMode)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetAntialiasMode, "GetAntialiasMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetAntialiasMode)
+Gura_ImplementMethod(wx_GraphicsContext, __GetAntialiasMode)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1129,13 +1129,13 @@ Gura_ImplementMethod(wx_GraphicsContext, GetAntialiasMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetInterpolationQuality)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetInterpolationQuality, "SetInterpolationQuality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "interpolation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetInterpolationQuality)
+Gura_ImplementMethod(wx_GraphicsContext, __SetInterpolationQuality)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1144,12 +1144,12 @@ Gura_ImplementMethod(wx_GraphicsContext, SetInterpolationQuality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetInterpolationQuality)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetInterpolationQuality, "GetInterpolationQuality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetInterpolationQuality)
+Gura_ImplementMethod(wx_GraphicsContext, __GetInterpolationQuality)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1157,13 +1157,13 @@ Gura_ImplementMethod(wx_GraphicsContext, GetInterpolationQuality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, SetCompositionMode)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __SetCompositionMode, "SetCompositionMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "op", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, SetCompositionMode)
+Gura_ImplementMethod(wx_GraphicsContext, __SetCompositionMode)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1172,12 +1172,12 @@ Gura_ImplementMethod(wx_GraphicsContext, SetCompositionMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetCompositionMode)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetCompositionMode, "GetCompositionMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetCompositionMode)
+Gura_ImplementMethod(wx_GraphicsContext, __GetCompositionMode)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1185,12 +1185,12 @@ Gura_ImplementMethod(wx_GraphicsContext, GetCompositionMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, PushState)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __PushState, "PushState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, PushState)
+Gura_ImplementMethod(wx_GraphicsContext, __PushState)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1198,12 +1198,12 @@ Gura_ImplementMethod(wx_GraphicsContext, PushState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, PopState)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __PopState, "PopState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, PopState)
+Gura_ImplementMethod(wx_GraphicsContext, __PopState)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1211,12 +1211,12 @@ Gura_ImplementMethod(wx_GraphicsContext, PopState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, ShouldOffset)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __ShouldOffset, "ShouldOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, ShouldOffset)
+Gura_ImplementMethod(wx_GraphicsContext, __ShouldOffset)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1224,13 +1224,13 @@ Gura_ImplementMethod(wx_GraphicsContext, ShouldOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, EnableOffset)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __EnableOffset, "EnableOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, EnableOffset)
+Gura_ImplementMethod(wx_GraphicsContext, __EnableOffset)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1239,12 +1239,12 @@ Gura_ImplementMethod(wx_GraphicsContext, EnableOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, DisableOffset)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __DisableOffset, "DisableOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, DisableOffset)
+Gura_ImplementMethod(wx_GraphicsContext, __DisableOffset)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1252,12 +1252,12 @@ Gura_ImplementMethod(wx_GraphicsContext, DisableOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, OffsetEnabled)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __OffsetEnabled, "OffsetEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, OffsetEnabled)
+Gura_ImplementMethod(wx_GraphicsContext, __OffsetEnabled)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1265,13 +1265,13 @@ Gura_ImplementMethod(wx_GraphicsContext, OffsetEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StartDoc)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StartDoc, "StartDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StartDoc)
+Gura_ImplementMethod(wx_GraphicsContext, __StartDoc)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1280,12 +1280,12 @@ Gura_ImplementMethod(wx_GraphicsContext, StartDoc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, EndDoc)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __EndDoc, "EndDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, EndDoc)
+Gura_ImplementMethod(wx_GraphicsContext, __EndDoc)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1293,14 +1293,14 @@ Gura_ImplementMethod(wx_GraphicsContext, EndDoc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, StartPage)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __StartPage, "StartPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, StartPage)
+Gura_ImplementMethod(wx_GraphicsContext, __StartPage)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1310,12 +1310,12 @@ Gura_ImplementMethod(wx_GraphicsContext, StartPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, EndPage)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __EndPage, "EndPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, EndPage)
+Gura_ImplementMethod(wx_GraphicsContext, __EndPage)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1323,12 +1323,12 @@ Gura_ImplementMethod(wx_GraphicsContext, EndPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, Flush)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, Flush)
+Gura_ImplementMethod(wx_GraphicsContext, __Flush)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1336,14 +1336,14 @@ Gura_ImplementMethod(wx_GraphicsContext, Flush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetSize)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetSize)
+Gura_ImplementMethod(wx_GraphicsContext, __GetSize)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1353,14 +1353,14 @@ Gura_ImplementMethod(wx_GraphicsContext, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsContext, GetDPI)
+Gura_DeclareMethodAlias(wx_GraphicsContext, __GetDPI, "GetDPI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dpiX", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dpiY", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsContext, GetDPI)
+Gura_ImplementMethod(wx_GraphicsContext, __GetDPI)
 {
 	Object_wx_GraphicsContext *pThis = Object_wx_GraphicsContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1375,85 +1375,85 @@ Gura_ImplementMethod(wx_GraphicsContext, GetDPI)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsContext)
 {
-	Gura_AssignMethod(wx_GraphicsContext, Create);
-	Gura_AssignMethod(wx_GraphicsContext, Create_1);
-	Gura_AssignMethod(wx_GraphicsContext, Create_2);
-	Gura_AssignMethod(wx_GraphicsContext, Create_3);
-	Gura_AssignMethod(wx_GraphicsContext, Create_4);
-	Gura_AssignMethod(wx_GraphicsContext, Create_5);
-	Gura_AssignMethod(wx_GraphicsContext, Create_6);
-	Gura_AssignMethod(wx_GraphicsContext, Clip);
-	Gura_AssignMethod(wx_GraphicsContext, Clip_1);
-	Gura_AssignMethod(wx_GraphicsContext, ConcatTransform);
-	Gura_AssignMethod(wx_GraphicsContext, CreateBitmap);
-	Gura_AssignMethod(wx_GraphicsContext, CreateBitmapFromImage);
-	Gura_AssignMethod(wx_GraphicsContext, CreateSubBitmap);
-	Gura_AssignMethod(wx_GraphicsContext, CreateBrush);
-	Gura_AssignMethod(wx_GraphicsContext, CreateFont);
-	Gura_AssignMethod(wx_GraphicsContext, CreateFont_1);
-	Gura_AssignMethod(wx_GraphicsContext, CreateFromNative);
-	Gura_AssignMethod(wx_GraphicsContext, CreateFromNativeWindow);
-	Gura_AssignMethod(wx_GraphicsContext, CreateLinearGradientBrush);
-	Gura_AssignMethod(wx_GraphicsContext, CreateLinearGradientBrush_1);
-	Gura_AssignMethod(wx_GraphicsContext, CreateMatrix);
-	Gura_AssignMethod(wx_GraphicsContext, CreateMatrix_1);
-	Gura_AssignMethod(wx_GraphicsContext, CreatePath);
-	Gura_AssignMethod(wx_GraphicsContext, CreatePen);
-	Gura_AssignMethod(wx_GraphicsContext, CreateRadialGradientBrush);
-	Gura_AssignMethod(wx_GraphicsContext, CreateRadialGradientBrush_1);
-	Gura_AssignMethod(wx_GraphicsContext, DrawBitmap);
-	Gura_AssignMethod(wx_GraphicsContext, DrawBitmap_1);
-	Gura_AssignMethod(wx_GraphicsContext, DrawEllipse);
-	Gura_AssignMethod(wx_GraphicsContext, DrawIcon);
-	Gura_AssignMethod(wx_GraphicsContext, DrawLines);
-	Gura_AssignMethod(wx_GraphicsContext, DrawPath);
-	Gura_AssignMethod(wx_GraphicsContext, DrawRectangle);
-	Gura_AssignMethod(wx_GraphicsContext, DrawRoundedRectangle);
-	Gura_AssignMethod(wx_GraphicsContext, DrawText);
-	Gura_AssignMethod(wx_GraphicsContext, DrawText_1);
-	Gura_AssignMethod(wx_GraphicsContext, DrawText_2);
-	Gura_AssignMethod(wx_GraphicsContext, DrawText_3);
-	Gura_AssignMethod(wx_GraphicsContext, FillPath);
-	Gura_AssignMethod(wx_GraphicsContext, GetNativeContext);
-	Gura_AssignMethod(wx_GraphicsContext, GetPartialTextExtents);
-	Gura_AssignMethod(wx_GraphicsContext, GetTextExtent);
-	Gura_AssignMethod(wx_GraphicsContext, GetTransform);
-	Gura_AssignMethod(wx_GraphicsContext, ResetClip);
-	Gura_AssignMethod(wx_GraphicsContext, Rotate);
-	Gura_AssignMethod(wx_GraphicsContext, Scale);
-	Gura_AssignMethod(wx_GraphicsContext, SetBrush);
-	Gura_AssignMethod(wx_GraphicsContext, SetBrush_1);
-	Gura_AssignMethod(wx_GraphicsContext, SetFont);
-	Gura_AssignMethod(wx_GraphicsContext, SetFont_1);
-	Gura_AssignMethod(wx_GraphicsContext, SetPen);
-	Gura_AssignMethod(wx_GraphicsContext, SetPen_1);
-	Gura_AssignMethod(wx_GraphicsContext, SetTransform);
-	Gura_AssignMethod(wx_GraphicsContext, StrokeLine);
-	Gura_AssignMethod(wx_GraphicsContext, StrokeLines);
-	Gura_AssignMethod(wx_GraphicsContext, StrokeLines_1);
-	Gura_AssignMethod(wx_GraphicsContext, StrokePath);
-	Gura_AssignMethod(wx_GraphicsContext, Translate);
-	Gura_AssignMethod(wx_GraphicsContext, BeginLayer);
-	Gura_AssignMethod(wx_GraphicsContext, EndLayer);
-	Gura_AssignMethod(wx_GraphicsContext, SetAntialiasMode);
-	Gura_AssignMethod(wx_GraphicsContext, GetAntialiasMode);
-	Gura_AssignMethod(wx_GraphicsContext, SetInterpolationQuality);
-	Gura_AssignMethod(wx_GraphicsContext, GetInterpolationQuality);
-	Gura_AssignMethod(wx_GraphicsContext, SetCompositionMode);
-	Gura_AssignMethod(wx_GraphicsContext, GetCompositionMode);
-	Gura_AssignMethod(wx_GraphicsContext, PushState);
-	Gura_AssignMethod(wx_GraphicsContext, PopState);
-	Gura_AssignMethod(wx_GraphicsContext, ShouldOffset);
-	Gura_AssignMethod(wx_GraphicsContext, EnableOffset);
-	Gura_AssignMethod(wx_GraphicsContext, DisableOffset);
-	Gura_AssignMethod(wx_GraphicsContext, OffsetEnabled);
-	Gura_AssignMethod(wx_GraphicsContext, StartDoc);
-	Gura_AssignMethod(wx_GraphicsContext, EndDoc);
-	Gura_AssignMethod(wx_GraphicsContext, StartPage);
-	Gura_AssignMethod(wx_GraphicsContext, EndPage);
-	Gura_AssignMethod(wx_GraphicsContext, Flush);
-	Gura_AssignMethod(wx_GraphicsContext, GetSize);
-	Gura_AssignMethod(wx_GraphicsContext, GetDPI);
+	Gura_AssignMethod(wx_GraphicsContext, __Create);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_1);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_2);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_3);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_4);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_5);
+	Gura_AssignMethod(wx_GraphicsContext, __Create_6);
+	Gura_AssignMethod(wx_GraphicsContext, __Clip);
+	Gura_AssignMethod(wx_GraphicsContext, __Clip_1);
+	Gura_AssignMethod(wx_GraphicsContext, __ConcatTransform);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateBitmap);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateBitmapFromImage);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateSubBitmap);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateBrush);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateFont);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateFont_1);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateFromNative);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateFromNativeWindow);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateLinearGradientBrush);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateLinearGradientBrush_1);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateMatrix);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateMatrix_1);
+	Gura_AssignMethod(wx_GraphicsContext, __CreatePath);
+	Gura_AssignMethod(wx_GraphicsContext, __CreatePen);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateRadialGradientBrush);
+	Gura_AssignMethod(wx_GraphicsContext, __CreateRadialGradientBrush_1);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawBitmap);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawBitmap_1);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawEllipse);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawIcon);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawLines);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawPath);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawRectangle);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawRoundedRectangle);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawText);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawText_1);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawText_2);
+	Gura_AssignMethod(wx_GraphicsContext, __DrawText_3);
+	Gura_AssignMethod(wx_GraphicsContext, __FillPath);
+	Gura_AssignMethod(wx_GraphicsContext, __GetNativeContext);
+	Gura_AssignMethod(wx_GraphicsContext, __GetPartialTextExtents);
+	Gura_AssignMethod(wx_GraphicsContext, __GetTextExtent);
+	Gura_AssignMethod(wx_GraphicsContext, __GetTransform);
+	Gura_AssignMethod(wx_GraphicsContext, __ResetClip);
+	Gura_AssignMethod(wx_GraphicsContext, __Rotate);
+	Gura_AssignMethod(wx_GraphicsContext, __Scale);
+	Gura_AssignMethod(wx_GraphicsContext, __SetBrush);
+	Gura_AssignMethod(wx_GraphicsContext, __SetBrush_1);
+	Gura_AssignMethod(wx_GraphicsContext, __SetFont);
+	Gura_AssignMethod(wx_GraphicsContext, __SetFont_1);
+	Gura_AssignMethod(wx_GraphicsContext, __SetPen);
+	Gura_AssignMethod(wx_GraphicsContext, __SetPen_1);
+	Gura_AssignMethod(wx_GraphicsContext, __SetTransform);
+	Gura_AssignMethod(wx_GraphicsContext, __StrokeLine);
+	Gura_AssignMethod(wx_GraphicsContext, __StrokeLines);
+	Gura_AssignMethod(wx_GraphicsContext, __StrokeLines_1);
+	Gura_AssignMethod(wx_GraphicsContext, __StrokePath);
+	Gura_AssignMethod(wx_GraphicsContext, __Translate);
+	Gura_AssignMethod(wx_GraphicsContext, __BeginLayer);
+	Gura_AssignMethod(wx_GraphicsContext, __EndLayer);
+	Gura_AssignMethod(wx_GraphicsContext, __SetAntialiasMode);
+	Gura_AssignMethod(wx_GraphicsContext, __GetAntialiasMode);
+	Gura_AssignMethod(wx_GraphicsContext, __SetInterpolationQuality);
+	Gura_AssignMethod(wx_GraphicsContext, __GetInterpolationQuality);
+	Gura_AssignMethod(wx_GraphicsContext, __SetCompositionMode);
+	Gura_AssignMethod(wx_GraphicsContext, __GetCompositionMode);
+	Gura_AssignMethod(wx_GraphicsContext, __PushState);
+	Gura_AssignMethod(wx_GraphicsContext, __PopState);
+	Gura_AssignMethod(wx_GraphicsContext, __ShouldOffset);
+	Gura_AssignMethod(wx_GraphicsContext, __EnableOffset);
+	Gura_AssignMethod(wx_GraphicsContext, __DisableOffset);
+	Gura_AssignMethod(wx_GraphicsContext, __OffsetEnabled);
+	Gura_AssignMethod(wx_GraphicsContext, __StartDoc);
+	Gura_AssignMethod(wx_GraphicsContext, __EndDoc);
+	Gura_AssignMethod(wx_GraphicsContext, __StartPage);
+	Gura_AssignMethod(wx_GraphicsContext, __EndPage);
+	Gura_AssignMethod(wx_GraphicsContext, __Flush);
+	Gura_AssignMethod(wx_GraphicsContext, __GetSize);
+	Gura_AssignMethod(wx_GraphicsContext, __GetDPI);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsContext)

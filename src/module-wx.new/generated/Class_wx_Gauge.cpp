@@ -37,12 +37,12 @@ String Object_wx_Gauge::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Gauge, wxGauge)
+Gura_DeclareMethodAlias(wx_Gauge, __wxGauge, "wxGauge")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, wxGauge)
+Gura_ImplementMethod(wx_Gauge, __wxGauge)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Gauge, wxGauge)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, wxGauge_1)
+Gura_DeclareMethodAlias(wx_Gauge, __wxGauge_1, "wxGauge_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_Gauge, wxGauge_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Gauge, wxGauge_1)
+Gura_ImplementMethod(wx_Gauge, __wxGauge_1)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_Gauge, wxGauge_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, Create)
+Gura_DeclareMethodAlias(wx_Gauge, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_Gauge, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Gauge, Create)
+Gura_ImplementMethod(wx_Gauge, __Create)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_Gauge, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, GetRange)
+Gura_DeclareMethodAlias(wx_Gauge, __GetRange, "GetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, GetRange)
+Gura_ImplementMethod(wx_Gauge, __GetRange)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_Gauge, GetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, GetValue)
+Gura_DeclareMethodAlias(wx_Gauge, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, GetValue)
+Gura_ImplementMethod(wx_Gauge, __GetValue)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_Gauge, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, IsVertical)
+Gura_DeclareMethodAlias(wx_Gauge, __IsVertical, "IsVertical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, IsVertical)
+Gura_ImplementMethod(wx_Gauge, __IsVertical)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_Gauge, IsVertical)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, Pulse)
+Gura_DeclareMethodAlias(wx_Gauge, __Pulse, "Pulse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Gauge, Pulse)
+Gura_ImplementMethod(wx_Gauge, __Pulse)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_Gauge, Pulse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, SetRange)
+Gura_DeclareMethodAlias(wx_Gauge, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Gauge, SetRange)
+Gura_ImplementMethod(wx_Gauge, __SetRange)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_Gauge, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Gauge, SetValue)
+Gura_DeclareMethodAlias(wx_Gauge, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Gauge, SetValue)
+Gura_ImplementMethod(wx_Gauge, __SetValue)
 {
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,15 +195,15 @@ Gura_ImplementMethod(wx_Gauge, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Gauge)
 {
-	Gura_AssignMethod(wx_Gauge, wxGauge);
-	Gura_AssignMethod(wx_Gauge, wxGauge_1);
-	Gura_AssignMethod(wx_Gauge, Create);
-	Gura_AssignMethod(wx_Gauge, GetRange);
-	Gura_AssignMethod(wx_Gauge, GetValue);
-	Gura_AssignMethod(wx_Gauge, IsVertical);
-	Gura_AssignMethod(wx_Gauge, Pulse);
-	Gura_AssignMethod(wx_Gauge, SetRange);
-	Gura_AssignMethod(wx_Gauge, SetValue);
+	Gura_AssignMethod(wx_Gauge, __wxGauge);
+	Gura_AssignMethod(wx_Gauge, __wxGauge_1);
+	Gura_AssignMethod(wx_Gauge, __Create);
+	Gura_AssignMethod(wx_Gauge, __GetRange);
+	Gura_AssignMethod(wx_Gauge, __GetValue);
+	Gura_AssignMethod(wx_Gauge, __IsVertical);
+	Gura_AssignMethod(wx_Gauge, __Pulse);
+	Gura_AssignMethod(wx_Gauge, __SetRange);
+	Gura_AssignMethod(wx_Gauge, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_Gauge)

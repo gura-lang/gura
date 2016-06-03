@@ -37,12 +37,12 @@ String Object_wx_ListView::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ListView, wxListView)
+Gura_DeclareMethodAlias(wx_ListView, __wxListView, "wxListView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListView, wxListView)
+Gura_ImplementMethod(wx_ListView, __wxListView)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ListView, wxListView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, wxListView_1)
+Gura_DeclareMethodAlias(wx_ListView, __wxListView_1, "wxListView_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_ListView, wxListView_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, wxListView_1)
+Gura_ImplementMethod(wx_ListView, __wxListView_1)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,13 +77,13 @@ Gura_ImplementMethod(wx_ListView, wxListView_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, ClearColumnImage)
+Gura_DeclareMethodAlias(wx_ListView, __ClearColumnImage, "ClearColumnImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, ClearColumnImage)
+Gura_ImplementMethod(wx_ListView, __ClearColumnImage)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,13 +92,13 @@ Gura_ImplementMethod(wx_ListView, ClearColumnImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, Focus)
+Gura_DeclareMethodAlias(wx_ListView, __Focus, "Focus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, Focus)
+Gura_ImplementMethod(wx_ListView, __Focus)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,12 +107,12 @@ Gura_ImplementMethod(wx_ListView, Focus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, GetFirstSelected)
+Gura_DeclareMethodAlias(wx_ListView, __GetFirstSelected, "GetFirstSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListView, GetFirstSelected)
+Gura_ImplementMethod(wx_ListView, __GetFirstSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,12 +120,12 @@ Gura_ImplementMethod(wx_ListView, GetFirstSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, GetFocusedItem)
+Gura_DeclareMethodAlias(wx_ListView, __GetFocusedItem, "GetFocusedItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListView, GetFocusedItem)
+Gura_ImplementMethod(wx_ListView, __GetFocusedItem)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_ListView, GetFocusedItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, GetNextSelected)
+Gura_DeclareMethodAlias(wx_ListView, __GetNextSelected, "GetNextSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, GetNextSelected)
+Gura_ImplementMethod(wx_ListView, __GetNextSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,13 +148,13 @@ Gura_ImplementMethod(wx_ListView, GetNextSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, IsSelected)
+Gura_DeclareMethodAlias(wx_ListView, __IsSelected, "IsSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, IsSelected)
+Gura_ImplementMethod(wx_ListView, __IsSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,14 +163,14 @@ Gura_ImplementMethod(wx_ListView, IsSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, Select)
+Gura_DeclareMethodAlias(wx_ListView, __Select, "Select")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "on", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, Select)
+Gura_ImplementMethod(wx_ListView, __Select)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,14 +180,14 @@ Gura_ImplementMethod(wx_ListView, Select)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListView, SetColumnImage)
+Gura_DeclareMethodAlias(wx_ListView, __SetColumnImage, "SetColumnImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListView, SetColumnImage)
+Gura_ImplementMethod(wx_ListView, __SetColumnImage)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,16 +202,16 @@ Gura_ImplementMethod(wx_ListView, SetColumnImage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListView)
 {
-	Gura_AssignMethod(wx_ListView, wxListView);
-	Gura_AssignMethod(wx_ListView, wxListView_1);
-	Gura_AssignMethod(wx_ListView, ClearColumnImage);
-	Gura_AssignMethod(wx_ListView, Focus);
-	Gura_AssignMethod(wx_ListView, GetFirstSelected);
-	Gura_AssignMethod(wx_ListView, GetFocusedItem);
-	Gura_AssignMethod(wx_ListView, GetNextSelected);
-	Gura_AssignMethod(wx_ListView, IsSelected);
-	Gura_AssignMethod(wx_ListView, Select);
-	Gura_AssignMethod(wx_ListView, SetColumnImage);
+	Gura_AssignMethod(wx_ListView, __wxListView);
+	Gura_AssignMethod(wx_ListView, __wxListView_1);
+	Gura_AssignMethod(wx_ListView, __ClearColumnImage);
+	Gura_AssignMethod(wx_ListView, __Focus);
+	Gura_AssignMethod(wx_ListView, __GetFirstSelected);
+	Gura_AssignMethod(wx_ListView, __GetFocusedItem);
+	Gura_AssignMethod(wx_ListView, __GetNextSelected);
+	Gura_AssignMethod(wx_ListView, __IsSelected);
+	Gura_AssignMethod(wx_ListView, __Select);
+	Gura_AssignMethod(wx_ListView, __SetColumnImage);
 }
 
 Gura_ImplementDescendantCreator(wx_ListView)

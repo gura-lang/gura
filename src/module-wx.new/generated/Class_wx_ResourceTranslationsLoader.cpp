@@ -37,12 +37,12 @@ String Object_wx_ResourceTranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ResourceTranslationsLoader, GetResourceType)
+Gura_DeclareMethodAlias(wx_ResourceTranslationsLoader, __GetResourceType, "GetResourceType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetResourceType)
+Gura_ImplementMethod(wx_ResourceTranslationsLoader, __GetResourceType)
 {
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetResourceType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ResourceTranslationsLoader, GetModule)
+Gura_DeclareMethodAlias(wx_ResourceTranslationsLoader, __GetModule, "GetModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetModule)
+Gura_ImplementMethod(wx_ResourceTranslationsLoader, __GetModule)
 {
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_ResourceTranslationsLoader, GetModule)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ResourceTranslationsLoader)
 {
-	Gura_AssignMethod(wx_ResourceTranslationsLoader, GetResourceType);
-	Gura_AssignMethod(wx_ResourceTranslationsLoader, GetModule);
+	Gura_AssignMethod(wx_ResourceTranslationsLoader, __GetResourceType);
+	Gura_AssignMethod(wx_ResourceTranslationsLoader, __GetModule);
 }
 
 Gura_ImplementDescendantCreator(wx_ResourceTranslationsLoader)

@@ -37,12 +37,12 @@ String Object_wx_GLAttributes::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GLAttributes, RGBA)
+Gura_DeclareMethodAlias(wx_GLAttributes, __RGBA, "RGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, RGBA)
+Gura_ImplementMethod(wx_GLAttributes, __RGBA)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_GLAttributes, RGBA)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, BufferSize)
+Gura_DeclareMethodAlias(wx_GLAttributes, __BufferSize, "BufferSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, BufferSize)
+Gura_ImplementMethod(wx_GLAttributes, __BufferSize)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_GLAttributes, BufferSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Level)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Level, "Level")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Level)
+Gura_ImplementMethod(wx_GLAttributes, __Level)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_GLAttributes, Level)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, DoubleBuffer)
+Gura_DeclareMethodAlias(wx_GLAttributes, __DoubleBuffer, "DoubleBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, DoubleBuffer)
+Gura_ImplementMethod(wx_GLAttributes, __DoubleBuffer)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_GLAttributes, DoubleBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Stereo)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Stereo, "Stereo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Stereo)
+Gura_ImplementMethod(wx_GLAttributes, __Stereo)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_GLAttributes, Stereo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, AuxBuffers)
+Gura_DeclareMethodAlias(wx_GLAttributes, __AuxBuffers, "AuxBuffers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, AuxBuffers)
+Gura_ImplementMethod(wx_GLAttributes, __AuxBuffers)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_GLAttributes, AuxBuffers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, MinRGBA)
+Gura_DeclareMethodAlias(wx_GLAttributes, __MinRGBA, "MinRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mRed", VTYPE_number, OCCUR_Once);
@@ -130,7 +130,7 @@ Gura_DeclareMethod(wx_GLAttributes, MinRGBA)
 	//DeclareArg(env, "mAlpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, MinRGBA)
+Gura_ImplementMethod(wx_GLAttributes, __MinRGBA)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_GLAttributes, MinRGBA)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Depth)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Depth, "Depth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Depth)
+Gura_ImplementMethod(wx_GLAttributes, __Depth)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_GLAttributes, Depth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Stencil)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Stencil, "Stencil")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Stencil)
+Gura_ImplementMethod(wx_GLAttributes, __Stencil)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_GLAttributes, Stencil)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, MinAcumRGBA)
+Gura_DeclareMethodAlias(wx_GLAttributes, __MinAcumRGBA, "MinAcumRGBA")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mRed", VTYPE_number, OCCUR_Once);
@@ -181,7 +181,7 @@ Gura_DeclareMethod(wx_GLAttributes, MinAcumRGBA)
 	//DeclareArg(env, "mAlpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, MinAcumRGBA)
+Gura_ImplementMethod(wx_GLAttributes, __MinAcumRGBA)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_GLAttributes, MinAcumRGBA)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, SampleBuffers)
+Gura_DeclareMethodAlias(wx_GLAttributes, __SampleBuffers, "SampleBuffers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, SampleBuffers)
+Gura_ImplementMethod(wx_GLAttributes, __SampleBuffers)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_GLAttributes, SampleBuffers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Samplers)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Samplers, "Samplers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Samplers)
+Gura_ImplementMethod(wx_GLAttributes, __Samplers)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,12 +223,12 @@ Gura_ImplementMethod(wx_GLAttributes, Samplers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, FrameBuffersRGB)
+Gura_DeclareMethodAlias(wx_GLAttributes, __FrameBuffersRGB, "FrameBuffersRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, FrameBuffersRGB)
+Gura_ImplementMethod(wx_GLAttributes, __FrameBuffersRGB)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,12 +236,12 @@ Gura_ImplementMethod(wx_GLAttributes, FrameBuffersRGB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, PlatformDefaults)
+Gura_DeclareMethodAlias(wx_GLAttributes, __PlatformDefaults, "PlatformDefaults")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, PlatformDefaults)
+Gura_ImplementMethod(wx_GLAttributes, __PlatformDefaults)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_GLAttributes, PlatformDefaults)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, Defaults)
+Gura_DeclareMethodAlias(wx_GLAttributes, __Defaults, "Defaults")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, Defaults)
+Gura_ImplementMethod(wx_GLAttributes, __Defaults)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,12 +262,12 @@ Gura_ImplementMethod(wx_GLAttributes, Defaults)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttributes, EndList)
+Gura_DeclareMethodAlias(wx_GLAttributes, __EndList, "EndList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttributes, EndList)
+Gura_ImplementMethod(wx_GLAttributes, __EndList)
 {
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,22 +280,22 @@ Gura_ImplementMethod(wx_GLAttributes, EndList)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttributes)
 {
-	Gura_AssignMethod(wx_GLAttributes, RGBA);
-	Gura_AssignMethod(wx_GLAttributes, BufferSize);
-	Gura_AssignMethod(wx_GLAttributes, Level);
-	Gura_AssignMethod(wx_GLAttributes, DoubleBuffer);
-	Gura_AssignMethod(wx_GLAttributes, Stereo);
-	Gura_AssignMethod(wx_GLAttributes, AuxBuffers);
-	Gura_AssignMethod(wx_GLAttributes, MinRGBA);
-	Gura_AssignMethod(wx_GLAttributes, Depth);
-	Gura_AssignMethod(wx_GLAttributes, Stencil);
-	Gura_AssignMethod(wx_GLAttributes, MinAcumRGBA);
-	Gura_AssignMethod(wx_GLAttributes, SampleBuffers);
-	Gura_AssignMethod(wx_GLAttributes, Samplers);
-	Gura_AssignMethod(wx_GLAttributes, FrameBuffersRGB);
-	Gura_AssignMethod(wx_GLAttributes, PlatformDefaults);
-	Gura_AssignMethod(wx_GLAttributes, Defaults);
-	Gura_AssignMethod(wx_GLAttributes, EndList);
+	Gura_AssignMethod(wx_GLAttributes, __RGBA);
+	Gura_AssignMethod(wx_GLAttributes, __BufferSize);
+	Gura_AssignMethod(wx_GLAttributes, __Level);
+	Gura_AssignMethod(wx_GLAttributes, __DoubleBuffer);
+	Gura_AssignMethod(wx_GLAttributes, __Stereo);
+	Gura_AssignMethod(wx_GLAttributes, __AuxBuffers);
+	Gura_AssignMethod(wx_GLAttributes, __MinRGBA);
+	Gura_AssignMethod(wx_GLAttributes, __Depth);
+	Gura_AssignMethod(wx_GLAttributes, __Stencil);
+	Gura_AssignMethod(wx_GLAttributes, __MinAcumRGBA);
+	Gura_AssignMethod(wx_GLAttributes, __SampleBuffers);
+	Gura_AssignMethod(wx_GLAttributes, __Samplers);
+	Gura_AssignMethod(wx_GLAttributes, __FrameBuffersRGB);
+	Gura_AssignMethod(wx_GLAttributes, __PlatformDefaults);
+	Gura_AssignMethod(wx_GLAttributes, __Defaults);
+	Gura_AssignMethod(wx_GLAttributes, __EndList);
 }
 
 Gura_ImplementDescendantCreator(wx_GLAttributes)

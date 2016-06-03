@@ -37,13 +37,13 @@ String Object_wx_ProtocolLog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ProtocolLog, wxProtocolLog)
+Gura_DeclareMethodAlias(wx_ProtocolLog, __wxProtocolLog, "wxProtocolLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "traceMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProtocolLog, wxProtocolLog)
+Gura_ImplementMethod(wx_ProtocolLog, __wxProtocolLog)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_ProtocolLog, wxProtocolLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ProtocolLog, LogRequest)
+Gura_DeclareMethodAlias(wx_ProtocolLog, __LogRequest, "LogRequest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProtocolLog, LogRequest)
+Gura_ImplementMethod(wx_ProtocolLog, __LogRequest)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_ProtocolLog, LogRequest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ProtocolLog, LogResponse)
+Gura_DeclareMethodAlias(wx_ProtocolLog, __LogResponse, "LogResponse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProtocolLog, LogResponse)
+Gura_ImplementMethod(wx_ProtocolLog, __LogResponse)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_ProtocolLog, LogResponse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ProtocolLog, DoLogString)
+Gura_DeclareMethodAlias(wx_ProtocolLog, __DoLogString, "DoLogString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProtocolLog, DoLogString)
+Gura_ImplementMethod(wx_ProtocolLog, __DoLogString)
 {
 	Object_wx_ProtocolLog *pThis = Object_wx_ProtocolLog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_ProtocolLog, DoLogString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProtocolLog)
 {
-	Gura_AssignMethod(wx_ProtocolLog, wxProtocolLog);
-	Gura_AssignMethod(wx_ProtocolLog, LogRequest);
-	Gura_AssignMethod(wx_ProtocolLog, LogResponse);
-	Gura_AssignMethod(wx_ProtocolLog, DoLogString);
+	Gura_AssignMethod(wx_ProtocolLog, __wxProtocolLog);
+	Gura_AssignMethod(wx_ProtocolLog, __LogRequest);
+	Gura_AssignMethod(wx_ProtocolLog, __LogResponse);
+	Gura_AssignMethod(wx_ProtocolLog, __DoLogString);
 }
 
 Gura_ImplementDescendantCreator(wx_ProtocolLog)

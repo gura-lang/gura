@@ -37,12 +37,12 @@ String Object_wx_Animation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Animation, wxAnimation)
+Gura_DeclareMethodAlias(wx_Animation, __wxAnimation, "wxAnimation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Animation, wxAnimation)
+Gura_ImplementMethod(wx_Animation, __wxAnimation)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_Animation, wxAnimation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, wxAnimation_1)
+Gura_DeclareMethodAlias(wx_Animation, __wxAnimation_1, "wxAnimation_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, wxAnimation_1)
+Gura_ImplementMethod(wx_Animation, __wxAnimation_1)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_Animation, wxAnimation_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, wxAnimation_2)
+Gura_DeclareMethodAlias(wx_Animation, __wxAnimation_2, "wxAnimation_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, wxAnimation_2)
+Gura_ImplementMethod(wx_Animation, __wxAnimation_2)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_Animation, wxAnimation_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, GetDelay)
+Gura_DeclareMethodAlias(wx_Animation, __GetDelay, "GetDelay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, GetDelay)
+Gura_ImplementMethod(wx_Animation, __GetDelay)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_Animation, GetDelay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, GetFrame)
+Gura_DeclareMethodAlias(wx_Animation, __GetFrame, "GetFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, GetFrame)
+Gura_ImplementMethod(wx_Animation, __GetFrame)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_Animation, GetFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, GetFrameCount)
+Gura_DeclareMethodAlias(wx_Animation, __GetFrameCount, "GetFrameCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Animation, GetFrameCount)
+Gura_ImplementMethod(wx_Animation, __GetFrameCount)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_Animation, GetFrameCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, GetSize)
+Gura_DeclareMethodAlias(wx_Animation, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Animation, GetSize)
+Gura_ImplementMethod(wx_Animation, __GetSize)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_Animation, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, IsOk)
+Gura_DeclareMethodAlias(wx_Animation, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Animation, IsOk)
+Gura_ImplementMethod(wx_Animation, __IsOk)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,14 +151,14 @@ Gura_ImplementMethod(wx_Animation, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, Load)
+Gura_DeclareMethodAlias(wx_Animation, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, Load)
+Gura_ImplementMethod(wx_Animation, __Load)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,14 +168,14 @@ Gura_ImplementMethod(wx_Animation, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Animation, LoadFile)
+Gura_DeclareMethodAlias(wx_Animation, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Animation, LoadFile)
+Gura_ImplementMethod(wx_Animation, __LoadFile)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,16 +190,16 @@ Gura_ImplementMethod(wx_Animation, LoadFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Animation)
 {
-	Gura_AssignMethod(wx_Animation, wxAnimation);
-	Gura_AssignMethod(wx_Animation, wxAnimation_1);
-	Gura_AssignMethod(wx_Animation, wxAnimation_2);
-	Gura_AssignMethod(wx_Animation, GetDelay);
-	Gura_AssignMethod(wx_Animation, GetFrame);
-	Gura_AssignMethod(wx_Animation, GetFrameCount);
-	Gura_AssignMethod(wx_Animation, GetSize);
-	Gura_AssignMethod(wx_Animation, IsOk);
-	Gura_AssignMethod(wx_Animation, Load);
-	Gura_AssignMethod(wx_Animation, LoadFile);
+	Gura_AssignMethod(wx_Animation, __wxAnimation);
+	Gura_AssignMethod(wx_Animation, __wxAnimation_1);
+	Gura_AssignMethod(wx_Animation, __wxAnimation_2);
+	Gura_AssignMethod(wx_Animation, __GetDelay);
+	Gura_AssignMethod(wx_Animation, __GetFrame);
+	Gura_AssignMethod(wx_Animation, __GetFrameCount);
+	Gura_AssignMethod(wx_Animation, __GetSize);
+	Gura_AssignMethod(wx_Animation, __IsOk);
+	Gura_AssignMethod(wx_Animation, __Load);
+	Gura_AssignMethod(wx_Animation, __LoadFile);
 }
 
 Gura_ImplementDescendantCreator(wx_Animation)

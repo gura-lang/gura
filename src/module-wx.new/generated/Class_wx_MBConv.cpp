@@ -37,12 +37,12 @@ String Object_wx_MBConv::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MBConv, wxMBConv)
+Gura_DeclareMethodAlias(wx_MBConv, __wxMBConv, "wxMBConv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MBConv, wxMBConv)
+Gura_ImplementMethod(wx_MBConv, __wxMBConv)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_MBConv, wxMBConv)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, Clone)
+Gura_DeclareMethodAlias(wx_MBConv, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MBConv, Clone)
+Gura_ImplementMethod(wx_MBConv, __Clone)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_MBConv, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, GetMBNulLen)
+Gura_DeclareMethodAlias(wx_MBConv, __GetMBNulLen, "GetMBNulLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MBConv, GetMBNulLen)
+Gura_ImplementMethod(wx_MBConv, __GetMBNulLen)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_MBConv, GetMBNulLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, GetMaxMBNulLen)
+Gura_DeclareMethodAlias(wx_MBConv, __GetMaxMBNulLen, "GetMaxMBNulLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MBConv, GetMaxMBNulLen)
+Gura_ImplementMethod(wx_MBConv, __GetMaxMBNulLen)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_MBConv, GetMaxMBNulLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, ToWChar)
+Gura_DeclareMethodAlias(wx_MBConv, __ToWChar, "ToWChar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_DeclareMethod(wx_MBConv, ToWChar)
 	//DeclareArg(env, "srcLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, ToWChar)
+Gura_ImplementMethod(wx_MBConv, __ToWChar)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_MBConv, ToWChar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, FromWChar)
+Gura_DeclareMethodAlias(wx_MBConv, __FromWChar, "FromWChar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
@@ -119,7 +119,7 @@ Gura_DeclareMethod(wx_MBConv, FromWChar)
 	//DeclareArg(env, "srcLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, FromWChar)
+Gura_ImplementMethod(wx_MBConv, __FromWChar)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_MBConv, FromWChar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cMB2WC)
+Gura_DeclareMethodAlias(wx_MBConv, __cMB2WC, "cMB2WC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "in", VTYPE_number, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_MBConv, cMB2WC)
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cMB2WC)
+Gura_ImplementMethod(wx_MBConv, __cMB2WC)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_MBConv, cMB2WC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cMB2WC_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cMB2WC_1, "cMB2WC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cMB2WC_1)
+Gura_ImplementMethod(wx_MBConv, __cMB2WC_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_MBConv, cMB2WC_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cMB2WX)
+Gura_DeclareMethodAlias(wx_MBConv, __cMB2WX, "cMB2WX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cMB2WX)
+Gura_ImplementMethod(wx_MBConv, __cMB2WX)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_MBConv, cMB2WX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cMB2WX_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cMB2WX_1, "cMB2WX_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cMB2WX_1)
+Gura_ImplementMethod(wx_MBConv, __cMB2WX_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_MBConv, cMB2WX_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWC2MB)
+Gura_DeclareMethodAlias(wx_MBConv, __cWC2MB, "cWC2MB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "in", VTYPE_number, OCCUR_Once);
@@ -203,7 +203,7 @@ Gura_DeclareMethod(wx_MBConv, cWC2MB)
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWC2MB)
+Gura_ImplementMethod(wx_MBConv, __cWC2MB)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,13 +214,13 @@ Gura_ImplementMethod(wx_MBConv, cWC2MB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWC2MB_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cWC2MB_1, "cWC2MB_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWC2MB_1)
+Gura_ImplementMethod(wx_MBConv, __cWC2MB_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,13 +229,13 @@ Gura_ImplementMethod(wx_MBConv, cWC2MB_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWC2WX)
+Gura_DeclareMethodAlias(wx_MBConv, __cWC2WX, "cWC2WX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWC2WX)
+Gura_ImplementMethod(wx_MBConv, __cWC2WX)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_MBConv, cWC2WX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWC2WX_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cWC2WX_1, "cWC2WX_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWC2WX_1)
+Gura_ImplementMethod(wx_MBConv, __cWC2WX_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,13 +259,13 @@ Gura_ImplementMethod(wx_MBConv, cWC2WX_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWX2MB)
+Gura_DeclareMethodAlias(wx_MBConv, __cWX2MB, "cWX2MB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWX2MB)
+Gura_ImplementMethod(wx_MBConv, __cWX2MB)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,13 +274,13 @@ Gura_ImplementMethod(wx_MBConv, cWX2MB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWX2MB_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cWX2MB_1, "cWX2MB_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWX2MB_1)
+Gura_ImplementMethod(wx_MBConv, __cWX2MB_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -289,13 +289,13 @@ Gura_ImplementMethod(wx_MBConv, cWX2MB_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWX2WC)
+Gura_DeclareMethodAlias(wx_MBConv, __cWX2WC, "cWX2WC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWX2WC)
+Gura_ImplementMethod(wx_MBConv, __cWX2WC)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,13 +304,13 @@ Gura_ImplementMethod(wx_MBConv, cWX2WC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, cWX2WC_1)
+Gura_DeclareMethodAlias(wx_MBConv, __cWX2WC_1, "cWX2WC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, cWX2WC_1)
+Gura_ImplementMethod(wx_MBConv, __cWX2WC_1)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_MBConv, cWX2WC_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, MB2WC)
+Gura_DeclareMethodAlias(wx_MBConv, __MB2WC, "MB2WC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "out", VTYPE_number, OCCUR_Once);
@@ -327,7 +327,7 @@ Gura_DeclareMethod(wx_MBConv, MB2WC)
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, MB2WC)
+Gura_ImplementMethod(wx_MBConv, __MB2WC)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_MBConv, MB2WC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MBConv, WC2MB)
+Gura_DeclareMethodAlias(wx_MBConv, __WC2MB, "WC2MB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
@@ -346,7 +346,7 @@ Gura_DeclareMethod(wx_MBConv, WC2MB)
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MBConv, WC2MB)
+Gura_ImplementMethod(wx_MBConv, __WC2MB)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,26 +362,26 @@ Gura_ImplementMethod(wx_MBConv, WC2MB)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MBConv)
 {
-	Gura_AssignMethod(wx_MBConv, wxMBConv);
-	Gura_AssignMethod(wx_MBConv, Clone);
-	Gura_AssignMethod(wx_MBConv, GetMBNulLen);
-	Gura_AssignMethod(wx_MBConv, GetMaxMBNulLen);
-	Gura_AssignMethod(wx_MBConv, ToWChar);
-	Gura_AssignMethod(wx_MBConv, FromWChar);
-	Gura_AssignMethod(wx_MBConv, cMB2WC);
-	Gura_AssignMethod(wx_MBConv, cMB2WC_1);
-	Gura_AssignMethod(wx_MBConv, cMB2WX);
-	Gura_AssignMethod(wx_MBConv, cMB2WX_1);
-	Gura_AssignMethod(wx_MBConv, cWC2MB);
-	Gura_AssignMethod(wx_MBConv, cWC2MB_1);
-	Gura_AssignMethod(wx_MBConv, cWC2WX);
-	Gura_AssignMethod(wx_MBConv, cWC2WX_1);
-	Gura_AssignMethod(wx_MBConv, cWX2MB);
-	Gura_AssignMethod(wx_MBConv, cWX2MB_1);
-	Gura_AssignMethod(wx_MBConv, cWX2WC);
-	Gura_AssignMethod(wx_MBConv, cWX2WC_1);
-	Gura_AssignMethod(wx_MBConv, MB2WC);
-	Gura_AssignMethod(wx_MBConv, WC2MB);
+	Gura_AssignMethod(wx_MBConv, __wxMBConv);
+	Gura_AssignMethod(wx_MBConv, __Clone);
+	Gura_AssignMethod(wx_MBConv, __GetMBNulLen);
+	Gura_AssignMethod(wx_MBConv, __GetMaxMBNulLen);
+	Gura_AssignMethod(wx_MBConv, __ToWChar);
+	Gura_AssignMethod(wx_MBConv, __FromWChar);
+	Gura_AssignMethod(wx_MBConv, __cMB2WC);
+	Gura_AssignMethod(wx_MBConv, __cMB2WC_1);
+	Gura_AssignMethod(wx_MBConv, __cMB2WX);
+	Gura_AssignMethod(wx_MBConv, __cMB2WX_1);
+	Gura_AssignMethod(wx_MBConv, __cWC2MB);
+	Gura_AssignMethod(wx_MBConv, __cWC2MB_1);
+	Gura_AssignMethod(wx_MBConv, __cWC2WX);
+	Gura_AssignMethod(wx_MBConv, __cWC2WX_1);
+	Gura_AssignMethod(wx_MBConv, __cWX2MB);
+	Gura_AssignMethod(wx_MBConv, __cWX2MB_1);
+	Gura_AssignMethod(wx_MBConv, __cWX2WC);
+	Gura_AssignMethod(wx_MBConv, __cWX2WC_1);
+	Gura_AssignMethod(wx_MBConv, __MB2WC);
+	Gura_AssignMethod(wx_MBConv, __WC2MB);
 }
 
 Gura_ImplementDescendantCreator(wx_MBConv)

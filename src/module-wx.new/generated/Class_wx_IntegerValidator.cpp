@@ -37,14 +37,14 @@ String Object_wx_IntegerValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IntegerValidator, wxIntegerValidator)
+Gura_DeclareMethodAlias(wx_IntegerValidator, __wxIntegerValidator, "wxIntegerValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IntegerValidator, wxIntegerValidator)
+Gura_ImplementMethod(wx_IntegerValidator, __wxIntegerValidator)
 {
 	Object_wx_IntegerValidator *pThis = Object_wx_IntegerValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_IntegerValidator, wxIntegerValidator)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IntegerValidator)
 {
-	Gura_AssignMethod(wx_IntegerValidator, wxIntegerValidator);
+	Gura_AssignMethod(wx_IntegerValidator, __wxIntegerValidator);
 }
 
 Gura_ImplementDescendantCreator(wx_IntegerValidator)

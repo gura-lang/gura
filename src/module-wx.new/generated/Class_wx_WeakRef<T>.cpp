@@ -37,13 +37,13 @@ String Object_wx_WeakRef<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WeakRef<T>, wxWeakRef)
+Gura_DeclareMethodAlias(wx_WeakRef<T>, __wxWeakRef, "wxWeakRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pobj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WeakRef<T>, wxWeakRef)
+Gura_ImplementMethod(wx_WeakRef<T>, __wxWeakRef)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_WeakRef<T>, wxWeakRef)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WeakRef<T>, wxWeakRef_1)
+Gura_DeclareMethodAlias(wx_WeakRef<T>, __wxWeakRef_1, "wxWeakRef_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WeakRef<T>, wxWeakRef_1)
+Gura_ImplementMethod(wx_WeakRef<T>, __wxWeakRef_1)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_WeakRef<T>, wxWeakRef_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WeakRef<T>, OnObjectDestroy)
+Gura_DeclareMethodAlias(wx_WeakRef<T>, __OnObjectDestroy, "OnObjectDestroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WeakRef<T>, OnObjectDestroy)
+Gura_ImplementMethod(wx_WeakRef<T>, __OnObjectDestroy)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_WeakRef<T>, OnObjectDestroy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WeakRef<T>, Release)
+Gura_DeclareMethodAlias(wx_WeakRef<T>, __Release, "Release")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WeakRef<T>, Release)
+Gura_ImplementMethod(wx_WeakRef<T>, __Release)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_WeakRef<T>, Release)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WeakRef<T>, get)
+Gura_DeclareMethodAlias(wx_WeakRef<T>, __get, "get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WeakRef<T>, get)
+Gura_ImplementMethod(wx_WeakRef<T>, __get)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_WeakRef<T>, get)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WeakRef<T>)
 {
-	Gura_AssignMethod(wx_WeakRef<T>, wxWeakRef);
-	Gura_AssignMethod(wx_WeakRef<T>, wxWeakRef_1);
-	Gura_AssignMethod(wx_WeakRef<T>, OnObjectDestroy);
-	Gura_AssignMethod(wx_WeakRef<T>, Release);
-	Gura_AssignMethod(wx_WeakRef<T>, get);
+	Gura_AssignMethod(wx_WeakRef<T>, __wxWeakRef);
+	Gura_AssignMethod(wx_WeakRef<T>, __wxWeakRef_1);
+	Gura_AssignMethod(wx_WeakRef<T>, __OnObjectDestroy);
+	Gura_AssignMethod(wx_WeakRef<T>, __Release);
+	Gura_AssignMethod(wx_WeakRef<T>, __get);
 }
 
 Gura_ImplementDescendantCreator(wx_WeakRef<T>)

@@ -37,12 +37,12 @@ String Object_wx_RibbonControl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonControl, wxRibbonControl)
+Gura_DeclareMethodAlias(wx_RibbonControl, __wxRibbonControl, "wxRibbonControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl)
+Gura_ImplementMethod(wx_RibbonControl, __wxRibbonControl)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, wxRibbonControl_1)
+Gura_DeclareMethodAlias(wx_RibbonControl, __wxRibbonControl_1, "wxRibbonControl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_RibbonControl, wxRibbonControl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl_1)
+Gura_ImplementMethod(wx_RibbonControl, __wxRibbonControl_1)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,13 +77,13 @@ Gura_ImplementMethod(wx_RibbonControl, wxRibbonControl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, SetArtProvider)
+Gura_DeclareMethodAlias(wx_RibbonControl, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "art", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, SetArtProvider)
+Gura_ImplementMethod(wx_RibbonControl, __SetArtProvider)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_RibbonControl, SetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetArtProvider)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetArtProvider, "GetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetArtProvider)
+Gura_ImplementMethod(wx_RibbonControl, __GetArtProvider)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,12 +105,12 @@ Gura_ImplementMethod(wx_RibbonControl, GetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, IsSizingContinuous)
+Gura_DeclareMethodAlias(wx_RibbonControl, __IsSizingContinuous, "IsSizingContinuous")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, IsSizingContinuous)
+Gura_ImplementMethod(wx_RibbonControl, __IsSizingContinuous)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_RibbonControl, IsSizingContinuous)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetNextSmallerSize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetNextSmallerSize, "GetNextSmallerSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize)
+Gura_ImplementMethod(wx_RibbonControl, __GetNextSmallerSize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetNextSmallerSize_1)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetNextSmallerSize_1, "GetNextSmallerSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "relative_to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize_1)
+Gura_ImplementMethod(wx_RibbonControl, __GetNextSmallerSize_1)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_RibbonControl, GetNextSmallerSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetNextLargerSize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetNextLargerSize, "GetNextLargerSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize)
+Gura_ImplementMethod(wx_RibbonControl, __GetNextLargerSize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,14 +165,14 @@ Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetNextLargerSize_1)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetNextLargerSize_1, "GetNextLargerSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "relative_to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize_1)
+Gura_ImplementMethod(wx_RibbonControl, __GetNextLargerSize_1)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,12 +182,12 @@ Gura_ImplementMethod(wx_RibbonControl, GetNextLargerSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, Realize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __Realize, "Realize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, Realize)
+Gura_ImplementMethod(wx_RibbonControl, __Realize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_RibbonControl, Realize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, Realise)
+Gura_DeclareMethodAlias(wx_RibbonControl, __Realise, "Realise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, Realise)
+Gura_ImplementMethod(wx_RibbonControl, __Realise)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_RibbonControl, Realise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetAncestorRibbonBar)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetAncestorRibbonBar, "GetAncestorRibbonBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetAncestorRibbonBar)
+Gura_ImplementMethod(wx_RibbonControl, __GetAncestorRibbonBar)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,13 +221,13 @@ Gura_ImplementMethod(wx_RibbonControl, GetAncestorRibbonBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, GetBestSizeForParentSize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __GetBestSizeForParentSize, "GetBestSizeForParentSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, GetBestSizeForParentSize)
+Gura_ImplementMethod(wx_RibbonControl, __GetBestSizeForParentSize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,14 +236,14 @@ Gura_ImplementMethod(wx_RibbonControl, GetBestSizeForParentSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, DoGetNextSmallerSize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __DoGetNextSmallerSize, "DoGetNextSmallerSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "relative_to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, DoGetNextSmallerSize)
+Gura_ImplementMethod(wx_RibbonControl, __DoGetNextSmallerSize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,14 +253,14 @@ Gura_ImplementMethod(wx_RibbonControl, DoGetNextSmallerSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonControl, DoGetNextLargerSize)
+Gura_DeclareMethodAlias(wx_RibbonControl, __DoGetNextLargerSize, "DoGetNextLargerSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "relative_to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonControl, DoGetNextLargerSize)
+Gura_ImplementMethod(wx_RibbonControl, __DoGetNextLargerSize)
 {
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,21 +275,21 @@ Gura_ImplementMethod(wx_RibbonControl, DoGetNextLargerSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonControl)
 {
-	Gura_AssignMethod(wx_RibbonControl, wxRibbonControl);
-	Gura_AssignMethod(wx_RibbonControl, wxRibbonControl_1);
-	Gura_AssignMethod(wx_RibbonControl, SetArtProvider);
-	Gura_AssignMethod(wx_RibbonControl, GetArtProvider);
-	Gura_AssignMethod(wx_RibbonControl, IsSizingContinuous);
-	Gura_AssignMethod(wx_RibbonControl, GetNextSmallerSize);
-	Gura_AssignMethod(wx_RibbonControl, GetNextSmallerSize_1);
-	Gura_AssignMethod(wx_RibbonControl, GetNextLargerSize);
-	Gura_AssignMethod(wx_RibbonControl, GetNextLargerSize_1);
-	Gura_AssignMethod(wx_RibbonControl, Realize);
-	Gura_AssignMethod(wx_RibbonControl, Realise);
-	Gura_AssignMethod(wx_RibbonControl, GetAncestorRibbonBar);
-	Gura_AssignMethod(wx_RibbonControl, GetBestSizeForParentSize);
-	Gura_AssignMethod(wx_RibbonControl, DoGetNextSmallerSize);
-	Gura_AssignMethod(wx_RibbonControl, DoGetNextLargerSize);
+	Gura_AssignMethod(wx_RibbonControl, __wxRibbonControl);
+	Gura_AssignMethod(wx_RibbonControl, __wxRibbonControl_1);
+	Gura_AssignMethod(wx_RibbonControl, __SetArtProvider);
+	Gura_AssignMethod(wx_RibbonControl, __GetArtProvider);
+	Gura_AssignMethod(wx_RibbonControl, __IsSizingContinuous);
+	Gura_AssignMethod(wx_RibbonControl, __GetNextSmallerSize);
+	Gura_AssignMethod(wx_RibbonControl, __GetNextSmallerSize_1);
+	Gura_AssignMethod(wx_RibbonControl, __GetNextLargerSize);
+	Gura_AssignMethod(wx_RibbonControl, __GetNextLargerSize_1);
+	Gura_AssignMethod(wx_RibbonControl, __Realize);
+	Gura_AssignMethod(wx_RibbonControl, __Realise);
+	Gura_AssignMethod(wx_RibbonControl, __GetAncestorRibbonBar);
+	Gura_AssignMethod(wx_RibbonControl, __GetBestSizeForParentSize);
+	Gura_AssignMethod(wx_RibbonControl, __DoGetNextSmallerSize);
+	Gura_AssignMethod(wx_RibbonControl, __DoGetNextLargerSize);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonControl)

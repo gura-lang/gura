@@ -37,7 +37,7 @@ String Object_wx_SplashScreen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SplashScreen, wxSplashScreen)
+Gura_DeclareMethodAlias(wx_SplashScreen, __wxSplashScreen, "wxSplashScreen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareMethod(wx_SplashScreen, wxSplashScreen)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, wxSplashScreen)
+Gura_ImplementMethod(wx_SplashScreen, __wxSplashScreen)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -66,12 +66,12 @@ Gura_ImplementMethod(wx_SplashScreen, wxSplashScreen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplashScreen, GetSplashStyle)
+Gura_DeclareMethodAlias(wx_SplashScreen, __GetSplashStyle, "GetSplashStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
+Gura_ImplementMethod(wx_SplashScreen, __GetSplashStyle)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,12 +79,12 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplashScreen, GetSplashWindow)
+Gura_DeclareMethodAlias(wx_SplashScreen, __GetSplashWindow, "GetSplashWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
+Gura_ImplementMethod(wx_SplashScreen, __GetSplashWindow)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_SplashScreen, GetSplashWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplashScreen, GetTimeout)
+Gura_DeclareMethodAlias(wx_SplashScreen, __GetTimeout, "GetTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
+Gura_ImplementMethod(wx_SplashScreen, __GetTimeout)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_SplashScreen, GetTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SplashScreen, OnCloseWindow)
+Gura_DeclareMethodAlias(wx_SplashScreen, __OnCloseWindow, "OnCloseWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
+Gura_ImplementMethod(wx_SplashScreen, __OnCloseWindow)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,11 +125,11 @@ Gura_ImplementMethod(wx_SplashScreen, OnCloseWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SplashScreen)
 {
-	Gura_AssignMethod(wx_SplashScreen, wxSplashScreen);
-	Gura_AssignMethod(wx_SplashScreen, GetSplashStyle);
-	Gura_AssignMethod(wx_SplashScreen, GetSplashWindow);
-	Gura_AssignMethod(wx_SplashScreen, GetTimeout);
-	Gura_AssignMethod(wx_SplashScreen, OnCloseWindow);
+	Gura_AssignMethod(wx_SplashScreen, __wxSplashScreen);
+	Gura_AssignMethod(wx_SplashScreen, __GetSplashStyle);
+	Gura_AssignMethod(wx_SplashScreen, __GetSplashWindow);
+	Gura_AssignMethod(wx_SplashScreen, __GetTimeout);
+	Gura_AssignMethod(wx_SplashScreen, __OnCloseWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_SplashScreen)

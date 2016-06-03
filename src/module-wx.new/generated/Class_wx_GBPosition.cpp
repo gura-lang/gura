@@ -37,12 +37,12 @@ String Object_wx_GBPosition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GBPosition, wxGBPosition)
+Gura_DeclareMethodAlias(wx_GBPosition, __wxGBPosition, "wxGBPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBPosition, wxGBPosition)
+Gura_ImplementMethod(wx_GBPosition, __wxGBPosition)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_GBPosition, wxGBPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBPosition, wxGBPosition_1)
+Gura_DeclareMethodAlias(wx_GBPosition, __wxGBPosition_1, "wxGBPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBPosition, wxGBPosition_1)
+Gura_ImplementMethod(wx_GBPosition, __wxGBPosition_1)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_GBPosition, wxGBPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBPosition, GetCol)
+Gura_DeclareMethodAlias(wx_GBPosition, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBPosition, GetCol)
+Gura_ImplementMethod(wx_GBPosition, __GetCol)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_GBPosition, GetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBPosition, GetRow)
+Gura_DeclareMethodAlias(wx_GBPosition, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GBPosition, GetRow)
+Gura_ImplementMethod(wx_GBPosition, __GetRow)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_GBPosition, GetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBPosition, SetCol)
+Gura_DeclareMethodAlias(wx_GBPosition, __SetCol, "SetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBPosition, SetCol)
+Gura_ImplementMethod(wx_GBPosition, __SetCol)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_GBPosition, SetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GBPosition, SetRow)
+Gura_DeclareMethodAlias(wx_GBPosition, __SetRow, "SetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GBPosition, SetRow)
+Gura_ImplementMethod(wx_GBPosition, __SetRow)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_GBPosition, SetRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GBPosition)
 {
-	Gura_AssignMethod(wx_GBPosition, wxGBPosition);
-	Gura_AssignMethod(wx_GBPosition, wxGBPosition_1);
-	Gura_AssignMethod(wx_GBPosition, GetCol);
-	Gura_AssignMethod(wx_GBPosition, GetRow);
-	Gura_AssignMethod(wx_GBPosition, SetCol);
-	Gura_AssignMethod(wx_GBPosition, SetRow);
+	Gura_AssignMethod(wx_GBPosition, __wxGBPosition);
+	Gura_AssignMethod(wx_GBPosition, __wxGBPosition_1);
+	Gura_AssignMethod(wx_GBPosition, __GetCol);
+	Gura_AssignMethod(wx_GBPosition, __GetRow);
+	Gura_AssignMethod(wx_GBPosition, __SetCol);
+	Gura_AssignMethod(wx_GBPosition, __SetRow);
 }
 
 Gura_ImplementDescendantCreator(wx_GBPosition)

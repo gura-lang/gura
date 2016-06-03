@@ -37,12 +37,12 @@ String Object_wx_FileTypeInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo, "wxFileTypeInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo)
+Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_1)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_1, "wxFileTypeInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_1)
+Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_1)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_2, "wxFileTypeInfo_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mimeType", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
+Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_2)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,13 +88,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, wxFileTypeInfo_3)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __wxFileTypeInfo_3, "wxFileTypeInfo_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sArray", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_3)
+Gura_ImplementMethod(wx_FileTypeInfo, __wxFileTypeInfo_3)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,13 +103,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, wxFileTypeInfo_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, AddExtension)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __AddExtension, "AddExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, AddExtension)
+Gura_ImplementMethod(wx_FileTypeInfo, __AddExtension)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, AddExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, SetDescription)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __SetDescription, "SetDescription")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, SetDescription)
+Gura_ImplementMethod(wx_FileTypeInfo, __SetDescription)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, SetDescription)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, SetOpenCommand)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __SetOpenCommand, "SetOpenCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, SetOpenCommand)
+Gura_ImplementMethod(wx_FileTypeInfo, __SetOpenCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,13 +148,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, SetOpenCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, SetPrintCommand)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __SetPrintCommand, "SetPrintCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, SetPrintCommand)
+Gura_ImplementMethod(wx_FileTypeInfo, __SetPrintCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_FileTypeInfo, SetPrintCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, SetShortDesc)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __SetShortDesc, "SetShortDesc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "shortDesc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, SetShortDesc)
+Gura_ImplementMethod(wx_FileTypeInfo, __SetShortDesc)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,14 +178,14 @@ Gura_ImplementMethod(wx_FileTypeInfo, SetShortDesc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, SetIcon)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __SetIcon, "SetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, SetIcon)
+Gura_ImplementMethod(wx_FileTypeInfo, __SetIcon)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, SetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetMimeType)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetMimeType, "GetMimeType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetMimeType)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetMimeType)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetMimeType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetOpenCommand)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetOpenCommand, "GetOpenCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetOpenCommand)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetOpenCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,12 +221,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetOpenCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetPrintCommand)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetPrintCommand, "GetPrintCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetPrintCommand)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetPrintCommand)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,12 +234,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetPrintCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetShortDesc)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetShortDesc, "GetShortDesc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetShortDesc)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetShortDesc)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,12 +247,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetShortDesc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetDescription)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetDescription, "GetDescription")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetDescription)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetDescription)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,12 +260,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetDescription)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetExtensions)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetExtensions, "GetExtensions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetExtensions)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetExtensions)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -273,12 +273,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetExtensions)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetExtensionsCount)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetExtensionsCount, "GetExtensionsCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetExtensionsCount)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetExtensionsCount)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,12 +286,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetExtensionsCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetIconFile)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetIconFile, "GetIconFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetIconFile)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetIconFile)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,12 +299,12 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetIconFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileTypeInfo, GetIconIndex)
+Gura_DeclareMethodAlias(wx_FileTypeInfo, __GetIconIndex, "GetIconIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileTypeInfo, GetIconIndex)
+Gura_ImplementMethod(wx_FileTypeInfo, __GetIconIndex)
 {
 	Object_wx_FileTypeInfo *pThis = Object_wx_FileTypeInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,25 +317,25 @@ Gura_ImplementMethod(wx_FileTypeInfo, GetIconIndex)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTypeInfo)
 {
-	Gura_AssignMethod(wx_FileTypeInfo, wxFileTypeInfo);
-	Gura_AssignMethod(wx_FileTypeInfo, wxFileTypeInfo_1);
-	Gura_AssignMethod(wx_FileTypeInfo, wxFileTypeInfo_2);
-	Gura_AssignMethod(wx_FileTypeInfo, wxFileTypeInfo_3);
-	Gura_AssignMethod(wx_FileTypeInfo, AddExtension);
-	Gura_AssignMethod(wx_FileTypeInfo, SetDescription);
-	Gura_AssignMethod(wx_FileTypeInfo, SetOpenCommand);
-	Gura_AssignMethod(wx_FileTypeInfo, SetPrintCommand);
-	Gura_AssignMethod(wx_FileTypeInfo, SetShortDesc);
-	Gura_AssignMethod(wx_FileTypeInfo, SetIcon);
-	Gura_AssignMethod(wx_FileTypeInfo, GetMimeType);
-	Gura_AssignMethod(wx_FileTypeInfo, GetOpenCommand);
-	Gura_AssignMethod(wx_FileTypeInfo, GetPrintCommand);
-	Gura_AssignMethod(wx_FileTypeInfo, GetShortDesc);
-	Gura_AssignMethod(wx_FileTypeInfo, GetDescription);
-	Gura_AssignMethod(wx_FileTypeInfo, GetExtensions);
-	Gura_AssignMethod(wx_FileTypeInfo, GetExtensionsCount);
-	Gura_AssignMethod(wx_FileTypeInfo, GetIconFile);
-	Gura_AssignMethod(wx_FileTypeInfo, GetIconIndex);
+	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo);
+	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_1);
+	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_2);
+	Gura_AssignMethod(wx_FileTypeInfo, __wxFileTypeInfo_3);
+	Gura_AssignMethod(wx_FileTypeInfo, __AddExtension);
+	Gura_AssignMethod(wx_FileTypeInfo, __SetDescription);
+	Gura_AssignMethod(wx_FileTypeInfo, __SetOpenCommand);
+	Gura_AssignMethod(wx_FileTypeInfo, __SetPrintCommand);
+	Gura_AssignMethod(wx_FileTypeInfo, __SetShortDesc);
+	Gura_AssignMethod(wx_FileTypeInfo, __SetIcon);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetMimeType);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetOpenCommand);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetPrintCommand);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetShortDesc);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetDescription);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetExtensions);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetExtensionsCount);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetIconFile);
+	Gura_AssignMethod(wx_FileTypeInfo, __GetIconIndex);
 }
 
 Gura_ImplementDescendantCreator(wx_FileTypeInfo)

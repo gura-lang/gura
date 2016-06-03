@@ -37,12 +37,12 @@ String Object_wx_TimerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TimerEvent, wxTimerEvent)
+Gura_DeclareMethodAlias(wx_TimerEvent, __wxTimerEvent, "wxTimerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent)
+Gura_ImplementMethod(wx_TimerEvent, __wxTimerEvent)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimerEvent, wxTimerEvent_1)
+Gura_DeclareMethodAlias(wx_TimerEvent, __wxTimerEvent_1, "wxTimerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent_1)
+Gura_ImplementMethod(wx_TimerEvent, __wxTimerEvent_1)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TimerEvent, wxTimerEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimerEvent, GetInterval)
+Gura_DeclareMethodAlias(wx_TimerEvent, __GetInterval, "GetInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, GetInterval)
+Gura_ImplementMethod(wx_TimerEvent, __GetInterval)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_TimerEvent, GetInterval)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimerEvent, GetTimer)
+Gura_DeclareMethodAlias(wx_TimerEvent, __GetTimer, "GetTimer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimerEvent, GetTimer)
+Gura_ImplementMethod(wx_TimerEvent, __GetTimer)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,10 +96,10 @@ Gura_ImplementMethod(wx_TimerEvent, GetTimer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimerEvent)
 {
-	Gura_AssignMethod(wx_TimerEvent, wxTimerEvent);
-	Gura_AssignMethod(wx_TimerEvent, wxTimerEvent_1);
-	Gura_AssignMethod(wx_TimerEvent, GetInterval);
-	Gura_AssignMethod(wx_TimerEvent, GetTimer);
+	Gura_AssignMethod(wx_TimerEvent, __wxTimerEvent);
+	Gura_AssignMethod(wx_TimerEvent, __wxTimerEvent_1);
+	Gura_AssignMethod(wx_TimerEvent, __GetInterval);
+	Gura_AssignMethod(wx_TimerEvent, __GetTimer);
 }
 
 Gura_ImplementDescendantCreator(wx_TimerEvent)

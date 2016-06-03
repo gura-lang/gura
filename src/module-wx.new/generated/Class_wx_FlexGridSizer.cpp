@@ -37,7 +37,7 @@ String Object_wx_FlexGridSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __wxFlexGridSizer, "wxFlexGridSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer)
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer)
+Gura_ImplementMethod(wx_FlexGridSizer, __wxFlexGridSizer)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,14 +56,14 @@ Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer_1)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __wxFlexGridSizer_1, "wxFlexGridSizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_1)
+Gura_ImplementMethod(wx_FlexGridSizer, __wxFlexGridSizer_1)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer_2)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __wxFlexGridSizer_2, "wxFlexGridSizer_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer_2)
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_2)
+Gura_ImplementMethod(wx_FlexGridSizer, __wxFlexGridSizer_2)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer_3)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __wxFlexGridSizer_3, "wxFlexGridSizer_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_DeclareMethod(wx_FlexGridSizer, wxFlexGridSizer_3)
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_3)
+Gura_ImplementMethod(wx_FlexGridSizer, __wxFlexGridSizer_3)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,14 +113,14 @@ Gura_ImplementMethod(wx_FlexGridSizer, wxFlexGridSizer_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableCol)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __AddGrowableCol, "AddGrowableCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
+Gura_ImplementMethod(wx_FlexGridSizer, __AddGrowableCol)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,14 +130,14 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, AddGrowableRow)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __AddGrowableRow, "AddGrowableRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
+Gura_ImplementMethod(wx_FlexGridSizer, __AddGrowableRow)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, AddGrowableRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, GetFlexibleDirection)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __GetFlexibleDirection, "GetFlexibleDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
+Gura_ImplementMethod(wx_FlexGridSizer, __GetFlexibleDirection)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetFlexibleDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __GetNonFlexibleGrowMode, "GetNonFlexibleGrowMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
+Gura_ImplementMethod(wx_FlexGridSizer, __GetNonFlexibleGrowMode)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, IsColGrowable)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __IsColGrowable, "IsColGrowable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, IsColGrowable)
+Gura_ImplementMethod(wx_FlexGridSizer, __IsColGrowable)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, IsColGrowable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, IsRowGrowable)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __IsRowGrowable, "IsRowGrowable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, IsRowGrowable)
+Gura_ImplementMethod(wx_FlexGridSizer, __IsRowGrowable)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, IsRowGrowable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableCol)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __RemoveGrowableCol, "RemoveGrowableCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
+Gura_ImplementMethod(wx_FlexGridSizer, __RemoveGrowableCol)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,13 +218,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, RemoveGrowableRow)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __RemoveGrowableRow, "RemoveGrowableRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
+Gura_ImplementMethod(wx_FlexGridSizer, __RemoveGrowableRow)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +233,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, RemoveGrowableRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, SetFlexibleDirection)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __SetFlexibleDirection, "SetFlexibleDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
+Gura_ImplementMethod(wx_FlexGridSizer, __SetFlexibleDirection)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_FlexGridSizer, SetFlexibleDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __SetNonFlexibleGrowMode, "SetNonFlexibleGrowMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
+Gura_ImplementMethod(wx_FlexGridSizer, __SetNonFlexibleGrowMode)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,12 +263,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, GetRowHeights)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __GetRowHeights, "GetRowHeights")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, GetRowHeights)
+Gura_ImplementMethod(wx_FlexGridSizer, __GetRowHeights)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,12 +276,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetRowHeights)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, GetColWidths)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __GetColWidths, "GetColWidths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, GetColWidths)
+Gura_ImplementMethod(wx_FlexGridSizer, __GetColWidths)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -289,12 +289,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, GetColWidths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, RecalcSizes)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __RecalcSizes, "RecalcSizes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, RecalcSizes)
+Gura_ImplementMethod(wx_FlexGridSizer, __RecalcSizes)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -302,12 +302,12 @@ Gura_ImplementMethod(wx_FlexGridSizer, RecalcSizes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FlexGridSizer, CalcMin)
+Gura_DeclareMethodAlias(wx_FlexGridSizer, __CalcMin, "CalcMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FlexGridSizer, CalcMin)
+Gura_ImplementMethod(wx_FlexGridSizer, __CalcMin)
 {
 	Object_wx_FlexGridSizer *pThis = Object_wx_FlexGridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -320,24 +320,24 @@ Gura_ImplementMethod(wx_FlexGridSizer, CalcMin)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FlexGridSizer)
 {
-	Gura_AssignMethod(wx_FlexGridSizer, wxFlexGridSizer);
-	Gura_AssignMethod(wx_FlexGridSizer, wxFlexGridSizer_1);
-	Gura_AssignMethod(wx_FlexGridSizer, wxFlexGridSizer_2);
-	Gura_AssignMethod(wx_FlexGridSizer, wxFlexGridSizer_3);
-	Gura_AssignMethod(wx_FlexGridSizer, AddGrowableCol);
-	Gura_AssignMethod(wx_FlexGridSizer, AddGrowableRow);
-	Gura_AssignMethod(wx_FlexGridSizer, GetFlexibleDirection);
-	Gura_AssignMethod(wx_FlexGridSizer, GetNonFlexibleGrowMode);
-	Gura_AssignMethod(wx_FlexGridSizer, IsColGrowable);
-	Gura_AssignMethod(wx_FlexGridSizer, IsRowGrowable);
-	Gura_AssignMethod(wx_FlexGridSizer, RemoveGrowableCol);
-	Gura_AssignMethod(wx_FlexGridSizer, RemoveGrowableRow);
-	Gura_AssignMethod(wx_FlexGridSizer, SetFlexibleDirection);
-	Gura_AssignMethod(wx_FlexGridSizer, SetNonFlexibleGrowMode);
-	Gura_AssignMethod(wx_FlexGridSizer, GetRowHeights);
-	Gura_AssignMethod(wx_FlexGridSizer, GetColWidths);
-	Gura_AssignMethod(wx_FlexGridSizer, RecalcSizes);
-	Gura_AssignMethod(wx_FlexGridSizer, CalcMin);
+	Gura_AssignMethod(wx_FlexGridSizer, __wxFlexGridSizer);
+	Gura_AssignMethod(wx_FlexGridSizer, __wxFlexGridSizer_1);
+	Gura_AssignMethod(wx_FlexGridSizer, __wxFlexGridSizer_2);
+	Gura_AssignMethod(wx_FlexGridSizer, __wxFlexGridSizer_3);
+	Gura_AssignMethod(wx_FlexGridSizer, __AddGrowableCol);
+	Gura_AssignMethod(wx_FlexGridSizer, __AddGrowableRow);
+	Gura_AssignMethod(wx_FlexGridSizer, __GetFlexibleDirection);
+	Gura_AssignMethod(wx_FlexGridSizer, __GetNonFlexibleGrowMode);
+	Gura_AssignMethod(wx_FlexGridSizer, __IsColGrowable);
+	Gura_AssignMethod(wx_FlexGridSizer, __IsRowGrowable);
+	Gura_AssignMethod(wx_FlexGridSizer, __RemoveGrowableCol);
+	Gura_AssignMethod(wx_FlexGridSizer, __RemoveGrowableRow);
+	Gura_AssignMethod(wx_FlexGridSizer, __SetFlexibleDirection);
+	Gura_AssignMethod(wx_FlexGridSizer, __SetNonFlexibleGrowMode);
+	Gura_AssignMethod(wx_FlexGridSizer, __GetRowHeights);
+	Gura_AssignMethod(wx_FlexGridSizer, __GetColWidths);
+	Gura_AssignMethod(wx_FlexGridSizer, __RecalcSizes);
+	Gura_AssignMethod(wx_FlexGridSizer, __CalcMin);
 }
 
 Gura_ImplementDescendantCreator(wx_FlexGridSizer)

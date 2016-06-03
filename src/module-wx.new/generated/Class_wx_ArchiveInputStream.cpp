@@ -37,12 +37,12 @@ String Object_wx_ArchiveInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArchiveInputStream, CloseEntry)
+Gura_DeclareMethodAlias(wx_ArchiveInputStream, __CloseEntry, "CloseEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
+Gura_ImplementMethod(wx_ArchiveInputStream, __CloseEntry)
 {
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ArchiveInputStream, CloseEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveInputStream, GetNextEntry)
+Gura_DeclareMethodAlias(wx_ArchiveInputStream, __GetNextEntry, "GetNextEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
+Gura_ImplementMethod(wx_ArchiveInputStream, __GetNextEntry)
 {
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_ArchiveInputStream, GetNextEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveInputStream, OpenEntry)
+Gura_DeclareMethodAlias(wx_ArchiveInputStream, __OpenEntry, "OpenEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveInputStream, OpenEntry)
+Gura_ImplementMethod(wx_ArchiveInputStream, __OpenEntry)
 {
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_ArchiveInputStream, OpenEntry)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveInputStream)
 {
-	Gura_AssignMethod(wx_ArchiveInputStream, CloseEntry);
-	Gura_AssignMethod(wx_ArchiveInputStream, GetNextEntry);
-	Gura_AssignMethod(wx_ArchiveInputStream, OpenEntry);
+	Gura_AssignMethod(wx_ArchiveInputStream, __CloseEntry);
+	Gura_AssignMethod(wx_ArchiveInputStream, __GetNextEntry);
+	Gura_AssignMethod(wx_ArchiveInputStream, __OpenEntry);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveInputStream)

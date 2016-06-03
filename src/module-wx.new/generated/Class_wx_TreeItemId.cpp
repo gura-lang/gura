@@ -37,12 +37,12 @@ String Object_wx_TreeItemId::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeItemId, wxTreeItemId)
+Gura_DeclareMethodAlias(wx_TreeItemId, __wxTreeItemId, "wxTreeItemId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemId, wxTreeItemId)
+Gura_ImplementMethod(wx_TreeItemId, __wxTreeItemId)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_TreeItemId, wxTreeItemId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeItemId, IsOk)
+Gura_DeclareMethodAlias(wx_TreeItemId, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemId, IsOk)
+Gura_ImplementMethod(wx_TreeItemId, __IsOk)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_TreeItemId, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeItemId, GetID)
+Gura_DeclareMethodAlias(wx_TreeItemId, __GetID, "GetID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemId, GetID)
+Gura_ImplementMethod(wx_TreeItemId, __GetID)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_TreeItemId, GetID)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeItemId, Unset)
+Gura_DeclareMethodAlias(wx_TreeItemId, __Unset, "Unset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeItemId, Unset)
+Gura_ImplementMethod(wx_TreeItemId, __Unset)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,10 +94,10 @@ Gura_ImplementMethod(wx_TreeItemId, Unset)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeItemId)
 {
-	Gura_AssignMethod(wx_TreeItemId, wxTreeItemId);
-	Gura_AssignMethod(wx_TreeItemId, IsOk);
-	Gura_AssignMethod(wx_TreeItemId, GetID);
-	Gura_AssignMethod(wx_TreeItemId, Unset);
+	Gura_AssignMethod(wx_TreeItemId, __wxTreeItemId);
+	Gura_AssignMethod(wx_TreeItemId, __IsOk);
+	Gura_AssignMethod(wx_TreeItemId, __GetID);
+	Gura_AssignMethod(wx_TreeItemId, __Unset);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeItemId)

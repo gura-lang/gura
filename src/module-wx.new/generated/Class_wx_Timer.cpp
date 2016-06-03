@@ -37,12 +37,12 @@ String Object_wx_Timer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Timer, wxTimer)
+Gura_DeclareMethodAlias(wx_Timer, __wxTimer, "wxTimer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, wxTimer)
+Gura_ImplementMethod(wx_Timer, __wxTimer)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_Timer, wxTimer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, wxTimer_1)
+Gura_DeclareMethodAlias(wx_Timer, __wxTimer_1, "wxTimer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "owner", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Timer, wxTimer_1)
+Gura_ImplementMethod(wx_Timer, __wxTimer_1)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Timer, wxTimer_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, GetId)
+Gura_DeclareMethodAlias(wx_Timer, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, GetId)
+Gura_ImplementMethod(wx_Timer, __GetId)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Timer, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, GetInterval)
+Gura_DeclareMethodAlias(wx_Timer, __GetInterval, "GetInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, GetInterval)
+Gura_ImplementMethod(wx_Timer, __GetInterval)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Timer, GetInterval)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, GetOwner)
+Gura_DeclareMethodAlias(wx_Timer, __GetOwner, "GetOwner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, GetOwner)
+Gura_ImplementMethod(wx_Timer, __GetOwner)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_Timer, GetOwner)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, IsOneShot)
+Gura_DeclareMethodAlias(wx_Timer, __IsOneShot, "IsOneShot")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, IsOneShot)
+Gura_ImplementMethod(wx_Timer, __IsOneShot)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Timer, IsOneShot)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, IsRunning)
+Gura_DeclareMethodAlias(wx_Timer, __IsRunning, "IsRunning")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, IsRunning)
+Gura_ImplementMethod(wx_Timer, __IsRunning)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Timer, IsRunning)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, Notify)
+Gura_DeclareMethodAlias(wx_Timer, __Notify, "Notify")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, Notify)
+Gura_ImplementMethod(wx_Timer, __Notify)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,14 +145,14 @@ Gura_ImplementMethod(wx_Timer, Notify)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, SetOwner)
+Gura_DeclareMethodAlias(wx_Timer, __SetOwner, "SetOwner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "owner", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Timer, SetOwner)
+Gura_ImplementMethod(wx_Timer, __SetOwner)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,14 +162,14 @@ Gura_ImplementMethod(wx_Timer, SetOwner)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, Start)
+Gura_DeclareMethodAlias(wx_Timer, __Start, "Start")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Timer, Start)
+Gura_ImplementMethod(wx_Timer, __Start)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_Timer, Start)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, StartOnce)
+Gura_DeclareMethodAlias(wx_Timer, __StartOnce, "StartOnce")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Timer, StartOnce)
+Gura_ImplementMethod(wx_Timer, __StartOnce)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_Timer, StartOnce)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Timer, Stop)
+Gura_DeclareMethodAlias(wx_Timer, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Timer, Stop)
+Gura_ImplementMethod(wx_Timer, __Stop)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,18 +212,18 @@ Gura_ImplementMethod(wx_Timer, Stop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Timer)
 {
-	Gura_AssignMethod(wx_Timer, wxTimer);
-	Gura_AssignMethod(wx_Timer, wxTimer_1);
-	Gura_AssignMethod(wx_Timer, GetId);
-	Gura_AssignMethod(wx_Timer, GetInterval);
-	Gura_AssignMethod(wx_Timer, GetOwner);
-	Gura_AssignMethod(wx_Timer, IsOneShot);
-	Gura_AssignMethod(wx_Timer, IsRunning);
-	Gura_AssignMethod(wx_Timer, Notify);
-	Gura_AssignMethod(wx_Timer, SetOwner);
-	Gura_AssignMethod(wx_Timer, Start);
-	Gura_AssignMethod(wx_Timer, StartOnce);
-	Gura_AssignMethod(wx_Timer, Stop);
+	Gura_AssignMethod(wx_Timer, __wxTimer);
+	Gura_AssignMethod(wx_Timer, __wxTimer_1);
+	Gura_AssignMethod(wx_Timer, __GetId);
+	Gura_AssignMethod(wx_Timer, __GetInterval);
+	Gura_AssignMethod(wx_Timer, __GetOwner);
+	Gura_AssignMethod(wx_Timer, __IsOneShot);
+	Gura_AssignMethod(wx_Timer, __IsRunning);
+	Gura_AssignMethod(wx_Timer, __Notify);
+	Gura_AssignMethod(wx_Timer, __SetOwner);
+	Gura_AssignMethod(wx_Timer, __Start);
+	Gura_AssignMethod(wx_Timer, __StartOnce);
+	Gura_AssignMethod(wx_Timer, __Stop);
 }
 
 Gura_ImplementDescendantCreator(wx_Timer)

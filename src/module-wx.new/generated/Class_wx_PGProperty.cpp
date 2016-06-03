@@ -37,12 +37,12 @@ String Object_wx_PGProperty::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGProperty, wxPGProperty)
+Gura_DeclareMethodAlias(wx_PGProperty, __wxPGProperty, "wxPGProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, wxPGProperty)
+Gura_ImplementMethod(wx_PGProperty, __wxPGProperty)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_PGProperty, wxPGProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, wxPGProperty_1)
+Gura_DeclareMethodAlias(wx_PGProperty, __wxPGProperty_1, "wxPGProperty_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, wxPGProperty_1)
+Gura_ImplementMethod(wx_PGProperty, __wxPGProperty_1)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_PGProperty, wxPGProperty_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, OnSetValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __OnSetValue, "OnSetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, OnSetValue)
+Gura_ImplementMethod(wx_PGProperty, __OnSetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_PGProperty, OnSetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DoGetValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __DoGetValue, "DoGetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DoGetValue)
+Gura_ImplementMethod(wx_PGProperty, __DoGetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,14 +93,14 @@ Gura_ImplementMethod(wx_PGProperty, DoGetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, ValidateValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __ValidateValue, "ValidateValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validationInfo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, ValidateValue)
+Gura_ImplementMethod(wx_PGProperty, __ValidateValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_PGProperty, ValidateValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, StringToValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __StringToValue, "StringToValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
@@ -118,7 +118,7 @@ Gura_DeclareMethod(wx_PGProperty, StringToValue)
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, StringToValue)
+Gura_ImplementMethod(wx_PGProperty, __StringToValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_PGProperty, StringToValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IntToValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __IntToValue, "IntToValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_DeclareMethod(wx_PGProperty, IntToValue)
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IntToValue)
+Gura_ImplementMethod(wx_PGProperty, __IntToValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_PGProperty, IntToValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, ValueToString)
+Gura_DeclareMethodAlias(wx_PGProperty, __ValueToString, "ValueToString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, ValueToString)
+Gura_ImplementMethod(wx_PGProperty, __ValueToString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,14 +165,14 @@ Gura_ImplementMethod(wx_PGProperty, ValueToString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValueFromString)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValueFromString, "SetValueFromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValueFromString)
+Gura_ImplementMethod(wx_PGProperty, __SetValueFromString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,14 +182,14 @@ Gura_ImplementMethod(wx_PGProperty, SetValueFromString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValueFromInt)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValueFromInt, "SetValueFromInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValueFromInt)
+Gura_ImplementMethod(wx_PGProperty, __SetValueFromInt)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,13 +199,13 @@ Gura_ImplementMethod(wx_PGProperty, SetValueFromInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, OnMeasureImage)
+Gura_DeclareMethodAlias(wx_PGProperty, __OnMeasureImage, "OnMeasureImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, OnMeasureImage)
+Gura_ImplementMethod(wx_PGProperty, __OnMeasureImage)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_PGProperty, OnMeasureImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, OnEvent)
+Gura_DeclareMethodAlias(wx_PGProperty, __OnEvent, "OnEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_DeclareMethod(wx_PGProperty, OnEvent)
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, OnEvent)
+Gura_ImplementMethod(wx_PGProperty, __OnEvent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_PGProperty, OnEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, ChildChanged)
+Gura_DeclareMethodAlias(wx_PGProperty, __ChildChanged, "ChildChanged")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "thisValue", VTYPE_number, OCCUR_Once);
@@ -241,7 +241,7 @@ Gura_DeclareMethod(wx_PGProperty, ChildChanged)
 	//DeclareArg(env, "childValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, ChildChanged)
+Gura_ImplementMethod(wx_PGProperty, __ChildChanged)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,12 +252,12 @@ Gura_ImplementMethod(wx_PGProperty, ChildChanged)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DoGetEditorClass)
+Gura_DeclareMethodAlias(wx_PGProperty, __DoGetEditorClass, "DoGetEditorClass")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DoGetEditorClass)
+Gura_ImplementMethod(wx_PGProperty, __DoGetEditorClass)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_PGProperty, DoGetEditorClass)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DoGetValidator)
+Gura_DeclareMethodAlias(wx_PGProperty, __DoGetValidator, "DoGetValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DoGetValidator)
+Gura_ImplementMethod(wx_PGProperty, __DoGetValidator)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_PGProperty, DoGetValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, OnCustomPaint)
+Gura_DeclareMethodAlias(wx_PGProperty, __OnCustomPaint, "OnCustomPaint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -286,7 +286,7 @@ Gura_DeclareMethod(wx_PGProperty, OnCustomPaint)
 	//DeclareArg(env, "paintdata", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, OnCustomPaint)
+Gura_ImplementMethod(wx_PGProperty, __OnCustomPaint)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,13 +297,13 @@ Gura_ImplementMethod(wx_PGProperty, OnCustomPaint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetCellRenderer)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetCellRenderer, "GetCellRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetCellRenderer)
+Gura_ImplementMethod(wx_PGProperty, __GetCellRenderer)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,12 +312,12 @@ Gura_ImplementMethod(wx_PGProperty, GetCellRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetChoiceSelection)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetChoiceSelection, "GetChoiceSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetChoiceSelection)
+Gura_ImplementMethod(wx_PGProperty, __GetChoiceSelection)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,12 +325,12 @@ Gura_ImplementMethod(wx_PGProperty, GetChoiceSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, RefreshChildren)
+Gura_DeclareMethodAlias(wx_PGProperty, __RefreshChildren, "RefreshChildren")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, RefreshChildren)
+Gura_ImplementMethod(wx_PGProperty, __RefreshChildren)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,14 +338,14 @@ Gura_ImplementMethod(wx_PGProperty, RefreshChildren)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DoSetAttribute)
+Gura_DeclareMethodAlias(wx_PGProperty, __DoSetAttribute, "DoSetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DoSetAttribute)
+Gura_ImplementMethod(wx_PGProperty, __DoSetAttribute)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_PGProperty, DoSetAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DoGetAttribute)
+Gura_DeclareMethodAlias(wx_PGProperty, __DoGetAttribute, "DoGetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DoGetAttribute)
+Gura_ImplementMethod(wx_PGProperty, __DoGetAttribute)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,12 +370,12 @@ Gura_ImplementMethod(wx_PGProperty, DoGetAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetEditorDialog)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetEditorDialog, "GetEditorDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetEditorDialog)
+Gura_ImplementMethod(wx_PGProperty, __GetEditorDialog)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_PGProperty, GetEditorDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, OnValidationFailure)
+Gura_DeclareMethodAlias(wx_PGProperty, __OnValidationFailure, "OnValidationFailure")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pendingValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, OnValidationFailure)
+Gura_ImplementMethod(wx_PGProperty, __OnValidationFailure)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,14 +398,14 @@ Gura_ImplementMethod(wx_PGProperty, OnValidationFailure)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AddChoice)
+Gura_DeclareMethodAlias(wx_PGProperty, __AddChoice, "AddChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AddChoice)
+Gura_ImplementMethod(wx_PGProperty, __AddChoice)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -415,12 +415,12 @@ Gura_ImplementMethod(wx_PGProperty, AddChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, wxDEPRECATED)
+Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED, "wxDEPRECATED")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, wxDEPRECATED)
+Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -428,13 +428,13 @@ Gura_ImplementMethod(wx_PGProperty, wxDEPRECATED)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AddPrivateChild)
+Gura_DeclareMethodAlias(wx_PGProperty, __AddPrivateChild, "AddPrivateChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AddPrivateChild)
+Gura_ImplementMethod(wx_PGProperty, __AddPrivateChild)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -443,14 +443,14 @@ Gura_ImplementMethod(wx_PGProperty, AddPrivateChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AdaptListToValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __AdaptListToValue, "AdaptListToValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "list", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AdaptListToValue)
+Gura_ImplementMethod(wx_PGProperty, __AdaptListToValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,13 +460,13 @@ Gura_ImplementMethod(wx_PGProperty, AdaptListToValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AppendChild)
+Gura_DeclareMethodAlias(wx_PGProperty, __AppendChild, "AppendChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childProperty", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AppendChild)
+Gura_ImplementMethod(wx_PGProperty, __AppendChild)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -475,13 +475,13 @@ Gura_ImplementMethod(wx_PGProperty, AppendChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AreAllChildrenSpecified)
+Gura_DeclareMethodAlias(wx_PGProperty, __AreAllChildrenSpecified, "AreAllChildrenSpecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pendingList", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AreAllChildrenSpecified)
+Gura_ImplementMethod(wx_PGProperty, __AreAllChildrenSpecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -490,12 +490,12 @@ Gura_ImplementMethod(wx_PGProperty, AreAllChildrenSpecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, AreChildrenComponents)
+Gura_DeclareMethodAlias(wx_PGProperty, __AreChildrenComponents, "AreChildrenComponents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, AreChildrenComponents)
+Gura_ImplementMethod(wx_PGProperty, __AreChildrenComponents)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -503,14 +503,14 @@ Gura_ImplementMethod(wx_PGProperty, AreChildrenComponents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, ChangeFlag)
+Gura_DeclareMethodAlias(wx_PGProperty, __ChangeFlag, "ChangeFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, ChangeFlag)
+Gura_ImplementMethod(wx_PGProperty, __ChangeFlag)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -520,12 +520,12 @@ Gura_ImplementMethod(wx_PGProperty, ChangeFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DeleteChildren)
+Gura_DeclareMethodAlias(wx_PGProperty, __DeleteChildren, "DeleteChildren")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DeleteChildren)
+Gura_ImplementMethod(wx_PGProperty, __DeleteChildren)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -533,13 +533,13 @@ Gura_ImplementMethod(wx_PGProperty, DeleteChildren)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, DeleteChoice)
+Gura_DeclareMethodAlias(wx_PGProperty, __DeleteChoice, "DeleteChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, DeleteChoice)
+Gura_ImplementMethod(wx_PGProperty, __DeleteChoice)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -548,13 +548,13 @@ Gura_ImplementMethod(wx_PGProperty, DeleteChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, Enable)
+Gura_DeclareMethodAlias(wx_PGProperty, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, Enable)
+Gura_ImplementMethod(wx_PGProperty, __Enable)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -563,12 +563,12 @@ Gura_ImplementMethod(wx_PGProperty, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GenerateComposedValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __GenerateComposedValue, "GenerateComposedValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GenerateComposedValue)
+Gura_ImplementMethod(wx_PGProperty, __GenerateComposedValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -576,13 +576,13 @@ Gura_ImplementMethod(wx_PGProperty, GenerateComposedValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetAttribute)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetAttribute, "GetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetAttribute)
+Gura_ImplementMethod(wx_PGProperty, __GetAttribute)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -591,14 +591,14 @@ Gura_ImplementMethod(wx_PGProperty, GetAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetAttribute_1)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetAttribute_1, "GetAttribute_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetAttribute_1)
+Gura_ImplementMethod(wx_PGProperty, __GetAttribute_1)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -608,14 +608,14 @@ Gura_ImplementMethod(wx_PGProperty, GetAttribute_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetAttributeAsLong)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributeAsLong, "GetAttributeAsLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetAttributeAsLong)
+Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsLong)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -625,14 +625,14 @@ Gura_ImplementMethod(wx_PGProperty, GetAttributeAsLong)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetAttributeAsDouble)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributeAsDouble, "GetAttributeAsDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetAttributeAsDouble)
+Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsDouble)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -642,12 +642,12 @@ Gura_ImplementMethod(wx_PGProperty, GetAttributeAsDouble)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetAttributesAsList)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributesAsList, "GetAttributesAsList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetAttributesAsList)
+Gura_ImplementMethod(wx_PGProperty, __GetAttributesAsList)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -655,13 +655,13 @@ Gura_ImplementMethod(wx_PGProperty, GetAttributesAsList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetColumnEditor)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetColumnEditor, "GetColumnEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetColumnEditor)
+Gura_ImplementMethod(wx_PGProperty, __GetColumnEditor)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -670,12 +670,12 @@ Gura_ImplementMethod(wx_PGProperty, GetColumnEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetBaseName)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetBaseName, "GetBaseName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetBaseName)
+Gura_ImplementMethod(wx_PGProperty, __GetBaseName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -683,13 +683,13 @@ Gura_ImplementMethod(wx_PGProperty, GetBaseName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetCell)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetCell, "GetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetCell)
+Gura_ImplementMethod(wx_PGProperty, __GetCell)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -698,13 +698,13 @@ Gura_ImplementMethod(wx_PGProperty, GetCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetCell_1)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetCell_1, "GetCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetCell_1)
+Gura_ImplementMethod(wx_PGProperty, __GetCell_1)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -713,13 +713,13 @@ Gura_ImplementMethod(wx_PGProperty, GetCell_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetOrCreateCell)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetOrCreateCell, "GetOrCreateCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetOrCreateCell)
+Gura_ImplementMethod(wx_PGProperty, __GetOrCreateCell)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -728,12 +728,12 @@ Gura_ImplementMethod(wx_PGProperty, GetOrCreateCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetChildCount)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetChildCount, "GetChildCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetChildCount)
+Gura_ImplementMethod(wx_PGProperty, __GetChildCount)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -741,14 +741,14 @@ Gura_ImplementMethod(wx_PGProperty, GetChildCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetChildrenHeight)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetChildrenHeight, "GetChildrenHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lh", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iMax", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetChildrenHeight)
+Gura_ImplementMethod(wx_PGProperty, __GetChildrenHeight)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -758,12 +758,12 @@ Gura_ImplementMethod(wx_PGProperty, GetChildrenHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetChoices)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetChoices, "GetChoices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetChoices)
+Gura_ImplementMethod(wx_PGProperty, __GetChoices)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -771,12 +771,12 @@ Gura_ImplementMethod(wx_PGProperty, GetChoices)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetClientData)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetClientData)
+Gura_ImplementMethod(wx_PGProperty, __GetClientData)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -784,12 +784,12 @@ Gura_ImplementMethod(wx_PGProperty, GetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetClientObject)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetClientObject, "GetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetClientObject)
+Gura_ImplementMethod(wx_PGProperty, __GetClientObject)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -797,12 +797,12 @@ Gura_ImplementMethod(wx_PGProperty, GetClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetDefaultValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetDefaultValue, "GetDefaultValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetDefaultValue)
+Gura_ImplementMethod(wx_PGProperty, __GetDefaultValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -810,12 +810,12 @@ Gura_ImplementMethod(wx_PGProperty, GetDefaultValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetDisplayedString)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetDisplayedString, "GetDisplayedString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetDisplayedString)
+Gura_ImplementMethod(wx_PGProperty, __GetDisplayedString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -823,12 +823,12 @@ Gura_ImplementMethod(wx_PGProperty, GetDisplayedString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetEditorClass)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetEditorClass, "GetEditorClass")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetEditorClass)
+Gura_ImplementMethod(wx_PGProperty, __GetEditorClass)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -836,12 +836,12 @@ Gura_ImplementMethod(wx_PGProperty, GetEditorClass)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetFlags)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetFlags)
+Gura_ImplementMethod(wx_PGProperty, __GetFlags)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -849,12 +849,12 @@ Gura_ImplementMethod(wx_PGProperty, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetGrid)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetGrid, "GetGrid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetGrid)
+Gura_ImplementMethod(wx_PGProperty, __GetGrid)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -862,12 +862,12 @@ Gura_ImplementMethod(wx_PGProperty, GetGrid)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetGridIfDisplayed)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetGridIfDisplayed, "GetGridIfDisplayed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetGridIfDisplayed)
+Gura_ImplementMethod(wx_PGProperty, __GetGridIfDisplayed)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -875,12 +875,12 @@ Gura_ImplementMethod(wx_PGProperty, GetGridIfDisplayed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetHelpString)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetHelpString, "GetHelpString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetHelpString)
+Gura_ImplementMethod(wx_PGProperty, __GetHelpString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -888,12 +888,12 @@ Gura_ImplementMethod(wx_PGProperty, GetHelpString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetIndexInParent)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetIndexInParent, "GetIndexInParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetIndexInParent)
+Gura_ImplementMethod(wx_PGProperty, __GetIndexInParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -901,12 +901,12 @@ Gura_ImplementMethod(wx_PGProperty, GetIndexInParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetLabel)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetLabel, "GetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetLabel)
+Gura_ImplementMethod(wx_PGProperty, __GetLabel)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -914,12 +914,12 @@ Gura_ImplementMethod(wx_PGProperty, GetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetLastVisibleSubItem)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetLastVisibleSubItem, "GetLastVisibleSubItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetLastVisibleSubItem)
+Gura_ImplementMethod(wx_PGProperty, __GetLastVisibleSubItem)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -927,12 +927,12 @@ Gura_ImplementMethod(wx_PGProperty, GetLastVisibleSubItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetMainParent)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetMainParent, "GetMainParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetMainParent)
+Gura_ImplementMethod(wx_PGProperty, __GetMainParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -940,12 +940,12 @@ Gura_ImplementMethod(wx_PGProperty, GetMainParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetMaxLength)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetMaxLength, "GetMaxLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetMaxLength)
+Gura_ImplementMethod(wx_PGProperty, __GetMaxLength)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -953,12 +953,12 @@ Gura_ImplementMethod(wx_PGProperty, GetMaxLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetName)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetName)
+Gura_ImplementMethod(wx_PGProperty, __GetName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -966,12 +966,12 @@ Gura_ImplementMethod(wx_PGProperty, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetParent)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetParent, "GetParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetParent)
+Gura_ImplementMethod(wx_PGProperty, __GetParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -979,13 +979,13 @@ Gura_ImplementMethod(wx_PGProperty, GetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetPropertyByName)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetPropertyByName, "GetPropertyByName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetPropertyByName)
+Gura_ImplementMethod(wx_PGProperty, __GetPropertyByName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -994,12 +994,12 @@ Gura_ImplementMethod(wx_PGProperty, GetPropertyByName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetValidator)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetValidator, "GetValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetValidator)
+Gura_ImplementMethod(wx_PGProperty, __GetValidator)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1007,12 +1007,12 @@ Gura_ImplementMethod(wx_PGProperty, GetValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetValue)
+Gura_ImplementMethod(wx_PGProperty, __GetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1020,12 +1020,12 @@ Gura_ImplementMethod(wx_PGProperty, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetValueImage)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetValueImage, "GetValueImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetValueImage)
+Gura_ImplementMethod(wx_PGProperty, __GetValueImage)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1033,13 +1033,13 @@ Gura_ImplementMethod(wx_PGProperty, GetValueImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetValueAsString)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetValueAsString, "GetValueAsString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetValueAsString)
+Gura_ImplementMethod(wx_PGProperty, __GetValueAsString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1048,13 +1048,13 @@ Gura_ImplementMethod(wx_PGProperty, GetValueAsString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, wxDEPRECATED_1)
+Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED_1, "wxDEPRECATED_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, wxDEPRECATED_1)
+Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED_1)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1063,12 +1063,12 @@ Gura_ImplementMethod(wx_PGProperty, wxDEPRECATED_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetValueType)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetValueType, "GetValueType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetValueType)
+Gura_ImplementMethod(wx_PGProperty, __GetValueType)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1076,12 +1076,12 @@ Gura_ImplementMethod(wx_PGProperty, GetValueType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, GetY)
+Gura_DeclareMethodAlias(wx_PGProperty, __GetY, "GetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, GetY)
+Gura_ImplementMethod(wx_PGProperty, __GetY)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1089,13 +1089,13 @@ Gura_ImplementMethod(wx_PGProperty, GetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, HasFlag)
+Gura_DeclareMethodAlias(wx_PGProperty, __HasFlag, "HasFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, HasFlag)
+Gura_ImplementMethod(wx_PGProperty, __HasFlag)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1104,12 +1104,12 @@ Gura_ImplementMethod(wx_PGProperty, HasFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, HasVisibleChildren)
+Gura_DeclareMethodAlias(wx_PGProperty, __HasVisibleChildren, "HasVisibleChildren")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, HasVisibleChildren)
+Gura_ImplementMethod(wx_PGProperty, __HasVisibleChildren)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1117,14 +1117,14 @@ Gura_ImplementMethod(wx_PGProperty, HasVisibleChildren)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, Hide)
+Gura_DeclareMethodAlias(wx_PGProperty, __Hide, "Hide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hide", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, Hide)
+Gura_ImplementMethod(wx_PGProperty, __Hide)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1134,13 +1134,13 @@ Gura_ImplementMethod(wx_PGProperty, Hide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, Index)
+Gura_DeclareMethodAlias(wx_PGProperty, __Index, "Index")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, Index)
+Gura_ImplementMethod(wx_PGProperty, __Index)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1149,14 +1149,14 @@ Gura_ImplementMethod(wx_PGProperty, Index)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, InsertChild)
+Gura_DeclareMethodAlias(wx_PGProperty, __InsertChild, "InsertChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childProperty", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, InsertChild)
+Gura_ImplementMethod(wx_PGProperty, __InsertChild)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1166,7 +1166,7 @@ Gura_ImplementMethod(wx_PGProperty, InsertChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, InsertChoice)
+Gura_DeclareMethodAlias(wx_PGProperty, __InsertChoice, "InsertChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -1174,7 +1174,7 @@ Gura_DeclareMethod(wx_PGProperty, InsertChoice)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, InsertChoice)
+Gura_ImplementMethod(wx_PGProperty, __InsertChoice)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1185,12 +1185,12 @@ Gura_ImplementMethod(wx_PGProperty, InsertChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsCategory)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsCategory, "IsCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsCategory)
+Gura_ImplementMethod(wx_PGProperty, __IsCategory)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1198,12 +1198,12 @@ Gura_ImplementMethod(wx_PGProperty, IsCategory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsEnabled)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsEnabled, "IsEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsEnabled)
+Gura_ImplementMethod(wx_PGProperty, __IsEnabled)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1211,12 +1211,12 @@ Gura_ImplementMethod(wx_PGProperty, IsEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsExpanded)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsExpanded, "IsExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsExpanded)
+Gura_ImplementMethod(wx_PGProperty, __IsExpanded)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1224,12 +1224,12 @@ Gura_ImplementMethod(wx_PGProperty, IsExpanded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsRoot)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsRoot, "IsRoot")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsRoot)
+Gura_ImplementMethod(wx_PGProperty, __IsRoot)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1237,13 +1237,13 @@ Gura_ImplementMethod(wx_PGProperty, IsRoot)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsSomeParent)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsSomeParent, "IsSomeParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "candidateParent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsSomeParent)
+Gura_ImplementMethod(wx_PGProperty, __IsSomeParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1252,12 +1252,12 @@ Gura_ImplementMethod(wx_PGProperty, IsSomeParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsTextEditable)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsTextEditable, "IsTextEditable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsTextEditable)
+Gura_ImplementMethod(wx_PGProperty, __IsTextEditable)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1265,12 +1265,12 @@ Gura_ImplementMethod(wx_PGProperty, IsTextEditable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsValueUnspecified)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsValueUnspecified, "IsValueUnspecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsValueUnspecified)
+Gura_ImplementMethod(wx_PGProperty, __IsValueUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1278,12 +1278,12 @@ Gura_ImplementMethod(wx_PGProperty, IsValueUnspecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, IsVisible)
+Gura_DeclareMethodAlias(wx_PGProperty, __IsVisible, "IsVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, IsVisible)
+Gura_ImplementMethod(wx_PGProperty, __IsVisible)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1291,13 +1291,13 @@ Gura_ImplementMethod(wx_PGProperty, IsVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, Item)
+Gura_DeclareMethodAlias(wx_PGProperty, __Item, "Item")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, Item)
+Gura_ImplementMethod(wx_PGProperty, __Item)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1306,12 +1306,12 @@ Gura_ImplementMethod(wx_PGProperty, Item)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, RefreshEditor)
+Gura_DeclareMethodAlias(wx_PGProperty, __RefreshEditor, "RefreshEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, RefreshEditor)
+Gura_ImplementMethod(wx_PGProperty, __RefreshEditor)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1319,14 +1319,14 @@ Gura_ImplementMethod(wx_PGProperty, RefreshEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetAttribute)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetAttribute, "SetAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetAttribute)
+Gura_ImplementMethod(wx_PGProperty, __SetAttribute)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1336,13 +1336,13 @@ Gura_ImplementMethod(wx_PGProperty, SetAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetAutoUnspecified)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetAutoUnspecified, "SetAutoUnspecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetAutoUnspecified)
+Gura_ImplementMethod(wx_PGProperty, __SetAutoUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1351,14 +1351,14 @@ Gura_ImplementMethod(wx_PGProperty, SetAutoUnspecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetBackgroundColour)
+Gura_ImplementMethod(wx_PGProperty, __SetBackgroundColour)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1368,13 +1368,13 @@ Gura_ImplementMethod(wx_PGProperty, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetEditor)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetEditor, "SetEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "editor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetEditor)
+Gura_ImplementMethod(wx_PGProperty, __SetEditor)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1383,13 +1383,13 @@ Gura_ImplementMethod(wx_PGProperty, SetEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetEditor_1)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetEditor_1, "SetEditor_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "editorName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetEditor_1)
+Gura_ImplementMethod(wx_PGProperty, __SetEditor_1)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1398,14 +1398,14 @@ Gura_ImplementMethod(wx_PGProperty, SetEditor_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetCell)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetCell, "SetCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetCell)
+Gura_ImplementMethod(wx_PGProperty, __SetCell)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1415,13 +1415,13 @@ Gura_ImplementMethod(wx_PGProperty, SetCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetChoices)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetChoices, "SetChoices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetChoices)
+Gura_ImplementMethod(wx_PGProperty, __SetChoices)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1430,13 +1430,13 @@ Gura_ImplementMethod(wx_PGProperty, SetChoices)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetClientData)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetClientData, "SetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetClientData)
+Gura_ImplementMethod(wx_PGProperty, __SetClientData)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1445,13 +1445,13 @@ Gura_ImplementMethod(wx_PGProperty, SetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetClientObject)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetClientObject, "SetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clientObject", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetClientObject)
+Gura_ImplementMethod(wx_PGProperty, __SetClientObject)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1460,13 +1460,13 @@ Gura_ImplementMethod(wx_PGProperty, SetClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetChoiceSelection)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetChoiceSelection, "SetChoiceSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "newValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetChoiceSelection)
+Gura_ImplementMethod(wx_PGProperty, __SetChoiceSelection)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1475,13 +1475,13 @@ Gura_ImplementMethod(wx_PGProperty, SetChoiceSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetDefaultValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetDefaultValue, "SetDefaultValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetDefaultValue)
+Gura_ImplementMethod(wx_PGProperty, __SetDefaultValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1490,14 +1490,14 @@ Gura_ImplementMethod(wx_PGProperty, SetDefaultValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetFlagRecursively)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetFlagRecursively, "SetFlagRecursively")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetFlagRecursively)
+Gura_ImplementMethod(wx_PGProperty, __SetFlagRecursively)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1507,13 +1507,13 @@ Gura_ImplementMethod(wx_PGProperty, SetFlagRecursively)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetHelpString)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetHelpString, "SetHelpString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "helpString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetHelpString)
+Gura_ImplementMethod(wx_PGProperty, __SetHelpString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1522,13 +1522,13 @@ Gura_ImplementMethod(wx_PGProperty, SetHelpString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetLabel)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetLabel, "SetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetLabel)
+Gura_ImplementMethod(wx_PGProperty, __SetLabel)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1537,13 +1537,13 @@ Gura_ImplementMethod(wx_PGProperty, SetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetMaxLength)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetMaxLength, "SetMaxLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxLen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetMaxLength)
+Gura_ImplementMethod(wx_PGProperty, __SetMaxLength)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1552,13 +1552,13 @@ Gura_ImplementMethod(wx_PGProperty, SetMaxLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetModifiedStatus)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetModifiedStatus, "SetModifiedStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "modified", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetModifiedStatus)
+Gura_ImplementMethod(wx_PGProperty, __SetModifiedStatus)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1567,13 +1567,13 @@ Gura_ImplementMethod(wx_PGProperty, SetModifiedStatus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetName)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "newName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetName)
+Gura_ImplementMethod(wx_PGProperty, __SetName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1582,13 +1582,13 @@ Gura_ImplementMethod(wx_PGProperty, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetParentalType)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetParentalType, "SetParentalType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetParentalType)
+Gura_ImplementMethod(wx_PGProperty, __SetParentalType)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1597,14 +1597,14 @@ Gura_ImplementMethod(wx_PGProperty, SetParentalType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetTextColour)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetTextColour, "SetTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetTextColour)
+Gura_ImplementMethod(wx_PGProperty, __SetTextColour)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1614,13 +1614,13 @@ Gura_ImplementMethod(wx_PGProperty, SetTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValidator)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValidator, "SetValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValidator)
+Gura_ImplementMethod(wx_PGProperty, __SetValidator)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1629,7 +1629,7 @@ Gura_ImplementMethod(wx_PGProperty, SetValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValue)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -1637,7 +1637,7 @@ Gura_DeclareMethod(wx_PGProperty, SetValue)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValue)
+Gura_ImplementMethod(wx_PGProperty, __SetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1648,13 +1648,13 @@ Gura_ImplementMethod(wx_PGProperty, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValueImage)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValueImage, "SetValueImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValueImage)
+Gura_ImplementMethod(wx_PGProperty, __SetValueImage)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1663,13 +1663,13 @@ Gura_ImplementMethod(wx_PGProperty, SetValueImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValueInEvent)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValueInEvent, "SetValueInEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValueInEvent)
+Gura_ImplementMethod(wx_PGProperty, __SetValueInEvent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1678,12 +1678,12 @@ Gura_ImplementMethod(wx_PGProperty, SetValueInEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetValueToUnspecified)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetValueToUnspecified, "SetValueToUnspecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetValueToUnspecified)
+Gura_ImplementMethod(wx_PGProperty, __SetValueToUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1691,13 +1691,13 @@ Gura_ImplementMethod(wx_PGProperty, SetValueToUnspecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, SetWasModified)
+Gura_DeclareMethodAlias(wx_PGProperty, __SetWasModified, "SetWasModified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGProperty, SetWasModified)
+Gura_ImplementMethod(wx_PGProperty, __SetWasModified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1706,12 +1706,12 @@ Gura_ImplementMethod(wx_PGProperty, SetWasModified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, UpdateParentValues)
+Gura_DeclareMethodAlias(wx_PGProperty, __UpdateParentValues, "UpdateParentValues")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, UpdateParentValues)
+Gura_ImplementMethod(wx_PGProperty, __UpdateParentValues)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1719,12 +1719,12 @@ Gura_ImplementMethod(wx_PGProperty, UpdateParentValues)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, UsesAutoUnspecified)
+Gura_DeclareMethodAlias(wx_PGProperty, __UsesAutoUnspecified, "UsesAutoUnspecified")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, UsesAutoUnspecified)
+Gura_ImplementMethod(wx_PGProperty, __UsesAutoUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1732,12 +1732,12 @@ Gura_ImplementMethod(wx_PGProperty, UsesAutoUnspecified)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGProperty, Empty)
+Gura_DeclareMethodAlias(wx_PGProperty, __Empty, "Empty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGProperty, Empty)
+Gura_ImplementMethod(wx_PGProperty, __Empty)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1750,122 +1750,122 @@ Gura_ImplementMethod(wx_PGProperty, Empty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGProperty)
 {
-	Gura_AssignMethod(wx_PGProperty, wxPGProperty);
-	Gura_AssignMethod(wx_PGProperty, wxPGProperty_1);
-	Gura_AssignMethod(wx_PGProperty, OnSetValue);
-	Gura_AssignMethod(wx_PGProperty, DoGetValue);
-	Gura_AssignMethod(wx_PGProperty, ValidateValue);
-	Gura_AssignMethod(wx_PGProperty, StringToValue);
-	Gura_AssignMethod(wx_PGProperty, IntToValue);
-	Gura_AssignMethod(wx_PGProperty, ValueToString);
-	Gura_AssignMethod(wx_PGProperty, SetValueFromString);
-	Gura_AssignMethod(wx_PGProperty, SetValueFromInt);
-	Gura_AssignMethod(wx_PGProperty, OnMeasureImage);
-	Gura_AssignMethod(wx_PGProperty, OnEvent);
-	Gura_AssignMethod(wx_PGProperty, ChildChanged);
-	Gura_AssignMethod(wx_PGProperty, DoGetEditorClass);
-	Gura_AssignMethod(wx_PGProperty, DoGetValidator);
-	Gura_AssignMethod(wx_PGProperty, OnCustomPaint);
-	Gura_AssignMethod(wx_PGProperty, GetCellRenderer);
-	Gura_AssignMethod(wx_PGProperty, GetChoiceSelection);
-	Gura_AssignMethod(wx_PGProperty, RefreshChildren);
-	Gura_AssignMethod(wx_PGProperty, DoSetAttribute);
-	Gura_AssignMethod(wx_PGProperty, DoGetAttribute);
-	Gura_AssignMethod(wx_PGProperty, GetEditorDialog);
-	Gura_AssignMethod(wx_PGProperty, OnValidationFailure);
-	Gura_AssignMethod(wx_PGProperty, AddChoice);
-	Gura_AssignMethod(wx_PGProperty, wxDEPRECATED);
-	Gura_AssignMethod(wx_PGProperty, AddPrivateChild);
-	Gura_AssignMethod(wx_PGProperty, AdaptListToValue);
-	Gura_AssignMethod(wx_PGProperty, AppendChild);
-	Gura_AssignMethod(wx_PGProperty, AreAllChildrenSpecified);
-	Gura_AssignMethod(wx_PGProperty, AreChildrenComponents);
-	Gura_AssignMethod(wx_PGProperty, ChangeFlag);
-	Gura_AssignMethod(wx_PGProperty, DeleteChildren);
-	Gura_AssignMethod(wx_PGProperty, DeleteChoice);
-	Gura_AssignMethod(wx_PGProperty, Enable);
-	Gura_AssignMethod(wx_PGProperty, GenerateComposedValue);
-	Gura_AssignMethod(wx_PGProperty, GetAttribute);
-	Gura_AssignMethod(wx_PGProperty, GetAttribute_1);
-	Gura_AssignMethod(wx_PGProperty, GetAttributeAsLong);
-	Gura_AssignMethod(wx_PGProperty, GetAttributeAsDouble);
-	Gura_AssignMethod(wx_PGProperty, GetAttributesAsList);
-	Gura_AssignMethod(wx_PGProperty, GetColumnEditor);
-	Gura_AssignMethod(wx_PGProperty, GetBaseName);
-	Gura_AssignMethod(wx_PGProperty, GetCell);
-	Gura_AssignMethod(wx_PGProperty, GetCell_1);
-	Gura_AssignMethod(wx_PGProperty, GetOrCreateCell);
-	Gura_AssignMethod(wx_PGProperty, GetChildCount);
-	Gura_AssignMethod(wx_PGProperty, GetChildrenHeight);
-	Gura_AssignMethod(wx_PGProperty, GetChoices);
-	Gura_AssignMethod(wx_PGProperty, GetClientData);
-	Gura_AssignMethod(wx_PGProperty, GetClientObject);
-	Gura_AssignMethod(wx_PGProperty, GetDefaultValue);
-	Gura_AssignMethod(wx_PGProperty, GetDisplayedString);
-	Gura_AssignMethod(wx_PGProperty, GetEditorClass);
-	Gura_AssignMethod(wx_PGProperty, GetFlags);
-	Gura_AssignMethod(wx_PGProperty, GetGrid);
-	Gura_AssignMethod(wx_PGProperty, GetGridIfDisplayed);
-	Gura_AssignMethod(wx_PGProperty, GetHelpString);
-	Gura_AssignMethod(wx_PGProperty, GetIndexInParent);
-	Gura_AssignMethod(wx_PGProperty, GetLabel);
-	Gura_AssignMethod(wx_PGProperty, GetLastVisibleSubItem);
-	Gura_AssignMethod(wx_PGProperty, GetMainParent);
-	Gura_AssignMethod(wx_PGProperty, GetMaxLength);
-	Gura_AssignMethod(wx_PGProperty, GetName);
-	Gura_AssignMethod(wx_PGProperty, GetParent);
-	Gura_AssignMethod(wx_PGProperty, GetPropertyByName);
-	Gura_AssignMethod(wx_PGProperty, GetValidator);
-	Gura_AssignMethod(wx_PGProperty, GetValue);
-	Gura_AssignMethod(wx_PGProperty, GetValueImage);
-	Gura_AssignMethod(wx_PGProperty, GetValueAsString);
-	Gura_AssignMethod(wx_PGProperty, wxDEPRECATED_1);
-	Gura_AssignMethod(wx_PGProperty, GetValueType);
-	Gura_AssignMethod(wx_PGProperty, GetY);
-	Gura_AssignMethod(wx_PGProperty, HasFlag);
-	Gura_AssignMethod(wx_PGProperty, HasVisibleChildren);
-	Gura_AssignMethod(wx_PGProperty, Hide);
-	Gura_AssignMethod(wx_PGProperty, Index);
-	Gura_AssignMethod(wx_PGProperty, InsertChild);
-	Gura_AssignMethod(wx_PGProperty, InsertChoice);
-	Gura_AssignMethod(wx_PGProperty, IsCategory);
-	Gura_AssignMethod(wx_PGProperty, IsEnabled);
-	Gura_AssignMethod(wx_PGProperty, IsExpanded);
-	Gura_AssignMethod(wx_PGProperty, IsRoot);
-	Gura_AssignMethod(wx_PGProperty, IsSomeParent);
-	Gura_AssignMethod(wx_PGProperty, IsTextEditable);
-	Gura_AssignMethod(wx_PGProperty, IsValueUnspecified);
-	Gura_AssignMethod(wx_PGProperty, IsVisible);
-	Gura_AssignMethod(wx_PGProperty, Item);
-	Gura_AssignMethod(wx_PGProperty, RefreshEditor);
-	Gura_AssignMethod(wx_PGProperty, SetAttribute);
-	Gura_AssignMethod(wx_PGProperty, SetAutoUnspecified);
-	Gura_AssignMethod(wx_PGProperty, SetBackgroundColour);
-	Gura_AssignMethod(wx_PGProperty, SetEditor);
-	Gura_AssignMethod(wx_PGProperty, SetEditor_1);
-	Gura_AssignMethod(wx_PGProperty, SetCell);
-	Gura_AssignMethod(wx_PGProperty, SetChoices);
-	Gura_AssignMethod(wx_PGProperty, SetClientData);
-	Gura_AssignMethod(wx_PGProperty, SetClientObject);
-	Gura_AssignMethod(wx_PGProperty, SetChoiceSelection);
-	Gura_AssignMethod(wx_PGProperty, SetDefaultValue);
-	Gura_AssignMethod(wx_PGProperty, SetFlagRecursively);
-	Gura_AssignMethod(wx_PGProperty, SetHelpString);
-	Gura_AssignMethod(wx_PGProperty, SetLabel);
-	Gura_AssignMethod(wx_PGProperty, SetMaxLength);
-	Gura_AssignMethod(wx_PGProperty, SetModifiedStatus);
-	Gura_AssignMethod(wx_PGProperty, SetName);
-	Gura_AssignMethod(wx_PGProperty, SetParentalType);
-	Gura_AssignMethod(wx_PGProperty, SetTextColour);
-	Gura_AssignMethod(wx_PGProperty, SetValidator);
-	Gura_AssignMethod(wx_PGProperty, SetValue);
-	Gura_AssignMethod(wx_PGProperty, SetValueImage);
-	Gura_AssignMethod(wx_PGProperty, SetValueInEvent);
-	Gura_AssignMethod(wx_PGProperty, SetValueToUnspecified);
-	Gura_AssignMethod(wx_PGProperty, SetWasModified);
-	Gura_AssignMethod(wx_PGProperty, UpdateParentValues);
-	Gura_AssignMethod(wx_PGProperty, UsesAutoUnspecified);
-	Gura_AssignMethod(wx_PGProperty, Empty);
+	Gura_AssignMethod(wx_PGProperty, __wxPGProperty);
+	Gura_AssignMethod(wx_PGProperty, __wxPGProperty_1);
+	Gura_AssignMethod(wx_PGProperty, __OnSetValue);
+	Gura_AssignMethod(wx_PGProperty, __DoGetValue);
+	Gura_AssignMethod(wx_PGProperty, __ValidateValue);
+	Gura_AssignMethod(wx_PGProperty, __StringToValue);
+	Gura_AssignMethod(wx_PGProperty, __IntToValue);
+	Gura_AssignMethod(wx_PGProperty, __ValueToString);
+	Gura_AssignMethod(wx_PGProperty, __SetValueFromString);
+	Gura_AssignMethod(wx_PGProperty, __SetValueFromInt);
+	Gura_AssignMethod(wx_PGProperty, __OnMeasureImage);
+	Gura_AssignMethod(wx_PGProperty, __OnEvent);
+	Gura_AssignMethod(wx_PGProperty, __ChildChanged);
+	Gura_AssignMethod(wx_PGProperty, __DoGetEditorClass);
+	Gura_AssignMethod(wx_PGProperty, __DoGetValidator);
+	Gura_AssignMethod(wx_PGProperty, __OnCustomPaint);
+	Gura_AssignMethod(wx_PGProperty, __GetCellRenderer);
+	Gura_AssignMethod(wx_PGProperty, __GetChoiceSelection);
+	Gura_AssignMethod(wx_PGProperty, __RefreshChildren);
+	Gura_AssignMethod(wx_PGProperty, __DoSetAttribute);
+	Gura_AssignMethod(wx_PGProperty, __DoGetAttribute);
+	Gura_AssignMethod(wx_PGProperty, __GetEditorDialog);
+	Gura_AssignMethod(wx_PGProperty, __OnValidationFailure);
+	Gura_AssignMethod(wx_PGProperty, __AddChoice);
+	Gura_AssignMethod(wx_PGProperty, __wxDEPRECATED);
+	Gura_AssignMethod(wx_PGProperty, __AddPrivateChild);
+	Gura_AssignMethod(wx_PGProperty, __AdaptListToValue);
+	Gura_AssignMethod(wx_PGProperty, __AppendChild);
+	Gura_AssignMethod(wx_PGProperty, __AreAllChildrenSpecified);
+	Gura_AssignMethod(wx_PGProperty, __AreChildrenComponents);
+	Gura_AssignMethod(wx_PGProperty, __ChangeFlag);
+	Gura_AssignMethod(wx_PGProperty, __DeleteChildren);
+	Gura_AssignMethod(wx_PGProperty, __DeleteChoice);
+	Gura_AssignMethod(wx_PGProperty, __Enable);
+	Gura_AssignMethod(wx_PGProperty, __GenerateComposedValue);
+	Gura_AssignMethod(wx_PGProperty, __GetAttribute);
+	Gura_AssignMethod(wx_PGProperty, __GetAttribute_1);
+	Gura_AssignMethod(wx_PGProperty, __GetAttributeAsLong);
+	Gura_AssignMethod(wx_PGProperty, __GetAttributeAsDouble);
+	Gura_AssignMethod(wx_PGProperty, __GetAttributesAsList);
+	Gura_AssignMethod(wx_PGProperty, __GetColumnEditor);
+	Gura_AssignMethod(wx_PGProperty, __GetBaseName);
+	Gura_AssignMethod(wx_PGProperty, __GetCell);
+	Gura_AssignMethod(wx_PGProperty, __GetCell_1);
+	Gura_AssignMethod(wx_PGProperty, __GetOrCreateCell);
+	Gura_AssignMethod(wx_PGProperty, __GetChildCount);
+	Gura_AssignMethod(wx_PGProperty, __GetChildrenHeight);
+	Gura_AssignMethod(wx_PGProperty, __GetChoices);
+	Gura_AssignMethod(wx_PGProperty, __GetClientData);
+	Gura_AssignMethod(wx_PGProperty, __GetClientObject);
+	Gura_AssignMethod(wx_PGProperty, __GetDefaultValue);
+	Gura_AssignMethod(wx_PGProperty, __GetDisplayedString);
+	Gura_AssignMethod(wx_PGProperty, __GetEditorClass);
+	Gura_AssignMethod(wx_PGProperty, __GetFlags);
+	Gura_AssignMethod(wx_PGProperty, __GetGrid);
+	Gura_AssignMethod(wx_PGProperty, __GetGridIfDisplayed);
+	Gura_AssignMethod(wx_PGProperty, __GetHelpString);
+	Gura_AssignMethod(wx_PGProperty, __GetIndexInParent);
+	Gura_AssignMethod(wx_PGProperty, __GetLabel);
+	Gura_AssignMethod(wx_PGProperty, __GetLastVisibleSubItem);
+	Gura_AssignMethod(wx_PGProperty, __GetMainParent);
+	Gura_AssignMethod(wx_PGProperty, __GetMaxLength);
+	Gura_AssignMethod(wx_PGProperty, __GetName);
+	Gura_AssignMethod(wx_PGProperty, __GetParent);
+	Gura_AssignMethod(wx_PGProperty, __GetPropertyByName);
+	Gura_AssignMethod(wx_PGProperty, __GetValidator);
+	Gura_AssignMethod(wx_PGProperty, __GetValue);
+	Gura_AssignMethod(wx_PGProperty, __GetValueImage);
+	Gura_AssignMethod(wx_PGProperty, __GetValueAsString);
+	Gura_AssignMethod(wx_PGProperty, __wxDEPRECATED_1);
+	Gura_AssignMethod(wx_PGProperty, __GetValueType);
+	Gura_AssignMethod(wx_PGProperty, __GetY);
+	Gura_AssignMethod(wx_PGProperty, __HasFlag);
+	Gura_AssignMethod(wx_PGProperty, __HasVisibleChildren);
+	Gura_AssignMethod(wx_PGProperty, __Hide);
+	Gura_AssignMethod(wx_PGProperty, __Index);
+	Gura_AssignMethod(wx_PGProperty, __InsertChild);
+	Gura_AssignMethod(wx_PGProperty, __InsertChoice);
+	Gura_AssignMethod(wx_PGProperty, __IsCategory);
+	Gura_AssignMethod(wx_PGProperty, __IsEnabled);
+	Gura_AssignMethod(wx_PGProperty, __IsExpanded);
+	Gura_AssignMethod(wx_PGProperty, __IsRoot);
+	Gura_AssignMethod(wx_PGProperty, __IsSomeParent);
+	Gura_AssignMethod(wx_PGProperty, __IsTextEditable);
+	Gura_AssignMethod(wx_PGProperty, __IsValueUnspecified);
+	Gura_AssignMethod(wx_PGProperty, __IsVisible);
+	Gura_AssignMethod(wx_PGProperty, __Item);
+	Gura_AssignMethod(wx_PGProperty, __RefreshEditor);
+	Gura_AssignMethod(wx_PGProperty, __SetAttribute);
+	Gura_AssignMethod(wx_PGProperty, __SetAutoUnspecified);
+	Gura_AssignMethod(wx_PGProperty, __SetBackgroundColour);
+	Gura_AssignMethod(wx_PGProperty, __SetEditor);
+	Gura_AssignMethod(wx_PGProperty, __SetEditor_1);
+	Gura_AssignMethod(wx_PGProperty, __SetCell);
+	Gura_AssignMethod(wx_PGProperty, __SetChoices);
+	Gura_AssignMethod(wx_PGProperty, __SetClientData);
+	Gura_AssignMethod(wx_PGProperty, __SetClientObject);
+	Gura_AssignMethod(wx_PGProperty, __SetChoiceSelection);
+	Gura_AssignMethod(wx_PGProperty, __SetDefaultValue);
+	Gura_AssignMethod(wx_PGProperty, __SetFlagRecursively);
+	Gura_AssignMethod(wx_PGProperty, __SetHelpString);
+	Gura_AssignMethod(wx_PGProperty, __SetLabel);
+	Gura_AssignMethod(wx_PGProperty, __SetMaxLength);
+	Gura_AssignMethod(wx_PGProperty, __SetModifiedStatus);
+	Gura_AssignMethod(wx_PGProperty, __SetName);
+	Gura_AssignMethod(wx_PGProperty, __SetParentalType);
+	Gura_AssignMethod(wx_PGProperty, __SetTextColour);
+	Gura_AssignMethod(wx_PGProperty, __SetValidator);
+	Gura_AssignMethod(wx_PGProperty, __SetValue);
+	Gura_AssignMethod(wx_PGProperty, __SetValueImage);
+	Gura_AssignMethod(wx_PGProperty, __SetValueInEvent);
+	Gura_AssignMethod(wx_PGProperty, __SetValueToUnspecified);
+	Gura_AssignMethod(wx_PGProperty, __SetWasModified);
+	Gura_AssignMethod(wx_PGProperty, __UpdateParentValues);
+	Gura_AssignMethod(wx_PGProperty, __UsesAutoUnspecified);
+	Gura_AssignMethod(wx_PGProperty, __Empty);
 }
 
 Gura_ImplementDescendantCreator(wx_PGProperty)

@@ -37,14 +37,14 @@ String Object_wx_AppProgressIndicator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AppProgressIndicator, wxAppProgressIndicator)
+Gura_DeclareMethodAlias(wx_AppProgressIndicator, __wxAppProgressIndicator, "wxAppProgressIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, wxAppProgressIndicator)
+Gura_ImplementMethod(wx_AppProgressIndicator, __wxAppProgressIndicator)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_AppProgressIndicator, wxAppProgressIndicator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppProgressIndicator, IsAvailable)
+Gura_DeclareMethodAlias(wx_AppProgressIndicator, __IsAvailable, "IsAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, IsAvailable)
+Gura_ImplementMethod(wx_AppProgressIndicator, __IsAvailable)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_AppProgressIndicator, IsAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppProgressIndicator, SetValue)
+Gura_DeclareMethodAlias(wx_AppProgressIndicator, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, SetValue)
+Gura_ImplementMethod(wx_AppProgressIndicator, __SetValue)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_AppProgressIndicator, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppProgressIndicator, SetRange)
+Gura_DeclareMethodAlias(wx_AppProgressIndicator, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, SetRange)
+Gura_ImplementMethod(wx_AppProgressIndicator, __SetRange)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_AppProgressIndicator, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppProgressIndicator, Pulse)
+Gura_DeclareMethodAlias(wx_AppProgressIndicator, __Pulse, "Pulse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppProgressIndicator, Pulse)
+Gura_ImplementMethod(wx_AppProgressIndicator, __Pulse)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,11 +115,11 @@ Gura_ImplementMethod(wx_AppProgressIndicator, Pulse)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppProgressIndicator)
 {
-	Gura_AssignMethod(wx_AppProgressIndicator, wxAppProgressIndicator);
-	Gura_AssignMethod(wx_AppProgressIndicator, IsAvailable);
-	Gura_AssignMethod(wx_AppProgressIndicator, SetValue);
-	Gura_AssignMethod(wx_AppProgressIndicator, SetRange);
-	Gura_AssignMethod(wx_AppProgressIndicator, Pulse);
+	Gura_AssignMethod(wx_AppProgressIndicator, __wxAppProgressIndicator);
+	Gura_AssignMethod(wx_AppProgressIndicator, __IsAvailable);
+	Gura_AssignMethod(wx_AppProgressIndicator, __SetValue);
+	Gura_AssignMethod(wx_AppProgressIndicator, __SetRange);
+	Gura_AssignMethod(wx_AppProgressIndicator, __Pulse);
 }
 
 Gura_ImplementDescendantCreator(wx_AppProgressIndicator)

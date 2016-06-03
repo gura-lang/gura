@@ -37,12 +37,12 @@ String Object_wx_GLContextAttrs::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GLContextAttrs, CoreProfile)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __CoreProfile, "CoreProfile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, CoreProfile)
+Gura_ImplementMethod(wx_GLContextAttrs, __CoreProfile)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_GLContextAttrs, CoreProfile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, MajorVersion)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __MajorVersion, "MajorVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, MajorVersion)
+Gura_ImplementMethod(wx_GLContextAttrs, __MajorVersion)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_GLContextAttrs, MajorVersion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, MinorVersion)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __MinorVersion, "MinorVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, MinorVersion)
+Gura_ImplementMethod(wx_GLContextAttrs, __MinorVersion)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_GLContextAttrs, MinorVersion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, OGLVersion)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __OGLVersion, "OGLVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "vmayor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vminor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, OGLVersion)
+Gura_ImplementMethod(wx_GLContextAttrs, __OGLVersion)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, OGLVersion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, CompatibilityProfile)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __CompatibilityProfile, "CompatibilityProfile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, CompatibilityProfile)
+Gura_ImplementMethod(wx_GLContextAttrs, __CompatibilityProfile)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, CompatibilityProfile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, ForwardCompatible)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __ForwardCompatible, "ForwardCompatible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, ForwardCompatible)
+Gura_ImplementMethod(wx_GLContextAttrs, __ForwardCompatible)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, ForwardCompatible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, ES2)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __ES2, "ES2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, ES2)
+Gura_ImplementMethod(wx_GLContextAttrs, __ES2)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, ES2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, DebugCtx)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __DebugCtx, "DebugCtx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, DebugCtx)
+Gura_ImplementMethod(wx_GLContextAttrs, __DebugCtx)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, DebugCtx)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, Robust)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __Robust, "Robust")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, Robust)
+Gura_ImplementMethod(wx_GLContextAttrs, __Robust)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, Robust)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, NoResetNotify)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __NoResetNotify, "NoResetNotify")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, NoResetNotify)
+Gura_ImplementMethod(wx_GLContextAttrs, __NoResetNotify)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, NoResetNotify)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, LoseOnReset)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __LoseOnReset, "LoseOnReset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, LoseOnReset)
+Gura_ImplementMethod(wx_GLContextAttrs, __LoseOnReset)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, LoseOnReset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, ResetIsolation)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __ResetIsolation, "ResetIsolation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, ResetIsolation)
+Gura_ImplementMethod(wx_GLContextAttrs, __ResetIsolation)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_GLContextAttrs, ResetIsolation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, ReleaseFlush)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __ReleaseFlush, "ReleaseFlush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, ReleaseFlush)
+Gura_ImplementMethod(wx_GLContextAttrs, __ReleaseFlush)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,12 +216,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, ReleaseFlush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, PlatformDefaults)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __PlatformDefaults, "PlatformDefaults")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, PlatformDefaults)
+Gura_ImplementMethod(wx_GLContextAttrs, __PlatformDefaults)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,12 +229,12 @@ Gura_ImplementMethod(wx_GLContextAttrs, PlatformDefaults)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLContextAttrs, EndList)
+Gura_DeclareMethodAlias(wx_GLContextAttrs, __EndList, "EndList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLContextAttrs, EndList)
+Gura_ImplementMethod(wx_GLContextAttrs, __EndList)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,21 +247,21 @@ Gura_ImplementMethod(wx_GLContextAttrs, EndList)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLContextAttrs)
 {
-	Gura_AssignMethod(wx_GLContextAttrs, CoreProfile);
-	Gura_AssignMethod(wx_GLContextAttrs, MajorVersion);
-	Gura_AssignMethod(wx_GLContextAttrs, MinorVersion);
-	Gura_AssignMethod(wx_GLContextAttrs, OGLVersion);
-	Gura_AssignMethod(wx_GLContextAttrs, CompatibilityProfile);
-	Gura_AssignMethod(wx_GLContextAttrs, ForwardCompatible);
-	Gura_AssignMethod(wx_GLContextAttrs, ES2);
-	Gura_AssignMethod(wx_GLContextAttrs, DebugCtx);
-	Gura_AssignMethod(wx_GLContextAttrs, Robust);
-	Gura_AssignMethod(wx_GLContextAttrs, NoResetNotify);
-	Gura_AssignMethod(wx_GLContextAttrs, LoseOnReset);
-	Gura_AssignMethod(wx_GLContextAttrs, ResetIsolation);
-	Gura_AssignMethod(wx_GLContextAttrs, ReleaseFlush);
-	Gura_AssignMethod(wx_GLContextAttrs, PlatformDefaults);
-	Gura_AssignMethod(wx_GLContextAttrs, EndList);
+	Gura_AssignMethod(wx_GLContextAttrs, __CoreProfile);
+	Gura_AssignMethod(wx_GLContextAttrs, __MajorVersion);
+	Gura_AssignMethod(wx_GLContextAttrs, __MinorVersion);
+	Gura_AssignMethod(wx_GLContextAttrs, __OGLVersion);
+	Gura_AssignMethod(wx_GLContextAttrs, __CompatibilityProfile);
+	Gura_AssignMethod(wx_GLContextAttrs, __ForwardCompatible);
+	Gura_AssignMethod(wx_GLContextAttrs, __ES2);
+	Gura_AssignMethod(wx_GLContextAttrs, __DebugCtx);
+	Gura_AssignMethod(wx_GLContextAttrs, __Robust);
+	Gura_AssignMethod(wx_GLContextAttrs, __NoResetNotify);
+	Gura_AssignMethod(wx_GLContextAttrs, __LoseOnReset);
+	Gura_AssignMethod(wx_GLContextAttrs, __ResetIsolation);
+	Gura_AssignMethod(wx_GLContextAttrs, __ReleaseFlush);
+	Gura_AssignMethod(wx_GLContextAttrs, __PlatformDefaults);
+	Gura_AssignMethod(wx_GLContextAttrs, __EndList);
 }
 
 Gura_ImplementDescendantCreator(wx_GLContextAttrs)

@@ -37,12 +37,12 @@ String Object_wx_GridCellEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellEditor, wxGridCellEditor)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __wxGridCellEditor, "wxGridCellEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, wxGridCellEditor)
+Gura_ImplementMethod(wx_GridCellEditor, __wxGridCellEditor)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GridCellEditor, wxGridCellEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, BeginEdit)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __BeginEdit, "BeginEdit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_GridCellEditor, BeginEdit)
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, BeginEdit)
+Gura_ImplementMethod(wx_GridCellEditor, __BeginEdit)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_GridCellEditor, BeginEdit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, Clone)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, Clone)
+Gura_ImplementMethod(wx_GridCellEditor, __Clone)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_GridCellEditor, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, Create)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_DeclareMethod(wx_GridCellEditor, Create)
 	//DeclareArg(env, "evtHandler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, Create)
+Gura_ImplementMethod(wx_GridCellEditor, __Create)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_GridCellEditor, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, Destroy)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __Destroy, "Destroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, Destroy)
+Gura_ImplementMethod(wx_GridCellEditor, __Destroy)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_GridCellEditor, Destroy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, EndEdit)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __EndEdit, "EndEdit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_GridCellEditor, EndEdit)
 	//DeclareArg(env, "newval", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, EndEdit)
+Gura_ImplementMethod(wx_GridCellEditor, __EndEdit)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_GridCellEditor, EndEdit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, ApplyEdit)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __ApplyEdit, "ApplyEdit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_GridCellEditor, ApplyEdit)
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, ApplyEdit)
+Gura_ImplementMethod(wx_GridCellEditor, __ApplyEdit)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_GridCellEditor, ApplyEdit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, HandleReturn)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __HandleReturn, "HandleReturn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, HandleReturn)
+Gura_ImplementMethod(wx_GridCellEditor, __HandleReturn)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_GridCellEditor, HandleReturn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, IsCreated)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __IsCreated, "IsCreated")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, IsCreated)
+Gura_ImplementMethod(wx_GridCellEditor, __IsCreated)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_GridCellEditor, IsCreated)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, PaintBackground)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __PaintBackground, "PaintBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -192,7 +192,7 @@ Gura_DeclareMethod(wx_GridCellEditor, PaintBackground)
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, PaintBackground)
+Gura_ImplementMethod(wx_GridCellEditor, __PaintBackground)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,12 +203,12 @@ Gura_ImplementMethod(wx_GridCellEditor, PaintBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, Reset)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, Reset)
+Gura_ImplementMethod(wx_GridCellEditor, __Reset)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_GridCellEditor, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, SetSize)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __SetSize, "SetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, SetSize)
+Gura_ImplementMethod(wx_GridCellEditor, __SetSize)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,14 +231,14 @@ Gura_ImplementMethod(wx_GridCellEditor, SetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, Show)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, Show)
+Gura_ImplementMethod(wx_GridCellEditor, __Show)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,12 +248,12 @@ Gura_ImplementMethod(wx_GridCellEditor, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, StartingClick)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __StartingClick, "StartingClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, StartingClick)
+Gura_ImplementMethod(wx_GridCellEditor, __StartingClick)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,13 +261,13 @@ Gura_ImplementMethod(wx_GridCellEditor, StartingClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, StartingKey)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __StartingKey, "StartingKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, StartingKey)
+Gura_ImplementMethod(wx_GridCellEditor, __StartingKey)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,12 +276,12 @@ Gura_ImplementMethod(wx_GridCellEditor, StartingKey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, GetValue)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, GetValue)
+Gura_ImplementMethod(wx_GridCellEditor, __GetValue)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -289,12 +289,12 @@ Gura_ImplementMethod(wx_GridCellEditor, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, GetControl)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __GetControl, "GetControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, GetControl)
+Gura_ImplementMethod(wx_GridCellEditor, __GetControl)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -302,13 +302,13 @@ Gura_ImplementMethod(wx_GridCellEditor, GetControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEditor, SetControl)
+Gura_DeclareMethodAlias(wx_GridCellEditor, __SetControl, "SetControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEditor, SetControl)
+Gura_ImplementMethod(wx_GridCellEditor, __SetControl)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,24 +322,24 @@ Gura_ImplementMethod(wx_GridCellEditor, SetControl)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellEditor)
 {
-	Gura_AssignMethod(wx_GridCellEditor, wxGridCellEditor);
-	Gura_AssignMethod(wx_GridCellEditor, BeginEdit);
-	Gura_AssignMethod(wx_GridCellEditor, Clone);
-	Gura_AssignMethod(wx_GridCellEditor, Create);
-	Gura_AssignMethod(wx_GridCellEditor, Destroy);
-	Gura_AssignMethod(wx_GridCellEditor, EndEdit);
-	Gura_AssignMethod(wx_GridCellEditor, ApplyEdit);
-	Gura_AssignMethod(wx_GridCellEditor, HandleReturn);
-	Gura_AssignMethod(wx_GridCellEditor, IsCreated);
-	Gura_AssignMethod(wx_GridCellEditor, PaintBackground);
-	Gura_AssignMethod(wx_GridCellEditor, Reset);
-	Gura_AssignMethod(wx_GridCellEditor, SetSize);
-	Gura_AssignMethod(wx_GridCellEditor, Show);
-	Gura_AssignMethod(wx_GridCellEditor, StartingClick);
-	Gura_AssignMethod(wx_GridCellEditor, StartingKey);
-	Gura_AssignMethod(wx_GridCellEditor, GetValue);
-	Gura_AssignMethod(wx_GridCellEditor, GetControl);
-	Gura_AssignMethod(wx_GridCellEditor, SetControl);
+	Gura_AssignMethod(wx_GridCellEditor, __wxGridCellEditor);
+	Gura_AssignMethod(wx_GridCellEditor, __BeginEdit);
+	Gura_AssignMethod(wx_GridCellEditor, __Clone);
+	Gura_AssignMethod(wx_GridCellEditor, __Create);
+	Gura_AssignMethod(wx_GridCellEditor, __Destroy);
+	Gura_AssignMethod(wx_GridCellEditor, __EndEdit);
+	Gura_AssignMethod(wx_GridCellEditor, __ApplyEdit);
+	Gura_AssignMethod(wx_GridCellEditor, __HandleReturn);
+	Gura_AssignMethod(wx_GridCellEditor, __IsCreated);
+	Gura_AssignMethod(wx_GridCellEditor, __PaintBackground);
+	Gura_AssignMethod(wx_GridCellEditor, __Reset);
+	Gura_AssignMethod(wx_GridCellEditor, __SetSize);
+	Gura_AssignMethod(wx_GridCellEditor, __Show);
+	Gura_AssignMethod(wx_GridCellEditor, __StartingClick);
+	Gura_AssignMethod(wx_GridCellEditor, __StartingKey);
+	Gura_AssignMethod(wx_GridCellEditor, __GetValue);
+	Gura_AssignMethod(wx_GridCellEditor, __GetControl);
+	Gura_AssignMethod(wx_GridCellEditor, __SetControl);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellEditor)

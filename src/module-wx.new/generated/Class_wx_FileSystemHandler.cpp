@@ -37,12 +37,12 @@ String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileSystemHandler, wxFileSystemHandler)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __wxFileSystemHandler, "wxFileSystemHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, wxFileSystemHandler)
+Gura_ImplementMethod(wx_FileSystemHandler, __wxFileSystemHandler)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, wxFileSystemHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, CanOpen)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __CanOpen, "CanOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
+Gura_ImplementMethod(wx_FileSystemHandler, __CanOpen)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_FileSystemHandler, CanOpen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, FindFirst)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __FindFirst, "FindFirst")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wildcard", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
+Gura_ImplementMethod(wx_FileSystemHandler, __FindFirst)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_FileSystemHandler, FindFirst)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, FindNext)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __FindNext, "FindNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
+Gura_ImplementMethod(wx_FileSystemHandler, __FindNext)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, FindNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetMimeTypeFromExt, "GetMimeTypeFromExt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
+Gura_ImplementMethod(wx_FileSystemHandler, __GetMimeTypeFromExt)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,14 +110,14 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetMimeTypeFromExt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, OpenFile)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __OpenFile, "OpenFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
+Gura_ImplementMethod(wx_FileSystemHandler, __OpenFile)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, OpenFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, GetAnchor)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetAnchor, "GetAnchor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
+Gura_ImplementMethod(wx_FileSystemHandler, __GetAnchor)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetAnchor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, GetLeftLocation)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetLeftLocation, "GetLeftLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
+Gura_ImplementMethod(wx_FileSystemHandler, __GetLeftLocation)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetLeftLocation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, GetProtocol)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetProtocol, "GetProtocol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
+Gura_ImplementMethod(wx_FileSystemHandler, __GetProtocol)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetProtocol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemHandler, GetRightLocation)
+Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetRightLocation, "GetRightLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
+Gura_ImplementMethod(wx_FileSystemHandler, __GetRightLocation)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,16 +192,16 @@ Gura_ImplementMethod(wx_FileSystemHandler, GetRightLocation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemHandler)
 {
-	Gura_AssignMethod(wx_FileSystemHandler, wxFileSystemHandler);
-	Gura_AssignMethod(wx_FileSystemHandler, CanOpen);
-	Gura_AssignMethod(wx_FileSystemHandler, FindFirst);
-	Gura_AssignMethod(wx_FileSystemHandler, FindNext);
-	Gura_AssignMethod(wx_FileSystemHandler, GetMimeTypeFromExt);
-	Gura_AssignMethod(wx_FileSystemHandler, OpenFile);
-	Gura_AssignMethod(wx_FileSystemHandler, GetAnchor);
-	Gura_AssignMethod(wx_FileSystemHandler, GetLeftLocation);
-	Gura_AssignMethod(wx_FileSystemHandler, GetProtocol);
-	Gura_AssignMethod(wx_FileSystemHandler, GetRightLocation);
+	Gura_AssignMethod(wx_FileSystemHandler, __wxFileSystemHandler);
+	Gura_AssignMethod(wx_FileSystemHandler, __CanOpen);
+	Gura_AssignMethod(wx_FileSystemHandler, __FindFirst);
+	Gura_AssignMethod(wx_FileSystemHandler, __FindNext);
+	Gura_AssignMethod(wx_FileSystemHandler, __GetMimeTypeFromExt);
+	Gura_AssignMethod(wx_FileSystemHandler, __OpenFile);
+	Gura_AssignMethod(wx_FileSystemHandler, __GetAnchor);
+	Gura_AssignMethod(wx_FileSystemHandler, __GetLeftLocation);
+	Gura_AssignMethod(wx_FileSystemHandler, __GetProtocol);
+	Gura_AssignMethod(wx_FileSystemHandler, __GetRightLocation);
 }
 
 Gura_ImplementDescendantCreator(wx_FileSystemHandler)

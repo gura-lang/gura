@@ -37,14 +37,14 @@ String Object_wx_SashEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SashEvent, wxSashEvent)
+Gura_DeclareMethodAlias(wx_SashEvent, __wxSashEvent, "wxSashEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashEvent, wxSashEvent)
+Gura_ImplementMethod(wx_SashEvent, __wxSashEvent)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_SashEvent, wxSashEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, GetDragRect)
+Gura_DeclareMethodAlias(wx_SashEvent, __GetDragRect, "GetDragRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashEvent, GetDragRect)
+Gura_ImplementMethod(wx_SashEvent, __GetDragRect)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_SashEvent, GetDragRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, GetDragStatus)
+Gura_DeclareMethodAlias(wx_SashEvent, __GetDragStatus, "GetDragStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashEvent, GetDragStatus)
+Gura_ImplementMethod(wx_SashEvent, __GetDragStatus)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_SashEvent, GetDragStatus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, GetEdge)
+Gura_DeclareMethodAlias(wx_SashEvent, __GetEdge, "GetEdge")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashEvent, GetEdge)
+Gura_ImplementMethod(wx_SashEvent, __GetEdge)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_SashEvent, GetEdge)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, SetEdge)
+Gura_DeclareMethodAlias(wx_SashEvent, __SetEdge, "SetEdge")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashEvent, SetEdge)
+Gura_ImplementMethod(wx_SashEvent, __SetEdge)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_SashEvent, SetEdge)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, SetDragRect)
+Gura_DeclareMethodAlias(wx_SashEvent, __SetDragRect, "SetDragRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashEvent, SetDragRect)
+Gura_ImplementMethod(wx_SashEvent, __SetDragRect)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_SashEvent, SetDragRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashEvent, SetDragStatus)
+Gura_DeclareMethodAlias(wx_SashEvent, __SetDragStatus, "SetDragStatus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "status", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashEvent, SetDragStatus)
+Gura_ImplementMethod(wx_SashEvent, __SetDragStatus)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_SashEvent, SetDragStatus)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashEvent)
 {
-	Gura_AssignMethod(wx_SashEvent, wxSashEvent);
-	Gura_AssignMethod(wx_SashEvent, GetDragRect);
-	Gura_AssignMethod(wx_SashEvent, GetDragStatus);
-	Gura_AssignMethod(wx_SashEvent, GetEdge);
-	Gura_AssignMethod(wx_SashEvent, SetEdge);
-	Gura_AssignMethod(wx_SashEvent, SetDragRect);
-	Gura_AssignMethod(wx_SashEvent, SetDragStatus);
+	Gura_AssignMethod(wx_SashEvent, __wxSashEvent);
+	Gura_AssignMethod(wx_SashEvent, __GetDragRect);
+	Gura_AssignMethod(wx_SashEvent, __GetDragStatus);
+	Gura_AssignMethod(wx_SashEvent, __GetEdge);
+	Gura_AssignMethod(wx_SashEvent, __SetEdge);
+	Gura_AssignMethod(wx_SashEvent, __SetDragRect);
+	Gura_AssignMethod(wx_SashEvent, __SetDragStatus);
 }
 
 Gura_ImplementDescendantCreator(wx_SashEvent)

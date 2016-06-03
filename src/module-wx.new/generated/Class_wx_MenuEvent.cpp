@@ -37,7 +37,7 @@ String Object_wx_MenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MenuEvent, wxMenuEvent)
+Gura_DeclareMethodAlias(wx_MenuEvent, __wxMenuEvent, "wxMenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_MenuEvent, wxMenuEvent)
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuEvent, wxMenuEvent)
+Gura_ImplementMethod(wx_MenuEvent, __wxMenuEvent)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_MenuEvent, wxMenuEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuEvent, GetMenu)
+Gura_DeclareMethodAlias(wx_MenuEvent, __GetMenu, "GetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuEvent, GetMenu)
+Gura_ImplementMethod(wx_MenuEvent, __GetMenu)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_MenuEvent, GetMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuEvent, GetMenuId)
+Gura_DeclareMethodAlias(wx_MenuEvent, __GetMenuId, "GetMenuId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuEvent, GetMenuId)
+Gura_ImplementMethod(wx_MenuEvent, __GetMenuId)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_MenuEvent, GetMenuId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuEvent, IsPopup)
+Gura_DeclareMethodAlias(wx_MenuEvent, __IsPopup, "IsPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuEvent, IsPopup)
+Gura_ImplementMethod(wx_MenuEvent, __IsPopup)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,10 +100,10 @@ Gura_ImplementMethod(wx_MenuEvent, IsPopup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuEvent)
 {
-	Gura_AssignMethod(wx_MenuEvent, wxMenuEvent);
-	Gura_AssignMethod(wx_MenuEvent, GetMenu);
-	Gura_AssignMethod(wx_MenuEvent, GetMenuId);
-	Gura_AssignMethod(wx_MenuEvent, IsPopup);
+	Gura_AssignMethod(wx_MenuEvent, __wxMenuEvent);
+	Gura_AssignMethod(wx_MenuEvent, __GetMenu);
+	Gura_AssignMethod(wx_MenuEvent, __GetMenuId);
+	Gura_AssignMethod(wx_MenuEvent, __IsPopup);
 }
 
 Gura_ImplementDescendantCreator(wx_MenuEvent)

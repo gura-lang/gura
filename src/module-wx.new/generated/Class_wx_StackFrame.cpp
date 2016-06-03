@@ -37,12 +37,12 @@ String Object_wx_StackFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StackFrame, GetAddress)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetAddress, "GetAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetAddress)
+Gura_ImplementMethod(wx_StackFrame, __GetAddress)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_StackFrame, GetAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetFileName)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetFileName, "GetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetFileName)
+Gura_ImplementMethod(wx_StackFrame, __GetFileName)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_StackFrame, GetFileName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetLevel)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetLevel, "GetLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetLevel)
+Gura_ImplementMethod(wx_StackFrame, __GetLevel)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_StackFrame, GetLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetLine)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetLine, "GetLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetLine)
+Gura_ImplementMethod(wx_StackFrame, __GetLine)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_StackFrame, GetLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetModule)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetModule, "GetModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetModule)
+Gura_ImplementMethod(wx_StackFrame, __GetModule)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_StackFrame, GetModule)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetName)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetName)
+Gura_ImplementMethod(wx_StackFrame, __GetName)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,12 +115,12 @@ Gura_ImplementMethod(wx_StackFrame, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetOffset)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetOffset, "GetOffset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetOffset)
+Gura_ImplementMethod(wx_StackFrame, __GetOffset)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StackFrame, GetOffset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetParam)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetParam, "GetParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -137,7 +137,7 @@ Gura_DeclareMethod(wx_StackFrame, GetParam)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetParam)
+Gura_ImplementMethod(wx_StackFrame, __GetParam)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_StackFrame, GetParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, GetParamCount)
+Gura_DeclareMethodAlias(wx_StackFrame, __GetParamCount, "GetParamCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, GetParamCount)
+Gura_ImplementMethod(wx_StackFrame, __GetParamCount)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_StackFrame, GetParamCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackFrame, HasSourceLocation)
+Gura_DeclareMethodAlias(wx_StackFrame, __HasSourceLocation, "HasSourceLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StackFrame, HasSourceLocation)
+Gura_ImplementMethod(wx_StackFrame, __HasSourceLocation)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,16 +180,16 @@ Gura_ImplementMethod(wx_StackFrame, HasSourceLocation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackFrame)
 {
-	Gura_AssignMethod(wx_StackFrame, GetAddress);
-	Gura_AssignMethod(wx_StackFrame, GetFileName);
-	Gura_AssignMethod(wx_StackFrame, GetLevel);
-	Gura_AssignMethod(wx_StackFrame, GetLine);
-	Gura_AssignMethod(wx_StackFrame, GetModule);
-	Gura_AssignMethod(wx_StackFrame, GetName);
-	Gura_AssignMethod(wx_StackFrame, GetOffset);
-	Gura_AssignMethod(wx_StackFrame, GetParam);
-	Gura_AssignMethod(wx_StackFrame, GetParamCount);
-	Gura_AssignMethod(wx_StackFrame, HasSourceLocation);
+	Gura_AssignMethod(wx_StackFrame, __GetAddress);
+	Gura_AssignMethod(wx_StackFrame, __GetFileName);
+	Gura_AssignMethod(wx_StackFrame, __GetLevel);
+	Gura_AssignMethod(wx_StackFrame, __GetLine);
+	Gura_AssignMethod(wx_StackFrame, __GetModule);
+	Gura_AssignMethod(wx_StackFrame, __GetName);
+	Gura_AssignMethod(wx_StackFrame, __GetOffset);
+	Gura_AssignMethod(wx_StackFrame, __GetParam);
+	Gura_AssignMethod(wx_StackFrame, __GetParamCount);
+	Gura_AssignMethod(wx_StackFrame, __HasSourceLocation);
 }
 
 Gura_ImplementDescendantCreator(wx_StackFrame)

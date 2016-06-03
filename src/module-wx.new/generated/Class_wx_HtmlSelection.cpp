@@ -37,12 +37,12 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlSelection, wxHtmlSelection)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __wxHtmlSelection, "wxHtmlSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, wxHtmlSelection)
+Gura_ImplementMethod(wx_HtmlSelection, __wxHtmlSelection)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HtmlSelection, wxHtmlSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, Set)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fromPos", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_HtmlSelection, Set)
 	//DeclareArg(env, "toCell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, Set)
+Gura_ImplementMethod(wx_HtmlSelection, __Set)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,14 +71,14 @@ Gura_ImplementMethod(wx_HtmlSelection, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, Set_1)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __Set_1, "Set_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fromCell", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "toCell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, Set_1)
+Gura_ImplementMethod(wx_HtmlSelection, __Set_1)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_HtmlSelection, Set_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetFromCell)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromCell, "GetFromCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetFromCell)
+Gura_ImplementMethod(wx_HtmlSelection, __GetFromCell)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetFromCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetToCell)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToCell, "GetToCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetToCell)
+Gura_ImplementMethod(wx_HtmlSelection, __GetToCell)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetToCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetFromPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromPos, "GetFromPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetFromPos)
+Gura_ImplementMethod(wx_HtmlSelection, __GetFromPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetFromPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetToPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToPos, "GetToPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetToPos)
+Gura_ImplementMethod(wx_HtmlSelection, __GetToPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetToPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, ClearFromToCharacterPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __ClearFromToCharacterPos, "ClearFromToCharacterPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, ClearFromToCharacterPos)
+Gura_ImplementMethod(wx_HtmlSelection, __ClearFromToCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_HtmlSelection, ClearFromToCharacterPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, AreFromToCharacterPosSet)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __AreFromToCharacterPosSet, "AreFromToCharacterPosSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, AreFromToCharacterPosSet)
+Gura_ImplementMethod(wx_HtmlSelection, __AreFromToCharacterPosSet)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_HtmlSelection, AreFromToCharacterPosSet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, SetFromCharacterPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __SetFromCharacterPos, "SetFromCharacterPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, SetFromCharacterPos)
+Gura_ImplementMethod(wx_HtmlSelection, __SetFromCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_HtmlSelection, SetFromCharacterPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, SetToCharacterPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __SetToCharacterPos, "SetToCharacterPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, SetToCharacterPos)
+Gura_ImplementMethod(wx_HtmlSelection, __SetToCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_HtmlSelection, SetToCharacterPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetFromCharacterPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromCharacterPos, "GetFromCharacterPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetFromCharacterPos)
+Gura_ImplementMethod(wx_HtmlSelection, __GetFromCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,12 +209,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetFromCharacterPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, GetToCharacterPos)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToCharacterPos, "GetToCharacterPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, GetToCharacterPos)
+Gura_ImplementMethod(wx_HtmlSelection, __GetToCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_HtmlSelection, GetToCharacterPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlSelection, IsEmpty)
+Gura_DeclareMethodAlias(wx_HtmlSelection, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlSelection, IsEmpty)
+Gura_ImplementMethod(wx_HtmlSelection, __IsEmpty)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,20 +240,20 @@ Gura_ImplementMethod(wx_HtmlSelection, IsEmpty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlSelection)
 {
-	Gura_AssignMethod(wx_HtmlSelection, wxHtmlSelection);
-	Gura_AssignMethod(wx_HtmlSelection, Set);
-	Gura_AssignMethod(wx_HtmlSelection, Set_1);
-	Gura_AssignMethod(wx_HtmlSelection, GetFromCell);
-	Gura_AssignMethod(wx_HtmlSelection, GetToCell);
-	Gura_AssignMethod(wx_HtmlSelection, GetFromPos);
-	Gura_AssignMethod(wx_HtmlSelection, GetToPos);
-	Gura_AssignMethod(wx_HtmlSelection, ClearFromToCharacterPos);
-	Gura_AssignMethod(wx_HtmlSelection, AreFromToCharacterPosSet);
-	Gura_AssignMethod(wx_HtmlSelection, SetFromCharacterPos);
-	Gura_AssignMethod(wx_HtmlSelection, SetToCharacterPos);
-	Gura_AssignMethod(wx_HtmlSelection, GetFromCharacterPos);
-	Gura_AssignMethod(wx_HtmlSelection, GetToCharacterPos);
-	Gura_AssignMethod(wx_HtmlSelection, IsEmpty);
+	Gura_AssignMethod(wx_HtmlSelection, __wxHtmlSelection);
+	Gura_AssignMethod(wx_HtmlSelection, __Set);
+	Gura_AssignMethod(wx_HtmlSelection, __Set_1);
+	Gura_AssignMethod(wx_HtmlSelection, __GetFromCell);
+	Gura_AssignMethod(wx_HtmlSelection, __GetToCell);
+	Gura_AssignMethod(wx_HtmlSelection, __GetFromPos);
+	Gura_AssignMethod(wx_HtmlSelection, __GetToPos);
+	Gura_AssignMethod(wx_HtmlSelection, __ClearFromToCharacterPos);
+	Gura_AssignMethod(wx_HtmlSelection, __AreFromToCharacterPosSet);
+	Gura_AssignMethod(wx_HtmlSelection, __SetFromCharacterPos);
+	Gura_AssignMethod(wx_HtmlSelection, __SetToCharacterPos);
+	Gura_AssignMethod(wx_HtmlSelection, __GetFromCharacterPos);
+	Gura_AssignMethod(wx_HtmlSelection, __GetToCharacterPos);
+	Gura_AssignMethod(wx_HtmlSelection, __IsEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlSelection)

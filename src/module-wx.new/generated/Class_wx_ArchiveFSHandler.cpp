@@ -37,12 +37,12 @@ String Object_wx_ArchiveFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArchiveFSHandler, wxArchiveFSHandler)
+Gura_DeclareMethodAlias(wx_ArchiveFSHandler, __wxArchiveFSHandler, "wxArchiveFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveFSHandler, wxArchiveFSHandler)
+Gura_ImplementMethod(wx_ArchiveFSHandler, __wxArchiveFSHandler)
 {
 	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ArchiveFSHandler, wxArchiveFSHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveFSHandler, Cleanup)
+Gura_DeclareMethodAlias(wx_ArchiveFSHandler, __Cleanup, "Cleanup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveFSHandler, Cleanup)
+Gura_ImplementMethod(wx_ArchiveFSHandler, __Cleanup)
 {
 	Object_wx_ArchiveFSHandler *pThis = Object_wx_ArchiveFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_ArchiveFSHandler, Cleanup)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveFSHandler)
 {
-	Gura_AssignMethod(wx_ArchiveFSHandler, wxArchiveFSHandler);
-	Gura_AssignMethod(wx_ArchiveFSHandler, Cleanup);
+	Gura_AssignMethod(wx_ArchiveFSHandler, __wxArchiveFSHandler);
+	Gura_AssignMethod(wx_ArchiveFSHandler, __Cleanup);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveFSHandler)

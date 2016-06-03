@@ -37,13 +37,13 @@ String Object_wx_Accessible::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Accessible, wxAccessible)
+Gura_DeclareMethodAlias(wx_Accessible, __wxAccessible, "wxAccessible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, wxAccessible)
+Gura_ImplementMethod(wx_Accessible, __wxAccessible)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_Accessible, wxAccessible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, DoDefaultAction)
+Gura_DeclareMethodAlias(wx_Accessible, __DoDefaultAction, "DoDefaultAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, DoDefaultAction)
+Gura_ImplementMethod(wx_Accessible, __DoDefaultAction)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_Accessible, DoDefaultAction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetChild)
+Gura_DeclareMethodAlias(wx_Accessible, __GetChild, "GetChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetChild)
+Gura_ImplementMethod(wx_Accessible, __GetChild)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_Accessible, GetChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetChildCount)
+Gura_DeclareMethodAlias(wx_Accessible, __GetChildCount, "GetChildCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetChildCount)
+Gura_ImplementMethod(wx_Accessible, __GetChildCount)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_Accessible, GetChildCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetDefaultAction)
+Gura_DeclareMethodAlias(wx_Accessible, __GetDefaultAction, "GetDefaultAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "actionName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetDefaultAction)
+Gura_ImplementMethod(wx_Accessible, __GetDefaultAction)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,14 +116,14 @@ Gura_ImplementMethod(wx_Accessible, GetDefaultAction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetDescription)
+Gura_DeclareMethodAlias(wx_Accessible, __GetDescription, "GetDescription")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetDescription)
+Gura_ImplementMethod(wx_Accessible, __GetDescription)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_Accessible, GetDescription)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetFocus)
+Gura_DeclareMethodAlias(wx_Accessible, __GetFocus, "GetFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetFocus)
+Gura_ImplementMethod(wx_Accessible, __GetFocus)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,14 +150,14 @@ Gura_ImplementMethod(wx_Accessible, GetFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetHelpText)
+Gura_DeclareMethodAlias(wx_Accessible, __GetHelpText, "GetHelpText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "helpText", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetHelpText)
+Gura_ImplementMethod(wx_Accessible, __GetHelpText)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,14 +167,14 @@ Gura_ImplementMethod(wx_Accessible, GetHelpText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetKeyboardShortcut)
+Gura_DeclareMethodAlias(wx_Accessible, __GetKeyboardShortcut, "GetKeyboardShortcut")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "shortcut", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetKeyboardShortcut)
+Gura_ImplementMethod(wx_Accessible, __GetKeyboardShortcut)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,14 +184,14 @@ Gura_ImplementMethod(wx_Accessible, GetKeyboardShortcut)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetLocation)
+Gura_DeclareMethodAlias(wx_Accessible, __GetLocation, "GetLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "elementId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetLocation)
+Gura_ImplementMethod(wx_Accessible, __GetLocation)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,14 +201,14 @@ Gura_ImplementMethod(wx_Accessible, GetLocation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetName)
+Gura_DeclareMethodAlias(wx_Accessible, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetName)
+Gura_ImplementMethod(wx_Accessible, __GetName)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,13 +218,13 @@ Gura_ImplementMethod(wx_Accessible, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetParent)
+Gura_DeclareMethodAlias(wx_Accessible, __GetParent, "GetParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetParent)
+Gura_ImplementMethod(wx_Accessible, __GetParent)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,14 +233,14 @@ Gura_ImplementMethod(wx_Accessible, GetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetRole)
+Gura_DeclareMethodAlias(wx_Accessible, __GetRole, "GetRole")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "role", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetRole)
+Gura_ImplementMethod(wx_Accessible, __GetRole)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_Accessible, GetRole)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetSelections)
+Gura_DeclareMethodAlias(wx_Accessible, __GetSelections, "GetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selections", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetSelections)
+Gura_ImplementMethod(wx_Accessible, __GetSelections)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,14 +265,14 @@ Gura_ImplementMethod(wx_Accessible, GetSelections)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetState)
+Gura_DeclareMethodAlias(wx_Accessible, __GetState, "GetState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetState)
+Gura_ImplementMethod(wx_Accessible, __GetState)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,14 +282,14 @@ Gura_ImplementMethod(wx_Accessible, GetState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetValue)
+Gura_DeclareMethodAlias(wx_Accessible, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strValue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetValue)
+Gura_ImplementMethod(wx_Accessible, __GetValue)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,12 +299,12 @@ Gura_ImplementMethod(wx_Accessible, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, GetWindow)
+Gura_DeclareMethodAlias(wx_Accessible, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Accessible, GetWindow)
+Gura_ImplementMethod(wx_Accessible, __GetWindow)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_Accessible, GetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, HitTest)
+Gura_DeclareMethodAlias(wx_Accessible, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -320,7 +320,7 @@ Gura_DeclareMethod(wx_Accessible, HitTest)
 	//DeclareArg(env, "childObject", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, HitTest)
+Gura_ImplementMethod(wx_Accessible, __HitTest)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_Accessible, HitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, Navigate)
+Gura_DeclareMethodAlias(wx_Accessible, __Navigate, "Navigate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "navDir", VTYPE_number, OCCUR_Once);
@@ -340,7 +340,7 @@ Gura_DeclareMethod(wx_Accessible, Navigate)
 	//DeclareArg(env, "toObject", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, Navigate)
+Gura_ImplementMethod(wx_Accessible, __Navigate)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_Accessible, Navigate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, NotifyEvent)
+Gura_DeclareMethodAlias(wx_Accessible, __NotifyEvent, "NotifyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -361,7 +361,7 @@ Gura_DeclareMethod(wx_Accessible, NotifyEvent)
 	//DeclareArg(env, "objectType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, NotifyEvent)
+Gura_ImplementMethod(wx_Accessible, __NotifyEvent)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,14 +373,14 @@ Gura_ImplementMethod(wx_Accessible, NotifyEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, Select)
+Gura_DeclareMethodAlias(wx_Accessible, __Select, "Select")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "selectFlags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, Select)
+Gura_ImplementMethod(wx_Accessible, __Select)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,13 +390,13 @@ Gura_ImplementMethod(wx_Accessible, Select)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Accessible, SetWindow)
+Gura_DeclareMethodAlias(wx_Accessible, __SetWindow, "SetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Accessible, SetWindow)
+Gura_ImplementMethod(wx_Accessible, __SetWindow)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -410,28 +410,28 @@ Gura_ImplementMethod(wx_Accessible, SetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Accessible)
 {
-	Gura_AssignMethod(wx_Accessible, wxAccessible);
-	Gura_AssignMethod(wx_Accessible, DoDefaultAction);
-	Gura_AssignMethod(wx_Accessible, GetChild);
-	Gura_AssignMethod(wx_Accessible, GetChildCount);
-	Gura_AssignMethod(wx_Accessible, GetDefaultAction);
-	Gura_AssignMethod(wx_Accessible, GetDescription);
-	Gura_AssignMethod(wx_Accessible, GetFocus);
-	Gura_AssignMethod(wx_Accessible, GetHelpText);
-	Gura_AssignMethod(wx_Accessible, GetKeyboardShortcut);
-	Gura_AssignMethod(wx_Accessible, GetLocation);
-	Gura_AssignMethod(wx_Accessible, GetName);
-	Gura_AssignMethod(wx_Accessible, GetParent);
-	Gura_AssignMethod(wx_Accessible, GetRole);
-	Gura_AssignMethod(wx_Accessible, GetSelections);
-	Gura_AssignMethod(wx_Accessible, GetState);
-	Gura_AssignMethod(wx_Accessible, GetValue);
-	Gura_AssignMethod(wx_Accessible, GetWindow);
-	Gura_AssignMethod(wx_Accessible, HitTest);
-	Gura_AssignMethod(wx_Accessible, Navigate);
-	Gura_AssignMethod(wx_Accessible, NotifyEvent);
-	Gura_AssignMethod(wx_Accessible, Select);
-	Gura_AssignMethod(wx_Accessible, SetWindow);
+	Gura_AssignMethod(wx_Accessible, __wxAccessible);
+	Gura_AssignMethod(wx_Accessible, __DoDefaultAction);
+	Gura_AssignMethod(wx_Accessible, __GetChild);
+	Gura_AssignMethod(wx_Accessible, __GetChildCount);
+	Gura_AssignMethod(wx_Accessible, __GetDefaultAction);
+	Gura_AssignMethod(wx_Accessible, __GetDescription);
+	Gura_AssignMethod(wx_Accessible, __GetFocus);
+	Gura_AssignMethod(wx_Accessible, __GetHelpText);
+	Gura_AssignMethod(wx_Accessible, __GetKeyboardShortcut);
+	Gura_AssignMethod(wx_Accessible, __GetLocation);
+	Gura_AssignMethod(wx_Accessible, __GetName);
+	Gura_AssignMethod(wx_Accessible, __GetParent);
+	Gura_AssignMethod(wx_Accessible, __GetRole);
+	Gura_AssignMethod(wx_Accessible, __GetSelections);
+	Gura_AssignMethod(wx_Accessible, __GetState);
+	Gura_AssignMethod(wx_Accessible, __GetValue);
+	Gura_AssignMethod(wx_Accessible, __GetWindow);
+	Gura_AssignMethod(wx_Accessible, __HitTest);
+	Gura_AssignMethod(wx_Accessible, __Navigate);
+	Gura_AssignMethod(wx_Accessible, __NotifyEvent);
+	Gura_AssignMethod(wx_Accessible, __Select);
+	Gura_AssignMethod(wx_Accessible, __SetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_Accessible)

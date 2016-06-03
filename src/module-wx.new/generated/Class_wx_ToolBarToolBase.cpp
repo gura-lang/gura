@@ -37,7 +37,7 @@ String Object_wx_ToolBarToolBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase, "wxToolBarToolBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -51,7 +51,7 @@ Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase)
 	//DeclareArg(env, "longHelpString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase)
+Gura_ImplementMethod(wx_ToolBarToolBase, __wxToolBarToolBase)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __wxToolBarToolBase_1, "wxToolBarToolBase_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
+Gura_ImplementMethod(wx_ToolBarToolBase, __wxToolBarToolBase_1)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,12 +87,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, wxToolBarToolBase_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetId)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetId)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetId)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetControl)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetControl, "GetControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetControl)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetControl)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetToolBar)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetToolBar, "GetToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetToolBar)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetToolBar)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetToolBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsStretchable)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsStretchable, "IsStretchable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchable)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsStretchable)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsButton)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsButton, "IsButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsButton)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsButton)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsControl)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsControl, "IsControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsControl)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsControl)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,12 +165,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsSeparator)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsSeparator, "IsSeparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsSeparator)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsSeparator)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,12 +178,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsSeparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsStretchableSpace)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsStretchableSpace, "IsStretchableSpace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchableSpace)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsStretchableSpace)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,12 +191,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsStretchableSpace)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetStyle)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetStyle, "GetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetStyle)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetStyle)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,12 +204,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetKind)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetKind, "GetKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetKind)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetKind)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,12 +217,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsEnabled)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsEnabled, "IsEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsEnabled)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsEnabled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,12 +230,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, IsToggled)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsToggled, "IsToggled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, IsToggled)
+Gura_ImplementMethod(wx_ToolBarToolBase, __IsToggled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -243,12 +243,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, IsToggled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, CanBeToggled)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __CanBeToggled, "CanBeToggled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, CanBeToggled)
+Gura_ImplementMethod(wx_ToolBarToolBase, __CanBeToggled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,12 +256,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, CanBeToggled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetNormalBitmap)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetNormalBitmap, "GetNormalBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetNormalBitmap)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetNormalBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,12 +269,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetNormalBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetDisabledBitmap)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetDisabledBitmap, "GetDisabledBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetDisabledBitmap)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetDisabledBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,12 +282,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetDisabledBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetBitmap)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetBitmap)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,12 +295,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetLabel)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetLabel, "GetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetLabel)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetLabel)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -308,12 +308,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetShortHelp)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetShortHelp, "GetShortHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetShortHelp)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetShortHelp)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,12 +321,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetShortHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetLongHelp)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetLongHelp, "GetLongHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetLongHelp)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetLongHelp)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,12 +334,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetLongHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetClientData)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetClientData)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetClientData)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,12 +347,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, Detach)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __Detach, "Detach")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, Detach)
+Gura_ImplementMethod(wx_ToolBarToolBase, __Detach)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,13 +360,13 @@ Gura_ImplementMethod(wx_ToolBarToolBase, Detach)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, Attach)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __Attach, "Attach")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, Attach)
+Gura_ImplementMethod(wx_ToolBarToolBase, __Attach)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,12 +375,12 @@ Gura_ImplementMethod(wx_ToolBarToolBase, Attach)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolBarToolBase, GetDropdownMenu)
+Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetDropdownMenu, "GetDropdownMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolBarToolBase, GetDropdownMenu)
+Gura_ImplementMethod(wx_ToolBarToolBase, __GetDropdownMenu)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -393,31 +393,31 @@ Gura_ImplementMethod(wx_ToolBarToolBase, GetDropdownMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolBarToolBase)
 {
-	Gura_AssignMethod(wx_ToolBarToolBase, wxToolBarToolBase);
-	Gura_AssignMethod(wx_ToolBarToolBase, wxToolBarToolBase_1);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetId);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetControl);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetToolBar);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsStretchable);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsButton);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsControl);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsSeparator);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsStretchableSpace);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetStyle);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetKind);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsEnabled);
-	Gura_AssignMethod(wx_ToolBarToolBase, IsToggled);
-	Gura_AssignMethod(wx_ToolBarToolBase, CanBeToggled);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetNormalBitmap);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetDisabledBitmap);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetBitmap);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetLabel);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetShortHelp);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetLongHelp);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetClientData);
-	Gura_AssignMethod(wx_ToolBarToolBase, Detach);
-	Gura_AssignMethod(wx_ToolBarToolBase, Attach);
-	Gura_AssignMethod(wx_ToolBarToolBase, GetDropdownMenu);
+	Gura_AssignMethod(wx_ToolBarToolBase, __wxToolBarToolBase);
+	Gura_AssignMethod(wx_ToolBarToolBase, __wxToolBarToolBase_1);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetId);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetControl);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetToolBar);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsStretchable);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsButton);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsControl);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsSeparator);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsStretchableSpace);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetStyle);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetKind);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsEnabled);
+	Gura_AssignMethod(wx_ToolBarToolBase, __IsToggled);
+	Gura_AssignMethod(wx_ToolBarToolBase, __CanBeToggled);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetNormalBitmap);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetDisabledBitmap);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetBitmap);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetLabel);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetShortHelp);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetLongHelp);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetClientData);
+	Gura_AssignMethod(wx_ToolBarToolBase, __Detach);
+	Gura_AssignMethod(wx_ToolBarToolBase, __Attach);
+	Gura_AssignMethod(wx_ToolBarToolBase, __GetDropdownMenu);
 }
 
 Gura_ImplementDescendantCreator(wx_ToolBarToolBase)

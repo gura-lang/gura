@@ -37,7 +37,7 @@ String Object_wx_TextAttrDimensionConverter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter, "wxTextAttrDimensionConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter)
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1, "wxTextAttrDimensionConverter_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ppi", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1
 	//DeclareArg(env, "parentSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,14 +75,14 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, GetPixels)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __GetPixels, "GetPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetPixels)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetPixels)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,13 +92,13 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetPixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, GetTenthsMM)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __GetTenthsMM, "GetTenthsMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetTenthsMM)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetTenthsMM)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, GetTenthsMM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __ConvertTenthsMMToPixels, "ConvertTenthsMMToPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertTenthsMMToPixels)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,13 +122,13 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM)
+Gura_DeclareMethodAlias(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM, "ConvertPixelsToTenthsMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixels", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM)
+Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM)
 {
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrDimensionConverter)
 {
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, wxTextAttrDimensionConverter_1);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, GetPixels);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, GetTenthsMM);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, ConvertTenthsMMToPixels);
-	Gura_AssignMethod(wx_TextAttrDimensionConverter, ConvertPixelsToTenthsMM);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __wxTextAttrDimensionConverter_1);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetPixels);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __GetTenthsMM);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __ConvertTenthsMMToPixels);
+	Gura_AssignMethod(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM);
 }
 
 Gura_ImplementDescendantCreator(wx_TextAttrDimensionConverter)

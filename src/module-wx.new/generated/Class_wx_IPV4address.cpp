@@ -37,12 +37,12 @@ String Object_wx_IPV4address::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IPV4address, AnyAddress)
+Gura_DeclareMethodAlias(wx_IPV4address, __AnyAddress, "AnyAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPV4address, AnyAddress)
+Gura_ImplementMethod(wx_IPV4address, __AnyAddress)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_IPV4address, AnyAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, Hostname)
+Gura_DeclareMethodAlias(wx_IPV4address, __Hostname, "Hostname")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hostname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPV4address, Hostname)
+Gura_ImplementMethod(wx_IPV4address, __Hostname)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_IPV4address, Hostname)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, Hostname_1)
+Gura_DeclareMethodAlias(wx_IPV4address, __Hostname_1, "Hostname_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPV4address, Hostname_1)
+Gura_ImplementMethod(wx_IPV4address, __Hostname_1)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_IPV4address, Hostname_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, IPAddress)
+Gura_DeclareMethodAlias(wx_IPV4address, __IPAddress, "IPAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPV4address, IPAddress)
+Gura_ImplementMethod(wx_IPV4address, __IPAddress)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_IPV4address, IPAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, LocalHost)
+Gura_DeclareMethodAlias(wx_IPV4address, __LocalHost, "LocalHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPV4address, LocalHost)
+Gura_ImplementMethod(wx_IPV4address, __LocalHost)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_IPV4address, LocalHost)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, Service)
+Gura_DeclareMethodAlias(wx_IPV4address, __Service, "Service")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPV4address, Service)
+Gura_ImplementMethod(wx_IPV4address, __Service)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_IPV4address, Service)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, Service_1)
+Gura_DeclareMethodAlias(wx_IPV4address, __Service_1, "Service_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPV4address, Service_1)
+Gura_ImplementMethod(wx_IPV4address, __Service_1)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_IPV4address, Service_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPV4address, Service_2)
+Gura_DeclareMethodAlias(wx_IPV4address, __Service_2, "Service_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPV4address, Service_2)
+Gura_ImplementMethod(wx_IPV4address, __Service_2)
 {
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,14 +152,14 @@ Gura_ImplementMethod(wx_IPV4address, Service_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IPV4address)
 {
-	Gura_AssignMethod(wx_IPV4address, AnyAddress);
-	Gura_AssignMethod(wx_IPV4address, Hostname);
-	Gura_AssignMethod(wx_IPV4address, Hostname_1);
-	Gura_AssignMethod(wx_IPV4address, IPAddress);
-	Gura_AssignMethod(wx_IPV4address, LocalHost);
-	Gura_AssignMethod(wx_IPV4address, Service);
-	Gura_AssignMethod(wx_IPV4address, Service_1);
-	Gura_AssignMethod(wx_IPV4address, Service_2);
+	Gura_AssignMethod(wx_IPV4address, __AnyAddress);
+	Gura_AssignMethod(wx_IPV4address, __Hostname);
+	Gura_AssignMethod(wx_IPV4address, __Hostname_1);
+	Gura_AssignMethod(wx_IPV4address, __IPAddress);
+	Gura_AssignMethod(wx_IPV4address, __LocalHost);
+	Gura_AssignMethod(wx_IPV4address, __Service);
+	Gura_AssignMethod(wx_IPV4address, __Service_1);
+	Gura_AssignMethod(wx_IPV4address, __Service_2);
 }
 
 Gura_ImplementDescendantCreator(wx_IPV4address)

@@ -37,12 +37,12 @@ String Object_wx_VScrolledWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_VScrolledWindow, wxVScrolledWindow)
+Gura_DeclareMethodAlias(wx_VScrolledWindow, __wxVScrolledWindow, "wxVScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VScrolledWindow, wxVScrolledWindow)
+Gura_ImplementMethod(wx_VScrolledWindow, __wxVScrolledWindow)
 {
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, wxVScrolledWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VScrolledWindow, wxVScrolledWindow_1)
+Gura_DeclareMethodAlias(wx_VScrolledWindow, __wxVScrolledWindow_1, "wxVScrolledWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_VScrolledWindow, wxVScrolledWindow_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VScrolledWindow, wxVScrolledWindow_1)
+Gura_ImplementMethod(wx_VScrolledWindow, __wxVScrolledWindow_1)
 {
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, wxVScrolledWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VScrolledWindow, Create)
+Gura_DeclareMethodAlias(wx_VScrolledWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_VScrolledWindow, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VScrolledWindow, Create)
+Gura_ImplementMethod(wx_VScrolledWindow, __Create)
 {
 	Object_wx_VScrolledWindow *pThis = Object_wx_VScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,9 +105,9 @@ Gura_ImplementMethod(wx_VScrolledWindow, Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 {
-	Gura_AssignMethod(wx_VScrolledWindow, wxVScrolledWindow);
-	Gura_AssignMethod(wx_VScrolledWindow, wxVScrolledWindow_1);
-	Gura_AssignMethod(wx_VScrolledWindow, Create);
+	Gura_AssignMethod(wx_VScrolledWindow, __wxVScrolledWindow);
+	Gura_AssignMethod(wx_VScrolledWindow, __wxVScrolledWindow_1);
+	Gura_AssignMethod(wx_VScrolledWindow, __Create);
 }
 
 Gura_ImplementDescendantCreator(wx_VScrolledWindow)

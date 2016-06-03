@@ -37,13 +37,13 @@ String Object_wx_RichTextDrawingHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler, "wxRichTextDrawingHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, HasVirtualAttributes)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __HasVirtualAttributes, "HasVirtualAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualAttributes)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __HasVirtualAttributes)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualAttributes)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __GetVirtualAttributes, "GetVirtualAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualAttributes)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetVirtualAttributes)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCount)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributesCount, "GetVirtualSubobjectAttributesCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCount)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributesCount)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCou
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributes, "GetVirtualSubobjectAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
 	//DeclareArg(env, "attributes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributes)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, HasVirtualText)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __HasVirtualText, "HasVirtualText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualText)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __HasVirtualText)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, HasVirtualText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, GetVirtualText)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __GetVirtualText, "GetVirtualText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualText)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetVirtualText)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, GetVirtualText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, SetName)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, SetName)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __SetName)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,12 +165,12 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextDrawingHandler, GetName)
+Gura_DeclareMethodAlias(wx_RichTextDrawingHandler, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextDrawingHandler, GetName)
+Gura_ImplementMethod(wx_RichTextDrawingHandler, __GetName)
 {
 	Object_wx_RichTextDrawingHandler *pThis = Object_wx_RichTextDrawingHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,15 +183,15 @@ Gura_ImplementMethod(wx_RichTextDrawingHandler, GetName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextDrawingHandler)
 {
-	Gura_AssignMethod(wx_RichTextDrawingHandler, wxRichTextDrawingHandler);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, HasVirtualAttributes);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, GetVirtualAttributes);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributesCount);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, GetVirtualSubobjectAttributes);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, HasVirtualText);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, GetVirtualText);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, SetName);
-	Gura_AssignMethod(wx_RichTextDrawingHandler, GetName);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __wxRichTextDrawingHandler);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __HasVirtualAttributes);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualAttributes);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributesCount);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualSubobjectAttributes);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __HasVirtualText);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetVirtualText);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __SetName);
+	Gura_AssignMethod(wx_RichTextDrawingHandler, __GetName);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextDrawingHandler)

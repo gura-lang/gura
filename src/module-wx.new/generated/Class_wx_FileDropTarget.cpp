@@ -37,12 +37,12 @@ String Object_wx_FileDropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileDropTarget, wxFileDropTarget)
+Gura_DeclareMethodAlias(wx_FileDropTarget, __wxFileDropTarget, "wxFileDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileDropTarget, wxFileDropTarget)
+Gura_ImplementMethod(wx_FileDropTarget, __wxFileDropTarget)
 {
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_FileDropTarget, wxFileDropTarget)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileDropTarget, OnDrop)
+Gura_DeclareMethodAlias(wx_FileDropTarget, __OnDrop, "OnDrop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileDropTarget, OnDrop)
+Gura_ImplementMethod(wx_FileDropTarget, __OnDrop)
 {
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_FileDropTarget, OnDrop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
+Gura_DeclareMethodAlias(wx_FileDropTarget, __OnDropFiles, "OnDropFiles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_FileDropTarget, OnDropFiles)
 	//DeclareArg(env, "filenames", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileDropTarget, OnDropFiles)
+Gura_ImplementMethod(wx_FileDropTarget, __OnDropFiles)
 {
 	Object_wx_FileDropTarget *pThis = Object_wx_FileDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,9 +91,9 @@ Gura_ImplementMethod(wx_FileDropTarget, OnDropFiles)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileDropTarget)
 {
-	Gura_AssignMethod(wx_FileDropTarget, wxFileDropTarget);
-	Gura_AssignMethod(wx_FileDropTarget, OnDrop);
-	Gura_AssignMethod(wx_FileDropTarget, OnDropFiles);
+	Gura_AssignMethod(wx_FileDropTarget, __wxFileDropTarget);
+	Gura_AssignMethod(wx_FileDropTarget, __OnDrop);
+	Gura_AssignMethod(wx_FileDropTarget, __OnDropFiles);
 }
 
 Gura_ImplementDescendantCreator(wx_FileDropTarget)

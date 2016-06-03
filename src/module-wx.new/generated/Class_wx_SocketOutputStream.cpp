@@ -37,13 +37,13 @@ String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SocketOutputStream, wxSocketOutputStream)
+Gura_DeclareMethodAlias(wx_SocketOutputStream, __wxSocketOutputStream, "wxSocketOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketOutputStream, wxSocketOutputStream)
+Gura_ImplementMethod(wx_SocketOutputStream, __wxSocketOutputStream)
 {
 	Object_wx_SocketOutputStream *pThis = Object_wx_SocketOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_SocketOutputStream, wxSocketOutputStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketOutputStream)
 {
-	Gura_AssignMethod(wx_SocketOutputStream, wxSocketOutputStream);
+	Gura_AssignMethod(wx_SocketOutputStream, __wxSocketOutputStream);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketOutputStream)

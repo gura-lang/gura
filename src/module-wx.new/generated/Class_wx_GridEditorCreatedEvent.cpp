@@ -37,12 +37,12 @@ String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent, "wxGridEditorCreatedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent_1)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent_1, "wxGridEditorCreatedEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent_1)
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent_1)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent_1)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetCol)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetCol)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetCol)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetControl)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetControl, "GetControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetControl)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, GetRow)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetRow)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetRow)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, GetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetCol)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __SetCol, "SetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetCol)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetCol)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetControl)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __SetControl, "SetControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetControl)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetControl)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEditorCreatedEvent, SetRow)
+Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __SetRow, "SetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetRow)
+Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetRow)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,14 +164,14 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, SetRow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEditorCreatedEvent)
 {
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, wxGridEditorCreatedEvent_1);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetCol);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetControl);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, GetRow);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, SetCol);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, SetControl);
-	Gura_AssignMethod(wx_GridEditorCreatedEvent, SetRow);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __wxGridEditorCreatedEvent_1);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __GetCol);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __GetControl);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __GetRow);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __SetCol);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __SetControl);
+	Gura_AssignMethod(wx_GridEditorCreatedEvent, __SetRow);
 }
 
 Gura_ImplementDescendantCreator(wx_GridEditorCreatedEvent)

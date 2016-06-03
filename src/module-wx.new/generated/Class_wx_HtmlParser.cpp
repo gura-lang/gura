@@ -37,12 +37,12 @@ String Object_wx_HtmlParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlParser, wxHtmlParser)
+Gura_DeclareMethodAlias(wx_HtmlParser, __wxHtmlParser, "wxHtmlParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, wxHtmlParser)
+Gura_ImplementMethod(wx_HtmlParser, __wxHtmlParser)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_HtmlParser, wxHtmlParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, AddTagHandler)
+Gura_DeclareMethodAlias(wx_HtmlParser, __AddTagHandler, "AddTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, AddTagHandler)
+Gura_ImplementMethod(wx_HtmlParser, __AddTagHandler)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_HtmlParser, AddTagHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, AddWord)
+Gura_DeclareMethodAlias(wx_HtmlParser, __AddWord, "AddWord")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "txt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, AddWord)
+Gura_ImplementMethod(wx_HtmlParser, __AddWord)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_HtmlParser, AddWord)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, DoParsing)
+Gura_DeclareMethodAlias(wx_HtmlParser, __DoParsing, "DoParsing")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "begin_pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end_pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, DoParsing)
+Gura_ImplementMethod(wx_HtmlParser, __DoParsing)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, DoParsing_1)
+Gura_DeclareMethodAlias(wx_HtmlParser, __DoParsing_1, "DoParsing_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, DoParsing_1)
+Gura_ImplementMethod(wx_HtmlParser, __DoParsing_1)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, DoneParser)
+Gura_DeclareMethodAlias(wx_HtmlParser, __DoneParser, "DoneParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, DoneParser)
+Gura_ImplementMethod(wx_HtmlParser, __DoneParser)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_HtmlParser, DoneParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, GetFS)
+Gura_DeclareMethodAlias(wx_HtmlParser, __GetFS, "GetFS")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, GetFS)
+Gura_ImplementMethod(wx_HtmlParser, __GetFS)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_HtmlParser, GetFS)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, GetProduct)
+Gura_DeclareMethodAlias(wx_HtmlParser, __GetProduct, "GetProduct")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, GetProduct)
+Gura_ImplementMethod(wx_HtmlParser, __GetProduct)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_HtmlParser, GetProduct)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, GetSource)
+Gura_DeclareMethodAlias(wx_HtmlParser, __GetSource, "GetSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, GetSource)
+Gura_ImplementMethod(wx_HtmlParser, __GetSource)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_HtmlParser, GetSource)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, InitParser)
+Gura_DeclareMethodAlias(wx_HtmlParser, __InitParser, "InitParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, InitParser)
+Gura_ImplementMethod(wx_HtmlParser, __InitParser)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,14 +177,14 @@ Gura_ImplementMethod(wx_HtmlParser, InitParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, OpenURL)
+Gura_DeclareMethodAlias(wx_HtmlParser, __OpenURL, "OpenURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, OpenURL)
+Gura_ImplementMethod(wx_HtmlParser, __OpenURL)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_HtmlParser, OpenURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, Parse)
+Gura_DeclareMethodAlias(wx_HtmlParser, __Parse, "Parse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, Parse)
+Gura_ImplementMethod(wx_HtmlParser, __Parse)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,12 +209,12 @@ Gura_ImplementMethod(wx_HtmlParser, Parse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, PopTagHandler)
+Gura_DeclareMethodAlias(wx_HtmlParser, __PopTagHandler, "PopTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, PopTagHandler)
+Gura_ImplementMethod(wx_HtmlParser, __PopTagHandler)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,14 +222,14 @@ Gura_ImplementMethod(wx_HtmlParser, PopTagHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, PushTagHandler)
+Gura_DeclareMethodAlias(wx_HtmlParser, __PushTagHandler, "PushTagHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, PushTagHandler)
+Gura_ImplementMethod(wx_HtmlParser, __PushTagHandler)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_HtmlParser, PushTagHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, SetFS)
+Gura_DeclareMethodAlias(wx_HtmlParser, __SetFS, "SetFS")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, SetFS)
+Gura_ImplementMethod(wx_HtmlParser, __SetFS)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_HtmlParser, SetFS)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, StopParsing)
+Gura_DeclareMethodAlias(wx_HtmlParser, __StopParsing, "StopParsing")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, StopParsing)
+Gura_ImplementMethod(wx_HtmlParser, __StopParsing)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,13 +267,13 @@ Gura_ImplementMethod(wx_HtmlParser, StopParsing)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlParser, AddTag)
+Gura_DeclareMethodAlias(wx_HtmlParser, __AddTag, "AddTag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlParser, AddTag)
+Gura_ImplementMethod(wx_HtmlParser, __AddTag)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,23 +287,23 @@ Gura_ImplementMethod(wx_HtmlParser, AddTag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlParser)
 {
-	Gura_AssignMethod(wx_HtmlParser, wxHtmlParser);
-	Gura_AssignMethod(wx_HtmlParser, AddTagHandler);
-	Gura_AssignMethod(wx_HtmlParser, AddWord);
-	Gura_AssignMethod(wx_HtmlParser, DoParsing);
-	Gura_AssignMethod(wx_HtmlParser, DoParsing_1);
-	Gura_AssignMethod(wx_HtmlParser, DoneParser);
-	Gura_AssignMethod(wx_HtmlParser, GetFS);
-	Gura_AssignMethod(wx_HtmlParser, GetProduct);
-	Gura_AssignMethod(wx_HtmlParser, GetSource);
-	Gura_AssignMethod(wx_HtmlParser, InitParser);
-	Gura_AssignMethod(wx_HtmlParser, OpenURL);
-	Gura_AssignMethod(wx_HtmlParser, Parse);
-	Gura_AssignMethod(wx_HtmlParser, PopTagHandler);
-	Gura_AssignMethod(wx_HtmlParser, PushTagHandler);
-	Gura_AssignMethod(wx_HtmlParser, SetFS);
-	Gura_AssignMethod(wx_HtmlParser, StopParsing);
-	Gura_AssignMethod(wx_HtmlParser, AddTag);
+	Gura_AssignMethod(wx_HtmlParser, __wxHtmlParser);
+	Gura_AssignMethod(wx_HtmlParser, __AddTagHandler);
+	Gura_AssignMethod(wx_HtmlParser, __AddWord);
+	Gura_AssignMethod(wx_HtmlParser, __DoParsing);
+	Gura_AssignMethod(wx_HtmlParser, __DoParsing_1);
+	Gura_AssignMethod(wx_HtmlParser, __DoneParser);
+	Gura_AssignMethod(wx_HtmlParser, __GetFS);
+	Gura_AssignMethod(wx_HtmlParser, __GetProduct);
+	Gura_AssignMethod(wx_HtmlParser, __GetSource);
+	Gura_AssignMethod(wx_HtmlParser, __InitParser);
+	Gura_AssignMethod(wx_HtmlParser, __OpenURL);
+	Gura_AssignMethod(wx_HtmlParser, __Parse);
+	Gura_AssignMethod(wx_HtmlParser, __PopTagHandler);
+	Gura_AssignMethod(wx_HtmlParser, __PushTagHandler);
+	Gura_AssignMethod(wx_HtmlParser, __SetFS);
+	Gura_AssignMethod(wx_HtmlParser, __StopParsing);
+	Gura_AssignMethod(wx_HtmlParser, __AddTag);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlParser)

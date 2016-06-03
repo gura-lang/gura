@@ -37,13 +37,13 @@ String Object_wx_PropagateOnce::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PropagateOnce, wxPropagateOnce)
+Gura_DeclareMethodAlias(wx_PropagateOnce, __wxPropagateOnce, "wxPropagateOnce")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropagateOnce, wxPropagateOnce)
+Gura_ImplementMethod(wx_PropagateOnce, __wxPropagateOnce)
 {
 	Object_wx_PropagateOnce *pThis = Object_wx_PropagateOnce::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_PropagateOnce, wxPropagateOnce)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropagateOnce)
 {
-	Gura_AssignMethod(wx_PropagateOnce, wxPropagateOnce);
+	Gura_AssignMethod(wx_PropagateOnce, __wxPropagateOnce);
 }
 
 Gura_ImplementDescendantCreator(wx_PropagateOnce)

@@ -37,12 +37,12 @@ String Object_wx_BufferedDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BufferedDC, wxBufferedDC)
+Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC, "wxBufferedDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC)
+Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, wxBufferedDC_1)
+Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_1, "wxBufferedDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_BufferedDC, wxBufferedDC_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC_1)
+Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC_1)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, wxBufferedDC_2)
+Gura_DeclareMethodAlias(wx_BufferedDC, __wxBufferedDC_2, "wxBufferedDC_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_BufferedDC, wxBufferedDC_2)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC_2)
+Gura_ImplementMethod(wx_BufferedDC, __wxBufferedDC_2)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,7 +88,7 @@ Gura_ImplementMethod(wx_BufferedDC, wxBufferedDC_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, Init)
+Gura_DeclareMethodAlias(wx_BufferedDC, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_DeclareMethod(wx_BufferedDC, Init)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, Init)
+Gura_ImplementMethod(wx_BufferedDC, __Init)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_BufferedDC, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, Init_1)
+Gura_DeclareMethodAlias(wx_BufferedDC, __Init_1, "Init_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -115,7 +115,7 @@ Gura_DeclareMethod(wx_BufferedDC, Init_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, Init_1)
+Gura_ImplementMethod(wx_BufferedDC, __Init_1)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_BufferedDC, Init_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, UnMask)
+Gura_DeclareMethodAlias(wx_BufferedDC, __UnMask, "UnMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, UnMask)
+Gura_ImplementMethod(wx_BufferedDC, __UnMask)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_BufferedDC, UnMask)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, SetStyle)
+Gura_DeclareMethodAlias(wx_BufferedDC, __SetStyle, "SetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, SetStyle)
+Gura_ImplementMethod(wx_BufferedDC, __SetStyle)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,12 +154,12 @@ Gura_ImplementMethod(wx_BufferedDC, SetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedDC, GetStyle)
+Gura_DeclareMethodAlias(wx_BufferedDC, __GetStyle, "GetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BufferedDC, GetStyle)
+Gura_ImplementMethod(wx_BufferedDC, __GetStyle)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,14 +172,14 @@ Gura_ImplementMethod(wx_BufferedDC, GetStyle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedDC)
 {
-	Gura_AssignMethod(wx_BufferedDC, wxBufferedDC);
-	Gura_AssignMethod(wx_BufferedDC, wxBufferedDC_1);
-	Gura_AssignMethod(wx_BufferedDC, wxBufferedDC_2);
-	Gura_AssignMethod(wx_BufferedDC, Init);
-	Gura_AssignMethod(wx_BufferedDC, Init_1);
-	Gura_AssignMethod(wx_BufferedDC, UnMask);
-	Gura_AssignMethod(wx_BufferedDC, SetStyle);
-	Gura_AssignMethod(wx_BufferedDC, GetStyle);
+	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC);
+	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC_1);
+	Gura_AssignMethod(wx_BufferedDC, __wxBufferedDC_2);
+	Gura_AssignMethod(wx_BufferedDC, __Init);
+	Gura_AssignMethod(wx_BufferedDC, __Init_1);
+	Gura_AssignMethod(wx_BufferedDC, __UnMask);
+	Gura_AssignMethod(wx_BufferedDC, __SetStyle);
+	Gura_AssignMethod(wx_BufferedDC, __GetStyle);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedDC)

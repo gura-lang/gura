@@ -37,12 +37,12 @@ String Object_wx_HtmlDCRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __wxHtmlDCRenderer, "wxHtmlDCRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __wxHtmlDCRenderer)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalWidth)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __GetTotalWidth, "GetTotalWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalWidth)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __GetTotalWidth)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, GetTotalHeight)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __GetTotalHeight, "GetTotalHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __GetTotalHeight)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, GetTotalHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __Render, "Render")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, Render)
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __Render)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,14 +101,14 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, Render)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, SetDC)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __SetDC, "SetDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __SetDC)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __SetFonts, "SetFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normal_face", VTYPE_number, OCCUR_Once);
@@ -126,7 +126,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetFonts)
 	//DeclareArg(env, "sizes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __SetFonts)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, SetStandardFonts)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __SetStandardFonts, "SetStandardFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -145,7 +145,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetStandardFonts)
 	//DeclareArg(env, "fixed_face", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, SetStandardFonts)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __SetStandardFonts)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetStandardFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __SetHtmlText, "SetHtmlText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_HtmlDCRenderer, SetHtmlText)
 	//DeclareArg(env, "isdir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __SetHtmlText)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,14 +175,14 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetHtmlText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlDCRenderer, SetSize)
+Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __SetSize, "SetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
+Gura_ImplementMethod(wx_HtmlDCRenderer, __SetSize)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,15 +197,15 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, SetSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlDCRenderer)
 {
-	Gura_AssignMethod(wx_HtmlDCRenderer, wxHtmlDCRenderer);
-	Gura_AssignMethod(wx_HtmlDCRenderer, GetTotalWidth);
-	Gura_AssignMethod(wx_HtmlDCRenderer, GetTotalHeight);
-	Gura_AssignMethod(wx_HtmlDCRenderer, Render);
-	Gura_AssignMethod(wx_HtmlDCRenderer, SetDC);
-	Gura_AssignMethod(wx_HtmlDCRenderer, SetFonts);
-	Gura_AssignMethod(wx_HtmlDCRenderer, SetStandardFonts);
-	Gura_AssignMethod(wx_HtmlDCRenderer, SetHtmlText);
-	Gura_AssignMethod(wx_HtmlDCRenderer, SetSize);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __wxHtmlDCRenderer);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalWidth);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __GetTotalHeight);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __Render);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __SetDC);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __SetFonts);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __SetStandardFonts);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __SetHtmlText);
+	Gura_AssignMethod(wx_HtmlDCRenderer, __SetSize);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlDCRenderer)

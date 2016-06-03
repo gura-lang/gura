@@ -37,12 +37,12 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MDIClientWindow, wxMDIClientWindow)
+Gura_DeclareMethodAlias(wx_MDIClientWindow, __wxMDIClientWindow, "wxMDIClientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIClientWindow, wxMDIClientWindow)
+Gura_ImplementMethod(wx_MDIClientWindow, __wxMDIClientWindow)
 {
 	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_MDIClientWindow, wxMDIClientWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIClientWindow, CreateClient)
+Gura_DeclareMethodAlias(wx_MDIClientWindow, __CreateClient, "CreateClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
+Gura_ImplementMethod(wx_MDIClientWindow, __CreateClient)
 {
 	Object_wx_MDIClientWindow *pThis = Object_wx_MDIClientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_MDIClientWindow, CreateClient)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)
 {
-	Gura_AssignMethod(wx_MDIClientWindow, wxMDIClientWindow);
-	Gura_AssignMethod(wx_MDIClientWindow, CreateClient);
+	Gura_AssignMethod(wx_MDIClientWindow, __wxMDIClientWindow);
+	Gura_AssignMethod(wx_MDIClientWindow, __CreateClient);
 }
 
 Gura_ImplementDescendantCreator(wx_MDIClientWindow)

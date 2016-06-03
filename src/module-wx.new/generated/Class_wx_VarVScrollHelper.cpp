@@ -37,13 +37,13 @@ String Object_wx_VarVScrollHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_VarVScrollHelper, wxVarVScrollHelper)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __wxVarVScrollHelper, "wxVarVScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, wxVarVScrollHelper)
+Gura_ImplementMethod(wx_VarVScrollHelper, __wxVarVScrollHelper)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_VarVScrollHelper, wxVarVScrollHelper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, GetRowCount)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __GetRowCount, "GetRowCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, GetRowCount)
+Gura_ImplementMethod(wx_VarVScrollHelper, __GetRowCount)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_VarVScrollHelper, GetRowCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, GetVisibleRowsBegin)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __GetVisibleRowsBegin, "GetVisibleRowsBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, GetVisibleRowsBegin)
+Gura_ImplementMethod(wx_VarVScrollHelper, __GetVisibleRowsBegin)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_VarVScrollHelper, GetVisibleRowsBegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, GetVisibleRowsEnd)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __GetVisibleRowsEnd, "GetVisibleRowsEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, GetVisibleRowsEnd)
+Gura_ImplementMethod(wx_VarVScrollHelper, __GetVisibleRowsEnd)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, GetVisibleRowsEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, IsRowVisible)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __IsRowVisible, "IsRowVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, IsRowVisible)
+Gura_ImplementMethod(wx_VarVScrollHelper, __IsRowVisible)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, IsRowVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, RefreshRow)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __RefreshRow, "RefreshRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, RefreshRow)
+Gura_ImplementMethod(wx_VarVScrollHelper, __RefreshRow)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,14 +121,14 @@ Gura_ImplementMethod(wx_VarVScrollHelper, RefreshRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, RefreshRows)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __RefreshRows, "RefreshRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, RefreshRows)
+Gura_ImplementMethod(wx_VarVScrollHelper, __RefreshRows)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, RefreshRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, ScrollRowPages)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __ScrollRowPages, "ScrollRowPages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, ScrollRowPages)
+Gura_ImplementMethod(wx_VarVScrollHelper, __ScrollRowPages)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, ScrollRowPages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, ScrollRows)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __ScrollRows, "ScrollRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, ScrollRows)
+Gura_ImplementMethod(wx_VarVScrollHelper, __ScrollRows)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, ScrollRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, ScrollToRow)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __ScrollToRow, "ScrollToRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, ScrollToRow)
+Gura_ImplementMethod(wx_VarVScrollHelper, __ScrollToRow)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, ScrollToRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, SetRowCount)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __SetRowCount, "SetRowCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, SetRowCount)
+Gura_ImplementMethod(wx_VarVScrollHelper, __SetRowCount)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -198,14 +198,14 @@ Gura_ImplementMethod(wx_VarVScrollHelper, SetRowCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, OnGetRowsHeightHint)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __OnGetRowsHeightHint, "OnGetRowsHeightHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rowMin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rowMax", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, OnGetRowsHeightHint)
+Gura_ImplementMethod(wx_VarVScrollHelper, __OnGetRowsHeightHint)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -215,12 +215,12 @@ Gura_ImplementMethod(wx_VarVScrollHelper, OnGetRowsHeightHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, EstimateTotalHeight)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __EstimateTotalHeight, "EstimateTotalHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, EstimateTotalHeight)
+Gura_ImplementMethod(wx_VarVScrollHelper, __EstimateTotalHeight)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -228,13 +228,13 @@ Gura_ImplementMethod(wx_VarVScrollHelper, EstimateTotalHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarVScrollHelper, OnGetRowHeight)
+Gura_DeclareMethodAlias(wx_VarVScrollHelper, __OnGetRowHeight, "OnGetRowHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarVScrollHelper, OnGetRowHeight)
+Gura_ImplementMethod(wx_VarVScrollHelper, __OnGetRowHeight)
 {
 	Object_wx_VarVScrollHelper *pThis = Object_wx_VarVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,20 +248,20 @@ Gura_ImplementMethod(wx_VarVScrollHelper, OnGetRowHeight)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarVScrollHelper)
 {
-	Gura_AssignMethod(wx_VarVScrollHelper, wxVarVScrollHelper);
-	Gura_AssignMethod(wx_VarVScrollHelper, GetRowCount);
-	Gura_AssignMethod(wx_VarVScrollHelper, GetVisibleRowsBegin);
-	Gura_AssignMethod(wx_VarVScrollHelper, GetVisibleRowsEnd);
-	Gura_AssignMethod(wx_VarVScrollHelper, IsRowVisible);
-	Gura_AssignMethod(wx_VarVScrollHelper, RefreshRow);
-	Gura_AssignMethod(wx_VarVScrollHelper, RefreshRows);
-	Gura_AssignMethod(wx_VarVScrollHelper, ScrollRowPages);
-	Gura_AssignMethod(wx_VarVScrollHelper, ScrollRows);
-	Gura_AssignMethod(wx_VarVScrollHelper, ScrollToRow);
-	Gura_AssignMethod(wx_VarVScrollHelper, SetRowCount);
-	Gura_AssignMethod(wx_VarVScrollHelper, OnGetRowsHeightHint);
-	Gura_AssignMethod(wx_VarVScrollHelper, EstimateTotalHeight);
-	Gura_AssignMethod(wx_VarVScrollHelper, OnGetRowHeight);
+	Gura_AssignMethod(wx_VarVScrollHelper, __wxVarVScrollHelper);
+	Gura_AssignMethod(wx_VarVScrollHelper, __GetRowCount);
+	Gura_AssignMethod(wx_VarVScrollHelper, __GetVisibleRowsBegin);
+	Gura_AssignMethod(wx_VarVScrollHelper, __GetVisibleRowsEnd);
+	Gura_AssignMethod(wx_VarVScrollHelper, __IsRowVisible);
+	Gura_AssignMethod(wx_VarVScrollHelper, __RefreshRow);
+	Gura_AssignMethod(wx_VarVScrollHelper, __RefreshRows);
+	Gura_AssignMethod(wx_VarVScrollHelper, __ScrollRowPages);
+	Gura_AssignMethod(wx_VarVScrollHelper, __ScrollRows);
+	Gura_AssignMethod(wx_VarVScrollHelper, __ScrollToRow);
+	Gura_AssignMethod(wx_VarVScrollHelper, __SetRowCount);
+	Gura_AssignMethod(wx_VarVScrollHelper, __OnGetRowsHeightHint);
+	Gura_AssignMethod(wx_VarVScrollHelper, __EstimateTotalHeight);
+	Gura_AssignMethod(wx_VarVScrollHelper, __OnGetRowHeight);
 }
 
 Gura_ImplementDescendantCreator(wx_VarVScrollHelper)

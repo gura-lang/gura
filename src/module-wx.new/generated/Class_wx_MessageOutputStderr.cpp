@@ -37,13 +37,13 @@ String Object_wx_MessageOutputStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
+Gura_DeclareMethodAlias(wx_MessageOutputStderr, __wxMessageOutputStderr, "wxMessageOutputStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
+Gura_ImplementMethod(wx_MessageOutputStderr, __wxMessageOutputStderr)
 {
 	Object_wx_MessageOutputStderr *pThis = Object_wx_MessageOutputStderr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_MessageOutputStderr, wxMessageOutputStderr)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputStderr)
 {
-	Gura_AssignMethod(wx_MessageOutputStderr, wxMessageOutputStderr);
+	Gura_AssignMethod(wx_MessageOutputStderr, __wxMessageOutputStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputStderr)

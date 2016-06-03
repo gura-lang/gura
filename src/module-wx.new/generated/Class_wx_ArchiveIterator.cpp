@@ -37,12 +37,12 @@ String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArchiveIterator, wxArchiveIterator)
+Gura_DeclareMethodAlias(wx_ArchiveIterator, __wxArchiveIterator, "wxArchiveIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator)
+Gura_ImplementMethod(wx_ArchiveIterator, __wxArchiveIterator)
 {
 	Object_wx_ArchiveIterator *pThis = Object_wx_ArchiveIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveIterator, wxArchiveIterator_1)
+Gura_DeclareMethodAlias(wx_ArchiveIterator, __wxArchiveIterator_1, "wxArchiveIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator_1)
+Gura_ImplementMethod(wx_ArchiveIterator, __wxArchiveIterator_1)
 {
 	Object_wx_ArchiveIterator *pThis = Object_wx_ArchiveIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_ArchiveIterator, wxArchiveIterator_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveIterator)
 {
-	Gura_AssignMethod(wx_ArchiveIterator, wxArchiveIterator);
-	Gura_AssignMethod(wx_ArchiveIterator, wxArchiveIterator_1);
+	Gura_AssignMethod(wx_ArchiveIterator, __wxArchiveIterator);
+	Gura_AssignMethod(wx_ArchiveIterator, __wxArchiveIterator_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveIterator)

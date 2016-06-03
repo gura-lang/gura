@@ -37,12 +37,12 @@ String Object_wx_RibbonToolBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonToolBar, wxRibbonToolBar)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __wxRibbonToolBar, "wxRibbonToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar)
+Gura_ImplementMethod(wx_RibbonToolBar, __wxRibbonToolBar)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __wxRibbonToolBar_1, "wxRibbonToolBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
+Gura_ImplementMethod(wx_RibbonToolBar, __wxRibbonToolBar_1)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, wxRibbonToolBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, Create)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, Create)
+Gura_ImplementMethod(wx_RibbonToolBar, __Create)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddTool, "AddTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddTool)
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddDropdownTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddDropdownTool, "AddDropdownTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
@@ -125,7 +125,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddDropdownTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddDropdownTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddDropdownTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddDropdownTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddHybridTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddHybridTool, "AddHybridTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
@@ -144,7 +144,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddHybridTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddHybridTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddHybridTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddHybridTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddToggleTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddToggleTool, "AddToggleTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
@@ -163,7 +163,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddToggleTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddToggleTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddToggleTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddToggleTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddTool_1)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddTool_1, "AddTool_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
@@ -185,7 +185,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, AddTool_1)
 	//DeclareArg(env, "client_data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddTool_1)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddTool_1)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,12 +199,12 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddTool_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, AddSeparator)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __AddSeparator, "AddSeparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, AddSeparator)
+Gura_ImplementMethod(wx_RibbonToolBar, __AddSeparator)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, AddSeparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertTool, "InsertTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertTool)
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertDropdownTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertDropdownTool, "InsertDropdownTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -244,7 +244,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertDropdownTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertDropdownTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertDropdownTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertDropdownTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertHybridTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertHybridTool, "InsertHybridTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -265,7 +265,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertHybridTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertHybridTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertHybridTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertHybridTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertToggleTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertToggleTool, "InsertToggleTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -286,7 +286,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertToggleTool)
 	//DeclareArg(env, "help_string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertToggleTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertToggleTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertToggleTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertTool_1)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertTool_1, "InsertTool_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -310,7 +310,7 @@ Gura_DeclareMethod(wx_RibbonToolBar, InsertTool_1)
 	//DeclareArg(env, "client_data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertTool_1)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertTool_1)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,13 +325,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertTool_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, InsertSeparator)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __InsertSeparator, "InsertSeparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, InsertSeparator)
+Gura_ImplementMethod(wx_RibbonToolBar, __InsertSeparator)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,12 +340,12 @@ Gura_ImplementMethod(wx_RibbonToolBar, InsertSeparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, ClearTools)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __ClearTools, "ClearTools")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, ClearTools)
+Gura_ImplementMethod(wx_RibbonToolBar, __ClearTools)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -353,13 +353,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, ClearTools)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, DeleteTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __DeleteTool, "DeleteTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, DeleteTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __DeleteTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,13 +368,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, DeleteTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, DeleteToolByPos)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __DeleteToolByPos, "DeleteToolByPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, DeleteToolByPos)
+Gura_ImplementMethod(wx_RibbonToolBar, __DeleteToolByPos)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, DeleteToolByPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, FindById)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __FindById, "FindById")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, FindById)
+Gura_ImplementMethod(wx_RibbonToolBar, __FindById)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,12 +398,12 @@ Gura_ImplementMethod(wx_RibbonToolBar, FindById)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolByPos)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolByPos, "GetToolByPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolByPos)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolByPos)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -411,13 +411,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolByPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolId)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolId, "GetToolId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolId)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolId)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -426,13 +426,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolClientData)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolClientData, "GetToolClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolClientData)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolClientData)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -441,13 +441,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolEnabled)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolEnabled, "GetToolEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolEnabled)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolEnabled)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -456,13 +456,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolHelpString)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolHelpString, "GetToolHelpString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolHelpString)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolHelpString)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -471,13 +471,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolHelpString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolKind)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolKind, "GetToolKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolKind)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolKind)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -486,13 +486,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolPos)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolPos, "GetToolPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolPos)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolPos)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -501,13 +501,13 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, GetToolState)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __GetToolState, "GetToolState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, GetToolState)
+Gura_ImplementMethod(wx_RibbonToolBar, __GetToolState)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -516,12 +516,12 @@ Gura_ImplementMethod(wx_RibbonToolBar, GetToolState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, Realize)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __Realize, "Realize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, Realize)
+Gura_ImplementMethod(wx_RibbonToolBar, __Realize)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -529,14 +529,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, Realize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, SetRows)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __SetRows, "SetRows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nMin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nMax", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, SetRows)
+Gura_ImplementMethod(wx_RibbonToolBar, __SetRows)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -546,14 +546,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, SetRows)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, SetToolClientData)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __SetToolClientData, "SetToolClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, SetToolClientData)
+Gura_ImplementMethod(wx_RibbonToolBar, __SetToolClientData)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -563,14 +563,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, SetToolClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, SetToolDisabledBitmap)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __SetToolDisabledBitmap, "SetToolDisabledBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, SetToolDisabledBitmap)
+Gura_ImplementMethod(wx_RibbonToolBar, __SetToolDisabledBitmap)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -580,14 +580,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, SetToolDisabledBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, SetToolHelpString)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __SetToolHelpString, "SetToolHelpString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "helpString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, SetToolHelpString)
+Gura_ImplementMethod(wx_RibbonToolBar, __SetToolHelpString)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -597,14 +597,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, SetToolHelpString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, SetToolNormalBitmap)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __SetToolNormalBitmap, "SetToolNormalBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, SetToolNormalBitmap)
+Gura_ImplementMethod(wx_RibbonToolBar, __SetToolNormalBitmap)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -614,14 +614,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, SetToolNormalBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, EnableTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __EnableTool, "EnableTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, EnableTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __EnableTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -631,14 +631,14 @@ Gura_ImplementMethod(wx_RibbonToolBar, EnableTool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonToolBar, ToggleTool)
+Gura_DeclareMethodAlias(wx_RibbonToolBar, __ToggleTool, "ToggleTool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tool_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "checked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonToolBar, ToggleTool)
+Gura_ImplementMethod(wx_RibbonToolBar, __ToggleTool)
 {
 	Object_wx_RibbonToolBar *pThis = Object_wx_RibbonToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -653,41 +653,41 @@ Gura_ImplementMethod(wx_RibbonToolBar, ToggleTool)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonToolBar)
 {
-	Gura_AssignMethod(wx_RibbonToolBar, wxRibbonToolBar);
-	Gura_AssignMethod(wx_RibbonToolBar, wxRibbonToolBar_1);
-	Gura_AssignMethod(wx_RibbonToolBar, Create);
-	Gura_AssignMethod(wx_RibbonToolBar, AddTool);
-	Gura_AssignMethod(wx_RibbonToolBar, AddDropdownTool);
-	Gura_AssignMethod(wx_RibbonToolBar, AddHybridTool);
-	Gura_AssignMethod(wx_RibbonToolBar, AddToggleTool);
-	Gura_AssignMethod(wx_RibbonToolBar, AddTool_1);
-	Gura_AssignMethod(wx_RibbonToolBar, AddSeparator);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertTool);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertDropdownTool);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertHybridTool);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertToggleTool);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertTool_1);
-	Gura_AssignMethod(wx_RibbonToolBar, InsertSeparator);
-	Gura_AssignMethod(wx_RibbonToolBar, ClearTools);
-	Gura_AssignMethod(wx_RibbonToolBar, DeleteTool);
-	Gura_AssignMethod(wx_RibbonToolBar, DeleteToolByPos);
-	Gura_AssignMethod(wx_RibbonToolBar, FindById);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolByPos);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolId);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolClientData);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolEnabled);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolHelpString);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolKind);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolPos);
-	Gura_AssignMethod(wx_RibbonToolBar, GetToolState);
-	Gura_AssignMethod(wx_RibbonToolBar, Realize);
-	Gura_AssignMethod(wx_RibbonToolBar, SetRows);
-	Gura_AssignMethod(wx_RibbonToolBar, SetToolClientData);
-	Gura_AssignMethod(wx_RibbonToolBar, SetToolDisabledBitmap);
-	Gura_AssignMethod(wx_RibbonToolBar, SetToolHelpString);
-	Gura_AssignMethod(wx_RibbonToolBar, SetToolNormalBitmap);
-	Gura_AssignMethod(wx_RibbonToolBar, EnableTool);
-	Gura_AssignMethod(wx_RibbonToolBar, ToggleTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __wxRibbonToolBar);
+	Gura_AssignMethod(wx_RibbonToolBar, __wxRibbonToolBar_1);
+	Gura_AssignMethod(wx_RibbonToolBar, __Create);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddDropdownTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddHybridTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddToggleTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddTool_1);
+	Gura_AssignMethod(wx_RibbonToolBar, __AddSeparator);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertDropdownTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertHybridTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertToggleTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertTool_1);
+	Gura_AssignMethod(wx_RibbonToolBar, __InsertSeparator);
+	Gura_AssignMethod(wx_RibbonToolBar, __ClearTools);
+	Gura_AssignMethod(wx_RibbonToolBar, __DeleteTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __DeleteToolByPos);
+	Gura_AssignMethod(wx_RibbonToolBar, __FindById);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolByPos);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolId);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolClientData);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolEnabled);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolHelpString);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolKind);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolPos);
+	Gura_AssignMethod(wx_RibbonToolBar, __GetToolState);
+	Gura_AssignMethod(wx_RibbonToolBar, __Realize);
+	Gura_AssignMethod(wx_RibbonToolBar, __SetRows);
+	Gura_AssignMethod(wx_RibbonToolBar, __SetToolClientData);
+	Gura_AssignMethod(wx_RibbonToolBar, __SetToolDisabledBitmap);
+	Gura_AssignMethod(wx_RibbonToolBar, __SetToolHelpString);
+	Gura_AssignMethod(wx_RibbonToolBar, __SetToolNormalBitmap);
+	Gura_AssignMethod(wx_RibbonToolBar, __EnableTool);
+	Gura_AssignMethod(wx_RibbonToolBar, __ToggleTool);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonToolBar)

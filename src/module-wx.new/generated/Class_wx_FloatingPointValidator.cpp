@@ -37,14 +37,14 @@ String Object_wx_FloatingPointValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FloatingPointValidator, wxFloatingPointValidator)
+Gura_DeclareMethodAlias(wx_FloatingPointValidator, __wxFloatingPointValidator, "wxFloatingPointValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FloatingPointValidator, wxFloatingPointValidator)
+Gura_ImplementMethod(wx_FloatingPointValidator, __wxFloatingPointValidator)
 {
 	Object_wx_FloatingPointValidator *pThis = Object_wx_FloatingPointValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_FloatingPointValidator, wxFloatingPointValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FloatingPointValidator, wxFloatingPointValidator_1)
+Gura_DeclareMethodAlias(wx_FloatingPointValidator, __wxFloatingPointValidator_1, "wxFloatingPointValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_FloatingPointValidator, wxFloatingPointValidator_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FloatingPointValidator, wxFloatingPointValidator_1)
+Gura_ImplementMethod(wx_FloatingPointValidator, __wxFloatingPointValidator_1)
 {
 	Object_wx_FloatingPointValidator *pThis = Object_wx_FloatingPointValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,13 +73,13 @@ Gura_ImplementMethod(wx_FloatingPointValidator, wxFloatingPointValidator_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FloatingPointValidator, SetPrecision)
+Gura_DeclareMethodAlias(wx_FloatingPointValidator, __SetPrecision, "SetPrecision")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FloatingPointValidator, SetPrecision)
+Gura_ImplementMethod(wx_FloatingPointValidator, __SetPrecision)
 {
 	Object_wx_FloatingPointValidator *pThis = Object_wx_FloatingPointValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,9 +93,9 @@ Gura_ImplementMethod(wx_FloatingPointValidator, SetPrecision)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FloatingPointValidator)
 {
-	Gura_AssignMethod(wx_FloatingPointValidator, wxFloatingPointValidator);
-	Gura_AssignMethod(wx_FloatingPointValidator, wxFloatingPointValidator_1);
-	Gura_AssignMethod(wx_FloatingPointValidator, SetPrecision);
+	Gura_AssignMethod(wx_FloatingPointValidator, __wxFloatingPointValidator);
+	Gura_AssignMethod(wx_FloatingPointValidator, __wxFloatingPointValidator_1);
+	Gura_AssignMethod(wx_FloatingPointValidator, __SetPrecision);
 }
 
 Gura_ImplementDescendantCreator(wx_FloatingPointValidator)

@@ -37,12 +37,12 @@ String Object_wx_AppConsole::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AppConsole, CreateTraits)
+Gura_DeclareMethodAlias(wx_AppConsole, __CreateTraits, "CreateTraits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, CreateTraits)
+Gura_ImplementMethod(wx_AppConsole, __CreateTraits)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AppConsole, CreateTraits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, MainLoop)
+Gura_DeclareMethodAlias(wx_AppConsole, __MainLoop, "MainLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, MainLoop)
+Gura_ImplementMethod(wx_AppConsole, __MainLoop)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_AppConsole, MainLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, ExitMainLoop)
+Gura_DeclareMethodAlias(wx_AppConsole, __ExitMainLoop, "ExitMainLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, ExitMainLoop)
+Gura_ImplementMethod(wx_AppConsole, __ExitMainLoop)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_AppConsole, ExitMainLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, FilterEvent)
+Gura_DeclareMethodAlias(wx_AppConsole, __FilterEvent, "FilterEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, FilterEvent)
+Gura_ImplementMethod(wx_AppConsole, __FilterEvent)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_AppConsole, FilterEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetMainLoop)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetMainLoop, "GetMainLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetMainLoop)
+Gura_ImplementMethod(wx_AppConsole, __GetMainLoop)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_AppConsole, GetMainLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, HandleEvent)
+Gura_DeclareMethodAlias(wx_AppConsole, __HandleEvent, "HandleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
@@ -112,7 +112,7 @@ Gura_DeclareMethod(wx_AppConsole, HandleEvent)
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, HandleEvent)
+Gura_ImplementMethod(wx_AppConsole, __HandleEvent)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_AppConsole, HandleEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, UsesEventLoop)
+Gura_DeclareMethodAlias(wx_AppConsole, __UsesEventLoop, "UsesEventLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, UsesEventLoop)
+Gura_ImplementMethod(wx_AppConsole, __UsesEventLoop)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_AppConsole, UsesEventLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, ProcessPendingEvents)
+Gura_DeclareMethodAlias(wx_AppConsole, __ProcessPendingEvents, "ProcessPendingEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, ProcessPendingEvents)
+Gura_ImplementMethod(wx_AppConsole, __ProcessPendingEvents)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_AppConsole, ProcessPendingEvents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, DeletePendingEvents)
+Gura_DeclareMethodAlias(wx_AppConsole, __DeletePendingEvents, "DeletePendingEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, DeletePendingEvents)
+Gura_ImplementMethod(wx_AppConsole, __DeletePendingEvents)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_AppConsole, DeletePendingEvents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, HasPendingEvents)
+Gura_DeclareMethodAlias(wx_AppConsole, __HasPendingEvents, "HasPendingEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, HasPendingEvents)
+Gura_ImplementMethod(wx_AppConsole, __HasPendingEvents)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_AppConsole, HasPendingEvents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SuspendProcessingOfPendingEvents)
+Gura_DeclareMethodAlias(wx_AppConsole, __SuspendProcessingOfPendingEvents, "SuspendProcessingOfPendingEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SuspendProcessingOfPendingEvents)
+Gura_ImplementMethod(wx_AppConsole, __SuspendProcessingOfPendingEvents)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_AppConsole, SuspendProcessingOfPendingEvents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, ResumeProcessingOfPendingEvents)
+Gura_DeclareMethodAlias(wx_AppConsole, __ResumeProcessingOfPendingEvents, "ResumeProcessingOfPendingEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, ResumeProcessingOfPendingEvents)
+Gura_ImplementMethod(wx_AppConsole, __ResumeProcessingOfPendingEvents)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_AppConsole, ResumeProcessingOfPendingEvents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, ScheduleForDestruction)
+Gura_DeclareMethodAlias(wx_AppConsole, __ScheduleForDestruction, "ScheduleForDestruction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, ScheduleForDestruction)
+Gura_ImplementMethod(wx_AppConsole, __ScheduleForDestruction)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_AppConsole, ScheduleForDestruction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, IsScheduledForDestruction)
+Gura_DeclareMethodAlias(wx_AppConsole, __IsScheduledForDestruction, "IsScheduledForDestruction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, IsScheduledForDestruction)
+Gura_ImplementMethod(wx_AppConsole, __IsScheduledForDestruction)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_AppConsole, IsScheduledForDestruction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, Yield)
+Gura_DeclareMethodAlias(wx_AppConsole, __Yield, "Yield")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "onlyIfNeeded", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, Yield)
+Gura_ImplementMethod(wx_AppConsole, __Yield)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,13 +246,13 @@ Gura_ImplementMethod(wx_AppConsole, Yield)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetInstance)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetInstance, "SetInstance")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "app", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetInstance)
+Gura_ImplementMethod(wx_AppConsole, __SetInstance)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,12 +261,12 @@ Gura_ImplementMethod(wx_AppConsole, SetInstance)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetInstance)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetInstance, "GetInstance")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetInstance)
+Gura_ImplementMethod(wx_AppConsole, __GetInstance)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,12 +274,12 @@ Gura_ImplementMethod(wx_AppConsole, GetInstance)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, IsMainLoopRunning)
+Gura_DeclareMethodAlias(wx_AppConsole, __IsMainLoopRunning, "IsMainLoopRunning")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, IsMainLoopRunning)
+Gura_ImplementMethod(wx_AppConsole, __IsMainLoopRunning)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_AppConsole, IsMainLoopRunning)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnAssertFailure)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnAssertFailure, "OnAssertFailure")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
@@ -297,7 +297,7 @@ Gura_DeclareMethod(wx_AppConsole, OnAssertFailure)
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnAssertFailure)
+Gura_ImplementMethod(wx_AppConsole, __OnAssertFailure)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -310,13 +310,13 @@ Gura_ImplementMethod(wx_AppConsole, OnAssertFailure)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnCmdLineError)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnCmdLineError, "OnCmdLineError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnCmdLineError)
+Gura_ImplementMethod(wx_AppConsole, __OnCmdLineError)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,13 +325,13 @@ Gura_ImplementMethod(wx_AppConsole, OnCmdLineError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnCmdLineHelp)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnCmdLineHelp, "OnCmdLineHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnCmdLineHelp)
+Gura_ImplementMethod(wx_AppConsole, __OnCmdLineHelp)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,13 +340,13 @@ Gura_ImplementMethod(wx_AppConsole, OnCmdLineHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnCmdLineParsed)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnCmdLineParsed, "OnCmdLineParsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnCmdLineParsed)
+Gura_ImplementMethod(wx_AppConsole, __OnCmdLineParsed)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_AppConsole, OnCmdLineParsed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnEventLoopEnter)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnEventLoopEnter, "OnEventLoopEnter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnEventLoopEnter)
+Gura_ImplementMethod(wx_AppConsole, __OnEventLoopEnter)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,13 +370,13 @@ Gura_ImplementMethod(wx_AppConsole, OnEventLoopEnter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnEventLoopExit)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnEventLoopExit, "OnEventLoopExit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnEventLoopExit)
+Gura_ImplementMethod(wx_AppConsole, __OnEventLoopExit)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -385,12 +385,12 @@ Gura_ImplementMethod(wx_AppConsole, OnEventLoopExit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnExit)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnExit, "OnExit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnExit)
+Gura_ImplementMethod(wx_AppConsole, __OnExit)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,12 +398,12 @@ Gura_ImplementMethod(wx_AppConsole, OnExit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnFatalException)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnFatalException, "OnFatalException")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnFatalException)
+Gura_ImplementMethod(wx_AppConsole, __OnFatalException)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -411,12 +411,12 @@ Gura_ImplementMethod(wx_AppConsole, OnFatalException)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnInit)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnInit, "OnInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnInit)
+Gura_ImplementMethod(wx_AppConsole, __OnInit)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -424,13 +424,13 @@ Gura_ImplementMethod(wx_AppConsole, OnInit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnInitCmdLine)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnInitCmdLine, "OnInitCmdLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnInitCmdLine)
+Gura_ImplementMethod(wx_AppConsole, __OnInitCmdLine)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -439,12 +439,12 @@ Gura_ImplementMethod(wx_AppConsole, OnInitCmdLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnRun)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnRun, "OnRun")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnRun)
+Gura_ImplementMethod(wx_AppConsole, __OnRun)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -452,12 +452,12 @@ Gura_ImplementMethod(wx_AppConsole, OnRun)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnExceptionInMainLoop)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnExceptionInMainLoop, "OnExceptionInMainLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnExceptionInMainLoop)
+Gura_ImplementMethod(wx_AppConsole, __OnExceptionInMainLoop)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -465,12 +465,12 @@ Gura_ImplementMethod(wx_AppConsole, OnExceptionInMainLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, OnUnhandledException)
+Gura_DeclareMethodAlias(wx_AppConsole, __OnUnhandledException, "OnUnhandledException")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, OnUnhandledException)
+Gura_ImplementMethod(wx_AppConsole, __OnUnhandledException)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -478,12 +478,12 @@ Gura_ImplementMethod(wx_AppConsole, OnUnhandledException)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, StoreCurrentException)
+Gura_DeclareMethodAlias(wx_AppConsole, __StoreCurrentException, "StoreCurrentException")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, StoreCurrentException)
+Gura_ImplementMethod(wx_AppConsole, __StoreCurrentException)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -491,12 +491,12 @@ Gura_ImplementMethod(wx_AppConsole, StoreCurrentException)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, RethrowStoredException)
+Gura_DeclareMethodAlias(wx_AppConsole, __RethrowStoredException, "RethrowStoredException")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, RethrowStoredException)
+Gura_ImplementMethod(wx_AppConsole, __RethrowStoredException)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -504,12 +504,12 @@ Gura_ImplementMethod(wx_AppConsole, RethrowStoredException)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetAppDisplayName)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetAppDisplayName, "GetAppDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetAppDisplayName)
+Gura_ImplementMethod(wx_AppConsole, __GetAppDisplayName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -517,12 +517,12 @@ Gura_ImplementMethod(wx_AppConsole, GetAppDisplayName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetAppName)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetAppName, "GetAppName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetAppName)
+Gura_ImplementMethod(wx_AppConsole, __GetAppName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -530,12 +530,12 @@ Gura_ImplementMethod(wx_AppConsole, GetAppName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetClassName)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetClassName, "GetClassName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetClassName)
+Gura_ImplementMethod(wx_AppConsole, __GetClassName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -543,12 +543,12 @@ Gura_ImplementMethod(wx_AppConsole, GetClassName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetTraits)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetTraits, "GetTraits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetTraits)
+Gura_ImplementMethod(wx_AppConsole, __GetTraits)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -556,12 +556,12 @@ Gura_ImplementMethod(wx_AppConsole, GetTraits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetVendorDisplayName)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetVendorDisplayName, "GetVendorDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetVendorDisplayName)
+Gura_ImplementMethod(wx_AppConsole, __GetVendorDisplayName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -569,12 +569,12 @@ Gura_ImplementMethod(wx_AppConsole, GetVendorDisplayName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, GetVendorName)
+Gura_DeclareMethodAlias(wx_AppConsole, __GetVendorName, "GetVendorName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, GetVendorName)
+Gura_ImplementMethod(wx_AppConsole, __GetVendorName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -582,13 +582,13 @@ Gura_ImplementMethod(wx_AppConsole, GetVendorName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetAppDisplayName)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetAppDisplayName, "SetAppDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetAppDisplayName)
+Gura_ImplementMethod(wx_AppConsole, __SetAppDisplayName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -597,13 +597,13 @@ Gura_ImplementMethod(wx_AppConsole, SetAppDisplayName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetAppName)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetAppName, "SetAppName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetAppName)
+Gura_ImplementMethod(wx_AppConsole, __SetAppName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -612,13 +612,13 @@ Gura_ImplementMethod(wx_AppConsole, SetAppName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetClassName)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetClassName, "SetClassName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetClassName)
+Gura_ImplementMethod(wx_AppConsole, __SetClassName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -627,13 +627,13 @@ Gura_ImplementMethod(wx_AppConsole, SetClassName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetVendorDisplayName)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetVendorDisplayName, "SetVendorDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetVendorDisplayName)
+Gura_ImplementMethod(wx_AppConsole, __SetVendorDisplayName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -642,13 +642,13 @@ Gura_ImplementMethod(wx_AppConsole, SetVendorDisplayName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetVendorName)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetVendorName, "SetVendorName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetVendorName)
+Gura_ImplementMethod(wx_AppConsole, __SetVendorName)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -657,12 +657,12 @@ Gura_ImplementMethod(wx_AppConsole, SetVendorName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppConsole, SetCLocale)
+Gura_DeclareMethodAlias(wx_AppConsole, __SetCLocale, "SetCLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppConsole, SetCLocale)
+Gura_ImplementMethod(wx_AppConsole, __SetCLocale)
 {
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -675,51 +675,51 @@ Gura_ImplementMethod(wx_AppConsole, SetCLocale)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppConsole)
 {
-	Gura_AssignMethod(wx_AppConsole, CreateTraits);
-	Gura_AssignMethod(wx_AppConsole, MainLoop);
-	Gura_AssignMethod(wx_AppConsole, ExitMainLoop);
-	Gura_AssignMethod(wx_AppConsole, FilterEvent);
-	Gura_AssignMethod(wx_AppConsole, GetMainLoop);
-	Gura_AssignMethod(wx_AppConsole, HandleEvent);
-	Gura_AssignMethod(wx_AppConsole, UsesEventLoop);
-	Gura_AssignMethod(wx_AppConsole, ProcessPendingEvents);
-	Gura_AssignMethod(wx_AppConsole, DeletePendingEvents);
-	Gura_AssignMethod(wx_AppConsole, HasPendingEvents);
-	Gura_AssignMethod(wx_AppConsole, SuspendProcessingOfPendingEvents);
-	Gura_AssignMethod(wx_AppConsole, ResumeProcessingOfPendingEvents);
-	Gura_AssignMethod(wx_AppConsole, ScheduleForDestruction);
-	Gura_AssignMethod(wx_AppConsole, IsScheduledForDestruction);
-	Gura_AssignMethod(wx_AppConsole, Yield);
-	Gura_AssignMethod(wx_AppConsole, SetInstance);
-	Gura_AssignMethod(wx_AppConsole, GetInstance);
-	Gura_AssignMethod(wx_AppConsole, IsMainLoopRunning);
-	Gura_AssignMethod(wx_AppConsole, OnAssertFailure);
-	Gura_AssignMethod(wx_AppConsole, OnCmdLineError);
-	Gura_AssignMethod(wx_AppConsole, OnCmdLineHelp);
-	Gura_AssignMethod(wx_AppConsole, OnCmdLineParsed);
-	Gura_AssignMethod(wx_AppConsole, OnEventLoopEnter);
-	Gura_AssignMethod(wx_AppConsole, OnEventLoopExit);
-	Gura_AssignMethod(wx_AppConsole, OnExit);
-	Gura_AssignMethod(wx_AppConsole, OnFatalException);
-	Gura_AssignMethod(wx_AppConsole, OnInit);
-	Gura_AssignMethod(wx_AppConsole, OnInitCmdLine);
-	Gura_AssignMethod(wx_AppConsole, OnRun);
-	Gura_AssignMethod(wx_AppConsole, OnExceptionInMainLoop);
-	Gura_AssignMethod(wx_AppConsole, OnUnhandledException);
-	Gura_AssignMethod(wx_AppConsole, StoreCurrentException);
-	Gura_AssignMethod(wx_AppConsole, RethrowStoredException);
-	Gura_AssignMethod(wx_AppConsole, GetAppDisplayName);
-	Gura_AssignMethod(wx_AppConsole, GetAppName);
-	Gura_AssignMethod(wx_AppConsole, GetClassName);
-	Gura_AssignMethod(wx_AppConsole, GetTraits);
-	Gura_AssignMethod(wx_AppConsole, GetVendorDisplayName);
-	Gura_AssignMethod(wx_AppConsole, GetVendorName);
-	Gura_AssignMethod(wx_AppConsole, SetAppDisplayName);
-	Gura_AssignMethod(wx_AppConsole, SetAppName);
-	Gura_AssignMethod(wx_AppConsole, SetClassName);
-	Gura_AssignMethod(wx_AppConsole, SetVendorDisplayName);
-	Gura_AssignMethod(wx_AppConsole, SetVendorName);
-	Gura_AssignMethod(wx_AppConsole, SetCLocale);
+	Gura_AssignMethod(wx_AppConsole, __CreateTraits);
+	Gura_AssignMethod(wx_AppConsole, __MainLoop);
+	Gura_AssignMethod(wx_AppConsole, __ExitMainLoop);
+	Gura_AssignMethod(wx_AppConsole, __FilterEvent);
+	Gura_AssignMethod(wx_AppConsole, __GetMainLoop);
+	Gura_AssignMethod(wx_AppConsole, __HandleEvent);
+	Gura_AssignMethod(wx_AppConsole, __UsesEventLoop);
+	Gura_AssignMethod(wx_AppConsole, __ProcessPendingEvents);
+	Gura_AssignMethod(wx_AppConsole, __DeletePendingEvents);
+	Gura_AssignMethod(wx_AppConsole, __HasPendingEvents);
+	Gura_AssignMethod(wx_AppConsole, __SuspendProcessingOfPendingEvents);
+	Gura_AssignMethod(wx_AppConsole, __ResumeProcessingOfPendingEvents);
+	Gura_AssignMethod(wx_AppConsole, __ScheduleForDestruction);
+	Gura_AssignMethod(wx_AppConsole, __IsScheduledForDestruction);
+	Gura_AssignMethod(wx_AppConsole, __Yield);
+	Gura_AssignMethod(wx_AppConsole, __SetInstance);
+	Gura_AssignMethod(wx_AppConsole, __GetInstance);
+	Gura_AssignMethod(wx_AppConsole, __IsMainLoopRunning);
+	Gura_AssignMethod(wx_AppConsole, __OnAssertFailure);
+	Gura_AssignMethod(wx_AppConsole, __OnCmdLineError);
+	Gura_AssignMethod(wx_AppConsole, __OnCmdLineHelp);
+	Gura_AssignMethod(wx_AppConsole, __OnCmdLineParsed);
+	Gura_AssignMethod(wx_AppConsole, __OnEventLoopEnter);
+	Gura_AssignMethod(wx_AppConsole, __OnEventLoopExit);
+	Gura_AssignMethod(wx_AppConsole, __OnExit);
+	Gura_AssignMethod(wx_AppConsole, __OnFatalException);
+	Gura_AssignMethod(wx_AppConsole, __OnInit);
+	Gura_AssignMethod(wx_AppConsole, __OnInitCmdLine);
+	Gura_AssignMethod(wx_AppConsole, __OnRun);
+	Gura_AssignMethod(wx_AppConsole, __OnExceptionInMainLoop);
+	Gura_AssignMethod(wx_AppConsole, __OnUnhandledException);
+	Gura_AssignMethod(wx_AppConsole, __StoreCurrentException);
+	Gura_AssignMethod(wx_AppConsole, __RethrowStoredException);
+	Gura_AssignMethod(wx_AppConsole, __GetAppDisplayName);
+	Gura_AssignMethod(wx_AppConsole, __GetAppName);
+	Gura_AssignMethod(wx_AppConsole, __GetClassName);
+	Gura_AssignMethod(wx_AppConsole, __GetTraits);
+	Gura_AssignMethod(wx_AppConsole, __GetVendorDisplayName);
+	Gura_AssignMethod(wx_AppConsole, __GetVendorName);
+	Gura_AssignMethod(wx_AppConsole, __SetAppDisplayName);
+	Gura_AssignMethod(wx_AppConsole, __SetAppName);
+	Gura_AssignMethod(wx_AppConsole, __SetClassName);
+	Gura_AssignMethod(wx_AppConsole, __SetVendorDisplayName);
+	Gura_AssignMethod(wx_AppConsole, __SetVendorName);
+	Gura_AssignMethod(wx_AppConsole, __SetCLocale);
 }
 
 Gura_ImplementDescendantCreator(wx_AppConsole)

@@ -37,14 +37,14 @@ String Object_wx_BufferedOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BufferedOutputStream, wxBufferedOutputStream)
+Gura_DeclareMethodAlias(wx_BufferedOutputStream, __wxBufferedOutputStream, "wxBufferedOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, wxBufferedOutputStream)
+Gura_ImplementMethod(wx_BufferedOutputStream, __wxBufferedOutputStream)
 {
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_BufferedOutputStream, wxBufferedOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedOutputStream, wxBufferedOutputStream_1)
+Gura_DeclareMethodAlias(wx_BufferedOutputStream, __wxBufferedOutputStream_1, "wxBufferedOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, wxBufferedOutputStream_1)
+Gura_ImplementMethod(wx_BufferedOutputStream, __wxBufferedOutputStream_1)
 {
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,14 +71,14 @@ Gura_ImplementMethod(wx_BufferedOutputStream, wxBufferedOutputStream_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedOutputStream, SeekO)
+Gura_DeclareMethodAlias(wx_BufferedOutputStream, __SeekO, "SeekO")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
+Gura_ImplementMethod(wx_BufferedOutputStream, __SeekO)
 {
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_BufferedOutputStream, SeekO)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedOutputStream, Sync)
+Gura_DeclareMethodAlias(wx_BufferedOutputStream, __Sync, "Sync")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BufferedOutputStream, Sync)
+Gura_ImplementMethod(wx_BufferedOutputStream, __Sync)
 {
 	Object_wx_BufferedOutputStream *pThis = Object_wx_BufferedOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,10 +106,10 @@ Gura_ImplementMethod(wx_BufferedOutputStream, Sync)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedOutputStream)
 {
-	Gura_AssignMethod(wx_BufferedOutputStream, wxBufferedOutputStream);
-	Gura_AssignMethod(wx_BufferedOutputStream, wxBufferedOutputStream_1);
-	Gura_AssignMethod(wx_BufferedOutputStream, SeekO);
-	Gura_AssignMethod(wx_BufferedOutputStream, Sync);
+	Gura_AssignMethod(wx_BufferedOutputStream, __wxBufferedOutputStream);
+	Gura_AssignMethod(wx_BufferedOutputStream, __wxBufferedOutputStream_1);
+	Gura_AssignMethod(wx_BufferedOutputStream, __SeekO);
+	Gura_AssignMethod(wx_BufferedOutputStream, __Sync);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedOutputStream)

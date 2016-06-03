@@ -37,7 +37,7 @@ String Object_wx_SpinDoubleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
+Gura_DeclareMethodAlias(wx_SpinDoubleEvent, __wxSpinDoubleEvent, "wxSpinDoubleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
+Gura_ImplementMethod(wx_SpinDoubleEvent, __wxSpinDoubleEvent)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1)
+Gura_DeclareMethodAlias(wx_SpinDoubleEvent, __wxSpinDoubleEvent_1, "wxSpinDoubleEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1)
+Gura_ImplementMethod(wx_SpinDoubleEvent, __wxSpinDoubleEvent_1)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinDoubleEvent, GetValue)
+Gura_DeclareMethodAlias(wx_SpinDoubleEvent, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinDoubleEvent, GetValue)
+Gura_ImplementMethod(wx_SpinDoubleEvent, __GetValue)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_SpinDoubleEvent, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinDoubleEvent, SetValue)
+Gura_DeclareMethodAlias(wx_SpinDoubleEvent, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinDoubleEvent, SetValue)
+Gura_ImplementMethod(wx_SpinDoubleEvent, __SetValue)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,10 +104,10 @@ Gura_ImplementMethod(wx_SpinDoubleEvent, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinDoubleEvent)
 {
-	Gura_AssignMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent);
-	Gura_AssignMethod(wx_SpinDoubleEvent, wxSpinDoubleEvent_1);
-	Gura_AssignMethod(wx_SpinDoubleEvent, GetValue);
-	Gura_AssignMethod(wx_SpinDoubleEvent, SetValue);
+	Gura_AssignMethod(wx_SpinDoubleEvent, __wxSpinDoubleEvent);
+	Gura_AssignMethod(wx_SpinDoubleEvent, __wxSpinDoubleEvent_1);
+	Gura_AssignMethod(wx_SpinDoubleEvent, __GetValue);
+	Gura_AssignMethod(wx_SpinDoubleEvent, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_SpinDoubleEvent)

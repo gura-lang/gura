@@ -37,7 +37,7 @@ String Object_wx_KeyboardState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_KeyboardState, wxKeyboardState)
+Gura_DeclareMethodAlias(wx_KeyboardState, __wxKeyboardState, "wxKeyboardState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "controlDown", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_KeyboardState, wxKeyboardState)
 	//DeclareArg(env, "metaDown", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, wxKeyboardState)
+Gura_ImplementMethod(wx_KeyboardState, __wxKeyboardState)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_KeyboardState, wxKeyboardState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, GetModifiers)
+Gura_DeclareMethodAlias(wx_KeyboardState, __GetModifiers, "GetModifiers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, GetModifiers)
+Gura_ImplementMethod(wx_KeyboardState, __GetModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_KeyboardState, GetModifiers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, HasAnyModifiers)
+Gura_DeclareMethodAlias(wx_KeyboardState, __HasAnyModifiers, "HasAnyModifiers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, HasAnyModifiers)
+Gura_ImplementMethod(wx_KeyboardState, __HasAnyModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_KeyboardState, HasAnyModifiers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, HasModifiers)
+Gura_DeclareMethodAlias(wx_KeyboardState, __HasModifiers, "HasModifiers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, HasModifiers)
+Gura_ImplementMethod(wx_KeyboardState, __HasModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_KeyboardState, HasModifiers)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, ControlDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __ControlDown, "ControlDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, ControlDown)
+Gura_ImplementMethod(wx_KeyboardState, __ControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_KeyboardState, ControlDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, RawControlDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __RawControlDown, "RawControlDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, RawControlDown)
+Gura_ImplementMethod(wx_KeyboardState, __RawControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_KeyboardState, RawControlDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, ShiftDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __ShiftDown, "ShiftDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, ShiftDown)
+Gura_ImplementMethod(wx_KeyboardState, __ShiftDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_KeyboardState, ShiftDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, MetaDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __MetaDown, "MetaDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, MetaDown)
+Gura_ImplementMethod(wx_KeyboardState, __MetaDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_KeyboardState, MetaDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, AltDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __AltDown, "AltDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, AltDown)
+Gura_ImplementMethod(wx_KeyboardState, __AltDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_KeyboardState, AltDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, CmdDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __CmdDown, "CmdDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, CmdDown)
+Gura_ImplementMethod(wx_KeyboardState, __CmdDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_KeyboardState, CmdDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, SetControlDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __SetControlDown, "SetControlDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, SetControlDown)
+Gura_ImplementMethod(wx_KeyboardState, __SetControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,13 +190,13 @@ Gura_ImplementMethod(wx_KeyboardState, SetControlDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, SetRawControlDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __SetRawControlDown, "SetRawControlDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, SetRawControlDown)
+Gura_ImplementMethod(wx_KeyboardState, __SetRawControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_KeyboardState, SetRawControlDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, SetShiftDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __SetShiftDown, "SetShiftDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, SetShiftDown)
+Gura_ImplementMethod(wx_KeyboardState, __SetShiftDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,13 +220,13 @@ Gura_ImplementMethod(wx_KeyboardState, SetShiftDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, SetAltDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __SetAltDown, "SetAltDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, SetAltDown)
+Gura_ImplementMethod(wx_KeyboardState, __SetAltDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_KeyboardState, SetAltDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_KeyboardState, SetMetaDown)
+Gura_DeclareMethodAlias(wx_KeyboardState, __SetMetaDown, "SetMetaDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "down", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_KeyboardState, SetMetaDown)
+Gura_ImplementMethod(wx_KeyboardState, __SetMetaDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,21 +255,21 @@ Gura_ImplementMethod(wx_KeyboardState, SetMetaDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_KeyboardState)
 {
-	Gura_AssignMethod(wx_KeyboardState, wxKeyboardState);
-	Gura_AssignMethod(wx_KeyboardState, GetModifiers);
-	Gura_AssignMethod(wx_KeyboardState, HasAnyModifiers);
-	Gura_AssignMethod(wx_KeyboardState, HasModifiers);
-	Gura_AssignMethod(wx_KeyboardState, ControlDown);
-	Gura_AssignMethod(wx_KeyboardState, RawControlDown);
-	Gura_AssignMethod(wx_KeyboardState, ShiftDown);
-	Gura_AssignMethod(wx_KeyboardState, MetaDown);
-	Gura_AssignMethod(wx_KeyboardState, AltDown);
-	Gura_AssignMethod(wx_KeyboardState, CmdDown);
-	Gura_AssignMethod(wx_KeyboardState, SetControlDown);
-	Gura_AssignMethod(wx_KeyboardState, SetRawControlDown);
-	Gura_AssignMethod(wx_KeyboardState, SetShiftDown);
-	Gura_AssignMethod(wx_KeyboardState, SetAltDown);
-	Gura_AssignMethod(wx_KeyboardState, SetMetaDown);
+	Gura_AssignMethod(wx_KeyboardState, __wxKeyboardState);
+	Gura_AssignMethod(wx_KeyboardState, __GetModifiers);
+	Gura_AssignMethod(wx_KeyboardState, __HasAnyModifiers);
+	Gura_AssignMethod(wx_KeyboardState, __HasModifiers);
+	Gura_AssignMethod(wx_KeyboardState, __ControlDown);
+	Gura_AssignMethod(wx_KeyboardState, __RawControlDown);
+	Gura_AssignMethod(wx_KeyboardState, __ShiftDown);
+	Gura_AssignMethod(wx_KeyboardState, __MetaDown);
+	Gura_AssignMethod(wx_KeyboardState, __AltDown);
+	Gura_AssignMethod(wx_KeyboardState, __CmdDown);
+	Gura_AssignMethod(wx_KeyboardState, __SetControlDown);
+	Gura_AssignMethod(wx_KeyboardState, __SetRawControlDown);
+	Gura_AssignMethod(wx_KeyboardState, __SetShiftDown);
+	Gura_AssignMethod(wx_KeyboardState, __SetAltDown);
+	Gura_AssignMethod(wx_KeyboardState, __SetMetaDown);
 }
 
 Gura_ImplementDescendantCreator(wx_KeyboardState)

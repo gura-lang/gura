@@ -37,12 +37,12 @@ String Object_wx_PowerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PowerEvent, wxPowerEvent)
+Gura_DeclareMethodAlias(wx_PowerEvent, __wxPowerEvent, "wxPowerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent)
+Gura_ImplementMethod(wx_PowerEvent, __wxPowerEvent)
 {
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PowerEvent, wxPowerEvent_1)
+Gura_DeclareMethodAlias(wx_PowerEvent, __wxPowerEvent_1, "wxPowerEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent_1)
+Gura_ImplementMethod(wx_PowerEvent, __wxPowerEvent_1)
 {
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PowerEvent, wxPowerEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PowerEvent, Veto)
+Gura_DeclareMethodAlias(wx_PowerEvent, __Veto, "Veto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, Veto)
+Gura_ImplementMethod(wx_PowerEvent, __Veto)
 {
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_PowerEvent, Veto)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PowerEvent, IsVetoed)
+Gura_DeclareMethodAlias(wx_PowerEvent, __IsVetoed, "IsVetoed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PowerEvent, IsVetoed)
+Gura_ImplementMethod(wx_PowerEvent, __IsVetoed)
 {
 	Object_wx_PowerEvent *pThis = Object_wx_PowerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,10 +96,10 @@ Gura_ImplementMethod(wx_PowerEvent, IsVetoed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerEvent)
 {
-	Gura_AssignMethod(wx_PowerEvent, wxPowerEvent);
-	Gura_AssignMethod(wx_PowerEvent, wxPowerEvent_1);
-	Gura_AssignMethod(wx_PowerEvent, Veto);
-	Gura_AssignMethod(wx_PowerEvent, IsVetoed);
+	Gura_AssignMethod(wx_PowerEvent, __wxPowerEvent);
+	Gura_AssignMethod(wx_PowerEvent, __wxPowerEvent_1);
+	Gura_AssignMethod(wx_PowerEvent, __Veto);
+	Gura_AssignMethod(wx_PowerEvent, __IsVetoed);
 }
 
 Gura_ImplementDescendantCreator(wx_PowerEvent)

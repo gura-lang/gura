@@ -37,12 +37,12 @@ String Object_wx_PGCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGCell, wxPGCell)
+Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell, "wxPGCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, wxPGCell)
+Gura_ImplementMethod(wx_PGCell, __wxPGCell)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_PGCell, wxPGCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, wxPGCell_1)
+Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell_1, "wxPGCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, wxPGCell_1)
+Gura_ImplementMethod(wx_PGCell, __wxPGCell_1)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_PGCell, wxPGCell_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, wxPGCell_2)
+Gura_DeclareMethodAlias(wx_PGCell, __wxPGCell_2, "wxPGCell_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_PGCell, wxPGCell_2)
 	//DeclareArg(env, "bgCol", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, wxPGCell_2)
+Gura_ImplementMethod(wx_PGCell, __wxPGCell_2)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_PGCell, wxPGCell_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetData)
+Gura_DeclareMethodAlias(wx_PGCell, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetData)
+Gura_ImplementMethod(wx_PGCell, __GetData)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_PGCell, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, HasText)
+Gura_DeclareMethodAlias(wx_PGCell, __HasText, "HasText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, HasText)
+Gura_ImplementMethod(wx_PGCell, __HasText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_PGCell, HasText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, MergeFrom)
+Gura_DeclareMethodAlias(wx_PGCell, __MergeFrom, "MergeFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "srcCell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, MergeFrom)
+Gura_ImplementMethod(wx_PGCell, __MergeFrom)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_PGCell, MergeFrom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, SetText)
+Gura_DeclareMethodAlias(wx_PGCell, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, SetText)
+Gura_ImplementMethod(wx_PGCell, __SetText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_PGCell, SetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, SetBitmap)
+Gura_DeclareMethodAlias(wx_PGCell, __SetBitmap, "SetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, SetBitmap)
+Gura_ImplementMethod(wx_PGCell, __SetBitmap)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_PGCell, SetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, SetFgCol)
+Gura_DeclareMethodAlias(wx_PGCell, __SetFgCol, "SetFgCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, SetFgCol)
+Gura_ImplementMethod(wx_PGCell, __SetFgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_PGCell, SetFgCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, SetFont)
+Gura_DeclareMethodAlias(wx_PGCell, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, SetFont)
+Gura_ImplementMethod(wx_PGCell, __SetFont)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_PGCell, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, SetBgCol)
+Gura_DeclareMethodAlias(wx_PGCell, __SetBgCol, "SetBgCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGCell, SetBgCol)
+Gura_ImplementMethod(wx_PGCell, __SetBgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,12 +202,12 @@ Gura_ImplementMethod(wx_PGCell, SetBgCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetText)
+Gura_DeclareMethodAlias(wx_PGCell, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetText)
+Gura_ImplementMethod(wx_PGCell, __GetText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -215,12 +215,12 @@ Gura_ImplementMethod(wx_PGCell, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetBitmap)
+Gura_DeclareMethodAlias(wx_PGCell, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetBitmap)
+Gura_ImplementMethod(wx_PGCell, __GetBitmap)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -228,12 +228,12 @@ Gura_ImplementMethod(wx_PGCell, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetFgCol)
+Gura_DeclareMethodAlias(wx_PGCell, __GetFgCol, "GetFgCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetFgCol)
+Gura_ImplementMethod(wx_PGCell, __GetFgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -241,12 +241,12 @@ Gura_ImplementMethod(wx_PGCell, GetFgCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetFont)
+Gura_DeclareMethodAlias(wx_PGCell, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetFont)
+Gura_ImplementMethod(wx_PGCell, __GetFont)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_PGCell, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGCell, GetBgCol)
+Gura_DeclareMethodAlias(wx_PGCell, __GetBgCol, "GetBgCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGCell, GetBgCol)
+Gura_ImplementMethod(wx_PGCell, __GetBgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -272,22 +272,22 @@ Gura_ImplementMethod(wx_PGCell, GetBgCol)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGCell)
 {
-	Gura_AssignMethod(wx_PGCell, wxPGCell);
-	Gura_AssignMethod(wx_PGCell, wxPGCell_1);
-	Gura_AssignMethod(wx_PGCell, wxPGCell_2);
-	Gura_AssignMethod(wx_PGCell, GetData);
-	Gura_AssignMethod(wx_PGCell, HasText);
-	Gura_AssignMethod(wx_PGCell, MergeFrom);
-	Gura_AssignMethod(wx_PGCell, SetText);
-	Gura_AssignMethod(wx_PGCell, SetBitmap);
-	Gura_AssignMethod(wx_PGCell, SetFgCol);
-	Gura_AssignMethod(wx_PGCell, SetFont);
-	Gura_AssignMethod(wx_PGCell, SetBgCol);
-	Gura_AssignMethod(wx_PGCell, GetText);
-	Gura_AssignMethod(wx_PGCell, GetBitmap);
-	Gura_AssignMethod(wx_PGCell, GetFgCol);
-	Gura_AssignMethod(wx_PGCell, GetFont);
-	Gura_AssignMethod(wx_PGCell, GetBgCol);
+	Gura_AssignMethod(wx_PGCell, __wxPGCell);
+	Gura_AssignMethod(wx_PGCell, __wxPGCell_1);
+	Gura_AssignMethod(wx_PGCell, __wxPGCell_2);
+	Gura_AssignMethod(wx_PGCell, __GetData);
+	Gura_AssignMethod(wx_PGCell, __HasText);
+	Gura_AssignMethod(wx_PGCell, __MergeFrom);
+	Gura_AssignMethod(wx_PGCell, __SetText);
+	Gura_AssignMethod(wx_PGCell, __SetBitmap);
+	Gura_AssignMethod(wx_PGCell, __SetFgCol);
+	Gura_AssignMethod(wx_PGCell, __SetFont);
+	Gura_AssignMethod(wx_PGCell, __SetBgCol);
+	Gura_AssignMethod(wx_PGCell, __GetText);
+	Gura_AssignMethod(wx_PGCell, __GetBitmap);
+	Gura_AssignMethod(wx_PGCell, __GetFgCol);
+	Gura_AssignMethod(wx_PGCell, __GetFont);
+	Gura_AssignMethod(wx_PGCell, __GetBgCol);
 }
 
 Gura_ImplementDescendantCreator(wx_PGCell)

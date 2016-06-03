@@ -37,14 +37,14 @@ String Object_wx_PrintDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PrintDialog, wxPrintDialog)
+Gura_DeclareMethodAlias(wx_PrintDialog, __wxPrintDialog, "wxPrintDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, wxPrintDialog)
+Gura_ImplementMethod(wx_PrintDialog, __wxPrintDialog)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_PrintDialog, wxPrintDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintDialog, wxPrintDialog_1)
+Gura_DeclareMethodAlias(wx_PrintDialog, __wxPrintDialog_1, "wxPrintDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, wxPrintDialog_1)
+Gura_ImplementMethod(wx_PrintDialog, __wxPrintDialog_1)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_PrintDialog, wxPrintDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintDialog, GetPrintDC)
+Gura_DeclareMethodAlias(wx_PrintDialog, __GetPrintDC, "GetPrintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, GetPrintDC)
+Gura_ImplementMethod(wx_PrintDialog, __GetPrintDC)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintDialog, GetPrintDialogData)
+Gura_DeclareMethodAlias(wx_PrintDialog, __GetPrintDialogData, "GetPrintDialogData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, GetPrintDialogData)
+Gura_ImplementMethod(wx_PrintDialog, __GetPrintDialogData)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintDialogData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintDialog, GetPrintData)
+Gura_DeclareMethodAlias(wx_PrintDialog, __GetPrintData, "GetPrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, GetPrintData)
+Gura_ImplementMethod(wx_PrintDialog, __GetPrintData)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_PrintDialog, GetPrintData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintDialog, ShowModal)
+Gura_DeclareMethodAlias(wx_PrintDialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintDialog, ShowModal)
+Gura_ImplementMethod(wx_PrintDialog, __ShowModal)
 {
 	Object_wx_PrintDialog *pThis = Object_wx_PrintDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_PrintDialog, ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintDialog)
 {
-	Gura_AssignMethod(wx_PrintDialog, wxPrintDialog);
-	Gura_AssignMethod(wx_PrintDialog, wxPrintDialog_1);
-	Gura_AssignMethod(wx_PrintDialog, GetPrintDC);
-	Gura_AssignMethod(wx_PrintDialog, GetPrintDialogData);
-	Gura_AssignMethod(wx_PrintDialog, GetPrintData);
-	Gura_AssignMethod(wx_PrintDialog, ShowModal);
+	Gura_AssignMethod(wx_PrintDialog, __wxPrintDialog);
+	Gura_AssignMethod(wx_PrintDialog, __wxPrintDialog_1);
+	Gura_AssignMethod(wx_PrintDialog, __GetPrintDC);
+	Gura_AssignMethod(wx_PrintDialog, __GetPrintDialogData);
+	Gura_AssignMethod(wx_PrintDialog, __GetPrintData);
+	Gura_AssignMethod(wx_PrintDialog, __ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_PrintDialog)

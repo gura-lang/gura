@@ -37,13 +37,13 @@ String Object_wx_InitDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_InitDialogEvent, wxInitDialogEvent)
+Gura_DeclareMethodAlias(wx_InitDialogEvent, __wxInitDialogEvent, "wxInitDialogEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InitDialogEvent, wxInitDialogEvent)
+Gura_ImplementMethod(wx_InitDialogEvent, __wxInitDialogEvent)
 {
 	Object_wx_InitDialogEvent *pThis = Object_wx_InitDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_InitDialogEvent, wxInitDialogEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InitDialogEvent)
 {
-	Gura_AssignMethod(wx_InitDialogEvent, wxInitDialogEvent);
+	Gura_AssignMethod(wx_InitDialogEvent, __wxInitDialogEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_InitDialogEvent)

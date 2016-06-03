@@ -37,12 +37,12 @@ String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm)
+Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __wxLayoutAlgorithm, "wxLayoutAlgorithm")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm)
+Gura_ImplementMethod(wx_LayoutAlgorithm, __wxLayoutAlgorithm)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutFrame)
+Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutFrame, "LayoutFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
+Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutFrame)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
+Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutMDIFrame, "LayoutMDIFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
+Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutMDIFrame)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutMDIFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LayoutAlgorithm, LayoutWindow)
+Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutWindow, "LayoutWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
+Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutWindow)
 {
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,10 +106,10 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LayoutAlgorithm)
 {
-	Gura_AssignMethod(wx_LayoutAlgorithm, wxLayoutAlgorithm);
-	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutFrame);
-	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutMDIFrame);
-	Gura_AssignMethod(wx_LayoutAlgorithm, LayoutWindow);
+	Gura_AssignMethod(wx_LayoutAlgorithm, __wxLayoutAlgorithm);
+	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutFrame);
+	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutMDIFrame);
+	Gura_AssignMethod(wx_LayoutAlgorithm, __LayoutWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_LayoutAlgorithm)

@@ -37,12 +37,12 @@ String Object_wx_ScopeGuard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ScopeGuard, Dismiss)
+Gura_DeclareMethodAlias(wx_ScopeGuard, __Dismiss, "Dismiss")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopeGuard, Dismiss)
+Gura_ImplementMethod(wx_ScopeGuard, __Dismiss)
 {
 	Object_wx_ScopeGuard *pThis = Object_wx_ScopeGuard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_ScopeGuard, Dismiss)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopeGuard)
 {
-	Gura_AssignMethod(wx_ScopeGuard, Dismiss);
+	Gura_AssignMethod(wx_ScopeGuard, __Dismiss);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopeGuard)

@@ -37,13 +37,13 @@ String Object_wx_RichTextCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextCell, wxRichTextCell)
+Gura_DeclareMethodAlias(wx_RichTextCell, __wxRichTextCell, "wxRichTextCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell)
+Gura_ImplementMethod(wx_RichTextCell, __wxRichTextCell)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, wxRichTextCell_1)
+Gura_DeclareMethodAlias(wx_RichTextCell, __wxRichTextCell_1, "wxRichTextCell_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell_1)
+Gura_ImplementMethod(wx_RichTextCell, __wxRichTextCell_1)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_RichTextCell, wxRichTextCell_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, Draw)
+Gura_DeclareMethodAlias(wx_RichTextCell, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_RichTextCell, Draw)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, Draw)
+Gura_ImplementMethod(wx_RichTextCell, __Draw)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_RichTextCell, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, HitTest)
+Gura_DeclareMethodAlias(wx_RichTextCell, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_DeclareMethod(wx_RichTextCell, HitTest)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, HitTest)
+Gura_ImplementMethod(wx_RichTextCell, __HitTest)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_RichTextCell, HitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, GetXMLNodeName)
+Gura_DeclareMethodAlias(wx_RichTextCell, __GetXMLNodeName, "GetXMLNodeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, GetXMLNodeName)
+Gura_ImplementMethod(wx_RichTextCell, __GetXMLNodeName)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_RichTextCell, GetXMLNodeName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, CanEditProperties)
+Gura_DeclareMethodAlias(wx_RichTextCell, __CanEditProperties, "CanEditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, CanEditProperties)
+Gura_ImplementMethod(wx_RichTextCell, __CanEditProperties)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,14 +145,14 @@ Gura_ImplementMethod(wx_RichTextCell, CanEditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, EditProperties)
+Gura_DeclareMethodAlias(wx_RichTextCell, __EditProperties, "EditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, EditProperties)
+Gura_ImplementMethod(wx_RichTextCell, __EditProperties)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_RichTextCell, EditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, GetPropertiesMenuLabel)
+Gura_DeclareMethodAlias(wx_RichTextCell, __GetPropertiesMenuLabel, "GetPropertiesMenuLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, GetPropertiesMenuLabel)
+Gura_ImplementMethod(wx_RichTextCell, __GetPropertiesMenuLabel)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_RichTextCell, GetPropertiesMenuLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, GetColSpan)
+Gura_DeclareMethodAlias(wx_RichTextCell, __GetColSpan, "GetColSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, GetColSpan)
+Gura_ImplementMethod(wx_RichTextCell, __GetColSpan)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_RichTextCell, GetColSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, SetColSpan)
+Gura_DeclareMethodAlias(wx_RichTextCell, __SetColSpan, "SetColSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, SetColSpan)
+Gura_ImplementMethod(wx_RichTextCell, __SetColSpan)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,12 +203,12 @@ Gura_ImplementMethod(wx_RichTextCell, SetColSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, GetRowSpan)
+Gura_DeclareMethodAlias(wx_RichTextCell, __GetRowSpan, "GetRowSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, GetRowSpan)
+Gura_ImplementMethod(wx_RichTextCell, __GetRowSpan)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_RichTextCell, GetRowSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, SetRowSpan)
+Gura_DeclareMethodAlias(wx_RichTextCell, __SetRowSpan, "SetRowSpan")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, SetRowSpan)
+Gura_ImplementMethod(wx_RichTextCell, __SetRowSpan)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,12 +231,12 @@ Gura_ImplementMethod(wx_RichTextCell, SetRowSpan)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, Clone)
+Gura_DeclareMethodAlias(wx_RichTextCell, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, Clone)
+Gura_ImplementMethod(wx_RichTextCell, __Clone)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_RichTextCell, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCell, Copy)
+Gura_DeclareMethodAlias(wx_RichTextCell, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCell, Copy)
+Gura_ImplementMethod(wx_RichTextCell, __Copy)
 {
 	Object_wx_RichTextCell *pThis = Object_wx_RichTextCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,20 +264,20 @@ Gura_ImplementMethod(wx_RichTextCell, Copy)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCell)
 {
-	Gura_AssignMethod(wx_RichTextCell, wxRichTextCell);
-	Gura_AssignMethod(wx_RichTextCell, wxRichTextCell_1);
-	Gura_AssignMethod(wx_RichTextCell, Draw);
-	Gura_AssignMethod(wx_RichTextCell, HitTest);
-	Gura_AssignMethod(wx_RichTextCell, GetXMLNodeName);
-	Gura_AssignMethod(wx_RichTextCell, CanEditProperties);
-	Gura_AssignMethod(wx_RichTextCell, EditProperties);
-	Gura_AssignMethod(wx_RichTextCell, GetPropertiesMenuLabel);
-	Gura_AssignMethod(wx_RichTextCell, GetColSpan);
-	Gura_AssignMethod(wx_RichTextCell, SetColSpan);
-	Gura_AssignMethod(wx_RichTextCell, GetRowSpan);
-	Gura_AssignMethod(wx_RichTextCell, SetRowSpan);
-	Gura_AssignMethod(wx_RichTextCell, Clone);
-	Gura_AssignMethod(wx_RichTextCell, Copy);
+	Gura_AssignMethod(wx_RichTextCell, __wxRichTextCell);
+	Gura_AssignMethod(wx_RichTextCell, __wxRichTextCell_1);
+	Gura_AssignMethod(wx_RichTextCell, __Draw);
+	Gura_AssignMethod(wx_RichTextCell, __HitTest);
+	Gura_AssignMethod(wx_RichTextCell, __GetXMLNodeName);
+	Gura_AssignMethod(wx_RichTextCell, __CanEditProperties);
+	Gura_AssignMethod(wx_RichTextCell, __EditProperties);
+	Gura_AssignMethod(wx_RichTextCell, __GetPropertiesMenuLabel);
+	Gura_AssignMethod(wx_RichTextCell, __GetColSpan);
+	Gura_AssignMethod(wx_RichTextCell, __SetColSpan);
+	Gura_AssignMethod(wx_RichTextCell, __GetRowSpan);
+	Gura_AssignMethod(wx_RichTextCell, __SetRowSpan);
+	Gura_AssignMethod(wx_RichTextCell, __Clone);
+	Gura_AssignMethod(wx_RichTextCell, __Copy);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextCell)

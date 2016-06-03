@@ -37,7 +37,7 @@ String Object_wx_HtmlTag::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlTag, wxHtmlTag)
+Gura_DeclareMethodAlias(wx_HtmlTag, __wxHtmlTag, "wxHtmlTag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_HtmlTag, wxHtmlTag)
 	//DeclareArg(env, "entParser", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, wxHtmlTag)
+Gura_ImplementMethod(wx_HtmlTag, __wxHtmlTag)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,12 +62,12 @@ Gura_ImplementMethod(wx_HtmlTag, wxHtmlTag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetAllParams)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetAllParams, "GetAllParams")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetAllParams)
+Gura_ImplementMethod(wx_HtmlTag, __GetAllParams)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_HtmlTag, GetAllParams)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetBeginPos)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetBeginPos, "GetBeginPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetBeginPos)
+Gura_ImplementMethod(wx_HtmlTag, __GetBeginPos)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_HtmlTag, GetBeginPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetEndPos1)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetEndPos1, "GetEndPos1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetEndPos1)
+Gura_ImplementMethod(wx_HtmlTag, __GetEndPos1)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetEndPos2)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetEndPos2, "GetEndPos2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetEndPos2)
+Gura_ImplementMethod(wx_HtmlTag, __GetEndPos2)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_HtmlTag, GetEndPos2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetName)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetName)
+Gura_ImplementMethod(wx_HtmlTag, __GetName)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,14 +127,14 @@ Gura_ImplementMethod(wx_HtmlTag, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetParam)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetParam, "GetParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "with_quotes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetParam)
+Gura_ImplementMethod(wx_HtmlTag, __GetParam)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,14 +144,14 @@ Gura_ImplementMethod(wx_HtmlTag, GetParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetParamAsColour)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsColour, "GetParamAsColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetParamAsColour)
+Gura_ImplementMethod(wx_HtmlTag, __GetParamAsColour)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,14 +161,14 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetParamAsInt)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsInt, "GetParamAsInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetParamAsInt)
+Gura_ImplementMethod(wx_HtmlTag, __GetParamAsInt)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,14 +178,14 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, GetParamAsString)
+Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsString, "GetParamAsString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, GetParamAsString)
+Gura_ImplementMethod(wx_HtmlTag, __GetParamAsString)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_HtmlTag, GetParamAsString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, HasEnding)
+Gura_DeclareMethodAlias(wx_HtmlTag, __HasEnding, "HasEnding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, HasEnding)
+Gura_ImplementMethod(wx_HtmlTag, __HasEnding)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_HtmlTag, HasEnding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, HasParam)
+Gura_DeclareMethodAlias(wx_HtmlTag, __HasParam, "HasParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, HasParam)
+Gura_ImplementMethod(wx_HtmlTag, __HasParam)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,14 +223,14 @@ Gura_ImplementMethod(wx_HtmlTag, HasParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, ParseAsColour)
+Gura_DeclareMethodAlias(wx_HtmlTag, __ParseAsColour, "ParseAsColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, ParseAsColour)
+Gura_ImplementMethod(wx_HtmlTag, __ParseAsColour)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_HtmlTag, ParseAsColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, ScanParam)
+Gura_DeclareMethodAlias(wx_HtmlTag, __ScanParam, "ScanParam")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
@@ -248,7 +248,7 @@ Gura_DeclareMethod(wx_HtmlTag, ScanParam)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, ScanParam)
+Gura_ImplementMethod(wx_HtmlTag, __ScanParam)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_HtmlTag, ScanParam)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlTag, ScanParam_1)
+Gura_DeclareMethodAlias(wx_HtmlTag, __ScanParam_1, "ScanParam_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
@@ -267,7 +267,7 @@ Gura_DeclareMethod(wx_HtmlTag, ScanParam_1)
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlTag, ScanParam_1)
+Gura_ImplementMethod(wx_HtmlTag, __ScanParam_1)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,21 +283,21 @@ Gura_ImplementMethod(wx_HtmlTag, ScanParam_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlTag)
 {
-	Gura_AssignMethod(wx_HtmlTag, wxHtmlTag);
-	Gura_AssignMethod(wx_HtmlTag, GetAllParams);
-	Gura_AssignMethod(wx_HtmlTag, GetBeginPos);
-	Gura_AssignMethod(wx_HtmlTag, GetEndPos1);
-	Gura_AssignMethod(wx_HtmlTag, GetEndPos2);
-	Gura_AssignMethod(wx_HtmlTag, GetName);
-	Gura_AssignMethod(wx_HtmlTag, GetParam);
-	Gura_AssignMethod(wx_HtmlTag, GetParamAsColour);
-	Gura_AssignMethod(wx_HtmlTag, GetParamAsInt);
-	Gura_AssignMethod(wx_HtmlTag, GetParamAsString);
-	Gura_AssignMethod(wx_HtmlTag, HasEnding);
-	Gura_AssignMethod(wx_HtmlTag, HasParam);
-	Gura_AssignMethod(wx_HtmlTag, ParseAsColour);
-	Gura_AssignMethod(wx_HtmlTag, ScanParam);
-	Gura_AssignMethod(wx_HtmlTag, ScanParam_1);
+	Gura_AssignMethod(wx_HtmlTag, __wxHtmlTag);
+	Gura_AssignMethod(wx_HtmlTag, __GetAllParams);
+	Gura_AssignMethod(wx_HtmlTag, __GetBeginPos);
+	Gura_AssignMethod(wx_HtmlTag, __GetEndPos1);
+	Gura_AssignMethod(wx_HtmlTag, __GetEndPos2);
+	Gura_AssignMethod(wx_HtmlTag, __GetName);
+	Gura_AssignMethod(wx_HtmlTag, __GetParam);
+	Gura_AssignMethod(wx_HtmlTag, __GetParamAsColour);
+	Gura_AssignMethod(wx_HtmlTag, __GetParamAsInt);
+	Gura_AssignMethod(wx_HtmlTag, __GetParamAsString);
+	Gura_AssignMethod(wx_HtmlTag, __HasEnding);
+	Gura_AssignMethod(wx_HtmlTag, __HasParam);
+	Gura_AssignMethod(wx_HtmlTag, __ParseAsColour);
+	Gura_AssignMethod(wx_HtmlTag, __ScanParam);
+	Gura_AssignMethod(wx_HtmlTag, __ScanParam_1);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlTag)

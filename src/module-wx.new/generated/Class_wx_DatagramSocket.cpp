@@ -37,14 +37,14 @@ String Object_wx_DatagramSocket::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DatagramSocket, wxDatagramSocket)
+Gura_DeclareMethodAlias(wx_DatagramSocket, __wxDatagramSocket, "wxDatagramSocket")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DatagramSocket, wxDatagramSocket)
+Gura_ImplementMethod(wx_DatagramSocket, __wxDatagramSocket)
 {
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_DatagramSocket, wxDatagramSocket)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DatagramSocket, SendTo)
+Gura_DeclareMethodAlias(wx_DatagramSocket, __SendTo, "SendTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_DatagramSocket, SendTo)
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DatagramSocket, SendTo)
+Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 {
 	Object_wx_DatagramSocket *pThis = Object_wx_DatagramSocket::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,8 +78,8 @@ Gura_ImplementMethod(wx_DatagramSocket, SendTo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DatagramSocket)
 {
-	Gura_AssignMethod(wx_DatagramSocket, wxDatagramSocket);
-	Gura_AssignMethod(wx_DatagramSocket, SendTo);
+	Gura_AssignMethod(wx_DatagramSocket, __wxDatagramSocket);
+	Gura_AssignMethod(wx_DatagramSocket, __SendTo);
 }
 
 Gura_ImplementDescendantCreator(wx_DatagramSocket)

@@ -37,12 +37,12 @@ String Object_wx_PGVIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGVIterator, wxPGVIterator)
+Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator, "wxPGVIterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator)
+Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, wxPGVIterator_1)
+Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator_1, "wxPGVIterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator_1)
+Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator_1)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, UnRef)
+Gura_DeclareMethodAlias(wx_PGVIterator, __UnRef, "UnRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, UnRef)
+Gura_ImplementMethod(wx_PGVIterator, __UnRef)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_PGVIterator, UnRef)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, wxPGVIterator_2)
+Gura_DeclareMethodAlias(wx_PGVIterator, __wxPGVIterator_2, "wxPGVIterator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator_2)
+Gura_ImplementMethod(wx_PGVIterator, __wxPGVIterator_2)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_PGVIterator, wxPGVIterator_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, Next)
+Gura_DeclareMethodAlias(wx_PGVIterator, __Next, "Next")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, Next)
+Gura_ImplementMethod(wx_PGVIterator, __Next)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_PGVIterator, Next)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, AtEnd)
+Gura_DeclareMethodAlias(wx_PGVIterator, __AtEnd, "AtEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, AtEnd)
+Gura_ImplementMethod(wx_PGVIterator, __AtEnd)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_PGVIterator, AtEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGVIterator, GetProperty)
+Gura_DeclareMethodAlias(wx_PGVIterator, __GetProperty, "GetProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGVIterator, GetProperty)
+Gura_ImplementMethod(wx_PGVIterator, __GetProperty)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,13 +137,13 @@ Gura_ImplementMethod(wx_PGVIterator, GetProperty)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGVIterator)
 {
-	Gura_AssignMethod(wx_PGVIterator, wxPGVIterator);
-	Gura_AssignMethod(wx_PGVIterator, wxPGVIterator_1);
-	Gura_AssignMethod(wx_PGVIterator, UnRef);
-	Gura_AssignMethod(wx_PGVIterator, wxPGVIterator_2);
-	Gura_AssignMethod(wx_PGVIterator, Next);
-	Gura_AssignMethod(wx_PGVIterator, AtEnd);
-	Gura_AssignMethod(wx_PGVIterator, GetProperty);
+	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator);
+	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator_1);
+	Gura_AssignMethod(wx_PGVIterator, __UnRef);
+	Gura_AssignMethod(wx_PGVIterator, __wxPGVIterator_2);
+	Gura_AssignMethod(wx_PGVIterator, __Next);
+	Gura_AssignMethod(wx_PGVIterator, __AtEnd);
+	Gura_AssignMethod(wx_PGVIterator, __GetProperty);
 }
 
 Gura_ImplementDescendantCreator(wx_PGVIterator)

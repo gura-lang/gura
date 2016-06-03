@@ -37,13 +37,13 @@ String Object_wx_HelpControllerHelpProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider)
+Gura_DeclareMethodAlias(wx_HelpControllerHelpProvider, __wxHelpControllerHelpProvider, "wxHelpControllerHelpProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider)
+Gura_ImplementMethod(wx_HelpControllerHelpProvider, __wxHelpControllerHelpProvider)
 {
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerHelpProvider, GetHelpController)
+Gura_DeclareMethodAlias(wx_HelpControllerHelpProvider, __GetHelpController, "GetHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
+Gura_ImplementMethod(wx_HelpControllerHelpProvider, __GetHelpController)
 {
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, GetHelpController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerHelpProvider, SetHelpController)
+Gura_DeclareMethodAlias(wx_HelpControllerHelpProvider, __SetHelpController, "SetHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
+Gura_ImplementMethod(wx_HelpControllerHelpProvider, __SetHelpController)
 {
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, SetHelpController)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpControllerHelpProvider)
 {
-	Gura_AssignMethod(wx_HelpControllerHelpProvider, wxHelpControllerHelpProvider);
-	Gura_AssignMethod(wx_HelpControllerHelpProvider, GetHelpController);
-	Gura_AssignMethod(wx_HelpControllerHelpProvider, SetHelpController);
+	Gura_AssignMethod(wx_HelpControllerHelpProvider, __wxHelpControllerHelpProvider);
+	Gura_AssignMethod(wx_HelpControllerHelpProvider, __GetHelpController);
+	Gura_AssignMethod(wx_HelpControllerHelpProvider, __SetHelpController);
 }
 
 Gura_ImplementDescendantCreator(wx_HelpControllerHelpProvider)

@@ -37,12 +37,12 @@ String Object_wx_TranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TranslationsLoader, wxTranslationsLoader)
+Gura_DeclareMethodAlias(wx_TranslationsLoader, __wxTranslationsLoader, "wxTranslationsLoader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TranslationsLoader, wxTranslationsLoader)
+Gura_ImplementMethod(wx_TranslationsLoader, __wxTranslationsLoader)
 {
 	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_TranslationsLoader, wxTranslationsLoader)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TranslationsLoader, LoadCatalog)
+Gura_DeclareMethodAlias(wx_TranslationsLoader, __LoadCatalog, "LoadCatalog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TranslationsLoader, LoadCatalog)
+Gura_ImplementMethod(wx_TranslationsLoader, __LoadCatalog)
 {
 	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_TranslationsLoader, LoadCatalog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TranslationsLoader, GetAvailableTranslations)
+Gura_DeclareMethodAlias(wx_TranslationsLoader, __GetAvailableTranslations, "GetAvailableTranslations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TranslationsLoader, GetAvailableTranslations)
+Gura_ImplementMethod(wx_TranslationsLoader, __GetAvailableTranslations)
 {
 	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_TranslationsLoader, GetAvailableTranslations)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TranslationsLoader)
 {
-	Gura_AssignMethod(wx_TranslationsLoader, wxTranslationsLoader);
-	Gura_AssignMethod(wx_TranslationsLoader, LoadCatalog);
-	Gura_AssignMethod(wx_TranslationsLoader, GetAvailableTranslations);
+	Gura_AssignMethod(wx_TranslationsLoader, __wxTranslationsLoader);
+	Gura_AssignMethod(wx_TranslationsLoader, __LoadCatalog);
+	Gura_AssignMethod(wx_TranslationsLoader, __GetAvailableTranslations);
 }
 
 Gura_ImplementDescendantCreator(wx_TranslationsLoader)

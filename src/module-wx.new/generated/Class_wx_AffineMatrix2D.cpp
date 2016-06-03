@@ -37,12 +37,12 @@ String Object_wx_AffineMatrix2D::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __wxAffineMatrix2D, "wxAffineMatrix2D")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
+Gura_ImplementMethod(wx_AffineMatrix2D, __wxAffineMatrix2D)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, wxAffineMatrix2D)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Get)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mat2D", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Get)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Get)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Set)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mat2D", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Set)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Set)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Concat)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Concat, "Concat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Concat)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Concat)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Concat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Invert)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Invert, "Invert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Invert)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Invert)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Invert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, IsIdentity)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __IsIdentity, "IsIdentity")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, IsIdentity)
+Gura_ImplementMethod(wx_AffineMatrix2D, __IsIdentity)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, IsIdentity)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, IsEqual)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __IsEqual, "IsEqual")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, IsEqual)
+Gura_ImplementMethod(wx_AffineMatrix2D, __IsEqual)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,14 +140,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, IsEqual)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Translate)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Translate, "Translate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Translate)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Translate)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,14 +157,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Translate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Scale)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Scale, "Scale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Scale)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Scale)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Scale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Mirror)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Mirror, "Mirror")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Mirror)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Mirror)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,13 +189,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Mirror)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, Rotate)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Rotate, "Rotate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cRadians", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, Rotate)
+Gura_ImplementMethod(wx_AffineMatrix2D, __Rotate)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,13 +204,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, Rotate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformPoint, "TransformPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
+Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,14 +219,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformPoint_1)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformPoint_1, "TransformPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint_1)
+Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint_1)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,13 +236,13 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformDistance, "TransformDistance")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
+Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,14 +251,14 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AffineMatrix2D, TransformDistance_1)
+Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformDistance_1, "TransformDistance_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance_1)
+Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance_1)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -273,21 +273,21 @@ Gura_ImplementMethod(wx_AffineMatrix2D, TransformDistance_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AffineMatrix2D)
 {
-	Gura_AssignMethod(wx_AffineMatrix2D, wxAffineMatrix2D);
-	Gura_AssignMethod(wx_AffineMatrix2D, Get);
-	Gura_AssignMethod(wx_AffineMatrix2D, Set);
-	Gura_AssignMethod(wx_AffineMatrix2D, Concat);
-	Gura_AssignMethod(wx_AffineMatrix2D, Invert);
-	Gura_AssignMethod(wx_AffineMatrix2D, IsIdentity);
-	Gura_AssignMethod(wx_AffineMatrix2D, IsEqual);
-	Gura_AssignMethod(wx_AffineMatrix2D, Translate);
-	Gura_AssignMethod(wx_AffineMatrix2D, Scale);
-	Gura_AssignMethod(wx_AffineMatrix2D, Mirror);
-	Gura_AssignMethod(wx_AffineMatrix2D, Rotate);
-	Gura_AssignMethod(wx_AffineMatrix2D, TransformPoint);
-	Gura_AssignMethod(wx_AffineMatrix2D, TransformPoint_1);
-	Gura_AssignMethod(wx_AffineMatrix2D, TransformDistance);
-	Gura_AssignMethod(wx_AffineMatrix2D, TransformDistance_1);
+	Gura_AssignMethod(wx_AffineMatrix2D, __wxAffineMatrix2D);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Get);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Set);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Concat);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Invert);
+	Gura_AssignMethod(wx_AffineMatrix2D, __IsIdentity);
+	Gura_AssignMethod(wx_AffineMatrix2D, __IsEqual);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Translate);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Scale);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Mirror);
+	Gura_AssignMethod(wx_AffineMatrix2D, __Rotate);
+	Gura_AssignMethod(wx_AffineMatrix2D, __TransformPoint);
+	Gura_AssignMethod(wx_AffineMatrix2D, __TransformPoint_1);
+	Gura_AssignMethod(wx_AffineMatrix2D, __TransformDistance);
+	Gura_AssignMethod(wx_AffineMatrix2D, __TransformDistance_1);
 }
 
 Gura_ImplementDescendantCreator(wx_AffineMatrix2D)

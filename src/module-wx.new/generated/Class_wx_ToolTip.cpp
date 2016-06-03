@@ -37,13 +37,13 @@ String Object_wx_ToolTip::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ToolTip, wxToolTip)
+Gura_DeclareMethodAlias(wx_ToolTip, __wxToolTip, "wxToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, wxToolTip)
+Gura_ImplementMethod(wx_ToolTip, __wxToolTip)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_ToolTip, wxToolTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, Enable)
+Gura_DeclareMethodAlias(wx_ToolTip, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, Enable)
+Gura_ImplementMethod(wx_ToolTip, __Enable)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_ToolTip, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, GetTip)
+Gura_DeclareMethodAlias(wx_ToolTip, __GetTip, "GetTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolTip, GetTip)
+Gura_ImplementMethod(wx_ToolTip, __GetTip)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_ToolTip, GetTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, GetWindow)
+Gura_DeclareMethodAlias(wx_ToolTip, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToolTip, GetWindow)
+Gura_ImplementMethod(wx_ToolTip, __GetWindow)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_ToolTip, GetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, SetAutoPop)
+Gura_DeclareMethodAlias(wx_ToolTip, __SetAutoPop, "SetAutoPop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msecs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, SetAutoPop)
+Gura_ImplementMethod(wx_ToolTip, __SetAutoPop)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_ToolTip, SetAutoPop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, SetDelay)
+Gura_DeclareMethodAlias(wx_ToolTip, __SetDelay, "SetDelay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msecs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, SetDelay)
+Gura_ImplementMethod(wx_ToolTip, __SetDelay)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_ToolTip, SetDelay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, SetMaxWidth)
+Gura_DeclareMethodAlias(wx_ToolTip, __SetMaxWidth, "SetMaxWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, SetMaxWidth)
+Gura_ImplementMethod(wx_ToolTip, __SetMaxWidth)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_ToolTip, SetMaxWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, SetReshow)
+Gura_DeclareMethodAlias(wx_ToolTip, __SetReshow, "SetReshow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msecs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, SetReshow)
+Gura_ImplementMethod(wx_ToolTip, __SetReshow)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_ToolTip, SetReshow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToolTip, SetTip)
+Gura_DeclareMethodAlias(wx_ToolTip, __SetTip, "SetTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToolTip, SetTip)
+Gura_ImplementMethod(wx_ToolTip, __SetTip)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,15 +173,15 @@ Gura_ImplementMethod(wx_ToolTip, SetTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToolTip)
 {
-	Gura_AssignMethod(wx_ToolTip, wxToolTip);
-	Gura_AssignMethod(wx_ToolTip, Enable);
-	Gura_AssignMethod(wx_ToolTip, GetTip);
-	Gura_AssignMethod(wx_ToolTip, GetWindow);
-	Gura_AssignMethod(wx_ToolTip, SetAutoPop);
-	Gura_AssignMethod(wx_ToolTip, SetDelay);
-	Gura_AssignMethod(wx_ToolTip, SetMaxWidth);
-	Gura_AssignMethod(wx_ToolTip, SetReshow);
-	Gura_AssignMethod(wx_ToolTip, SetTip);
+	Gura_AssignMethod(wx_ToolTip, __wxToolTip);
+	Gura_AssignMethod(wx_ToolTip, __Enable);
+	Gura_AssignMethod(wx_ToolTip, __GetTip);
+	Gura_AssignMethod(wx_ToolTip, __GetWindow);
+	Gura_AssignMethod(wx_ToolTip, __SetAutoPop);
+	Gura_AssignMethod(wx_ToolTip, __SetDelay);
+	Gura_AssignMethod(wx_ToolTip, __SetMaxWidth);
+	Gura_AssignMethod(wx_ToolTip, __SetReshow);
+	Gura_AssignMethod(wx_ToolTip, __SetTip);
 }
 
 Gura_ImplementDescendantCreator(wx_ToolTip)

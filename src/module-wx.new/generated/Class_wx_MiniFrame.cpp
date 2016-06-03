@@ -37,12 +37,12 @@ String Object_wx_MiniFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MiniFrame, wxMiniFrame)
+Gura_DeclareMethodAlias(wx_MiniFrame, __wxMiniFrame, "wxMiniFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame)
+Gura_ImplementMethod(wx_MiniFrame, __wxMiniFrame)
 {
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MiniFrame, wxMiniFrame_1)
+Gura_DeclareMethodAlias(wx_MiniFrame, __wxMiniFrame_1, "wxMiniFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_MiniFrame, wxMiniFrame_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame_1)
+Gura_ImplementMethod(wx_MiniFrame, __wxMiniFrame_1)
 {
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_MiniFrame, wxMiniFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MiniFrame, Create)
+Gura_DeclareMethodAlias(wx_MiniFrame, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_MiniFrame, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MiniFrame, Create)
+Gura_ImplementMethod(wx_MiniFrame, __Create)
 {
 	Object_wx_MiniFrame *pThis = Object_wx_MiniFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,9 +109,9 @@ Gura_ImplementMethod(wx_MiniFrame, Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MiniFrame)
 {
-	Gura_AssignMethod(wx_MiniFrame, wxMiniFrame);
-	Gura_AssignMethod(wx_MiniFrame, wxMiniFrame_1);
-	Gura_AssignMethod(wx_MiniFrame, Create);
+	Gura_AssignMethod(wx_MiniFrame, __wxMiniFrame);
+	Gura_AssignMethod(wx_MiniFrame, __wxMiniFrame_1);
+	Gura_AssignMethod(wx_MiniFrame, __Create);
 }
 
 Gura_ImplementDescendantCreator(wx_MiniFrame)

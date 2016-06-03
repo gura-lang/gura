@@ -37,12 +37,12 @@ String Object_wx_XmlAttribute::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_XmlAttribute, wxXmlAttribute)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __wxXmlAttribute, "wxXmlAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, wxXmlAttribute)
+Gura_ImplementMethod(wx_XmlAttribute, __wxXmlAttribute)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_XmlAttribute, wxXmlAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, wxXmlAttribute_1)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __wxXmlAttribute_1, "wxXmlAttribute_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_XmlAttribute, wxXmlAttribute_1)
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, wxXmlAttribute_1)
+Gura_ImplementMethod(wx_XmlAttribute, __wxXmlAttribute_1)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_XmlAttribute, wxXmlAttribute_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, GetName)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, GetName)
+Gura_ImplementMethod(wx_XmlAttribute, __GetName)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_XmlAttribute, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, GetNext)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, GetNext)
+Gura_ImplementMethod(wx_XmlAttribute, __GetNext)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_XmlAttribute, GetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, GetValue)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, GetValue)
+Gura_ImplementMethod(wx_XmlAttribute, __GetValue)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_XmlAttribute, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, SetName)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, SetName)
+Gura_ImplementMethod(wx_XmlAttribute, __SetName)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_XmlAttribute, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, SetNext)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __SetNext, "SetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, SetNext)
+Gura_ImplementMethod(wx_XmlAttribute, __SetNext)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_XmlAttribute, SetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XmlAttribute, SetValue)
+Gura_DeclareMethodAlias(wx_XmlAttribute, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XmlAttribute, SetValue)
+Gura_ImplementMethod(wx_XmlAttribute, __SetValue)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,14 +158,14 @@ Gura_ImplementMethod(wx_XmlAttribute, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XmlAttribute)
 {
-	Gura_AssignMethod(wx_XmlAttribute, wxXmlAttribute);
-	Gura_AssignMethod(wx_XmlAttribute, wxXmlAttribute_1);
-	Gura_AssignMethod(wx_XmlAttribute, GetName);
-	Gura_AssignMethod(wx_XmlAttribute, GetNext);
-	Gura_AssignMethod(wx_XmlAttribute, GetValue);
-	Gura_AssignMethod(wx_XmlAttribute, SetName);
-	Gura_AssignMethod(wx_XmlAttribute, SetNext);
-	Gura_AssignMethod(wx_XmlAttribute, SetValue);
+	Gura_AssignMethod(wx_XmlAttribute, __wxXmlAttribute);
+	Gura_AssignMethod(wx_XmlAttribute, __wxXmlAttribute_1);
+	Gura_AssignMethod(wx_XmlAttribute, __GetName);
+	Gura_AssignMethod(wx_XmlAttribute, __GetNext);
+	Gura_AssignMethod(wx_XmlAttribute, __GetValue);
+	Gura_AssignMethod(wx_XmlAttribute, __SetName);
+	Gura_AssignMethod(wx_XmlAttribute, __SetNext);
+	Gura_AssignMethod(wx_XmlAttribute, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_XmlAttribute)

@@ -37,12 +37,12 @@ String Object_wx_TreeListEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeListEvent, wxTreeListEvent)
+Gura_DeclareMethodAlias(wx_TreeListEvent, __wxTreeListEvent, "wxTreeListEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListEvent, wxTreeListEvent)
+Gura_ImplementMethod(wx_TreeListEvent, __wxTreeListEvent)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_TreeListEvent, wxTreeListEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListEvent, GetItem)
+Gura_DeclareMethodAlias(wx_TreeListEvent, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListEvent, GetItem)
+Gura_ImplementMethod(wx_TreeListEvent, __GetItem)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_TreeListEvent, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListEvent, GetOldCheckedState)
+Gura_DeclareMethodAlias(wx_TreeListEvent, __GetOldCheckedState, "GetOldCheckedState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListEvent, GetOldCheckedState)
+Gura_ImplementMethod(wx_TreeListEvent, __GetOldCheckedState)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_TreeListEvent, GetOldCheckedState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListEvent, GetColumn)
+Gura_DeclareMethodAlias(wx_TreeListEvent, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListEvent, GetColumn)
+Gura_ImplementMethod(wx_TreeListEvent, __GetColumn)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,10 +94,10 @@ Gura_ImplementMethod(wx_TreeListEvent, GetColumn)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListEvent)
 {
-	Gura_AssignMethod(wx_TreeListEvent, wxTreeListEvent);
-	Gura_AssignMethod(wx_TreeListEvent, GetItem);
-	Gura_AssignMethod(wx_TreeListEvent, GetOldCheckedState);
-	Gura_AssignMethod(wx_TreeListEvent, GetColumn);
+	Gura_AssignMethod(wx_TreeListEvent, __wxTreeListEvent);
+	Gura_AssignMethod(wx_TreeListEvent, __GetItem);
+	Gura_AssignMethod(wx_TreeListEvent, __GetOldCheckedState);
+	Gura_AssignMethod(wx_TreeListEvent, __GetColumn);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeListEvent)

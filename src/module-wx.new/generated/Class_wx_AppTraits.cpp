@@ -37,12 +37,12 @@ String Object_wx_AppTraits::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AppTraits, CreateConfig)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateConfig, "CreateConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateConfig)
+Gura_ImplementMethod(wx_AppTraits, __CreateConfig)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateConfig)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, CreateEventLoop)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateEventLoop, "CreateEventLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateEventLoop)
+Gura_ImplementMethod(wx_AppTraits, __CreateEventLoop)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateEventLoop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, CreateFontMapper)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateFontMapper, "CreateFontMapper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
+Gura_ImplementMethod(wx_AppTraits, __CreateFontMapper)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateFontMapper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, CreateLogTarget)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateLogTarget, "CreateLogTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
+Gura_ImplementMethod(wx_AppTraits, __CreateLogTarget)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateLogTarget)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, CreateMessageOutput)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateMessageOutput, "CreateMessageOutput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
+Gura_ImplementMethod(wx_AppTraits, __CreateMessageOutput)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateMessageOutput)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, CreateRenderer)
+Gura_DeclareMethodAlias(wx_AppTraits, __CreateRenderer, "CreateRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
+Gura_ImplementMethod(wx_AppTraits, __CreateRenderer)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,12 +115,12 @@ Gura_ImplementMethod(wx_AppTraits, CreateRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, GetDesktopEnvironment)
+Gura_DeclareMethodAlias(wx_AppTraits, __GetDesktopEnvironment, "GetDesktopEnvironment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
+Gura_ImplementMethod(wx_AppTraits, __GetDesktopEnvironment)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_AppTraits, GetDesktopEnvironment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, GetStandardPaths)
+Gura_DeclareMethodAlias(wx_AppTraits, __GetStandardPaths, "GetStandardPaths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
+Gura_ImplementMethod(wx_AppTraits, __GetStandardPaths)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,14 +141,14 @@ Gura_ImplementMethod(wx_AppTraits, GetStandardPaths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, GetToolkitVersion)
+Gura_DeclareMethodAlias(wx_AppTraits, __GetToolkitVersion, "GetToolkitVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
+Gura_ImplementMethod(wx_AppTraits, __GetToolkitVersion)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_AppTraits, GetToolkitVersion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, HasStderr)
+Gura_DeclareMethodAlias(wx_AppTraits, __HasStderr, "HasStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, HasStderr)
+Gura_ImplementMethod(wx_AppTraits, __HasStderr)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_AppTraits, HasStderr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, IsUsingUniversalWidgets)
+Gura_DeclareMethodAlias(wx_AppTraits, __IsUsingUniversalWidgets, "IsUsingUniversalWidgets")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
+Gura_ImplementMethod(wx_AppTraits, __IsUsingUniversalWidgets)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,13 +184,13 @@ Gura_ImplementMethod(wx_AppTraits, IsUsingUniversalWidgets)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AppTraits, ShowAssertDialog)
+Gura_DeclareMethodAlias(wx_AppTraits, __ShowAssertDialog, "ShowAssertDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
+Gura_ImplementMethod(wx_AppTraits, __ShowAssertDialog)
 {
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,18 +204,18 @@ Gura_ImplementMethod(wx_AppTraits, ShowAssertDialog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AppTraits)
 {
-	Gura_AssignMethod(wx_AppTraits, CreateConfig);
-	Gura_AssignMethod(wx_AppTraits, CreateEventLoop);
-	Gura_AssignMethod(wx_AppTraits, CreateFontMapper);
-	Gura_AssignMethod(wx_AppTraits, CreateLogTarget);
-	Gura_AssignMethod(wx_AppTraits, CreateMessageOutput);
-	Gura_AssignMethod(wx_AppTraits, CreateRenderer);
-	Gura_AssignMethod(wx_AppTraits, GetDesktopEnvironment);
-	Gura_AssignMethod(wx_AppTraits, GetStandardPaths);
-	Gura_AssignMethod(wx_AppTraits, GetToolkitVersion);
-	Gura_AssignMethod(wx_AppTraits, HasStderr);
-	Gura_AssignMethod(wx_AppTraits, IsUsingUniversalWidgets);
-	Gura_AssignMethod(wx_AppTraits, ShowAssertDialog);
+	Gura_AssignMethod(wx_AppTraits, __CreateConfig);
+	Gura_AssignMethod(wx_AppTraits, __CreateEventLoop);
+	Gura_AssignMethod(wx_AppTraits, __CreateFontMapper);
+	Gura_AssignMethod(wx_AppTraits, __CreateLogTarget);
+	Gura_AssignMethod(wx_AppTraits, __CreateMessageOutput);
+	Gura_AssignMethod(wx_AppTraits, __CreateRenderer);
+	Gura_AssignMethod(wx_AppTraits, __GetDesktopEnvironment);
+	Gura_AssignMethod(wx_AppTraits, __GetStandardPaths);
+	Gura_AssignMethod(wx_AppTraits, __GetToolkitVersion);
+	Gura_AssignMethod(wx_AppTraits, __HasStderr);
+	Gura_AssignMethod(wx_AppTraits, __IsUsingUniversalWidgets);
+	Gura_AssignMethod(wx_AppTraits, __ShowAssertDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_AppTraits)

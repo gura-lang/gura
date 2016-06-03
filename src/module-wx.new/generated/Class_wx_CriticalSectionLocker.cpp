@@ -37,13 +37,13 @@ String Object_wx_CriticalSectionLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker)
+Gura_DeclareMethodAlias(wx_CriticalSectionLocker, __wxCriticalSectionLocker, "wxCriticalSectionLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "criticalsection", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker)
+Gura_ImplementMethod(wx_CriticalSectionLocker, __wxCriticalSectionLocker)
 {
 	Object_wx_CriticalSectionLocker *pThis = Object_wx_CriticalSectionLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CriticalSectionLocker)
 {
-	Gura_AssignMethod(wx_CriticalSectionLocker, wxCriticalSectionLocker);
+	Gura_AssignMethod(wx_CriticalSectionLocker, __wxCriticalSectionLocker);
 }
 
 Gura_ImplementDescendantCreator(wx_CriticalSectionLocker)

@@ -37,12 +37,12 @@ String Object_wx_CollapsibleHeaderCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl)
+Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl, "wxCollapsibleHeaderCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl)
+Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
+Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl_1, "wxCollapsibleHeaderCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
+Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl_1)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, Create)
+Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, Create)
+Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __Create)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, SetCollapsed)
+Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __SetCollapsed, "SetCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, SetCollapsed)
+Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __SetCollapsed)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, SetCollapsed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsibleHeaderCtrl, IsCollapsed)
+Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __IsCollapsed, "IsCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, IsCollapsed)
+Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __IsCollapsed)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,11 +141,11 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, IsCollapsed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsibleHeaderCtrl)
 {
-	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl);
-	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, wxCollapsibleHeaderCtrl_1);
-	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, Create);
-	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, SetCollapsed);
-	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, IsCollapsed);
+	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl);
+	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __wxCollapsibleHeaderCtrl_1);
+	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __Create);
+	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __SetCollapsed);
+	Gura_AssignMethod(wx_CollapsibleHeaderCtrl, __IsCollapsed);
 }
 
 Gura_ImplementDescendantCreator(wx_CollapsibleHeaderCtrl)

@@ -37,14 +37,14 @@ String Object_wx_EraseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_EraseEvent, wxEraseEvent)
+Gura_DeclareMethodAlias(wx_EraseEvent, __wxEraseEvent, "wxEraseEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EraseEvent, wxEraseEvent)
+Gura_ImplementMethod(wx_EraseEvent, __wxEraseEvent)
 {
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_EraseEvent, wxEraseEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_EraseEvent, GetDC)
+Gura_DeclareMethodAlias(wx_EraseEvent, __GetDC, "GetDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_EraseEvent, GetDC)
+Gura_ImplementMethod(wx_EraseEvent, __GetDC)
 {
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_EraseEvent, GetDC)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EraseEvent)
 {
-	Gura_AssignMethod(wx_EraseEvent, wxEraseEvent);
-	Gura_AssignMethod(wx_EraseEvent, GetDC);
+	Gura_AssignMethod(wx_EraseEvent, __wxEraseEvent);
+	Gura_AssignMethod(wx_EraseEvent, __GetDC);
 }
 
 Gura_ImplementDescendantCreator(wx_EraseEvent)

@@ -37,12 +37,12 @@ String Object_wx_ArchiveOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArchiveOutputStream, Close)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, Close)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __Close)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, Close)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, CloseEntry)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CloseEntry, "CloseEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, CloseEntry)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __CloseEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, CloseEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, CopyArchiveMetaData)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CopyArchiveMetaData, "CopyArchiveMetaData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, CopyArchiveMetaData)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyArchiveMetaData)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,14 +78,14 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, CopyArchiveMetaData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, CopyEntry)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CopyEntry, "CopyEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, CopyEntry)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,14 +95,14 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, CopyEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextDirEntry)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextDirEntry, "PutNextDirEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextDirEntry)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextDirEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextDirEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextEntry)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextEntry, "PutNextEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextEntry_1)
+Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextEntry_1, "PutNextEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -135,7 +135,7 @@ Gura_DeclareMethod(wx_ArchiveOutputStream, PutNextEntry_1)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry_1)
+Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry_1)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,13 +151,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, PutNextEntry_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArchiveOutputStream)
 {
-	Gura_AssignMethod(wx_ArchiveOutputStream, Close);
-	Gura_AssignMethod(wx_ArchiveOutputStream, CloseEntry);
-	Gura_AssignMethod(wx_ArchiveOutputStream, CopyArchiveMetaData);
-	Gura_AssignMethod(wx_ArchiveOutputStream, CopyEntry);
-	Gura_AssignMethod(wx_ArchiveOutputStream, PutNextDirEntry);
-	Gura_AssignMethod(wx_ArchiveOutputStream, PutNextEntry);
-	Gura_AssignMethod(wx_ArchiveOutputStream, PutNextEntry_1);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __Close);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __CloseEntry);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __CopyArchiveMetaData);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __CopyEntry);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __PutNextDirEntry);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __PutNextEntry);
+	Gura_AssignMethod(wx_ArchiveOutputStream, __PutNextEntry_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ArchiveOutputStream)

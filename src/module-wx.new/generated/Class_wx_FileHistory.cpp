@@ -37,14 +37,14 @@ String Object_wx_FileHistory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileHistory, wxFileHistory)
+Gura_DeclareMethodAlias(wx_FileHistory, __wxFileHistory, "wxFileHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxFiles", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "idBase", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, wxFileHistory)
+Gura_ImplementMethod(wx_FileHistory, __wxFileHistory)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_FileHistory, wxFileHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, AddFileToHistory)
+Gura_DeclareMethodAlias(wx_FileHistory, __AddFileToHistory, "AddFileToHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, AddFileToHistory)
+Gura_ImplementMethod(wx_FileHistory, __AddFileToHistory)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_FileHistory, AddFileToHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu)
+Gura_DeclareMethodAlias(wx_FileHistory, __AddFilesToMenu, "AddFilesToMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu)
+Gura_ImplementMethod(wx_FileHistory, __AddFilesToMenu)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, AddFilesToMenu_1)
+Gura_DeclareMethodAlias(wx_FileHistory, __AddFilesToMenu_1, "AddFilesToMenu_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu_1)
+Gura_ImplementMethod(wx_FileHistory, __AddFilesToMenu_1)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_FileHistory, AddFilesToMenu_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, GetBaseId)
+Gura_DeclareMethodAlias(wx_FileHistory, __GetBaseId, "GetBaseId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileHistory, GetBaseId)
+Gura_ImplementMethod(wx_FileHistory, __GetBaseId)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_FileHistory, GetBaseId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, GetCount)
+Gura_DeclareMethodAlias(wx_FileHistory, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileHistory, GetCount)
+Gura_ImplementMethod(wx_FileHistory, __GetCount)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_FileHistory, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, GetHistoryFile)
+Gura_DeclareMethodAlias(wx_FileHistory, __GetHistoryFile, "GetHistoryFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, GetHistoryFile)
+Gura_ImplementMethod(wx_FileHistory, __GetHistoryFile)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_FileHistory, GetHistoryFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, GetMaxFiles)
+Gura_DeclareMethodAlias(wx_FileHistory, __GetMaxFiles, "GetMaxFiles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileHistory, GetMaxFiles)
+Gura_ImplementMethod(wx_FileHistory, __GetMaxFiles)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_FileHistory, GetMaxFiles)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, GetMenus)
+Gura_DeclareMethodAlias(wx_FileHistory, __GetMenus, "GetMenus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileHistory, GetMenus)
+Gura_ImplementMethod(wx_FileHistory, __GetMenus)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_FileHistory, GetMenus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, Load)
+Gura_DeclareMethodAlias(wx_FileHistory, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, Load)
+Gura_ImplementMethod(wx_FileHistory, __Load)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_FileHistory, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, RemoveFileFromHistory)
+Gura_DeclareMethodAlias(wx_FileHistory, __RemoveFileFromHistory, "RemoveFileFromHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, RemoveFileFromHistory)
+Gura_ImplementMethod(wx_FileHistory, __RemoveFileFromHistory)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_FileHistory, RemoveFileFromHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, RemoveMenu)
+Gura_DeclareMethodAlias(wx_FileHistory, __RemoveMenu, "RemoveMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, RemoveMenu)
+Gura_ImplementMethod(wx_FileHistory, __RemoveMenu)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_FileHistory, RemoveMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, Save)
+Gura_DeclareMethodAlias(wx_FileHistory, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, Save)
+Gura_ImplementMethod(wx_FileHistory, __Save)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_FileHistory, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, SetBaseId)
+Gura_DeclareMethodAlias(wx_FileHistory, __SetBaseId, "SetBaseId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "baseId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, SetBaseId)
+Gura_ImplementMethod(wx_FileHistory, __SetBaseId)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_FileHistory, SetBaseId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileHistory, UseMenu)
+Gura_DeclareMethodAlias(wx_FileHistory, __UseMenu, "UseMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileHistory, UseMenu)
+Gura_ImplementMethod(wx_FileHistory, __UseMenu)
 {
 	Object_wx_FileHistory *pThis = Object_wx_FileHistory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,21 +259,21 @@ Gura_ImplementMethod(wx_FileHistory, UseMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileHistory)
 {
-	Gura_AssignMethod(wx_FileHistory, wxFileHistory);
-	Gura_AssignMethod(wx_FileHistory, AddFileToHistory);
-	Gura_AssignMethod(wx_FileHistory, AddFilesToMenu);
-	Gura_AssignMethod(wx_FileHistory, AddFilesToMenu_1);
-	Gura_AssignMethod(wx_FileHistory, GetBaseId);
-	Gura_AssignMethod(wx_FileHistory, GetCount);
-	Gura_AssignMethod(wx_FileHistory, GetHistoryFile);
-	Gura_AssignMethod(wx_FileHistory, GetMaxFiles);
-	Gura_AssignMethod(wx_FileHistory, GetMenus);
-	Gura_AssignMethod(wx_FileHistory, Load);
-	Gura_AssignMethod(wx_FileHistory, RemoveFileFromHistory);
-	Gura_AssignMethod(wx_FileHistory, RemoveMenu);
-	Gura_AssignMethod(wx_FileHistory, Save);
-	Gura_AssignMethod(wx_FileHistory, SetBaseId);
-	Gura_AssignMethod(wx_FileHistory, UseMenu);
+	Gura_AssignMethod(wx_FileHistory, __wxFileHistory);
+	Gura_AssignMethod(wx_FileHistory, __AddFileToHistory);
+	Gura_AssignMethod(wx_FileHistory, __AddFilesToMenu);
+	Gura_AssignMethod(wx_FileHistory, __AddFilesToMenu_1);
+	Gura_AssignMethod(wx_FileHistory, __GetBaseId);
+	Gura_AssignMethod(wx_FileHistory, __GetCount);
+	Gura_AssignMethod(wx_FileHistory, __GetHistoryFile);
+	Gura_AssignMethod(wx_FileHistory, __GetMaxFiles);
+	Gura_AssignMethod(wx_FileHistory, __GetMenus);
+	Gura_AssignMethod(wx_FileHistory, __Load);
+	Gura_AssignMethod(wx_FileHistory, __RemoveFileFromHistory);
+	Gura_AssignMethod(wx_FileHistory, __RemoveMenu);
+	Gura_AssignMethod(wx_FileHistory, __Save);
+	Gura_AssignMethod(wx_FileHistory, __SetBaseId);
+	Gura_AssignMethod(wx_FileHistory, __UseMenu);
 }
 
 Gura_ImplementDescendantCreator(wx_FileHistory)

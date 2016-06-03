@@ -37,13 +37,13 @@ String Object_wx_MemoryBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MemoryBuffer, wxMemoryBuffer)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __wxMemoryBuffer, "wxMemoryBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer)
+Gura_ImplementMethod(wx_MemoryBuffer, __wxMemoryBuffer)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, wxMemoryBuffer_1)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __wxMemoryBuffer_1, "wxMemoryBuffer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer_1)
+Gura_ImplementMethod(wx_MemoryBuffer, __wxMemoryBuffer_1)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, wxMemoryBuffer_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, AppendByte)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __AppendByte, "AppendByte")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, AppendByte)
+Gura_ImplementMethod(wx_MemoryBuffer, __AppendByte)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_MemoryBuffer, AppendByte)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, AppendData)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __AppendData, "AppendData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, AppendData)
+Gura_ImplementMethod(wx_MemoryBuffer, __AppendData)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_MemoryBuffer, AppendData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, Clear)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, Clear)
+Gura_ImplementMethod(wx_MemoryBuffer, __Clear)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, GetAppendBuf)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __GetAppendBuf, "GetAppendBuf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizeNeeded", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, GetAppendBuf)
+Gura_ImplementMethod(wx_MemoryBuffer, __GetAppendBuf)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetAppendBuf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, GetBufSize)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __GetBufSize, "GetBufSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
+Gura_ImplementMethod(wx_MemoryBuffer, __GetBufSize)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetBufSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, GetData)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, GetData)
+Gura_ImplementMethod(wx_MemoryBuffer, __GetData)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, GetDataLen)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __GetDataLen, "GetDataLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
+Gura_ImplementMethod(wx_MemoryBuffer, __GetDataLen)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetDataLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, GetWriteBuf)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __GetWriteBuf, "GetWriteBuf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizeNeeded", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, GetWriteBuf)
+Gura_ImplementMethod(wx_MemoryBuffer, __GetWriteBuf)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_MemoryBuffer, GetWriteBuf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, IsEmpty)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, IsEmpty)
+Gura_ImplementMethod(wx_MemoryBuffer, __IsEmpty)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, SetBufSize)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __SetBufSize, "SetBufSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, SetBufSize)
+Gura_ImplementMethod(wx_MemoryBuffer, __SetBufSize)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, SetBufSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, SetDataLen)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __SetDataLen, "SetDataLen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, SetDataLen)
+Gura_ImplementMethod(wx_MemoryBuffer, __SetDataLen)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, SetDataLen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, UngetAppendBuf)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __UngetAppendBuf, "UngetAppendBuf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizeUsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, UngetAppendBuf)
+Gura_ImplementMethod(wx_MemoryBuffer, __UngetAppendBuf)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_MemoryBuffer, UngetAppendBuf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryBuffer, UngetWriteBuf)
+Gura_DeclareMethodAlias(wx_MemoryBuffer, __UngetWriteBuf, "UngetWriteBuf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizeUsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryBuffer, UngetWriteBuf)
+Gura_ImplementMethod(wx_MemoryBuffer, __UngetWriteBuf)
 {
 	Object_wx_MemoryBuffer *pThis = Object_wx_MemoryBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,21 +259,21 @@ Gura_ImplementMethod(wx_MemoryBuffer, UngetWriteBuf)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryBuffer)
 {
-	Gura_AssignMethod(wx_MemoryBuffer, wxMemoryBuffer);
-	Gura_AssignMethod(wx_MemoryBuffer, wxMemoryBuffer_1);
-	Gura_AssignMethod(wx_MemoryBuffer, AppendByte);
-	Gura_AssignMethod(wx_MemoryBuffer, AppendData);
-	Gura_AssignMethod(wx_MemoryBuffer, Clear);
-	Gura_AssignMethod(wx_MemoryBuffer, GetAppendBuf);
-	Gura_AssignMethod(wx_MemoryBuffer, GetBufSize);
-	Gura_AssignMethod(wx_MemoryBuffer, GetData);
-	Gura_AssignMethod(wx_MemoryBuffer, GetDataLen);
-	Gura_AssignMethod(wx_MemoryBuffer, GetWriteBuf);
-	Gura_AssignMethod(wx_MemoryBuffer, IsEmpty);
-	Gura_AssignMethod(wx_MemoryBuffer, SetBufSize);
-	Gura_AssignMethod(wx_MemoryBuffer, SetDataLen);
-	Gura_AssignMethod(wx_MemoryBuffer, UngetAppendBuf);
-	Gura_AssignMethod(wx_MemoryBuffer, UngetWriteBuf);
+	Gura_AssignMethod(wx_MemoryBuffer, __wxMemoryBuffer);
+	Gura_AssignMethod(wx_MemoryBuffer, __wxMemoryBuffer_1);
+	Gura_AssignMethod(wx_MemoryBuffer, __AppendByte);
+	Gura_AssignMethod(wx_MemoryBuffer, __AppendData);
+	Gura_AssignMethod(wx_MemoryBuffer, __Clear);
+	Gura_AssignMethod(wx_MemoryBuffer, __GetAppendBuf);
+	Gura_AssignMethod(wx_MemoryBuffer, __GetBufSize);
+	Gura_AssignMethod(wx_MemoryBuffer, __GetData);
+	Gura_AssignMethod(wx_MemoryBuffer, __GetDataLen);
+	Gura_AssignMethod(wx_MemoryBuffer, __GetWriteBuf);
+	Gura_AssignMethod(wx_MemoryBuffer, __IsEmpty);
+	Gura_AssignMethod(wx_MemoryBuffer, __SetBufSize);
+	Gura_AssignMethod(wx_MemoryBuffer, __SetDataLen);
+	Gura_AssignMethod(wx_MemoryBuffer, __UngetAppendBuf);
+	Gura_AssignMethod(wx_MemoryBuffer, __UngetWriteBuf);
 }
 
 Gura_ImplementDescendantCreator(wx_MemoryBuffer)

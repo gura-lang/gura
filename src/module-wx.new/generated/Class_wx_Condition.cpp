@@ -37,13 +37,13 @@ String Object_wx_Condition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Condition, wxCondition)
+Gura_DeclareMethodAlias(wx_Condition, __wxCondition, "wxCondition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Condition, wxCondition)
+Gura_ImplementMethod(wx_Condition, __wxCondition)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_Condition, wxCondition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, Broadcast)
+Gura_DeclareMethodAlias(wx_Condition, __Broadcast, "Broadcast")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Condition, Broadcast)
+Gura_ImplementMethod(wx_Condition, __Broadcast)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_Condition, Broadcast)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, IsOk)
+Gura_DeclareMethodAlias(wx_Condition, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Condition, IsOk)
+Gura_ImplementMethod(wx_Condition, __IsOk)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_Condition, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, Signal)
+Gura_DeclareMethodAlias(wx_Condition, __Signal, "Signal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Condition, Signal)
+Gura_ImplementMethod(wx_Condition, __Signal)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_Condition, Signal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, Wait)
+Gura_DeclareMethodAlias(wx_Condition, __Wait, "Wait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Condition, Wait)
+Gura_ImplementMethod(wx_Condition, __Wait)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Condition, Wait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, Wait_1)
+Gura_DeclareMethodAlias(wx_Condition, __Wait_1, "Wait_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "predicate", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Condition, Wait_1)
+Gura_ImplementMethod(wx_Condition, __Wait_1)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_Condition, Wait_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Condition, WaitTimeout)
+Gura_DeclareMethodAlias(wx_Condition, __WaitTimeout, "WaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Condition, WaitTimeout)
+Gura_ImplementMethod(wx_Condition, __WaitTimeout)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_Condition, WaitTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Condition)
 {
-	Gura_AssignMethod(wx_Condition, wxCondition);
-	Gura_AssignMethod(wx_Condition, Broadcast);
-	Gura_AssignMethod(wx_Condition, IsOk);
-	Gura_AssignMethod(wx_Condition, Signal);
-	Gura_AssignMethod(wx_Condition, Wait);
-	Gura_AssignMethod(wx_Condition, Wait_1);
-	Gura_AssignMethod(wx_Condition, WaitTimeout);
+	Gura_AssignMethod(wx_Condition, __wxCondition);
+	Gura_AssignMethod(wx_Condition, __Broadcast);
+	Gura_AssignMethod(wx_Condition, __IsOk);
+	Gura_AssignMethod(wx_Condition, __Signal);
+	Gura_AssignMethod(wx_Condition, __Wait);
+	Gura_AssignMethod(wx_Condition, __Wait_1);
+	Gura_AssignMethod(wx_Condition, __WaitTimeout);
 }
 
 Gura_ImplementDescendantCreator(wx_Condition)

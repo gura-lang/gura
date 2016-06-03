@@ -37,12 +37,12 @@ String Object_wx_LogBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogBuffer, wxLogBuffer)
+Gura_DeclareMethodAlias(wx_LogBuffer, __wxLogBuffer, "wxLogBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogBuffer, wxLogBuffer)
+Gura_ImplementMethod(wx_LogBuffer, __wxLogBuffer)
 {
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_LogBuffer, wxLogBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogBuffer, Flush)
+Gura_DeclareMethodAlias(wx_LogBuffer, __Flush, "Flush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogBuffer, Flush)
+Gura_ImplementMethod(wx_LogBuffer, __Flush)
 {
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_LogBuffer, Flush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogBuffer, GetBuffer)
+Gura_DeclareMethodAlias(wx_LogBuffer, __GetBuffer, "GetBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogBuffer, GetBuffer)
+Gura_ImplementMethod(wx_LogBuffer, __GetBuffer)
 {
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,9 +81,9 @@ Gura_ImplementMethod(wx_LogBuffer, GetBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogBuffer)
 {
-	Gura_AssignMethod(wx_LogBuffer, wxLogBuffer);
-	Gura_AssignMethod(wx_LogBuffer, Flush);
-	Gura_AssignMethod(wx_LogBuffer, GetBuffer);
+	Gura_AssignMethod(wx_LogBuffer, __wxLogBuffer);
+	Gura_AssignMethod(wx_LogBuffer, __Flush);
+	Gura_AssignMethod(wx_LogBuffer, __GetBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_LogBuffer)

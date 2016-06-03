@@ -37,12 +37,12 @@ String Object_wx_ActivityIndicator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ActivityIndicator, wxActivityIndicator)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __wxActivityIndicator, "wxActivityIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator)
+Gura_ImplementMethod(wx_ActivityIndicator, __wxActivityIndicator)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActivityIndicator, wxActivityIndicator_1)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __wxActivityIndicator_1, "wxActivityIndicator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_ActivityIndicator, wxActivityIndicator_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator_1)
+Gura_ImplementMethod(wx_ActivityIndicator, __wxActivityIndicator_1)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ActivityIndicator, wxActivityIndicator_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActivityIndicator, Create)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_ActivityIndicator, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, Create)
+Gura_ImplementMethod(wx_ActivityIndicator, __Create)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_ActivityIndicator, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActivityIndicator, Start)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __Start, "Start")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, Start)
+Gura_ImplementMethod(wx_ActivityIndicator, __Start)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_ActivityIndicator, Start)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActivityIndicator, Stop)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, Stop)
+Gura_ImplementMethod(wx_ActivityIndicator, __Stop)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_ActivityIndicator, Stop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActivityIndicator, IsRunning)
+Gura_DeclareMethodAlias(wx_ActivityIndicator, __IsRunning, "IsRunning")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ActivityIndicator, IsRunning)
+Gura_ImplementMethod(wx_ActivityIndicator, __IsRunning)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,12 +144,12 @@ Gura_ImplementMethod(wx_ActivityIndicator, IsRunning)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActivityIndicator)
 {
-	Gura_AssignMethod(wx_ActivityIndicator, wxActivityIndicator);
-	Gura_AssignMethod(wx_ActivityIndicator, wxActivityIndicator_1);
-	Gura_AssignMethod(wx_ActivityIndicator, Create);
-	Gura_AssignMethod(wx_ActivityIndicator, Start);
-	Gura_AssignMethod(wx_ActivityIndicator, Stop);
-	Gura_AssignMethod(wx_ActivityIndicator, IsRunning);
+	Gura_AssignMethod(wx_ActivityIndicator, __wxActivityIndicator);
+	Gura_AssignMethod(wx_ActivityIndicator, __wxActivityIndicator_1);
+	Gura_AssignMethod(wx_ActivityIndicator, __Create);
+	Gura_AssignMethod(wx_ActivityIndicator, __Start);
+	Gura_AssignMethod(wx_ActivityIndicator, __Stop);
+	Gura_AssignMethod(wx_ActivityIndicator, __IsRunning);
 }
 
 Gura_ImplementDescendantCreator(wx_ActivityIndicator)

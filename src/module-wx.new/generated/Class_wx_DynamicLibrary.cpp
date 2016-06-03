@@ -37,12 +37,12 @@ String Object_wx_DynamicLibrary::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DynamicLibrary, wxDynamicLibrary)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __wxDynamicLibrary, "wxDynamicLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, wxDynamicLibrary)
+Gura_ImplementMethod(wx_DynamicLibrary, __wxDynamicLibrary)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, wxDynamicLibrary)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, wxDynamicLibrary_1)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __wxDynamicLibrary_1, "wxDynamicLibrary_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, wxDynamicLibrary_1)
+Gura_ImplementMethod(wx_DynamicLibrary, __wxDynamicLibrary_1)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, wxDynamicLibrary_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, CanonicalizeName)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __CanonicalizeName, "CanonicalizeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, CanonicalizeName)
+Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizeName)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, CanonicalizeName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, CanonicalizePluginName)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __CanonicalizePluginName, "CanonicalizePluginName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, CanonicalizePluginName)
+Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizePluginName)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_DynamicLibrary, CanonicalizePluginName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, Detach)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __Detach, "Detach")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, Detach)
+Gura_ImplementMethod(wx_DynamicLibrary, __Detach)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_DynamicLibrary, Detach)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, GetProgramHandle)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetProgramHandle, "GetProgramHandle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, GetProgramHandle)
+Gura_ImplementMethod(wx_DynamicLibrary, __GetProgramHandle)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,14 +127,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetProgramHandle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, GetSymbol)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetSymbol, "GetSymbol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "success", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, GetSymbol)
+Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbol)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetSymbol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, GetSymbolAorW)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetSymbolAorW, "GetSymbolAorW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, GetSymbolAorW)
+Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbolAorW)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetSymbolAorW)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, HasSymbol)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __HasSymbol, "HasSymbol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, HasSymbol)
+Gura_ImplementMethod(wx_DynamicLibrary, __HasSymbol)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,12 +174,12 @@ Gura_ImplementMethod(wx_DynamicLibrary, HasSymbol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, IsLoaded)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __IsLoaded, "IsLoaded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, IsLoaded)
+Gura_ImplementMethod(wx_DynamicLibrary, __IsLoaded)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,12 +187,12 @@ Gura_ImplementMethod(wx_DynamicLibrary, IsLoaded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, ListLoaded)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __ListLoaded, "ListLoaded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, ListLoaded)
+Gura_ImplementMethod(wx_DynamicLibrary, __ListLoaded)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,14 +200,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, ListLoaded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, GetModuleFromAddress)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetModuleFromAddress, "GetModuleFromAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, GetModuleFromAddress)
+Gura_ImplementMethod(wx_DynamicLibrary, __GetModuleFromAddress)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,14 +217,14 @@ Gura_ImplementMethod(wx_DynamicLibrary, GetModuleFromAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, Load)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, Load)
+Gura_ImplementMethod(wx_DynamicLibrary, __Load)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,12 +234,12 @@ Gura_ImplementMethod(wx_DynamicLibrary, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, Unload)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __Unload, "Unload")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, Unload)
+Gura_ImplementMethod(wx_DynamicLibrary, __Unload)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, Unload)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibrary, Unload_1)
+Gura_DeclareMethodAlias(wx_DynamicLibrary, __Unload_1, "Unload_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibrary, Unload_1)
+Gura_ImplementMethod(wx_DynamicLibrary, __Unload_1)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,21 +267,21 @@ Gura_ImplementMethod(wx_DynamicLibrary, Unload_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibrary)
 {
-	Gura_AssignMethod(wx_DynamicLibrary, wxDynamicLibrary);
-	Gura_AssignMethod(wx_DynamicLibrary, wxDynamicLibrary_1);
-	Gura_AssignMethod(wx_DynamicLibrary, CanonicalizeName);
-	Gura_AssignMethod(wx_DynamicLibrary, CanonicalizePluginName);
-	Gura_AssignMethod(wx_DynamicLibrary, Detach);
-	Gura_AssignMethod(wx_DynamicLibrary, GetProgramHandle);
-	Gura_AssignMethod(wx_DynamicLibrary, GetSymbol);
-	Gura_AssignMethod(wx_DynamicLibrary, GetSymbolAorW);
-	Gura_AssignMethod(wx_DynamicLibrary, HasSymbol);
-	Gura_AssignMethod(wx_DynamicLibrary, IsLoaded);
-	Gura_AssignMethod(wx_DynamicLibrary, ListLoaded);
-	Gura_AssignMethod(wx_DynamicLibrary, GetModuleFromAddress);
-	Gura_AssignMethod(wx_DynamicLibrary, Load);
-	Gura_AssignMethod(wx_DynamicLibrary, Unload);
-	Gura_AssignMethod(wx_DynamicLibrary, Unload_1);
+	Gura_AssignMethod(wx_DynamicLibrary, __wxDynamicLibrary);
+	Gura_AssignMethod(wx_DynamicLibrary, __wxDynamicLibrary_1);
+	Gura_AssignMethod(wx_DynamicLibrary, __CanonicalizeName);
+	Gura_AssignMethod(wx_DynamicLibrary, __CanonicalizePluginName);
+	Gura_AssignMethod(wx_DynamicLibrary, __Detach);
+	Gura_AssignMethod(wx_DynamicLibrary, __GetProgramHandle);
+	Gura_AssignMethod(wx_DynamicLibrary, __GetSymbol);
+	Gura_AssignMethod(wx_DynamicLibrary, __GetSymbolAorW);
+	Gura_AssignMethod(wx_DynamicLibrary, __HasSymbol);
+	Gura_AssignMethod(wx_DynamicLibrary, __IsLoaded);
+	Gura_AssignMethod(wx_DynamicLibrary, __ListLoaded);
+	Gura_AssignMethod(wx_DynamicLibrary, __GetModuleFromAddress);
+	Gura_AssignMethod(wx_DynamicLibrary, __Load);
+	Gura_AssignMethod(wx_DynamicLibrary, __Unload);
+	Gura_AssignMethod(wx_DynamicLibrary, __Unload_1);
 }
 
 Gura_ImplementDescendantCreator(wx_DynamicLibrary)

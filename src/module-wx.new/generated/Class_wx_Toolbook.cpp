@@ -37,12 +37,12 @@ String Object_wx_Toolbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Toolbook, wxToolbook)
+Gura_DeclareMethodAlias(wx_Toolbook, __wxToolbook, "wxToolbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Toolbook, wxToolbook)
+Gura_ImplementMethod(wx_Toolbook, __wxToolbook)
 {
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Toolbook, wxToolbook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Toolbook, wxToolbook_1)
+Gura_DeclareMethodAlias(wx_Toolbook, __wxToolbook_1, "wxToolbook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Toolbook, wxToolbook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Toolbook, wxToolbook_1)
+Gura_ImplementMethod(wx_Toolbook, __wxToolbook_1)
 {
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Toolbook, wxToolbook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Toolbook, Create)
+Gura_DeclareMethodAlias(wx_Toolbook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Toolbook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Toolbook, Create)
+Gura_ImplementMethod(wx_Toolbook, __Create)
 {
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_Toolbook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Toolbook, GetToolBar)
+Gura_DeclareMethodAlias(wx_Toolbook, __GetToolBar, "GetToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Toolbook, GetToolBar)
+Gura_ImplementMethod(wx_Toolbook, __GetToolBar)
 {
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,10 +118,10 @@ Gura_ImplementMethod(wx_Toolbook, GetToolBar)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Toolbook)
 {
-	Gura_AssignMethod(wx_Toolbook, wxToolbook);
-	Gura_AssignMethod(wx_Toolbook, wxToolbook_1);
-	Gura_AssignMethod(wx_Toolbook, Create);
-	Gura_AssignMethod(wx_Toolbook, GetToolBar);
+	Gura_AssignMethod(wx_Toolbook, __wxToolbook);
+	Gura_AssignMethod(wx_Toolbook, __wxToolbook_1);
+	Gura_AssignMethod(wx_Toolbook, __Create);
+	Gura_AssignMethod(wx_Toolbook, __GetToolBar);
 }
 
 Gura_ImplementDescendantCreator(wx_Toolbook)

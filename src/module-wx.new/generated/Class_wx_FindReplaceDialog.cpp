@@ -37,12 +37,12 @@ String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FindReplaceDialog, wxFindReplaceDialog)
+Gura_DeclareMethodAlias(wx_FindReplaceDialog, __wxFindReplaceDialog, "wxFindReplaceDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FindReplaceDialog, wxFindReplaceDialog)
+Gura_ImplementMethod(wx_FindReplaceDialog, __wxFindReplaceDialog)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, wxFindReplaceDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceDialog, wxFindReplaceDialog_1)
+Gura_DeclareMethodAlias(wx_FindReplaceDialog, __wxFindReplaceDialog_1, "wxFindReplaceDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_FindReplaceDialog, wxFindReplaceDialog_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceDialog, wxFindReplaceDialog_1)
+Gura_ImplementMethod(wx_FindReplaceDialog, __wxFindReplaceDialog_1)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, wxFindReplaceDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceDialog, Create)
+Gura_DeclareMethodAlias(wx_FindReplaceDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_FindReplaceDialog, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceDialog, Create)
+Gura_ImplementMethod(wx_FindReplaceDialog, __Create)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_FindReplaceDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceDialog, GetData)
+Gura_DeclareMethodAlias(wx_FindReplaceDialog, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FindReplaceDialog, GetData)
+Gura_ImplementMethod(wx_FindReplaceDialog, __GetData)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,10 +110,10 @@ Gura_ImplementMethod(wx_FindReplaceDialog, GetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceDialog)
 {
-	Gura_AssignMethod(wx_FindReplaceDialog, wxFindReplaceDialog);
-	Gura_AssignMethod(wx_FindReplaceDialog, wxFindReplaceDialog_1);
-	Gura_AssignMethod(wx_FindReplaceDialog, Create);
-	Gura_AssignMethod(wx_FindReplaceDialog, GetData);
+	Gura_AssignMethod(wx_FindReplaceDialog, __wxFindReplaceDialog);
+	Gura_AssignMethod(wx_FindReplaceDialog, __wxFindReplaceDialog_1);
+	Gura_AssignMethod(wx_FindReplaceDialog, __Create);
+	Gura_AssignMethod(wx_FindReplaceDialog, __GetData);
 }
 
 Gura_ImplementDescendantCreator(wx_FindReplaceDialog)

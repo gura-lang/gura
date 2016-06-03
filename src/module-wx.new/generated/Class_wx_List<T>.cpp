@@ -37,13 +37,13 @@ String Object_wx_List<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_List<T>, Append)
+Gura_DeclareMethodAlias(wx_List<T>, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Append)
+Gura_ImplementMethod(wx_List<T>, __Append)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_List<T>, Append)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Clear)
+Gura_DeclareMethodAlias(wx_List<T>, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, Clear)
+Gura_ImplementMethod(wx_List<T>, __Clear)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_List<T>, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, DeleteContents)
+Gura_DeclareMethodAlias(wx_List<T>, __DeleteContents, "DeleteContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "destroy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, DeleteContents)
+Gura_ImplementMethod(wx_List<T>, __DeleteContents)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_List<T>, DeleteContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, DeleteNode)
+Gura_DeclareMethodAlias(wx_List<T>, __DeleteNode, "DeleteNode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, DeleteNode)
+Gura_ImplementMethod(wx_List<T>, __DeleteNode)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_List<T>, DeleteNode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, DeleteObject)
+Gura_DeclareMethodAlias(wx_List<T>, __DeleteObject, "DeleteObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, DeleteObject)
+Gura_ImplementMethod(wx_List<T>, __DeleteObject)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_List<T>, DeleteObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Erase)
+Gura_DeclareMethodAlias(wx_List<T>, __Erase, "Erase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Erase)
+Gura_ImplementMethod(wx_List<T>, __Erase)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_List<T>, Erase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Find)
+Gura_DeclareMethodAlias(wx_List<T>, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Find)
+Gura_ImplementMethod(wx_List<T>, __Find)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_List<T>, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, GetCount)
+Gura_DeclareMethodAlias(wx_List<T>, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, GetCount)
+Gura_ImplementMethod(wx_List<T>, __GetCount)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_List<T>, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, GetFirst)
+Gura_DeclareMethodAlias(wx_List<T>, __GetFirst, "GetFirst")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, GetFirst)
+Gura_ImplementMethod(wx_List<T>, __GetFirst)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,12 +166,12 @@ Gura_ImplementMethod(wx_List<T>, GetFirst)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, GetLast)
+Gura_DeclareMethodAlias(wx_List<T>, __GetLast, "GetLast")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, GetLast)
+Gura_ImplementMethod(wx_List<T>, __GetLast)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_List<T>, GetLast)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, IndexOf)
+Gura_DeclareMethodAlias(wx_List<T>, __IndexOf, "IndexOf")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, IndexOf)
+Gura_ImplementMethod(wx_List<T>, __IndexOf)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_List<T>, IndexOf)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Insert)
+Gura_DeclareMethodAlias(wx_List<T>, __Insert, "Insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Insert)
+Gura_ImplementMethod(wx_List<T>, __Insert)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,14 +209,14 @@ Gura_ImplementMethod(wx_List<T>, Insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Insert_1)
+Gura_DeclareMethodAlias(wx_List<T>, __Insert_1, "Insert_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Insert_1)
+Gura_ImplementMethod(wx_List<T>, __Insert_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,14 +226,14 @@ Gura_ImplementMethod(wx_List<T>, Insert_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Insert_2)
+Gura_DeclareMethodAlias(wx_List<T>, __Insert_2, "Insert_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iter", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Insert_2)
+Gura_ImplementMethod(wx_List<T>, __Insert_2)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -243,12 +243,12 @@ Gura_ImplementMethod(wx_List<T>, Insert_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, IsEmpty)
+Gura_DeclareMethodAlias(wx_List<T>, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, IsEmpty)
+Gura_ImplementMethod(wx_List<T>, __IsEmpty)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,13 +256,13 @@ Gura_ImplementMethod(wx_List<T>, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Item)
+Gura_DeclareMethodAlias(wx_List<T>, __Item, "Item")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Item)
+Gura_ImplementMethod(wx_List<T>, __Item)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -271,13 +271,13 @@ Gura_ImplementMethod(wx_List<T>, Item)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Member)
+Gura_DeclareMethodAlias(wx_List<T>, __Member, "Member")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Member)
+Gura_ImplementMethod(wx_List<T>, __Member)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -286,13 +286,13 @@ Gura_ImplementMethod(wx_List<T>, Member)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Nth)
+Gura_DeclareMethodAlias(wx_List<T>, __Nth, "Nth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Nth)
+Gura_ImplementMethod(wx_List<T>, __Nth)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,12 +301,12 @@ Gura_ImplementMethod(wx_List<T>, Nth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Number)
+Gura_DeclareMethodAlias(wx_List<T>, __Number, "Number")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, Number)
+Gura_ImplementMethod(wx_List<T>, __Number)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,13 +314,13 @@ Gura_ImplementMethod(wx_List<T>, Number)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, Sort)
+Gura_DeclareMethodAlias(wx_List<T>, __Sort, "Sort")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "compfunc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, Sort)
+Gura_ImplementMethod(wx_List<T>, __Sort)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -329,14 +329,14 @@ Gura_ImplementMethod(wx_List<T>, Sort)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, assign)
+Gura_DeclareMethodAlias(wx_List<T>, __assign, "assign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, assign)
+Gura_ImplementMethod(wx_List<T>, __assign)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -346,14 +346,14 @@ Gura_ImplementMethod(wx_List<T>, assign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, assign_1)
+Gura_DeclareMethodAlias(wx_List<T>, __assign_1, "assign_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, assign_1)
+Gura_ImplementMethod(wx_List<T>, __assign_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -363,12 +363,12 @@ Gura_ImplementMethod(wx_List<T>, assign_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, back)
+Gura_DeclareMethodAlias(wx_List<T>, __back, "back")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, back)
+Gura_ImplementMethod(wx_List<T>, __back)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -376,12 +376,12 @@ Gura_ImplementMethod(wx_List<T>, back)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, back_1)
+Gura_DeclareMethodAlias(wx_List<T>, __back_1, "back_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, back_1)
+Gura_ImplementMethod(wx_List<T>, __back_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -389,12 +389,12 @@ Gura_ImplementMethod(wx_List<T>, back_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, begin)
+Gura_DeclareMethodAlias(wx_List<T>, __begin, "begin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, begin)
+Gura_ImplementMethod(wx_List<T>, __begin)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -402,12 +402,12 @@ Gura_ImplementMethod(wx_List<T>, begin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, begin_1)
+Gura_DeclareMethodAlias(wx_List<T>, __begin_1, "begin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, begin_1)
+Gura_ImplementMethod(wx_List<T>, __begin_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -415,12 +415,12 @@ Gura_ImplementMethod(wx_List<T>, begin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, clear)
+Gura_DeclareMethodAlias(wx_List<T>, __clear, "clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, clear)
+Gura_ImplementMethod(wx_List<T>, __clear)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -428,12 +428,12 @@ Gura_ImplementMethod(wx_List<T>, clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, empty)
+Gura_DeclareMethodAlias(wx_List<T>, __empty, "empty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, empty)
+Gura_ImplementMethod(wx_List<T>, __empty)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -441,12 +441,12 @@ Gura_ImplementMethod(wx_List<T>, empty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, end)
+Gura_DeclareMethodAlias(wx_List<T>, __end, "end")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, end)
+Gura_ImplementMethod(wx_List<T>, __end)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -454,12 +454,12 @@ Gura_ImplementMethod(wx_List<T>, end)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, end_1)
+Gura_DeclareMethodAlias(wx_List<T>, __end_1, "end_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, end_1)
+Gura_ImplementMethod(wx_List<T>, __end_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -467,13 +467,13 @@ Gura_ImplementMethod(wx_List<T>, end_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, erase)
+Gura_DeclareMethodAlias(wx_List<T>, __erase, "erase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, erase)
+Gura_ImplementMethod(wx_List<T>, __erase)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -482,14 +482,14 @@ Gura_ImplementMethod(wx_List<T>, erase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, erase_1)
+Gura_DeclareMethodAlias(wx_List<T>, __erase_1, "erase_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, erase_1)
+Gura_ImplementMethod(wx_List<T>, __erase_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -499,12 +499,12 @@ Gura_ImplementMethod(wx_List<T>, erase_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, front)
+Gura_DeclareMethodAlias(wx_List<T>, __front, "front")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, front)
+Gura_ImplementMethod(wx_List<T>, __front)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -512,12 +512,12 @@ Gura_ImplementMethod(wx_List<T>, front)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, front_1)
+Gura_DeclareMethodAlias(wx_List<T>, __front_1, "front_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, front_1)
+Gura_ImplementMethod(wx_List<T>, __front_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -525,13 +525,13 @@ Gura_ImplementMethod(wx_List<T>, front_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, insert)
+Gura_DeclareMethodAlias(wx_List<T>, __insert, "insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, insert)
+Gura_ImplementMethod(wx_List<T>, __insert)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -540,14 +540,14 @@ Gura_ImplementMethod(wx_List<T>, insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, insert_1)
+Gura_DeclareMethodAlias(wx_List<T>, __insert_1, "insert_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, insert_1)
+Gura_ImplementMethod(wx_List<T>, __insert_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_List<T>, insert_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, insert_2)
+Gura_DeclareMethodAlias(wx_List<T>, __insert_2, "insert_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
@@ -565,7 +565,7 @@ Gura_DeclareMethod(wx_List<T>, insert_2)
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, insert_2)
+Gura_ImplementMethod(wx_List<T>, __insert_2)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -576,12 +576,12 @@ Gura_ImplementMethod(wx_List<T>, insert_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, max_size)
+Gura_DeclareMethodAlias(wx_List<T>, __max_size, "max_size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, max_size)
+Gura_ImplementMethod(wx_List<T>, __max_size)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -589,12 +589,12 @@ Gura_ImplementMethod(wx_List<T>, max_size)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, pop_back)
+Gura_DeclareMethodAlias(wx_List<T>, __pop_back, "pop_back")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, pop_back)
+Gura_ImplementMethod(wx_List<T>, __pop_back)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -602,12 +602,12 @@ Gura_ImplementMethod(wx_List<T>, pop_back)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, pop_front)
+Gura_DeclareMethodAlias(wx_List<T>, __pop_front, "pop_front")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, pop_front)
+Gura_ImplementMethod(wx_List<T>, __pop_front)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -615,13 +615,13 @@ Gura_ImplementMethod(wx_List<T>, pop_front)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, push_back)
+Gura_DeclareMethodAlias(wx_List<T>, __push_back, "push_back")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, push_back)
+Gura_ImplementMethod(wx_List<T>, __push_back)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -630,13 +630,13 @@ Gura_ImplementMethod(wx_List<T>, push_back)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, push_front)
+Gura_DeclareMethodAlias(wx_List<T>, __push_front, "push_front")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, push_front)
+Gura_ImplementMethod(wx_List<T>, __push_front)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -645,12 +645,12 @@ Gura_ImplementMethod(wx_List<T>, push_front)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, rbegin)
+Gura_DeclareMethodAlias(wx_List<T>, __rbegin, "rbegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, rbegin)
+Gura_ImplementMethod(wx_List<T>, __rbegin)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -658,12 +658,12 @@ Gura_ImplementMethod(wx_List<T>, rbegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, rbegin_1)
+Gura_DeclareMethodAlias(wx_List<T>, __rbegin_1, "rbegin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, rbegin_1)
+Gura_ImplementMethod(wx_List<T>, __rbegin_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -671,13 +671,13 @@ Gura_ImplementMethod(wx_List<T>, rbegin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, remove)
+Gura_DeclareMethodAlias(wx_List<T>, __remove, "remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, remove)
+Gura_ImplementMethod(wx_List<T>, __remove)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -686,12 +686,12 @@ Gura_ImplementMethod(wx_List<T>, remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, rend)
+Gura_DeclareMethodAlias(wx_List<T>, __rend, "rend")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, rend)
+Gura_ImplementMethod(wx_List<T>, __rend)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -699,12 +699,12 @@ Gura_ImplementMethod(wx_List<T>, rend)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, rend_1)
+Gura_DeclareMethodAlias(wx_List<T>, __rend_1, "rend_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, rend_1)
+Gura_ImplementMethod(wx_List<T>, __rend_1)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -712,14 +712,14 @@ Gura_ImplementMethod(wx_List<T>, rend_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, resize)
+Gura_DeclareMethodAlias(wx_List<T>, __resize, "resize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_List<T>, resize)
+Gura_ImplementMethod(wx_List<T>, __resize)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -729,12 +729,12 @@ Gura_ImplementMethod(wx_List<T>, resize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, reverse)
+Gura_DeclareMethodAlias(wx_List<T>, __reverse, "reverse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, reverse)
+Gura_ImplementMethod(wx_List<T>, __reverse)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -742,12 +742,12 @@ Gura_ImplementMethod(wx_List<T>, reverse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, size)
+Gura_DeclareMethodAlias(wx_List<T>, __size, "size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, size)
+Gura_ImplementMethod(wx_List<T>, __size)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -755,12 +755,12 @@ Gura_ImplementMethod(wx_List<T>, size)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_List<T>, AsVector)
+Gura_DeclareMethodAlias(wx_List<T>, __AsVector, "AsVector")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_List<T>, AsVector)
+Gura_ImplementMethod(wx_List<T>, __AsVector)
 {
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -773,57 +773,57 @@ Gura_ImplementMethod(wx_List<T>, AsVector)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_List<T>)
 {
-	Gura_AssignMethod(wx_List<T>, Append);
-	Gura_AssignMethod(wx_List<T>, Clear);
-	Gura_AssignMethod(wx_List<T>, DeleteContents);
-	Gura_AssignMethod(wx_List<T>, DeleteNode);
-	Gura_AssignMethod(wx_List<T>, DeleteObject);
-	Gura_AssignMethod(wx_List<T>, Erase);
-	Gura_AssignMethod(wx_List<T>, Find);
-	Gura_AssignMethod(wx_List<T>, GetCount);
-	Gura_AssignMethod(wx_List<T>, GetFirst);
-	Gura_AssignMethod(wx_List<T>, GetLast);
-	Gura_AssignMethod(wx_List<T>, IndexOf);
-	Gura_AssignMethod(wx_List<T>, Insert);
-	Gura_AssignMethod(wx_List<T>, Insert_1);
-	Gura_AssignMethod(wx_List<T>, Insert_2);
-	Gura_AssignMethod(wx_List<T>, IsEmpty);
-	Gura_AssignMethod(wx_List<T>, Item);
-	Gura_AssignMethod(wx_List<T>, Member);
-	Gura_AssignMethod(wx_List<T>, Nth);
-	Gura_AssignMethod(wx_List<T>, Number);
-	Gura_AssignMethod(wx_List<T>, Sort);
-	Gura_AssignMethod(wx_List<T>, assign);
-	Gura_AssignMethod(wx_List<T>, assign_1);
-	Gura_AssignMethod(wx_List<T>, back);
-	Gura_AssignMethod(wx_List<T>, back_1);
-	Gura_AssignMethod(wx_List<T>, begin);
-	Gura_AssignMethod(wx_List<T>, begin_1);
-	Gura_AssignMethod(wx_List<T>, clear);
-	Gura_AssignMethod(wx_List<T>, empty);
-	Gura_AssignMethod(wx_List<T>, end);
-	Gura_AssignMethod(wx_List<T>, end_1);
-	Gura_AssignMethod(wx_List<T>, erase);
-	Gura_AssignMethod(wx_List<T>, erase_1);
-	Gura_AssignMethod(wx_List<T>, front);
-	Gura_AssignMethod(wx_List<T>, front_1);
-	Gura_AssignMethod(wx_List<T>, insert);
-	Gura_AssignMethod(wx_List<T>, insert_1);
-	Gura_AssignMethod(wx_List<T>, insert_2);
-	Gura_AssignMethod(wx_List<T>, max_size);
-	Gura_AssignMethod(wx_List<T>, pop_back);
-	Gura_AssignMethod(wx_List<T>, pop_front);
-	Gura_AssignMethod(wx_List<T>, push_back);
-	Gura_AssignMethod(wx_List<T>, push_front);
-	Gura_AssignMethod(wx_List<T>, rbegin);
-	Gura_AssignMethod(wx_List<T>, rbegin_1);
-	Gura_AssignMethod(wx_List<T>, remove);
-	Gura_AssignMethod(wx_List<T>, rend);
-	Gura_AssignMethod(wx_List<T>, rend_1);
-	Gura_AssignMethod(wx_List<T>, resize);
-	Gura_AssignMethod(wx_List<T>, reverse);
-	Gura_AssignMethod(wx_List<T>, size);
-	Gura_AssignMethod(wx_List<T>, AsVector);
+	Gura_AssignMethod(wx_List<T>, __Append);
+	Gura_AssignMethod(wx_List<T>, __Clear);
+	Gura_AssignMethod(wx_List<T>, __DeleteContents);
+	Gura_AssignMethod(wx_List<T>, __DeleteNode);
+	Gura_AssignMethod(wx_List<T>, __DeleteObject);
+	Gura_AssignMethod(wx_List<T>, __Erase);
+	Gura_AssignMethod(wx_List<T>, __Find);
+	Gura_AssignMethod(wx_List<T>, __GetCount);
+	Gura_AssignMethod(wx_List<T>, __GetFirst);
+	Gura_AssignMethod(wx_List<T>, __GetLast);
+	Gura_AssignMethod(wx_List<T>, __IndexOf);
+	Gura_AssignMethod(wx_List<T>, __Insert);
+	Gura_AssignMethod(wx_List<T>, __Insert_1);
+	Gura_AssignMethod(wx_List<T>, __Insert_2);
+	Gura_AssignMethod(wx_List<T>, __IsEmpty);
+	Gura_AssignMethod(wx_List<T>, __Item);
+	Gura_AssignMethod(wx_List<T>, __Member);
+	Gura_AssignMethod(wx_List<T>, __Nth);
+	Gura_AssignMethod(wx_List<T>, __Number);
+	Gura_AssignMethod(wx_List<T>, __Sort);
+	Gura_AssignMethod(wx_List<T>, __assign);
+	Gura_AssignMethod(wx_List<T>, __assign_1);
+	Gura_AssignMethod(wx_List<T>, __back);
+	Gura_AssignMethod(wx_List<T>, __back_1);
+	Gura_AssignMethod(wx_List<T>, __begin);
+	Gura_AssignMethod(wx_List<T>, __begin_1);
+	Gura_AssignMethod(wx_List<T>, __clear);
+	Gura_AssignMethod(wx_List<T>, __empty);
+	Gura_AssignMethod(wx_List<T>, __end);
+	Gura_AssignMethod(wx_List<T>, __end_1);
+	Gura_AssignMethod(wx_List<T>, __erase);
+	Gura_AssignMethod(wx_List<T>, __erase_1);
+	Gura_AssignMethod(wx_List<T>, __front);
+	Gura_AssignMethod(wx_List<T>, __front_1);
+	Gura_AssignMethod(wx_List<T>, __insert);
+	Gura_AssignMethod(wx_List<T>, __insert_1);
+	Gura_AssignMethod(wx_List<T>, __insert_2);
+	Gura_AssignMethod(wx_List<T>, __max_size);
+	Gura_AssignMethod(wx_List<T>, __pop_back);
+	Gura_AssignMethod(wx_List<T>, __pop_front);
+	Gura_AssignMethod(wx_List<T>, __push_back);
+	Gura_AssignMethod(wx_List<T>, __push_front);
+	Gura_AssignMethod(wx_List<T>, __rbegin);
+	Gura_AssignMethod(wx_List<T>, __rbegin_1);
+	Gura_AssignMethod(wx_List<T>, __remove);
+	Gura_AssignMethod(wx_List<T>, __rend);
+	Gura_AssignMethod(wx_List<T>, __rend_1);
+	Gura_AssignMethod(wx_List<T>, __resize);
+	Gura_AssignMethod(wx_List<T>, __reverse);
+	Gura_AssignMethod(wx_List<T>, __size);
+	Gura_AssignMethod(wx_List<T>, __AsVector);
 }
 
 Gura_ImplementDescendantCreator(wx_List<T>)

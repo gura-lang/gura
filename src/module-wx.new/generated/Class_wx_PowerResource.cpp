@@ -37,14 +37,14 @@ String Object_wx_PowerResource::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PowerResource, Acquire)
+Gura_DeclareMethodAlias(wx_PowerResource, __Acquire, "Acquire")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PowerResource, Acquire)
+Gura_ImplementMethod(wx_PowerResource, __Acquire)
 {
 	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_PowerResource, Acquire)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PowerResource, Release)
+Gura_DeclareMethodAlias(wx_PowerResource, __Release, "Release")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PowerResource, Release)
+Gura_ImplementMethod(wx_PowerResource, __Release)
 {
 	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_PowerResource, Release)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResource)
 {
-	Gura_AssignMethod(wx_PowerResource, Acquire);
-	Gura_AssignMethod(wx_PowerResource, Release);
+	Gura_AssignMethod(wx_PowerResource, __Acquire);
+	Gura_AssignMethod(wx_PowerResource, __Release);
 }
 
 Gura_ImplementDescendantCreator(wx_PowerResource)

@@ -37,12 +37,12 @@ String Object_wx_HtmlFilter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlFilter, wxHtmlFilter)
+Gura_DeclareMethodAlias(wx_HtmlFilter, __wxHtmlFilter, "wxHtmlFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlFilter, wxHtmlFilter)
+Gura_ImplementMethod(wx_HtmlFilter, __wxHtmlFilter)
 {
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_HtmlFilter, wxHtmlFilter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlFilter, CanRead)
+Gura_DeclareMethodAlias(wx_HtmlFilter, __CanRead, "CanRead")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlFilter, CanRead)
+Gura_ImplementMethod(wx_HtmlFilter, __CanRead)
 {
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_HtmlFilter, CanRead)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlFilter, ReadFile)
+Gura_DeclareMethodAlias(wx_HtmlFilter, __ReadFile, "ReadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
+Gura_ImplementMethod(wx_HtmlFilter, __ReadFile)
 {
 	Object_wx_HtmlFilter *pThis = Object_wx_HtmlFilter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlFilter)
 {
-	Gura_AssignMethod(wx_HtmlFilter, wxHtmlFilter);
-	Gura_AssignMethod(wx_HtmlFilter, CanRead);
-	Gura_AssignMethod(wx_HtmlFilter, ReadFile);
+	Gura_AssignMethod(wx_HtmlFilter, __wxHtmlFilter);
+	Gura_AssignMethod(wx_HtmlFilter, __CanRead);
+	Gura_AssignMethod(wx_HtmlFilter, __ReadFile);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlFilter)

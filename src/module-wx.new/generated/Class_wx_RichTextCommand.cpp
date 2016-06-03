@@ -37,7 +37,7 @@ String Object_wx_RichTextCommand::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextCommand, wxRichTextCommand)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __wxRichTextCommand, "wxRichTextCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_RichTextCommand, wxRichTextCommand)
 	//DeclareArg(env, "ignoreFirstTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, wxRichTextCommand)
+Gura_ImplementMethod(wx_RichTextCommand, __wxRichTextCommand)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,13 +62,13 @@ Gura_ImplementMethod(wx_RichTextCommand, wxRichTextCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, wxRichTextCommand_1)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __wxRichTextCommand_1, "wxRichTextCommand_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, wxRichTextCommand_1)
+Gura_ImplementMethod(wx_RichTextCommand, __wxRichTextCommand_1)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,12 +77,12 @@ Gura_ImplementMethod(wx_RichTextCommand, wxRichTextCommand_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, Do)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __Do, "Do")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, Do)
+Gura_ImplementMethod(wx_RichTextCommand, __Do)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,12 +90,12 @@ Gura_ImplementMethod(wx_RichTextCommand, Do)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, Undo)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __Undo, "Undo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, Undo)
+Gura_ImplementMethod(wx_RichTextCommand, __Undo)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,13 +103,13 @@ Gura_ImplementMethod(wx_RichTextCommand, Undo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, AddAction)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __AddAction, "AddAction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, AddAction)
+Gura_ImplementMethod(wx_RichTextCommand, __AddAction)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,12 +118,12 @@ Gura_ImplementMethod(wx_RichTextCommand, AddAction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, ClearActions)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __ClearActions, "ClearActions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, ClearActions)
+Gura_ImplementMethod(wx_RichTextCommand, __ClearActions)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,12 +131,12 @@ Gura_ImplementMethod(wx_RichTextCommand, ClearActions)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextCommand, GetActions)
+Gura_DeclareMethodAlias(wx_RichTextCommand, __GetActions, "GetActions")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextCommand, GetActions)
+Gura_ImplementMethod(wx_RichTextCommand, __GetActions)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_RichTextCommand, GetActions)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextCommand)
 {
-	Gura_AssignMethod(wx_RichTextCommand, wxRichTextCommand);
-	Gura_AssignMethod(wx_RichTextCommand, wxRichTextCommand_1);
-	Gura_AssignMethod(wx_RichTextCommand, Do);
-	Gura_AssignMethod(wx_RichTextCommand, Undo);
-	Gura_AssignMethod(wx_RichTextCommand, AddAction);
-	Gura_AssignMethod(wx_RichTextCommand, ClearActions);
-	Gura_AssignMethod(wx_RichTextCommand, GetActions);
+	Gura_AssignMethod(wx_RichTextCommand, __wxRichTextCommand);
+	Gura_AssignMethod(wx_RichTextCommand, __wxRichTextCommand_1);
+	Gura_AssignMethod(wx_RichTextCommand, __Do);
+	Gura_AssignMethod(wx_RichTextCommand, __Undo);
+	Gura_AssignMethod(wx_RichTextCommand, __AddAction);
+	Gura_AssignMethod(wx_RichTextCommand, __ClearActions);
+	Gura_AssignMethod(wx_RichTextCommand, __GetActions);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextCommand)

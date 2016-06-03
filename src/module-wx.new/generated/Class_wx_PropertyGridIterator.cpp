@@ -37,13 +37,13 @@ String Object_wx_PropertyGridIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PropertyGridIterator, Assign)
+Gura_DeclareMethodAlias(wx_PropertyGridIterator, __Assign, "Assign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertyGridIterator, Assign)
+Gura_ImplementMethod(wx_PropertyGridIterator, __Assign)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PropertyGridIterator, Assign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertyGridIterator, AtEnd)
+Gura_DeclareMethodAlias(wx_PropertyGridIterator, __AtEnd, "AtEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertyGridIterator, AtEnd)
+Gura_ImplementMethod(wx_PropertyGridIterator, __AtEnd)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PropertyGridIterator, AtEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertyGridIterator, GetProperty)
+Gura_DeclareMethodAlias(wx_PropertyGridIterator, __GetProperty, "GetProperty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertyGridIterator, GetProperty)
+Gura_ImplementMethod(wx_PropertyGridIterator, __GetProperty)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_PropertyGridIterator, GetProperty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertyGridIterator, Next)
+Gura_DeclareMethodAlias(wx_PropertyGridIterator, __Next, "Next")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iterateChildren", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PropertyGridIterator, Next)
+Gura_ImplementMethod(wx_PropertyGridIterator, __Next)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_PropertyGridIterator, Next)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PropertyGridIterator, Prev)
+Gura_DeclareMethodAlias(wx_PropertyGridIterator, __Prev, "Prev")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PropertyGridIterator, Prev)
+Gura_ImplementMethod(wx_PropertyGridIterator, __Prev)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_PropertyGridIterator, Prev)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PropertyGridIterator)
 {
-	Gura_AssignMethod(wx_PropertyGridIterator, Assign);
-	Gura_AssignMethod(wx_PropertyGridIterator, AtEnd);
-	Gura_AssignMethod(wx_PropertyGridIterator, GetProperty);
-	Gura_AssignMethod(wx_PropertyGridIterator, Next);
-	Gura_AssignMethod(wx_PropertyGridIterator, Prev);
+	Gura_AssignMethod(wx_PropertyGridIterator, __Assign);
+	Gura_AssignMethod(wx_PropertyGridIterator, __AtEnd);
+	Gura_AssignMethod(wx_PropertyGridIterator, __GetProperty);
+	Gura_AssignMethod(wx_PropertyGridIterator, __Next);
+	Gura_AssignMethod(wx_PropertyGridIterator, __Prev);
 }
 
 Gura_ImplementDescendantCreator(wx_PropertyGridIterator)

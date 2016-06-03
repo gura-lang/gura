@@ -37,12 +37,12 @@ String Object_wx_FileType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileType, wxFileType)
+Gura_DeclareMethodAlias(wx_FileType, __wxFileType, "wxFileType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileType, wxFileType)
+Gura_ImplementMethod(wx_FileType, __wxFileType)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_FileType, wxFileType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileType, MessageParameters)
+Gura_DeclareMethodAlias(wx_FileType, __MessageParameters, "MessageParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileType, MessageParameters)
+Gura_ImplementMethod(wx_FileType, __MessageParameters)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,14 +63,14 @@ Gura_ImplementMethod(wx_FileType, MessageParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileType, MessageParameters_1)
+Gura_DeclareMethodAlias(wx_FileType, __MessageParameters_1, "MessageParameters_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileType, MessageParameters_1)
+Gura_ImplementMethod(wx_FileType, __MessageParameters_1)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_FileType, MessageParameters_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileType, GetFileName)
+Gura_DeclareMethodAlias(wx_FileType, __GetFileName, "GetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileType, GetFileName)
+Gura_ImplementMethod(wx_FileType, __GetFileName)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_FileType, GetFileName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileType, GetMimeType)
+Gura_DeclareMethodAlias(wx_FileType, __GetMimeType, "GetMimeType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileType, GetMimeType)
+Gura_ImplementMethod(wx_FileType, __GetMimeType)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_FileType, GetMimeType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileType, GetParamValue)
+Gura_DeclareMethodAlias(wx_FileType, __GetParamValue, "GetParamValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileType, GetParamValue)
+Gura_ImplementMethod(wx_FileType, __GetParamValue)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_FileType, GetParamValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileType)
 {
-	Gura_AssignMethod(wx_FileType, wxFileType);
-	Gura_AssignMethod(wx_FileType, MessageParameters);
-	Gura_AssignMethod(wx_FileType, MessageParameters_1);
-	Gura_AssignMethod(wx_FileType, GetFileName);
-	Gura_AssignMethod(wx_FileType, GetMimeType);
-	Gura_AssignMethod(wx_FileType, GetParamValue);
+	Gura_AssignMethod(wx_FileType, __wxFileType);
+	Gura_AssignMethod(wx_FileType, __MessageParameters);
+	Gura_AssignMethod(wx_FileType, __MessageParameters_1);
+	Gura_AssignMethod(wx_FileType, __GetFileName);
+	Gura_AssignMethod(wx_FileType, __GetMimeType);
+	Gura_AssignMethod(wx_FileType, __GetParamValue);
 }
 
 Gura_ImplementDescendantCreator(wx_FileType)

@@ -37,12 +37,12 @@ String Object_wx_PathList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PathList, wxPathList)
+Gura_DeclareMethodAlias(wx_PathList, __wxPathList, "wxPathList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PathList, wxPathList)
+Gura_ImplementMethod(wx_PathList, __wxPathList)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_PathList, wxPathList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, wxPathList_1)
+Gura_DeclareMethodAlias(wx_PathList, __wxPathList_1, "wxPathList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, wxPathList_1)
+Gura_ImplementMethod(wx_PathList, __wxPathList_1)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_PathList, wxPathList_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, Add)
+Gura_DeclareMethodAlias(wx_PathList, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, Add)
+Gura_ImplementMethod(wx_PathList, __Add)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_PathList, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, Add_1)
+Gura_DeclareMethodAlias(wx_PathList, __Add_1, "Add_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, Add_1)
+Gura_ImplementMethod(wx_PathList, __Add_1)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_PathList, Add_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, AddEnvList)
+Gura_DeclareMethodAlias(wx_PathList, __AddEnvList, "AddEnvList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "env_variable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, AddEnvList)
+Gura_ImplementMethod(wx_PathList, __AddEnvList)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_PathList, AddEnvList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, EnsureFileAccessible)
+Gura_DeclareMethodAlias(wx_PathList, __EnsureFileAccessible, "EnsureFileAccessible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
+Gura_ImplementMethod(wx_PathList, __EnsureFileAccessible)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_PathList, EnsureFileAccessible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, FindAbsoluteValidPath)
+Gura_DeclareMethodAlias(wx_PathList, __FindAbsoluteValidPath, "FindAbsoluteValidPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
+Gura_ImplementMethod(wx_PathList, __FindAbsoluteValidPath)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_PathList, FindAbsoluteValidPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PathList, FindValidPath)
+Gura_DeclareMethodAlias(wx_PathList, __FindValidPath, "FindValidPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PathList, FindValidPath)
+Gura_ImplementMethod(wx_PathList, __FindValidPath)
 {
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,14 +160,14 @@ Gura_ImplementMethod(wx_PathList, FindValidPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PathList)
 {
-	Gura_AssignMethod(wx_PathList, wxPathList);
-	Gura_AssignMethod(wx_PathList, wxPathList_1);
-	Gura_AssignMethod(wx_PathList, Add);
-	Gura_AssignMethod(wx_PathList, Add_1);
-	Gura_AssignMethod(wx_PathList, AddEnvList);
-	Gura_AssignMethod(wx_PathList, EnsureFileAccessible);
-	Gura_AssignMethod(wx_PathList, FindAbsoluteValidPath);
-	Gura_AssignMethod(wx_PathList, FindValidPath);
+	Gura_AssignMethod(wx_PathList, __wxPathList);
+	Gura_AssignMethod(wx_PathList, __wxPathList_1);
+	Gura_AssignMethod(wx_PathList, __Add);
+	Gura_AssignMethod(wx_PathList, __Add_1);
+	Gura_AssignMethod(wx_PathList, __AddEnvList);
+	Gura_AssignMethod(wx_PathList, __EnsureFileAccessible);
+	Gura_AssignMethod(wx_PathList, __FindAbsoluteValidPath);
+	Gura_AssignMethod(wx_PathList, __FindValidPath);
 }
 
 Gura_ImplementDescendantCreator(wx_PathList)

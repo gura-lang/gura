@@ -37,13 +37,13 @@ String Object_wx_VarScrollHelperBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_VarScrollHelperBase, wxVarScrollHelperBase)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __wxVarScrollHelperBase, "wxVarScrollHelperBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, wxVarScrollHelperBase)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __wxVarScrollHelperBase)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, wxVarScrollHelperBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, CalcScrolledPosition)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __CalcScrolledPosition, "CalcScrolledPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "coord", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, CalcScrolledPosition)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __CalcScrolledPosition)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, CalcScrolledPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, CalcUnscrolledPosition)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __CalcUnscrolledPosition, "CalcUnscrolledPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "coord", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, CalcUnscrolledPosition)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __CalcUnscrolledPosition)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, CalcUnscrolledPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, EnablePhysicalScrolling)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __EnablePhysicalScrolling, "EnablePhysicalScrolling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "scrolling", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, EnablePhysicalScrolling)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __EnablePhysicalScrolling)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, EnablePhysicalScrolling)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetNonOrientationTargetSize)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetNonOrientationTargetSize, "GetNonOrientationTargetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetNonOrientationTargetSize)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetNonOrientationTargetSize)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetNonOrientationTargetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetOrientation)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetOrientation, "GetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetOrientation)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetOrientation)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetOrientationTargetSize)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetOrientationTargetSize, "GetOrientationTargetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetOrientationTargetSize)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetOrientationTargetSize)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetOrientationTargetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetTargetWindow)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetTargetWindow, "GetTargetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetTargetWindow)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetTargetWindow)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetTargetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetVisibleBegin)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetVisibleBegin, "GetVisibleBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetVisibleBegin)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetVisibleBegin)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetVisibleBegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, GetVisibleEnd)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __GetVisibleEnd, "GetVisibleEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, GetVisibleEnd)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __GetVisibleEnd)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, GetVisibleEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, IsVisible)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __IsVisible, "IsVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "unit", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, IsVisible)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __IsVisible)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,12 +190,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, IsVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, RefreshAll)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __RefreshAll, "RefreshAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, RefreshAll)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __RefreshAll)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, RefreshAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, SetTargetWindow)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __SetTargetWindow, "SetTargetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, SetTargetWindow)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __SetTargetWindow)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,12 +218,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, SetTargetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, UpdateScrollbar)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __UpdateScrollbar, "UpdateScrollbar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, UpdateScrollbar)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __UpdateScrollbar)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, UpdateScrollbar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, VirtualHitTest)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __VirtualHitTest, "VirtualHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "coord", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, VirtualHitTest)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __VirtualHitTest)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,14 +246,14 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, VirtualHitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, OnGetUnitsSizeHint)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __OnGetUnitsSizeHint, "OnGetUnitsSizeHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "unitMin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "unitMax", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, OnGetUnitsSizeHint)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitsSizeHint)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,12 +263,12 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, OnGetUnitsSizeHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, EstimateTotalSize)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __EstimateTotalSize, "EstimateTotalSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, EstimateTotalSize)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __EstimateTotalSize)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -276,13 +276,13 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, EstimateTotalSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarScrollHelperBase, OnGetUnitSize)
+Gura_DeclareMethodAlias(wx_VarScrollHelperBase, __OnGetUnitSize, "OnGetUnitSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "unit", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarScrollHelperBase, OnGetUnitSize)
+Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitSize)
 {
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,24 +296,24 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, OnGetUnitSize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarScrollHelperBase)
 {
-	Gura_AssignMethod(wx_VarScrollHelperBase, wxVarScrollHelperBase);
-	Gura_AssignMethod(wx_VarScrollHelperBase, CalcScrolledPosition);
-	Gura_AssignMethod(wx_VarScrollHelperBase, CalcUnscrolledPosition);
-	Gura_AssignMethod(wx_VarScrollHelperBase, EnablePhysicalScrolling);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetNonOrientationTargetSize);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetOrientation);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetOrientationTargetSize);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetTargetWindow);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetVisibleBegin);
-	Gura_AssignMethod(wx_VarScrollHelperBase, GetVisibleEnd);
-	Gura_AssignMethod(wx_VarScrollHelperBase, IsVisible);
-	Gura_AssignMethod(wx_VarScrollHelperBase, RefreshAll);
-	Gura_AssignMethod(wx_VarScrollHelperBase, SetTargetWindow);
-	Gura_AssignMethod(wx_VarScrollHelperBase, UpdateScrollbar);
-	Gura_AssignMethod(wx_VarScrollHelperBase, VirtualHitTest);
-	Gura_AssignMethod(wx_VarScrollHelperBase, OnGetUnitsSizeHint);
-	Gura_AssignMethod(wx_VarScrollHelperBase, EstimateTotalSize);
-	Gura_AssignMethod(wx_VarScrollHelperBase, OnGetUnitSize);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __wxVarScrollHelperBase);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcScrolledPosition);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __CalcUnscrolledPosition);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __EnablePhysicalScrolling);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetNonOrientationTargetSize);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetOrientation);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetOrientationTargetSize);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetTargetWindow);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetVisibleBegin);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __GetVisibleEnd);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __IsVisible);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __RefreshAll);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __SetTargetWindow);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __UpdateScrollbar);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __VirtualHitTest);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __OnGetUnitsSizeHint);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __EstimateTotalSize);
+	Gura_AssignMethod(wx_VarScrollHelperBase, __OnGetUnitSize);
 }
 
 Gura_ImplementDescendantCreator(wx_VarScrollHelperBase)

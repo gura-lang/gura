@@ -37,12 +37,12 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextImageBlock, wxRichTextImageBlock)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __wxRichTextImageBlock, "wxRichTextImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock)
+Gura_ImplementMethod(wx_RichTextImageBlock, __wxRichTextImageBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __wxRichTextImageBlock_1, "wxRichTextImageBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1)
+Gura_ImplementMethod(wx_RichTextImageBlock, __wxRichTextImageBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Init)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Init)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Init)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Clear)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Clear)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Clear)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlock, "MakeImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock)
 	//DeclareArg(env, "convertToJPEG", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock)
+Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock_1)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlock_1, "MakeImageBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlock_1)
 	//DeclareArg(env, "quality", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock_1)
+Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,14 +131,14 @@ Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlock_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality, "MakeImageBlockDefaultQuality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality)
+Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, DoMakeImageBlock)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __DoMakeImageBlock, "DoMakeImageBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, DoMakeImageBlock)
+Gura_ImplementMethod(wx_RichTextImageBlock, __DoMakeImageBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, DoMakeImageBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Write)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Write, "Write")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Write)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Write)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Write)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, WriteHex)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteHex, "WriteHex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, WriteHex)
+Gura_ImplementMethod(wx_RichTextImageBlock, __WriteHex)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, WriteHex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, ReadHex)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadHex, "ReadHex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -203,7 +203,7 @@ Gura_DeclareMethod(wx_RichTextImageBlock, ReadHex)
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, ReadHex)
+Gura_ImplementMethod(wx_RichTextImageBlock, __ReadHex)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,13 +214,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, ReadHex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Copy)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Copy)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Copy)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,13 +229,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Copy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Load)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Load)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Load)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,12 +244,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, GetData)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, GetData)
+Gura_ImplementMethod(wx_RichTextImageBlock, __GetData)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,12 +257,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, GetDataSize)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetDataSize, "GetDataSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, GetDataSize)
+Gura_ImplementMethod(wx_RichTextImageBlock, __GetDataSize)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,12 +270,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, GetDataSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, GetImageType)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetImageType, "GetImageType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, GetImageType)
+Gura_ImplementMethod(wx_RichTextImageBlock, __GetImageType)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,13 +283,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, GetImageType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, SetData)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, SetData)
+Gura_ImplementMethod(wx_RichTextImageBlock, __SetData)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,13 +298,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, SetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, SetDataSize)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __SetDataSize, "SetDataSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, SetDataSize)
+Gura_ImplementMethod(wx_RichTextImageBlock, __SetDataSize)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -313,13 +313,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, SetDataSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, SetImageType)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __SetImageType, "SetImageType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, SetImageType)
+Gura_ImplementMethod(wx_RichTextImageBlock, __SetImageType)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -328,12 +328,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, SetImageType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, IsOk)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, IsOk)
+Gura_ImplementMethod(wx_RichTextImageBlock, __IsOk)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -341,12 +341,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, Ok)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Ok, "Ok")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, Ok)
+Gura_ImplementMethod(wx_RichTextImageBlock, __Ok)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -354,12 +354,12 @@ Gura_ImplementMethod(wx_RichTextImageBlock, Ok)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, GetExtension)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetExtension, "GetExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, GetExtension)
+Gura_ImplementMethod(wx_RichTextImageBlock, __GetExtension)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -367,14 +367,14 @@ Gura_ImplementMethod(wx_RichTextImageBlock, GetExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, ReadBlock)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadBlock, "ReadBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock)
+Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -384,14 +384,14 @@ Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, ReadBlock_1)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadBlock_1, "ReadBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock_1)
+Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, ReadBlock_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteBlock, "WriteBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -409,7 +409,7 @@ Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock)
+Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock_1)
+Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteBlock_1, "WriteBlock_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
@@ -428,7 +428,7 @@ Gura_DeclareMethod(wx_RichTextImageBlock, WriteBlock_1)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock_1)
+Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock_1)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -444,32 +444,32 @@ Gura_ImplementMethod(wx_RichTextImageBlock, WriteBlock_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextImageBlock)
 {
-	Gura_AssignMethod(wx_RichTextImageBlock, wxRichTextImageBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, wxRichTextImageBlock_1);
-	Gura_AssignMethod(wx_RichTextImageBlock, Init);
-	Gura_AssignMethod(wx_RichTextImageBlock, Clear);
-	Gura_AssignMethod(wx_RichTextImageBlock, MakeImageBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, MakeImageBlock_1);
-	Gura_AssignMethod(wx_RichTextImageBlock, MakeImageBlockDefaultQuality);
-	Gura_AssignMethod(wx_RichTextImageBlock, DoMakeImageBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, Write);
-	Gura_AssignMethod(wx_RichTextImageBlock, WriteHex);
-	Gura_AssignMethod(wx_RichTextImageBlock, ReadHex);
-	Gura_AssignMethod(wx_RichTextImageBlock, Copy);
-	Gura_AssignMethod(wx_RichTextImageBlock, Load);
-	Gura_AssignMethod(wx_RichTextImageBlock, GetData);
-	Gura_AssignMethod(wx_RichTextImageBlock, GetDataSize);
-	Gura_AssignMethod(wx_RichTextImageBlock, GetImageType);
-	Gura_AssignMethod(wx_RichTextImageBlock, SetData);
-	Gura_AssignMethod(wx_RichTextImageBlock, SetDataSize);
-	Gura_AssignMethod(wx_RichTextImageBlock, SetImageType);
-	Gura_AssignMethod(wx_RichTextImageBlock, IsOk);
-	Gura_AssignMethod(wx_RichTextImageBlock, Ok);
-	Gura_AssignMethod(wx_RichTextImageBlock, GetExtension);
-	Gura_AssignMethod(wx_RichTextImageBlock, ReadBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, ReadBlock_1);
-	Gura_AssignMethod(wx_RichTextImageBlock, WriteBlock);
-	Gura_AssignMethod(wx_RichTextImageBlock, WriteBlock_1);
+	Gura_AssignMethod(wx_RichTextImageBlock, __wxRichTextImageBlock);
+	Gura_AssignMethod(wx_RichTextImageBlock, __wxRichTextImageBlock_1);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Init);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Clear);
+	Gura_AssignMethod(wx_RichTextImageBlock, __MakeImageBlock);
+	Gura_AssignMethod(wx_RichTextImageBlock, __MakeImageBlock_1);
+	Gura_AssignMethod(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality);
+	Gura_AssignMethod(wx_RichTextImageBlock, __DoMakeImageBlock);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Write);
+	Gura_AssignMethod(wx_RichTextImageBlock, __WriteHex);
+	Gura_AssignMethod(wx_RichTextImageBlock, __ReadHex);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Copy);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Load);
+	Gura_AssignMethod(wx_RichTextImageBlock, __GetData);
+	Gura_AssignMethod(wx_RichTextImageBlock, __GetDataSize);
+	Gura_AssignMethod(wx_RichTextImageBlock, __GetImageType);
+	Gura_AssignMethod(wx_RichTextImageBlock, __SetData);
+	Gura_AssignMethod(wx_RichTextImageBlock, __SetDataSize);
+	Gura_AssignMethod(wx_RichTextImageBlock, __SetImageType);
+	Gura_AssignMethod(wx_RichTextImageBlock, __IsOk);
+	Gura_AssignMethod(wx_RichTextImageBlock, __Ok);
+	Gura_AssignMethod(wx_RichTextImageBlock, __GetExtension);
+	Gura_AssignMethod(wx_RichTextImageBlock, __ReadBlock);
+	Gura_AssignMethod(wx_RichTextImageBlock, __ReadBlock_1);
+	Gura_AssignMethod(wx_RichTextImageBlock, __WriteBlock);
+	Gura_AssignMethod(wx_RichTextImageBlock, __WriteBlock_1);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextImageBlock)

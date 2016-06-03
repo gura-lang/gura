@@ -37,12 +37,12 @@ String Object_wx_Palette::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Palette, wxPalette)
+Gura_DeclareMethodAlias(wx_Palette, __wxPalette, "wxPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Palette, wxPalette)
+Gura_ImplementMethod(wx_Palette, __wxPalette)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_Palette, wxPalette)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, wxPalette_1)
+Gura_DeclareMethodAlias(wx_Palette, __wxPalette_1, "wxPalette_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, wxPalette_1)
+Gura_ImplementMethod(wx_Palette, __wxPalette_1)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_Palette, wxPalette_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, wxPalette_2)
+Gura_DeclareMethodAlias(wx_Palette, __wxPalette_2, "wxPalette_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_DeclareMethod(wx_Palette, wxPalette_2)
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, wxPalette_2)
+Gura_ImplementMethod(wx_Palette, __wxPalette_2)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Palette, wxPalette_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, Create)
+Gura_DeclareMethodAlias(wx_Palette, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_Palette, Create)
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, Create)
+Gura_ImplementMethod(wx_Palette, __Create)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,12 +107,12 @@ Gura_ImplementMethod(wx_Palette, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, GetColoursCount)
+Gura_DeclareMethodAlias(wx_Palette, __GetColoursCount, "GetColoursCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Palette, GetColoursCount)
+Gura_ImplementMethod(wx_Palette, __GetColoursCount)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Palette, GetColoursCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, GetPixel)
+Gura_DeclareMethodAlias(wx_Palette, __GetPixel, "GetPixel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_DeclareMethod(wx_Palette, GetPixel)
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, GetPixel)
+Gura_ImplementMethod(wx_Palette, __GetPixel)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Palette, GetPixel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, GetRGB)
+Gura_DeclareMethodAlias(wx_Palette, __GetRGB, "GetRGB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once);
@@ -148,7 +148,7 @@ Gura_DeclareMethod(wx_Palette, GetRGB)
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Palette, GetRGB)
+Gura_ImplementMethod(wx_Palette, __GetRGB)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_Palette, GetRGB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Palette, IsOk)
+Gura_DeclareMethodAlias(wx_Palette, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Palette, IsOk)
+Gura_ImplementMethod(wx_Palette, __IsOk)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,14 +178,14 @@ Gura_ImplementMethod(wx_Palette, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Palette)
 {
-	Gura_AssignMethod(wx_Palette, wxPalette);
-	Gura_AssignMethod(wx_Palette, wxPalette_1);
-	Gura_AssignMethod(wx_Palette, wxPalette_2);
-	Gura_AssignMethod(wx_Palette, Create);
-	Gura_AssignMethod(wx_Palette, GetColoursCount);
-	Gura_AssignMethod(wx_Palette, GetPixel);
-	Gura_AssignMethod(wx_Palette, GetRGB);
-	Gura_AssignMethod(wx_Palette, IsOk);
+	Gura_AssignMethod(wx_Palette, __wxPalette);
+	Gura_AssignMethod(wx_Palette, __wxPalette_1);
+	Gura_AssignMethod(wx_Palette, __wxPalette_2);
+	Gura_AssignMethod(wx_Palette, __Create);
+	Gura_AssignMethod(wx_Palette, __GetColoursCount);
+	Gura_AssignMethod(wx_Palette, __GetPixel);
+	Gura_AssignMethod(wx_Palette, __GetRGB);
+	Gura_AssignMethod(wx_Palette, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_Palette)

@@ -37,12 +37,12 @@ String Object_wx_SymbolPickerDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __wxSymbolPickerDialog, "wxSymbolPickerDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1, "wxSymbolPickerDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "symbol", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, Create)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "symbol", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_SymbolPickerDialog, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, Create)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __Create)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, GetFontName)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __GetFontName, "GetFontName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, GetFontName)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __GetFontName)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetFontName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, GetFromUnicode)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __GetFromUnicode, "GetFromUnicode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, GetFromUnicode)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __GetFromUnicode)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetFromUnicode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __GetNormalTextFontName, "GetNormalTextFontName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __GetNormalTextFontName)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetNormalTextFontName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbol)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __GetSymbol, "GetSymbol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbol)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __GetSymbol)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, GetSymbolChar)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __GetSymbolChar, "GetSymbolChar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbolChar)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __GetSymbolChar)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, GetSymbolChar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, HasSelection)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __HasSelection, "HasSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, HasSelection)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __HasSelection)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,13 +190,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, HasSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, SetFontName)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __SetFontName, "SetFontName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, SetFontName)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __SetFontName)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetFontName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, SetFromUnicode)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __SetFromUnicode, "SetFromUnicode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, SetFromUnicode)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __SetFromUnicode)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,13 +220,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetFromUnicode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __SetNormalTextFontName, "SetNormalTextFontName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __SetNormalTextFontName)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetNormalTextFontName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, SetSymbol)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __SetSymbol, "SetSymbol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, SetSymbol)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __SetSymbol)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetSymbol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, SetUnicodeMode)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __SetUnicodeMode, "SetUnicodeMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "unicodeMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, SetUnicodeMode)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __SetUnicodeMode)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, SetUnicodeMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SymbolPickerDialog, UseNormalFont)
+Gura_DeclareMethodAlias(wx_SymbolPickerDialog, __UseNormalFont, "UseNormalFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SymbolPickerDialog, UseNormalFont)
+Gura_ImplementMethod(wx_SymbolPickerDialog, __UseNormalFont)
 {
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,21 +283,21 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, UseNormalFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SymbolPickerDialog)
 {
-	Gura_AssignMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog);
-	Gura_AssignMethod(wx_SymbolPickerDialog, wxSymbolPickerDialog_1);
-	Gura_AssignMethod(wx_SymbolPickerDialog, Create);
-	Gura_AssignMethod(wx_SymbolPickerDialog, GetFontName);
-	Gura_AssignMethod(wx_SymbolPickerDialog, GetFromUnicode);
-	Gura_AssignMethod(wx_SymbolPickerDialog, GetNormalTextFontName);
-	Gura_AssignMethod(wx_SymbolPickerDialog, GetSymbol);
-	Gura_AssignMethod(wx_SymbolPickerDialog, GetSymbolChar);
-	Gura_AssignMethod(wx_SymbolPickerDialog, HasSelection);
-	Gura_AssignMethod(wx_SymbolPickerDialog, SetFontName);
-	Gura_AssignMethod(wx_SymbolPickerDialog, SetFromUnicode);
-	Gura_AssignMethod(wx_SymbolPickerDialog, SetNormalTextFontName);
-	Gura_AssignMethod(wx_SymbolPickerDialog, SetSymbol);
-	Gura_AssignMethod(wx_SymbolPickerDialog, SetUnicodeMode);
-	Gura_AssignMethod(wx_SymbolPickerDialog, UseNormalFont);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __wxSymbolPickerDialog_1);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __Create);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __GetFontName);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __GetFromUnicode);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __GetNormalTextFontName);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __GetSymbol);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __GetSymbolChar);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __HasSelection);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __SetFontName);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __SetFromUnicode);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __SetNormalTextFontName);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __SetSymbol);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __SetUnicodeMode);
+	Gura_AssignMethod(wx_SymbolPickerDialog, __UseNormalFont);
 }
 
 Gura_ImplementDescendantCreator(wx_SymbolPickerDialog)

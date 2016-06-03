@@ -37,12 +37,12 @@ String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlHelpData, wxHtmlHelpData)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __wxHtmlHelpData, "wxHtmlHelpData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, wxHtmlHelpData)
+Gura_ImplementMethod(wx_HtmlHelpData, __wxHtmlHelpData)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_HtmlHelpData, wxHtmlHelpData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, AddBook)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __AddBook, "AddBook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book_url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
+Gura_ImplementMethod(wx_HtmlHelpData, __AddBook)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_HtmlHelpData, AddBook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, FindPageById)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __FindPageById, "FindPageById")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
+Gura_ImplementMethod(wx_HtmlHelpData, __FindPageById)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __FindPageByName, "FindPageByName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
+Gura_ImplementMethod(wx_HtmlHelpData, __FindPageByName)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __GetBookRecArray, "GetBookRecArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
+Gura_ImplementMethod(wx_HtmlHelpData, __GetBookRecArray)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetBookRecArray)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, GetContentsArray)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __GetContentsArray, "GetContentsArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
+Gura_ImplementMethod(wx_HtmlHelpData, __GetContentsArray)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetContentsArray)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, GetIndexArray)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __GetIndexArray, "GetIndexArray")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
+Gura_ImplementMethod(wx_HtmlHelpData, __GetIndexArray)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_HtmlHelpData, GetIndexArray)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpData, SetTempDir)
+Gura_DeclareMethodAlias(wx_HtmlHelpData, __SetTempDir, "SetTempDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpData, SetTempDir)
+Gura_ImplementMethod(wx_HtmlHelpData, __SetTempDir)
 {
 	Object_wx_HtmlHelpData *pThis = Object_wx_HtmlHelpData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,14 +154,14 @@ Gura_ImplementMethod(wx_HtmlHelpData, SetTempDir)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpData)
 {
-	Gura_AssignMethod(wx_HtmlHelpData, wxHtmlHelpData);
-	Gura_AssignMethod(wx_HtmlHelpData, AddBook);
-	Gura_AssignMethod(wx_HtmlHelpData, FindPageById);
-	Gura_AssignMethod(wx_HtmlHelpData, FindPageByName);
-	Gura_AssignMethod(wx_HtmlHelpData, GetBookRecArray);
-	Gura_AssignMethod(wx_HtmlHelpData, GetContentsArray);
-	Gura_AssignMethod(wx_HtmlHelpData, GetIndexArray);
-	Gura_AssignMethod(wx_HtmlHelpData, SetTempDir);
+	Gura_AssignMethod(wx_HtmlHelpData, __wxHtmlHelpData);
+	Gura_AssignMethod(wx_HtmlHelpData, __AddBook);
+	Gura_AssignMethod(wx_HtmlHelpData, __FindPageById);
+	Gura_AssignMethod(wx_HtmlHelpData, __FindPageByName);
+	Gura_AssignMethod(wx_HtmlHelpData, __GetBookRecArray);
+	Gura_AssignMethod(wx_HtmlHelpData, __GetContentsArray);
+	Gura_AssignMethod(wx_HtmlHelpData, __GetIndexArray);
+	Gura_AssignMethod(wx_HtmlHelpData, __SetTempDir);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpData)

@@ -37,7 +37,7 @@ String Object_wx_TarEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TarEntry, wxTarEntry)
+Gura_DeclareMethodAlias(wx_TarEntry, __wxTarEntry, "wxTarEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_TarEntry, wxTarEntry)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, wxTarEntry)
+Gura_ImplementMethod(wx_TarEntry, __wxTarEntry)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_TarEntry, wxTarEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, wxTarEntry_1)
+Gura_DeclareMethodAlias(wx_TarEntry, __wxTarEntry_1, "wxTarEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, wxTarEntry_1)
+Gura_ImplementMethod(wx_TarEntry, __wxTarEntry_1)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_TarEntry, wxTarEntry_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetAccessTime)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetAccessTime, "GetAccessTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetAccessTime)
+Gura_ImplementMethod(wx_TarEntry, __GetAccessTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_TarEntry, GetAccessTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetAccessTime)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetAccessTime, "SetAccessTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetAccessTime)
+Gura_ImplementMethod(wx_TarEntry, __SetAccessTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_TarEntry, SetAccessTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetCreateTime)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetCreateTime, "GetCreateTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetCreateTime)
+Gura_ImplementMethod(wx_TarEntry, __GetCreateTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_TarEntry, GetCreateTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetCreateTime)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetCreateTime, "SetCreateTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetCreateTime)
+Gura_ImplementMethod(wx_TarEntry, __SetCreateTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_TarEntry, SetCreateTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetDevMajor)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetDevMajor, "GetDevMajor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetDevMajor)
+Gura_ImplementMethod(wx_TarEntry, __GetDevMajor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_TarEntry, GetDevMajor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetDevMinor)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetDevMinor, "GetDevMinor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetDevMinor)
+Gura_ImplementMethod(wx_TarEntry, __GetDevMinor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_TarEntry, GetDevMinor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetDevMajor)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetDevMajor, "SetDevMajor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dev", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetDevMajor)
+Gura_ImplementMethod(wx_TarEntry, __SetDevMajor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_TarEntry, SetDevMajor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetDevMinor)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetDevMinor, "SetDevMinor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dev", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetDevMinor)
+Gura_ImplementMethod(wx_TarEntry, __SetDevMinor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_TarEntry, SetDevMinor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetGroupId)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetGroupId, "GetGroupId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetGroupId)
+Gura_ImplementMethod(wx_TarEntry, __GetGroupId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_TarEntry, GetGroupId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetUserId)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetUserId, "GetUserId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetUserId)
+Gura_ImplementMethod(wx_TarEntry, __GetUserId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_TarEntry, GetUserId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetGroupId)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetGroupId, "SetGroupId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetGroupId)
+Gura_ImplementMethod(wx_TarEntry, __SetGroupId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_TarEntry, SetGroupId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetUserId)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetUserId, "SetUserId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetUserId)
+Gura_ImplementMethod(wx_TarEntry, __SetUserId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,12 +239,12 @@ Gura_ImplementMethod(wx_TarEntry, SetUserId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetGroupName)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetGroupName, "GetGroupName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetGroupName)
+Gura_ImplementMethod(wx_TarEntry, __GetGroupName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,12 +252,12 @@ Gura_ImplementMethod(wx_TarEntry, GetGroupName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetUserName)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetUserName, "GetUserName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetUserName)
+Gura_ImplementMethod(wx_TarEntry, __GetUserName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,13 +265,13 @@ Gura_ImplementMethod(wx_TarEntry, GetUserName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetGroupName)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetGroupName, "SetGroupName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "group", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetGroupName)
+Gura_ImplementMethod(wx_TarEntry, __SetGroupName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,13 +280,13 @@ Gura_ImplementMethod(wx_TarEntry, SetGroupName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetUserName)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetUserName, "SetUserName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "user", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetUserName)
+Gura_ImplementMethod(wx_TarEntry, __SetUserName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,12 +295,12 @@ Gura_ImplementMethod(wx_TarEntry, SetUserName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetLinkName)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetLinkName, "GetLinkName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetLinkName)
+Gura_ImplementMethod(wx_TarEntry, __GetLinkName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -308,13 +308,13 @@ Gura_ImplementMethod(wx_TarEntry, GetLinkName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetLinkName)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetLinkName, "SetLinkName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetLinkName)
+Gura_ImplementMethod(wx_TarEntry, __SetLinkName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,12 +323,12 @@ Gura_ImplementMethod(wx_TarEntry, SetLinkName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetMode)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetMode, "GetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetMode)
+Gura_ImplementMethod(wx_TarEntry, __GetMode)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -336,13 +336,13 @@ Gura_ImplementMethod(wx_TarEntry, GetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetMode)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetMode, "SetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetMode)
+Gura_ImplementMethod(wx_TarEntry, __SetMode)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -351,13 +351,13 @@ Gura_ImplementMethod(wx_TarEntry, SetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetSize)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetSize, "SetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetSize)
+Gura_ImplementMethod(wx_TarEntry, __SetSize)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -366,12 +366,12 @@ Gura_ImplementMethod(wx_TarEntry, SetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetSize)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetSize)
+Gura_ImplementMethod(wx_TarEntry, __GetSize)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -379,12 +379,12 @@ Gura_ImplementMethod(wx_TarEntry, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetTypeFlag)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetTypeFlag, "GetTypeFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetTypeFlag)
+Gura_ImplementMethod(wx_TarEntry, __GetTypeFlag)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -392,13 +392,13 @@ Gura_ImplementMethod(wx_TarEntry, GetTypeFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, SetTypeFlag)
+Gura_DeclareMethodAlias(wx_TarEntry, __SetTypeFlag, "SetTypeFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, SetTypeFlag)
+Gura_ImplementMethod(wx_TarEntry, __SetTypeFlag)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -407,12 +407,12 @@ Gura_ImplementMethod(wx_TarEntry, SetTypeFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetInternalName)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetInternalName, "GetInternalName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetInternalName)
+Gura_ImplementMethod(wx_TarEntry, __GetInternalName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TarEntry, GetInternalName_1)
+Gura_DeclareMethodAlias(wx_TarEntry, __GetInternalName_1, "GetInternalName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -428,7 +428,7 @@ Gura_DeclareMethod(wx_TarEntry, GetInternalName_1)
 	//DeclareArg(env, "pIsDir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TarEntry, GetInternalName_1)
+Gura_ImplementMethod(wx_TarEntry, __GetInternalName_1)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -444,34 +444,34 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TarEntry)
 {
-	Gura_AssignMethod(wx_TarEntry, wxTarEntry);
-	Gura_AssignMethod(wx_TarEntry, wxTarEntry_1);
-	Gura_AssignMethod(wx_TarEntry, GetAccessTime);
-	Gura_AssignMethod(wx_TarEntry, SetAccessTime);
-	Gura_AssignMethod(wx_TarEntry, GetCreateTime);
-	Gura_AssignMethod(wx_TarEntry, SetCreateTime);
-	Gura_AssignMethod(wx_TarEntry, GetDevMajor);
-	Gura_AssignMethod(wx_TarEntry, GetDevMinor);
-	Gura_AssignMethod(wx_TarEntry, SetDevMajor);
-	Gura_AssignMethod(wx_TarEntry, SetDevMinor);
-	Gura_AssignMethod(wx_TarEntry, GetGroupId);
-	Gura_AssignMethod(wx_TarEntry, GetUserId);
-	Gura_AssignMethod(wx_TarEntry, SetGroupId);
-	Gura_AssignMethod(wx_TarEntry, SetUserId);
-	Gura_AssignMethod(wx_TarEntry, GetGroupName);
-	Gura_AssignMethod(wx_TarEntry, GetUserName);
-	Gura_AssignMethod(wx_TarEntry, SetGroupName);
-	Gura_AssignMethod(wx_TarEntry, SetUserName);
-	Gura_AssignMethod(wx_TarEntry, GetLinkName);
-	Gura_AssignMethod(wx_TarEntry, SetLinkName);
-	Gura_AssignMethod(wx_TarEntry, GetMode);
-	Gura_AssignMethod(wx_TarEntry, SetMode);
-	Gura_AssignMethod(wx_TarEntry, SetSize);
-	Gura_AssignMethod(wx_TarEntry, GetSize);
-	Gura_AssignMethod(wx_TarEntry, GetTypeFlag);
-	Gura_AssignMethod(wx_TarEntry, SetTypeFlag);
-	Gura_AssignMethod(wx_TarEntry, GetInternalName);
-	Gura_AssignMethod(wx_TarEntry, GetInternalName_1);
+	Gura_AssignMethod(wx_TarEntry, __wxTarEntry);
+	Gura_AssignMethod(wx_TarEntry, __wxTarEntry_1);
+	Gura_AssignMethod(wx_TarEntry, __GetAccessTime);
+	Gura_AssignMethod(wx_TarEntry, __SetAccessTime);
+	Gura_AssignMethod(wx_TarEntry, __GetCreateTime);
+	Gura_AssignMethod(wx_TarEntry, __SetCreateTime);
+	Gura_AssignMethod(wx_TarEntry, __GetDevMajor);
+	Gura_AssignMethod(wx_TarEntry, __GetDevMinor);
+	Gura_AssignMethod(wx_TarEntry, __SetDevMajor);
+	Gura_AssignMethod(wx_TarEntry, __SetDevMinor);
+	Gura_AssignMethod(wx_TarEntry, __GetGroupId);
+	Gura_AssignMethod(wx_TarEntry, __GetUserId);
+	Gura_AssignMethod(wx_TarEntry, __SetGroupId);
+	Gura_AssignMethod(wx_TarEntry, __SetUserId);
+	Gura_AssignMethod(wx_TarEntry, __GetGroupName);
+	Gura_AssignMethod(wx_TarEntry, __GetUserName);
+	Gura_AssignMethod(wx_TarEntry, __SetGroupName);
+	Gura_AssignMethod(wx_TarEntry, __SetUserName);
+	Gura_AssignMethod(wx_TarEntry, __GetLinkName);
+	Gura_AssignMethod(wx_TarEntry, __SetLinkName);
+	Gura_AssignMethod(wx_TarEntry, __GetMode);
+	Gura_AssignMethod(wx_TarEntry, __SetMode);
+	Gura_AssignMethod(wx_TarEntry, __SetSize);
+	Gura_AssignMethod(wx_TarEntry, __GetSize);
+	Gura_AssignMethod(wx_TarEntry, __GetTypeFlag);
+	Gura_AssignMethod(wx_TarEntry, __SetTypeFlag);
+	Gura_AssignMethod(wx_TarEntry, __GetInternalName);
+	Gura_AssignMethod(wx_TarEntry, __GetInternalName_1);
 }
 
 Gura_ImplementDescendantCreator(wx_TarEntry)

@@ -37,12 +37,12 @@ String Object_wx_IPaddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IPaddress, AnyAddress)
+Gura_DeclareMethodAlias(wx_IPaddress, __AnyAddress, "AnyAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, AnyAddress)
+Gura_ImplementMethod(wx_IPaddress, __AnyAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_IPaddress, AnyAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, BroadcastAddress)
+Gura_DeclareMethodAlias(wx_IPaddress, __BroadcastAddress, "BroadcastAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, BroadcastAddress)
+Gura_ImplementMethod(wx_IPaddress, __BroadcastAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_IPaddress, BroadcastAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, Hostname)
+Gura_DeclareMethodAlias(wx_IPaddress, __Hostname, "Hostname")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hostname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPaddress, Hostname)
+Gura_ImplementMethod(wx_IPaddress, __Hostname)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_IPaddress, Hostname)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, Hostname_1)
+Gura_DeclareMethodAlias(wx_IPaddress, __Hostname_1, "Hostname_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, Hostname_1)
+Gura_ImplementMethod(wx_IPaddress, __Hostname_1)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_IPaddress, Hostname_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, IPAddress)
+Gura_DeclareMethodAlias(wx_IPaddress, __IPAddress, "IPAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, IPAddress)
+Gura_ImplementMethod(wx_IPaddress, __IPAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_IPaddress, IPAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, IsLocalHost)
+Gura_DeclareMethodAlias(wx_IPaddress, __IsLocalHost, "IsLocalHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, IsLocalHost)
+Gura_ImplementMethod(wx_IPaddress, __IsLocalHost)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_IPaddress, IsLocalHost)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, LocalHost)
+Gura_DeclareMethodAlias(wx_IPaddress, __LocalHost, "LocalHost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, LocalHost)
+Gura_ImplementMethod(wx_IPaddress, __LocalHost)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,13 +130,13 @@ Gura_ImplementMethod(wx_IPaddress, LocalHost)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, Service)
+Gura_DeclareMethodAlias(wx_IPaddress, __Service, "Service")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPaddress, Service)
+Gura_ImplementMethod(wx_IPaddress, __Service)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_IPaddress, Service)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, Service_1)
+Gura_DeclareMethodAlias(wx_IPaddress, __Service_1, "Service_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IPaddress, Service_1)
+Gura_ImplementMethod(wx_IPaddress, __Service_1)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_IPaddress, Service_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IPaddress, Service_2)
+Gura_DeclareMethodAlias(wx_IPaddress, __Service_2, "Service_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IPaddress, Service_2)
+Gura_ImplementMethod(wx_IPaddress, __Service_2)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,16 +178,16 @@ Gura_ImplementMethod(wx_IPaddress, Service_2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IPaddress)
 {
-	Gura_AssignMethod(wx_IPaddress, AnyAddress);
-	Gura_AssignMethod(wx_IPaddress, BroadcastAddress);
-	Gura_AssignMethod(wx_IPaddress, Hostname);
-	Gura_AssignMethod(wx_IPaddress, Hostname_1);
-	Gura_AssignMethod(wx_IPaddress, IPAddress);
-	Gura_AssignMethod(wx_IPaddress, IsLocalHost);
-	Gura_AssignMethod(wx_IPaddress, LocalHost);
-	Gura_AssignMethod(wx_IPaddress, Service);
-	Gura_AssignMethod(wx_IPaddress, Service_1);
-	Gura_AssignMethod(wx_IPaddress, Service_2);
+	Gura_AssignMethod(wx_IPaddress, __AnyAddress);
+	Gura_AssignMethod(wx_IPaddress, __BroadcastAddress);
+	Gura_AssignMethod(wx_IPaddress, __Hostname);
+	Gura_AssignMethod(wx_IPaddress, __Hostname_1);
+	Gura_AssignMethod(wx_IPaddress, __IPAddress);
+	Gura_AssignMethod(wx_IPaddress, __IsLocalHost);
+	Gura_AssignMethod(wx_IPaddress, __LocalHost);
+	Gura_AssignMethod(wx_IPaddress, __Service);
+	Gura_AssignMethod(wx_IPaddress, __Service_1);
+	Gura_AssignMethod(wx_IPaddress, __Service_2);
 }
 
 Gura_ImplementDescendantCreator(wx_IPaddress)

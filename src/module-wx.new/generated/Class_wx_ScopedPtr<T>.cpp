@@ -37,13 +37,13 @@ String Object_wx_ScopedPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ScopedPtr<T>, wxScopedPtr)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __wxScopedPtr, "wxScopedPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, wxScopedPtr)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __wxScopedPtr)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, wxScopedPtr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedPtr<T>, get)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __get, "get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, get)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __get)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedPtr<T>, unspecified_bool_type)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __unspecified_bool_type, "unspecified_bool_type")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, unspecified_bool_type)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __unspecified_bool_type)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, unspecified_bool_type)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedPtr<T>, release)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __release, "release")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, release)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __release)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, release)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedPtr<T>, reset)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __reset, "reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, reset)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __reset)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScopedPtr<T>, swap)
+Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __swap, "swap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ot", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScopedPtr<T>, swap)
+Gura_ImplementMethod(wx_ScopedPtr<T>, __swap)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, swap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScopedPtr<T>)
 {
-	Gura_AssignMethod(wx_ScopedPtr<T>, wxScopedPtr);
-	Gura_AssignMethod(wx_ScopedPtr<T>, get);
-	Gura_AssignMethod(wx_ScopedPtr<T>, unspecified_bool_type);
-	Gura_AssignMethod(wx_ScopedPtr<T>, release);
-	Gura_AssignMethod(wx_ScopedPtr<T>, reset);
-	Gura_AssignMethod(wx_ScopedPtr<T>, swap);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __wxScopedPtr);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __get);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __unspecified_bool_type);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __release);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __reset);
+	Gura_AssignMethod(wx_ScopedPtr<T>, __swap);
 }
 
 Gura_ImplementDescendantCreator(wx_ScopedPtr<T>)

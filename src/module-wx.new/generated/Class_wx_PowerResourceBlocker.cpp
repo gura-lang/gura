@@ -37,14 +37,14 @@ String Object_wx_PowerResourceBlocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker)
+Gura_DeclareMethodAlias(wx_PowerResourceBlocker, __wxPowerResourceBlocker, "wxPowerResourceBlocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker)
+Gura_ImplementMethod(wx_PowerResourceBlocker, __wxPowerResourceBlocker)
 {
 	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PowerResourceBlocker, IsInEffect)
+Gura_DeclareMethodAlias(wx_PowerResourceBlocker, __IsInEffect, "IsInEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PowerResourceBlocker, IsInEffect)
+Gura_ImplementMethod(wx_PowerResourceBlocker, __IsInEffect)
 {
 	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_PowerResourceBlocker, IsInEffect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PowerResourceBlocker)
 {
-	Gura_AssignMethod(wx_PowerResourceBlocker, wxPowerResourceBlocker);
-	Gura_AssignMethod(wx_PowerResourceBlocker, IsInEffect);
+	Gura_AssignMethod(wx_PowerResourceBlocker, __wxPowerResourceBlocker);
+	Gura_AssignMethod(wx_PowerResourceBlocker, __IsInEffect);
 }
 
 Gura_ImplementDescendantCreator(wx_PowerResourceBlocker)

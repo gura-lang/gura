@@ -37,12 +37,12 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __wxHtmlRenderingState, "wxHtmlRenderingState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
+Gura_ImplementMethod(wx_HtmlRenderingState, __wxHtmlRenderingState)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_HtmlRenderingState, wxHtmlRenderingState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, SetSelectionState)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __SetSelectionState, "SetSelectionState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, SetSelectionState)
+Gura_ImplementMethod(wx_HtmlRenderingState, __SetSelectionState)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_HtmlRenderingState, SetSelectionState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, GetSelectionState)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetSelectionState, "GetSelectionState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, GetSelectionState)
+Gura_ImplementMethod(wx_HtmlRenderingState, __GetSelectionState)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_HtmlRenderingState, GetSelectionState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, SetFgColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __SetFgColour, "SetFgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, SetFgColour)
+Gura_ImplementMethod(wx_HtmlRenderingState, __SetFgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HtmlRenderingState, SetFgColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, GetFgColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetFgColour, "GetFgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, GetFgColour)
+Gura_ImplementMethod(wx_HtmlRenderingState, __GetFgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_HtmlRenderingState, GetFgColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, SetBgColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __SetBgColour, "SetBgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, SetBgColour)
+Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_HtmlRenderingState, SetBgColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, GetBgColour)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetBgColour, "GetBgColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, GetBgColour)
+Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_HtmlRenderingState, GetBgColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, SetBgMode)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __SetBgMode, "SetBgMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "m", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, SetBgMode)
+Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgMode)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_HtmlRenderingState, SetBgMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlRenderingState, GetBgMode)
+Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetBgMode, "GetBgMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlRenderingState, GetBgMode)
+Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgMode)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,15 +167,15 @@ Gura_ImplementMethod(wx_HtmlRenderingState, GetBgMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlRenderingState)
 {
-	Gura_AssignMethod(wx_HtmlRenderingState, wxHtmlRenderingState);
-	Gura_AssignMethod(wx_HtmlRenderingState, SetSelectionState);
-	Gura_AssignMethod(wx_HtmlRenderingState, GetSelectionState);
-	Gura_AssignMethod(wx_HtmlRenderingState, SetFgColour);
-	Gura_AssignMethod(wx_HtmlRenderingState, GetFgColour);
-	Gura_AssignMethod(wx_HtmlRenderingState, SetBgColour);
-	Gura_AssignMethod(wx_HtmlRenderingState, GetBgColour);
-	Gura_AssignMethod(wx_HtmlRenderingState, SetBgMode);
-	Gura_AssignMethod(wx_HtmlRenderingState, GetBgMode);
+	Gura_AssignMethod(wx_HtmlRenderingState, __wxHtmlRenderingState);
+	Gura_AssignMethod(wx_HtmlRenderingState, __SetSelectionState);
+	Gura_AssignMethod(wx_HtmlRenderingState, __GetSelectionState);
+	Gura_AssignMethod(wx_HtmlRenderingState, __SetFgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, __GetFgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, __SetBgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, __GetBgColour);
+	Gura_AssignMethod(wx_HtmlRenderingState, __SetBgMode);
+	Gura_AssignMethod(wx_HtmlRenderingState, __GetBgMode);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlRenderingState)

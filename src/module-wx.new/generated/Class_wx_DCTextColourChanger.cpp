@@ -37,13 +37,13 @@ String Object_wx_DCTextColourChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DCTextColourChanger, wxDCTextColourChanger)
+Gura_DeclareMethodAlias(wx_DCTextColourChanger, __wxDCTextColourChanger, "wxDCTextColourChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger)
+Gura_ImplementMethod(wx_DCTextColourChanger, __wxDCTextColourChanger)
 {
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1)
+Gura_DeclareMethodAlias(wx_DCTextColourChanger, __wxDCTextColourChanger_1, "wxDCTextColourChanger_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1)
+Gura_ImplementMethod(wx_DCTextColourChanger, __wxDCTextColourChanger_1)
 {
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCTextColourChanger, Set)
+Gura_DeclareMethodAlias(wx_DCTextColourChanger, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCTextColourChanger, Set)
+Gura_ImplementMethod(wx_DCTextColourChanger, __Set)
 {
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_DCTextColourChanger, Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCTextColourChanger)
 {
-	Gura_AssignMethod(wx_DCTextColourChanger, wxDCTextColourChanger);
-	Gura_AssignMethod(wx_DCTextColourChanger, wxDCTextColourChanger_1);
-	Gura_AssignMethod(wx_DCTextColourChanger, Set);
+	Gura_AssignMethod(wx_DCTextColourChanger, __wxDCTextColourChanger);
+	Gura_AssignMethod(wx_DCTextColourChanger, __wxDCTextColourChanger_1);
+	Gura_AssignMethod(wx_DCTextColourChanger, __Set);
 }
 
 Gura_ImplementDescendantCreator(wx_DCTextColourChanger)

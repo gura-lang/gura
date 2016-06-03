@@ -37,12 +37,12 @@ String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewBitmapRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewBitmapRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewBitmapRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewBitmapRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewBitmapRenderer *pThis = Object_wx_DataViewBitmapRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewBitmapRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
+Gura_DeclareMethodAlias(wx_DataViewBitmapRenderer, __wxDataViewBitmapRenderer, "wxDataViewBitmapRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
+Gura_ImplementMethod(wx_DataViewBitmapRenderer, __wxDataViewBitmapRenderer)
 {
 	Object_wx_DataViewBitmapRenderer *pThis = Object_wx_DataViewBitmapRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewBitmapRenderer)
 {
-	Gura_AssignMethod(wx_DataViewBitmapRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewBitmapRenderer, wxDataViewBitmapRenderer);
+	Gura_AssignMethod(wx_DataViewBitmapRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewBitmapRenderer, __wxDataViewBitmapRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewBitmapRenderer)

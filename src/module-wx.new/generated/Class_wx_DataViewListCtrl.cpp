@@ -37,12 +37,12 @@ String Object_wx_DataViewListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewListCtrl, wxDataViewListCtrl)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __wxDataViewListCtrl, "wxDataViewListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, wxDataViewListCtrl)
+Gura_ImplementMethod(wx_DataViewListCtrl, __wxDataViewListCtrl)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, wxDataViewListCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, wxDataViewListCtrl_1)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __wxDataViewListCtrl_1, "wxDataViewListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, wxDataViewListCtrl_1)
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, wxDataViewListCtrl_1)
+Gura_ImplementMethod(wx_DataViewListCtrl, __wxDataViewListCtrl_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, wxDataViewListCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, Create)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, Create)
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, Create)
+Gura_ImplementMethod(wx_DataViewListCtrl, __Create)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_DataViewListCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetStore)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetStore, "GetStore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetStore)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetStore)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetStore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetStore_1)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetStore_1, "GetStore_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetStore_1)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetStore_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetStore_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, ItemToRow)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __ItemToRow, "ItemToRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, ItemToRow)
+Gura_ImplementMethod(wx_DataViewListCtrl, __ItemToRow)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, ItemToRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, RowToItem)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __RowToItem, "RowToItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, RowToItem)
+Gura_ImplementMethod(wx_DataViewListCtrl, __RowToItem)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,12 +156,12 @@ Gura_ImplementMethod(wx_DataViewListCtrl, RowToItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetSelectedRow)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetSelectedRow, "GetSelectedRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetSelectedRow)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetSelectedRow)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,13 +169,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetSelectedRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, SelectRow)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __SelectRow, "SelectRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, SelectRow)
+Gura_ImplementMethod(wx_DataViewListCtrl, __SelectRow)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,13 +184,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, SelectRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, UnselectRow)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __UnselectRow, "UnselectRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, UnselectRow)
+Gura_ImplementMethod(wx_DataViewListCtrl, __UnselectRow)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,13 +199,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, UnselectRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, IsRowSelected)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __IsRowSelected, "IsRowSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, IsRowSelected)
+Gura_ImplementMethod(wx_DataViewListCtrl, __IsRowSelected)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,13 +214,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, IsRowSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendColumn, "AppendColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,14 +229,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendColumn_1)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendColumn_1, "AppendColumn_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendColumn_1)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendColumn_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendColumn_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendTextColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendTextColumn, "AppendTextColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -256,7 +256,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, AppendTextColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendTextColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendTextColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendTextColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendToggleColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendToggleColumn, "AppendToggleColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -279,7 +279,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, AppendToggleColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendToggleColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendToggleColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendToggleColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendProgressColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendProgressColumn, "AppendProgressColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -302,7 +302,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, AppendProgressColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendProgressColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendProgressColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendProgressColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendIconTextColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendIconTextColumn, "AppendIconTextColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -325,7 +325,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, AppendIconTextColumn)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendIconTextColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendIconTextColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,14 +338,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendIconTextColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, InsertColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __InsertColumn, "InsertColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, InsertColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __InsertColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, InsertColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, InsertColumn_1)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __InsertColumn_1, "InsertColumn_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -363,7 +363,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, InsertColumn_1)
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, InsertColumn_1)
+Gura_ImplementMethod(wx_DataViewListCtrl, __InsertColumn_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -374,13 +374,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, InsertColumn_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, PrependColumn)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __PrependColumn, "PrependColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, PrependColumn)
+Gura_ImplementMethod(wx_DataViewListCtrl, __PrependColumn)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -389,14 +389,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, PrependColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, PrependColumn_1)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __PrependColumn_1, "PrependColumn_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, PrependColumn_1)
+Gura_ImplementMethod(wx_DataViewListCtrl, __PrependColumn_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -406,14 +406,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, PrependColumn_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, AppendItem)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendItem, "AppendItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, AppendItem)
+Gura_ImplementMethod(wx_DataViewListCtrl, __AppendItem)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -423,14 +423,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, AppendItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, PrependItem)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __PrependItem, "PrependItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, PrependItem)
+Gura_ImplementMethod(wx_DataViewListCtrl, __PrependItem)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, PrependItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, InsertItem)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __InsertItem, "InsertItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -448,7 +448,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, InsertItem)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, InsertItem)
+Gura_ImplementMethod(wx_DataViewListCtrl, __InsertItem)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -459,13 +459,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, InsertItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, DeleteItem)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __DeleteItem, "DeleteItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, DeleteItem)
+Gura_ImplementMethod(wx_DataViewListCtrl, __DeleteItem)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -474,12 +474,12 @@ Gura_ImplementMethod(wx_DataViewListCtrl, DeleteItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, DeleteAllItems)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __DeleteAllItems, "DeleteAllItems")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, DeleteAllItems)
+Gura_ImplementMethod(wx_DataViewListCtrl, __DeleteAllItems)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -487,12 +487,12 @@ Gura_ImplementMethod(wx_DataViewListCtrl, DeleteAllItems)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetItemCount)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetItemCount, "GetItemCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetItemCount)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetItemCount)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -500,13 +500,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetItemCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetItemData)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetItemData, "GetItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetItemData)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetItemData)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -515,7 +515,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetItemData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, SetValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -523,7 +523,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, SetValue)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, SetValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __SetValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -542,7 +542,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, GetValue)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -553,7 +553,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, SetTextValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __SetTextValue, "SetTextValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -561,7 +561,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, SetTextValue)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, SetTextValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __SetTextValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -572,14 +572,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, SetTextValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetTextValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetTextValue, "GetTextValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetTextValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetTextValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -589,7 +589,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetTextValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, SetToggleValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __SetToggleValue, "SetToggleValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -597,7 +597,7 @@ Gura_DeclareMethod(wx_DataViewListCtrl, SetToggleValue)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, SetToggleValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __SetToggleValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -608,14 +608,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, SetToggleValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, GetToggleValue)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetToggleValue, "GetToggleValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, GetToggleValue)
+Gura_ImplementMethod(wx_DataViewListCtrl, __GetToggleValue)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -625,14 +625,14 @@ Gura_ImplementMethod(wx_DataViewListCtrl, GetToggleValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewListCtrl, SetItemData)
+Gura_DeclareMethodAlias(wx_DataViewListCtrl, __SetItemData, "SetItemData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewListCtrl, SetItemData)
+Gura_ImplementMethod(wx_DataViewListCtrl, __SetItemData)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -647,41 +647,41 @@ Gura_ImplementMethod(wx_DataViewListCtrl, SetItemData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewListCtrl)
 {
-	Gura_AssignMethod(wx_DataViewListCtrl, wxDataViewListCtrl);
-	Gura_AssignMethod(wx_DataViewListCtrl, wxDataViewListCtrl_1);
-	Gura_AssignMethod(wx_DataViewListCtrl, Create);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetStore);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetStore_1);
-	Gura_AssignMethod(wx_DataViewListCtrl, ItemToRow);
-	Gura_AssignMethod(wx_DataViewListCtrl, RowToItem);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetSelectedRow);
-	Gura_AssignMethod(wx_DataViewListCtrl, SelectRow);
-	Gura_AssignMethod(wx_DataViewListCtrl, UnselectRow);
-	Gura_AssignMethod(wx_DataViewListCtrl, IsRowSelected);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendColumn_1);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendTextColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendToggleColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendProgressColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendIconTextColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, InsertColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, InsertColumn_1);
-	Gura_AssignMethod(wx_DataViewListCtrl, PrependColumn);
-	Gura_AssignMethod(wx_DataViewListCtrl, PrependColumn_1);
-	Gura_AssignMethod(wx_DataViewListCtrl, AppendItem);
-	Gura_AssignMethod(wx_DataViewListCtrl, PrependItem);
-	Gura_AssignMethod(wx_DataViewListCtrl, InsertItem);
-	Gura_AssignMethod(wx_DataViewListCtrl, DeleteItem);
-	Gura_AssignMethod(wx_DataViewListCtrl, DeleteAllItems);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetItemCount);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetItemData);
-	Gura_AssignMethod(wx_DataViewListCtrl, SetValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, SetTextValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetTextValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, SetToggleValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, GetToggleValue);
-	Gura_AssignMethod(wx_DataViewListCtrl, SetItemData);
+	Gura_AssignMethod(wx_DataViewListCtrl, __wxDataViewListCtrl);
+	Gura_AssignMethod(wx_DataViewListCtrl, __wxDataViewListCtrl_1);
+	Gura_AssignMethod(wx_DataViewListCtrl, __Create);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetStore);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetStore_1);
+	Gura_AssignMethod(wx_DataViewListCtrl, __ItemToRow);
+	Gura_AssignMethod(wx_DataViewListCtrl, __RowToItem);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetSelectedRow);
+	Gura_AssignMethod(wx_DataViewListCtrl, __SelectRow);
+	Gura_AssignMethod(wx_DataViewListCtrl, __UnselectRow);
+	Gura_AssignMethod(wx_DataViewListCtrl, __IsRowSelected);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendColumn_1);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendTextColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendToggleColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendProgressColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendIconTextColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __InsertColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __InsertColumn_1);
+	Gura_AssignMethod(wx_DataViewListCtrl, __PrependColumn);
+	Gura_AssignMethod(wx_DataViewListCtrl, __PrependColumn_1);
+	Gura_AssignMethod(wx_DataViewListCtrl, __AppendItem);
+	Gura_AssignMethod(wx_DataViewListCtrl, __PrependItem);
+	Gura_AssignMethod(wx_DataViewListCtrl, __InsertItem);
+	Gura_AssignMethod(wx_DataViewListCtrl, __DeleteItem);
+	Gura_AssignMethod(wx_DataViewListCtrl, __DeleteAllItems);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetItemCount);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetItemData);
+	Gura_AssignMethod(wx_DataViewListCtrl, __SetValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __SetTextValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetTextValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __SetToggleValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __GetToggleValue);
+	Gura_AssignMethod(wx_DataViewListCtrl, __SetItemData);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewListCtrl)

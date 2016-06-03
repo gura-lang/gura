@@ -37,12 +37,12 @@ String Object_wx_HtmlWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlWindow, wxHtmlWindow)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __wxHtmlWindow, "wxHtmlWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, wxHtmlWindow)
+Gura_ImplementMethod(wx_HtmlWindow, __wxHtmlWindow)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HtmlWindow, wxHtmlWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, wxHtmlWindow_1)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __wxHtmlWindow_1, "wxHtmlWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_HtmlWindow, wxHtmlWindow_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, wxHtmlWindow_1)
+Gura_ImplementMethod(wx_HtmlWindow, __wxHtmlWindow_1)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,13 +75,13 @@ Gura_ImplementMethod(wx_HtmlWindow, wxHtmlWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, AddFilter)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __AddFilter, "AddFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, AddFilter)
+Gura_ImplementMethod(wx_HtmlWindow, __AddFilter)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,13 +90,13 @@ Gura_ImplementMethod(wx_HtmlWindow, AddFilter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, AppendToPage)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __AppendToPage, "AppendToPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, AppendToPage)
+Gura_ImplementMethod(wx_HtmlWindow, __AppendToPage)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,12 +105,12 @@ Gura_ImplementMethod(wx_HtmlWindow, AppendToPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetInternalRepresentation)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetInternalRepresentation, "GetInternalRepresentation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetInternalRepresentation)
+Gura_ImplementMethod(wx_HtmlWindow, __GetInternalRepresentation)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,12 +118,12 @@ Gura_ImplementMethod(wx_HtmlWindow, GetInternalRepresentation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetOpenedAnchor)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedAnchor, "GetOpenedAnchor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetOpenedAnchor)
+Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedAnchor)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,12 +131,12 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedAnchor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPage)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedPage, "GetOpenedPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPage)
+Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedPage)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,12 +144,12 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPageTitle)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedPageTitle, "GetOpenedPageTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPageTitle)
+Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedPageTitle)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,12 +157,12 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPageTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetRelatedFrame)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetRelatedFrame, "GetRelatedFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetRelatedFrame)
+Gura_ImplementMethod(wx_HtmlWindow, __GetRelatedFrame)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,12 +170,12 @@ Gura_ImplementMethod(wx_HtmlWindow, GetRelatedFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, HistoryBack)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryBack, "HistoryBack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, HistoryBack)
+Gura_ImplementMethod(wx_HtmlWindow, __HistoryBack)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryBack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, HistoryCanBack)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryCanBack, "HistoryCanBack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, HistoryCanBack)
+Gura_ImplementMethod(wx_HtmlWindow, __HistoryCanBack)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryCanBack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, HistoryCanForward)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryCanForward, "HistoryCanForward")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, HistoryCanForward)
+Gura_ImplementMethod(wx_HtmlWindow, __HistoryCanForward)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,12 +209,12 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryCanForward)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, HistoryClear)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryClear, "HistoryClear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, HistoryClear)
+Gura_ImplementMethod(wx_HtmlWindow, __HistoryClear)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryClear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, HistoryForward)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryForward, "HistoryForward")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, HistoryForward)
+Gura_ImplementMethod(wx_HtmlWindow, __HistoryForward)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_HtmlWindow, HistoryForward)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, LoadFile)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, LoadFile)
+Gura_ImplementMethod(wx_HtmlWindow, __LoadFile)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_HtmlWindow, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, LoadPage)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __LoadPage, "LoadPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, LoadPage)
+Gura_ImplementMethod(wx_HtmlWindow, __LoadPage)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,13 +265,13 @@ Gura_ImplementMethod(wx_HtmlWindow, LoadPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, OnLinkClicked)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __OnLinkClicked, "OnLinkClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, OnLinkClicked)
+Gura_ImplementMethod(wx_HtmlWindow, __OnLinkClicked)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnLinkClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, OnOpeningURL)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __OnOpeningURL, "OnOpeningURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -288,7 +288,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnOpeningURL)
 	//DeclareArg(env, "redirect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
+Gura_ImplementMethod(wx_HtmlWindow, __OnOpeningURL)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,13 +299,13 @@ Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, OnSetTitle)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __OnSetTitle, "OnSetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, OnSetTitle)
+Gura_ImplementMethod(wx_HtmlWindow, __OnSetTitle)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,14 +314,14 @@ Gura_ImplementMethod(wx_HtmlWindow, OnSetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, ReadCustomization)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __ReadCustomization, "ReadCustomization")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cfg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, ReadCustomization)
+Gura_ImplementMethod(wx_HtmlWindow, __ReadCustomization)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -331,12 +331,12 @@ Gura_ImplementMethod(wx_HtmlWindow, ReadCustomization)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SelectAll)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SelectAll, "SelectAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SelectAll)
+Gura_ImplementMethod(wx_HtmlWindow, __SelectAll)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -344,13 +344,13 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SelectLine)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SelectLine, "SelectLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SelectLine)
+Gura_ImplementMethod(wx_HtmlWindow, __SelectLine)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -359,13 +359,13 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SelectWord)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SelectWord, "SelectWord")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SelectWord)
+Gura_ImplementMethod(wx_HtmlWindow, __SelectWord)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -374,12 +374,12 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectWord)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SelectionToText)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SelectionToText, "SelectionToText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SelectionToText)
+Gura_ImplementMethod(wx_HtmlWindow, __SelectionToText)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -387,13 +387,13 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectionToText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetBorders)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetBorders, "SetBorders")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetBorders)
+Gura_ImplementMethod(wx_HtmlWindow, __SetBorders)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetBorders)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetFonts)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetFonts, "SetFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normal_face", VTYPE_number, OCCUR_Once);
@@ -410,7 +410,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetFonts)
 	//DeclareArg(env, "sizes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetFonts)
+Gura_ImplementMethod(wx_HtmlWindow, __SetFonts)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetStandardFonts)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetStandardFonts, "SetStandardFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -429,7 +429,7 @@ Gura_DeclareMethod(wx_HtmlWindow, SetStandardFonts)
 	//DeclareArg(env, "fixed_face", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetStandardFonts)
+Gura_ImplementMethod(wx_HtmlWindow, __SetStandardFonts)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -440,13 +440,13 @@ Gura_ImplementMethod(wx_HtmlWindow, SetStandardFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetPage)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetPage, "SetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetPage)
+Gura_ImplementMethod(wx_HtmlWindow, __SetPage)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -455,14 +455,14 @@ Gura_ImplementMethod(wx_HtmlWindow, SetPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetRelatedFrame)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetRelatedFrame, "SetRelatedFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetRelatedFrame)
+Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedFrame)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -472,13 +472,13 @@ Gura_ImplementMethod(wx_HtmlWindow, SetRelatedFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetRelatedStatusBar)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetRelatedStatusBar, "SetRelatedStatusBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar)
+Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedStatusBar)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -487,14 +487,14 @@ Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetRelatedStatusBar_1)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetRelatedStatusBar_1, "SetRelatedStatusBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "statusbar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar_1)
+Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedStatusBar_1)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -504,12 +504,12 @@ Gura_ImplementMethod(wx_HtmlWindow, SetRelatedStatusBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, ToText)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __ToText, "ToText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, ToText)
+Gura_ImplementMethod(wx_HtmlWindow, __ToText)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -517,14 +517,14 @@ Gura_ImplementMethod(wx_HtmlWindow, ToText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, WriteCustomization)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __WriteCustomization, "WriteCustomization")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cfg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, WriteCustomization)
+Gura_ImplementMethod(wx_HtmlWindow, __WriteCustomization)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -534,13 +534,13 @@ Gura_ImplementMethod(wx_HtmlWindow, WriteCustomization)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, GetDefaultHTMLCursor)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __GetDefaultHTMLCursor, "GetDefaultHTMLCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, GetDefaultHTMLCursor)
+Gura_ImplementMethod(wx_HtmlWindow, __GetDefaultHTMLCursor)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -549,14 +549,14 @@ Gura_ImplementMethod(wx_HtmlWindow, GetDefaultHTMLCursor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, SetDefaultHTMLCursor)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __SetDefaultHTMLCursor, "SetDefaultHTMLCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, SetDefaultHTMLCursor)
+Gura_ImplementMethod(wx_HtmlWindow, __SetDefaultHTMLCursor)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -566,7 +566,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SetDefaultHTMLCursor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, OnCellClicked)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __OnCellClicked, "OnCellClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -575,7 +575,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnCellClicked)
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, OnCellClicked)
+Gura_ImplementMethod(wx_HtmlWindow, __OnCellClicked)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -587,7 +587,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnCellClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindow, OnCellMouseHover)
+Gura_DeclareMethodAlias(wx_HtmlWindow, __OnCellMouseHover, "OnCellMouseHover")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -595,7 +595,7 @@ Gura_DeclareMethod(wx_HtmlWindow, OnCellMouseHover)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindow, OnCellMouseHover)
+Gura_ImplementMethod(wx_HtmlWindow, __OnCellMouseHover)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -611,43 +611,43 @@ Gura_ImplementMethod(wx_HtmlWindow, OnCellMouseHover)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWindow)
 {
-	Gura_AssignMethod(wx_HtmlWindow, wxHtmlWindow);
-	Gura_AssignMethod(wx_HtmlWindow, wxHtmlWindow_1);
-	Gura_AssignMethod(wx_HtmlWindow, AddFilter);
-	Gura_AssignMethod(wx_HtmlWindow, AppendToPage);
-	Gura_AssignMethod(wx_HtmlWindow, GetInternalRepresentation);
-	Gura_AssignMethod(wx_HtmlWindow, GetOpenedAnchor);
-	Gura_AssignMethod(wx_HtmlWindow, GetOpenedPage);
-	Gura_AssignMethod(wx_HtmlWindow, GetOpenedPageTitle);
-	Gura_AssignMethod(wx_HtmlWindow, GetRelatedFrame);
-	Gura_AssignMethod(wx_HtmlWindow, HistoryBack);
-	Gura_AssignMethod(wx_HtmlWindow, HistoryCanBack);
-	Gura_AssignMethod(wx_HtmlWindow, HistoryCanForward);
-	Gura_AssignMethod(wx_HtmlWindow, HistoryClear);
-	Gura_AssignMethod(wx_HtmlWindow, HistoryForward);
-	Gura_AssignMethod(wx_HtmlWindow, LoadFile);
-	Gura_AssignMethod(wx_HtmlWindow, LoadPage);
-	Gura_AssignMethod(wx_HtmlWindow, OnLinkClicked);
-	Gura_AssignMethod(wx_HtmlWindow, OnOpeningURL);
-	Gura_AssignMethod(wx_HtmlWindow, OnSetTitle);
-	Gura_AssignMethod(wx_HtmlWindow, ReadCustomization);
-	Gura_AssignMethod(wx_HtmlWindow, SelectAll);
-	Gura_AssignMethod(wx_HtmlWindow, SelectLine);
-	Gura_AssignMethod(wx_HtmlWindow, SelectWord);
-	Gura_AssignMethod(wx_HtmlWindow, SelectionToText);
-	Gura_AssignMethod(wx_HtmlWindow, SetBorders);
-	Gura_AssignMethod(wx_HtmlWindow, SetFonts);
-	Gura_AssignMethod(wx_HtmlWindow, SetStandardFonts);
-	Gura_AssignMethod(wx_HtmlWindow, SetPage);
-	Gura_AssignMethod(wx_HtmlWindow, SetRelatedFrame);
-	Gura_AssignMethod(wx_HtmlWindow, SetRelatedStatusBar);
-	Gura_AssignMethod(wx_HtmlWindow, SetRelatedStatusBar_1);
-	Gura_AssignMethod(wx_HtmlWindow, ToText);
-	Gura_AssignMethod(wx_HtmlWindow, WriteCustomization);
-	Gura_AssignMethod(wx_HtmlWindow, GetDefaultHTMLCursor);
-	Gura_AssignMethod(wx_HtmlWindow, SetDefaultHTMLCursor);
-	Gura_AssignMethod(wx_HtmlWindow, OnCellClicked);
-	Gura_AssignMethod(wx_HtmlWindow, OnCellMouseHover);
+	Gura_AssignMethod(wx_HtmlWindow, __wxHtmlWindow);
+	Gura_AssignMethod(wx_HtmlWindow, __wxHtmlWindow_1);
+	Gura_AssignMethod(wx_HtmlWindow, __AddFilter);
+	Gura_AssignMethod(wx_HtmlWindow, __AppendToPage);
+	Gura_AssignMethod(wx_HtmlWindow, __GetInternalRepresentation);
+	Gura_AssignMethod(wx_HtmlWindow, __GetOpenedAnchor);
+	Gura_AssignMethod(wx_HtmlWindow, __GetOpenedPage);
+	Gura_AssignMethod(wx_HtmlWindow, __GetOpenedPageTitle);
+	Gura_AssignMethod(wx_HtmlWindow, __GetRelatedFrame);
+	Gura_AssignMethod(wx_HtmlWindow, __HistoryBack);
+	Gura_AssignMethod(wx_HtmlWindow, __HistoryCanBack);
+	Gura_AssignMethod(wx_HtmlWindow, __HistoryCanForward);
+	Gura_AssignMethod(wx_HtmlWindow, __HistoryClear);
+	Gura_AssignMethod(wx_HtmlWindow, __HistoryForward);
+	Gura_AssignMethod(wx_HtmlWindow, __LoadFile);
+	Gura_AssignMethod(wx_HtmlWindow, __LoadPage);
+	Gura_AssignMethod(wx_HtmlWindow, __OnLinkClicked);
+	Gura_AssignMethod(wx_HtmlWindow, __OnOpeningURL);
+	Gura_AssignMethod(wx_HtmlWindow, __OnSetTitle);
+	Gura_AssignMethod(wx_HtmlWindow, __ReadCustomization);
+	Gura_AssignMethod(wx_HtmlWindow, __SelectAll);
+	Gura_AssignMethod(wx_HtmlWindow, __SelectLine);
+	Gura_AssignMethod(wx_HtmlWindow, __SelectWord);
+	Gura_AssignMethod(wx_HtmlWindow, __SelectionToText);
+	Gura_AssignMethod(wx_HtmlWindow, __SetBorders);
+	Gura_AssignMethod(wx_HtmlWindow, __SetFonts);
+	Gura_AssignMethod(wx_HtmlWindow, __SetStandardFonts);
+	Gura_AssignMethod(wx_HtmlWindow, __SetPage);
+	Gura_AssignMethod(wx_HtmlWindow, __SetRelatedFrame);
+	Gura_AssignMethod(wx_HtmlWindow, __SetRelatedStatusBar);
+	Gura_AssignMethod(wx_HtmlWindow, __SetRelatedStatusBar_1);
+	Gura_AssignMethod(wx_HtmlWindow, __ToText);
+	Gura_AssignMethod(wx_HtmlWindow, __WriteCustomization);
+	Gura_AssignMethod(wx_HtmlWindow, __GetDefaultHTMLCursor);
+	Gura_AssignMethod(wx_HtmlWindow, __SetDefaultHTMLCursor);
+	Gura_AssignMethod(wx_HtmlWindow, __OnCellClicked);
+	Gura_AssignMethod(wx_HtmlWindow, __OnCellMouseHover);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWindow)

@@ -37,12 +37,12 @@ String Object_wx_DataViewToggleRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewToggleRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewToggleRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewToggleRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewToggleRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewToggleRenderer *pThis = Object_wx_DataViewToggleRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewToggleRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
+Gura_DeclareMethodAlias(wx_DataViewToggleRenderer, __wxDataViewToggleRenderer, "wxDataViewToggleRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
+Gura_ImplementMethod(wx_DataViewToggleRenderer, __wxDataViewToggleRenderer)
 {
 	Object_wx_DataViewToggleRenderer *pThis = Object_wx_DataViewToggleRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewToggleRenderer)
 {
-	Gura_AssignMethod(wx_DataViewToggleRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewToggleRenderer, wxDataViewToggleRenderer);
+	Gura_AssignMethod(wx_DataViewToggleRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewToggleRenderer, __wxDataViewToggleRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewToggleRenderer)

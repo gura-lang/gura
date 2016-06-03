@@ -37,12 +37,12 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, wxRichTextFormattingDialogFactory)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory, "wxRichTextFormattingDialogFactory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, wxRichTextFormattingDialogFactory)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, wxRichTextFormattingDia
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreateButtons, "CreateButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreateButtons)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreateButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePage)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreatePage, "CreatePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePage)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePage)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, CreatePages)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreatePages, "CreatePages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePages)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePages)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, CreatePages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageId)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageId, "GetPageId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageId)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageId)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageIdCount, "GetPageIdCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageIdCount)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageImage, "GetPageImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageImage)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, GetPageImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __SetSheetStyle, "SetSheetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __SetSheetStyle)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,14 +159,14 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
+Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __ShowHelp, "ShowHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
+Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __ShowHelp)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,15 +181,15 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, ShowHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFormattingDialogFactory)
 {
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, wxRichTextFormattingDialogFactory);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreateButtons);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreatePage);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, CreatePages);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, GetPageId);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, GetPageIdCount);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, GetPageImage);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, SetSheetStyle);
-	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, ShowHelp);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __wxRichTextFormattingDialogFactory);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreateButtons);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreatePage);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __CreatePages);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __GetPageId);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __GetPageIdCount);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __GetPageImage);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __SetSheetStyle);
+	Gura_AssignMethod(wx_RichTextFormattingDialogFactory, __ShowHelp);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFormattingDialogFactory)

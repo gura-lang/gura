@@ -37,12 +37,12 @@ String Object_wx_FSVolume::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FSVolume, wxFSVolume)
+Gura_DeclareMethodAlias(wx_FSVolume, __wxFSVolume, "wxFSVolume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, wxFSVolume)
+Gura_ImplementMethod(wx_FSVolume, __wxFSVolume)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FSVolume, wxFSVolume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, wxFSVolume_1)
+Gura_DeclareMethodAlias(wx_FSVolume, __wxFSVolume_1, "wxFSVolume_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSVolume, wxFSVolume_1)
+Gura_ImplementMethod(wx_FSVolume, __wxFSVolume_1)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_FSVolume, wxFSVolume_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, Create)
+Gura_DeclareMethodAlias(wx_FSVolume, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSVolume, Create)
+Gura_ImplementMethod(wx_FSVolume, __Create)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_FSVolume, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetVolumes)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetVolumes, "GetVolumes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flagsSet", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flagsUnset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetVolumes)
+Gura_ImplementMethod(wx_FSVolume, __GetVolumes)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_FSVolume, GetVolumes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, CancelSearch)
+Gura_DeclareMethodAlias(wx_FSVolume, __CancelSearch, "CancelSearch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, CancelSearch)
+Gura_ImplementMethod(wx_FSVolume, __CancelSearch)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_FSVolume, CancelSearch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, IsOk)
+Gura_DeclareMethodAlias(wx_FSVolume, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, IsOk)
+Gura_ImplementMethod(wx_FSVolume, __IsOk)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_FSVolume, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetKind)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetKind, "GetKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetKind)
+Gura_ImplementMethod(wx_FSVolume, __GetKind)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_FSVolume, GetKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetFlags)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetFlags)
+Gura_ImplementMethod(wx_FSVolume, __GetFlags)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_FSVolume, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, IsWritable)
+Gura_DeclareMethodAlias(wx_FSVolume, __IsWritable, "IsWritable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, IsWritable)
+Gura_ImplementMethod(wx_FSVolume, __IsWritable)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_FSVolume, IsWritable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetName)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetName)
+Gura_ImplementMethod(wx_FSVolume, __GetName)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_FSVolume, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetDisplayName)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetDisplayName, "GetDisplayName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetDisplayName)
+Gura_ImplementMethod(wx_FSVolume, __GetDisplayName)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_FSVolume, GetDisplayName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSVolume, GetIcon)
+Gura_DeclareMethodAlias(wx_FSVolume, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSVolume, GetIcon)
+Gura_ImplementMethod(wx_FSVolume, __GetIcon)
 {
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,18 +208,18 @@ Gura_ImplementMethod(wx_FSVolume, GetIcon)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSVolume)
 {
-	Gura_AssignMethod(wx_FSVolume, wxFSVolume);
-	Gura_AssignMethod(wx_FSVolume, wxFSVolume_1);
-	Gura_AssignMethod(wx_FSVolume, Create);
-	Gura_AssignMethod(wx_FSVolume, GetVolumes);
-	Gura_AssignMethod(wx_FSVolume, CancelSearch);
-	Gura_AssignMethod(wx_FSVolume, IsOk);
-	Gura_AssignMethod(wx_FSVolume, GetKind);
-	Gura_AssignMethod(wx_FSVolume, GetFlags);
-	Gura_AssignMethod(wx_FSVolume, IsWritable);
-	Gura_AssignMethod(wx_FSVolume, GetName);
-	Gura_AssignMethod(wx_FSVolume, GetDisplayName);
-	Gura_AssignMethod(wx_FSVolume, GetIcon);
+	Gura_AssignMethod(wx_FSVolume, __wxFSVolume);
+	Gura_AssignMethod(wx_FSVolume, __wxFSVolume_1);
+	Gura_AssignMethod(wx_FSVolume, __Create);
+	Gura_AssignMethod(wx_FSVolume, __GetVolumes);
+	Gura_AssignMethod(wx_FSVolume, __CancelSearch);
+	Gura_AssignMethod(wx_FSVolume, __IsOk);
+	Gura_AssignMethod(wx_FSVolume, __GetKind);
+	Gura_AssignMethod(wx_FSVolume, __GetFlags);
+	Gura_AssignMethod(wx_FSVolume, __IsWritable);
+	Gura_AssignMethod(wx_FSVolume, __GetName);
+	Gura_AssignMethod(wx_FSVolume, __GetDisplayName);
+	Gura_AssignMethod(wx_FSVolume, __GetIcon);
 }
 
 Gura_ImplementDescendantCreator(wx_FSVolume)

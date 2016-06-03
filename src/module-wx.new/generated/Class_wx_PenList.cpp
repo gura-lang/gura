@@ -37,12 +37,12 @@ String Object_wx_PenList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PenList, wxPenList)
+Gura_DeclareMethodAlias(wx_PenList, __wxPenList, "wxPenList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PenList, wxPenList)
+Gura_ImplementMethod(wx_PenList, __wxPenList)
 {
 	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_PenList, wxPenList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
+Gura_DeclareMethodAlias(wx_PenList, __FindOrCreatePen, "FindOrCreatePen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_PenList, FindOrCreatePen)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
+Gura_ImplementMethod(wx_PenList, __FindOrCreatePen)
 {
 	Object_wx_PenList *pThis = Object_wx_PenList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_PenList, FindOrCreatePen)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PenList)
 {
-	Gura_AssignMethod(wx_PenList, wxPenList);
-	Gura_AssignMethod(wx_PenList, FindOrCreatePen);
+	Gura_AssignMethod(wx_PenList, __wxPenList);
+	Gura_AssignMethod(wx_PenList, __FindOrCreatePen);
 }
 
 Gura_ImplementDescendantCreator(wx_PenList)

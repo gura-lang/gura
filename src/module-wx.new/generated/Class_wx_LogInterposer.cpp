@@ -37,12 +37,12 @@ String Object_wx_LogInterposer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogInterposer, wxLogInterposer)
+Gura_DeclareMethodAlias(wx_LogInterposer, __wxLogInterposer, "wxLogInterposer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogInterposer, wxLogInterposer)
+Gura_ImplementMethod(wx_LogInterposer, __wxLogInterposer)
 {
 	Object_wx_LogInterposer *pThis = Object_wx_LogInterposer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_LogInterposer, wxLogInterposer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogInterposer)
 {
-	Gura_AssignMethod(wx_LogInterposer, wxLogInterposer);
+	Gura_AssignMethod(wx_LogInterposer, __wxLogInterposer);
 }
 
 Gura_ImplementDescendantCreator(wx_LogInterposer)

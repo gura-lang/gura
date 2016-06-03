@@ -37,14 +37,14 @@ String Object_wx_CommandEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CommandEvent, wxCommandEvent)
+Gura_DeclareMethodAlias(wx_CommandEvent, __wxCommandEvent, "wxCommandEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, wxCommandEvent)
+Gura_ImplementMethod(wx_CommandEvent, __wxCommandEvent)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_CommandEvent, wxCommandEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetClientData)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetClientData)
+Gura_ImplementMethod(wx_CommandEvent, __GetClientData)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetClientObject)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetClientObject, "GetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
+Gura_ImplementMethod(wx_CommandEvent, __GetClientObject)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetExtraLong)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetExtraLong, "GetExtraLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
+Gura_ImplementMethod(wx_CommandEvent, __GetExtraLong)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetExtraLong)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetInt)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetInt, "GetInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetInt)
+Gura_ImplementMethod(wx_CommandEvent, __GetInt)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetSelection)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetSelection)
+Gura_ImplementMethod(wx_CommandEvent, __GetSelection)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, GetString)
+Gura_DeclareMethodAlias(wx_CommandEvent, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, GetString)
+Gura_ImplementMethod(wx_CommandEvent, __GetString)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_CommandEvent, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, IsChecked)
+Gura_DeclareMethodAlias(wx_CommandEvent, __IsChecked, "IsChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, IsChecked)
+Gura_ImplementMethod(wx_CommandEvent, __IsChecked)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_CommandEvent, IsChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, IsSelection)
+Gura_DeclareMethodAlias(wx_CommandEvent, __IsSelection, "IsSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, IsSelection)
+Gura_ImplementMethod(wx_CommandEvent, __IsSelection)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_CommandEvent, IsSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, SetClientData)
+Gura_DeclareMethodAlias(wx_CommandEvent, __SetClientData, "SetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, SetClientData)
+Gura_ImplementMethod(wx_CommandEvent, __SetClientData)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, SetClientObject)
+Gura_DeclareMethodAlias(wx_CommandEvent, __SetClientObject, "SetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clientObject", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
+Gura_ImplementMethod(wx_CommandEvent, __SetClientObject)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_CommandEvent, SetClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, SetExtraLong)
+Gura_DeclareMethodAlias(wx_CommandEvent, __SetExtraLong, "SetExtraLong")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "extraLong", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
+Gura_ImplementMethod(wx_CommandEvent, __SetExtraLong)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_CommandEvent, SetExtraLong)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, SetInt)
+Gura_DeclareMethodAlias(wx_CommandEvent, __SetInt, "SetInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "intCommand", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, SetInt)
+Gura_ImplementMethod(wx_CommandEvent, __SetInt)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,13 +218,13 @@ Gura_ImplementMethod(wx_CommandEvent, SetInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CommandEvent, SetString)
+Gura_DeclareMethodAlias(wx_CommandEvent, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CommandEvent, SetString)
+Gura_ImplementMethod(wx_CommandEvent, __SetString)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,20 +238,20 @@ Gura_ImplementMethod(wx_CommandEvent, SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CommandEvent)
 {
-	Gura_AssignMethod(wx_CommandEvent, wxCommandEvent);
-	Gura_AssignMethod(wx_CommandEvent, GetClientData);
-	Gura_AssignMethod(wx_CommandEvent, GetClientObject);
-	Gura_AssignMethod(wx_CommandEvent, GetExtraLong);
-	Gura_AssignMethod(wx_CommandEvent, GetInt);
-	Gura_AssignMethod(wx_CommandEvent, GetSelection);
-	Gura_AssignMethod(wx_CommandEvent, GetString);
-	Gura_AssignMethod(wx_CommandEvent, IsChecked);
-	Gura_AssignMethod(wx_CommandEvent, IsSelection);
-	Gura_AssignMethod(wx_CommandEvent, SetClientData);
-	Gura_AssignMethod(wx_CommandEvent, SetClientObject);
-	Gura_AssignMethod(wx_CommandEvent, SetExtraLong);
-	Gura_AssignMethod(wx_CommandEvent, SetInt);
-	Gura_AssignMethod(wx_CommandEvent, SetString);
+	Gura_AssignMethod(wx_CommandEvent, __wxCommandEvent);
+	Gura_AssignMethod(wx_CommandEvent, __GetClientData);
+	Gura_AssignMethod(wx_CommandEvent, __GetClientObject);
+	Gura_AssignMethod(wx_CommandEvent, __GetExtraLong);
+	Gura_AssignMethod(wx_CommandEvent, __GetInt);
+	Gura_AssignMethod(wx_CommandEvent, __GetSelection);
+	Gura_AssignMethod(wx_CommandEvent, __GetString);
+	Gura_AssignMethod(wx_CommandEvent, __IsChecked);
+	Gura_AssignMethod(wx_CommandEvent, __IsSelection);
+	Gura_AssignMethod(wx_CommandEvent, __SetClientData);
+	Gura_AssignMethod(wx_CommandEvent, __SetClientObject);
+	Gura_AssignMethod(wx_CommandEvent, __SetExtraLong);
+	Gura_AssignMethod(wx_CommandEvent, __SetInt);
+	Gura_AssignMethod(wx_CommandEvent, __SetString);
 }
 
 Gura_ImplementDescendantCreator(wx_CommandEvent)

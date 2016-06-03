@@ -37,13 +37,13 @@ String Object_wx_Display::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Display, wxDisplay)
+Gura_DeclareMethodAlias(wx_Display, __wxDisplay, "wxDisplay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, wxDisplay)
+Gura_ImplementMethod(wx_Display, __wxDisplay)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_Display, wxDisplay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, ChangeMode)
+Gura_DeclareMethodAlias(wx_Display, __ChangeMode, "ChangeMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, ChangeMode)
+Gura_ImplementMethod(wx_Display, __ChangeMode)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Display, ChangeMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetClientArea)
+Gura_DeclareMethodAlias(wx_Display, __GetClientArea, "GetClientArea")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, GetClientArea)
+Gura_ImplementMethod(wx_Display, __GetClientArea)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Display, GetClientArea)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetCount)
+Gura_DeclareMethodAlias(wx_Display, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, GetCount)
+Gura_ImplementMethod(wx_Display, __GetCount)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Display, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetCurrentMode)
+Gura_DeclareMethodAlias(wx_Display, __GetCurrentMode, "GetCurrentMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, GetCurrentMode)
+Gura_ImplementMethod(wx_Display, __GetCurrentMode)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_Display, GetCurrentMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetFromPoint)
+Gura_DeclareMethodAlias(wx_Display, __GetFromPoint, "GetFromPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, GetFromPoint)
+Gura_ImplementMethod(wx_Display, __GetFromPoint)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_Display, GetFromPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetFromWindow)
+Gura_DeclareMethodAlias(wx_Display, __GetFromWindow, "GetFromWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, GetFromWindow)
+Gura_ImplementMethod(wx_Display, __GetFromWindow)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_Display, GetFromWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetGeometry)
+Gura_DeclareMethodAlias(wx_Display, __GetGeometry, "GetGeometry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, GetGeometry)
+Gura_ImplementMethod(wx_Display, __GetGeometry)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_Display, GetGeometry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetModes)
+Gura_DeclareMethodAlias(wx_Display, __GetModes, "GetModes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Display, GetModes)
+Gura_ImplementMethod(wx_Display, __GetModes)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_Display, GetModes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, GetName)
+Gura_DeclareMethodAlias(wx_Display, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, GetName)
+Gura_ImplementMethod(wx_Display, __GetName)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_Display, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Display, IsPrimary)
+Gura_DeclareMethodAlias(wx_Display, __IsPrimary, "IsPrimary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Display, IsPrimary)
+Gura_ImplementMethod(wx_Display, __IsPrimary)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,17 +195,17 @@ Gura_ImplementMethod(wx_Display, IsPrimary)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Display)
 {
-	Gura_AssignMethod(wx_Display, wxDisplay);
-	Gura_AssignMethod(wx_Display, ChangeMode);
-	Gura_AssignMethod(wx_Display, GetClientArea);
-	Gura_AssignMethod(wx_Display, GetCount);
-	Gura_AssignMethod(wx_Display, GetCurrentMode);
-	Gura_AssignMethod(wx_Display, GetFromPoint);
-	Gura_AssignMethod(wx_Display, GetFromWindow);
-	Gura_AssignMethod(wx_Display, GetGeometry);
-	Gura_AssignMethod(wx_Display, GetModes);
-	Gura_AssignMethod(wx_Display, GetName);
-	Gura_AssignMethod(wx_Display, IsPrimary);
+	Gura_AssignMethod(wx_Display, __wxDisplay);
+	Gura_AssignMethod(wx_Display, __ChangeMode);
+	Gura_AssignMethod(wx_Display, __GetClientArea);
+	Gura_AssignMethod(wx_Display, __GetCount);
+	Gura_AssignMethod(wx_Display, __GetCurrentMode);
+	Gura_AssignMethod(wx_Display, __GetFromPoint);
+	Gura_AssignMethod(wx_Display, __GetFromWindow);
+	Gura_AssignMethod(wx_Display, __GetGeometry);
+	Gura_AssignMethod(wx_Display, __GetModes);
+	Gura_AssignMethod(wx_Display, __GetName);
+	Gura_AssignMethod(wx_Display, __IsPrimary);
 }
 
 Gura_ImplementDescendantCreator(wx_Display)

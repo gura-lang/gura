@@ -37,13 +37,13 @@ String Object_wx_MessageDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MessageDialog, ButtonLabel)
+Gura_DeclareMethodAlias(wx_MessageDialog, __ButtonLabel, "ButtonLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stockId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageDialog, ButtonLabel)
+Gura_ImplementMethod(wx_MessageDialog, __ButtonLabel)
 {
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_MessageDialog, ButtonLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageDialog, ButtonLabel_1)
+Gura_DeclareMethodAlias(wx_MessageDialog, __ButtonLabel_1, "ButtonLabel_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageDialog, ButtonLabel_1)
+Gura_ImplementMethod(wx_MessageDialog, __ButtonLabel_1)
 {
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_MessageDialog, ButtonLabel_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageDialog, GetAsString)
+Gura_DeclareMethodAlias(wx_MessageDialog, __GetAsString, "GetAsString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageDialog, GetAsString)
+Gura_ImplementMethod(wx_MessageDialog, __GetAsString)
 {
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_MessageDialog, GetAsString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageDialog, GetStockId)
+Gura_DeclareMethodAlias(wx_MessageDialog, __GetStockId, "GetStockId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageDialog, GetStockId)
+Gura_ImplementMethod(wx_MessageDialog, __GetStockId)
 {
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_MessageDialog, GetStockId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageDialog)
 {
-	Gura_AssignMethod(wx_MessageDialog, ButtonLabel);
-	Gura_AssignMethod(wx_MessageDialog, ButtonLabel_1);
-	Gura_AssignMethod(wx_MessageDialog, GetAsString);
-	Gura_AssignMethod(wx_MessageDialog, GetStockId);
+	Gura_AssignMethod(wx_MessageDialog, __ButtonLabel);
+	Gura_AssignMethod(wx_MessageDialog, __ButtonLabel_1);
+	Gura_AssignMethod(wx_MessageDialog, __GetAsString);
+	Gura_AssignMethod(wx_MessageDialog, __GetStockId);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageDialog)

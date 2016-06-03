@@ -37,7 +37,7 @@ String Object_wx_GraphicsPath::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsPath, AddArc)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddArc, "AddArc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddArc)
 	//DeclareArg(env, "clockwise", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddArc)
+Gura_ImplementMethod(wx_GraphicsPath, __AddArc)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddArc_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddArc_1, "AddArc_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
@@ -72,7 +72,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddArc_1)
 	//DeclareArg(env, "clockwise", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddArc_1)
+Gura_ImplementMethod(wx_GraphicsPath, __AddArc_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArc_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddArcToPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddArcToPoint, "AddArcToPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddArcToPoint)
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddArcToPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __AddArcToPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddArcToPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddCircle)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddCircle, "AddCircle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddCircle)
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddCircle)
+Gura_ImplementMethod(wx_GraphicsPath, __AddCircle)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCircle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddCurveToPoint, "AddCurveToPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cx1", VTYPE_number, OCCUR_Once);
@@ -138,7 +138,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __AddCurveToPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddCurveToPoint_1, "AddCurveToPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c1", VTYPE_number, OCCUR_Once);
@@ -160,7 +160,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddCurveToPoint_1)
 	//DeclareArg(env, "e", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint_1)
+Gura_ImplementMethod(wx_GraphicsPath, __AddCurveToPoint_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddCurveToPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddEllipse)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddEllipse, "AddEllipse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -180,7 +180,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddEllipse)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddEllipse)
+Gura_ImplementMethod(wx_GraphicsPath, __AddEllipse)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,14 +192,14 @@ Gura_ImplementMethod(wx_GraphicsPath, AddEllipse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddLineToPoint, "AddLineToPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __AddLineToPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddLineToPoint_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddLineToPoint_1, "AddLineToPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint_1)
+Gura_ImplementMethod(wx_GraphicsPath, __AddLineToPoint_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_GraphicsPath, AddLineToPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddPath)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddPath, "AddPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddPath)
+Gura_ImplementMethod(wx_GraphicsPath, __AddPath)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddQuadCurveToPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddQuadCurveToPoint, "AddQuadCurveToPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cx", VTYPE_number, OCCUR_Once);
@@ -248,7 +248,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddQuadCurveToPoint)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddQuadCurveToPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __AddQuadCurveToPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddQuadCurveToPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddRectangle)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddRectangle, "AddRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -269,7 +269,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddRectangle)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddRectangle)
+Gura_ImplementMethod(wx_GraphicsPath, __AddRectangle)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, AddRoundedRectangle)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __AddRoundedRectangle, "AddRoundedRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -291,7 +291,7 @@ Gura_DeclareMethod(wx_GraphicsPath, AddRoundedRectangle)
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, AddRoundedRectangle)
+Gura_ImplementMethod(wx_GraphicsPath, __AddRoundedRectangle)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,12 +304,12 @@ Gura_ImplementMethod(wx_GraphicsPath, AddRoundedRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, CloseSubpath)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __CloseSubpath, "CloseSubpath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, CloseSubpath)
+Gura_ImplementMethod(wx_GraphicsPath, __CloseSubpath)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,14 +317,14 @@ Gura_ImplementMethod(wx_GraphicsPath, CloseSubpath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, Contains)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __Contains, "Contains")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, Contains)
+Gura_ImplementMethod(wx_GraphicsPath, __Contains)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, Contains_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __Contains_1, "Contains_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -342,7 +342,7 @@ Gura_DeclareMethod(wx_GraphicsPath, Contains_1)
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, Contains_1)
+Gura_ImplementMethod(wx_GraphicsPath, __Contains_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -353,12 +353,12 @@ Gura_ImplementMethod(wx_GraphicsPath, Contains_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, GetBox)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __GetBox, "GetBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, GetBox)
+Gura_ImplementMethod(wx_GraphicsPath, __GetBox)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, GetBox_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __GetBox_1, "GetBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -375,7 +375,7 @@ Gura_DeclareMethod(wx_GraphicsPath, GetBox_1)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, GetBox_1)
+Gura_ImplementMethod(wx_GraphicsPath, __GetBox_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -387,14 +387,14 @@ Gura_ImplementMethod(wx_GraphicsPath, GetBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __GetCurrentPoint, "GetCurrentPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __GetCurrentPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -404,12 +404,12 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, GetCurrentPoint_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __GetCurrentPoint_1, "GetCurrentPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
+Gura_ImplementMethod(wx_GraphicsPath, __GetCurrentPoint_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -417,12 +417,12 @@ Gura_ImplementMethod(wx_GraphicsPath, GetCurrentPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, GetNativePath)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __GetNativePath, "GetNativePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, GetNativePath)
+Gura_ImplementMethod(wx_GraphicsPath, __GetNativePath)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -430,14 +430,14 @@ Gura_ImplementMethod(wx_GraphicsPath, GetNativePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, MoveToPoint)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __MoveToPoint, "MoveToPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint)
+Gura_ImplementMethod(wx_GraphicsPath, __MoveToPoint)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -447,13 +447,13 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, MoveToPoint_1)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __MoveToPoint_1, "MoveToPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint_1)
+Gura_ImplementMethod(wx_GraphicsPath, __MoveToPoint_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -462,13 +462,13 @@ Gura_ImplementMethod(wx_GraphicsPath, MoveToPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, Transform)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __Transform, "Transform")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "matrix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, Transform)
+Gura_ImplementMethod(wx_GraphicsPath, __Transform)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,13 +477,13 @@ Gura_ImplementMethod(wx_GraphicsPath, Transform)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsPath, UnGetNativePath)
+Gura_DeclareMethodAlias(wx_GraphicsPath, __UnGetNativePath, "UnGetNativePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsPath, UnGetNativePath)
+Gura_ImplementMethod(wx_GraphicsPath, __UnGetNativePath)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -497,31 +497,31 @@ Gura_ImplementMethod(wx_GraphicsPath, UnGetNativePath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsPath)
 {
-	Gura_AssignMethod(wx_GraphicsPath, AddArc);
-	Gura_AssignMethod(wx_GraphicsPath, AddArc_1);
-	Gura_AssignMethod(wx_GraphicsPath, AddArcToPoint);
-	Gura_AssignMethod(wx_GraphicsPath, AddCircle);
-	Gura_AssignMethod(wx_GraphicsPath, AddCurveToPoint);
-	Gura_AssignMethod(wx_GraphicsPath, AddCurveToPoint_1);
-	Gura_AssignMethod(wx_GraphicsPath, AddEllipse);
-	Gura_AssignMethod(wx_GraphicsPath, AddLineToPoint);
-	Gura_AssignMethod(wx_GraphicsPath, AddLineToPoint_1);
-	Gura_AssignMethod(wx_GraphicsPath, AddPath);
-	Gura_AssignMethod(wx_GraphicsPath, AddQuadCurveToPoint);
-	Gura_AssignMethod(wx_GraphicsPath, AddRectangle);
-	Gura_AssignMethod(wx_GraphicsPath, AddRoundedRectangle);
-	Gura_AssignMethod(wx_GraphicsPath, CloseSubpath);
-	Gura_AssignMethod(wx_GraphicsPath, Contains);
-	Gura_AssignMethod(wx_GraphicsPath, Contains_1);
-	Gura_AssignMethod(wx_GraphicsPath, GetBox);
-	Gura_AssignMethod(wx_GraphicsPath, GetBox_1);
-	Gura_AssignMethod(wx_GraphicsPath, GetCurrentPoint);
-	Gura_AssignMethod(wx_GraphicsPath, GetCurrentPoint_1);
-	Gura_AssignMethod(wx_GraphicsPath, GetNativePath);
-	Gura_AssignMethod(wx_GraphicsPath, MoveToPoint);
-	Gura_AssignMethod(wx_GraphicsPath, MoveToPoint_1);
-	Gura_AssignMethod(wx_GraphicsPath, Transform);
-	Gura_AssignMethod(wx_GraphicsPath, UnGetNativePath);
+	Gura_AssignMethod(wx_GraphicsPath, __AddArc);
+	Gura_AssignMethod(wx_GraphicsPath, __AddArc_1);
+	Gura_AssignMethod(wx_GraphicsPath, __AddArcToPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __AddCircle);
+	Gura_AssignMethod(wx_GraphicsPath, __AddCurveToPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __AddCurveToPoint_1);
+	Gura_AssignMethod(wx_GraphicsPath, __AddEllipse);
+	Gura_AssignMethod(wx_GraphicsPath, __AddLineToPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __AddLineToPoint_1);
+	Gura_AssignMethod(wx_GraphicsPath, __AddPath);
+	Gura_AssignMethod(wx_GraphicsPath, __AddQuadCurveToPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __AddRectangle);
+	Gura_AssignMethod(wx_GraphicsPath, __AddRoundedRectangle);
+	Gura_AssignMethod(wx_GraphicsPath, __CloseSubpath);
+	Gura_AssignMethod(wx_GraphicsPath, __Contains);
+	Gura_AssignMethod(wx_GraphicsPath, __Contains_1);
+	Gura_AssignMethod(wx_GraphicsPath, __GetBox);
+	Gura_AssignMethod(wx_GraphicsPath, __GetBox_1);
+	Gura_AssignMethod(wx_GraphicsPath, __GetCurrentPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __GetCurrentPoint_1);
+	Gura_AssignMethod(wx_GraphicsPath, __GetNativePath);
+	Gura_AssignMethod(wx_GraphicsPath, __MoveToPoint);
+	Gura_AssignMethod(wx_GraphicsPath, __MoveToPoint_1);
+	Gura_AssignMethod(wx_GraphicsPath, __Transform);
+	Gura_AssignMethod(wx_GraphicsPath, __UnGetNativePath);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsPath)

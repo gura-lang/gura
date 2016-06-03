@@ -37,13 +37,13 @@ String Object_wx_ZipNotifier::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ZipNotifier, OnEntryUpdated)
+Gura_DeclareMethodAlias(wx_ZipNotifier, __OnEntryUpdated, "OnEntryUpdated")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipNotifier, OnEntryUpdated)
+Gura_ImplementMethod(wx_ZipNotifier, __OnEntryUpdated)
 {
 	Object_wx_ZipNotifier *pThis = Object_wx_ZipNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_ZipNotifier, OnEntryUpdated)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipNotifier)
 {
-	Gura_AssignMethod(wx_ZipNotifier, OnEntryUpdated);
+	Gura_AssignMethod(wx_ZipNotifier, __OnEntryUpdated);
 }
 
 Gura_ImplementDescendantCreator(wx_ZipNotifier)

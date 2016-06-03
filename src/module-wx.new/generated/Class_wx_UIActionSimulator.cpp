@@ -37,12 +37,12 @@ String Object_wx_UIActionSimulator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_UIActionSimulator, wxUIActionSimulator)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __wxUIActionSimulator, "wxUIActionSimulator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, wxUIActionSimulator)
+Gura_ImplementMethod(wx_UIActionSimulator, __wxUIActionSimulator)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_UIActionSimulator, wxUIActionSimulator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseMove)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseMove, "MouseMove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseMove)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseMove)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseMove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseMove_1)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseMove_1, "MouseMove_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseMove_1)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseMove_1)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseMove_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseDown)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseDown, "MouseDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseDown)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseDown)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseUp)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseUp, "MouseUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseUp)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseUp)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseClick)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseClick, "MouseClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseClick)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseClick)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseDblClick)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseDblClick, "MouseDblClick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseDblClick)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseDblClick)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseDblClick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, MouseDragDrop)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __MouseDragDrop, "MouseDragDrop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -152,7 +152,7 @@ Gura_DeclareMethod(wx_UIActionSimulator, MouseDragDrop)
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, MouseDragDrop)
+Gura_ImplementMethod(wx_UIActionSimulator, __MouseDragDrop)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,14 +165,14 @@ Gura_ImplementMethod(wx_UIActionSimulator, MouseDragDrop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, KeyDown)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __KeyDown, "KeyDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keycode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "modifiers", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, KeyDown)
+Gura_ImplementMethod(wx_UIActionSimulator, __KeyDown)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,14 +182,14 @@ Gura_ImplementMethod(wx_UIActionSimulator, KeyDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, KeyUp)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __KeyUp, "KeyUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keycode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "modifiers", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, KeyUp)
+Gura_ImplementMethod(wx_UIActionSimulator, __KeyUp)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,14 +199,14 @@ Gura_ImplementMethod(wx_UIActionSimulator, KeyUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, Char)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __Char, "Char")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keycode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "modifiers", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, Char)
+Gura_ImplementMethod(wx_UIActionSimulator, __Char)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, Char)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, Select)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __Select, "Select")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, Select)
+Gura_ImplementMethod(wx_UIActionSimulator, __Select)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,13 +231,13 @@ Gura_ImplementMethod(wx_UIActionSimulator, Select)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UIActionSimulator, Text)
+Gura_DeclareMethodAlias(wx_UIActionSimulator, __Text, "Text")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UIActionSimulator, Text)
+Gura_ImplementMethod(wx_UIActionSimulator, __Text)
 {
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,19 +251,19 @@ Gura_ImplementMethod(wx_UIActionSimulator, Text)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UIActionSimulator)
 {
-	Gura_AssignMethod(wx_UIActionSimulator, wxUIActionSimulator);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseMove);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseMove_1);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseDown);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseUp);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseClick);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseDblClick);
-	Gura_AssignMethod(wx_UIActionSimulator, MouseDragDrop);
-	Gura_AssignMethod(wx_UIActionSimulator, KeyDown);
-	Gura_AssignMethod(wx_UIActionSimulator, KeyUp);
-	Gura_AssignMethod(wx_UIActionSimulator, Char);
-	Gura_AssignMethod(wx_UIActionSimulator, Select);
-	Gura_AssignMethod(wx_UIActionSimulator, Text);
+	Gura_AssignMethod(wx_UIActionSimulator, __wxUIActionSimulator);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseMove_1);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseDown);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseUp);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseClick);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseDblClick);
+	Gura_AssignMethod(wx_UIActionSimulator, __MouseDragDrop);
+	Gura_AssignMethod(wx_UIActionSimulator, __KeyDown);
+	Gura_AssignMethod(wx_UIActionSimulator, __KeyUp);
+	Gura_AssignMethod(wx_UIActionSimulator, __Char);
+	Gura_AssignMethod(wx_UIActionSimulator, __Select);
+	Gura_AssignMethod(wx_UIActionSimulator, __Text);
 }
 
 Gura_ImplementDescendantCreator(wx_UIActionSimulator)

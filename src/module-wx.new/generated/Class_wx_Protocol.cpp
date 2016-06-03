@@ -37,12 +37,12 @@ String Object_wx_Protocol::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Protocol, Abort)
+Gura_DeclareMethodAlias(wx_Protocol, __Abort, "Abort")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, Abort)
+Gura_ImplementMethod(wx_Protocol, __Abort)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_Protocol, Abort)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, GetContentType)
+Gura_DeclareMethodAlias(wx_Protocol, __GetContentType, "GetContentType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, GetContentType)
+Gura_ImplementMethod(wx_Protocol, __GetContentType)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_Protocol, GetContentType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, GetError)
+Gura_DeclareMethodAlias(wx_Protocol, __GetError, "GetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, GetError)
+Gura_ImplementMethod(wx_Protocol, __GetError)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_Protocol, GetError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, GetInputStream)
+Gura_DeclareMethodAlias(wx_Protocol, __GetInputStream, "GetInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, GetInputStream)
+Gura_ImplementMethod(wx_Protocol, __GetInputStream)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_Protocol, GetInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, Reconnect)
+Gura_DeclareMethodAlias(wx_Protocol, __Reconnect, "Reconnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, Reconnect)
+Gura_ImplementMethod(wx_Protocol, __Reconnect)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Protocol, Reconnect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, SetPassword)
+Gura_DeclareMethodAlias(wx_Protocol, __SetPassword, "SetPassword")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "user", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, SetPassword)
+Gura_ImplementMethod(wx_Protocol, __SetPassword)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_Protocol, SetPassword)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, SetUser)
+Gura_DeclareMethodAlias(wx_Protocol, __SetUser, "SetUser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "user", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, SetUser)
+Gura_ImplementMethod(wx_Protocol, __SetUser)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_Protocol, SetUser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, SetDefaultTimeout)
+Gura_DeclareMethodAlias(wx_Protocol, __SetDefaultTimeout, "SetDefaultTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "Value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, SetDefaultTimeout)
+Gura_ImplementMethod(wx_Protocol, __SetDefaultTimeout)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_Protocol, SetDefaultTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, SetLog)
+Gura_DeclareMethodAlias(wx_Protocol, __SetLog, "SetLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "log", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, SetLog)
+Gura_ImplementMethod(wx_Protocol, __SetLog)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_Protocol, SetLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, GetLog)
+Gura_DeclareMethodAlias(wx_Protocol, __GetLog, "GetLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, GetLog)
+Gura_ImplementMethod(wx_Protocol, __GetLog)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_Protocol, GetLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, DetachLog)
+Gura_DeclareMethodAlias(wx_Protocol, __DetachLog, "DetachLog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Protocol, DetachLog)
+Gura_ImplementMethod(wx_Protocol, __DetachLog)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,13 +190,13 @@ Gura_ImplementMethod(wx_Protocol, DetachLog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, LogRequest)
+Gura_DeclareMethodAlias(wx_Protocol, __LogRequest, "LogRequest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, LogRequest)
+Gura_ImplementMethod(wx_Protocol, __LogRequest)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_Protocol, LogRequest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Protocol, LogResponse)
+Gura_DeclareMethodAlias(wx_Protocol, __LogResponse, "LogResponse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Protocol, LogResponse)
+Gura_ImplementMethod(wx_Protocol, __LogResponse)
 {
 	Object_wx_Protocol *pThis = Object_wx_Protocol::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,19 +225,19 @@ Gura_ImplementMethod(wx_Protocol, LogResponse)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Protocol)
 {
-	Gura_AssignMethod(wx_Protocol, Abort);
-	Gura_AssignMethod(wx_Protocol, GetContentType);
-	Gura_AssignMethod(wx_Protocol, GetError);
-	Gura_AssignMethod(wx_Protocol, GetInputStream);
-	Gura_AssignMethod(wx_Protocol, Reconnect);
-	Gura_AssignMethod(wx_Protocol, SetPassword);
-	Gura_AssignMethod(wx_Protocol, SetUser);
-	Gura_AssignMethod(wx_Protocol, SetDefaultTimeout);
-	Gura_AssignMethod(wx_Protocol, SetLog);
-	Gura_AssignMethod(wx_Protocol, GetLog);
-	Gura_AssignMethod(wx_Protocol, DetachLog);
-	Gura_AssignMethod(wx_Protocol, LogRequest);
-	Gura_AssignMethod(wx_Protocol, LogResponse);
+	Gura_AssignMethod(wx_Protocol, __Abort);
+	Gura_AssignMethod(wx_Protocol, __GetContentType);
+	Gura_AssignMethod(wx_Protocol, __GetError);
+	Gura_AssignMethod(wx_Protocol, __GetInputStream);
+	Gura_AssignMethod(wx_Protocol, __Reconnect);
+	Gura_AssignMethod(wx_Protocol, __SetPassword);
+	Gura_AssignMethod(wx_Protocol, __SetUser);
+	Gura_AssignMethod(wx_Protocol, __SetDefaultTimeout);
+	Gura_AssignMethod(wx_Protocol, __SetLog);
+	Gura_AssignMethod(wx_Protocol, __GetLog);
+	Gura_AssignMethod(wx_Protocol, __DetachLog);
+	Gura_AssignMethod(wx_Protocol, __LogRequest);
+	Gura_AssignMethod(wx_Protocol, __LogResponse);
 }
 
 Gura_ImplementDescendantCreator(wx_Protocol)

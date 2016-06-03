@@ -37,7 +37,7 @@ String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AnimationCtrl, wxAnimationCtrl)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __wxAnimationCtrl, "wxAnimationCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_AnimationCtrl, wxAnimationCtrl)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, wxAnimationCtrl)
+Gura_ImplementMethod(wx_AnimationCtrl, __wxAnimationCtrl)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, wxAnimationCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, Create)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_AnimationCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, Create)
+Gura_ImplementMethod(wx_AnimationCtrl, __Create)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_AnimationCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, GetAnimation)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __GetAnimation, "GetAnimation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
+Gura_ImplementMethod(wx_AnimationCtrl, __GetAnimation)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetAnimation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, GetInactiveBitmap)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __GetInactiveBitmap, "GetInactiveBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
+Gura_ImplementMethod(wx_AnimationCtrl, __GetInactiveBitmap)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_AnimationCtrl, GetInactiveBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, IsPlaying)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __IsPlaying, "IsPlaying")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
+Gura_ImplementMethod(wx_AnimationCtrl, __IsPlaying)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,14 +130,14 @@ Gura_ImplementMethod(wx_AnimationCtrl, IsPlaying)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, LoadFile)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "animType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
+Gura_ImplementMethod(wx_AnimationCtrl, __LoadFile)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,14 +147,14 @@ Gura_ImplementMethod(wx_AnimationCtrl, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, Load)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __Load, "Load")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "animType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, Load)
+Gura_ImplementMethod(wx_AnimationCtrl, __Load)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_AnimationCtrl, Load)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, Play)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __Play, "Play")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, Play)
+Gura_ImplementMethod(wx_AnimationCtrl, __Play)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_AnimationCtrl, Play)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, SetAnimation)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __SetAnimation, "SetAnimation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
+Gura_ImplementMethod(wx_AnimationCtrl, __SetAnimation)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_AnimationCtrl, SetAnimation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, SetInactiveBitmap)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __SetInactiveBitmap, "SetInactiveBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
+Gura_ImplementMethod(wx_AnimationCtrl, __SetInactiveBitmap)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,12 +207,12 @@ Gura_ImplementMethod(wx_AnimationCtrl, SetInactiveBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnimationCtrl, Stop)
+Gura_DeclareMethodAlias(wx_AnimationCtrl, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnimationCtrl, Stop)
+Gura_ImplementMethod(wx_AnimationCtrl, __Stop)
 {
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,17 +225,17 @@ Gura_ImplementMethod(wx_AnimationCtrl, Stop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnimationCtrl)
 {
-	Gura_AssignMethod(wx_AnimationCtrl, wxAnimationCtrl);
-	Gura_AssignMethod(wx_AnimationCtrl, Create);
-	Gura_AssignMethod(wx_AnimationCtrl, GetAnimation);
-	Gura_AssignMethod(wx_AnimationCtrl, GetInactiveBitmap);
-	Gura_AssignMethod(wx_AnimationCtrl, IsPlaying);
-	Gura_AssignMethod(wx_AnimationCtrl, LoadFile);
-	Gura_AssignMethod(wx_AnimationCtrl, Load);
-	Gura_AssignMethod(wx_AnimationCtrl, Play);
-	Gura_AssignMethod(wx_AnimationCtrl, SetAnimation);
-	Gura_AssignMethod(wx_AnimationCtrl, SetInactiveBitmap);
-	Gura_AssignMethod(wx_AnimationCtrl, Stop);
+	Gura_AssignMethod(wx_AnimationCtrl, __wxAnimationCtrl);
+	Gura_AssignMethod(wx_AnimationCtrl, __Create);
+	Gura_AssignMethod(wx_AnimationCtrl, __GetAnimation);
+	Gura_AssignMethod(wx_AnimationCtrl, __GetInactiveBitmap);
+	Gura_AssignMethod(wx_AnimationCtrl, __IsPlaying);
+	Gura_AssignMethod(wx_AnimationCtrl, __LoadFile);
+	Gura_AssignMethod(wx_AnimationCtrl, __Load);
+	Gura_AssignMethod(wx_AnimationCtrl, __Play);
+	Gura_AssignMethod(wx_AnimationCtrl, __SetAnimation);
+	Gura_AssignMethod(wx_AnimationCtrl, __SetInactiveBitmap);
+	Gura_AssignMethod(wx_AnimationCtrl, __Stop);
 }
 
 Gura_ImplementDescendantCreator(wx_AnimationCtrl)

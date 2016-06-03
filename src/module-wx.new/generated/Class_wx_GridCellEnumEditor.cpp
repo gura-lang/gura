@@ -37,13 +37,13 @@ String Object_wx_GridCellEnumEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor)
+Gura_DeclareMethodAlias(wx_GridCellEnumEditor, __wxGridCellEnumEditor, "wxGridCellEnumEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor)
+Gura_ImplementMethod(wx_GridCellEnumEditor, __wxGridCellEnumEditor)
 {
 	Object_wx_GridCellEnumEditor *pThis = Object_wx_GridCellEnumEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellEnumEditor)
 {
-	Gura_AssignMethod(wx_GridCellEnumEditor, wxGridCellEnumEditor);
+	Gura_AssignMethod(wx_GridCellEnumEditor, __wxGridCellEnumEditor);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellEnumEditor)

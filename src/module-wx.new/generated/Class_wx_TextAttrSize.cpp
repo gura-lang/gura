@@ -37,12 +37,12 @@ String Object_wx_TextAttrSize::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextAttrSize, wxTextAttrSize)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __wxTextAttrSize, "wxTextAttrSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, wxTextAttrSize)
+Gura_ImplementMethod(wx_TextAttrSize, __wxTextAttrSize)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_TextAttrSize, wxTextAttrSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, Reset)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, Reset)
+Gura_ImplementMethod(wx_TextAttrSize, __Reset)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,14 +63,14 @@ Gura_ImplementMethod(wx_TextAttrSize, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, EqPartial)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __EqPartial, "EqPartial")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, EqPartial)
+Gura_ImplementMethod(wx_TextAttrSize, __EqPartial)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_TextAttrSize, EqPartial)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, Apply)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __Apply, "Apply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dims", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, Apply)
+Gura_ImplementMethod(wx_TextAttrSize, __Apply)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_TextAttrSize, Apply)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, CollectCommonAttributes)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __CollectCommonAttributes, "CollectCommonAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_TextAttrSize, CollectCommonAttributes)
 	//DeclareArg(env, "absentAttr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, CollectCommonAttributes)
+Gura_ImplementMethod(wx_TextAttrSize, __CollectCommonAttributes)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,13 +116,13 @@ Gura_ImplementMethod(wx_TextAttrSize, CollectCommonAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, RemoveStyle)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __RemoveStyle, "RemoveStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, RemoveStyle)
+Gura_ImplementMethod(wx_TextAttrSize, __RemoveStyle)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,12 +131,12 @@ Gura_ImplementMethod(wx_TextAttrSize, RemoveStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, GetWidth)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, GetWidth)
+Gura_ImplementMethod(wx_TextAttrSize, __GetWidth)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,12 +144,12 @@ Gura_ImplementMethod(wx_TextAttrSize, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, GetWidth_1)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __GetWidth_1, "GetWidth_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, GetWidth_1)
+Gura_ImplementMethod(wx_TextAttrSize, __GetWidth_1)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,14 +157,14 @@ Gura_ImplementMethod(wx_TextAttrSize, GetWidth_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetWidth)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetWidth, "SetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetWidth)
+Gura_ImplementMethod(wx_TextAttrSize, __SetWidth)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,14 +174,14 @@ Gura_ImplementMethod(wx_TextAttrSize, SetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetWidth_1)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetWidth_1, "SetWidth_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetWidth_1)
+Gura_ImplementMethod(wx_TextAttrSize, __SetWidth_1)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_TextAttrSize, SetWidth_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetWidth_2)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetWidth_2, "SetWidth_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetWidth_2)
+Gura_ImplementMethod(wx_TextAttrSize, __SetWidth_2)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_TextAttrSize, SetWidth_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, GetHeight)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __GetHeight, "GetHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, GetHeight)
+Gura_ImplementMethod(wx_TextAttrSize, __GetHeight)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,12 +219,12 @@ Gura_ImplementMethod(wx_TextAttrSize, GetHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, GetHeight_1)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __GetHeight_1, "GetHeight_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, GetHeight_1)
+Gura_ImplementMethod(wx_TextAttrSize, __GetHeight_1)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,14 +232,14 @@ Gura_ImplementMethod(wx_TextAttrSize, GetHeight_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetHeight)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetHeight, "SetHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetHeight)
+Gura_ImplementMethod(wx_TextAttrSize, __SetHeight)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,14 +249,14 @@ Gura_ImplementMethod(wx_TextAttrSize, SetHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetHeight_1)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetHeight_1, "SetHeight_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetHeight_1)
+Gura_ImplementMethod(wx_TextAttrSize, __SetHeight_1)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,13 +266,13 @@ Gura_ImplementMethod(wx_TextAttrSize, SetHeight_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, SetHeight_2)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __SetHeight_2, "SetHeight_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, SetHeight_2)
+Gura_ImplementMethod(wx_TextAttrSize, __SetHeight_2)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -281,12 +281,12 @@ Gura_ImplementMethod(wx_TextAttrSize, SetHeight_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrSize, IsValid)
+Gura_DeclareMethodAlias(wx_TextAttrSize, __IsValid, "IsValid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrSize, IsValid)
+Gura_ImplementMethod(wx_TextAttrSize, __IsValid)
 {
 	Object_wx_TextAttrSize *pThis = Object_wx_TextAttrSize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -299,23 +299,23 @@ Gura_ImplementMethod(wx_TextAttrSize, IsValid)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrSize)
 {
-	Gura_AssignMethod(wx_TextAttrSize, wxTextAttrSize);
-	Gura_AssignMethod(wx_TextAttrSize, Reset);
-	Gura_AssignMethod(wx_TextAttrSize, EqPartial);
-	Gura_AssignMethod(wx_TextAttrSize, Apply);
-	Gura_AssignMethod(wx_TextAttrSize, CollectCommonAttributes);
-	Gura_AssignMethod(wx_TextAttrSize, RemoveStyle);
-	Gura_AssignMethod(wx_TextAttrSize, GetWidth);
-	Gura_AssignMethod(wx_TextAttrSize, GetWidth_1);
-	Gura_AssignMethod(wx_TextAttrSize, SetWidth);
-	Gura_AssignMethod(wx_TextAttrSize, SetWidth_1);
-	Gura_AssignMethod(wx_TextAttrSize, SetWidth_2);
-	Gura_AssignMethod(wx_TextAttrSize, GetHeight);
-	Gura_AssignMethod(wx_TextAttrSize, GetHeight_1);
-	Gura_AssignMethod(wx_TextAttrSize, SetHeight);
-	Gura_AssignMethod(wx_TextAttrSize, SetHeight_1);
-	Gura_AssignMethod(wx_TextAttrSize, SetHeight_2);
-	Gura_AssignMethod(wx_TextAttrSize, IsValid);
+	Gura_AssignMethod(wx_TextAttrSize, __wxTextAttrSize);
+	Gura_AssignMethod(wx_TextAttrSize, __Reset);
+	Gura_AssignMethod(wx_TextAttrSize, __EqPartial);
+	Gura_AssignMethod(wx_TextAttrSize, __Apply);
+	Gura_AssignMethod(wx_TextAttrSize, __CollectCommonAttributes);
+	Gura_AssignMethod(wx_TextAttrSize, __RemoveStyle);
+	Gura_AssignMethod(wx_TextAttrSize, __GetWidth);
+	Gura_AssignMethod(wx_TextAttrSize, __GetWidth_1);
+	Gura_AssignMethod(wx_TextAttrSize, __SetWidth);
+	Gura_AssignMethod(wx_TextAttrSize, __SetWidth_1);
+	Gura_AssignMethod(wx_TextAttrSize, __SetWidth_2);
+	Gura_AssignMethod(wx_TextAttrSize, __GetHeight);
+	Gura_AssignMethod(wx_TextAttrSize, __GetHeight_1);
+	Gura_AssignMethod(wx_TextAttrSize, __SetHeight);
+	Gura_AssignMethod(wx_TextAttrSize, __SetHeight_1);
+	Gura_AssignMethod(wx_TextAttrSize, __SetHeight_2);
+	Gura_AssignMethod(wx_TextAttrSize, __IsValid);
 }
 
 Gura_ImplementDescendantCreator(wx_TextAttrSize)

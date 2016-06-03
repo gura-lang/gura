@@ -37,12 +37,12 @@ String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GenericDirCtrl, wxGenericDirCtrl)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __wxGenericDirCtrl, "wxGenericDirCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, wxGenericDirCtrl)
+Gura_ImplementMethod(wx_GenericDirCtrl, __wxGenericDirCtrl)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, wxGenericDirCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, wxGenericDirCtrl_1)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __wxGenericDirCtrl_1, "wxGenericDirCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, wxGenericDirCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, wxGenericDirCtrl_1)
+Gura_ImplementMethod(wx_GenericDirCtrl, __wxGenericDirCtrl_1)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,13 +81,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, wxGenericDirCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, CollapsePath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __CollapsePath, "CollapsePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, CollapsePath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __CollapsePath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,12 +96,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, CollapsePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, CollapseTree)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __CollapseTree, "CollapseTree")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, CollapseTree)
+Gura_ImplementMethod(wx_GenericDirCtrl, __CollapseTree)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, CollapseTree)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, Create)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_DeclareMethod(wx_GenericDirCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, Create)
+Gura_ImplementMethod(wx_GenericDirCtrl, __Create)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, ExpandPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __ExpandPath, "ExpandPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, ExpandPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __ExpandPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, ExpandPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetDefaultPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetDefaultPath, "GetDefaultPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetDefaultPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetDefaultPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetDefaultPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetFilePath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetFilePath, "GetFilePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilePath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetFilePaths)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetFilePaths, "GetFilePaths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePaths)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilePaths)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilePaths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetFilter)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetFilter, "GetFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetFilter)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilter)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,12 +209,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterIndex)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetFilterIndex, "GetFilterIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterIndex)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilterIndex)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetFilterListCtrl)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetFilterListCtrl, "GetFilterListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterListCtrl)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilterListCtrl)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,12 +235,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetFilterListCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetPath_1)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetPath_1, "GetPath_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "itemId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetPath_1)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetPath_1)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,13 +263,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetPath_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetPaths)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetPaths, "GetPaths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetPaths)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetPaths)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,12 +278,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetPaths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetRootId)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetRootId, "GetRootId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetRootId)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetRootId)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,12 +291,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetRootId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, GetTreeCtrl)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __GetTreeCtrl, "GetTreeCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, GetTreeCtrl)
+Gura_ImplementMethod(wx_GenericDirCtrl, __GetTreeCtrl)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,12 +304,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, GetTreeCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, Init)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, Init)
+Gura_ImplementMethod(wx_GenericDirCtrl, __Init)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,12 +317,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, ReCreateTree)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __ReCreateTree, "ReCreateTree")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, ReCreateTree)
+Gura_ImplementMethod(wx_GenericDirCtrl, __ReCreateTree)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, ReCreateTree)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SetDefaultPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SetDefaultPath, "SetDefaultPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SetDefaultPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SetDefaultPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -345,13 +345,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetDefaultPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SetFilter)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SetFilter, "SetFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SetFilter)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SetFilter)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,13 +360,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetFilter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SetFilterIndex)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SetFilterIndex, "SetFilterIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SetFilterIndex)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SetFilterIndex)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,13 +375,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetFilterIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SetPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SetPath, "SetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SetPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SetPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,13 +390,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, ShowHidden)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __ShowHidden, "ShowHidden")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, ShowHidden)
+Gura_ImplementMethod(wx_GenericDirCtrl, __ShowHidden)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -405,14 +405,14 @@ Gura_ImplementMethod(wx_GenericDirCtrl, ShowHidden)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SelectPath)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SelectPath, "SelectPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "select", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SelectPath)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SelectPath)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -422,13 +422,13 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SelectPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, SelectPaths)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __SelectPaths, "SelectPaths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, SelectPaths)
+Gura_ImplementMethod(wx_GenericDirCtrl, __SelectPaths)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -437,12 +437,12 @@ Gura_ImplementMethod(wx_GenericDirCtrl, SelectPaths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GenericDirCtrl, UnselectAll)
+Gura_DeclareMethodAlias(wx_GenericDirCtrl, __UnselectAll, "UnselectAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GenericDirCtrl, UnselectAll)
+Gura_ImplementMethod(wx_GenericDirCtrl, __UnselectAll)
 {
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -455,33 +455,33 @@ Gura_ImplementMethod(wx_GenericDirCtrl, UnselectAll)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GenericDirCtrl)
 {
-	Gura_AssignMethod(wx_GenericDirCtrl, wxGenericDirCtrl);
-	Gura_AssignMethod(wx_GenericDirCtrl, wxGenericDirCtrl_1);
-	Gura_AssignMethod(wx_GenericDirCtrl, CollapsePath);
-	Gura_AssignMethod(wx_GenericDirCtrl, CollapseTree);
-	Gura_AssignMethod(wx_GenericDirCtrl, Create);
-	Gura_AssignMethod(wx_GenericDirCtrl, ExpandPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetDefaultPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetFilePath);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetFilePaths);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetFilter);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetFilterIndex);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetFilterListCtrl);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetPath_1);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetPaths);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetRootId);
-	Gura_AssignMethod(wx_GenericDirCtrl, GetTreeCtrl);
-	Gura_AssignMethod(wx_GenericDirCtrl, Init);
-	Gura_AssignMethod(wx_GenericDirCtrl, ReCreateTree);
-	Gura_AssignMethod(wx_GenericDirCtrl, SetDefaultPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, SetFilter);
-	Gura_AssignMethod(wx_GenericDirCtrl, SetFilterIndex);
-	Gura_AssignMethod(wx_GenericDirCtrl, SetPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, ShowHidden);
-	Gura_AssignMethod(wx_GenericDirCtrl, SelectPath);
-	Gura_AssignMethod(wx_GenericDirCtrl, SelectPaths);
-	Gura_AssignMethod(wx_GenericDirCtrl, UnselectAll);
+	Gura_AssignMethod(wx_GenericDirCtrl, __wxGenericDirCtrl);
+	Gura_AssignMethod(wx_GenericDirCtrl, __wxGenericDirCtrl_1);
+	Gura_AssignMethod(wx_GenericDirCtrl, __CollapsePath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __CollapseTree);
+	Gura_AssignMethod(wx_GenericDirCtrl, __Create);
+	Gura_AssignMethod(wx_GenericDirCtrl, __ExpandPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetDefaultPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetFilePath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetFilePaths);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetFilter);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetFilterIndex);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetFilterListCtrl);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetPath_1);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetPaths);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetRootId);
+	Gura_AssignMethod(wx_GenericDirCtrl, __GetTreeCtrl);
+	Gura_AssignMethod(wx_GenericDirCtrl, __Init);
+	Gura_AssignMethod(wx_GenericDirCtrl, __ReCreateTree);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SetDefaultPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SetFilter);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SetFilterIndex);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SetPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __ShowHidden);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SelectPath);
+	Gura_AssignMethod(wx_GenericDirCtrl, __SelectPaths);
+	Gura_AssignMethod(wx_GenericDirCtrl, __UnselectAll);
 }
 
 Gura_ImplementDescendantCreator(wx_GenericDirCtrl)

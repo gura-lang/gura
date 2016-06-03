@@ -37,14 +37,14 @@ String Object_wx_MediaEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MediaEvent, wxMediaEvent)
+Gura_DeclareMethodAlias(wx_MediaEvent, __wxMediaEvent, "wxMediaEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MediaEvent, wxMediaEvent)
+Gura_ImplementMethod(wx_MediaEvent, __wxMediaEvent)
 {
 	Object_wx_MediaEvent *pThis = Object_wx_MediaEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_MediaEvent, wxMediaEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MediaEvent)
 {
-	Gura_AssignMethod(wx_MediaEvent, wxMediaEvent);
+	Gura_AssignMethod(wx_MediaEvent, __wxMediaEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MediaEvent)

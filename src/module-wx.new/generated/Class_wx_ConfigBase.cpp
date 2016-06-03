@@ -37,7 +37,7 @@ String Object_wx_ConfigBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ConfigBase, wxConfigBase)
+Gura_DeclareMethodAlias(wx_ConfigBase, __wxConfigBase, "wxConfigBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_ConfigBase, wxConfigBase)
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, wxConfigBase)
+Gura_ImplementMethod(wx_ConfigBase, __wxConfigBase)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,12 +62,12 @@ Gura_ImplementMethod(wx_ConfigBase, wxConfigBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetPath)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetPath)
+Gura_ImplementMethod(wx_ConfigBase, __GetPath)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,13 +75,13 @@ Gura_ImplementMethod(wx_ConfigBase, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, SetPath)
+Gura_DeclareMethodAlias(wx_ConfigBase, __SetPath, "SetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strPath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, SetPath)
+Gura_ImplementMethod(wx_ConfigBase, __SetPath)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,14 +90,14 @@ Gura_ImplementMethod(wx_ConfigBase, SetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetFirstEntry)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetFirstEntry, "GetFirstEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetFirstEntry)
+Gura_ImplementMethod(wx_ConfigBase, __GetFirstEntry)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,14 +107,14 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetFirstGroup)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetFirstGroup, "GetFirstGroup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetFirstGroup)
+Gura_ImplementMethod(wx_ConfigBase, __GetFirstGroup)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -124,14 +124,14 @@ Gura_ImplementMethod(wx_ConfigBase, GetFirstGroup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetNextEntry)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetNextEntry, "GetNextEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetNextEntry)
+Gura_ImplementMethod(wx_ConfigBase, __GetNextEntry)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,14 +141,14 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetNextGroup)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetNextGroup, "GetNextGroup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetNextGroup)
+Gura_ImplementMethod(wx_ConfigBase, __GetNextGroup)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_ConfigBase, GetNextGroup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetNumberOfEntries)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetNumberOfEntries, "GetNumberOfEntries")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetNumberOfEntries)
+Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfEntries)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfEntries)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigBase, GetNumberOfGroups)
+Gura_DeclareMethodAlias(wx_ConfigBase, __GetNumberOfGroups, "GetNumberOfGroups")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigBase, GetNumberOfGroups)
+Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfGroups)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,15 +193,15 @@ Gura_ImplementMethod(wx_ConfigBase, GetNumberOfGroups)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConfigBase)
 {
-	Gura_AssignMethod(wx_ConfigBase, wxConfigBase);
-	Gura_AssignMethod(wx_ConfigBase, GetPath);
-	Gura_AssignMethod(wx_ConfigBase, SetPath);
-	Gura_AssignMethod(wx_ConfigBase, GetFirstEntry);
-	Gura_AssignMethod(wx_ConfigBase, GetFirstGroup);
-	Gura_AssignMethod(wx_ConfigBase, GetNextEntry);
-	Gura_AssignMethod(wx_ConfigBase, GetNextGroup);
-	Gura_AssignMethod(wx_ConfigBase, GetNumberOfEntries);
-	Gura_AssignMethod(wx_ConfigBase, GetNumberOfGroups);
+	Gura_AssignMethod(wx_ConfigBase, __wxConfigBase);
+	Gura_AssignMethod(wx_ConfigBase, __GetPath);
+	Gura_AssignMethod(wx_ConfigBase, __SetPath);
+	Gura_AssignMethod(wx_ConfigBase, __GetFirstEntry);
+	Gura_AssignMethod(wx_ConfigBase, __GetFirstGroup);
+	Gura_AssignMethod(wx_ConfigBase, __GetNextEntry);
+	Gura_AssignMethod(wx_ConfigBase, __GetNextGroup);
+	Gura_AssignMethod(wx_ConfigBase, __GetNumberOfEntries);
+	Gura_AssignMethod(wx_ConfigBase, __GetNumberOfGroups);
 }
 
 Gura_ImplementDescendantCreator(wx_ConfigBase)

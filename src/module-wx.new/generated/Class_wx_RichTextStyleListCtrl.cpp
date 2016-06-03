@@ -37,7 +37,7 @@ String Object_wx_RichTextStyleListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl, "wxRichTextStyleListCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,12 +60,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl_1)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1, "wxRichTextStyleListCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl_1)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, Create)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareMethod(wx_RichTextStyleListCtrl, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, Create)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __Create)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,12 +96,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetRichTextCtrl, "GetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetRichTextCtrl)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,12 +109,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleChoice, "GetStyleChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleChoice)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleListBox, "GetStyleListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleListBox)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,12 +135,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleSheet, "GetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleSheet)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, GetStyleType)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleType, "GetStyleType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleType)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleType)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, GetStyleType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __SetRichTextCtrl, "SetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetRichTextCtrl)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,13 +176,13 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __SetStyleSheet, "SetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "styleSheet", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleSheet)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, SetStyleType)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __SetStyleType, "SetStyleType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "styleType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleType)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleType)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, SetStyleType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleListCtrl, UpdateStyles)
+Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __UpdateStyles, "UpdateStyles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleListCtrl, UpdateStyles)
+Gura_ImplementMethod(wx_RichTextStyleListCtrl, __UpdateStyles)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,18 +224,18 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, UpdateStyles)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleListCtrl)
 {
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, wxRichTextStyleListCtrl_1);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, Create);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetStyleChoice);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetStyleListBox);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, GetStyleType);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, SetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, SetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, SetStyleType);
-	Gura_AssignMethod(wx_RichTextStyleListCtrl, UpdateStyles);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __wxRichTextStyleListCtrl_1);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __Create);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetStyleChoice);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetStyleListBox);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __GetStyleType);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __SetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __SetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __SetStyleType);
+	Gura_AssignMethod(wx_RichTextStyleListCtrl, __UpdateStyles);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleListCtrl)

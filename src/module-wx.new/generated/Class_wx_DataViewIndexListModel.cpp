@@ -37,13 +37,13 @@ String Object_wx_DataViewIndexListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewIndexListModel, wxDataViewIndexListModel)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __wxDataViewIndexListModel, "wxDataViewIndexListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, wxDataViewIndexListModel)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __wxDataViewIndexListModel)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, wxDataViewIndexListModel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, GetItem)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, GetItem)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __GetItem)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, Reset)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "new_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, Reset)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __Reset)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowAppended)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowAppended, "RowAppended")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowAppended)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowAppended)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowAppended)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowChanged)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowChanged, "RowChanged")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowChanged)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowChanged)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowChanged)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowDeleted)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowDeleted, "RowDeleted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowDeleted)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowDeleted)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowDeleted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowInserted)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowInserted, "RowInserted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowInserted)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowInserted)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowInserted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowPrepended)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowPrepended, "RowPrepended")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowPrepended)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowPrepended)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,14 +153,14 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowPrepended)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowValueChanged)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowValueChanged, "RowValueChanged")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowValueChanged)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowValueChanged)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowValueChanged)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIndexListModel, RowsDeleted)
+Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __RowsDeleted, "RowsDeleted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIndexListModel, RowsDeleted)
+Gura_ImplementMethod(wx_DataViewIndexListModel, __RowsDeleted)
 {
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,16 +190,16 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, RowsDeleted)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIndexListModel)
 {
-	Gura_AssignMethod(wx_DataViewIndexListModel, wxDataViewIndexListModel);
-	Gura_AssignMethod(wx_DataViewIndexListModel, GetItem);
-	Gura_AssignMethod(wx_DataViewIndexListModel, Reset);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowAppended);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowChanged);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowDeleted);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowInserted);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowPrepended);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowValueChanged);
-	Gura_AssignMethod(wx_DataViewIndexListModel, RowsDeleted);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __wxDataViewIndexListModel);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __GetItem);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __Reset);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowAppended);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowChanged);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowDeleted);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowInserted);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowPrepended);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowValueChanged);
+	Gura_AssignMethod(wx_DataViewIndexListModel, __RowsDeleted);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewIndexListModel)

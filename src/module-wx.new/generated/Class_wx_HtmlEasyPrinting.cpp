@@ -37,14 +37,14 @@ String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlEasyPrinting, wxHtmlEasyPrinting)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __wxHtmlEasyPrinting, "wxHtmlEasyPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, wxHtmlEasyPrinting)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __wxHtmlEasyPrinting)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, wxHtmlEasyPrinting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, GetName)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, GetName)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetName)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPageSetupData)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetPageSetupData, "GetPageSetupData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPageSetupData)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetPageSetupData)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPageSetupData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, GetParentWindow)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetParentWindow, "GetParentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, GetParentWindow)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetParentWindow)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetParentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, GetPrintData)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetPrintData, "GetPrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPrintData)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetPrintData)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, GetPrintData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, PageSetup)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PageSetup, "PageSetup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, PageSetup)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __PageSetup)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PageSetup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, PreviewFile)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PreviewFile, "PreviewFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "htmlfile", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewFile)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewFile)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,14 +134,14 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, PreviewText)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PreviewText, "PreviewText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "htmltext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewText)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewText)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,13 +151,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PreviewText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, PrintFile)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PrintFile, "PrintFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "htmlfile", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintFile)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintFile)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, PrintText)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PrintText, "PrintText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "htmltext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintText)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintText)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, PrintText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFonts)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetFonts, "SetFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normal_face", VTYPE_number, OCCUR_Once);
@@ -191,7 +191,7 @@ Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFonts)
 	//DeclareArg(env, "sizes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetFonts)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetName)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetName)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetName)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetStandardFonts)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetStandardFonts, "SetStandardFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -225,7 +225,7 @@ Gura_DeclareMethod(wx_HtmlEasyPrinting, SetStandardFonts)
 	//DeclareArg(env, "fixed_face", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetStandardFonts)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetStandardFonts)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,14 +236,14 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetStandardFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetFooter)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetFooter, "SetFooter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "footer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFooter)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetFooter)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,14 +253,14 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetFooter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetHeader)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetHeader, "SetHeader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetHeader)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetHeader)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetHeader)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, SetParentWindow)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __SetParentWindow, "SetParentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, SetParentWindow)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetParentWindow)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,14 +285,14 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, SetParentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlEasyPrinting, CheckFit)
+Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __CheckFit, "CheckFit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageArea", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "docArea", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlEasyPrinting, CheckFit)
+Gura_ImplementMethod(wx_HtmlEasyPrinting, __CheckFit)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -307,23 +307,23 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, CheckFit)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlEasyPrinting)
 {
-	Gura_AssignMethod(wx_HtmlEasyPrinting, wxHtmlEasyPrinting);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, GetName);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, GetPageSetupData);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, GetParentWindow);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, GetPrintData);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, PageSetup);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, PreviewFile);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, PreviewText);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, PrintFile);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, PrintText);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetFonts);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetName);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetStandardFonts);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetFooter);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetHeader);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, SetParentWindow);
-	Gura_AssignMethod(wx_HtmlEasyPrinting, CheckFit);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __wxHtmlEasyPrinting);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetName);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetPageSetupData);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetParentWindow);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __GetPrintData);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __PageSetup);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __PreviewFile);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __PreviewText);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __PrintFile);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __PrintText);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetFonts);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetName);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetStandardFonts);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetFooter);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetHeader);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __SetParentWindow);
+	Gura_AssignMethod(wx_HtmlEasyPrinting, __CheckFit);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlEasyPrinting)

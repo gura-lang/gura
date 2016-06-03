@@ -37,7 +37,7 @@ String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PreviewControlBar, wxPreviewControlBar)
+Gura_DeclareMethodAlias(wx_PreviewControlBar, __wxPreviewControlBar, "wxPreviewControlBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_PreviewControlBar, wxPreviewControlBar)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewControlBar, wxPreviewControlBar)
+Gura_ImplementMethod(wx_PreviewControlBar, __wxPreviewControlBar)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,12 +64,12 @@ Gura_ImplementMethod(wx_PreviewControlBar, wxPreviewControlBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewControlBar, CreateButtons)
+Gura_DeclareMethodAlias(wx_PreviewControlBar, __CreateButtons, "CreateButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
+Gura_ImplementMethod(wx_PreviewControlBar, __CreateButtons)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,12 +77,12 @@ Gura_ImplementMethod(wx_PreviewControlBar, CreateButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewControlBar, GetPrintPreview)
+Gura_DeclareMethodAlias(wx_PreviewControlBar, __GetPrintPreview, "GetPrintPreview")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
+Gura_ImplementMethod(wx_PreviewControlBar, __GetPrintPreview)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,12 +90,12 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetPrintPreview)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewControlBar, GetZoomControl)
+Gura_DeclareMethodAlias(wx_PreviewControlBar, __GetZoomControl, "GetZoomControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreviewControlBar, GetZoomControl)
+Gura_ImplementMethod(wx_PreviewControlBar, __GetZoomControl)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,13 +103,13 @@ Gura_ImplementMethod(wx_PreviewControlBar, GetZoomControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreviewControlBar, SetZoomControl)
+Gura_DeclareMethodAlias(wx_PreviewControlBar, __SetZoomControl, "SetZoomControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "percent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreviewControlBar, SetZoomControl)
+Gura_ImplementMethod(wx_PreviewControlBar, __SetZoomControl)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,11 +123,11 @@ Gura_ImplementMethod(wx_PreviewControlBar, SetZoomControl)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreviewControlBar)
 {
-	Gura_AssignMethod(wx_PreviewControlBar, wxPreviewControlBar);
-	Gura_AssignMethod(wx_PreviewControlBar, CreateButtons);
-	Gura_AssignMethod(wx_PreviewControlBar, GetPrintPreview);
-	Gura_AssignMethod(wx_PreviewControlBar, GetZoomControl);
-	Gura_AssignMethod(wx_PreviewControlBar, SetZoomControl);
+	Gura_AssignMethod(wx_PreviewControlBar, __wxPreviewControlBar);
+	Gura_AssignMethod(wx_PreviewControlBar, __CreateButtons);
+	Gura_AssignMethod(wx_PreviewControlBar, __GetPrintPreview);
+	Gura_AssignMethod(wx_PreviewControlBar, __GetZoomControl);
+	Gura_AssignMethod(wx_PreviewControlBar, __SetZoomControl);
 }
 
 Gura_ImplementDescendantCreator(wx_PreviewControlBar)

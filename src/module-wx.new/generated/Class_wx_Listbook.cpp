@@ -37,12 +37,12 @@ String Object_wx_Listbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Listbook, wxListbook)
+Gura_DeclareMethodAlias(wx_Listbook, __wxListbook, "wxListbook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Listbook, wxListbook)
+Gura_ImplementMethod(wx_Listbook, __wxListbook)
 {
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Listbook, wxListbook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Listbook, wxListbook_1)
+Gura_DeclareMethodAlias(wx_Listbook, __wxListbook_1, "wxListbook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Listbook, wxListbook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Listbook, wxListbook_1)
+Gura_ImplementMethod(wx_Listbook, __wxListbook_1)
 {
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Listbook, wxListbook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Listbook, Create)
+Gura_DeclareMethodAlias(wx_Listbook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Listbook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Listbook, Create)
+Gura_ImplementMethod(wx_Listbook, __Create)
 {
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_Listbook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Listbook, GetListView)
+Gura_DeclareMethodAlias(wx_Listbook, __GetListView, "GetListView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Listbook, GetListView)
+Gura_ImplementMethod(wx_Listbook, __GetListView)
 {
 	Object_wx_Listbook *pThis = Object_wx_Listbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,10 +118,10 @@ Gura_ImplementMethod(wx_Listbook, GetListView)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Listbook)
 {
-	Gura_AssignMethod(wx_Listbook, wxListbook);
-	Gura_AssignMethod(wx_Listbook, wxListbook_1);
-	Gura_AssignMethod(wx_Listbook, Create);
-	Gura_AssignMethod(wx_Listbook, GetListView);
+	Gura_AssignMethod(wx_Listbook, __wxListbook);
+	Gura_AssignMethod(wx_Listbook, __wxListbook_1);
+	Gura_AssignMethod(wx_Listbook, __Create);
+	Gura_AssignMethod(wx_Listbook, __GetListView);
 }
 
 Gura_ImplementDescendantCreator(wx_Listbook)

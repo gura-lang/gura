@@ -37,7 +37,7 @@ String Object_wx_RibbonButtonBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent, "wxRibbonButtonBarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, GetBar)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __GetBar, "GetBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetBar)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __GetBar)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, SetBar)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __SetBar, "SetBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bar", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetBar)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __SetBar)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, GetButton)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __GetButton, "GetButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetButton)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __GetButton)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, GetButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, SetButton)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __SetButton, "SetButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bar", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetButton)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __SetButton)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, SetButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonButtonBarEvent, PopupMenu)
+Gura_DeclareMethodAlias(wx_RibbonButtonBarEvent, __PopupMenu, "PopupMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonButtonBarEvent, PopupMenu)
+Gura_ImplementMethod(wx_RibbonButtonBarEvent, __PopupMenu)
 {
 	Object_wx_RibbonButtonBarEvent *pThis = Object_wx_RibbonButtonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_RibbonButtonBarEvent, PopupMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonButtonBarEvent)
 {
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, wxRibbonButtonBarEvent);
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, GetBar);
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, SetBar);
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, GetButton);
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, SetButton);
-	Gura_AssignMethod(wx_RibbonButtonBarEvent, PopupMenu);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __wxRibbonButtonBarEvent);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __GetBar);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __SetBar);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __GetButton);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __SetButton);
+	Gura_AssignMethod(wx_RibbonButtonBarEvent, __PopupMenu);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonButtonBarEvent)

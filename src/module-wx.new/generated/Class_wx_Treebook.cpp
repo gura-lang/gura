@@ -37,12 +37,12 @@ String Object_wx_Treebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Treebook, wxTreebook)
+Gura_DeclareMethodAlias(wx_Treebook, __wxTreebook, "wxTreebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Treebook, wxTreebook)
+Gura_ImplementMethod(wx_Treebook, __wxTreebook)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Treebook, wxTreebook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, wxTreebook_1)
+Gura_DeclareMethodAlias(wx_Treebook, __wxTreebook_1, "wxTreebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Treebook, wxTreebook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, wxTreebook_1)
+Gura_ImplementMethod(wx_Treebook, __wxTreebook_1)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Treebook, wxTreebook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, AddPage)
+Gura_DeclareMethodAlias(wx_Treebook, __AddPage, "AddPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_Treebook, AddPage)
 	//DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, AddPage)
+Gura_ImplementMethod(wx_Treebook, __AddPage)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_Treebook, AddPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, AddSubPage)
+Gura_DeclareMethodAlias(wx_Treebook, __AddSubPage, "AddSubPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -105,7 +105,7 @@ Gura_DeclareMethod(wx_Treebook, AddSubPage)
 	//DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, AddSubPage)
+Gura_ImplementMethod(wx_Treebook, __AddSubPage)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_Treebook, AddSubPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, CollapseNode)
+Gura_DeclareMethodAlias(wx_Treebook, __CollapseNode, "CollapseNode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, CollapseNode)
+Gura_ImplementMethod(wx_Treebook, __CollapseNode)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_Treebook, CollapseNode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, Create)
+Gura_DeclareMethodAlias(wx_Treebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_DeclareMethod(wx_Treebook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, Create)
+Gura_ImplementMethod(wx_Treebook, __Create)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_Treebook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, DeletePage)
+Gura_DeclareMethodAlias(wx_Treebook, __DeletePage, "DeletePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, DeletePage)
+Gura_ImplementMethod(wx_Treebook, __DeletePage)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,14 +172,14 @@ Gura_ImplementMethod(wx_Treebook, DeletePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, ExpandNode)
+Gura_DeclareMethodAlias(wx_Treebook, __ExpandNode, "ExpandNode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "expand", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, ExpandNode)
+Gura_ImplementMethod(wx_Treebook, __ExpandNode)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,13 +189,13 @@ Gura_ImplementMethod(wx_Treebook, ExpandNode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, GetPageParent)
+Gura_DeclareMethodAlias(wx_Treebook, __GetPageParent, "GetPageParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, GetPageParent)
+Gura_ImplementMethod(wx_Treebook, __GetPageParent)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,12 +204,12 @@ Gura_ImplementMethod(wx_Treebook, GetPageParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, GetSelection)
+Gura_DeclareMethodAlias(wx_Treebook, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Treebook, GetSelection)
+Gura_ImplementMethod(wx_Treebook, __GetSelection)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Treebook, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, InsertPage)
+Gura_DeclareMethodAlias(wx_Treebook, __InsertPage, "InsertPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
@@ -227,7 +227,7 @@ Gura_DeclareMethod(wx_Treebook, InsertPage)
 	//DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, InsertPage)
+Gura_ImplementMethod(wx_Treebook, __InsertPage)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_Treebook, InsertPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, InsertSubPage)
+Gura_DeclareMethodAlias(wx_Treebook, __InsertSubPage, "InsertSubPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pagePos", VTYPE_number, OCCUR_Once);
@@ -250,7 +250,7 @@ Gura_DeclareMethod(wx_Treebook, InsertSubPage)
 	//DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, InsertSubPage)
+Gura_ImplementMethod(wx_Treebook, __InsertSubPage)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,13 +263,13 @@ Gura_ImplementMethod(wx_Treebook, InsertSubPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Treebook, IsNodeExpanded)
+Gura_DeclareMethodAlias(wx_Treebook, __IsNodeExpanded, "IsNodeExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Treebook, IsNodeExpanded)
+Gura_ImplementMethod(wx_Treebook, __IsNodeExpanded)
 {
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,19 +283,19 @@ Gura_ImplementMethod(wx_Treebook, IsNodeExpanded)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Treebook)
 {
-	Gura_AssignMethod(wx_Treebook, wxTreebook);
-	Gura_AssignMethod(wx_Treebook, wxTreebook_1);
-	Gura_AssignMethod(wx_Treebook, AddPage);
-	Gura_AssignMethod(wx_Treebook, AddSubPage);
-	Gura_AssignMethod(wx_Treebook, CollapseNode);
-	Gura_AssignMethod(wx_Treebook, Create);
-	Gura_AssignMethod(wx_Treebook, DeletePage);
-	Gura_AssignMethod(wx_Treebook, ExpandNode);
-	Gura_AssignMethod(wx_Treebook, GetPageParent);
-	Gura_AssignMethod(wx_Treebook, GetSelection);
-	Gura_AssignMethod(wx_Treebook, InsertPage);
-	Gura_AssignMethod(wx_Treebook, InsertSubPage);
-	Gura_AssignMethod(wx_Treebook, IsNodeExpanded);
+	Gura_AssignMethod(wx_Treebook, __wxTreebook);
+	Gura_AssignMethod(wx_Treebook, __wxTreebook_1);
+	Gura_AssignMethod(wx_Treebook, __AddPage);
+	Gura_AssignMethod(wx_Treebook, __AddSubPage);
+	Gura_AssignMethod(wx_Treebook, __CollapseNode);
+	Gura_AssignMethod(wx_Treebook, __Create);
+	Gura_AssignMethod(wx_Treebook, __DeletePage);
+	Gura_AssignMethod(wx_Treebook, __ExpandNode);
+	Gura_AssignMethod(wx_Treebook, __GetPageParent);
+	Gura_AssignMethod(wx_Treebook, __GetSelection);
+	Gura_AssignMethod(wx_Treebook, __InsertPage);
+	Gura_AssignMethod(wx_Treebook, __InsertSubPage);
+	Gura_AssignMethod(wx_Treebook, __IsNodeExpanded);
 }
 
 Gura_ImplementDescendantCreator(wx_Treebook)

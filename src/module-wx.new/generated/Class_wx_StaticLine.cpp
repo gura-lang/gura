@@ -37,12 +37,12 @@ String Object_wx_StaticLine::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StaticLine, wxStaticLine)
+Gura_DeclareMethodAlias(wx_StaticLine, __wxStaticLine, "wxStaticLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticLine, wxStaticLine)
+Gura_ImplementMethod(wx_StaticLine, __wxStaticLine)
 {
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_StaticLine, wxStaticLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticLine, wxStaticLine_1)
+Gura_DeclareMethodAlias(wx_StaticLine, __wxStaticLine_1, "wxStaticLine_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_StaticLine, wxStaticLine_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticLine, wxStaticLine_1)
+Gura_ImplementMethod(wx_StaticLine, __wxStaticLine_1)
 {
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_StaticLine, wxStaticLine_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticLine, Create)
+Gura_DeclareMethodAlias(wx_StaticLine, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_StaticLine, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticLine, Create)
+Gura_ImplementMethod(wx_StaticLine, __Create)
 {
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_StaticLine, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticLine, GetDefaultSize)
+Gura_DeclareMethodAlias(wx_StaticLine, __GetDefaultSize, "GetDefaultSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
+Gura_ImplementMethod(wx_StaticLine, __GetDefaultSize)
 {
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_StaticLine, GetDefaultSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticLine, IsVertical)
+Gura_DeclareMethodAlias(wx_StaticLine, __IsVertical, "IsVertical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticLine, IsVertical)
+Gura_ImplementMethod(wx_StaticLine, __IsVertical)
 {
 	Object_wx_StaticLine *pThis = Object_wx_StaticLine::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,11 +131,11 @@ Gura_ImplementMethod(wx_StaticLine, IsVertical)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticLine)
 {
-	Gura_AssignMethod(wx_StaticLine, wxStaticLine);
-	Gura_AssignMethod(wx_StaticLine, wxStaticLine_1);
-	Gura_AssignMethod(wx_StaticLine, Create);
-	Gura_AssignMethod(wx_StaticLine, GetDefaultSize);
-	Gura_AssignMethod(wx_StaticLine, IsVertical);
+	Gura_AssignMethod(wx_StaticLine, __wxStaticLine);
+	Gura_AssignMethod(wx_StaticLine, __wxStaticLine_1);
+	Gura_AssignMethod(wx_StaticLine, __Create);
+	Gura_AssignMethod(wx_StaticLine, __GetDefaultSize);
+	Gura_AssignMethod(wx_StaticLine, __IsVertical);
 }
 
 Gura_ImplementDescendantCreator(wx_StaticLine)

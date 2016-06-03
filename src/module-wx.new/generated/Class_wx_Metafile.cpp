@@ -37,13 +37,13 @@ String Object_wx_Metafile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Metafile, wxMetafile)
+Gura_DeclareMethodAlias(wx_Metafile, __wxMetafile, "wxMetafile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Metafile, wxMetafile)
+Gura_ImplementMethod(wx_Metafile, __wxMetafile)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_Metafile, wxMetafile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Metafile, IsOk)
+Gura_DeclareMethodAlias(wx_Metafile, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Metafile, IsOk)
+Gura_ImplementMethod(wx_Metafile, __IsOk)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_Metafile, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Metafile, Play)
+Gura_DeclareMethodAlias(wx_Metafile, __Play, "Play")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Metafile, Play)
+Gura_ImplementMethod(wx_Metafile, __Play)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_Metafile, Play)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Metafile, SetClipboard)
+Gura_DeclareMethodAlias(wx_Metafile, __SetClipboard, "SetClipboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Metafile, SetClipboard)
+Gura_ImplementMethod(wx_Metafile, __SetClipboard)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_Metafile, SetClipboard)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Metafile)
 {
-	Gura_AssignMethod(wx_Metafile, wxMetafile);
-	Gura_AssignMethod(wx_Metafile, IsOk);
-	Gura_AssignMethod(wx_Metafile, Play);
-	Gura_AssignMethod(wx_Metafile, SetClipboard);
+	Gura_AssignMethod(wx_Metafile, __wxMetafile);
+	Gura_AssignMethod(wx_Metafile, __IsOk);
+	Gura_AssignMethod(wx_Metafile, __Play);
+	Gura_AssignMethod(wx_Metafile, __SetClipboard);
 }
 
 Gura_ImplementDescendantCreator(wx_Metafile)

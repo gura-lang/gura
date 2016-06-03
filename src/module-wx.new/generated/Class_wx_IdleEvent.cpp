@@ -37,12 +37,12 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IdleEvent, wxIdleEvent)
+Gura_DeclareMethodAlias(wx_IdleEvent, __wxIdleEvent, "wxIdleEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, wxIdleEvent)
+Gura_ImplementMethod(wx_IdleEvent, __wxIdleEvent)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_IdleEvent, wxIdleEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IdleEvent, GetMode)
+Gura_DeclareMethodAlias(wx_IdleEvent, __GetMode, "GetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, GetMode)
+Gura_ImplementMethod(wx_IdleEvent, __GetMode)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_IdleEvent, GetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IdleEvent, MoreRequested)
+Gura_DeclareMethodAlias(wx_IdleEvent, __MoreRequested, "MoreRequested")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
+Gura_ImplementMethod(wx_IdleEvent, __MoreRequested)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_IdleEvent, MoreRequested)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IdleEvent, RequestMore)
+Gura_DeclareMethodAlias(wx_IdleEvent, __RequestMore, "RequestMore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "needMore", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, RequestMore)
+Gura_ImplementMethod(wx_IdleEvent, __RequestMore)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_IdleEvent, RequestMore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IdleEvent, SetMode)
+Gura_DeclareMethodAlias(wx_IdleEvent, __SetMode, "SetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IdleEvent, SetMode)
+Gura_ImplementMethod(wx_IdleEvent, __SetMode)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_IdleEvent, SetMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
-	Gura_AssignMethod(wx_IdleEvent, wxIdleEvent);
-	Gura_AssignMethod(wx_IdleEvent, GetMode);
-	Gura_AssignMethod(wx_IdleEvent, MoreRequested);
-	Gura_AssignMethod(wx_IdleEvent, RequestMore);
-	Gura_AssignMethod(wx_IdleEvent, SetMode);
+	Gura_AssignMethod(wx_IdleEvent, __wxIdleEvent);
+	Gura_AssignMethod(wx_IdleEvent, __GetMode);
+	Gura_AssignMethod(wx_IdleEvent, __MoreRequested);
+	Gura_AssignMethod(wx_IdleEvent, __RequestMore);
+	Gura_AssignMethod(wx_IdleEvent, __SetMode);
 }
 
 Gura_ImplementDescendantCreator(wx_IdleEvent)

@@ -37,13 +37,13 @@ String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent)
+Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent, "wxCalculateLayoutEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent)
+Gura_ImplementMethod(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalculateLayoutEvent, GetFlags)
+Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
+Gura_ImplementMethod(wx_CalculateLayoutEvent, __GetFlags)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalculateLayoutEvent, GetRect)
+Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __GetRect, "GetRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
+Gura_ImplementMethod(wx_CalculateLayoutEvent, __GetRect)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, GetRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalculateLayoutEvent, SetFlags)
+Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
+Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetFlags)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalculateLayoutEvent, SetRect)
+Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __SetRect, "SetRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalculateLayoutEvent, SetRect)
+Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetRect)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,11 +113,11 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, SetRect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalculateLayoutEvent)
 {
-	Gura_AssignMethod(wx_CalculateLayoutEvent, wxCalculateLayoutEvent);
-	Gura_AssignMethod(wx_CalculateLayoutEvent, GetFlags);
-	Gura_AssignMethod(wx_CalculateLayoutEvent, GetRect);
-	Gura_AssignMethod(wx_CalculateLayoutEvent, SetFlags);
-	Gura_AssignMethod(wx_CalculateLayoutEvent, SetRect);
+	Gura_AssignMethod(wx_CalculateLayoutEvent, __wxCalculateLayoutEvent);
+	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetFlags);
+	Gura_AssignMethod(wx_CalculateLayoutEvent, __GetRect);
+	Gura_AssignMethod(wx_CalculateLayoutEvent, __SetFlags);
+	Gura_AssignMethod(wx_CalculateLayoutEvent, __SetRect);
 }
 
 Gura_ImplementDescendantCreator(wx_CalculateLayoutEvent)

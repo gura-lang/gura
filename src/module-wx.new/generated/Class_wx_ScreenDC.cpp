@@ -37,12 +37,12 @@ String Object_wx_ScreenDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ScreenDC, wxScreenDC)
+Gura_DeclareMethodAlias(wx_ScreenDC, __wxScreenDC, "wxScreenDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScreenDC, wxScreenDC)
+Gura_ImplementMethod(wx_ScreenDC, __wxScreenDC)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ScreenDC, wxScreenDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScreenDC, EndDrawingOnTop)
+Gura_DeclareMethodAlias(wx_ScreenDC, __EndDrawingOnTop, "EndDrawingOnTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
+Gura_ImplementMethod(wx_ScreenDC, __EndDrawingOnTop)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_ScreenDC, EndDrawingOnTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop)
+Gura_DeclareMethodAlias(wx_ScreenDC, __StartDrawingOnTop, "StartDrawingOnTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
+Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScreenDC, StartDrawingOnTop_1)
+Gura_DeclareMethodAlias(wx_ScreenDC, __StartDrawingOnTop_1, "StartDrawingOnTop_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
+Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop_1)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_ScreenDC, StartDrawingOnTop_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScreenDC)
 {
-	Gura_AssignMethod(wx_ScreenDC, wxScreenDC);
-	Gura_AssignMethod(wx_ScreenDC, EndDrawingOnTop);
-	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop);
-	Gura_AssignMethod(wx_ScreenDC, StartDrawingOnTop_1);
+	Gura_AssignMethod(wx_ScreenDC, __wxScreenDC);
+	Gura_AssignMethod(wx_ScreenDC, __EndDrawingOnTop);
+	Gura_AssignMethod(wx_ScreenDC, __StartDrawingOnTop);
+	Gura_AssignMethod(wx_ScreenDC, __StartDrawingOnTop_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ScreenDC)

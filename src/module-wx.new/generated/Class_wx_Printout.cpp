@@ -37,13 +37,13 @@ String Object_wx_Printout::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Printout, wxPrintout)
+Gura_DeclareMethodAlias(wx_Printout, __wxPrintout, "wxPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, wxPrintout)
+Gura_ImplementMethod(wx_Printout, __wxPrintout)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_Printout, wxPrintout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, FitThisSizeToPage)
+Gura_DeclareMethodAlias(wx_Printout, __FitThisSizeToPage, "FitThisSizeToPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, FitThisSizeToPage)
+Gura_ImplementMethod(wx_Printout, __FitThisSizeToPage)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, FitThisSizeToPageMargins)
+Gura_DeclareMethodAlias(wx_Printout, __FitThisSizeToPageMargins, "FitThisSizeToPageMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageSize", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pageSetupData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, FitThisSizeToPageMargins)
+Gura_ImplementMethod(wx_Printout, __FitThisSizeToPageMargins)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPageMargins)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, FitThisSizeToPaper)
+Gura_DeclareMethodAlias(wx_Printout, __FitThisSizeToPaper, "FitThisSizeToPaper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "imageSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, FitThisSizeToPaper)
+Gura_ImplementMethod(wx_Printout, __FitThisSizeToPaper)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_Printout, FitThisSizeToPaper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetDC)
+Gura_DeclareMethodAlias(wx_Printout, __GetDC, "GetDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetDC)
+Gura_ImplementMethod(wx_Printout, __GetDC)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_Printout, GetDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetLogicalPageMarginsRect)
+Gura_DeclareMethodAlias(wx_Printout, __GetLogicalPageMarginsRect, "GetLogicalPageMarginsRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageSetupData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetLogicalPageMarginsRect)
+Gura_ImplementMethod(wx_Printout, __GetLogicalPageMarginsRect)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageMarginsRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetLogicalPageRect)
+Gura_DeclareMethodAlias(wx_Printout, __GetLogicalPageRect, "GetLogicalPageRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetLogicalPageRect)
+Gura_ImplementMethod(wx_Printout, __GetLogicalPageRect)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPageRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetLogicalPaperRect)
+Gura_DeclareMethodAlias(wx_Printout, __GetLogicalPaperRect, "GetLogicalPaperRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetLogicalPaperRect)
+Gura_ImplementMethod(wx_Printout, __GetLogicalPaperRect)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,14 +153,14 @@ Gura_ImplementMethod(wx_Printout, GetLogicalPaperRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPPIPrinter)
+Gura_DeclareMethodAlias(wx_Printout, __GetPPIPrinter, "GetPPIPrinter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPPIPrinter)
+Gura_ImplementMethod(wx_Printout, __GetPPIPrinter)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_Printout, GetPPIPrinter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPPIScreen)
+Gura_DeclareMethodAlias(wx_Printout, __GetPPIScreen, "GetPPIScreen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPPIScreen)
+Gura_ImplementMethod(wx_Printout, __GetPPIScreen)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Printout, GetPPIScreen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPageInfo)
+Gura_DeclareMethodAlias(wx_Printout, __GetPageInfo, "GetPageInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "minPage", VTYPE_number, OCCUR_Once);
@@ -196,7 +196,7 @@ Gura_DeclareMethod(wx_Printout, GetPageInfo)
 	//DeclareArg(env, "pageTo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPageInfo)
+Gura_ImplementMethod(wx_Printout, __GetPageInfo)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,14 +208,14 @@ Gura_ImplementMethod(wx_Printout, GetPageInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPageSizeMM)
+Gura_DeclareMethodAlias(wx_Printout, __GetPageSizeMM, "GetPageSizeMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPageSizeMM)
+Gura_ImplementMethod(wx_Printout, __GetPageSizeMM)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,14 +225,14 @@ Gura_ImplementMethod(wx_Printout, GetPageSizeMM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPageSizePixels)
+Gura_DeclareMethodAlias(wx_Printout, __GetPageSizePixels, "GetPageSizePixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPageSizePixels)
+Gura_ImplementMethod(wx_Printout, __GetPageSizePixels)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,12 +242,12 @@ Gura_ImplementMethod(wx_Printout, GetPageSizePixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPaperRectPixels)
+Gura_DeclareMethodAlias(wx_Printout, __GetPaperRectPixels, "GetPaperRectPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPaperRectPixels)
+Gura_ImplementMethod(wx_Printout, __GetPaperRectPixels)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,12 +255,12 @@ Gura_ImplementMethod(wx_Printout, GetPaperRectPixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetTitle)
+Gura_DeclareMethodAlias(wx_Printout, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetTitle)
+Gura_ImplementMethod(wx_Printout, __GetTitle)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,13 +268,13 @@ Gura_ImplementMethod(wx_Printout, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, HasPage)
+Gura_DeclareMethodAlias(wx_Printout, __HasPage, "HasPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, HasPage)
+Gura_ImplementMethod(wx_Printout, __HasPage)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,12 +283,12 @@ Gura_ImplementMethod(wx_Printout, HasPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, IsPreview)
+Gura_DeclareMethodAlias(wx_Printout, __IsPreview, "IsPreview")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, IsPreview)
+Gura_ImplementMethod(wx_Printout, __IsPreview)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,12 +296,12 @@ Gura_ImplementMethod(wx_Printout, IsPreview)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, GetPreview)
+Gura_DeclareMethodAlias(wx_Printout, __GetPreview, "GetPreview")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, GetPreview)
+Gura_ImplementMethod(wx_Printout, __GetPreview)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -309,12 +309,12 @@ Gura_ImplementMethod(wx_Printout, GetPreview)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, MapScreenSizeToDevice)
+Gura_DeclareMethodAlias(wx_Printout, __MapScreenSizeToDevice, "MapScreenSizeToDevice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, MapScreenSizeToDevice)
+Gura_ImplementMethod(wx_Printout, __MapScreenSizeToDevice)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,12 +322,12 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToDevice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, MapScreenSizeToPage)
+Gura_DeclareMethodAlias(wx_Printout, __MapScreenSizeToPage, "MapScreenSizeToPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, MapScreenSizeToPage)
+Gura_ImplementMethod(wx_Printout, __MapScreenSizeToPage)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -335,13 +335,13 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, MapScreenSizeToPageMargins)
+Gura_DeclareMethodAlias(wx_Printout, __MapScreenSizeToPageMargins, "MapScreenSizeToPageMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageSetupData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, MapScreenSizeToPageMargins)
+Gura_ImplementMethod(wx_Printout, __MapScreenSizeToPageMargins)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -350,12 +350,12 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPageMargins)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, MapScreenSizeToPaper)
+Gura_DeclareMethodAlias(wx_Printout, __MapScreenSizeToPaper, "MapScreenSizeToPaper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, MapScreenSizeToPaper)
+Gura_ImplementMethod(wx_Printout, __MapScreenSizeToPaper)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -363,14 +363,14 @@ Gura_ImplementMethod(wx_Printout, MapScreenSizeToPaper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OffsetLogicalOrigin)
+Gura_DeclareMethodAlias(wx_Printout, __OffsetLogicalOrigin, "OffsetLogicalOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xoff", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yoff", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, OffsetLogicalOrigin)
+Gura_ImplementMethod(wx_Printout, __OffsetLogicalOrigin)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -380,14 +380,14 @@ Gura_ImplementMethod(wx_Printout, OffsetLogicalOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnBeginDocument)
+Gura_DeclareMethodAlias(wx_Printout, __OnBeginDocument, "OnBeginDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "startPage", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "endPage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, OnBeginDocument)
+Gura_ImplementMethod(wx_Printout, __OnBeginDocument)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -397,12 +397,12 @@ Gura_ImplementMethod(wx_Printout, OnBeginDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnBeginPrinting)
+Gura_DeclareMethodAlias(wx_Printout, __OnBeginPrinting, "OnBeginPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, OnBeginPrinting)
+Gura_ImplementMethod(wx_Printout, __OnBeginPrinting)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -410,12 +410,12 @@ Gura_ImplementMethod(wx_Printout, OnBeginPrinting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnEndDocument)
+Gura_DeclareMethodAlias(wx_Printout, __OnEndDocument, "OnEndDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, OnEndDocument)
+Gura_ImplementMethod(wx_Printout, __OnEndDocument)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -423,12 +423,12 @@ Gura_ImplementMethod(wx_Printout, OnEndDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnEndPrinting)
+Gura_DeclareMethodAlias(wx_Printout, __OnEndPrinting, "OnEndPrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, OnEndPrinting)
+Gura_ImplementMethod(wx_Printout, __OnEndPrinting)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -436,12 +436,12 @@ Gura_ImplementMethod(wx_Printout, OnEndPrinting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnPreparePrinting)
+Gura_DeclareMethodAlias(wx_Printout, __OnPreparePrinting, "OnPreparePrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Printout, OnPreparePrinting)
+Gura_ImplementMethod(wx_Printout, __OnPreparePrinting)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -449,13 +449,13 @@ Gura_ImplementMethod(wx_Printout, OnPreparePrinting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, OnPrintPage)
+Gura_DeclareMethodAlias(wx_Printout, __OnPrintPage, "OnPrintPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, OnPrintPage)
+Gura_ImplementMethod(wx_Printout, __OnPrintPage)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -464,14 +464,14 @@ Gura_ImplementMethod(wx_Printout, OnPrintPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Printout, SetLogicalOrigin)
+Gura_DeclareMethodAlias(wx_Printout, __SetLogicalOrigin, "SetLogicalOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Printout, SetLogicalOrigin)
+Gura_ImplementMethod(wx_Printout, __SetLogicalOrigin)
 {
 	Object_wx_Printout *pThis = Object_wx_Printout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -486,36 +486,36 @@ Gura_ImplementMethod(wx_Printout, SetLogicalOrigin)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Printout)
 {
-	Gura_AssignMethod(wx_Printout, wxPrintout);
-	Gura_AssignMethod(wx_Printout, FitThisSizeToPage);
-	Gura_AssignMethod(wx_Printout, FitThisSizeToPageMargins);
-	Gura_AssignMethod(wx_Printout, FitThisSizeToPaper);
-	Gura_AssignMethod(wx_Printout, GetDC);
-	Gura_AssignMethod(wx_Printout, GetLogicalPageMarginsRect);
-	Gura_AssignMethod(wx_Printout, GetLogicalPageRect);
-	Gura_AssignMethod(wx_Printout, GetLogicalPaperRect);
-	Gura_AssignMethod(wx_Printout, GetPPIPrinter);
-	Gura_AssignMethod(wx_Printout, GetPPIScreen);
-	Gura_AssignMethod(wx_Printout, GetPageInfo);
-	Gura_AssignMethod(wx_Printout, GetPageSizeMM);
-	Gura_AssignMethod(wx_Printout, GetPageSizePixels);
-	Gura_AssignMethod(wx_Printout, GetPaperRectPixels);
-	Gura_AssignMethod(wx_Printout, GetTitle);
-	Gura_AssignMethod(wx_Printout, HasPage);
-	Gura_AssignMethod(wx_Printout, IsPreview);
-	Gura_AssignMethod(wx_Printout, GetPreview);
-	Gura_AssignMethod(wx_Printout, MapScreenSizeToDevice);
-	Gura_AssignMethod(wx_Printout, MapScreenSizeToPage);
-	Gura_AssignMethod(wx_Printout, MapScreenSizeToPageMargins);
-	Gura_AssignMethod(wx_Printout, MapScreenSizeToPaper);
-	Gura_AssignMethod(wx_Printout, OffsetLogicalOrigin);
-	Gura_AssignMethod(wx_Printout, OnBeginDocument);
-	Gura_AssignMethod(wx_Printout, OnBeginPrinting);
-	Gura_AssignMethod(wx_Printout, OnEndDocument);
-	Gura_AssignMethod(wx_Printout, OnEndPrinting);
-	Gura_AssignMethod(wx_Printout, OnPreparePrinting);
-	Gura_AssignMethod(wx_Printout, OnPrintPage);
-	Gura_AssignMethod(wx_Printout, SetLogicalOrigin);
+	Gura_AssignMethod(wx_Printout, __wxPrintout);
+	Gura_AssignMethod(wx_Printout, __FitThisSizeToPage);
+	Gura_AssignMethod(wx_Printout, __FitThisSizeToPageMargins);
+	Gura_AssignMethod(wx_Printout, __FitThisSizeToPaper);
+	Gura_AssignMethod(wx_Printout, __GetDC);
+	Gura_AssignMethod(wx_Printout, __GetLogicalPageMarginsRect);
+	Gura_AssignMethod(wx_Printout, __GetLogicalPageRect);
+	Gura_AssignMethod(wx_Printout, __GetLogicalPaperRect);
+	Gura_AssignMethod(wx_Printout, __GetPPIPrinter);
+	Gura_AssignMethod(wx_Printout, __GetPPIScreen);
+	Gura_AssignMethod(wx_Printout, __GetPageInfo);
+	Gura_AssignMethod(wx_Printout, __GetPageSizeMM);
+	Gura_AssignMethod(wx_Printout, __GetPageSizePixels);
+	Gura_AssignMethod(wx_Printout, __GetPaperRectPixels);
+	Gura_AssignMethod(wx_Printout, __GetTitle);
+	Gura_AssignMethod(wx_Printout, __HasPage);
+	Gura_AssignMethod(wx_Printout, __IsPreview);
+	Gura_AssignMethod(wx_Printout, __GetPreview);
+	Gura_AssignMethod(wx_Printout, __MapScreenSizeToDevice);
+	Gura_AssignMethod(wx_Printout, __MapScreenSizeToPage);
+	Gura_AssignMethod(wx_Printout, __MapScreenSizeToPageMargins);
+	Gura_AssignMethod(wx_Printout, __MapScreenSizeToPaper);
+	Gura_AssignMethod(wx_Printout, __OffsetLogicalOrigin);
+	Gura_AssignMethod(wx_Printout, __OnBeginDocument);
+	Gura_AssignMethod(wx_Printout, __OnBeginPrinting);
+	Gura_AssignMethod(wx_Printout, __OnEndDocument);
+	Gura_AssignMethod(wx_Printout, __OnEndPrinting);
+	Gura_AssignMethod(wx_Printout, __OnPreparePrinting);
+	Gura_AssignMethod(wx_Printout, __OnPrintPage);
+	Gura_AssignMethod(wx_Printout, __SetLogicalOrigin);
 }
 
 Gura_ImplementDescendantCreator(wx_Printout)

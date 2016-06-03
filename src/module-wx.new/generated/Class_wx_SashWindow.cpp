@@ -37,12 +37,12 @@ String Object_wx_SashWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SashWindow, wxSashWindow)
+Gura_DeclareMethodAlias(wx_SashWindow, __wxSashWindow, "wxSashWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, wxSashWindow)
+Gura_ImplementMethod(wx_SashWindow, __wxSashWindow)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_SashWindow, wxSashWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, wxSashWindow_1)
+Gura_DeclareMethodAlias(wx_SashWindow, __wxSashWindow_1, "wxSashWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_SashWindow, wxSashWindow_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, wxSashWindow_1)
+Gura_ImplementMethod(wx_SashWindow, __wxSashWindow_1)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_SashWindow, wxSashWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeX)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetMaximumSizeX, "GetMaximumSizeX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeX)
+Gura_ImplementMethod(wx_SashWindow, __GetMaximumSizeX)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetMaximumSizeY)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetMaximumSizeY, "GetMaximumSizeY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeY)
+Gura_ImplementMethod(wx_SashWindow, __GetMaximumSizeY)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_SashWindow, GetMaximumSizeY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeX)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetMinimumSizeX, "GetMinimumSizeX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeX)
+Gura_ImplementMethod(wx_SashWindow, __GetMinimumSizeX)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetMinimumSizeY)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetMinimumSizeY, "GetMinimumSizeY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeY)
+Gura_ImplementMethod(wx_SashWindow, __GetMinimumSizeY)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetSashVisible)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetSashVisible, "GetSashVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetSashVisible)
+Gura_ImplementMethod(wx_SashWindow, __GetSashVisible)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_SashWindow, GetSashVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeX)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetMaximumSizeX, "SetMaximumSizeX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeX)
+Gura_ImplementMethod(wx_SashWindow, __SetMaximumSizeX)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeY)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetMaximumSizeY, "SetMaximumSizeY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeY)
+Gura_ImplementMethod(wx_SashWindow, __SetMaximumSizeY)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_SashWindow, SetMaximumSizeY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeX)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetMinimumSizeX, "SetMinimumSizeX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeX)
+Gura_ImplementMethod(wx_SashWindow, __SetMinimumSizeX)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetMinimumSizeY)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetMinimumSizeY, "SetMinimumSizeY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeY)
+Gura_ImplementMethod(wx_SashWindow, __SetMinimumSizeY)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,14 +202,14 @@ Gura_ImplementMethod(wx_SashWindow, SetMinimumSizeY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetSashVisible)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetSashVisible, "SetSashVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetSashVisible)
+Gura_ImplementMethod(wx_SashWindow, __SetSashVisible)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_SashWindow, SetSashVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetEdgeMargin)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetEdgeMargin, "GetEdgeMargin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetEdgeMargin)
+Gura_ImplementMethod(wx_SashWindow, __GetEdgeMargin)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,13 +234,13 @@ Gura_ImplementMethod(wx_SashWindow, GetEdgeMargin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetDefaultBorderSize)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetDefaultBorderSize, "SetDefaultBorderSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetDefaultBorderSize)
+Gura_ImplementMethod(wx_SashWindow, __SetDefaultBorderSize)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_SashWindow, SetDefaultBorderSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetDefaultBorderSize)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetDefaultBorderSize, "GetDefaultBorderSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetDefaultBorderSize)
+Gura_ImplementMethod(wx_SashWindow, __GetDefaultBorderSize)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,13 +262,13 @@ Gura_ImplementMethod(wx_SashWindow, GetDefaultBorderSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SetExtraBorderSize)
+Gura_DeclareMethodAlias(wx_SashWindow, __SetExtraBorderSize, "SetExtraBorderSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SetExtraBorderSize)
+Gura_ImplementMethod(wx_SashWindow, __SetExtraBorderSize)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -277,12 +277,12 @@ Gura_ImplementMethod(wx_SashWindow, SetExtraBorderSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, GetExtraBorderSize)
+Gura_DeclareMethodAlias(wx_SashWindow, __GetExtraBorderSize, "GetExtraBorderSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, GetExtraBorderSize)
+Gura_ImplementMethod(wx_SashWindow, __GetExtraBorderSize)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_SashWindow, GetExtraBorderSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SashHitTest)
+Gura_DeclareMethodAlias(wx_SashWindow, __SashHitTest, "SashHitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -298,7 +298,7 @@ Gura_DeclareMethod(wx_SashWindow, SashHitTest)
 	//DeclareArg(env, "tolerance", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SashHitTest)
+Gura_ImplementMethod(wx_SashWindow, __SashHitTest)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -309,12 +309,12 @@ Gura_ImplementMethod(wx_SashWindow, SashHitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SashWindow, SizeWindows)
+Gura_DeclareMethodAlias(wx_SashWindow, __SizeWindows, "SizeWindows")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SashWindow, SizeWindows)
+Gura_ImplementMethod(wx_SashWindow, __SizeWindows)
 {
 	Object_wx_SashWindow *pThis = Object_wx_SashWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,25 +327,25 @@ Gura_ImplementMethod(wx_SashWindow, SizeWindows)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SashWindow)
 {
-	Gura_AssignMethod(wx_SashWindow, wxSashWindow);
-	Gura_AssignMethod(wx_SashWindow, wxSashWindow_1);
-	Gura_AssignMethod(wx_SashWindow, GetMaximumSizeX);
-	Gura_AssignMethod(wx_SashWindow, GetMaximumSizeY);
-	Gura_AssignMethod(wx_SashWindow, GetMinimumSizeX);
-	Gura_AssignMethod(wx_SashWindow, GetMinimumSizeY);
-	Gura_AssignMethod(wx_SashWindow, GetSashVisible);
-	Gura_AssignMethod(wx_SashWindow, SetMaximumSizeX);
-	Gura_AssignMethod(wx_SashWindow, SetMaximumSizeY);
-	Gura_AssignMethod(wx_SashWindow, SetMinimumSizeX);
-	Gura_AssignMethod(wx_SashWindow, SetMinimumSizeY);
-	Gura_AssignMethod(wx_SashWindow, SetSashVisible);
-	Gura_AssignMethod(wx_SashWindow, GetEdgeMargin);
-	Gura_AssignMethod(wx_SashWindow, SetDefaultBorderSize);
-	Gura_AssignMethod(wx_SashWindow, GetDefaultBorderSize);
-	Gura_AssignMethod(wx_SashWindow, SetExtraBorderSize);
-	Gura_AssignMethod(wx_SashWindow, GetExtraBorderSize);
-	Gura_AssignMethod(wx_SashWindow, SashHitTest);
-	Gura_AssignMethod(wx_SashWindow, SizeWindows);
+	Gura_AssignMethod(wx_SashWindow, __wxSashWindow);
+	Gura_AssignMethod(wx_SashWindow, __wxSashWindow_1);
+	Gura_AssignMethod(wx_SashWindow, __GetMaximumSizeX);
+	Gura_AssignMethod(wx_SashWindow, __GetMaximumSizeY);
+	Gura_AssignMethod(wx_SashWindow, __GetMinimumSizeX);
+	Gura_AssignMethod(wx_SashWindow, __GetMinimumSizeY);
+	Gura_AssignMethod(wx_SashWindow, __GetSashVisible);
+	Gura_AssignMethod(wx_SashWindow, __SetMaximumSizeX);
+	Gura_AssignMethod(wx_SashWindow, __SetMaximumSizeY);
+	Gura_AssignMethod(wx_SashWindow, __SetMinimumSizeX);
+	Gura_AssignMethod(wx_SashWindow, __SetMinimumSizeY);
+	Gura_AssignMethod(wx_SashWindow, __SetSashVisible);
+	Gura_AssignMethod(wx_SashWindow, __GetEdgeMargin);
+	Gura_AssignMethod(wx_SashWindow, __SetDefaultBorderSize);
+	Gura_AssignMethod(wx_SashWindow, __GetDefaultBorderSize);
+	Gura_AssignMethod(wx_SashWindow, __SetExtraBorderSize);
+	Gura_AssignMethod(wx_SashWindow, __GetExtraBorderSize);
+	Gura_AssignMethod(wx_SashWindow, __SashHitTest);
+	Gura_AssignMethod(wx_SashWindow, __SizeWindows);
 }
 
 Gura_ImplementDescendantCreator(wx_SashWindow)

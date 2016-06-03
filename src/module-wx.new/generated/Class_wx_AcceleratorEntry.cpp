@@ -37,7 +37,7 @@ String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __wxAcceleratorEntry, "wxAcceleratorEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
+Gura_ImplementMethod(wx_AcceleratorEntry, __wxAcceleratorEntry)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,13 +58,13 @@ Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __wxAcceleratorEntry_1, "wxAcceleratorEntry_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1)
+Gura_ImplementMethod(wx_AcceleratorEntry, __wxAcceleratorEntry_1)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, GetCommand)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetCommand, "GetCommand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
+Gura_ImplementMethod(wx_AcceleratorEntry, __GetCommand)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetCommand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, GetFlags)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
+Gura_ImplementMethod(wx_AcceleratorEntry, __GetFlags)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, GetKeyCode)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetKeyCode, "GetKeyCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
+Gura_ImplementMethod(wx_AcceleratorEntry, __GetKeyCode)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetKeyCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, GetMenuItem)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetMenuItem, "GetMenuItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, GetMenuItem)
+Gura_ImplementMethod(wx_AcceleratorEntry, __GetMenuItem)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, GetMenuItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, Set)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_DeclareMethod(wx_AcceleratorEntry, Set)
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, Set)
+Gura_ImplementMethod(wx_AcceleratorEntry, __Set)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,12 +146,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, IsOk)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, IsOk)
+Gura_ImplementMethod(wx_AcceleratorEntry, __IsOk)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,12 +159,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, ToString)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __ToString, "ToString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, ToString)
+Gura_ImplementMethod(wx_AcceleratorEntry, __ToString)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,12 +172,12 @@ Gura_ImplementMethod(wx_AcceleratorEntry, ToString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, ToRawString)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __ToRawString, "ToRawString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, ToRawString)
+Gura_ImplementMethod(wx_AcceleratorEntry, __ToRawString)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_AcceleratorEntry, ToRawString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AcceleratorEntry, FromString)
+Gura_DeclareMethodAlias(wx_AcceleratorEntry, __FromString, "FromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AcceleratorEntry, FromString)
+Gura_ImplementMethod(wx_AcceleratorEntry, __FromString)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,17 +205,17 @@ Gura_ImplementMethod(wx_AcceleratorEntry, FromString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AcceleratorEntry)
 {
-	Gura_AssignMethod(wx_AcceleratorEntry, wxAcceleratorEntry);
-	Gura_AssignMethod(wx_AcceleratorEntry, wxAcceleratorEntry_1);
-	Gura_AssignMethod(wx_AcceleratorEntry, GetCommand);
-	Gura_AssignMethod(wx_AcceleratorEntry, GetFlags);
-	Gura_AssignMethod(wx_AcceleratorEntry, GetKeyCode);
-	Gura_AssignMethod(wx_AcceleratorEntry, GetMenuItem);
-	Gura_AssignMethod(wx_AcceleratorEntry, Set);
-	Gura_AssignMethod(wx_AcceleratorEntry, IsOk);
-	Gura_AssignMethod(wx_AcceleratorEntry, ToString);
-	Gura_AssignMethod(wx_AcceleratorEntry, ToRawString);
-	Gura_AssignMethod(wx_AcceleratorEntry, FromString);
+	Gura_AssignMethod(wx_AcceleratorEntry, __wxAcceleratorEntry);
+	Gura_AssignMethod(wx_AcceleratorEntry, __wxAcceleratorEntry_1);
+	Gura_AssignMethod(wx_AcceleratorEntry, __GetCommand);
+	Gura_AssignMethod(wx_AcceleratorEntry, __GetFlags);
+	Gura_AssignMethod(wx_AcceleratorEntry, __GetKeyCode);
+	Gura_AssignMethod(wx_AcceleratorEntry, __GetMenuItem);
+	Gura_AssignMethod(wx_AcceleratorEntry, __Set);
+	Gura_AssignMethod(wx_AcceleratorEntry, __IsOk);
+	Gura_AssignMethod(wx_AcceleratorEntry, __ToString);
+	Gura_AssignMethod(wx_AcceleratorEntry, __ToRawString);
+	Gura_AssignMethod(wx_AcceleratorEntry, __FromString);
 }
 
 Gura_ImplementDescendantCreator(wx_AcceleratorEntry)

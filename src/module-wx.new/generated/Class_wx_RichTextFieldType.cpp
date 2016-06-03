@@ -37,13 +37,13 @@ String Object_wx_RichTextFieldType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextFieldType, wxRichTextFieldType)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __wxRichTextFieldType, "wxRichTextFieldType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, wxRichTextFieldType)
+Gura_ImplementMethod(wx_RichTextFieldType, __wxRichTextFieldType)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, wxRichTextFieldType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, wxRichTextFieldType_1)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __wxRichTextFieldType_1, "wxRichTextFieldType_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, wxRichTextFieldType_1)
+Gura_ImplementMethod(wx_RichTextFieldType, __wxRichTextFieldType_1)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, wxRichTextFieldType_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, Copy)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, Copy)
+Gura_ImplementMethod(wx_RichTextFieldType, __Copy)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, Copy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, Draw)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_RichTextFieldType, Draw)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, Draw)
+Gura_ImplementMethod(wx_RichTextFieldType, __Draw)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, Layout)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __Layout, "Layout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_DeclareMethod(wx_RichTextFieldType, Layout)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, Layout)
+Gura_ImplementMethod(wx_RichTextFieldType, __Layout)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, Layout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, GetRangeSize)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __GetRangeSize, "GetRangeSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -151,7 +151,7 @@ Gura_DeclareMethod(wx_RichTextFieldType, GetRangeSize)
 	//DeclareArg(env, "partialExtents", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, GetRangeSize)
+Gura_ImplementMethod(wx_RichTextFieldType, __GetRangeSize)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,13 +169,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, GetRangeSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, CanEditProperties)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __CanEditProperties, "CanEditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, CanEditProperties)
+Gura_ImplementMethod(wx_RichTextFieldType, __CanEditProperties)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, CanEditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, EditProperties)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __EditProperties, "EditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -192,7 +192,7 @@ Gura_DeclareMethod(wx_RichTextFieldType, EditProperties)
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, EditProperties)
+Gura_ImplementMethod(wx_RichTextFieldType, __EditProperties)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, EditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, GetPropertiesMenuLabel)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __GetPropertiesMenuLabel, "GetPropertiesMenuLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, GetPropertiesMenuLabel)
+Gura_ImplementMethod(wx_RichTextFieldType, __GetPropertiesMenuLabel)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,14 +218,14 @@ Gura_ImplementMethod(wx_RichTextFieldType, GetPropertiesMenuLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, UpdateField)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __UpdateField, "UpdateField")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, UpdateField)
+Gura_ImplementMethod(wx_RichTextFieldType, __UpdateField)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, UpdateField)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, IsTopLevel)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __IsTopLevel, "IsTopLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, IsTopLevel)
+Gura_ImplementMethod(wx_RichTextFieldType, __IsTopLevel)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_RichTextFieldType, IsTopLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, SetName)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, SetName)
+Gura_ImplementMethod(wx_RichTextFieldType, __SetName)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_RichTextFieldType, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFieldType, GetName)
+Gura_DeclareMethodAlias(wx_RichTextFieldType, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFieldType, GetName)
+Gura_ImplementMethod(wx_RichTextFieldType, __GetName)
 {
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,19 +283,19 @@ Gura_ImplementMethod(wx_RichTextFieldType, GetName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFieldType)
 {
-	Gura_AssignMethod(wx_RichTextFieldType, wxRichTextFieldType);
-	Gura_AssignMethod(wx_RichTextFieldType, wxRichTextFieldType_1);
-	Gura_AssignMethod(wx_RichTextFieldType, Copy);
-	Gura_AssignMethod(wx_RichTextFieldType, Draw);
-	Gura_AssignMethod(wx_RichTextFieldType, Layout);
-	Gura_AssignMethod(wx_RichTextFieldType, GetRangeSize);
-	Gura_AssignMethod(wx_RichTextFieldType, CanEditProperties);
-	Gura_AssignMethod(wx_RichTextFieldType, EditProperties);
-	Gura_AssignMethod(wx_RichTextFieldType, GetPropertiesMenuLabel);
-	Gura_AssignMethod(wx_RichTextFieldType, UpdateField);
-	Gura_AssignMethod(wx_RichTextFieldType, IsTopLevel);
-	Gura_AssignMethod(wx_RichTextFieldType, SetName);
-	Gura_AssignMethod(wx_RichTextFieldType, GetName);
+	Gura_AssignMethod(wx_RichTextFieldType, __wxRichTextFieldType);
+	Gura_AssignMethod(wx_RichTextFieldType, __wxRichTextFieldType_1);
+	Gura_AssignMethod(wx_RichTextFieldType, __Copy);
+	Gura_AssignMethod(wx_RichTextFieldType, __Draw);
+	Gura_AssignMethod(wx_RichTextFieldType, __Layout);
+	Gura_AssignMethod(wx_RichTextFieldType, __GetRangeSize);
+	Gura_AssignMethod(wx_RichTextFieldType, __CanEditProperties);
+	Gura_AssignMethod(wx_RichTextFieldType, __EditProperties);
+	Gura_AssignMethod(wx_RichTextFieldType, __GetPropertiesMenuLabel);
+	Gura_AssignMethod(wx_RichTextFieldType, __UpdateField);
+	Gura_AssignMethod(wx_RichTextFieldType, __IsTopLevel);
+	Gura_AssignMethod(wx_RichTextFieldType, __SetName);
+	Gura_AssignMethod(wx_RichTextFieldType, __GetName);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFieldType)

@@ -37,14 +37,14 @@ String Object_wx_DataViewIconText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewIconText, wxDataViewIconText)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __wxDataViewIconText, "wxDataViewIconText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText)
+Gura_ImplementMethod(wx_DataViewIconText, __wxDataViewIconText)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIconText, wxDataViewIconText_1)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __wxDataViewIconText_1, "wxDataViewIconText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText_1)
+Gura_ImplementMethod(wx_DataViewIconText, __wxDataViewIconText_1)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_DataViewIconText, wxDataViewIconText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIconText, GetIcon)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, GetIcon)
+Gura_ImplementMethod(wx_DataViewIconText, __GetIcon)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_DataViewIconText, GetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIconText, GetText)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, GetText)
+Gura_ImplementMethod(wx_DataViewIconText, __GetText)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_DataViewIconText, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIconText, SetIcon)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __SetIcon, "SetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, SetIcon)
+Gura_ImplementMethod(wx_DataViewIconText, __SetIcon)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_DataViewIconText, SetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewIconText, SetText)
+Gura_DeclareMethodAlias(wx_DataViewIconText, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewIconText, SetText)
+Gura_ImplementMethod(wx_DataViewIconText, __SetText)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_DataViewIconText, SetText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewIconText)
 {
-	Gura_AssignMethod(wx_DataViewIconText, wxDataViewIconText);
-	Gura_AssignMethod(wx_DataViewIconText, wxDataViewIconText_1);
-	Gura_AssignMethod(wx_DataViewIconText, GetIcon);
-	Gura_AssignMethod(wx_DataViewIconText, GetText);
-	Gura_AssignMethod(wx_DataViewIconText, SetIcon);
-	Gura_AssignMethod(wx_DataViewIconText, SetText);
+	Gura_AssignMethod(wx_DataViewIconText, __wxDataViewIconText);
+	Gura_AssignMethod(wx_DataViewIconText, __wxDataViewIconText_1);
+	Gura_AssignMethod(wx_DataViewIconText, __GetIcon);
+	Gura_AssignMethod(wx_DataViewIconText, __GetText);
+	Gura_AssignMethod(wx_DataViewIconText, __SetIcon);
+	Gura_AssignMethod(wx_DataViewIconText, __SetText);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewIconText)

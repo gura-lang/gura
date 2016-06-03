@@ -37,13 +37,13 @@ String Object_wx_MessageOutputBest::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MessageOutputBest, wxMessageOutputBest)
+Gura_DeclareMethodAlias(wx_MessageOutputBest, __wxMessageOutputBest, "wxMessageOutputBest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageOutputBest, wxMessageOutputBest)
+Gura_ImplementMethod(wx_MessageOutputBest, __wxMessageOutputBest)
 {
 	Object_wx_MessageOutputBest *pThis = Object_wx_MessageOutputBest::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_MessageOutputBest, wxMessageOutputBest)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageOutputBest)
 {
-	Gura_AssignMethod(wx_MessageOutputBest, wxMessageOutputBest);
+	Gura_AssignMethod(wx_MessageOutputBest, __wxMessageOutputBest);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageOutputBest)

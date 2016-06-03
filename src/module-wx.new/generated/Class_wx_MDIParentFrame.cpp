@@ -37,12 +37,12 @@ String Object_wx_MDIParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MDIParentFrame, wxMDIParentFrame)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __wxMDIParentFrame, "wxMDIParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, wxMDIParentFrame)
+Gura_ImplementMethod(wx_MDIParentFrame, __wxMDIParentFrame)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, wxMDIParentFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, wxMDIParentFrame_1)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __wxMDIParentFrame_1, "wxMDIParentFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_MDIParentFrame, wxMDIParentFrame_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, wxMDIParentFrame_1)
+Gura_ImplementMethod(wx_MDIParentFrame, __wxMDIParentFrame_1)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,12 +77,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, wxMDIParentFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, ActivateNext)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __ActivateNext, "ActivateNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, ActivateNext)
+Gura_ImplementMethod(wx_MDIParentFrame, __ActivateNext)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,12 +90,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, ActivateNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, ActivatePrevious)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __ActivatePrevious, "ActivatePrevious")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, ActivatePrevious)
+Gura_ImplementMethod(wx_MDIParentFrame, __ActivatePrevious)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,12 +103,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, ActivatePrevious)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, ArrangeIcons)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __ArrangeIcons, "ArrangeIcons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, ArrangeIcons)
+Gura_ImplementMethod(wx_MDIParentFrame, __ArrangeIcons)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, ArrangeIcons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, Cascade)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __Cascade, "Cascade")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, Cascade)
+Gura_ImplementMethod(wx_MDIParentFrame, __Cascade)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, Cascade)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, Create)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -141,7 +141,7 @@ Gura_DeclareMethod(wx_MDIParentFrame, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, Create)
+Gura_ImplementMethod(wx_MDIParentFrame, __Create)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,12 +156,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, GetActiveChild)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetActiveChild, "GetActiveChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, GetActiveChild)
+Gura_ImplementMethod(wx_MDIParentFrame, __GetActiveChild)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,12 +169,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetActiveChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, GetClientWindow)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetClientWindow, "GetClientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, GetClientWindow)
+Gura_ImplementMethod(wx_MDIParentFrame, __GetClientWindow)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,12 +182,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetClientWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, GetWindowMenu)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetWindowMenu, "GetWindowMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, GetWindowMenu)
+Gura_ImplementMethod(wx_MDIParentFrame, __GetWindowMenu)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, GetWindowMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, IsTDI)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __IsTDI, "IsTDI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, IsTDI)
+Gura_ImplementMethod(wx_MDIParentFrame, __IsTDI)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_MDIParentFrame, IsTDI)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, OnCreateClient)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __OnCreateClient, "OnCreateClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, OnCreateClient)
+Gura_ImplementMethod(wx_MDIParentFrame, __OnCreateClient)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,13 +221,13 @@ Gura_ImplementMethod(wx_MDIParentFrame, OnCreateClient)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, SetWindowMenu)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __SetWindowMenu, "SetWindowMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, SetWindowMenu)
+Gura_ImplementMethod(wx_MDIParentFrame, __SetWindowMenu)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,13 +236,13 @@ Gura_ImplementMethod(wx_MDIParentFrame, SetWindowMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIParentFrame, Tile)
+Gura_DeclareMethodAlias(wx_MDIParentFrame, __Tile, "Tile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIParentFrame, Tile)
+Gura_ImplementMethod(wx_MDIParentFrame, __Tile)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,20 +256,20 @@ Gura_ImplementMethod(wx_MDIParentFrame, Tile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIParentFrame)
 {
-	Gura_AssignMethod(wx_MDIParentFrame, wxMDIParentFrame);
-	Gura_AssignMethod(wx_MDIParentFrame, wxMDIParentFrame_1);
-	Gura_AssignMethod(wx_MDIParentFrame, ActivateNext);
-	Gura_AssignMethod(wx_MDIParentFrame, ActivatePrevious);
-	Gura_AssignMethod(wx_MDIParentFrame, ArrangeIcons);
-	Gura_AssignMethod(wx_MDIParentFrame, Cascade);
-	Gura_AssignMethod(wx_MDIParentFrame, Create);
-	Gura_AssignMethod(wx_MDIParentFrame, GetActiveChild);
-	Gura_AssignMethod(wx_MDIParentFrame, GetClientWindow);
-	Gura_AssignMethod(wx_MDIParentFrame, GetWindowMenu);
-	Gura_AssignMethod(wx_MDIParentFrame, IsTDI);
-	Gura_AssignMethod(wx_MDIParentFrame, OnCreateClient);
-	Gura_AssignMethod(wx_MDIParentFrame, SetWindowMenu);
-	Gura_AssignMethod(wx_MDIParentFrame, Tile);
+	Gura_AssignMethod(wx_MDIParentFrame, __wxMDIParentFrame);
+	Gura_AssignMethod(wx_MDIParentFrame, __wxMDIParentFrame_1);
+	Gura_AssignMethod(wx_MDIParentFrame, __ActivateNext);
+	Gura_AssignMethod(wx_MDIParentFrame, __ActivatePrevious);
+	Gura_AssignMethod(wx_MDIParentFrame, __ArrangeIcons);
+	Gura_AssignMethod(wx_MDIParentFrame, __Cascade);
+	Gura_AssignMethod(wx_MDIParentFrame, __Create);
+	Gura_AssignMethod(wx_MDIParentFrame, __GetActiveChild);
+	Gura_AssignMethod(wx_MDIParentFrame, __GetClientWindow);
+	Gura_AssignMethod(wx_MDIParentFrame, __GetWindowMenu);
+	Gura_AssignMethod(wx_MDIParentFrame, __IsTDI);
+	Gura_AssignMethod(wx_MDIParentFrame, __OnCreateClient);
+	Gura_AssignMethod(wx_MDIParentFrame, __SetWindowMenu);
+	Gura_AssignMethod(wx_MDIParentFrame, __Tile);
 }
 
 Gura_ImplementDescendantCreator(wx_MDIParentFrame)

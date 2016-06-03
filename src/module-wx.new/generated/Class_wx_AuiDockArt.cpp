@@ -37,12 +37,12 @@ String Object_wx_AuiDockArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiDockArt, wxAuiDockArt)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __wxAuiDockArt, "wxAuiDockArt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, wxAuiDockArt)
+Gura_ImplementMethod(wx_AuiDockArt, __wxAuiDockArt)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_AuiDockArt, wxAuiDockArt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawBackground)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawBackground, "DrawBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBackground)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawBackground)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawBackground)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawBorder)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawBorder, "DrawBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawBorder)
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawBorder)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawBorder)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawCaption)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawCaption, "DrawCaption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawCaption)
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawCaption)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawCaption)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawCaption)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawGripper)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawGripper, "DrawGripper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawGripper)
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawGripper)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawGripper)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawGripper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawPaneButton)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawPaneButton, "DrawPaneButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -147,7 +147,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawPaneButton)
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawPaneButton)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawPaneButton)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawPaneButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, DrawSash)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __DrawSash, "DrawSash")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -170,7 +170,7 @@ Gura_DeclareMethod(wx_AuiDockArt, DrawSash)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, DrawSash)
+Gura_ImplementMethod(wx_AuiDockArt, __DrawSash)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,13 +182,13 @@ Gura_ImplementMethod(wx_AuiDockArt, DrawSash)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, GetColour)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, GetColour)
+Gura_ImplementMethod(wx_AuiDockArt, __GetColour)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,13 +197,13 @@ Gura_ImplementMethod(wx_AuiDockArt, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, GetFont)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, GetFont)
+Gura_ImplementMethod(wx_AuiDockArt, __GetFont)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,13 +212,13 @@ Gura_ImplementMethod(wx_AuiDockArt, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, GetMetric)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __GetMetric, "GetMetric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
+Gura_ImplementMethod(wx_AuiDockArt, __GetMetric)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,14 +227,14 @@ Gura_ImplementMethod(wx_AuiDockArt, GetMetric)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, SetColour)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, SetColour)
+Gura_ImplementMethod(wx_AuiDockArt, __SetColour)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,14 +244,14 @@ Gura_ImplementMethod(wx_AuiDockArt, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, SetFont)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, SetFont)
+Gura_ImplementMethod(wx_AuiDockArt, __SetFont)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,14 +261,14 @@ Gura_ImplementMethod(wx_AuiDockArt, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiDockArt, SetMetric)
+Gura_DeclareMethodAlias(wx_AuiDockArt, __SetMetric, "SetMetric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "new_val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
+Gura_ImplementMethod(wx_AuiDockArt, __SetMetric)
 {
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,19 +283,19 @@ Gura_ImplementMethod(wx_AuiDockArt, SetMetric)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiDockArt)
 {
-	Gura_AssignMethod(wx_AuiDockArt, wxAuiDockArt);
-	Gura_AssignMethod(wx_AuiDockArt, DrawBackground);
-	Gura_AssignMethod(wx_AuiDockArt, DrawBorder);
-	Gura_AssignMethod(wx_AuiDockArt, DrawCaption);
-	Gura_AssignMethod(wx_AuiDockArt, DrawGripper);
-	Gura_AssignMethod(wx_AuiDockArt, DrawPaneButton);
-	Gura_AssignMethod(wx_AuiDockArt, DrawSash);
-	Gura_AssignMethod(wx_AuiDockArt, GetColour);
-	Gura_AssignMethod(wx_AuiDockArt, GetFont);
-	Gura_AssignMethod(wx_AuiDockArt, GetMetric);
-	Gura_AssignMethod(wx_AuiDockArt, SetColour);
-	Gura_AssignMethod(wx_AuiDockArt, SetFont);
-	Gura_AssignMethod(wx_AuiDockArt, SetMetric);
+	Gura_AssignMethod(wx_AuiDockArt, __wxAuiDockArt);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawBackground);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawBorder);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawCaption);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawGripper);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawPaneButton);
+	Gura_AssignMethod(wx_AuiDockArt, __DrawSash);
+	Gura_AssignMethod(wx_AuiDockArt, __GetColour);
+	Gura_AssignMethod(wx_AuiDockArt, __GetFont);
+	Gura_AssignMethod(wx_AuiDockArt, __GetMetric);
+	Gura_AssignMethod(wx_AuiDockArt, __SetColour);
+	Gura_AssignMethod(wx_AuiDockArt, __SetFont);
+	Gura_AssignMethod(wx_AuiDockArt, __SetMetric);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiDockArt)

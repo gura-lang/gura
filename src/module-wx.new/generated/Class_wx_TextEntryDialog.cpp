@@ -37,12 +37,12 @@ String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextEntryDialog, wxTextEntryDialog)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __wxTextEntryDialog, "wxTextEntryDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog)
+Gura_ImplementMethod(wx_TextEntryDialog, __wxTextEntryDialog)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __wxTextEntryDialog_1, "wxTextEntryDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
+Gura_ImplementMethod(wx_TextEntryDialog, __wxTextEntryDialog_1)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, wxTextEntryDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, Create)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_TextEntryDialog, Create)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, Create)
+Gura_ImplementMethod(wx_TextEntryDialog, __Create)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_TextEntryDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, GetValue)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
+Gura_ImplementMethod(wx_TextEntryDialog, __GetValue)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,13 +113,13 @@ Gura_ImplementMethod(wx_TextEntryDialog, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, SetTextValidator)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __SetTextValidator, "SetTextValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator)
+Gura_ImplementMethod(wx_TextEntryDialog, __SetTextValidator)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,13 +128,13 @@ Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, SetTextValidator_1)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __SetTextValidator_1, "SetTextValidator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator_1)
+Gura_ImplementMethod(wx_TextEntryDialog, __SetTextValidator_1)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_TextEntryDialog, SetTextValidator_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, SetMaxLength)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __SetMaxLength, "SetMaxLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, SetMaxLength)
+Gura_ImplementMethod(wx_TextEntryDialog, __SetMaxLength)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_TextEntryDialog, SetMaxLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, SetValue)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, SetValue)
+Gura_ImplementMethod(wx_TextEntryDialog, __SetValue)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,12 +173,12 @@ Gura_ImplementMethod(wx_TextEntryDialog, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, ForceUpper)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __ForceUpper, "ForceUpper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, ForceUpper)
+Gura_ImplementMethod(wx_TextEntryDialog, __ForceUpper)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,12 +186,12 @@ Gura_ImplementMethod(wx_TextEntryDialog, ForceUpper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextEntryDialog, ShowModal)
+Gura_DeclareMethodAlias(wx_TextEntryDialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextEntryDialog, ShowModal)
+Gura_ImplementMethod(wx_TextEntryDialog, __ShowModal)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,16 +204,16 @@ Gura_ImplementMethod(wx_TextEntryDialog, ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextEntryDialog)
 {
-	Gura_AssignMethod(wx_TextEntryDialog, wxTextEntryDialog);
-	Gura_AssignMethod(wx_TextEntryDialog, wxTextEntryDialog_1);
-	Gura_AssignMethod(wx_TextEntryDialog, Create);
-	Gura_AssignMethod(wx_TextEntryDialog, GetValue);
-	Gura_AssignMethod(wx_TextEntryDialog, SetTextValidator);
-	Gura_AssignMethod(wx_TextEntryDialog, SetTextValidator_1);
-	Gura_AssignMethod(wx_TextEntryDialog, SetMaxLength);
-	Gura_AssignMethod(wx_TextEntryDialog, SetValue);
-	Gura_AssignMethod(wx_TextEntryDialog, ForceUpper);
-	Gura_AssignMethod(wx_TextEntryDialog, ShowModal);
+	Gura_AssignMethod(wx_TextEntryDialog, __wxTextEntryDialog);
+	Gura_AssignMethod(wx_TextEntryDialog, __wxTextEntryDialog_1);
+	Gura_AssignMethod(wx_TextEntryDialog, __Create);
+	Gura_AssignMethod(wx_TextEntryDialog, __GetValue);
+	Gura_AssignMethod(wx_TextEntryDialog, __SetTextValidator);
+	Gura_AssignMethod(wx_TextEntryDialog, __SetTextValidator_1);
+	Gura_AssignMethod(wx_TextEntryDialog, __SetMaxLength);
+	Gura_AssignMethod(wx_TextEntryDialog, __SetValue);
+	Gura_AssignMethod(wx_TextEntryDialog, __ForceUpper);
+	Gura_AssignMethod(wx_TextEntryDialog, __ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_TextEntryDialog)

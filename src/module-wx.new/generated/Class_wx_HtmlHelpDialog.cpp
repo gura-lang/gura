@@ -37,13 +37,13 @@ String Object_wx_HtmlHelpDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __wxHtmlHelpDialog, "wxHtmlHelpDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __wxHtmlHelpDialog)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog_1)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __wxHtmlHelpDialog_1, "wxHtmlHelpDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog_1)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog_1)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __wxHtmlHelpDialog_1)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,14 +75,14 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, AddToolbarButtons)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __AddToolbarButtons, "AddToolbarButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "toolBar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, AddToolbarButtons)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __AddToolbarButtons)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, AddToolbarButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, Create)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_DeclareMethod(wx_HtmlHelpDialog, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __Create)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, GetController)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __GetController, "GetController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __GetController)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, GetController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, SetController)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __SetController, "SetController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "controller", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, SetController)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __SetController)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, SetController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpDialog, SetTitleFormat)
+Gura_DeclareMethodAlias(wx_HtmlHelpDialog, __SetTitleFormat, "SetTitleFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpDialog, SetTitleFormat)
+Gura_ImplementMethod(wx_HtmlHelpDialog, __SetTitleFormat)
 {
 	Object_wx_HtmlHelpDialog *pThis = Object_wx_HtmlHelpDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_HtmlHelpDialog, SetTitleFormat)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpDialog)
 {
-	Gura_AssignMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog);
-	Gura_AssignMethod(wx_HtmlHelpDialog, wxHtmlHelpDialog_1);
-	Gura_AssignMethod(wx_HtmlHelpDialog, AddToolbarButtons);
-	Gura_AssignMethod(wx_HtmlHelpDialog, Create);
-	Gura_AssignMethod(wx_HtmlHelpDialog, GetController);
-	Gura_AssignMethod(wx_HtmlHelpDialog, SetController);
-	Gura_AssignMethod(wx_HtmlHelpDialog, SetTitleFormat);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __wxHtmlHelpDialog);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __wxHtmlHelpDialog_1);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __AddToolbarButtons);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __Create);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __GetController);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __SetController);
+	Gura_AssignMethod(wx_HtmlHelpDialog, __SetTitleFormat);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpDialog)

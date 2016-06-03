@@ -37,14 +37,14 @@ String Object_wx_DocManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DocManager, wxDocManager)
+Gura_DeclareMethodAlias(wx_DocManager, __wxDocManager, "wxDocManager")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "initialize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, wxDocManager)
+Gura_ImplementMethod(wx_DocManager, __wxDocManager)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_DocManager, wxDocManager)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, ActivateView)
+Gura_DeclareMethodAlias(wx_DocManager, __ActivateView, "ActivateView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "activate", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, ActivateView)
+Gura_ImplementMethod(wx_DocManager, __ActivateView)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_DocManager, ActivateView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, AddDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __AddDocument, "AddDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, AddDocument)
+Gura_ImplementMethod(wx_DocManager, __AddDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_DocManager, AddDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, AddFileToHistory)
+Gura_DeclareMethodAlias(wx_DocManager, __AddFileToHistory, "AddFileToHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, AddFileToHistory)
+Gura_ImplementMethod(wx_DocManager, __AddFileToHistory)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_DocManager, AddFileToHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, AssociateTemplate)
+Gura_DeclareMethodAlias(wx_DocManager, __AssociateTemplate, "AssociateTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "temp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, AssociateTemplate)
+Gura_ImplementMethod(wx_DocManager, __AssociateTemplate)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,13 +116,13 @@ Gura_ImplementMethod(wx_DocManager, AssociateTemplate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FindTemplate)
+Gura_DeclareMethodAlias(wx_DocManager, __FindTemplate, "FindTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "classinfo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FindTemplate)
+Gura_ImplementMethod(wx_DocManager, __FindTemplate)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,13 +131,13 @@ Gura_ImplementMethod(wx_DocManager, FindTemplate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FindDocumentByPath)
+Gura_DeclareMethodAlias(wx_DocManager, __FindDocumentByPath, "FindDocumentByPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FindDocumentByPath)
+Gura_ImplementMethod(wx_DocManager, __FindDocumentByPath)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,14 +146,14 @@ Gura_ImplementMethod(wx_DocManager, FindDocumentByPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CloseDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __CloseDocument, "CloseDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "force", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, CloseDocument)
+Gura_ImplementMethod(wx_DocManager, __CloseDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_DocManager, CloseDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CloseDocuments)
+Gura_DeclareMethodAlias(wx_DocManager, __CloseDocuments, "CloseDocuments")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "force", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, CloseDocuments)
+Gura_ImplementMethod(wx_DocManager, __CloseDocuments)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,14 +178,14 @@ Gura_ImplementMethod(wx_DocManager, CloseDocuments)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CreateDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __CreateDocument, "CreateDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, CreateDocument)
+Gura_ImplementMethod(wx_DocManager, __CreateDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_DocManager, CreateDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CreateNewDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __CreateNewDocument, "CreateNewDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, CreateNewDocument)
+Gura_ImplementMethod(wx_DocManager, __CreateNewDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,14 +208,14 @@ Gura_ImplementMethod(wx_DocManager, CreateNewDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CreateView)
+Gura_DeclareMethodAlias(wx_DocManager, __CreateView, "CreateView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, CreateView)
+Gura_ImplementMethod(wx_DocManager, __CreateView)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_DocManager, CreateView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, DisassociateTemplate)
+Gura_DeclareMethodAlias(wx_DocManager, __DisassociateTemplate, "DisassociateTemplate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "temp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, DisassociateTemplate)
+Gura_ImplementMethod(wx_DocManager, __DisassociateTemplate)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,12 +240,12 @@ Gura_ImplementMethod(wx_DocManager, DisassociateTemplate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistoryAddFilesToMenu, "FileHistoryAddFilesToMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu)
+Gura_ImplementMethod(wx_DocManager, __FileHistoryAddFilesToMenu)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -253,13 +253,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistoryAddFilesToMenu_1, "FileHistoryAddFilesToMenu_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
+Gura_ImplementMethod(wx_DocManager, __FileHistoryAddFilesToMenu_1)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,13 +268,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryAddFilesToMenu_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistoryLoad)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistoryLoad, "FileHistoryLoad")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistoryLoad)
+Gura_ImplementMethod(wx_DocManager, __FileHistoryLoad)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,13 +283,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryLoad)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistoryRemoveMenu)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistoryRemoveMenu, "FileHistoryRemoveMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistoryRemoveMenu)
+Gura_ImplementMethod(wx_DocManager, __FileHistoryRemoveMenu)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,13 +298,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryRemoveMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistorySave)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistorySave, "FileHistorySave")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "resourceFile", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistorySave)
+Gura_ImplementMethod(wx_DocManager, __FileHistorySave)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -313,13 +313,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistorySave)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FileHistoryUseMenu)
+Gura_DeclareMethodAlias(wx_DocManager, __FileHistoryUseMenu, "FileHistoryUseMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FileHistoryUseMenu)
+Gura_ImplementMethod(wx_DocManager, __FileHistoryUseMenu)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -328,13 +328,13 @@ Gura_ImplementMethod(wx_DocManager, FileHistoryUseMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, FindTemplateForPath)
+Gura_DeclareMethodAlias(wx_DocManager, __FindTemplateForPath, "FindTemplateForPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, FindTemplateForPath)
+Gura_ImplementMethod(wx_DocManager, __FindTemplateForPath)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,12 +343,12 @@ Gura_ImplementMethod(wx_DocManager, FindTemplateForPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetAnyUsableView)
+Gura_DeclareMethodAlias(wx_DocManager, __GetAnyUsableView, "GetAnyUsableView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetAnyUsableView)
+Gura_ImplementMethod(wx_DocManager, __GetAnyUsableView)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -356,12 +356,12 @@ Gura_ImplementMethod(wx_DocManager, GetAnyUsableView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetCurrentDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __GetCurrentDocument, "GetCurrentDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetCurrentDocument)
+Gura_ImplementMethod(wx_DocManager, __GetCurrentDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -369,12 +369,12 @@ Gura_ImplementMethod(wx_DocManager, GetCurrentDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetCurrentView)
+Gura_DeclareMethodAlias(wx_DocManager, __GetCurrentView, "GetCurrentView")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetCurrentView)
+Gura_ImplementMethod(wx_DocManager, __GetCurrentView)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -382,12 +382,12 @@ Gura_ImplementMethod(wx_DocManager, GetCurrentView)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetDocumentsVector)
+Gura_DeclareMethodAlias(wx_DocManager, __GetDocumentsVector, "GetDocumentsVector")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetDocumentsVector)
+Gura_ImplementMethod(wx_DocManager, __GetDocumentsVector)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -395,12 +395,12 @@ Gura_ImplementMethod(wx_DocManager, GetDocumentsVector)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetTemplatesVector)
+Gura_DeclareMethodAlias(wx_DocManager, __GetTemplatesVector, "GetTemplatesVector")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetTemplatesVector)
+Gura_ImplementMethod(wx_DocManager, __GetTemplatesVector)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -408,12 +408,12 @@ Gura_ImplementMethod(wx_DocManager, GetTemplatesVector)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetDocuments)
+Gura_DeclareMethodAlias(wx_DocManager, __GetDocuments, "GetDocuments")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetDocuments)
+Gura_ImplementMethod(wx_DocManager, __GetDocuments)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -421,12 +421,12 @@ Gura_ImplementMethod(wx_DocManager, GetDocuments)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetFileHistory)
+Gura_DeclareMethodAlias(wx_DocManager, __GetFileHistory, "GetFileHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetFileHistory)
+Gura_ImplementMethod(wx_DocManager, __GetFileHistory)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -434,12 +434,12 @@ Gura_ImplementMethod(wx_DocManager, GetFileHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetHistoryFilesCount)
+Gura_DeclareMethodAlias(wx_DocManager, __GetHistoryFilesCount, "GetHistoryFilesCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetHistoryFilesCount)
+Gura_ImplementMethod(wx_DocManager, __GetHistoryFilesCount)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -447,12 +447,12 @@ Gura_ImplementMethod(wx_DocManager, GetHistoryFilesCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetLastDirectory)
+Gura_DeclareMethodAlias(wx_DocManager, __GetLastDirectory, "GetLastDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetLastDirectory)
+Gura_ImplementMethod(wx_DocManager, __GetLastDirectory)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,12 +460,12 @@ Gura_ImplementMethod(wx_DocManager, GetLastDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetMaxDocsOpen)
+Gura_DeclareMethodAlias(wx_DocManager, __GetMaxDocsOpen, "GetMaxDocsOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetMaxDocsOpen)
+Gura_ImplementMethod(wx_DocManager, __GetMaxDocsOpen)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -473,12 +473,12 @@ Gura_ImplementMethod(wx_DocManager, GetMaxDocsOpen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, GetTemplates)
+Gura_DeclareMethodAlias(wx_DocManager, __GetTemplates, "GetTemplates")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, GetTemplates)
+Gura_ImplementMethod(wx_DocManager, __GetTemplates)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -486,12 +486,12 @@ Gura_ImplementMethod(wx_DocManager, GetTemplates)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, Initialize)
+Gura_DeclareMethodAlias(wx_DocManager, __Initialize, "Initialize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, Initialize)
+Gura_ImplementMethod(wx_DocManager, __Initialize)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -499,12 +499,12 @@ Gura_ImplementMethod(wx_DocManager, Initialize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, MakeNewDocumentName)
+Gura_DeclareMethodAlias(wx_DocManager, __MakeNewDocumentName, "MakeNewDocumentName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, MakeNewDocumentName)
+Gura_ImplementMethod(wx_DocManager, __MakeNewDocumentName)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -512,12 +512,12 @@ Gura_ImplementMethod(wx_DocManager, MakeNewDocumentName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnCreateFileHistory)
+Gura_DeclareMethodAlias(wx_DocManager, __OnCreateFileHistory, "OnCreateFileHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnCreateFileHistory)
+Gura_ImplementMethod(wx_DocManager, __OnCreateFileHistory)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -525,13 +525,13 @@ Gura_ImplementMethod(wx_DocManager, OnCreateFileHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileClose)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileClose, "OnFileClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileClose)
+Gura_ImplementMethod(wx_DocManager, __OnFileClose)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -540,13 +540,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileClose)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileCloseAll)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileCloseAll, "OnFileCloseAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileCloseAll)
+Gura_ImplementMethod(wx_DocManager, __OnFileCloseAll)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -555,13 +555,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileCloseAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileNew)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileNew, "OnFileNew")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileNew)
+Gura_ImplementMethod(wx_DocManager, __OnFileNew)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -570,13 +570,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileNew)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileOpen)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileOpen, "OnFileOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileOpen)
+Gura_ImplementMethod(wx_DocManager, __OnFileOpen)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -585,13 +585,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileOpen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileRevert)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileRevert, "OnFileRevert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileRevert)
+Gura_ImplementMethod(wx_DocManager, __OnFileRevert)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -600,13 +600,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileRevert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileSave)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileSave, "OnFileSave")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileSave)
+Gura_ImplementMethod(wx_DocManager, __OnFileSave)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -615,13 +615,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileSave)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnFileSaveAs)
+Gura_DeclareMethodAlias(wx_DocManager, __OnFileSaveAs, "OnFileSaveAs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnFileSaveAs)
+Gura_ImplementMethod(wx_DocManager, __OnFileSaveAs)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -630,13 +630,13 @@ Gura_ImplementMethod(wx_DocManager, OnFileSaveAs)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, RemoveDocument)
+Gura_DeclareMethodAlias(wx_DocManager, __RemoveDocument, "RemoveDocument")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, RemoveDocument)
+Gura_ImplementMethod(wx_DocManager, __RemoveDocument)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -645,7 +645,7 @@ Gura_ImplementMethod(wx_DocManager, RemoveDocument)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, SelectDocumentPath)
+Gura_DeclareMethodAlias(wx_DocManager, __SelectDocumentPath, "SelectDocumentPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "templates", VTYPE_number, OCCUR_Once);
@@ -655,7 +655,7 @@ Gura_DeclareMethod(wx_DocManager, SelectDocumentPath)
 	//DeclareArg(env, "save", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, SelectDocumentPath)
+Gura_ImplementMethod(wx_DocManager, __SelectDocumentPath)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -668,7 +668,7 @@ Gura_ImplementMethod(wx_DocManager, SelectDocumentPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, SelectDocumentType)
+Gura_DeclareMethodAlias(wx_DocManager, __SelectDocumentType, "SelectDocumentType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "templates", VTYPE_number, OCCUR_Once);
@@ -676,7 +676,7 @@ Gura_DeclareMethod(wx_DocManager, SelectDocumentType)
 	//DeclareArg(env, "sort", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, SelectDocumentType)
+Gura_ImplementMethod(wx_DocManager, __SelectDocumentType)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -687,7 +687,7 @@ Gura_ImplementMethod(wx_DocManager, SelectDocumentType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, SelectViewType)
+Gura_DeclareMethodAlias(wx_DocManager, __SelectViewType, "SelectViewType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "templates", VTYPE_number, OCCUR_Once);
@@ -695,7 +695,7 @@ Gura_DeclareMethod(wx_DocManager, SelectViewType)
 	//DeclareArg(env, "sort", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, SelectViewType)
+Gura_ImplementMethod(wx_DocManager, __SelectViewType)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -706,13 +706,13 @@ Gura_ImplementMethod(wx_DocManager, SelectViewType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, SetLastDirectory)
+Gura_DeclareMethodAlias(wx_DocManager, __SetLastDirectory, "SetLastDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, SetLastDirectory)
+Gura_ImplementMethod(wx_DocManager, __SetLastDirectory)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -721,13 +721,13 @@ Gura_ImplementMethod(wx_DocManager, SetLastDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, SetMaxDocsOpen)
+Gura_DeclareMethodAlias(wx_DocManager, __SetMaxDocsOpen, "SetMaxDocsOpen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, SetMaxDocsOpen)
+Gura_ImplementMethod(wx_DocManager, __SetMaxDocsOpen)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -736,14 +736,14 @@ Gura_ImplementMethod(wx_DocManager, SetMaxDocsOpen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, OnMRUFileNotExist)
+Gura_DeclareMethodAlias(wx_DocManager, __OnMRUFileNotExist, "OnMRUFileNotExist")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, OnMRUFileNotExist)
+Gura_ImplementMethod(wx_DocManager, __OnMRUFileNotExist)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -753,7 +753,7 @@ Gura_ImplementMethod(wx_DocManager, OnMRUFileNotExist)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocManager, CreatePreviewFrame)
+Gura_DeclareMethodAlias(wx_DocManager, __CreatePreviewFrame, "CreatePreviewFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
@@ -761,7 +761,7 @@ Gura_DeclareMethod(wx_DocManager, CreatePreviewFrame)
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocManager, CreatePreviewFrame)
+Gura_ImplementMethod(wx_DocManager, __CreatePreviewFrame)
 {
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -777,55 +777,55 @@ Gura_ImplementMethod(wx_DocManager, CreatePreviewFrame)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocManager)
 {
-	Gura_AssignMethod(wx_DocManager, wxDocManager);
-	Gura_AssignMethod(wx_DocManager, ActivateView);
-	Gura_AssignMethod(wx_DocManager, AddDocument);
-	Gura_AssignMethod(wx_DocManager, AddFileToHistory);
-	Gura_AssignMethod(wx_DocManager, AssociateTemplate);
-	Gura_AssignMethod(wx_DocManager, FindTemplate);
-	Gura_AssignMethod(wx_DocManager, FindDocumentByPath);
-	Gura_AssignMethod(wx_DocManager, CloseDocument);
-	Gura_AssignMethod(wx_DocManager, CloseDocuments);
-	Gura_AssignMethod(wx_DocManager, CreateDocument);
-	Gura_AssignMethod(wx_DocManager, CreateNewDocument);
-	Gura_AssignMethod(wx_DocManager, CreateView);
-	Gura_AssignMethod(wx_DocManager, DisassociateTemplate);
-	Gura_AssignMethod(wx_DocManager, FileHistoryAddFilesToMenu);
-	Gura_AssignMethod(wx_DocManager, FileHistoryAddFilesToMenu_1);
-	Gura_AssignMethod(wx_DocManager, FileHistoryLoad);
-	Gura_AssignMethod(wx_DocManager, FileHistoryRemoveMenu);
-	Gura_AssignMethod(wx_DocManager, FileHistorySave);
-	Gura_AssignMethod(wx_DocManager, FileHistoryUseMenu);
-	Gura_AssignMethod(wx_DocManager, FindTemplateForPath);
-	Gura_AssignMethod(wx_DocManager, GetAnyUsableView);
-	Gura_AssignMethod(wx_DocManager, GetCurrentDocument);
-	Gura_AssignMethod(wx_DocManager, GetCurrentView);
-	Gura_AssignMethod(wx_DocManager, GetDocumentsVector);
-	Gura_AssignMethod(wx_DocManager, GetTemplatesVector);
-	Gura_AssignMethod(wx_DocManager, GetDocuments);
-	Gura_AssignMethod(wx_DocManager, GetFileHistory);
-	Gura_AssignMethod(wx_DocManager, GetHistoryFilesCount);
-	Gura_AssignMethod(wx_DocManager, GetLastDirectory);
-	Gura_AssignMethod(wx_DocManager, GetMaxDocsOpen);
-	Gura_AssignMethod(wx_DocManager, GetTemplates);
-	Gura_AssignMethod(wx_DocManager, Initialize);
-	Gura_AssignMethod(wx_DocManager, MakeNewDocumentName);
-	Gura_AssignMethod(wx_DocManager, OnCreateFileHistory);
-	Gura_AssignMethod(wx_DocManager, OnFileClose);
-	Gura_AssignMethod(wx_DocManager, OnFileCloseAll);
-	Gura_AssignMethod(wx_DocManager, OnFileNew);
-	Gura_AssignMethod(wx_DocManager, OnFileOpen);
-	Gura_AssignMethod(wx_DocManager, OnFileRevert);
-	Gura_AssignMethod(wx_DocManager, OnFileSave);
-	Gura_AssignMethod(wx_DocManager, OnFileSaveAs);
-	Gura_AssignMethod(wx_DocManager, RemoveDocument);
-	Gura_AssignMethod(wx_DocManager, SelectDocumentPath);
-	Gura_AssignMethod(wx_DocManager, SelectDocumentType);
-	Gura_AssignMethod(wx_DocManager, SelectViewType);
-	Gura_AssignMethod(wx_DocManager, SetLastDirectory);
-	Gura_AssignMethod(wx_DocManager, SetMaxDocsOpen);
-	Gura_AssignMethod(wx_DocManager, OnMRUFileNotExist);
-	Gura_AssignMethod(wx_DocManager, CreatePreviewFrame);
+	Gura_AssignMethod(wx_DocManager, __wxDocManager);
+	Gura_AssignMethod(wx_DocManager, __ActivateView);
+	Gura_AssignMethod(wx_DocManager, __AddDocument);
+	Gura_AssignMethod(wx_DocManager, __AddFileToHistory);
+	Gura_AssignMethod(wx_DocManager, __AssociateTemplate);
+	Gura_AssignMethod(wx_DocManager, __FindTemplate);
+	Gura_AssignMethod(wx_DocManager, __FindDocumentByPath);
+	Gura_AssignMethod(wx_DocManager, __CloseDocument);
+	Gura_AssignMethod(wx_DocManager, __CloseDocuments);
+	Gura_AssignMethod(wx_DocManager, __CreateDocument);
+	Gura_AssignMethod(wx_DocManager, __CreateNewDocument);
+	Gura_AssignMethod(wx_DocManager, __CreateView);
+	Gura_AssignMethod(wx_DocManager, __DisassociateTemplate);
+	Gura_AssignMethod(wx_DocManager, __FileHistoryAddFilesToMenu);
+	Gura_AssignMethod(wx_DocManager, __FileHistoryAddFilesToMenu_1);
+	Gura_AssignMethod(wx_DocManager, __FileHistoryLoad);
+	Gura_AssignMethod(wx_DocManager, __FileHistoryRemoveMenu);
+	Gura_AssignMethod(wx_DocManager, __FileHistorySave);
+	Gura_AssignMethod(wx_DocManager, __FileHistoryUseMenu);
+	Gura_AssignMethod(wx_DocManager, __FindTemplateForPath);
+	Gura_AssignMethod(wx_DocManager, __GetAnyUsableView);
+	Gura_AssignMethod(wx_DocManager, __GetCurrentDocument);
+	Gura_AssignMethod(wx_DocManager, __GetCurrentView);
+	Gura_AssignMethod(wx_DocManager, __GetDocumentsVector);
+	Gura_AssignMethod(wx_DocManager, __GetTemplatesVector);
+	Gura_AssignMethod(wx_DocManager, __GetDocuments);
+	Gura_AssignMethod(wx_DocManager, __GetFileHistory);
+	Gura_AssignMethod(wx_DocManager, __GetHistoryFilesCount);
+	Gura_AssignMethod(wx_DocManager, __GetLastDirectory);
+	Gura_AssignMethod(wx_DocManager, __GetMaxDocsOpen);
+	Gura_AssignMethod(wx_DocManager, __GetTemplates);
+	Gura_AssignMethod(wx_DocManager, __Initialize);
+	Gura_AssignMethod(wx_DocManager, __MakeNewDocumentName);
+	Gura_AssignMethod(wx_DocManager, __OnCreateFileHistory);
+	Gura_AssignMethod(wx_DocManager, __OnFileClose);
+	Gura_AssignMethod(wx_DocManager, __OnFileCloseAll);
+	Gura_AssignMethod(wx_DocManager, __OnFileNew);
+	Gura_AssignMethod(wx_DocManager, __OnFileOpen);
+	Gura_AssignMethod(wx_DocManager, __OnFileRevert);
+	Gura_AssignMethod(wx_DocManager, __OnFileSave);
+	Gura_AssignMethod(wx_DocManager, __OnFileSaveAs);
+	Gura_AssignMethod(wx_DocManager, __RemoveDocument);
+	Gura_AssignMethod(wx_DocManager, __SelectDocumentPath);
+	Gura_AssignMethod(wx_DocManager, __SelectDocumentType);
+	Gura_AssignMethod(wx_DocManager, __SelectViewType);
+	Gura_AssignMethod(wx_DocManager, __SetLastDirectory);
+	Gura_AssignMethod(wx_DocManager, __SetMaxDocsOpen);
+	Gura_AssignMethod(wx_DocManager, __OnMRUFileNotExist);
+	Gura_AssignMethod(wx_DocManager, __CreatePreviewFrame);
 }
 
 Gura_ImplementDescendantCreator(wx_DocManager)

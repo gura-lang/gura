@@ -37,12 +37,12 @@ String Object_wx_RibbonGallery::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonGallery, wxRibbonGallery)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __wxRibbonGallery, "wxRibbonGallery")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery)
+Gura_ImplementMethod(wx_RibbonGallery, __wxRibbonGallery)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, wxRibbonGallery_1)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __wxRibbonGallery_1, "wxRibbonGallery_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_RibbonGallery, wxRibbonGallery_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery_1)
+Gura_ImplementMethod(wx_RibbonGallery, __wxRibbonGallery_1)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_RibbonGallery, wxRibbonGallery_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, Create)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareMethod(wx_RibbonGallery, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, Create)
+Gura_ImplementMethod(wx_RibbonGallery, __Create)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,12 +96,12 @@ Gura_ImplementMethod(wx_RibbonGallery, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, Clear)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, Clear)
+Gura_ImplementMethod(wx_RibbonGallery, __Clear)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,12 +109,12 @@ Gura_ImplementMethod(wx_RibbonGallery, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, IsEmpty)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, IsEmpty)
+Gura_ImplementMethod(wx_RibbonGallery, __IsEmpty)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_RibbonGallery, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetCount)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetCount)
+Gura_ImplementMethod(wx_RibbonGallery, __GetCount)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_RibbonGallery, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetItem)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetItem)
+Gura_ImplementMethod(wx_RibbonGallery, __GetItem)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,14 +150,14 @@ Gura_ImplementMethod(wx_RibbonGallery, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, Append)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, Append)
+Gura_ImplementMethod(wx_RibbonGallery, __Append)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RibbonGallery, Append)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, Append_1)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __Append_1, "Append_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -175,7 +175,7 @@ Gura_DeclareMethod(wx_RibbonGallery, Append_1)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, Append_1)
+Gura_ImplementMethod(wx_RibbonGallery, __Append_1)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_RibbonGallery, Append_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, Append_2)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __Append_2, "Append_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -194,7 +194,7 @@ Gura_DeclareMethod(wx_RibbonGallery, Append_2)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, Append_2)
+Gura_ImplementMethod(wx_RibbonGallery, __Append_2)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,14 +205,14 @@ Gura_ImplementMethod(wx_RibbonGallery, Append_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, SetItemClientObject)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __SetItemClientObject, "SetItemClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, SetItemClientObject)
+Gura_ImplementMethod(wx_RibbonGallery, __SetItemClientObject)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_RibbonGallery, SetItemClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetItemClientObject)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetItemClientObject, "GetItemClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetItemClientObject)
+Gura_ImplementMethod(wx_RibbonGallery, __GetItemClientObject)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,14 +237,14 @@ Gura_ImplementMethod(wx_RibbonGallery, GetItemClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, SetItemClientData)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __SetItemClientData, "SetItemClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, SetItemClientData)
+Gura_ImplementMethod(wx_RibbonGallery, __SetItemClientData)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,13 +254,13 @@ Gura_ImplementMethod(wx_RibbonGallery, SetItemClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetItemClientData)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetItemClientData, "GetItemClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetItemClientData)
+Gura_ImplementMethod(wx_RibbonGallery, __GetItemClientData)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,13 +269,13 @@ Gura_ImplementMethod(wx_RibbonGallery, GetItemClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, SetSelection)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, SetSelection)
+Gura_ImplementMethod(wx_RibbonGallery, __SetSelection)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -284,12 +284,12 @@ Gura_ImplementMethod(wx_RibbonGallery, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetSelection)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetSelection)
+Gura_ImplementMethod(wx_RibbonGallery, __GetSelection)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,12 +297,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetHoveredItem)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetHoveredItem, "GetHoveredItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetHoveredItem)
+Gura_ImplementMethod(wx_RibbonGallery, __GetHoveredItem)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -310,12 +310,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetHoveredItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetActiveItem)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetActiveItem, "GetActiveItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetActiveItem)
+Gura_ImplementMethod(wx_RibbonGallery, __GetActiveItem)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -323,12 +323,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetActiveItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetUpButtonState)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetUpButtonState, "GetUpButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetUpButtonState)
+Gura_ImplementMethod(wx_RibbonGallery, __GetUpButtonState)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -336,12 +336,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetUpButtonState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetDownButtonState)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetDownButtonState, "GetDownButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetDownButtonState)
+Gura_ImplementMethod(wx_RibbonGallery, __GetDownButtonState)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,12 +349,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetDownButtonState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, GetExtensionButtonState)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __GetExtensionButtonState, "GetExtensionButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, GetExtensionButtonState)
+Gura_ImplementMethod(wx_RibbonGallery, __GetExtensionButtonState)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,12 +362,12 @@ Gura_ImplementMethod(wx_RibbonGallery, GetExtensionButtonState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, IsHovered)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __IsHovered, "IsHovered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, IsHovered)
+Gura_ImplementMethod(wx_RibbonGallery, __IsHovered)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,13 +375,13 @@ Gura_ImplementMethod(wx_RibbonGallery, IsHovered)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, ScrollLines)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __ScrollLines, "ScrollLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lines", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, ScrollLines)
+Gura_ImplementMethod(wx_RibbonGallery, __ScrollLines)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,13 +390,13 @@ Gura_ImplementMethod(wx_RibbonGallery, ScrollLines)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, ScrollPixels)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __ScrollPixels, "ScrollPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixels", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, ScrollPixels)
+Gura_ImplementMethod(wx_RibbonGallery, __ScrollPixels)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -405,13 +405,13 @@ Gura_ImplementMethod(wx_RibbonGallery, ScrollPixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonGallery, EnsureVisible)
+Gura_DeclareMethodAlias(wx_RibbonGallery, __EnsureVisible, "EnsureVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonGallery, EnsureVisible)
+Gura_ImplementMethod(wx_RibbonGallery, __EnsureVisible)
 {
 	Object_wx_RibbonGallery *pThis = Object_wx_RibbonGallery::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -425,31 +425,31 @@ Gura_ImplementMethod(wx_RibbonGallery, EnsureVisible)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonGallery)
 {
-	Gura_AssignMethod(wx_RibbonGallery, wxRibbonGallery);
-	Gura_AssignMethod(wx_RibbonGallery, wxRibbonGallery_1);
-	Gura_AssignMethod(wx_RibbonGallery, Create);
-	Gura_AssignMethod(wx_RibbonGallery, Clear);
-	Gura_AssignMethod(wx_RibbonGallery, IsEmpty);
-	Gura_AssignMethod(wx_RibbonGallery, GetCount);
-	Gura_AssignMethod(wx_RibbonGallery, GetItem);
-	Gura_AssignMethod(wx_RibbonGallery, Append);
-	Gura_AssignMethod(wx_RibbonGallery, Append_1);
-	Gura_AssignMethod(wx_RibbonGallery, Append_2);
-	Gura_AssignMethod(wx_RibbonGallery, SetItemClientObject);
-	Gura_AssignMethod(wx_RibbonGallery, GetItemClientObject);
-	Gura_AssignMethod(wx_RibbonGallery, SetItemClientData);
-	Gura_AssignMethod(wx_RibbonGallery, GetItemClientData);
-	Gura_AssignMethod(wx_RibbonGallery, SetSelection);
-	Gura_AssignMethod(wx_RibbonGallery, GetSelection);
-	Gura_AssignMethod(wx_RibbonGallery, GetHoveredItem);
-	Gura_AssignMethod(wx_RibbonGallery, GetActiveItem);
-	Gura_AssignMethod(wx_RibbonGallery, GetUpButtonState);
-	Gura_AssignMethod(wx_RibbonGallery, GetDownButtonState);
-	Gura_AssignMethod(wx_RibbonGallery, GetExtensionButtonState);
-	Gura_AssignMethod(wx_RibbonGallery, IsHovered);
-	Gura_AssignMethod(wx_RibbonGallery, ScrollLines);
-	Gura_AssignMethod(wx_RibbonGallery, ScrollPixels);
-	Gura_AssignMethod(wx_RibbonGallery, EnsureVisible);
+	Gura_AssignMethod(wx_RibbonGallery, __wxRibbonGallery);
+	Gura_AssignMethod(wx_RibbonGallery, __wxRibbonGallery_1);
+	Gura_AssignMethod(wx_RibbonGallery, __Create);
+	Gura_AssignMethod(wx_RibbonGallery, __Clear);
+	Gura_AssignMethod(wx_RibbonGallery, __IsEmpty);
+	Gura_AssignMethod(wx_RibbonGallery, __GetCount);
+	Gura_AssignMethod(wx_RibbonGallery, __GetItem);
+	Gura_AssignMethod(wx_RibbonGallery, __Append);
+	Gura_AssignMethod(wx_RibbonGallery, __Append_1);
+	Gura_AssignMethod(wx_RibbonGallery, __Append_2);
+	Gura_AssignMethod(wx_RibbonGallery, __SetItemClientObject);
+	Gura_AssignMethod(wx_RibbonGallery, __GetItemClientObject);
+	Gura_AssignMethod(wx_RibbonGallery, __SetItemClientData);
+	Gura_AssignMethod(wx_RibbonGallery, __GetItemClientData);
+	Gura_AssignMethod(wx_RibbonGallery, __SetSelection);
+	Gura_AssignMethod(wx_RibbonGallery, __GetSelection);
+	Gura_AssignMethod(wx_RibbonGallery, __GetHoveredItem);
+	Gura_AssignMethod(wx_RibbonGallery, __GetActiveItem);
+	Gura_AssignMethod(wx_RibbonGallery, __GetUpButtonState);
+	Gura_AssignMethod(wx_RibbonGallery, __GetDownButtonState);
+	Gura_AssignMethod(wx_RibbonGallery, __GetExtensionButtonState);
+	Gura_AssignMethod(wx_RibbonGallery, __IsHovered);
+	Gura_AssignMethod(wx_RibbonGallery, __ScrollLines);
+	Gura_AssignMethod(wx_RibbonGallery, __ScrollPixels);
+	Gura_AssignMethod(wx_RibbonGallery, __EnsureVisible);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonGallery)

@@ -37,12 +37,12 @@ String Object_wx_Choicebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Choicebook, wxChoicebook)
+Gura_DeclareMethodAlias(wx_Choicebook, __wxChoicebook, "wxChoicebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choicebook, wxChoicebook)
+Gura_ImplementMethod(wx_Choicebook, __wxChoicebook)
 {
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Choicebook, wxChoicebook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choicebook, wxChoicebook_1)
+Gura_DeclareMethodAlias(wx_Choicebook, __wxChoicebook_1, "wxChoicebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Choicebook, wxChoicebook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choicebook, wxChoicebook_1)
+Gura_ImplementMethod(wx_Choicebook, __wxChoicebook_1)
 {
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Choicebook, wxChoicebook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choicebook, Create)
+Gura_DeclareMethodAlias(wx_Choicebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Choicebook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choicebook, Create)
+Gura_ImplementMethod(wx_Choicebook, __Create)
 {
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_Choicebook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choicebook, GetChoiceCtrl)
+Gura_DeclareMethodAlias(wx_Choicebook, __GetChoiceCtrl, "GetChoiceCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choicebook, GetChoiceCtrl)
+Gura_ImplementMethod(wx_Choicebook, __GetChoiceCtrl)
 {
 	Object_wx_Choicebook *pThis = Object_wx_Choicebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,10 +118,10 @@ Gura_ImplementMethod(wx_Choicebook, GetChoiceCtrl)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Choicebook)
 {
-	Gura_AssignMethod(wx_Choicebook, wxChoicebook);
-	Gura_AssignMethod(wx_Choicebook, wxChoicebook_1);
-	Gura_AssignMethod(wx_Choicebook, Create);
-	Gura_AssignMethod(wx_Choicebook, GetChoiceCtrl);
+	Gura_AssignMethod(wx_Choicebook, __wxChoicebook);
+	Gura_AssignMethod(wx_Choicebook, __wxChoicebook_1);
+	Gura_AssignMethod(wx_Choicebook, __Create);
+	Gura_AssignMethod(wx_Choicebook, __GetChoiceCtrl);
 }
 
 Gura_ImplementDescendantCreator(wx_Choicebook)

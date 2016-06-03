@@ -37,12 +37,12 @@ String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CollapsiblePane, wxCollapsiblePane)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __wxCollapsiblePane, "wxCollapsiblePane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, wxCollapsiblePane)
+Gura_ImplementMethod(wx_CollapsiblePane, __wxCollapsiblePane)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, wxCollapsiblePane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, wxCollapsiblePane_1)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __wxCollapsiblePane_1, "wxCollapsiblePane_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_CollapsiblePane, wxCollapsiblePane_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, wxCollapsiblePane_1)
+Gura_ImplementMethod(wx_CollapsiblePane, __wxCollapsiblePane_1)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, wxCollapsiblePane_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, Create)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_CollapsiblePane, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, Create)
+Gura_ImplementMethod(wx_CollapsiblePane, __Create)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_CollapsiblePane, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, Collapse)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __Collapse, "Collapse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "collapse", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, Collapse)
+Gura_ImplementMethod(wx_CollapsiblePane, __Collapse)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_CollapsiblePane, Collapse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, Expand)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __Expand, "Expand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, Expand)
+Gura_ImplementMethod(wx_CollapsiblePane, __Expand)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_CollapsiblePane, Expand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, GetPane)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __GetPane, "GetPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, GetPane)
+Gura_ImplementMethod(wx_CollapsiblePane, __GetPane)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_CollapsiblePane, GetPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, IsCollapsed)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __IsCollapsed, "IsCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, IsCollapsed)
+Gura_ImplementMethod(wx_CollapsiblePane, __IsCollapsed)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsCollapsed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePane, IsExpanded)
+Gura_DeclareMethodAlias(wx_CollapsiblePane, __IsExpanded, "IsExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePane, IsExpanded)
+Gura_ImplementMethod(wx_CollapsiblePane, __IsExpanded)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,14 +180,14 @@ Gura_ImplementMethod(wx_CollapsiblePane, IsExpanded)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePane)
 {
-	Gura_AssignMethod(wx_CollapsiblePane, wxCollapsiblePane);
-	Gura_AssignMethod(wx_CollapsiblePane, wxCollapsiblePane_1);
-	Gura_AssignMethod(wx_CollapsiblePane, Create);
-	Gura_AssignMethod(wx_CollapsiblePane, Collapse);
-	Gura_AssignMethod(wx_CollapsiblePane, Expand);
-	Gura_AssignMethod(wx_CollapsiblePane, GetPane);
-	Gura_AssignMethod(wx_CollapsiblePane, IsCollapsed);
-	Gura_AssignMethod(wx_CollapsiblePane, IsExpanded);
+	Gura_AssignMethod(wx_CollapsiblePane, __wxCollapsiblePane);
+	Gura_AssignMethod(wx_CollapsiblePane, __wxCollapsiblePane_1);
+	Gura_AssignMethod(wx_CollapsiblePane, __Create);
+	Gura_AssignMethod(wx_CollapsiblePane, __Collapse);
+	Gura_AssignMethod(wx_CollapsiblePane, __Expand);
+	Gura_AssignMethod(wx_CollapsiblePane, __GetPane);
+	Gura_AssignMethod(wx_CollapsiblePane, __IsCollapsed);
+	Gura_AssignMethod(wx_CollapsiblePane, __IsExpanded);
 }
 
 Gura_ImplementDescendantCreator(wx_CollapsiblePane)

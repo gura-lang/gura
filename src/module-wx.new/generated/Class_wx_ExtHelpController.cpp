@@ -37,13 +37,13 @@ String Object_wx_ExtHelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ExtHelpController, wxExtHelpController)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __wxExtHelpController, "wxExtHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, wxExtHelpController)
+Gura_ImplementMethod(wx_ExtHelpController, __wxExtHelpController)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_ExtHelpController, wxExtHelpController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, SetViewer)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __SetViewer, "SetViewer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, SetViewer)
+Gura_ImplementMethod(wx_ExtHelpController, __SetViewer)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_ExtHelpController, SetViewer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, Initialize)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __Initialize, "Initialize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, Initialize)
+Gura_ImplementMethod(wx_ExtHelpController, __Initialize)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_ExtHelpController, Initialize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, LoadFile)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, LoadFile)
+Gura_ImplementMethod(wx_ExtHelpController, __LoadFile)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_ExtHelpController, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, DisplayContents)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __DisplayContents, "DisplayContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, DisplayContents)
+Gura_ImplementMethod(wx_ExtHelpController, __DisplayContents)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_ExtHelpController, DisplayContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, DisplaySection)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __DisplaySection, "DisplaySection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sectionNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, DisplaySection)
+Gura_ImplementMethod(wx_ExtHelpController, __DisplaySection)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_ExtHelpController, DisplaySection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, DisplaySection_1)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __DisplaySection_1, "DisplaySection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "section", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, DisplaySection_1)
+Gura_ImplementMethod(wx_ExtHelpController, __DisplaySection_1)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_ExtHelpController, DisplaySection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, DisplayBlock)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __DisplayBlock, "DisplayBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "blockNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, DisplayBlock)
+Gura_ImplementMethod(wx_ExtHelpController, __DisplayBlock)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,14 +157,14 @@ Gura_ImplementMethod(wx_ExtHelpController, DisplayBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, KeywordSearch)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __KeywordSearch, "KeywordSearch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "k", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, KeywordSearch)
+Gura_ImplementMethod(wx_ExtHelpController, __KeywordSearch)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,12 +174,12 @@ Gura_ImplementMethod(wx_ExtHelpController, KeywordSearch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, Quit)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __Quit, "Quit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, Quit)
+Gura_ImplementMethod(wx_ExtHelpController, __Quit)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,12 +187,12 @@ Gura_ImplementMethod(wx_ExtHelpController, Quit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, OnQuit)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __OnQuit, "OnQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, OnQuit)
+Gura_ImplementMethod(wx_ExtHelpController, __OnQuit)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_ExtHelpController, OnQuit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, DisplayHelp)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __DisplayHelp, "DisplayHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "relativeURL", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, DisplayHelp)
+Gura_ImplementMethod(wx_ExtHelpController, __DisplayHelp)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ExtHelpController, DisplayHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, SetFrameParameters)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __SetFrameParameters, "SetFrameParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "titleFormat", VTYPE_number, OCCUR_Once);
@@ -224,7 +224,7 @@ Gura_DeclareMethod(wx_ExtHelpController, SetFrameParameters)
 	//DeclareArg(env, "newFrameEachTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, SetFrameParameters)
+Gura_ImplementMethod(wx_ExtHelpController, __SetFrameParameters)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_ExtHelpController, SetFrameParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ExtHelpController, GetFrameParameters)
+Gura_DeclareMethodAlias(wx_ExtHelpController, __GetFrameParameters, "GetFrameParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -244,7 +244,7 @@ Gura_DeclareMethod(wx_ExtHelpController, GetFrameParameters)
 	//DeclareArg(env, "newFrameEachTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ExtHelpController, GetFrameParameters)
+Gura_ImplementMethod(wx_ExtHelpController, __GetFrameParameters)
 {
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,20 +260,20 @@ Gura_ImplementMethod(wx_ExtHelpController, GetFrameParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ExtHelpController)
 {
-	Gura_AssignMethod(wx_ExtHelpController, wxExtHelpController);
-	Gura_AssignMethod(wx_ExtHelpController, SetViewer);
-	Gura_AssignMethod(wx_ExtHelpController, Initialize);
-	Gura_AssignMethod(wx_ExtHelpController, LoadFile);
-	Gura_AssignMethod(wx_ExtHelpController, DisplayContents);
-	Gura_AssignMethod(wx_ExtHelpController, DisplaySection);
-	Gura_AssignMethod(wx_ExtHelpController, DisplaySection_1);
-	Gura_AssignMethod(wx_ExtHelpController, DisplayBlock);
-	Gura_AssignMethod(wx_ExtHelpController, KeywordSearch);
-	Gura_AssignMethod(wx_ExtHelpController, Quit);
-	Gura_AssignMethod(wx_ExtHelpController, OnQuit);
-	Gura_AssignMethod(wx_ExtHelpController, DisplayHelp);
-	Gura_AssignMethod(wx_ExtHelpController, SetFrameParameters);
-	Gura_AssignMethod(wx_ExtHelpController, GetFrameParameters);
+	Gura_AssignMethod(wx_ExtHelpController, __wxExtHelpController);
+	Gura_AssignMethod(wx_ExtHelpController, __SetViewer);
+	Gura_AssignMethod(wx_ExtHelpController, __Initialize);
+	Gura_AssignMethod(wx_ExtHelpController, __LoadFile);
+	Gura_AssignMethod(wx_ExtHelpController, __DisplayContents);
+	Gura_AssignMethod(wx_ExtHelpController, __DisplaySection);
+	Gura_AssignMethod(wx_ExtHelpController, __DisplaySection_1);
+	Gura_AssignMethod(wx_ExtHelpController, __DisplayBlock);
+	Gura_AssignMethod(wx_ExtHelpController, __KeywordSearch);
+	Gura_AssignMethod(wx_ExtHelpController, __Quit);
+	Gura_AssignMethod(wx_ExtHelpController, __OnQuit);
+	Gura_AssignMethod(wx_ExtHelpController, __DisplayHelp);
+	Gura_AssignMethod(wx_ExtHelpController, __SetFrameParameters);
+	Gura_AssignMethod(wx_ExtHelpController, __GetFrameParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_ExtHelpController)

@@ -37,12 +37,12 @@ String Object_wx_BitmapToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BitmapToggleButton, wxBitmapToggleButton)
+Gura_DeclareMethodAlias(wx_BitmapToggleButton, __wxBitmapToggleButton, "wxBitmapToggleButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton)
+Gura_ImplementMethod(wx_BitmapToggleButton, __wxBitmapToggleButton)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
+Gura_DeclareMethodAlias(wx_BitmapToggleButton, __wxBitmapToggleButton_1, "wxBitmapToggleButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
+Gura_ImplementMethod(wx_BitmapToggleButton, __wxBitmapToggleButton_1)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapToggleButton, Create)
+Gura_DeclareMethodAlias(wx_BitmapToggleButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_BitmapToggleButton, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapToggleButton, Create)
+Gura_ImplementMethod(wx_BitmapToggleButton, __Create)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_BitmapToggleButton, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapToggleButton, GetValue)
+Gura_DeclareMethodAlias(wx_BitmapToggleButton, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapToggleButton, GetValue)
+Gura_ImplementMethod(wx_BitmapToggleButton, __GetValue)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_BitmapToggleButton, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapToggleButton, SetValue)
+Gura_DeclareMethodAlias(wx_BitmapToggleButton, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapToggleButton, SetValue)
+Gura_ImplementMethod(wx_BitmapToggleButton, __SetValue)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,11 +141,11 @@ Gura_ImplementMethod(wx_BitmapToggleButton, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapToggleButton)
 {
-	Gura_AssignMethod(wx_BitmapToggleButton, wxBitmapToggleButton);
-	Gura_AssignMethod(wx_BitmapToggleButton, wxBitmapToggleButton_1);
-	Gura_AssignMethod(wx_BitmapToggleButton, Create);
-	Gura_AssignMethod(wx_BitmapToggleButton, GetValue);
-	Gura_AssignMethod(wx_BitmapToggleButton, SetValue);
+	Gura_AssignMethod(wx_BitmapToggleButton, __wxBitmapToggleButton);
+	Gura_AssignMethod(wx_BitmapToggleButton, __wxBitmapToggleButton_1);
+	Gura_AssignMethod(wx_BitmapToggleButton, __Create);
+	Gura_AssignMethod(wx_BitmapToggleButton, __GetValue);
+	Gura_AssignMethod(wx_BitmapToggleButton, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_BitmapToggleButton)

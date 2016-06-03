@@ -37,14 +37,14 @@ String Object_wx_MsgCatalog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MsgCatalog, CreateFromFile)
+Gura_DeclareMethodAlias(wx_MsgCatalog, __CreateFromFile, "CreateFromFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MsgCatalog, CreateFromFile)
+Gura_ImplementMethod(wx_MsgCatalog, __CreateFromFile)
 {
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_MsgCatalog, CreateFromFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MsgCatalog, CreateFromData)
+Gura_DeclareMethodAlias(wx_MsgCatalog, __CreateFromData, "CreateFromData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MsgCatalog, CreateFromData)
+Gura_ImplementMethod(wx_MsgCatalog, __CreateFromData)
 {
 	Object_wx_MsgCatalog *pThis = Object_wx_MsgCatalog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_MsgCatalog, CreateFromData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MsgCatalog)
 {
-	Gura_AssignMethod(wx_MsgCatalog, CreateFromFile);
-	Gura_AssignMethod(wx_MsgCatalog, CreateFromData);
+	Gura_AssignMethod(wx_MsgCatalog, __CreateFromFile);
+	Gura_AssignMethod(wx_MsgCatalog, __CreateFromData);
 }
 
 Gura_ImplementDescendantCreator(wx_MsgCatalog)

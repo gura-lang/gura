@@ -37,12 +37,12 @@ String Object_wx_DebugReportPreview::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DebugReportPreview, wxDebugReportPreview)
+Gura_DeclareMethodAlias(wx_DebugReportPreview, __wxDebugReportPreview, "wxDebugReportPreview")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugReportPreview, wxDebugReportPreview)
+Gura_ImplementMethod(wx_DebugReportPreview, __wxDebugReportPreview)
 {
 	Object_wx_DebugReportPreview *pThis = Object_wx_DebugReportPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DebugReportPreview, wxDebugReportPreview)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugReportPreview, Show)
+Gura_DeclareMethodAlias(wx_DebugReportPreview, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dbgrpt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportPreview, Show)
+Gura_ImplementMethod(wx_DebugReportPreview, __Show)
 {
 	Object_wx_DebugReportPreview *pThis = Object_wx_DebugReportPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_DebugReportPreview, Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportPreview)
 {
-	Gura_AssignMethod(wx_DebugReportPreview, wxDebugReportPreview);
-	Gura_AssignMethod(wx_DebugReportPreview, Show);
+	Gura_AssignMethod(wx_DebugReportPreview, __wxDebugReportPreview);
+	Gura_AssignMethod(wx_DebugReportPreview, __Show);
 }
 
 Gura_ImplementDescendantCreator(wx_DebugReportPreview)

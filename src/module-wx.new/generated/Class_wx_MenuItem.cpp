@@ -37,7 +37,7 @@ String Object_wx_MenuItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MenuItem, wxMenuItem)
+Gura_DeclareMethodAlias(wx_MenuItem, __wxMenuItem, "wxMenuItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentMenu", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_MenuItem, wxMenuItem)
 	//DeclareArg(env, "subMenu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, wxMenuItem)
+Gura_ImplementMethod(wx_MenuItem, __wxMenuItem)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,13 +62,13 @@ Gura_ImplementMethod(wx_MenuItem, wxMenuItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, Check)
+Gura_DeclareMethodAlias(wx_MenuItem, __Check, "Check")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "check", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, Check)
+Gura_ImplementMethod(wx_MenuItem, __Check)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,13 +77,13 @@ Gura_ImplementMethod(wx_MenuItem, Check)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, Enable)
+Gura_DeclareMethodAlias(wx_MenuItem, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, Enable)
+Gura_ImplementMethod(wx_MenuItem, __Enable)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,13 +92,13 @@ Gura_ImplementMethod(wx_MenuItem, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetLabelFromText)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetLabelFromText, "GetLabelFromText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetLabelFromText)
+Gura_ImplementMethod(wx_MenuItem, __GetLabelFromText)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_MenuItem, GetLabelFromText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetLabelText)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetLabelText, "GetLabelText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetLabelText)
+Gura_ImplementMethod(wx_MenuItem, __GetLabelText)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_MenuItem, GetLabelText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetBackgroundColour)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetBackgroundColour, "GetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetBackgroundColour)
+Gura_ImplementMethod(wx_MenuItem, __GetBackgroundColour)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_MenuItem, GetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetBitmap)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "checked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetBitmap)
+Gura_ImplementMethod(wx_MenuItem, __GetBitmap)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,12 +150,12 @@ Gura_ImplementMethod(wx_MenuItem, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetDisabledBitmap)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetDisabledBitmap, "GetDisabledBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetDisabledBitmap)
+Gura_ImplementMethod(wx_MenuItem, __GetDisabledBitmap)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,12 +163,12 @@ Gura_ImplementMethod(wx_MenuItem, GetDisabledBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetFont)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetFont)
+Gura_ImplementMethod(wx_MenuItem, __GetFont)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,12 +176,12 @@ Gura_ImplementMethod(wx_MenuItem, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetHelp)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetHelp, "GetHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetHelp)
+Gura_ImplementMethod(wx_MenuItem, __GetHelp)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,12 +189,12 @@ Gura_ImplementMethod(wx_MenuItem, GetHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetId)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetId)
+Gura_ImplementMethod(wx_MenuItem, __GetId)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,12 +202,12 @@ Gura_ImplementMethod(wx_MenuItem, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetItemLabel)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetItemLabel, "GetItemLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetItemLabel)
+Gura_ImplementMethod(wx_MenuItem, __GetItemLabel)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -215,12 +215,12 @@ Gura_ImplementMethod(wx_MenuItem, GetItemLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetItemLabelText)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetItemLabelText, "GetItemLabelText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetItemLabelText)
+Gura_ImplementMethod(wx_MenuItem, __GetItemLabelText)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -228,12 +228,12 @@ Gura_ImplementMethod(wx_MenuItem, GetItemLabelText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetKind)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetKind, "GetKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetKind)
+Gura_ImplementMethod(wx_MenuItem, __GetKind)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -241,12 +241,12 @@ Gura_ImplementMethod(wx_MenuItem, GetKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetLabel)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetLabel, "GetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetLabel)
+Gura_ImplementMethod(wx_MenuItem, __GetLabel)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_MenuItem, GetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetMarginWidth)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetMarginWidth, "GetMarginWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetMarginWidth)
+Gura_ImplementMethod(wx_MenuItem, __GetMarginWidth)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,12 +267,12 @@ Gura_ImplementMethod(wx_MenuItem, GetMarginWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetMenu)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetMenu, "GetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetMenu)
+Gura_ImplementMethod(wx_MenuItem, __GetMenu)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,12 +280,12 @@ Gura_ImplementMethod(wx_MenuItem, GetMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetName)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetName)
+Gura_ImplementMethod(wx_MenuItem, __GetName)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -293,12 +293,12 @@ Gura_ImplementMethod(wx_MenuItem, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetSubMenu)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetSubMenu, "GetSubMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetSubMenu)
+Gura_ImplementMethod(wx_MenuItem, __GetSubMenu)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -306,12 +306,12 @@ Gura_ImplementMethod(wx_MenuItem, GetSubMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetText)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetText)
+Gura_ImplementMethod(wx_MenuItem, __GetText)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -319,12 +319,12 @@ Gura_ImplementMethod(wx_MenuItem, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetTextColour)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetTextColour, "GetTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetTextColour)
+Gura_ImplementMethod(wx_MenuItem, __GetTextColour)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_MenuItem, GetTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetAccelFromString)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetAccelFromString, "GetAccelFromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetAccelFromString)
+Gura_ImplementMethod(wx_MenuItem, __GetAccelFromString)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,12 +347,12 @@ Gura_ImplementMethod(wx_MenuItem, GetAccelFromString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, GetAccel)
+Gura_DeclareMethodAlias(wx_MenuItem, __GetAccel, "GetAccel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, GetAccel)
+Gura_ImplementMethod(wx_MenuItem, __GetAccel)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,12 +360,12 @@ Gura_ImplementMethod(wx_MenuItem, GetAccel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsCheck)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsCheck, "IsCheck")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsCheck)
+Gura_ImplementMethod(wx_MenuItem, __IsCheck)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,12 +373,12 @@ Gura_ImplementMethod(wx_MenuItem, IsCheck)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsCheckable)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsCheckable, "IsCheckable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsCheckable)
+Gura_ImplementMethod(wx_MenuItem, __IsCheckable)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -386,12 +386,12 @@ Gura_ImplementMethod(wx_MenuItem, IsCheckable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsChecked)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsChecked, "IsChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsChecked)
+Gura_ImplementMethod(wx_MenuItem, __IsChecked)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -399,12 +399,12 @@ Gura_ImplementMethod(wx_MenuItem, IsChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsEnabled)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsEnabled, "IsEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsEnabled)
+Gura_ImplementMethod(wx_MenuItem, __IsEnabled)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -412,12 +412,12 @@ Gura_ImplementMethod(wx_MenuItem, IsEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsRadio)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsRadio, "IsRadio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsRadio)
+Gura_ImplementMethod(wx_MenuItem, __IsRadio)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -425,12 +425,12 @@ Gura_ImplementMethod(wx_MenuItem, IsRadio)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsSeparator)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsSeparator, "IsSeparator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsSeparator)
+Gura_ImplementMethod(wx_MenuItem, __IsSeparator)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -438,12 +438,12 @@ Gura_ImplementMethod(wx_MenuItem, IsSeparator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, IsSubMenu)
+Gura_DeclareMethodAlias(wx_MenuItem, __IsSubMenu, "IsSubMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MenuItem, IsSubMenu)
+Gura_ImplementMethod(wx_MenuItem, __IsSubMenu)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -451,13 +451,13 @@ Gura_ImplementMethod(wx_MenuItem, IsSubMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetBackgroundColour)
+Gura_ImplementMethod(wx_MenuItem, __SetBackgroundColour)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -466,14 +466,14 @@ Gura_ImplementMethod(wx_MenuItem, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetBitmap)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetBitmap, "SetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "checked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetBitmap)
+Gura_ImplementMethod(wx_MenuItem, __SetBitmap)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -483,14 +483,14 @@ Gura_ImplementMethod(wx_MenuItem, SetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetBitmaps)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetBitmaps, "SetBitmaps")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "checked", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "unchecked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetBitmaps)
+Gura_ImplementMethod(wx_MenuItem, __SetBitmaps)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -500,13 +500,13 @@ Gura_ImplementMethod(wx_MenuItem, SetBitmaps)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetDisabledBitmap)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetDisabledBitmap, "SetDisabledBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "disabled", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetDisabledBitmap)
+Gura_ImplementMethod(wx_MenuItem, __SetDisabledBitmap)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -515,13 +515,13 @@ Gura_ImplementMethod(wx_MenuItem, SetDisabledBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetFont)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetFont)
+Gura_ImplementMethod(wx_MenuItem, __SetFont)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -530,13 +530,13 @@ Gura_ImplementMethod(wx_MenuItem, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetHelp)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetHelp, "SetHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "helpString", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetHelp)
+Gura_ImplementMethod(wx_MenuItem, __SetHelp)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -545,13 +545,13 @@ Gura_ImplementMethod(wx_MenuItem, SetHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetItemLabel)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetItemLabel, "SetItemLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetItemLabel)
+Gura_ImplementMethod(wx_MenuItem, __SetItemLabel)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -560,13 +560,13 @@ Gura_ImplementMethod(wx_MenuItem, SetItemLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetMarginWidth)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetMarginWidth, "SetMarginWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetMarginWidth)
+Gura_ImplementMethod(wx_MenuItem, __SetMarginWidth)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -575,13 +575,13 @@ Gura_ImplementMethod(wx_MenuItem, SetMarginWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetMenu)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetMenu, "SetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetMenu)
+Gura_ImplementMethod(wx_MenuItem, __SetMenu)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -590,13 +590,13 @@ Gura_ImplementMethod(wx_MenuItem, SetMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetSubMenu)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetSubMenu, "SetSubMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetSubMenu)
+Gura_ImplementMethod(wx_MenuItem, __SetSubMenu)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -605,13 +605,13 @@ Gura_ImplementMethod(wx_MenuItem, SetSubMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetText)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetText)
+Gura_ImplementMethod(wx_MenuItem, __SetText)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -620,13 +620,13 @@ Gura_ImplementMethod(wx_MenuItem, SetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetTextColour)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetTextColour, "SetTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetTextColour)
+Gura_ImplementMethod(wx_MenuItem, __SetTextColour)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -635,13 +635,13 @@ Gura_ImplementMethod(wx_MenuItem, SetTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MenuItem, SetAccel)
+Gura_DeclareMethodAlias(wx_MenuItem, __SetAccel, "SetAccel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "accel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MenuItem, SetAccel)
+Gura_ImplementMethod(wx_MenuItem, __SetAccel)
 {
 	Object_wx_MenuItem *pThis = Object_wx_MenuItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -655,49 +655,49 @@ Gura_ImplementMethod(wx_MenuItem, SetAccel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MenuItem)
 {
-	Gura_AssignMethod(wx_MenuItem, wxMenuItem);
-	Gura_AssignMethod(wx_MenuItem, Check);
-	Gura_AssignMethod(wx_MenuItem, Enable);
-	Gura_AssignMethod(wx_MenuItem, GetLabelFromText);
-	Gura_AssignMethod(wx_MenuItem, GetLabelText);
-	Gura_AssignMethod(wx_MenuItem, GetBackgroundColour);
-	Gura_AssignMethod(wx_MenuItem, GetBitmap);
-	Gura_AssignMethod(wx_MenuItem, GetDisabledBitmap);
-	Gura_AssignMethod(wx_MenuItem, GetFont);
-	Gura_AssignMethod(wx_MenuItem, GetHelp);
-	Gura_AssignMethod(wx_MenuItem, GetId);
-	Gura_AssignMethod(wx_MenuItem, GetItemLabel);
-	Gura_AssignMethod(wx_MenuItem, GetItemLabelText);
-	Gura_AssignMethod(wx_MenuItem, GetKind);
-	Gura_AssignMethod(wx_MenuItem, GetLabel);
-	Gura_AssignMethod(wx_MenuItem, GetMarginWidth);
-	Gura_AssignMethod(wx_MenuItem, GetMenu);
-	Gura_AssignMethod(wx_MenuItem, GetName);
-	Gura_AssignMethod(wx_MenuItem, GetSubMenu);
-	Gura_AssignMethod(wx_MenuItem, GetText);
-	Gura_AssignMethod(wx_MenuItem, GetTextColour);
-	Gura_AssignMethod(wx_MenuItem, GetAccelFromString);
-	Gura_AssignMethod(wx_MenuItem, GetAccel);
-	Gura_AssignMethod(wx_MenuItem, IsCheck);
-	Gura_AssignMethod(wx_MenuItem, IsCheckable);
-	Gura_AssignMethod(wx_MenuItem, IsChecked);
-	Gura_AssignMethod(wx_MenuItem, IsEnabled);
-	Gura_AssignMethod(wx_MenuItem, IsRadio);
-	Gura_AssignMethod(wx_MenuItem, IsSeparator);
-	Gura_AssignMethod(wx_MenuItem, IsSubMenu);
-	Gura_AssignMethod(wx_MenuItem, SetBackgroundColour);
-	Gura_AssignMethod(wx_MenuItem, SetBitmap);
-	Gura_AssignMethod(wx_MenuItem, SetBitmaps);
-	Gura_AssignMethod(wx_MenuItem, SetDisabledBitmap);
-	Gura_AssignMethod(wx_MenuItem, SetFont);
-	Gura_AssignMethod(wx_MenuItem, SetHelp);
-	Gura_AssignMethod(wx_MenuItem, SetItemLabel);
-	Gura_AssignMethod(wx_MenuItem, SetMarginWidth);
-	Gura_AssignMethod(wx_MenuItem, SetMenu);
-	Gura_AssignMethod(wx_MenuItem, SetSubMenu);
-	Gura_AssignMethod(wx_MenuItem, SetText);
-	Gura_AssignMethod(wx_MenuItem, SetTextColour);
-	Gura_AssignMethod(wx_MenuItem, SetAccel);
+	Gura_AssignMethod(wx_MenuItem, __wxMenuItem);
+	Gura_AssignMethod(wx_MenuItem, __Check);
+	Gura_AssignMethod(wx_MenuItem, __Enable);
+	Gura_AssignMethod(wx_MenuItem, __GetLabelFromText);
+	Gura_AssignMethod(wx_MenuItem, __GetLabelText);
+	Gura_AssignMethod(wx_MenuItem, __GetBackgroundColour);
+	Gura_AssignMethod(wx_MenuItem, __GetBitmap);
+	Gura_AssignMethod(wx_MenuItem, __GetDisabledBitmap);
+	Gura_AssignMethod(wx_MenuItem, __GetFont);
+	Gura_AssignMethod(wx_MenuItem, __GetHelp);
+	Gura_AssignMethod(wx_MenuItem, __GetId);
+	Gura_AssignMethod(wx_MenuItem, __GetItemLabel);
+	Gura_AssignMethod(wx_MenuItem, __GetItemLabelText);
+	Gura_AssignMethod(wx_MenuItem, __GetKind);
+	Gura_AssignMethod(wx_MenuItem, __GetLabel);
+	Gura_AssignMethod(wx_MenuItem, __GetMarginWidth);
+	Gura_AssignMethod(wx_MenuItem, __GetMenu);
+	Gura_AssignMethod(wx_MenuItem, __GetName);
+	Gura_AssignMethod(wx_MenuItem, __GetSubMenu);
+	Gura_AssignMethod(wx_MenuItem, __GetText);
+	Gura_AssignMethod(wx_MenuItem, __GetTextColour);
+	Gura_AssignMethod(wx_MenuItem, __GetAccelFromString);
+	Gura_AssignMethod(wx_MenuItem, __GetAccel);
+	Gura_AssignMethod(wx_MenuItem, __IsCheck);
+	Gura_AssignMethod(wx_MenuItem, __IsCheckable);
+	Gura_AssignMethod(wx_MenuItem, __IsChecked);
+	Gura_AssignMethod(wx_MenuItem, __IsEnabled);
+	Gura_AssignMethod(wx_MenuItem, __IsRadio);
+	Gura_AssignMethod(wx_MenuItem, __IsSeparator);
+	Gura_AssignMethod(wx_MenuItem, __IsSubMenu);
+	Gura_AssignMethod(wx_MenuItem, __SetBackgroundColour);
+	Gura_AssignMethod(wx_MenuItem, __SetBitmap);
+	Gura_AssignMethod(wx_MenuItem, __SetBitmaps);
+	Gura_AssignMethod(wx_MenuItem, __SetDisabledBitmap);
+	Gura_AssignMethod(wx_MenuItem, __SetFont);
+	Gura_AssignMethod(wx_MenuItem, __SetHelp);
+	Gura_AssignMethod(wx_MenuItem, __SetItemLabel);
+	Gura_AssignMethod(wx_MenuItem, __SetMarginWidth);
+	Gura_AssignMethod(wx_MenuItem, __SetMenu);
+	Gura_AssignMethod(wx_MenuItem, __SetSubMenu);
+	Gura_AssignMethod(wx_MenuItem, __SetText);
+	Gura_AssignMethod(wx_MenuItem, __SetTextColour);
+	Gura_AssignMethod(wx_MenuItem, __SetAccel);
 }
 
 Gura_ImplementDescendantCreator(wx_MenuItem)

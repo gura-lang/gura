@@ -37,12 +37,12 @@ String Object_wx_RichTextStyleOrganiserDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog, "wxRichTextStyleOrganiserDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDi
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog_1)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog_1, "wxRichTextStyleOrganiserDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDial
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog_1)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog_1)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,13 +81,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDi
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __ApplyStyle, "ApplyStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __ApplyStyle)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, Create)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, Create)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __Create)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetRestartNumbering, "GetRestartNumbering")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetRestartNumbering)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetRichTextCtrl, "GetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetRichTextCtrl)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetSelectedStyle, "GetSelectedStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetSelectedStyle)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,12 +166,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetSelectedStyleDefinition, "GetSelectedStyleDefinition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetSelectedStyleDefinition)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,12 +179,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetStyleSheet, "GetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetStyleSheet)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __SetFlags)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __SetRestartNumbering, "SetRestartNumbering")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "restartNumbering", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __SetRestartNumbering)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __SetRichTextCtrl, "SetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __SetRichTextCtrl)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,13 +237,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __SetShowToolTips, "SetShowToolTips")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __SetShowToolTips)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,13 +252,13 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __SetStyleSheet, "SetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sheet", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __SetStyleSheet)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,12 +267,12 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
+Gura_DeclareMethodAlias(wx_RichTextStyleOrganiserDialog, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
+Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, __GetFlags)
 {
 	Object_wx_RichTextStyleOrganiserDialog *pThis = Object_wx_RichTextStyleOrganiserDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,21 +285,21 @@ Gura_ImplementMethod(wx_RichTextStyleOrganiserDialog, GetFlags)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleOrganiserDialog)
 {
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, wxRichTextStyleOrganiserDialog_1);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, ApplyStyle);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, Create);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetRestartNumbering);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyle);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetSelectedStyleDefinition);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, SetFlags);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, SetRestartNumbering);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, SetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, SetShowToolTips);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, SetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, GetFlags);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __wxRichTextStyleOrganiserDialog_1);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __ApplyStyle);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __Create);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetRestartNumbering);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetSelectedStyle);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetSelectedStyleDefinition);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __SetFlags);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __SetRestartNumbering);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __SetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __SetShowToolTips);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __SetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleOrganiserDialog, __GetFlags);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleOrganiserDialog)

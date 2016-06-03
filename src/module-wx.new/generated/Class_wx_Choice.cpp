@@ -37,12 +37,12 @@ String Object_wx_Choice::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Choice, wxChoice)
+Gura_DeclareMethodAlias(wx_Choice, __wxChoice, "wxChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, wxChoice)
+Gura_ImplementMethod(wx_Choice, __wxChoice)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Choice, wxChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, wxChoice_1)
+Gura_DeclareMethodAlias(wx_Choice, __wxChoice_1, "wxChoice_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_Choice, wxChoice_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, wxChoice_1)
+Gura_ImplementMethod(wx_Choice, __wxChoice_1)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_Choice, wxChoice_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, wxChoice_2)
+Gura_DeclareMethodAlias(wx_Choice, __wxChoice_2, "wxChoice_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_Choice, wxChoice_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, wxChoice_2)
+Gura_ImplementMethod(wx_Choice, __wxChoice_2)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_Choice, wxChoice_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, Create)
+Gura_DeclareMethodAlias(wx_Choice, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_Choice, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, Create)
+Gura_ImplementMethod(wx_Choice, __Create)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Choice, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, Create_1)
+Gura_DeclareMethodAlias(wx_Choice, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_Choice, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, Create_1)
+Gura_ImplementMethod(wx_Choice, __Create_1)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,12 +170,12 @@ Gura_ImplementMethod(wx_Choice, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, GetColumns)
+Gura_DeclareMethodAlias(wx_Choice, __GetColumns, "GetColumns")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, GetColumns)
+Gura_ImplementMethod(wx_Choice, __GetColumns)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_Choice, GetColumns)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, GetCurrentSelection)
+Gura_DeclareMethodAlias(wx_Choice, __GetCurrentSelection, "GetCurrentSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
+Gura_ImplementMethod(wx_Choice, __GetCurrentSelection)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,13 +196,13 @@ Gura_ImplementMethod(wx_Choice, GetCurrentSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, SetColumns)
+Gura_DeclareMethodAlias(wx_Choice, __SetColumns, "SetColumns")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, SetColumns)
+Gura_ImplementMethod(wx_Choice, __SetColumns)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -211,12 +211,12 @@ Gura_ImplementMethod(wx_Choice, SetColumns)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, IsSorted)
+Gura_DeclareMethodAlias(wx_Choice, __IsSorted, "IsSorted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, IsSorted)
+Gura_ImplementMethod(wx_Choice, __IsSorted)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,12 +224,12 @@ Gura_ImplementMethod(wx_Choice, IsSorted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, GetCount)
+Gura_DeclareMethodAlias(wx_Choice, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, GetCount)
+Gura_ImplementMethod(wx_Choice, __GetCount)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,12 +237,12 @@ Gura_ImplementMethod(wx_Choice, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, GetSelection)
+Gura_DeclareMethodAlias(wx_Choice, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Choice, GetSelection)
+Gura_ImplementMethod(wx_Choice, __GetSelection)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_Choice, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, SetSelection)
+Gura_DeclareMethodAlias(wx_Choice, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, SetSelection)
+Gura_ImplementMethod(wx_Choice, __SetSelection)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,14 +265,14 @@ Gura_ImplementMethod(wx_Choice, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, FindString)
+Gura_DeclareMethodAlias(wx_Choice, __FindString, "FindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, FindString)
+Gura_ImplementMethod(wx_Choice, __FindString)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,13 +282,13 @@ Gura_ImplementMethod(wx_Choice, FindString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, GetString)
+Gura_DeclareMethodAlias(wx_Choice, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, GetString)
+Gura_ImplementMethod(wx_Choice, __GetString)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,14 +297,14 @@ Gura_ImplementMethod(wx_Choice, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Choice, SetString)
+Gura_DeclareMethodAlias(wx_Choice, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Choice, SetString)
+Gura_ImplementMethod(wx_Choice, __SetString)
 {
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -319,21 +319,21 @@ Gura_ImplementMethod(wx_Choice, SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Choice)
 {
-	Gura_AssignMethod(wx_Choice, wxChoice);
-	Gura_AssignMethod(wx_Choice, wxChoice_1);
-	Gura_AssignMethod(wx_Choice, wxChoice_2);
-	Gura_AssignMethod(wx_Choice, Create);
-	Gura_AssignMethod(wx_Choice, Create_1);
-	Gura_AssignMethod(wx_Choice, GetColumns);
-	Gura_AssignMethod(wx_Choice, GetCurrentSelection);
-	Gura_AssignMethod(wx_Choice, SetColumns);
-	Gura_AssignMethod(wx_Choice, IsSorted);
-	Gura_AssignMethod(wx_Choice, GetCount);
-	Gura_AssignMethod(wx_Choice, GetSelection);
-	Gura_AssignMethod(wx_Choice, SetSelection);
-	Gura_AssignMethod(wx_Choice, FindString);
-	Gura_AssignMethod(wx_Choice, GetString);
-	Gura_AssignMethod(wx_Choice, SetString);
+	Gura_AssignMethod(wx_Choice, __wxChoice);
+	Gura_AssignMethod(wx_Choice, __wxChoice_1);
+	Gura_AssignMethod(wx_Choice, __wxChoice_2);
+	Gura_AssignMethod(wx_Choice, __Create);
+	Gura_AssignMethod(wx_Choice, __Create_1);
+	Gura_AssignMethod(wx_Choice, __GetColumns);
+	Gura_AssignMethod(wx_Choice, __GetCurrentSelection);
+	Gura_AssignMethod(wx_Choice, __SetColumns);
+	Gura_AssignMethod(wx_Choice, __IsSorted);
+	Gura_AssignMethod(wx_Choice, __GetCount);
+	Gura_AssignMethod(wx_Choice, __GetSelection);
+	Gura_AssignMethod(wx_Choice, __SetSelection);
+	Gura_AssignMethod(wx_Choice, __FindString);
+	Gura_AssignMethod(wx_Choice, __GetString);
+	Gura_AssignMethod(wx_Choice, __SetString);
 }
 
 Gura_ImplementDescendantCreator(wx_Choice)

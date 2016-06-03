@@ -37,12 +37,12 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RefCounter, wxRefCounter)
+Gura_DeclareMethodAlias(wx_RefCounter, __wxRefCounter, "wxRefCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RefCounter, wxRefCounter)
+Gura_ImplementMethod(wx_RefCounter, __wxRefCounter)
 {
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_RefCounter, wxRefCounter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RefCounter, DecRef)
+Gura_DeclareMethodAlias(wx_RefCounter, __DecRef, "DecRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RefCounter, DecRef)
+Gura_ImplementMethod(wx_RefCounter, __DecRef)
 {
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_RefCounter, DecRef)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RefCounter, GetRefCount)
+Gura_DeclareMethodAlias(wx_RefCounter, __GetRefCount, "GetRefCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RefCounter, GetRefCount)
+Gura_ImplementMethod(wx_RefCounter, __GetRefCount)
 {
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_RefCounter, GetRefCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RefCounter, IncRef)
+Gura_DeclareMethodAlias(wx_RefCounter, __IncRef, "IncRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RefCounter, IncRef)
+Gura_ImplementMethod(wx_RefCounter, __IncRef)
 {
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,10 +94,10 @@ Gura_ImplementMethod(wx_RefCounter, IncRef)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RefCounter)
 {
-	Gura_AssignMethod(wx_RefCounter, wxRefCounter);
-	Gura_AssignMethod(wx_RefCounter, DecRef);
-	Gura_AssignMethod(wx_RefCounter, GetRefCount);
-	Gura_AssignMethod(wx_RefCounter, IncRef);
+	Gura_AssignMethod(wx_RefCounter, __wxRefCounter);
+	Gura_AssignMethod(wx_RefCounter, __DecRef);
+	Gura_AssignMethod(wx_RefCounter, __GetRefCount);
+	Gura_AssignMethod(wx_RefCounter, __IncRef);
 }
 
 Gura_ImplementDescendantCreator(wx_RefCounter)

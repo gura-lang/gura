@@ -37,12 +37,12 @@ String Object_wx_DataViewProgressRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewProgressRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewProgressRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewProgressRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewProgressRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewProgressRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
+Gura_DeclareMethodAlias(wx_DataViewProgressRenderer, __wxDataViewProgressRenderer, "wxDataViewProgressRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
+Gura_ImplementMethod(wx_DataViewProgressRenderer, __wxDataViewProgressRenderer)
 {
 	Object_wx_DataViewProgressRenderer *pThis = Object_wx_DataViewProgressRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewProgressRenderer)
 {
-	Gura_AssignMethod(wx_DataViewProgressRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewProgressRenderer, wxDataViewProgressRenderer);
+	Gura_AssignMethod(wx_DataViewProgressRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewProgressRenderer, __wxDataViewProgressRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewProgressRenderer)

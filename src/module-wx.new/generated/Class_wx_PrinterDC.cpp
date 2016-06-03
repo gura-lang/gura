@@ -37,13 +37,13 @@ String Object_wx_PrinterDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PrinterDC, wxPrinterDC)
+Gura_DeclareMethodAlias(wx_PrinterDC, __wxPrinterDC, "wxPrinterDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrinterDC, wxPrinterDC)
+Gura_ImplementMethod(wx_PrinterDC, __wxPrinterDC)
 {
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PrinterDC, wxPrinterDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
+Gura_DeclareMethodAlias(wx_PrinterDC, __GetPaperRect, "GetPaperRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
+Gura_ImplementMethod(wx_PrinterDC, __GetPaperRect)
 {
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_PrinterDC, GetPaperRect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrinterDC)
 {
-	Gura_AssignMethod(wx_PrinterDC, wxPrinterDC);
-	Gura_AssignMethod(wx_PrinterDC, GetPaperRect);
+	Gura_AssignMethod(wx_PrinterDC, __wxPrinterDC);
+	Gura_AssignMethod(wx_PrinterDC, __GetPaperRect);
 }
 
 Gura_ImplementDescendantCreator(wx_PrinterDC)

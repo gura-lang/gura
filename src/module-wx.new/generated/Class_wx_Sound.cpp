@@ -37,12 +37,12 @@ String Object_wx_Sound::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Sound, wxSound)
+Gura_DeclareMethodAlias(wx_Sound, __wxSound, "wxSound")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sound, wxSound)
+Gura_ImplementMethod(wx_Sound, __wxSound)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_Sound, wxSound)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, wxSound_1)
+Gura_DeclareMethodAlias(wx_Sound, __wxSound_1, "wxSound_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, wxSound_1)
+Gura_ImplementMethod(wx_Sound, __wxSound_1)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_Sound, wxSound_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, wxSound_2)
+Gura_DeclareMethodAlias(wx_Sound, __wxSound_2, "wxSound_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, wxSound_2)
+Gura_ImplementMethod(wx_Sound, __wxSound_2)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_Sound, wxSound_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, Create)
+Gura_DeclareMethodAlias(wx_Sound, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, Create)
+Gura_ImplementMethod(wx_Sound, __Create)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,14 +101,14 @@ Gura_ImplementMethod(wx_Sound, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, Create_1)
+Gura_DeclareMethodAlias(wx_Sound, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, Create_1)
+Gura_ImplementMethod(wx_Sound, __Create_1)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,12 +118,12 @@ Gura_ImplementMethod(wx_Sound, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, IsOk)
+Gura_DeclareMethodAlias(wx_Sound, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sound, IsOk)
+Gura_ImplementMethod(wx_Sound, __IsOk)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,12 +131,12 @@ Gura_ImplementMethod(wx_Sound, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, IsPlaying)
+Gura_DeclareMethodAlias(wx_Sound, __IsPlaying, "IsPlaying")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sound, IsPlaying)
+Gura_ImplementMethod(wx_Sound, __IsPlaying)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_Sound, IsPlaying)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, Play)
+Gura_DeclareMethodAlias(wx_Sound, __Play, "Play")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, Play)
+Gura_ImplementMethod(wx_Sound, __Play)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,14 +159,14 @@ Gura_ImplementMethod(wx_Sound, Play)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, Play_1)
+Gura_DeclareMethodAlias(wx_Sound, __Play_1, "Play_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Sound, Play_1)
+Gura_ImplementMethod(wx_Sound, __Play_1)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,12 +176,12 @@ Gura_ImplementMethod(wx_Sound, Play_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Sound, Stop)
+Gura_DeclareMethodAlias(wx_Sound, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Sound, Stop)
+Gura_ImplementMethod(wx_Sound, __Stop)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,16 +194,16 @@ Gura_ImplementMethod(wx_Sound, Stop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Sound)
 {
-	Gura_AssignMethod(wx_Sound, wxSound);
-	Gura_AssignMethod(wx_Sound, wxSound_1);
-	Gura_AssignMethod(wx_Sound, wxSound_2);
-	Gura_AssignMethod(wx_Sound, Create);
-	Gura_AssignMethod(wx_Sound, Create_1);
-	Gura_AssignMethod(wx_Sound, IsOk);
-	Gura_AssignMethod(wx_Sound, IsPlaying);
-	Gura_AssignMethod(wx_Sound, Play);
-	Gura_AssignMethod(wx_Sound, Play_1);
-	Gura_AssignMethod(wx_Sound, Stop);
+	Gura_AssignMethod(wx_Sound, __wxSound);
+	Gura_AssignMethod(wx_Sound, __wxSound_1);
+	Gura_AssignMethod(wx_Sound, __wxSound_2);
+	Gura_AssignMethod(wx_Sound, __Create);
+	Gura_AssignMethod(wx_Sound, __Create_1);
+	Gura_AssignMethod(wx_Sound, __IsOk);
+	Gura_AssignMethod(wx_Sound, __IsPlaying);
+	Gura_AssignMethod(wx_Sound, __Play);
+	Gura_AssignMethod(wx_Sound, __Play_1);
+	Gura_AssignMethod(wx_Sound, __Stop);
 }
 
 Gura_ImplementDescendantCreator(wx_Sound)

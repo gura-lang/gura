@@ -37,14 +37,14 @@ String Object_wx_HtmlWordCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlWordCell, wxHtmlWordCell)
+Gura_DeclareMethodAlias(wx_HtmlWordCell, __wxHtmlWordCell, "wxHtmlWordCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWordCell, wxHtmlWordCell)
+Gura_ImplementMethod(wx_HtmlWordCell, __wxHtmlWordCell)
 {
 	Object_wx_HtmlWordCell *pThis = Object_wx_HtmlWordCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_HtmlWordCell, wxHtmlWordCell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWordCell)
 {
-	Gura_AssignMethod(wx_HtmlWordCell, wxHtmlWordCell);
+	Gura_AssignMethod(wx_HtmlWordCell, __wxHtmlWordCell);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWordCell)

@@ -37,7 +37,7 @@ String Object_wx_RichTextFileHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextFileHandler, wxRichTextFileHandler)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __wxRichTextFileHandler, "wxRichTextFileHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_RichTextFileHandler, wxRichTextFileHandler)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, wxRichTextFileHandler)
+Gura_ImplementMethod(wx_RichTextFileHandler, __wxRichTextFileHandler)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,14 +56,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, wxRichTextFileHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, LoadFile)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile)
+Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,14 +73,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SaveFile)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SaveFile, "SaveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,14 +90,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, LoadFile_1)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __LoadFile_1, "LoadFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile_1)
+Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile_1)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,14 +107,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, LoadFile_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SaveFile_1)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SaveFile_1, "SaveFile_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile_1)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile_1)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -124,13 +124,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SaveFile_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, CanHandle)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanHandle, "CanHandle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, CanHandle)
+Gura_ImplementMethod(wx_RichTextFileHandler, __CanHandle)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanHandle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, CanSave)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanSave, "CanSave")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, CanSave)
+Gura_ImplementMethod(wx_RichTextFileHandler, __CanSave)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanSave)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, CanLoad)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanLoad, "CanLoad")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, CanLoad)
+Gura_ImplementMethod(wx_RichTextFileHandler, __CanLoad)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,12 +165,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, CanLoad)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, IsVisible)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __IsVisible, "IsVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, IsVisible)
+Gura_ImplementMethod(wx_RichTextFileHandler, __IsVisible)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,13 +178,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, IsVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetVisible)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetVisible, "SetVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetVisible)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetVisible)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetName)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetName)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetName)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, GetName)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, GetName)
+Gura_ImplementMethod(wx_RichTextFileHandler, __GetName)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,13 +221,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetExtension)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetExtension, "SetExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetExtension)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetExtension)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,12 +236,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, GetExtension)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetExtension, "GetExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, GetExtension)
+Gura_ImplementMethod(wx_RichTextFileHandler, __GetExtension)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,13 +249,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetType)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetType, "SetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetType)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetType)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,12 +264,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, GetType)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetType, "GetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, GetType)
+Gura_ImplementMethod(wx_RichTextFileHandler, __GetType)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -277,13 +277,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetFlags)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetFlags)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetFlags)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,12 +292,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, GetFlags)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, GetFlags)
+Gura_ImplementMethod(wx_RichTextFileHandler, __GetFlags)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -305,13 +305,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, SetEncoding)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SetEncoding, "SetEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, SetEncoding)
+Gura_ImplementMethod(wx_RichTextFileHandler, __SetEncoding)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -320,12 +320,12 @@ Gura_ImplementMethod(wx_RichTextFileHandler, SetEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, GetEncoding)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetEncoding, "GetEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, GetEncoding)
+Gura_ImplementMethod(wx_RichTextFileHandler, __GetEncoding)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -333,14 +333,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, DoLoadFile)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __DoLoadFile, "DoLoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, DoLoadFile)
+Gura_ImplementMethod(wx_RichTextFileHandler, __DoLoadFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -350,14 +350,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, DoLoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextFileHandler, DoSaveFile)
+Gura_DeclareMethodAlias(wx_RichTextFileHandler, __DoSaveFile, "DoSaveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextFileHandler, DoSaveFile)
+Gura_ImplementMethod(wx_RichTextFileHandler, __DoSaveFile)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -372,28 +372,28 @@ Gura_ImplementMethod(wx_RichTextFileHandler, DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextFileHandler)
 {
-	Gura_AssignMethod(wx_RichTextFileHandler, wxRichTextFileHandler);
-	Gura_AssignMethod(wx_RichTextFileHandler, LoadFile);
-	Gura_AssignMethod(wx_RichTextFileHandler, SaveFile);
-	Gura_AssignMethod(wx_RichTextFileHandler, LoadFile_1);
-	Gura_AssignMethod(wx_RichTextFileHandler, SaveFile_1);
-	Gura_AssignMethod(wx_RichTextFileHandler, CanHandle);
-	Gura_AssignMethod(wx_RichTextFileHandler, CanSave);
-	Gura_AssignMethod(wx_RichTextFileHandler, CanLoad);
-	Gura_AssignMethod(wx_RichTextFileHandler, IsVisible);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetVisible);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetName);
-	Gura_AssignMethod(wx_RichTextFileHandler, GetName);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetExtension);
-	Gura_AssignMethod(wx_RichTextFileHandler, GetExtension);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetType);
-	Gura_AssignMethod(wx_RichTextFileHandler, GetType);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetFlags);
-	Gura_AssignMethod(wx_RichTextFileHandler, GetFlags);
-	Gura_AssignMethod(wx_RichTextFileHandler, SetEncoding);
-	Gura_AssignMethod(wx_RichTextFileHandler, GetEncoding);
-	Gura_AssignMethod(wx_RichTextFileHandler, DoLoadFile);
-	Gura_AssignMethod(wx_RichTextFileHandler, DoSaveFile);
+	Gura_AssignMethod(wx_RichTextFileHandler, __wxRichTextFileHandler);
+	Gura_AssignMethod(wx_RichTextFileHandler, __LoadFile);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SaveFile);
+	Gura_AssignMethod(wx_RichTextFileHandler, __LoadFile_1);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SaveFile_1);
+	Gura_AssignMethod(wx_RichTextFileHandler, __CanHandle);
+	Gura_AssignMethod(wx_RichTextFileHandler, __CanSave);
+	Gura_AssignMethod(wx_RichTextFileHandler, __CanLoad);
+	Gura_AssignMethod(wx_RichTextFileHandler, __IsVisible);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetVisible);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetName);
+	Gura_AssignMethod(wx_RichTextFileHandler, __GetName);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetExtension);
+	Gura_AssignMethod(wx_RichTextFileHandler, __GetExtension);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetType);
+	Gura_AssignMethod(wx_RichTextFileHandler, __GetType);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetFlags);
+	Gura_AssignMethod(wx_RichTextFileHandler, __GetFlags);
+	Gura_AssignMethod(wx_RichTextFileHandler, __SetEncoding);
+	Gura_AssignMethod(wx_RichTextFileHandler, __GetEncoding);
+	Gura_AssignMethod(wx_RichTextFileHandler, __DoLoadFile);
+	Gura_AssignMethod(wx_RichTextFileHandler, __DoSaveFile);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextFileHandler)

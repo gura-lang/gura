@@ -37,7 +37,7 @@ String Object_wx_GridCornerHeaderRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCornerHeaderRenderer, DrawBorder)
+Gura_DeclareMethodAlias(wx_GridCornerHeaderRenderer, __DrawBorder, "DrawBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_GridCornerHeaderRenderer, DrawBorder)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCornerHeaderRenderer, DrawBorder)
+Gura_ImplementMethod(wx_GridCornerHeaderRenderer, __DrawBorder)
 {
 	Object_wx_GridCornerHeaderRenderer *pThis = Object_wx_GridCornerHeaderRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_GridCornerHeaderRenderer, DrawBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCornerHeaderRenderer)
 {
-	Gura_AssignMethod(wx_GridCornerHeaderRenderer, DrawBorder);
+	Gura_AssignMethod(wx_GridCornerHeaderRenderer, __DrawBorder);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCornerHeaderRenderer)

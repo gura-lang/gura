@@ -37,12 +37,12 @@ String Object_wx_StreamBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StreamBase, wxStreamBase)
+Gura_DeclareMethodAlias(wx_StreamBase, __wxStreamBase, "wxStreamBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, wxStreamBase)
+Gura_ImplementMethod(wx_StreamBase, __wxStreamBase)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_StreamBase, wxStreamBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, GetLastError)
+Gura_DeclareMethodAlias(wx_StreamBase, __GetLastError, "GetLastError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, GetLastError)
+Gura_ImplementMethod(wx_StreamBase, __GetLastError)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_StreamBase, GetLastError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, GetLength)
+Gura_DeclareMethodAlias(wx_StreamBase, __GetLength, "GetLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, GetLength)
+Gura_ImplementMethod(wx_StreamBase, __GetLength)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_StreamBase, GetLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, GetSize)
+Gura_DeclareMethodAlias(wx_StreamBase, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, GetSize)
+Gura_ImplementMethod(wx_StreamBase, __GetSize)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_StreamBase, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, IsOk)
+Gura_DeclareMethodAlias(wx_StreamBase, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, IsOk)
+Gura_ImplementMethod(wx_StreamBase, __IsOk)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_StreamBase, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, IsSeekable)
+Gura_DeclareMethodAlias(wx_StreamBase, __IsSeekable, "IsSeekable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, IsSeekable)
+Gura_ImplementMethod(wx_StreamBase, __IsSeekable)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_StreamBase, IsSeekable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, Reset)
+Gura_DeclareMethodAlias(wx_StreamBase, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "error", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StreamBase, Reset)
+Gura_ImplementMethod(wx_StreamBase, __Reset)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,14 +130,14 @@ Gura_ImplementMethod(wx_StreamBase, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, OnSysSeek)
+Gura_DeclareMethodAlias(wx_StreamBase, __OnSysSeek, "OnSysSeek")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StreamBase, OnSysSeek)
+Gura_ImplementMethod(wx_StreamBase, __OnSysSeek)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_StreamBase, OnSysSeek)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StreamBase, OnSysTell)
+Gura_DeclareMethodAlias(wx_StreamBase, __OnSysTell, "OnSysTell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StreamBase, OnSysTell)
+Gura_ImplementMethod(wx_StreamBase, __OnSysTell)
 {
 	Object_wx_StreamBase *pThis = Object_wx_StreamBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,15 +165,15 @@ Gura_ImplementMethod(wx_StreamBase, OnSysTell)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StreamBase)
 {
-	Gura_AssignMethod(wx_StreamBase, wxStreamBase);
-	Gura_AssignMethod(wx_StreamBase, GetLastError);
-	Gura_AssignMethod(wx_StreamBase, GetLength);
-	Gura_AssignMethod(wx_StreamBase, GetSize);
-	Gura_AssignMethod(wx_StreamBase, IsOk);
-	Gura_AssignMethod(wx_StreamBase, IsSeekable);
-	Gura_AssignMethod(wx_StreamBase, Reset);
-	Gura_AssignMethod(wx_StreamBase, OnSysSeek);
-	Gura_AssignMethod(wx_StreamBase, OnSysTell);
+	Gura_AssignMethod(wx_StreamBase, __wxStreamBase);
+	Gura_AssignMethod(wx_StreamBase, __GetLastError);
+	Gura_AssignMethod(wx_StreamBase, __GetLength);
+	Gura_AssignMethod(wx_StreamBase, __GetSize);
+	Gura_AssignMethod(wx_StreamBase, __IsOk);
+	Gura_AssignMethod(wx_StreamBase, __IsSeekable);
+	Gura_AssignMethod(wx_StreamBase, __Reset);
+	Gura_AssignMethod(wx_StreamBase, __OnSysSeek);
+	Gura_AssignMethod(wx_StreamBase, __OnSysTell);
 }
 
 Gura_ImplementDescendantCreator(wx_StreamBase)

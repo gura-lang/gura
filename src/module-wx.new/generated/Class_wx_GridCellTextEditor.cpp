@@ -37,13 +37,13 @@ String Object_wx_GridCellTextEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellTextEditor, wxGridCellTextEditor)
+Gura_DeclareMethodAlias(wx_GridCellTextEditor, __wxGridCellTextEditor, "wxGridCellTextEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxChars", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellTextEditor, wxGridCellTextEditor)
+Gura_ImplementMethod(wx_GridCellTextEditor, __wxGridCellTextEditor)
 {
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_GridCellTextEditor, wxGridCellTextEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellTextEditor, SetParameters)
+Gura_DeclareMethodAlias(wx_GridCellTextEditor, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
+Gura_ImplementMethod(wx_GridCellTextEditor, __SetParameters)
 {
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_GridCellTextEditor, SetParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellTextEditor, SetValidator)
+Gura_DeclareMethodAlias(wx_GridCellTextEditor, __SetValidator, "SetValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellTextEditor, SetValidator)
+Gura_ImplementMethod(wx_GridCellTextEditor, __SetValidator)
 {
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_GridCellTextEditor, SetValidator)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellTextEditor)
 {
-	Gura_AssignMethod(wx_GridCellTextEditor, wxGridCellTextEditor);
-	Gura_AssignMethod(wx_GridCellTextEditor, SetParameters);
-	Gura_AssignMethod(wx_GridCellTextEditor, SetValidator);
+	Gura_AssignMethod(wx_GridCellTextEditor, __wxGridCellTextEditor);
+	Gura_AssignMethod(wx_GridCellTextEditor, __SetParameters);
+	Gura_AssignMethod(wx_GridCellTextEditor, __SetValidator);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellTextEditor)

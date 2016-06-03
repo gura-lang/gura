@@ -37,13 +37,13 @@ String Object_wx_SocketClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SocketClient, wxSocketClient)
+Gura_DeclareMethodAlias(wx_SocketClient, __wxSocketClient, "wxSocketClient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketClient, wxSocketClient)
+Gura_ImplementMethod(wx_SocketClient, __wxSocketClient)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_SocketClient, wxSocketClient)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketClient, Connect)
+Gura_DeclareMethodAlias(wx_SocketClient, __Connect, "Connect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketClient, Connect)
+Gura_ImplementMethod(wx_SocketClient, __Connect)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_SocketClient, Connect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketClient, Connect_1)
+Gura_DeclareMethodAlias(wx_SocketClient, __Connect_1, "Connect_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_SocketClient, Connect_1)
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketClient, Connect_1)
+Gura_ImplementMethod(wx_SocketClient, __Connect_1)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_SocketClient, Connect_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketClient, WaitOnConnect)
+Gura_DeclareMethodAlias(wx_SocketClient, __WaitOnConnect, "WaitOnConnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketClient, WaitOnConnect)
+Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 {
 	Object_wx_SocketClient *pThis = Object_wx_SocketClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,10 +110,10 @@ Gura_ImplementMethod(wx_SocketClient, WaitOnConnect)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketClient)
 {
-	Gura_AssignMethod(wx_SocketClient, wxSocketClient);
-	Gura_AssignMethod(wx_SocketClient, Connect);
-	Gura_AssignMethod(wx_SocketClient, Connect_1);
-	Gura_AssignMethod(wx_SocketClient, WaitOnConnect);
+	Gura_AssignMethod(wx_SocketClient, __wxSocketClient);
+	Gura_AssignMethod(wx_SocketClient, __Connect);
+	Gura_AssignMethod(wx_SocketClient, __Connect_1);
+	Gura_AssignMethod(wx_SocketClient, __WaitOnConnect);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketClient)

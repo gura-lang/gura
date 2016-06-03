@@ -37,13 +37,13 @@ String Object_wx_NonOwnedWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_NonOwnedWindow, SetShape)
+Gura_DeclareMethodAlias(wx_NonOwnedWindow, __SetShape, "SetShape")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NonOwnedWindow, SetShape)
+Gura_ImplementMethod(wx_NonOwnedWindow, __SetShape)
 {
 	Object_wx_NonOwnedWindow *pThis = Object_wx_NonOwnedWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_NonOwnedWindow, SetShape)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NonOwnedWindow, SetShape_1)
+Gura_DeclareMethodAlias(wx_NonOwnedWindow, __SetShape_1, "SetShape_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NonOwnedWindow, SetShape_1)
+Gura_ImplementMethod(wx_NonOwnedWindow, __SetShape_1)
 {
 	Object_wx_NonOwnedWindow *pThis = Object_wx_NonOwnedWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_NonOwnedWindow, SetShape_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NonOwnedWindow)
 {
-	Gura_AssignMethod(wx_NonOwnedWindow, SetShape);
-	Gura_AssignMethod(wx_NonOwnedWindow, SetShape_1);
+	Gura_AssignMethod(wx_NonOwnedWindow, __SetShape);
+	Gura_AssignMethod(wx_NonOwnedWindow, __SetShape_1);
 }
 
 Gura_ImplementDescendantCreator(wx_NonOwnedWindow)

@@ -37,13 +37,13 @@ String Object_wx_WindowUpdateLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker)
+Gura_DeclareMethodAlias(wx_WindowUpdateLocker, __wxWindowUpdateLocker, "wxWindowUpdateLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker)
+Gura_ImplementMethod(wx_WindowUpdateLocker, __wxWindowUpdateLocker)
 {
 	Object_wx_WindowUpdateLocker *pThis = Object_wx_WindowUpdateLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WindowUpdateLocker)
 {
-	Gura_AssignMethod(wx_WindowUpdateLocker, wxWindowUpdateLocker);
+	Gura_AssignMethod(wx_WindowUpdateLocker, __wxWindowUpdateLocker);
 }
 
 Gura_ImplementDescendantCreator(wx_WindowUpdateLocker)

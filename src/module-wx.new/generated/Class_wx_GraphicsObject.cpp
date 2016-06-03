@@ -37,12 +37,12 @@ String Object_wx_GraphicsObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsObject, GetRenderer)
+Gura_DeclareMethodAlias(wx_GraphicsObject, __GetRenderer, "GetRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsObject, GetRenderer)
+Gura_ImplementMethod(wx_GraphicsObject, __GetRenderer)
 {
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_GraphicsObject, GetRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsObject, IsNull)
+Gura_DeclareMethodAlias(wx_GraphicsObject, __IsNull, "IsNull")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsObject, IsNull)
+Gura_ImplementMethod(wx_GraphicsObject, __IsNull)
 {
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_GraphicsObject, IsNull)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsObject)
 {
-	Gura_AssignMethod(wx_GraphicsObject, GetRenderer);
-	Gura_AssignMethod(wx_GraphicsObject, IsNull);
+	Gura_AssignMethod(wx_GraphicsObject, __GetRenderer);
+	Gura_AssignMethod(wx_GraphicsObject, __IsNull);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsObject)

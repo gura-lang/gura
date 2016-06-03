@@ -37,12 +37,12 @@ String Object_wx_Caret::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Caret, wxCaret)
+Gura_DeclareMethodAlias(wx_Caret, __wxCaret, "wxCaret")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, wxCaret)
+Gura_ImplementMethod(wx_Caret, __wxCaret)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Caret, wxCaret)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, wxCaret_1)
+Gura_DeclareMethodAlias(wx_Caret, __wxCaret_1, "wxCaret_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_Caret, wxCaret_1)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, wxCaret_1)
+Gura_ImplementMethod(wx_Caret, __wxCaret_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,14 +69,14 @@ Gura_ImplementMethod(wx_Caret, wxCaret_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, wxCaret_2)
+Gura_DeclareMethodAlias(wx_Caret, __wxCaret_2, "wxCaret_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, wxCaret_2)
+Gura_ImplementMethod(wx_Caret, __wxCaret_2)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_Caret, wxCaret_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Create)
+Gura_DeclareMethodAlias(wx_Caret, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_Caret, Create)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, Create)
+Gura_ImplementMethod(wx_Caret, __Create)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,14 +105,14 @@ Gura_ImplementMethod(wx_Caret, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Create_1)
+Gura_DeclareMethodAlias(wx_Caret, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, Create_1)
+Gura_ImplementMethod(wx_Caret, __Create_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_Caret, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetBlinkTime)
+Gura_DeclareMethodAlias(wx_Caret, __GetBlinkTime, "GetBlinkTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, GetBlinkTime)
+Gura_ImplementMethod(wx_Caret, __GetBlinkTime)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,14 +135,14 @@ Gura_ImplementMethod(wx_Caret, GetBlinkTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetPosition)
+Gura_DeclareMethodAlias(wx_Caret, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, GetPosition)
+Gura_ImplementMethod(wx_Caret, __GetPosition)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_Caret, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetPosition_1)
+Gura_DeclareMethodAlias(wx_Caret, __GetPosition_1, "GetPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, GetPosition_1)
+Gura_ImplementMethod(wx_Caret, __GetPosition_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,14 +165,14 @@ Gura_ImplementMethod(wx_Caret, GetPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetSize)
+Gura_DeclareMethodAlias(wx_Caret, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, GetSize)
+Gura_ImplementMethod(wx_Caret, __GetSize)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,12 +182,12 @@ Gura_ImplementMethod(wx_Caret, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetSize_1)
+Gura_DeclareMethodAlias(wx_Caret, __GetSize_1, "GetSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, GetSize_1)
+Gura_ImplementMethod(wx_Caret, __GetSize_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_Caret, GetSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, GetWindow)
+Gura_DeclareMethodAlias(wx_Caret, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, GetWindow)
+Gura_ImplementMethod(wx_Caret, __GetWindow)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_Caret, GetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Hide)
+Gura_DeclareMethodAlias(wx_Caret, __Hide, "Hide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, Hide)
+Gura_ImplementMethod(wx_Caret, __Hide)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -221,12 +221,12 @@ Gura_ImplementMethod(wx_Caret, Hide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, IsOk)
+Gura_DeclareMethodAlias(wx_Caret, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, IsOk)
+Gura_ImplementMethod(wx_Caret, __IsOk)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,12 +234,12 @@ Gura_ImplementMethod(wx_Caret, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, IsVisible)
+Gura_DeclareMethodAlias(wx_Caret, __IsVisible, "IsVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Caret, IsVisible)
+Gura_ImplementMethod(wx_Caret, __IsVisible)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,14 +247,14 @@ Gura_ImplementMethod(wx_Caret, IsVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Move)
+Gura_DeclareMethodAlias(wx_Caret, __Move, "Move")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, Move)
+Gura_ImplementMethod(wx_Caret, __Move)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,13 +264,13 @@ Gura_ImplementMethod(wx_Caret, Move)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Move_1)
+Gura_DeclareMethodAlias(wx_Caret, __Move_1, "Move_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, Move_1)
+Gura_ImplementMethod(wx_Caret, __Move_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -279,13 +279,13 @@ Gura_ImplementMethod(wx_Caret, Move_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, SetBlinkTime)
+Gura_DeclareMethodAlias(wx_Caret, __SetBlinkTime, "SetBlinkTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, SetBlinkTime)
+Gura_ImplementMethod(wx_Caret, __SetBlinkTime)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -294,14 +294,14 @@ Gura_ImplementMethod(wx_Caret, SetBlinkTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, SetSize)
+Gura_DeclareMethodAlias(wx_Caret, __SetSize, "SetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, SetSize)
+Gura_ImplementMethod(wx_Caret, __SetSize)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,13 +311,13 @@ Gura_ImplementMethod(wx_Caret, SetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, SetSize_1)
+Gura_DeclareMethodAlias(wx_Caret, __SetSize_1, "SetSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, SetSize_1)
+Gura_ImplementMethod(wx_Caret, __SetSize_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -326,13 +326,13 @@ Gura_ImplementMethod(wx_Caret, SetSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Caret, Show)
+Gura_DeclareMethodAlias(wx_Caret, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Caret, Show)
+Gura_ImplementMethod(wx_Caret, __Show)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -346,26 +346,26 @@ Gura_ImplementMethod(wx_Caret, Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Caret)
 {
-	Gura_AssignMethod(wx_Caret, wxCaret);
-	Gura_AssignMethod(wx_Caret, wxCaret_1);
-	Gura_AssignMethod(wx_Caret, wxCaret_2);
-	Gura_AssignMethod(wx_Caret, Create);
-	Gura_AssignMethod(wx_Caret, Create_1);
-	Gura_AssignMethod(wx_Caret, GetBlinkTime);
-	Gura_AssignMethod(wx_Caret, GetPosition);
-	Gura_AssignMethod(wx_Caret, GetPosition_1);
-	Gura_AssignMethod(wx_Caret, GetSize);
-	Gura_AssignMethod(wx_Caret, GetSize_1);
-	Gura_AssignMethod(wx_Caret, GetWindow);
-	Gura_AssignMethod(wx_Caret, Hide);
-	Gura_AssignMethod(wx_Caret, IsOk);
-	Gura_AssignMethod(wx_Caret, IsVisible);
-	Gura_AssignMethod(wx_Caret, Move);
-	Gura_AssignMethod(wx_Caret, Move_1);
-	Gura_AssignMethod(wx_Caret, SetBlinkTime);
-	Gura_AssignMethod(wx_Caret, SetSize);
-	Gura_AssignMethod(wx_Caret, SetSize_1);
-	Gura_AssignMethod(wx_Caret, Show);
+	Gura_AssignMethod(wx_Caret, __wxCaret);
+	Gura_AssignMethod(wx_Caret, __wxCaret_1);
+	Gura_AssignMethod(wx_Caret, __wxCaret_2);
+	Gura_AssignMethod(wx_Caret, __Create);
+	Gura_AssignMethod(wx_Caret, __Create_1);
+	Gura_AssignMethod(wx_Caret, __GetBlinkTime);
+	Gura_AssignMethod(wx_Caret, __GetPosition);
+	Gura_AssignMethod(wx_Caret, __GetPosition_1);
+	Gura_AssignMethod(wx_Caret, __GetSize);
+	Gura_AssignMethod(wx_Caret, __GetSize_1);
+	Gura_AssignMethod(wx_Caret, __GetWindow);
+	Gura_AssignMethod(wx_Caret, __Hide);
+	Gura_AssignMethod(wx_Caret, __IsOk);
+	Gura_AssignMethod(wx_Caret, __IsVisible);
+	Gura_AssignMethod(wx_Caret, __Move);
+	Gura_AssignMethod(wx_Caret, __Move_1);
+	Gura_AssignMethod(wx_Caret, __SetBlinkTime);
+	Gura_AssignMethod(wx_Caret, __SetSize);
+	Gura_AssignMethod(wx_Caret, __SetSize_1);
+	Gura_AssignMethod(wx_Caret, __Show);
 }
 
 Gura_ImplementDescendantCreator(wx_Caret)

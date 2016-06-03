@@ -37,12 +37,12 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple, "wxHeaderCtrlSimple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple_1)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1, "wxHeaderCtrlSimple_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple_1)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,14 +75,14 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, InsertColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __InsertColumn, "InsertColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, InsertColumn)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __InsertColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,13 +92,13 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, InsertColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, AppendColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __AppendColumn, "AppendColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, AppendColumn)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __AppendColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, AppendColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, DeleteColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __DeleteColumn, "DeleteColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, DeleteColumn)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __DeleteColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,14 +122,14 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, DeleteColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, ShowColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __ShowColumn, "ShowColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, ShowColumn)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __ShowColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, ShowColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, HideColumn)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __HideColumn, "HideColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, HideColumn)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __HideColumn)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,14 +154,14 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, HideColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, ShowSortIndicator)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __ShowSortIndicator, "ShowSortIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sortOrder", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, ShowSortIndicator)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __ShowSortIndicator)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, ShowSortIndicator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, RemoveSortIndicator)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __RemoveSortIndicator, "RemoveSortIndicator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, RemoveSortIndicator)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __RemoveSortIndicator)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,13 +184,13 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, RemoveSortIndicator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderCtrlSimple, GetBestFittingWidth)
+Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __GetBestFittingWidth, "GetBestFittingWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderCtrlSimple, GetBestFittingWidth)
+Gura_ImplementMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth)
 {
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,16 +204,16 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, GetBestFittingWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderCtrlSimple)
 {
-	Gura_AssignMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, wxHeaderCtrlSimple_1);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, InsertColumn);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, AppendColumn);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, DeleteColumn);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, ShowColumn);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, HideColumn);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, ShowSortIndicator);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, RemoveSortIndicator);
-	Gura_AssignMethod(wx_HeaderCtrlSimple, GetBestFittingWidth);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __wxHeaderCtrlSimple_1);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __InsertColumn);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __AppendColumn);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __DeleteColumn);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __ShowColumn);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __HideColumn);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __ShowSortIndicator);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __RemoveSortIndicator);
+	Gura_AssignMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_HeaderCtrlSimple)

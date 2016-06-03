@@ -37,13 +37,13 @@ String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_UpdateUIEvent, wxUpdateUIEvent)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __wxUpdateUIEvent, "wxUpdateUIEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, wxUpdateUIEvent)
+Gura_ImplementMethod(wx_UpdateUIEvent, __wxUpdateUIEvent)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, wxUpdateUIEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, CanUpdate)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __CanUpdate, "CanUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, CanUpdate)
+Gura_ImplementMethod(wx_UpdateUIEvent, __CanUpdate)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, CanUpdate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, Check)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __Check, "Check")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "check", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, Check)
+Gura_ImplementMethod(wx_UpdateUIEvent, __Check)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Check)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, Enable)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __Enable, "Enable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, Enable)
+Gura_ImplementMethod(wx_UpdateUIEvent, __Enable)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Enable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetChecked)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetChecked, "GetChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetChecked)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetChecked)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetEnabled)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetEnabled, "GetEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetEnabled)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetEnabled)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetMode)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetMode, "GetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetMode)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetMode)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetSetChecked)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetChecked, "GetSetChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetSetChecked)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetChecked)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetSetEnabled)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetEnabled, "GetSetEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetSetEnabled)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetEnabled)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetSetShown)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetShown, "GetSetShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetSetShown)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetShown)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetSetText)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetText, "GetSetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetSetText)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetSetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetShown)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetShown, "GetShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetShown)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetShown)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,12 +201,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetText)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetText)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,12 +214,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, GetUpdateInterval)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetUpdateInterval, "GetUpdateInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, GetUpdateInterval)
+Gura_ImplementMethod(wx_UpdateUIEvent, __GetUpdateInterval)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,12 +227,12 @@ Gura_ImplementMethod(wx_UpdateUIEvent, GetUpdateInterval)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, ResetUpdateTime)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __ResetUpdateTime, "ResetUpdateTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, ResetUpdateTime)
+Gura_ImplementMethod(wx_UpdateUIEvent, __ResetUpdateTime)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,13 +240,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, ResetUpdateTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, SetMode)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __SetMode, "SetMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, SetMode)
+Gura_ImplementMethod(wx_UpdateUIEvent, __SetMode)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,13 +255,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, SetMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, SetText)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, SetText)
+Gura_ImplementMethod(wx_UpdateUIEvent, __SetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, SetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, SetUpdateInterval)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __SetUpdateInterval, "SetUpdateInterval")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "updateInterval", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, SetUpdateInterval)
+Gura_ImplementMethod(wx_UpdateUIEvent, __SetUpdateInterval)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,13 +285,13 @@ Gura_ImplementMethod(wx_UpdateUIEvent, SetUpdateInterval)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_UpdateUIEvent, Show)
+Gura_DeclareMethodAlias(wx_UpdateUIEvent, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_UpdateUIEvent, Show)
+Gura_ImplementMethod(wx_UpdateUIEvent, __Show)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -305,25 +305,25 @@ Gura_ImplementMethod(wx_UpdateUIEvent, Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_UpdateUIEvent)
 {
-	Gura_AssignMethod(wx_UpdateUIEvent, wxUpdateUIEvent);
-	Gura_AssignMethod(wx_UpdateUIEvent, CanUpdate);
-	Gura_AssignMethod(wx_UpdateUIEvent, Check);
-	Gura_AssignMethod(wx_UpdateUIEvent, Enable);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetChecked);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetEnabled);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetMode);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetSetChecked);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetSetEnabled);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetSetShown);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetSetText);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetShown);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetText);
-	Gura_AssignMethod(wx_UpdateUIEvent, GetUpdateInterval);
-	Gura_AssignMethod(wx_UpdateUIEvent, ResetUpdateTime);
-	Gura_AssignMethod(wx_UpdateUIEvent, SetMode);
-	Gura_AssignMethod(wx_UpdateUIEvent, SetText);
-	Gura_AssignMethod(wx_UpdateUIEvent, SetUpdateInterval);
-	Gura_AssignMethod(wx_UpdateUIEvent, Show);
+	Gura_AssignMethod(wx_UpdateUIEvent, __wxUpdateUIEvent);
+	Gura_AssignMethod(wx_UpdateUIEvent, __CanUpdate);
+	Gura_AssignMethod(wx_UpdateUIEvent, __Check);
+	Gura_AssignMethod(wx_UpdateUIEvent, __Enable);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetChecked);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetEnabled);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetMode);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetSetChecked);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetSetEnabled);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetSetShown);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetSetText);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetShown);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetText);
+	Gura_AssignMethod(wx_UpdateUIEvent, __GetUpdateInterval);
+	Gura_AssignMethod(wx_UpdateUIEvent, __ResetUpdateTime);
+	Gura_AssignMethod(wx_UpdateUIEvent, __SetMode);
+	Gura_AssignMethod(wx_UpdateUIEvent, __SetText);
+	Gura_AssignMethod(wx_UpdateUIEvent, __SetUpdateInterval);
+	Gura_AssignMethod(wx_UpdateUIEvent, __Show);
 }
 
 Gura_ImplementDescendantCreator(wx_UpdateUIEvent)

@@ -37,13 +37,13 @@ String Object_wx_FilterOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FilterOutputStream, wxFilterOutputStream)
+Gura_DeclareMethodAlias(wx_FilterOutputStream, __wxFilterOutputStream, "wxFilterOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterOutputStream, wxFilterOutputStream)
+Gura_ImplementMethod(wx_FilterOutputStream, __wxFilterOutputStream)
 {
 	Object_wx_FilterOutputStream *pThis = Object_wx_FilterOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_FilterOutputStream, wxFilterOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterOutputStream, wxFilterOutputStream_1)
+Gura_DeclareMethodAlias(wx_FilterOutputStream, __wxFilterOutputStream_1, "wxFilterOutputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterOutputStream, wxFilterOutputStream_1)
+Gura_ImplementMethod(wx_FilterOutputStream, __wxFilterOutputStream_1)
 {
 	Object_wx_FilterOutputStream *pThis = Object_wx_FilterOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_FilterOutputStream, wxFilterOutputStream_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterOutputStream)
 {
-	Gura_AssignMethod(wx_FilterOutputStream, wxFilterOutputStream);
-	Gura_AssignMethod(wx_FilterOutputStream, wxFilterOutputStream_1);
+	Gura_AssignMethod(wx_FilterOutputStream, __wxFilterOutputStream);
+	Gura_AssignMethod(wx_FilterOutputStream, __wxFilterOutputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterOutputStream)

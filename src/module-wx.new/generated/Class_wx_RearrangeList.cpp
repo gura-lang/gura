@@ -37,12 +37,12 @@ String Object_wx_RearrangeList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RearrangeList, wxRearrangeList)
+Gura_DeclareMethodAlias(wx_RearrangeList, __wxRearrangeList, "wxRearrangeList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList)
+Gura_ImplementMethod(wx_RearrangeList, __wxRearrangeList)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, wxRearrangeList_1)
+Gura_DeclareMethodAlias(wx_RearrangeList, __wxRearrangeList_1, "wxRearrangeList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_RearrangeList, wxRearrangeList_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList_1)
+Gura_ImplementMethod(wx_RearrangeList, __wxRearrangeList_1)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_RearrangeList, wxRearrangeList_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, Create)
+Gura_DeclareMethodAlias(wx_RearrangeList, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_RearrangeList, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, Create)
+Gura_ImplementMethod(wx_RearrangeList, __Create)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_RearrangeList, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, GetCurrentOrder)
+Gura_DeclareMethodAlias(wx_RearrangeList, __GetCurrentOrder, "GetCurrentOrder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, GetCurrentOrder)
+Gura_ImplementMethod(wx_RearrangeList, __GetCurrentOrder)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_RearrangeList, GetCurrentOrder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, CanMoveCurrentUp)
+Gura_DeclareMethodAlias(wx_RearrangeList, __CanMoveCurrentUp, "CanMoveCurrentUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentUp)
+Gura_ImplementMethod(wx_RearrangeList, __CanMoveCurrentUp)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, CanMoveCurrentDown)
+Gura_DeclareMethodAlias(wx_RearrangeList, __CanMoveCurrentDown, "CanMoveCurrentDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentDown)
+Gura_ImplementMethod(wx_RearrangeList, __CanMoveCurrentDown)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_RearrangeList, CanMoveCurrentDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, MoveCurrentUp)
+Gura_DeclareMethodAlias(wx_RearrangeList, __MoveCurrentUp, "MoveCurrentUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, MoveCurrentUp)
+Gura_ImplementMethod(wx_RearrangeList, __MoveCurrentUp)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_RearrangeList, MoveCurrentUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RearrangeList, MoveCurrentDown)
+Gura_DeclareMethodAlias(wx_RearrangeList, __MoveCurrentDown, "MoveCurrentDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RearrangeList, MoveCurrentDown)
+Gura_ImplementMethod(wx_RearrangeList, __MoveCurrentDown)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,14 +182,14 @@ Gura_ImplementMethod(wx_RearrangeList, MoveCurrentDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RearrangeList)
 {
-	Gura_AssignMethod(wx_RearrangeList, wxRearrangeList);
-	Gura_AssignMethod(wx_RearrangeList, wxRearrangeList_1);
-	Gura_AssignMethod(wx_RearrangeList, Create);
-	Gura_AssignMethod(wx_RearrangeList, GetCurrentOrder);
-	Gura_AssignMethod(wx_RearrangeList, CanMoveCurrentUp);
-	Gura_AssignMethod(wx_RearrangeList, CanMoveCurrentDown);
-	Gura_AssignMethod(wx_RearrangeList, MoveCurrentUp);
-	Gura_AssignMethod(wx_RearrangeList, MoveCurrentDown);
+	Gura_AssignMethod(wx_RearrangeList, __wxRearrangeList);
+	Gura_AssignMethod(wx_RearrangeList, __wxRearrangeList_1);
+	Gura_AssignMethod(wx_RearrangeList, __Create);
+	Gura_AssignMethod(wx_RearrangeList, __GetCurrentOrder);
+	Gura_AssignMethod(wx_RearrangeList, __CanMoveCurrentUp);
+	Gura_AssignMethod(wx_RearrangeList, __CanMoveCurrentDown);
+	Gura_AssignMethod(wx_RearrangeList, __MoveCurrentUp);
+	Gura_AssignMethod(wx_RearrangeList, __MoveCurrentDown);
 }
 
 Gura_ImplementDescendantCreator(wx_RearrangeList)

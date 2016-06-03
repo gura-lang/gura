@@ -37,12 +37,12 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ClientData, wxClientData)
+Gura_DeclareMethodAlias(wx_ClientData, __wxClientData, "wxClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientData, wxClientData)
+Gura_ImplementMethod(wx_ClientData, __wxClientData)
 {
 	Object_wx_ClientData *pThis = Object_wx_ClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_ClientData, wxClientData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientData)
 {
-	Gura_AssignMethod(wx_ClientData, wxClientData);
+	Gura_AssignMethod(wx_ClientData, __wxClientData);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientData)

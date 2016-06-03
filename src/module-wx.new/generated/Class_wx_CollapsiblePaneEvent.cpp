@@ -37,7 +37,7 @@ String Object_wx_CollapsiblePaneEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CollapsiblePaneEvent, wxCollapsiblePaneEvent)
+Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent, "wxCollapsiblePaneEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_CollapsiblePaneEvent, wxCollapsiblePaneEvent)
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePaneEvent, wxCollapsiblePaneEvent)
+Gura_ImplementMethod(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent)
 {
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, wxCollapsiblePaneEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePaneEvent, GetCollapsed)
+Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __GetCollapsed, "GetCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePaneEvent, GetCollapsed)
+Gura_ImplementMethod(wx_CollapsiblePaneEvent, __GetCollapsed)
 {
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, GetCollapsed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CollapsiblePaneEvent, SetCollapsed)
+Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __SetCollapsed, "SetCollapsed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CollapsiblePaneEvent, SetCollapsed)
+Gura_ImplementMethod(wx_CollapsiblePaneEvent, __SetCollapsed)
 {
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_CollapsiblePaneEvent, SetCollapsed)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CollapsiblePaneEvent)
 {
-	Gura_AssignMethod(wx_CollapsiblePaneEvent, wxCollapsiblePaneEvent);
-	Gura_AssignMethod(wx_CollapsiblePaneEvent, GetCollapsed);
-	Gura_AssignMethod(wx_CollapsiblePaneEvent, SetCollapsed);
+	Gura_AssignMethod(wx_CollapsiblePaneEvent, __wxCollapsiblePaneEvent);
+	Gura_AssignMethod(wx_CollapsiblePaneEvent, __GetCollapsed);
+	Gura_AssignMethod(wx_CollapsiblePaneEvent, __SetCollapsed);
 }
 
 Gura_ImplementDescendantCreator(wx_CollapsiblePaneEvent)

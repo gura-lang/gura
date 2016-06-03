@@ -37,14 +37,14 @@ String Object_wx_Process::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Process, wxProcess)
+Gura_DeclareMethodAlias(wx_Process, __wxProcess, "wxProcess")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, wxProcess)
+Gura_ImplementMethod(wx_Process, __wxProcess)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_Process, wxProcess)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, wxProcess_1)
+Gura_DeclareMethodAlias(wx_Process, __wxProcess_1, "wxProcess_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, wxProcess_1)
+Gura_ImplementMethod(wx_Process, __wxProcess_1)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_Process, wxProcess_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Activate)
+Gura_DeclareMethodAlias(wx_Process, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, Activate)
+Gura_ImplementMethod(wx_Process, __Activate)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_Process, Activate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, CloseOutput)
+Gura_DeclareMethodAlias(wx_Process, __CloseOutput, "CloseOutput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, CloseOutput)
+Gura_ImplementMethod(wx_Process, __CloseOutput)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_Process, CloseOutput)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Detach)
+Gura_DeclareMethodAlias(wx_Process, __Detach, "Detach")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, Detach)
+Gura_ImplementMethod(wx_Process, __Detach)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_Process, Detach)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Exists)
+Gura_DeclareMethodAlias(wx_Process, __Exists, "Exists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, Exists)
+Gura_ImplementMethod(wx_Process, __Exists)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_Process, Exists)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, GetErrorStream)
+Gura_DeclareMethodAlias(wx_Process, __GetErrorStream, "GetErrorStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, GetErrorStream)
+Gura_ImplementMethod(wx_Process, __GetErrorStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_Process, GetErrorStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, GetInputStream)
+Gura_DeclareMethodAlias(wx_Process, __GetInputStream, "GetInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, GetInputStream)
+Gura_ImplementMethod(wx_Process, __GetInputStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_Process, GetInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, GetOutputStream)
+Gura_DeclareMethodAlias(wx_Process, __GetOutputStream, "GetOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, GetOutputStream)
+Gura_ImplementMethod(wx_Process, __GetOutputStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,12 +162,12 @@ Gura_ImplementMethod(wx_Process, GetOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, GetPid)
+Gura_DeclareMethodAlias(wx_Process, __GetPid, "GetPid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, GetPid)
+Gura_ImplementMethod(wx_Process, __GetPid)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,12 +175,12 @@ Gura_ImplementMethod(wx_Process, GetPid)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, IsErrorAvailable)
+Gura_DeclareMethodAlias(wx_Process, __IsErrorAvailable, "IsErrorAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, IsErrorAvailable)
+Gura_ImplementMethod(wx_Process, __IsErrorAvailable)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,12 +188,12 @@ Gura_ImplementMethod(wx_Process, IsErrorAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, IsInputAvailable)
+Gura_DeclareMethodAlias(wx_Process, __IsInputAvailable, "IsInputAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, IsInputAvailable)
+Gura_ImplementMethod(wx_Process, __IsInputAvailable)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,12 +201,12 @@ Gura_ImplementMethod(wx_Process, IsInputAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, IsInputOpened)
+Gura_DeclareMethodAlias(wx_Process, __IsInputOpened, "IsInputOpened")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, IsInputOpened)
+Gura_ImplementMethod(wx_Process, __IsInputOpened)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_Process, IsInputOpened)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Kill)
+Gura_DeclareMethodAlias(wx_Process, __Kill, "Kill")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_DeclareMethod(wx_Process, Kill)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, Kill)
+Gura_ImplementMethod(wx_Process, __Kill)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,14 +233,14 @@ Gura_ImplementMethod(wx_Process, Kill)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, OnTerminate)
+Gura_DeclareMethodAlias(wx_Process, __OnTerminate, "OnTerminate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "status", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, OnTerminate)
+Gura_ImplementMethod(wx_Process, __OnTerminate)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,14 +250,14 @@ Gura_ImplementMethod(wx_Process, OnTerminate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Open)
+Gura_DeclareMethodAlias(wx_Process, __Open, "Open")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, Open)
+Gura_ImplementMethod(wx_Process, __Open)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,12 +267,12 @@ Gura_ImplementMethod(wx_Process, Open)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, Redirect)
+Gura_DeclareMethodAlias(wx_Process, __Redirect, "Redirect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Process, Redirect)
+Gura_ImplementMethod(wx_Process, __Redirect)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,13 +280,13 @@ Gura_ImplementMethod(wx_Process, Redirect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Process, SetPriority)
+Gura_DeclareMethodAlias(wx_Process, __SetPriority, "SetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "priority", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Process, SetPriority)
+Gura_ImplementMethod(wx_Process, __SetPriority)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -300,24 +300,24 @@ Gura_ImplementMethod(wx_Process, SetPriority)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Process)
 {
-	Gura_AssignMethod(wx_Process, wxProcess);
-	Gura_AssignMethod(wx_Process, wxProcess_1);
-	Gura_AssignMethod(wx_Process, Activate);
-	Gura_AssignMethod(wx_Process, CloseOutput);
-	Gura_AssignMethod(wx_Process, Detach);
-	Gura_AssignMethod(wx_Process, Exists);
-	Gura_AssignMethod(wx_Process, GetErrorStream);
-	Gura_AssignMethod(wx_Process, GetInputStream);
-	Gura_AssignMethod(wx_Process, GetOutputStream);
-	Gura_AssignMethod(wx_Process, GetPid);
-	Gura_AssignMethod(wx_Process, IsErrorAvailable);
-	Gura_AssignMethod(wx_Process, IsInputAvailable);
-	Gura_AssignMethod(wx_Process, IsInputOpened);
-	Gura_AssignMethod(wx_Process, Kill);
-	Gura_AssignMethod(wx_Process, OnTerminate);
-	Gura_AssignMethod(wx_Process, Open);
-	Gura_AssignMethod(wx_Process, Redirect);
-	Gura_AssignMethod(wx_Process, SetPriority);
+	Gura_AssignMethod(wx_Process, __wxProcess);
+	Gura_AssignMethod(wx_Process, __wxProcess_1);
+	Gura_AssignMethod(wx_Process, __Activate);
+	Gura_AssignMethod(wx_Process, __CloseOutput);
+	Gura_AssignMethod(wx_Process, __Detach);
+	Gura_AssignMethod(wx_Process, __Exists);
+	Gura_AssignMethod(wx_Process, __GetErrorStream);
+	Gura_AssignMethod(wx_Process, __GetInputStream);
+	Gura_AssignMethod(wx_Process, __GetOutputStream);
+	Gura_AssignMethod(wx_Process, __GetPid);
+	Gura_AssignMethod(wx_Process, __IsErrorAvailable);
+	Gura_AssignMethod(wx_Process, __IsInputAvailable);
+	Gura_AssignMethod(wx_Process, __IsInputOpened);
+	Gura_AssignMethod(wx_Process, __Kill);
+	Gura_AssignMethod(wx_Process, __OnTerminate);
+	Gura_AssignMethod(wx_Process, __Open);
+	Gura_AssignMethod(wx_Process, __Redirect);
+	Gura_AssignMethod(wx_Process, __SetPriority);
 }
 
 Gura_ImplementDescendantCreator(wx_Process)

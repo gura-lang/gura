@@ -37,13 +37,13 @@ String Object_wx_DirTraverser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DirTraverser, OnDir)
+Gura_DeclareMethodAlias(wx_DirTraverser, __OnDir, "OnDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dirname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirTraverser, OnDir)
+Gura_ImplementMethod(wx_DirTraverser, __OnDir)
 {
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_DirTraverser, OnDir)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirTraverser, OnFile)
+Gura_DeclareMethodAlias(wx_DirTraverser, __OnFile, "OnFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirTraverser, OnFile)
+Gura_ImplementMethod(wx_DirTraverser, __OnFile)
 {
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_DirTraverser, OnFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirTraverser, OnOpenError)
+Gura_DeclareMethodAlias(wx_DirTraverser, __OnOpenError, "OnOpenError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "openerrorname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirTraverser, OnOpenError)
+Gura_ImplementMethod(wx_DirTraverser, __OnOpenError)
 {
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_DirTraverser, OnOpenError)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirTraverser)
 {
-	Gura_AssignMethod(wx_DirTraverser, OnDir);
-	Gura_AssignMethod(wx_DirTraverser, OnFile);
-	Gura_AssignMethod(wx_DirTraverser, OnOpenError);
+	Gura_AssignMethod(wx_DirTraverser, __OnDir);
+	Gura_AssignMethod(wx_DirTraverser, __OnFile);
+	Gura_AssignMethod(wx_DirTraverser, __OnOpenError);
 }
 
 Gura_ImplementDescendantCreator(wx_DirTraverser)

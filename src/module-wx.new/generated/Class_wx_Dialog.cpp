@@ -37,12 +37,12 @@ String Object_wx_Dialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Dialog, wxDialog)
+Gura_DeclareMethodAlias(wx_Dialog, __wxDialog, "wxDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, wxDialog)
+Gura_ImplementMethod(wx_Dialog, __wxDialog)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Dialog, wxDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, wxDialog_1)
+Gura_DeclareMethodAlias(wx_Dialog, __wxDialog_1, "wxDialog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_Dialog, wxDialog_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, wxDialog_1)
+Gura_ImplementMethod(wx_Dialog, __wxDialog_1)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,13 +77,13 @@ Gura_ImplementMethod(wx_Dialog, wxDialog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, AddMainButtonId)
+Gura_DeclareMethodAlias(wx_Dialog, __AddMainButtonId, "AddMainButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, AddMainButtonId)
+Gura_ImplementMethod(wx_Dialog, __AddMainButtonId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_Dialog, AddMainButtonId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CanDoLayoutAdaptation)
+Gura_DeclareMethodAlias(wx_Dialog, __CanDoLayoutAdaptation, "CanDoLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, CanDoLayoutAdaptation)
+Gura_ImplementMethod(wx_Dialog, __CanDoLayoutAdaptation)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_Dialog, CanDoLayoutAdaptation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, Centre)
+Gura_DeclareMethodAlias(wx_Dialog, __Centre, "Centre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, Centre)
+Gura_ImplementMethod(wx_Dialog, __Centre)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Dialog, Centre)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, Create)
+Gura_DeclareMethodAlias(wx_Dialog, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -132,7 +132,7 @@ Gura_DeclareMethod(wx_Dialog, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, Create)
+Gura_ImplementMethod(wx_Dialog, __Create)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_Dialog, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CreateButtonSizer)
+Gura_DeclareMethodAlias(wx_Dialog, __CreateButtonSizer, "CreateButtonSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
+Gura_ImplementMethod(wx_Dialog, __CreateButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_Dialog, CreateButtonSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CreateSeparatedButtonSizer)
+Gura_DeclareMethodAlias(wx_Dialog, __CreateSeparatedButtonSizer, "CreateSeparatedButtonSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
+Gura_ImplementMethod(wx_Dialog, __CreateSeparatedButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_Dialog, CreateSeparatedButtonSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CreateSeparatedSizer)
+Gura_DeclareMethodAlias(wx_Dialog, __CreateSeparatedSizer, "CreateSeparatedSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, CreateSeparatedSizer)
+Gura_ImplementMethod(wx_Dialog, __CreateSeparatedSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_Dialog, CreateSeparatedSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CreateStdDialogButtonSizer)
+Gura_DeclareMethodAlias(wx_Dialog, __CreateStdDialogButtonSizer, "CreateStdDialogButtonSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
+Gura_ImplementMethod(wx_Dialog, __CreateStdDialogButtonSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, CreateTextSizer)
+Gura_DeclareMethodAlias(wx_Dialog, __CreateTextSizer, "CreateTextSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, CreateTextSizer)
+Gura_ImplementMethod(wx_Dialog, __CreateTextSizer)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_Dialog, CreateTextSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, DoLayoutAdaptation)
+Gura_DeclareMethodAlias(wx_Dialog, __DoLayoutAdaptation, "DoLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, DoLayoutAdaptation)
+Gura_ImplementMethod(wx_Dialog, __DoLayoutAdaptation)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_Dialog, DoLayoutAdaptation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, EnableLayoutAdaptation)
+Gura_DeclareMethodAlias(wx_Dialog, __EnableLayoutAdaptation, "EnableLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, EnableLayoutAdaptation)
+Gura_ImplementMethod(wx_Dialog, __EnableLayoutAdaptation)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_Dialog, EnableLayoutAdaptation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, EndModal)
+Gura_DeclareMethodAlias(wx_Dialog, __EndModal, "EndModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "retCode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, EndModal)
+Gura_ImplementMethod(wx_Dialog, __EndModal)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_Dialog, EndModal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetAffirmativeId)
+Gura_DeclareMethodAlias(wx_Dialog, __GetAffirmativeId, "GetAffirmativeId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetAffirmativeId)
+Gura_ImplementMethod(wx_Dialog, __GetAffirmativeId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,12 +278,12 @@ Gura_ImplementMethod(wx_Dialog, GetAffirmativeId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetContentWindow)
+Gura_DeclareMethodAlias(wx_Dialog, __GetContentWindow, "GetContentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetContentWindow)
+Gura_ImplementMethod(wx_Dialog, __GetContentWindow)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,12 +291,12 @@ Gura_ImplementMethod(wx_Dialog, GetContentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetEscapeId)
+Gura_DeclareMethodAlias(wx_Dialog, __GetEscapeId, "GetEscapeId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetEscapeId)
+Gura_ImplementMethod(wx_Dialog, __GetEscapeId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,12 +304,12 @@ Gura_ImplementMethod(wx_Dialog, GetEscapeId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationDone)
+Gura_DeclareMethodAlias(wx_Dialog, __GetLayoutAdaptationDone, "GetLayoutAdaptationDone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationDone)
+Gura_ImplementMethod(wx_Dialog, __GetLayoutAdaptationDone)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,12 +317,12 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationDone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationLevel)
+Gura_DeclareMethodAlias(wx_Dialog, __GetLayoutAdaptationLevel, "GetLayoutAdaptationLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationLevel)
+Gura_ImplementMethod(wx_Dialog, __GetLayoutAdaptationLevel)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -330,12 +330,12 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationMode)
+Gura_DeclareMethodAlias(wx_Dialog, __GetLayoutAdaptationMode, "GetLayoutAdaptationMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationMode)
+Gura_ImplementMethod(wx_Dialog, __GetLayoutAdaptationMode)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,12 +343,12 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetLayoutAdapter)
+Gura_DeclareMethodAlias(wx_Dialog, __GetLayoutAdapter, "GetLayoutAdapter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetLayoutAdapter)
+Gura_ImplementMethod(wx_Dialog, __GetLayoutAdapter)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -356,12 +356,12 @@ Gura_ImplementMethod(wx_Dialog, GetLayoutAdapter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetMainButtonIds)
+Gura_DeclareMethodAlias(wx_Dialog, __GetMainButtonIds, "GetMainButtonIds")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetMainButtonIds)
+Gura_ImplementMethod(wx_Dialog, __GetMainButtonIds)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -369,12 +369,12 @@ Gura_ImplementMethod(wx_Dialog, GetMainButtonIds)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetReturnCode)
+Gura_DeclareMethodAlias(wx_Dialog, __GetReturnCode, "GetReturnCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetReturnCode)
+Gura_ImplementMethod(wx_Dialog, __GetReturnCode)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -382,12 +382,12 @@ Gura_ImplementMethod(wx_Dialog, GetReturnCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, GetToolBar)
+Gura_DeclareMethodAlias(wx_Dialog, __GetToolBar, "GetToolBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, GetToolBar)
+Gura_ImplementMethod(wx_Dialog, __GetToolBar)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -395,13 +395,13 @@ Gura_ImplementMethod(wx_Dialog, GetToolBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, Iconize)
+Gura_DeclareMethodAlias(wx_Dialog, __Iconize, "Iconize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, Iconize)
+Gura_ImplementMethod(wx_Dialog, __Iconize)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -410,12 +410,12 @@ Gura_ImplementMethod(wx_Dialog, Iconize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, IsIconized)
+Gura_DeclareMethodAlias(wx_Dialog, __IsIconized, "IsIconized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, IsIconized)
+Gura_ImplementMethod(wx_Dialog, __IsIconized)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -423,12 +423,12 @@ Gura_ImplementMethod(wx_Dialog, IsIconized)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, IsLayoutAdaptationEnabled)
+Gura_DeclareMethodAlias(wx_Dialog, __IsLayoutAdaptationEnabled, "IsLayoutAdaptationEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, IsLayoutAdaptationEnabled)
+Gura_ImplementMethod(wx_Dialog, __IsLayoutAdaptationEnabled)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -436,13 +436,13 @@ Gura_ImplementMethod(wx_Dialog, IsLayoutAdaptationEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, IsMainButtonId)
+Gura_DeclareMethodAlias(wx_Dialog, __IsMainButtonId, "IsMainButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, IsMainButtonId)
+Gura_ImplementMethod(wx_Dialog, __IsMainButtonId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -451,12 +451,12 @@ Gura_ImplementMethod(wx_Dialog, IsMainButtonId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, IsModal)
+Gura_DeclareMethodAlias(wx_Dialog, __IsModal, "IsModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, IsModal)
+Gura_ImplementMethod(wx_Dialog, __IsModal)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -464,13 +464,13 @@ Gura_ImplementMethod(wx_Dialog, IsModal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetAffirmativeId)
+Gura_DeclareMethodAlias(wx_Dialog, __SetAffirmativeId, "SetAffirmativeId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetAffirmativeId)
+Gura_ImplementMethod(wx_Dialog, __SetAffirmativeId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -479,13 +479,13 @@ Gura_ImplementMethod(wx_Dialog, SetAffirmativeId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetEscapeId)
+Gura_DeclareMethodAlias(wx_Dialog, __SetEscapeId, "SetEscapeId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetEscapeId)
+Gura_ImplementMethod(wx_Dialog, __SetEscapeId)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -494,13 +494,13 @@ Gura_ImplementMethod(wx_Dialog, SetEscapeId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetIcon)
+Gura_DeclareMethodAlias(wx_Dialog, __SetIcon, "SetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetIcon)
+Gura_ImplementMethod(wx_Dialog, __SetIcon)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -509,13 +509,13 @@ Gura_ImplementMethod(wx_Dialog, SetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetIcons)
+Gura_DeclareMethodAlias(wx_Dialog, __SetIcons, "SetIcons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icons", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetIcons)
+Gura_ImplementMethod(wx_Dialog, __SetIcons)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -524,13 +524,13 @@ Gura_ImplementMethod(wx_Dialog, SetIcons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationDone)
+Gura_DeclareMethodAlias(wx_Dialog, __SetLayoutAdaptationDone, "SetLayoutAdaptationDone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "done", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationDone)
+Gura_ImplementMethod(wx_Dialog, __SetLayoutAdaptationDone)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -539,13 +539,13 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationDone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationLevel)
+Gura_DeclareMethodAlias(wx_Dialog, __SetLayoutAdaptationLevel, "SetLayoutAdaptationLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationLevel)
+Gura_ImplementMethod(wx_Dialog, __SetLayoutAdaptationLevel)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -554,13 +554,13 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationMode)
+Gura_DeclareMethodAlias(wx_Dialog, __SetLayoutAdaptationMode, "SetLayoutAdaptationMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationMode)
+Gura_ImplementMethod(wx_Dialog, __SetLayoutAdaptationMode)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -569,13 +569,13 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetLayoutAdapter)
+Gura_DeclareMethodAlias(wx_Dialog, __SetLayoutAdapter, "SetLayoutAdapter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "adapter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetLayoutAdapter)
+Gura_ImplementMethod(wx_Dialog, __SetLayoutAdapter)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -584,13 +584,13 @@ Gura_ImplementMethod(wx_Dialog, SetLayoutAdapter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, SetReturnCode)
+Gura_DeclareMethodAlias(wx_Dialog, __SetReturnCode, "SetReturnCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "retCode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetReturnCode)
+Gura_ImplementMethod(wx_Dialog, __SetReturnCode)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -599,13 +599,13 @@ Gura_ImplementMethod(wx_Dialog, SetReturnCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, Show)
+Gura_DeclareMethodAlias(wx_Dialog, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, Show)
+Gura_ImplementMethod(wx_Dialog, __Show)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -614,12 +614,12 @@ Gura_ImplementMethod(wx_Dialog, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, ShowModal)
+Gura_DeclareMethodAlias(wx_Dialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, ShowModal)
+Gura_ImplementMethod(wx_Dialog, __ShowModal)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -627,12 +627,12 @@ Gura_ImplementMethod(wx_Dialog, ShowModal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, ShowWindowModal)
+Gura_DeclareMethodAlias(wx_Dialog, __ShowWindowModal, "ShowWindowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Dialog, ShowWindowModal)
+Gura_ImplementMethod(wx_Dialog, __ShowWindowModal)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -640,13 +640,13 @@ Gura_ImplementMethod(wx_Dialog, ShowWindowModal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Dialog, ShowWindowModalThenDo)
+Gura_DeclareMethodAlias(wx_Dialog, __ShowWindowModalThenDo, "ShowWindowModalThenDo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "onEndModal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, ShowWindowModalThenDo)
+Gura_ImplementMethod(wx_Dialog, __ShowWindowModalThenDo)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -660,48 +660,48 @@ Gura_ImplementMethod(wx_Dialog, ShowWindowModalThenDo)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Dialog)
 {
-	Gura_AssignMethod(wx_Dialog, wxDialog);
-	Gura_AssignMethod(wx_Dialog, wxDialog_1);
-	Gura_AssignMethod(wx_Dialog, AddMainButtonId);
-	Gura_AssignMethod(wx_Dialog, CanDoLayoutAdaptation);
-	Gura_AssignMethod(wx_Dialog, Centre);
-	Gura_AssignMethod(wx_Dialog, Create);
-	Gura_AssignMethod(wx_Dialog, CreateButtonSizer);
-	Gura_AssignMethod(wx_Dialog, CreateSeparatedButtonSizer);
-	Gura_AssignMethod(wx_Dialog, CreateSeparatedSizer);
-	Gura_AssignMethod(wx_Dialog, CreateStdDialogButtonSizer);
-	Gura_AssignMethod(wx_Dialog, CreateTextSizer);
-	Gura_AssignMethod(wx_Dialog, DoLayoutAdaptation);
-	Gura_AssignMethod(wx_Dialog, EnableLayoutAdaptation);
-	Gura_AssignMethod(wx_Dialog, EndModal);
-	Gura_AssignMethod(wx_Dialog, GetAffirmativeId);
-	Gura_AssignMethod(wx_Dialog, GetContentWindow);
-	Gura_AssignMethod(wx_Dialog, GetEscapeId);
-	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationDone);
-	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationLevel);
-	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationMode);
-	Gura_AssignMethod(wx_Dialog, GetLayoutAdapter);
-	Gura_AssignMethod(wx_Dialog, GetMainButtonIds);
-	Gura_AssignMethod(wx_Dialog, GetReturnCode);
-	Gura_AssignMethod(wx_Dialog, GetToolBar);
-	Gura_AssignMethod(wx_Dialog, Iconize);
-	Gura_AssignMethod(wx_Dialog, IsIconized);
-	Gura_AssignMethod(wx_Dialog, IsLayoutAdaptationEnabled);
-	Gura_AssignMethod(wx_Dialog, IsMainButtonId);
-	Gura_AssignMethod(wx_Dialog, IsModal);
-	Gura_AssignMethod(wx_Dialog, SetAffirmativeId);
-	Gura_AssignMethod(wx_Dialog, SetEscapeId);
-	Gura_AssignMethod(wx_Dialog, SetIcon);
-	Gura_AssignMethod(wx_Dialog, SetIcons);
-	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationDone);
-	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationLevel);
-	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationMode);
-	Gura_AssignMethod(wx_Dialog, SetLayoutAdapter);
-	Gura_AssignMethod(wx_Dialog, SetReturnCode);
-	Gura_AssignMethod(wx_Dialog, Show);
-	Gura_AssignMethod(wx_Dialog, ShowModal);
-	Gura_AssignMethod(wx_Dialog, ShowWindowModal);
-	Gura_AssignMethod(wx_Dialog, ShowWindowModalThenDo);
+	Gura_AssignMethod(wx_Dialog, __wxDialog);
+	Gura_AssignMethod(wx_Dialog, __wxDialog_1);
+	Gura_AssignMethod(wx_Dialog, __AddMainButtonId);
+	Gura_AssignMethod(wx_Dialog, __CanDoLayoutAdaptation);
+	Gura_AssignMethod(wx_Dialog, __Centre);
+	Gura_AssignMethod(wx_Dialog, __Create);
+	Gura_AssignMethod(wx_Dialog, __CreateButtonSizer);
+	Gura_AssignMethod(wx_Dialog, __CreateSeparatedButtonSizer);
+	Gura_AssignMethod(wx_Dialog, __CreateSeparatedSizer);
+	Gura_AssignMethod(wx_Dialog, __CreateStdDialogButtonSizer);
+	Gura_AssignMethod(wx_Dialog, __CreateTextSizer);
+	Gura_AssignMethod(wx_Dialog, __DoLayoutAdaptation);
+	Gura_AssignMethod(wx_Dialog, __EnableLayoutAdaptation);
+	Gura_AssignMethod(wx_Dialog, __EndModal);
+	Gura_AssignMethod(wx_Dialog, __GetAffirmativeId);
+	Gura_AssignMethod(wx_Dialog, __GetContentWindow);
+	Gura_AssignMethod(wx_Dialog, __GetEscapeId);
+	Gura_AssignMethod(wx_Dialog, __GetLayoutAdaptationDone);
+	Gura_AssignMethod(wx_Dialog, __GetLayoutAdaptationLevel);
+	Gura_AssignMethod(wx_Dialog, __GetLayoutAdaptationMode);
+	Gura_AssignMethod(wx_Dialog, __GetLayoutAdapter);
+	Gura_AssignMethod(wx_Dialog, __GetMainButtonIds);
+	Gura_AssignMethod(wx_Dialog, __GetReturnCode);
+	Gura_AssignMethod(wx_Dialog, __GetToolBar);
+	Gura_AssignMethod(wx_Dialog, __Iconize);
+	Gura_AssignMethod(wx_Dialog, __IsIconized);
+	Gura_AssignMethod(wx_Dialog, __IsLayoutAdaptationEnabled);
+	Gura_AssignMethod(wx_Dialog, __IsMainButtonId);
+	Gura_AssignMethod(wx_Dialog, __IsModal);
+	Gura_AssignMethod(wx_Dialog, __SetAffirmativeId);
+	Gura_AssignMethod(wx_Dialog, __SetEscapeId);
+	Gura_AssignMethod(wx_Dialog, __SetIcon);
+	Gura_AssignMethod(wx_Dialog, __SetIcons);
+	Gura_AssignMethod(wx_Dialog, __SetLayoutAdaptationDone);
+	Gura_AssignMethod(wx_Dialog, __SetLayoutAdaptationLevel);
+	Gura_AssignMethod(wx_Dialog, __SetLayoutAdaptationMode);
+	Gura_AssignMethod(wx_Dialog, __SetLayoutAdapter);
+	Gura_AssignMethod(wx_Dialog, __SetReturnCode);
+	Gura_AssignMethod(wx_Dialog, __Show);
+	Gura_AssignMethod(wx_Dialog, __ShowModal);
+	Gura_AssignMethod(wx_Dialog, __ShowWindowModal);
+	Gura_AssignMethod(wx_Dialog, __ShowWindowModalThenDo);
 }
 
 Gura_ImplementDescendantCreator(wx_Dialog)

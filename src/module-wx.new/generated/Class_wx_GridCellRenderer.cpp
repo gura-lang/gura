@@ -37,12 +37,12 @@ String Object_wx_GridCellRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellRenderer, wxGridCellRenderer)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __wxGridCellRenderer, "wxGridCellRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, wxGridCellRenderer)
+Gura_ImplementMethod(wx_GridCellRenderer, __wxGridCellRenderer)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_GridCellRenderer, wxGridCellRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellRenderer, Clone)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, Clone)
+Gura_ImplementMethod(wx_GridCellRenderer, __Clone)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellRenderer, Draw)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, Draw)
 	//DeclareArg(env, "isSelected", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, Draw)
+Gura_ImplementMethod(wx_GridCellRenderer, __Draw)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestSize, "GetBestSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestSize)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
+Gura_ImplementMethod(wx_GridCellRenderer, __GetBestSize)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellRenderer, GetBestHeight)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestHeight, "GetBestHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestHeight)
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, GetBestHeight)
+Gura_ImplementMethod(wx_GridCellRenderer, __GetBestHeight)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellRenderer, GetBestWidth)
+Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestWidth, "GetBestWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -149,7 +149,7 @@ Gura_DeclareMethod(wx_GridCellRenderer, GetBestWidth)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellRenderer, GetBestWidth)
+Gura_ImplementMethod(wx_GridCellRenderer, __GetBestWidth)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_GridCellRenderer, GetBestWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellRenderer)
 {
-	Gura_AssignMethod(wx_GridCellRenderer, wxGridCellRenderer);
-	Gura_AssignMethod(wx_GridCellRenderer, Clone);
-	Gura_AssignMethod(wx_GridCellRenderer, Draw);
-	Gura_AssignMethod(wx_GridCellRenderer, GetBestSize);
-	Gura_AssignMethod(wx_GridCellRenderer, GetBestHeight);
-	Gura_AssignMethod(wx_GridCellRenderer, GetBestWidth);
+	Gura_AssignMethod(wx_GridCellRenderer, __wxGridCellRenderer);
+	Gura_AssignMethod(wx_GridCellRenderer, __Clone);
+	Gura_AssignMethod(wx_GridCellRenderer, __Draw);
+	Gura_AssignMethod(wx_GridCellRenderer, __GetBestSize);
+	Gura_AssignMethod(wx_GridCellRenderer, __GetBestHeight);
+	Gura_AssignMethod(wx_GridCellRenderer, __GetBestWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellRenderer)

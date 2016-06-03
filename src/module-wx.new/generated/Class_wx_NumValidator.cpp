@@ -37,13 +37,13 @@ String Object_wx_NumValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_NumValidator, SetMin)
+Gura_DeclareMethodAlias(wx_NumValidator, __SetMin, "SetMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NumValidator, SetMin)
+Gura_ImplementMethod(wx_NumValidator, __SetMin)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_NumValidator, SetMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NumValidator, SetMax)
+Gura_DeclareMethodAlias(wx_NumValidator, __SetMax, "SetMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NumValidator, SetMax)
+Gura_ImplementMethod(wx_NumValidator, __SetMax)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_NumValidator, SetMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NumValidator, SetRange)
+Gura_DeclareMethodAlias(wx_NumValidator, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NumValidator, SetRange)
+Gura_ImplementMethod(wx_NumValidator, __SetRange)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_NumValidator, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NumValidator, SetStyle)
+Gura_DeclareMethodAlias(wx_NumValidator, __SetStyle, "SetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NumValidator, SetStyle)
+Gura_ImplementMethod(wx_NumValidator, __SetStyle)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_NumValidator, SetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NumValidator, TransferToWindow)
+Gura_DeclareMethodAlias(wx_NumValidator, __TransferToWindow, "TransferToWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NumValidator, TransferToWindow)
+Gura_ImplementMethod(wx_NumValidator, __TransferToWindow)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_NumValidator, TransferToWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NumValidator, TransferFromWindow)
+Gura_DeclareMethodAlias(wx_NumValidator, __TransferFromWindow, "TransferFromWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NumValidator, TransferFromWindow)
+Gura_ImplementMethod(wx_NumValidator, __TransferFromWindow)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_NumValidator, TransferFromWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NumValidator)
 {
-	Gura_AssignMethod(wx_NumValidator, SetMin);
-	Gura_AssignMethod(wx_NumValidator, SetMax);
-	Gura_AssignMethod(wx_NumValidator, SetRange);
-	Gura_AssignMethod(wx_NumValidator, SetStyle);
-	Gura_AssignMethod(wx_NumValidator, TransferToWindow);
-	Gura_AssignMethod(wx_NumValidator, TransferFromWindow);
+	Gura_AssignMethod(wx_NumValidator, __SetMin);
+	Gura_AssignMethod(wx_NumValidator, __SetMax);
+	Gura_AssignMethod(wx_NumValidator, __SetRange);
+	Gura_AssignMethod(wx_NumValidator, __SetStyle);
+	Gura_AssignMethod(wx_NumValidator, __TransferToWindow);
+	Gura_AssignMethod(wx_NumValidator, __TransferFromWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_NumValidator)

@@ -37,14 +37,14 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MemoryOutputStream, wxMemoryOutputStream)
+Gura_DeclareMethodAlias(wx_MemoryOutputStream, __wxMemoryOutputStream, "wxMemoryOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryOutputStream, wxMemoryOutputStream)
+Gura_ImplementMethod(wx_MemoryOutputStream, __wxMemoryOutputStream)
 {
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_MemoryOutputStream, wxMemoryOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryOutputStream, CopyTo)
+Gura_DeclareMethodAlias(wx_MemoryOutputStream, __CopyTo, "CopyTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
+Gura_ImplementMethod(wx_MemoryOutputStream, __CopyTo)
 {
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_MemoryOutputStream, CopyTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
+Gura_DeclareMethodAlias(wx_MemoryOutputStream, __GetOutputStreamBuffer, "GetOutputStreamBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
+Gura_ImplementMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer)
 {
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_MemoryOutputStream, GetOutputStreamBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MemoryOutputStream)
 {
-	Gura_AssignMethod(wx_MemoryOutputStream, wxMemoryOutputStream);
-	Gura_AssignMethod(wx_MemoryOutputStream, CopyTo);
-	Gura_AssignMethod(wx_MemoryOutputStream, GetOutputStreamBuffer);
+	Gura_AssignMethod(wx_MemoryOutputStream, __wxMemoryOutputStream);
+	Gura_AssignMethod(wx_MemoryOutputStream, __CopyTo);
+	Gura_AssignMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_MemoryOutputStream)

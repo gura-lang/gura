@@ -37,12 +37,12 @@ String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DirPickerCtrl, wxDirPickerCtrl)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __wxDirPickerCtrl, "wxDirPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, wxDirPickerCtrl)
+Gura_ImplementMethod(wx_DirPickerCtrl, __wxDirPickerCtrl)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, wxDirPickerCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, wxDirPickerCtrl_1)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __wxDirPickerCtrl_1, "wxDirPickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_DirPickerCtrl, wxDirPickerCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, wxDirPickerCtrl_1)
+Gura_ImplementMethod(wx_DirPickerCtrl, __wxDirPickerCtrl_1)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DirPickerCtrl, wxDirPickerCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, Create)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_DirPickerCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, Create)
+Gura_ImplementMethod(wx_DirPickerCtrl, __Create)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_DirPickerCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, GetDirName)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __GetDirName, "GetDirName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, GetDirName)
+Gura_ImplementMethod(wx_DirPickerCtrl, __GetDirName)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_DirPickerCtrl, GetDirName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, GetPath)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, GetPath)
+Gura_ImplementMethod(wx_DirPickerCtrl, __GetPath)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_DirPickerCtrl, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, SetDirName)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __SetDirName, "SetDirName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dirname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, SetDirName)
+Gura_ImplementMethod(wx_DirPickerCtrl, __SetDirName)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_DirPickerCtrl, SetDirName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, SetInitialDirectory)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __SetInitialDirectory, "SetInitialDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, SetInitialDirectory)
+Gura_ImplementMethod(wx_DirPickerCtrl, __SetInitialDirectory)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_DirPickerCtrl, SetInitialDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DirPickerCtrl, SetPath)
+Gura_DeclareMethodAlias(wx_DirPickerCtrl, __SetPath, "SetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dirname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DirPickerCtrl, SetPath)
+Gura_ImplementMethod(wx_DirPickerCtrl, __SetPath)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,14 +188,14 @@ Gura_ImplementMethod(wx_DirPickerCtrl, SetPath)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DirPickerCtrl)
 {
-	Gura_AssignMethod(wx_DirPickerCtrl, wxDirPickerCtrl);
-	Gura_AssignMethod(wx_DirPickerCtrl, wxDirPickerCtrl_1);
-	Gura_AssignMethod(wx_DirPickerCtrl, Create);
-	Gura_AssignMethod(wx_DirPickerCtrl, GetDirName);
-	Gura_AssignMethod(wx_DirPickerCtrl, GetPath);
-	Gura_AssignMethod(wx_DirPickerCtrl, SetDirName);
-	Gura_AssignMethod(wx_DirPickerCtrl, SetInitialDirectory);
-	Gura_AssignMethod(wx_DirPickerCtrl, SetPath);
+	Gura_AssignMethod(wx_DirPickerCtrl, __wxDirPickerCtrl);
+	Gura_AssignMethod(wx_DirPickerCtrl, __wxDirPickerCtrl_1);
+	Gura_AssignMethod(wx_DirPickerCtrl, __Create);
+	Gura_AssignMethod(wx_DirPickerCtrl, __GetDirName);
+	Gura_AssignMethod(wx_DirPickerCtrl, __GetPath);
+	Gura_AssignMethod(wx_DirPickerCtrl, __SetDirName);
+	Gura_AssignMethod(wx_DirPickerCtrl, __SetInitialDirectory);
+	Gura_AssignMethod(wx_DirPickerCtrl, __SetPath);
 }
 
 Gura_ImplementDescendantCreator(wx_DirPickerCtrl)

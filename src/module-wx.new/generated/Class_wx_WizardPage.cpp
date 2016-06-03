@@ -37,12 +37,12 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WizardPage, wxWizardPage)
+Gura_DeclareMethodAlias(wx_WizardPage, __wxWizardPage, "wxWizardPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WizardPage, wxWizardPage)
+Gura_ImplementMethod(wx_WizardPage, __wxWizardPage)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_WizardPage, wxWizardPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WizardPage, wxWizardPage_1)
+Gura_DeclareMethodAlias(wx_WizardPage, __wxWizardPage_1, "wxWizardPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WizardPage, wxWizardPage_1)
+Gura_ImplementMethod(wx_WizardPage, __wxWizardPage_1)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_WizardPage, wxWizardPage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WizardPage, Create)
+Gura_DeclareMethodAlias(wx_WizardPage, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WizardPage, Create)
+Gura_ImplementMethod(wx_WizardPage, __Create)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_WizardPage, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WizardPage, GetBitmap)
+Gura_DeclareMethodAlias(wx_WizardPage, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WizardPage, GetBitmap)
+Gura_ImplementMethod(wx_WizardPage, __GetBitmap)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_WizardPage, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WizardPage, GetNext)
+Gura_DeclareMethodAlias(wx_WizardPage, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WizardPage, GetNext)
+Gura_ImplementMethod(wx_WizardPage, __GetNext)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_WizardPage, GetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WizardPage, GetPrev)
+Gura_DeclareMethodAlias(wx_WizardPage, __GetPrev, "GetPrev")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WizardPage, GetPrev)
+Gura_ImplementMethod(wx_WizardPage, __GetPrev)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_WizardPage, GetPrev)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPage)
 {
-	Gura_AssignMethod(wx_WizardPage, wxWizardPage);
-	Gura_AssignMethod(wx_WizardPage, wxWizardPage_1);
-	Gura_AssignMethod(wx_WizardPage, Create);
-	Gura_AssignMethod(wx_WizardPage, GetBitmap);
-	Gura_AssignMethod(wx_WizardPage, GetNext);
-	Gura_AssignMethod(wx_WizardPage, GetPrev);
+	Gura_AssignMethod(wx_WizardPage, __wxWizardPage);
+	Gura_AssignMethod(wx_WizardPage, __wxWizardPage_1);
+	Gura_AssignMethod(wx_WizardPage, __Create);
+	Gura_AssignMethod(wx_WizardPage, __GetBitmap);
+	Gura_AssignMethod(wx_WizardPage, __GetNext);
+	Gura_AssignMethod(wx_WizardPage, __GetPrev);
 }
 
 Gura_ImplementDescendantCreator(wx_WizardPage)

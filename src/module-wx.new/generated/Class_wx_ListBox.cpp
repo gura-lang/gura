@@ -37,12 +37,12 @@ String Object_wx_ListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ListBox, wxListBox)
+Gura_DeclareMethodAlias(wx_ListBox, __wxListBox, "wxListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, wxListBox)
+Gura_ImplementMethod(wx_ListBox, __wxListBox)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ListBox, wxListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, wxListBox_1)
+Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_1, "wxListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_ListBox, wxListBox_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, wxListBox_1)
+Gura_ImplementMethod(wx_ListBox, __wxListBox_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_ListBox, wxListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, wxListBox_2)
+Gura_DeclareMethodAlias(wx_ListBox, __wxListBox_2, "wxListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_ListBox, wxListBox_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, wxListBox_2)
+Gura_ImplementMethod(wx_ListBox, __wxListBox_2)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ListBox, wxListBox_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, Create)
+Gura_DeclareMethodAlias(wx_ListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_ListBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, Create)
+Gura_ImplementMethod(wx_ListBox, __Create)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_ListBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, Create_1)
+Gura_DeclareMethodAlias(wx_ListBox, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_ListBox, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, Create_1)
+Gura_ImplementMethod(wx_ListBox, __Create_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_ListBox, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, Deselect)
+Gura_DeclareMethodAlias(wx_ListBox, __Deselect, "Deselect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, Deselect)
+Gura_ImplementMethod(wx_ListBox, __Deselect)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_ListBox, Deselect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetSelection)
+Gura_DeclareMethodAlias(wx_ListBox, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetSelection)
+Gura_ImplementMethod(wx_ListBox, __SetSelection)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,12 +200,12 @@ Gura_ImplementMethod(wx_ListBox, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetSelection)
+Gura_DeclareMethodAlias(wx_ListBox, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetSelection)
+Gura_ImplementMethod(wx_ListBox, __GetSelection)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,14 +213,14 @@ Gura_ImplementMethod(wx_ListBox, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetStringSelection)
+Gura_DeclareMethodAlias(wx_ListBox, __SetStringSelection, "SetStringSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "select", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetStringSelection)
+Gura_ImplementMethod(wx_ListBox, __SetStringSelection)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,13 +230,13 @@ Gura_ImplementMethod(wx_ListBox, SetStringSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetStringSelection_1)
+Gura_DeclareMethodAlias(wx_ListBox, __SetStringSelection_1, "SetStringSelection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetStringSelection_1)
+Gura_ImplementMethod(wx_ListBox, __SetStringSelection_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -245,13 +245,13 @@ Gura_ImplementMethod(wx_ListBox, SetStringSelection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetSelections)
+Gura_DeclareMethodAlias(wx_ListBox, __GetSelections, "GetSelections")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "selections", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetSelections)
+Gura_ImplementMethod(wx_ListBox, __GetSelections)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,13 +260,13 @@ Gura_ImplementMethod(wx_ListBox, GetSelections)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, HitTest)
+Gura_DeclareMethodAlias(wx_ListBox, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, HitTest)
+Gura_ImplementMethod(wx_ListBox, __HitTest)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,14 +275,14 @@ Gura_ImplementMethod(wx_ListBox, HitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, HitTest_1)
+Gura_DeclareMethodAlias(wx_ListBox, __HitTest_1, "HitTest_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, HitTest_1)
+Gura_ImplementMethod(wx_ListBox, __HitTest_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_ListBox, HitTest_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, InsertItems)
+Gura_DeclareMethodAlias(wx_ListBox, __InsertItems, "InsertItems")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nItems", VTYPE_number, OCCUR_Once);
@@ -300,7 +300,7 @@ Gura_DeclareMethod(wx_ListBox, InsertItems)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, InsertItems)
+Gura_ImplementMethod(wx_ListBox, __InsertItems)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,14 +311,14 @@ Gura_ImplementMethod(wx_ListBox, InsertItems)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, InsertItems_1)
+Gura_DeclareMethodAlias(wx_ListBox, __InsertItems_1, "InsertItems_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, InsertItems_1)
+Gura_ImplementMethod(wx_ListBox, __InsertItems_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -328,13 +328,13 @@ Gura_ImplementMethod(wx_ListBox, InsertItems_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, IsSelected)
+Gura_DeclareMethodAlias(wx_ListBox, __IsSelected, "IsSelected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, IsSelected)
+Gura_ImplementMethod(wx_ListBox, __IsSelected)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,13 +343,13 @@ Gura_ImplementMethod(wx_ListBox, IsSelected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetFirstItem)
+Gura_DeclareMethodAlias(wx_ListBox, __SetFirstItem, "SetFirstItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetFirstItem)
+Gura_ImplementMethod(wx_ListBox, __SetFirstItem)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -358,13 +358,13 @@ Gura_ImplementMethod(wx_ListBox, SetFirstItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetFirstItem_1)
+Gura_DeclareMethodAlias(wx_ListBox, __SetFirstItem_1, "SetFirstItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetFirstItem_1)
+Gura_ImplementMethod(wx_ListBox, __SetFirstItem_1)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,13 +373,13 @@ Gura_ImplementMethod(wx_ListBox, SetFirstItem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, EnsureVisible)
+Gura_DeclareMethodAlias(wx_ListBox, __EnsureVisible, "EnsureVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, EnsureVisible)
+Gura_ImplementMethod(wx_ListBox, __EnsureVisible)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -388,12 +388,12 @@ Gura_ImplementMethod(wx_ListBox, EnsureVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, IsSorted)
+Gura_DeclareMethodAlias(wx_ListBox, __IsSorted, "IsSorted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, IsSorted)
+Gura_ImplementMethod(wx_ListBox, __IsSorted)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -401,12 +401,12 @@ Gura_ImplementMethod(wx_ListBox, IsSorted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetCountPerPage)
+Gura_DeclareMethodAlias(wx_ListBox, __GetCountPerPage, "GetCountPerPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetCountPerPage)
+Gura_ImplementMethod(wx_ListBox, __GetCountPerPage)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -414,12 +414,12 @@ Gura_ImplementMethod(wx_ListBox, GetCountPerPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetTopItem)
+Gura_DeclareMethodAlias(wx_ListBox, __GetTopItem, "GetTopItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetTopItem)
+Gura_ImplementMethod(wx_ListBox, __GetTopItem)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -427,12 +427,12 @@ Gura_ImplementMethod(wx_ListBox, GetTopItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetCount)
+Gura_DeclareMethodAlias(wx_ListBox, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetCount)
+Gura_ImplementMethod(wx_ListBox, __GetCount)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -440,13 +440,13 @@ Gura_ImplementMethod(wx_ListBox, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, GetString)
+Gura_DeclareMethodAlias(wx_ListBox, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, GetString)
+Gura_ImplementMethod(wx_ListBox, __GetString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -455,14 +455,14 @@ Gura_ImplementMethod(wx_ListBox, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, SetString)
+Gura_DeclareMethodAlias(wx_ListBox, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, SetString)
+Gura_ImplementMethod(wx_ListBox, __SetString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -472,14 +472,14 @@ Gura_ImplementMethod(wx_ListBox, SetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListBox, FindString)
+Gura_DeclareMethodAlias(wx_ListBox, __FindString, "FindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListBox, FindString)
+Gura_ImplementMethod(wx_ListBox, __FindString)
 {
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -494,32 +494,32 @@ Gura_ImplementMethod(wx_ListBox, FindString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListBox)
 {
-	Gura_AssignMethod(wx_ListBox, wxListBox);
-	Gura_AssignMethod(wx_ListBox, wxListBox_1);
-	Gura_AssignMethod(wx_ListBox, wxListBox_2);
-	Gura_AssignMethod(wx_ListBox, Create);
-	Gura_AssignMethod(wx_ListBox, Create_1);
-	Gura_AssignMethod(wx_ListBox, Deselect);
-	Gura_AssignMethod(wx_ListBox, SetSelection);
-	Gura_AssignMethod(wx_ListBox, GetSelection);
-	Gura_AssignMethod(wx_ListBox, SetStringSelection);
-	Gura_AssignMethod(wx_ListBox, SetStringSelection_1);
-	Gura_AssignMethod(wx_ListBox, GetSelections);
-	Gura_AssignMethod(wx_ListBox, HitTest);
-	Gura_AssignMethod(wx_ListBox, HitTest_1);
-	Gura_AssignMethod(wx_ListBox, InsertItems);
-	Gura_AssignMethod(wx_ListBox, InsertItems_1);
-	Gura_AssignMethod(wx_ListBox, IsSelected);
-	Gura_AssignMethod(wx_ListBox, SetFirstItem);
-	Gura_AssignMethod(wx_ListBox, SetFirstItem_1);
-	Gura_AssignMethod(wx_ListBox, EnsureVisible);
-	Gura_AssignMethod(wx_ListBox, IsSorted);
-	Gura_AssignMethod(wx_ListBox, GetCountPerPage);
-	Gura_AssignMethod(wx_ListBox, GetTopItem);
-	Gura_AssignMethod(wx_ListBox, GetCount);
-	Gura_AssignMethod(wx_ListBox, GetString);
-	Gura_AssignMethod(wx_ListBox, SetString);
-	Gura_AssignMethod(wx_ListBox, FindString);
+	Gura_AssignMethod(wx_ListBox, __wxListBox);
+	Gura_AssignMethod(wx_ListBox, __wxListBox_1);
+	Gura_AssignMethod(wx_ListBox, __wxListBox_2);
+	Gura_AssignMethod(wx_ListBox, __Create);
+	Gura_AssignMethod(wx_ListBox, __Create_1);
+	Gura_AssignMethod(wx_ListBox, __Deselect);
+	Gura_AssignMethod(wx_ListBox, __SetSelection);
+	Gura_AssignMethod(wx_ListBox, __GetSelection);
+	Gura_AssignMethod(wx_ListBox, __SetStringSelection);
+	Gura_AssignMethod(wx_ListBox, __SetStringSelection_1);
+	Gura_AssignMethod(wx_ListBox, __GetSelections);
+	Gura_AssignMethod(wx_ListBox, __HitTest);
+	Gura_AssignMethod(wx_ListBox, __HitTest_1);
+	Gura_AssignMethod(wx_ListBox, __InsertItems);
+	Gura_AssignMethod(wx_ListBox, __InsertItems_1);
+	Gura_AssignMethod(wx_ListBox, __IsSelected);
+	Gura_AssignMethod(wx_ListBox, __SetFirstItem);
+	Gura_AssignMethod(wx_ListBox, __SetFirstItem_1);
+	Gura_AssignMethod(wx_ListBox, __EnsureVisible);
+	Gura_AssignMethod(wx_ListBox, __IsSorted);
+	Gura_AssignMethod(wx_ListBox, __GetCountPerPage);
+	Gura_AssignMethod(wx_ListBox, __GetTopItem);
+	Gura_AssignMethod(wx_ListBox, __GetCount);
+	Gura_AssignMethod(wx_ListBox, __GetString);
+	Gura_AssignMethod(wx_ListBox, __SetString);
+	Gura_AssignMethod(wx_ListBox, __FindString);
 }
 
 Gura_ImplementDescendantCreator(wx_ListBox)

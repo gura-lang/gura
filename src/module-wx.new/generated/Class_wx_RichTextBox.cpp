@@ -37,13 +37,13 @@ String Object_wx_RichTextBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextBox, wxRichTextBox)
+Gura_DeclareMethodAlias(wx_RichTextBox, __wxRichTextBox, "wxRichTextBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox)
+Gura_ImplementMethod(wx_RichTextBox, __wxRichTextBox)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, wxRichTextBox_1)
+Gura_DeclareMethodAlias(wx_RichTextBox, __wxRichTextBox_1, "wxRichTextBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox_1)
+Gura_ImplementMethod(wx_RichTextBox, __wxRichTextBox_1)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_RichTextBox, wxRichTextBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, Draw)
+Gura_DeclareMethodAlias(wx_RichTextBox, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_RichTextBox, Draw)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, Draw)
+Gura_ImplementMethod(wx_RichTextBox, __Draw)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_RichTextBox, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, GetXMLNodeName)
+Gura_DeclareMethodAlias(wx_RichTextBox, __GetXMLNodeName, "GetXMLNodeName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, GetXMLNodeName)
+Gura_ImplementMethod(wx_RichTextBox, __GetXMLNodeName)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,12 +105,12 @@ Gura_ImplementMethod(wx_RichTextBox, GetXMLNodeName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, CanEditProperties)
+Gura_DeclareMethodAlias(wx_RichTextBox, __CanEditProperties, "CanEditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, CanEditProperties)
+Gura_ImplementMethod(wx_RichTextBox, __CanEditProperties)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,14 +118,14 @@ Gura_ImplementMethod(wx_RichTextBox, CanEditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, EditProperties)
+Gura_DeclareMethodAlias(wx_RichTextBox, __EditProperties, "EditProperties")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, EditProperties)
+Gura_ImplementMethod(wx_RichTextBox, __EditProperties)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,12 +135,12 @@ Gura_ImplementMethod(wx_RichTextBox, EditProperties)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, GetPropertiesMenuLabel)
+Gura_DeclareMethodAlias(wx_RichTextBox, __GetPropertiesMenuLabel, "GetPropertiesMenuLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, GetPropertiesMenuLabel)
+Gura_ImplementMethod(wx_RichTextBox, __GetPropertiesMenuLabel)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_RichTextBox, GetPropertiesMenuLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, Clone)
+Gura_DeclareMethodAlias(wx_RichTextBox, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, Clone)
+Gura_ImplementMethod(wx_RichTextBox, __Clone)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_RichTextBox, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextBox, Copy)
+Gura_DeclareMethodAlias(wx_RichTextBox, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextBox, Copy)
+Gura_ImplementMethod(wx_RichTextBox, __Copy)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,15 +181,15 @@ Gura_ImplementMethod(wx_RichTextBox, Copy)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextBox)
 {
-	Gura_AssignMethod(wx_RichTextBox, wxRichTextBox);
-	Gura_AssignMethod(wx_RichTextBox, wxRichTextBox_1);
-	Gura_AssignMethod(wx_RichTextBox, Draw);
-	Gura_AssignMethod(wx_RichTextBox, GetXMLNodeName);
-	Gura_AssignMethod(wx_RichTextBox, CanEditProperties);
-	Gura_AssignMethod(wx_RichTextBox, EditProperties);
-	Gura_AssignMethod(wx_RichTextBox, GetPropertiesMenuLabel);
-	Gura_AssignMethod(wx_RichTextBox, Clone);
-	Gura_AssignMethod(wx_RichTextBox, Copy);
+	Gura_AssignMethod(wx_RichTextBox, __wxRichTextBox);
+	Gura_AssignMethod(wx_RichTextBox, __wxRichTextBox_1);
+	Gura_AssignMethod(wx_RichTextBox, __Draw);
+	Gura_AssignMethod(wx_RichTextBox, __GetXMLNodeName);
+	Gura_AssignMethod(wx_RichTextBox, __CanEditProperties);
+	Gura_AssignMethod(wx_RichTextBox, __EditProperties);
+	Gura_AssignMethod(wx_RichTextBox, __GetPropertiesMenuLabel);
+	Gura_AssignMethod(wx_RichTextBox, __Clone);
+	Gura_AssignMethod(wx_RichTextBox, __Copy);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextBox)

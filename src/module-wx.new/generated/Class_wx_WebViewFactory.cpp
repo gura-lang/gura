@@ -37,12 +37,12 @@ String Object_wx_WebViewFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebViewFactory, Create)
+Gura_DeclareMethodAlias(wx_WebViewFactory, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebViewFactory, Create)
+Gura_ImplementMethod(wx_WebViewFactory, __Create)
 {
 	Object_wx_WebViewFactory *pThis = Object_wx_WebViewFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_WebViewFactory, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebViewFactory, Create_1)
+Gura_DeclareMethodAlias(wx_WebViewFactory, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_WebViewFactory, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebViewFactory, Create_1)
+Gura_ImplementMethod(wx_WebViewFactory, __Create_1)
 {
 	Object_wx_WebViewFactory *pThis = Object_wx_WebViewFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,8 +82,8 @@ Gura_ImplementMethod(wx_WebViewFactory, Create_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebViewFactory)
 {
-	Gura_AssignMethod(wx_WebViewFactory, Create);
-	Gura_AssignMethod(wx_WebViewFactory, Create_1);
+	Gura_AssignMethod(wx_WebViewFactory, __Create);
+	Gura_AssignMethod(wx_WebViewFactory, __Create_1);
 }
 
 Gura_ImplementDescendantCreator(wx_WebViewFactory)

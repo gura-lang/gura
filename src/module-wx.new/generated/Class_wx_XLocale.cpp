@@ -37,12 +37,12 @@ String Object_wx_XLocale::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_XLocale, wxXLocale)
+Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale, "wxXLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XLocale, wxXLocale)
+Gura_ImplementMethod(wx_XLocale, __wxXLocale)
 {
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_XLocale, wxXLocale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XLocale, wxXLocale_1)
+Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale_1, "wxXLocale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XLocale, wxXLocale_1)
+Gura_ImplementMethod(wx_XLocale, __wxXLocale_1)
 {
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_XLocale, wxXLocale_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XLocale, wxXLocale_2)
+Gura_DeclareMethodAlias(wx_XLocale, __wxXLocale_2, "wxXLocale_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_XLocale, wxXLocale_2)
+Gura_ImplementMethod(wx_XLocale, __wxXLocale_2)
 {
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_XLocale, wxXLocale_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XLocale, GetCLocale)
+Gura_DeclareMethodAlias(wx_XLocale, __GetCLocale, "GetCLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XLocale, GetCLocale)
+Gura_ImplementMethod(wx_XLocale, __GetCLocale)
 {
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_XLocale, GetCLocale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_XLocale, IsOk)
+Gura_DeclareMethodAlias(wx_XLocale, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_XLocale, IsOk)
+Gura_ImplementMethod(wx_XLocale, __IsOk)
 {
 	Object_wx_XLocale *pThis = Object_wx_XLocale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_XLocale, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_XLocale)
 {
-	Gura_AssignMethod(wx_XLocale, wxXLocale);
-	Gura_AssignMethod(wx_XLocale, wxXLocale_1);
-	Gura_AssignMethod(wx_XLocale, wxXLocale_2);
-	Gura_AssignMethod(wx_XLocale, GetCLocale);
-	Gura_AssignMethod(wx_XLocale, IsOk);
+	Gura_AssignMethod(wx_XLocale, __wxXLocale);
+	Gura_AssignMethod(wx_XLocale, __wxXLocale_1);
+	Gura_AssignMethod(wx_XLocale, __wxXLocale_2);
+	Gura_AssignMethod(wx_XLocale, __GetCLocale);
+	Gura_AssignMethod(wx_XLocale, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_XLocale)

@@ -37,12 +37,12 @@ String Object_wx_Stack<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Stack<T>, wxStack)
+Gura_DeclareMethodAlias(wx_Stack<T>, __wxStack, "wxStack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, wxStack)
+Gura_ImplementMethod(wx_Stack<T>, __wxStack)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_Stack<T>, wxStack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, wxStack_1)
+Gura_DeclareMethodAlias(wx_Stack<T>, __wxStack_1, "wxStack_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cont", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, wxStack_1)
+Gura_ImplementMethod(wx_Stack<T>, __wxStack_1)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_Stack<T>, wxStack_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, empty)
+Gura_DeclareMethodAlias(wx_Stack<T>, __empty, "empty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, empty)
+Gura_ImplementMethod(wx_Stack<T>, __empty)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_Stack<T>, empty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, size)
+Gura_DeclareMethodAlias(wx_Stack<T>, __size, "size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, size)
+Gura_ImplementMethod(wx_Stack<T>, __size)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_Stack<T>, size)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, top)
+Gura_DeclareMethodAlias(wx_Stack<T>, __top, "top")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, top)
+Gura_ImplementMethod(wx_Stack<T>, __top)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_Stack<T>, top)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, top_1)
+Gura_DeclareMethodAlias(wx_Stack<T>, __top_1, "top_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, top_1)
+Gura_ImplementMethod(wx_Stack<T>, __top_1)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_Stack<T>, top_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, push)
+Gura_DeclareMethodAlias(wx_Stack<T>, __push, "push")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, push)
+Gura_ImplementMethod(wx_Stack<T>, __push)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Stack<T>, push)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Stack<T>, pop)
+Gura_DeclareMethodAlias(wx_Stack<T>, __pop, "pop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Stack<T>, pop)
+Gura_ImplementMethod(wx_Stack<T>, __pop)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,14 +150,14 @@ Gura_ImplementMethod(wx_Stack<T>, pop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Stack<T>)
 {
-	Gura_AssignMethod(wx_Stack<T>, wxStack);
-	Gura_AssignMethod(wx_Stack<T>, wxStack_1);
-	Gura_AssignMethod(wx_Stack<T>, empty);
-	Gura_AssignMethod(wx_Stack<T>, size);
-	Gura_AssignMethod(wx_Stack<T>, top);
-	Gura_AssignMethod(wx_Stack<T>, top_1);
-	Gura_AssignMethod(wx_Stack<T>, push);
-	Gura_AssignMethod(wx_Stack<T>, pop);
+	Gura_AssignMethod(wx_Stack<T>, __wxStack);
+	Gura_AssignMethod(wx_Stack<T>, __wxStack_1);
+	Gura_AssignMethod(wx_Stack<T>, __empty);
+	Gura_AssignMethod(wx_Stack<T>, __size);
+	Gura_AssignMethod(wx_Stack<T>, __top);
+	Gura_AssignMethod(wx_Stack<T>, __top_1);
+	Gura_AssignMethod(wx_Stack<T>, __push);
+	Gura_AssignMethod(wx_Stack<T>, __pop);
 }
 
 Gura_ImplementDescendantCreator(wx_Stack<T>)

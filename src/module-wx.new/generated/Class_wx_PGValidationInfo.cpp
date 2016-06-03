@@ -37,12 +37,12 @@ String Object_wx_PGValidationInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PGValidationInfo, GetFailureBehavior)
+Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetFailureBehavior, "GetFailureBehavior")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGValidationInfo, GetFailureBehavior)
+Gura_ImplementMethod(wx_PGValidationInfo, __GetFailureBehavior)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_PGValidationInfo, GetFailureBehavior)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGValidationInfo, GetFailureMessage)
+Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetFailureMessage, "GetFailureMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGValidationInfo, GetFailureMessage)
+Gura_ImplementMethod(wx_PGValidationInfo, __GetFailureMessage)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_PGValidationInfo, GetFailureMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGValidationInfo, GetValue)
+Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PGValidationInfo, GetValue)
+Gura_ImplementMethod(wx_PGValidationInfo, __GetValue)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_PGValidationInfo, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGValidationInfo, SetFailureBehavior)
+Gura_DeclareMethodAlias(wx_PGValidationInfo, __SetFailureBehavior, "SetFailureBehavior")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "failureBehavior", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGValidationInfo, SetFailureBehavior)
+Gura_ImplementMethod(wx_PGValidationInfo, __SetFailureBehavior)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_PGValidationInfo, SetFailureBehavior)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PGValidationInfo, SetFailureMessage)
+Gura_DeclareMethodAlias(wx_PGValidationInfo, __SetFailureMessage, "SetFailureMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PGValidationInfo, SetFailureMessage)
+Gura_ImplementMethod(wx_PGValidationInfo, __SetFailureMessage)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_PGValidationInfo, SetFailureMessage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PGValidationInfo)
 {
-	Gura_AssignMethod(wx_PGValidationInfo, GetFailureBehavior);
-	Gura_AssignMethod(wx_PGValidationInfo, GetFailureMessage);
-	Gura_AssignMethod(wx_PGValidationInfo, GetValue);
-	Gura_AssignMethod(wx_PGValidationInfo, SetFailureBehavior);
-	Gura_AssignMethod(wx_PGValidationInfo, SetFailureMessage);
+	Gura_AssignMethod(wx_PGValidationInfo, __GetFailureBehavior);
+	Gura_AssignMethod(wx_PGValidationInfo, __GetFailureMessage);
+	Gura_AssignMethod(wx_PGValidationInfo, __GetValue);
+	Gura_AssignMethod(wx_PGValidationInfo, __SetFailureBehavior);
+	Gura_AssignMethod(wx_PGValidationInfo, __SetFailureMessage);
 }
 
 Gura_ImplementDescendantCreator(wx_PGValidationInfo)

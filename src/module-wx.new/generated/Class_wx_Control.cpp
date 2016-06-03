@@ -37,7 +37,7 @@ String Object_wx_Control::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Control, wxControl)
+Gura_DeclareMethodAlias(wx_Control, __wxControl, "wxControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_Control, wxControl)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, wxControl)
+Gura_ImplementMethod(wx_Control, __wxControl)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,12 +64,12 @@ Gura_ImplementMethod(wx_Control, wxControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, wxControl_1)
+Gura_DeclareMethodAlias(wx_Control, __wxControl_1, "wxControl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Control, wxControl_1)
+Gura_ImplementMethod(wx_Control, __wxControl_1)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_Control, wxControl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, Create)
+Gura_DeclareMethodAlias(wx_Control, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_Control, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, Create)
+Gura_ImplementMethod(wx_Control, __Create)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Control, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, Command)
+Gura_DeclareMethodAlias(wx_Control, __Command, "Command")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, Command)
+Gura_ImplementMethod(wx_Control, __Command)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Control, Command)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, GetLabel)
+Gura_DeclareMethodAlias(wx_Control, __GetLabel, "GetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Control, GetLabel)
+Gura_ImplementMethod(wx_Control, __GetLabel)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Control, GetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, GetLabelText)
+Gura_DeclareMethodAlias(wx_Control, __GetLabelText, "GetLabelText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Control, GetLabelText)
+Gura_ImplementMethod(wx_Control, __GetLabelText)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,14 +145,14 @@ Gura_ImplementMethod(wx_Control, GetLabelText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, GetSizeFromTextSize)
+Gura_DeclareMethodAlias(wx_Control, __GetSizeFromTextSize, "GetSizeFromTextSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xlen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ylen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, GetSizeFromTextSize)
+Gura_ImplementMethod(wx_Control, __GetSizeFromTextSize)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_Control, GetSizeFromTextSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, GetSizeFromTextSize_1)
+Gura_DeclareMethodAlias(wx_Control, __GetSizeFromTextSize_1, "GetSizeFromTextSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tsize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, GetSizeFromTextSize_1)
+Gura_ImplementMethod(wx_Control, __GetSizeFromTextSize_1)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_Control, GetSizeFromTextSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, SetLabel)
+Gura_DeclareMethodAlias(wx_Control, __SetLabel, "SetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, SetLabel)
+Gura_ImplementMethod(wx_Control, __SetLabel)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_Control, SetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, SetLabelText)
+Gura_DeclareMethodAlias(wx_Control, __SetLabelText, "SetLabelText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, SetLabelText)
+Gura_ImplementMethod(wx_Control, __SetLabelText)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_Control, SetLabelText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, SetLabelMarkup)
+Gura_DeclareMethodAlias(wx_Control, __SetLabelMarkup, "SetLabelMarkup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "markup", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, SetLabelMarkup)
+Gura_ImplementMethod(wx_Control, __SetLabelMarkup)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_Control, SetLabelMarkup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, GetLabelText_1)
+Gura_DeclareMethodAlias(wx_Control, __GetLabelText_1, "GetLabelText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, GetLabelText_1)
+Gura_ImplementMethod(wx_Control, __GetLabelText_1)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,13 +237,13 @@ Gura_ImplementMethod(wx_Control, GetLabelText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, RemoveMnemonics)
+Gura_DeclareMethodAlias(wx_Control, __RemoveMnemonics, "RemoveMnemonics")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, RemoveMnemonics)
+Gura_ImplementMethod(wx_Control, __RemoveMnemonics)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,13 +252,13 @@ Gura_ImplementMethod(wx_Control, RemoveMnemonics)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, EscapeMnemonics)
+Gura_DeclareMethodAlias(wx_Control, __EscapeMnemonics, "EscapeMnemonics")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, EscapeMnemonics)
+Gura_ImplementMethod(wx_Control, __EscapeMnemonics)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_Control, EscapeMnemonics)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Control, Ellipsize)
+Gura_DeclareMethodAlias(wx_Control, __Ellipsize, "Ellipsize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -277,7 +277,7 @@ Gura_DeclareMethod(wx_Control, Ellipsize)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Control, Ellipsize)
+Gura_ImplementMethod(wx_Control, __Ellipsize)
 {
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,21 +295,21 @@ Gura_ImplementMethod(wx_Control, Ellipsize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Control)
 {
-	Gura_AssignMethod(wx_Control, wxControl);
-	Gura_AssignMethod(wx_Control, wxControl_1);
-	Gura_AssignMethod(wx_Control, Create);
-	Gura_AssignMethod(wx_Control, Command);
-	Gura_AssignMethod(wx_Control, GetLabel);
-	Gura_AssignMethod(wx_Control, GetLabelText);
-	Gura_AssignMethod(wx_Control, GetSizeFromTextSize);
-	Gura_AssignMethod(wx_Control, GetSizeFromTextSize_1);
-	Gura_AssignMethod(wx_Control, SetLabel);
-	Gura_AssignMethod(wx_Control, SetLabelText);
-	Gura_AssignMethod(wx_Control, SetLabelMarkup);
-	Gura_AssignMethod(wx_Control, GetLabelText_1);
-	Gura_AssignMethod(wx_Control, RemoveMnemonics);
-	Gura_AssignMethod(wx_Control, EscapeMnemonics);
-	Gura_AssignMethod(wx_Control, Ellipsize);
+	Gura_AssignMethod(wx_Control, __wxControl);
+	Gura_AssignMethod(wx_Control, __wxControl_1);
+	Gura_AssignMethod(wx_Control, __Create);
+	Gura_AssignMethod(wx_Control, __Command);
+	Gura_AssignMethod(wx_Control, __GetLabel);
+	Gura_AssignMethod(wx_Control, __GetLabelText);
+	Gura_AssignMethod(wx_Control, __GetSizeFromTextSize);
+	Gura_AssignMethod(wx_Control, __GetSizeFromTextSize_1);
+	Gura_AssignMethod(wx_Control, __SetLabel);
+	Gura_AssignMethod(wx_Control, __SetLabelText);
+	Gura_AssignMethod(wx_Control, __SetLabelMarkup);
+	Gura_AssignMethod(wx_Control, __GetLabelText_1);
+	Gura_AssignMethod(wx_Control, __RemoveMnemonics);
+	Gura_AssignMethod(wx_Control, __EscapeMnemonics);
+	Gura_AssignMethod(wx_Control, __Ellipsize);
 }
 
 Gura_ImplementDescendantCreator(wx_Control)

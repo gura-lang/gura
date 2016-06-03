@@ -37,14 +37,14 @@ String Object_wx_MoveEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MoveEvent, wxMoveEvent)
+Gura_DeclareMethodAlias(wx_MoveEvent, __wxMoveEvent, "wxMoveEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, wxMoveEvent)
+Gura_ImplementMethod(wx_MoveEvent, __wxMoveEvent)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_MoveEvent, wxMoveEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MoveEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_MoveEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, GetPosition)
+Gura_ImplementMethod(wx_MoveEvent, __GetPosition)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_MoveEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MoveEvent, GetRect)
+Gura_DeclareMethodAlias(wx_MoveEvent, __GetRect, "GetRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, GetRect)
+Gura_ImplementMethod(wx_MoveEvent, __GetRect)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_MoveEvent, GetRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MoveEvent, SetRect)
+Gura_DeclareMethodAlias(wx_MoveEvent, __SetRect, "SetRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, SetRect)
+Gura_ImplementMethod(wx_MoveEvent, __SetRect)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_MoveEvent, SetRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MoveEvent, SetPosition)
+Gura_DeclareMethodAlias(wx_MoveEvent, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MoveEvent, SetPosition)
+Gura_ImplementMethod(wx_MoveEvent, __SetPosition)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,11 +115,11 @@ Gura_ImplementMethod(wx_MoveEvent, SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MoveEvent)
 {
-	Gura_AssignMethod(wx_MoveEvent, wxMoveEvent);
-	Gura_AssignMethod(wx_MoveEvent, GetPosition);
-	Gura_AssignMethod(wx_MoveEvent, GetRect);
-	Gura_AssignMethod(wx_MoveEvent, SetRect);
-	Gura_AssignMethod(wx_MoveEvent, SetPosition);
+	Gura_AssignMethod(wx_MoveEvent, __wxMoveEvent);
+	Gura_AssignMethod(wx_MoveEvent, __GetPosition);
+	Gura_AssignMethod(wx_MoveEvent, __GetRect);
+	Gura_AssignMethod(wx_MoveEvent, __SetRect);
+	Gura_AssignMethod(wx_MoveEvent, __SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_MoveEvent)

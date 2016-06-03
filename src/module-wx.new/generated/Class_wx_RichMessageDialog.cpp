@@ -37,7 +37,7 @@ String Object_wx_RichMessageDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichMessageDialog, wxRichMessageDialog)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __wxRichMessageDialog, "wxRichMessageDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_RichMessageDialog, wxRichMessageDialog)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, wxRichMessageDialog)
+Gura_ImplementMethod(wx_RichMessageDialog, __wxRichMessageDialog)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,14 +58,14 @@ Gura_ImplementMethod(wx_RichMessageDialog, wxRichMessageDialog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, ShowCheckBox)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __ShowCheckBox, "ShowCheckBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "checkBoxText", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "checked", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, ShowCheckBox)
+Gura_ImplementMethod(wx_RichMessageDialog, __ShowCheckBox)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_RichMessageDialog, ShowCheckBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, GetCheckBoxText)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __GetCheckBoxText, "GetCheckBoxText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, GetCheckBoxText)
+Gura_ImplementMethod(wx_RichMessageDialog, __GetCheckBoxText)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,13 +88,13 @@ Gura_ImplementMethod(wx_RichMessageDialog, GetCheckBoxText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, ShowDetailedText)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __ShowDetailedText, "ShowDetailedText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "detailedText", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, ShowDetailedText)
+Gura_ImplementMethod(wx_RichMessageDialog, __ShowDetailedText)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,12 +103,12 @@ Gura_ImplementMethod(wx_RichMessageDialog, ShowDetailedText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, GetDetailedText)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __GetDetailedText, "GetDetailedText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, GetDetailedText)
+Gura_ImplementMethod(wx_RichMessageDialog, __GetDetailedText)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_RichMessageDialog, GetDetailedText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, IsCheckBoxChecked)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __IsCheckBoxChecked, "IsCheckBoxChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, IsCheckBoxChecked)
+Gura_ImplementMethod(wx_RichMessageDialog, __IsCheckBoxChecked)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_RichMessageDialog, IsCheckBoxChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichMessageDialog, ShowModal)
+Gura_DeclareMethodAlias(wx_RichMessageDialog, __ShowModal, "ShowModal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichMessageDialog, ShowModal)
+Gura_ImplementMethod(wx_RichMessageDialog, __ShowModal)
 {
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_RichMessageDialog, ShowModal)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichMessageDialog)
 {
-	Gura_AssignMethod(wx_RichMessageDialog, wxRichMessageDialog);
-	Gura_AssignMethod(wx_RichMessageDialog, ShowCheckBox);
-	Gura_AssignMethod(wx_RichMessageDialog, GetCheckBoxText);
-	Gura_AssignMethod(wx_RichMessageDialog, ShowDetailedText);
-	Gura_AssignMethod(wx_RichMessageDialog, GetDetailedText);
-	Gura_AssignMethod(wx_RichMessageDialog, IsCheckBoxChecked);
-	Gura_AssignMethod(wx_RichMessageDialog, ShowModal);
+	Gura_AssignMethod(wx_RichMessageDialog, __wxRichMessageDialog);
+	Gura_AssignMethod(wx_RichMessageDialog, __ShowCheckBox);
+	Gura_AssignMethod(wx_RichMessageDialog, __GetCheckBoxText);
+	Gura_AssignMethod(wx_RichMessageDialog, __ShowDetailedText);
+	Gura_AssignMethod(wx_RichMessageDialog, __GetDetailedText);
+	Gura_AssignMethod(wx_RichMessageDialog, __IsCheckBoxChecked);
+	Gura_AssignMethod(wx_RichMessageDialog, __ShowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_RichMessageDialog)

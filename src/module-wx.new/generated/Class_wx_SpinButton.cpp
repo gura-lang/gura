@@ -37,12 +37,12 @@ String Object_wx_SpinButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SpinButton, wxSpinButton)
+Gura_DeclareMethodAlias(wx_SpinButton, __wxSpinButton, "wxSpinButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinButton, wxSpinButton)
+Gura_ImplementMethod(wx_SpinButton, __wxSpinButton)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_SpinButton, wxSpinButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, wxSpinButton_1)
+Gura_DeclareMethodAlias(wx_SpinButton, __wxSpinButton_1, "wxSpinButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_SpinButton, wxSpinButton_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinButton, wxSpinButton_1)
+Gura_ImplementMethod(wx_SpinButton, __wxSpinButton_1)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_SpinButton, wxSpinButton_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, Create)
+Gura_DeclareMethodAlias(wx_SpinButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_SpinButton, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinButton, Create)
+Gura_ImplementMethod(wx_SpinButton, __Create)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_SpinButton, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, GetMax)
+Gura_DeclareMethodAlias(wx_SpinButton, __GetMax, "GetMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinButton, GetMax)
+Gura_ImplementMethod(wx_SpinButton, __GetMax)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_SpinButton, GetMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, GetMin)
+Gura_DeclareMethodAlias(wx_SpinButton, __GetMin, "GetMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinButton, GetMin)
+Gura_ImplementMethod(wx_SpinButton, __GetMin)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_SpinButton, GetMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, GetValue)
+Gura_DeclareMethodAlias(wx_SpinButton, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SpinButton, GetValue)
+Gura_ImplementMethod(wx_SpinButton, __GetValue)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,14 +139,14 @@ Gura_ImplementMethod(wx_SpinButton, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, SetRange)
+Gura_DeclareMethodAlias(wx_SpinButton, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinButton, SetRange)
+Gura_ImplementMethod(wx_SpinButton, __SetRange)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_SpinButton, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SpinButton, SetValue)
+Gura_DeclareMethodAlias(wx_SpinButton, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SpinButton, SetValue)
+Gura_ImplementMethod(wx_SpinButton, __SetValue)
 {
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,14 +176,14 @@ Gura_ImplementMethod(wx_SpinButton, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SpinButton)
 {
-	Gura_AssignMethod(wx_SpinButton, wxSpinButton);
-	Gura_AssignMethod(wx_SpinButton, wxSpinButton_1);
-	Gura_AssignMethod(wx_SpinButton, Create);
-	Gura_AssignMethod(wx_SpinButton, GetMax);
-	Gura_AssignMethod(wx_SpinButton, GetMin);
-	Gura_AssignMethod(wx_SpinButton, GetValue);
-	Gura_AssignMethod(wx_SpinButton, SetRange);
-	Gura_AssignMethod(wx_SpinButton, SetValue);
+	Gura_AssignMethod(wx_SpinButton, __wxSpinButton);
+	Gura_AssignMethod(wx_SpinButton, __wxSpinButton_1);
+	Gura_AssignMethod(wx_SpinButton, __Create);
+	Gura_AssignMethod(wx_SpinButton, __GetMax);
+	Gura_AssignMethod(wx_SpinButton, __GetMin);
+	Gura_AssignMethod(wx_SpinButton, __GetValue);
+	Gura_AssignMethod(wx_SpinButton, __SetRange);
+	Gura_AssignMethod(wx_SpinButton, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_SpinButton)

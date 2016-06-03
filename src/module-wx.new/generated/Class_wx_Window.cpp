@@ -37,12 +37,12 @@ String Object_wx_Window::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Window, wxWindow)
+Gura_DeclareMethodAlias(wx_Window, __wxWindow, "wxWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, wxWindow)
+Gura_ImplementMethod(wx_Window, __wxWindow)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Window, wxWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, wxWindow_1)
+Gura_DeclareMethodAlias(wx_Window, __wxWindow_1, "wxWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Window, wxWindow_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, wxWindow_1)
+Gura_ImplementMethod(wx_Window, __wxWindow_1)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Window, wxWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, Create)
+Gura_DeclareMethodAlias(wx_Window, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Window, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, Create)
+Gura_ImplementMethod(wx_Window, __Create)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_Window, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, AcceptsFocus)
+Gura_DeclareMethodAlias(wx_Window, __AcceptsFocus, "AcceptsFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, AcceptsFocus)
+Gura_ImplementMethod(wx_Window, __AcceptsFocus)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_Window, AcceptsFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, AcceptsFocusFromKeyboard)
+Gura_DeclareMethodAlias(wx_Window, __AcceptsFocusFromKeyboard, "AcceptsFocusFromKeyboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, AcceptsFocusFromKeyboard)
+Gura_ImplementMethod(wx_Window, __AcceptsFocusFromKeyboard)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,12 +126,12 @@ Gura_ImplementMethod(wx_Window, AcceptsFocusFromKeyboard)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, AcceptsFocusRecursively)
+Gura_DeclareMethodAlias(wx_Window, __AcceptsFocusRecursively, "AcceptsFocusRecursively")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, AcceptsFocusRecursively)
+Gura_ImplementMethod(wx_Window, __AcceptsFocusRecursively)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_Window, AcceptsFocusRecursively)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, IsFocusable)
+Gura_DeclareMethodAlias(wx_Window, __IsFocusable, "IsFocusable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, IsFocusable)
+Gura_ImplementMethod(wx_Window, __IsFocusable)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_Window, IsFocusable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, CanAcceptFocus)
+Gura_DeclareMethodAlias(wx_Window, __CanAcceptFocus, "CanAcceptFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, CanAcceptFocus)
+Gura_ImplementMethod(wx_Window, __CanAcceptFocus)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,12 +165,12 @@ Gura_ImplementMethod(wx_Window, CanAcceptFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, CanAcceptFocusFromKeyboard)
+Gura_DeclareMethodAlias(wx_Window, __CanAcceptFocusFromKeyboard, "CanAcceptFocusFromKeyboard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, CanAcceptFocusFromKeyboard)
+Gura_ImplementMethod(wx_Window, __CanAcceptFocusFromKeyboard)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,12 +178,12 @@ Gura_ImplementMethod(wx_Window, CanAcceptFocusFromKeyboard)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, HasFocus)
+Gura_DeclareMethodAlias(wx_Window, __HasFocus, "HasFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, HasFocus)
+Gura_ImplementMethod(wx_Window, __HasFocus)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_Window, HasFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, SetCanFocus)
+Gura_DeclareMethodAlias(wx_Window, __SetCanFocus, "SetCanFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "canFocus", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, SetCanFocus)
+Gura_ImplementMethod(wx_Window, __SetCanFocus)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_Window, SetCanFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, SetFocus)
+Gura_DeclareMethodAlias(wx_Window, __SetFocus, "SetFocus")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, SetFocus)
+Gura_ImplementMethod(wx_Window, __SetFocus)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,12 +219,12 @@ Gura_ImplementMethod(wx_Window, SetFocus)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, SetFocusFromKbd)
+Gura_DeclareMethodAlias(wx_Window, __SetFocusFromKbd, "SetFocusFromKbd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, SetFocusFromKbd)
+Gura_ImplementMethod(wx_Window, __SetFocusFromKbd)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_Window, SetFocusFromKbd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, AddChild)
+Gura_DeclareMethodAlias(wx_Window, __AddChild, "AddChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, AddChild)
+Gura_ImplementMethod(wx_Window, __AddChild)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,12 +247,12 @@ Gura_ImplementMethod(wx_Window, AddChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, DestroyChildren)
+Gura_DeclareMethodAlias(wx_Window, __DestroyChildren, "DestroyChildren")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, DestroyChildren)
+Gura_ImplementMethod(wx_Window, __DestroyChildren)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,13 +260,13 @@ Gura_ImplementMethod(wx_Window, DestroyChildren)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, FindWindow)
+Gura_DeclareMethodAlias(wx_Window, __FindWindow, "FindWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, FindWindow)
+Gura_ImplementMethod(wx_Window, __FindWindow)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,13 +275,13 @@ Gura_ImplementMethod(wx_Window, FindWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, FindWindow_1)
+Gura_DeclareMethodAlias(wx_Window, __FindWindow_1, "FindWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, FindWindow_1)
+Gura_ImplementMethod(wx_Window, __FindWindow_1)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,12 +290,12 @@ Gura_ImplementMethod(wx_Window, FindWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetChildren)
+Gura_DeclareMethodAlias(wx_Window, __GetChildren, "GetChildren")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetChildren)
+Gura_ImplementMethod(wx_Window, __GetChildren)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -303,12 +303,12 @@ Gura_ImplementMethod(wx_Window, GetChildren)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetChildren_1)
+Gura_DeclareMethodAlias(wx_Window, __GetChildren_1, "GetChildren_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetChildren_1)
+Gura_ImplementMethod(wx_Window, __GetChildren_1)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -316,13 +316,13 @@ Gura_ImplementMethod(wx_Window, GetChildren_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, RemoveChild)
+Gura_DeclareMethodAlias(wx_Window, __RemoveChild, "RemoveChild")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, RemoveChild)
+Gura_ImplementMethod(wx_Window, __RemoveChild)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -331,12 +331,12 @@ Gura_ImplementMethod(wx_Window, RemoveChild)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetGrandParent)
+Gura_DeclareMethodAlias(wx_Window, __GetGrandParent, "GetGrandParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetGrandParent)
+Gura_ImplementMethod(wx_Window, __GetGrandParent)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -344,12 +344,12 @@ Gura_ImplementMethod(wx_Window, GetGrandParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetNextSibling)
+Gura_DeclareMethodAlias(wx_Window, __GetNextSibling, "GetNextSibling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetNextSibling)
+Gura_ImplementMethod(wx_Window, __GetNextSibling)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,12 +357,12 @@ Gura_ImplementMethod(wx_Window, GetNextSibling)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetParent)
+Gura_DeclareMethodAlias(wx_Window, __GetParent, "GetParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetParent)
+Gura_ImplementMethod(wx_Window, __GetParent)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,12 +370,12 @@ Gura_ImplementMethod(wx_Window, GetParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetPrevSibling)
+Gura_DeclareMethodAlias(wx_Window, __GetPrevSibling, "GetPrevSibling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, GetPrevSibling)
+Gura_ImplementMethod(wx_Window, __GetPrevSibling)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_Window, GetPrevSibling)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, IsDescendant)
+Gura_DeclareMethodAlias(wx_Window, __IsDescendant, "IsDescendant")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, IsDescendant)
+Gura_ImplementMethod(wx_Window, __IsDescendant)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,13 +398,13 @@ Gura_ImplementMethod(wx_Window, IsDescendant)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, Reparent)
+Gura_DeclareMethodAlias(wx_Window, __Reparent, "Reparent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "newParent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, Reparent)
+Gura_ImplementMethod(wx_Window, __Reparent)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -413,14 +413,14 @@ Gura_ImplementMethod(wx_Window, Reparent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, AlwaysShowScrollbars)
+Gura_DeclareMethodAlias(wx_Window, __AlwaysShowScrollbars, "AlwaysShowScrollbars")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hflag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vflag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, AlwaysShowScrollbars)
+Gura_ImplementMethod(wx_Window, __AlwaysShowScrollbars)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -430,13 +430,13 @@ Gura_ImplementMethod(wx_Window, AlwaysShowScrollbars)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetScrollPos)
+Gura_DeclareMethodAlias(wx_Window, __GetScrollPos, "GetScrollPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, GetScrollPos)
+Gura_ImplementMethod(wx_Window, __GetScrollPos)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -445,13 +445,13 @@ Gura_ImplementMethod(wx_Window, GetScrollPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetScrollRange)
+Gura_DeclareMethodAlias(wx_Window, __GetScrollRange, "GetScrollRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, GetScrollRange)
+Gura_ImplementMethod(wx_Window, __GetScrollRange)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,13 +460,13 @@ Gura_ImplementMethod(wx_Window, GetScrollRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, GetScrollThumb)
+Gura_DeclareMethodAlias(wx_Window, __GetScrollThumb, "GetScrollThumb")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, GetScrollThumb)
+Gura_ImplementMethod(wx_Window, __GetScrollThumb)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -475,13 +475,13 @@ Gura_ImplementMethod(wx_Window, GetScrollThumb)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, CanScroll)
+Gura_DeclareMethodAlias(wx_Window, __CanScroll, "CanScroll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, CanScroll)
+Gura_ImplementMethod(wx_Window, __CanScroll)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -490,13 +490,13 @@ Gura_ImplementMethod(wx_Window, CanScroll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, HasScrollbar)
+Gura_DeclareMethodAlias(wx_Window, __HasScrollbar, "HasScrollbar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, HasScrollbar)
+Gura_ImplementMethod(wx_Window, __HasScrollbar)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -505,13 +505,13 @@ Gura_ImplementMethod(wx_Window, HasScrollbar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, IsScrollbarAlwaysShown)
+Gura_DeclareMethodAlias(wx_Window, __IsScrollbarAlwaysShown, "IsScrollbarAlwaysShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, IsScrollbarAlwaysShown)
+Gura_ImplementMethod(wx_Window, __IsScrollbarAlwaysShown)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -520,13 +520,13 @@ Gura_ImplementMethod(wx_Window, IsScrollbarAlwaysShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, ScrollLines)
+Gura_DeclareMethodAlias(wx_Window, __ScrollLines, "ScrollLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lines", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, ScrollLines)
+Gura_ImplementMethod(wx_Window, __ScrollLines)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -535,13 +535,13 @@ Gura_ImplementMethod(wx_Window, ScrollLines)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, ScrollPages)
+Gura_DeclareMethodAlias(wx_Window, __ScrollPages, "ScrollPages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, ScrollPages)
+Gura_ImplementMethod(wx_Window, __ScrollPages)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -550,7 +550,7 @@ Gura_ImplementMethod(wx_Window, ScrollPages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, ScrollWindow)
+Gura_DeclareMethodAlias(wx_Window, __ScrollWindow, "ScrollWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
@@ -558,7 +558,7 @@ Gura_DeclareMethod(wx_Window, ScrollWindow)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, ScrollWindow)
+Gura_ImplementMethod(wx_Window, __ScrollWindow)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -569,12 +569,12 @@ Gura_ImplementMethod(wx_Window, ScrollWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, LineUp)
+Gura_DeclareMethodAlias(wx_Window, __LineUp, "LineUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, LineUp)
+Gura_ImplementMethod(wx_Window, __LineUp)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -582,12 +582,12 @@ Gura_ImplementMethod(wx_Window, LineUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, LineDown)
+Gura_DeclareMethodAlias(wx_Window, __LineDown, "LineDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, LineDown)
+Gura_ImplementMethod(wx_Window, __LineDown)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -595,12 +595,12 @@ Gura_ImplementMethod(wx_Window, LineDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, PageUp)
+Gura_DeclareMethodAlias(wx_Window, __PageUp, "PageUp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, PageUp)
+Gura_ImplementMethod(wx_Window, __PageUp)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -608,12 +608,12 @@ Gura_ImplementMethod(wx_Window, PageUp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, PageDown)
+Gura_DeclareMethodAlias(wx_Window, __PageDown, "PageDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Window, PageDown)
+Gura_ImplementMethod(wx_Window, __PageDown)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_Window, PageDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, SetScrollPos)
+Gura_DeclareMethodAlias(wx_Window, __SetScrollPos, "SetScrollPos")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
@@ -629,7 +629,7 @@ Gura_DeclareMethod(wx_Window, SetScrollPos)
 	//DeclareArg(env, "refresh", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, SetScrollPos)
+Gura_ImplementMethod(wx_Window, __SetScrollPos)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_Window, SetScrollPos)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, SetScrollbar)
+Gura_DeclareMethodAlias(wx_Window, __SetScrollbar, "SetScrollbar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
@@ -650,7 +650,7 @@ Gura_DeclareMethod(wx_Window, SetScrollbar)
 	//DeclareArg(env, "refresh", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, SetScrollbar)
+Gura_ImplementMethod(wx_Window, __SetScrollbar)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -663,13 +663,13 @@ Gura_ImplementMethod(wx_Window, SetScrollbar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Window, ChildrenRepositioningGuard)
+Gura_DeclareMethodAlias(wx_Window, __ChildrenRepositioningGuard, "ChildrenRepositioningGuard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Window, ChildrenRepositioningGuard)
+Gura_ImplementMethod(wx_Window, __ChildrenRepositioningGuard)
 {
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -683,49 +683,49 @@ Gura_ImplementMethod(wx_Window, ChildrenRepositioningGuard)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Window)
 {
-	Gura_AssignMethod(wx_Window, wxWindow);
-	Gura_AssignMethod(wx_Window, wxWindow_1);
-	Gura_AssignMethod(wx_Window, Create);
-	Gura_AssignMethod(wx_Window, AcceptsFocus);
-	Gura_AssignMethod(wx_Window, AcceptsFocusFromKeyboard);
-	Gura_AssignMethod(wx_Window, AcceptsFocusRecursively);
-	Gura_AssignMethod(wx_Window, IsFocusable);
-	Gura_AssignMethod(wx_Window, CanAcceptFocus);
-	Gura_AssignMethod(wx_Window, CanAcceptFocusFromKeyboard);
-	Gura_AssignMethod(wx_Window, HasFocus);
-	Gura_AssignMethod(wx_Window, SetCanFocus);
-	Gura_AssignMethod(wx_Window, SetFocus);
-	Gura_AssignMethod(wx_Window, SetFocusFromKbd);
-	Gura_AssignMethod(wx_Window, AddChild);
-	Gura_AssignMethod(wx_Window, DestroyChildren);
-	Gura_AssignMethod(wx_Window, FindWindow);
-	Gura_AssignMethod(wx_Window, FindWindow_1);
-	Gura_AssignMethod(wx_Window, GetChildren);
-	Gura_AssignMethod(wx_Window, GetChildren_1);
-	Gura_AssignMethod(wx_Window, RemoveChild);
-	Gura_AssignMethod(wx_Window, GetGrandParent);
-	Gura_AssignMethod(wx_Window, GetNextSibling);
-	Gura_AssignMethod(wx_Window, GetParent);
-	Gura_AssignMethod(wx_Window, GetPrevSibling);
-	Gura_AssignMethod(wx_Window, IsDescendant);
-	Gura_AssignMethod(wx_Window, Reparent);
-	Gura_AssignMethod(wx_Window, AlwaysShowScrollbars);
-	Gura_AssignMethod(wx_Window, GetScrollPos);
-	Gura_AssignMethod(wx_Window, GetScrollRange);
-	Gura_AssignMethod(wx_Window, GetScrollThumb);
-	Gura_AssignMethod(wx_Window, CanScroll);
-	Gura_AssignMethod(wx_Window, HasScrollbar);
-	Gura_AssignMethod(wx_Window, IsScrollbarAlwaysShown);
-	Gura_AssignMethod(wx_Window, ScrollLines);
-	Gura_AssignMethod(wx_Window, ScrollPages);
-	Gura_AssignMethod(wx_Window, ScrollWindow);
-	Gura_AssignMethod(wx_Window, LineUp);
-	Gura_AssignMethod(wx_Window, LineDown);
-	Gura_AssignMethod(wx_Window, PageUp);
-	Gura_AssignMethod(wx_Window, PageDown);
-	Gura_AssignMethod(wx_Window, SetScrollPos);
-	Gura_AssignMethod(wx_Window, SetScrollbar);
-	Gura_AssignMethod(wx_Window, ChildrenRepositioningGuard);
+	Gura_AssignMethod(wx_Window, __wxWindow);
+	Gura_AssignMethod(wx_Window, __wxWindow_1);
+	Gura_AssignMethod(wx_Window, __Create);
+	Gura_AssignMethod(wx_Window, __AcceptsFocus);
+	Gura_AssignMethod(wx_Window, __AcceptsFocusFromKeyboard);
+	Gura_AssignMethod(wx_Window, __AcceptsFocusRecursively);
+	Gura_AssignMethod(wx_Window, __IsFocusable);
+	Gura_AssignMethod(wx_Window, __CanAcceptFocus);
+	Gura_AssignMethod(wx_Window, __CanAcceptFocusFromKeyboard);
+	Gura_AssignMethod(wx_Window, __HasFocus);
+	Gura_AssignMethod(wx_Window, __SetCanFocus);
+	Gura_AssignMethod(wx_Window, __SetFocus);
+	Gura_AssignMethod(wx_Window, __SetFocusFromKbd);
+	Gura_AssignMethod(wx_Window, __AddChild);
+	Gura_AssignMethod(wx_Window, __DestroyChildren);
+	Gura_AssignMethod(wx_Window, __FindWindow);
+	Gura_AssignMethod(wx_Window, __FindWindow_1);
+	Gura_AssignMethod(wx_Window, __GetChildren);
+	Gura_AssignMethod(wx_Window, __GetChildren_1);
+	Gura_AssignMethod(wx_Window, __RemoveChild);
+	Gura_AssignMethod(wx_Window, __GetGrandParent);
+	Gura_AssignMethod(wx_Window, __GetNextSibling);
+	Gura_AssignMethod(wx_Window, __GetParent);
+	Gura_AssignMethod(wx_Window, __GetPrevSibling);
+	Gura_AssignMethod(wx_Window, __IsDescendant);
+	Gura_AssignMethod(wx_Window, __Reparent);
+	Gura_AssignMethod(wx_Window, __AlwaysShowScrollbars);
+	Gura_AssignMethod(wx_Window, __GetScrollPos);
+	Gura_AssignMethod(wx_Window, __GetScrollRange);
+	Gura_AssignMethod(wx_Window, __GetScrollThumb);
+	Gura_AssignMethod(wx_Window, __CanScroll);
+	Gura_AssignMethod(wx_Window, __HasScrollbar);
+	Gura_AssignMethod(wx_Window, __IsScrollbarAlwaysShown);
+	Gura_AssignMethod(wx_Window, __ScrollLines);
+	Gura_AssignMethod(wx_Window, __ScrollPages);
+	Gura_AssignMethod(wx_Window, __ScrollWindow);
+	Gura_AssignMethod(wx_Window, __LineUp);
+	Gura_AssignMethod(wx_Window, __LineDown);
+	Gura_AssignMethod(wx_Window, __PageUp);
+	Gura_AssignMethod(wx_Window, __PageDown);
+	Gura_AssignMethod(wx_Window, __SetScrollPos);
+	Gura_AssignMethod(wx_Window, __SetScrollbar);
+	Gura_AssignMethod(wx_Window, __ChildrenRepositioningGuard);
 }
 
 Gura_ImplementDescendantCreator(wx_Window)

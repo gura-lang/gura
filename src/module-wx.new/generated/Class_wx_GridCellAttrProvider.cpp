@@ -37,12 +37,12 @@ String Object_wx_GridCellAttrProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellAttrProvider, wxGridCellAttrProvider)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __wxGridCellAttrProvider, "wxGridCellAttrProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, wxGridCellAttrProvider)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __wxGridCellAttrProvider)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, wxGridCellAttrProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, GetAttr)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __GetAttr, "GetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_GridCellAttrProvider, GetAttr)
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, GetAttr)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __GetAttr)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, GetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, SetAttr)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __SetAttr, "SetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_GridCellAttrProvider, SetAttr)
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, SetAttr)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __SetAttr)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, SetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, SetRowAttr)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __SetRowAttr, "SetRowAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, SetRowAttr)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __SetRowAttr)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,14 +105,14 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, SetRowAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, SetColAttr)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __SetColAttr, "SetColAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, SetColAttr)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __SetColAttr)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,13 +122,13 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, SetColAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, GetColumnHeaderRenderer)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __GetColumnHeaderRenderer, "GetColumnHeaderRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, GetColumnHeaderRenderer)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __GetColumnHeaderRenderer)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,13 +137,13 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, GetColumnHeaderRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, GetRowHeaderRenderer)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __GetRowHeaderRenderer, "GetRowHeaderRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, GetRowHeaderRenderer)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __GetRowHeaderRenderer)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, GetRowHeaderRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellAttrProvider, GetCornerRenderer)
+Gura_DeclareMethodAlias(wx_GridCellAttrProvider, __GetCornerRenderer, "GetCornerRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellAttrProvider, GetCornerRenderer)
+Gura_ImplementMethod(wx_GridCellAttrProvider, __GetCornerRenderer)
 {
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, GetCornerRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellAttrProvider)
 {
-	Gura_AssignMethod(wx_GridCellAttrProvider, wxGridCellAttrProvider);
-	Gura_AssignMethod(wx_GridCellAttrProvider, GetAttr);
-	Gura_AssignMethod(wx_GridCellAttrProvider, SetAttr);
-	Gura_AssignMethod(wx_GridCellAttrProvider, SetRowAttr);
-	Gura_AssignMethod(wx_GridCellAttrProvider, SetColAttr);
-	Gura_AssignMethod(wx_GridCellAttrProvider, GetColumnHeaderRenderer);
-	Gura_AssignMethod(wx_GridCellAttrProvider, GetRowHeaderRenderer);
-	Gura_AssignMethod(wx_GridCellAttrProvider, GetCornerRenderer);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __wxGridCellAttrProvider);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __GetAttr);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __SetAttr);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __SetRowAttr);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __SetColAttr);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __GetColumnHeaderRenderer);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __GetRowHeaderRenderer);
+	Gura_AssignMethod(wx_GridCellAttrProvider, __GetCornerRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellAttrProvider)

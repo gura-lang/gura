@@ -37,13 +37,13 @@ String Object_wx_PaletteChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PaletteChangedEvent, wxPaletteChangedEvent)
+Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __wxPaletteChangedEvent, "wxPaletteChangedEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PaletteChangedEvent, wxPaletteChangedEvent)
+Gura_ImplementMethod(wx_PaletteChangedEvent, __wxPaletteChangedEvent)
 {
 	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, wxPaletteChangedEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PaletteChangedEvent, SetChangedWindow)
+Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __SetChangedWindow, "SetChangedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PaletteChangedEvent, SetChangedWindow)
+Gura_ImplementMethod(wx_PaletteChangedEvent, __SetChangedWindow)
 {
 	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, SetChangedWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PaletteChangedEvent, GetChangedWindow)
+Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __GetChangedWindow, "GetChangedWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PaletteChangedEvent, GetChangedWindow)
+Gura_ImplementMethod(wx_PaletteChangedEvent, __GetChangedWindow)
 {
 	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, GetChangedWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PaletteChangedEvent)
 {
-	Gura_AssignMethod(wx_PaletteChangedEvent, wxPaletteChangedEvent);
-	Gura_AssignMethod(wx_PaletteChangedEvent, SetChangedWindow);
-	Gura_AssignMethod(wx_PaletteChangedEvent, GetChangedWindow);
+	Gura_AssignMethod(wx_PaletteChangedEvent, __wxPaletteChangedEvent);
+	Gura_AssignMethod(wx_PaletteChangedEvent, __SetChangedWindow);
+	Gura_AssignMethod(wx_PaletteChangedEvent, __GetChangedWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_PaletteChangedEvent)

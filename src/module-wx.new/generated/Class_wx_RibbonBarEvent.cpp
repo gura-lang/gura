@@ -37,7 +37,7 @@ String Object_wx_RibbonBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
+Gura_DeclareMethodAlias(wx_RibbonBarEvent, __wxRibbonBarEvent, "wxRibbonBarEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
+Gura_ImplementMethod(wx_RibbonBarEvent, __wxRibbonBarEvent)
 {
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_RibbonBarEvent, wxRibbonBarEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBarEvent, GetPage)
+Gura_DeclareMethodAlias(wx_RibbonBarEvent, __GetPage, "GetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBarEvent, GetPage)
+Gura_ImplementMethod(wx_RibbonBarEvent, __GetPage)
 {
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_RibbonBarEvent, GetPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBarEvent, SetPage)
+Gura_DeclareMethodAlias(wx_RibbonBarEvent, __SetPage, "SetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBarEvent, SetPage)
+Gura_ImplementMethod(wx_RibbonBarEvent, __SetPage)
 {
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_RibbonBarEvent, SetPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonBarEvent)
 {
-	Gura_AssignMethod(wx_RibbonBarEvent, wxRibbonBarEvent);
-	Gura_AssignMethod(wx_RibbonBarEvent, GetPage);
-	Gura_AssignMethod(wx_RibbonBarEvent, SetPage);
+	Gura_AssignMethod(wx_RibbonBarEvent, __wxRibbonBarEvent);
+	Gura_AssignMethod(wx_RibbonBarEvent, __GetPage);
+	Gura_AssignMethod(wx_RibbonBarEvent, __SetPage);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonBarEvent)

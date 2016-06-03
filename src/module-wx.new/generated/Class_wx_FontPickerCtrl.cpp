@@ -37,12 +37,12 @@ String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontPickerCtrl, wxFontPickerCtrl)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __wxFontPickerCtrl, "wxFontPickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, wxFontPickerCtrl)
+Gura_ImplementMethod(wx_FontPickerCtrl, __wxFontPickerCtrl)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, wxFontPickerCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, wxFontPickerCtrl_1)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __wxFontPickerCtrl_1, "wxFontPickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, wxFontPickerCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, wxFontPickerCtrl_1)
+Gura_ImplementMethod(wx_FontPickerCtrl, __wxFontPickerCtrl_1)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, wxFontPickerCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, Create)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_FontPickerCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, Create)
+Gura_ImplementMethod(wx_FontPickerCtrl, __Create)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_FontPickerCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, GetMaxPointSize)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetMaxPointSize, "GetMaxPointSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
+Gura_ImplementMethod(wx_FontPickerCtrl, __GetMaxPointSize)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetMaxPointSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedColour)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetSelectedColour, "GetSelectedColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedColour)
+Gura_ImplementMethod(wx_FontPickerCtrl, __GetSelectedColour)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, GetSelectedFont)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetSelectedFont, "GetSelectedFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
+Gura_ImplementMethod(wx_FontPickerCtrl, __GetSelectedFont)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_FontPickerCtrl, GetSelectedFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, SetMaxPointSize)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __SetMaxPointSize, "SetMaxPointSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, SetMaxPointSize)
+Gura_ImplementMethod(wx_FontPickerCtrl, __SetMaxPointSize)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetMaxPointSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedColour)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __SetSelectedColour, "SetSelectedColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedColour)
+Gura_ImplementMethod(wx_FontPickerCtrl, __SetSelectedColour)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerCtrl, SetSelectedFont)
+Gura_DeclareMethodAlias(wx_FontPickerCtrl, __SetSelectedFont, "SetSelectedFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
+Gura_ImplementMethod(wx_FontPickerCtrl, __SetSelectedFont)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,15 +197,15 @@ Gura_ImplementMethod(wx_FontPickerCtrl, SetSelectedFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontPickerCtrl)
 {
-	Gura_AssignMethod(wx_FontPickerCtrl, wxFontPickerCtrl);
-	Gura_AssignMethod(wx_FontPickerCtrl, wxFontPickerCtrl_1);
-	Gura_AssignMethod(wx_FontPickerCtrl, Create);
-	Gura_AssignMethod(wx_FontPickerCtrl, GetMaxPointSize);
-	Gura_AssignMethod(wx_FontPickerCtrl, GetSelectedColour);
-	Gura_AssignMethod(wx_FontPickerCtrl, GetSelectedFont);
-	Gura_AssignMethod(wx_FontPickerCtrl, SetMaxPointSize);
-	Gura_AssignMethod(wx_FontPickerCtrl, SetSelectedColour);
-	Gura_AssignMethod(wx_FontPickerCtrl, SetSelectedFont);
+	Gura_AssignMethod(wx_FontPickerCtrl, __wxFontPickerCtrl);
+	Gura_AssignMethod(wx_FontPickerCtrl, __wxFontPickerCtrl_1);
+	Gura_AssignMethod(wx_FontPickerCtrl, __Create);
+	Gura_AssignMethod(wx_FontPickerCtrl, __GetMaxPointSize);
+	Gura_AssignMethod(wx_FontPickerCtrl, __GetSelectedColour);
+	Gura_AssignMethod(wx_FontPickerCtrl, __GetSelectedFont);
+	Gura_AssignMethod(wx_FontPickerCtrl, __SetMaxPointSize);
+	Gura_AssignMethod(wx_FontPickerCtrl, __SetSelectedColour);
+	Gura_AssignMethod(wx_FontPickerCtrl, __SetSelectedFont);
 }
 
 Gura_ImplementDescendantCreator(wx_FontPickerCtrl)

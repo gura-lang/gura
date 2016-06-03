@@ -37,13 +37,13 @@ String Object_wx_FilterInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FilterInputStream, wxFilterInputStream)
+Gura_DeclareMethodAlias(wx_FilterInputStream, __wxFilterInputStream, "wxFilterInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream)
+Gura_ImplementMethod(wx_FilterInputStream, __wxFilterInputStream)
 {
 	Object_wx_FilterInputStream *pThis = Object_wx_FilterInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterInputStream, wxFilterInputStream_1)
+Gura_DeclareMethodAlias(wx_FilterInputStream, __wxFilterInputStream_1, "wxFilterInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream_1)
+Gura_ImplementMethod(wx_FilterInputStream, __wxFilterInputStream_1)
 {
 	Object_wx_FilterInputStream *pThis = Object_wx_FilterInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_FilterInputStream, wxFilterInputStream_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterInputStream)
 {
-	Gura_AssignMethod(wx_FilterInputStream, wxFilterInputStream);
-	Gura_AssignMethod(wx_FilterInputStream, wxFilterInputStream_1);
+	Gura_AssignMethod(wx_FilterInputStream, __wxFilterInputStream);
+	Gura_AssignMethod(wx_FilterInputStream, __wxFilterInputStream_1);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterInputStream)

@@ -37,12 +37,12 @@ String Object_wx_Notebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Notebook, wxNotebook)
+Gura_DeclareMethodAlias(wx_Notebook, __wxNotebook, "wxNotebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Notebook, wxNotebook)
+Gura_ImplementMethod(wx_Notebook, __wxNotebook)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Notebook, wxNotebook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, wxNotebook_1)
+Gura_DeclareMethodAlias(wx_Notebook, __wxNotebook_1, "wxNotebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Notebook, wxNotebook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, wxNotebook_1)
+Gura_ImplementMethod(wx_Notebook, __wxNotebook_1)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Notebook, wxNotebook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, Create)
+Gura_DeclareMethodAlias(wx_Notebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Notebook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, Create)
+Gura_ImplementMethod(wx_Notebook, __Create)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,12 +100,12 @@ Gura_ImplementMethod(wx_Notebook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, GetRowCount)
+Gura_DeclareMethodAlias(wx_Notebook, __GetRowCount, "GetRowCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Notebook, GetRowCount)
+Gura_ImplementMethod(wx_Notebook, __GetRowCount)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,12 +113,12 @@ Gura_ImplementMethod(wx_Notebook, GetRowCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, GetThemeBackgroundColour)
+Gura_DeclareMethodAlias(wx_Notebook, __GetThemeBackgroundColour, "GetThemeBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Notebook, GetThemeBackgroundColour)
+Gura_ImplementMethod(wx_Notebook, __GetThemeBackgroundColour)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_Notebook, GetThemeBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, OnSelChange)
+Gura_DeclareMethodAlias(wx_Notebook, __OnSelChange, "OnSelChange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, OnSelChange)
+Gura_ImplementMethod(wx_Notebook, __OnSelChange)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_Notebook, OnSelChange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, SetPadding)
+Gura_DeclareMethodAlias(wx_Notebook, __SetPadding, "SetPadding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "padding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, SetPadding)
+Gura_ImplementMethod(wx_Notebook, __SetPadding)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_Notebook, SetPadding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, GetPageImage)
+Gura_DeclareMethodAlias(wx_Notebook, __GetPageImage, "GetPageImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, GetPageImage)
+Gura_ImplementMethod(wx_Notebook, __GetPageImage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,14 +171,14 @@ Gura_ImplementMethod(wx_Notebook, GetPageImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, SetPageImage)
+Gura_DeclareMethodAlias(wx_Notebook, __SetPageImage, "SetPageImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, SetPageImage)
+Gura_ImplementMethod(wx_Notebook, __SetPageImage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_Notebook, SetPageImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, GetPageText)
+Gura_DeclareMethodAlias(wx_Notebook, __GetPageText, "GetPageText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, GetPageText)
+Gura_ImplementMethod(wx_Notebook, __GetPageText)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,14 +203,14 @@ Gura_ImplementMethod(wx_Notebook, GetPageText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, SetPageText)
+Gura_DeclareMethodAlias(wx_Notebook, __SetPageText, "SetPageText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, SetPageText)
+Gura_ImplementMethod(wx_Notebook, __SetPageText)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,12 +220,12 @@ Gura_ImplementMethod(wx_Notebook, SetPageText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, GetSelection)
+Gura_DeclareMethodAlias(wx_Notebook, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Notebook, GetSelection)
+Gura_ImplementMethod(wx_Notebook, __GetSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,13 +233,13 @@ Gura_ImplementMethod(wx_Notebook, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, SetSelection)
+Gura_DeclareMethodAlias(wx_Notebook, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, SetSelection)
+Gura_ImplementMethod(wx_Notebook, __SetSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_Notebook, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, ChangeSelection)
+Gura_DeclareMethodAlias(wx_Notebook, __ChangeSelection, "ChangeSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, ChangeSelection)
+Gura_ImplementMethod(wx_Notebook, __ChangeSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_Notebook, ChangeSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Notebook, InsertPage)
+Gura_DeclareMethodAlias(wx_Notebook, __InsertPage, "InsertPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -273,7 +273,7 @@ Gura_DeclareMethod(wx_Notebook, InsertPage)
 	//DeclareArg(env, "imageId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Notebook, InsertPage)
+Gura_ImplementMethod(wx_Notebook, __InsertPage)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -291,21 +291,21 @@ Gura_ImplementMethod(wx_Notebook, InsertPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Notebook)
 {
-	Gura_AssignMethod(wx_Notebook, wxNotebook);
-	Gura_AssignMethod(wx_Notebook, wxNotebook_1);
-	Gura_AssignMethod(wx_Notebook, Create);
-	Gura_AssignMethod(wx_Notebook, GetRowCount);
-	Gura_AssignMethod(wx_Notebook, GetThemeBackgroundColour);
-	Gura_AssignMethod(wx_Notebook, OnSelChange);
-	Gura_AssignMethod(wx_Notebook, SetPadding);
-	Gura_AssignMethod(wx_Notebook, GetPageImage);
-	Gura_AssignMethod(wx_Notebook, SetPageImage);
-	Gura_AssignMethod(wx_Notebook, GetPageText);
-	Gura_AssignMethod(wx_Notebook, SetPageText);
-	Gura_AssignMethod(wx_Notebook, GetSelection);
-	Gura_AssignMethod(wx_Notebook, SetSelection);
-	Gura_AssignMethod(wx_Notebook, ChangeSelection);
-	Gura_AssignMethod(wx_Notebook, InsertPage);
+	Gura_AssignMethod(wx_Notebook, __wxNotebook);
+	Gura_AssignMethod(wx_Notebook, __wxNotebook_1);
+	Gura_AssignMethod(wx_Notebook, __Create);
+	Gura_AssignMethod(wx_Notebook, __GetRowCount);
+	Gura_AssignMethod(wx_Notebook, __GetThemeBackgroundColour);
+	Gura_AssignMethod(wx_Notebook, __OnSelChange);
+	Gura_AssignMethod(wx_Notebook, __SetPadding);
+	Gura_AssignMethod(wx_Notebook, __GetPageImage);
+	Gura_AssignMethod(wx_Notebook, __SetPageImage);
+	Gura_AssignMethod(wx_Notebook, __GetPageText);
+	Gura_AssignMethod(wx_Notebook, __SetPageText);
+	Gura_AssignMethod(wx_Notebook, __GetSelection);
+	Gura_AssignMethod(wx_Notebook, __SetSelection);
+	Gura_AssignMethod(wx_Notebook, __ChangeSelection);
+	Gura_AssignMethod(wx_Notebook, __InsertPage);
 }
 
 Gura_ImplementDescendantCreator(wx_Notebook)

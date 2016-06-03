@@ -37,12 +37,12 @@ String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataObjectComposite, wxDataObjectComposite)
+Gura_DeclareMethodAlias(wx_DataObjectComposite, __wxDataObjectComposite, "wxDataObjectComposite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataObjectComposite, wxDataObjectComposite)
+Gura_ImplementMethod(wx_DataObjectComposite, __wxDataObjectComposite)
 {
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_DataObjectComposite, wxDataObjectComposite)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataObjectComposite, Add)
+Gura_DeclareMethodAlias(wx_DataObjectComposite, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dataObject", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "preferred", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataObjectComposite, Add)
+Gura_ImplementMethod(wx_DataObjectComposite, __Add)
 {
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_DataObjectComposite, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataObjectComposite, GetReceivedFormat)
+Gura_DeclareMethodAlias(wx_DataObjectComposite, __GetReceivedFormat, "GetReceivedFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
+Gura_ImplementMethod(wx_DataObjectComposite, __GetReceivedFormat)
 {
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_DataObjectComposite, GetReceivedFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataObjectComposite, GetObject)
+Gura_DeclareMethodAlias(wx_DataObjectComposite, __GetObject, "GetObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataObjectComposite, GetObject)
+Gura_ImplementMethod(wx_DataObjectComposite, __GetObject)
 {
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_DataObjectComposite, GetObject)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataObjectComposite)
 {
-	Gura_AssignMethod(wx_DataObjectComposite, wxDataObjectComposite);
-	Gura_AssignMethod(wx_DataObjectComposite, Add);
-	Gura_AssignMethod(wx_DataObjectComposite, GetReceivedFormat);
-	Gura_AssignMethod(wx_DataObjectComposite, GetObject);
+	Gura_AssignMethod(wx_DataObjectComposite, __wxDataObjectComposite);
+	Gura_AssignMethod(wx_DataObjectComposite, __Add);
+	Gura_AssignMethod(wx_DataObjectComposite, __GetReceivedFormat);
+	Gura_AssignMethod(wx_DataObjectComposite, __GetObject);
 }
 
 Gura_ImplementDescendantCreator(wx_DataObjectComposite)

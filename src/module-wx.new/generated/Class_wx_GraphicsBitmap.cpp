@@ -37,12 +37,12 @@ String Object_wx_GraphicsBitmap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsBitmap, wxGraphicsBitmap)
+Gura_DeclareMethodAlias(wx_GraphicsBitmap, __wxGraphicsBitmap, "wxGraphicsBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsBitmap, wxGraphicsBitmap)
+Gura_ImplementMethod(wx_GraphicsBitmap, __wxGraphicsBitmap)
 {
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_GraphicsBitmap, wxGraphicsBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsBitmap, ConvertToImage)
+Gura_DeclareMethodAlias(wx_GraphicsBitmap, __ConvertToImage, "ConvertToImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsBitmap, ConvertToImage)
+Gura_ImplementMethod(wx_GraphicsBitmap, __ConvertToImage)
 {
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_GraphicsBitmap, ConvertToImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsBitmap, GetNativeBitmap)
+Gura_DeclareMethodAlias(wx_GraphicsBitmap, __GetNativeBitmap, "GetNativeBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsBitmap, GetNativeBitmap)
+Gura_ImplementMethod(wx_GraphicsBitmap, __GetNativeBitmap)
 {
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,9 +81,9 @@ Gura_ImplementMethod(wx_GraphicsBitmap, GetNativeBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsBitmap)
 {
-	Gura_AssignMethod(wx_GraphicsBitmap, wxGraphicsBitmap);
-	Gura_AssignMethod(wx_GraphicsBitmap, ConvertToImage);
-	Gura_AssignMethod(wx_GraphicsBitmap, GetNativeBitmap);
+	Gura_AssignMethod(wx_GraphicsBitmap, __wxGraphicsBitmap);
+	Gura_AssignMethod(wx_GraphicsBitmap, __ConvertToImage);
+	Gura_AssignMethod(wx_GraphicsBitmap, __GetNativeBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsBitmap)

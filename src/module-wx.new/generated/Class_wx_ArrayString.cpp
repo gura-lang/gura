@@ -37,14 +37,14 @@ String Object_wx_ArrayString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArrayString, int)
+Gura_DeclareMethodAlias(wx_ArrayString, __int, "int")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "second", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, int)
+Gura_ImplementMethod(wx_ArrayString, __int)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_ArrayString, int)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, wxArrayString)
+Gura_DeclareMethodAlias(wx_ArrayString, __wxArrayString, "wxArrayString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, wxArrayString)
+Gura_ImplementMethod(wx_ArrayString, __wxArrayString)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_ArrayString, wxArrayString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, wxArrayString_1)
+Gura_DeclareMethodAlias(wx_ArrayString, __wxArrayString_1, "wxArrayString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, wxArrayString_1)
+Gura_ImplementMethod(wx_ArrayString, __wxArrayString_1)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_ArrayString, wxArrayString_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, wxArrayString_2)
+Gura_DeclareMethodAlias(wx_ArrayString, __wxArrayString_2, "wxArrayString_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, wxArrayString_2)
+Gura_ImplementMethod(wx_ArrayString, __wxArrayString_2)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_ArrayString, wxArrayString_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, wxArrayString_3)
+Gura_DeclareMethodAlias(wx_ArrayString, __wxArrayString_3, "wxArrayString_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, wxArrayString_3)
+Gura_ImplementMethod(wx_ArrayString, __wxArrayString_3)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,14 +116,14 @@ Gura_ImplementMethod(wx_ArrayString, wxArrayString_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, wxArrayString_4)
+Gura_DeclareMethodAlias(wx_ArrayString, __wxArrayString_4, "wxArrayString_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, wxArrayString_4)
+Gura_ImplementMethod(wx_ArrayString, __wxArrayString_4)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,14 +133,14 @@ Gura_ImplementMethod(wx_ArrayString, wxArrayString_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Add)
+Gura_DeclareMethodAlias(wx_ArrayString, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "copies", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Add)
+Gura_ImplementMethod(wx_ArrayString, __Add)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_ArrayString, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Alloc)
+Gura_DeclareMethodAlias(wx_ArrayString, __Alloc, "Alloc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Alloc)
+Gura_ImplementMethod(wx_ArrayString, __Alloc)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,12 +165,12 @@ Gura_ImplementMethod(wx_ArrayString, Alloc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Clear)
+Gura_DeclareMethodAlias(wx_ArrayString, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Clear)
+Gura_ImplementMethod(wx_ArrayString, __Clear)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,12 +178,12 @@ Gura_ImplementMethod(wx_ArrayString, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Empty)
+Gura_DeclareMethodAlias(wx_ArrayString, __Empty, "Empty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Empty)
+Gura_ImplementMethod(wx_ArrayString, __Empty)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,12 +191,12 @@ Gura_ImplementMethod(wx_ArrayString, Empty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, GetCount)
+Gura_DeclareMethodAlias(wx_ArrayString, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, GetCount)
+Gura_ImplementMethod(wx_ArrayString, __GetCount)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_ArrayString, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Index)
+Gura_DeclareMethodAlias(wx_ArrayString, __Index, "Index")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -212,7 +212,7 @@ Gura_DeclareMethod(wx_ArrayString, Index)
 	//DeclareArg(env, "bFromEnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Index)
+Gura_ImplementMethod(wx_ArrayString, __Index)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_ArrayString, Index)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Insert)
+Gura_DeclareMethodAlias(wx_ArrayString, __Insert, "Insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lItem", VTYPE_number, OCCUR_Once);
@@ -231,7 +231,7 @@ Gura_DeclareMethod(wx_ArrayString, Insert)
 	//DeclareArg(env, "copies", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Insert)
+Gura_ImplementMethod(wx_ArrayString, __Insert)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,12 +242,12 @@ Gura_ImplementMethod(wx_ArrayString, Insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, IsEmpty)
+Gura_DeclareMethodAlias(wx_ArrayString, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, IsEmpty)
+Gura_ImplementMethod(wx_ArrayString, __IsEmpty)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,13 +255,13 @@ Gura_ImplementMethod(wx_ArrayString, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Item)
+Gura_DeclareMethodAlias(wx_ArrayString, __Item, "Item")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Item)
+Gura_ImplementMethod(wx_ArrayString, __Item)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_ArrayString, Item)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Item_1)
+Gura_DeclareMethodAlias(wx_ArrayString, __Item_1, "Item_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Item_1)
+Gura_ImplementMethod(wx_ArrayString, __Item_1)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,12 +285,12 @@ Gura_ImplementMethod(wx_ArrayString, Item_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Last)
+Gura_DeclareMethodAlias(wx_ArrayString, __Last, "Last")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Last)
+Gura_ImplementMethod(wx_ArrayString, __Last)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,12 +298,12 @@ Gura_ImplementMethod(wx_ArrayString, Last)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Last_1)
+Gura_DeclareMethodAlias(wx_ArrayString, __Last_1, "Last_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Last_1)
+Gura_ImplementMethod(wx_ArrayString, __Last_1)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,13 +311,13 @@ Gura_ImplementMethod(wx_ArrayString, Last_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Remove)
+Gura_DeclareMethodAlias(wx_ArrayString, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Remove)
+Gura_ImplementMethod(wx_ArrayString, __Remove)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -326,14 +326,14 @@ Gura_ImplementMethod(wx_ArrayString, Remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, RemoveAt)
+Gura_DeclareMethodAlias(wx_ArrayString, __RemoveAt, "RemoveAt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nIndex", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, RemoveAt)
+Gura_ImplementMethod(wx_ArrayString, __RemoveAt)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,12 +343,12 @@ Gura_ImplementMethod(wx_ArrayString, RemoveAt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Shrink)
+Gura_DeclareMethodAlias(wx_ArrayString, __Shrink, "Shrink")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Shrink)
+Gura_ImplementMethod(wx_ArrayString, __Shrink)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -356,13 +356,13 @@ Gura_ImplementMethod(wx_ArrayString, Shrink)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Sort)
+Gura_DeclareMethodAlias(wx_ArrayString, __Sort, "Sort")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "reverseOrder", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Sort)
+Gura_ImplementMethod(wx_ArrayString, __Sort)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -371,13 +371,13 @@ Gura_ImplementMethod(wx_ArrayString, Sort)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArrayString, Sort_1)
+Gura_DeclareMethodAlias(wx_ArrayString, __Sort_1, "Sort_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "compareFunction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArrayString, Sort_1)
+Gura_ImplementMethod(wx_ArrayString, __Sort_1)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -391,29 +391,29 @@ Gura_ImplementMethod(wx_ArrayString, Sort_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArrayString)
 {
-	Gura_AssignMethod(wx_ArrayString, int);
-	Gura_AssignMethod(wx_ArrayString, wxArrayString);
-	Gura_AssignMethod(wx_ArrayString, wxArrayString_1);
-	Gura_AssignMethod(wx_ArrayString, wxArrayString_2);
-	Gura_AssignMethod(wx_ArrayString, wxArrayString_3);
-	Gura_AssignMethod(wx_ArrayString, wxArrayString_4);
-	Gura_AssignMethod(wx_ArrayString, Add);
-	Gura_AssignMethod(wx_ArrayString, Alloc);
-	Gura_AssignMethod(wx_ArrayString, Clear);
-	Gura_AssignMethod(wx_ArrayString, Empty);
-	Gura_AssignMethod(wx_ArrayString, GetCount);
-	Gura_AssignMethod(wx_ArrayString, Index);
-	Gura_AssignMethod(wx_ArrayString, Insert);
-	Gura_AssignMethod(wx_ArrayString, IsEmpty);
-	Gura_AssignMethod(wx_ArrayString, Item);
-	Gura_AssignMethod(wx_ArrayString, Item_1);
-	Gura_AssignMethod(wx_ArrayString, Last);
-	Gura_AssignMethod(wx_ArrayString, Last_1);
-	Gura_AssignMethod(wx_ArrayString, Remove);
-	Gura_AssignMethod(wx_ArrayString, RemoveAt);
-	Gura_AssignMethod(wx_ArrayString, Shrink);
-	Gura_AssignMethod(wx_ArrayString, Sort);
-	Gura_AssignMethod(wx_ArrayString, Sort_1);
+	Gura_AssignMethod(wx_ArrayString, __int);
+	Gura_AssignMethod(wx_ArrayString, __wxArrayString);
+	Gura_AssignMethod(wx_ArrayString, __wxArrayString_1);
+	Gura_AssignMethod(wx_ArrayString, __wxArrayString_2);
+	Gura_AssignMethod(wx_ArrayString, __wxArrayString_3);
+	Gura_AssignMethod(wx_ArrayString, __wxArrayString_4);
+	Gura_AssignMethod(wx_ArrayString, __Add);
+	Gura_AssignMethod(wx_ArrayString, __Alloc);
+	Gura_AssignMethod(wx_ArrayString, __Clear);
+	Gura_AssignMethod(wx_ArrayString, __Empty);
+	Gura_AssignMethod(wx_ArrayString, __GetCount);
+	Gura_AssignMethod(wx_ArrayString, __Index);
+	Gura_AssignMethod(wx_ArrayString, __Insert);
+	Gura_AssignMethod(wx_ArrayString, __IsEmpty);
+	Gura_AssignMethod(wx_ArrayString, __Item);
+	Gura_AssignMethod(wx_ArrayString, __Item_1);
+	Gura_AssignMethod(wx_ArrayString, __Last);
+	Gura_AssignMethod(wx_ArrayString, __Last_1);
+	Gura_AssignMethod(wx_ArrayString, __Remove);
+	Gura_AssignMethod(wx_ArrayString, __RemoveAt);
+	Gura_AssignMethod(wx_ArrayString, __Shrink);
+	Gura_AssignMethod(wx_ArrayString, __Sort);
+	Gura_AssignMethod(wx_ArrayString, __Sort_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ArrayString)

@@ -37,7 +37,7 @@ String Object_wx_BufferedPaintDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
+Gura_DeclareMethodAlias(wx_BufferedPaintDC, __wxBufferedPaintDC, "wxBufferedPaintDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
+Gura_ImplementMethod(wx_BufferedPaintDC, __wxBufferedPaintDC)
 {
 	Object_wx_BufferedPaintDC *pThis = Object_wx_BufferedPaintDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,14 +56,14 @@ Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1)
+Gura_DeclareMethodAlias(wx_BufferedPaintDC, __wxBufferedPaintDC_1, "wxBufferedPaintDC_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1)
+Gura_ImplementMethod(wx_BufferedPaintDC, __wxBufferedPaintDC_1)
 {
 	Object_wx_BufferedPaintDC *pThis = Object_wx_BufferedPaintDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,8 +78,8 @@ Gura_ImplementMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BufferedPaintDC)
 {
-	Gura_AssignMethod(wx_BufferedPaintDC, wxBufferedPaintDC);
-	Gura_AssignMethod(wx_BufferedPaintDC, wxBufferedPaintDC_1);
+	Gura_AssignMethod(wx_BufferedPaintDC, __wxBufferedPaintDC);
+	Gura_AssignMethod(wx_BufferedPaintDC, __wxBufferedPaintDC_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BufferedPaintDC)

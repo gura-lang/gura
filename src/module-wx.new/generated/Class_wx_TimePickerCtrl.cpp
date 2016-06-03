@@ -37,12 +37,12 @@ String Object_wx_TimePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TimePickerCtrl, wxTimePickerCtrl)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __wxTimePickerCtrl, "wxTimePickerCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl)
+Gura_ImplementMethod(wx_TimePickerCtrl, __wxTimePickerCtrl)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __wxTimePickerCtrl_1, "wxTimePickerCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
+Gura_ImplementMethod(wx_TimePickerCtrl, __wxTimePickerCtrl_1)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, Create)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_TimePickerCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, Create)
+Gura_ImplementMethod(wx_TimePickerCtrl, __Create)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, GetTime)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __GetTime, "GetTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hour", VTYPE_number, OCCUR_Once);
@@ -116,7 +116,7 @@ Gura_DeclareMethod(wx_TimePickerCtrl, GetTime)
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, GetTime)
+Gura_ImplementMethod(wx_TimePickerCtrl, __GetTime)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_TimePickerCtrl, GetTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, GetValue)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, GetValue)
+Gura_ImplementMethod(wx_TimePickerCtrl, __GetValue)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, SetTime)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __SetTime, "SetTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "hour", VTYPE_number, OCCUR_Once);
@@ -148,7 +148,7 @@ Gura_DeclareMethod(wx_TimePickerCtrl, SetTime)
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, SetTime)
+Gura_ImplementMethod(wx_TimePickerCtrl, __SetTime)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_TimePickerCtrl, SetTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TimePickerCtrl, SetValue)
+Gura_DeclareMethodAlias(wx_TimePickerCtrl, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TimePickerCtrl, SetValue)
+Gura_ImplementMethod(wx_TimePickerCtrl, __SetValue)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_TimePickerCtrl, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TimePickerCtrl)
 {
-	Gura_AssignMethod(wx_TimePickerCtrl, wxTimePickerCtrl);
-	Gura_AssignMethod(wx_TimePickerCtrl, wxTimePickerCtrl_1);
-	Gura_AssignMethod(wx_TimePickerCtrl, Create);
-	Gura_AssignMethod(wx_TimePickerCtrl, GetTime);
-	Gura_AssignMethod(wx_TimePickerCtrl, GetValue);
-	Gura_AssignMethod(wx_TimePickerCtrl, SetTime);
-	Gura_AssignMethod(wx_TimePickerCtrl, SetValue);
+	Gura_AssignMethod(wx_TimePickerCtrl, __wxTimePickerCtrl);
+	Gura_AssignMethod(wx_TimePickerCtrl, __wxTimePickerCtrl_1);
+	Gura_AssignMethod(wx_TimePickerCtrl, __Create);
+	Gura_AssignMethod(wx_TimePickerCtrl, __GetTime);
+	Gura_AssignMethod(wx_TimePickerCtrl, __GetValue);
+	Gura_AssignMethod(wx_TimePickerCtrl, __SetTime);
+	Gura_AssignMethod(wx_TimePickerCtrl, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_TimePickerCtrl)

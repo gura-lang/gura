@@ -37,7 +37,7 @@ String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextHTMLHandler, wxRichTextHTMLHandler)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler, "wxRichTextHTMLHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_RichTextHTMLHandler, wxRichTextHTMLHandler)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, wxRichTextHTMLHandler)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, wxRichTextHTMLHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations, "ClearTemporaryImageLocations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DeleteTemporaryImages, "DeleteTemporaryImages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1, "DeleteTemporaryImages_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageLocations", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetFontSizeMapping, "GetFontSizeMapping")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetFontSizeMapping)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetFontSizeMapping)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTempDir)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetTempDir, "GetTempDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTempDir)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetTempDir)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTempDir)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetTemporaryImageLocations, "GetTemporaryImageLocations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetTemporaryImageLocations)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFileCounter)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __SetFileCounter, "SetFileCounter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "counter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFileCounter)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetFileCounter)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFileCounter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __SetFontSizeMapping, "SetFontSizeMapping")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fontSizeMapping", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetFontSizeMapping)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetFontSizeMapping)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTempDir)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __SetTempDir, "SetTempDir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tempDir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTempDir)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTempDir)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTempDir)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __SetTemporaryImageLocations, "SetTemporaryImageLocations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "locations", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTemporaryImageLocations)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -198,14 +198,14 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextHTMLHandler, DoSaveFile)
+Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DoSaveFile, "DoSaveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextHTMLHandler, DoSaveFile)
+Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,18 +220,18 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextHTMLHandler)
 {
-	Gura_AssignMethod(wx_RichTextHTMLHandler, wxRichTextHTMLHandler);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, ClearTemporaryImageLocations);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, DeleteTemporaryImages_1);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, GetFontSizeMapping);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, GetTempDir);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, GetTemporaryImageLocations);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, SetFileCounter);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, SetFontSizeMapping);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, SetTempDir);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, SetTemporaryImageLocations);
-	Gura_AssignMethod(wx_RichTextHTMLHandler, DoSaveFile);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __wxRichTextHTMLHandler);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __GetFontSizeMapping);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __GetTempDir);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __GetTemporaryImageLocations);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __SetFileCounter);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __SetFontSizeMapping);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __SetTempDir);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __SetTemporaryImageLocations);
+	Gura_AssignMethod(wx_RichTextHTMLHandler, __DoSaveFile);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextHTMLHandler)

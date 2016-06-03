@@ -37,13 +37,13 @@ String Object_wx_RichTextPrintout::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextPrintout, wxRichTextPrintout)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __wxRichTextPrintout, "wxRichTextPrintout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, wxRichTextPrintout)
+Gura_ImplementMethod(wx_RichTextPrintout, __wxRichTextPrintout)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, wxRichTextPrintout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, CalculateScaling)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __CalculateScaling, "CalculateScaling")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, CalculateScaling)
 	//DeclareArg(env, "footerRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, CalculateScaling)
+Gura_ImplementMethod(wx_RichTextPrintout, __CalculateScaling)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_RichTextPrintout, CalculateScaling)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, GetHeaderFooterData)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __GetHeaderFooterData, "GetHeaderFooterData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, GetHeaderFooterData)
+Gura_ImplementMethod(wx_RichTextPrintout, __GetHeaderFooterData)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,7 +86,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetHeaderFooterData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, GetPageInfo)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __GetPageInfo, "GetPageInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "minPage", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, GetPageInfo)
 	//DeclareArg(env, "selPageTo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, GetPageInfo)
+Gura_ImplementMethod(wx_RichTextPrintout, __GetPageInfo)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,12 +107,12 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetPageInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, GetRichTextBuffer)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __GetRichTextBuffer, "GetRichTextBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, GetRichTextBuffer)
+Gura_ImplementMethod(wx_RichTextPrintout, __GetRichTextBuffer)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,13 +120,13 @@ Gura_ImplementMethod(wx_RichTextPrintout, GetRichTextBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, HasPage)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __HasPage, "HasPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, HasPage)
+Gura_ImplementMethod(wx_RichTextPrintout, __HasPage)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,12 +135,12 @@ Gura_ImplementMethod(wx_RichTextPrintout, HasPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, OnPreparePrinting)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __OnPreparePrinting, "OnPreparePrinting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, OnPreparePrinting)
+Gura_ImplementMethod(wx_RichTextPrintout, __OnPreparePrinting)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,13 +148,13 @@ Gura_ImplementMethod(wx_RichTextPrintout, OnPreparePrinting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, OnPrintPage)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __OnPrintPage, "OnPrintPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, OnPrintPage)
+Gura_ImplementMethod(wx_RichTextPrintout, __OnPrintPage)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_RichTextPrintout, OnPrintPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, SetHeaderFooterData)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __SetHeaderFooterData, "SetHeaderFooterData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, SetHeaderFooterData)
+Gura_ImplementMethod(wx_RichTextPrintout, __SetHeaderFooterData)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, SetHeaderFooterData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, SetMargins)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __SetMargins, "SetMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "top", VTYPE_number, OCCUR_Once);
@@ -187,7 +187,7 @@ Gura_DeclareMethod(wx_RichTextPrintout, SetMargins)
 	//DeclareArg(env, "right", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, SetMargins)
+Gura_ImplementMethod(wx_RichTextPrintout, __SetMargins)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,13 +199,13 @@ Gura_ImplementMethod(wx_RichTextPrintout, SetMargins)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPrintout, SetRichTextBuffer)
+Gura_DeclareMethodAlias(wx_RichTextPrintout, __SetRichTextBuffer, "SetRichTextBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPrintout, SetRichTextBuffer)
+Gura_ImplementMethod(wx_RichTextPrintout, __SetRichTextBuffer)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,17 +219,17 @@ Gura_ImplementMethod(wx_RichTextPrintout, SetRichTextBuffer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPrintout)
 {
-	Gura_AssignMethod(wx_RichTextPrintout, wxRichTextPrintout);
-	Gura_AssignMethod(wx_RichTextPrintout, CalculateScaling);
-	Gura_AssignMethod(wx_RichTextPrintout, GetHeaderFooterData);
-	Gura_AssignMethod(wx_RichTextPrintout, GetPageInfo);
-	Gura_AssignMethod(wx_RichTextPrintout, GetRichTextBuffer);
-	Gura_AssignMethod(wx_RichTextPrintout, HasPage);
-	Gura_AssignMethod(wx_RichTextPrintout, OnPreparePrinting);
-	Gura_AssignMethod(wx_RichTextPrintout, OnPrintPage);
-	Gura_AssignMethod(wx_RichTextPrintout, SetHeaderFooterData);
-	Gura_AssignMethod(wx_RichTextPrintout, SetMargins);
-	Gura_AssignMethod(wx_RichTextPrintout, SetRichTextBuffer);
+	Gura_AssignMethod(wx_RichTextPrintout, __wxRichTextPrintout);
+	Gura_AssignMethod(wx_RichTextPrintout, __CalculateScaling);
+	Gura_AssignMethod(wx_RichTextPrintout, __GetHeaderFooterData);
+	Gura_AssignMethod(wx_RichTextPrintout, __GetPageInfo);
+	Gura_AssignMethod(wx_RichTextPrintout, __GetRichTextBuffer);
+	Gura_AssignMethod(wx_RichTextPrintout, __HasPage);
+	Gura_AssignMethod(wx_RichTextPrintout, __OnPreparePrinting);
+	Gura_AssignMethod(wx_RichTextPrintout, __OnPrintPage);
+	Gura_AssignMethod(wx_RichTextPrintout, __SetHeaderFooterData);
+	Gura_AssignMethod(wx_RichTextPrintout, __SetMargins);
+	Gura_AssignMethod(wx_RichTextPrintout, __SetRichTextBuffer);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextPrintout)

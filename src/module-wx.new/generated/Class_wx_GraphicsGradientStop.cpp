@@ -37,14 +37,14 @@ String Object_wx_GraphicsGradientStop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
+Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __wxGraphicsGradientStop, "wxGraphicsGradientStop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
+Gura_ImplementMethod(wx_GraphicsGradientStop, __wxGraphicsGradientStop)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsGradientStop, GetColour)
+Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStop, GetColour)
+Gura_ImplementMethod(wx_GraphicsGradientStop, __GetColour)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsGradientStop, SetColour)
+Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStop, SetColour)
+Gura_ImplementMethod(wx_GraphicsGradientStop, __SetColour)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsGradientStop, GetPosition)
+Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStop, GetPosition)
+Gura_ImplementMethod(wx_GraphicsGradientStop, __GetPosition)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsGradientStop, SetPosition)
+Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsGradientStop, SetPosition)
+Gura_ImplementMethod(wx_GraphicsGradientStop, __SetPosition)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,11 +115,11 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsGradientStop)
 {
-	Gura_AssignMethod(wx_GraphicsGradientStop, wxGraphicsGradientStop);
-	Gura_AssignMethod(wx_GraphicsGradientStop, GetColour);
-	Gura_AssignMethod(wx_GraphicsGradientStop, SetColour);
-	Gura_AssignMethod(wx_GraphicsGradientStop, GetPosition);
-	Gura_AssignMethod(wx_GraphicsGradientStop, SetPosition);
+	Gura_AssignMethod(wx_GraphicsGradientStop, __wxGraphicsGradientStop);
+	Gura_AssignMethod(wx_GraphicsGradientStop, __GetColour);
+	Gura_AssignMethod(wx_GraphicsGradientStop, __SetColour);
+	Gura_AssignMethod(wx_GraphicsGradientStop, __GetPosition);
+	Gura_AssignMethod(wx_GraphicsGradientStop, __SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsGradientStop)

@@ -37,12 +37,12 @@ String Object_wx_Translations::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Translations, wxTranslations)
+Gura_DeclareMethodAlias(wx_Translations, __wxTranslations, "wxTranslations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Translations, wxTranslations)
+Gura_ImplementMethod(wx_Translations, __wxTranslations)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_Translations, wxTranslations)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, Get)
+Gura_DeclareMethodAlias(wx_Translations, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Translations, Get)
+Gura_ImplementMethod(wx_Translations, __Get)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_Translations, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, Set)
+Gura_DeclareMethodAlias(wx_Translations, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, Set)
+Gura_ImplementMethod(wx_Translations, __Set)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_Translations, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, SetLoader)
+Gura_DeclareMethodAlias(wx_Translations, __SetLoader, "SetLoader")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loader", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, SetLoader)
+Gura_ImplementMethod(wx_Translations, __SetLoader)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_Translations, SetLoader)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, SetLanguage)
+Gura_DeclareMethodAlias(wx_Translations, __SetLanguage, "SetLanguage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, SetLanguage)
+Gura_ImplementMethod(wx_Translations, __SetLanguage)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_Translations, SetLanguage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, SetLanguage_1)
+Gura_DeclareMethodAlias(wx_Translations, __SetLanguage_1, "SetLanguage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, SetLanguage_1)
+Gura_ImplementMethod(wx_Translations, __SetLanguage_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_Translations, SetLanguage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetAvailableTranslations)
+Gura_DeclareMethodAlias(wx_Translations, __GetAvailableTranslations, "GetAvailableTranslations")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetAvailableTranslations)
+Gura_ImplementMethod(wx_Translations, __GetAvailableTranslations)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,14 +138,14 @@ Gura_ImplementMethod(wx_Translations, GetAvailableTranslations)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetBestTranslation)
+Gura_DeclareMethodAlias(wx_Translations, __GetBestTranslation, "GetBestTranslation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msgIdLanguage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetBestTranslation)
+Gura_ImplementMethod(wx_Translations, __GetBestTranslation)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,14 +155,14 @@ Gura_ImplementMethod(wx_Translations, GetBestTranslation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetBestTranslation_1)
+Gura_DeclareMethodAlias(wx_Translations, __GetBestTranslation_1, "GetBestTranslation_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msgIdLanguage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetBestTranslation_1)
+Gura_ImplementMethod(wx_Translations, __GetBestTranslation_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,12 +172,12 @@ Gura_ImplementMethod(wx_Translations, GetBestTranslation_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, AddStdCatalog)
+Gura_DeclareMethodAlias(wx_Translations, __AddStdCatalog, "AddStdCatalog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Translations, AddStdCatalog)
+Gura_ImplementMethod(wx_Translations, __AddStdCatalog)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_Translations, AddStdCatalog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, AddCatalog)
+Gura_DeclareMethodAlias(wx_Translations, __AddCatalog, "AddCatalog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, AddCatalog)
+Gura_ImplementMethod(wx_Translations, __AddCatalog)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,14 +200,14 @@ Gura_ImplementMethod(wx_Translations, AddCatalog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, AddCatalog_1)
+Gura_DeclareMethodAlias(wx_Translations, __AddCatalog_1, "AddCatalog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msgIdLanguage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, AddCatalog_1)
+Gura_ImplementMethod(wx_Translations, __AddCatalog_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_Translations, AddCatalog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, AddCatalog_2)
+Gura_DeclareMethodAlias(wx_Translations, __AddCatalog_2, "AddCatalog_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
@@ -225,7 +225,7 @@ Gura_DeclareMethod(wx_Translations, AddCatalog_2)
 	//DeclareArg(env, "msgIdCharset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, AddCatalog_2)
+Gura_ImplementMethod(wx_Translations, __AddCatalog_2)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,13 +236,13 @@ Gura_ImplementMethod(wx_Translations, AddCatalog_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, IsLoaded)
+Gura_DeclareMethodAlias(wx_Translations, __IsLoaded, "IsLoaded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, IsLoaded)
+Gura_ImplementMethod(wx_Translations, __IsLoaded)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,14 +251,14 @@ Gura_ImplementMethod(wx_Translations, IsLoaded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetTranslatedString)
+Gura_DeclareMethodAlias(wx_Translations, __GetTranslatedString, "GetTranslatedString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "origString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetTranslatedString)
+Gura_ImplementMethod(wx_Translations, __GetTranslatedString)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Translations, GetTranslatedString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetTranslatedString_1)
+Gura_DeclareMethodAlias(wx_Translations, __GetTranslatedString_1, "GetTranslatedString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "origString", VTYPE_number, OCCUR_Once);
@@ -276,7 +276,7 @@ Gura_DeclareMethod(wx_Translations, GetTranslatedString_1)
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetTranslatedString_1)
+Gura_ImplementMethod(wx_Translations, __GetTranslatedString_1)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,14 +287,14 @@ Gura_ImplementMethod(wx_Translations, GetTranslatedString_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Translations, GetHeaderValue)
+Gura_DeclareMethodAlias(wx_Translations, __GetHeaderValue, "GetHeaderValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Translations, GetHeaderValue)
+Gura_ImplementMethod(wx_Translations, __GetHeaderValue)
 {
 	Object_wx_Translations *pThis = Object_wx_Translations::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -309,23 +309,23 @@ Gura_ImplementMethod(wx_Translations, GetHeaderValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Translations)
 {
-	Gura_AssignMethod(wx_Translations, wxTranslations);
-	Gura_AssignMethod(wx_Translations, Get);
-	Gura_AssignMethod(wx_Translations, Set);
-	Gura_AssignMethod(wx_Translations, SetLoader);
-	Gura_AssignMethod(wx_Translations, SetLanguage);
-	Gura_AssignMethod(wx_Translations, SetLanguage_1);
-	Gura_AssignMethod(wx_Translations, GetAvailableTranslations);
-	Gura_AssignMethod(wx_Translations, GetBestTranslation);
-	Gura_AssignMethod(wx_Translations, GetBestTranslation_1);
-	Gura_AssignMethod(wx_Translations, AddStdCatalog);
-	Gura_AssignMethod(wx_Translations, AddCatalog);
-	Gura_AssignMethod(wx_Translations, AddCatalog_1);
-	Gura_AssignMethod(wx_Translations, AddCatalog_2);
-	Gura_AssignMethod(wx_Translations, IsLoaded);
-	Gura_AssignMethod(wx_Translations, GetTranslatedString);
-	Gura_AssignMethod(wx_Translations, GetTranslatedString_1);
-	Gura_AssignMethod(wx_Translations, GetHeaderValue);
+	Gura_AssignMethod(wx_Translations, __wxTranslations);
+	Gura_AssignMethod(wx_Translations, __Get);
+	Gura_AssignMethod(wx_Translations, __Set);
+	Gura_AssignMethod(wx_Translations, __SetLoader);
+	Gura_AssignMethod(wx_Translations, __SetLanguage);
+	Gura_AssignMethod(wx_Translations, __SetLanguage_1);
+	Gura_AssignMethod(wx_Translations, __GetAvailableTranslations);
+	Gura_AssignMethod(wx_Translations, __GetBestTranslation);
+	Gura_AssignMethod(wx_Translations, __GetBestTranslation_1);
+	Gura_AssignMethod(wx_Translations, __AddStdCatalog);
+	Gura_AssignMethod(wx_Translations, __AddCatalog);
+	Gura_AssignMethod(wx_Translations, __AddCatalog_1);
+	Gura_AssignMethod(wx_Translations, __AddCatalog_2);
+	Gura_AssignMethod(wx_Translations, __IsLoaded);
+	Gura_AssignMethod(wx_Translations, __GetTranslatedString);
+	Gura_AssignMethod(wx_Translations, __GetTranslatedString_1);
+	Gura_AssignMethod(wx_Translations, __GetHeaderValue);
 }
 
 Gura_ImplementDescendantCreator(wx_Translations)

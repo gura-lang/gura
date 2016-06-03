@@ -37,12 +37,12 @@ String Object_wx_ColourDatabase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ColourDatabase, wxColourDatabase)
+Gura_DeclareMethodAlias(wx_ColourDatabase, __wxColourDatabase, "wxColourDatabase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ColourDatabase, wxColourDatabase)
+Gura_ImplementMethod(wx_ColourDatabase, __wxColourDatabase)
 {
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_ColourDatabase, wxColourDatabase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ColourDatabase, AddColour)
+Gura_DeclareMethodAlias(wx_ColourDatabase, __AddColour, "AddColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colourName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ColourDatabase, AddColour)
+Gura_ImplementMethod(wx_ColourDatabase, __AddColour)
 {
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_ColourDatabase, AddColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ColourDatabase, Find)
+Gura_DeclareMethodAlias(wx_ColourDatabase, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colourName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ColourDatabase, Find)
+Gura_ImplementMethod(wx_ColourDatabase, __Find)
 {
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_ColourDatabase, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ColourDatabase, FindName)
+Gura_DeclareMethodAlias(wx_ColourDatabase, __FindName, "FindName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ColourDatabase, FindName)
+Gura_ImplementMethod(wx_ColourDatabase, __FindName)
 {
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_ColourDatabase, FindName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ColourDatabase)
 {
-	Gura_AssignMethod(wx_ColourDatabase, wxColourDatabase);
-	Gura_AssignMethod(wx_ColourDatabase, AddColour);
-	Gura_AssignMethod(wx_ColourDatabase, Find);
-	Gura_AssignMethod(wx_ColourDatabase, FindName);
+	Gura_AssignMethod(wx_ColourDatabase, __wxColourDatabase);
+	Gura_AssignMethod(wx_ColourDatabase, __AddColour);
+	Gura_AssignMethod(wx_ColourDatabase, __Find);
+	Gura_AssignMethod(wx_ColourDatabase, __FindName);
 }
 
 Gura_ImplementDescendantCreator(wx_ColourDatabase)

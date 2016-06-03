@@ -37,13 +37,13 @@ String Object_wx_HtmlHelpWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __wxHtmlHelpWindow, "wxHtmlHelpWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __wxHtmlHelpWindow)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __wxHtmlHelpWindow_1, "wxHtmlHelpWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __wxHtmlHelpWindow_1)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, Create)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_DeclareMethod(wx_HtmlHelpWindow, Create)
 	//DeclareArg(env, "helpStyle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, Create)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __Create)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, Display)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __Display, "Display")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, Display)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __Display)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, Display)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, Display_1)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __Display_1, "Display_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, Display_1)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __Display_1)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, Display_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayContents)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __DisplayContents, "DisplayContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayContents)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __DisplayContents)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, DisplayIndex)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __DisplayIndex, "DisplayIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayIndex)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __DisplayIndex)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,12 +160,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, DisplayIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, GetData)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, GetData)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __GetData)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,14 +173,14 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, KeywordSearch)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __KeywordSearch, "KeywordSearch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyword", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, KeywordSearch)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __KeywordSearch)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,14 +190,14 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, KeywordSearch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, ReadCustomization)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __ReadCustomization, "ReadCustomization")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cfg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, ReadCustomization)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __ReadCustomization)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,14 +207,14 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, ReadCustomization)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, UseConfig)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __UseConfig, "UseConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "config", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rootpath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, UseConfig)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __UseConfig)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -224,14 +224,14 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, UseConfig)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, WriteCustomization)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __WriteCustomization, "WriteCustomization")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cfg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, WriteCustomization)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __WriteCustomization)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -241,12 +241,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, WriteCustomization)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, RefreshLists)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __RefreshLists, "RefreshLists")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, RefreshLists)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __RefreshLists)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, RefreshLists)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, GetController)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __GetController, "GetController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, GetController)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __GetController)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,13 +267,13 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, GetController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, SetController)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __SetController, "SetController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "controller", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, SetController)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __SetController)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,12 +282,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, SetController)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, CreateSearch)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __CreateSearch, "CreateSearch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, CreateSearch)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __CreateSearch)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,14 +295,14 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, CreateSearch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, AddToolbarButtons)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __AddToolbarButtons, "AddToolbarButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "toolBar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, AddToolbarButtons)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __AddToolbarButtons)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,12 +312,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, AddToolbarButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, CreateContents)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __CreateContents, "CreateContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, CreateContents)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __CreateContents)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,12 +325,12 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, CreateContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlHelpWindow, CreateIndex)
+Gura_DeclareMethodAlias(wx_HtmlHelpWindow, __CreateIndex, "CreateIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlHelpWindow, CreateIndex)
+Gura_ImplementMethod(wx_HtmlHelpWindow, __CreateIndex)
 {
 	Object_wx_HtmlHelpWindow *pThis = Object_wx_HtmlHelpWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -343,25 +343,25 @@ Gura_ImplementMethod(wx_HtmlHelpWindow, CreateIndex)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlHelpWindow)
 {
-	Gura_AssignMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow);
-	Gura_AssignMethod(wx_HtmlHelpWindow, wxHtmlHelpWindow_1);
-	Gura_AssignMethod(wx_HtmlHelpWindow, Create);
-	Gura_AssignMethod(wx_HtmlHelpWindow, Display);
-	Gura_AssignMethod(wx_HtmlHelpWindow, Display_1);
-	Gura_AssignMethod(wx_HtmlHelpWindow, DisplayContents);
-	Gura_AssignMethod(wx_HtmlHelpWindow, DisplayIndex);
-	Gura_AssignMethod(wx_HtmlHelpWindow, GetData);
-	Gura_AssignMethod(wx_HtmlHelpWindow, KeywordSearch);
-	Gura_AssignMethod(wx_HtmlHelpWindow, ReadCustomization);
-	Gura_AssignMethod(wx_HtmlHelpWindow, UseConfig);
-	Gura_AssignMethod(wx_HtmlHelpWindow, WriteCustomization);
-	Gura_AssignMethod(wx_HtmlHelpWindow, RefreshLists);
-	Gura_AssignMethod(wx_HtmlHelpWindow, GetController);
-	Gura_AssignMethod(wx_HtmlHelpWindow, SetController);
-	Gura_AssignMethod(wx_HtmlHelpWindow, CreateSearch);
-	Gura_AssignMethod(wx_HtmlHelpWindow, AddToolbarButtons);
-	Gura_AssignMethod(wx_HtmlHelpWindow, CreateContents);
-	Gura_AssignMethod(wx_HtmlHelpWindow, CreateIndex);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __wxHtmlHelpWindow);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __wxHtmlHelpWindow_1);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __Create);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __Display);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __Display_1);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __DisplayContents);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __DisplayIndex);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __GetData);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __KeywordSearch);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __ReadCustomization);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __UseConfig);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __WriteCustomization);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __RefreshLists);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __GetController);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __SetController);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __CreateSearch);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __AddToolbarButtons);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __CreateContents);
+	Gura_AssignMethod(wx_HtmlHelpWindow, __CreateIndex);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlHelpWindow)

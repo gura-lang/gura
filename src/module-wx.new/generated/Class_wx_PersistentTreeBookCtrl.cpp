@@ -37,13 +37,13 @@ String Object_wx_PersistentTreeBookCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PersistentTreeBookCtrl, wxPersistentTreeBookCtrl)
+Gura_DeclareMethodAlias(wx_PersistentTreeBookCtrl, __wxPersistentTreeBookCtrl, "wxPersistentTreeBookCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PersistentTreeBookCtrl, wxPersistentTreeBookCtrl)
+Gura_ImplementMethod(wx_PersistentTreeBookCtrl, __wxPersistentTreeBookCtrl)
 {
 	Object_wx_PersistentTreeBookCtrl *pThis = Object_wx_PersistentTreeBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_PersistentTreeBookCtrl, wxPersistentTreeBookCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentTreeBookCtrl, Save)
+Gura_DeclareMethodAlias(wx_PersistentTreeBookCtrl, __Save, "Save")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentTreeBookCtrl, Save)
+Gura_ImplementMethod(wx_PersistentTreeBookCtrl, __Save)
 {
 	Object_wx_PersistentTreeBookCtrl *pThis = Object_wx_PersistentTreeBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PersistentTreeBookCtrl, Save)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PersistentTreeBookCtrl, Restore)
+Gura_DeclareMethodAlias(wx_PersistentTreeBookCtrl, __Restore, "Restore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PersistentTreeBookCtrl, Restore)
+Gura_ImplementMethod(wx_PersistentTreeBookCtrl, __Restore)
 {
 	Object_wx_PersistentTreeBookCtrl *pThis = Object_wx_PersistentTreeBookCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_PersistentTreeBookCtrl, Restore)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PersistentTreeBookCtrl)
 {
-	Gura_AssignMethod(wx_PersistentTreeBookCtrl, wxPersistentTreeBookCtrl);
-	Gura_AssignMethod(wx_PersistentTreeBookCtrl, Save);
-	Gura_AssignMethod(wx_PersistentTreeBookCtrl, Restore);
+	Gura_AssignMethod(wx_PersistentTreeBookCtrl, __wxPersistentTreeBookCtrl);
+	Gura_AssignMethod(wx_PersistentTreeBookCtrl, __Save);
+	Gura_AssignMethod(wx_PersistentTreeBookCtrl, __Restore);
 }
 
 Gura_ImplementDescendantCreator(wx_PersistentTreeBookCtrl)

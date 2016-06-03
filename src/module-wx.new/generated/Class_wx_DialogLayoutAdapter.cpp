@@ -37,12 +37,12 @@ String Object_wx_DialogLayoutAdapter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter)
+Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter, "wxDialogLayoutAdapter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter)
+Gura_ImplementMethod(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter)
 {
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation)
+Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation, "CanDoLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation)
+Gura_ImplementMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation)
 {
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation)
+Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __DoLayoutAdaptation, "DoLayoutAdaptation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation)
+Gura_ImplementMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation)
 {
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DialogLayoutAdapter)
 {
-	Gura_AssignMethod(wx_DialogLayoutAdapter, wxDialogLayoutAdapter);
-	Gura_AssignMethod(wx_DialogLayoutAdapter, CanDoLayoutAdaptation);
-	Gura_AssignMethod(wx_DialogLayoutAdapter, DoLayoutAdaptation);
+	Gura_AssignMethod(wx_DialogLayoutAdapter, __wxDialogLayoutAdapter);
+	Gura_AssignMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation);
+	Gura_AssignMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation);
 }
 
 Gura_ImplementDescendantCreator(wx_DialogLayoutAdapter)

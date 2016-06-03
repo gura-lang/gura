@@ -37,13 +37,13 @@ String Object_wx_TaskBarButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TaskBarButton, SetProgressRange)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetProgressRange, "SetProgressRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetProgressRange)
+Gura_ImplementMethod(wx_TaskBarButton, __SetProgressRange)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_TaskBarButton, SetProgressRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetProgressValue)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetProgressValue, "SetProgressValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetProgressValue)
+Gura_ImplementMethod(wx_TaskBarButton, __SetProgressValue)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_TaskBarButton, SetProgressValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, PulseProgress)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __PulseProgress, "PulseProgress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, PulseProgress)
+Gura_ImplementMethod(wx_TaskBarButton, __PulseProgress)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_TaskBarButton, PulseProgress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, Show)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, Show)
+Gura_ImplementMethod(wx_TaskBarButton, __Show)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_TaskBarButton, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, Hide)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __Hide, "Hide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, Hide)
+Gura_ImplementMethod(wx_TaskBarButton, __Hide)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_TaskBarButton, Hide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailTooltip)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetThumbnailTooltip, "SetThumbnailTooltip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailTooltip)
+Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailTooltip)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailTooltip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetProgressState)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetProgressState, "SetProgressState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetProgressState)
+Gura_ImplementMethod(wx_TaskBarButton, __SetProgressState)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,14 +138,14 @@ Gura_ImplementMethod(wx_TaskBarButton, SetProgressState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetOverlayIcon)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetOverlayIcon, "SetOverlayIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetOverlayIcon)
+Gura_ImplementMethod(wx_TaskBarButton, __SetOverlayIcon)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_TaskBarButton, SetOverlayIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailClip)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetThumbnailClip, "SetThumbnailClip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailClip)
+Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailClip)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailClip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, SetThumbnailContents)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __SetThumbnailContents, "SetThumbnailContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailContents)
+Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailContents)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -185,14 +185,14 @@ Gura_ImplementMethod(wx_TaskBarButton, SetThumbnailContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, InsertThumbBarButton)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __InsertThumbBarButton, "InsertThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, InsertThumbBarButton)
+Gura_ImplementMethod(wx_TaskBarButton, __InsertThumbBarButton)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_TaskBarButton, InsertThumbBarButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, AppendThumbBarButton)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __AppendThumbBarButton, "AppendThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, AppendThumbBarButton)
+Gura_ImplementMethod(wx_TaskBarButton, __AppendThumbBarButton)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -217,12 +217,12 @@ Gura_ImplementMethod(wx_TaskBarButton, AppendThumbBarButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, AppendSeparatorInThumbBar)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __AppendSeparatorInThumbBar, "AppendSeparatorInThumbBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, AppendSeparatorInThumbBar)
+Gura_ImplementMethod(wx_TaskBarButton, __AppendSeparatorInThumbBar)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -230,13 +230,13 @@ Gura_ImplementMethod(wx_TaskBarButton, AppendSeparatorInThumbBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, RemoveThumbBarButton)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __RemoveThumbBarButton, "RemoveThumbBarButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton)
+Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -245,13 +245,13 @@ Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarButton, RemoveThumbBarButton_1)
+Gura_DeclareMethodAlias(wx_TaskBarButton, __RemoveThumbBarButton_1, "RemoveThumbBarButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton_1)
+Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton_1)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,21 +265,21 @@ Gura_ImplementMethod(wx_TaskBarButton, RemoveThumbBarButton_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarButton)
 {
-	Gura_AssignMethod(wx_TaskBarButton, SetProgressRange);
-	Gura_AssignMethod(wx_TaskBarButton, SetProgressValue);
-	Gura_AssignMethod(wx_TaskBarButton, PulseProgress);
-	Gura_AssignMethod(wx_TaskBarButton, Show);
-	Gura_AssignMethod(wx_TaskBarButton, Hide);
-	Gura_AssignMethod(wx_TaskBarButton, SetThumbnailTooltip);
-	Gura_AssignMethod(wx_TaskBarButton, SetProgressState);
-	Gura_AssignMethod(wx_TaskBarButton, SetOverlayIcon);
-	Gura_AssignMethod(wx_TaskBarButton, SetThumbnailClip);
-	Gura_AssignMethod(wx_TaskBarButton, SetThumbnailContents);
-	Gura_AssignMethod(wx_TaskBarButton, InsertThumbBarButton);
-	Gura_AssignMethod(wx_TaskBarButton, AppendThumbBarButton);
-	Gura_AssignMethod(wx_TaskBarButton, AppendSeparatorInThumbBar);
-	Gura_AssignMethod(wx_TaskBarButton, RemoveThumbBarButton);
-	Gura_AssignMethod(wx_TaskBarButton, RemoveThumbBarButton_1);
+	Gura_AssignMethod(wx_TaskBarButton, __SetProgressRange);
+	Gura_AssignMethod(wx_TaskBarButton, __SetProgressValue);
+	Gura_AssignMethod(wx_TaskBarButton, __PulseProgress);
+	Gura_AssignMethod(wx_TaskBarButton, __Show);
+	Gura_AssignMethod(wx_TaskBarButton, __Hide);
+	Gura_AssignMethod(wx_TaskBarButton, __SetThumbnailTooltip);
+	Gura_AssignMethod(wx_TaskBarButton, __SetProgressState);
+	Gura_AssignMethod(wx_TaskBarButton, __SetOverlayIcon);
+	Gura_AssignMethod(wx_TaskBarButton, __SetThumbnailClip);
+	Gura_AssignMethod(wx_TaskBarButton, __SetThumbnailContents);
+	Gura_AssignMethod(wx_TaskBarButton, __InsertThumbBarButton);
+	Gura_AssignMethod(wx_TaskBarButton, __AppendThumbBarButton);
+	Gura_AssignMethod(wx_TaskBarButton, __AppendSeparatorInThumbBar);
+	Gura_AssignMethod(wx_TaskBarButton, __RemoveThumbBarButton);
+	Gura_AssignMethod(wx_TaskBarButton, __RemoveThumbBarButton_1);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarButton)

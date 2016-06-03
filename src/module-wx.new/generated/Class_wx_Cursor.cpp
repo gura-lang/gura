@@ -37,12 +37,12 @@ String Object_wx_Cursor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Cursor, wxCursor)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor, "wxCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor)
+Gura_ImplementMethod(wx_Cursor, __wxCursor)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Cursor, wxCursor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, wxCursor_1)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor_1, "wxCursor_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_1)
 	//DeclareArg(env, "maskBits", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor_1)
+Gura_ImplementMethod(wx_Cursor, __wxCursor_1)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Cursor, wxCursor_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, wxCursor_2)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor_2, "wxCursor_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursorName", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_DeclareMethod(wx_Cursor, wxCursor_2)
 	//DeclareArg(env, "hotSpotY", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor_2)
+Gura_ImplementMethod(wx_Cursor, __wxCursor_2)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_Cursor, wxCursor_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, wxCursor_3)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor_3, "wxCursor_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursorId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor_3)
+Gura_ImplementMethod(wx_Cursor, __wxCursor_3)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_Cursor, wxCursor_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, wxCursor_4)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor_4, "wxCursor_4")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor_4)
+Gura_ImplementMethod(wx_Cursor, __wxCursor_4)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_Cursor, wxCursor_4)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, wxCursor_5)
+Gura_DeclareMethodAlias(wx_Cursor, __wxCursor_5, "wxCursor_5")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Cursor, wxCursor_5)
+Gura_ImplementMethod(wx_Cursor, __wxCursor_5)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,12 +141,12 @@ Gura_ImplementMethod(wx_Cursor, wxCursor_5)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, IsOk)
+Gura_DeclareMethodAlias(wx_Cursor, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Cursor, IsOk)
+Gura_ImplementMethod(wx_Cursor, __IsOk)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,12 +154,12 @@ Gura_ImplementMethod(wx_Cursor, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Cursor, GetHotSpot)
+Gura_DeclareMethodAlias(wx_Cursor, __GetHotSpot, "GetHotSpot")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Cursor, GetHotSpot)
+Gura_ImplementMethod(wx_Cursor, __GetHotSpot)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,14 +172,14 @@ Gura_ImplementMethod(wx_Cursor, GetHotSpot)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Cursor)
 {
-	Gura_AssignMethod(wx_Cursor, wxCursor);
-	Gura_AssignMethod(wx_Cursor, wxCursor_1);
-	Gura_AssignMethod(wx_Cursor, wxCursor_2);
-	Gura_AssignMethod(wx_Cursor, wxCursor_3);
-	Gura_AssignMethod(wx_Cursor, wxCursor_4);
-	Gura_AssignMethod(wx_Cursor, wxCursor_5);
-	Gura_AssignMethod(wx_Cursor, IsOk);
-	Gura_AssignMethod(wx_Cursor, GetHotSpot);
+	Gura_AssignMethod(wx_Cursor, __wxCursor);
+	Gura_AssignMethod(wx_Cursor, __wxCursor_1);
+	Gura_AssignMethod(wx_Cursor, __wxCursor_2);
+	Gura_AssignMethod(wx_Cursor, __wxCursor_3);
+	Gura_AssignMethod(wx_Cursor, __wxCursor_4);
+	Gura_AssignMethod(wx_Cursor, __wxCursor_5);
+	Gura_AssignMethod(wx_Cursor, __IsOk);
+	Gura_AssignMethod(wx_Cursor, __GetHotSpot);
 }
 
 Gura_ImplementDescendantCreator(wx_Cursor)

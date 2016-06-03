@@ -37,13 +37,13 @@ String Object_wx_HashSet::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HashSet, wxHashSet)
+Gura_DeclareMethodAlias(wx_HashSet, __wxHashSet, "wxHashSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, wxHashSet)
+Gura_ImplementMethod(wx_HashSet, __wxHashSet)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_HashSet, wxHashSet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, wxHashSet_1)
+Gura_DeclareMethodAlias(wx_HashSet, __wxHashSet_1, "wxHashSet_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "set", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, wxHashSet_1)
+Gura_ImplementMethod(wx_HashSet, __wxHashSet_1)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_HashSet, wxHashSet_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, begin)
+Gura_DeclareMethodAlias(wx_HashSet, __begin, "begin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, begin)
+Gura_ImplementMethod(wx_HashSet, __begin)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_HashSet, begin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, begin_1)
+Gura_DeclareMethodAlias(wx_HashSet, __begin_1, "begin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, begin_1)
+Gura_ImplementMethod(wx_HashSet, __begin_1)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HashSet, begin_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, clear)
+Gura_DeclareMethodAlias(wx_HashSet, __clear, "clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, clear)
+Gura_ImplementMethod(wx_HashSet, __clear)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_HashSet, clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, count)
+Gura_DeclareMethodAlias(wx_HashSet, __count, "count")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, count)
+Gura_ImplementMethod(wx_HashSet, __count)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_HashSet, count)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, empty)
+Gura_DeclareMethodAlias(wx_HashSet, __empty, "empty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, empty)
+Gura_ImplementMethod(wx_HashSet, __empty)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_HashSet, empty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, end)
+Gura_DeclareMethodAlias(wx_HashSet, __end, "end")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, end)
+Gura_ImplementMethod(wx_HashSet, __end)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,12 +147,12 @@ Gura_ImplementMethod(wx_HashSet, end)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, end_1)
+Gura_DeclareMethodAlias(wx_HashSet, __end_1, "end_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, end_1)
+Gura_ImplementMethod(wx_HashSet, __end_1)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_HashSet, end_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, erase)
+Gura_DeclareMethodAlias(wx_HashSet, __erase, "erase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, erase)
+Gura_ImplementMethod(wx_HashSet, __erase)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_HashSet, erase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, erase_1)
+Gura_DeclareMethodAlias(wx_HashSet, __erase_1, "erase_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, erase_1)
+Gura_ImplementMethod(wx_HashSet, __erase_1)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,13 +190,13 @@ Gura_ImplementMethod(wx_HashSet, erase_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, erase_2)
+Gura_DeclareMethodAlias(wx_HashSet, __erase_2, "erase_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, erase_2)
+Gura_ImplementMethod(wx_HashSet, __erase_2)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_HashSet, erase_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, find)
+Gura_DeclareMethodAlias(wx_HashSet, __find, "find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, find)
+Gura_ImplementMethod(wx_HashSet, __find)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,13 +220,13 @@ Gura_ImplementMethod(wx_HashSet, find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, find_1)
+Gura_DeclareMethodAlias(wx_HashSet, __find_1, "find_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, find_1)
+Gura_ImplementMethod(wx_HashSet, __find_1)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_HashSet, find_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, insert)
+Gura_DeclareMethodAlias(wx_HashSet, __insert, "insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HashSet, insert)
+Gura_ImplementMethod(wx_HashSet, __insert)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,12 +250,12 @@ Gura_ImplementMethod(wx_HashSet, insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HashSet, size)
+Gura_DeclareMethodAlias(wx_HashSet, __size, "size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HashSet, size)
+Gura_ImplementMethod(wx_HashSet, __size)
 {
 	Object_wx_HashSet *pThis = Object_wx_HashSet::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,22 +268,22 @@ Gura_ImplementMethod(wx_HashSet, size)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HashSet)
 {
-	Gura_AssignMethod(wx_HashSet, wxHashSet);
-	Gura_AssignMethod(wx_HashSet, wxHashSet_1);
-	Gura_AssignMethod(wx_HashSet, begin);
-	Gura_AssignMethod(wx_HashSet, begin_1);
-	Gura_AssignMethod(wx_HashSet, clear);
-	Gura_AssignMethod(wx_HashSet, count);
-	Gura_AssignMethod(wx_HashSet, empty);
-	Gura_AssignMethod(wx_HashSet, end);
-	Gura_AssignMethod(wx_HashSet, end_1);
-	Gura_AssignMethod(wx_HashSet, erase);
-	Gura_AssignMethod(wx_HashSet, erase_1);
-	Gura_AssignMethod(wx_HashSet, erase_2);
-	Gura_AssignMethod(wx_HashSet, find);
-	Gura_AssignMethod(wx_HashSet, find_1);
-	Gura_AssignMethod(wx_HashSet, insert);
-	Gura_AssignMethod(wx_HashSet, size);
+	Gura_AssignMethod(wx_HashSet, __wxHashSet);
+	Gura_AssignMethod(wx_HashSet, __wxHashSet_1);
+	Gura_AssignMethod(wx_HashSet, __begin);
+	Gura_AssignMethod(wx_HashSet, __begin_1);
+	Gura_AssignMethod(wx_HashSet, __clear);
+	Gura_AssignMethod(wx_HashSet, __count);
+	Gura_AssignMethod(wx_HashSet, __empty);
+	Gura_AssignMethod(wx_HashSet, __end);
+	Gura_AssignMethod(wx_HashSet, __end_1);
+	Gura_AssignMethod(wx_HashSet, __erase);
+	Gura_AssignMethod(wx_HashSet, __erase_1);
+	Gura_AssignMethod(wx_HashSet, __erase_2);
+	Gura_AssignMethod(wx_HashSet, __find);
+	Gura_AssignMethod(wx_HashSet, __find_1);
+	Gura_AssignMethod(wx_HashSet, __insert);
+	Gura_AssignMethod(wx_HashSet, __size);
 }
 
 Gura_ImplementDescendantCreator(wx_HashSet)

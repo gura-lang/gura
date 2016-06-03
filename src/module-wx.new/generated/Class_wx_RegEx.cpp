@@ -37,12 +37,12 @@ String Object_wx_RegEx::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RegEx, wxRegEx)
+Gura_DeclareMethodAlias(wx_RegEx, __wxRegEx, "wxRegEx")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RegEx, wxRegEx)
+Gura_ImplementMethod(wx_RegEx, __wxRegEx)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_RegEx, wxRegEx)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, wxRegEx_1)
+Gura_DeclareMethodAlias(wx_RegEx, __wxRegEx_1, "wxRegEx_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "expr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, wxRegEx_1)
+Gura_ImplementMethod(wx_RegEx, __wxRegEx_1)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_RegEx, wxRegEx_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, Compile)
+Gura_DeclareMethodAlias(wx_RegEx, __Compile, "Compile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pattern", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, Compile)
+Gura_ImplementMethod(wx_RegEx, __Compile)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_RegEx, Compile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, GetMatch)
+Gura_DeclareMethodAlias(wx_RegEx, __GetMatch, "GetMatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_RegEx, GetMatch)
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, GetMatch)
+Gura_ImplementMethod(wx_RegEx, __GetMatch)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,14 +103,14 @@ Gura_ImplementMethod(wx_RegEx, GetMatch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, GetMatch_1)
+Gura_DeclareMethodAlias(wx_RegEx, __GetMatch_1, "GetMatch_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, GetMatch_1)
+Gura_ImplementMethod(wx_RegEx, __GetMatch_1)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,12 +120,12 @@ Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, GetMatchCount)
+Gura_DeclareMethodAlias(wx_RegEx, __GetMatchCount, "GetMatchCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RegEx, GetMatchCount)
+Gura_ImplementMethod(wx_RegEx, __GetMatchCount)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,12 +133,12 @@ Gura_ImplementMethod(wx_RegEx, GetMatchCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, IsValid)
+Gura_DeclareMethodAlias(wx_RegEx, __IsValid, "IsValid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RegEx, IsValid)
+Gura_ImplementMethod(wx_RegEx, __IsValid)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,14 +146,14 @@ Gura_ImplementMethod(wx_RegEx, IsValid)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, Matches)
+Gura_DeclareMethodAlias(wx_RegEx, __Matches, "Matches")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, Matches)
+Gura_ImplementMethod(wx_RegEx, __Matches)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_RegEx, Matches)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, Matches_1)
+Gura_DeclareMethodAlias(wx_RegEx, __Matches_1, "Matches_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -171,7 +171,7 @@ Gura_DeclareMethod(wx_RegEx, Matches_1)
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, Matches_1)
+Gura_ImplementMethod(wx_RegEx, __Matches_1)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,14 +182,14 @@ Gura_ImplementMethod(wx_RegEx, Matches_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, Matches_2)
+Gura_DeclareMethodAlias(wx_RegEx, __Matches_2, "Matches_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, Matches_2)
+Gura_ImplementMethod(wx_RegEx, __Matches_2)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_RegEx, Matches_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, Replace)
+Gura_DeclareMethodAlias(wx_RegEx, __Replace, "Replace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -207,7 +207,7 @@ Gura_DeclareMethod(wx_RegEx, Replace)
 	//DeclareArg(env, "maxMatches", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, Replace)
+Gura_ImplementMethod(wx_RegEx, __Replace)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,14 +218,14 @@ Gura_ImplementMethod(wx_RegEx, Replace)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, ReplaceAll)
+Gura_DeclareMethodAlias(wx_RegEx, __ReplaceAll, "ReplaceAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replacement", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, ReplaceAll)
+Gura_ImplementMethod(wx_RegEx, __ReplaceAll)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,14 +235,14 @@ Gura_ImplementMethod(wx_RegEx, ReplaceAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RegEx, ReplaceFirst)
+Gura_DeclareMethodAlias(wx_RegEx, __ReplaceFirst, "ReplaceFirst")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replacement", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegEx, ReplaceFirst)
+Gura_ImplementMethod(wx_RegEx, __ReplaceFirst)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,19 +257,19 @@ Gura_ImplementMethod(wx_RegEx, ReplaceFirst)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegEx)
 {
-	Gura_AssignMethod(wx_RegEx, wxRegEx);
-	Gura_AssignMethod(wx_RegEx, wxRegEx_1);
-	Gura_AssignMethod(wx_RegEx, Compile);
-	Gura_AssignMethod(wx_RegEx, GetMatch);
-	Gura_AssignMethod(wx_RegEx, GetMatch_1);
-	Gura_AssignMethod(wx_RegEx, GetMatchCount);
-	Gura_AssignMethod(wx_RegEx, IsValid);
-	Gura_AssignMethod(wx_RegEx, Matches);
-	Gura_AssignMethod(wx_RegEx, Matches_1);
-	Gura_AssignMethod(wx_RegEx, Matches_2);
-	Gura_AssignMethod(wx_RegEx, Replace);
-	Gura_AssignMethod(wx_RegEx, ReplaceAll);
-	Gura_AssignMethod(wx_RegEx, ReplaceFirst);
+	Gura_AssignMethod(wx_RegEx, __wxRegEx);
+	Gura_AssignMethod(wx_RegEx, __wxRegEx_1);
+	Gura_AssignMethod(wx_RegEx, __Compile);
+	Gura_AssignMethod(wx_RegEx, __GetMatch);
+	Gura_AssignMethod(wx_RegEx, __GetMatch_1);
+	Gura_AssignMethod(wx_RegEx, __GetMatchCount);
+	Gura_AssignMethod(wx_RegEx, __IsValid);
+	Gura_AssignMethod(wx_RegEx, __Matches);
+	Gura_AssignMethod(wx_RegEx, __Matches_1);
+	Gura_AssignMethod(wx_RegEx, __Matches_2);
+	Gura_AssignMethod(wx_RegEx, __Replace);
+	Gura_AssignMethod(wx_RegEx, __ReplaceAll);
+	Gura_AssignMethod(wx_RegEx, __ReplaceFirst);
 }
 
 Gura_ImplementDescendantCreator(wx_RegEx)

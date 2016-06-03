@@ -37,14 +37,14 @@ String Object_wx_DCBrushChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DCBrushChanger, wxDCBrushChanger)
+Gura_DeclareMethodAlias(wx_DCBrushChanger, __wxDCBrushChanger, "wxDCBrushChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCBrushChanger, wxDCBrushChanger)
+Gura_ImplementMethod(wx_DCBrushChanger, __wxDCBrushChanger)
 {
 	Object_wx_DCBrushChanger *pThis = Object_wx_DCBrushChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -59,7 +59,7 @@ Gura_ImplementMethod(wx_DCBrushChanger, wxDCBrushChanger)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCBrushChanger)
 {
-	Gura_AssignMethod(wx_DCBrushChanger, wxDCBrushChanger);
+	Gura_AssignMethod(wx_DCBrushChanger, __wxDCBrushChanger);
 }
 
 Gura_ImplementDescendantCreator(wx_DCBrushChanger)

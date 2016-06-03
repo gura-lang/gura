@@ -37,12 +37,12 @@ String Object_wx_GridEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridEvent, wxGridEvent)
+Gura_DeclareMethodAlias(wx_GridEvent, __wxGridEvent, "wxGridEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, wxGridEvent)
+Gura_ImplementMethod(wx_GridEvent, __wxGridEvent)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GridEvent, wxGridEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, wxGridEvent_1)
+Gura_DeclareMethodAlias(wx_GridEvent, __wxGridEvent_1, "wxGridEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_GridEvent, wxGridEvent_1)
 	//DeclareArg(env, "kbd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridEvent, wxGridEvent_1)
+Gura_ImplementMethod(wx_GridEvent, __wxGridEvent_1)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,12 +81,12 @@ Gura_ImplementMethod(wx_GridEvent, wxGridEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, AltDown)
+Gura_DeclareMethodAlias(wx_GridEvent, __AltDown, "AltDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, AltDown)
+Gura_ImplementMethod(wx_GridEvent, __AltDown)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,12 +94,12 @@ Gura_ImplementMethod(wx_GridEvent, AltDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, ControlDown)
+Gura_DeclareMethodAlias(wx_GridEvent, __ControlDown, "ControlDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, ControlDown)
+Gura_ImplementMethod(wx_GridEvent, __ControlDown)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,12 +107,12 @@ Gura_ImplementMethod(wx_GridEvent, ControlDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, GetCol)
+Gura_DeclareMethodAlias(wx_GridEvent, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, GetCol)
+Gura_ImplementMethod(wx_GridEvent, __GetCol)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,12 +120,12 @@ Gura_ImplementMethod(wx_GridEvent, GetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_GridEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, GetPosition)
+Gura_ImplementMethod(wx_GridEvent, __GetPosition)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,12 +133,12 @@ Gura_ImplementMethod(wx_GridEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, GetRow)
+Gura_DeclareMethodAlias(wx_GridEvent, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, GetRow)
+Gura_ImplementMethod(wx_GridEvent, __GetRow)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,12 +146,12 @@ Gura_ImplementMethod(wx_GridEvent, GetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, MetaDown)
+Gura_DeclareMethodAlias(wx_GridEvent, __MetaDown, "MetaDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, MetaDown)
+Gura_ImplementMethod(wx_GridEvent, __MetaDown)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,12 +159,12 @@ Gura_ImplementMethod(wx_GridEvent, MetaDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, Selecting)
+Gura_DeclareMethodAlias(wx_GridEvent, __Selecting, "Selecting")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, Selecting)
+Gura_ImplementMethod(wx_GridEvent, __Selecting)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,12 +172,12 @@ Gura_ImplementMethod(wx_GridEvent, Selecting)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridEvent, ShiftDown)
+Gura_DeclareMethodAlias(wx_GridEvent, __ShiftDown, "ShiftDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridEvent, ShiftDown)
+Gura_ImplementMethod(wx_GridEvent, __ShiftDown)
 {
 	Object_wx_GridEvent *pThis = Object_wx_GridEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,16 +190,16 @@ Gura_ImplementMethod(wx_GridEvent, ShiftDown)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridEvent)
 {
-	Gura_AssignMethod(wx_GridEvent, wxGridEvent);
-	Gura_AssignMethod(wx_GridEvent, wxGridEvent_1);
-	Gura_AssignMethod(wx_GridEvent, AltDown);
-	Gura_AssignMethod(wx_GridEvent, ControlDown);
-	Gura_AssignMethod(wx_GridEvent, GetCol);
-	Gura_AssignMethod(wx_GridEvent, GetPosition);
-	Gura_AssignMethod(wx_GridEvent, GetRow);
-	Gura_AssignMethod(wx_GridEvent, MetaDown);
-	Gura_AssignMethod(wx_GridEvent, Selecting);
-	Gura_AssignMethod(wx_GridEvent, ShiftDown);
+	Gura_AssignMethod(wx_GridEvent, __wxGridEvent);
+	Gura_AssignMethod(wx_GridEvent, __wxGridEvent_1);
+	Gura_AssignMethod(wx_GridEvent, __AltDown);
+	Gura_AssignMethod(wx_GridEvent, __ControlDown);
+	Gura_AssignMethod(wx_GridEvent, __GetCol);
+	Gura_AssignMethod(wx_GridEvent, __GetPosition);
+	Gura_AssignMethod(wx_GridEvent, __GetRow);
+	Gura_AssignMethod(wx_GridEvent, __MetaDown);
+	Gura_AssignMethod(wx_GridEvent, __Selecting);
+	Gura_AssignMethod(wx_GridEvent, __ShiftDown);
 }
 
 Gura_ImplementDescendantCreator(wx_GridEvent)

@@ -37,12 +37,12 @@ String Object_wx_SearchCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SearchCtrl, wxSearchCtrl)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __wxSearchCtrl, "wxSearchCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, wxSearchCtrl)
+Gura_ImplementMethod(wx_SearchCtrl, __wxSearchCtrl)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_SearchCtrl, wxSearchCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, wxSearchCtrl_1)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __wxSearchCtrl_1, "wxSearchCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_SearchCtrl, wxSearchCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, wxSearchCtrl_1)
+Gura_ImplementMethod(wx_SearchCtrl, __wxSearchCtrl_1)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_SearchCtrl, wxSearchCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, Create)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_SearchCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, Create)
+Gura_ImplementMethod(wx_SearchCtrl, __Create)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_SearchCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, GetMenu)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __GetMenu, "GetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
+Gura_ImplementMethod(wx_SearchCtrl, __GetMenu)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_SearchCtrl, GetMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, IsSearchButtonVisible)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __IsSearchButtonVisible, "IsSearchButtonVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
+Gura_ImplementMethod(wx_SearchCtrl, __IsSearchButtonVisible)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_SearchCtrl, IsSearchButtonVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, IsCancelButtonVisible)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __IsCancelButtonVisible, "IsCancelButtonVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, IsCancelButtonVisible)
+Gura_ImplementMethod(wx_SearchCtrl, __IsCancelButtonVisible)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_SearchCtrl, IsCancelButtonVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, SetMenu)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __SetMenu, "SetMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, SetMenu)
+Gura_ImplementMethod(wx_SearchCtrl, __SetMenu)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_SearchCtrl, SetMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, ShowCancelButton)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __ShowCancelButton, "ShowCancelButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, ShowCancelButton)
+Gura_ImplementMethod(wx_SearchCtrl, __ShowCancelButton)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_SearchCtrl, ShowCancelButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, ShowSearchButton)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __ShowSearchButton, "ShowSearchButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, ShowSearchButton)
+Gura_ImplementMethod(wx_SearchCtrl, __ShowSearchButton)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_SearchCtrl, ShowSearchButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, SetDescriptiveText)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __SetDescriptiveText, "SetDescriptiveText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, SetDescriptiveText)
+Gura_ImplementMethod(wx_SearchCtrl, __SetDescriptiveText)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,12 +207,12 @@ Gura_ImplementMethod(wx_SearchCtrl, SetDescriptiveText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SearchCtrl, GetDescriptiveText)
+Gura_DeclareMethodAlias(wx_SearchCtrl, __GetDescriptiveText, "GetDescriptiveText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SearchCtrl, GetDescriptiveText)
+Gura_ImplementMethod(wx_SearchCtrl, __GetDescriptiveText)
 {
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,17 +225,17 @@ Gura_ImplementMethod(wx_SearchCtrl, GetDescriptiveText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SearchCtrl)
 {
-	Gura_AssignMethod(wx_SearchCtrl, wxSearchCtrl);
-	Gura_AssignMethod(wx_SearchCtrl, wxSearchCtrl_1);
-	Gura_AssignMethod(wx_SearchCtrl, Create);
-	Gura_AssignMethod(wx_SearchCtrl, GetMenu);
-	Gura_AssignMethod(wx_SearchCtrl, IsSearchButtonVisible);
-	Gura_AssignMethod(wx_SearchCtrl, IsCancelButtonVisible);
-	Gura_AssignMethod(wx_SearchCtrl, SetMenu);
-	Gura_AssignMethod(wx_SearchCtrl, ShowCancelButton);
-	Gura_AssignMethod(wx_SearchCtrl, ShowSearchButton);
-	Gura_AssignMethod(wx_SearchCtrl, SetDescriptiveText);
-	Gura_AssignMethod(wx_SearchCtrl, GetDescriptiveText);
+	Gura_AssignMethod(wx_SearchCtrl, __wxSearchCtrl);
+	Gura_AssignMethod(wx_SearchCtrl, __wxSearchCtrl_1);
+	Gura_AssignMethod(wx_SearchCtrl, __Create);
+	Gura_AssignMethod(wx_SearchCtrl, __GetMenu);
+	Gura_AssignMethod(wx_SearchCtrl, __IsSearchButtonVisible);
+	Gura_AssignMethod(wx_SearchCtrl, __IsCancelButtonVisible);
+	Gura_AssignMethod(wx_SearchCtrl, __SetMenu);
+	Gura_AssignMethod(wx_SearchCtrl, __ShowCancelButton);
+	Gura_AssignMethod(wx_SearchCtrl, __ShowSearchButton);
+	Gura_AssignMethod(wx_SearchCtrl, __SetDescriptiveText);
+	Gura_AssignMethod(wx_SearchCtrl, __GetDescriptiveText);
 }
 
 Gura_ImplementDescendantCreator(wx_SearchCtrl)

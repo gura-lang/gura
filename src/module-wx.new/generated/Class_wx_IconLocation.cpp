@@ -37,12 +37,12 @@ String Object_wx_IconLocation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_IconLocation, IsOk)
+Gura_DeclareMethodAlias(wx_IconLocation, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IconLocation, IsOk)
+Gura_ImplementMethod(wx_IconLocation, __IsOk)
 {
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_IconLocation, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IconLocation, SetFileName)
+Gura_DeclareMethodAlias(wx_IconLocation, __SetFileName, "SetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_IconLocation, SetFileName)
+Gura_ImplementMethod(wx_IconLocation, __SetFileName)
 {
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_IconLocation, SetFileName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_IconLocation, GetFileName)
+Gura_DeclareMethodAlias(wx_IconLocation, __GetFileName, "GetFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_IconLocation, GetFileName)
+Gura_ImplementMethod(wx_IconLocation, __GetFileName)
 {
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_IconLocation, GetFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_IconLocation)
 {
-	Gura_AssignMethod(wx_IconLocation, IsOk);
-	Gura_AssignMethod(wx_IconLocation, SetFileName);
-	Gura_AssignMethod(wx_IconLocation, GetFileName);
+	Gura_AssignMethod(wx_IconLocation, __IsOk);
+	Gura_AssignMethod(wx_IconLocation, __SetFileName);
+	Gura_AssignMethod(wx_IconLocation, __GetFileName);
 }
 
 Gura_ImplementDescendantCreator(wx_IconLocation)

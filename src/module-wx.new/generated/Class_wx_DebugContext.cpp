@@ -37,13 +37,13 @@ String Object_wx_DebugContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DebugContext, Check)
+Gura_DeclareMethodAlias(wx_DebugContext, __Check, "Check")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "checkAll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, Check)
+Gura_ImplementMethod(wx_DebugContext, __Check)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_DebugContext, Check)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, Dump)
+Gura_DeclareMethodAlias(wx_DebugContext, __Dump, "Dump")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugContext, Dump)
+Gura_ImplementMethod(wx_DebugContext, __Dump)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_DebugContext, Dump)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, GetCheckPrevious)
+Gura_DeclareMethodAlias(wx_DebugContext, __GetCheckPrevious, "GetCheckPrevious")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugContext, GetCheckPrevious)
+Gura_ImplementMethod(wx_DebugContext, __GetCheckPrevious)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_DebugContext, GetCheckPrevious)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, GetDebugMode)
+Gura_DeclareMethodAlias(wx_DebugContext, __GetDebugMode, "GetDebugMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugContext, GetDebugMode)
+Gura_ImplementMethod(wx_DebugContext, __GetDebugMode)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_DebugContext, GetDebugMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, GetLevel)
+Gura_DeclareMethodAlias(wx_DebugContext, __GetLevel, "GetLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugContext, GetLevel)
+Gura_ImplementMethod(wx_DebugContext, __GetLevel)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_DebugContext, GetLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, PrintClasses)
+Gura_DeclareMethodAlias(wx_DebugContext, __PrintClasses, "PrintClasses")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugContext, PrintClasses)
+Gura_ImplementMethod(wx_DebugContext, __PrintClasses)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_DebugContext, PrintClasses)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, PrintStatistics)
+Gura_DeclareMethodAlias(wx_DebugContext, __PrintStatistics, "PrintStatistics")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "detailed", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, PrintStatistics)
+Gura_ImplementMethod(wx_DebugContext, __PrintStatistics)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_DebugContext, PrintStatistics)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, SetCheckPrevious)
+Gura_DeclareMethodAlias(wx_DebugContext, __SetCheckPrevious, "SetCheckPrevious")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "check", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, SetCheckPrevious)
+Gura_ImplementMethod(wx_DebugContext, __SetCheckPrevious)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_DebugContext, SetCheckPrevious)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, SetCheckpoint)
+Gura_DeclareMethodAlias(wx_DebugContext, __SetCheckpoint, "SetCheckpoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "all", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, SetCheckpoint)
+Gura_ImplementMethod(wx_DebugContext, __SetCheckpoint)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_DebugContext, SetCheckpoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, SetDebugMode)
+Gura_DeclareMethodAlias(wx_DebugContext, __SetDebugMode, "SetDebugMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "debug", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, SetDebugMode)
+Gura_ImplementMethod(wx_DebugContext, __SetDebugMode)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_DebugContext, SetDebugMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, SetLevel)
+Gura_DeclareMethodAlias(wx_DebugContext, __SetLevel, "SetLevel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, SetLevel)
+Gura_ImplementMethod(wx_DebugContext, __SetLevel)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_DebugContext, SetLevel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugContext, SetShutdownNotifyFunction)
+Gura_DeclareMethodAlias(wx_DebugContext, __SetShutdownNotifyFunction, "SetShutdownNotifyFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "func", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugContext, SetShutdownNotifyFunction)
+Gura_ImplementMethod(wx_DebugContext, __SetShutdownNotifyFunction)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,18 +212,18 @@ Gura_ImplementMethod(wx_DebugContext, SetShutdownNotifyFunction)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugContext)
 {
-	Gura_AssignMethod(wx_DebugContext, Check);
-	Gura_AssignMethod(wx_DebugContext, Dump);
-	Gura_AssignMethod(wx_DebugContext, GetCheckPrevious);
-	Gura_AssignMethod(wx_DebugContext, GetDebugMode);
-	Gura_AssignMethod(wx_DebugContext, GetLevel);
-	Gura_AssignMethod(wx_DebugContext, PrintClasses);
-	Gura_AssignMethod(wx_DebugContext, PrintStatistics);
-	Gura_AssignMethod(wx_DebugContext, SetCheckPrevious);
-	Gura_AssignMethod(wx_DebugContext, SetCheckpoint);
-	Gura_AssignMethod(wx_DebugContext, SetDebugMode);
-	Gura_AssignMethod(wx_DebugContext, SetLevel);
-	Gura_AssignMethod(wx_DebugContext, SetShutdownNotifyFunction);
+	Gura_AssignMethod(wx_DebugContext, __Check);
+	Gura_AssignMethod(wx_DebugContext, __Dump);
+	Gura_AssignMethod(wx_DebugContext, __GetCheckPrevious);
+	Gura_AssignMethod(wx_DebugContext, __GetDebugMode);
+	Gura_AssignMethod(wx_DebugContext, __GetLevel);
+	Gura_AssignMethod(wx_DebugContext, __PrintClasses);
+	Gura_AssignMethod(wx_DebugContext, __PrintStatistics);
+	Gura_AssignMethod(wx_DebugContext, __SetCheckPrevious);
+	Gura_AssignMethod(wx_DebugContext, __SetCheckpoint);
+	Gura_AssignMethod(wx_DebugContext, __SetDebugMode);
+	Gura_AssignMethod(wx_DebugContext, __SetLevel);
+	Gura_AssignMethod(wx_DebugContext, __SetShutdownNotifyFunction);
 }
 
 Gura_ImplementDescendantCreator(wx_DebugContext)

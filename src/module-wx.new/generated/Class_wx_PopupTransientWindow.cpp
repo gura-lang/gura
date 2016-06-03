@@ -37,12 +37,12 @@ String Object_wx_PopupTransientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PopupTransientWindow, wxPopupTransientWindow)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __wxPopupTransientWindow, "wxPopupTransientWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow)
+Gura_ImplementMethod(wx_PopupTransientWindow, __wxPopupTransientWindow)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __wxPopupTransientWindow_1, "wxPopupTransientWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1)
+Gura_ImplementMethod(wx_PopupTransientWindow, __wxPopupTransientWindow_1)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PopupTransientWindow, Popup)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __Popup, "Popup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "focus", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
+Gura_ImplementMethod(wx_PopupTransientWindow, __Popup)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Popup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PopupTransientWindow, Dismiss)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __Dismiss, "Dismiss")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
+Gura_ImplementMethod(wx_PopupTransientWindow, __Dismiss)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_PopupTransientWindow, Dismiss)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PopupTransientWindow, ProcessLeftDown)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __ProcessLeftDown, "ProcessLeftDown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
+Gura_ImplementMethod(wx_PopupTransientWindow, __ProcessLeftDown)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_PopupTransientWindow, ProcessLeftDown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PopupTransientWindow, OnDismiss)
+Gura_DeclareMethodAlias(wx_PopupTransientWindow, __OnDismiss, "OnDismiss")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
+Gura_ImplementMethod(wx_PopupTransientWindow, __OnDismiss)
 {
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_PopupTransientWindow, OnDismiss)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PopupTransientWindow)
 {
-	Gura_AssignMethod(wx_PopupTransientWindow, wxPopupTransientWindow);
-	Gura_AssignMethod(wx_PopupTransientWindow, wxPopupTransientWindow_1);
-	Gura_AssignMethod(wx_PopupTransientWindow, Popup);
-	Gura_AssignMethod(wx_PopupTransientWindow, Dismiss);
-	Gura_AssignMethod(wx_PopupTransientWindow, ProcessLeftDown);
-	Gura_AssignMethod(wx_PopupTransientWindow, OnDismiss);
+	Gura_AssignMethod(wx_PopupTransientWindow, __wxPopupTransientWindow);
+	Gura_AssignMethod(wx_PopupTransientWindow, __wxPopupTransientWindow_1);
+	Gura_AssignMethod(wx_PopupTransientWindow, __Popup);
+	Gura_AssignMethod(wx_PopupTransientWindow, __Dismiss);
+	Gura_AssignMethod(wx_PopupTransientWindow, __ProcessLeftDown);
+	Gura_AssignMethod(wx_PopupTransientWindow, __OnDismiss);
 }
 
 Gura_ImplementDescendantCreator(wx_PopupTransientWindow)

@@ -37,13 +37,13 @@ String Object_wx_FileTranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
+Gura_DeclareMethodAlias(wx_FileTranslationsLoader, __AddCatalogLookupPathPrefix, "AddCatalogLookupPathPrefix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
+Gura_ImplementMethod(wx_FileTranslationsLoader, __AddCatalogLookupPathPrefix)
 {
 	Object_wx_FileTranslationsLoader *pThis = Object_wx_FileTranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileTranslationsLoader)
 {
-	Gura_AssignMethod(wx_FileTranslationsLoader, AddCatalogLookupPathPrefix);
+	Gura_AssignMethod(wx_FileTranslationsLoader, __AddCatalogLookupPathPrefix);
 }
 
 Gura_ImplementDescendantCreator(wx_FileTranslationsLoader)

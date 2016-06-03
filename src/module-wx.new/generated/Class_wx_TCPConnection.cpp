@@ -37,12 +37,12 @@ String Object_wx_TCPConnection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TCPConnection, wxTCPConnection)
+Gura_DeclareMethodAlias(wx_TCPConnection, __wxTCPConnection, "wxTCPConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, wxTCPConnection)
+Gura_ImplementMethod(wx_TCPConnection, __wxTCPConnection)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_TCPConnection, wxTCPConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, wxTCPConnection_1)
+Gura_DeclareMethodAlias(wx_TCPConnection, __wxTCPConnection_1, "wxTCPConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, wxTCPConnection_1)
+Gura_ImplementMethod(wx_TCPConnection, __wxTCPConnection_1)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_TCPConnection, wxTCPConnection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Advise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Advise, "Advise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_TCPConnection, Advise)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Advise)
+Gura_ImplementMethod(wx_TCPConnection, __Advise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_TCPConnection, Advise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Advise_1)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Advise_1, "Advise_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Advise_1)
+Gura_ImplementMethod(wx_TCPConnection, __Advise_1)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,14 +105,14 @@ Gura_ImplementMethod(wx_TCPConnection, Advise_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Advise_2)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Advise_2, "Advise_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Advise_2)
+Gura_ImplementMethod(wx_TCPConnection, __Advise_2)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,14 +122,14 @@ Gura_ImplementMethod(wx_TCPConnection, Advise_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Advise_3)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Advise_3, "Advise_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Advise_3)
+Gura_ImplementMethod(wx_TCPConnection, __Advise_3)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_TCPConnection, Advise_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Disconnect)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Disconnect, "Disconnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Disconnect)
+Gura_ImplementMethod(wx_TCPConnection, __Disconnect)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_TCPConnection, Disconnect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Execute)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Execute, "Execute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -160,7 +160,7 @@ Gura_DeclareMethod(wx_TCPConnection, Execute)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Execute)
+Gura_ImplementMethod(wx_TCPConnection, __Execute)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_TCPConnection, Execute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Execute_1)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Execute_1, "Execute_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Execute_1)
+Gura_ImplementMethod(wx_TCPConnection, __Execute_1)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_TCPConnection, Execute_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Execute_2)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Execute_2, "Execute_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Execute_2)
+Gura_ImplementMethod(wx_TCPConnection, __Execute_2)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_TCPConnection, Execute_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Execute_3)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Execute_3, "Execute_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Execute_3)
+Gura_ImplementMethod(wx_TCPConnection, __Execute_3)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_TCPConnection, Execute_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnAdvise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnAdvise, "OnAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -226,7 +226,7 @@ Gura_DeclareMethod(wx_TCPConnection, OnAdvise)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnAdvise)
+Gura_ImplementMethod(wx_TCPConnection, __OnAdvise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,12 +239,12 @@ Gura_ImplementMethod(wx_TCPConnection, OnAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnDisconnect)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnDisconnect, "OnDisconnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnDisconnect)
+Gura_ImplementMethod(wx_TCPConnection, __OnDisconnect)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_TCPConnection, OnDisconnect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnExecute)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnExecute, "OnExecute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -261,7 +261,7 @@ Gura_DeclareMethod(wx_TCPConnection, OnExecute)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnExecute)
+Gura_ImplementMethod(wx_TCPConnection, __OnExecute)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_TCPConnection, OnExecute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnPoke)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnPoke, "OnPoke")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -283,7 +283,7 @@ Gura_DeclareMethod(wx_TCPConnection, OnPoke)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnPoke)
+Gura_ImplementMethod(wx_TCPConnection, __OnPoke)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_TCPConnection, OnPoke)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnRequest)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnRequest, "OnRequest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -305,7 +305,7 @@ Gura_DeclareMethod(wx_TCPConnection, OnRequest)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnRequest)
+Gura_ImplementMethod(wx_TCPConnection, __OnRequest)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,14 +317,14 @@ Gura_ImplementMethod(wx_TCPConnection, OnRequest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnStartAdvise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnStartAdvise, "OnStartAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnStartAdvise)
+Gura_ImplementMethod(wx_TCPConnection, __OnStartAdvise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,14 +334,14 @@ Gura_ImplementMethod(wx_TCPConnection, OnStartAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, OnStopAdvise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __OnStopAdvise, "OnStopAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, OnStopAdvise)
+Gura_ImplementMethod(wx_TCPConnection, __OnStopAdvise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_TCPConnection, OnStopAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Poke)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Poke, "Poke")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -360,7 +360,7 @@ Gura_DeclareMethod(wx_TCPConnection, Poke)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Poke)
+Gura_ImplementMethod(wx_TCPConnection, __Poke)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -372,14 +372,14 @@ Gura_ImplementMethod(wx_TCPConnection, Poke)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Poke_1)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Poke_1, "Poke_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Poke_1)
+Gura_ImplementMethod(wx_TCPConnection, __Poke_1)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -389,14 +389,14 @@ Gura_ImplementMethod(wx_TCPConnection, Poke_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Poke_2)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Poke_2, "Poke_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Poke_2)
+Gura_ImplementMethod(wx_TCPConnection, __Poke_2)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -406,14 +406,14 @@ Gura_ImplementMethod(wx_TCPConnection, Poke_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Poke_3)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Poke_3, "Poke_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Poke_3)
+Gura_ImplementMethod(wx_TCPConnection, __Poke_3)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_TCPConnection, Poke_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, Request)
+Gura_DeclareMethodAlias(wx_TCPConnection, __Request, "Request")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -431,7 +431,7 @@ Gura_DeclareMethod(wx_TCPConnection, Request)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, Request)
+Gura_ImplementMethod(wx_TCPConnection, __Request)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -442,13 +442,13 @@ Gura_ImplementMethod(wx_TCPConnection, Request)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, StartAdvise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __StartAdvise, "StartAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, StartAdvise)
+Gura_ImplementMethod(wx_TCPConnection, __StartAdvise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,13 +457,13 @@ Gura_ImplementMethod(wx_TCPConnection, StartAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TCPConnection, StopAdvise)
+Gura_DeclareMethodAlias(wx_TCPConnection, __StopAdvise, "StopAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TCPConnection, StopAdvise)
+Gura_ImplementMethod(wx_TCPConnection, __StopAdvise)
 {
 	Object_wx_TCPConnection *pThis = Object_wx_TCPConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,31 +477,31 @@ Gura_ImplementMethod(wx_TCPConnection, StopAdvise)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TCPConnection)
 {
-	Gura_AssignMethod(wx_TCPConnection, wxTCPConnection);
-	Gura_AssignMethod(wx_TCPConnection, wxTCPConnection_1);
-	Gura_AssignMethod(wx_TCPConnection, Advise);
-	Gura_AssignMethod(wx_TCPConnection, Advise_1);
-	Gura_AssignMethod(wx_TCPConnection, Advise_2);
-	Gura_AssignMethod(wx_TCPConnection, Advise_3);
-	Gura_AssignMethod(wx_TCPConnection, Disconnect);
-	Gura_AssignMethod(wx_TCPConnection, Execute);
-	Gura_AssignMethod(wx_TCPConnection, Execute_1);
-	Gura_AssignMethod(wx_TCPConnection, Execute_2);
-	Gura_AssignMethod(wx_TCPConnection, Execute_3);
-	Gura_AssignMethod(wx_TCPConnection, OnAdvise);
-	Gura_AssignMethod(wx_TCPConnection, OnDisconnect);
-	Gura_AssignMethod(wx_TCPConnection, OnExecute);
-	Gura_AssignMethod(wx_TCPConnection, OnPoke);
-	Gura_AssignMethod(wx_TCPConnection, OnRequest);
-	Gura_AssignMethod(wx_TCPConnection, OnStartAdvise);
-	Gura_AssignMethod(wx_TCPConnection, OnStopAdvise);
-	Gura_AssignMethod(wx_TCPConnection, Poke);
-	Gura_AssignMethod(wx_TCPConnection, Poke_1);
-	Gura_AssignMethod(wx_TCPConnection, Poke_2);
-	Gura_AssignMethod(wx_TCPConnection, Poke_3);
-	Gura_AssignMethod(wx_TCPConnection, Request);
-	Gura_AssignMethod(wx_TCPConnection, StartAdvise);
-	Gura_AssignMethod(wx_TCPConnection, StopAdvise);
+	Gura_AssignMethod(wx_TCPConnection, __wxTCPConnection);
+	Gura_AssignMethod(wx_TCPConnection, __wxTCPConnection_1);
+	Gura_AssignMethod(wx_TCPConnection, __Advise);
+	Gura_AssignMethod(wx_TCPConnection, __Advise_1);
+	Gura_AssignMethod(wx_TCPConnection, __Advise_2);
+	Gura_AssignMethod(wx_TCPConnection, __Advise_3);
+	Gura_AssignMethod(wx_TCPConnection, __Disconnect);
+	Gura_AssignMethod(wx_TCPConnection, __Execute);
+	Gura_AssignMethod(wx_TCPConnection, __Execute_1);
+	Gura_AssignMethod(wx_TCPConnection, __Execute_2);
+	Gura_AssignMethod(wx_TCPConnection, __Execute_3);
+	Gura_AssignMethod(wx_TCPConnection, __OnAdvise);
+	Gura_AssignMethod(wx_TCPConnection, __OnDisconnect);
+	Gura_AssignMethod(wx_TCPConnection, __OnExecute);
+	Gura_AssignMethod(wx_TCPConnection, __OnPoke);
+	Gura_AssignMethod(wx_TCPConnection, __OnRequest);
+	Gura_AssignMethod(wx_TCPConnection, __OnStartAdvise);
+	Gura_AssignMethod(wx_TCPConnection, __OnStopAdvise);
+	Gura_AssignMethod(wx_TCPConnection, __Poke);
+	Gura_AssignMethod(wx_TCPConnection, __Poke_1);
+	Gura_AssignMethod(wx_TCPConnection, __Poke_2);
+	Gura_AssignMethod(wx_TCPConnection, __Poke_3);
+	Gura_AssignMethod(wx_TCPConnection, __Request);
+	Gura_AssignMethod(wx_TCPConnection, __StartAdvise);
+	Gura_AssignMethod(wx_TCPConnection, __StopAdvise);
 }
 
 Gura_ImplementDescendantCreator(wx_TCPConnection)

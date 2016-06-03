@@ -37,12 +37,12 @@ String Object_wx_TextAttrDimension::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextAttrDimension, wxTextAttrDimension)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __wxTextAttrDimension, "wxTextAttrDimension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension)
+Gura_ImplementMethod(wx_TextAttrDimension, __wxTextAttrDimension)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, wxTextAttrDimension_1)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __wxTextAttrDimension_1, "wxTextAttrDimension_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension_1)
+Gura_ImplementMethod(wx_TextAttrDimension, __wxTextAttrDimension_1)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, wxTextAttrDimension_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, Reset)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, Reset)
+Gura_ImplementMethod(wx_TextAttrDimension, __Reset)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_TextAttrDimension, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, EqPartial)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __EqPartial, "EqPartial")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, EqPartial)
+Gura_ImplementMethod(wx_TextAttrDimension, __EqPartial)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,14 +97,14 @@ Gura_ImplementMethod(wx_TextAttrDimension, EqPartial)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, Apply)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __Apply, "Apply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, Apply)
+Gura_ImplementMethod(wx_TextAttrDimension, __Apply)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_TextAttrDimension, Apply)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, CollectCommonAttributes)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __CollectCommonAttributes, "CollectCommonAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_DeclareMethod(wx_TextAttrDimension, CollectCommonAttributes)
 	//DeclareArg(env, "absentAttr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, CollectCommonAttributes)
+Gura_ImplementMethod(wx_TextAttrDimension, __CollectCommonAttributes)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,12 +133,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, CollectCommonAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, GetValue)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, GetValue)
+Gura_ImplementMethod(wx_TextAttrDimension, __GetValue)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,12 +146,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, GetValueMM)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __GetValueMM, "GetValueMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, GetValueMM)
+Gura_ImplementMethod(wx_TextAttrDimension, __GetValueMM)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, GetValueMM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValueMM)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValueMM, "SetValueMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValueMM)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValueMM)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValueMM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValue)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValue)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValue)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,14 +189,14 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValue_1)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValue_1, "SetValue_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValue_1)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValue_1)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,14 +206,14 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValue_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValue_2)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValue_2, "SetValue_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValue_2)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValue_2)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,13 +223,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValue_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValue_3)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValue_3, "SetValue_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dim", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValue_3)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValue_3)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,12 +238,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValue_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, GetUnits)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __GetUnits, "GetUnits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, GetUnits)
+Gura_ImplementMethod(wx_TextAttrDimension, __GetUnits)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,13 +251,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, GetUnits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetUnits)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetUnits, "SetUnits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetUnits)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetUnits)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -266,12 +266,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetUnits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, GetPosition)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, GetPosition)
+Gura_ImplementMethod(wx_TextAttrDimension, __GetPosition)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -279,13 +279,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetPosition)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetPosition)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetPosition)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -294,12 +294,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, IsValid)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __IsValid, "IsValid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, IsValid)
+Gura_ImplementMethod(wx_TextAttrDimension, __IsValid)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -307,13 +307,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, IsValid)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetValid)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetValid, "SetValid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetValid)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetValid)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,12 +322,12 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetValid)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, GetFlags)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, GetFlags)
+Gura_ImplementMethod(wx_TextAttrDimension, __GetFlags)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -335,13 +335,13 @@ Gura_ImplementMethod(wx_TextAttrDimension, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextAttrDimension, SetFlags)
+Gura_DeclareMethodAlias(wx_TextAttrDimension, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextAttrDimension, SetFlags)
+Gura_ImplementMethod(wx_TextAttrDimension, __SetFlags)
 {
 	Object_wx_TextAttrDimension *pThis = Object_wx_TextAttrDimension::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,27 +355,27 @@ Gura_ImplementMethod(wx_TextAttrDimension, SetFlags)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextAttrDimension)
 {
-	Gura_AssignMethod(wx_TextAttrDimension, wxTextAttrDimension);
-	Gura_AssignMethod(wx_TextAttrDimension, wxTextAttrDimension_1);
-	Gura_AssignMethod(wx_TextAttrDimension, Reset);
-	Gura_AssignMethod(wx_TextAttrDimension, EqPartial);
-	Gura_AssignMethod(wx_TextAttrDimension, Apply);
-	Gura_AssignMethod(wx_TextAttrDimension, CollectCommonAttributes);
-	Gura_AssignMethod(wx_TextAttrDimension, GetValue);
-	Gura_AssignMethod(wx_TextAttrDimension, GetValueMM);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValueMM);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValue);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValue_1);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValue_2);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValue_3);
-	Gura_AssignMethod(wx_TextAttrDimension, GetUnits);
-	Gura_AssignMethod(wx_TextAttrDimension, SetUnits);
-	Gura_AssignMethod(wx_TextAttrDimension, GetPosition);
-	Gura_AssignMethod(wx_TextAttrDimension, SetPosition);
-	Gura_AssignMethod(wx_TextAttrDimension, IsValid);
-	Gura_AssignMethod(wx_TextAttrDimension, SetValid);
-	Gura_AssignMethod(wx_TextAttrDimension, GetFlags);
-	Gura_AssignMethod(wx_TextAttrDimension, SetFlags);
+	Gura_AssignMethod(wx_TextAttrDimension, __wxTextAttrDimension);
+	Gura_AssignMethod(wx_TextAttrDimension, __wxTextAttrDimension_1);
+	Gura_AssignMethod(wx_TextAttrDimension, __Reset);
+	Gura_AssignMethod(wx_TextAttrDimension, __EqPartial);
+	Gura_AssignMethod(wx_TextAttrDimension, __Apply);
+	Gura_AssignMethod(wx_TextAttrDimension, __CollectCommonAttributes);
+	Gura_AssignMethod(wx_TextAttrDimension, __GetValue);
+	Gura_AssignMethod(wx_TextAttrDimension, __GetValueMM);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValueMM);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValue);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValue_1);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValue_2);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValue_3);
+	Gura_AssignMethod(wx_TextAttrDimension, __GetUnits);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetUnits);
+	Gura_AssignMethod(wx_TextAttrDimension, __GetPosition);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetPosition);
+	Gura_AssignMethod(wx_TextAttrDimension, __IsValid);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetValid);
+	Gura_AssignMethod(wx_TextAttrDimension, __GetFlags);
+	Gura_AssignMethod(wx_TextAttrDimension, __SetFlags);
 }
 
 Gura_ImplementDescendantCreator(wx_TextAttrDimension)

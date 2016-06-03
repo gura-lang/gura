@@ -37,7 +37,7 @@ String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
+Gura_DeclareMethodAlias(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor, "wxGridCellChoiceEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
+Gura_ImplementMethod(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor)
 {
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,14 +56,14 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1)
+Gura_DeclareMethodAlias(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor_1, "wxGridCellChoiceEditor_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1)
+Gura_ImplementMethod(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor_1)
 {
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,13 +73,13 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellChoiceEditor, SetParameters)
+Gura_DeclareMethodAlias(wx_GridCellChoiceEditor, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellChoiceEditor, SetParameters)
+Gura_ImplementMethod(wx_GridCellChoiceEditor, __SetParameters)
 {
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,9 +93,9 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, SetParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellChoiceEditor)
 {
-	Gura_AssignMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor);
-	Gura_AssignMethod(wx_GridCellChoiceEditor, wxGridCellChoiceEditor_1);
-	Gura_AssignMethod(wx_GridCellChoiceEditor, SetParameters);
+	Gura_AssignMethod(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor);
+	Gura_AssignMethod(wx_GridCellChoiceEditor, __wxGridCellChoiceEditor_1);
+	Gura_AssignMethod(wx_GridCellChoiceEditor, __SetParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellChoiceEditor)

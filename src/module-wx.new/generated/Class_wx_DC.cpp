@@ -37,13 +37,13 @@ String Object_wx_DC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DC, DeviceToLogicalX)
+Gura_DeclareMethodAlias(wx_DC, __DeviceToLogicalX, "DeviceToLogicalX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DeviceToLogicalX)
+Gura_ImplementMethod(wx_DC, __DeviceToLogicalX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DeviceToLogicalXRel)
+Gura_DeclareMethodAlias(wx_DC, __DeviceToLogicalXRel, "DeviceToLogicalXRel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DeviceToLogicalXRel)
+Gura_ImplementMethod(wx_DC, __DeviceToLogicalXRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalXRel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DeviceToLogicalY)
+Gura_DeclareMethodAlias(wx_DC, __DeviceToLogicalY, "DeviceToLogicalY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DeviceToLogicalY)
+Gura_ImplementMethod(wx_DC, __DeviceToLogicalY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DeviceToLogicalYRel)
+Gura_DeclareMethodAlias(wx_DC, __DeviceToLogicalYRel, "DeviceToLogicalYRel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DeviceToLogicalYRel)
+Gura_ImplementMethod(wx_DC, __DeviceToLogicalYRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_DC, DeviceToLogicalYRel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, LogicalToDeviceX)
+Gura_DeclareMethodAlias(wx_DC, __LogicalToDeviceX, "LogicalToDeviceX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, LogicalToDeviceX)
+Gura_ImplementMethod(wx_DC, __LogicalToDeviceX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, LogicalToDeviceXRel)
+Gura_DeclareMethodAlias(wx_DC, __LogicalToDeviceXRel, "LogicalToDeviceXRel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, LogicalToDeviceXRel)
+Gura_ImplementMethod(wx_DC, __LogicalToDeviceXRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceXRel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, LogicalToDeviceY)
+Gura_DeclareMethodAlias(wx_DC, __LogicalToDeviceY, "LogicalToDeviceY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, LogicalToDeviceY)
+Gura_ImplementMethod(wx_DC, __LogicalToDeviceY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, LogicalToDeviceYRel)
+Gura_DeclareMethodAlias(wx_DC, __LogicalToDeviceYRel, "LogicalToDeviceYRel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, LogicalToDeviceYRel)
+Gura_ImplementMethod(wx_DC, __LogicalToDeviceYRel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,12 +157,12 @@ Gura_ImplementMethod(wx_DC, LogicalToDeviceYRel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, Clear)
+Gura_DeclareMethodAlias(wx_DC, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, Clear)
+Gura_ImplementMethod(wx_DC, __Clear)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_DC, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawArc)
+Gura_DeclareMethodAlias(wx_DC, __DrawArc, "DrawArc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xStart", VTYPE_number, OCCUR_Once);
@@ -181,7 +181,7 @@ Gura_DeclareMethod(wx_DC, DrawArc)
 	//DeclareArg(env, "yc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawArc)
+Gura_ImplementMethod(wx_DC, __DrawArc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_DC, DrawArc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawArc_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawArc_1, "DrawArc_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ptStart", VTYPE_number, OCCUR_Once);
@@ -203,7 +203,7 @@ Gura_DeclareMethod(wx_DC, DrawArc_1)
 	//DeclareArg(env, "centre", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawArc_1)
+Gura_ImplementMethod(wx_DC, __DrawArc_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_DC, DrawArc_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawBitmap)
+Gura_DeclareMethodAlias(wx_DC, __DrawBitmap, "DrawBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -223,7 +223,7 @@ Gura_DeclareMethod(wx_DC, DrawBitmap)
 	//DeclareArg(env, "useMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawBitmap)
+Gura_ImplementMethod(wx_DC, __DrawBitmap)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_DC, DrawBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawBitmap_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawBitmap_1, "DrawBitmap_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
@@ -243,7 +243,7 @@ Gura_DeclareMethod(wx_DC, DrawBitmap_1)
 	//DeclareArg(env, "useMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawBitmap_1)
+Gura_ImplementMethod(wx_DC, __DrawBitmap_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_DC, DrawBitmap_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawCheckMark)
+Gura_DeclareMethodAlias(wx_DC, __DrawCheckMark, "DrawCheckMark")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_DC, DrawCheckMark)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawCheckMark)
+Gura_ImplementMethod(wx_DC, __DrawCheckMark)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,13 +275,13 @@ Gura_ImplementMethod(wx_DC, DrawCheckMark)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawCheckMark_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawCheckMark_1, "DrawCheckMark_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawCheckMark_1)
+Gura_ImplementMethod(wx_DC, __DrawCheckMark_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_DC, DrawCheckMark_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawCircle)
+Gura_DeclareMethodAlias(wx_DC, __DrawCircle, "DrawCircle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -298,7 +298,7 @@ Gura_DeclareMethod(wx_DC, DrawCircle)
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawCircle)
+Gura_ImplementMethod(wx_DC, __DrawCircle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -309,14 +309,14 @@ Gura_ImplementMethod(wx_DC, DrawCircle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawCircle_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawCircle_1, "DrawCircle_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawCircle_1)
+Gura_ImplementMethod(wx_DC, __DrawCircle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_DC, DrawCircle_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawEllipse)
+Gura_DeclareMethodAlias(wx_DC, __DrawEllipse, "DrawEllipse")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -335,7 +335,7 @@ Gura_DeclareMethod(wx_DC, DrawEllipse)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawEllipse)
+Gura_ImplementMethod(wx_DC, __DrawEllipse)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,14 +347,14 @@ Gura_ImplementMethod(wx_DC, DrawEllipse)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawEllipse_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawEllipse_1, "DrawEllipse_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawEllipse_1)
+Gura_ImplementMethod(wx_DC, __DrawEllipse_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,13 +364,13 @@ Gura_ImplementMethod(wx_DC, DrawEllipse_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawEllipse_2)
+Gura_DeclareMethodAlias(wx_DC, __DrawEllipse_2, "DrawEllipse_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawEllipse_2)
+Gura_ImplementMethod(wx_DC, __DrawEllipse_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipse_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawEllipticArc)
+Gura_DeclareMethodAlias(wx_DC, __DrawEllipticArc, "DrawEllipticArc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -390,7 +390,7 @@ Gura_DeclareMethod(wx_DC, DrawEllipticArc)
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawEllipticArc)
+Gura_ImplementMethod(wx_DC, __DrawEllipticArc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipticArc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawEllipticArc_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawEllipticArc_1, "DrawEllipticArc_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -413,7 +413,7 @@ Gura_DeclareMethod(wx_DC, DrawEllipticArc_1)
 	//DeclareArg(env, "ea", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawEllipticArc_1)
+Gura_ImplementMethod(wx_DC, __DrawEllipticArc_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_DC, DrawEllipticArc_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawIcon)
+Gura_DeclareMethodAlias(wx_DC, __DrawIcon, "DrawIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -433,7 +433,7 @@ Gura_DeclareMethod(wx_DC, DrawIcon)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawIcon)
+Gura_ImplementMethod(wx_DC, __DrawIcon)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -444,14 +444,14 @@ Gura_ImplementMethod(wx_DC, DrawIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawIcon_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawIcon_1, "DrawIcon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawIcon_1)
+Gura_ImplementMethod(wx_DC, __DrawIcon_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_DC, DrawIcon_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLabel)
+Gura_DeclareMethodAlias(wx_DC, __DrawLabel, "DrawLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -472,7 +472,7 @@ Gura_DeclareMethod(wx_DC, DrawLabel)
 	//DeclareArg(env, "rectBounding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLabel)
+Gura_ImplementMethod(wx_DC, __DrawLabel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_DC, DrawLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLabel_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawLabel_1, "DrawLabel_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -495,7 +495,7 @@ Gura_DeclareMethod(wx_DC, DrawLabel_1)
 	//DeclareArg(env, "indexAccel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLabel_1)
+Gura_ImplementMethod(wx_DC, __DrawLabel_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -507,7 +507,7 @@ Gura_ImplementMethod(wx_DC, DrawLabel_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLine)
+Gura_DeclareMethodAlias(wx_DC, __DrawLine, "DrawLine")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -516,7 +516,7 @@ Gura_DeclareMethod(wx_DC, DrawLine)
 	//DeclareArg(env, "y2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLine)
+Gura_ImplementMethod(wx_DC, __DrawLine)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -528,14 +528,14 @@ Gura_ImplementMethod(wx_DC, DrawLine)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLine_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawLine_1, "DrawLine_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLine_1)
+Gura_ImplementMethod(wx_DC, __DrawLine_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -545,7 +545,7 @@ Gura_ImplementMethod(wx_DC, DrawLine_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLines)
+Gura_DeclareMethodAlias(wx_DC, __DrawLines, "DrawLines")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -554,7 +554,7 @@ Gura_DeclareMethod(wx_DC, DrawLines)
 	//DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLines)
+Gura_ImplementMethod(wx_DC, __DrawLines)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -566,7 +566,7 @@ Gura_ImplementMethod(wx_DC, DrawLines)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawLines_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawLines_1, "DrawLines_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
@@ -574,7 +574,7 @@ Gura_DeclareMethod(wx_DC, DrawLines_1)
 	//DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawLines_1)
+Gura_ImplementMethod(wx_DC, __DrawLines_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -585,14 +585,14 @@ Gura_ImplementMethod(wx_DC, DrawLines_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawPoint)
+Gura_DeclareMethodAlias(wx_DC, __DrawPoint, "DrawPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawPoint)
+Gura_ImplementMethod(wx_DC, __DrawPoint)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -602,13 +602,13 @@ Gura_ImplementMethod(wx_DC, DrawPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawPoint_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawPoint_1, "DrawPoint_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawPoint_1)
+Gura_ImplementMethod(wx_DC, __DrawPoint_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -617,7 +617,7 @@ Gura_ImplementMethod(wx_DC, DrawPoint_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawPolygon)
+Gura_DeclareMethodAlias(wx_DC, __DrawPolygon, "DrawPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -627,7 +627,7 @@ Gura_DeclareMethod(wx_DC, DrawPolygon)
 	//DeclareArg(env, "fill_style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawPolygon)
+Gura_ImplementMethod(wx_DC, __DrawPolygon)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -640,7 +640,7 @@ Gura_ImplementMethod(wx_DC, DrawPolygon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawPolygon_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawPolygon_1, "DrawPolygon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
@@ -649,7 +649,7 @@ Gura_DeclareMethod(wx_DC, DrawPolygon_1)
 	//DeclareArg(env, "fill_style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawPolygon_1)
+Gura_ImplementMethod(wx_DC, __DrawPolygon_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -661,7 +661,7 @@ Gura_ImplementMethod(wx_DC, DrawPolygon_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawPolyPolygon)
+Gura_DeclareMethodAlias(wx_DC, __DrawPolyPolygon, "DrawPolyPolygon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -672,7 +672,7 @@ Gura_DeclareMethod(wx_DC, DrawPolyPolygon)
 	//DeclareArg(env, "fill_style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawPolyPolygon)
+Gura_ImplementMethod(wx_DC, __DrawPolyPolygon)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -686,7 +686,7 @@ Gura_ImplementMethod(wx_DC, DrawPolyPolygon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRectangle)
+Gura_DeclareMethodAlias(wx_DC, __DrawRectangle, "DrawRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -695,7 +695,7 @@ Gura_DeclareMethod(wx_DC, DrawRectangle)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRectangle)
+Gura_ImplementMethod(wx_DC, __DrawRectangle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -707,14 +707,14 @@ Gura_ImplementMethod(wx_DC, DrawRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRectangle_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawRectangle_1, "DrawRectangle_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRectangle_1)
+Gura_ImplementMethod(wx_DC, __DrawRectangle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -724,13 +724,13 @@ Gura_ImplementMethod(wx_DC, DrawRectangle_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRectangle_2)
+Gura_DeclareMethodAlias(wx_DC, __DrawRectangle_2, "DrawRectangle_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRectangle_2)
+Gura_ImplementMethod(wx_DC, __DrawRectangle_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -739,7 +739,7 @@ Gura_ImplementMethod(wx_DC, DrawRectangle_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRotatedText)
+Gura_DeclareMethodAlias(wx_DC, __DrawRotatedText, "DrawRotatedText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -748,7 +748,7 @@ Gura_DeclareMethod(wx_DC, DrawRotatedText)
 	//DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRotatedText)
+Gura_ImplementMethod(wx_DC, __DrawRotatedText)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -760,7 +760,7 @@ Gura_ImplementMethod(wx_DC, DrawRotatedText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRotatedText_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawRotatedText_1, "DrawRotatedText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -768,7 +768,7 @@ Gura_DeclareMethod(wx_DC, DrawRotatedText_1)
 	//DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRotatedText_1)
+Gura_ImplementMethod(wx_DC, __DrawRotatedText_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -779,7 +779,7 @@ Gura_ImplementMethod(wx_DC, DrawRotatedText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRoundedRectangle)
+Gura_DeclareMethodAlias(wx_DC, __DrawRoundedRectangle, "DrawRoundedRectangle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -789,7 +789,7 @@ Gura_DeclareMethod(wx_DC, DrawRoundedRectangle)
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRoundedRectangle)
+Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -802,7 +802,7 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRoundedRectangle_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawRoundedRectangle_1, "DrawRoundedRectangle_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -810,7 +810,7 @@ Gura_DeclareMethod(wx_DC, DrawRoundedRectangle_1)
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRoundedRectangle_1)
+Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -821,14 +821,14 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangle_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawRoundedRectangle_2)
+Gura_DeclareMethodAlias(wx_DC, __DrawRoundedRectangle_2, "DrawRoundedRectangle_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "radius", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawRoundedRectangle_2)
+Gura_ImplementMethod(wx_DC, __DrawRoundedRectangle_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -838,14 +838,14 @@ Gura_ImplementMethod(wx_DC, DrawRoundedRectangle_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawSpline)
+Gura_DeclareMethodAlias(wx_DC, __DrawSpline, "DrawSpline")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawSpline)
+Gura_ImplementMethod(wx_DC, __DrawSpline)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -855,13 +855,13 @@ Gura_ImplementMethod(wx_DC, DrawSpline)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawSpline_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawSpline_1, "DrawSpline_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "points", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawSpline_1)
+Gura_ImplementMethod(wx_DC, __DrawSpline_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -870,7 +870,7 @@ Gura_ImplementMethod(wx_DC, DrawSpline_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawSpline_2)
+Gura_DeclareMethodAlias(wx_DC, __DrawSpline_2, "DrawSpline_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x1", VTYPE_number, OCCUR_Once);
@@ -881,7 +881,7 @@ Gura_DeclareMethod(wx_DC, DrawSpline_2)
 	//DeclareArg(env, "y3", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawSpline_2)
+Gura_ImplementMethod(wx_DC, __DrawSpline_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -895,7 +895,7 @@ Gura_ImplementMethod(wx_DC, DrawSpline_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawText)
+Gura_DeclareMethodAlias(wx_DC, __DrawText, "DrawText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -903,7 +903,7 @@ Gura_DeclareMethod(wx_DC, DrawText)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawText)
+Gura_ImplementMethod(wx_DC, __DrawText)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -914,14 +914,14 @@ Gura_ImplementMethod(wx_DC, DrawText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DrawText_1)
+Gura_DeclareMethodAlias(wx_DC, __DrawText_1, "DrawText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, DrawText_1)
+Gura_ImplementMethod(wx_DC, __DrawText_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -931,7 +931,7 @@ Gura_ImplementMethod(wx_DC, DrawText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GradientFillConcentric)
+Gura_DeclareMethodAlias(wx_DC, __GradientFillConcentric, "GradientFillConcentric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -939,7 +939,7 @@ Gura_DeclareMethod(wx_DC, GradientFillConcentric)
 	//DeclareArg(env, "destColour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GradientFillConcentric)
+Gura_ImplementMethod(wx_DC, __GradientFillConcentric)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -950,7 +950,7 @@ Gura_ImplementMethod(wx_DC, GradientFillConcentric)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GradientFillConcentric_1)
+Gura_DeclareMethodAlias(wx_DC, __GradientFillConcentric_1, "GradientFillConcentric_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -959,7 +959,7 @@ Gura_DeclareMethod(wx_DC, GradientFillConcentric_1)
 	//DeclareArg(env, "circleCenter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GradientFillConcentric_1)
+Gura_ImplementMethod(wx_DC, __GradientFillConcentric_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -971,7 +971,7 @@ Gura_ImplementMethod(wx_DC, GradientFillConcentric_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GradientFillLinear)
+Gura_DeclareMethodAlias(wx_DC, __GradientFillLinear, "GradientFillLinear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -980,7 +980,7 @@ Gura_DeclareMethod(wx_DC, GradientFillLinear)
 	//DeclareArg(env, "nDirection", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GradientFillLinear)
+Gura_ImplementMethod(wx_DC, __GradientFillLinear)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -992,7 +992,7 @@ Gura_ImplementMethod(wx_DC, GradientFillLinear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, FloodFill)
+Gura_DeclareMethodAlias(wx_DC, __FloodFill, "FloodFill")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -1001,7 +1001,7 @@ Gura_DeclareMethod(wx_DC, FloodFill)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, FloodFill)
+Gura_ImplementMethod(wx_DC, __FloodFill)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1013,7 +1013,7 @@ Gura_ImplementMethod(wx_DC, FloodFill)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, FloodFill_1)
+Gura_DeclareMethodAlias(wx_DC, __FloodFill_1, "FloodFill_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -1021,7 +1021,7 @@ Gura_DeclareMethod(wx_DC, FloodFill_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, FloodFill_1)
+Gura_ImplementMethod(wx_DC, __FloodFill_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1032,14 +1032,14 @@ Gura_ImplementMethod(wx_DC, FloodFill_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CrossHair)
+Gura_DeclareMethodAlias(wx_DC, __CrossHair, "CrossHair")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, CrossHair)
+Gura_ImplementMethod(wx_DC, __CrossHair)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1049,13 +1049,13 @@ Gura_ImplementMethod(wx_DC, CrossHair)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CrossHair_1)
+Gura_DeclareMethodAlias(wx_DC, __CrossHair_1, "CrossHair_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, CrossHair_1)
+Gura_ImplementMethod(wx_DC, __CrossHair_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1064,12 +1064,12 @@ Gura_ImplementMethod(wx_DC, CrossHair_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, DestroyClippingRegion)
+Gura_DeclareMethodAlias(wx_DC, __DestroyClippingRegion, "DestroyClippingRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, DestroyClippingRegion)
+Gura_ImplementMethod(wx_DC, __DestroyClippingRegion)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1077,7 +1077,7 @@ Gura_ImplementMethod(wx_DC, DestroyClippingRegion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetClippingBox)
+Gura_DeclareMethodAlias(wx_DC, __GetClippingBox, "GetClippingBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -1086,7 +1086,7 @@ Gura_DeclareMethod(wx_DC, GetClippingBox)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetClippingBox)
+Gura_ImplementMethod(wx_DC, __GetClippingBox)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1098,7 +1098,7 @@ Gura_ImplementMethod(wx_DC, GetClippingBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetClippingRegion)
+Gura_DeclareMethodAlias(wx_DC, __SetClippingRegion, "SetClippingRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -1107,7 +1107,7 @@ Gura_DeclareMethod(wx_DC, SetClippingRegion)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetClippingRegion)
+Gura_ImplementMethod(wx_DC, __SetClippingRegion)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1119,14 +1119,14 @@ Gura_ImplementMethod(wx_DC, SetClippingRegion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetClippingRegion_1)
+Gura_DeclareMethodAlias(wx_DC, __SetClippingRegion_1, "SetClippingRegion_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetClippingRegion_1)
+Gura_ImplementMethod(wx_DC, __SetClippingRegion_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1136,13 +1136,13 @@ Gura_ImplementMethod(wx_DC, SetClippingRegion_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetClippingRegion_2)
+Gura_DeclareMethodAlias(wx_DC, __SetClippingRegion_2, "SetClippingRegion_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetClippingRegion_2)
+Gura_ImplementMethod(wx_DC, __SetClippingRegion_2)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1151,13 +1151,13 @@ Gura_ImplementMethod(wx_DC, SetClippingRegion_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetDeviceClippingRegion)
+Gura_DeclareMethodAlias(wx_DC, __SetDeviceClippingRegion, "SetDeviceClippingRegion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetDeviceClippingRegion)
+Gura_ImplementMethod(wx_DC, __SetDeviceClippingRegion)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1166,12 +1166,12 @@ Gura_ImplementMethod(wx_DC, SetDeviceClippingRegion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetCharHeight)
+Gura_DeclareMethodAlias(wx_DC, __GetCharHeight, "GetCharHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetCharHeight)
+Gura_ImplementMethod(wx_DC, __GetCharHeight)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1179,12 +1179,12 @@ Gura_ImplementMethod(wx_DC, GetCharHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetCharWidth)
+Gura_DeclareMethodAlias(wx_DC, __GetCharWidth, "GetCharWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetCharWidth)
+Gura_ImplementMethod(wx_DC, __GetCharWidth)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1192,12 +1192,12 @@ Gura_ImplementMethod(wx_DC, GetCharWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetFontMetrics)
+Gura_DeclareMethodAlias(wx_DC, __GetFontMetrics, "GetFontMetrics")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetFontMetrics)
+Gura_ImplementMethod(wx_DC, __GetFontMetrics)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1205,7 +1205,7 @@ Gura_ImplementMethod(wx_DC, GetFontMetrics)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetMultiLineTextExtent)
+Gura_DeclareMethodAlias(wx_DC, __GetMultiLineTextExtent, "GetMultiLineTextExtent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
@@ -1215,7 +1215,7 @@ Gura_DeclareMethod(wx_DC, GetMultiLineTextExtent)
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
+Gura_ImplementMethod(wx_DC, __GetMultiLineTextExtent)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1228,13 +1228,13 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetMultiLineTextExtent_1)
+Gura_DeclareMethodAlias(wx_DC, __GetMultiLineTextExtent_1, "GetMultiLineTextExtent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent_1)
+Gura_ImplementMethod(wx_DC, __GetMultiLineTextExtent_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1243,14 +1243,14 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetPartialTextExtents)
+Gura_DeclareMethodAlias(wx_DC, __GetPartialTextExtents, "GetPartialTextExtents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "widths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetPartialTextExtents)
+Gura_ImplementMethod(wx_DC, __GetPartialTextExtents)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1260,7 +1260,7 @@ Gura_ImplementMethod(wx_DC, GetPartialTextExtents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetTextExtent)
+Gura_DeclareMethodAlias(wx_DC, __GetTextExtent, "GetTextExtent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
@@ -1271,7 +1271,7 @@ Gura_DeclareMethod(wx_DC, GetTextExtent)
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetTextExtent)
+Gura_ImplementMethod(wx_DC, __GetTextExtent)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1285,13 +1285,13 @@ Gura_ImplementMethod(wx_DC, GetTextExtent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetTextExtent_1)
+Gura_DeclareMethodAlias(wx_DC, __GetTextExtent_1, "GetTextExtent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetTextExtent_1)
+Gura_ImplementMethod(wx_DC, __GetTextExtent_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1300,12 +1300,12 @@ Gura_ImplementMethod(wx_DC, GetTextExtent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetBackgroundMode)
+Gura_DeclareMethodAlias(wx_DC, __GetBackgroundMode, "GetBackgroundMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetBackgroundMode)
+Gura_ImplementMethod(wx_DC, __GetBackgroundMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1313,12 +1313,12 @@ Gura_ImplementMethod(wx_DC, GetBackgroundMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetFont)
+Gura_DeclareMethodAlias(wx_DC, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetFont)
+Gura_ImplementMethod(wx_DC, __GetFont)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1326,12 +1326,12 @@ Gura_ImplementMethod(wx_DC, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetLayoutDirection)
+Gura_DeclareMethodAlias(wx_DC, __GetLayoutDirection, "GetLayoutDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetLayoutDirection)
+Gura_ImplementMethod(wx_DC, __GetLayoutDirection)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1339,12 +1339,12 @@ Gura_ImplementMethod(wx_DC, GetLayoutDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetTextBackground)
+Gura_DeclareMethodAlias(wx_DC, __GetTextBackground, "GetTextBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetTextBackground)
+Gura_ImplementMethod(wx_DC, __GetTextBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1352,12 +1352,12 @@ Gura_ImplementMethod(wx_DC, GetTextBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetTextForeground)
+Gura_DeclareMethodAlias(wx_DC, __GetTextForeground, "GetTextForeground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetTextForeground)
+Gura_ImplementMethod(wx_DC, __GetTextForeground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1365,13 +1365,13 @@ Gura_ImplementMethod(wx_DC, GetTextForeground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetBackgroundMode)
+Gura_DeclareMethodAlias(wx_DC, __SetBackgroundMode, "SetBackgroundMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetBackgroundMode)
+Gura_ImplementMethod(wx_DC, __SetBackgroundMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1380,13 +1380,13 @@ Gura_ImplementMethod(wx_DC, SetBackgroundMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetFont)
+Gura_DeclareMethodAlias(wx_DC, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetFont)
+Gura_ImplementMethod(wx_DC, __SetFont)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1395,13 +1395,13 @@ Gura_ImplementMethod(wx_DC, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetTextBackground)
+Gura_DeclareMethodAlias(wx_DC, __SetTextBackground, "SetTextBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetTextBackground)
+Gura_ImplementMethod(wx_DC, __SetTextBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1410,13 +1410,13 @@ Gura_ImplementMethod(wx_DC, SetTextBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetTextForeground)
+Gura_DeclareMethodAlias(wx_DC, __SetTextForeground, "SetTextForeground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetTextForeground)
+Gura_ImplementMethod(wx_DC, __SetTextForeground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1425,13 +1425,13 @@ Gura_ImplementMethod(wx_DC, SetTextForeground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetLayoutDirection)
+Gura_DeclareMethodAlias(wx_DC, __SetLayoutDirection, "SetLayoutDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetLayoutDirection)
+Gura_ImplementMethod(wx_DC, __SetLayoutDirection)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1440,14 +1440,14 @@ Gura_ImplementMethod(wx_DC, SetLayoutDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CalcBoundingBox)
+Gura_DeclareMethodAlias(wx_DC, __CalcBoundingBox, "CalcBoundingBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, CalcBoundingBox)
+Gura_ImplementMethod(wx_DC, __CalcBoundingBox)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1457,12 +1457,12 @@ Gura_ImplementMethod(wx_DC, CalcBoundingBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, MaxX)
+Gura_DeclareMethodAlias(wx_DC, __MaxX, "MaxX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, MaxX)
+Gura_ImplementMethod(wx_DC, __MaxX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1470,12 +1470,12 @@ Gura_ImplementMethod(wx_DC, MaxX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, MaxY)
+Gura_DeclareMethodAlias(wx_DC, __MaxY, "MaxY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, MaxY)
+Gura_ImplementMethod(wx_DC, __MaxY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1483,12 +1483,12 @@ Gura_ImplementMethod(wx_DC, MaxY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, MinX)
+Gura_DeclareMethodAlias(wx_DC, __MinX, "MinX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, MinX)
+Gura_ImplementMethod(wx_DC, __MinX)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1496,12 +1496,12 @@ Gura_ImplementMethod(wx_DC, MinX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, MinY)
+Gura_DeclareMethodAlias(wx_DC, __MinY, "MinY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, MinY)
+Gura_ImplementMethod(wx_DC, __MinY)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1509,12 +1509,12 @@ Gura_ImplementMethod(wx_DC, MinY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, ResetBoundingBox)
+Gura_DeclareMethodAlias(wx_DC, __ResetBoundingBox, "ResetBoundingBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, ResetBoundingBox)
+Gura_ImplementMethod(wx_DC, __ResetBoundingBox)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1522,13 +1522,13 @@ Gura_ImplementMethod(wx_DC, ResetBoundingBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, StartDoc)
+Gura_DeclareMethodAlias(wx_DC, __StartDoc, "StartDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, StartDoc)
+Gura_ImplementMethod(wx_DC, __StartDoc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1537,12 +1537,12 @@ Gura_ImplementMethod(wx_DC, StartDoc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, StartPage)
+Gura_DeclareMethodAlias(wx_DC, __StartPage, "StartPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, StartPage)
+Gura_ImplementMethod(wx_DC, __StartPage)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1550,12 +1550,12 @@ Gura_ImplementMethod(wx_DC, StartPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, EndDoc)
+Gura_DeclareMethodAlias(wx_DC, __EndDoc, "EndDoc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, EndDoc)
+Gura_ImplementMethod(wx_DC, __EndDoc)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1563,12 +1563,12 @@ Gura_ImplementMethod(wx_DC, EndDoc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, EndPage)
+Gura_DeclareMethodAlias(wx_DC, __EndPage, "EndPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, EndPage)
+Gura_ImplementMethod(wx_DC, __EndPage)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1576,7 +1576,7 @@ Gura_ImplementMethod(wx_DC, EndPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, Blit)
+Gura_DeclareMethodAlias(wx_DC, __Blit, "Blit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xdest", VTYPE_number, OCCUR_Once);
@@ -1592,7 +1592,7 @@ Gura_DeclareMethod(wx_DC, Blit)
 	//DeclareArg(env, "ysrcMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, Blit)
+Gura_ImplementMethod(wx_DC, __Blit)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1611,7 +1611,7 @@ Gura_ImplementMethod(wx_DC, Blit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, StretchBlit)
+Gura_DeclareMethodAlias(wx_DC, __StretchBlit, "StretchBlit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xdest", VTYPE_number, OCCUR_Once);
@@ -1629,7 +1629,7 @@ Gura_DeclareMethod(wx_DC, StretchBlit)
 	//DeclareArg(env, "ysrcMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, StretchBlit)
+Gura_ImplementMethod(wx_DC, __StretchBlit)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1650,12 +1650,12 @@ Gura_ImplementMethod(wx_DC, StretchBlit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetBackground)
+Gura_DeclareMethodAlias(wx_DC, __GetBackground, "GetBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetBackground)
+Gura_ImplementMethod(wx_DC, __GetBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1663,12 +1663,12 @@ Gura_ImplementMethod(wx_DC, GetBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetBrush)
+Gura_DeclareMethodAlias(wx_DC, __GetBrush, "GetBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetBrush)
+Gura_ImplementMethod(wx_DC, __GetBrush)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1676,12 +1676,12 @@ Gura_ImplementMethod(wx_DC, GetBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetPen)
+Gura_DeclareMethodAlias(wx_DC, __GetPen, "GetPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetPen)
+Gura_ImplementMethod(wx_DC, __GetPen)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1689,13 +1689,13 @@ Gura_ImplementMethod(wx_DC, GetPen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetBackground)
+Gura_DeclareMethodAlias(wx_DC, __SetBackground, "SetBackground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetBackground)
+Gura_ImplementMethod(wx_DC, __SetBackground)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1704,13 +1704,13 @@ Gura_ImplementMethod(wx_DC, SetBackground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetBrush)
+Gura_DeclareMethodAlias(wx_DC, __SetBrush, "SetBrush")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetBrush)
+Gura_ImplementMethod(wx_DC, __SetBrush)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1719,13 +1719,13 @@ Gura_ImplementMethod(wx_DC, SetBrush)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetPen)
+Gura_DeclareMethodAlias(wx_DC, __SetPen, "SetPen")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetPen)
+Gura_ImplementMethod(wx_DC, __SetPen)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1734,13 +1734,13 @@ Gura_ImplementMethod(wx_DC, SetPen)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CopyAttributes)
+Gura_DeclareMethodAlias(wx_DC, __CopyAttributes, "CopyAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, CopyAttributes)
+Gura_ImplementMethod(wx_DC, __CopyAttributes)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1749,12 +1749,12 @@ Gura_ImplementMethod(wx_DC, CopyAttributes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetDepth)
+Gura_DeclareMethodAlias(wx_DC, __GetDepth, "GetDepth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetDepth)
+Gura_ImplementMethod(wx_DC, __GetDepth)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1762,12 +1762,12 @@ Gura_ImplementMethod(wx_DC, GetDepth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetDeviceOrigin)
+Gura_DeclareMethodAlias(wx_DC, __GetDeviceOrigin, "GetDeviceOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetDeviceOrigin)
+Gura_ImplementMethod(wx_DC, __GetDeviceOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1775,12 +1775,12 @@ Gura_ImplementMethod(wx_DC, GetDeviceOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetLogicalFunction)
+Gura_DeclareMethodAlias(wx_DC, __GetLogicalFunction, "GetLogicalFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetLogicalFunction)
+Gura_ImplementMethod(wx_DC, __GetLogicalFunction)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1788,12 +1788,12 @@ Gura_ImplementMethod(wx_DC, GetLogicalFunction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetMapMode)
+Gura_DeclareMethodAlias(wx_DC, __GetMapMode, "GetMapMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetMapMode)
+Gura_ImplementMethod(wx_DC, __GetMapMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1801,7 +1801,7 @@ Gura_ImplementMethod(wx_DC, GetMapMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetPixel)
+Gura_DeclareMethodAlias(wx_DC, __GetPixel, "GetPixel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -1809,7 +1809,7 @@ Gura_DeclareMethod(wx_DC, GetPixel)
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetPixel)
+Gura_ImplementMethod(wx_DC, __GetPixel)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1820,12 +1820,12 @@ Gura_ImplementMethod(wx_DC, GetPixel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetPPI)
+Gura_DeclareMethodAlias(wx_DC, __GetPPI, "GetPPI")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetPPI)
+Gura_ImplementMethod(wx_DC, __GetPPI)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1833,14 +1833,14 @@ Gura_ImplementMethod(wx_DC, GetPPI)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetSize)
+Gura_DeclareMethodAlias(wx_DC, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetSize)
+Gura_ImplementMethod(wx_DC, __GetSize)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1850,12 +1850,12 @@ Gura_ImplementMethod(wx_DC, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetSize_1)
+Gura_DeclareMethodAlias(wx_DC, __GetSize_1, "GetSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetSize_1)
+Gura_ImplementMethod(wx_DC, __GetSize_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1863,14 +1863,14 @@ Gura_ImplementMethod(wx_DC, GetSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetSizeMM)
+Gura_DeclareMethodAlias(wx_DC, __GetSizeMM, "GetSizeMM")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetSizeMM)
+Gura_ImplementMethod(wx_DC, __GetSizeMM)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1880,12 +1880,12 @@ Gura_ImplementMethod(wx_DC, GetSizeMM)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetSizeMM_1)
+Gura_DeclareMethodAlias(wx_DC, __GetSizeMM_1, "GetSizeMM_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetSizeMM_1)
+Gura_ImplementMethod(wx_DC, __GetSizeMM_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1893,14 +1893,14 @@ Gura_ImplementMethod(wx_DC, GetSizeMM_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetUserScale)
+Gura_DeclareMethodAlias(wx_DC, __GetUserScale, "GetUserScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetUserScale)
+Gura_ImplementMethod(wx_DC, __GetUserScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1910,12 +1910,12 @@ Gura_ImplementMethod(wx_DC, GetUserScale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, IsOk)
+Gura_DeclareMethodAlias(wx_DC, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, IsOk)
+Gura_ImplementMethod(wx_DC, __IsOk)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1923,14 +1923,14 @@ Gura_ImplementMethod(wx_DC, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetAxisOrientation)
+Gura_DeclareMethodAlias(wx_DC, __SetAxisOrientation, "SetAxisOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xLeftRight", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yBottomUp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetAxisOrientation)
+Gura_ImplementMethod(wx_DC, __SetAxisOrientation)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1940,14 +1940,14 @@ Gura_ImplementMethod(wx_DC, SetAxisOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetDeviceOrigin)
+Gura_DeclareMethodAlias(wx_DC, __SetDeviceOrigin, "SetDeviceOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetDeviceOrigin)
+Gura_ImplementMethod(wx_DC, __SetDeviceOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1957,13 +1957,13 @@ Gura_ImplementMethod(wx_DC, SetDeviceOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetLogicalFunction)
+Gura_DeclareMethodAlias(wx_DC, __SetLogicalFunction, "SetLogicalFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "function", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetLogicalFunction)
+Gura_ImplementMethod(wx_DC, __SetLogicalFunction)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1972,13 +1972,13 @@ Gura_ImplementMethod(wx_DC, SetLogicalFunction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetMapMode)
+Gura_DeclareMethodAlias(wx_DC, __SetMapMode, "SetMapMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetMapMode)
+Gura_ImplementMethod(wx_DC, __SetMapMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1987,13 +1987,13 @@ Gura_ImplementMethod(wx_DC, SetMapMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetPalette)
+Gura_DeclareMethodAlias(wx_DC, __SetPalette, "SetPalette")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetPalette)
+Gura_ImplementMethod(wx_DC, __SetPalette)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2002,14 +2002,14 @@ Gura_ImplementMethod(wx_DC, SetPalette)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetUserScale)
+Gura_DeclareMethodAlias(wx_DC, __SetUserScale, "SetUserScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetUserScale)
+Gura_ImplementMethod(wx_DC, __SetUserScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2019,12 +2019,12 @@ Gura_ImplementMethod(wx_DC, SetUserScale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CanUseTransformMatrix)
+Gura_DeclareMethodAlias(wx_DC, __CanUseTransformMatrix, "CanUseTransformMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, CanUseTransformMatrix)
+Gura_ImplementMethod(wx_DC, __CanUseTransformMatrix)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2032,13 +2032,13 @@ Gura_ImplementMethod(wx_DC, CanUseTransformMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetTransformMatrix)
+Gura_DeclareMethodAlias(wx_DC, __SetTransformMatrix, "SetTransformMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "matrix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetTransformMatrix)
+Gura_ImplementMethod(wx_DC, __SetTransformMatrix)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2047,12 +2047,12 @@ Gura_ImplementMethod(wx_DC, SetTransformMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetTransformMatrix)
+Gura_DeclareMethodAlias(wx_DC, __GetTransformMatrix, "GetTransformMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetTransformMatrix)
+Gura_ImplementMethod(wx_DC, __GetTransformMatrix)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2060,12 +2060,12 @@ Gura_ImplementMethod(wx_DC, GetTransformMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, ResetTransformMatrix)
+Gura_DeclareMethodAlias(wx_DC, __ResetTransformMatrix, "ResetTransformMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, ResetTransformMatrix)
+Gura_ImplementMethod(wx_DC, __ResetTransformMatrix)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2073,12 +2073,12 @@ Gura_ImplementMethod(wx_DC, ResetTransformMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CanDrawBitmap)
+Gura_DeclareMethodAlias(wx_DC, __CanDrawBitmap, "CanDrawBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, CanDrawBitmap)
+Gura_ImplementMethod(wx_DC, __CanDrawBitmap)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2086,12 +2086,12 @@ Gura_ImplementMethod(wx_DC, CanDrawBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, CanGetTextExtent)
+Gura_DeclareMethodAlias(wx_DC, __CanGetTextExtent, "CanGetTextExtent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, CanGetTextExtent)
+Gura_ImplementMethod(wx_DC, __CanGetTextExtent)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2099,12 +2099,12 @@ Gura_ImplementMethod(wx_DC, CanGetTextExtent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetHandle)
+Gura_DeclareMethodAlias(wx_DC, __GetHandle, "GetHandle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetHandle)
+Gura_ImplementMethod(wx_DC, __GetHandle)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2112,13 +2112,13 @@ Gura_ImplementMethod(wx_DC, GetHandle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetAsBitmap)
+Gura_DeclareMethodAlias(wx_DC, __GetAsBitmap, "GetAsBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "subrect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetAsBitmap)
+Gura_ImplementMethod(wx_DC, __GetAsBitmap)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2127,14 +2127,14 @@ Gura_ImplementMethod(wx_DC, GetAsBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetLogicalScale)
+Gura_DeclareMethodAlias(wx_DC, __SetLogicalScale, "SetLogicalScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetLogicalScale)
+Gura_ImplementMethod(wx_DC, __SetLogicalScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2144,14 +2144,14 @@ Gura_ImplementMethod(wx_DC, SetLogicalScale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetLogicalScale)
+Gura_DeclareMethodAlias(wx_DC, __GetLogicalScale, "GetLogicalScale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetLogicalScale)
+Gura_ImplementMethod(wx_DC, __GetLogicalScale)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2161,14 +2161,14 @@ Gura_ImplementMethod(wx_DC, GetLogicalScale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, SetLogicalOrigin)
+Gura_DeclareMethodAlias(wx_DC, __SetLogicalOrigin, "SetLogicalOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, SetLogicalOrigin)
+Gura_ImplementMethod(wx_DC, __SetLogicalOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2178,14 +2178,14 @@ Gura_ImplementMethod(wx_DC, SetLogicalOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetLogicalOrigin)
+Gura_DeclareMethodAlias(wx_DC, __GetLogicalOrigin, "GetLogicalOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DC, GetLogicalOrigin)
+Gura_ImplementMethod(wx_DC, __GetLogicalOrigin)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2195,12 +2195,12 @@ Gura_ImplementMethod(wx_DC, GetLogicalOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DC, GetLogicalOrigin_1)
+Gura_DeclareMethodAlias(wx_DC, __GetLogicalOrigin_1, "GetLogicalOrigin_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DC, GetLogicalOrigin_1)
+Gura_ImplementMethod(wx_DC, __GetLogicalOrigin_1)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -2213,135 +2213,135 @@ Gura_ImplementMethod(wx_DC, GetLogicalOrigin_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DC)
 {
-	Gura_AssignMethod(wx_DC, DeviceToLogicalX);
-	Gura_AssignMethod(wx_DC, DeviceToLogicalXRel);
-	Gura_AssignMethod(wx_DC, DeviceToLogicalY);
-	Gura_AssignMethod(wx_DC, DeviceToLogicalYRel);
-	Gura_AssignMethod(wx_DC, LogicalToDeviceX);
-	Gura_AssignMethod(wx_DC, LogicalToDeviceXRel);
-	Gura_AssignMethod(wx_DC, LogicalToDeviceY);
-	Gura_AssignMethod(wx_DC, LogicalToDeviceYRel);
-	Gura_AssignMethod(wx_DC, Clear);
-	Gura_AssignMethod(wx_DC, DrawArc);
-	Gura_AssignMethod(wx_DC, DrawArc_1);
-	Gura_AssignMethod(wx_DC, DrawBitmap);
-	Gura_AssignMethod(wx_DC, DrawBitmap_1);
-	Gura_AssignMethod(wx_DC, DrawCheckMark);
-	Gura_AssignMethod(wx_DC, DrawCheckMark_1);
-	Gura_AssignMethod(wx_DC, DrawCircle);
-	Gura_AssignMethod(wx_DC, DrawCircle_1);
-	Gura_AssignMethod(wx_DC, DrawEllipse);
-	Gura_AssignMethod(wx_DC, DrawEllipse_1);
-	Gura_AssignMethod(wx_DC, DrawEllipse_2);
-	Gura_AssignMethod(wx_DC, DrawEllipticArc);
-	Gura_AssignMethod(wx_DC, DrawEllipticArc_1);
-	Gura_AssignMethod(wx_DC, DrawIcon);
-	Gura_AssignMethod(wx_DC, DrawIcon_1);
-	Gura_AssignMethod(wx_DC, DrawLabel);
-	Gura_AssignMethod(wx_DC, DrawLabel_1);
-	Gura_AssignMethod(wx_DC, DrawLine);
-	Gura_AssignMethod(wx_DC, DrawLine_1);
-	Gura_AssignMethod(wx_DC, DrawLines);
-	Gura_AssignMethod(wx_DC, DrawLines_1);
-	Gura_AssignMethod(wx_DC, DrawPoint);
-	Gura_AssignMethod(wx_DC, DrawPoint_1);
-	Gura_AssignMethod(wx_DC, DrawPolygon);
-	Gura_AssignMethod(wx_DC, DrawPolygon_1);
-	Gura_AssignMethod(wx_DC, DrawPolyPolygon);
-	Gura_AssignMethod(wx_DC, DrawRectangle);
-	Gura_AssignMethod(wx_DC, DrawRectangle_1);
-	Gura_AssignMethod(wx_DC, DrawRectangle_2);
-	Gura_AssignMethod(wx_DC, DrawRotatedText);
-	Gura_AssignMethod(wx_DC, DrawRotatedText_1);
-	Gura_AssignMethod(wx_DC, DrawRoundedRectangle);
-	Gura_AssignMethod(wx_DC, DrawRoundedRectangle_1);
-	Gura_AssignMethod(wx_DC, DrawRoundedRectangle_2);
-	Gura_AssignMethod(wx_DC, DrawSpline);
-	Gura_AssignMethod(wx_DC, DrawSpline_1);
-	Gura_AssignMethod(wx_DC, DrawSpline_2);
-	Gura_AssignMethod(wx_DC, DrawText);
-	Gura_AssignMethod(wx_DC, DrawText_1);
-	Gura_AssignMethod(wx_DC, GradientFillConcentric);
-	Gura_AssignMethod(wx_DC, GradientFillConcentric_1);
-	Gura_AssignMethod(wx_DC, GradientFillLinear);
-	Gura_AssignMethod(wx_DC, FloodFill);
-	Gura_AssignMethod(wx_DC, FloodFill_1);
-	Gura_AssignMethod(wx_DC, CrossHair);
-	Gura_AssignMethod(wx_DC, CrossHair_1);
-	Gura_AssignMethod(wx_DC, DestroyClippingRegion);
-	Gura_AssignMethod(wx_DC, GetClippingBox);
-	Gura_AssignMethod(wx_DC, SetClippingRegion);
-	Gura_AssignMethod(wx_DC, SetClippingRegion_1);
-	Gura_AssignMethod(wx_DC, SetClippingRegion_2);
-	Gura_AssignMethod(wx_DC, SetDeviceClippingRegion);
-	Gura_AssignMethod(wx_DC, GetCharHeight);
-	Gura_AssignMethod(wx_DC, GetCharWidth);
-	Gura_AssignMethod(wx_DC, GetFontMetrics);
-	Gura_AssignMethod(wx_DC, GetMultiLineTextExtent);
-	Gura_AssignMethod(wx_DC, GetMultiLineTextExtent_1);
-	Gura_AssignMethod(wx_DC, GetPartialTextExtents);
-	Gura_AssignMethod(wx_DC, GetTextExtent);
-	Gura_AssignMethod(wx_DC, GetTextExtent_1);
-	Gura_AssignMethod(wx_DC, GetBackgroundMode);
-	Gura_AssignMethod(wx_DC, GetFont);
-	Gura_AssignMethod(wx_DC, GetLayoutDirection);
-	Gura_AssignMethod(wx_DC, GetTextBackground);
-	Gura_AssignMethod(wx_DC, GetTextForeground);
-	Gura_AssignMethod(wx_DC, SetBackgroundMode);
-	Gura_AssignMethod(wx_DC, SetFont);
-	Gura_AssignMethod(wx_DC, SetTextBackground);
-	Gura_AssignMethod(wx_DC, SetTextForeground);
-	Gura_AssignMethod(wx_DC, SetLayoutDirection);
-	Gura_AssignMethod(wx_DC, CalcBoundingBox);
-	Gura_AssignMethod(wx_DC, MaxX);
-	Gura_AssignMethod(wx_DC, MaxY);
-	Gura_AssignMethod(wx_DC, MinX);
-	Gura_AssignMethod(wx_DC, MinY);
-	Gura_AssignMethod(wx_DC, ResetBoundingBox);
-	Gura_AssignMethod(wx_DC, StartDoc);
-	Gura_AssignMethod(wx_DC, StartPage);
-	Gura_AssignMethod(wx_DC, EndDoc);
-	Gura_AssignMethod(wx_DC, EndPage);
-	Gura_AssignMethod(wx_DC, Blit);
-	Gura_AssignMethod(wx_DC, StretchBlit);
-	Gura_AssignMethod(wx_DC, GetBackground);
-	Gura_AssignMethod(wx_DC, GetBrush);
-	Gura_AssignMethod(wx_DC, GetPen);
-	Gura_AssignMethod(wx_DC, SetBackground);
-	Gura_AssignMethod(wx_DC, SetBrush);
-	Gura_AssignMethod(wx_DC, SetPen);
-	Gura_AssignMethod(wx_DC, CopyAttributes);
-	Gura_AssignMethod(wx_DC, GetDepth);
-	Gura_AssignMethod(wx_DC, GetDeviceOrigin);
-	Gura_AssignMethod(wx_DC, GetLogicalFunction);
-	Gura_AssignMethod(wx_DC, GetMapMode);
-	Gura_AssignMethod(wx_DC, GetPixel);
-	Gura_AssignMethod(wx_DC, GetPPI);
-	Gura_AssignMethod(wx_DC, GetSize);
-	Gura_AssignMethod(wx_DC, GetSize_1);
-	Gura_AssignMethod(wx_DC, GetSizeMM);
-	Gura_AssignMethod(wx_DC, GetSizeMM_1);
-	Gura_AssignMethod(wx_DC, GetUserScale);
-	Gura_AssignMethod(wx_DC, IsOk);
-	Gura_AssignMethod(wx_DC, SetAxisOrientation);
-	Gura_AssignMethod(wx_DC, SetDeviceOrigin);
-	Gura_AssignMethod(wx_DC, SetLogicalFunction);
-	Gura_AssignMethod(wx_DC, SetMapMode);
-	Gura_AssignMethod(wx_DC, SetPalette);
-	Gura_AssignMethod(wx_DC, SetUserScale);
-	Gura_AssignMethod(wx_DC, CanUseTransformMatrix);
-	Gura_AssignMethod(wx_DC, SetTransformMatrix);
-	Gura_AssignMethod(wx_DC, GetTransformMatrix);
-	Gura_AssignMethod(wx_DC, ResetTransformMatrix);
-	Gura_AssignMethod(wx_DC, CanDrawBitmap);
-	Gura_AssignMethod(wx_DC, CanGetTextExtent);
-	Gura_AssignMethod(wx_DC, GetHandle);
-	Gura_AssignMethod(wx_DC, GetAsBitmap);
-	Gura_AssignMethod(wx_DC, SetLogicalScale);
-	Gura_AssignMethod(wx_DC, GetLogicalScale);
-	Gura_AssignMethod(wx_DC, SetLogicalOrigin);
-	Gura_AssignMethod(wx_DC, GetLogicalOrigin);
-	Gura_AssignMethod(wx_DC, GetLogicalOrigin_1);
+	Gura_AssignMethod(wx_DC, __DeviceToLogicalX);
+	Gura_AssignMethod(wx_DC, __DeviceToLogicalXRel);
+	Gura_AssignMethod(wx_DC, __DeviceToLogicalY);
+	Gura_AssignMethod(wx_DC, __DeviceToLogicalYRel);
+	Gura_AssignMethod(wx_DC, __LogicalToDeviceX);
+	Gura_AssignMethod(wx_DC, __LogicalToDeviceXRel);
+	Gura_AssignMethod(wx_DC, __LogicalToDeviceY);
+	Gura_AssignMethod(wx_DC, __LogicalToDeviceYRel);
+	Gura_AssignMethod(wx_DC, __Clear);
+	Gura_AssignMethod(wx_DC, __DrawArc);
+	Gura_AssignMethod(wx_DC, __DrawArc_1);
+	Gura_AssignMethod(wx_DC, __DrawBitmap);
+	Gura_AssignMethod(wx_DC, __DrawBitmap_1);
+	Gura_AssignMethod(wx_DC, __DrawCheckMark);
+	Gura_AssignMethod(wx_DC, __DrawCheckMark_1);
+	Gura_AssignMethod(wx_DC, __DrawCircle);
+	Gura_AssignMethod(wx_DC, __DrawCircle_1);
+	Gura_AssignMethod(wx_DC, __DrawEllipse);
+	Gura_AssignMethod(wx_DC, __DrawEllipse_1);
+	Gura_AssignMethod(wx_DC, __DrawEllipse_2);
+	Gura_AssignMethod(wx_DC, __DrawEllipticArc);
+	Gura_AssignMethod(wx_DC, __DrawEllipticArc_1);
+	Gura_AssignMethod(wx_DC, __DrawIcon);
+	Gura_AssignMethod(wx_DC, __DrawIcon_1);
+	Gura_AssignMethod(wx_DC, __DrawLabel);
+	Gura_AssignMethod(wx_DC, __DrawLabel_1);
+	Gura_AssignMethod(wx_DC, __DrawLine);
+	Gura_AssignMethod(wx_DC, __DrawLine_1);
+	Gura_AssignMethod(wx_DC, __DrawLines);
+	Gura_AssignMethod(wx_DC, __DrawLines_1);
+	Gura_AssignMethod(wx_DC, __DrawPoint);
+	Gura_AssignMethod(wx_DC, __DrawPoint_1);
+	Gura_AssignMethod(wx_DC, __DrawPolygon);
+	Gura_AssignMethod(wx_DC, __DrawPolygon_1);
+	Gura_AssignMethod(wx_DC, __DrawPolyPolygon);
+	Gura_AssignMethod(wx_DC, __DrawRectangle);
+	Gura_AssignMethod(wx_DC, __DrawRectangle_1);
+	Gura_AssignMethod(wx_DC, __DrawRectangle_2);
+	Gura_AssignMethod(wx_DC, __DrawRotatedText);
+	Gura_AssignMethod(wx_DC, __DrawRotatedText_1);
+	Gura_AssignMethod(wx_DC, __DrawRoundedRectangle);
+	Gura_AssignMethod(wx_DC, __DrawRoundedRectangle_1);
+	Gura_AssignMethod(wx_DC, __DrawRoundedRectangle_2);
+	Gura_AssignMethod(wx_DC, __DrawSpline);
+	Gura_AssignMethod(wx_DC, __DrawSpline_1);
+	Gura_AssignMethod(wx_DC, __DrawSpline_2);
+	Gura_AssignMethod(wx_DC, __DrawText);
+	Gura_AssignMethod(wx_DC, __DrawText_1);
+	Gura_AssignMethod(wx_DC, __GradientFillConcentric);
+	Gura_AssignMethod(wx_DC, __GradientFillConcentric_1);
+	Gura_AssignMethod(wx_DC, __GradientFillLinear);
+	Gura_AssignMethod(wx_DC, __FloodFill);
+	Gura_AssignMethod(wx_DC, __FloodFill_1);
+	Gura_AssignMethod(wx_DC, __CrossHair);
+	Gura_AssignMethod(wx_DC, __CrossHair_1);
+	Gura_AssignMethod(wx_DC, __DestroyClippingRegion);
+	Gura_AssignMethod(wx_DC, __GetClippingBox);
+	Gura_AssignMethod(wx_DC, __SetClippingRegion);
+	Gura_AssignMethod(wx_DC, __SetClippingRegion_1);
+	Gura_AssignMethod(wx_DC, __SetClippingRegion_2);
+	Gura_AssignMethod(wx_DC, __SetDeviceClippingRegion);
+	Gura_AssignMethod(wx_DC, __GetCharHeight);
+	Gura_AssignMethod(wx_DC, __GetCharWidth);
+	Gura_AssignMethod(wx_DC, __GetFontMetrics);
+	Gura_AssignMethod(wx_DC, __GetMultiLineTextExtent);
+	Gura_AssignMethod(wx_DC, __GetMultiLineTextExtent_1);
+	Gura_AssignMethod(wx_DC, __GetPartialTextExtents);
+	Gura_AssignMethod(wx_DC, __GetTextExtent);
+	Gura_AssignMethod(wx_DC, __GetTextExtent_1);
+	Gura_AssignMethod(wx_DC, __GetBackgroundMode);
+	Gura_AssignMethod(wx_DC, __GetFont);
+	Gura_AssignMethod(wx_DC, __GetLayoutDirection);
+	Gura_AssignMethod(wx_DC, __GetTextBackground);
+	Gura_AssignMethod(wx_DC, __GetTextForeground);
+	Gura_AssignMethod(wx_DC, __SetBackgroundMode);
+	Gura_AssignMethod(wx_DC, __SetFont);
+	Gura_AssignMethod(wx_DC, __SetTextBackground);
+	Gura_AssignMethod(wx_DC, __SetTextForeground);
+	Gura_AssignMethod(wx_DC, __SetLayoutDirection);
+	Gura_AssignMethod(wx_DC, __CalcBoundingBox);
+	Gura_AssignMethod(wx_DC, __MaxX);
+	Gura_AssignMethod(wx_DC, __MaxY);
+	Gura_AssignMethod(wx_DC, __MinX);
+	Gura_AssignMethod(wx_DC, __MinY);
+	Gura_AssignMethod(wx_DC, __ResetBoundingBox);
+	Gura_AssignMethod(wx_DC, __StartDoc);
+	Gura_AssignMethod(wx_DC, __StartPage);
+	Gura_AssignMethod(wx_DC, __EndDoc);
+	Gura_AssignMethod(wx_DC, __EndPage);
+	Gura_AssignMethod(wx_DC, __Blit);
+	Gura_AssignMethod(wx_DC, __StretchBlit);
+	Gura_AssignMethod(wx_DC, __GetBackground);
+	Gura_AssignMethod(wx_DC, __GetBrush);
+	Gura_AssignMethod(wx_DC, __GetPen);
+	Gura_AssignMethod(wx_DC, __SetBackground);
+	Gura_AssignMethod(wx_DC, __SetBrush);
+	Gura_AssignMethod(wx_DC, __SetPen);
+	Gura_AssignMethod(wx_DC, __CopyAttributes);
+	Gura_AssignMethod(wx_DC, __GetDepth);
+	Gura_AssignMethod(wx_DC, __GetDeviceOrigin);
+	Gura_AssignMethod(wx_DC, __GetLogicalFunction);
+	Gura_AssignMethod(wx_DC, __GetMapMode);
+	Gura_AssignMethod(wx_DC, __GetPixel);
+	Gura_AssignMethod(wx_DC, __GetPPI);
+	Gura_AssignMethod(wx_DC, __GetSize);
+	Gura_AssignMethod(wx_DC, __GetSize_1);
+	Gura_AssignMethod(wx_DC, __GetSizeMM);
+	Gura_AssignMethod(wx_DC, __GetSizeMM_1);
+	Gura_AssignMethod(wx_DC, __GetUserScale);
+	Gura_AssignMethod(wx_DC, __IsOk);
+	Gura_AssignMethod(wx_DC, __SetAxisOrientation);
+	Gura_AssignMethod(wx_DC, __SetDeviceOrigin);
+	Gura_AssignMethod(wx_DC, __SetLogicalFunction);
+	Gura_AssignMethod(wx_DC, __SetMapMode);
+	Gura_AssignMethod(wx_DC, __SetPalette);
+	Gura_AssignMethod(wx_DC, __SetUserScale);
+	Gura_AssignMethod(wx_DC, __CanUseTransformMatrix);
+	Gura_AssignMethod(wx_DC, __SetTransformMatrix);
+	Gura_AssignMethod(wx_DC, __GetTransformMatrix);
+	Gura_AssignMethod(wx_DC, __ResetTransformMatrix);
+	Gura_AssignMethod(wx_DC, __CanDrawBitmap);
+	Gura_AssignMethod(wx_DC, __CanGetTextExtent);
+	Gura_AssignMethod(wx_DC, __GetHandle);
+	Gura_AssignMethod(wx_DC, __GetAsBitmap);
+	Gura_AssignMethod(wx_DC, __SetLogicalScale);
+	Gura_AssignMethod(wx_DC, __GetLogicalScale);
+	Gura_AssignMethod(wx_DC, __SetLogicalOrigin);
+	Gura_AssignMethod(wx_DC, __GetLogicalOrigin);
+	Gura_AssignMethod(wx_DC, __GetLogicalOrigin_1);
 }
 
 Gura_ImplementDescendantCreator(wx_DC)

@@ -37,7 +37,7 @@ String Object_wx_DataViewChoiceRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
+Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer, "wxDataViewChoiceRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
+Gura_ImplementMethod(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer)
 {
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewChoiceRenderer, GetChoice)
+Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __GetChoice, "GetChoice")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoice)
+Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoice)
 {
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoice)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewChoiceRenderer, GetChoices)
+Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __GetChoices, "GetChoices")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoices)
+Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoices)
 {
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, GetChoices)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewChoiceRenderer)
 {
-	Gura_AssignMethod(wx_DataViewChoiceRenderer, wxDataViewChoiceRenderer);
-	Gura_AssignMethod(wx_DataViewChoiceRenderer, GetChoice);
-	Gura_AssignMethod(wx_DataViewChoiceRenderer, GetChoices);
+	Gura_AssignMethod(wx_DataViewChoiceRenderer, __wxDataViewChoiceRenderer);
+	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoice);
+	Gura_AssignMethod(wx_DataViewChoiceRenderer, __GetChoices);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewChoiceRenderer)

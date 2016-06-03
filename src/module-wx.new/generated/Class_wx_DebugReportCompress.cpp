@@ -37,12 +37,12 @@ String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DebugReportCompress, wxDebugReportCompress)
+Gura_DeclareMethodAlias(wx_DebugReportCompress, __wxDebugReportCompress, "wxDebugReportCompress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugReportCompress, wxDebugReportCompress)
+Gura_ImplementMethod(wx_DebugReportCompress, __wxDebugReportCompress)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DebugReportCompress, wxDebugReportCompress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugReportCompress, SetCompressedFileDirectory)
+Gura_DeclareMethodAlias(wx_DebugReportCompress, __SetCompressedFileDirectory, "SetCompressedFileDirectory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportCompress, SetCompressedFileDirectory)
+Gura_ImplementMethod(wx_DebugReportCompress, __SetCompressedFileDirectory)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_DebugReportCompress, SetCompressedFileDirectory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugReportCompress, SetCompressedFileBaseName)
+Gura_DeclareMethodAlias(wx_DebugReportCompress, __SetCompressedFileBaseName, "SetCompressedFileBaseName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportCompress, SetCompressedFileBaseName)
+Gura_ImplementMethod(wx_DebugReportCompress, __SetCompressedFileBaseName)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_DebugReportCompress, SetCompressedFileBaseName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugReportCompress, GetCompressedFileName)
+Gura_DeclareMethodAlias(wx_DebugReportCompress, __GetCompressedFileName, "GetCompressedFileName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DebugReportCompress, GetCompressedFileName)
+Gura_ImplementMethod(wx_DebugReportCompress, __GetCompressedFileName)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_DebugReportCompress, GetCompressedFileName)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportCompress)
 {
-	Gura_AssignMethod(wx_DebugReportCompress, wxDebugReportCompress);
-	Gura_AssignMethod(wx_DebugReportCompress, SetCompressedFileDirectory);
-	Gura_AssignMethod(wx_DebugReportCompress, SetCompressedFileBaseName);
-	Gura_AssignMethod(wx_DebugReportCompress, GetCompressedFileName);
+	Gura_AssignMethod(wx_DebugReportCompress, __wxDebugReportCompress);
+	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileDirectory);
+	Gura_AssignMethod(wx_DebugReportCompress, __SetCompressedFileBaseName);
+	Gura_AssignMethod(wx_DebugReportCompress, __GetCompressedFileName);
 }
 
 Gura_ImplementDescendantCreator(wx_DebugReportCompress)

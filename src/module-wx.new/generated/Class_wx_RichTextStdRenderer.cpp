@@ -37,12 +37,12 @@ String Object_wx_RichTextStdRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextStdRenderer, wxRichTextStdRenderer)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __wxRichTextStdRenderer, "wxRichTextStdRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, wxRichTextStdRenderer)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __wxRichTextStdRenderer)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, wxRichTextStdRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStdRenderer, DrawStandardBullet)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __DrawStandardBullet, "DrawStandardBullet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_RichTextStdRenderer, DrawStandardBullet)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, DrawStandardBullet)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawStandardBullet)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, DrawStandardBullet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStdRenderer, DrawTextBullet)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __DrawTextBullet, "DrawTextBullet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_DeclareMethod(wx_RichTextStdRenderer, DrawTextBullet)
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, DrawTextBullet)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawTextBullet)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, DrawTextBullet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStdRenderer, DrawBitmapBullet)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __DrawBitmapBullet, "DrawBitmapBullet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_DeclareMethod(wx_RichTextStdRenderer, DrawBitmapBullet)
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, DrawBitmapBullet)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawBitmapBullet)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, DrawBitmapBullet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStdRenderer, EnumerateStandardBulletNames)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __EnumerateStandardBulletNames, "EnumerateStandardBulletNames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bulletNames", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, EnumerateStandardBulletNames)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __EnumerateStandardBulletNames)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, EnumerateStandardBulletNames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStdRenderer, MeasureBullet)
+Gura_DeclareMethodAlias(wx_RichTextStdRenderer, __MeasureBullet, "MeasureBullet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_RichTextStdRenderer, MeasureBullet)
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStdRenderer, MeasureBullet)
+Gura_ImplementMethod(wx_RichTextStdRenderer, __MeasureBullet)
 {
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,12 +156,12 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, MeasureBullet)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStdRenderer)
 {
-	Gura_AssignMethod(wx_RichTextStdRenderer, wxRichTextStdRenderer);
-	Gura_AssignMethod(wx_RichTextStdRenderer, DrawStandardBullet);
-	Gura_AssignMethod(wx_RichTextStdRenderer, DrawTextBullet);
-	Gura_AssignMethod(wx_RichTextStdRenderer, DrawBitmapBullet);
-	Gura_AssignMethod(wx_RichTextStdRenderer, EnumerateStandardBulletNames);
-	Gura_AssignMethod(wx_RichTextStdRenderer, MeasureBullet);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __wxRichTextStdRenderer);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawStandardBullet);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawTextBullet);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __DrawBitmapBullet);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __EnumerateStandardBulletNames);
+	Gura_AssignMethod(wx_RichTextStdRenderer, __MeasureBullet);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextStdRenderer)

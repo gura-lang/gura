@@ -37,13 +37,13 @@ String Object_wx_QueryNewPaletteEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent)
+Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent, "wxQueryNewPaletteEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent)
+Gura_ImplementMethod(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent)
 {
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_QueryNewPaletteEvent, SetPaletteRealized)
+Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __SetPaletteRealized, "SetPaletteRealized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "realized", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_QueryNewPaletteEvent, SetPaletteRealized)
+Gura_ImplementMethod(wx_QueryNewPaletteEvent, __SetPaletteRealized)
 {
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, SetPaletteRealized)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_QueryNewPaletteEvent, GetPaletteRealized)
+Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __GetPaletteRealized, "GetPaletteRealized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_QueryNewPaletteEvent, GetPaletteRealized)
+Gura_ImplementMethod(wx_QueryNewPaletteEvent, __GetPaletteRealized)
 {
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, GetPaletteRealized)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_QueryNewPaletteEvent)
 {
-	Gura_AssignMethod(wx_QueryNewPaletteEvent, wxQueryNewPaletteEvent);
-	Gura_AssignMethod(wx_QueryNewPaletteEvent, SetPaletteRealized);
-	Gura_AssignMethod(wx_QueryNewPaletteEvent, GetPaletteRealized);
+	Gura_AssignMethod(wx_QueryNewPaletteEvent, __wxQueryNewPaletteEvent);
+	Gura_AssignMethod(wx_QueryNewPaletteEvent, __SetPaletteRealized);
+	Gura_AssignMethod(wx_QueryNewPaletteEvent, __GetPaletteRealized);
 }
 
 Gura_ImplementDescendantCreator(wx_QueryNewPaletteEvent)

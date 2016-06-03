@@ -37,7 +37,7 @@ String Object_wx_LogWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogWindow, wxLogWindow)
+Gura_DeclareMethodAlias(wx_LogWindow, __wxLogWindow, "wxLogWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pParent", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_LogWindow, wxLogWindow)
 	//DeclareArg(env, "passToOld", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogWindow, wxLogWindow)
+Gura_ImplementMethod(wx_LogWindow, __wxLogWindow)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_LogWindow, wxLogWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogWindow, GetFrame)
+Gura_DeclareMethodAlias(wx_LogWindow, __GetFrame, "GetFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogWindow, GetFrame)
+Gura_ImplementMethod(wx_LogWindow, __GetFrame)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_LogWindow, GetFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogWindow, OnFrameClose)
+Gura_DeclareMethodAlias(wx_LogWindow, __OnFrameClose, "OnFrameClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
+Gura_ImplementMethod(wx_LogWindow, __OnFrameClose)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameClose)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogWindow, OnFrameDelete)
+Gura_DeclareMethodAlias(wx_LogWindow, __OnFrameDelete, "OnFrameDelete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogWindow, OnFrameDelete)
+Gura_ImplementMethod(wx_LogWindow, __OnFrameDelete)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_LogWindow, OnFrameDelete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_LogWindow, Show)
+Gura_DeclareMethodAlias(wx_LogWindow, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogWindow, Show)
+Gura_ImplementMethod(wx_LogWindow, __Show)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,11 +121,11 @@ Gura_ImplementMethod(wx_LogWindow, Show)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogWindow)
 {
-	Gura_AssignMethod(wx_LogWindow, wxLogWindow);
-	Gura_AssignMethod(wx_LogWindow, GetFrame);
-	Gura_AssignMethod(wx_LogWindow, OnFrameClose);
-	Gura_AssignMethod(wx_LogWindow, OnFrameDelete);
-	Gura_AssignMethod(wx_LogWindow, Show);
+	Gura_AssignMethod(wx_LogWindow, __wxLogWindow);
+	Gura_AssignMethod(wx_LogWindow, __GetFrame);
+	Gura_AssignMethod(wx_LogWindow, __OnFrameClose);
+	Gura_AssignMethod(wx_LogWindow, __OnFrameDelete);
+	Gura_AssignMethod(wx_LogWindow, __Show);
 }
 
 Gura_ImplementDescendantCreator(wx_LogWindow)

@@ -37,12 +37,12 @@ String Object_wx_FontEnumerator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontEnumerator, wxFontEnumerator)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __wxFontEnumerator, "wxFontEnumerator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, wxFontEnumerator)
+Gura_ImplementMethod(wx_FontEnumerator, __wxFontEnumerator)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FontEnumerator, wxFontEnumerator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, EnumerateEncodings)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __EnumerateEncodings, "EnumerateEncodings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, EnumerateEncodings)
+Gura_ImplementMethod(wx_FontEnumerator, __EnumerateEncodings)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_FontEnumerator, EnumerateEncodings)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, EnumerateFacenames)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __EnumerateFacenames, "EnumerateFacenames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fixedWidthOnly", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, EnumerateFacenames)
+Gura_ImplementMethod(wx_FontEnumerator, __EnumerateFacenames)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_FontEnumerator, EnumerateFacenames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, GetEncodings)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __GetEncodings, "GetEncodings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "facename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, GetEncodings)
+Gura_ImplementMethod(wx_FontEnumerator, __GetEncodings)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,14 +97,14 @@ Gura_ImplementMethod(wx_FontEnumerator, GetEncodings)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, GetFacenames)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __GetFacenames, "GetFacenames")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fixedWidthOnly", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, GetFacenames)
+Gura_ImplementMethod(wx_FontEnumerator, __GetFacenames)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_FontEnumerator, GetFacenames)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, IsValidFacename)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __IsValidFacename, "IsValidFacename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "facename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, IsValidFacename)
+Gura_ImplementMethod(wx_FontEnumerator, __IsValidFacename)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_FontEnumerator, IsValidFacename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, OnFacename)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __OnFacename, "OnFacename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, OnFacename)
+Gura_ImplementMethod(wx_FontEnumerator, __OnFacename)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -144,14 +144,14 @@ Gura_ImplementMethod(wx_FontEnumerator, OnFacename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontEnumerator, OnFontEncoding)
+Gura_DeclareMethodAlias(wx_FontEnumerator, __OnFontEncoding, "OnFontEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontEnumerator, OnFontEncoding)
+Gura_ImplementMethod(wx_FontEnumerator, __OnFontEncoding)
 {
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_FontEnumerator, OnFontEncoding)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontEnumerator)
 {
-	Gura_AssignMethod(wx_FontEnumerator, wxFontEnumerator);
-	Gura_AssignMethod(wx_FontEnumerator, EnumerateEncodings);
-	Gura_AssignMethod(wx_FontEnumerator, EnumerateFacenames);
-	Gura_AssignMethod(wx_FontEnumerator, GetEncodings);
-	Gura_AssignMethod(wx_FontEnumerator, GetFacenames);
-	Gura_AssignMethod(wx_FontEnumerator, IsValidFacename);
-	Gura_AssignMethod(wx_FontEnumerator, OnFacename);
-	Gura_AssignMethod(wx_FontEnumerator, OnFontEncoding);
+	Gura_AssignMethod(wx_FontEnumerator, __wxFontEnumerator);
+	Gura_AssignMethod(wx_FontEnumerator, __EnumerateEncodings);
+	Gura_AssignMethod(wx_FontEnumerator, __EnumerateFacenames);
+	Gura_AssignMethod(wx_FontEnumerator, __GetEncodings);
+	Gura_AssignMethod(wx_FontEnumerator, __GetFacenames);
+	Gura_AssignMethod(wx_FontEnumerator, __IsValidFacename);
+	Gura_AssignMethod(wx_FontEnumerator, __OnFacename);
+	Gura_AssignMethod(wx_FontEnumerator, __OnFontEncoding);
 }
 
 Gura_ImplementDescendantCreator(wx_FontEnumerator)

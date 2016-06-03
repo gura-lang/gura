@@ -37,7 +37,7 @@ String Object_wx_RegConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RegConfig, wxRegConfig)
+Gura_DeclareMethodAlias(wx_RegConfig, __wxRegConfig, "wxRegConfig")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_RegConfig, wxRegConfig)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RegConfig, wxRegConfig)
+Gura_ImplementMethod(wx_RegConfig, __wxRegConfig)
 {
 	Object_wx_RegConfig *pThis = Object_wx_RegConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_RegConfig, wxRegConfig)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RegConfig)
 {
-	Gura_AssignMethod(wx_RegConfig, wxRegConfig);
+	Gura_AssignMethod(wx_RegConfig, __wxRegConfig);
 }
 
 Gura_ImplementDescendantCreator(wx_RegConfig)

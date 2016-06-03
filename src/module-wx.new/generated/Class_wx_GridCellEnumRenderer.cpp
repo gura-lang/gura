@@ -37,13 +37,13 @@ String Object_wx_GridCellEnumRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellEnumRenderer, wxGridCellEnumRenderer)
+Gura_DeclareMethodAlias(wx_GridCellEnumRenderer, __wxGridCellEnumRenderer, "wxGridCellEnumRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEnumRenderer, wxGridCellEnumRenderer)
+Gura_ImplementMethod(wx_GridCellEnumRenderer, __wxGridCellEnumRenderer)
 {
 	Object_wx_GridCellEnumRenderer *pThis = Object_wx_GridCellEnumRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_GridCellEnumRenderer, wxGridCellEnumRenderer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellEnumRenderer, SetParameters)
+Gura_DeclareMethodAlias(wx_GridCellEnumRenderer, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellEnumRenderer, SetParameters)
+Gura_ImplementMethod(wx_GridCellEnumRenderer, __SetParameters)
 {
 	Object_wx_GridCellEnumRenderer *pThis = Object_wx_GridCellEnumRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_GridCellEnumRenderer, SetParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellEnumRenderer)
 {
-	Gura_AssignMethod(wx_GridCellEnumRenderer, wxGridCellEnumRenderer);
-	Gura_AssignMethod(wx_GridCellEnumRenderer, SetParameters);
+	Gura_AssignMethod(wx_GridCellEnumRenderer, __wxGridCellEnumRenderer);
+	Gura_AssignMethod(wx_GridCellEnumRenderer, __SetParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellEnumRenderer)

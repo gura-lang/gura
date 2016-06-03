@@ -37,13 +37,13 @@ String Object_wx_HelpControllerBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HelpControllerBase, wxHelpControllerBase)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __wxHelpControllerBase, "wxHelpControllerBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, wxHelpControllerBase)
+Gura_ImplementMethod(wx_HelpControllerBase, __wxHelpControllerBase)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, wxHelpControllerBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplayBlock)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplayBlock, "DisplayBlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "blockNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplayBlock)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplayBlock)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplayBlock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplayContents)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplayContents, "DisplayContents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplayContents)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplayContents)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplayContents)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplayContextPopup)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplayContextPopup, "DisplayContextPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "contextId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplayContextPopup)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplayContextPopup)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplayContextPopup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplaySection)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplaySection, "DisplaySection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "section", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplaySection)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplaySection)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplaySection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplaySection_1)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplaySection_1, "DisplaySection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "sectionNo", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplaySection_1)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplaySection_1)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,14 +125,14 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplaySection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, DisplayTextPopup)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __DisplayTextPopup, "DisplayTextPopup")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, DisplayTextPopup)
+Gura_ImplementMethod(wx_HelpControllerBase, __DisplayTextPopup)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_HelpControllerBase, DisplayTextPopup)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, GetFrameParameters)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __GetFrameParameters, "GetFrameParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -150,7 +150,7 @@ Gura_DeclareMethod(wx_HelpControllerBase, GetFrameParameters)
 	//DeclareArg(env, "newFrameEachTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, GetFrameParameters)
+Gura_ImplementMethod(wx_HelpControllerBase, __GetFrameParameters)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,12 +161,12 @@ Gura_ImplementMethod(wx_HelpControllerBase, GetFrameParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, GetParentWindow)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __GetParentWindow, "GetParentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, GetParentWindow)
+Gura_ImplementMethod(wx_HelpControllerBase, __GetParentWindow)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, GetParentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, Initialize)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __Initialize, "Initialize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, Initialize)
+Gura_ImplementMethod(wx_HelpControllerBase, __Initialize)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,14 +189,14 @@ Gura_ImplementMethod(wx_HelpControllerBase, Initialize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, Initialize_1)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __Initialize_1, "Initialize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "server", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, Initialize_1)
+Gura_ImplementMethod(wx_HelpControllerBase, __Initialize_1)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,14 +206,14 @@ Gura_ImplementMethod(wx_HelpControllerBase, Initialize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, KeywordSearch)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __KeywordSearch, "KeywordSearch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "keyWord", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, KeywordSearch)
+Gura_ImplementMethod(wx_HelpControllerBase, __KeywordSearch)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,13 +223,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, KeywordSearch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, LoadFile)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, LoadFile)
+Gura_ImplementMethod(wx_HelpControllerBase, __LoadFile)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,12 +238,12 @@ Gura_ImplementMethod(wx_HelpControllerBase, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, OnQuit)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __OnQuit, "OnQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, OnQuit)
+Gura_ImplementMethod(wx_HelpControllerBase, __OnQuit)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,12 +251,12 @@ Gura_ImplementMethod(wx_HelpControllerBase, OnQuit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, Quit)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __Quit, "Quit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, Quit)
+Gura_ImplementMethod(wx_HelpControllerBase, __Quit)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_HelpControllerBase, Quit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, SetFrameParameters)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __SetFrameParameters, "SetFrameParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "titleFormat", VTYPE_number, OCCUR_Once);
@@ -273,7 +273,7 @@ Gura_DeclareMethod(wx_HelpControllerBase, SetFrameParameters)
 	//DeclareArg(env, "newFrameEachTime", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, SetFrameParameters)
+Gura_ImplementMethod(wx_HelpControllerBase, __SetFrameParameters)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,13 +285,13 @@ Gura_ImplementMethod(wx_HelpControllerBase, SetFrameParameters)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, SetParentWindow)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __SetParentWindow, "SetParentWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, SetParentWindow)
+Gura_ImplementMethod(wx_HelpControllerBase, __SetParentWindow)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -300,14 +300,14 @@ Gura_ImplementMethod(wx_HelpControllerBase, SetParentWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HelpControllerBase, SetViewer)
+Gura_DeclareMethodAlias(wx_HelpControllerBase, __SetViewer, "SetViewer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpControllerBase, SetViewer)
+Gura_ImplementMethod(wx_HelpControllerBase, __SetViewer)
 {
 	Object_wx_HelpControllerBase *pThis = Object_wx_HelpControllerBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,24 +322,24 @@ Gura_ImplementMethod(wx_HelpControllerBase, SetViewer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpControllerBase)
 {
-	Gura_AssignMethod(wx_HelpControllerBase, wxHelpControllerBase);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplayBlock);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplayContents);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplayContextPopup);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplaySection);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplaySection_1);
-	Gura_AssignMethod(wx_HelpControllerBase, DisplayTextPopup);
-	Gura_AssignMethod(wx_HelpControllerBase, GetFrameParameters);
-	Gura_AssignMethod(wx_HelpControllerBase, GetParentWindow);
-	Gura_AssignMethod(wx_HelpControllerBase, Initialize);
-	Gura_AssignMethod(wx_HelpControllerBase, Initialize_1);
-	Gura_AssignMethod(wx_HelpControllerBase, KeywordSearch);
-	Gura_AssignMethod(wx_HelpControllerBase, LoadFile);
-	Gura_AssignMethod(wx_HelpControllerBase, OnQuit);
-	Gura_AssignMethod(wx_HelpControllerBase, Quit);
-	Gura_AssignMethod(wx_HelpControllerBase, SetFrameParameters);
-	Gura_AssignMethod(wx_HelpControllerBase, SetParentWindow);
-	Gura_AssignMethod(wx_HelpControllerBase, SetViewer);
+	Gura_AssignMethod(wx_HelpControllerBase, __wxHelpControllerBase);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplayBlock);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplayContents);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplayContextPopup);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplaySection);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplaySection_1);
+	Gura_AssignMethod(wx_HelpControllerBase, __DisplayTextPopup);
+	Gura_AssignMethod(wx_HelpControllerBase, __GetFrameParameters);
+	Gura_AssignMethod(wx_HelpControllerBase, __GetParentWindow);
+	Gura_AssignMethod(wx_HelpControllerBase, __Initialize);
+	Gura_AssignMethod(wx_HelpControllerBase, __Initialize_1);
+	Gura_AssignMethod(wx_HelpControllerBase, __KeywordSearch);
+	Gura_AssignMethod(wx_HelpControllerBase, __LoadFile);
+	Gura_AssignMethod(wx_HelpControllerBase, __OnQuit);
+	Gura_AssignMethod(wx_HelpControllerBase, __Quit);
+	Gura_AssignMethod(wx_HelpControllerBase, __SetFrameParameters);
+	Gura_AssignMethod(wx_HelpControllerBase, __SetParentWindow);
+	Gura_AssignMethod(wx_HelpControllerBase, __SetViewer);
 }
 
 Gura_ImplementDescendantCreator(wx_HelpControllerBase)

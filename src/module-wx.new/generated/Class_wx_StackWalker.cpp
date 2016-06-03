@@ -37,13 +37,13 @@ String Object_wx_StackWalker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StackWalker, wxStackWalker)
+Gura_DeclareMethodAlias(wx_StackWalker, __wxStackWalker, "wxStackWalker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argv0", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackWalker, wxStackWalker)
+Gura_ImplementMethod(wx_StackWalker, __wxStackWalker)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_StackWalker, wxStackWalker)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackWalker, Walk)
+Gura_DeclareMethodAlias(wx_StackWalker, __Walk, "Walk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxDepth", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackWalker, Walk)
+Gura_ImplementMethod(wx_StackWalker, __Walk)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_StackWalker, Walk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackWalker, WalkFromException)
+Gura_DeclareMethodAlias(wx_StackWalker, __WalkFromException, "WalkFromException")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maxDepth", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackWalker, WalkFromException)
+Gura_ImplementMethod(wx_StackWalker, __WalkFromException)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_StackWalker, WalkFromException)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StackWalker, OnStackFrame)
+Gura_DeclareMethodAlias(wx_StackWalker, __OnStackFrame, "OnStackFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StackWalker, OnStackFrame)
+Gura_ImplementMethod(wx_StackWalker, __OnStackFrame)
 {
 	Object_wx_StackWalker *pThis = Object_wx_StackWalker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,10 +104,10 @@ Gura_ImplementMethod(wx_StackWalker, OnStackFrame)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StackWalker)
 {
-	Gura_AssignMethod(wx_StackWalker, wxStackWalker);
-	Gura_AssignMethod(wx_StackWalker, Walk);
-	Gura_AssignMethod(wx_StackWalker, WalkFromException);
-	Gura_AssignMethod(wx_StackWalker, OnStackFrame);
+	Gura_AssignMethod(wx_StackWalker, __wxStackWalker);
+	Gura_AssignMethod(wx_StackWalker, __Walk);
+	Gura_AssignMethod(wx_StackWalker, __WalkFromException);
+	Gura_AssignMethod(wx_StackWalker, __OnStackFrame);
 }
 
 Gura_ImplementDescendantCreator(wx_StackWalker)

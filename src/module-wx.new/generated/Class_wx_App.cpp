@@ -37,12 +37,12 @@ String Object_wx_App::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_App, wxApp)
+Gura_DeclareMethodAlias(wx_App, __wxApp, "wxApp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, wxApp)
+Gura_ImplementMethod(wx_App, __wxApp)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_App, wxApp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, GetDisplayMode)
+Gura_DeclareMethodAlias(wx_App, __GetDisplayMode, "GetDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, GetDisplayMode)
+Gura_ImplementMethod(wx_App, __GetDisplayMode)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_App, GetDisplayMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
+Gura_DeclareMethodAlias(wx_App, __GetExitOnFrameDelete, "GetExitOnFrameDelete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
+Gura_ImplementMethod(wx_App, __GetExitOnFrameDelete)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_App, GetExitOnFrameDelete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, GetLayoutDirection)
+Gura_DeclareMethodAlias(wx_App, __GetLayoutDirection, "GetLayoutDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, GetLayoutDirection)
+Gura_ImplementMethod(wx_App, __GetLayoutDirection)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_App, GetLayoutDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, GetUseBestVisual)
+Gura_DeclareMethodAlias(wx_App, __GetUseBestVisual, "GetUseBestVisual")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, GetUseBestVisual)
+Gura_ImplementMethod(wx_App, __GetUseBestVisual)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_App, GetUseBestVisual)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, GetTopWindow)
+Gura_DeclareMethodAlias(wx_App, __GetTopWindow, "GetTopWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, GetTopWindow)
+Gura_ImplementMethod(wx_App, __GetTopWindow)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,12 +115,12 @@ Gura_ImplementMethod(wx_App, GetTopWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, IsActive)
+Gura_DeclareMethodAlias(wx_App, __IsActive, "IsActive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, IsActive)
+Gura_ImplementMethod(wx_App, __IsActive)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,14 +128,14 @@ Gura_ImplementMethod(wx_App, IsActive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SafeYield)
+Gura_DeclareMethodAlias(wx_App, __SafeYield, "SafeYield")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "onlyIfNeeded", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SafeYield)
+Gura_ImplementMethod(wx_App, __SafeYield)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,14 +145,14 @@ Gura_ImplementMethod(wx_App, SafeYield)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SafeYieldFor)
+Gura_DeclareMethodAlias(wx_App, __SafeYieldFor, "SafeYieldFor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "eventsToProcess", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SafeYieldFor)
+Gura_ImplementMethod(wx_App, __SafeYieldFor)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_App, SafeYieldFor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, ProcessMessage)
+Gura_DeclareMethodAlias(wx_App, __ProcessMessage, "ProcessMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, ProcessMessage)
+Gura_ImplementMethod(wx_App, __ProcessMessage)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_App, ProcessMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SetDisplayMode)
+Gura_DeclareMethodAlias(wx_App, __SetDisplayMode, "SetDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SetDisplayMode)
+Gura_ImplementMethod(wx_App, __SetDisplayMode)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_App, SetDisplayMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SetExitOnFrameDelete)
+Gura_DeclareMethodAlias(wx_App, __SetExitOnFrameDelete, "SetExitOnFrameDelete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
+Gura_ImplementMethod(wx_App, __SetExitOnFrameDelete)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_App, SetExitOnFrameDelete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SetNativeTheme)
+Gura_DeclareMethodAlias(wx_App, __SetNativeTheme, "SetNativeTheme")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "theme", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SetNativeTheme)
+Gura_ImplementMethod(wx_App, __SetNativeTheme)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_App, SetNativeTheme)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SetTopWindow)
+Gura_DeclareMethodAlias(wx_App, __SetTopWindow, "SetTopWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SetTopWindow)
+Gura_ImplementMethod(wx_App, __SetTopWindow)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -237,14 +237,14 @@ Gura_ImplementMethod(wx_App, SetTopWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, SetUseBestVisual)
+Gura_DeclareMethodAlias(wx_App, __SetUseBestVisual, "SetUseBestVisual")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "forceTrueColour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, SetUseBestVisual)
+Gura_ImplementMethod(wx_App, __SetUseBestVisual)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,12 +254,12 @@ Gura_ImplementMethod(wx_App, SetUseBestVisual)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacNewFile)
+Gura_DeclareMethodAlias(wx_App, __MacNewFile, "MacNewFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, MacNewFile)
+Gura_ImplementMethod(wx_App, __MacNewFile)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -267,13 +267,13 @@ Gura_ImplementMethod(wx_App, MacNewFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacOpenFiles)
+Gura_DeclareMethodAlias(wx_App, __MacOpenFiles, "MacOpenFiles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileNames", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, MacOpenFiles)
+Gura_ImplementMethod(wx_App, __MacOpenFiles)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,13 +282,13 @@ Gura_ImplementMethod(wx_App, MacOpenFiles)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacOpenFile)
+Gura_DeclareMethodAlias(wx_App, __MacOpenFile, "MacOpenFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, MacOpenFile)
+Gura_ImplementMethod(wx_App, __MacOpenFile)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,13 +297,13 @@ Gura_ImplementMethod(wx_App, MacOpenFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacOpenURL)
+Gura_DeclareMethodAlias(wx_App, __MacOpenURL, "MacOpenURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, MacOpenURL)
+Gura_ImplementMethod(wx_App, __MacOpenURL)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,13 +312,13 @@ Gura_ImplementMethod(wx_App, MacOpenURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacPrintFile)
+Gura_DeclareMethodAlias(wx_App, __MacPrintFile, "MacPrintFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_App, MacPrintFile)
+Gura_ImplementMethod(wx_App, __MacPrintFile)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,12 +327,12 @@ Gura_ImplementMethod(wx_App, MacPrintFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, MacReopenApp)
+Gura_DeclareMethodAlias(wx_App, __MacReopenApp, "MacReopenApp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, MacReopenApp)
+Gura_ImplementMethod(wx_App, __MacReopenApp)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,12 +340,12 @@ Gura_ImplementMethod(wx_App, MacReopenApp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_App, OSXIsGUIApplication)
+Gura_DeclareMethodAlias(wx_App, __OSXIsGUIApplication, "OSXIsGUIApplication")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_App, OSXIsGUIApplication)
+Gura_ImplementMethod(wx_App, __OSXIsGUIApplication)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -358,28 +358,28 @@ Gura_ImplementMethod(wx_App, OSXIsGUIApplication)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_App)
 {
-	Gura_AssignMethod(wx_App, wxApp);
-	Gura_AssignMethod(wx_App, GetDisplayMode);
-	Gura_AssignMethod(wx_App, GetExitOnFrameDelete);
-	Gura_AssignMethod(wx_App, GetLayoutDirection);
-	Gura_AssignMethod(wx_App, GetUseBestVisual);
-	Gura_AssignMethod(wx_App, GetTopWindow);
-	Gura_AssignMethod(wx_App, IsActive);
-	Gura_AssignMethod(wx_App, SafeYield);
-	Gura_AssignMethod(wx_App, SafeYieldFor);
-	Gura_AssignMethod(wx_App, ProcessMessage);
-	Gura_AssignMethod(wx_App, SetDisplayMode);
-	Gura_AssignMethod(wx_App, SetExitOnFrameDelete);
-	Gura_AssignMethod(wx_App, SetNativeTheme);
-	Gura_AssignMethod(wx_App, SetTopWindow);
-	Gura_AssignMethod(wx_App, SetUseBestVisual);
-	Gura_AssignMethod(wx_App, MacNewFile);
-	Gura_AssignMethod(wx_App, MacOpenFiles);
-	Gura_AssignMethod(wx_App, MacOpenFile);
-	Gura_AssignMethod(wx_App, MacOpenURL);
-	Gura_AssignMethod(wx_App, MacPrintFile);
-	Gura_AssignMethod(wx_App, MacReopenApp);
-	Gura_AssignMethod(wx_App, OSXIsGUIApplication);
+	Gura_AssignMethod(wx_App, __wxApp);
+	Gura_AssignMethod(wx_App, __GetDisplayMode);
+	Gura_AssignMethod(wx_App, __GetExitOnFrameDelete);
+	Gura_AssignMethod(wx_App, __GetLayoutDirection);
+	Gura_AssignMethod(wx_App, __GetUseBestVisual);
+	Gura_AssignMethod(wx_App, __GetTopWindow);
+	Gura_AssignMethod(wx_App, __IsActive);
+	Gura_AssignMethod(wx_App, __SafeYield);
+	Gura_AssignMethod(wx_App, __SafeYieldFor);
+	Gura_AssignMethod(wx_App, __ProcessMessage);
+	Gura_AssignMethod(wx_App, __SetDisplayMode);
+	Gura_AssignMethod(wx_App, __SetExitOnFrameDelete);
+	Gura_AssignMethod(wx_App, __SetNativeTheme);
+	Gura_AssignMethod(wx_App, __SetTopWindow);
+	Gura_AssignMethod(wx_App, __SetUseBestVisual);
+	Gura_AssignMethod(wx_App, __MacNewFile);
+	Gura_AssignMethod(wx_App, __MacOpenFiles);
+	Gura_AssignMethod(wx_App, __MacOpenFile);
+	Gura_AssignMethod(wx_App, __MacOpenURL);
+	Gura_AssignMethod(wx_App, __MacPrintFile);
+	Gura_AssignMethod(wx_App, __MacReopenApp);
+	Gura_AssignMethod(wx_App, __OSXIsGUIApplication);
 }
 
 Gura_ImplementDescendantCreator(wx_App)

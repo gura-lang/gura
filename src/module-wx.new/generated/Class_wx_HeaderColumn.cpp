@@ -37,12 +37,12 @@ String Object_wx_HeaderColumn::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HeaderColumn, GetTitle)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetTitle)
+Gura_ImplementMethod(wx_HeaderColumn, __GetTitle)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_HeaderColumn, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, GetBitmap)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetBitmap)
+Gura_ImplementMethod(wx_HeaderColumn, __GetBitmap)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_HeaderColumn, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, GetWidth)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetWidth)
+Gura_ImplementMethod(wx_HeaderColumn, __GetWidth)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_HeaderColumn, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, GetMinWidth)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetMinWidth, "GetMinWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetMinWidth)
+Gura_ImplementMethod(wx_HeaderColumn, __GetMinWidth)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_HeaderColumn, GetMinWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, GetAlignment)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetAlignment, "GetAlignment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetAlignment)
+Gura_ImplementMethod(wx_HeaderColumn, __GetAlignment)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_HeaderColumn, GetAlignment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, GetFlags)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, GetFlags)
+Gura_ImplementMethod(wx_HeaderColumn, __GetFlags)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_HeaderColumn, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, HasFlag)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __HasFlag, "HasFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, HasFlag)
+Gura_ImplementMethod(wx_HeaderColumn, __HasFlag)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_HeaderColumn, HasFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsResizeable)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsResizeable, "IsResizeable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsResizeable)
+Gura_ImplementMethod(wx_HeaderColumn, __IsResizeable)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,12 +143,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsResizeable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsSortable)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsSortable, "IsSortable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsSortable)
+Gura_ImplementMethod(wx_HeaderColumn, __IsSortable)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,12 +156,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsSortable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsReorderable)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsReorderable, "IsReorderable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsReorderable)
+Gura_ImplementMethod(wx_HeaderColumn, __IsReorderable)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,12 +169,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsReorderable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsHidden)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsHidden, "IsHidden")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsHidden)
+Gura_ImplementMethod(wx_HeaderColumn, __IsHidden)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,12 +182,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsHidden)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsShown)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsShown, "IsShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsShown)
+Gura_ImplementMethod(wx_HeaderColumn, __IsShown)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,12 +195,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsSortKey)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsSortKey, "IsSortKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsSortKey)
+Gura_ImplementMethod(wx_HeaderColumn, __IsSortKey)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,12 +208,12 @@ Gura_ImplementMethod(wx_HeaderColumn, IsSortKey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HeaderColumn, IsSortOrderAscending)
+Gura_DeclareMethodAlias(wx_HeaderColumn, __IsSortOrderAscending, "IsSortOrderAscending")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HeaderColumn, IsSortOrderAscending)
+Gura_ImplementMethod(wx_HeaderColumn, __IsSortOrderAscending)
 {
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,20 +226,20 @@ Gura_ImplementMethod(wx_HeaderColumn, IsSortOrderAscending)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HeaderColumn)
 {
-	Gura_AssignMethod(wx_HeaderColumn, GetTitle);
-	Gura_AssignMethod(wx_HeaderColumn, GetBitmap);
-	Gura_AssignMethod(wx_HeaderColumn, GetWidth);
-	Gura_AssignMethod(wx_HeaderColumn, GetMinWidth);
-	Gura_AssignMethod(wx_HeaderColumn, GetAlignment);
-	Gura_AssignMethod(wx_HeaderColumn, GetFlags);
-	Gura_AssignMethod(wx_HeaderColumn, HasFlag);
-	Gura_AssignMethod(wx_HeaderColumn, IsResizeable);
-	Gura_AssignMethod(wx_HeaderColumn, IsSortable);
-	Gura_AssignMethod(wx_HeaderColumn, IsReorderable);
-	Gura_AssignMethod(wx_HeaderColumn, IsHidden);
-	Gura_AssignMethod(wx_HeaderColumn, IsShown);
-	Gura_AssignMethod(wx_HeaderColumn, IsSortKey);
-	Gura_AssignMethod(wx_HeaderColumn, IsSortOrderAscending);
+	Gura_AssignMethod(wx_HeaderColumn, __GetTitle);
+	Gura_AssignMethod(wx_HeaderColumn, __GetBitmap);
+	Gura_AssignMethod(wx_HeaderColumn, __GetWidth);
+	Gura_AssignMethod(wx_HeaderColumn, __GetMinWidth);
+	Gura_AssignMethod(wx_HeaderColumn, __GetAlignment);
+	Gura_AssignMethod(wx_HeaderColumn, __GetFlags);
+	Gura_AssignMethod(wx_HeaderColumn, __HasFlag);
+	Gura_AssignMethod(wx_HeaderColumn, __IsResizeable);
+	Gura_AssignMethod(wx_HeaderColumn, __IsSortable);
+	Gura_AssignMethod(wx_HeaderColumn, __IsReorderable);
+	Gura_AssignMethod(wx_HeaderColumn, __IsHidden);
+	Gura_AssignMethod(wx_HeaderColumn, __IsShown);
+	Gura_AssignMethod(wx_HeaderColumn, __IsSortKey);
+	Gura_AssignMethod(wx_HeaderColumn, __IsSortOrderAscending);
 }
 
 Gura_ImplementDescendantCreator(wx_HeaderColumn)

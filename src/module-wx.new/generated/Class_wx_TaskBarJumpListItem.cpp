@@ -37,7 +37,7 @@ String Object_wx_TaskBarJumpListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TaskBarJumpListItem, wxTaskBarJumpListItem)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem, "wxTaskBarJumpListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentCategory", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareMethod(wx_TaskBarJumpListItem, wxTaskBarJumpListItem)
 	//DeclareArg(env, "iconIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, wxTaskBarJumpListItem)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -66,12 +66,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, wxTaskBarJumpListItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetType)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetType, "GetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetType)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetType)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetType)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetType, "SetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetType)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetType)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,12 +94,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetTitle)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetTitle, "GetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetTitle)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetTitle)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetTitle)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetTitle, "SetTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetTitle)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetTitle)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetFilePath)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetFilePath, "GetFilePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetFilePath)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetFilePath)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetFilePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetFilePath)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetFilePath, "SetFilePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filePath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetFilePath)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetFilePath)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,12 +150,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetFilePath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetArguments)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetArguments, "GetArguments")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetArguments)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetArguments)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetArguments)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetArguments)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetArguments, "SetArguments")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "arguments", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetArguments)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetArguments)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -178,12 +178,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetArguments)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetTooltip)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetTooltip, "GetTooltip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetTooltip)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetTooltip)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetTooltip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetTooltip)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetTooltip, "SetTooltip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetTooltip)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetTooltip)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetTooltip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetIconPath)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetIconPath, "GetIconPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetIconPath)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetIconPath)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetIconPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetIconPath)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetIconPath, "SetIconPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconPath", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetIconPath)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetIconPath)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,12 +234,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetIconPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetIconIndex)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetIconIndex, "GetIconIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetIconIndex)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetIconIndex)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetIconIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetIconIndex)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetIconIndex, "SetIconIndex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconIndex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetIconIndex)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetIconIndex)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,12 +262,12 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetIconIndex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, GetCategory)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __GetCategory, "GetCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, GetCategory)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __GetCategory)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,13 +275,13 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, GetCategory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarJumpListItem, SetCategory)
+Gura_DeclareMethodAlias(wx_TaskBarJumpListItem, __SetCategory, "SetCategory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "category", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarJumpListItem, SetCategory)
+Gura_ImplementMethod(wx_TaskBarJumpListItem, __SetCategory)
 {
 	Object_wx_TaskBarJumpListItem *pThis = Object_wx_TaskBarJumpListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,23 +295,23 @@ Gura_ImplementMethod(wx_TaskBarJumpListItem, SetCategory)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarJumpListItem)
 {
-	Gura_AssignMethod(wx_TaskBarJumpListItem, wxTaskBarJumpListItem);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetType);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetType);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetTitle);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetTitle);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetFilePath);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetFilePath);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetArguments);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetArguments);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetTooltip);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetTooltip);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetIconPath);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetIconPath);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetIconIndex);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetIconIndex);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, GetCategory);
-	Gura_AssignMethod(wx_TaskBarJumpListItem, SetCategory);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __wxTaskBarJumpListItem);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetType);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetType);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetTitle);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetTitle);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetFilePath);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetFilePath);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetArguments);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetArguments);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetTooltip);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetTooltip);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetIconPath);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetIconPath);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetIconIndex);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetIconIndex);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __GetCategory);
+	Gura_AssignMethod(wx_TaskBarJumpListItem, __SetCategory);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarJumpListItem)

@@ -37,12 +37,12 @@ String Object_wx_PrintData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PrintData, wxPrintData)
+Gura_DeclareMethodAlias(wx_PrintData, __wxPrintData, "wxPrintData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, wxPrintData)
+Gura_ImplementMethod(wx_PrintData, __wxPrintData)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_PrintData, wxPrintData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, wxPrintData_1)
+Gura_DeclareMethodAlias(wx_PrintData, __wxPrintData_1, "wxPrintData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, wxPrintData_1)
+Gura_ImplementMethod(wx_PrintData, __wxPrintData_1)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_PrintData, wxPrintData_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetBin)
+Gura_DeclareMethodAlias(wx_PrintData, __GetBin, "GetBin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetBin)
+Gura_ImplementMethod(wx_PrintData, __GetBin)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_PrintData, GetBin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetCollate)
+Gura_DeclareMethodAlias(wx_PrintData, __GetCollate, "GetCollate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetCollate)
+Gura_ImplementMethod(wx_PrintData, __GetCollate)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_PrintData, GetCollate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetColour)
+Gura_DeclareMethodAlias(wx_PrintData, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetColour)
+Gura_ImplementMethod(wx_PrintData, __GetColour)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_PrintData, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetDuplex)
+Gura_DeclareMethodAlias(wx_PrintData, __GetDuplex, "GetDuplex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetDuplex)
+Gura_ImplementMethod(wx_PrintData, __GetDuplex)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_PrintData, GetDuplex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetNoCopies)
+Gura_DeclareMethodAlias(wx_PrintData, __GetNoCopies, "GetNoCopies")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetNoCopies)
+Gura_ImplementMethod(wx_PrintData, __GetNoCopies)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_PrintData, GetNoCopies)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetOrientation)
+Gura_DeclareMethodAlias(wx_PrintData, __GetOrientation, "GetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetOrientation)
+Gura_ImplementMethod(wx_PrintData, __GetOrientation)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,12 +143,12 @@ Gura_ImplementMethod(wx_PrintData, GetOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetPaperId)
+Gura_DeclareMethodAlias(wx_PrintData, __GetPaperId, "GetPaperId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetPaperId)
+Gura_ImplementMethod(wx_PrintData, __GetPaperId)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,12 +156,12 @@ Gura_ImplementMethod(wx_PrintData, GetPaperId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetPrinterName)
+Gura_DeclareMethodAlias(wx_PrintData, __GetPrinterName, "GetPrinterName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetPrinterName)
+Gura_ImplementMethod(wx_PrintData, __GetPrinterName)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,12 +169,12 @@ Gura_ImplementMethod(wx_PrintData, GetPrinterName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetQuality)
+Gura_DeclareMethodAlias(wx_PrintData, __GetQuality, "GetQuality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetQuality)
+Gura_ImplementMethod(wx_PrintData, __GetQuality)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -182,12 +182,12 @@ Gura_ImplementMethod(wx_PrintData, GetQuality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, IsOk)
+Gura_DeclareMethodAlias(wx_PrintData, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, IsOk)
+Gura_ImplementMethod(wx_PrintData, __IsOk)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,13 +195,13 @@ Gura_ImplementMethod(wx_PrintData, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetBin)
+Gura_DeclareMethodAlias(wx_PrintData, __SetBin, "SetBin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetBin)
+Gura_ImplementMethod(wx_PrintData, __SetBin)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,13 +210,13 @@ Gura_ImplementMethod(wx_PrintData, SetBin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetCollate)
+Gura_DeclareMethodAlias(wx_PrintData, __SetCollate, "SetCollate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetCollate)
+Gura_ImplementMethod(wx_PrintData, __SetCollate)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_PrintData, SetCollate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetColour)
+Gura_DeclareMethodAlias(wx_PrintData, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetColour)
+Gura_ImplementMethod(wx_PrintData, __SetColour)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,13 +240,13 @@ Gura_ImplementMethod(wx_PrintData, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetDuplex)
+Gura_DeclareMethodAlias(wx_PrintData, __SetDuplex, "SetDuplex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetDuplex)
+Gura_ImplementMethod(wx_PrintData, __SetDuplex)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,13 +255,13 @@ Gura_ImplementMethod(wx_PrintData, SetDuplex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetNoCopies)
+Gura_DeclareMethodAlias(wx_PrintData, __SetNoCopies, "SetNoCopies")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetNoCopies)
+Gura_ImplementMethod(wx_PrintData, __SetNoCopies)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_PrintData, SetNoCopies)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetOrientation)
+Gura_DeclareMethodAlias(wx_PrintData, __SetOrientation, "SetOrientation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetOrientation)
+Gura_ImplementMethod(wx_PrintData, __SetOrientation)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,13 +285,13 @@ Gura_ImplementMethod(wx_PrintData, SetOrientation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetPaperId)
+Gura_DeclareMethodAlias(wx_PrintData, __SetPaperId, "SetPaperId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paperId", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetPaperId)
+Gura_ImplementMethod(wx_PrintData, __SetPaperId)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -300,13 +300,13 @@ Gura_ImplementMethod(wx_PrintData, SetPaperId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetPaperSize)
+Gura_DeclareMethodAlias(wx_PrintData, __SetPaperSize, "SetPaperSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetPaperSize)
+Gura_ImplementMethod(wx_PrintData, __SetPaperSize)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -315,13 +315,13 @@ Gura_ImplementMethod(wx_PrintData, SetPaperSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetPrinterName)
+Gura_DeclareMethodAlias(wx_PrintData, __SetPrinterName, "SetPrinterName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printerName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetPrinterName)
+Gura_ImplementMethod(wx_PrintData, __SetPrinterName)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_PrintData, SetPrinterName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetQuality)
+Gura_DeclareMethodAlias(wx_PrintData, __SetQuality, "SetQuality")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "quality", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetQuality)
+Gura_ImplementMethod(wx_PrintData, __SetQuality)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -345,12 +345,12 @@ Gura_ImplementMethod(wx_PrintData, SetQuality)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetFilename)
+Gura_DeclareMethodAlias(wx_PrintData, __GetFilename, "GetFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetFilename)
+Gura_ImplementMethod(wx_PrintData, __GetFilename)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -358,13 +358,13 @@ Gura_ImplementMethod(wx_PrintData, GetFilename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetFilename)
+Gura_DeclareMethodAlias(wx_PrintData, __SetFilename, "SetFilename")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetFilename)
+Gura_ImplementMethod(wx_PrintData, __SetFilename)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -373,12 +373,12 @@ Gura_ImplementMethod(wx_PrintData, SetFilename)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, GetPrintMode)
+Gura_DeclareMethodAlias(wx_PrintData, __GetPrintMode, "GetPrintMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PrintData, GetPrintMode)
+Gura_ImplementMethod(wx_PrintData, __GetPrintMode)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -386,13 +386,13 @@ Gura_ImplementMethod(wx_PrintData, GetPrintMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PrintData, SetPrintMode)
+Gura_DeclareMethodAlias(wx_PrintData, __SetPrintMode, "SetPrintMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "printMode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PrintData, SetPrintMode)
+Gura_ImplementMethod(wx_PrintData, __SetPrintMode)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -406,32 +406,32 @@ Gura_ImplementMethod(wx_PrintData, SetPrintMode)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PrintData)
 {
-	Gura_AssignMethod(wx_PrintData, wxPrintData);
-	Gura_AssignMethod(wx_PrintData, wxPrintData_1);
-	Gura_AssignMethod(wx_PrintData, GetBin);
-	Gura_AssignMethod(wx_PrintData, GetCollate);
-	Gura_AssignMethod(wx_PrintData, GetColour);
-	Gura_AssignMethod(wx_PrintData, GetDuplex);
-	Gura_AssignMethod(wx_PrintData, GetNoCopies);
-	Gura_AssignMethod(wx_PrintData, GetOrientation);
-	Gura_AssignMethod(wx_PrintData, GetPaperId);
-	Gura_AssignMethod(wx_PrintData, GetPrinterName);
-	Gura_AssignMethod(wx_PrintData, GetQuality);
-	Gura_AssignMethod(wx_PrintData, IsOk);
-	Gura_AssignMethod(wx_PrintData, SetBin);
-	Gura_AssignMethod(wx_PrintData, SetCollate);
-	Gura_AssignMethod(wx_PrintData, SetColour);
-	Gura_AssignMethod(wx_PrintData, SetDuplex);
-	Gura_AssignMethod(wx_PrintData, SetNoCopies);
-	Gura_AssignMethod(wx_PrintData, SetOrientation);
-	Gura_AssignMethod(wx_PrintData, SetPaperId);
-	Gura_AssignMethod(wx_PrintData, SetPaperSize);
-	Gura_AssignMethod(wx_PrintData, SetPrinterName);
-	Gura_AssignMethod(wx_PrintData, SetQuality);
-	Gura_AssignMethod(wx_PrintData, GetFilename);
-	Gura_AssignMethod(wx_PrintData, SetFilename);
-	Gura_AssignMethod(wx_PrintData, GetPrintMode);
-	Gura_AssignMethod(wx_PrintData, SetPrintMode);
+	Gura_AssignMethod(wx_PrintData, __wxPrintData);
+	Gura_AssignMethod(wx_PrintData, __wxPrintData_1);
+	Gura_AssignMethod(wx_PrintData, __GetBin);
+	Gura_AssignMethod(wx_PrintData, __GetCollate);
+	Gura_AssignMethod(wx_PrintData, __GetColour);
+	Gura_AssignMethod(wx_PrintData, __GetDuplex);
+	Gura_AssignMethod(wx_PrintData, __GetNoCopies);
+	Gura_AssignMethod(wx_PrintData, __GetOrientation);
+	Gura_AssignMethod(wx_PrintData, __GetPaperId);
+	Gura_AssignMethod(wx_PrintData, __GetPrinterName);
+	Gura_AssignMethod(wx_PrintData, __GetQuality);
+	Gura_AssignMethod(wx_PrintData, __IsOk);
+	Gura_AssignMethod(wx_PrintData, __SetBin);
+	Gura_AssignMethod(wx_PrintData, __SetCollate);
+	Gura_AssignMethod(wx_PrintData, __SetColour);
+	Gura_AssignMethod(wx_PrintData, __SetDuplex);
+	Gura_AssignMethod(wx_PrintData, __SetNoCopies);
+	Gura_AssignMethod(wx_PrintData, __SetOrientation);
+	Gura_AssignMethod(wx_PrintData, __SetPaperId);
+	Gura_AssignMethod(wx_PrintData, __SetPaperSize);
+	Gura_AssignMethod(wx_PrintData, __SetPrinterName);
+	Gura_AssignMethod(wx_PrintData, __SetQuality);
+	Gura_AssignMethod(wx_PrintData, __GetFilename);
+	Gura_AssignMethod(wx_PrintData, __SetFilename);
+	Gura_AssignMethod(wx_PrintData, __GetPrintMode);
+	Gura_AssignMethod(wx_PrintData, __SetPrintMode);
 }
 
 Gura_ImplementDescendantCreator(wx_PrintData)

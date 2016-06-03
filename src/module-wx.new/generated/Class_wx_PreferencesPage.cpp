@@ -37,12 +37,12 @@ String Object_wx_PreferencesPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PreferencesPage, wxPreferencesPage)
+Gura_DeclareMethodAlias(wx_PreferencesPage, __wxPreferencesPage, "wxPreferencesPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreferencesPage, wxPreferencesPage)
+Gura_ImplementMethod(wx_PreferencesPage, __wxPreferencesPage)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_PreferencesPage, wxPreferencesPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesPage, GetName)
+Gura_DeclareMethodAlias(wx_PreferencesPage, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreferencesPage, GetName)
+Gura_ImplementMethod(wx_PreferencesPage, __GetName)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_PreferencesPage, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesPage, GetLargeIcon)
+Gura_DeclareMethodAlias(wx_PreferencesPage, __GetLargeIcon, "GetLargeIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PreferencesPage, GetLargeIcon)
+Gura_ImplementMethod(wx_PreferencesPage, __GetLargeIcon)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_PreferencesPage, GetLargeIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PreferencesPage, CreateWindow)
+Gura_DeclareMethodAlias(wx_PreferencesPage, __CreateWindow, "CreateWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PreferencesPage, CreateWindow)
+Gura_ImplementMethod(wx_PreferencesPage, __CreateWindow)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,10 +96,10 @@ Gura_ImplementMethod(wx_PreferencesPage, CreateWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PreferencesPage)
 {
-	Gura_AssignMethod(wx_PreferencesPage, wxPreferencesPage);
-	Gura_AssignMethod(wx_PreferencesPage, GetName);
-	Gura_AssignMethod(wx_PreferencesPage, GetLargeIcon);
-	Gura_AssignMethod(wx_PreferencesPage, CreateWindow);
+	Gura_AssignMethod(wx_PreferencesPage, __wxPreferencesPage);
+	Gura_AssignMethod(wx_PreferencesPage, __GetName);
+	Gura_AssignMethod(wx_PreferencesPage, __GetLargeIcon);
+	Gura_AssignMethod(wx_PreferencesPage, __CreateWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_PreferencesPage)

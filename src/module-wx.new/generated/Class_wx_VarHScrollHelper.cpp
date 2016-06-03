@@ -37,13 +37,13 @@ String Object_wx_VarHScrollHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_VarHScrollHelper, wxVarHScrollHelper)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __wxVarHScrollHelper, "wxVarHScrollHelper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, wxVarHScrollHelper)
+Gura_ImplementMethod(wx_VarHScrollHelper, __wxVarHScrollHelper)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_VarHScrollHelper, wxVarHScrollHelper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, GetColumnCount)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __GetColumnCount, "GetColumnCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, GetColumnCount)
+Gura_ImplementMethod(wx_VarHScrollHelper, __GetColumnCount)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_VarHScrollHelper, GetColumnCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __GetVisibleColumnsBegin, "GetVisibleColumnsBegin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin)
+Gura_ImplementMethod(wx_VarHScrollHelper, __GetVisibleColumnsBegin)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __GetVisibleColumnsEnd, "GetVisibleColumnsEnd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd)
+Gura_ImplementMethod(wx_VarHScrollHelper, __GetVisibleColumnsEnd)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, IsColumnVisible)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __IsColumnVisible, "IsColumnVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, IsColumnVisible)
+Gura_ImplementMethod(wx_VarHScrollHelper, __IsColumnVisible)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, IsColumnVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, RefreshColumn)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __RefreshColumn, "RefreshColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumn)
+Gura_ImplementMethod(wx_VarHScrollHelper, __RefreshColumn)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,14 +121,14 @@ Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, RefreshColumns)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __RefreshColumns, "RefreshColumns")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumns)
+Gura_ImplementMethod(wx_VarHScrollHelper, __RefreshColumns)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, RefreshColumns)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, ScrollColumnPages)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __ScrollColumnPages, "ScrollColumnPages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumnPages)
+Gura_ImplementMethod(wx_VarHScrollHelper, __ScrollColumnPages)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumnPages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, ScrollColumns)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __ScrollColumns, "ScrollColumns")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "columns", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumns)
+Gura_ImplementMethod(wx_VarHScrollHelper, __ScrollColumns)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, ScrollColumns)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, ScrollToColumn)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __ScrollToColumn, "ScrollToColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, ScrollToColumn)
+Gura_ImplementMethod(wx_VarHScrollHelper, __ScrollToColumn)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, ScrollToColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, SetColumnCount)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __SetColumnCount, "SetColumnCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "columnCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, SetColumnCount)
+Gura_ImplementMethod(wx_VarHScrollHelper, __SetColumnCount)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -198,12 +198,12 @@ Gura_ImplementMethod(wx_VarHScrollHelper, SetColumnCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, EstimateTotalWidth)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __EstimateTotalWidth, "EstimateTotalWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, EstimateTotalWidth)
+Gura_ImplementMethod(wx_VarHScrollHelper, __EstimateTotalWidth)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -211,14 +211,14 @@ Gura_ImplementMethod(wx_VarHScrollHelper, EstimateTotalWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __OnGetColumnsWidthHint, "OnGetColumnsWidthHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "columnMin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "columnMax", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint)
+Gura_ImplementMethod(wx_VarHScrollHelper, __OnGetColumnsWidthHint)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -228,13 +228,13 @@ Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VarHScrollHelper, OnGetColumnWidth)
+Gura_DeclareMethodAlias(wx_VarHScrollHelper, __OnGetColumnWidth, "OnGetColumnWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnWidth)
+Gura_ImplementMethod(wx_VarHScrollHelper, __OnGetColumnWidth)
 {
 	Object_wx_VarHScrollHelper *pThis = Object_wx_VarHScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -248,20 +248,20 @@ Gura_ImplementMethod(wx_VarHScrollHelper, OnGetColumnWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VarHScrollHelper)
 {
-	Gura_AssignMethod(wx_VarHScrollHelper, wxVarHScrollHelper);
-	Gura_AssignMethod(wx_VarHScrollHelper, GetColumnCount);
-	Gura_AssignMethod(wx_VarHScrollHelper, GetVisibleColumnsBegin);
-	Gura_AssignMethod(wx_VarHScrollHelper, GetVisibleColumnsEnd);
-	Gura_AssignMethod(wx_VarHScrollHelper, IsColumnVisible);
-	Gura_AssignMethod(wx_VarHScrollHelper, RefreshColumn);
-	Gura_AssignMethod(wx_VarHScrollHelper, RefreshColumns);
-	Gura_AssignMethod(wx_VarHScrollHelper, ScrollColumnPages);
-	Gura_AssignMethod(wx_VarHScrollHelper, ScrollColumns);
-	Gura_AssignMethod(wx_VarHScrollHelper, ScrollToColumn);
-	Gura_AssignMethod(wx_VarHScrollHelper, SetColumnCount);
-	Gura_AssignMethod(wx_VarHScrollHelper, EstimateTotalWidth);
-	Gura_AssignMethod(wx_VarHScrollHelper, OnGetColumnsWidthHint);
-	Gura_AssignMethod(wx_VarHScrollHelper, OnGetColumnWidth);
+	Gura_AssignMethod(wx_VarHScrollHelper, __wxVarHScrollHelper);
+	Gura_AssignMethod(wx_VarHScrollHelper, __GetColumnCount);
+	Gura_AssignMethod(wx_VarHScrollHelper, __GetVisibleColumnsBegin);
+	Gura_AssignMethod(wx_VarHScrollHelper, __GetVisibleColumnsEnd);
+	Gura_AssignMethod(wx_VarHScrollHelper, __IsColumnVisible);
+	Gura_AssignMethod(wx_VarHScrollHelper, __RefreshColumn);
+	Gura_AssignMethod(wx_VarHScrollHelper, __RefreshColumns);
+	Gura_AssignMethod(wx_VarHScrollHelper, __ScrollColumnPages);
+	Gura_AssignMethod(wx_VarHScrollHelper, __ScrollColumns);
+	Gura_AssignMethod(wx_VarHScrollHelper, __ScrollToColumn);
+	Gura_AssignMethod(wx_VarHScrollHelper, __SetColumnCount);
+	Gura_AssignMethod(wx_VarHScrollHelper, __EstimateTotalWidth);
+	Gura_AssignMethod(wx_VarHScrollHelper, __OnGetColumnsWidthHint);
+	Gura_AssignMethod(wx_VarHScrollHelper, __OnGetColumnWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_VarHScrollHelper)

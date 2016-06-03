@@ -37,12 +37,12 @@ String Object_wx_DataViewTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewTextRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewTextRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewTextRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewTextRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewTextRenderer *pThis = Object_wx_DataViewTextRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewTextRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewTextRenderer, wxDataViewTextRenderer)
+Gura_DeclareMethodAlias(wx_DataViewTextRenderer, __wxDataViewTextRenderer, "wxDataViewTextRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DataViewTextRenderer, wxDataViewTextRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewTextRenderer, wxDataViewTextRenderer)
+Gura_ImplementMethod(wx_DataViewTextRenderer, __wxDataViewTextRenderer)
 {
 	Object_wx_DataViewTextRenderer *pThis = Object_wx_DataViewTextRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_DataViewTextRenderer, wxDataViewTextRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewTextRenderer)
 {
-	Gura_AssignMethod(wx_DataViewTextRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewTextRenderer, wxDataViewTextRenderer);
+	Gura_AssignMethod(wx_DataViewTextRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewTextRenderer, __wxDataViewTextRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewTextRenderer)

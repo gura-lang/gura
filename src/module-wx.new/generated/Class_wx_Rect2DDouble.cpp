@@ -37,12 +37,12 @@ String Object_wx_Rect2DDouble::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Rect2DDouble, wxRect2DDouble)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __wxRect2DDouble, "wxRect2DDouble")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, wxRect2DDouble)
+Gura_ImplementMethod(wx_Rect2DDouble, __wxRect2DDouble)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, wxRect2DDouble)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, wxRect2DDouble_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __wxRect2DDouble_1, "wxRect2DDouble_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_Rect2DDouble, wxRect2DDouble_1)
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, wxRect2DDouble_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __wxRect2DDouble_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, wxRect2DDouble_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetPosition)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetPosition)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetPosition)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetSize)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetSize)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetSize)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetLeft)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetLeft, "GetLeft")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetLeft)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetLeft)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetLeft)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetLeft)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetLeft, "SetLeft")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetLeft)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetLeft)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetLeft)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveLeftTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveLeftTo, "MoveLeftTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetTop, "GetTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetTop, "SetTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveTopTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveTopTo, "MoveTopTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveTopTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveTopTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -183,12 +183,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveTopTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetBottom, "GetBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,13 +196,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetBottom, "SetBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -211,13 +211,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveBottomTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveBottomTo, "MoveBottomTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveBottomTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveBottomTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,12 +226,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveBottomTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetRight)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetRight, "GetRight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetRight)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetRight)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetRight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetRight)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetRight, "SetRight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetRight)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetRight)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -254,13 +254,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetRight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveRightTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveRightTo, "MoveRightTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveRightTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,12 +269,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveRightTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetLeftTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetLeftTop, "GetLeftTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetLeftTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetLeftTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -282,13 +282,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetLeftTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetLeftTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetLeftTop, "SetLeftTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetLeftTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetLeftTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -297,13 +297,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetLeftTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveLeftTopTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveLeftTopTo, "MoveLeftTopTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftTopTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftTopTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -312,12 +312,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftTopTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetLeftBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetLeftBottom, "GetLeftBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetLeftBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetLeftBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -325,13 +325,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetLeftBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetLeftBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetLeftBottom, "SetLeftBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetLeftBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetLeftBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,13 +340,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetLeftBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveLeftBottomTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveLeftBottomTo, "MoveLeftBottomTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftBottomTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftBottomTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,12 +355,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveLeftBottomTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetRightTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetRightTop, "GetRightTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetRightTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetRightTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,13 +368,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetRightTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetRightTop)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetRightTop, "SetRightTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetRightTop)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetRightTop)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetRightTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveRightTopTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveRightTopTo, "MoveRightTopTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveRightTopTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightTopTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -398,12 +398,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveRightTopTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetRightBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetRightBottom, "GetRightBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetRightBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetRightBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -411,13 +411,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetRightBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetRightBottom)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetRightBottom, "SetRightBottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetRightBottom)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetRightBottom)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -426,13 +426,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetRightBottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveRightBottomTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveRightBottomTo, "MoveRightBottomTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveRightBottomTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightBottomTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -441,12 +441,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveRightBottomTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetCentre)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetCentre, "GetCentre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetCentre)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetCentre)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -454,13 +454,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetCentre)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, SetCentre)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __SetCentre, "SetCentre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, SetCentre)
+Gura_ImplementMethod(wx_Rect2DDouble, __SetCentre)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -469,13 +469,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, SetCentre)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, MoveCentreTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __MoveCentreTo, "MoveCentreTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, MoveCentreTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __MoveCentreTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -484,13 +484,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, MoveCentreTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetOutCode)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetOutCode, "GetOutCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetOutCode)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetOutCode)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -499,13 +499,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetOutCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, GetOutcode)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __GetOutcode, "GetOutcode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, GetOutcode)
+Gura_ImplementMethod(wx_Rect2DDouble, __GetOutcode)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -514,13 +514,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, GetOutcode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Contains)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Contains, "Contains")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Contains)
+Gura_ImplementMethod(wx_Rect2DDouble, __Contains)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -529,13 +529,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Contains)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Contains_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Contains_1, "Contains_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Contains_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __Contains_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -544,12 +544,12 @@ Gura_ImplementMethod(wx_Rect2DDouble, Contains_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, IsEmpty)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, IsEmpty)
+Gura_ImplementMethod(wx_Rect2DDouble, __IsEmpty)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -557,13 +557,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, HaveEqualSize)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __HaveEqualSize, "HaveEqualSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, HaveEqualSize)
+Gura_ImplementMethod(wx_Rect2DDouble, __HaveEqualSize)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -572,14 +572,14 @@ Gura_ImplementMethod(wx_Rect2DDouble, HaveEqualSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Inset)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Inset, "Inset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Inset)
+Gura_ImplementMethod(wx_Rect2DDouble, __Inset)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -589,7 +589,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, Inset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Inset_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Inset_1, "Inset_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "left", VTYPE_number, OCCUR_Once);
@@ -598,7 +598,7 @@ Gura_DeclareMethod(wx_Rect2DDouble, Inset_1)
 	//DeclareArg(env, "bottom", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Inset_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __Inset_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -610,13 +610,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Inset_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Offset)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Offset, "Offset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Offset)
+Gura_ImplementMethod(wx_Rect2DDouble, __Offset)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -625,13 +625,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Offset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, ConstrainTo)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __ConstrainTo, "ConstrainTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, ConstrainTo)
+Gura_ImplementMethod(wx_Rect2DDouble, __ConstrainTo)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -640,14 +640,14 @@ Gura_ImplementMethod(wx_Rect2DDouble, ConstrainTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Interpolate)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Interpolate, "Interpolate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "widthfactor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "heightfactor", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Interpolate)
+Gura_ImplementMethod(wx_Rect2DDouble, __Interpolate)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -657,7 +657,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, Interpolate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Intersect)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Intersect, "Intersect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src1", VTYPE_number, OCCUR_Once);
@@ -665,7 +665,7 @@ Gura_DeclareMethod(wx_Rect2DDouble, Intersect)
 	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Intersect)
+Gura_ImplementMethod(wx_Rect2DDouble, __Intersect)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -676,13 +676,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Intersect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Intersect_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Intersect_1, "Intersect_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "otherRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Intersect_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __Intersect_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -691,13 +691,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Intersect_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, CreateIntersection)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __CreateIntersection, "CreateIntersection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "otherRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, CreateIntersection)
+Gura_ImplementMethod(wx_Rect2DDouble, __CreateIntersection)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -706,13 +706,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, CreateIntersection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Intersects)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Intersects, "Intersects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Intersects)
+Gura_ImplementMethod(wx_Rect2DDouble, __Intersects)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -721,7 +721,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, Intersects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Union)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Union, "Union")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src1", VTYPE_number, OCCUR_Once);
@@ -729,7 +729,7 @@ Gura_DeclareMethod(wx_Rect2DDouble, Union)
 	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Union)
+Gura_ImplementMethod(wx_Rect2DDouble, __Union)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -740,13 +740,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Union)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Union_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Union_1, "Union_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "otherRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Union_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __Union_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -755,13 +755,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Union_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Union_2)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Union_2, "Union_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Union_2)
+Gura_ImplementMethod(wx_Rect2DDouble, __Union_2)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -770,13 +770,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, Union_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, CreateUnion)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __CreateUnion, "CreateUnion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "otherRect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, CreateUnion)
+Gura_ImplementMethod(wx_Rect2DDouble, __CreateUnion)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -785,13 +785,13 @@ Gura_ImplementMethod(wx_Rect2DDouble, CreateUnion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Scale)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Scale, "Scale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "f", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Scale)
+Gura_ImplementMethod(wx_Rect2DDouble, __Scale)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -800,14 +800,14 @@ Gura_ImplementMethod(wx_Rect2DDouble, Scale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Rect2DDouble, Scale_1)
+Gura_DeclareMethodAlias(wx_Rect2DDouble, __Scale_1, "Scale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "num", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "denum", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Rect2DDouble, Scale_1)
+Gura_ImplementMethod(wx_Rect2DDouble, __Scale_1)
 {
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -822,58 +822,58 @@ Gura_ImplementMethod(wx_Rect2DDouble, Scale_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Rect2DDouble)
 {
-	Gura_AssignMethod(wx_Rect2DDouble, wxRect2DDouble);
-	Gura_AssignMethod(wx_Rect2DDouble, wxRect2DDouble_1);
-	Gura_AssignMethod(wx_Rect2DDouble, GetPosition);
-	Gura_AssignMethod(wx_Rect2DDouble, GetSize);
-	Gura_AssignMethod(wx_Rect2DDouble, GetLeft);
-	Gura_AssignMethod(wx_Rect2DDouble, SetLeft);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveLeftTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetTop);
-	Gura_AssignMethod(wx_Rect2DDouble, SetTop);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveTopTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, SetBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveBottomTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetRight);
-	Gura_AssignMethod(wx_Rect2DDouble, SetRight);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveRightTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetLeftTop);
-	Gura_AssignMethod(wx_Rect2DDouble, SetLeftTop);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveLeftTopTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetLeftBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, SetLeftBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveLeftBottomTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetRightTop);
-	Gura_AssignMethod(wx_Rect2DDouble, SetRightTop);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveRightTopTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetRightBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, SetRightBottom);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveRightBottomTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetCentre);
-	Gura_AssignMethod(wx_Rect2DDouble, SetCentre);
-	Gura_AssignMethod(wx_Rect2DDouble, MoveCentreTo);
-	Gura_AssignMethod(wx_Rect2DDouble, GetOutCode);
-	Gura_AssignMethod(wx_Rect2DDouble, GetOutcode);
-	Gura_AssignMethod(wx_Rect2DDouble, Contains);
-	Gura_AssignMethod(wx_Rect2DDouble, Contains_1);
-	Gura_AssignMethod(wx_Rect2DDouble, IsEmpty);
-	Gura_AssignMethod(wx_Rect2DDouble, HaveEqualSize);
-	Gura_AssignMethod(wx_Rect2DDouble, Inset);
-	Gura_AssignMethod(wx_Rect2DDouble, Inset_1);
-	Gura_AssignMethod(wx_Rect2DDouble, Offset);
-	Gura_AssignMethod(wx_Rect2DDouble, ConstrainTo);
-	Gura_AssignMethod(wx_Rect2DDouble, Interpolate);
-	Gura_AssignMethod(wx_Rect2DDouble, Intersect);
-	Gura_AssignMethod(wx_Rect2DDouble, Intersect_1);
-	Gura_AssignMethod(wx_Rect2DDouble, CreateIntersection);
-	Gura_AssignMethod(wx_Rect2DDouble, Intersects);
-	Gura_AssignMethod(wx_Rect2DDouble, Union);
-	Gura_AssignMethod(wx_Rect2DDouble, Union_1);
-	Gura_AssignMethod(wx_Rect2DDouble, Union_2);
-	Gura_AssignMethod(wx_Rect2DDouble, CreateUnion);
-	Gura_AssignMethod(wx_Rect2DDouble, Scale);
-	Gura_AssignMethod(wx_Rect2DDouble, Scale_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __wxRect2DDouble);
+	Gura_AssignMethod(wx_Rect2DDouble, __wxRect2DDouble_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetPosition);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetSize);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetLeft);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetLeft);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveLeftTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveTopTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveBottomTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetRight);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetRight);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveRightTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetLeftTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetLeftTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveLeftTopTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetLeftBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetLeftBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveLeftBottomTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetRightTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetRightTop);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveRightTopTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetRightBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetRightBottom);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveRightBottomTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetCentre);
+	Gura_AssignMethod(wx_Rect2DDouble, __SetCentre);
+	Gura_AssignMethod(wx_Rect2DDouble, __MoveCentreTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetOutCode);
+	Gura_AssignMethod(wx_Rect2DDouble, __GetOutcode);
+	Gura_AssignMethod(wx_Rect2DDouble, __Contains);
+	Gura_AssignMethod(wx_Rect2DDouble, __Contains_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __IsEmpty);
+	Gura_AssignMethod(wx_Rect2DDouble, __HaveEqualSize);
+	Gura_AssignMethod(wx_Rect2DDouble, __Inset);
+	Gura_AssignMethod(wx_Rect2DDouble, __Inset_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __Offset);
+	Gura_AssignMethod(wx_Rect2DDouble, __ConstrainTo);
+	Gura_AssignMethod(wx_Rect2DDouble, __Interpolate);
+	Gura_AssignMethod(wx_Rect2DDouble, __Intersect);
+	Gura_AssignMethod(wx_Rect2DDouble, __Intersect_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __CreateIntersection);
+	Gura_AssignMethod(wx_Rect2DDouble, __Intersects);
+	Gura_AssignMethod(wx_Rect2DDouble, __Union);
+	Gura_AssignMethod(wx_Rect2DDouble, __Union_1);
+	Gura_AssignMethod(wx_Rect2DDouble, __Union_2);
+	Gura_AssignMethod(wx_Rect2DDouble, __CreateUnion);
+	Gura_AssignMethod(wx_Rect2DDouble, __Scale);
+	Gura_AssignMethod(wx_Rect2DDouble, __Scale_1);
 }
 
 Gura_ImplementDescendantCreator(wx_Rect2DDouble)

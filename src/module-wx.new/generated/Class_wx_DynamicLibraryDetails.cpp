@@ -37,14 +37,14 @@ String Object_wx_DynamicLibraryDetails::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DynamicLibraryDetails, GetAddress)
+Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetAddress, "GetAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
+Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetAddress)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetAddress)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibraryDetails, GetName)
+Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
+Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetName)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibraryDetails, GetPath)
+Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetPath, "GetPath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
+Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetPath)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetPath)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DynamicLibraryDetails, GetVersion)
+Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetVersion, "GetVersion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
+Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetVersion)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, GetVersion)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DynamicLibraryDetails)
 {
-	Gura_AssignMethod(wx_DynamicLibraryDetails, GetAddress);
-	Gura_AssignMethod(wx_DynamicLibraryDetails, GetName);
-	Gura_AssignMethod(wx_DynamicLibraryDetails, GetPath);
-	Gura_AssignMethod(wx_DynamicLibraryDetails, GetVersion);
+	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetAddress);
+	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetName);
+	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetPath);
+	Gura_AssignMethod(wx_DynamicLibraryDetails, __GetVersion);
 }
 
 Gura_ImplementDescendantCreator(wx_DynamicLibraryDetails)

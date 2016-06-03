@@ -37,14 +37,14 @@ String Object_wx_Initializer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Initializer, wxInitializer)
+Gura_DeclareMethodAlias(wx_Initializer, __wxInitializer, "wxInitializer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Initializer, wxInitializer)
+Gura_ImplementMethod(wx_Initializer, __wxInitializer)
 {
 	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_Initializer, wxInitializer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Initializer, IsOk)
+Gura_DeclareMethodAlias(wx_Initializer, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Initializer, IsOk)
+Gura_ImplementMethod(wx_Initializer, __IsOk)
 {
 	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -72,8 +72,8 @@ Gura_ImplementMethod(wx_Initializer, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Initializer)
 {
-	Gura_AssignMethod(wx_Initializer, wxInitializer);
-	Gura_AssignMethod(wx_Initializer, IsOk);
+	Gura_AssignMethod(wx_Initializer, __wxInitializer);
+	Gura_AssignMethod(wx_Initializer, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_Initializer)

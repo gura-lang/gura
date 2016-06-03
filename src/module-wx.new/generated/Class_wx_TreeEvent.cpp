@@ -37,7 +37,7 @@ String Object_wx_TreeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeEvent, wxTreeEvent)
+Gura_DeclareMethodAlias(wx_TreeEvent, __wxTreeEvent, "wxTreeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_TreeEvent, wxTreeEvent)
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, wxTreeEvent)
+Gura_ImplementMethod(wx_TreeEvent, __wxTreeEvent)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_TreeEvent, wxTreeEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetItem)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetItem)
+Gura_ImplementMethod(wx_TreeEvent, __GetItem)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetKeyCode)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetKeyCode, "GetKeyCode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetKeyCode)
+Gura_ImplementMethod(wx_TreeEvent, __GetKeyCode)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetKeyCode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetKeyEvent)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetKeyEvent, "GetKeyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetKeyEvent)
+Gura_ImplementMethod(wx_TreeEvent, __GetKeyEvent)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetKeyEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetLabel)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetLabel, "GetLabel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetLabel)
+Gura_ImplementMethod(wx_TreeEvent, __GetLabel)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetLabel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetOldItem)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetOldItem, "GetOldItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetOldItem)
+Gura_ImplementMethod(wx_TreeEvent, __GetOldItem)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetOldItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, GetPoint)
+Gura_DeclareMethodAlias(wx_TreeEvent, __GetPoint, "GetPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, GetPoint)
+Gura_ImplementMethod(wx_TreeEvent, __GetPoint)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_TreeEvent, GetPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, IsEditCancelled)
+Gura_DeclareMethodAlias(wx_TreeEvent, __IsEditCancelled, "IsEditCancelled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, IsEditCancelled)
+Gura_ImplementMethod(wx_TreeEvent, __IsEditCancelled)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_TreeEvent, IsEditCancelled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeEvent, SetToolTip)
+Gura_DeclareMethodAlias(wx_TreeEvent, __SetToolTip, "SetToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TreeEvent, SetToolTip)
+Gura_ImplementMethod(wx_TreeEvent, __SetToolTip)
 {
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,15 +167,15 @@ Gura_ImplementMethod(wx_TreeEvent, SetToolTip)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeEvent)
 {
-	Gura_AssignMethod(wx_TreeEvent, wxTreeEvent);
-	Gura_AssignMethod(wx_TreeEvent, GetItem);
-	Gura_AssignMethod(wx_TreeEvent, GetKeyCode);
-	Gura_AssignMethod(wx_TreeEvent, GetKeyEvent);
-	Gura_AssignMethod(wx_TreeEvent, GetLabel);
-	Gura_AssignMethod(wx_TreeEvent, GetOldItem);
-	Gura_AssignMethod(wx_TreeEvent, GetPoint);
-	Gura_AssignMethod(wx_TreeEvent, IsEditCancelled);
-	Gura_AssignMethod(wx_TreeEvent, SetToolTip);
+	Gura_AssignMethod(wx_TreeEvent, __wxTreeEvent);
+	Gura_AssignMethod(wx_TreeEvent, __GetItem);
+	Gura_AssignMethod(wx_TreeEvent, __GetKeyCode);
+	Gura_AssignMethod(wx_TreeEvent, __GetKeyEvent);
+	Gura_AssignMethod(wx_TreeEvent, __GetLabel);
+	Gura_AssignMethod(wx_TreeEvent, __GetOldItem);
+	Gura_AssignMethod(wx_TreeEvent, __GetPoint);
+	Gura_AssignMethod(wx_TreeEvent, __IsEditCancelled);
+	Gura_AssignMethod(wx_TreeEvent, __SetToolTip);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeEvent)

@@ -37,14 +37,14 @@ String Object_wx_NotifyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_NotifyEvent, wxNotifyEvent)
+Gura_DeclareMethodAlias(wx_NotifyEvent, __wxNotifyEvent, "wxNotifyEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NotifyEvent, wxNotifyEvent)
+Gura_ImplementMethod(wx_NotifyEvent, __wxNotifyEvent)
 {
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_NotifyEvent, wxNotifyEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NotifyEvent, Allow)
+Gura_DeclareMethodAlias(wx_NotifyEvent, __Allow, "Allow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NotifyEvent, Allow)
+Gura_ImplementMethod(wx_NotifyEvent, __Allow)
 {
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_NotifyEvent, Allow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NotifyEvent, IsAllowed)
+Gura_DeclareMethodAlias(wx_NotifyEvent, __IsAllowed, "IsAllowed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NotifyEvent, IsAllowed)
+Gura_ImplementMethod(wx_NotifyEvent, __IsAllowed)
 {
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_NotifyEvent, IsAllowed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NotifyEvent, Veto)
+Gura_DeclareMethodAlias(wx_NotifyEvent, __Veto, "Veto")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NotifyEvent, Veto)
+Gura_ImplementMethod(wx_NotifyEvent, __Veto)
 {
 	Object_wx_NotifyEvent *pThis = Object_wx_NotifyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_NotifyEvent, Veto)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NotifyEvent)
 {
-	Gura_AssignMethod(wx_NotifyEvent, wxNotifyEvent);
-	Gura_AssignMethod(wx_NotifyEvent, Allow);
-	Gura_AssignMethod(wx_NotifyEvent, IsAllowed);
-	Gura_AssignMethod(wx_NotifyEvent, Veto);
+	Gura_AssignMethod(wx_NotifyEvent, __wxNotifyEvent);
+	Gura_AssignMethod(wx_NotifyEvent, __Allow);
+	Gura_AssignMethod(wx_NotifyEvent, __IsAllowed);
+	Gura_AssignMethod(wx_NotifyEvent, __Veto);
 }
 
 Gura_ImplementDescendantCreator(wx_NotifyEvent)

@@ -37,12 +37,12 @@ String Object_wx_BannerWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BannerWindow, wxBannerWindow)
+Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow, "wxBannerWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow)
+Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, wxBannerWindow_1)
+Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow_1, "wxBannerWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow_1)
+Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow_1)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, wxBannerWindow_2)
+Gura_DeclareMethodAlias(wx_BannerWindow, __wxBannerWindow_2, "wxBannerWindow_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_BannerWindow, wxBannerWindow_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow_2)
+Gura_ImplementMethod(wx_BannerWindow, __wxBannerWindow_2)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_BannerWindow, wxBannerWindow_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, Create)
+Gura_DeclareMethodAlias(wx_BannerWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -106,7 +106,7 @@ Gura_DeclareMethod(wx_BannerWindow, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, Create)
+Gura_ImplementMethod(wx_BannerWindow, __Create)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_BannerWindow, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, SetBitmap)
+Gura_DeclareMethodAlias(wx_BannerWindow, __SetBitmap, "SetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, SetBitmap)
+Gura_ImplementMethod(wx_BannerWindow, __SetBitmap)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,14 +136,14 @@ Gura_ImplementMethod(wx_BannerWindow, SetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, SetText)
+Gura_DeclareMethodAlias(wx_BannerWindow, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, SetText)
+Gura_ImplementMethod(wx_BannerWindow, __SetText)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,14 +153,14 @@ Gura_ImplementMethod(wx_BannerWindow, SetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BannerWindow, SetGradient)
+Gura_DeclareMethodAlias(wx_BannerWindow, __SetGradient, "SetGradient")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BannerWindow, SetGradient)
+Gura_ImplementMethod(wx_BannerWindow, __SetGradient)
 {
 	Object_wx_BannerWindow *pThis = Object_wx_BannerWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_BannerWindow, SetGradient)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BannerWindow)
 {
-	Gura_AssignMethod(wx_BannerWindow, wxBannerWindow);
-	Gura_AssignMethod(wx_BannerWindow, wxBannerWindow_1);
-	Gura_AssignMethod(wx_BannerWindow, wxBannerWindow_2);
-	Gura_AssignMethod(wx_BannerWindow, Create);
-	Gura_AssignMethod(wx_BannerWindow, SetBitmap);
-	Gura_AssignMethod(wx_BannerWindow, SetText);
-	Gura_AssignMethod(wx_BannerWindow, SetGradient);
+	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow);
+	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow_1);
+	Gura_AssignMethod(wx_BannerWindow, __wxBannerWindow_2);
+	Gura_AssignMethod(wx_BannerWindow, __Create);
+	Gura_AssignMethod(wx_BannerWindow, __SetBitmap);
+	Gura_AssignMethod(wx_BannerWindow, __SetText);
+	Gura_AssignMethod(wx_BannerWindow, __SetGradient);
 }
 
 Gura_ImplementDescendantCreator(wx_BannerWindow)

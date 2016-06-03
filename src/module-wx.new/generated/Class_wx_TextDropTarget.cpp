@@ -37,12 +37,12 @@ String Object_wx_TextDropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextDropTarget, wxTextDropTarget)
+Gura_DeclareMethodAlias(wx_TextDropTarget, __wxTextDropTarget, "wxTextDropTarget")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextDropTarget, wxTextDropTarget)
+Gura_ImplementMethod(wx_TextDropTarget, __wxTextDropTarget)
 {
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_TextDropTarget, wxTextDropTarget)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
+Gura_DeclareMethodAlias(wx_TextDropTarget, __OnDrop, "OnDrop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
+Gura_ImplementMethod(wx_TextDropTarget, __OnDrop)
 {
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDrop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
+Gura_DeclareMethodAlias(wx_TextDropTarget, __OnDropText, "OnDropText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_TextDropTarget, OnDropText)
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
+Gura_ImplementMethod(wx_TextDropTarget, __OnDropText)
 {
 	Object_wx_TextDropTarget *pThis = Object_wx_TextDropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,9 +91,9 @@ Gura_ImplementMethod(wx_TextDropTarget, OnDropText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDropTarget)
 {
-	Gura_AssignMethod(wx_TextDropTarget, wxTextDropTarget);
-	Gura_AssignMethod(wx_TextDropTarget, OnDrop);
-	Gura_AssignMethod(wx_TextDropTarget, OnDropText);
+	Gura_AssignMethod(wx_TextDropTarget, __wxTextDropTarget);
+	Gura_AssignMethod(wx_TextDropTarget, __OnDrop);
+	Gura_AssignMethod(wx_TextDropTarget, __OnDropText);
 }
 
 Gura_ImplementDescendantCreator(wx_TextDropTarget)

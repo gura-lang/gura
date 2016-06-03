@@ -37,7 +37,7 @@ String Object_wx_RichTextStyleComboCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl, "wxRichTextStyleComboCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,12 +60,12 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl_1)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl_1, "wxRichTextStyleComboCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl_1)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl_1)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, Create)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareMethod(wx_RichTextStyleComboCtrl, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, Create)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __Create)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,12 +96,12 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __GetRichTextCtrl, "GetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __GetRichTextCtrl)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -109,12 +109,12 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __GetStyleSheet, "GetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __GetStyleSheet)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,13 +122,13 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, GetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __SetRichTextCtrl, "SetRichTextCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __SetRichTextCtrl)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,13 +137,13 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __SetStyleSheet, "SetStyleSheet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "styleSheet", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __SetStyleSheet)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,12 +152,12 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, SetStyleSheet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
+Gura_DeclareMethodAlias(wx_RichTextStyleComboCtrl, __UpdateStyles, "UpdateStyles")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
+Gura_ImplementMethod(wx_RichTextStyleComboCtrl, __UpdateStyles)
 {
 	Object_wx_RichTextStyleComboCtrl *pThis = Object_wx_RichTextStyleComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_RichTextStyleComboCtrl, UpdateStyles)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextStyleComboCtrl)
 {
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, wxRichTextStyleComboCtrl_1);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, Create);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, GetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, GetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, SetRichTextCtrl);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, SetStyleSheet);
-	Gura_AssignMethod(wx_RichTextStyleComboCtrl, UpdateStyles);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __wxRichTextStyleComboCtrl_1);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __Create);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __GetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __GetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __SetRichTextCtrl);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __SetStyleSheet);
+	Gura_AssignMethod(wx_RichTextStyleComboCtrl, __UpdateStyles);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextStyleComboCtrl)

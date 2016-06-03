@@ -37,12 +37,12 @@ String Object_wx_CustomBackgroundWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow)
+Gura_DeclareMethodAlias(wx_CustomBackgroundWindow, __wxCustomBackgroundWindow, "wxCustomBackgroundWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow)
+Gura_ImplementMethod(wx_CustomBackgroundWindow, __wxCustomBackgroundWindow)
 {
 	Object_wx_CustomBackgroundWindow *pThis = Object_wx_CustomBackgroundWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap)
+Gura_DeclareMethodAlias(wx_CustomBackgroundWindow, __SetBackgroundBitmap, "SetBackgroundBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap)
+Gura_ImplementMethod(wx_CustomBackgroundWindow, __SetBackgroundBitmap)
 {
 	Object_wx_CustomBackgroundWindow *pThis = Object_wx_CustomBackgroundWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomBackgroundWindow)
 {
-	Gura_AssignMethod(wx_CustomBackgroundWindow, wxCustomBackgroundWindow);
-	Gura_AssignMethod(wx_CustomBackgroundWindow, SetBackgroundBitmap);
+	Gura_AssignMethod(wx_CustomBackgroundWindow, __wxCustomBackgroundWindow);
+	Gura_AssignMethod(wx_CustomBackgroundWindow, __SetBackgroundBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_CustomBackgroundWindow)

@@ -37,14 +37,14 @@ String Object_wx_ConfigPathChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ConfigPathChanger, wxConfigPathChanger)
+Gura_DeclareMethodAlias(wx_ConfigPathChanger, __wxConfigPathChanger, "wxConfigPathChanger")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strEntry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ConfigPathChanger, wxConfigPathChanger)
+Gura_ImplementMethod(wx_ConfigPathChanger, __wxConfigPathChanger)
 {
 	Object_wx_ConfigPathChanger *pThis = Object_wx_ConfigPathChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_ConfigPathChanger, wxConfigPathChanger)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigPathChanger, Name)
+Gura_DeclareMethodAlias(wx_ConfigPathChanger, __Name, "Name")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConfigPathChanger, Name)
+Gura_ImplementMethod(wx_ConfigPathChanger, __Name)
 {
 	Object_wx_ConfigPathChanger *pThis = Object_wx_ConfigPathChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_ConfigPathChanger, Name)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ConfigPathChanger, UpdateIfDeleted)
+Gura_DeclareMethodAlias(wx_ConfigPathChanger, __UpdateIfDeleted, "UpdateIfDeleted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ConfigPathChanger, UpdateIfDeleted)
+Gura_ImplementMethod(wx_ConfigPathChanger, __UpdateIfDeleted)
 {
 	Object_wx_ConfigPathChanger *pThis = Object_wx_ConfigPathChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_ConfigPathChanger, UpdateIfDeleted)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ConfigPathChanger)
 {
-	Gura_AssignMethod(wx_ConfigPathChanger, wxConfigPathChanger);
-	Gura_AssignMethod(wx_ConfigPathChanger, Name);
-	Gura_AssignMethod(wx_ConfigPathChanger, UpdateIfDeleted);
+	Gura_AssignMethod(wx_ConfigPathChanger, __wxConfigPathChanger);
+	Gura_AssignMethod(wx_ConfigPathChanger, __Name);
+	Gura_AssignMethod(wx_ConfigPathChanger, __UpdateIfDeleted);
 }
 
 Gura_ImplementDescendantCreator(wx_ConfigPathChanger)

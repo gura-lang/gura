@@ -37,12 +37,12 @@ String Object_wx_StringTokenizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __wxStringTokenizer, "wxStringTokenizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer)
+Gura_ImplementMethod(wx_StringTokenizer, __wxStringTokenizer)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer_1)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __wxStringTokenizer_1, "wxStringTokenizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_StringTokenizer, wxStringTokenizer_1)
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer_1)
+Gura_ImplementMethod(wx_StringTokenizer, __wxStringTokenizer_1)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_StringTokenizer, wxStringTokenizer_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, CountTokens)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __CountTokens, "CountTokens")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
+Gura_ImplementMethod(wx_StringTokenizer, __CountTokens)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_StringTokenizer, CountTokens)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, GetLastDelimiter)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __GetLastDelimiter, "GetLastDelimiter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
+Gura_ImplementMethod(wx_StringTokenizer, __GetLastDelimiter)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_StringTokenizer, GetLastDelimiter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, GetNextToken)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __GetNextToken, "GetNextToken")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
+Gura_ImplementMethod(wx_StringTokenizer, __GetNextToken)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_StringTokenizer, GetNextToken)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, GetPosition)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
+Gura_ImplementMethod(wx_StringTokenizer, __GetPosition)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,12 +121,12 @@ Gura_ImplementMethod(wx_StringTokenizer, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, GetString)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, GetString)
+Gura_ImplementMethod(wx_StringTokenizer, __GetString)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_StringTokenizer, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, HasMoreTokens)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __HasMoreTokens, "HasMoreTokens")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
+Gura_ImplementMethod(wx_StringTokenizer, __HasMoreTokens)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_StringTokenizer, HasMoreTokens)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringTokenizer, SetString)
+Gura_DeclareMethodAlias(wx_StringTokenizer, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -155,7 +155,7 @@ Gura_DeclareMethod(wx_StringTokenizer, SetString)
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringTokenizer, SetString)
+Gura_ImplementMethod(wx_StringTokenizer, __SetString)
 {
 	Object_wx_StringTokenizer *pThis = Object_wx_StringTokenizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,15 +171,15 @@ Gura_ImplementMethod(wx_StringTokenizer, SetString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringTokenizer)
 {
-	Gura_AssignMethod(wx_StringTokenizer, wxStringTokenizer);
-	Gura_AssignMethod(wx_StringTokenizer, wxStringTokenizer_1);
-	Gura_AssignMethod(wx_StringTokenizer, CountTokens);
-	Gura_AssignMethod(wx_StringTokenizer, GetLastDelimiter);
-	Gura_AssignMethod(wx_StringTokenizer, GetNextToken);
-	Gura_AssignMethod(wx_StringTokenizer, GetPosition);
-	Gura_AssignMethod(wx_StringTokenizer, GetString);
-	Gura_AssignMethod(wx_StringTokenizer, HasMoreTokens);
-	Gura_AssignMethod(wx_StringTokenizer, SetString);
+	Gura_AssignMethod(wx_StringTokenizer, __wxStringTokenizer);
+	Gura_AssignMethod(wx_StringTokenizer, __wxStringTokenizer_1);
+	Gura_AssignMethod(wx_StringTokenizer, __CountTokens);
+	Gura_AssignMethod(wx_StringTokenizer, __GetLastDelimiter);
+	Gura_AssignMethod(wx_StringTokenizer, __GetNextToken);
+	Gura_AssignMethod(wx_StringTokenizer, __GetPosition);
+	Gura_AssignMethod(wx_StringTokenizer, __GetString);
+	Gura_AssignMethod(wx_StringTokenizer, __HasMoreTokens);
+	Gura_AssignMethod(wx_StringTokenizer, __SetString);
 }
 
 Gura_ImplementDescendantCreator(wx_StringTokenizer)

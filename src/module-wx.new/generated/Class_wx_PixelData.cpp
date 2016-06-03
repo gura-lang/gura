@@ -37,13 +37,13 @@ String Object_wx_PixelData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_PixelData, wxPixelData)
+Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData, "wxPixelData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, wxPixelData)
+Gura_ImplementMethod(wx_PixelData, __wxPixelData)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_PixelData, wxPixelData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, wxPixelData_1)
+Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData_1, "wxPixelData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, wxPixelData_1)
+Gura_ImplementMethod(wx_PixelData, __wxPixelData_1)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_PixelData, wxPixelData_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, wxPixelData_2)
+Gura_DeclareMethodAlias(wx_PixelData, __wxPixelData_2, "wxPixelData_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(wx_PixelData, wxPixelData_2)
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, wxPixelData_2)
+Gura_ImplementMethod(wx_PixelData, __wxPixelData_2)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_PixelData, wxPixelData_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, bool)
+Gura_DeclareMethodAlias(wx_PixelData, __bool, "bool")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, bool)
+Gura_ImplementMethod(wx_PixelData, __bool)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_PixelData, bool)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetPixels)
+Gura_DeclareMethodAlias(wx_PixelData, __GetPixels, "GetPixels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetPixels)
+Gura_ImplementMethod(wx_PixelData, __GetPixels)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_PixelData, GetPixels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetOrigin)
+Gura_DeclareMethodAlias(wx_PixelData, __GetOrigin, "GetOrigin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetOrigin)
+Gura_ImplementMethod(wx_PixelData, __GetOrigin)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,12 +127,12 @@ Gura_ImplementMethod(wx_PixelData, GetOrigin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetWidth)
+Gura_DeclareMethodAlias(wx_PixelData, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetWidth)
+Gura_ImplementMethod(wx_PixelData, __GetWidth)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_PixelData, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetHeight)
+Gura_DeclareMethodAlias(wx_PixelData, __GetHeight, "GetHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetHeight)
+Gura_ImplementMethod(wx_PixelData, __GetHeight)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_PixelData, GetHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetSize)
+Gura_DeclareMethodAlias(wx_PixelData, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetSize)
+Gura_ImplementMethod(wx_PixelData, __GetSize)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,12 +166,12 @@ Gura_ImplementMethod(wx_PixelData, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, GetRowStride)
+Gura_DeclareMethodAlias(wx_PixelData, __GetRowStride, "GetRowStride")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, GetRowStride)
+Gura_ImplementMethod(wx_PixelData, __GetRowStride)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_PixelData, GetRowStride)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Reset)
+Gura_DeclareMethodAlias(wx_PixelData, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, Reset)
+Gura_ImplementMethod(wx_PixelData, __Reset)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_PixelData, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Iterator)
+Gura_DeclareMethodAlias(wx_PixelData, __Iterator, "Iterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, Iterator)
+Gura_ImplementMethod(wx_PixelData, __Iterator)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,14 +209,14 @@ Gura_ImplementMethod(wx_PixelData, Iterator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Iterator_1)
+Gura_DeclareMethodAlias(wx_PixelData, __Iterator_1, "Iterator_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmp", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, Iterator_1)
+Gura_ImplementMethod(wx_PixelData, __Iterator_1)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -226,12 +226,12 @@ Gura_ImplementMethod(wx_PixelData, Iterator_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Iterator_2)
+Gura_DeclareMethodAlias(wx_PixelData, __Iterator_2, "Iterator_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, Iterator_2)
+Gura_ImplementMethod(wx_PixelData, __Iterator_2)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,12 +239,12 @@ Gura_ImplementMethod(wx_PixelData, Iterator_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, IsOk)
+Gura_DeclareMethodAlias(wx_PixelData, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, IsOk)
+Gura_ImplementMethod(wx_PixelData, __IsOk)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_PixelData, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Offset)
+Gura_DeclareMethodAlias(wx_PixelData, __Offset, "Offset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -260,7 +260,7 @@ Gura_DeclareMethod(wx_PixelData, Offset)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, Offset)
+Gura_ImplementMethod(wx_PixelData, __Offset)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -271,14 +271,14 @@ Gura_ImplementMethod(wx_PixelData, Offset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, OffsetX)
+Gura_DeclareMethodAlias(wx_PixelData, __OffsetX, "OffsetX")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, OffsetX)
+Gura_ImplementMethod(wx_PixelData, __OffsetX)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -288,14 +288,14 @@ Gura_ImplementMethod(wx_PixelData, OffsetX)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, OffsetY)
+Gura_DeclareMethodAlias(wx_PixelData, __OffsetY, "OffsetY")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, OffsetY)
+Gura_ImplementMethod(wx_PixelData, __OffsetY)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_PixelData, OffsetY)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, MoveTo)
+Gura_DeclareMethodAlias(wx_PixelData, __MoveTo, "MoveTo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -313,7 +313,7 @@ Gura_DeclareMethod(wx_PixelData, MoveTo)
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_PixelData, MoveTo)
+Gura_ImplementMethod(wx_PixelData, __MoveTo)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -324,12 +324,12 @@ Gura_ImplementMethod(wx_PixelData, MoveTo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Red)
+Gura_DeclareMethodAlias(wx_PixelData, __Red, "Red")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, Red)
+Gura_ImplementMethod(wx_PixelData, __Red)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -337,12 +337,12 @@ Gura_ImplementMethod(wx_PixelData, Red)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Green)
+Gura_DeclareMethodAlias(wx_PixelData, __Green, "Green")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, Green)
+Gura_ImplementMethod(wx_PixelData, __Green)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -350,12 +350,12 @@ Gura_ImplementMethod(wx_PixelData, Green)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Blue)
+Gura_DeclareMethodAlias(wx_PixelData, __Blue, "Blue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, Blue)
+Gura_ImplementMethod(wx_PixelData, __Blue)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -363,12 +363,12 @@ Gura_ImplementMethod(wx_PixelData, Blue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_PixelData, Alpha)
+Gura_DeclareMethodAlias(wx_PixelData, __Alpha, "Alpha")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_PixelData, Alpha)
+Gura_ImplementMethod(wx_PixelData, __Alpha)
 {
 	Object_wx_PixelData *pThis = Object_wx_PixelData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,29 +381,29 @@ Gura_ImplementMethod(wx_PixelData, Alpha)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_PixelData)
 {
-	Gura_AssignMethod(wx_PixelData, wxPixelData);
-	Gura_AssignMethod(wx_PixelData, wxPixelData_1);
-	Gura_AssignMethod(wx_PixelData, wxPixelData_2);
-	Gura_AssignMethod(wx_PixelData, bool);
-	Gura_AssignMethod(wx_PixelData, GetPixels);
-	Gura_AssignMethod(wx_PixelData, GetOrigin);
-	Gura_AssignMethod(wx_PixelData, GetWidth);
-	Gura_AssignMethod(wx_PixelData, GetHeight);
-	Gura_AssignMethod(wx_PixelData, GetSize);
-	Gura_AssignMethod(wx_PixelData, GetRowStride);
-	Gura_AssignMethod(wx_PixelData, Reset);
-	Gura_AssignMethod(wx_PixelData, Iterator);
-	Gura_AssignMethod(wx_PixelData, Iterator_1);
-	Gura_AssignMethod(wx_PixelData, Iterator_2);
-	Gura_AssignMethod(wx_PixelData, IsOk);
-	Gura_AssignMethod(wx_PixelData, Offset);
-	Gura_AssignMethod(wx_PixelData, OffsetX);
-	Gura_AssignMethod(wx_PixelData, OffsetY);
-	Gura_AssignMethod(wx_PixelData, MoveTo);
-	Gura_AssignMethod(wx_PixelData, Red);
-	Gura_AssignMethod(wx_PixelData, Green);
-	Gura_AssignMethod(wx_PixelData, Blue);
-	Gura_AssignMethod(wx_PixelData, Alpha);
+	Gura_AssignMethod(wx_PixelData, __wxPixelData);
+	Gura_AssignMethod(wx_PixelData, __wxPixelData_1);
+	Gura_AssignMethod(wx_PixelData, __wxPixelData_2);
+	Gura_AssignMethod(wx_PixelData, __bool);
+	Gura_AssignMethod(wx_PixelData, __GetPixels);
+	Gura_AssignMethod(wx_PixelData, __GetOrigin);
+	Gura_AssignMethod(wx_PixelData, __GetWidth);
+	Gura_AssignMethod(wx_PixelData, __GetHeight);
+	Gura_AssignMethod(wx_PixelData, __GetSize);
+	Gura_AssignMethod(wx_PixelData, __GetRowStride);
+	Gura_AssignMethod(wx_PixelData, __Reset);
+	Gura_AssignMethod(wx_PixelData, __Iterator);
+	Gura_AssignMethod(wx_PixelData, __Iterator_1);
+	Gura_AssignMethod(wx_PixelData, __Iterator_2);
+	Gura_AssignMethod(wx_PixelData, __IsOk);
+	Gura_AssignMethod(wx_PixelData, __Offset);
+	Gura_AssignMethod(wx_PixelData, __OffsetX);
+	Gura_AssignMethod(wx_PixelData, __OffsetY);
+	Gura_AssignMethod(wx_PixelData, __MoveTo);
+	Gura_AssignMethod(wx_PixelData, __Red);
+	Gura_AssignMethod(wx_PixelData, __Green);
+	Gura_AssignMethod(wx_PixelData, __Blue);
+	Gura_AssignMethod(wx_PixelData, __Alpha);
 }
 
 Gura_ImplementDescendantCreator(wx_PixelData)

@@ -37,12 +37,12 @@ String Object_wx_AuiPaneInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiPaneInfo, wxAuiPaneInfo)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __wxAuiPaneInfo, "wxAuiPaneInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, wxAuiPaneInfo)
+Gura_ImplementMethod(wx_AuiPaneInfo, __wxAuiPaneInfo)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, wxAuiPaneInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, wxAuiPaneInfo_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __wxAuiPaneInfo_1, "wxAuiPaneInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, wxAuiPaneInfo_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __wxAuiPaneInfo_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, wxAuiPaneInfo_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, BestSize)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __BestSize, "BestSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, BestSize)
+Gura_ImplementMethod(wx_AuiPaneInfo, __BestSize)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BestSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, BestSize_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __BestSize_1, "BestSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, BestSize_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __BestSize_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BestSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Bottom)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Bottom, "Bottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Bottom)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Bottom)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Bottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, BottomDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __BottomDockable, "BottomDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, BottomDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __BottomDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, BottomDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Caption)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Caption, "Caption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Caption)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Caption)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Caption)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, CaptionVisible)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __CaptionVisible, "CaptionVisible")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, CaptionVisible)
+Gura_ImplementMethod(wx_AuiPaneInfo, __CaptionVisible)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,12 +155,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CaptionVisible)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Centre)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Centre, "Centre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Centre)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Centre)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -168,12 +168,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Centre)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Center)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Center, "Center")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Center)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Center)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Center)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, CentrePane)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __CentrePane, "CentrePane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, CentrePane)
+Gura_ImplementMethod(wx_AuiPaneInfo, __CentrePane)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CentrePane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, CenterPane)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __CenterPane, "CenterPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, CenterPane)
+Gura_ImplementMethod(wx_AuiPaneInfo, __CenterPane)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CenterPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, CloseButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __CloseButton, "CloseButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, CloseButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __CloseButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,12 +222,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, CloseButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, DefaultPane)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __DefaultPane, "DefaultPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, DefaultPane)
+Gura_ImplementMethod(wx_AuiPaneInfo, __DefaultPane)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DefaultPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, DestroyOnClose)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __DestroyOnClose, "DestroyOnClose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, DestroyOnClose)
+Gura_ImplementMethod(wx_AuiPaneInfo, __DestroyOnClose)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -250,13 +250,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DestroyOnClose)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Direction)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Direction, "Direction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Direction)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Direction)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -265,12 +265,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Direction)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Dock)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Dock, "Dock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Dock)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Dock)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -278,13 +278,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Dock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, DockFixed)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __DockFixed, "DockFixed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, DockFixed)
+Gura_ImplementMethod(wx_AuiPaneInfo, __DockFixed)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -293,13 +293,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, DockFixed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Dockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Dockable, "Dockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Dockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Dockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -308,12 +308,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Dockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Fixed)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Fixed, "Fixed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Fixed)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Fixed)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,12 +321,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Fixed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Float)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Float, "Float")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Float)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Float)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,13 +334,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Float)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Floatable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Floatable, "Floatable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Floatable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Floatable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,13 +349,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Floatable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __FloatingPosition, "FloatingPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition)
+Gura_ImplementMethod(wx_AuiPaneInfo, __FloatingPosition)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,14 +364,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, FloatingPosition_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __FloatingPosition_1, "FloatingPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __FloatingPosition_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,13 +381,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __FloatingSize, "FloatingSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize)
+Gura_ImplementMethod(wx_AuiPaneInfo, __FloatingSize)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -396,14 +396,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, FloatingSize_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __FloatingSize_1, "FloatingSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __FloatingSize_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -413,13 +413,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, FloatingSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Gripper)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Gripper, "Gripper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Gripper)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Gripper)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -428,13 +428,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Gripper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, GripperTop)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __GripperTop, "GripperTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, GripperTop)
+Gura_ImplementMethod(wx_AuiPaneInfo, __GripperTop)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -443,12 +443,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, GripperTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasBorder)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasBorder, "HasBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasBorder)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasBorder)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -456,12 +456,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasCaption)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasCaption, "HasCaption")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasCaption)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasCaption)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -469,12 +469,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasCaption)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasCloseButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasCloseButton, "HasCloseButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasCloseButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasCloseButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -482,13 +482,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasCloseButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasFlag)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasFlag, "HasFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasFlag)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasFlag)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -497,12 +497,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasGripper)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasGripper, "HasGripper")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasGripper)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasGripper)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -510,12 +510,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasGripper)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasGripperTop)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasGripperTop, "HasGripperTop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasGripperTop)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasGripperTop)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -523,12 +523,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasGripperTop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasMaximizeButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasMaximizeButton, "HasMaximizeButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasMaximizeButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasMaximizeButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -536,12 +536,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasMaximizeButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasMinimizeButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasMinimizeButton, "HasMinimizeButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasMinimizeButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasMinimizeButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -549,12 +549,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasMinimizeButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, HasPinButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __HasPinButton, "HasPinButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, HasPinButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __HasPinButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -562,12 +562,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, HasPinButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Hide)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Hide, "Hide")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Hide)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Hide)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -575,13 +575,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Hide)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Icon)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Icon, "Icon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Icon)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Icon)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -590,12 +590,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Icon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsBottomDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsBottomDockable, "IsBottomDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsBottomDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsBottomDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -603,12 +603,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsBottomDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsDockable, "IsDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -616,12 +616,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsDocked)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsDocked, "IsDocked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsDocked)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsDocked)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -629,12 +629,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsDocked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsFixed)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsFixed, "IsFixed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsFixed)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsFixed)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -642,12 +642,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFixed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsFloatable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsFloatable, "IsFloatable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsFloatable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsFloatable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -655,12 +655,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFloatable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsFloating)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsFloating, "IsFloating")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsFloating)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsFloating)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -668,12 +668,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsFloating)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsLeftDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsLeftDockable, "IsLeftDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsLeftDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsLeftDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -681,12 +681,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsLeftDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsMovable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsMovable, "IsMovable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsMovable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsMovable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -694,12 +694,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsMovable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsOk)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsOk)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsOk)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -707,12 +707,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsResizable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsResizable, "IsResizable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsResizable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsResizable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -720,12 +720,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsResizable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsRightDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsRightDockable, "IsRightDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsRightDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsRightDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -733,12 +733,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsRightDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsShown)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsShown, "IsShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsShown)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsShown)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -746,12 +746,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsToolbar)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsToolbar, "IsToolbar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsToolbar)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsToolbar)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -759,12 +759,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsToolbar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, IsTopDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __IsTopDockable, "IsTopDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, IsTopDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __IsTopDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -772,13 +772,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, IsTopDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Layer)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Layer, "Layer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "layer", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Layer)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Layer)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -787,12 +787,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Layer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Left)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Left, "Left")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Left)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Left)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -800,13 +800,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Left)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, LeftDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __LeftDockable, "LeftDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, LeftDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __LeftDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -815,13 +815,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, LeftDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MaxSize, "MaxSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MaxSize)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -830,14 +830,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MaxSize_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MaxSize_1, "MaxSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MaxSize_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -847,13 +847,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaxSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MaximizeButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MaximizeButton, "MaximizeButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MaximizeButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MaximizeButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -862,13 +862,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MaximizeButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MinSize)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MinSize, "MinSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MinSize)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MinSize)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -877,14 +877,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MinSize_1)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MinSize_1, "MinSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MinSize_1)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MinSize_1)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -894,13 +894,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, MinimizeButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __MinimizeButton, "MinimizeButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, MinimizeButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __MinimizeButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -909,13 +909,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, MinimizeButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Movable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Movable, "Movable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Movable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Movable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -924,13 +924,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Movable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Name)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Name, "Name")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Name)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Name)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -939,13 +939,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Name)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, PaneBorder)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __PaneBorder, "PaneBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, PaneBorder)
+Gura_ImplementMethod(wx_AuiPaneInfo, __PaneBorder)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -954,13 +954,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, PaneBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, PinButton)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __PinButton, "PinButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "visible", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, PinButton)
+Gura_ImplementMethod(wx_AuiPaneInfo, __PinButton)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -969,13 +969,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, PinButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Position)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Position, "Position")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Position)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Position)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -984,13 +984,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Position)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Resizable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Resizable, "Resizable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "resizable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Resizable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Resizable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -999,12 +999,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Resizable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Right)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Right, "Right")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Right)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Right)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1012,13 +1012,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Right)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, RightDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __RightDockable, "RightDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, RightDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __RightDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1027,13 +1027,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, RightDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Row)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Row, "Row")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Row)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Row)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1042,13 +1042,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Row)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, SafeSet)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __SafeSet, "SafeSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, SafeSet)
+Gura_ImplementMethod(wx_AuiPaneInfo, __SafeSet)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1057,14 +1057,14 @@ Gura_ImplementMethod(wx_AuiPaneInfo, SafeSet)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, SetFlag)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __SetFlag, "SetFlag")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "option_state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, SetFlag)
+Gura_ImplementMethod(wx_AuiPaneInfo, __SetFlag)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1074,13 +1074,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, SetFlag)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Show)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Show, "Show")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Show)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Show)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1089,12 +1089,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Show)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, ToolbarPane)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __ToolbarPane, "ToolbarPane")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, ToolbarPane)
+Gura_ImplementMethod(wx_AuiPaneInfo, __ToolbarPane)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1102,12 +1102,12 @@ Gura_ImplementMethod(wx_AuiPaneInfo, ToolbarPane)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Top)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Top, "Top")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Top)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Top)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1115,13 +1115,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Top)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, TopDockable)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __TopDockable, "TopDockable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, TopDockable)
+Gura_ImplementMethod(wx_AuiPaneInfo, __TopDockable)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1130,13 +1130,13 @@ Gura_ImplementMethod(wx_AuiPaneInfo, TopDockable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiPaneInfo, Window)
+Gura_DeclareMethodAlias(wx_AuiPaneInfo, __Window, "Window")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AuiPaneInfo, Window)
+Gura_ImplementMethod(wx_AuiPaneInfo, __Window)
 {
 	Object_wx_AuiPaneInfo *pThis = Object_wx_AuiPaneInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -1150,84 +1150,84 @@ Gura_ImplementMethod(wx_AuiPaneInfo, Window)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiPaneInfo)
 {
-	Gura_AssignMethod(wx_AuiPaneInfo, wxAuiPaneInfo);
-	Gura_AssignMethod(wx_AuiPaneInfo, wxAuiPaneInfo_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, BestSize);
-	Gura_AssignMethod(wx_AuiPaneInfo, BestSize_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, Bottom);
-	Gura_AssignMethod(wx_AuiPaneInfo, BottomDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Caption);
-	Gura_AssignMethod(wx_AuiPaneInfo, CaptionVisible);
-	Gura_AssignMethod(wx_AuiPaneInfo, Centre);
-	Gura_AssignMethod(wx_AuiPaneInfo, Center);
-	Gura_AssignMethod(wx_AuiPaneInfo, CentrePane);
-	Gura_AssignMethod(wx_AuiPaneInfo, CenterPane);
-	Gura_AssignMethod(wx_AuiPaneInfo, CloseButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, DefaultPane);
-	Gura_AssignMethod(wx_AuiPaneInfo, DestroyOnClose);
-	Gura_AssignMethod(wx_AuiPaneInfo, Direction);
-	Gura_AssignMethod(wx_AuiPaneInfo, Dock);
-	Gura_AssignMethod(wx_AuiPaneInfo, DockFixed);
-	Gura_AssignMethod(wx_AuiPaneInfo, Dockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Fixed);
-	Gura_AssignMethod(wx_AuiPaneInfo, Float);
-	Gura_AssignMethod(wx_AuiPaneInfo, Floatable);
-	Gura_AssignMethod(wx_AuiPaneInfo, FloatingPosition);
-	Gura_AssignMethod(wx_AuiPaneInfo, FloatingPosition_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, FloatingSize);
-	Gura_AssignMethod(wx_AuiPaneInfo, FloatingSize_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, Gripper);
-	Gura_AssignMethod(wx_AuiPaneInfo, GripperTop);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasBorder);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasCaption);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasCloseButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasFlag);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasGripper);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasGripperTop);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasMaximizeButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasMinimizeButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, HasPinButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, Hide);
-	Gura_AssignMethod(wx_AuiPaneInfo, Icon);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsBottomDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsDocked);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsFixed);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsFloatable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsFloating);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsLeftDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsMovable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsOk);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsResizable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsRightDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsShown);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsToolbar);
-	Gura_AssignMethod(wx_AuiPaneInfo, IsTopDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Layer);
-	Gura_AssignMethod(wx_AuiPaneInfo, Left);
-	Gura_AssignMethod(wx_AuiPaneInfo, LeftDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, MaxSize);
-	Gura_AssignMethod(wx_AuiPaneInfo, MaxSize_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, MaximizeButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, MinSize);
-	Gura_AssignMethod(wx_AuiPaneInfo, MinSize_1);
-	Gura_AssignMethod(wx_AuiPaneInfo, MinimizeButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, Movable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Name);
-	Gura_AssignMethod(wx_AuiPaneInfo, PaneBorder);
-	Gura_AssignMethod(wx_AuiPaneInfo, PinButton);
-	Gura_AssignMethod(wx_AuiPaneInfo, Position);
-	Gura_AssignMethod(wx_AuiPaneInfo, Resizable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Right);
-	Gura_AssignMethod(wx_AuiPaneInfo, RightDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Row);
-	Gura_AssignMethod(wx_AuiPaneInfo, SafeSet);
-	Gura_AssignMethod(wx_AuiPaneInfo, SetFlag);
-	Gura_AssignMethod(wx_AuiPaneInfo, Show);
-	Gura_AssignMethod(wx_AuiPaneInfo, ToolbarPane);
-	Gura_AssignMethod(wx_AuiPaneInfo, Top);
-	Gura_AssignMethod(wx_AuiPaneInfo, TopDockable);
-	Gura_AssignMethod(wx_AuiPaneInfo, Window);
+	Gura_AssignMethod(wx_AuiPaneInfo, __wxAuiPaneInfo);
+	Gura_AssignMethod(wx_AuiPaneInfo, __wxAuiPaneInfo_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize);
+	Gura_AssignMethod(wx_AuiPaneInfo, __BestSize_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Bottom);
+	Gura_AssignMethod(wx_AuiPaneInfo, __BottomDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Caption);
+	Gura_AssignMethod(wx_AuiPaneInfo, __CaptionVisible);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Centre);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Center);
+	Gura_AssignMethod(wx_AuiPaneInfo, __CentrePane);
+	Gura_AssignMethod(wx_AuiPaneInfo, __CenterPane);
+	Gura_AssignMethod(wx_AuiPaneInfo, __CloseButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __DefaultPane);
+	Gura_AssignMethod(wx_AuiPaneInfo, __DestroyOnClose);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Direction);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Dock);
+	Gura_AssignMethod(wx_AuiPaneInfo, __DockFixed);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Dockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Fixed);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Float);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Floatable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __FloatingPosition);
+	Gura_AssignMethod(wx_AuiPaneInfo, __FloatingPosition_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __FloatingSize);
+	Gura_AssignMethod(wx_AuiPaneInfo, __FloatingSize_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Gripper);
+	Gura_AssignMethod(wx_AuiPaneInfo, __GripperTop);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasBorder);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasCaption);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasCloseButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasFlag);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasGripper);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasGripperTop);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasMaximizeButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasMinimizeButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __HasPinButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Hide);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Icon);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsBottomDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsDocked);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsFixed);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsFloatable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsFloating);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsLeftDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsMovable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsOk);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsResizable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsRightDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsShown);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsToolbar);
+	Gura_AssignMethod(wx_AuiPaneInfo, __IsTopDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Layer);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Left);
+	Gura_AssignMethod(wx_AuiPaneInfo, __LeftDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MaxSize);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MaxSize_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MaximizeButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MinSize);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MinSize_1);
+	Gura_AssignMethod(wx_AuiPaneInfo, __MinimizeButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Movable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Name);
+	Gura_AssignMethod(wx_AuiPaneInfo, __PaneBorder);
+	Gura_AssignMethod(wx_AuiPaneInfo, __PinButton);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Position);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Resizable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Right);
+	Gura_AssignMethod(wx_AuiPaneInfo, __RightDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Row);
+	Gura_AssignMethod(wx_AuiPaneInfo, __SafeSet);
+	Gura_AssignMethod(wx_AuiPaneInfo, __SetFlag);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Show);
+	Gura_AssignMethod(wx_AuiPaneInfo, __ToolbarPane);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Top);
+	Gura_AssignMethod(wx_AuiPaneInfo, __TopDockable);
+	Gura_AssignMethod(wx_AuiPaneInfo, __Window);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiPaneInfo)

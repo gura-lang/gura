@@ -37,12 +37,12 @@ String Object_wx_GridTableMessage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridTableMessage, wxGridTableMessage)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __wxGridTableMessage, "wxGridTableMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage)
+Gura_ImplementMethod(wx_GridTableMessage, __wxGridTableMessage)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, wxGridTableMessage_1)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __wxGridTableMessage_1, "wxGridTableMessage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_GridTableMessage, wxGridTableMessage_1)
 	//DeclareArg(env, "comInt2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage_1)
+Gura_ImplementMethod(wx_GridTableMessage, __wxGridTableMessage_1)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_GridTableMessage, wxGridTableMessage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, SetTableObject)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __SetTableObject, "SetTableObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, SetTableObject)
+Gura_ImplementMethod(wx_GridTableMessage, __SetTableObject)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_GridTableMessage, SetTableObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, GetTableObject)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __GetTableObject, "GetTableObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, GetTableObject)
+Gura_ImplementMethod(wx_GridTableMessage, __GetTableObject)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_GridTableMessage, GetTableObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, SetId)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __SetId, "SetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, SetId)
+Gura_ImplementMethod(wx_GridTableMessage, __SetId)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,12 +114,12 @@ Gura_ImplementMethod(wx_GridTableMessage, SetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, GetId)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, GetId)
+Gura_ImplementMethod(wx_GridTableMessage, __GetId)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -127,13 +127,13 @@ Gura_ImplementMethod(wx_GridTableMessage, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, SetCommandInt)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __SetCommandInt, "SetCommandInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "comInt1", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt)
+Gura_ImplementMethod(wx_GridTableMessage, __SetCommandInt)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,12 +142,12 @@ Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, GetCommandInt)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __GetCommandInt, "GetCommandInt")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt)
+Gura_ImplementMethod(wx_GridTableMessage, __GetCommandInt)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, SetCommandInt2)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __SetCommandInt2, "SetCommandInt2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "comInt2", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt2)
+Gura_ImplementMethod(wx_GridTableMessage, __SetCommandInt2)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,12 +170,12 @@ Gura_ImplementMethod(wx_GridTableMessage, SetCommandInt2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridTableMessage, GetCommandInt2)
+Gura_DeclareMethodAlias(wx_GridTableMessage, __GetCommandInt2, "GetCommandInt2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt2)
+Gura_ImplementMethod(wx_GridTableMessage, __GetCommandInt2)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,16 +188,16 @@ Gura_ImplementMethod(wx_GridTableMessage, GetCommandInt2)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridTableMessage)
 {
-	Gura_AssignMethod(wx_GridTableMessage, wxGridTableMessage);
-	Gura_AssignMethod(wx_GridTableMessage, wxGridTableMessage_1);
-	Gura_AssignMethod(wx_GridTableMessage, SetTableObject);
-	Gura_AssignMethod(wx_GridTableMessage, GetTableObject);
-	Gura_AssignMethod(wx_GridTableMessage, SetId);
-	Gura_AssignMethod(wx_GridTableMessage, GetId);
-	Gura_AssignMethod(wx_GridTableMessage, SetCommandInt);
-	Gura_AssignMethod(wx_GridTableMessage, GetCommandInt);
-	Gura_AssignMethod(wx_GridTableMessage, SetCommandInt2);
-	Gura_AssignMethod(wx_GridTableMessage, GetCommandInt2);
+	Gura_AssignMethod(wx_GridTableMessage, __wxGridTableMessage);
+	Gura_AssignMethod(wx_GridTableMessage, __wxGridTableMessage_1);
+	Gura_AssignMethod(wx_GridTableMessage, __SetTableObject);
+	Gura_AssignMethod(wx_GridTableMessage, __GetTableObject);
+	Gura_AssignMethod(wx_GridTableMessage, __SetId);
+	Gura_AssignMethod(wx_GridTableMessage, __GetId);
+	Gura_AssignMethod(wx_GridTableMessage, __SetCommandInt);
+	Gura_AssignMethod(wx_GridTableMessage, __GetCommandInt);
+	Gura_AssignMethod(wx_GridTableMessage, __SetCommandInt2);
+	Gura_AssignMethod(wx_GridTableMessage, __GetCommandInt2);
 }
 
 Gura_ImplementDescendantCreator(wx_GridTableMessage)

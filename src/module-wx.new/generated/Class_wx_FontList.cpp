@@ -37,12 +37,12 @@ String Object_wx_FontList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontList, wxFontList)
+Gura_DeclareMethodAlias(wx_FontList, __wxFontList, "wxFontList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontList, wxFontList)
+Gura_ImplementMethod(wx_FontList, __wxFontList)
 {
 	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_FontList, wxFontList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
+Gura_DeclareMethodAlias(wx_FontList, __FindOrCreateFont, "FindOrCreateFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "point_size", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_FontList, FindOrCreateFont)
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
+Gura_ImplementMethod(wx_FontList, __FindOrCreateFont)
 {
 	Object_wx_FontList *pThis = Object_wx_FontList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,8 +82,8 @@ Gura_ImplementMethod(wx_FontList, FindOrCreateFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontList)
 {
-	Gura_AssignMethod(wx_FontList, wxFontList);
-	Gura_AssignMethod(wx_FontList, FindOrCreateFont);
+	Gura_AssignMethod(wx_FontList, __wxFontList);
+	Gura_AssignMethod(wx_FontList, __FindOrCreateFont);
 }
 
 Gura_ImplementDescendantCreator(wx_FontList)

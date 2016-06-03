@@ -37,12 +37,12 @@ String Object_wx_DataViewDateRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewDateRenderer, GetDefaultType)
+Gura_DeclareMethodAlias(wx_DataViewDateRenderer, __GetDefaultType, "GetDefaultType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewDateRenderer, GetDefaultType)
+Gura_ImplementMethod(wx_DataViewDateRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewDateRenderer *pThis = Object_wx_DataViewDateRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DataViewDateRenderer, GetDefaultType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewDateRenderer, wxDataViewDateRenderer)
+Gura_DeclareMethodAlias(wx_DataViewDateRenderer, __wxDataViewDateRenderer, "wxDataViewDateRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DataViewDateRenderer, wxDataViewDateRenderer)
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewDateRenderer, wxDataViewDateRenderer)
+Gura_ImplementMethod(wx_DataViewDateRenderer, __wxDataViewDateRenderer)
 {
 	Object_wx_DataViewDateRenderer *pThis = Object_wx_DataViewDateRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_DataViewDateRenderer, wxDataViewDateRenderer)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewDateRenderer)
 {
-	Gura_AssignMethod(wx_DataViewDateRenderer, GetDefaultType);
-	Gura_AssignMethod(wx_DataViewDateRenderer, wxDataViewDateRenderer);
+	Gura_AssignMethod(wx_DataViewDateRenderer, __GetDefaultType);
+	Gura_AssignMethod(wx_DataViewDateRenderer, __wxDataViewDateRenderer);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewDateRenderer)

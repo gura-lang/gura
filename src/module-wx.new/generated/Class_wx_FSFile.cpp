@@ -37,7 +37,7 @@ String Object_wx_FSFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FSFile, wxFSFile)
+Gura_DeclareMethodAlias(wx_FSFile, __wxFSFile, "wxFSFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_FSFile, wxFSFile)
 	//DeclareArg(env, "modif", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FSFile, wxFSFile)
+Gura_ImplementMethod(wx_FSFile, __wxFSFile)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,12 +60,12 @@ Gura_ImplementMethod(wx_FSFile, wxFSFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, DetachStream)
+Gura_DeclareMethodAlias(wx_FSFile, __DetachStream, "DetachStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, DetachStream)
+Gura_ImplementMethod(wx_FSFile, __DetachStream)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_FSFile, DetachStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, GetAnchor)
+Gura_DeclareMethodAlias(wx_FSFile, __GetAnchor, "GetAnchor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, GetAnchor)
+Gura_ImplementMethod(wx_FSFile, __GetAnchor)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_FSFile, GetAnchor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, GetLocation)
+Gura_DeclareMethodAlias(wx_FSFile, __GetLocation, "GetLocation")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, GetLocation)
+Gura_ImplementMethod(wx_FSFile, __GetLocation)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_FSFile, GetLocation)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, GetMimeType)
+Gura_DeclareMethodAlias(wx_FSFile, __GetMimeType, "GetMimeType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, GetMimeType)
+Gura_ImplementMethod(wx_FSFile, __GetMimeType)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_FSFile, GetMimeType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, GetModificationTime)
+Gura_DeclareMethodAlias(wx_FSFile, __GetModificationTime, "GetModificationTime")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, GetModificationTime)
+Gura_ImplementMethod(wx_FSFile, __GetModificationTime)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_FSFile, GetModificationTime)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FSFile, GetStream)
+Gura_DeclareMethodAlias(wx_FSFile, __GetStream, "GetStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FSFile, GetStream)
+Gura_ImplementMethod(wx_FSFile, __GetStream)
 {
 	Object_wx_FSFile *pThis = Object_wx_FSFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_FSFile, GetStream)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FSFile)
 {
-	Gura_AssignMethod(wx_FSFile, wxFSFile);
-	Gura_AssignMethod(wx_FSFile, DetachStream);
-	Gura_AssignMethod(wx_FSFile, GetAnchor);
-	Gura_AssignMethod(wx_FSFile, GetLocation);
-	Gura_AssignMethod(wx_FSFile, GetMimeType);
-	Gura_AssignMethod(wx_FSFile, GetModificationTime);
-	Gura_AssignMethod(wx_FSFile, GetStream);
+	Gura_AssignMethod(wx_FSFile, __wxFSFile);
+	Gura_AssignMethod(wx_FSFile, __DetachStream);
+	Gura_AssignMethod(wx_FSFile, __GetAnchor);
+	Gura_AssignMethod(wx_FSFile, __GetLocation);
+	Gura_AssignMethod(wx_FSFile, __GetMimeType);
+	Gura_AssignMethod(wx_FSFile, __GetModificationTime);
+	Gura_AssignMethod(wx_FSFile, __GetStream);
 }
 
 Gura_ImplementDescendantCreator(wx_FSFile)

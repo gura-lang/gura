@@ -37,12 +37,12 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ToggleButton, wxToggleButton)
+Gura_DeclareMethodAlias(wx_ToggleButton, __wxToggleButton, "wxToggleButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToggleButton, wxToggleButton)
+Gura_ImplementMethod(wx_ToggleButton, __wxToggleButton)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ToggleButton, wxToggleButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToggleButton, wxToggleButton_1)
+Gura_DeclareMethodAlias(wx_ToggleButton, __wxToggleButton_1, "wxToggleButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_ToggleButton, wxToggleButton_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToggleButton, wxToggleButton_1)
+Gura_ImplementMethod(wx_ToggleButton, __wxToggleButton_1)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_ToggleButton, wxToggleButton_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToggleButton, Create)
+Gura_DeclareMethodAlias(wx_ToggleButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_ToggleButton, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToggleButton, Create)
+Gura_ImplementMethod(wx_ToggleButton, __Create)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,12 +108,12 @@ Gura_ImplementMethod(wx_ToggleButton, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToggleButton, GetValue)
+Gura_DeclareMethodAlias(wx_ToggleButton, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ToggleButton, GetValue)
+Gura_ImplementMethod(wx_ToggleButton, __GetValue)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_ToggleButton, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ToggleButton, SetValue)
+Gura_DeclareMethodAlias(wx_ToggleButton, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ToggleButton, SetValue)
+Gura_ImplementMethod(wx_ToggleButton, __SetValue)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,11 +141,11 @@ Gura_ImplementMethod(wx_ToggleButton, SetValue)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ToggleButton)
 {
-	Gura_AssignMethod(wx_ToggleButton, wxToggleButton);
-	Gura_AssignMethod(wx_ToggleButton, wxToggleButton_1);
-	Gura_AssignMethod(wx_ToggleButton, Create);
-	Gura_AssignMethod(wx_ToggleButton, GetValue);
-	Gura_AssignMethod(wx_ToggleButton, SetValue);
+	Gura_AssignMethod(wx_ToggleButton, __wxToggleButton);
+	Gura_AssignMethod(wx_ToggleButton, __wxToggleButton_1);
+	Gura_AssignMethod(wx_ToggleButton, __Create);
+	Gura_AssignMethod(wx_ToggleButton, __GetValue);
+	Gura_AssignMethod(wx_ToggleButton, __SetValue);
 }
 
 Gura_ImplementDescendantCreator(wx_ToggleButton)

@@ -37,13 +37,13 @@ String Object_wx_HtmlWinParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlWinParser, wxHtmlWinParser)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __wxHtmlWinParser, "wxHtmlWinParser")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wndIface", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, wxHtmlWinParser)
+Gura_ImplementMethod(wx_HtmlWinParser, __wxHtmlWinParser)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, wxHtmlWinParser)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, AddModule)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __AddModule, "AddModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "module", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, AddModule)
+Gura_ImplementMethod(wx_HtmlWinParser, __AddModule)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, AddModule)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, CloseContainer)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __CloseContainer, "CloseContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, CloseContainer)
+Gura_ImplementMethod(wx_HtmlWinParser, __CloseContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, CloseContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, CreateCurrentFont)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __CreateCurrentFont, "CreateCurrentFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, CreateCurrentFont)
+Gura_ImplementMethod(wx_HtmlWinParser, __CreateCurrentFont)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, CreateCurrentFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetActualColor)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetActualColor, "GetActualColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetActualColor)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetActualColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetActualColor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetAlign)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetAlign, "GetAlign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetAlign)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetAlign)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetAlign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetCharHeight)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetCharHeight, "GetCharHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetCharHeight)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetCharHeight)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetCharWidth)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetCharWidth, "GetCharWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetCharWidth)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetCharWidth)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetCharWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetContainer)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetContainer, "GetContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetContainer)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetDC)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetDC, "GetDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetDC)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetDC)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetEncodingConverter)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetEncodingConverter, "GetEncodingConverter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetEncodingConverter)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontBold)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontBold, "GetFontBold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontBold)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontBold)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontBold)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontFace)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontFace, "GetFontFace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontFace)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontFace)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,12 +210,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFace)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontFixed)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontFixed, "GetFontFixed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontFixed)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontFixed)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,12 +223,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontFixed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontItalic)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontItalic, "GetFontItalic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontItalic)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontItalic)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,12 +236,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontItalic)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontSize)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontSize, "GetFontSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontSize)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontSize)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetFontUnderlined)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontUnderlined, "GetFontUnderlined")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetFontUnderlined)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetFontUnderlined)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,12 +262,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontUnderlined)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetInputEncoding)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetInputEncoding, "GetInputEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetInputEncoding)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,12 +275,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetLink)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetLink, "GetLink")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetLink)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetLink)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -288,12 +288,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLink)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetLinkColor)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetLinkColor, "GetLinkColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetLinkColor)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetLinkColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,12 +301,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLinkColor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetOutputEncoding)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetOutputEncoding, "GetOutputEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetOutputEncoding)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,12 +314,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, GetWindowInterface)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetWindowInterface, "GetWindowInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, GetWindowInterface)
+Gura_ImplementMethod(wx_HtmlWinParser, __GetWindowInterface)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,12 +327,12 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetWindowInterface)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, OpenContainer)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __OpenContainer, "OpenContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, OpenContainer)
+Gura_ImplementMethod(wx_HtmlWinParser, __OpenContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,13 +340,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, OpenContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetActualColor)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetActualColor, "SetActualColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetActualColor)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetActualColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetActualColor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetAlign)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetAlign, "SetAlign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetAlign)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetAlign)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,13 +370,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetAlign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetContainer)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetContainer, "SetContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetContainer)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -385,14 +385,14 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetDC)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetDC, "SetDC")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetDC)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetDC)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -402,13 +402,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetDC)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontBold)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontBold, "SetFontBold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontBold)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontBold)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -417,13 +417,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontBold)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontFace)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontFace, "SetFontFace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "face", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontFace)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontFace)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -432,13 +432,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFace)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontFixed)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontFixed, "SetFontFixed")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontFixed)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontFixed)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -447,13 +447,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontFixed)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontItalic)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontItalic, "SetFontItalic")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontItalic)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontItalic)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -462,13 +462,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontItalic)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontSize)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontSize, "SetFontSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontSize)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontSize)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,13 +477,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFontUnderlined)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFontUnderlined, "SetFontUnderlined")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFontUnderlined)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFontUnderlined)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFontUnderlined)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetFonts)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetFonts, "SetFonts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "normal_face", VTYPE_number, OCCUR_Once);
@@ -500,7 +500,7 @@ Gura_DeclareMethod(wx_HtmlWinParser, SetFonts)
 	//DeclareArg(env, "sizes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetFonts)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetFonts)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -511,13 +511,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFonts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetInputEncoding)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetInputEncoding, "SetInputEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetInputEncoding)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -526,13 +526,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetLink)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetLink, "SetLink")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetLink)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetLink)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -541,13 +541,13 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetLink)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWinParser, SetLinkColor)
+Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetLinkColor, "SetLinkColor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWinParser, SetLinkColor)
+Gura_ImplementMethod(wx_HtmlWinParser, __SetLinkColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -561,43 +561,43 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetLinkColor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWinParser)
 {
-	Gura_AssignMethod(wx_HtmlWinParser, wxHtmlWinParser);
-	Gura_AssignMethod(wx_HtmlWinParser, AddModule);
-	Gura_AssignMethod(wx_HtmlWinParser, CloseContainer);
-	Gura_AssignMethod(wx_HtmlWinParser, CreateCurrentFont);
-	Gura_AssignMethod(wx_HtmlWinParser, GetActualColor);
-	Gura_AssignMethod(wx_HtmlWinParser, GetAlign);
-	Gura_AssignMethod(wx_HtmlWinParser, GetCharHeight);
-	Gura_AssignMethod(wx_HtmlWinParser, GetCharWidth);
-	Gura_AssignMethod(wx_HtmlWinParser, GetContainer);
-	Gura_AssignMethod(wx_HtmlWinParser, GetDC);
-	Gura_AssignMethod(wx_HtmlWinParser, GetEncodingConverter);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontBold);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontFace);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontFixed);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontItalic);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontSize);
-	Gura_AssignMethod(wx_HtmlWinParser, GetFontUnderlined);
-	Gura_AssignMethod(wx_HtmlWinParser, GetInputEncoding);
-	Gura_AssignMethod(wx_HtmlWinParser, GetLink);
-	Gura_AssignMethod(wx_HtmlWinParser, GetLinkColor);
-	Gura_AssignMethod(wx_HtmlWinParser, GetOutputEncoding);
-	Gura_AssignMethod(wx_HtmlWinParser, GetWindowInterface);
-	Gura_AssignMethod(wx_HtmlWinParser, OpenContainer);
-	Gura_AssignMethod(wx_HtmlWinParser, SetActualColor);
-	Gura_AssignMethod(wx_HtmlWinParser, SetAlign);
-	Gura_AssignMethod(wx_HtmlWinParser, SetContainer);
-	Gura_AssignMethod(wx_HtmlWinParser, SetDC);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontBold);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontFace);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontFixed);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontItalic);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontSize);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFontUnderlined);
-	Gura_AssignMethod(wx_HtmlWinParser, SetFonts);
-	Gura_AssignMethod(wx_HtmlWinParser, SetInputEncoding);
-	Gura_AssignMethod(wx_HtmlWinParser, SetLink);
-	Gura_AssignMethod(wx_HtmlWinParser, SetLinkColor);
+	Gura_AssignMethod(wx_HtmlWinParser, __wxHtmlWinParser);
+	Gura_AssignMethod(wx_HtmlWinParser, __AddModule);
+	Gura_AssignMethod(wx_HtmlWinParser, __CloseContainer);
+	Gura_AssignMethod(wx_HtmlWinParser, __CreateCurrentFont);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetActualColor);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetAlign);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetCharHeight);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetCharWidth);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetContainer);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetDC);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetEncodingConverter);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontBold);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontFace);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontFixed);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontItalic);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontSize);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetFontUnderlined);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetInputEncoding);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetLink);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetLinkColor);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetOutputEncoding);
+	Gura_AssignMethod(wx_HtmlWinParser, __GetWindowInterface);
+	Gura_AssignMethod(wx_HtmlWinParser, __OpenContainer);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetActualColor);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetAlign);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetContainer);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetDC);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontBold);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontFace);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontFixed);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontItalic);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontSize);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFontUnderlined);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetFonts);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetInputEncoding);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetLink);
+	Gura_AssignMethod(wx_HtmlWinParser, __SetLinkColor);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWinParser)

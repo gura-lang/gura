@@ -37,13 +37,13 @@ String Object_wx_CustomDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CustomDataObject, wxCustomDataObject)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __wxCustomDataObject, "wxCustomDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, wxCustomDataObject)
+Gura_ImplementMethod(wx_CustomDataObject, __wxCustomDataObject)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_CustomDataObject, wxCustomDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, Alloc)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __Alloc, "Alloc")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, Alloc)
+Gura_ImplementMethod(wx_CustomDataObject, __Alloc)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_CustomDataObject, Alloc)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, Free)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __Free, "Free")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, Free)
+Gura_ImplementMethod(wx_CustomDataObject, __Free)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_CustomDataObject, Free)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, GetData)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, GetData)
+Gura_ImplementMethod(wx_CustomDataObject, __GetData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_CustomDataObject, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, GetSize)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, GetSize)
+Gura_ImplementMethod(wx_CustomDataObject, __GetSize)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,14 +106,14 @@ Gura_ImplementMethod(wx_CustomDataObject, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, SetData)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, SetData)
+Gura_ImplementMethod(wx_CustomDataObject, __SetData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,14 +123,14 @@ Gura_ImplementMethod(wx_CustomDataObject, SetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CustomDataObject, TakeData)
+Gura_DeclareMethodAlias(wx_CustomDataObject, __TakeData, "TakeData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CustomDataObject, TakeData)
+Gura_ImplementMethod(wx_CustomDataObject, __TakeData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_CustomDataObject, TakeData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CustomDataObject)
 {
-	Gura_AssignMethod(wx_CustomDataObject, wxCustomDataObject);
-	Gura_AssignMethod(wx_CustomDataObject, Alloc);
-	Gura_AssignMethod(wx_CustomDataObject, Free);
-	Gura_AssignMethod(wx_CustomDataObject, GetData);
-	Gura_AssignMethod(wx_CustomDataObject, GetSize);
-	Gura_AssignMethod(wx_CustomDataObject, SetData);
-	Gura_AssignMethod(wx_CustomDataObject, TakeData);
+	Gura_AssignMethod(wx_CustomDataObject, __wxCustomDataObject);
+	Gura_AssignMethod(wx_CustomDataObject, __Alloc);
+	Gura_AssignMethod(wx_CustomDataObject, __Free);
+	Gura_AssignMethod(wx_CustomDataObject, __GetData);
+	Gura_AssignMethod(wx_CustomDataObject, __GetSize);
+	Gura_AssignMethod(wx_CustomDataObject, __SetData);
+	Gura_AssignMethod(wx_CustomDataObject, __TakeData);
 }
 
 Gura_ImplementDescendantCreator(wx_CustomDataObject)

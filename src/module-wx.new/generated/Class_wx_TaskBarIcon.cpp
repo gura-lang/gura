@@ -37,13 +37,13 @@ String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TaskBarIcon, wxTaskBarIcon)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __wxTaskBarIcon, "wxTaskBarIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iconType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, wxTaskBarIcon)
+Gura_ImplementMethod(wx_TaskBarIcon, __wxTaskBarIcon)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, wxTaskBarIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, Destroy)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __Destroy, "Destroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, Destroy)
+Gura_ImplementMethod(wx_TaskBarIcon, __Destroy)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, Destroy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, IsIconInstalled)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsIconInstalled, "IsIconInstalled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
+Gura_ImplementMethod(wx_TaskBarIcon, __IsIconInstalled)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsIconInstalled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, IsOk)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
+Gura_ImplementMethod(wx_TaskBarIcon, __IsOk)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, PopupMenu)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __PopupMenu, "PopupMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
+Gura_ImplementMethod(wx_TaskBarIcon, __PopupMenu)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, PopupMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, RemoveIcon)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __RemoveIcon, "RemoveIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
+Gura_ImplementMethod(wx_TaskBarIcon, __RemoveIcon)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,14 +119,14 @@ Gura_ImplementMethod(wx_TaskBarIcon, RemoveIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, SetIcon)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __SetIcon, "SetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
+Gura_ImplementMethod(wx_TaskBarIcon, __SetIcon)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, SetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, IsAvailable)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsAvailable, "IsAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, IsAvailable)
+Gura_ImplementMethod(wx_TaskBarIcon, __IsAvailable)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,12 +149,12 @@ Gura_ImplementMethod(wx_TaskBarIcon, IsAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TaskBarIcon, CreatePopupMenu)
+Gura_DeclareMethodAlias(wx_TaskBarIcon, __CreatePopupMenu, "CreatePopupMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
+Gura_ImplementMethod(wx_TaskBarIcon, __CreatePopupMenu)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,15 +167,15 @@ Gura_ImplementMethod(wx_TaskBarIcon, CreatePopupMenu)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TaskBarIcon)
 {
-	Gura_AssignMethod(wx_TaskBarIcon, wxTaskBarIcon);
-	Gura_AssignMethod(wx_TaskBarIcon, Destroy);
-	Gura_AssignMethod(wx_TaskBarIcon, IsIconInstalled);
-	Gura_AssignMethod(wx_TaskBarIcon, IsOk);
-	Gura_AssignMethod(wx_TaskBarIcon, PopupMenu);
-	Gura_AssignMethod(wx_TaskBarIcon, RemoveIcon);
-	Gura_AssignMethod(wx_TaskBarIcon, SetIcon);
-	Gura_AssignMethod(wx_TaskBarIcon, IsAvailable);
-	Gura_AssignMethod(wx_TaskBarIcon, CreatePopupMenu);
+	Gura_AssignMethod(wx_TaskBarIcon, __wxTaskBarIcon);
+	Gura_AssignMethod(wx_TaskBarIcon, __Destroy);
+	Gura_AssignMethod(wx_TaskBarIcon, __IsIconInstalled);
+	Gura_AssignMethod(wx_TaskBarIcon, __IsOk);
+	Gura_AssignMethod(wx_TaskBarIcon, __PopupMenu);
+	Gura_AssignMethod(wx_TaskBarIcon, __RemoveIcon);
+	Gura_AssignMethod(wx_TaskBarIcon, __SetIcon);
+	Gura_AssignMethod(wx_TaskBarIcon, __IsAvailable);
+	Gura_AssignMethod(wx_TaskBarIcon, __CreatePopupMenu);
 }
 
 Gura_ImplementDescendantCreator(wx_TaskBarIcon)

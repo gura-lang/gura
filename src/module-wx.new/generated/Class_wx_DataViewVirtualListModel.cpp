@@ -37,13 +37,13 @@ String Object_wx_DataViewVirtualListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel, "wxDataViewVirtualListModel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, GetItem)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __GetItem, "GetItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, GetItem)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __GetItem)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, GetItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, Reset)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "new_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, Reset)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __Reset)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,12 +82,12 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowAppended)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowAppended, "RowAppended")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowAppended)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowAppended)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowAppended)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowChanged)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowChanged, "RowChanged")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowChanged)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowChanged)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowChanged)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowDeleted)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowDeleted, "RowDeleted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowDeleted)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowDeleted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowDeleted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowInserted)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowInserted, "RowInserted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "before", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowInserted)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowInserted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,12 +140,12 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowInserted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowPrepended)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowPrepended, "RowPrepended")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowPrepended)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowPrepended)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,14 +153,14 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowPrepended)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowValueChanged)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowValueChanged, "RowValueChanged")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowValueChanged)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowValueChanged)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowValueChanged)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewVirtualListModel, RowsDeleted)
+Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __RowsDeleted, "RowsDeleted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewVirtualListModel, RowsDeleted)
+Gura_ImplementMethod(wx_DataViewVirtualListModel, __RowsDeleted)
 {
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,16 +190,16 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, RowsDeleted)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewVirtualListModel)
 {
-	Gura_AssignMethod(wx_DataViewVirtualListModel, wxDataViewVirtualListModel);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, GetItem);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, Reset);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowAppended);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowChanged);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowDeleted);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowInserted);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowPrepended);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowValueChanged);
-	Gura_AssignMethod(wx_DataViewVirtualListModel, RowsDeleted);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __wxDataViewVirtualListModel);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __GetItem);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __Reset);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowAppended);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowChanged);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowDeleted);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowInserted);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowPrepended);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowValueChanged);
+	Gura_AssignMethod(wx_DataViewVirtualListModel, __RowsDeleted);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewVirtualListModel)

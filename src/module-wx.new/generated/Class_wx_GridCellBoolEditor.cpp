@@ -37,12 +37,12 @@ String Object_wx_GridCellBoolEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor)
+Gura_DeclareMethodAlias(wx_GridCellBoolEditor, __wxGridCellBoolEditor, "wxGridCellBoolEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor)
+Gura_ImplementMethod(wx_GridCellBoolEditor, __wxGridCellBoolEditor)
 {
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellBoolEditor, IsTrueValue)
+Gura_DeclareMethodAlias(wx_GridCellBoolEditor, __IsTrueValue, "IsTrueValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellBoolEditor, IsTrueValue)
+Gura_ImplementMethod(wx_GridCellBoolEditor, __IsTrueValue)
 {
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, IsTrueValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellBoolEditor, UseStringValues)
+Gura_DeclareMethodAlias(wx_GridCellBoolEditor, __UseStringValues, "UseStringValues")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "valueTrue", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "valueFalse", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellBoolEditor, UseStringValues)
+Gura_ImplementMethod(wx_GridCellBoolEditor, __UseStringValues)
 {
 	Object_wx_GridCellBoolEditor *pThis = Object_wx_GridCellBoolEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_GridCellBoolEditor, UseStringValues)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellBoolEditor)
 {
-	Gura_AssignMethod(wx_GridCellBoolEditor, wxGridCellBoolEditor);
-	Gura_AssignMethod(wx_GridCellBoolEditor, IsTrueValue);
-	Gura_AssignMethod(wx_GridCellBoolEditor, UseStringValues);
+	Gura_AssignMethod(wx_GridCellBoolEditor, __wxGridCellBoolEditor);
+	Gura_AssignMethod(wx_GridCellBoolEditor, __IsTrueValue);
+	Gura_AssignMethod(wx_GridCellBoolEditor, __UseStringValues);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellBoolEditor)

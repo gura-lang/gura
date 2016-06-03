@@ -37,12 +37,12 @@ String Object_wx_BitmapHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BitmapHandler, wxBitmapHandler)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __wxBitmapHandler, "wxBitmapHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, wxBitmapHandler)
+Gura_ImplementMethod(wx_BitmapHandler, __wxBitmapHandler)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BitmapHandler, wxBitmapHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, Create)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_BitmapHandler, Create)
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, Create)
+Gura_ImplementMethod(wx_BitmapHandler, __Create)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,12 +75,12 @@ Gura_ImplementMethod(wx_BitmapHandler, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, GetExtension)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __GetExtension, "GetExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
+Gura_ImplementMethod(wx_BitmapHandler, __GetExtension)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,12 +88,12 @@ Gura_ImplementMethod(wx_BitmapHandler, GetExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, GetName)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, GetName)
+Gura_ImplementMethod(wx_BitmapHandler, __GetName)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_BitmapHandler, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, GetType)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __GetType, "GetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, GetType)
+Gura_ImplementMethod(wx_BitmapHandler, __GetType)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_BitmapHandler, GetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, LoadFile)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __LoadFile, "LoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_BitmapHandler, LoadFile)
 	//DeclareArg(env, "desiredHeight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
+Gura_ImplementMethod(wx_BitmapHandler, __LoadFile)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_BitmapHandler, LoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, SaveFile)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __SaveFile, "SaveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -146,7 +146,7 @@ Gura_DeclareMethod(wx_BitmapHandler, SaveFile)
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
+Gura_ImplementMethod(wx_BitmapHandler, __SaveFile)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, SetExtension)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __SetExtension, "SetExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, SetExtension)
+Gura_ImplementMethod(wx_BitmapHandler, __SetExtension)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_BitmapHandler, SetExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, SetName)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __SetName, "SetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, SetName)
+Gura_ImplementMethod(wx_BitmapHandler, __SetName)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_BitmapHandler, SetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapHandler, SetType)
+Gura_DeclareMethodAlias(wx_BitmapHandler, __SetType, "SetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapHandler, SetType)
+Gura_ImplementMethod(wx_BitmapHandler, __SetType)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -208,16 +208,16 @@ Gura_ImplementMethod(wx_BitmapHandler, SetType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapHandler)
 {
-	Gura_AssignMethod(wx_BitmapHandler, wxBitmapHandler);
-	Gura_AssignMethod(wx_BitmapHandler, Create);
-	Gura_AssignMethod(wx_BitmapHandler, GetExtension);
-	Gura_AssignMethod(wx_BitmapHandler, GetName);
-	Gura_AssignMethod(wx_BitmapHandler, GetType);
-	Gura_AssignMethod(wx_BitmapHandler, LoadFile);
-	Gura_AssignMethod(wx_BitmapHandler, SaveFile);
-	Gura_AssignMethod(wx_BitmapHandler, SetExtension);
-	Gura_AssignMethod(wx_BitmapHandler, SetName);
-	Gura_AssignMethod(wx_BitmapHandler, SetType);
+	Gura_AssignMethod(wx_BitmapHandler, __wxBitmapHandler);
+	Gura_AssignMethod(wx_BitmapHandler, __Create);
+	Gura_AssignMethod(wx_BitmapHandler, __GetExtension);
+	Gura_AssignMethod(wx_BitmapHandler, __GetName);
+	Gura_AssignMethod(wx_BitmapHandler, __GetType);
+	Gura_AssignMethod(wx_BitmapHandler, __LoadFile);
+	Gura_AssignMethod(wx_BitmapHandler, __SaveFile);
+	Gura_AssignMethod(wx_BitmapHandler, __SetExtension);
+	Gura_AssignMethod(wx_BitmapHandler, __SetName);
+	Gura_AssignMethod(wx_BitmapHandler, __SetType);
 }
 
 Gura_ImplementDescendantCreator(wx_BitmapHandler)

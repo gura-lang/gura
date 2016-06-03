@@ -37,12 +37,12 @@ String Object_wx_HVScrolledWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HVScrolledWindow, wxHVScrolledWindow)
+Gura_DeclareMethodAlias(wx_HVScrolledWindow, __wxHVScrolledWindow, "wxHVScrolledWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow)
+Gura_ImplementMethod(wx_HVScrolledWindow, __wxHVScrolledWindow)
 {
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
+Gura_DeclareMethodAlias(wx_HVScrolledWindow, __wxHVScrolledWindow_1, "wxHVScrolledWindow_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
+Gura_ImplementMethod(wx_HVScrolledWindow, __wxHVScrolledWindow_1)
 {
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HVScrolledWindow, Create)
+Gura_DeclareMethodAlias(wx_HVScrolledWindow, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_HVScrolledWindow, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HVScrolledWindow, Create)
+Gura_ImplementMethod(wx_HVScrolledWindow, __Create)
 {
 	Object_wx_HVScrolledWindow *pThis = Object_wx_HVScrolledWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,9 +105,9 @@ Gura_ImplementMethod(wx_HVScrolledWindow, Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HVScrolledWindow)
 {
-	Gura_AssignMethod(wx_HVScrolledWindow, wxHVScrolledWindow);
-	Gura_AssignMethod(wx_HVScrolledWindow, wxHVScrolledWindow_1);
-	Gura_AssignMethod(wx_HVScrolledWindow, Create);
+	Gura_AssignMethod(wx_HVScrolledWindow, __wxHVScrolledWindow);
+	Gura_AssignMethod(wx_HVScrolledWindow, __wxHVScrolledWindow_1);
+	Gura_AssignMethod(wx_HVScrolledWindow, __Create);
 }
 
 Gura_ImplementDescendantCreator(wx_HVScrolledWindow)

@@ -37,12 +37,12 @@ String Object_wx_DataViewItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DataViewItem, wxDataViewItem)
+Gura_DeclareMethodAlias(wx_DataViewItem, __wxDataViewItem, "wxDataViewItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem)
+Gura_ImplementMethod(wx_DataViewItem, __wxDataViewItem)
 {
 	Object_wx_DataViewItem *pThis = Object_wx_DataViewItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItem, wxDataViewItem_1)
+Gura_DeclareMethodAlias(wx_DataViewItem, __wxDataViewItem_1, "wxDataViewItem_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem_1)
+Gura_ImplementMethod(wx_DataViewItem, __wxDataViewItem_1)
 {
 	Object_wx_DataViewItem *pThis = Object_wx_DataViewItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItem, wxDataViewItem_2)
+Gura_DeclareMethodAlias(wx_DataViewItem, __wxDataViewItem_2, "wxDataViewItem_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem_2)
+Gura_ImplementMethod(wx_DataViewItem, __wxDataViewItem_2)
 {
 	Object_wx_DataViewItem *pThis = Object_wx_DataViewItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_DataViewItem, wxDataViewItem_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItem, GetID)
+Gura_DeclareMethodAlias(wx_DataViewItem, __GetID, "GetID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItem, GetID)
+Gura_ImplementMethod(wx_DataViewItem, __GetID)
 {
 	Object_wx_DataViewItem *pThis = Object_wx_DataViewItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_DataViewItem, GetID)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DataViewItem, IsOk)
+Gura_DeclareMethodAlias(wx_DataViewItem, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DataViewItem, IsOk)
+Gura_ImplementMethod(wx_DataViewItem, __IsOk)
 {
 	Object_wx_DataViewItem *pThis = Object_wx_DataViewItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_DataViewItem, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DataViewItem)
 {
-	Gura_AssignMethod(wx_DataViewItem, wxDataViewItem);
-	Gura_AssignMethod(wx_DataViewItem, wxDataViewItem_1);
-	Gura_AssignMethod(wx_DataViewItem, wxDataViewItem_2);
-	Gura_AssignMethod(wx_DataViewItem, GetID);
-	Gura_AssignMethod(wx_DataViewItem, IsOk);
+	Gura_AssignMethod(wx_DataViewItem, __wxDataViewItem);
+	Gura_AssignMethod(wx_DataViewItem, __wxDataViewItem_1);
+	Gura_AssignMethod(wx_DataViewItem, __wxDataViewItem_2);
+	Gura_AssignMethod(wx_DataViewItem, __GetID);
+	Gura_AssignMethod(wx_DataViewItem, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_DataViewItem)

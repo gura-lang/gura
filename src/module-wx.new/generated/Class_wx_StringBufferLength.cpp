@@ -37,14 +37,14 @@ String Object_wx_StringBufferLength::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StringBufferLength, wxStringBufferLength)
+Gura_DeclareMethodAlias(wx_StringBufferLength, __wxStringBufferLength, "wxStringBufferLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringBufferLength, wxStringBufferLength)
+Gura_ImplementMethod(wx_StringBufferLength, __wxStringBufferLength)
 {
 	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_StringBufferLength, wxStringBufferLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringBufferLength, SetLength)
+Gura_DeclareMethodAlias(wx_StringBufferLength, __SetLength, "SetLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringBufferLength, SetLength)
+Gura_ImplementMethod(wx_StringBufferLength, __SetLength)
 {
 	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_StringBufferLength, SetLength)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringBufferLength)
 {
-	Gura_AssignMethod(wx_StringBufferLength, wxStringBufferLength);
-	Gura_AssignMethod(wx_StringBufferLength, SetLength);
+	Gura_AssignMethod(wx_StringBufferLength, __wxStringBufferLength);
+	Gura_AssignMethod(wx_StringBufferLength, __SetLength);
 }
 
 Gura_ImplementDescendantCreator(wx_StringBufferLength)

@@ -37,12 +37,12 @@ String Object_wx_GUIEventLoop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GUIEventLoop, wxGUIEventLoop)
+Gura_DeclareMethodAlias(wx_GUIEventLoop, __wxGUIEventLoop, "wxGUIEventLoop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GUIEventLoop, wxGUIEventLoop)
+Gura_ImplementMethod(wx_GUIEventLoop, __wxGUIEventLoop)
 {
 	Object_wx_GUIEventLoop *pThis = Object_wx_GUIEventLoop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_GUIEventLoop, wxGUIEventLoop)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GUIEventLoop)
 {
-	Gura_AssignMethod(wx_GUIEventLoop, wxGUIEventLoop);
+	Gura_AssignMethod(wx_GUIEventLoop, __wxGUIEventLoop);
 }
 
 Gura_ImplementDescendantCreator(wx_GUIEventLoop)

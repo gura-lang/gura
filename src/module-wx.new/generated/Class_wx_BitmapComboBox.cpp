@@ -37,12 +37,12 @@ String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BitmapComboBox, wxBitmapComboBox)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox, "wxBitmapComboBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox)
+Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, wxBitmapComboBox_1)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_1, "wxBitmapComboBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -65,7 +65,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, wxBitmapComboBox_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox_1)
+Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, wxBitmapComboBox_2)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __wxBitmapComboBox_2, "wxBitmapComboBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, wxBitmapComboBox_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox_2)
+Gura_ImplementMethod(wx_BitmapComboBox, __wxBitmapComboBox_2)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,14 +114,14 @@ Gura_ImplementMethod(wx_BitmapComboBox, wxBitmapComboBox_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Append)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Append, "Append")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Append)
+Gura_ImplementMethod(wx_BitmapComboBox, __Append)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Append_1)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Append_1, "Append_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -139,7 +139,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Append_1)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Append_1)
+Gura_ImplementMethod(wx_BitmapComboBox, __Append_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Append_2)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Append_2, "Append_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -158,7 +158,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Append_2)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Append_2)
+Gura_ImplementMethod(wx_BitmapComboBox, __Append_2)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Append_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Create)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -184,7 +184,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Create)
+Gura_ImplementMethod(wx_BitmapComboBox, __Create)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Create_1)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -216,7 +216,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Create_1)
+Gura_ImplementMethod(wx_BitmapComboBox, __Create_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -233,12 +233,12 @@ Gura_ImplementMethod(wx_BitmapComboBox, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, GetBitmapSize)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __GetBitmapSize, "GetBitmapSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, GetBitmapSize)
+Gura_ImplementMethod(wx_BitmapComboBox, __GetBitmapSize)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -246,13 +246,13 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetBitmapSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, GetItemBitmap)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __GetItemBitmap, "GetItemBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, GetItemBitmap)
+Gura_ImplementMethod(wx_BitmapComboBox, __GetItemBitmap)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, GetItemBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Insert)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Insert, "Insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -269,7 +269,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Insert)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Insert)
+Gura_ImplementMethod(wx_BitmapComboBox, __Insert)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Insert_1)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Insert_1, "Insert_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -289,7 +289,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Insert_1)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Insert_1)
+Gura_ImplementMethod(wx_BitmapComboBox, __Insert_1)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, Insert_2)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __Insert_2, "Insert_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -310,7 +310,7 @@ Gura_DeclareMethod(wx_BitmapComboBox, Insert_2)
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, Insert_2)
+Gura_ImplementMethod(wx_BitmapComboBox, __Insert_2)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -322,14 +322,14 @@ Gura_ImplementMethod(wx_BitmapComboBox, Insert_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapComboBox, SetItemBitmap)
+Gura_DeclareMethodAlias(wx_BitmapComboBox, __SetItemBitmap, "SetItemBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapComboBox, SetItemBitmap)
+Gura_ImplementMethod(wx_BitmapComboBox, __SetItemBitmap)
 {
 	Object_wx_BitmapComboBox *pThis = Object_wx_BitmapComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -344,20 +344,20 @@ Gura_ImplementMethod(wx_BitmapComboBox, SetItemBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapComboBox)
 {
-	Gura_AssignMethod(wx_BitmapComboBox, wxBitmapComboBox);
-	Gura_AssignMethod(wx_BitmapComboBox, wxBitmapComboBox_1);
-	Gura_AssignMethod(wx_BitmapComboBox, wxBitmapComboBox_2);
-	Gura_AssignMethod(wx_BitmapComboBox, Append);
-	Gura_AssignMethod(wx_BitmapComboBox, Append_1);
-	Gura_AssignMethod(wx_BitmapComboBox, Append_2);
-	Gura_AssignMethod(wx_BitmapComboBox, Create);
-	Gura_AssignMethod(wx_BitmapComboBox, Create_1);
-	Gura_AssignMethod(wx_BitmapComboBox, GetBitmapSize);
-	Gura_AssignMethod(wx_BitmapComboBox, GetItemBitmap);
-	Gura_AssignMethod(wx_BitmapComboBox, Insert);
-	Gura_AssignMethod(wx_BitmapComboBox, Insert_1);
-	Gura_AssignMethod(wx_BitmapComboBox, Insert_2);
-	Gura_AssignMethod(wx_BitmapComboBox, SetItemBitmap);
+	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox);
+	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox_1);
+	Gura_AssignMethod(wx_BitmapComboBox, __wxBitmapComboBox_2);
+	Gura_AssignMethod(wx_BitmapComboBox, __Append);
+	Gura_AssignMethod(wx_BitmapComboBox, __Append_1);
+	Gura_AssignMethod(wx_BitmapComboBox, __Append_2);
+	Gura_AssignMethod(wx_BitmapComboBox, __Create);
+	Gura_AssignMethod(wx_BitmapComboBox, __Create_1);
+	Gura_AssignMethod(wx_BitmapComboBox, __GetBitmapSize);
+	Gura_AssignMethod(wx_BitmapComboBox, __GetItemBitmap);
+	Gura_AssignMethod(wx_BitmapComboBox, __Insert);
+	Gura_AssignMethod(wx_BitmapComboBox, __Insert_1);
+	Gura_AssignMethod(wx_BitmapComboBox, __Insert_2);
+	Gura_AssignMethod(wx_BitmapComboBox, __SetItemBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_BitmapComboBox)

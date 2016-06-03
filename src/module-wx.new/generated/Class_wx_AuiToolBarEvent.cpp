@@ -37,12 +37,12 @@ String Object_wx_AuiToolBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AuiToolBarEvent, IsDropDownClicked)
+Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __IsDropDownClicked, "IsDropDownClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiToolBarEvent, IsDropDownClicked)
+Gura_ImplementMethod(wx_AuiToolBarEvent, __IsDropDownClicked)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AuiToolBarEvent, IsDropDownClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiToolBarEvent, GetClickPoint)
+Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetClickPoint, "GetClickPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiToolBarEvent, GetClickPoint)
+Gura_ImplementMethod(wx_AuiToolBarEvent, __GetClickPoint)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_AuiToolBarEvent, GetClickPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiToolBarEvent, GetItemRect)
+Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetItemRect, "GetItemRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiToolBarEvent, GetItemRect)
+Gura_ImplementMethod(wx_AuiToolBarEvent, __GetItemRect)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_AuiToolBarEvent, GetItemRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AuiToolBarEvent, GetToolId)
+Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetToolId, "GetToolId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AuiToolBarEvent, GetToolId)
+Gura_ImplementMethod(wx_AuiToolBarEvent, __GetToolId)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -94,10 +94,10 @@ Gura_ImplementMethod(wx_AuiToolBarEvent, GetToolId)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AuiToolBarEvent)
 {
-	Gura_AssignMethod(wx_AuiToolBarEvent, IsDropDownClicked);
-	Gura_AssignMethod(wx_AuiToolBarEvent, GetClickPoint);
-	Gura_AssignMethod(wx_AuiToolBarEvent, GetItemRect);
-	Gura_AssignMethod(wx_AuiToolBarEvent, GetToolId);
+	Gura_AssignMethod(wx_AuiToolBarEvent, __IsDropDownClicked);
+	Gura_AssignMethod(wx_AuiToolBarEvent, __GetClickPoint);
+	Gura_AssignMethod(wx_AuiToolBarEvent, __GetItemRect);
+	Gura_AssignMethod(wx_AuiToolBarEvent, __GetToolId);
 }
 
 Gura_ImplementDescendantCreator(wx_AuiToolBarEvent)

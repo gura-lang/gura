@@ -37,12 +37,12 @@ String Object_wx_ListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ListItem, wxListItem)
+Gura_DeclareMethodAlias(wx_ListItem, __wxListItem, "wxListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, wxListItem)
+Gura_ImplementMethod(wx_ListItem, __wxListItem)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ListItem, wxListItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, Clear)
+Gura_DeclareMethodAlias(wx_ListItem, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, Clear)
+Gura_ImplementMethod(wx_ListItem, __Clear)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_ListItem, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetAlign)
+Gura_DeclareMethodAlias(wx_ListItem, __GetAlign, "GetAlign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetAlign)
+Gura_ImplementMethod(wx_ListItem, __GetAlign)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_ListItem, GetAlign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetBackgroundColour)
+Gura_DeclareMethodAlias(wx_ListItem, __GetBackgroundColour, "GetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetBackgroundColour)
+Gura_ImplementMethod(wx_ListItem, __GetBackgroundColour)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_ListItem, GetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetColumn)
+Gura_DeclareMethodAlias(wx_ListItem, __GetColumn, "GetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetColumn)
+Gura_ImplementMethod(wx_ListItem, __GetColumn)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_ListItem, GetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetData)
+Gura_DeclareMethodAlias(wx_ListItem, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetData)
+Gura_ImplementMethod(wx_ListItem, __GetData)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,12 +115,12 @@ Gura_ImplementMethod(wx_ListItem, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetFont)
+Gura_DeclareMethodAlias(wx_ListItem, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetFont)
+Gura_ImplementMethod(wx_ListItem, __GetFont)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_ListItem, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetId)
+Gura_DeclareMethodAlias(wx_ListItem, __GetId, "GetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetId)
+Gura_ImplementMethod(wx_ListItem, __GetId)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,12 +141,12 @@ Gura_ImplementMethod(wx_ListItem, GetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetImage)
+Gura_DeclareMethodAlias(wx_ListItem, __GetImage, "GetImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetImage)
+Gura_ImplementMethod(wx_ListItem, __GetImage)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,12 +154,12 @@ Gura_ImplementMethod(wx_ListItem, GetImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetMask)
+Gura_DeclareMethodAlias(wx_ListItem, __GetMask, "GetMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetMask)
+Gura_ImplementMethod(wx_ListItem, __GetMask)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,12 +167,12 @@ Gura_ImplementMethod(wx_ListItem, GetMask)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetState)
+Gura_DeclareMethodAlias(wx_ListItem, __GetState, "GetState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetState)
+Gura_ImplementMethod(wx_ListItem, __GetState)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,12 +180,12 @@ Gura_ImplementMethod(wx_ListItem, GetState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetText)
+Gura_DeclareMethodAlias(wx_ListItem, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetText)
+Gura_ImplementMethod(wx_ListItem, __GetText)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,12 +193,12 @@ Gura_ImplementMethod(wx_ListItem, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetTextColour)
+Gura_DeclareMethodAlias(wx_ListItem, __GetTextColour, "GetTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetTextColour)
+Gura_ImplementMethod(wx_ListItem, __GetTextColour)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_ListItem, GetTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, GetWidth)
+Gura_DeclareMethodAlias(wx_ListItem, __GetWidth, "GetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ListItem, GetWidth)
+Gura_ImplementMethod(wx_ListItem, __GetWidth)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_ListItem, GetWidth)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetAlign)
+Gura_DeclareMethodAlias(wx_ListItem, __SetAlign, "SetAlign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetAlign)
+Gura_ImplementMethod(wx_ListItem, __SetAlign)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,13 +234,13 @@ Gura_ImplementMethod(wx_ListItem, SetAlign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_ListItem, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colBack", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetBackgroundColour)
+Gura_ImplementMethod(wx_ListItem, __SetBackgroundColour)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,13 +249,13 @@ Gura_ImplementMethod(wx_ListItem, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetColumn)
+Gura_DeclareMethodAlias(wx_ListItem, __SetColumn, "SetColumn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetColumn)
+Gura_ImplementMethod(wx_ListItem, __SetColumn)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,13 +264,13 @@ Gura_ImplementMethod(wx_ListItem, SetColumn)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetData)
+Gura_DeclareMethodAlias(wx_ListItem, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetData)
+Gura_ImplementMethod(wx_ListItem, __SetData)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -279,13 +279,13 @@ Gura_ImplementMethod(wx_ListItem, SetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetData_1)
+Gura_DeclareMethodAlias(wx_ListItem, __SetData_1, "SetData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetData_1)
+Gura_ImplementMethod(wx_ListItem, __SetData_1)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -294,13 +294,13 @@ Gura_ImplementMethod(wx_ListItem, SetData_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetFont)
+Gura_DeclareMethodAlias(wx_ListItem, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetFont)
+Gura_ImplementMethod(wx_ListItem, __SetFont)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -309,13 +309,13 @@ Gura_ImplementMethod(wx_ListItem, SetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetId)
+Gura_DeclareMethodAlias(wx_ListItem, __SetId, "SetId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetId)
+Gura_ImplementMethod(wx_ListItem, __SetId)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -324,13 +324,13 @@ Gura_ImplementMethod(wx_ListItem, SetId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetImage)
+Gura_DeclareMethodAlias(wx_ListItem, __SetImage, "SetImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetImage)
+Gura_ImplementMethod(wx_ListItem, __SetImage)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -339,13 +339,13 @@ Gura_ImplementMethod(wx_ListItem, SetImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetMask)
+Gura_DeclareMethodAlias(wx_ListItem, __SetMask, "SetMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetMask)
+Gura_ImplementMethod(wx_ListItem, __SetMask)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -354,13 +354,13 @@ Gura_ImplementMethod(wx_ListItem, SetMask)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetState)
+Gura_DeclareMethodAlias(wx_ListItem, __SetState, "SetState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetState)
+Gura_ImplementMethod(wx_ListItem, __SetState)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -369,13 +369,13 @@ Gura_ImplementMethod(wx_ListItem, SetState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetStateMask)
+Gura_DeclareMethodAlias(wx_ListItem, __SetStateMask, "SetStateMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stateMask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetStateMask)
+Gura_ImplementMethod(wx_ListItem, __SetStateMask)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -384,13 +384,13 @@ Gura_ImplementMethod(wx_ListItem, SetStateMask)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetText)
+Gura_DeclareMethodAlias(wx_ListItem, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetText)
+Gura_ImplementMethod(wx_ListItem, __SetText)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -399,13 +399,13 @@ Gura_ImplementMethod(wx_ListItem, SetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetTextColour)
+Gura_DeclareMethodAlias(wx_ListItem, __SetTextColour, "SetTextColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetTextColour)
+Gura_ImplementMethod(wx_ListItem, __SetTextColour)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -414,13 +414,13 @@ Gura_ImplementMethod(wx_ListItem, SetTextColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ListItem, SetWidth)
+Gura_DeclareMethodAlias(wx_ListItem, __SetWidth, "SetWidth")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ListItem, SetWidth)
+Gura_ImplementMethod(wx_ListItem, __SetWidth)
 {
 	Object_wx_ListItem *pThis = Object_wx_ListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -434,34 +434,34 @@ Gura_ImplementMethod(wx_ListItem, SetWidth)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ListItem)
 {
-	Gura_AssignMethod(wx_ListItem, wxListItem);
-	Gura_AssignMethod(wx_ListItem, Clear);
-	Gura_AssignMethod(wx_ListItem, GetAlign);
-	Gura_AssignMethod(wx_ListItem, GetBackgroundColour);
-	Gura_AssignMethod(wx_ListItem, GetColumn);
-	Gura_AssignMethod(wx_ListItem, GetData);
-	Gura_AssignMethod(wx_ListItem, GetFont);
-	Gura_AssignMethod(wx_ListItem, GetId);
-	Gura_AssignMethod(wx_ListItem, GetImage);
-	Gura_AssignMethod(wx_ListItem, GetMask);
-	Gura_AssignMethod(wx_ListItem, GetState);
-	Gura_AssignMethod(wx_ListItem, GetText);
-	Gura_AssignMethod(wx_ListItem, GetTextColour);
-	Gura_AssignMethod(wx_ListItem, GetWidth);
-	Gura_AssignMethod(wx_ListItem, SetAlign);
-	Gura_AssignMethod(wx_ListItem, SetBackgroundColour);
-	Gura_AssignMethod(wx_ListItem, SetColumn);
-	Gura_AssignMethod(wx_ListItem, SetData);
-	Gura_AssignMethod(wx_ListItem, SetData_1);
-	Gura_AssignMethod(wx_ListItem, SetFont);
-	Gura_AssignMethod(wx_ListItem, SetId);
-	Gura_AssignMethod(wx_ListItem, SetImage);
-	Gura_AssignMethod(wx_ListItem, SetMask);
-	Gura_AssignMethod(wx_ListItem, SetState);
-	Gura_AssignMethod(wx_ListItem, SetStateMask);
-	Gura_AssignMethod(wx_ListItem, SetText);
-	Gura_AssignMethod(wx_ListItem, SetTextColour);
-	Gura_AssignMethod(wx_ListItem, SetWidth);
+	Gura_AssignMethod(wx_ListItem, __wxListItem);
+	Gura_AssignMethod(wx_ListItem, __Clear);
+	Gura_AssignMethod(wx_ListItem, __GetAlign);
+	Gura_AssignMethod(wx_ListItem, __GetBackgroundColour);
+	Gura_AssignMethod(wx_ListItem, __GetColumn);
+	Gura_AssignMethod(wx_ListItem, __GetData);
+	Gura_AssignMethod(wx_ListItem, __GetFont);
+	Gura_AssignMethod(wx_ListItem, __GetId);
+	Gura_AssignMethod(wx_ListItem, __GetImage);
+	Gura_AssignMethod(wx_ListItem, __GetMask);
+	Gura_AssignMethod(wx_ListItem, __GetState);
+	Gura_AssignMethod(wx_ListItem, __GetText);
+	Gura_AssignMethod(wx_ListItem, __GetTextColour);
+	Gura_AssignMethod(wx_ListItem, __GetWidth);
+	Gura_AssignMethod(wx_ListItem, __SetAlign);
+	Gura_AssignMethod(wx_ListItem, __SetBackgroundColour);
+	Gura_AssignMethod(wx_ListItem, __SetColumn);
+	Gura_AssignMethod(wx_ListItem, __SetData);
+	Gura_AssignMethod(wx_ListItem, __SetData_1);
+	Gura_AssignMethod(wx_ListItem, __SetFont);
+	Gura_AssignMethod(wx_ListItem, __SetId);
+	Gura_AssignMethod(wx_ListItem, __SetImage);
+	Gura_AssignMethod(wx_ListItem, __SetMask);
+	Gura_AssignMethod(wx_ListItem, __SetState);
+	Gura_AssignMethod(wx_ListItem, __SetStateMask);
+	Gura_AssignMethod(wx_ListItem, __SetText);
+	Gura_AssignMethod(wx_ListItem, __SetTextColour);
+	Gura_AssignMethod(wx_ListItem, __SetWidth);
 }
 
 Gura_ImplementDescendantCreator(wx_ListItem)

@@ -37,12 +37,12 @@ String Object_wx_CheckListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CheckListBox, wxCheckListBox)
+Gura_DeclareMethodAlias(wx_CheckListBox, __wxCheckListBox, "wxCheckListBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox)
+Gura_ImplementMethod(wx_CheckListBox, __wxCheckListBox)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, wxCheckListBox_1)
+Gura_DeclareMethodAlias(wx_CheckListBox, __wxCheckListBox_1, "wxCheckListBox_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_CheckListBox, wxCheckListBox_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox_1)
+Gura_ImplementMethod(wx_CheckListBox, __wxCheckListBox_1)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, wxCheckListBox_2)
+Gura_DeclareMethodAlias(wx_CheckListBox, __wxCheckListBox_2, "wxCheckListBox_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -94,7 +94,7 @@ Gura_DeclareMethod(wx_CheckListBox, wxCheckListBox_2)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox_2)
+Gura_ImplementMethod(wx_CheckListBox, __wxCheckListBox_2)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_CheckListBox, wxCheckListBox_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, Create)
+Gura_DeclareMethodAlias(wx_CheckListBox, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -124,7 +124,7 @@ Gura_DeclareMethod(wx_CheckListBox, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, Create)
+Gura_ImplementMethod(wx_CheckListBox, __Create)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_CheckListBox, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, Create_1)
+Gura_DeclareMethodAlias(wx_CheckListBox, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -154,7 +154,7 @@ Gura_DeclareMethod(wx_CheckListBox, Create_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, Create_1)
+Gura_ImplementMethod(wx_CheckListBox, __Create_1)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_CheckListBox, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, Check)
+Gura_DeclareMethodAlias(wx_CheckListBox, __Check, "Check")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "check", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, Check)
+Gura_ImplementMethod(wx_CheckListBox, __Check)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_CheckListBox, Check)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, IsChecked)
+Gura_DeclareMethodAlias(wx_CheckListBox, __IsChecked, "IsChecked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, IsChecked)
+Gura_ImplementMethod(wx_CheckListBox, __IsChecked)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_CheckListBox, IsChecked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CheckListBox, GetCheckedItems)
+Gura_DeclareMethodAlias(wx_CheckListBox, __GetCheckedItems, "GetCheckedItems")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "checkedItems", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CheckListBox, GetCheckedItems)
+Gura_ImplementMethod(wx_CheckListBox, __GetCheckedItems)
 {
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -222,14 +222,14 @@ Gura_ImplementMethod(wx_CheckListBox, GetCheckedItems)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CheckListBox)
 {
-	Gura_AssignMethod(wx_CheckListBox, wxCheckListBox);
-	Gura_AssignMethod(wx_CheckListBox, wxCheckListBox_1);
-	Gura_AssignMethod(wx_CheckListBox, wxCheckListBox_2);
-	Gura_AssignMethod(wx_CheckListBox, Create);
-	Gura_AssignMethod(wx_CheckListBox, Create_1);
-	Gura_AssignMethod(wx_CheckListBox, Check);
-	Gura_AssignMethod(wx_CheckListBox, IsChecked);
-	Gura_AssignMethod(wx_CheckListBox, GetCheckedItems);
+	Gura_AssignMethod(wx_CheckListBox, __wxCheckListBox);
+	Gura_AssignMethod(wx_CheckListBox, __wxCheckListBox_1);
+	Gura_AssignMethod(wx_CheckListBox, __wxCheckListBox_2);
+	Gura_AssignMethod(wx_CheckListBox, __Create);
+	Gura_AssignMethod(wx_CheckListBox, __Create_1);
+	Gura_AssignMethod(wx_CheckListBox, __Check);
+	Gura_AssignMethod(wx_CheckListBox, __IsChecked);
+	Gura_AssignMethod(wx_CheckListBox, __GetCheckedItems);
 }
 
 Gura_ImplementDescendantCreator(wx_CheckListBox)

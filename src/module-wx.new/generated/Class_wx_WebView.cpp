@@ -37,7 +37,7 @@ String Object_wx_WebView::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebView, Create)
+Gura_DeclareMethodAlias(wx_WebView, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -49,7 +49,7 @@ Gura_DeclareMethod(wx_WebView, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, Create)
+Gura_ImplementMethod(wx_WebView, __Create)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_WebView, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, New)
+Gura_DeclareMethodAlias(wx_WebView, __New, "New")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "backend", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, New)
+Gura_ImplementMethod(wx_WebView, __New)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_WebView, New)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, New_1)
+Gura_DeclareMethodAlias(wx_WebView, __New_1, "New_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_WebView, New_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, New_1)
+Gura_ImplementMethod(wx_WebView, __New_1)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,14 +108,14 @@ Gura_ImplementMethod(wx_WebView, New_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, RegisterFactory)
+Gura_DeclareMethodAlias(wx_WebView, __RegisterFactory, "RegisterFactory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "backend", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "factory", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, RegisterFactory)
+Gura_ImplementMethod(wx_WebView, __RegisterFactory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_WebView, RegisterFactory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetCurrentTitle)
+Gura_DeclareMethodAlias(wx_WebView, __GetCurrentTitle, "GetCurrentTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetCurrentTitle)
+Gura_ImplementMethod(wx_WebView, __GetCurrentTitle)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_WebView, GetCurrentTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetCurrentURL)
+Gura_DeclareMethodAlias(wx_WebView, __GetCurrentURL, "GetCurrentURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetCurrentURL)
+Gura_ImplementMethod(wx_WebView, __GetCurrentURL)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_WebView, GetCurrentURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetNativeBackend)
+Gura_DeclareMethodAlias(wx_WebView, __GetNativeBackend, "GetNativeBackend")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetNativeBackend)
+Gura_ImplementMethod(wx_WebView, __GetNativeBackend)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_WebView, GetNativeBackend)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetPageSource)
+Gura_DeclareMethodAlias(wx_WebView, __GetPageSource, "GetPageSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetPageSource)
+Gura_ImplementMethod(wx_WebView, __GetPageSource)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_WebView, GetPageSource)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetPageText)
+Gura_DeclareMethodAlias(wx_WebView, __GetPageText, "GetPageText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetPageText)
+Gura_ImplementMethod(wx_WebView, __GetPageText)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,12 +190,12 @@ Gura_ImplementMethod(wx_WebView, GetPageText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, IsBusy)
+Gura_DeclareMethodAlias(wx_WebView, __IsBusy, "IsBusy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, IsBusy)
+Gura_ImplementMethod(wx_WebView, __IsBusy)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,12 +203,12 @@ Gura_ImplementMethod(wx_WebView, IsBusy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, IsEditable)
+Gura_DeclareMethodAlias(wx_WebView, __IsEditable, "IsEditable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, IsEditable)
+Gura_ImplementMethod(wx_WebView, __IsEditable)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_WebView, IsEditable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, LoadURL)
+Gura_DeclareMethodAlias(wx_WebView, __LoadURL, "LoadURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, LoadURL)
+Gura_ImplementMethod(wx_WebView, __LoadURL)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,12 +231,12 @@ Gura_ImplementMethod(wx_WebView, LoadURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Print)
+Gura_DeclareMethodAlias(wx_WebView, __Print, "Print")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Print)
+Gura_ImplementMethod(wx_WebView, __Print)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_WebView, Print)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, RegisterHandler)
+Gura_DeclareMethodAlias(wx_WebView, __RegisterHandler, "RegisterHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, RegisterHandler)
+Gura_ImplementMethod(wx_WebView, __RegisterHandler)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -259,13 +259,13 @@ Gura_ImplementMethod(wx_WebView, RegisterHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Reload)
+Gura_DeclareMethodAlias(wx_WebView, __Reload, "Reload")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, Reload)
+Gura_ImplementMethod(wx_WebView, __Reload)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,13 +274,13 @@ Gura_ImplementMethod(wx_WebView, Reload)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, RunScript)
+Gura_DeclareMethodAlias(wx_WebView, __RunScript, "RunScript")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "javascript", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, RunScript)
+Gura_ImplementMethod(wx_WebView, __RunScript)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -289,13 +289,13 @@ Gura_ImplementMethod(wx_WebView, RunScript)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SetEditable)
+Gura_DeclareMethodAlias(wx_WebView, __SetEditable, "SetEditable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, SetEditable)
+Gura_ImplementMethod(wx_WebView, __SetEditable)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -304,14 +304,14 @@ Gura_ImplementMethod(wx_WebView, SetEditable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SetPage)
+Gura_DeclareMethodAlias(wx_WebView, __SetPage, "SetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "baseUrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, SetPage)
+Gura_ImplementMethod(wx_WebView, __SetPage)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,14 +321,14 @@ Gura_ImplementMethod(wx_WebView, SetPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SetPage_1)
+Gura_DeclareMethodAlias(wx_WebView, __SetPage_1, "SetPage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "baseUrl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, SetPage_1)
+Gura_ImplementMethod(wx_WebView, __SetPage_1)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,12 +338,12 @@ Gura_ImplementMethod(wx_WebView, SetPage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Stop)
+Gura_DeclareMethodAlias(wx_WebView, __Stop, "Stop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Stop)
+Gura_ImplementMethod(wx_WebView, __Stop)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -351,12 +351,12 @@ Gura_ImplementMethod(wx_WebView, Stop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanCopy)
+Gura_DeclareMethodAlias(wx_WebView, __CanCopy, "CanCopy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanCopy)
+Gura_ImplementMethod(wx_WebView, __CanCopy)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,12 +364,12 @@ Gura_ImplementMethod(wx_WebView, CanCopy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanCut)
+Gura_DeclareMethodAlias(wx_WebView, __CanCut, "CanCut")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanCut)
+Gura_ImplementMethod(wx_WebView, __CanCut)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -377,12 +377,12 @@ Gura_ImplementMethod(wx_WebView, CanCut)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanPaste)
+Gura_DeclareMethodAlias(wx_WebView, __CanPaste, "CanPaste")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanPaste)
+Gura_ImplementMethod(wx_WebView, __CanPaste)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -390,12 +390,12 @@ Gura_ImplementMethod(wx_WebView, CanPaste)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Copy)
+Gura_DeclareMethodAlias(wx_WebView, __Copy, "Copy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Copy)
+Gura_ImplementMethod(wx_WebView, __Copy)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -403,12 +403,12 @@ Gura_ImplementMethod(wx_WebView, Copy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Cut)
+Gura_DeclareMethodAlias(wx_WebView, __Cut, "Cut")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Cut)
+Gura_ImplementMethod(wx_WebView, __Cut)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -416,12 +416,12 @@ Gura_ImplementMethod(wx_WebView, Cut)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Paste)
+Gura_DeclareMethodAlias(wx_WebView, __Paste, "Paste")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Paste)
+Gura_ImplementMethod(wx_WebView, __Paste)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -429,13 +429,13 @@ Gura_ImplementMethod(wx_WebView, Paste)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, EnableContextMenu)
+Gura_DeclareMethodAlias(wx_WebView, __EnableContextMenu, "EnableContextMenu")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, EnableContextMenu)
+Gura_ImplementMethod(wx_WebView, __EnableContextMenu)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -444,12 +444,12 @@ Gura_ImplementMethod(wx_WebView, EnableContextMenu)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, IsContextMenuEnabled)
+Gura_DeclareMethodAlias(wx_WebView, __IsContextMenuEnabled, "IsContextMenuEnabled")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, IsContextMenuEnabled)
+Gura_ImplementMethod(wx_WebView, __IsContextMenuEnabled)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,12 +457,12 @@ Gura_ImplementMethod(wx_WebView, IsContextMenuEnabled)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanGoBack)
+Gura_DeclareMethodAlias(wx_WebView, __CanGoBack, "CanGoBack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanGoBack)
+Gura_ImplementMethod(wx_WebView, __CanGoBack)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -470,12 +470,12 @@ Gura_ImplementMethod(wx_WebView, CanGoBack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanGoForward)
+Gura_DeclareMethodAlias(wx_WebView, __CanGoForward, "CanGoForward")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanGoForward)
+Gura_ImplementMethod(wx_WebView, __CanGoForward)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -483,12 +483,12 @@ Gura_ImplementMethod(wx_WebView, CanGoForward)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, ClearHistory)
+Gura_DeclareMethodAlias(wx_WebView, __ClearHistory, "ClearHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, ClearHistory)
+Gura_ImplementMethod(wx_WebView, __ClearHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -496,13 +496,13 @@ Gura_ImplementMethod(wx_WebView, ClearHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, EnableHistory)
+Gura_DeclareMethodAlias(wx_WebView, __EnableHistory, "EnableHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, EnableHistory)
+Gura_ImplementMethod(wx_WebView, __EnableHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -511,12 +511,12 @@ Gura_ImplementMethod(wx_WebView, EnableHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetBackwardHistory)
+Gura_DeclareMethodAlias(wx_WebView, __GetBackwardHistory, "GetBackwardHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetBackwardHistory)
+Gura_ImplementMethod(wx_WebView, __GetBackwardHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -524,12 +524,12 @@ Gura_ImplementMethod(wx_WebView, GetBackwardHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetForwardHistory)
+Gura_DeclareMethodAlias(wx_WebView, __GetForwardHistory, "GetForwardHistory")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetForwardHistory)
+Gura_ImplementMethod(wx_WebView, __GetForwardHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -537,12 +537,12 @@ Gura_ImplementMethod(wx_WebView, GetForwardHistory)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GoBack)
+Gura_DeclareMethodAlias(wx_WebView, __GoBack, "GoBack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GoBack)
+Gura_ImplementMethod(wx_WebView, __GoBack)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -550,12 +550,12 @@ Gura_ImplementMethod(wx_WebView, GoBack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GoForward)
+Gura_DeclareMethodAlias(wx_WebView, __GoForward, "GoForward")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GoForward)
+Gura_ImplementMethod(wx_WebView, __GoForward)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -563,13 +563,13 @@ Gura_ImplementMethod(wx_WebView, GoForward)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, LoadHistoryItem)
+Gura_DeclareMethodAlias(wx_WebView, __LoadHistoryItem, "LoadHistoryItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, LoadHistoryItem)
+Gura_ImplementMethod(wx_WebView, __LoadHistoryItem)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -578,12 +578,12 @@ Gura_ImplementMethod(wx_WebView, LoadHistoryItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, ClearSelection)
+Gura_DeclareMethodAlias(wx_WebView, __ClearSelection, "ClearSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, ClearSelection)
+Gura_ImplementMethod(wx_WebView, __ClearSelection)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -591,12 +591,12 @@ Gura_ImplementMethod(wx_WebView, ClearSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, DeleteSelection)
+Gura_DeclareMethodAlias(wx_WebView, __DeleteSelection, "DeleteSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, DeleteSelection)
+Gura_ImplementMethod(wx_WebView, __DeleteSelection)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -604,12 +604,12 @@ Gura_ImplementMethod(wx_WebView, DeleteSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetSelectedSource)
+Gura_DeclareMethodAlias(wx_WebView, __GetSelectedSource, "GetSelectedSource")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetSelectedSource)
+Gura_ImplementMethod(wx_WebView, __GetSelectedSource)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -617,12 +617,12 @@ Gura_ImplementMethod(wx_WebView, GetSelectedSource)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetSelectedText)
+Gura_DeclareMethodAlias(wx_WebView, __GetSelectedText, "GetSelectedText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetSelectedText)
+Gura_ImplementMethod(wx_WebView, __GetSelectedText)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -630,12 +630,12 @@ Gura_ImplementMethod(wx_WebView, GetSelectedText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, HasSelection)
+Gura_DeclareMethodAlias(wx_WebView, __HasSelection, "HasSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, HasSelection)
+Gura_ImplementMethod(wx_WebView, __HasSelection)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -643,12 +643,12 @@ Gura_ImplementMethod(wx_WebView, HasSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SelectAll)
+Gura_DeclareMethodAlias(wx_WebView, __SelectAll, "SelectAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, SelectAll)
+Gura_ImplementMethod(wx_WebView, __SelectAll)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -656,12 +656,12 @@ Gura_ImplementMethod(wx_WebView, SelectAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanRedo)
+Gura_DeclareMethodAlias(wx_WebView, __CanRedo, "CanRedo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanRedo)
+Gura_ImplementMethod(wx_WebView, __CanRedo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -669,12 +669,12 @@ Gura_ImplementMethod(wx_WebView, CanRedo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanUndo)
+Gura_DeclareMethodAlias(wx_WebView, __CanUndo, "CanUndo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, CanUndo)
+Gura_ImplementMethod(wx_WebView, __CanUndo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -682,12 +682,12 @@ Gura_ImplementMethod(wx_WebView, CanUndo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Redo)
+Gura_DeclareMethodAlias(wx_WebView, __Redo, "Redo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Redo)
+Gura_ImplementMethod(wx_WebView, __Redo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -695,12 +695,12 @@ Gura_ImplementMethod(wx_WebView, Redo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Undo)
+Gura_DeclareMethodAlias(wx_WebView, __Undo, "Undo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, Undo)
+Gura_ImplementMethod(wx_WebView, __Undo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -708,14 +708,14 @@ Gura_ImplementMethod(wx_WebView, Undo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, Find)
+Gura_DeclareMethodAlias(wx_WebView, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, Find)
+Gura_ImplementMethod(wx_WebView, __Find)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -725,13 +725,13 @@ Gura_ImplementMethod(wx_WebView, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, CanSetZoomType)
+Gura_DeclareMethodAlias(wx_WebView, __CanSetZoomType, "CanSetZoomType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, CanSetZoomType)
+Gura_ImplementMethod(wx_WebView, __CanSetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -740,12 +740,12 @@ Gura_ImplementMethod(wx_WebView, CanSetZoomType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetZoom)
+Gura_DeclareMethodAlias(wx_WebView, __GetZoom, "GetZoom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetZoom)
+Gura_ImplementMethod(wx_WebView, __GetZoom)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -753,12 +753,12 @@ Gura_ImplementMethod(wx_WebView, GetZoom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, GetZoomType)
+Gura_DeclareMethodAlias(wx_WebView, __GetZoomType, "GetZoomType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebView, GetZoomType)
+Gura_ImplementMethod(wx_WebView, __GetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -766,13 +766,13 @@ Gura_ImplementMethod(wx_WebView, GetZoomType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SetZoom)
+Gura_DeclareMethodAlias(wx_WebView, __SetZoom, "SetZoom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "zoom", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, SetZoom)
+Gura_ImplementMethod(wx_WebView, __SetZoom)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -781,13 +781,13 @@ Gura_ImplementMethod(wx_WebView, SetZoom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebView, SetZoomType)
+Gura_DeclareMethodAlias(wx_WebView, __SetZoomType, "SetZoomType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "zoomType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebView, SetZoomType)
+Gura_ImplementMethod(wx_WebView, __SetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -801,59 +801,59 @@ Gura_ImplementMethod(wx_WebView, SetZoomType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebView)
 {
-	Gura_AssignMethod(wx_WebView, Create);
-	Gura_AssignMethod(wx_WebView, New);
-	Gura_AssignMethod(wx_WebView, New_1);
-	Gura_AssignMethod(wx_WebView, RegisterFactory);
-	Gura_AssignMethod(wx_WebView, GetCurrentTitle);
-	Gura_AssignMethod(wx_WebView, GetCurrentURL);
-	Gura_AssignMethod(wx_WebView, GetNativeBackend);
-	Gura_AssignMethod(wx_WebView, GetPageSource);
-	Gura_AssignMethod(wx_WebView, GetPageText);
-	Gura_AssignMethod(wx_WebView, IsBusy);
-	Gura_AssignMethod(wx_WebView, IsEditable);
-	Gura_AssignMethod(wx_WebView, LoadURL);
-	Gura_AssignMethod(wx_WebView, Print);
-	Gura_AssignMethod(wx_WebView, RegisterHandler);
-	Gura_AssignMethod(wx_WebView, Reload);
-	Gura_AssignMethod(wx_WebView, RunScript);
-	Gura_AssignMethod(wx_WebView, SetEditable);
-	Gura_AssignMethod(wx_WebView, SetPage);
-	Gura_AssignMethod(wx_WebView, SetPage_1);
-	Gura_AssignMethod(wx_WebView, Stop);
-	Gura_AssignMethod(wx_WebView, CanCopy);
-	Gura_AssignMethod(wx_WebView, CanCut);
-	Gura_AssignMethod(wx_WebView, CanPaste);
-	Gura_AssignMethod(wx_WebView, Copy);
-	Gura_AssignMethod(wx_WebView, Cut);
-	Gura_AssignMethod(wx_WebView, Paste);
-	Gura_AssignMethod(wx_WebView, EnableContextMenu);
-	Gura_AssignMethod(wx_WebView, IsContextMenuEnabled);
-	Gura_AssignMethod(wx_WebView, CanGoBack);
-	Gura_AssignMethod(wx_WebView, CanGoForward);
-	Gura_AssignMethod(wx_WebView, ClearHistory);
-	Gura_AssignMethod(wx_WebView, EnableHistory);
-	Gura_AssignMethod(wx_WebView, GetBackwardHistory);
-	Gura_AssignMethod(wx_WebView, GetForwardHistory);
-	Gura_AssignMethod(wx_WebView, GoBack);
-	Gura_AssignMethod(wx_WebView, GoForward);
-	Gura_AssignMethod(wx_WebView, LoadHistoryItem);
-	Gura_AssignMethod(wx_WebView, ClearSelection);
-	Gura_AssignMethod(wx_WebView, DeleteSelection);
-	Gura_AssignMethod(wx_WebView, GetSelectedSource);
-	Gura_AssignMethod(wx_WebView, GetSelectedText);
-	Gura_AssignMethod(wx_WebView, HasSelection);
-	Gura_AssignMethod(wx_WebView, SelectAll);
-	Gura_AssignMethod(wx_WebView, CanRedo);
-	Gura_AssignMethod(wx_WebView, CanUndo);
-	Gura_AssignMethod(wx_WebView, Redo);
-	Gura_AssignMethod(wx_WebView, Undo);
-	Gura_AssignMethod(wx_WebView, Find);
-	Gura_AssignMethod(wx_WebView, CanSetZoomType);
-	Gura_AssignMethod(wx_WebView, GetZoom);
-	Gura_AssignMethod(wx_WebView, GetZoomType);
-	Gura_AssignMethod(wx_WebView, SetZoom);
-	Gura_AssignMethod(wx_WebView, SetZoomType);
+	Gura_AssignMethod(wx_WebView, __Create);
+	Gura_AssignMethod(wx_WebView, __New);
+	Gura_AssignMethod(wx_WebView, __New_1);
+	Gura_AssignMethod(wx_WebView, __RegisterFactory);
+	Gura_AssignMethod(wx_WebView, __GetCurrentTitle);
+	Gura_AssignMethod(wx_WebView, __GetCurrentURL);
+	Gura_AssignMethod(wx_WebView, __GetNativeBackend);
+	Gura_AssignMethod(wx_WebView, __GetPageSource);
+	Gura_AssignMethod(wx_WebView, __GetPageText);
+	Gura_AssignMethod(wx_WebView, __IsBusy);
+	Gura_AssignMethod(wx_WebView, __IsEditable);
+	Gura_AssignMethod(wx_WebView, __LoadURL);
+	Gura_AssignMethod(wx_WebView, __Print);
+	Gura_AssignMethod(wx_WebView, __RegisterHandler);
+	Gura_AssignMethod(wx_WebView, __Reload);
+	Gura_AssignMethod(wx_WebView, __RunScript);
+	Gura_AssignMethod(wx_WebView, __SetEditable);
+	Gura_AssignMethod(wx_WebView, __SetPage);
+	Gura_AssignMethod(wx_WebView, __SetPage_1);
+	Gura_AssignMethod(wx_WebView, __Stop);
+	Gura_AssignMethod(wx_WebView, __CanCopy);
+	Gura_AssignMethod(wx_WebView, __CanCut);
+	Gura_AssignMethod(wx_WebView, __CanPaste);
+	Gura_AssignMethod(wx_WebView, __Copy);
+	Gura_AssignMethod(wx_WebView, __Cut);
+	Gura_AssignMethod(wx_WebView, __Paste);
+	Gura_AssignMethod(wx_WebView, __EnableContextMenu);
+	Gura_AssignMethod(wx_WebView, __IsContextMenuEnabled);
+	Gura_AssignMethod(wx_WebView, __CanGoBack);
+	Gura_AssignMethod(wx_WebView, __CanGoForward);
+	Gura_AssignMethod(wx_WebView, __ClearHistory);
+	Gura_AssignMethod(wx_WebView, __EnableHistory);
+	Gura_AssignMethod(wx_WebView, __GetBackwardHistory);
+	Gura_AssignMethod(wx_WebView, __GetForwardHistory);
+	Gura_AssignMethod(wx_WebView, __GoBack);
+	Gura_AssignMethod(wx_WebView, __GoForward);
+	Gura_AssignMethod(wx_WebView, __LoadHistoryItem);
+	Gura_AssignMethod(wx_WebView, __ClearSelection);
+	Gura_AssignMethod(wx_WebView, __DeleteSelection);
+	Gura_AssignMethod(wx_WebView, __GetSelectedSource);
+	Gura_AssignMethod(wx_WebView, __GetSelectedText);
+	Gura_AssignMethod(wx_WebView, __HasSelection);
+	Gura_AssignMethod(wx_WebView, __SelectAll);
+	Gura_AssignMethod(wx_WebView, __CanRedo);
+	Gura_AssignMethod(wx_WebView, __CanUndo);
+	Gura_AssignMethod(wx_WebView, __Redo);
+	Gura_AssignMethod(wx_WebView, __Undo);
+	Gura_AssignMethod(wx_WebView, __Find);
+	Gura_AssignMethod(wx_WebView, __CanSetZoomType);
+	Gura_AssignMethod(wx_WebView, __GetZoom);
+	Gura_AssignMethod(wx_WebView, __GetZoomType);
+	Gura_AssignMethod(wx_WebView, __SetZoom);
+	Gura_AssignMethod(wx_WebView, __SetZoomType);
 }
 
 Gura_ImplementDescendantCreator(wx_WebView)

@@ -37,14 +37,14 @@ String Object_wx_StaticBoxSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StaticBoxSizer, wxStaticBoxSizer)
+Gura_DeclareMethodAlias(wx_StaticBoxSizer, __wxStaticBoxSizer, "wxStaticBoxSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "box", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer)
+Gura_ImplementMethod(wx_StaticBoxSizer, __wxStaticBoxSizer)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
+Gura_DeclareMethodAlias(wx_StaticBoxSizer, __wxStaticBoxSizer_1, "wxStaticBoxSizer_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
+Gura_ImplementMethod(wx_StaticBoxSizer, __wxStaticBoxSizer_1)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticBoxSizer, GetStaticBox)
+Gura_DeclareMethodAlias(wx_StaticBoxSizer, __GetStaticBox, "GetStaticBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
+Gura_ImplementMethod(wx_StaticBoxSizer, __GetStaticBox)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_StaticBoxSizer, GetStaticBox)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticBoxSizer, CalcMin)
+Gura_DeclareMethodAlias(wx_StaticBoxSizer, __CalcMin, "CalcMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, CalcMin)
+Gura_ImplementMethod(wx_StaticBoxSizer, __CalcMin)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_StaticBoxSizer, CalcMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticBoxSizer, RecalcSizes)
+Gura_DeclareMethodAlias(wx_StaticBoxSizer, __RecalcSizes, "RecalcSizes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticBoxSizer, RecalcSizes)
+Gura_ImplementMethod(wx_StaticBoxSizer, __RecalcSizes)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,11 +117,11 @@ Gura_ImplementMethod(wx_StaticBoxSizer, RecalcSizes)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticBoxSizer)
 {
-	Gura_AssignMethod(wx_StaticBoxSizer, wxStaticBoxSizer);
-	Gura_AssignMethod(wx_StaticBoxSizer, wxStaticBoxSizer_1);
-	Gura_AssignMethod(wx_StaticBoxSizer, GetStaticBox);
-	Gura_AssignMethod(wx_StaticBoxSizer, CalcMin);
-	Gura_AssignMethod(wx_StaticBoxSizer, RecalcSizes);
+	Gura_AssignMethod(wx_StaticBoxSizer, __wxStaticBoxSizer);
+	Gura_AssignMethod(wx_StaticBoxSizer, __wxStaticBoxSizer_1);
+	Gura_AssignMethod(wx_StaticBoxSizer, __GetStaticBox);
+	Gura_AssignMethod(wx_StaticBoxSizer, __CalcMin);
+	Gura_AssignMethod(wx_StaticBoxSizer, __RecalcSizes);
 }
 
 Gura_ImplementDescendantCreator(wx_StaticBoxSizer)

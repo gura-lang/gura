@@ -37,12 +37,12 @@ String Object_wx_DDEConnection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DDEConnection, wxDDEConnection)
+Gura_DeclareMethodAlias(wx_DDEConnection, __wxDDEConnection, "wxDDEConnection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, wxDDEConnection)
+Gura_ImplementMethod(wx_DDEConnection, __wxDDEConnection)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_DDEConnection, wxDDEConnection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, wxDDEConnection_1)
+Gura_DeclareMethodAlias(wx_DDEConnection, __wxDDEConnection_1, "wxDDEConnection_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, wxDDEConnection_1)
+Gura_ImplementMethod(wx_DDEConnection, __wxDDEConnection_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_DDEConnection, wxDDEConnection_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Advise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Advise, "Advise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_DDEConnection, Advise)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Advise)
+Gura_ImplementMethod(wx_DDEConnection, __Advise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_DDEConnection, Advise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Advise_1)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_1, "Advise_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Advise_1)
+Gura_ImplementMethod(wx_DDEConnection, __Advise_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,14 +105,14 @@ Gura_ImplementMethod(wx_DDEConnection, Advise_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Advise_2)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_2, "Advise_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Advise_2)
+Gura_ImplementMethod(wx_DDEConnection, __Advise_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,14 +122,14 @@ Gura_ImplementMethod(wx_DDEConnection, Advise_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Advise_3)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_3, "Advise_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Advise_3)
+Gura_ImplementMethod(wx_DDEConnection, __Advise_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_DDEConnection, Advise_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Disconnect)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Disconnect, "Disconnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Disconnect)
+Gura_ImplementMethod(wx_DDEConnection, __Disconnect)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_DDEConnection, Disconnect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Execute)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Execute, "Execute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -160,7 +160,7 @@ Gura_DeclareMethod(wx_DDEConnection, Execute)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Execute)
+Gura_ImplementMethod(wx_DDEConnection, __Execute)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_DDEConnection, Execute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Execute_1)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_1, "Execute_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Execute_1)
+Gura_ImplementMethod(wx_DDEConnection, __Execute_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_DDEConnection, Execute_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Execute_2)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_2, "Execute_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Execute_2)
+Gura_ImplementMethod(wx_DDEConnection, __Execute_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_DDEConnection, Execute_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Execute_3)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_3, "Execute_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Execute_3)
+Gura_ImplementMethod(wx_DDEConnection, __Execute_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_DDEConnection, Execute_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnAdvise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnAdvise, "OnAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -226,7 +226,7 @@ Gura_DeclareMethod(wx_DDEConnection, OnAdvise)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnAdvise)
+Gura_ImplementMethod(wx_DDEConnection, __OnAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -239,12 +239,12 @@ Gura_ImplementMethod(wx_DDEConnection, OnAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnDisconnect)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnDisconnect, "OnDisconnect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnDisconnect)
+Gura_ImplementMethod(wx_DDEConnection, __OnDisconnect)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnDisconnect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnExecute)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnExecute, "OnExecute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -261,7 +261,7 @@ Gura_DeclareMethod(wx_DDEConnection, OnExecute)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnExecute)
+Gura_ImplementMethod(wx_DDEConnection, __OnExecute)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnExecute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnPoke)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnPoke, "OnPoke")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -283,7 +283,7 @@ Gura_DeclareMethod(wx_DDEConnection, OnPoke)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnPoke)
+Gura_ImplementMethod(wx_DDEConnection, __OnPoke)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnPoke)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnRequest)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnRequest, "OnRequest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -305,7 +305,7 @@ Gura_DeclareMethod(wx_DDEConnection, OnRequest)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnRequest)
+Gura_ImplementMethod(wx_DDEConnection, __OnRequest)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,14 +317,14 @@ Gura_ImplementMethod(wx_DDEConnection, OnRequest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnStartAdvise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnStartAdvise, "OnStartAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnStartAdvise)
+Gura_ImplementMethod(wx_DDEConnection, __OnStartAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,14 +334,14 @@ Gura_ImplementMethod(wx_DDEConnection, OnStartAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, OnStopAdvise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __OnStopAdvise, "OnStopAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, OnStopAdvise)
+Gura_ImplementMethod(wx_DDEConnection, __OnStopAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_DDEConnection, OnStopAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Poke)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Poke, "Poke")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -360,7 +360,7 @@ Gura_DeclareMethod(wx_DDEConnection, Poke)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Poke)
+Gura_ImplementMethod(wx_DDEConnection, __Poke)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -372,14 +372,14 @@ Gura_ImplementMethod(wx_DDEConnection, Poke)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Poke_1)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_1, "Poke_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Poke_1)
+Gura_ImplementMethod(wx_DDEConnection, __Poke_1)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -389,14 +389,14 @@ Gura_ImplementMethod(wx_DDEConnection, Poke_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Poke_2)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_2, "Poke_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Poke_2)
+Gura_ImplementMethod(wx_DDEConnection, __Poke_2)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -406,14 +406,14 @@ Gura_ImplementMethod(wx_DDEConnection, Poke_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Poke_3)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_3, "Poke_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Poke_3)
+Gura_ImplementMethod(wx_DDEConnection, __Poke_3)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_DDEConnection, Poke_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, Request)
+Gura_DeclareMethodAlias(wx_DDEConnection, __Request, "Request")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -431,7 +431,7 @@ Gura_DeclareMethod(wx_DDEConnection, Request)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, Request)
+Gura_ImplementMethod(wx_DDEConnection, __Request)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -442,13 +442,13 @@ Gura_ImplementMethod(wx_DDEConnection, Request)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, StartAdvise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __StartAdvise, "StartAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, StartAdvise)
+Gura_ImplementMethod(wx_DDEConnection, __StartAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -457,13 +457,13 @@ Gura_ImplementMethod(wx_DDEConnection, StartAdvise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DDEConnection, StopAdvise)
+Gura_DeclareMethodAlias(wx_DDEConnection, __StopAdvise, "StopAdvise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DDEConnection, StopAdvise)
+Gura_ImplementMethod(wx_DDEConnection, __StopAdvise)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -477,31 +477,31 @@ Gura_ImplementMethod(wx_DDEConnection, StopAdvise)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DDEConnection)
 {
-	Gura_AssignMethod(wx_DDEConnection, wxDDEConnection);
-	Gura_AssignMethod(wx_DDEConnection, wxDDEConnection_1);
-	Gura_AssignMethod(wx_DDEConnection, Advise);
-	Gura_AssignMethod(wx_DDEConnection, Advise_1);
-	Gura_AssignMethod(wx_DDEConnection, Advise_2);
-	Gura_AssignMethod(wx_DDEConnection, Advise_3);
-	Gura_AssignMethod(wx_DDEConnection, Disconnect);
-	Gura_AssignMethod(wx_DDEConnection, Execute);
-	Gura_AssignMethod(wx_DDEConnection, Execute_1);
-	Gura_AssignMethod(wx_DDEConnection, Execute_2);
-	Gura_AssignMethod(wx_DDEConnection, Execute_3);
-	Gura_AssignMethod(wx_DDEConnection, OnAdvise);
-	Gura_AssignMethod(wx_DDEConnection, OnDisconnect);
-	Gura_AssignMethod(wx_DDEConnection, OnExecute);
-	Gura_AssignMethod(wx_DDEConnection, OnPoke);
-	Gura_AssignMethod(wx_DDEConnection, OnRequest);
-	Gura_AssignMethod(wx_DDEConnection, OnStartAdvise);
-	Gura_AssignMethod(wx_DDEConnection, OnStopAdvise);
-	Gura_AssignMethod(wx_DDEConnection, Poke);
-	Gura_AssignMethod(wx_DDEConnection, Poke_1);
-	Gura_AssignMethod(wx_DDEConnection, Poke_2);
-	Gura_AssignMethod(wx_DDEConnection, Poke_3);
-	Gura_AssignMethod(wx_DDEConnection, Request);
-	Gura_AssignMethod(wx_DDEConnection, StartAdvise);
-	Gura_AssignMethod(wx_DDEConnection, StopAdvise);
+	Gura_AssignMethod(wx_DDEConnection, __wxDDEConnection);
+	Gura_AssignMethod(wx_DDEConnection, __wxDDEConnection_1);
+	Gura_AssignMethod(wx_DDEConnection, __Advise);
+	Gura_AssignMethod(wx_DDEConnection, __Advise_1);
+	Gura_AssignMethod(wx_DDEConnection, __Advise_2);
+	Gura_AssignMethod(wx_DDEConnection, __Advise_3);
+	Gura_AssignMethod(wx_DDEConnection, __Disconnect);
+	Gura_AssignMethod(wx_DDEConnection, __Execute);
+	Gura_AssignMethod(wx_DDEConnection, __Execute_1);
+	Gura_AssignMethod(wx_DDEConnection, __Execute_2);
+	Gura_AssignMethod(wx_DDEConnection, __Execute_3);
+	Gura_AssignMethod(wx_DDEConnection, __OnAdvise);
+	Gura_AssignMethod(wx_DDEConnection, __OnDisconnect);
+	Gura_AssignMethod(wx_DDEConnection, __OnExecute);
+	Gura_AssignMethod(wx_DDEConnection, __OnPoke);
+	Gura_AssignMethod(wx_DDEConnection, __OnRequest);
+	Gura_AssignMethod(wx_DDEConnection, __OnStartAdvise);
+	Gura_AssignMethod(wx_DDEConnection, __OnStopAdvise);
+	Gura_AssignMethod(wx_DDEConnection, __Poke);
+	Gura_AssignMethod(wx_DDEConnection, __Poke_1);
+	Gura_AssignMethod(wx_DDEConnection, __Poke_2);
+	Gura_AssignMethod(wx_DDEConnection, __Poke_3);
+	Gura_AssignMethod(wx_DDEConnection, __Request);
+	Gura_AssignMethod(wx_DDEConnection, __StartAdvise);
+	Gura_AssignMethod(wx_DDEConnection, __StopAdvise);
 }
 
 Gura_ImplementDescendantCreator(wx_DDEConnection)

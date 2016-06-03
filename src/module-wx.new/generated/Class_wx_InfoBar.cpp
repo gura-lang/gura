@@ -37,12 +37,12 @@ String Object_wx_InfoBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_InfoBar, wxInfoBar)
+Gura_DeclareMethodAlias(wx_InfoBar, __wxInfoBar, "wxInfoBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, wxInfoBar)
+Gura_ImplementMethod(wx_InfoBar, __wxInfoBar)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_InfoBar, wxInfoBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, wxInfoBar_1)
+Gura_DeclareMethodAlias(wx_InfoBar, __wxInfoBar_1, "wxInfoBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, wxInfoBar_1)
+Gura_ImplementMethod(wx_InfoBar, __wxInfoBar_1)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_InfoBar, wxInfoBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, Create)
+Gura_DeclareMethodAlias(wx_InfoBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, Create)
+Gura_ImplementMethod(wx_InfoBar, __Create)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,14 +84,14 @@ Gura_ImplementMethod(wx_InfoBar, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, AddButton)
+Gura_DeclareMethodAlias(wx_InfoBar, __AddButton, "AddButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "btnid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, AddButton)
+Gura_ImplementMethod(wx_InfoBar, __AddButton)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,12 +101,12 @@ Gura_ImplementMethod(wx_InfoBar, AddButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, Dismiss)
+Gura_DeclareMethodAlias(wx_InfoBar, __Dismiss, "Dismiss")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, Dismiss)
+Gura_ImplementMethod(wx_InfoBar, __Dismiss)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_InfoBar, Dismiss)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, RemoveButton)
+Gura_DeclareMethodAlias(wx_InfoBar, __RemoveButton, "RemoveButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "btnid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, RemoveButton)
+Gura_ImplementMethod(wx_InfoBar, __RemoveButton)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,14 +129,14 @@ Gura_ImplementMethod(wx_InfoBar, RemoveButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, ShowMessage)
+Gura_DeclareMethodAlias(wx_InfoBar, __ShowMessage, "ShowMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, ShowMessage)
+Gura_ImplementMethod(wx_InfoBar, __ShowMessage)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -146,12 +146,12 @@ Gura_ImplementMethod(wx_InfoBar, ShowMessage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, GetButtonCount)
+Gura_DeclareMethodAlias(wx_InfoBar, __GetButtonCount, "GetButtonCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, GetButtonCount)
+Gura_ImplementMethod(wx_InfoBar, __GetButtonCount)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_InfoBar, GetButtonCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, GetButtonId)
+Gura_DeclareMethodAlias(wx_InfoBar, __GetButtonId, "GetButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, GetButtonId)
+Gura_ImplementMethod(wx_InfoBar, __GetButtonId)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_InfoBar, GetButtonId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, HasButtonId)
+Gura_DeclareMethodAlias(wx_InfoBar, __HasButtonId, "HasButtonId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "btnid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, HasButtonId)
+Gura_ImplementMethod(wx_InfoBar, __HasButtonId)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -189,14 +189,14 @@ Gura_ImplementMethod(wx_InfoBar, HasButtonId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, SetShowHideEffects)
+Gura_DeclareMethodAlias(wx_InfoBar, __SetShowHideEffects, "SetShowHideEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "showEffect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hideEffect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, SetShowHideEffects)
+Gura_ImplementMethod(wx_InfoBar, __SetShowHideEffects)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -206,12 +206,12 @@ Gura_ImplementMethod(wx_InfoBar, SetShowHideEffects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, GetShowEffect)
+Gura_DeclareMethodAlias(wx_InfoBar, __GetShowEffect, "GetShowEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, GetShowEffect)
+Gura_ImplementMethod(wx_InfoBar, __GetShowEffect)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -219,12 +219,12 @@ Gura_ImplementMethod(wx_InfoBar, GetShowEffect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, GetHideEffect)
+Gura_DeclareMethodAlias(wx_InfoBar, __GetHideEffect, "GetHideEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, GetHideEffect)
+Gura_ImplementMethod(wx_InfoBar, __GetHideEffect)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_InfoBar, GetHideEffect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, SetEffectDuration)
+Gura_DeclareMethodAlias(wx_InfoBar, __SetEffectDuration, "SetEffectDuration")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "duration", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, SetEffectDuration)
+Gura_ImplementMethod(wx_InfoBar, __SetEffectDuration)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -247,12 +247,12 @@ Gura_ImplementMethod(wx_InfoBar, SetEffectDuration)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, GetEffectDuration)
+Gura_DeclareMethodAlias(wx_InfoBar, __GetEffectDuration, "GetEffectDuration")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_InfoBar, GetEffectDuration)
+Gura_ImplementMethod(wx_InfoBar, __GetEffectDuration)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -260,13 +260,13 @@ Gura_ImplementMethod(wx_InfoBar, GetEffectDuration)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_InfoBar, SetFont)
+Gura_DeclareMethodAlias(wx_InfoBar, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_InfoBar, SetFont)
+Gura_ImplementMethod(wx_InfoBar, __SetFont)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -280,22 +280,22 @@ Gura_ImplementMethod(wx_InfoBar, SetFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_InfoBar)
 {
-	Gura_AssignMethod(wx_InfoBar, wxInfoBar);
-	Gura_AssignMethod(wx_InfoBar, wxInfoBar_1);
-	Gura_AssignMethod(wx_InfoBar, Create);
-	Gura_AssignMethod(wx_InfoBar, AddButton);
-	Gura_AssignMethod(wx_InfoBar, Dismiss);
-	Gura_AssignMethod(wx_InfoBar, RemoveButton);
-	Gura_AssignMethod(wx_InfoBar, ShowMessage);
-	Gura_AssignMethod(wx_InfoBar, GetButtonCount);
-	Gura_AssignMethod(wx_InfoBar, GetButtonId);
-	Gura_AssignMethod(wx_InfoBar, HasButtonId);
-	Gura_AssignMethod(wx_InfoBar, SetShowHideEffects);
-	Gura_AssignMethod(wx_InfoBar, GetShowEffect);
-	Gura_AssignMethod(wx_InfoBar, GetHideEffect);
-	Gura_AssignMethod(wx_InfoBar, SetEffectDuration);
-	Gura_AssignMethod(wx_InfoBar, GetEffectDuration);
-	Gura_AssignMethod(wx_InfoBar, SetFont);
+	Gura_AssignMethod(wx_InfoBar, __wxInfoBar);
+	Gura_AssignMethod(wx_InfoBar, __wxInfoBar_1);
+	Gura_AssignMethod(wx_InfoBar, __Create);
+	Gura_AssignMethod(wx_InfoBar, __AddButton);
+	Gura_AssignMethod(wx_InfoBar, __Dismiss);
+	Gura_AssignMethod(wx_InfoBar, __RemoveButton);
+	Gura_AssignMethod(wx_InfoBar, __ShowMessage);
+	Gura_AssignMethod(wx_InfoBar, __GetButtonCount);
+	Gura_AssignMethod(wx_InfoBar, __GetButtonId);
+	Gura_AssignMethod(wx_InfoBar, __HasButtonId);
+	Gura_AssignMethod(wx_InfoBar, __SetShowHideEffects);
+	Gura_AssignMethod(wx_InfoBar, __GetShowEffect);
+	Gura_AssignMethod(wx_InfoBar, __GetHideEffect);
+	Gura_AssignMethod(wx_InfoBar, __SetEffectDuration);
+	Gura_AssignMethod(wx_InfoBar, __GetEffectDuration);
+	Gura_AssignMethod(wx_InfoBar, __SetFont);
 }
 
 Gura_ImplementDescendantCreator(wx_InfoBar)

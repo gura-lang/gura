@@ -37,13 +37,13 @@ String Object_wx_URL::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_URL, wxURL)
+Gura_DeclareMethodAlias(wx_URL, __wxURL, "wxURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URL, wxURL)
+Gura_ImplementMethod(wx_URL, __wxURL)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_URL, wxURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, GetError)
+Gura_DeclareMethodAlias(wx_URL, __GetError, "GetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_URL, GetError)
+Gura_ImplementMethod(wx_URL, __GetError)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_URL, GetError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, GetInputStream)
+Gura_DeclareMethodAlias(wx_URL, __GetInputStream, "GetInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_URL, GetInputStream)
+Gura_ImplementMethod(wx_URL, __GetInputStream)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_URL, GetInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, GetProtocol)
+Gura_DeclareMethodAlias(wx_URL, __GetProtocol, "GetProtocol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_URL, GetProtocol)
+Gura_ImplementMethod(wx_URL, __GetProtocol)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_URL, GetProtocol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, IsOk)
+Gura_DeclareMethodAlias(wx_URL, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_URL, IsOk)
+Gura_ImplementMethod(wx_URL, __IsOk)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_URL, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, SetDefaultProxy)
+Gura_DeclareMethodAlias(wx_URL, __SetDefaultProxy, "SetDefaultProxy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url_proxy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URL, SetDefaultProxy)
+Gura_ImplementMethod(wx_URL, __SetDefaultProxy)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_URL, SetDefaultProxy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, SetProxy)
+Gura_DeclareMethodAlias(wx_URL, __SetProxy, "SetProxy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url_proxy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URL, SetProxy)
+Gura_ImplementMethod(wx_URL, __SetProxy)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_URL, SetProxy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URL, SetURL)
+Gura_DeclareMethodAlias(wx_URL, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URL, SetURL)
+Gura_ImplementMethod(wx_URL, __SetURL)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,14 +154,14 @@ Gura_ImplementMethod(wx_URL, SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URL)
 {
-	Gura_AssignMethod(wx_URL, wxURL);
-	Gura_AssignMethod(wx_URL, GetError);
-	Gura_AssignMethod(wx_URL, GetInputStream);
-	Gura_AssignMethod(wx_URL, GetProtocol);
-	Gura_AssignMethod(wx_URL, IsOk);
-	Gura_AssignMethod(wx_URL, SetDefaultProxy);
-	Gura_AssignMethod(wx_URL, SetProxy);
-	Gura_AssignMethod(wx_URL, SetURL);
+	Gura_AssignMethod(wx_URL, __wxURL);
+	Gura_AssignMethod(wx_URL, __GetError);
+	Gura_AssignMethod(wx_URL, __GetInputStream);
+	Gura_AssignMethod(wx_URL, __GetProtocol);
+	Gura_AssignMethod(wx_URL, __IsOk);
+	Gura_AssignMethod(wx_URL, __SetDefaultProxy);
+	Gura_AssignMethod(wx_URL, __SetProxy);
+	Gura_AssignMethod(wx_URL, __SetURL);
 }
 
 Gura_ImplementDescendantCreator(wx_URL)

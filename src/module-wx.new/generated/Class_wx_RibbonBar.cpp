@@ -37,12 +37,12 @@ String Object_wx_RibbonBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonBar, wxRibbonBar)
+Gura_DeclareMethodAlias(wx_RibbonBar, __wxRibbonBar, "wxRibbonBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, wxRibbonBar)
+Gura_ImplementMethod(wx_RibbonBar, __wxRibbonBar)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RibbonBar, wxRibbonBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, wxRibbonBar_1)
+Gura_DeclareMethodAlias(wx_RibbonBar, __wxRibbonBar_1, "wxRibbonBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_RibbonBar, wxRibbonBar_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, wxRibbonBar_1)
+Gura_ImplementMethod(wx_RibbonBar, __wxRibbonBar_1)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_RibbonBar, wxRibbonBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, Create)
+Gura_DeclareMethodAlias(wx_RibbonBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_DeclareMethod(wx_RibbonBar, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, Create)
+Gura_ImplementMethod(wx_RibbonBar, __Create)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -96,14 +96,14 @@ Gura_ImplementMethod(wx_RibbonBar, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, SetTabCtrlMargins)
+Gura_DeclareMethodAlias(wx_RibbonBar, __SetTabCtrlMargins, "SetTabCtrlMargins")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "left", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "right", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, SetTabCtrlMargins)
+Gura_ImplementMethod(wx_RibbonBar, __SetTabCtrlMargins)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,13 +113,13 @@ Gura_ImplementMethod(wx_RibbonBar, SetTabCtrlMargins)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, SetArtProvider)
+Gura_DeclareMethodAlias(wx_RibbonBar, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "art", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, SetArtProvider)
+Gura_ImplementMethod(wx_RibbonBar, __SetArtProvider)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,13 +128,13 @@ Gura_ImplementMethod(wx_RibbonBar, SetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, SetActivePage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __SetActivePage, "SetActivePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, SetActivePage)
+Gura_ImplementMethod(wx_RibbonBar, __SetActivePage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_RibbonBar, SetActivePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, SetActivePage_1)
+Gura_DeclareMethodAlias(wx_RibbonBar, __SetActivePage_1, "SetActivePage_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, SetActivePage_1)
+Gura_ImplementMethod(wx_RibbonBar, __SetActivePage_1)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_RibbonBar, SetActivePage_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, GetActivePage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __GetActivePage, "GetActivePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, GetActivePage)
+Gura_ImplementMethod(wx_RibbonBar, __GetActivePage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_RibbonBar, GetActivePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, GetPage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __GetPage, "GetPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, GetPage)
+Gura_ImplementMethod(wx_RibbonBar, __GetPage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -186,12 +186,12 @@ Gura_ImplementMethod(wx_RibbonBar, GetPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, GetPageCount)
+Gura_DeclareMethodAlias(wx_RibbonBar, __GetPageCount, "GetPageCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, GetPageCount)
+Gura_ImplementMethod(wx_RibbonBar, __GetPageCount)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -199,12 +199,12 @@ Gura_ImplementMethod(wx_RibbonBar, GetPageCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, DismissExpandedPanel)
+Gura_DeclareMethodAlias(wx_RibbonBar, __DismissExpandedPanel, "DismissExpandedPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, DismissExpandedPanel)
+Gura_ImplementMethod(wx_RibbonBar, __DismissExpandedPanel)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,13 +212,13 @@ Gura_ImplementMethod(wx_RibbonBar, DismissExpandedPanel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, GetPageNumber)
+Gura_DeclareMethodAlias(wx_RibbonBar, __GetPageNumber, "GetPageNumber")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, GetPageNumber)
+Gura_ImplementMethod(wx_RibbonBar, __GetPageNumber)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,13 +227,13 @@ Gura_ImplementMethod(wx_RibbonBar, GetPageNumber)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, DeletePage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __DeletePage, "DeletePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, DeletePage)
+Gura_ImplementMethod(wx_RibbonBar, __DeletePage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,12 +242,12 @@ Gura_ImplementMethod(wx_RibbonBar, DeletePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, ClearPages)
+Gura_DeclareMethodAlias(wx_RibbonBar, __ClearPages, "ClearPages")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, ClearPages)
+Gura_ImplementMethod(wx_RibbonBar, __ClearPages)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,13 +255,13 @@ Gura_ImplementMethod(wx_RibbonBar, ClearPages)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, IsPageShown)
+Gura_DeclareMethodAlias(wx_RibbonBar, __IsPageShown, "IsPageShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, IsPageShown)
+Gura_ImplementMethod(wx_RibbonBar, __IsPageShown)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,14 +270,14 @@ Gura_ImplementMethod(wx_RibbonBar, IsPageShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, ShowPage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __ShowPage, "ShowPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show_tab", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, ShowPage)
+Gura_ImplementMethod(wx_RibbonBar, __ShowPage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,13 +287,13 @@ Gura_ImplementMethod(wx_RibbonBar, ShowPage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, HidePage)
+Gura_DeclareMethodAlias(wx_RibbonBar, __HidePage, "HidePage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, HidePage)
+Gura_ImplementMethod(wx_RibbonBar, __HidePage)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -302,13 +302,13 @@ Gura_ImplementMethod(wx_RibbonBar, HidePage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, IsPageHighlighted)
+Gura_DeclareMethodAlias(wx_RibbonBar, __IsPageHighlighted, "IsPageHighlighted")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, IsPageHighlighted)
+Gura_ImplementMethod(wx_RibbonBar, __IsPageHighlighted)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,14 +317,14 @@ Gura_ImplementMethod(wx_RibbonBar, IsPageHighlighted)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, AddPageHighlight)
+Gura_DeclareMethodAlias(wx_RibbonBar, __AddPageHighlight, "AddPageHighlight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "highlight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, AddPageHighlight)
+Gura_ImplementMethod(wx_RibbonBar, __AddPageHighlight)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -334,13 +334,13 @@ Gura_ImplementMethod(wx_RibbonBar, AddPageHighlight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, RemovePageHighlight)
+Gura_DeclareMethodAlias(wx_RibbonBar, __RemovePageHighlight, "RemovePageHighlight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, RemovePageHighlight)
+Gura_ImplementMethod(wx_RibbonBar, __RemovePageHighlight)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,13 +349,13 @@ Gura_ImplementMethod(wx_RibbonBar, RemovePageHighlight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, ShowPanels)
+Gura_DeclareMethodAlias(wx_RibbonBar, __ShowPanels, "ShowPanels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, ShowPanels)
+Gura_ImplementMethod(wx_RibbonBar, __ShowPanels)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -364,13 +364,13 @@ Gura_ImplementMethod(wx_RibbonBar, ShowPanels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, ShowPanels_1)
+Gura_DeclareMethodAlias(wx_RibbonBar, __ShowPanels_1, "ShowPanels_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, ShowPanels_1)
+Gura_ImplementMethod(wx_RibbonBar, __ShowPanels_1)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -379,12 +379,12 @@ Gura_ImplementMethod(wx_RibbonBar, ShowPanels_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, HidePanels)
+Gura_DeclareMethodAlias(wx_RibbonBar, __HidePanels, "HidePanels")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, HidePanels)
+Gura_ImplementMethod(wx_RibbonBar, __HidePanels)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -392,12 +392,12 @@ Gura_ImplementMethod(wx_RibbonBar, HidePanels)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, ArePanelsShown)
+Gura_DeclareMethodAlias(wx_RibbonBar, __ArePanelsShown, "ArePanelsShown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, ArePanelsShown)
+Gura_ImplementMethod(wx_RibbonBar, __ArePanelsShown)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -405,12 +405,12 @@ Gura_ImplementMethod(wx_RibbonBar, ArePanelsShown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, GetDisplayMode)
+Gura_DeclareMethodAlias(wx_RibbonBar, __GetDisplayMode, "GetDisplayMode")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, GetDisplayMode)
+Gura_ImplementMethod(wx_RibbonBar, __GetDisplayMode)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -418,12 +418,12 @@ Gura_ImplementMethod(wx_RibbonBar, GetDisplayMode)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonBar, Realize)
+Gura_DeclareMethodAlias(wx_RibbonBar, __Realize, "Realize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonBar, Realize)
+Gura_ImplementMethod(wx_RibbonBar, __Realize)
 {
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -436,32 +436,32 @@ Gura_ImplementMethod(wx_RibbonBar, Realize)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonBar)
 {
-	Gura_AssignMethod(wx_RibbonBar, wxRibbonBar);
-	Gura_AssignMethod(wx_RibbonBar, wxRibbonBar_1);
-	Gura_AssignMethod(wx_RibbonBar, Create);
-	Gura_AssignMethod(wx_RibbonBar, SetTabCtrlMargins);
-	Gura_AssignMethod(wx_RibbonBar, SetArtProvider);
-	Gura_AssignMethod(wx_RibbonBar, SetActivePage);
-	Gura_AssignMethod(wx_RibbonBar, SetActivePage_1);
-	Gura_AssignMethod(wx_RibbonBar, GetActivePage);
-	Gura_AssignMethod(wx_RibbonBar, GetPage);
-	Gura_AssignMethod(wx_RibbonBar, GetPageCount);
-	Gura_AssignMethod(wx_RibbonBar, DismissExpandedPanel);
-	Gura_AssignMethod(wx_RibbonBar, GetPageNumber);
-	Gura_AssignMethod(wx_RibbonBar, DeletePage);
-	Gura_AssignMethod(wx_RibbonBar, ClearPages);
-	Gura_AssignMethod(wx_RibbonBar, IsPageShown);
-	Gura_AssignMethod(wx_RibbonBar, ShowPage);
-	Gura_AssignMethod(wx_RibbonBar, HidePage);
-	Gura_AssignMethod(wx_RibbonBar, IsPageHighlighted);
-	Gura_AssignMethod(wx_RibbonBar, AddPageHighlight);
-	Gura_AssignMethod(wx_RibbonBar, RemovePageHighlight);
-	Gura_AssignMethod(wx_RibbonBar, ShowPanels);
-	Gura_AssignMethod(wx_RibbonBar, ShowPanels_1);
-	Gura_AssignMethod(wx_RibbonBar, HidePanels);
-	Gura_AssignMethod(wx_RibbonBar, ArePanelsShown);
-	Gura_AssignMethod(wx_RibbonBar, GetDisplayMode);
-	Gura_AssignMethod(wx_RibbonBar, Realize);
+	Gura_AssignMethod(wx_RibbonBar, __wxRibbonBar);
+	Gura_AssignMethod(wx_RibbonBar, __wxRibbonBar_1);
+	Gura_AssignMethod(wx_RibbonBar, __Create);
+	Gura_AssignMethod(wx_RibbonBar, __SetTabCtrlMargins);
+	Gura_AssignMethod(wx_RibbonBar, __SetArtProvider);
+	Gura_AssignMethod(wx_RibbonBar, __SetActivePage);
+	Gura_AssignMethod(wx_RibbonBar, __SetActivePage_1);
+	Gura_AssignMethod(wx_RibbonBar, __GetActivePage);
+	Gura_AssignMethod(wx_RibbonBar, __GetPage);
+	Gura_AssignMethod(wx_RibbonBar, __GetPageCount);
+	Gura_AssignMethod(wx_RibbonBar, __DismissExpandedPanel);
+	Gura_AssignMethod(wx_RibbonBar, __GetPageNumber);
+	Gura_AssignMethod(wx_RibbonBar, __DeletePage);
+	Gura_AssignMethod(wx_RibbonBar, __ClearPages);
+	Gura_AssignMethod(wx_RibbonBar, __IsPageShown);
+	Gura_AssignMethod(wx_RibbonBar, __ShowPage);
+	Gura_AssignMethod(wx_RibbonBar, __HidePage);
+	Gura_AssignMethod(wx_RibbonBar, __IsPageHighlighted);
+	Gura_AssignMethod(wx_RibbonBar, __AddPageHighlight);
+	Gura_AssignMethod(wx_RibbonBar, __RemovePageHighlight);
+	Gura_AssignMethod(wx_RibbonBar, __ShowPanels);
+	Gura_AssignMethod(wx_RibbonBar, __ShowPanels_1);
+	Gura_AssignMethod(wx_RibbonBar, __HidePanels);
+	Gura_AssignMethod(wx_RibbonBar, __ArePanelsShown);
+	Gura_AssignMethod(wx_RibbonBar, __GetDisplayMode);
+	Gura_AssignMethod(wx_RibbonBar, __Realize);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonBar)

@@ -37,13 +37,13 @@ String Object_wx_Mutex::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Mutex, wxMutex)
+Gura_DeclareMethodAlias(wx_Mutex, __wxMutex, "wxMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mutex, wxMutex)
+Gura_ImplementMethod(wx_Mutex, __wxMutex)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_Mutex, wxMutex)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mutex, Lock)
+Gura_DeclareMethodAlias(wx_Mutex, __Lock, "Lock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mutex, Lock)
+Gura_ImplementMethod(wx_Mutex, __Lock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_Mutex, Lock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mutex, LockTimeout)
+Gura_DeclareMethodAlias(wx_Mutex, __LockTimeout, "LockTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msec", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mutex, LockTimeout)
+Gura_ImplementMethod(wx_Mutex, __LockTimeout)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Mutex, LockTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mutex, TryLock)
+Gura_DeclareMethodAlias(wx_Mutex, __TryLock, "TryLock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mutex, TryLock)
+Gura_ImplementMethod(wx_Mutex, __TryLock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Mutex, TryLock)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mutex, Unlock)
+Gura_DeclareMethodAlias(wx_Mutex, __Unlock, "Unlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mutex, Unlock)
+Gura_ImplementMethod(wx_Mutex, __Unlock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_Mutex, Unlock)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mutex)
 {
-	Gura_AssignMethod(wx_Mutex, wxMutex);
-	Gura_AssignMethod(wx_Mutex, Lock);
-	Gura_AssignMethod(wx_Mutex, LockTimeout);
-	Gura_AssignMethod(wx_Mutex, TryLock);
-	Gura_AssignMethod(wx_Mutex, Unlock);
+	Gura_AssignMethod(wx_Mutex, __wxMutex);
+	Gura_AssignMethod(wx_Mutex, __Lock);
+	Gura_AssignMethod(wx_Mutex, __LockTimeout);
+	Gura_AssignMethod(wx_Mutex, __TryLock);
+	Gura_AssignMethod(wx_Mutex, __Unlock);
 }
 
 Gura_ImplementDescendantCreator(wx_Mutex)

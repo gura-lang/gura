@@ -37,13 +37,13 @@ String Object_wx_FindReplaceData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FindReplaceData, wxFindReplaceData)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __wxFindReplaceData, "wxFindReplaceData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, wxFindReplaceData)
+Gura_ImplementMethod(wx_FindReplaceData, __wxFindReplaceData)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_FindReplaceData, wxFindReplaceData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, GetFindString)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __GetFindString, "GetFindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
+Gura_ImplementMethod(wx_FindReplaceData, __GetFindString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFindString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, GetFlags)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
+Gura_ImplementMethod(wx_FindReplaceData, __GetFlags)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_FindReplaceData, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, GetReplaceString)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __GetReplaceString, "GetReplaceString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
+Gura_ImplementMethod(wx_FindReplaceData, __GetReplaceString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_FindReplaceData, GetReplaceString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, SetFindString)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __SetFindString, "SetFindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, SetFindString)
+Gura_ImplementMethod(wx_FindReplaceData, __SetFindString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_FindReplaceData, SetFindString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, SetFlags)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, SetFlags)
+Gura_ImplementMethod(wx_FindReplaceData, __SetFlags)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_FindReplaceData, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FindReplaceData, SetReplaceString)
+Gura_DeclareMethodAlias(wx_FindReplaceData, __SetReplaceString, "SetReplaceString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FindReplaceData, SetReplaceString)
+Gura_ImplementMethod(wx_FindReplaceData, __SetReplaceString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_FindReplaceData, SetReplaceString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FindReplaceData)
 {
-	Gura_AssignMethod(wx_FindReplaceData, wxFindReplaceData);
-	Gura_AssignMethod(wx_FindReplaceData, GetFindString);
-	Gura_AssignMethod(wx_FindReplaceData, GetFlags);
-	Gura_AssignMethod(wx_FindReplaceData, GetReplaceString);
-	Gura_AssignMethod(wx_FindReplaceData, SetFindString);
-	Gura_AssignMethod(wx_FindReplaceData, SetFlags);
-	Gura_AssignMethod(wx_FindReplaceData, SetReplaceString);
+	Gura_AssignMethod(wx_FindReplaceData, __wxFindReplaceData);
+	Gura_AssignMethod(wx_FindReplaceData, __GetFindString);
+	Gura_AssignMethod(wx_FindReplaceData, __GetFlags);
+	Gura_AssignMethod(wx_FindReplaceData, __GetReplaceString);
+	Gura_AssignMethod(wx_FindReplaceData, __SetFindString);
+	Gura_AssignMethod(wx_FindReplaceData, __SetFlags);
+	Gura_AssignMethod(wx_FindReplaceData, __SetReplaceString);
 }
 
 Gura_ImplementDescendantCreator(wx_FindReplaceData)

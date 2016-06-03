@@ -37,13 +37,13 @@ String Object_wx_GraphicsMatrix::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GraphicsMatrix, Concat)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Concat, "Concat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Concat)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Concat)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Concat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Concat_1)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Concat_1, "Concat_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Concat_1)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Concat_1)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Concat_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Get)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Get, "Get")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Get)
 	//DeclareArg(env, "ty", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Get)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Get)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -92,12 +92,12 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Get)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, GetNativeMatrix)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __GetNativeMatrix, "GetNativeMatrix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, GetNativeMatrix)
+Gura_ImplementMethod(wx_GraphicsMatrix, __GetNativeMatrix)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,12 +105,12 @@ Gura_ImplementMethod(wx_GraphicsMatrix, GetNativeMatrix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Invert)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Invert, "Invert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Invert)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Invert)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Invert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, IsEqual)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsEqual, "IsEqual")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual)
+Gura_ImplementMethod(wx_GraphicsMatrix, __IsEqual)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, IsEqual_1)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsEqual_1, "IsEqual_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual_1)
+Gura_ImplementMethod(wx_GraphicsMatrix, __IsEqual_1)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsEqual_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, IsIdentity)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsIdentity, "IsIdentity")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, IsIdentity)
+Gura_ImplementMethod(wx_GraphicsMatrix, __IsIdentity)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_GraphicsMatrix, IsIdentity)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Rotate)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Rotate, "Rotate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "angle", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Rotate)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Rotate)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,14 +176,14 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Rotate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Scale)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Scale, "Scale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "xScale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yScale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Scale)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Scale)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Scale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Set)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
@@ -204,7 +204,7 @@ Gura_DeclareMethod(wx_GraphicsMatrix, Set)
 	//DeclareArg(env, "ty", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Set)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Set)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,14 +218,14 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Set)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, TransformDistance)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __TransformDistance, "TransformDistance")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, TransformDistance)
+Gura_ImplementMethod(wx_GraphicsMatrix, __TransformDistance)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -235,14 +235,14 @@ Gura_ImplementMethod(wx_GraphicsMatrix, TransformDistance)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, TransformPoint)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __TransformPoint, "TransformPoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, TransformPoint)
+Gura_ImplementMethod(wx_GraphicsMatrix, __TransformPoint)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -252,14 +252,14 @@ Gura_ImplementMethod(wx_GraphicsMatrix, TransformPoint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GraphicsMatrix, Translate)
+Gura_DeclareMethodAlias(wx_GraphicsMatrix, __Translate, "Translate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GraphicsMatrix, Translate)
+Gura_ImplementMethod(wx_GraphicsMatrix, __Translate)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,20 +274,20 @@ Gura_ImplementMethod(wx_GraphicsMatrix, Translate)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GraphicsMatrix)
 {
-	Gura_AssignMethod(wx_GraphicsMatrix, Concat);
-	Gura_AssignMethod(wx_GraphicsMatrix, Concat_1);
-	Gura_AssignMethod(wx_GraphicsMatrix, Get);
-	Gura_AssignMethod(wx_GraphicsMatrix, GetNativeMatrix);
-	Gura_AssignMethod(wx_GraphicsMatrix, Invert);
-	Gura_AssignMethod(wx_GraphicsMatrix, IsEqual);
-	Gura_AssignMethod(wx_GraphicsMatrix, IsEqual_1);
-	Gura_AssignMethod(wx_GraphicsMatrix, IsIdentity);
-	Gura_AssignMethod(wx_GraphicsMatrix, Rotate);
-	Gura_AssignMethod(wx_GraphicsMatrix, Scale);
-	Gura_AssignMethod(wx_GraphicsMatrix, Set);
-	Gura_AssignMethod(wx_GraphicsMatrix, TransformDistance);
-	Gura_AssignMethod(wx_GraphicsMatrix, TransformPoint);
-	Gura_AssignMethod(wx_GraphicsMatrix, Translate);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Concat);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Concat_1);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Get);
+	Gura_AssignMethod(wx_GraphicsMatrix, __GetNativeMatrix);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Invert);
+	Gura_AssignMethod(wx_GraphicsMatrix, __IsEqual);
+	Gura_AssignMethod(wx_GraphicsMatrix, __IsEqual_1);
+	Gura_AssignMethod(wx_GraphicsMatrix, __IsIdentity);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Rotate);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Scale);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Set);
+	Gura_AssignMethod(wx_GraphicsMatrix, __TransformDistance);
+	Gura_AssignMethod(wx_GraphicsMatrix, __TransformPoint);
+	Gura_AssignMethod(wx_GraphicsMatrix, __Translate);
 }
 
 Gura_ImplementDescendantCreator(wx_GraphicsMatrix)

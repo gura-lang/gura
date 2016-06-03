@@ -37,12 +37,12 @@ String Object_wx_GridCellCoords::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellCoords, wxGridCellCoords)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __wxGridCellCoords, "wxGridCellCoords")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords)
+Gura_ImplementMethod(wx_GridCellCoords, __wxGridCellCoords)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, wxGridCellCoords_1)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __wxGridCellCoords_1, "wxGridCellCoords_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords_1)
+Gura_ImplementMethod(wx_GridCellCoords, __wxGridCellCoords_1)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_GridCellCoords, wxGridCellCoords_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, GetRow)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __GetRow, "GetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, GetRow)
+Gura_ImplementMethod(wx_GridCellCoords, __GetRow)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_GridCellCoords, GetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, SetRow)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __SetRow, "SetRow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, SetRow)
+Gura_ImplementMethod(wx_GridCellCoords, __SetRow)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,12 +95,12 @@ Gura_ImplementMethod(wx_GridCellCoords, SetRow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, GetCol)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __GetCol, "GetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, GetCol)
+Gura_ImplementMethod(wx_GridCellCoords, __GetCol)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_GridCellCoords, GetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, SetCol)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __SetCol, "SetCol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, SetCol)
+Gura_ImplementMethod(wx_GridCellCoords, __SetCol)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,14 +123,14 @@ Gura_ImplementMethod(wx_GridCellCoords, SetCol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellCoords, Set)
+Gura_DeclareMethodAlias(wx_GridCellCoords, __Set, "Set")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellCoords, Set)
+Gura_ImplementMethod(wx_GridCellCoords, __Set)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_GridCellCoords, Set)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellCoords)
 {
-	Gura_AssignMethod(wx_GridCellCoords, wxGridCellCoords);
-	Gura_AssignMethod(wx_GridCellCoords, wxGridCellCoords_1);
-	Gura_AssignMethod(wx_GridCellCoords, GetRow);
-	Gura_AssignMethod(wx_GridCellCoords, SetRow);
-	Gura_AssignMethod(wx_GridCellCoords, GetCol);
-	Gura_AssignMethod(wx_GridCellCoords, SetCol);
-	Gura_AssignMethod(wx_GridCellCoords, Set);
+	Gura_AssignMethod(wx_GridCellCoords, __wxGridCellCoords);
+	Gura_AssignMethod(wx_GridCellCoords, __wxGridCellCoords_1);
+	Gura_AssignMethod(wx_GridCellCoords, __GetRow);
+	Gura_AssignMethod(wx_GridCellCoords, __SetRow);
+	Gura_AssignMethod(wx_GridCellCoords, __GetCol);
+	Gura_AssignMethod(wx_GridCellCoords, __SetCol);
+	Gura_AssignMethod(wx_GridCellCoords, __Set);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellCoords)

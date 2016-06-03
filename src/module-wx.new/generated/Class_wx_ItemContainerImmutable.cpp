@@ -37,12 +37,12 @@ String Object_wx_ItemContainerImmutable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ItemContainerImmutable, wxItemContainerImmutable)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __wxItemContainerImmutable, "wxItemContainerImmutable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, wxItemContainerImmutable)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __wxItemContainerImmutable)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, wxItemContainerImmutable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, GetCount)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetCount, "GetCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, GetCount)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __GetCount)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, GetCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, IsEmpty)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __IsEmpty, "IsEmpty")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, IsEmpty)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __IsEmpty)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, IsEmpty)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, GetString)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, GetString)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __GetString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, GetStrings)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetStrings, "GetStrings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, GetStrings)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __GetStrings)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,14 +104,14 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, GetStrings)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, SetString)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __SetString, "SetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, SetString)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __SetString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,14 +121,14 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, SetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, FindString)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __FindString, "FindString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caseSensitive", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, FindString)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __FindString)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, FindString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, SetSelection)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, SetSelection)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __SetSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -153,12 +153,12 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, SetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, GetSelection)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, GetSelection)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __GetSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, SetStringSelection)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __SetStringSelection, "SetStringSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, SetStringSelection)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __SetStringSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,12 +181,12 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, SetStringSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, GetStringSelection)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetStringSelection, "GetStringSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, GetStringSelection)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __GetStringSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, GetStringSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ItemContainerImmutable, Select)
+Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __Select, "Select")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ItemContainerImmutable, Select)
+Gura_ImplementMethod(wx_ItemContainerImmutable, __Select)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,18 +214,18 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, Select)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ItemContainerImmutable)
 {
-	Gura_AssignMethod(wx_ItemContainerImmutable, wxItemContainerImmutable);
-	Gura_AssignMethod(wx_ItemContainerImmutable, GetCount);
-	Gura_AssignMethod(wx_ItemContainerImmutable, IsEmpty);
-	Gura_AssignMethod(wx_ItemContainerImmutable, GetString);
-	Gura_AssignMethod(wx_ItemContainerImmutable, GetStrings);
-	Gura_AssignMethod(wx_ItemContainerImmutable, SetString);
-	Gura_AssignMethod(wx_ItemContainerImmutable, FindString);
-	Gura_AssignMethod(wx_ItemContainerImmutable, SetSelection);
-	Gura_AssignMethod(wx_ItemContainerImmutable, GetSelection);
-	Gura_AssignMethod(wx_ItemContainerImmutable, SetStringSelection);
-	Gura_AssignMethod(wx_ItemContainerImmutable, GetStringSelection);
-	Gura_AssignMethod(wx_ItemContainerImmutable, Select);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __wxItemContainerImmutable);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __GetCount);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __IsEmpty);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __GetString);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __GetStrings);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __SetString);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __FindString);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __SetSelection);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __GetSelection);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __SetStringSelection);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __GetStringSelection);
+	Gura_AssignMethod(wx_ItemContainerImmutable, __Select);
 }
 
 Gura_ImplementDescendantCreator(wx_ItemContainerImmutable)

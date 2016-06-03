@@ -37,14 +37,14 @@ String Object_wx_SocketServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SocketServer, wxSocketServer)
+Gura_DeclareMethodAlias(wx_SocketServer, __wxSocketServer, "wxSocketServer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketServer, wxSocketServer)
+Gura_ImplementMethod(wx_SocketServer, __wxSocketServer)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_SocketServer, wxSocketServer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketServer, Accept)
+Gura_DeclareMethodAlias(wx_SocketServer, __Accept, "Accept")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketServer, Accept)
+Gura_ImplementMethod(wx_SocketServer, __Accept)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,14 +69,14 @@ Gura_ImplementMethod(wx_SocketServer, Accept)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketServer, AcceptWith)
+Gura_DeclareMethodAlias(wx_SocketServer, __AcceptWith, "AcceptWith")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "socket", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketServer, AcceptWith)
+Gura_ImplementMethod(wx_SocketServer, __AcceptWith)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,14 +86,14 @@ Gura_ImplementMethod(wx_SocketServer, AcceptWith)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketServer, WaitForAccept)
+Gura_DeclareMethodAlias(wx_SocketServer, __WaitForAccept, "WaitForAccept")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketServer, WaitForAccept)
+Gura_ImplementMethod(wx_SocketServer, __WaitForAccept)
 {
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,10 +108,10 @@ Gura_ImplementMethod(wx_SocketServer, WaitForAccept)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketServer)
 {
-	Gura_AssignMethod(wx_SocketServer, wxSocketServer);
-	Gura_AssignMethod(wx_SocketServer, Accept);
-	Gura_AssignMethod(wx_SocketServer, AcceptWith);
-	Gura_AssignMethod(wx_SocketServer, WaitForAccept);
+	Gura_AssignMethod(wx_SocketServer, __wxSocketServer);
+	Gura_AssignMethod(wx_SocketServer, __Accept);
+	Gura_AssignMethod(wx_SocketServer, __AcceptWith);
+	Gura_AssignMethod(wx_SocketServer, __WaitForAccept);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketServer)

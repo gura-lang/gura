@@ -37,14 +37,14 @@ String Object_wx_WrapSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WrapSizer, wxWrapSizer)
+Gura_DeclareMethodAlias(wx_WrapSizer, __wxWrapSizer, "wxWrapSizer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WrapSizer, wxWrapSizer)
+Gura_ImplementMethod(wx_WrapSizer, __wxWrapSizer)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_WrapSizer, wxWrapSizer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WrapSizer, InformFirstDirection)
+Gura_DeclareMethodAlias(wx_WrapSizer, __InformFirstDirection, "InformFirstDirection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_WrapSizer, InformFirstDirection)
 	//DeclareArg(env, "availableOtherDir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WrapSizer, InformFirstDirection)
+Gura_ImplementMethod(wx_WrapSizer, __InformFirstDirection)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -73,12 +73,12 @@ Gura_ImplementMethod(wx_WrapSizer, InformFirstDirection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WrapSizer, RecalcSizes)
+Gura_DeclareMethodAlias(wx_WrapSizer, __RecalcSizes, "RecalcSizes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WrapSizer, RecalcSizes)
+Gura_ImplementMethod(wx_WrapSizer, __RecalcSizes)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,12 +86,12 @@ Gura_ImplementMethod(wx_WrapSizer, RecalcSizes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WrapSizer, CalcMin)
+Gura_DeclareMethodAlias(wx_WrapSizer, __CalcMin, "CalcMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WrapSizer, CalcMin)
+Gura_ImplementMethod(wx_WrapSizer, __CalcMin)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_WrapSizer, CalcMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WrapSizer, IsSpaceItem)
+Gura_DeclareMethodAlias(wx_WrapSizer, __IsSpaceItem, "IsSpaceItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WrapSizer, IsSpaceItem)
+Gura_ImplementMethod(wx_WrapSizer, __IsSpaceItem)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,11 +119,11 @@ Gura_ImplementMethod(wx_WrapSizer, IsSpaceItem)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WrapSizer)
 {
-	Gura_AssignMethod(wx_WrapSizer, wxWrapSizer);
-	Gura_AssignMethod(wx_WrapSizer, InformFirstDirection);
-	Gura_AssignMethod(wx_WrapSizer, RecalcSizes);
-	Gura_AssignMethod(wx_WrapSizer, CalcMin);
-	Gura_AssignMethod(wx_WrapSizer, IsSpaceItem);
+	Gura_AssignMethod(wx_WrapSizer, __wxWrapSizer);
+	Gura_AssignMethod(wx_WrapSizer, __InformFirstDirection);
+	Gura_AssignMethod(wx_WrapSizer, __RecalcSizes);
+	Gura_AssignMethod(wx_WrapSizer, __CalcMin);
+	Gura_AssignMethod(wx_WrapSizer, __IsSpaceItem);
 }
 
 Gura_ImplementDescendantCreator(wx_WrapSizer)

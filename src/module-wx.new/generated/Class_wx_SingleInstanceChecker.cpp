@@ -37,12 +37,12 @@ String Object_wx_SingleInstanceChecker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker)
+Gura_DeclareMethodAlias(wx_SingleInstanceChecker, __wxSingleInstanceChecker, "wxSingleInstanceChecker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker)
+Gura_ImplementMethod(wx_SingleInstanceChecker, __wxSingleInstanceChecker)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1)
+Gura_DeclareMethodAlias(wx_SingleInstanceChecker, __wxSingleInstanceChecker_1, "wxSingleInstanceChecker_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1)
+Gura_ImplementMethod(wx_SingleInstanceChecker, __wxSingleInstanceChecker_1)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleInstanceChecker, Create)
+Gura_DeclareMethodAlias(wx_SingleInstanceChecker, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
+Gura_ImplementMethod(wx_SingleInstanceChecker, __Create)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleInstanceChecker, CreateDefault)
+Gura_DeclareMethodAlias(wx_SingleInstanceChecker, __CreateDefault, "CreateDefault")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleInstanceChecker, CreateDefault)
+Gura_ImplementMethod(wx_SingleInstanceChecker, __CreateDefault)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, CreateDefault)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SingleInstanceChecker, IsAnotherRunning)
+Gura_DeclareMethodAlias(wx_SingleInstanceChecker, __IsAnotherRunning, "IsAnotherRunning")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
+Gura_ImplementMethod(wx_SingleInstanceChecker, __IsAnotherRunning)
 {
 	Object_wx_SingleInstanceChecker *pThis = Object_wx_SingleInstanceChecker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -115,11 +115,11 @@ Gura_ImplementMethod(wx_SingleInstanceChecker, IsAnotherRunning)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SingleInstanceChecker)
 {
-	Gura_AssignMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker);
-	Gura_AssignMethod(wx_SingleInstanceChecker, wxSingleInstanceChecker_1);
-	Gura_AssignMethod(wx_SingleInstanceChecker, Create);
-	Gura_AssignMethod(wx_SingleInstanceChecker, CreateDefault);
-	Gura_AssignMethod(wx_SingleInstanceChecker, IsAnotherRunning);
+	Gura_AssignMethod(wx_SingleInstanceChecker, __wxSingleInstanceChecker);
+	Gura_AssignMethod(wx_SingleInstanceChecker, __wxSingleInstanceChecker_1);
+	Gura_AssignMethod(wx_SingleInstanceChecker, __Create);
+	Gura_AssignMethod(wx_SingleInstanceChecker, __CreateDefault);
+	Gura_AssignMethod(wx_SingleInstanceChecker, __IsAnotherRunning);
 }
 
 Gura_ImplementDescendantCreator(wx_SingleInstanceChecker)

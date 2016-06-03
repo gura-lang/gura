@@ -37,7 +37,7 @@ String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DebugReportUpload, wxDebugReportUpload)
+Gura_DeclareMethodAlias(wx_DebugReportUpload, __wxDebugReportUpload, "wxDebugReportUpload")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_DebugReportUpload, wxDebugReportUpload)
 	//DeclareArg(env, "curl", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportUpload, wxDebugReportUpload)
+Gura_ImplementMethod(wx_DebugReportUpload, __wxDebugReportUpload)
 {
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,13 +58,13 @@ Gura_ImplementMethod(wx_DebugReportUpload, wxDebugReportUpload)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DebugReportUpload, OnServerReply)
+Gura_DeclareMethodAlias(wx_DebugReportUpload, __OnServerReply, "OnServerReply")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "reply", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
+Gura_ImplementMethod(wx_DebugReportUpload, __OnServerReply)
 {
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,8 +78,8 @@ Gura_ImplementMethod(wx_DebugReportUpload, OnServerReply)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DebugReportUpload)
 {
-	Gura_AssignMethod(wx_DebugReportUpload, wxDebugReportUpload);
-	Gura_AssignMethod(wx_DebugReportUpload, OnServerReply);
+	Gura_AssignMethod(wx_DebugReportUpload, __wxDebugReportUpload);
+	Gura_AssignMethod(wx_DebugReportUpload, __OnServerReply);
 }
 
 Gura_ImplementDescendantCreator(wx_DebugReportUpload)

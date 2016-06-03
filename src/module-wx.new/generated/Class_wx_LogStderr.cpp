@@ -37,13 +37,13 @@ String Object_wx_LogStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogStderr, wxLogStderr)
+Gura_DeclareMethodAlias(wx_LogStderr, __wxLogStderr, "wxLogStderr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_LogStderr, wxLogStderr)
+Gura_ImplementMethod(wx_LogStderr, __wxLogStderr)
 {
 	Object_wx_LogStderr *pThis = Object_wx_LogStderr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_LogStderr, wxLogStderr)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogStderr)
 {
-	Gura_AssignMethod(wx_LogStderr, wxLogStderr);
+	Gura_AssignMethod(wx_LogStderr, __wxLogStderr);
 }
 
 Gura_ImplementDescendantCreator(wx_LogStderr)

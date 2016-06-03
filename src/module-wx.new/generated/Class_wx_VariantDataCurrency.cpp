@@ -37,12 +37,12 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_VariantDataCurrency, wxVariantDataCurrency)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __wxVariantDataCurrency, "wxVariantDataCurrency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, wxVariantDataCurrency)
+Gura_ImplementMethod(wx_VariantDataCurrency, __wxVariantDataCurrency)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, wxVariantDataCurrency)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, wxVariantDataCurrency_1)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __wxVariantDataCurrency_1, "wxVariantDataCurrency_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, wxVariantDataCurrency_1)
+Gura_ImplementMethod(wx_VariantDataCurrency, __wxVariantDataCurrency_1)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_VariantDataCurrency, wxVariantDataCurrency_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, GetValue)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetValue, "GetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, GetValue)
+Gura_ImplementMethod(wx_VariantDataCurrency, __GetValue)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, GetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, SetValue)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __SetValue, "SetValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, SetValue)
+Gura_ImplementMethod(wx_VariantDataCurrency, __SetValue)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, SetValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, Eq)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Eq, "Eq")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, Eq)
+Gura_ImplementMethod(wx_VariantDataCurrency, __Eq)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, Eq)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, Write)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Write, "Write")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, Write)
+Gura_ImplementMethod(wx_VariantDataCurrency, __Write)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_VariantDataCurrency, Write)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, Clone)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, Clone)
+Gura_ImplementMethod(wx_VariantDataCurrency, __Clone)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_VariantDataCurrency, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, GetType)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetType, "GetType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, GetType)
+Gura_ImplementMethod(wx_VariantDataCurrency, __GetType)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, GetType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_VariantDataCurrency, GetAsAny)
+Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetAsAny, "GetAsAny")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_VariantDataCurrency, GetAsAny)
+Gura_ImplementMethod(wx_VariantDataCurrency, __GetAsAny)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,15 +169,15 @@ Gura_ImplementMethod(wx_VariantDataCurrency, GetAsAny)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_VariantDataCurrency)
 {
-	Gura_AssignMethod(wx_VariantDataCurrency, wxVariantDataCurrency);
-	Gura_AssignMethod(wx_VariantDataCurrency, wxVariantDataCurrency_1);
-	Gura_AssignMethod(wx_VariantDataCurrency, GetValue);
-	Gura_AssignMethod(wx_VariantDataCurrency, SetValue);
-	Gura_AssignMethod(wx_VariantDataCurrency, Eq);
-	Gura_AssignMethod(wx_VariantDataCurrency, Write);
-	Gura_AssignMethod(wx_VariantDataCurrency, Clone);
-	Gura_AssignMethod(wx_VariantDataCurrency, GetType);
-	Gura_AssignMethod(wx_VariantDataCurrency, GetAsAny);
+	Gura_AssignMethod(wx_VariantDataCurrency, __wxVariantDataCurrency);
+	Gura_AssignMethod(wx_VariantDataCurrency, __wxVariantDataCurrency_1);
+	Gura_AssignMethod(wx_VariantDataCurrency, __GetValue);
+	Gura_AssignMethod(wx_VariantDataCurrency, __SetValue);
+	Gura_AssignMethod(wx_VariantDataCurrency, __Eq);
+	Gura_AssignMethod(wx_VariantDataCurrency, __Write);
+	Gura_AssignMethod(wx_VariantDataCurrency, __Clone);
+	Gura_AssignMethod(wx_VariantDataCurrency, __GetType);
+	Gura_AssignMethod(wx_VariantDataCurrency, __GetAsAny);
 }
 
 Gura_ImplementDescendantCreator(wx_VariantDataCurrency)

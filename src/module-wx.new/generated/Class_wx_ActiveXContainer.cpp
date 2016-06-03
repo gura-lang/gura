@@ -37,7 +37,7 @@ String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ActiveXContainer, wxActiveXContainer)
+Gura_DeclareMethodAlias(wx_ActiveXContainer, __wxActiveXContainer, "wxActiveXContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_ActiveXContainer, wxActiveXContainer)
 	//DeclareArg(env, "pUnk", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActiveXContainer, wxActiveXContainer)
+Gura_ImplementMethod(wx_ActiveXContainer, __wxActiveXContainer)
 {
 	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,7 +56,7 @@ Gura_ImplementMethod(wx_ActiveXContainer, wxActiveXContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ActiveXContainer, QueryClientSiteInterface)
+Gura_DeclareMethodAlias(wx_ActiveXContainer, __QueryClientSiteInterface, "QueryClientSiteInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iid", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_DeclareMethod(wx_ActiveXContainer, QueryClientSiteInterface)
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ActiveXContainer, QueryClientSiteInterface)
+Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 {
 	Object_wx_ActiveXContainer *pThis = Object_wx_ActiveXContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,8 +80,8 @@ Gura_ImplementMethod(wx_ActiveXContainer, QueryClientSiteInterface)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ActiveXContainer)
 {
-	Gura_AssignMethod(wx_ActiveXContainer, wxActiveXContainer);
-	Gura_AssignMethod(wx_ActiveXContainer, QueryClientSiteInterface);
+	Gura_AssignMethod(wx_ActiveXContainer, __wxActiveXContainer);
+	Gura_AssignMethod(wx_ActiveXContainer, __QueryClientSiteInterface);
 }
 
 Gura_ImplementDescendantCreator(wx_ActiveXContainer)

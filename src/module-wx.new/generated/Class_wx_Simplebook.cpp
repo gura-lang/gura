@@ -37,12 +37,12 @@ String Object_wx_Simplebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Simplebook, wxSimplebook)
+Gura_DeclareMethodAlias(wx_Simplebook, __wxSimplebook, "wxSimplebook")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Simplebook, wxSimplebook)
+Gura_ImplementMethod(wx_Simplebook, __wxSimplebook)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Simplebook, wxSimplebook)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, wxSimplebook_1)
+Gura_DeclareMethodAlias(wx_Simplebook, __wxSimplebook_1, "wxSimplebook_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Simplebook, wxSimplebook_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, wxSimplebook_1)
+Gura_ImplementMethod(wx_Simplebook, __wxSimplebook_1)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Simplebook, wxSimplebook_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, Create)
+Gura_DeclareMethodAlias(wx_Simplebook, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Simplebook, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, Create)
+Gura_ImplementMethod(wx_Simplebook, __Create)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,14 +100,14 @@ Gura_ImplementMethod(wx_Simplebook, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, SetEffects)
+Gura_DeclareMethodAlias(wx_Simplebook, __SetEffects, "SetEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "showEffect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hideEffect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, SetEffects)
+Gura_ImplementMethod(wx_Simplebook, __SetEffects)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_Simplebook, SetEffects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, SetEffect)
+Gura_DeclareMethodAlias(wx_Simplebook, __SetEffect, "SetEffect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "effect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, SetEffect)
+Gura_ImplementMethod(wx_Simplebook, __SetEffect)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,14 +132,14 @@ Gura_ImplementMethod(wx_Simplebook, SetEffect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, SetEffectsTimeouts)
+Gura_DeclareMethodAlias(wx_Simplebook, __SetEffectsTimeouts, "SetEffectsTimeouts")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "showTimeout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hideTimeout", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, SetEffectsTimeouts)
+Gura_ImplementMethod(wx_Simplebook, __SetEffectsTimeouts)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_Simplebook, SetEffectsTimeouts)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, SetEffectTimeout)
+Gura_DeclareMethodAlias(wx_Simplebook, __SetEffectTimeout, "SetEffectTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, SetEffectTimeout)
+Gura_ImplementMethod(wx_Simplebook, __SetEffectTimeout)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_Simplebook, SetEffectTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Simplebook, ShowNewPage)
+Gura_DeclareMethodAlias(wx_Simplebook, __ShowNewPage, "ShowNewPage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Simplebook, ShowNewPage)
+Gura_ImplementMethod(wx_Simplebook, __ShowNewPage)
 {
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,14 +184,14 @@ Gura_ImplementMethod(wx_Simplebook, ShowNewPage)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Simplebook)
 {
-	Gura_AssignMethod(wx_Simplebook, wxSimplebook);
-	Gura_AssignMethod(wx_Simplebook, wxSimplebook_1);
-	Gura_AssignMethod(wx_Simplebook, Create);
-	Gura_AssignMethod(wx_Simplebook, SetEffects);
-	Gura_AssignMethod(wx_Simplebook, SetEffect);
-	Gura_AssignMethod(wx_Simplebook, SetEffectsTimeouts);
-	Gura_AssignMethod(wx_Simplebook, SetEffectTimeout);
-	Gura_AssignMethod(wx_Simplebook, ShowNewPage);
+	Gura_AssignMethod(wx_Simplebook, __wxSimplebook);
+	Gura_AssignMethod(wx_Simplebook, __wxSimplebook_1);
+	Gura_AssignMethod(wx_Simplebook, __Create);
+	Gura_AssignMethod(wx_Simplebook, __SetEffects);
+	Gura_AssignMethod(wx_Simplebook, __SetEffect);
+	Gura_AssignMethod(wx_Simplebook, __SetEffectsTimeouts);
+	Gura_AssignMethod(wx_Simplebook, __SetEffectTimeout);
+	Gura_AssignMethod(wx_Simplebook, __ShowNewPage);
 }
 
 Gura_ImplementDescendantCreator(wx_Simplebook)

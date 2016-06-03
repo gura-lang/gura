@@ -37,12 +37,12 @@ String Object_wx_LogNull::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_LogNull, wxLogNull)
+Gura_DeclareMethodAlias(wx_LogNull, __wxLogNull, "wxLogNull")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_LogNull, wxLogNull)
+Gura_ImplementMethod(wx_LogNull, __wxLogNull)
 {
 	Object_wx_LogNull *pThis = Object_wx_LogNull::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_LogNull, wxLogNull)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_LogNull)
 {
-	Gura_AssignMethod(wx_LogNull, wxLogNull);
+	Gura_AssignMethod(wx_LogNull, __wxLogNull);
 }
 
 Gura_ImplementDescendantCreator(wx_LogNull)

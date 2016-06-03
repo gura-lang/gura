@@ -37,12 +37,12 @@ String Object_wx_Quantize::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Quantize, wxQuantize)
+Gura_DeclareMethodAlias(wx_Quantize, __wxQuantize, "wxQuantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Quantize, wxQuantize)
+Gura_ImplementMethod(wx_Quantize, __wxQuantize)
 {
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_Quantize, wxQuantize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Quantize, DoQuantize)
+Gura_DeclareMethodAlias(wx_Quantize, __DoQuantize, "DoQuantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_DeclareMethod(wx_Quantize, DoQuantize)
 	//DeclareArg(env, "desiredNoColours", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Quantize, DoQuantize)
+Gura_ImplementMethod(wx_Quantize, __DoQuantize)
 {
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_Quantize, DoQuantize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Quantize, Quantize)
+Gura_DeclareMethodAlias(wx_Quantize, __Quantize, "Quantize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_DeclareMethod(wx_Quantize, Quantize)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Quantize, Quantize)
+Gura_ImplementMethod(wx_Quantize, __Quantize)
 {
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_Quantize, Quantize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Quantize, Quantize_1)
+Gura_DeclareMethodAlias(wx_Quantize, __Quantize_1, "Quantize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -110,7 +110,7 @@ Gura_DeclareMethod(wx_Quantize, Quantize_1)
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Quantize, Quantize_1)
+Gura_ImplementMethod(wx_Quantize, __Quantize_1)
 {
 	Object_wx_Quantize *pThis = Object_wx_Quantize::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,10 +128,10 @@ Gura_ImplementMethod(wx_Quantize, Quantize_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Quantize)
 {
-	Gura_AssignMethod(wx_Quantize, wxQuantize);
-	Gura_AssignMethod(wx_Quantize, DoQuantize);
-	Gura_AssignMethod(wx_Quantize, Quantize);
-	Gura_AssignMethod(wx_Quantize, Quantize_1);
+	Gura_AssignMethod(wx_Quantize, __wxQuantize);
+	Gura_AssignMethod(wx_Quantize, __DoQuantize);
+	Gura_AssignMethod(wx_Quantize, __Quantize);
+	Gura_AssignMethod(wx_Quantize, __Quantize_1);
 }
 
 Gura_ImplementDescendantCreator(wx_Quantize)

@@ -37,13 +37,13 @@ String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TempFileOutputStream, wxTempFileOutputStream)
+Gura_DeclareMethodAlias(wx_TempFileOutputStream, __wxTempFileOutputStream, "wxTempFileOutputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TempFileOutputStream, wxTempFileOutputStream)
+Gura_ImplementMethod(wx_TempFileOutputStream, __wxTempFileOutputStream)
 {
 	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_TempFileOutputStream, wxTempFileOutputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TempFileOutputStream, Commit)
+Gura_DeclareMethodAlias(wx_TempFileOutputStream, __Commit, "Commit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
+Gura_ImplementMethod(wx_TempFileOutputStream, __Commit)
 {
 	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TempFileOutputStream, Commit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TempFileOutputStream, Discard)
+Gura_DeclareMethodAlias(wx_TempFileOutputStream, __Discard, "Discard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TempFileOutputStream, Discard)
+Gura_ImplementMethod(wx_TempFileOutputStream, __Discard)
 {
 	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -83,9 +83,9 @@ Gura_ImplementMethod(wx_TempFileOutputStream, Discard)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TempFileOutputStream)
 {
-	Gura_AssignMethod(wx_TempFileOutputStream, wxTempFileOutputStream);
-	Gura_AssignMethod(wx_TempFileOutputStream, Commit);
-	Gura_AssignMethod(wx_TempFileOutputStream, Discard);
+	Gura_AssignMethod(wx_TempFileOutputStream, __wxTempFileOutputStream);
+	Gura_AssignMethod(wx_TempFileOutputStream, __Commit);
+	Gura_AssignMethod(wx_TempFileOutputStream, __Discard);
 }
 
 Gura_ImplementDescendantCreator(wx_TempFileOutputStream)

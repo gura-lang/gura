@@ -37,12 +37,12 @@ String Object_wx_Locale::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Locale, wxLocale)
+Gura_DeclareMethodAlias(wx_Locale, __wxLocale, "wxLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, wxLocale)
+Gura_ImplementMethod(wx_Locale, __wxLocale)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_Locale, wxLocale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, wxLocale_1)
+Gura_DeclareMethodAlias(wx_Locale, __wxLocale_1, "wxLocale_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "language", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, wxLocale_1)
+Gura_ImplementMethod(wx_Locale, __wxLocale_1)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_Locale, wxLocale_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, wxLocale_2)
+Gura_DeclareMethodAlias(wx_Locale, __wxLocale_2, "wxLocale_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_DeclareMethod(wx_Locale, wxLocale_2)
 	//DeclareArg(env, "bLoadDefault", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, wxLocale_2)
+Gura_ImplementMethod(wx_Locale, __wxLocale_2)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,13 +88,13 @@ Gura_ImplementMethod(wx_Locale, wxLocale_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, AddCatalog)
+Gura_DeclareMethodAlias(wx_Locale, __AddCatalog, "AddCatalog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, AddCatalog)
+Gura_ImplementMethod(wx_Locale, __AddCatalog)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -103,14 +103,14 @@ Gura_ImplementMethod(wx_Locale, AddCatalog)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, AddCatalog_1)
+Gura_DeclareMethodAlias(wx_Locale, __AddCatalog_1, "AddCatalog_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msgIdLanguage", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, AddCatalog_1)
+Gura_ImplementMethod(wx_Locale, __AddCatalog_1)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Locale, AddCatalog_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, AddCatalog_2)
+Gura_DeclareMethodAlias(wx_Locale, __AddCatalog_2, "AddCatalog_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
@@ -128,7 +128,7 @@ Gura_DeclareMethod(wx_Locale, AddCatalog_2)
 	//DeclareArg(env, "msgIdCharset", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, AddCatalog_2)
+Gura_ImplementMethod(wx_Locale, __AddCatalog_2)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_Locale, AddCatalog_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, AddCatalogLookupPathPrefix)
+Gura_DeclareMethodAlias(wx_Locale, __AddCatalogLookupPathPrefix, "AddCatalogLookupPathPrefix")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, AddCatalogLookupPathPrefix)
+Gura_ImplementMethod(wx_Locale, __AddCatalogLookupPathPrefix)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,13 +154,13 @@ Gura_ImplementMethod(wx_Locale, AddCatalogLookupPathPrefix)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, AddLanguage)
+Gura_DeclareMethodAlias(wx_Locale, __AddLanguage, "AddLanguage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, AddLanguage)
+Gura_ImplementMethod(wx_Locale, __AddLanguage)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -169,13 +169,13 @@ Gura_ImplementMethod(wx_Locale, AddLanguage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, FindLanguageInfo)
+Gura_DeclareMethodAlias(wx_Locale, __FindLanguageInfo, "FindLanguageInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "locale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, FindLanguageInfo)
+Gura_ImplementMethod(wx_Locale, __FindLanguageInfo)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_Locale, FindLanguageInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetCanonicalName)
+Gura_DeclareMethodAlias(wx_Locale, __GetCanonicalName, "GetCanonicalName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetCanonicalName)
+Gura_ImplementMethod(wx_Locale, __GetCanonicalName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,14 +197,14 @@ Gura_ImplementMethod(wx_Locale, GetCanonicalName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetHeaderValue)
+Gura_DeclareMethodAlias(wx_Locale, __GetHeaderValue, "GetHeaderValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "header", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetHeaderValue)
+Gura_ImplementMethod(wx_Locale, __GetHeaderValue)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -214,12 +214,12 @@ Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetLanguage)
+Gura_DeclareMethodAlias(wx_Locale, __GetLanguage, "GetLanguage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetLanguage)
+Gura_ImplementMethod(wx_Locale, __GetLanguage)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,13 +227,13 @@ Gura_ImplementMethod(wx_Locale, GetLanguage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetLanguageInfo)
+Gura_DeclareMethodAlias(wx_Locale, __GetLanguageInfo, "GetLanguageInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetLanguageInfo)
+Gura_ImplementMethod(wx_Locale, __GetLanguageInfo)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,13 +242,13 @@ Gura_ImplementMethod(wx_Locale, GetLanguageInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetLanguageName)
+Gura_DeclareMethodAlias(wx_Locale, __GetLanguageName, "GetLanguageName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetLanguageName)
+Gura_ImplementMethod(wx_Locale, __GetLanguageName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,13 +257,13 @@ Gura_ImplementMethod(wx_Locale, GetLanguageName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetLanguageCanonicalName)
+Gura_DeclareMethodAlias(wx_Locale, __GetLanguageCanonicalName, "GetLanguageCanonicalName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetLanguageCanonicalName)
+Gura_ImplementMethod(wx_Locale, __GetLanguageCanonicalName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -272,12 +272,12 @@ Gura_ImplementMethod(wx_Locale, GetLanguageCanonicalName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetLocale)
+Gura_DeclareMethodAlias(wx_Locale, __GetLocale, "GetLocale")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetLocale)
+Gura_ImplementMethod(wx_Locale, __GetLocale)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -285,12 +285,12 @@ Gura_ImplementMethod(wx_Locale, GetLocale)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetName)
+Gura_DeclareMethodAlias(wx_Locale, __GetName, "GetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetName)
+Gura_ImplementMethod(wx_Locale, __GetName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,14 +298,14 @@ Gura_ImplementMethod(wx_Locale, GetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetString)
+Gura_DeclareMethodAlias(wx_Locale, __GetString, "GetString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "origString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetString)
+Gura_ImplementMethod(wx_Locale, __GetString)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_Locale, GetString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetString_1)
+Gura_DeclareMethodAlias(wx_Locale, __GetString_1, "GetString_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "origString", VTYPE_number, OCCUR_Once);
@@ -324,7 +324,7 @@ Gura_DeclareMethod(wx_Locale, GetString_1)
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetString_1)
+Gura_ImplementMethod(wx_Locale, __GetString_1)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -336,12 +336,12 @@ Gura_ImplementMethod(wx_Locale, GetString_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetSysName)
+Gura_DeclareMethodAlias(wx_Locale, __GetSysName, "GetSysName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetSysName)
+Gura_ImplementMethod(wx_Locale, __GetSysName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -349,12 +349,12 @@ Gura_ImplementMethod(wx_Locale, GetSysName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetSystemEncoding)
+Gura_DeclareMethodAlias(wx_Locale, __GetSystemEncoding, "GetSystemEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetSystemEncoding)
+Gura_ImplementMethod(wx_Locale, __GetSystemEncoding)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -362,12 +362,12 @@ Gura_ImplementMethod(wx_Locale, GetSystemEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetSystemEncodingName)
+Gura_DeclareMethodAlias(wx_Locale, __GetSystemEncodingName, "GetSystemEncodingName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetSystemEncodingName)
+Gura_ImplementMethod(wx_Locale, __GetSystemEncodingName)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,12 +375,12 @@ Gura_ImplementMethod(wx_Locale, GetSystemEncodingName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetSystemLanguage)
+Gura_DeclareMethodAlias(wx_Locale, __GetSystemLanguage, "GetSystemLanguage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, GetSystemLanguage)
+Gura_ImplementMethod(wx_Locale, __GetSystemLanguage)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -388,14 +388,14 @@ Gura_ImplementMethod(wx_Locale, GetSystemLanguage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetInfo)
+Gura_DeclareMethodAlias(wx_Locale, __GetInfo, "GetInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetInfo)
+Gura_ImplementMethod(wx_Locale, __GetInfo)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -405,14 +405,14 @@ Gura_ImplementMethod(wx_Locale, GetInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, GetOSInfo)
+Gura_DeclareMethodAlias(wx_Locale, __GetOSInfo, "GetOSInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, GetOSInfo)
+Gura_ImplementMethod(wx_Locale, __GetOSInfo)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -422,14 +422,14 @@ Gura_ImplementMethod(wx_Locale, GetOSInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, Init)
+Gura_DeclareMethodAlias(wx_Locale, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "language", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, Init)
+Gura_ImplementMethod(wx_Locale, __Init)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_Locale, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, Init_1)
+Gura_DeclareMethodAlias(wx_Locale, __Init_1, "Init_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -448,7 +448,7 @@ Gura_DeclareMethod(wx_Locale, Init_1)
 	//DeclareArg(env, "bLoadDefault", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, Init_1)
+Gura_ImplementMethod(wx_Locale, __Init_1)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -460,13 +460,13 @@ Gura_ImplementMethod(wx_Locale, Init_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, IsAvailable)
+Gura_DeclareMethodAlias(wx_Locale, __IsAvailable, "IsAvailable")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, IsAvailable)
+Gura_ImplementMethod(wx_Locale, __IsAvailable)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -475,13 +475,13 @@ Gura_ImplementMethod(wx_Locale, IsAvailable)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, IsLoaded)
+Gura_DeclareMethodAlias(wx_Locale, __IsLoaded, "IsLoaded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Locale, IsLoaded)
+Gura_ImplementMethod(wx_Locale, __IsLoaded)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -490,12 +490,12 @@ Gura_ImplementMethod(wx_Locale, IsLoaded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Locale, IsOk)
+Gura_DeclareMethodAlias(wx_Locale, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Locale, IsOk)
+Gura_ImplementMethod(wx_Locale, __IsOk)
 {
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -508,36 +508,36 @@ Gura_ImplementMethod(wx_Locale, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Locale)
 {
-	Gura_AssignMethod(wx_Locale, wxLocale);
-	Gura_AssignMethod(wx_Locale, wxLocale_1);
-	Gura_AssignMethod(wx_Locale, wxLocale_2);
-	Gura_AssignMethod(wx_Locale, AddCatalog);
-	Gura_AssignMethod(wx_Locale, AddCatalog_1);
-	Gura_AssignMethod(wx_Locale, AddCatalog_2);
-	Gura_AssignMethod(wx_Locale, AddCatalogLookupPathPrefix);
-	Gura_AssignMethod(wx_Locale, AddLanguage);
-	Gura_AssignMethod(wx_Locale, FindLanguageInfo);
-	Gura_AssignMethod(wx_Locale, GetCanonicalName);
-	Gura_AssignMethod(wx_Locale, GetHeaderValue);
-	Gura_AssignMethod(wx_Locale, GetLanguage);
-	Gura_AssignMethod(wx_Locale, GetLanguageInfo);
-	Gura_AssignMethod(wx_Locale, GetLanguageName);
-	Gura_AssignMethod(wx_Locale, GetLanguageCanonicalName);
-	Gura_AssignMethod(wx_Locale, GetLocale);
-	Gura_AssignMethod(wx_Locale, GetName);
-	Gura_AssignMethod(wx_Locale, GetString);
-	Gura_AssignMethod(wx_Locale, GetString_1);
-	Gura_AssignMethod(wx_Locale, GetSysName);
-	Gura_AssignMethod(wx_Locale, GetSystemEncoding);
-	Gura_AssignMethod(wx_Locale, GetSystemEncodingName);
-	Gura_AssignMethod(wx_Locale, GetSystemLanguage);
-	Gura_AssignMethod(wx_Locale, GetInfo);
-	Gura_AssignMethod(wx_Locale, GetOSInfo);
-	Gura_AssignMethod(wx_Locale, Init);
-	Gura_AssignMethod(wx_Locale, Init_1);
-	Gura_AssignMethod(wx_Locale, IsAvailable);
-	Gura_AssignMethod(wx_Locale, IsLoaded);
-	Gura_AssignMethod(wx_Locale, IsOk);
+	Gura_AssignMethod(wx_Locale, __wxLocale);
+	Gura_AssignMethod(wx_Locale, __wxLocale_1);
+	Gura_AssignMethod(wx_Locale, __wxLocale_2);
+	Gura_AssignMethod(wx_Locale, __AddCatalog);
+	Gura_AssignMethod(wx_Locale, __AddCatalog_1);
+	Gura_AssignMethod(wx_Locale, __AddCatalog_2);
+	Gura_AssignMethod(wx_Locale, __AddCatalogLookupPathPrefix);
+	Gura_AssignMethod(wx_Locale, __AddLanguage);
+	Gura_AssignMethod(wx_Locale, __FindLanguageInfo);
+	Gura_AssignMethod(wx_Locale, __GetCanonicalName);
+	Gura_AssignMethod(wx_Locale, __GetHeaderValue);
+	Gura_AssignMethod(wx_Locale, __GetLanguage);
+	Gura_AssignMethod(wx_Locale, __GetLanguageInfo);
+	Gura_AssignMethod(wx_Locale, __GetLanguageName);
+	Gura_AssignMethod(wx_Locale, __GetLanguageCanonicalName);
+	Gura_AssignMethod(wx_Locale, __GetLocale);
+	Gura_AssignMethod(wx_Locale, __GetName);
+	Gura_AssignMethod(wx_Locale, __GetString);
+	Gura_AssignMethod(wx_Locale, __GetString_1);
+	Gura_AssignMethod(wx_Locale, __GetSysName);
+	Gura_AssignMethod(wx_Locale, __GetSystemEncoding);
+	Gura_AssignMethod(wx_Locale, __GetSystemEncodingName);
+	Gura_AssignMethod(wx_Locale, __GetSystemLanguage);
+	Gura_AssignMethod(wx_Locale, __GetInfo);
+	Gura_AssignMethod(wx_Locale, __GetOSInfo);
+	Gura_AssignMethod(wx_Locale, __Init);
+	Gura_AssignMethod(wx_Locale, __Init_1);
+	Gura_AssignMethod(wx_Locale, __IsAvailable);
+	Gura_AssignMethod(wx_Locale, __IsLoaded);
+	Gura_AssignMethod(wx_Locale, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_Locale)

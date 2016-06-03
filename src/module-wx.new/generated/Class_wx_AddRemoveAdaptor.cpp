@@ -37,12 +37,12 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor, "wxAddRemoveAdaptor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __GetItemsCtrl, "GetItemsCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __GetItemsCtrl)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, GetItemsCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveAdaptor, CanAdd)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __CanAdd, "CanAdd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, CanAdd)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __CanAdd)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, CanAdd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveAdaptor, CanRemove)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __CanRemove, "CanRemove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, CanRemove)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __CanRemove)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, CanRemove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveAdaptor, OnAdd)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __OnAdd, "OnAdd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, OnAdd)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __OnAdd)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,12 +102,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, OnAdd)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AddRemoveAdaptor, OnRemove)
+Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __OnRemove, "OnRemove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AddRemoveAdaptor, OnRemove)
+Gura_ImplementMethod(wx_AddRemoveAdaptor, __OnRemove)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,12 +120,12 @@ Gura_ImplementMethod(wx_AddRemoveAdaptor, OnRemove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AddRemoveAdaptor)
 {
-	Gura_AssignMethod(wx_AddRemoveAdaptor, wxAddRemoveAdaptor);
-	Gura_AssignMethod(wx_AddRemoveAdaptor, GetItemsCtrl);
-	Gura_AssignMethod(wx_AddRemoveAdaptor, CanAdd);
-	Gura_AssignMethod(wx_AddRemoveAdaptor, CanRemove);
-	Gura_AssignMethod(wx_AddRemoveAdaptor, OnAdd);
-	Gura_AssignMethod(wx_AddRemoveAdaptor, OnRemove);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __wxAddRemoveAdaptor);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __GetItemsCtrl);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __CanAdd);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __CanRemove);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __OnAdd);
+	Gura_AssignMethod(wx_AddRemoveAdaptor, __OnRemove);
 }
 
 Gura_ImplementDescendantCreator(wx_AddRemoveAdaptor)

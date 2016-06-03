@@ -37,12 +37,12 @@ String Object_wx_FontData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontData, wxFontData)
+Gura_DeclareMethodAlias(wx_FontData, __wxFontData, "wxFontData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, wxFontData)
+Gura_ImplementMethod(wx_FontData, __wxFontData)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_FontData, wxFontData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, EnableEffects)
+Gura_DeclareMethodAlias(wx_FontData, __EnableEffects, "EnableEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, EnableEffects)
+Gura_ImplementMethod(wx_FontData, __EnableEffects)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_FontData, EnableEffects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetAllowSymbols)
+Gura_DeclareMethodAlias(wx_FontData, __GetAllowSymbols, "GetAllowSymbols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetAllowSymbols)
+Gura_ImplementMethod(wx_FontData, __GetAllowSymbols)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_FontData, GetAllowSymbols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetChosenFont)
+Gura_DeclareMethodAlias(wx_FontData, __GetChosenFont, "GetChosenFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetChosenFont)
+Gura_ImplementMethod(wx_FontData, __GetChosenFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_FontData, GetChosenFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetColour)
+Gura_DeclareMethodAlias(wx_FontData, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetColour)
+Gura_ImplementMethod(wx_FontData, __GetColour)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_FontData, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetEnableEffects)
+Gura_DeclareMethodAlias(wx_FontData, __GetEnableEffects, "GetEnableEffects")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetEnableEffects)
+Gura_ImplementMethod(wx_FontData, __GetEnableEffects)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_FontData, GetEnableEffects)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetInitialFont)
+Gura_DeclareMethodAlias(wx_FontData, __GetInitialFont, "GetInitialFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetInitialFont)
+Gura_ImplementMethod(wx_FontData, __GetInitialFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_FontData, GetInitialFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, GetShowHelp)
+Gura_DeclareMethodAlias(wx_FontData, __GetShowHelp, "GetShowHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontData, GetShowHelp)
+Gura_ImplementMethod(wx_FontData, __GetShowHelp)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_FontData, GetShowHelp)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetAllowSymbols)
+Gura_DeclareMethodAlias(wx_FontData, __SetAllowSymbols, "SetAllowSymbols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "allowSymbols", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetAllowSymbols)
+Gura_ImplementMethod(wx_FontData, __SetAllowSymbols)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_FontData, SetAllowSymbols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetChosenFont)
+Gura_DeclareMethodAlias(wx_FontData, __SetChosenFont, "SetChosenFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetChosenFont)
+Gura_ImplementMethod(wx_FontData, __SetChosenFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_FontData, SetChosenFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetColour)
+Gura_DeclareMethodAlias(wx_FontData, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetColour)
+Gura_ImplementMethod(wx_FontData, __SetColour)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_FontData, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetInitialFont)
+Gura_DeclareMethodAlias(wx_FontData, __SetInitialFont, "SetInitialFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetInitialFont)
+Gura_ImplementMethod(wx_FontData, __SetInitialFont)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,14 +203,14 @@ Gura_ImplementMethod(wx_FontData, SetInitialFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetRange)
+Gura_DeclareMethodAlias(wx_FontData, __SetRange, "SetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetRange)
+Gura_ImplementMethod(wx_FontData, __SetRange)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -220,13 +220,13 @@ Gura_ImplementMethod(wx_FontData, SetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontData, SetShowHelp)
+Gura_DeclareMethodAlias(wx_FontData, __SetShowHelp, "SetShowHelp")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "showHelp", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontData, SetShowHelp)
+Gura_ImplementMethod(wx_FontData, __SetShowHelp)
 {
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,20 +240,20 @@ Gura_ImplementMethod(wx_FontData, SetShowHelp)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontData)
 {
-	Gura_AssignMethod(wx_FontData, wxFontData);
-	Gura_AssignMethod(wx_FontData, EnableEffects);
-	Gura_AssignMethod(wx_FontData, GetAllowSymbols);
-	Gura_AssignMethod(wx_FontData, GetChosenFont);
-	Gura_AssignMethod(wx_FontData, GetColour);
-	Gura_AssignMethod(wx_FontData, GetEnableEffects);
-	Gura_AssignMethod(wx_FontData, GetInitialFont);
-	Gura_AssignMethod(wx_FontData, GetShowHelp);
-	Gura_AssignMethod(wx_FontData, SetAllowSymbols);
-	Gura_AssignMethod(wx_FontData, SetChosenFont);
-	Gura_AssignMethod(wx_FontData, SetColour);
-	Gura_AssignMethod(wx_FontData, SetInitialFont);
-	Gura_AssignMethod(wx_FontData, SetRange);
-	Gura_AssignMethod(wx_FontData, SetShowHelp);
+	Gura_AssignMethod(wx_FontData, __wxFontData);
+	Gura_AssignMethod(wx_FontData, __EnableEffects);
+	Gura_AssignMethod(wx_FontData, __GetAllowSymbols);
+	Gura_AssignMethod(wx_FontData, __GetChosenFont);
+	Gura_AssignMethod(wx_FontData, __GetColour);
+	Gura_AssignMethod(wx_FontData, __GetEnableEffects);
+	Gura_AssignMethod(wx_FontData, __GetInitialFont);
+	Gura_AssignMethod(wx_FontData, __GetShowHelp);
+	Gura_AssignMethod(wx_FontData, __SetAllowSymbols);
+	Gura_AssignMethod(wx_FontData, __SetChosenFont);
+	Gura_AssignMethod(wx_FontData, __SetColour);
+	Gura_AssignMethod(wx_FontData, __SetInitialFont);
+	Gura_AssignMethod(wx_FontData, __SetRange);
+	Gura_AssignMethod(wx_FontData, __SetShowHelp);
 }
 
 Gura_ImplementDescendantCreator(wx_FontData)

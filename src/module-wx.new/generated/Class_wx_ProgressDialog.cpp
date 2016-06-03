@@ -37,7 +37,7 @@ String Object_wx_ProgressDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ProgressDialog, wxProgressDialog)
+Gura_DeclareMethodAlias(wx_ProgressDialog, __wxProgressDialog, "wxProgressDialog")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_ProgressDialog, wxProgressDialog)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ProgressDialog, wxProgressDialog)
+Gura_ImplementMethod(wx_ProgressDialog, __wxProgressDialog)
 {
 	Object_wx_ProgressDialog *pThis = Object_wx_ProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_ProgressDialog, wxProgressDialog)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ProgressDialog)
 {
-	Gura_AssignMethod(wx_ProgressDialog, wxProgressDialog);
+	Gura_AssignMethod(wx_ProgressDialog, __wxProgressDialog);
 }
 
 Gura_ImplementDescendantCreator(wx_ProgressDialog)

@@ -37,12 +37,12 @@ String Object_wx_Module::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Module, wxModule)
+Gura_DeclareMethodAlias(wx_Module, __wxModule, "wxModule")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Module, wxModule)
+Gura_ImplementMethod(wx_Module, __wxModule)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_Module, wxModule)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Module, OnExit)
+Gura_DeclareMethodAlias(wx_Module, __OnExit, "OnExit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Module, OnExit)
+Gura_ImplementMethod(wx_Module, __OnExit)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_Module, OnExit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Module, OnInit)
+Gura_DeclareMethodAlias(wx_Module, __OnInit, "OnInit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Module, OnInit)
+Gura_ImplementMethod(wx_Module, __OnInit)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_Module, OnInit)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Module, AddDependency)
+Gura_DeclareMethodAlias(wx_Module, __AddDependency, "AddDependency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dep", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Module, AddDependency)
+Gura_ImplementMethod(wx_Module, __AddDependency)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_Module, AddDependency)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Module, AddDependency_1)
+Gura_DeclareMethodAlias(wx_Module, __AddDependency_1, "AddDependency_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "classname", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Module, AddDependency_1)
+Gura_ImplementMethod(wx_Module, __AddDependency_1)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_Module, AddDependency_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Module)
 {
-	Gura_AssignMethod(wx_Module, wxModule);
-	Gura_AssignMethod(wx_Module, OnExit);
-	Gura_AssignMethod(wx_Module, OnInit);
-	Gura_AssignMethod(wx_Module, AddDependency);
-	Gura_AssignMethod(wx_Module, AddDependency_1);
+	Gura_AssignMethod(wx_Module, __wxModule);
+	Gura_AssignMethod(wx_Module, __OnExit);
+	Gura_AssignMethod(wx_Module, __OnInit);
+	Gura_AssignMethod(wx_Module, __AddDependency);
+	Gura_AssignMethod(wx_Module, __AddDependency_1);
 }
 
 Gura_ImplementDescendantCreator(wx_Module)

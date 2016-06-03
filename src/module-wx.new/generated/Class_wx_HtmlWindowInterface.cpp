@@ -37,12 +37,12 @@ String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlWindowInterface, wxHtmlWindowInterface)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __wxHtmlWindowInterface, "wxHtmlWindowInterface")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, wxHtmlWindowInterface)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __wxHtmlWindowInterface)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, wxHtmlWindowInterface)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, SetHTMLWindowTitle)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __SetHTMLWindowTitle, "SetHTMLWindowTitle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLWindowTitle)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLWindowTitle)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLWindowTitle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, OnHTMLLinkClicked)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __OnHTMLLinkClicked, "OnHTMLLinkClicked")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "link", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, OnHTMLLinkClicked)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __OnHTMLLinkClicked)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, OnHTMLLinkClicked)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, OnHTMLOpeningURL)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __OnHTMLOpeningURL, "OnHTMLOpeningURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -88,7 +88,7 @@ Gura_DeclareMethod(wx_HtmlWindowInterface, OnHTMLOpeningURL)
 	//DeclareArg(env, "redirect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, OnHTMLOpeningURL)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __OnHTMLOpeningURL)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, OnHTMLOpeningURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, HTMLCoordsToWindow)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __HTMLCoordsToWindow, "HTMLCoordsToWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, HTMLCoordsToWindow)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __HTMLCoordsToWindow)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, HTMLCoordsToWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, GetHTMLWindow)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __GetHTMLWindow, "GetHTMLWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, GetHTMLWindow)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __GetHTMLWindow)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, GetHTMLWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, GetHTMLBackgroundColour)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __GetHTMLBackgroundColour, "GetHTMLBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, GetHTMLBackgroundColour)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __GetHTMLBackgroundColour)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, GetHTMLBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, SetHTMLBackgroundColour)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __SetHTMLBackgroundColour, "SetHTMLBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLBackgroundColour)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundColour)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, SetHTMLBackgroundImage)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __SetHTMLBackgroundImage, "SetHTMLBackgroundImage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bmpBg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLBackgroundImage)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundImage)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLBackgroundImage)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlWindowInterface, SetHTMLStatusText)
+Gura_DeclareMethodAlias(wx_HtmlWindowInterface, __SetHTMLStatusText, "SetHTMLStatusText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLStatusText)
+Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLStatusText)
 {
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -192,16 +192,16 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, SetHTMLStatusText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlWindowInterface)
 {
-	Gura_AssignMethod(wx_HtmlWindowInterface, wxHtmlWindowInterface);
-	Gura_AssignMethod(wx_HtmlWindowInterface, SetHTMLWindowTitle);
-	Gura_AssignMethod(wx_HtmlWindowInterface, OnHTMLLinkClicked);
-	Gura_AssignMethod(wx_HtmlWindowInterface, OnHTMLOpeningURL);
-	Gura_AssignMethod(wx_HtmlWindowInterface, HTMLCoordsToWindow);
-	Gura_AssignMethod(wx_HtmlWindowInterface, GetHTMLWindow);
-	Gura_AssignMethod(wx_HtmlWindowInterface, GetHTMLBackgroundColour);
-	Gura_AssignMethod(wx_HtmlWindowInterface, SetHTMLBackgroundColour);
-	Gura_AssignMethod(wx_HtmlWindowInterface, SetHTMLBackgroundImage);
-	Gura_AssignMethod(wx_HtmlWindowInterface, SetHTMLStatusText);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __wxHtmlWindowInterface);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLWindowTitle);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __OnHTMLLinkClicked);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __OnHTMLOpeningURL);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __HTMLCoordsToWindow);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __GetHTMLWindow);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __GetHTMLBackgroundColour);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundColour);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundImage);
+	Gura_AssignMethod(wx_HtmlWindowInterface, __SetHTMLStatusText);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlWindowInterface)

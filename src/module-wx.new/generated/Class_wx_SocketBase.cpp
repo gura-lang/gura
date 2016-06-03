@@ -37,12 +37,12 @@ String Object_wx_SocketBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SocketBase, wxSocketBase)
+Gura_DeclareMethodAlias(wx_SocketBase, __wxSocketBase, "wxSocketBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, wxSocketBase)
+Gura_ImplementMethod(wx_SocketBase, __wxSocketBase)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_SocketBase, wxSocketBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Destroy)
+Gura_DeclareMethodAlias(wx_SocketBase, __Destroy, "Destroy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Destroy)
+Gura_ImplementMethod(wx_SocketBase, __Destroy)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_SocketBase, Destroy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Initialize)
+Gura_DeclareMethodAlias(wx_SocketBase, __Initialize, "Initialize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Initialize)
+Gura_ImplementMethod(wx_SocketBase, __Initialize)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,12 +76,12 @@ Gura_ImplementMethod(wx_SocketBase, Initialize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Shutdown)
+Gura_DeclareMethodAlias(wx_SocketBase, __Shutdown, "Shutdown")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Shutdown)
+Gura_ImplementMethod(wx_SocketBase, __Shutdown)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,12 +89,12 @@ Gura_ImplementMethod(wx_SocketBase, Shutdown)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Error)
+Gura_DeclareMethodAlias(wx_SocketBase, __Error, "Error")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Error)
+Gura_ImplementMethod(wx_SocketBase, __Error)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,13 +102,13 @@ Gura_ImplementMethod(wx_SocketBase, Error)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetLocal)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetLocal, "GetLocal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetLocal)
+Gura_ImplementMethod(wx_SocketBase, __GetLocal)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_SocketBase, GetLocal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetPeer)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetPeer, "GetPeer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetPeer)
+Gura_ImplementMethod(wx_SocketBase, __GetPeer)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_SocketBase, GetPeer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetTimeout)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetTimeout, "GetTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetTimeout)
+Gura_ImplementMethod(wx_SocketBase, __GetTimeout)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_SocketBase, GetTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, IsConnected)
+Gura_DeclareMethodAlias(wx_SocketBase, __IsConnected, "IsConnected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, IsConnected)
+Gura_ImplementMethod(wx_SocketBase, __IsConnected)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_SocketBase, IsConnected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, IsData)
+Gura_DeclareMethodAlias(wx_SocketBase, __IsData, "IsData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, IsData)
+Gura_ImplementMethod(wx_SocketBase, __IsData)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_SocketBase, IsData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, IsDisconnected)
+Gura_DeclareMethodAlias(wx_SocketBase, __IsDisconnected, "IsDisconnected")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, IsDisconnected)
+Gura_ImplementMethod(wx_SocketBase, __IsDisconnected)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_SocketBase, IsDisconnected)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, IsOk)
+Gura_DeclareMethodAlias(wx_SocketBase, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, IsOk)
+Gura_ImplementMethod(wx_SocketBase, __IsOk)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_SocketBase, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, LastCount)
+Gura_DeclareMethodAlias(wx_SocketBase, __LastCount, "LastCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, LastCount)
+Gura_ImplementMethod(wx_SocketBase, __LastCount)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,12 +210,12 @@ Gura_ImplementMethod(wx_SocketBase, LastCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, LastReadCount)
+Gura_DeclareMethodAlias(wx_SocketBase, __LastReadCount, "LastReadCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, LastReadCount)
+Gura_ImplementMethod(wx_SocketBase, __LastReadCount)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,12 +223,12 @@ Gura_ImplementMethod(wx_SocketBase, LastReadCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, LastWriteCount)
+Gura_DeclareMethodAlias(wx_SocketBase, __LastWriteCount, "LastWriteCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, LastWriteCount)
+Gura_ImplementMethod(wx_SocketBase, __LastWriteCount)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,12 +236,12 @@ Gura_ImplementMethod(wx_SocketBase, LastWriteCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, LastError)
+Gura_DeclareMethodAlias(wx_SocketBase, __LastError, "LastError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, LastError)
+Gura_ImplementMethod(wx_SocketBase, __LastError)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -249,12 +249,12 @@ Gura_ImplementMethod(wx_SocketBase, LastError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, RestoreState)
+Gura_DeclareMethodAlias(wx_SocketBase, __RestoreState, "RestoreState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, RestoreState)
+Gura_ImplementMethod(wx_SocketBase, __RestoreState)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -262,12 +262,12 @@ Gura_ImplementMethod(wx_SocketBase, RestoreState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SaveState)
+Gura_DeclareMethodAlias(wx_SocketBase, __SaveState, "SaveState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SaveState)
+Gura_ImplementMethod(wx_SocketBase, __SaveState)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -275,12 +275,12 @@ Gura_ImplementMethod(wx_SocketBase, SaveState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Close)
+Gura_DeclareMethodAlias(wx_SocketBase, __Close, "Close")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Close)
+Gura_ImplementMethod(wx_SocketBase, __Close)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -288,12 +288,12 @@ Gura_ImplementMethod(wx_SocketBase, Close)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, ShutdownOutput)
+Gura_DeclareMethodAlias(wx_SocketBase, __ShutdownOutput, "ShutdownOutput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, ShutdownOutput)
+Gura_ImplementMethod(wx_SocketBase, __ShutdownOutput)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -301,12 +301,12 @@ Gura_ImplementMethod(wx_SocketBase, ShutdownOutput)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Discard)
+Gura_DeclareMethodAlias(wx_SocketBase, __Discard, "Discard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Discard)
+Gura_ImplementMethod(wx_SocketBase, __Discard)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -314,12 +314,12 @@ Gura_ImplementMethod(wx_SocketBase, Discard)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetFlags)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetFlags, "GetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetFlags)
+Gura_ImplementMethod(wx_SocketBase, __GetFlags)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -327,12 +327,12 @@ Gura_ImplementMethod(wx_SocketBase, GetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, InterruptWait)
+Gura_DeclareMethodAlias(wx_SocketBase, __InterruptWait, "InterruptWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, InterruptWait)
+Gura_ImplementMethod(wx_SocketBase, __InterruptWait)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -340,14 +340,14 @@ Gura_ImplementMethod(wx_SocketBase, InterruptWait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Peek)
+Gura_DeclareMethodAlias(wx_SocketBase, __Peek, "Peek")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Peek)
+Gura_ImplementMethod(wx_SocketBase, __Peek)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,14 +357,14 @@ Gura_ImplementMethod(wx_SocketBase, Peek)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Read)
+Gura_DeclareMethodAlias(wx_SocketBase, __Read, "Read")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Read)
+Gura_ImplementMethod(wx_SocketBase, __Read)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -374,14 +374,14 @@ Gura_ImplementMethod(wx_SocketBase, Read)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, ReadMsg)
+Gura_DeclareMethodAlias(wx_SocketBase, __ReadMsg, "ReadMsg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, ReadMsg)
+Gura_ImplementMethod(wx_SocketBase, __ReadMsg)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -391,13 +391,13 @@ Gura_ImplementMethod(wx_SocketBase, ReadMsg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetFlags)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetFlags, "SetFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetFlags)
+Gura_ImplementMethod(wx_SocketBase, __SetFlags)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -406,13 +406,13 @@ Gura_ImplementMethod(wx_SocketBase, SetFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetLocal)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetLocal, "SetLocal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "local", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetLocal)
+Gura_ImplementMethod(wx_SocketBase, __SetLocal)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -421,13 +421,13 @@ Gura_ImplementMethod(wx_SocketBase, SetLocal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetTimeout)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetTimeout, "SetTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetTimeout)
+Gura_ImplementMethod(wx_SocketBase, __SetTimeout)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -436,14 +436,14 @@ Gura_ImplementMethod(wx_SocketBase, SetTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Unread)
+Gura_DeclareMethodAlias(wx_SocketBase, __Unread, "Unread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Unread)
+Gura_ImplementMethod(wx_SocketBase, __Unread)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -453,14 +453,14 @@ Gura_ImplementMethod(wx_SocketBase, Unread)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Wait)
+Gura_DeclareMethodAlias(wx_SocketBase, __Wait, "Wait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Wait)
+Gura_ImplementMethod(wx_SocketBase, __Wait)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -470,14 +470,14 @@ Gura_ImplementMethod(wx_SocketBase, Wait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, WaitForLost)
+Gura_DeclareMethodAlias(wx_SocketBase, __WaitForLost, "WaitForLost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, WaitForLost)
+Gura_ImplementMethod(wx_SocketBase, __WaitForLost)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -487,14 +487,14 @@ Gura_ImplementMethod(wx_SocketBase, WaitForLost)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, WaitForRead)
+Gura_DeclareMethodAlias(wx_SocketBase, __WaitForRead, "WaitForRead")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, WaitForRead)
+Gura_ImplementMethod(wx_SocketBase, __WaitForRead)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -504,14 +504,14 @@ Gura_ImplementMethod(wx_SocketBase, WaitForRead)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, WaitForWrite)
+Gura_DeclareMethodAlias(wx_SocketBase, __WaitForWrite, "WaitForWrite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, WaitForWrite)
+Gura_ImplementMethod(wx_SocketBase, __WaitForWrite)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -521,14 +521,14 @@ Gura_ImplementMethod(wx_SocketBase, WaitForWrite)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Write)
+Gura_DeclareMethodAlias(wx_SocketBase, __Write, "Write")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Write)
+Gura_ImplementMethod(wx_SocketBase, __Write)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -538,14 +538,14 @@ Gura_ImplementMethod(wx_SocketBase, Write)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, WriteMsg)
+Gura_DeclareMethodAlias(wx_SocketBase, __WriteMsg, "WriteMsg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, WriteMsg)
+Gura_ImplementMethod(wx_SocketBase, __WriteMsg)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -555,12 +555,12 @@ Gura_ImplementMethod(wx_SocketBase, WriteMsg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetClientData)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetClientData)
+Gura_ImplementMethod(wx_SocketBase, __GetClientData)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -568,13 +568,13 @@ Gura_ImplementMethod(wx_SocketBase, GetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, Notify)
+Gura_DeclareMethodAlias(wx_SocketBase, __Notify, "Notify")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "notify", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, Notify)
+Gura_ImplementMethod(wx_SocketBase, __Notify)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -583,13 +583,13 @@ Gura_ImplementMethod(wx_SocketBase, Notify)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetClientData)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetClientData, "SetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetClientData)
+Gura_ImplementMethod(wx_SocketBase, __SetClientData)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -598,14 +598,14 @@ Gura_ImplementMethod(wx_SocketBase, SetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetEventHandler)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetEventHandler, "SetEventHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetEventHandler)
+Gura_ImplementMethod(wx_SocketBase, __SetEventHandler)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -615,13 +615,13 @@ Gura_ImplementMethod(wx_SocketBase, SetEventHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, SetNotify)
+Gura_DeclareMethodAlias(wx_SocketBase, __SetNotify, "SetNotify")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SocketBase, SetNotify)
+Gura_ImplementMethod(wx_SocketBase, __SetNotify)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -630,12 +630,12 @@ Gura_ImplementMethod(wx_SocketBase, SetNotify)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SocketBase, GetSocket)
+Gura_DeclareMethodAlias(wx_SocketBase, __GetSocket, "GetSocket")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SocketBase, GetSocket)
+Gura_ImplementMethod(wx_SocketBase, __GetSocket)
 {
 	Object_wx_SocketBase *pThis = Object_wx_SocketBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -648,48 +648,48 @@ Gura_ImplementMethod(wx_SocketBase, GetSocket)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SocketBase)
 {
-	Gura_AssignMethod(wx_SocketBase, wxSocketBase);
-	Gura_AssignMethod(wx_SocketBase, Destroy);
-	Gura_AssignMethod(wx_SocketBase, Initialize);
-	Gura_AssignMethod(wx_SocketBase, Shutdown);
-	Gura_AssignMethod(wx_SocketBase, Error);
-	Gura_AssignMethod(wx_SocketBase, GetLocal);
-	Gura_AssignMethod(wx_SocketBase, GetPeer);
-	Gura_AssignMethod(wx_SocketBase, GetTimeout);
-	Gura_AssignMethod(wx_SocketBase, IsConnected);
-	Gura_AssignMethod(wx_SocketBase, IsData);
-	Gura_AssignMethod(wx_SocketBase, IsDisconnected);
-	Gura_AssignMethod(wx_SocketBase, IsOk);
-	Gura_AssignMethod(wx_SocketBase, LastCount);
-	Gura_AssignMethod(wx_SocketBase, LastReadCount);
-	Gura_AssignMethod(wx_SocketBase, LastWriteCount);
-	Gura_AssignMethod(wx_SocketBase, LastError);
-	Gura_AssignMethod(wx_SocketBase, RestoreState);
-	Gura_AssignMethod(wx_SocketBase, SaveState);
-	Gura_AssignMethod(wx_SocketBase, Close);
-	Gura_AssignMethod(wx_SocketBase, ShutdownOutput);
-	Gura_AssignMethod(wx_SocketBase, Discard);
-	Gura_AssignMethod(wx_SocketBase, GetFlags);
-	Gura_AssignMethod(wx_SocketBase, InterruptWait);
-	Gura_AssignMethod(wx_SocketBase, Peek);
-	Gura_AssignMethod(wx_SocketBase, Read);
-	Gura_AssignMethod(wx_SocketBase, ReadMsg);
-	Gura_AssignMethod(wx_SocketBase, SetFlags);
-	Gura_AssignMethod(wx_SocketBase, SetLocal);
-	Gura_AssignMethod(wx_SocketBase, SetTimeout);
-	Gura_AssignMethod(wx_SocketBase, Unread);
-	Gura_AssignMethod(wx_SocketBase, Wait);
-	Gura_AssignMethod(wx_SocketBase, WaitForLost);
-	Gura_AssignMethod(wx_SocketBase, WaitForRead);
-	Gura_AssignMethod(wx_SocketBase, WaitForWrite);
-	Gura_AssignMethod(wx_SocketBase, Write);
-	Gura_AssignMethod(wx_SocketBase, WriteMsg);
-	Gura_AssignMethod(wx_SocketBase, GetClientData);
-	Gura_AssignMethod(wx_SocketBase, Notify);
-	Gura_AssignMethod(wx_SocketBase, SetClientData);
-	Gura_AssignMethod(wx_SocketBase, SetEventHandler);
-	Gura_AssignMethod(wx_SocketBase, SetNotify);
-	Gura_AssignMethod(wx_SocketBase, GetSocket);
+	Gura_AssignMethod(wx_SocketBase, __wxSocketBase);
+	Gura_AssignMethod(wx_SocketBase, __Destroy);
+	Gura_AssignMethod(wx_SocketBase, __Initialize);
+	Gura_AssignMethod(wx_SocketBase, __Shutdown);
+	Gura_AssignMethod(wx_SocketBase, __Error);
+	Gura_AssignMethod(wx_SocketBase, __GetLocal);
+	Gura_AssignMethod(wx_SocketBase, __GetPeer);
+	Gura_AssignMethod(wx_SocketBase, __GetTimeout);
+	Gura_AssignMethod(wx_SocketBase, __IsConnected);
+	Gura_AssignMethod(wx_SocketBase, __IsData);
+	Gura_AssignMethod(wx_SocketBase, __IsDisconnected);
+	Gura_AssignMethod(wx_SocketBase, __IsOk);
+	Gura_AssignMethod(wx_SocketBase, __LastCount);
+	Gura_AssignMethod(wx_SocketBase, __LastReadCount);
+	Gura_AssignMethod(wx_SocketBase, __LastWriteCount);
+	Gura_AssignMethod(wx_SocketBase, __LastError);
+	Gura_AssignMethod(wx_SocketBase, __RestoreState);
+	Gura_AssignMethod(wx_SocketBase, __SaveState);
+	Gura_AssignMethod(wx_SocketBase, __Close);
+	Gura_AssignMethod(wx_SocketBase, __ShutdownOutput);
+	Gura_AssignMethod(wx_SocketBase, __Discard);
+	Gura_AssignMethod(wx_SocketBase, __GetFlags);
+	Gura_AssignMethod(wx_SocketBase, __InterruptWait);
+	Gura_AssignMethod(wx_SocketBase, __Peek);
+	Gura_AssignMethod(wx_SocketBase, __Read);
+	Gura_AssignMethod(wx_SocketBase, __ReadMsg);
+	Gura_AssignMethod(wx_SocketBase, __SetFlags);
+	Gura_AssignMethod(wx_SocketBase, __SetLocal);
+	Gura_AssignMethod(wx_SocketBase, __SetTimeout);
+	Gura_AssignMethod(wx_SocketBase, __Unread);
+	Gura_AssignMethod(wx_SocketBase, __Wait);
+	Gura_AssignMethod(wx_SocketBase, __WaitForLost);
+	Gura_AssignMethod(wx_SocketBase, __WaitForRead);
+	Gura_AssignMethod(wx_SocketBase, __WaitForWrite);
+	Gura_AssignMethod(wx_SocketBase, __Write);
+	Gura_AssignMethod(wx_SocketBase, __WriteMsg);
+	Gura_AssignMethod(wx_SocketBase, __GetClientData);
+	Gura_AssignMethod(wx_SocketBase, __Notify);
+	Gura_AssignMethod(wx_SocketBase, __SetClientData);
+	Gura_AssignMethod(wx_SocketBase, __SetEventHandler);
+	Gura_AssignMethod(wx_SocketBase, __SetNotify);
+	Gura_AssignMethod(wx_SocketBase, __GetSocket);
 }
 
 Gura_ImplementDescendantCreator(wx_SocketBase)

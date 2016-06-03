@@ -37,13 +37,13 @@ String Object_wx_HelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HelpController, wxHelpController)
+Gura_DeclareMethodAlias(wx_HelpController, __wxHelpController, "wxHelpController")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HelpController, wxHelpController)
+Gura_ImplementMethod(wx_HelpController, __wxHelpController)
 {
 	Object_wx_HelpController *pThis = Object_wx_HelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_HelpController, wxHelpController)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HelpController)
 {
-	Gura_AssignMethod(wx_HelpController, wxHelpController);
+	Gura_AssignMethod(wx_HelpController, __wxHelpController);
 }
 
 Gura_ImplementDescendantCreator(wx_HelpController)

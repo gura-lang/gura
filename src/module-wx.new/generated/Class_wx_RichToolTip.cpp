@@ -37,14 +37,14 @@ String Object_wx_RichToolTip::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichToolTip, wxRichToolTip)
+Gura_DeclareMethodAlias(wx_RichToolTip, __wxRichToolTip, "wxRichToolTip")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, wxRichToolTip)
+Gura_ImplementMethod(wx_RichToolTip, __wxRichToolTip)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_RichToolTip, wxRichToolTip)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colEnd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetBackgroundColour)
+Gura_ImplementMethod(wx_RichToolTip, __SetBackgroundColour)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,13 +71,13 @@ Gura_ImplementMethod(wx_RichToolTip, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetIcon)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetIcon, "SetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetIcon)
+Gura_ImplementMethod(wx_RichToolTip, __SetIcon)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_RichToolTip, SetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetIcon_1)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetIcon_1, "SetIcon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetIcon_1)
+Gura_ImplementMethod(wx_RichToolTip, __SetIcon_1)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,14 +101,14 @@ Gura_ImplementMethod(wx_RichToolTip, SetIcon_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetTimeout)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetTimeout, "SetTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "millisecondsTimeout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecondsDelay", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetTimeout)
+Gura_ImplementMethod(wx_RichToolTip, __SetTimeout)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_RichToolTip, SetTimeout)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetTipKind)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetTipKind, "SetTipKind")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tipKind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetTipKind)
+Gura_ImplementMethod(wx_RichToolTip, __SetTipKind)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_RichToolTip, SetTipKind)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, SetTitleFont)
+Gura_DeclareMethodAlias(wx_RichToolTip, __SetTitleFont, "SetTitleFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, SetTitleFont)
+Gura_ImplementMethod(wx_RichToolTip, __SetTitleFont)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_RichToolTip, SetTitleFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichToolTip, ShowFor)
+Gura_DeclareMethodAlias(wx_RichToolTip, __ShowFor, "ShowFor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichToolTip, ShowFor)
+Gura_ImplementMethod(wx_RichToolTip, __ShowFor)
 {
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,14 +170,14 @@ Gura_ImplementMethod(wx_RichToolTip, ShowFor)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichToolTip)
 {
-	Gura_AssignMethod(wx_RichToolTip, wxRichToolTip);
-	Gura_AssignMethod(wx_RichToolTip, SetBackgroundColour);
-	Gura_AssignMethod(wx_RichToolTip, SetIcon);
-	Gura_AssignMethod(wx_RichToolTip, SetIcon_1);
-	Gura_AssignMethod(wx_RichToolTip, SetTimeout);
-	Gura_AssignMethod(wx_RichToolTip, SetTipKind);
-	Gura_AssignMethod(wx_RichToolTip, SetTitleFont);
-	Gura_AssignMethod(wx_RichToolTip, ShowFor);
+	Gura_AssignMethod(wx_RichToolTip, __wxRichToolTip);
+	Gura_AssignMethod(wx_RichToolTip, __SetBackgroundColour);
+	Gura_AssignMethod(wx_RichToolTip, __SetIcon);
+	Gura_AssignMethod(wx_RichToolTip, __SetIcon_1);
+	Gura_AssignMethod(wx_RichToolTip, __SetTimeout);
+	Gura_AssignMethod(wx_RichToolTip, __SetTipKind);
+	Gura_AssignMethod(wx_RichToolTip, __SetTitleFont);
+	Gura_AssignMethod(wx_RichToolTip, __ShowFor);
 }
 
 Gura_ImplementDescendantCreator(wx_RichToolTip)

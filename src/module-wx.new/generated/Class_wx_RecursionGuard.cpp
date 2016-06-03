@@ -37,13 +37,13 @@ String Object_wx_RecursionGuard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RecursionGuard, wxRecursionGuard)
+Gura_DeclareMethodAlias(wx_RecursionGuard, __wxRecursionGuard, "wxRecursionGuard")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RecursionGuard, wxRecursionGuard)
+Gura_ImplementMethod(wx_RecursionGuard, __wxRecursionGuard)
 {
 	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_RecursionGuard, wxRecursionGuard)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RecursionGuard, IsInside)
+Gura_DeclareMethodAlias(wx_RecursionGuard, __IsInside, "IsInside")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RecursionGuard, IsInside)
+Gura_ImplementMethod(wx_RecursionGuard, __IsInside)
 {
 	Object_wx_RecursionGuard *pThis = Object_wx_RecursionGuard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_RecursionGuard, IsInside)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RecursionGuard)
 {
-	Gura_AssignMethod(wx_RecursionGuard, wxRecursionGuard);
-	Gura_AssignMethod(wx_RecursionGuard, IsInside);
+	Gura_AssignMethod(wx_RecursionGuard, __wxRecursionGuard);
+	Gura_AssignMethod(wx_RecursionGuard, __IsInside);
 }
 
 Gura_ImplementDescendantCreator(wx_RecursionGuard)

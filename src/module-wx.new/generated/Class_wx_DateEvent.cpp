@@ -37,12 +37,12 @@ String Object_wx_DateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DateEvent, wxDateEvent)
+Gura_DeclareMethodAlias(wx_DateEvent, __wxDateEvent, "wxDateEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateEvent, wxDateEvent)
+Gura_ImplementMethod(wx_DateEvent, __wxDateEvent)
 {
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DateEvent, wxDateEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateEvent, wxDateEvent_1)
+Gura_DeclareMethodAlias(wx_DateEvent, __wxDateEvent_1, "wxDateEvent_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_DateEvent, wxDateEvent_1)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateEvent, wxDateEvent_1)
+Gura_ImplementMethod(wx_DateEvent, __wxDateEvent_1)
 {
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_DateEvent, wxDateEvent_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateEvent, GetDate)
+Gura_DeclareMethodAlias(wx_DateEvent, __GetDate, "GetDate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DateEvent, GetDate)
+Gura_ImplementMethod(wx_DateEvent, __GetDate)
 {
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_DateEvent, GetDate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DateEvent, SetDate)
+Gura_DeclareMethodAlias(wx_DateEvent, __SetDate, "SetDate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DateEvent, SetDate)
+Gura_ImplementMethod(wx_DateEvent, __SetDate)
 {
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -102,10 +102,10 @@ Gura_ImplementMethod(wx_DateEvent, SetDate)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DateEvent)
 {
-	Gura_AssignMethod(wx_DateEvent, wxDateEvent);
-	Gura_AssignMethod(wx_DateEvent, wxDateEvent_1);
-	Gura_AssignMethod(wx_DateEvent, GetDate);
-	Gura_AssignMethod(wx_DateEvent, SetDate);
+	Gura_AssignMethod(wx_DateEvent, __wxDateEvent);
+	Gura_AssignMethod(wx_DateEvent, __wxDateEvent_1);
+	Gura_AssignMethod(wx_DateEvent, __GetDate);
+	Gura_AssignMethod(wx_DateEvent, __SetDate);
 }
 
 Gura_ImplementDescendantCreator(wx_DateEvent)

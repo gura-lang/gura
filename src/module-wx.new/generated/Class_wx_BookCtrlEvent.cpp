@@ -37,7 +37,7 @@ String Object_wx_BookCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
+Gura_DeclareMethodAlias(wx_BookCtrlEvent, __wxBookCtrlEvent, "wxBookCtrlEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
@@ -46,7 +46,7 @@ Gura_DeclareMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
 	//DeclareArg(env, "oldSel", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
+Gura_ImplementMethod(wx_BookCtrlEvent, __wxBookCtrlEvent)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -58,12 +58,12 @@ Gura_ImplementMethod(wx_BookCtrlEvent, wxBookCtrlEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BookCtrlEvent, GetOldSelection)
+Gura_DeclareMethodAlias(wx_BookCtrlEvent, __GetOldSelection, "GetOldSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BookCtrlEvent, GetOldSelection)
+Gura_ImplementMethod(wx_BookCtrlEvent, __GetOldSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_BookCtrlEvent, GetOldSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BookCtrlEvent, GetSelection)
+Gura_DeclareMethodAlias(wx_BookCtrlEvent, __GetSelection, "GetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BookCtrlEvent, GetSelection)
+Gura_ImplementMethod(wx_BookCtrlEvent, __GetSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_BookCtrlEvent, GetSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BookCtrlEvent, SetOldSelection)
+Gura_DeclareMethodAlias(wx_BookCtrlEvent, __SetOldSelection, "SetOldSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BookCtrlEvent, SetOldSelection)
+Gura_ImplementMethod(wx_BookCtrlEvent, __SetOldSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_BookCtrlEvent, SetOldSelection)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BookCtrlEvent, SetSelection)
+Gura_DeclareMethodAlias(wx_BookCtrlEvent, __SetSelection, "SetSelection")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BookCtrlEvent, SetSelection)
+Gura_ImplementMethod(wx_BookCtrlEvent, __SetSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,11 +119,11 @@ Gura_ImplementMethod(wx_BookCtrlEvent, SetSelection)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BookCtrlEvent)
 {
-	Gura_AssignMethod(wx_BookCtrlEvent, wxBookCtrlEvent);
-	Gura_AssignMethod(wx_BookCtrlEvent, GetOldSelection);
-	Gura_AssignMethod(wx_BookCtrlEvent, GetSelection);
-	Gura_AssignMethod(wx_BookCtrlEvent, SetOldSelection);
-	Gura_AssignMethod(wx_BookCtrlEvent, SetSelection);
+	Gura_AssignMethod(wx_BookCtrlEvent, __wxBookCtrlEvent);
+	Gura_AssignMethod(wx_BookCtrlEvent, __GetOldSelection);
+	Gura_AssignMethod(wx_BookCtrlEvent, __GetSelection);
+	Gura_AssignMethod(wx_BookCtrlEvent, __SetOldSelection);
+	Gura_AssignMethod(wx_BookCtrlEvent, __SetSelection);
 }
 
 Gura_ImplementDescendantCreator(wx_BookCtrlEvent)

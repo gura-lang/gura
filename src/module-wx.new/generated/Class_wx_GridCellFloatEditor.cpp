@@ -37,7 +37,7 @@ String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
+Gura_DeclareMethodAlias(wx_GridCellFloatEditor, __wxGridCellFloatEditor, "wxGridCellFloatEditor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
+Gura_ImplementMethod(wx_GridCellFloatEditor, __wxGridCellFloatEditor)
 {
 	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,13 +56,13 @@ Gura_ImplementMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GridCellFloatEditor, SetParameters)
+Gura_DeclareMethodAlias(wx_GridCellFloatEditor, __SetParameters, "SetParameters")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "params", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GridCellFloatEditor, SetParameters)
+Gura_ImplementMethod(wx_GridCellFloatEditor, __SetParameters)
 {
 	Object_wx_GridCellFloatEditor *pThis = Object_wx_GridCellFloatEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,8 +76,8 @@ Gura_ImplementMethod(wx_GridCellFloatEditor, SetParameters)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GridCellFloatEditor)
 {
-	Gura_AssignMethod(wx_GridCellFloatEditor, wxGridCellFloatEditor);
-	Gura_AssignMethod(wx_GridCellFloatEditor, SetParameters);
+	Gura_AssignMethod(wx_GridCellFloatEditor, __wxGridCellFloatEditor);
+	Gura_AssignMethod(wx_GridCellFloatEditor, __SetParameters);
 }
 
 Gura_ImplementDescendantCreator(wx_GridCellFloatEditor)

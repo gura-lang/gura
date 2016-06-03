@@ -37,13 +37,13 @@ String Object_wx_TextDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextDataObject, wxTextDataObject)
+Gura_DeclareMethodAlias(wx_TextDataObject, __wxTextDataObject, "wxTextDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, wxTextDataObject)
+Gura_ImplementMethod(wx_TextDataObject, __wxTextDataObject)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_TextDataObject, wxTextDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, GetText)
+Gura_DeclareMethodAlias(wx_TextDataObject, __GetText, "GetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, GetText)
+Gura_ImplementMethod(wx_TextDataObject, __GetText)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_TextDataObject, GetText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, GetTextLength)
+Gura_DeclareMethodAlias(wx_TextDataObject, __GetTextLength, "GetTextLength")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
+Gura_ImplementMethod(wx_TextDataObject, __GetTextLength)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_TextDataObject, GetTextLength)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, GetFormatCount)
+Gura_DeclareMethodAlias(wx_TextDataObject, __GetFormatCount, "GetFormatCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, GetFormatCount)
+Gura_ImplementMethod(wx_TextDataObject, __GetFormatCount)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_TextDataObject, GetFormatCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, GetFormat)
+Gura_DeclareMethodAlias(wx_TextDataObject, __GetFormat, "GetFormat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, GetFormat)
+Gura_ImplementMethod(wx_TextDataObject, __GetFormat)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,14 +106,14 @@ Gura_ImplementMethod(wx_TextDataObject, GetFormat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, GetAllFormats)
+Gura_DeclareMethodAlias(wx_TextDataObject, __GetAllFormats, "GetAllFormats")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "formats", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, GetAllFormats)
+Gura_ImplementMethod(wx_TextDataObject, __GetAllFormats)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_TextDataObject, GetAllFormats)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextDataObject, SetText)
+Gura_DeclareMethodAlias(wx_TextDataObject, __SetText, "SetText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "strText", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextDataObject, SetText)
+Gura_ImplementMethod(wx_TextDataObject, __SetText)
 {
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_TextDataObject, SetText)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextDataObject)
 {
-	Gura_AssignMethod(wx_TextDataObject, wxTextDataObject);
-	Gura_AssignMethod(wx_TextDataObject, GetText);
-	Gura_AssignMethod(wx_TextDataObject, GetTextLength);
-	Gura_AssignMethod(wx_TextDataObject, GetFormatCount);
-	Gura_AssignMethod(wx_TextDataObject, GetFormat);
-	Gura_AssignMethod(wx_TextDataObject, GetAllFormats);
-	Gura_AssignMethod(wx_TextDataObject, SetText);
+	Gura_AssignMethod(wx_TextDataObject, __wxTextDataObject);
+	Gura_AssignMethod(wx_TextDataObject, __GetText);
+	Gura_AssignMethod(wx_TextDataObject, __GetTextLength);
+	Gura_AssignMethod(wx_TextDataObject, __GetFormatCount);
+	Gura_AssignMethod(wx_TextDataObject, __GetFormat);
+	Gura_AssignMethod(wx_TextDataObject, __GetAllFormats);
+	Gura_AssignMethod(wx_TextDataObject, __SetText);
 }
 
 Gura_ImplementDescendantCreator(wx_TextDataObject)

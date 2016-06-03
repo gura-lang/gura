@@ -37,12 +37,12 @@ String Object_wx_BitmapButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BitmapButton, wxBitmapButton)
+Gura_DeclareMethodAlias(wx_BitmapButton, __wxBitmapButton, "wxBitmapButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton)
+Gura_ImplementMethod(wx_BitmapButton, __wxBitmapButton)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapButton, wxBitmapButton_1)
+Gura_DeclareMethodAlias(wx_BitmapButton, __wxBitmapButton_1, "wxBitmapButton_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_BitmapButton, wxBitmapButton_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton_1)
+Gura_ImplementMethod(wx_BitmapButton, __wxBitmapButton_1)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_BitmapButton, wxBitmapButton_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapButton, Create)
+Gura_DeclareMethodAlias(wx_BitmapButton, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_BitmapButton, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, Create)
+Gura_ImplementMethod(wx_BitmapButton, __Create)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -108,14 +108,14 @@ Gura_ImplementMethod(wx_BitmapButton, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BitmapButton, NewCloseButton)
+Gura_DeclareMethodAlias(wx_BitmapButton, __NewCloseButton, "NewCloseButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BitmapButton, NewCloseButton)
+Gura_ImplementMethod(wx_BitmapButton, __NewCloseButton)
 {
 	Object_wx_BitmapButton *pThis = Object_wx_BitmapButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,10 +130,10 @@ Gura_ImplementMethod(wx_BitmapButton, NewCloseButton)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BitmapButton)
 {
-	Gura_AssignMethod(wx_BitmapButton, wxBitmapButton);
-	Gura_AssignMethod(wx_BitmapButton, wxBitmapButton_1);
-	Gura_AssignMethod(wx_BitmapButton, Create);
-	Gura_AssignMethod(wx_BitmapButton, NewCloseButton);
+	Gura_AssignMethod(wx_BitmapButton, __wxBitmapButton);
+	Gura_AssignMethod(wx_BitmapButton, __wxBitmapButton_1);
+	Gura_AssignMethod(wx_BitmapButton, __Create);
+	Gura_AssignMethod(wx_BitmapButton, __NewCloseButton);
 }
 
 Gura_ImplementDescendantCreator(wx_BitmapButton)

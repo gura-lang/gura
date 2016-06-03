@@ -37,7 +37,7 @@ String Object_wx_FontPickerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FontPickerEvent, wxFontPickerEvent)
+Gura_DeclareMethodAlias(wx_FontPickerEvent, __wxFontPickerEvent, "wxFontPickerEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_FontPickerEvent, wxFontPickerEvent)
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerEvent, wxFontPickerEvent)
+Gura_ImplementMethod(wx_FontPickerEvent, __wxFontPickerEvent)
 {
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_FontPickerEvent, wxFontPickerEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerEvent, GetFont)
+Gura_DeclareMethodAlias(wx_FontPickerEvent, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
+Gura_ImplementMethod(wx_FontPickerEvent, __GetFont)
 {
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_FontPickerEvent, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FontPickerEvent, SetFont)
+Gura_DeclareMethodAlias(wx_FontPickerEvent, __SetFont, "SetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "f", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FontPickerEvent, SetFont)
+Gura_ImplementMethod(wx_FontPickerEvent, __SetFont)
 {
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_FontPickerEvent, SetFont)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FontPickerEvent)
 {
-	Gura_AssignMethod(wx_FontPickerEvent, wxFontPickerEvent);
-	Gura_AssignMethod(wx_FontPickerEvent, GetFont);
-	Gura_AssignMethod(wx_FontPickerEvent, SetFont);
+	Gura_AssignMethod(wx_FontPickerEvent, __wxFontPickerEvent);
+	Gura_AssignMethod(wx_FontPickerEvent, __GetFont);
+	Gura_AssignMethod(wx_FontPickerEvent, __SetFont);
 }
 
 Gura_ImplementDescendantCreator(wx_FontPickerEvent)

@@ -37,12 +37,12 @@ String Object_wx_RibbonPanel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RibbonPanel, wxRibbonPanel)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __wxRibbonPanel, "wxRibbonPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, wxRibbonPanel)
+Gura_ImplementMethod(wx_RibbonPanel, __wxRibbonPanel)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_RibbonPanel, wxRibbonPanel)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, wxRibbonPanel_1)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __wxRibbonPanel_1, "wxRibbonPanel_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_RibbonPanel, wxRibbonPanel_1)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, wxRibbonPanel_1)
+Gura_ImplementMethod(wx_RibbonPanel, __wxRibbonPanel_1)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_RibbonPanel, wxRibbonPanel_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, Create)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_RibbonPanel, Create)
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, Create)
+Gura_ImplementMethod(wx_RibbonPanel, __Create)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_RibbonPanel, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, GetMinimisedIcon)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __GetMinimisedIcon, "GetMinimisedIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, GetMinimisedIcon)
+Gura_ImplementMethod(wx_RibbonPanel, __GetMinimisedIcon)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_RibbonPanel, GetMinimisedIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, GetMinimisedIcon_1)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __GetMinimisedIcon_1, "GetMinimisedIcon_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, GetMinimisedIcon_1)
+Gura_ImplementMethod(wx_RibbonPanel, __GetMinimisedIcon_1)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_RibbonPanel, GetMinimisedIcon_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, HasExtButton)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __HasExtButton, "HasExtButton")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, HasExtButton)
+Gura_ImplementMethod(wx_RibbonPanel, __HasExtButton)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,12 +143,12 @@ Gura_ImplementMethod(wx_RibbonPanel, HasExtButton)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, IsMinimised)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __IsMinimised, "IsMinimised")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, IsMinimised)
+Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_RibbonPanel, IsMinimised)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, IsMinimised_1)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __IsMinimised_1, "IsMinimised_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "at_size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, IsMinimised_1)
+Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised_1)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_RibbonPanel, IsMinimised_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, IsHovered)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __IsHovered, "IsHovered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, IsHovered)
+Gura_ImplementMethod(wx_RibbonPanel, __IsHovered)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_RibbonPanel, IsHovered)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, IsExtButtonHovered)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __IsExtButtonHovered, "IsExtButtonHovered")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, IsExtButtonHovered)
+Gura_ImplementMethod(wx_RibbonPanel, __IsExtButtonHovered)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_RibbonPanel, IsExtButtonHovered)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, CanAutoMinimise)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __CanAutoMinimise, "CanAutoMinimise")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, CanAutoMinimise)
+Gura_ImplementMethod(wx_RibbonPanel, __CanAutoMinimise)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,12 +210,12 @@ Gura_ImplementMethod(wx_RibbonPanel, CanAutoMinimise)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, ShowExpanded)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __ShowExpanded, "ShowExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, ShowExpanded)
+Gura_ImplementMethod(wx_RibbonPanel, __ShowExpanded)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -223,12 +223,12 @@ Gura_ImplementMethod(wx_RibbonPanel, ShowExpanded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, HideExpanded)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __HideExpanded, "HideExpanded")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, HideExpanded)
+Gura_ImplementMethod(wx_RibbonPanel, __HideExpanded)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -236,13 +236,13 @@ Gura_ImplementMethod(wx_RibbonPanel, HideExpanded)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, SetArtProvider)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __SetArtProvider, "SetArtProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "art", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, SetArtProvider)
+Gura_ImplementMethod(wx_RibbonPanel, __SetArtProvider)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,12 +251,12 @@ Gura_ImplementMethod(wx_RibbonPanel, SetArtProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, Realize)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __Realize, "Realize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, Realize)
+Gura_ImplementMethod(wx_RibbonPanel, __Realize)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,12 +264,12 @@ Gura_ImplementMethod(wx_RibbonPanel, Realize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, GetExpandedDummy)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __GetExpandedDummy, "GetExpandedDummy")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, GetExpandedDummy)
+Gura_ImplementMethod(wx_RibbonPanel, __GetExpandedDummy)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -277,12 +277,12 @@ Gura_ImplementMethod(wx_RibbonPanel, GetExpandedDummy)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RibbonPanel, GetExpandedPanel)
+Gura_DeclareMethodAlias(wx_RibbonPanel, __GetExpandedPanel, "GetExpandedPanel")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RibbonPanel, GetExpandedPanel)
+Gura_ImplementMethod(wx_RibbonPanel, __GetExpandedPanel)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -295,23 +295,23 @@ Gura_ImplementMethod(wx_RibbonPanel, GetExpandedPanel)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RibbonPanel)
 {
-	Gura_AssignMethod(wx_RibbonPanel, wxRibbonPanel);
-	Gura_AssignMethod(wx_RibbonPanel, wxRibbonPanel_1);
-	Gura_AssignMethod(wx_RibbonPanel, Create);
-	Gura_AssignMethod(wx_RibbonPanel, GetMinimisedIcon);
-	Gura_AssignMethod(wx_RibbonPanel, GetMinimisedIcon_1);
-	Gura_AssignMethod(wx_RibbonPanel, HasExtButton);
-	Gura_AssignMethod(wx_RibbonPanel, IsMinimised);
-	Gura_AssignMethod(wx_RibbonPanel, IsMinimised_1);
-	Gura_AssignMethod(wx_RibbonPanel, IsHovered);
-	Gura_AssignMethod(wx_RibbonPanel, IsExtButtonHovered);
-	Gura_AssignMethod(wx_RibbonPanel, CanAutoMinimise);
-	Gura_AssignMethod(wx_RibbonPanel, ShowExpanded);
-	Gura_AssignMethod(wx_RibbonPanel, HideExpanded);
-	Gura_AssignMethod(wx_RibbonPanel, SetArtProvider);
-	Gura_AssignMethod(wx_RibbonPanel, Realize);
-	Gura_AssignMethod(wx_RibbonPanel, GetExpandedDummy);
-	Gura_AssignMethod(wx_RibbonPanel, GetExpandedPanel);
+	Gura_AssignMethod(wx_RibbonPanel, __wxRibbonPanel);
+	Gura_AssignMethod(wx_RibbonPanel, __wxRibbonPanel_1);
+	Gura_AssignMethod(wx_RibbonPanel, __Create);
+	Gura_AssignMethod(wx_RibbonPanel, __GetMinimisedIcon);
+	Gura_AssignMethod(wx_RibbonPanel, __GetMinimisedIcon_1);
+	Gura_AssignMethod(wx_RibbonPanel, __HasExtButton);
+	Gura_AssignMethod(wx_RibbonPanel, __IsMinimised);
+	Gura_AssignMethod(wx_RibbonPanel, __IsMinimised_1);
+	Gura_AssignMethod(wx_RibbonPanel, __IsHovered);
+	Gura_AssignMethod(wx_RibbonPanel, __IsExtButtonHovered);
+	Gura_AssignMethod(wx_RibbonPanel, __CanAutoMinimise);
+	Gura_AssignMethod(wx_RibbonPanel, __ShowExpanded);
+	Gura_AssignMethod(wx_RibbonPanel, __HideExpanded);
+	Gura_AssignMethod(wx_RibbonPanel, __SetArtProvider);
+	Gura_AssignMethod(wx_RibbonPanel, __Realize);
+	Gura_AssignMethod(wx_RibbonPanel, __GetExpandedDummy);
+	Gura_AssignMethod(wx_RibbonPanel, __GetExpandedPanel);
 }
 
 Gura_ImplementDescendantCreator(wx_RibbonPanel)

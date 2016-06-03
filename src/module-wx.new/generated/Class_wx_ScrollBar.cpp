@@ -37,12 +37,12 @@ String Object_wx_ScrollBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ScrollBar, wxScrollBar)
+Gura_DeclareMethodAlias(wx_ScrollBar, __wxScrollBar, "wxScrollBar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, wxScrollBar)
+Gura_ImplementMethod(wx_ScrollBar, __wxScrollBar)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ScrollBar, wxScrollBar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, wxScrollBar_1)
+Gura_DeclareMethodAlias(wx_ScrollBar, __wxScrollBar_1, "wxScrollBar_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_ScrollBar, wxScrollBar_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, wxScrollBar_1)
+Gura_ImplementMethod(wx_ScrollBar, __wxScrollBar_1)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_ScrollBar, wxScrollBar_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, Create)
+Gura_DeclareMethodAlias(wx_ScrollBar, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_ScrollBar, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, Create)
+Gura_ImplementMethod(wx_ScrollBar, __Create)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_ScrollBar, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, GetPageSize)
+Gura_DeclareMethodAlias(wx_ScrollBar, __GetPageSize, "GetPageSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, GetPageSize)
+Gura_ImplementMethod(wx_ScrollBar, __GetPageSize)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_ScrollBar, GetPageSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, GetRange)
+Gura_DeclareMethodAlias(wx_ScrollBar, __GetRange, "GetRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, GetRange)
+Gura_ImplementMethod(wx_ScrollBar, __GetRange)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_ScrollBar, GetRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, GetThumbPosition)
+Gura_DeclareMethodAlias(wx_ScrollBar, __GetThumbPosition, "GetThumbPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, GetThumbPosition)
+Gura_ImplementMethod(wx_ScrollBar, __GetThumbPosition)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,12 +143,12 @@ Gura_ImplementMethod(wx_ScrollBar, GetThumbPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, GetThumbSize)
+Gura_DeclareMethodAlias(wx_ScrollBar, __GetThumbSize, "GetThumbSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, GetThumbSize)
+Gura_ImplementMethod(wx_ScrollBar, __GetThumbSize)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_ScrollBar, GetThumbSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, SetScrollbar)
+Gura_DeclareMethodAlias(wx_ScrollBar, __SetScrollbar, "SetScrollbar")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
@@ -166,7 +166,7 @@ Gura_DeclareMethod(wx_ScrollBar, SetScrollbar)
 	//DeclareArg(env, "refresh", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, SetScrollbar)
+Gura_ImplementMethod(wx_ScrollBar, __SetScrollbar)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_ScrollBar, SetScrollbar)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, SetThumbPosition)
+Gura_DeclareMethodAlias(wx_ScrollBar, __SetThumbPosition, "SetThumbPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "viewStart", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, SetThumbPosition)
+Gura_ImplementMethod(wx_ScrollBar, __SetThumbPosition)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -194,12 +194,12 @@ Gura_ImplementMethod(wx_ScrollBar, SetThumbPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ScrollBar, IsVertical)
+Gura_DeclareMethodAlias(wx_ScrollBar, __IsVertical, "IsVertical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ScrollBar, IsVertical)
+Gura_ImplementMethod(wx_ScrollBar, __IsVertical)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,16 +212,16 @@ Gura_ImplementMethod(wx_ScrollBar, IsVertical)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ScrollBar)
 {
-	Gura_AssignMethod(wx_ScrollBar, wxScrollBar);
-	Gura_AssignMethod(wx_ScrollBar, wxScrollBar_1);
-	Gura_AssignMethod(wx_ScrollBar, Create);
-	Gura_AssignMethod(wx_ScrollBar, GetPageSize);
-	Gura_AssignMethod(wx_ScrollBar, GetRange);
-	Gura_AssignMethod(wx_ScrollBar, GetThumbPosition);
-	Gura_AssignMethod(wx_ScrollBar, GetThumbSize);
-	Gura_AssignMethod(wx_ScrollBar, SetScrollbar);
-	Gura_AssignMethod(wx_ScrollBar, SetThumbPosition);
-	Gura_AssignMethod(wx_ScrollBar, IsVertical);
+	Gura_AssignMethod(wx_ScrollBar, __wxScrollBar);
+	Gura_AssignMethod(wx_ScrollBar, __wxScrollBar_1);
+	Gura_AssignMethod(wx_ScrollBar, __Create);
+	Gura_AssignMethod(wx_ScrollBar, __GetPageSize);
+	Gura_AssignMethod(wx_ScrollBar, __GetRange);
+	Gura_AssignMethod(wx_ScrollBar, __GetThumbPosition);
+	Gura_AssignMethod(wx_ScrollBar, __GetThumbSize);
+	Gura_AssignMethod(wx_ScrollBar, __SetScrollbar);
+	Gura_AssignMethod(wx_ScrollBar, __SetThumbPosition);
+	Gura_AssignMethod(wx_ScrollBar, __IsVertical);
 }
 
 Gura_ImplementDescendantCreator(wx_ScrollBar)

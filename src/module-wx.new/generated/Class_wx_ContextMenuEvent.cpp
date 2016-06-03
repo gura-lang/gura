@@ -37,7 +37,7 @@ String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ContextMenuEvent, wxContextMenuEvent)
+Gura_DeclareMethodAlias(wx_ContextMenuEvent, __wxContextMenuEvent, "wxContextMenuEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_ContextMenuEvent, wxContextMenuEvent)
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextMenuEvent, wxContextMenuEvent)
+Gura_ImplementMethod(wx_ContextMenuEvent, __wxContextMenuEvent)
 {
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_ContextMenuEvent, wxContextMenuEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ContextMenuEvent, GetPosition)
+Gura_DeclareMethodAlias(wx_ContextMenuEvent, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
+Gura_ImplementMethod(wx_ContextMenuEvent, __GetPosition)
 {
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,13 +69,13 @@ Gura_ImplementMethod(wx_ContextMenuEvent, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ContextMenuEvent, SetPosition)
+Gura_DeclareMethodAlias(wx_ContextMenuEvent, __SetPosition, "SetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ContextMenuEvent, SetPosition)
+Gura_ImplementMethod(wx_ContextMenuEvent, __SetPosition)
 {
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -89,9 +89,9 @@ Gura_ImplementMethod(wx_ContextMenuEvent, SetPosition)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ContextMenuEvent)
 {
-	Gura_AssignMethod(wx_ContextMenuEvent, wxContextMenuEvent);
-	Gura_AssignMethod(wx_ContextMenuEvent, GetPosition);
-	Gura_AssignMethod(wx_ContextMenuEvent, SetPosition);
+	Gura_AssignMethod(wx_ContextMenuEvent, __wxContextMenuEvent);
+	Gura_AssignMethod(wx_ContextMenuEvent, __GetPosition);
+	Gura_AssignMethod(wx_ContextMenuEvent, __SetPosition);
 }
 
 Gura_ImplementDescendantCreator(wx_ContextMenuEvent)

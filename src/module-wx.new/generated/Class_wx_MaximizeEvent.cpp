@@ -37,13 +37,13 @@ String Object_wx_MaximizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MaximizeEvent, wxMaximizeEvent)
+Gura_DeclareMethodAlias(wx_MaximizeEvent, __wxMaximizeEvent, "wxMaximizeEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MaximizeEvent, wxMaximizeEvent)
+Gura_ImplementMethod(wx_MaximizeEvent, __wxMaximizeEvent)
 {
 	Object_wx_MaximizeEvent *pThis = Object_wx_MaximizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_MaximizeEvent, wxMaximizeEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MaximizeEvent)
 {
-	Gura_AssignMethod(wx_MaximizeEvent, wxMaximizeEvent);
+	Gura_AssignMethod(wx_MaximizeEvent, __wxMaximizeEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_MaximizeEvent)

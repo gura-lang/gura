@@ -37,12 +37,12 @@ String Object_wx_GLAttribsBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GLAttribsBase, wxGLAttribsBase)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __wxGLAttribsBase, "wxGLAttribsBase")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, wxGLAttribsBase)
+Gura_ImplementMethod(wx_GLAttribsBase, __wxGLAttribsBase)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_GLAttribsBase, wxGLAttribsBase)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, AddAttribute)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __AddAttribute, "AddAttribute")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attribute", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, AddAttribute)
+Gura_ImplementMethod(wx_GLAttribsBase, __AddAttribute)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,14 +65,14 @@ Gura_ImplementMethod(wx_GLAttribsBase, AddAttribute)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, AddAttribBits)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __AddAttribBits, "AddAttribBits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "searchVal", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "combineVal", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, AddAttribBits)
+Gura_ImplementMethod(wx_GLAttribsBase, __AddAttribBits)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_GLAttribsBase, AddAttribBits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, SetNeedsARB)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __SetNeedsARB, "SetNeedsARB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "needsARB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, SetNeedsARB)
+Gura_ImplementMethod(wx_GLAttribsBase, __SetNeedsARB)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_GLAttribsBase, SetNeedsARB)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, Reset)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __Reset, "Reset")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, Reset)
+Gura_ImplementMethod(wx_GLAttribsBase, __Reset)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_GLAttribsBase, Reset)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, GetGLAttrs)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __GetGLAttrs, "GetGLAttrs")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, GetGLAttrs)
+Gura_ImplementMethod(wx_GLAttribsBase, __GetGLAttrs)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,12 +123,12 @@ Gura_ImplementMethod(wx_GLAttribsBase, GetGLAttrs)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, GetSize)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, GetSize)
+Gura_ImplementMethod(wx_GLAttribsBase, __GetSize)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,12 +136,12 @@ Gura_ImplementMethod(wx_GLAttribsBase, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLAttribsBase, NeedsARB)
+Gura_DeclareMethodAlias(wx_GLAttribsBase, __NeedsARB, "NeedsARB")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLAttribsBase, NeedsARB)
+Gura_ImplementMethod(wx_GLAttribsBase, __NeedsARB)
 {
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -154,14 +154,14 @@ Gura_ImplementMethod(wx_GLAttribsBase, NeedsARB)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLAttribsBase)
 {
-	Gura_AssignMethod(wx_GLAttribsBase, wxGLAttribsBase);
-	Gura_AssignMethod(wx_GLAttribsBase, AddAttribute);
-	Gura_AssignMethod(wx_GLAttribsBase, AddAttribBits);
-	Gura_AssignMethod(wx_GLAttribsBase, SetNeedsARB);
-	Gura_AssignMethod(wx_GLAttribsBase, Reset);
-	Gura_AssignMethod(wx_GLAttribsBase, GetGLAttrs);
-	Gura_AssignMethod(wx_GLAttribsBase, GetSize);
-	Gura_AssignMethod(wx_GLAttribsBase, NeedsARB);
+	Gura_AssignMethod(wx_GLAttribsBase, __wxGLAttribsBase);
+	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribute);
+	Gura_AssignMethod(wx_GLAttribsBase, __AddAttribBits);
+	Gura_AssignMethod(wx_GLAttribsBase, __SetNeedsARB);
+	Gura_AssignMethod(wx_GLAttribsBase, __Reset);
+	Gura_AssignMethod(wx_GLAttribsBase, __GetGLAttrs);
+	Gura_AssignMethod(wx_GLAttribsBase, __GetSize);
+	Gura_AssignMethod(wx_GLAttribsBase, __NeedsARB);
 }
 
 Gura_ImplementDescendantCreator(wx_GLAttribsBase)

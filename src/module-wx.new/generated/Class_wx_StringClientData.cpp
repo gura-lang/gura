@@ -37,12 +37,12 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StringClientData, wxStringClientData)
+Gura_DeclareMethodAlias(wx_StringClientData, __wxStringClientData, "wxStringClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringClientData, wxStringClientData)
+Gura_ImplementMethod(wx_StringClientData, __wxStringClientData)
 {
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_StringClientData, wxStringClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringClientData, wxStringClientData_1)
+Gura_DeclareMethodAlias(wx_StringClientData, __wxStringClientData_1, "wxStringClientData_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringClientData, wxStringClientData_1)
+Gura_ImplementMethod(wx_StringClientData, __wxStringClientData_1)
 {
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_StringClientData, wxStringClientData_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringClientData, GetData)
+Gura_DeclareMethodAlias(wx_StringClientData, __GetData, "GetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StringClientData, GetData)
+Gura_ImplementMethod(wx_StringClientData, __GetData)
 {
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_StringClientData, GetData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StringClientData, SetData)
+Gura_DeclareMethodAlias(wx_StringClientData, __SetData, "SetData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StringClientData, SetData)
+Gura_ImplementMethod(wx_StringClientData, __SetData)
 {
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -98,10 +98,10 @@ Gura_ImplementMethod(wx_StringClientData, SetData)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StringClientData)
 {
-	Gura_AssignMethod(wx_StringClientData, wxStringClientData);
-	Gura_AssignMethod(wx_StringClientData, wxStringClientData_1);
-	Gura_AssignMethod(wx_StringClientData, GetData);
-	Gura_AssignMethod(wx_StringClientData, SetData);
+	Gura_AssignMethod(wx_StringClientData, __wxStringClientData);
+	Gura_AssignMethod(wx_StringClientData, __wxStringClientData_1);
+	Gura_AssignMethod(wx_StringClientData, __GetData);
+	Gura_AssignMethod(wx_StringClientData, __SetData);
 }
 
 Gura_ImplementDescendantCreator(wx_StringClientData)

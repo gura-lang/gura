@@ -37,13 +37,13 @@ String Object_wx_ArtProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ArtProvider, Delete)
+Gura_DeclareMethodAlias(wx_ArtProvider, __Delete, "Delete")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, Delete)
+Gura_ImplementMethod(wx_ArtProvider, __Delete)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_ArtProvider, Delete)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetBitmap)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_DeclareMethod(wx_ArtProvider, GetBitmap)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetBitmap)
+Gura_ImplementMethod(wx_ArtProvider, __GetBitmap)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,7 +71,7 @@ Gura_ImplementMethod(wx_ArtProvider, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetIcon)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_ArtProvider, GetIcon)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetIcon)
+Gura_ImplementMethod(wx_ArtProvider, __GetIcon)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,13 +90,13 @@ Gura_ImplementMethod(wx_ArtProvider, GetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetNativeSizeHint)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetNativeSizeHint, "GetNativeSizeHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "client", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetNativeSizeHint)
+Gura_ImplementMethod(wx_ArtProvider, __GetNativeSizeHint)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,14 +105,14 @@ Gura_ImplementMethod(wx_ArtProvider, GetNativeSizeHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetSizeHint)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetSizeHint, "GetSizeHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "client", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "platform_default", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetSizeHint)
+Gura_ImplementMethod(wx_ArtProvider, __GetSizeHint)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,14 +122,14 @@ Gura_ImplementMethod(wx_ArtProvider, GetSizeHint)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetIconBundle)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetIconBundle, "GetIconBundle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "client", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetIconBundle)
+Gura_ImplementMethod(wx_ArtProvider, __GetIconBundle)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -139,12 +139,12 @@ Gura_ImplementMethod(wx_ArtProvider, GetIconBundle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, HasNativeProvider)
+Gura_DeclareMethodAlias(wx_ArtProvider, __HasNativeProvider, "HasNativeProvider")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, HasNativeProvider)
+Gura_ImplementMethod(wx_ArtProvider, __HasNativeProvider)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -152,13 +152,13 @@ Gura_ImplementMethod(wx_ArtProvider, HasNativeProvider)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, Insert)
+Gura_DeclareMethodAlias(wx_ArtProvider, __Insert, "Insert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, Insert)
+Gura_ImplementMethod(wx_ArtProvider, __Insert)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -167,12 +167,12 @@ Gura_ImplementMethod(wx_ArtProvider, Insert)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, Pop)
+Gura_DeclareMethodAlias(wx_ArtProvider, __Pop, "Pop")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, Pop)
+Gura_ImplementMethod(wx_ArtProvider, __Pop)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_ArtProvider, Pop)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, Push)
+Gura_DeclareMethodAlias(wx_ArtProvider, __Push, "Push")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, Push)
+Gura_ImplementMethod(wx_ArtProvider, __Push)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -195,13 +195,13 @@ Gura_ImplementMethod(wx_ArtProvider, Push)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, PushBack)
+Gura_DeclareMethodAlias(wx_ArtProvider, __PushBack, "PushBack")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, PushBack)
+Gura_ImplementMethod(wx_ArtProvider, __PushBack)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,13 +210,13 @@ Gura_ImplementMethod(wx_ArtProvider, PushBack)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, Remove)
+Gura_DeclareMethodAlias(wx_ArtProvider, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "provider", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, Remove)
+Gura_ImplementMethod(wx_ArtProvider, __Remove)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_ArtProvider, Remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetMessageBoxIconId)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetMessageBoxIconId, "GetMessageBoxIconId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIconId)
+Gura_ImplementMethod(wx_ArtProvider, __GetMessageBoxIconId)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -240,13 +240,13 @@ Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIconId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, GetMessageBoxIcon)
+Gura_DeclareMethodAlias(wx_ArtProvider, __GetMessageBoxIcon, "GetMessageBoxIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIcon)
+Gura_ImplementMethod(wx_ArtProvider, __GetMessageBoxIcon)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_ArtProvider, GetMessageBoxIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, CreateBitmap)
+Gura_DeclareMethodAlias(wx_ArtProvider, __CreateBitmap, "CreateBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_ArtProvider, CreateBitmap)
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, CreateBitmap)
+Gura_ImplementMethod(wx_ArtProvider, __CreateBitmap)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,14 +274,14 @@ Gura_ImplementMethod(wx_ArtProvider, CreateBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ArtProvider, CreateIconBundle)
+Gura_DeclareMethodAlias(wx_ArtProvider, __CreateIconBundle, "CreateIconBundle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "client", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ArtProvider, CreateIconBundle)
+Gura_ImplementMethod(wx_ArtProvider, __CreateIconBundle)
 {
 	Object_wx_ArtProvider *pThis = Object_wx_ArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -296,22 +296,22 @@ Gura_ImplementMethod(wx_ArtProvider, CreateIconBundle)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ArtProvider)
 {
-	Gura_AssignMethod(wx_ArtProvider, Delete);
-	Gura_AssignMethod(wx_ArtProvider, GetBitmap);
-	Gura_AssignMethod(wx_ArtProvider, GetIcon);
-	Gura_AssignMethod(wx_ArtProvider, GetNativeSizeHint);
-	Gura_AssignMethod(wx_ArtProvider, GetSizeHint);
-	Gura_AssignMethod(wx_ArtProvider, GetIconBundle);
-	Gura_AssignMethod(wx_ArtProvider, HasNativeProvider);
-	Gura_AssignMethod(wx_ArtProvider, Insert);
-	Gura_AssignMethod(wx_ArtProvider, Pop);
-	Gura_AssignMethod(wx_ArtProvider, Push);
-	Gura_AssignMethod(wx_ArtProvider, PushBack);
-	Gura_AssignMethod(wx_ArtProvider, Remove);
-	Gura_AssignMethod(wx_ArtProvider, GetMessageBoxIconId);
-	Gura_AssignMethod(wx_ArtProvider, GetMessageBoxIcon);
-	Gura_AssignMethod(wx_ArtProvider, CreateBitmap);
-	Gura_AssignMethod(wx_ArtProvider, CreateIconBundle);
+	Gura_AssignMethod(wx_ArtProvider, __Delete);
+	Gura_AssignMethod(wx_ArtProvider, __GetBitmap);
+	Gura_AssignMethod(wx_ArtProvider, __GetIcon);
+	Gura_AssignMethod(wx_ArtProvider, __GetNativeSizeHint);
+	Gura_AssignMethod(wx_ArtProvider, __GetSizeHint);
+	Gura_AssignMethod(wx_ArtProvider, __GetIconBundle);
+	Gura_AssignMethod(wx_ArtProvider, __HasNativeProvider);
+	Gura_AssignMethod(wx_ArtProvider, __Insert);
+	Gura_AssignMethod(wx_ArtProvider, __Pop);
+	Gura_AssignMethod(wx_ArtProvider, __Push);
+	Gura_AssignMethod(wx_ArtProvider, __PushBack);
+	Gura_AssignMethod(wx_ArtProvider, __Remove);
+	Gura_AssignMethod(wx_ArtProvider, __GetMessageBoxIconId);
+	Gura_AssignMethod(wx_ArtProvider, __GetMessageBoxIcon);
+	Gura_AssignMethod(wx_ArtProvider, __CreateBitmap);
+	Gura_AssignMethod(wx_ArtProvider, __CreateIconBundle);
 }
 
 Gura_ImplementDescendantCreator(wx_ArtProvider)

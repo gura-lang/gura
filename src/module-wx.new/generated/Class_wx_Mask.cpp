@@ -37,12 +37,12 @@ String Object_wx_Mask::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Mask, wxMask)
+Gura_DeclareMethodAlias(wx_Mask, __wxMask, "wxMask")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mask, wxMask)
+Gura_ImplementMethod(wx_Mask, __wxMask)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_Mask, wxMask)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, wxMask_1)
+Gura_DeclareMethodAlias(wx_Mask, __wxMask_1, "wxMask_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, wxMask_1)
+Gura_ImplementMethod(wx_Mask, __wxMask_1)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_Mask, wxMask_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, wxMask_2)
+Gura_DeclareMethodAlias(wx_Mask, __wxMask_2, "wxMask_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, wxMask_2)
+Gura_ImplementMethod(wx_Mask, __wxMask_2)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_Mask, wxMask_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, wxMask_3)
+Gura_DeclareMethodAlias(wx_Mask, __wxMask_3, "wxMask_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, wxMask_3)
+Gura_ImplementMethod(wx_Mask, __wxMask_3)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_Mask, wxMask_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, Create)
+Gura_DeclareMethodAlias(wx_Mask, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, Create)
+Gura_ImplementMethod(wx_Mask, __Create)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,13 +116,13 @@ Gura_ImplementMethod(wx_Mask, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, Create_1)
+Gura_DeclareMethodAlias(wx_Mask, __Create_1, "Create_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, Create_1)
+Gura_ImplementMethod(wx_Mask, __Create_1)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -131,14 +131,14 @@ Gura_ImplementMethod(wx_Mask, Create_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, Create_2)
+Gura_DeclareMethodAlias(wx_Mask, __Create_2, "Create_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Mask, Create_2)
+Gura_ImplementMethod(wx_Mask, __Create_2)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -148,12 +148,12 @@ Gura_ImplementMethod(wx_Mask, Create_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Mask, GetBitmap)
+Gura_DeclareMethodAlias(wx_Mask, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Mask, GetBitmap)
+Gura_ImplementMethod(wx_Mask, __GetBitmap)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_Mask, GetBitmap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Mask)
 {
-	Gura_AssignMethod(wx_Mask, wxMask);
-	Gura_AssignMethod(wx_Mask, wxMask_1);
-	Gura_AssignMethod(wx_Mask, wxMask_2);
-	Gura_AssignMethod(wx_Mask, wxMask_3);
-	Gura_AssignMethod(wx_Mask, Create);
-	Gura_AssignMethod(wx_Mask, Create_1);
-	Gura_AssignMethod(wx_Mask, Create_2);
-	Gura_AssignMethod(wx_Mask, GetBitmap);
+	Gura_AssignMethod(wx_Mask, __wxMask);
+	Gura_AssignMethod(wx_Mask, __wxMask_1);
+	Gura_AssignMethod(wx_Mask, __wxMask_2);
+	Gura_AssignMethod(wx_Mask, __wxMask_3);
+	Gura_AssignMethod(wx_Mask, __Create);
+	Gura_AssignMethod(wx_Mask, __Create_1);
+	Gura_AssignMethod(wx_Mask, __Create_2);
+	Gura_AssignMethod(wx_Mask, __GetBitmap);
 }
 
 Gura_ImplementDescendantCreator(wx_Mask)

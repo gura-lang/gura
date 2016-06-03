@@ -37,12 +37,12 @@ String Object_wx_SystemThemedControl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SystemThemedControl, wxSystemThemedControl)
+Gura_DeclareMethodAlias(wx_SystemThemedControl, __wxSystemThemedControl, "wxSystemThemedControl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemThemedControl, wxSystemThemedControl)
+Gura_ImplementMethod(wx_SystemThemedControl, __wxSystemThemedControl)
 {
 	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_SystemThemedControl, wxSystemThemedControl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemThemedControl, EnableSystemTheme)
+Gura_DeclareMethodAlias(wx_SystemThemedControl, __EnableSystemTheme, "EnableSystemTheme")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SystemThemedControl, EnableSystemTheme)
+Gura_ImplementMethod(wx_SystemThemedControl, __EnableSystemTheme)
 {
 	Object_wx_SystemThemedControl *pThis = Object_wx_SystemThemedControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_SystemThemedControl, EnableSystemTheme)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemThemedControl)
 {
-	Gura_AssignMethod(wx_SystemThemedControl, wxSystemThemedControl);
-	Gura_AssignMethod(wx_SystemThemedControl, EnableSystemTheme);
+	Gura_AssignMethod(wx_SystemThemedControl, __wxSystemThemedControl);
+	Gura_AssignMethod(wx_SystemThemedControl, __EnableSystemTheme);
 }
 
 Gura_ImplementDescendantCreator(wx_SystemThemedControl)

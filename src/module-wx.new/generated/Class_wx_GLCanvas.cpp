@@ -37,7 +37,7 @@ String Object_wx_GLCanvas::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas)
+Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas, "wxGLCanvas")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -50,7 +50,7 @@ Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas)
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas)
+Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas_1)
+Gura_DeclareMethodAlias(wx_GLCanvas, __wxGLCanvas_1, "wxGLCanvas_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -79,7 +79,7 @@ Gura_DeclareMethod(wx_GLCanvas, wxGLCanvas_1)
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas_1)
+Gura_ImplementMethod(wx_GLCanvas, __wxGLCanvas_1)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_GLCanvas, wxGLCanvas_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, IsDisplaySupported)
+Gura_DeclareMethodAlias(wx_GLCanvas, __IsDisplaySupported, "IsDisplaySupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "dispAttrs", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported)
+Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, IsDisplaySupported_1)
+Gura_DeclareMethodAlias(wx_GLCanvas, __IsDisplaySupported_1, "IsDisplaySupported_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "attribList", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported_1)
+Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported_1)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_GLCanvas, IsDisplaySupported_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, IsExtensionSupported)
+Gura_DeclareMethodAlias(wx_GLCanvas, __IsExtensionSupported, "IsExtensionSupported")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, IsExtensionSupported)
+Gura_ImplementMethod(wx_GLCanvas, __IsExtensionSupported)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_GLCanvas, IsExtensionSupported)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, SetColour)
+Gura_DeclareMethodAlias(wx_GLCanvas, __SetColour, "SetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, SetColour)
+Gura_ImplementMethod(wx_GLCanvas, __SetColour)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_GLCanvas, SetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, SetCurrent)
+Gura_DeclareMethodAlias(wx_GLCanvas, __SetCurrent, "SetCurrent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
+Gura_ImplementMethod(wx_GLCanvas, __SetCurrent)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,12 +170,12 @@ Gura_ImplementMethod(wx_GLCanvas, SetCurrent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_GLCanvas, SwapBuffers)
+Gura_DeclareMethodAlias(wx_GLCanvas, __SwapBuffers, "SwapBuffers")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)
+Gura_ImplementMethod(wx_GLCanvas, __SwapBuffers)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -188,14 +188,14 @@ Gura_ImplementMethod(wx_GLCanvas, SwapBuffers)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GLCanvas)
 {
-	Gura_AssignMethod(wx_GLCanvas, wxGLCanvas);
-	Gura_AssignMethod(wx_GLCanvas, wxGLCanvas_1);
-	Gura_AssignMethod(wx_GLCanvas, IsDisplaySupported);
-	Gura_AssignMethod(wx_GLCanvas, IsDisplaySupported_1);
-	Gura_AssignMethod(wx_GLCanvas, IsExtensionSupported);
-	Gura_AssignMethod(wx_GLCanvas, SetColour);
-	Gura_AssignMethod(wx_GLCanvas, SetCurrent);
-	Gura_AssignMethod(wx_GLCanvas, SwapBuffers);
+	Gura_AssignMethod(wx_GLCanvas, __wxGLCanvas);
+	Gura_AssignMethod(wx_GLCanvas, __wxGLCanvas_1);
+	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported);
+	Gura_AssignMethod(wx_GLCanvas, __IsDisplaySupported_1);
+	Gura_AssignMethod(wx_GLCanvas, __IsExtensionSupported);
+	Gura_AssignMethod(wx_GLCanvas, __SetColour);
+	Gura_AssignMethod(wx_GLCanvas, __SetCurrent);
+	Gura_AssignMethod(wx_GLCanvas, __SwapBuffers);
 }
 
 Gura_ImplementDescendantCreator(wx_GLCanvas)

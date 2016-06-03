@@ -37,12 +37,12 @@ String Object_wx_FilterFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FilterFSHandler, wxFilterFSHandler)
+Gura_DeclareMethodAlias(wx_FilterFSHandler, __wxFilterFSHandler, "wxFilterFSHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterFSHandler, wxFilterFSHandler)
+Gura_ImplementMethod(wx_FilterFSHandler, __wxFilterFSHandler)
 {
 	Object_wx_FilterFSHandler *pThis = Object_wx_FilterFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -55,7 +55,7 @@ Gura_ImplementMethod(wx_FilterFSHandler, wxFilterFSHandler)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterFSHandler)
 {
-	Gura_AssignMethod(wx_FilterFSHandler, wxFilterFSHandler);
+	Gura_AssignMethod(wx_FilterFSHandler, __wxFilterFSHandler);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterFSHandler)

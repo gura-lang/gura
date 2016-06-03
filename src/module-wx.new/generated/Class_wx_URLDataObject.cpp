@@ -37,13 +37,13 @@ String Object_wx_URLDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_URLDataObject, wxURLDataObject)
+Gura_DeclareMethodAlias(wx_URLDataObject, __wxURLDataObject, "wxURLDataObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URLDataObject, wxURLDataObject)
+Gura_ImplementMethod(wx_URLDataObject, __wxURLDataObject)
 {
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_URLDataObject, wxURLDataObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URLDataObject, GetURL)
+Gura_DeclareMethodAlias(wx_URLDataObject, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_URLDataObject, GetURL)
+Gura_ImplementMethod(wx_URLDataObject, __GetURL)
 {
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_URLDataObject, GetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_URLDataObject, SetURL)
+Gura_DeclareMethodAlias(wx_URLDataObject, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_URLDataObject, SetURL)
+Gura_ImplementMethod(wx_URLDataObject, __SetURL)
 {
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -85,9 +85,9 @@ Gura_ImplementMethod(wx_URLDataObject, SetURL)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_URLDataObject)
 {
-	Gura_AssignMethod(wx_URLDataObject, wxURLDataObject);
-	Gura_AssignMethod(wx_URLDataObject, GetURL);
-	Gura_AssignMethod(wx_URLDataObject, SetURL);
+	Gura_AssignMethod(wx_URLDataObject, __wxURLDataObject);
+	Gura_AssignMethod(wx_URLDataObject, __GetURL);
+	Gura_AssignMethod(wx_URLDataObject, __SetURL);
 }
 
 Gura_ImplementDescendantCreator(wx_URLDataObject)

@@ -37,12 +37,12 @@ String Object_wx_ImageHistogram::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ImageHistogram, wxImageHistogram)
+Gura_DeclareMethodAlias(wx_ImageHistogram, __wxImageHistogram, "wxImageHistogram")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageHistogram, wxImageHistogram)
+Gura_ImplementMethod(wx_ImageHistogram, __wxImageHistogram)
 {
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ImageHistogram, wxImageHistogram)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageHistogram, MakeKey)
+Gura_DeclareMethodAlias(wx_ImageHistogram, __MakeKey, "MakeKey")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_DeclareMethod(wx_ImageHistogram, MakeKey)
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageHistogram, MakeKey)
+Gura_ImplementMethod(wx_ImageHistogram, __MakeKey)
 {
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_ImageHistogram, MakeKey)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageHistogram, FindFirstUnusedColour)
+Gura_DeclareMethodAlias(wx_ImageHistogram, __FindFirstUnusedColour, "FindFirstUnusedColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_DeclareMethod(wx_ImageHistogram, FindFirstUnusedColour)
 	//DeclareArg(env, "startB", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageHistogram, FindFirstUnusedColour)
+Gura_ImplementMethod(wx_ImageHistogram, __FindFirstUnusedColour)
 {
 	Object_wx_ImageHistogram *pThis = Object_wx_ImageHistogram::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,9 +99,9 @@ Gura_ImplementMethod(wx_ImageHistogram, FindFirstUnusedColour)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageHistogram)
 {
-	Gura_AssignMethod(wx_ImageHistogram, wxImageHistogram);
-	Gura_AssignMethod(wx_ImageHistogram, MakeKey);
-	Gura_AssignMethod(wx_ImageHistogram, FindFirstUnusedColour);
+	Gura_AssignMethod(wx_ImageHistogram, __wxImageHistogram);
+	Gura_AssignMethod(wx_ImageHistogram, __MakeKey);
+	Gura_AssignMethod(wx_ImageHistogram, __FindFirstUnusedColour);
 }
 
 Gura_ImplementDescendantCreator(wx_ImageHistogram)

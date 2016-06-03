@@ -37,13 +37,13 @@ String Object_wx_TextCompleter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TextCompleter, Start)
+Gura_DeclareMethodAlias(wx_TextCompleter, __Start, "Start")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TextCompleter, Start)
+Gura_ImplementMethod(wx_TextCompleter, __Start)
 {
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_TextCompleter, Start)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TextCompleter, GetNext)
+Gura_DeclareMethodAlias(wx_TextCompleter, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TextCompleter, GetNext)
+Gura_ImplementMethod(wx_TextCompleter, __GetNext)
 {
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_TextCompleter, GetNext)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TextCompleter)
 {
-	Gura_AssignMethod(wx_TextCompleter, Start);
-	Gura_AssignMethod(wx_TextCompleter, GetNext);
+	Gura_AssignMethod(wx_TextCompleter, __Start);
+	Gura_AssignMethod(wx_TextCompleter, __GetNext);
 }
 
 Gura_ImplementDescendantCreator(wx_TextCompleter)

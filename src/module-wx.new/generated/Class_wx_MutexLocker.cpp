@@ -37,13 +37,13 @@ String Object_wx_MutexLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MutexLocker, wxMutexLocker)
+Gura_DeclareMethodAlias(wx_MutexLocker, __wxMutexLocker, "wxMutexLocker")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MutexLocker, wxMutexLocker)
+Gura_ImplementMethod(wx_MutexLocker, __wxMutexLocker)
 {
 	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_MutexLocker, wxMutexLocker)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MutexLocker, IsOk)
+Gura_DeclareMethodAlias(wx_MutexLocker, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MutexLocker, IsOk)
+Gura_ImplementMethod(wx_MutexLocker, __IsOk)
 {
 	Object_wx_MutexLocker *pThis = Object_wx_MutexLocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_MutexLocker, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MutexLocker)
 {
-	Gura_AssignMethod(wx_MutexLocker, wxMutexLocker);
-	Gura_AssignMethod(wx_MutexLocker, IsOk);
+	Gura_AssignMethod(wx_MutexLocker, __wxMutexLocker);
+	Gura_AssignMethod(wx_MutexLocker, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_MutexLocker)

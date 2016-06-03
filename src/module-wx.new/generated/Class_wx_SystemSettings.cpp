@@ -37,12 +37,12 @@ String Object_wx_SystemSettings::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SystemSettings, wxSystemSettings)
+Gura_DeclareMethodAlias(wx_SystemSettings, __wxSystemSettings, "wxSystemSettings")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, wxSystemSettings)
+Gura_ImplementMethod(wx_SystemSettings, __wxSystemSettings)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_SystemSettings, wxSystemSettings)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemSettings, GetColour)
+Gura_DeclareMethodAlias(wx_SystemSettings, __GetColour, "GetColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, GetColour)
+Gura_ImplementMethod(wx_SystemSettings, __GetColour)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_SystemSettings, GetColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemSettings, GetFont)
+Gura_DeclareMethodAlias(wx_SystemSettings, __GetFont, "GetFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, GetFont)
+Gura_ImplementMethod(wx_SystemSettings, __GetFont)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,14 +80,14 @@ Gura_ImplementMethod(wx_SystemSettings, GetFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemSettings, GetMetric)
+Gura_DeclareMethodAlias(wx_SystemSettings, __GetMetric, "GetMetric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, GetMetric)
+Gura_ImplementMethod(wx_SystemSettings, __GetMetric)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_SystemSettings, GetMetric)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemSettings, GetScreenType)
+Gura_DeclareMethodAlias(wx_SystemSettings, __GetScreenType, "GetScreenType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, GetScreenType)
+Gura_ImplementMethod(wx_SystemSettings, __GetScreenType)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_SystemSettings, GetScreenType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SystemSettings, HasFeature)
+Gura_DeclareMethodAlias(wx_SystemSettings, __HasFeature, "HasFeature")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SystemSettings, HasFeature)
+Gura_ImplementMethod(wx_SystemSettings, __HasFeature)
 {
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_SystemSettings, HasFeature)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SystemSettings)
 {
-	Gura_AssignMethod(wx_SystemSettings, wxSystemSettings);
-	Gura_AssignMethod(wx_SystemSettings, GetColour);
-	Gura_AssignMethod(wx_SystemSettings, GetFont);
-	Gura_AssignMethod(wx_SystemSettings, GetMetric);
-	Gura_AssignMethod(wx_SystemSettings, GetScreenType);
-	Gura_AssignMethod(wx_SystemSettings, HasFeature);
+	Gura_AssignMethod(wx_SystemSettings, __wxSystemSettings);
+	Gura_AssignMethod(wx_SystemSettings, __GetColour);
+	Gura_AssignMethod(wx_SystemSettings, __GetFont);
+	Gura_AssignMethod(wx_SystemSettings, __GetMetric);
+	Gura_AssignMethod(wx_SystemSettings, __GetScreenType);
+	Gura_AssignMethod(wx_SystemSettings, __HasFeature);
 }
 
 Gura_ImplementDescendantCreator(wx_SystemSettings)

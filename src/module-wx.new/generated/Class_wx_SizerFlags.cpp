@@ -37,13 +37,13 @@ String Object_wx_SizerFlags::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_SizerFlags, wxSizerFlags)
+Gura_DeclareMethodAlias(wx_SizerFlags, __wxSizerFlags, "wxSizerFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, wxSizerFlags)
+Gura_ImplementMethod(wx_SizerFlags, __wxSizerFlags)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,13 +52,13 @@ Gura_ImplementMethod(wx_SizerFlags, wxSizerFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Align)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Align, "Align")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Align)
+Gura_ImplementMethod(wx_SizerFlags, __Align)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_SizerFlags, Align)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Border)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Border, "Border")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "borderinpixels", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Border)
+Gura_ImplementMethod(wx_SizerFlags, __Border)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,13 +84,13 @@ Gura_ImplementMethod(wx_SizerFlags, Border)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Border_1)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Border_1, "Border_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Border_1)
+Gura_ImplementMethod(wx_SizerFlags, __Border_1)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,12 +99,12 @@ Gura_ImplementMethod(wx_SizerFlags, Border_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Bottom)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Bottom, "Bottom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Bottom)
+Gura_ImplementMethod(wx_SizerFlags, __Bottom)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -112,12 +112,12 @@ Gura_ImplementMethod(wx_SizerFlags, Bottom)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Center)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Center, "Center")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Center)
+Gura_ImplementMethod(wx_SizerFlags, __Center)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,12 +125,12 @@ Gura_ImplementMethod(wx_SizerFlags, Center)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Centre)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Centre, "Centre")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Centre)
+Gura_ImplementMethod(wx_SizerFlags, __Centre)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -138,12 +138,12 @@ Gura_ImplementMethod(wx_SizerFlags, Centre)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, CenterHorizontal)
+Gura_DeclareMethodAlias(wx_SizerFlags, __CenterHorizontal, "CenterHorizontal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, CenterHorizontal)
+Gura_ImplementMethod(wx_SizerFlags, __CenterHorizontal)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,12 +151,12 @@ Gura_ImplementMethod(wx_SizerFlags, CenterHorizontal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, CenterVertical)
+Gura_DeclareMethodAlias(wx_SizerFlags, __CenterVertical, "CenterVertical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, CenterVertical)
+Gura_ImplementMethod(wx_SizerFlags, __CenterVertical)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_SizerFlags, CenterVertical)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, CentreHorizontal)
+Gura_DeclareMethodAlias(wx_SizerFlags, __CentreHorizontal, "CentreHorizontal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, CentreHorizontal)
+Gura_ImplementMethod(wx_SizerFlags, __CentreHorizontal)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_SizerFlags, CentreHorizontal)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, CentreVertical)
+Gura_DeclareMethodAlias(wx_SizerFlags, __CentreVertical, "CentreVertical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, CentreVertical)
+Gura_ImplementMethod(wx_SizerFlags, __CentreVertical)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,13 +190,13 @@ Gura_ImplementMethod(wx_SizerFlags, CentreVertical)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, DoubleBorder)
+Gura_DeclareMethodAlias(wx_SizerFlags, __DoubleBorder, "DoubleBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, DoubleBorder)
+Gura_ImplementMethod(wx_SizerFlags, __DoubleBorder)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -205,12 +205,12 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, DoubleHorzBorder)
+Gura_DeclareMethodAlias(wx_SizerFlags, __DoubleHorzBorder, "DoubleHorzBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, DoubleHorzBorder)
+Gura_ImplementMethod(wx_SizerFlags, __DoubleHorzBorder)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -218,12 +218,12 @@ Gura_ImplementMethod(wx_SizerFlags, DoubleHorzBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Expand)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Expand, "Expand")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Expand)
+Gura_ImplementMethod(wx_SizerFlags, __Expand)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,12 +231,12 @@ Gura_ImplementMethod(wx_SizerFlags, Expand)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, FixedMinSize)
+Gura_DeclareMethodAlias(wx_SizerFlags, __FixedMinSize, "FixedMinSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, FixedMinSize)
+Gura_ImplementMethod(wx_SizerFlags, __FixedMinSize)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -244,12 +244,12 @@ Gura_ImplementMethod(wx_SizerFlags, FixedMinSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
+Gura_DeclareMethodAlias(wx_SizerFlags, __ReserveSpaceEvenIfHidden, "ReserveSpaceEvenIfHidden")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
+Gura_ImplementMethod(wx_SizerFlags, __ReserveSpaceEvenIfHidden)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,12 +257,12 @@ Gura_ImplementMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, GetDefaultBorder)
+Gura_DeclareMethodAlias(wx_SizerFlags, __GetDefaultBorder, "GetDefaultBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, GetDefaultBorder)
+Gura_ImplementMethod(wx_SizerFlags, __GetDefaultBorder)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -270,12 +270,12 @@ Gura_ImplementMethod(wx_SizerFlags, GetDefaultBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Left)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Left, "Left")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Left)
+Gura_ImplementMethod(wx_SizerFlags, __Left)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -283,13 +283,13 @@ Gura_ImplementMethod(wx_SizerFlags, Left)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Proportion)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Proportion, "Proportion")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Proportion)
+Gura_ImplementMethod(wx_SizerFlags, __Proportion)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -298,12 +298,12 @@ Gura_ImplementMethod(wx_SizerFlags, Proportion)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Right)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Right, "Right")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Right)
+Gura_ImplementMethod(wx_SizerFlags, __Right)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -311,12 +311,12 @@ Gura_ImplementMethod(wx_SizerFlags, Right)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Shaped)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Shaped, "Shaped")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Shaped)
+Gura_ImplementMethod(wx_SizerFlags, __Shaped)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -324,12 +324,12 @@ Gura_ImplementMethod(wx_SizerFlags, Shaped)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, Top)
+Gura_DeclareMethodAlias(wx_SizerFlags, __Top, "Top")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, Top)
+Gura_ImplementMethod(wx_SizerFlags, __Top)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -337,13 +337,13 @@ Gura_ImplementMethod(wx_SizerFlags, Top)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_SizerFlags, TripleBorder)
+Gura_DeclareMethodAlias(wx_SizerFlags, __TripleBorder, "TripleBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_SizerFlags, TripleBorder)
+Gura_ImplementMethod(wx_SizerFlags, __TripleBorder)
 {
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -357,29 +357,29 @@ Gura_ImplementMethod(wx_SizerFlags, TripleBorder)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_SizerFlags)
 {
-	Gura_AssignMethod(wx_SizerFlags, wxSizerFlags);
-	Gura_AssignMethod(wx_SizerFlags, Align);
-	Gura_AssignMethod(wx_SizerFlags, Border);
-	Gura_AssignMethod(wx_SizerFlags, Border_1);
-	Gura_AssignMethod(wx_SizerFlags, Bottom);
-	Gura_AssignMethod(wx_SizerFlags, Center);
-	Gura_AssignMethod(wx_SizerFlags, Centre);
-	Gura_AssignMethod(wx_SizerFlags, CenterHorizontal);
-	Gura_AssignMethod(wx_SizerFlags, CenterVertical);
-	Gura_AssignMethod(wx_SizerFlags, CentreHorizontal);
-	Gura_AssignMethod(wx_SizerFlags, CentreVertical);
-	Gura_AssignMethod(wx_SizerFlags, DoubleBorder);
-	Gura_AssignMethod(wx_SizerFlags, DoubleHorzBorder);
-	Gura_AssignMethod(wx_SizerFlags, Expand);
-	Gura_AssignMethod(wx_SizerFlags, FixedMinSize);
-	Gura_AssignMethod(wx_SizerFlags, ReserveSpaceEvenIfHidden);
-	Gura_AssignMethod(wx_SizerFlags, GetDefaultBorder);
-	Gura_AssignMethod(wx_SizerFlags, Left);
-	Gura_AssignMethod(wx_SizerFlags, Proportion);
-	Gura_AssignMethod(wx_SizerFlags, Right);
-	Gura_AssignMethod(wx_SizerFlags, Shaped);
-	Gura_AssignMethod(wx_SizerFlags, Top);
-	Gura_AssignMethod(wx_SizerFlags, TripleBorder);
+	Gura_AssignMethod(wx_SizerFlags, __wxSizerFlags);
+	Gura_AssignMethod(wx_SizerFlags, __Align);
+	Gura_AssignMethod(wx_SizerFlags, __Border);
+	Gura_AssignMethod(wx_SizerFlags, __Border_1);
+	Gura_AssignMethod(wx_SizerFlags, __Bottom);
+	Gura_AssignMethod(wx_SizerFlags, __Center);
+	Gura_AssignMethod(wx_SizerFlags, __Centre);
+	Gura_AssignMethod(wx_SizerFlags, __CenterHorizontal);
+	Gura_AssignMethod(wx_SizerFlags, __CenterVertical);
+	Gura_AssignMethod(wx_SizerFlags, __CentreHorizontal);
+	Gura_AssignMethod(wx_SizerFlags, __CentreVertical);
+	Gura_AssignMethod(wx_SizerFlags, __DoubleBorder);
+	Gura_AssignMethod(wx_SizerFlags, __DoubleHorzBorder);
+	Gura_AssignMethod(wx_SizerFlags, __Expand);
+	Gura_AssignMethod(wx_SizerFlags, __FixedMinSize);
+	Gura_AssignMethod(wx_SizerFlags, __ReserveSpaceEvenIfHidden);
+	Gura_AssignMethod(wx_SizerFlags, __GetDefaultBorder);
+	Gura_AssignMethod(wx_SizerFlags, __Left);
+	Gura_AssignMethod(wx_SizerFlags, __Proportion);
+	Gura_AssignMethod(wx_SizerFlags, __Right);
+	Gura_AssignMethod(wx_SizerFlags, __Shaped);
+	Gura_AssignMethod(wx_SizerFlags, __Top);
+	Gura_AssignMethod(wx_SizerFlags, __TripleBorder);
 }
 
 Gura_ImplementDescendantCreator(wx_SizerFlags)

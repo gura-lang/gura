@@ -37,12 +37,12 @@ String Object_wx_FileSystemWatcher::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileSystemWatcher, wxFileSystemWatcher)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __wxFileSystemWatcher, "wxFileSystemWatcher")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, wxFileSystemWatcher)
+Gura_ImplementMethod(wx_FileSystemWatcher, __wxFileSystemWatcher)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,14 +50,14 @@ Gura_ImplementMethod(wx_FileSystemWatcher, wxFileSystemWatcher)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, Add)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "events", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, Add)
+Gura_ImplementMethod(wx_FileSystemWatcher, __Add)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, AddTree)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __AddTree, "AddTree")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_DeclareMethod(wx_FileSystemWatcher, AddTree)
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, AddTree)
+Gura_ImplementMethod(wx_FileSystemWatcher, __AddTree)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_FileSystemWatcher, AddTree)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, Remove)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, Remove)
+Gura_ImplementMethod(wx_FileSystemWatcher, __Remove)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_FileSystemWatcher, Remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, RemoveTree)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __RemoveTree, "RemoveTree")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, RemoveTree)
+Gura_ImplementMethod(wx_FileSystemWatcher, __RemoveTree)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -116,12 +116,12 @@ Gura_ImplementMethod(wx_FileSystemWatcher, RemoveTree)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, RemoveAll)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __RemoveAll, "RemoveAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, RemoveAll)
+Gura_ImplementMethod(wx_FileSystemWatcher, __RemoveAll)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -129,12 +129,12 @@ Gura_ImplementMethod(wx_FileSystemWatcher, RemoveAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, GetWatchedPathsCount)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __GetWatchedPathsCount, "GetWatchedPathsCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, GetWatchedPathsCount)
+Gura_ImplementMethod(wx_FileSystemWatcher, __GetWatchedPathsCount)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_FileSystemWatcher, GetWatchedPathsCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, GetWatchedPaths)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __GetWatchedPaths, "GetWatchedPaths")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "paths", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, GetWatchedPaths)
+Gura_ImplementMethod(wx_FileSystemWatcher, __GetWatchedPaths)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_FileSystemWatcher, GetWatchedPaths)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileSystemWatcher, SetOwner)
+Gura_DeclareMethodAlias(wx_FileSystemWatcher, __SetOwner, "SetOwner")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileSystemWatcher, SetOwner)
+Gura_ImplementMethod(wx_FileSystemWatcher, __SetOwner)
 {
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,15 +177,15 @@ Gura_ImplementMethod(wx_FileSystemWatcher, SetOwner)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileSystemWatcher)
 {
-	Gura_AssignMethod(wx_FileSystemWatcher, wxFileSystemWatcher);
-	Gura_AssignMethod(wx_FileSystemWatcher, Add);
-	Gura_AssignMethod(wx_FileSystemWatcher, AddTree);
-	Gura_AssignMethod(wx_FileSystemWatcher, Remove);
-	Gura_AssignMethod(wx_FileSystemWatcher, RemoveTree);
-	Gura_AssignMethod(wx_FileSystemWatcher, RemoveAll);
-	Gura_AssignMethod(wx_FileSystemWatcher, GetWatchedPathsCount);
-	Gura_AssignMethod(wx_FileSystemWatcher, GetWatchedPaths);
-	Gura_AssignMethod(wx_FileSystemWatcher, SetOwner);
+	Gura_AssignMethod(wx_FileSystemWatcher, __wxFileSystemWatcher);
+	Gura_AssignMethod(wx_FileSystemWatcher, __Add);
+	Gura_AssignMethod(wx_FileSystemWatcher, __AddTree);
+	Gura_AssignMethod(wx_FileSystemWatcher, __Remove);
+	Gura_AssignMethod(wx_FileSystemWatcher, __RemoveTree);
+	Gura_AssignMethod(wx_FileSystemWatcher, __RemoveAll);
+	Gura_AssignMethod(wx_FileSystemWatcher, __GetWatchedPathsCount);
+	Gura_AssignMethod(wx_FileSystemWatcher, __GetWatchedPaths);
+	Gura_AssignMethod(wx_FileSystemWatcher, __SetOwner);
 }
 
 Gura_ImplementDescendantCreator(wx_FileSystemWatcher)

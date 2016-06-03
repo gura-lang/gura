@@ -37,12 +37,12 @@ String Object_wx_CmdLineArgs::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CmdLineArgs, begin)
+Gura_DeclareMethodAlias(wx_CmdLineArgs, __begin, "begin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineArgs, begin)
+Gura_ImplementMethod(wx_CmdLineArgs, __begin)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_CmdLineArgs, begin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineArgs, end)
+Gura_DeclareMethodAlias(wx_CmdLineArgs, __end, "end")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineArgs, end)
+Gura_ImplementMethod(wx_CmdLineArgs, __end)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_CmdLineArgs, end)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CmdLineArgs, size)
+Gura_DeclareMethodAlias(wx_CmdLineArgs, __size, "size")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CmdLineArgs, size)
+Gura_ImplementMethod(wx_CmdLineArgs, __size)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -81,9 +81,9 @@ Gura_ImplementMethod(wx_CmdLineArgs, size)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CmdLineArgs)
 {
-	Gura_AssignMethod(wx_CmdLineArgs, begin);
-	Gura_AssignMethod(wx_CmdLineArgs, end);
-	Gura_AssignMethod(wx_CmdLineArgs, size);
+	Gura_AssignMethod(wx_CmdLineArgs, __begin);
+	Gura_AssignMethod(wx_CmdLineArgs, __end);
+	Gura_AssignMethod(wx_CmdLineArgs, __size);
 }
 
 Gura_ImplementDescendantCreator(wx_CmdLineArgs)

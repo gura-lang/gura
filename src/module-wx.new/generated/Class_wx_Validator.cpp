@@ -37,12 +37,12 @@ String Object_wx_Validator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Validator, wxValidator)
+Gura_DeclareMethodAlias(wx_Validator, __wxValidator, "wxValidator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, wxValidator)
+Gura_ImplementMethod(wx_Validator, __wxValidator)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_Validator, wxValidator)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, Clone)
+Gura_DeclareMethodAlias(wx_Validator, __Clone, "Clone")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, Clone)
+Gura_ImplementMethod(wx_Validator, __Clone)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_Validator, Clone)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, GetWindow)
+Gura_DeclareMethodAlias(wx_Validator, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, GetWindow)
+Gura_ImplementMethod(wx_Validator, __GetWindow)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_Validator, GetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, SuppressBellOnError)
+Gura_DeclareMethodAlias(wx_Validator, __SuppressBellOnError, "SuppressBellOnError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "suppress", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Validator, SuppressBellOnError)
+Gura_ImplementMethod(wx_Validator, __SuppressBellOnError)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_Validator, SuppressBellOnError)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, IsSilent)
+Gura_DeclareMethodAlias(wx_Validator, __IsSilent, "IsSilent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, IsSilent)
+Gura_ImplementMethod(wx_Validator, __IsSilent)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Validator, IsSilent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, SetWindow)
+Gura_DeclareMethodAlias(wx_Validator, __SetWindow, "SetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Validator, SetWindow)
+Gura_ImplementMethod(wx_Validator, __SetWindow)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Validator, SetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, TransferFromWindow)
+Gura_DeclareMethodAlias(wx_Validator, __TransferFromWindow, "TransferFromWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, TransferFromWindow)
+Gura_ImplementMethod(wx_Validator, __TransferFromWindow)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Validator, TransferFromWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, TransferToWindow)
+Gura_DeclareMethodAlias(wx_Validator, __TransferToWindow, "TransferToWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Validator, TransferToWindow)
+Gura_ImplementMethod(wx_Validator, __TransferToWindow)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_Validator, TransferToWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Validator, Validate)
+Gura_DeclareMethodAlias(wx_Validator, __Validate, "Validate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Validator, Validate)
+Gura_ImplementMethod(wx_Validator, __Validate)
 {
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -165,15 +165,15 @@ Gura_ImplementMethod(wx_Validator, Validate)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Validator)
 {
-	Gura_AssignMethod(wx_Validator, wxValidator);
-	Gura_AssignMethod(wx_Validator, Clone);
-	Gura_AssignMethod(wx_Validator, GetWindow);
-	Gura_AssignMethod(wx_Validator, SuppressBellOnError);
-	Gura_AssignMethod(wx_Validator, IsSilent);
-	Gura_AssignMethod(wx_Validator, SetWindow);
-	Gura_AssignMethod(wx_Validator, TransferFromWindow);
-	Gura_AssignMethod(wx_Validator, TransferToWindow);
-	Gura_AssignMethod(wx_Validator, Validate);
+	Gura_AssignMethod(wx_Validator, __wxValidator);
+	Gura_AssignMethod(wx_Validator, __Clone);
+	Gura_AssignMethod(wx_Validator, __GetWindow);
+	Gura_AssignMethod(wx_Validator, __SuppressBellOnError);
+	Gura_AssignMethod(wx_Validator, __IsSilent);
+	Gura_AssignMethod(wx_Validator, __SetWindow);
+	Gura_AssignMethod(wx_Validator, __TransferFromWindow);
+	Gura_AssignMethod(wx_Validator, __TransferToWindow);
+	Gura_AssignMethod(wx_Validator, __Validate);
 }
 
 Gura_ImplementDescendantCreator(wx_Validator)

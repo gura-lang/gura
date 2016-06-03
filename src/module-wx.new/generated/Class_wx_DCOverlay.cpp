@@ -37,7 +37,7 @@ String Object_wx_DCOverlay::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DCOverlay, wxDCOverlay)
+Gura_DeclareMethodAlias(wx_DCOverlay, __wxDCOverlay, "wxDCOverlay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
@@ -48,7 +48,7 @@ Gura_DeclareMethod(wx_DCOverlay, wxDCOverlay)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay)
+Gura_ImplementMethod(wx_DCOverlay, __wxDCOverlay)
 {
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -62,14 +62,14 @@ Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCOverlay, wxDCOverlay_1)
+Gura_DeclareMethodAlias(wx_DCOverlay, __wxDCOverlay_1, "wxDCOverlay_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay_1)
+Gura_ImplementMethod(wx_DCOverlay, __wxDCOverlay_1)
 {
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,12 +79,12 @@ Gura_ImplementMethod(wx_DCOverlay, wxDCOverlay_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DCOverlay, Clear)
+Gura_DeclareMethodAlias(wx_DCOverlay, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DCOverlay, Clear)
+Gura_ImplementMethod(wx_DCOverlay, __Clear)
 {
 	Object_wx_DCOverlay *pThis = Object_wx_DCOverlay::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,9 +97,9 @@ Gura_ImplementMethod(wx_DCOverlay, Clear)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DCOverlay)
 {
-	Gura_AssignMethod(wx_DCOverlay, wxDCOverlay);
-	Gura_AssignMethod(wx_DCOverlay, wxDCOverlay_1);
-	Gura_AssignMethod(wx_DCOverlay, Clear);
+	Gura_AssignMethod(wx_DCOverlay, __wxDCOverlay);
+	Gura_AssignMethod(wx_DCOverlay, __wxDCOverlay_1);
+	Gura_AssignMethod(wx_DCOverlay, __Clear);
 }
 
 Gura_ImplementDescendantCreator(wx_DCOverlay)

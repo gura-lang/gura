@@ -37,12 +37,12 @@ String Object_wx_StaticText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StaticText, wxStaticText)
+Gura_DeclareMethodAlias(wx_StaticText, __wxStaticText, "wxStaticText")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticText, wxStaticText)
+Gura_ImplementMethod(wx_StaticText, __wxStaticText)
 {
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_StaticText, wxStaticText)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticText, wxStaticText_1)
+Gura_DeclareMethodAlias(wx_StaticText, __wxStaticText_1, "wxStaticText_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_StaticText, wxStaticText_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticText, wxStaticText_1)
+Gura_ImplementMethod(wx_StaticText, __wxStaticText_1)
 {
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_StaticText, wxStaticText_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticText, Create)
+Gura_DeclareMethodAlias(wx_StaticText, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_StaticText, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticText, Create)
+Gura_ImplementMethod(wx_StaticText, __Create)
 {
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_StaticText, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticText, IsEllipsized)
+Gura_DeclareMethodAlias(wx_StaticText, __IsEllipsized, "IsEllipsized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StaticText, IsEllipsized)
+Gura_ImplementMethod(wx_StaticText, __IsEllipsized)
 {
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_StaticText, IsEllipsized)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StaticText, Wrap)
+Gura_DeclareMethodAlias(wx_StaticText, __Wrap, "Wrap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StaticText, Wrap)
+Gura_ImplementMethod(wx_StaticText, __Wrap)
 {
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -137,11 +137,11 @@ Gura_ImplementMethod(wx_StaticText, Wrap)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StaticText)
 {
-	Gura_AssignMethod(wx_StaticText, wxStaticText);
-	Gura_AssignMethod(wx_StaticText, wxStaticText_1);
-	Gura_AssignMethod(wx_StaticText, Create);
-	Gura_AssignMethod(wx_StaticText, IsEllipsized);
-	Gura_AssignMethod(wx_StaticText, Wrap);
+	Gura_AssignMethod(wx_StaticText, __wxStaticText);
+	Gura_AssignMethod(wx_StaticText, __wxStaticText_1);
+	Gura_AssignMethod(wx_StaticText, __Create);
+	Gura_AssignMethod(wx_StaticText, __IsEllipsized);
+	Gura_AssignMethod(wx_StaticText, __Wrap);
 }
 
 Gura_ImplementDescendantCreator(wx_StaticText)

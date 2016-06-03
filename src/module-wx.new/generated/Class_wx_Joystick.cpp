@@ -37,13 +37,13 @@ String Object_wx_Joystick::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Joystick, wxJoystick)
+Gura_DeclareMethodAlias(wx_Joystick, __wxJoystick, "wxJoystick")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "joystick", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, wxJoystick)
+Gura_ImplementMethod(wx_Joystick, __wxJoystick)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_Joystick, wxJoystick)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetButtonState)
+Gura_DeclareMethodAlias(wx_Joystick, __GetButtonState, "GetButtonState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetButtonState)
+Gura_ImplementMethod(wx_Joystick, __GetButtonState)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_Joystick, GetButtonState)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetButtonState_1)
+Gura_DeclareMethodAlias(wx_Joystick, __GetButtonState_1, "GetButtonState_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetButtonState_1)
+Gura_ImplementMethod(wx_Joystick, __GetButtonState_1)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Joystick, GetButtonState_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetManufacturerId)
+Gura_DeclareMethodAlias(wx_Joystick, __GetManufacturerId, "GetManufacturerId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetManufacturerId)
+Gura_ImplementMethod(wx_Joystick, __GetManufacturerId)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_Joystick, GetManufacturerId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetMovementThreshold)
+Gura_DeclareMethodAlias(wx_Joystick, __GetMovementThreshold, "GetMovementThreshold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetMovementThreshold)
+Gura_ImplementMethod(wx_Joystick, __GetMovementThreshold)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_Joystick, GetMovementThreshold)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetNumberAxes)
+Gura_DeclareMethodAlias(wx_Joystick, __GetNumberAxes, "GetNumberAxes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetNumberAxes)
+Gura_ImplementMethod(wx_Joystick, __GetNumberAxes)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_Joystick, GetNumberAxes)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetNumberButtons)
+Gura_DeclareMethodAlias(wx_Joystick, __GetNumberButtons, "GetNumberButtons")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetNumberButtons)
+Gura_ImplementMethod(wx_Joystick, __GetNumberButtons)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_Joystick, GetNumberButtons)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetNumberJoysticks)
+Gura_DeclareMethodAlias(wx_Joystick, __GetNumberJoysticks, "GetNumberJoysticks")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetNumberJoysticks)
+Gura_ImplementMethod(wx_Joystick, __GetNumberJoysticks)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_Joystick, GetNumberJoysticks)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPOVCTSPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPOVCTSPosition, "GetPOVCTSPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPOVCTSPosition)
+Gura_ImplementMethod(wx_Joystick, __GetPOVCTSPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_Joystick, GetPOVCTSPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPOVPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPOVPosition, "GetPOVPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPOVPosition)
+Gura_ImplementMethod(wx_Joystick, __GetPOVPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_Joystick, GetPOVPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPollingMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPollingMax, "GetPollingMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPollingMax)
+Gura_ImplementMethod(wx_Joystick, __GetPollingMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_Joystick, GetPollingMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPollingMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPollingMin, "GetPollingMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPollingMin)
+Gura_ImplementMethod(wx_Joystick, __GetPollingMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,12 +197,12 @@ Gura_ImplementMethod(wx_Joystick, GetPollingMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPosition, "GetPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPosition)
+Gura_ImplementMethod(wx_Joystick, __GetPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -210,13 +210,13 @@ Gura_ImplementMethod(wx_Joystick, GetPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetPosition_1)
+Gura_DeclareMethodAlias(wx_Joystick, __GetPosition_1, "GetPosition_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "axis", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetPosition_1)
+Gura_ImplementMethod(wx_Joystick, __GetPosition_1)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -225,12 +225,12 @@ Gura_ImplementMethod(wx_Joystick, GetPosition_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetProductId)
+Gura_DeclareMethodAlias(wx_Joystick, __GetProductId, "GetProductId")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetProductId)
+Gura_ImplementMethod(wx_Joystick, __GetProductId)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -238,12 +238,12 @@ Gura_ImplementMethod(wx_Joystick, GetProductId)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetProductName)
+Gura_DeclareMethodAlias(wx_Joystick, __GetProductName, "GetProductName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetProductName)
+Gura_ImplementMethod(wx_Joystick, __GetProductName)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,12 +251,12 @@ Gura_ImplementMethod(wx_Joystick, GetProductName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetRudderMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetRudderMax, "GetRudderMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetRudderMax)
+Gura_ImplementMethod(wx_Joystick, __GetRudderMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -264,12 +264,12 @@ Gura_ImplementMethod(wx_Joystick, GetRudderMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetRudderMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetRudderMin, "GetRudderMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetRudderMin)
+Gura_ImplementMethod(wx_Joystick, __GetRudderMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -277,12 +277,12 @@ Gura_ImplementMethod(wx_Joystick, GetRudderMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetRudderPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetRudderPosition, "GetRudderPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetRudderPosition)
+Gura_ImplementMethod(wx_Joystick, __GetRudderPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,12 +290,12 @@ Gura_ImplementMethod(wx_Joystick, GetRudderPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetUMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetUMax, "GetUMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetUMax)
+Gura_ImplementMethod(wx_Joystick, __GetUMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -303,12 +303,12 @@ Gura_ImplementMethod(wx_Joystick, GetUMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetUMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetUMin, "GetUMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetUMin)
+Gura_ImplementMethod(wx_Joystick, __GetUMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -316,12 +316,12 @@ Gura_ImplementMethod(wx_Joystick, GetUMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetUPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetUPosition, "GetUPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetUPosition)
+Gura_ImplementMethod(wx_Joystick, __GetUPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -329,12 +329,12 @@ Gura_ImplementMethod(wx_Joystick, GetUPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetVMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetVMax, "GetVMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetVMax)
+Gura_ImplementMethod(wx_Joystick, __GetVMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -342,12 +342,12 @@ Gura_ImplementMethod(wx_Joystick, GetVMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetVMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetVMin, "GetVMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetVMin)
+Gura_ImplementMethod(wx_Joystick, __GetVMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,12 +355,12 @@ Gura_ImplementMethod(wx_Joystick, GetVMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetVPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetVPosition, "GetVPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetVPosition)
+Gura_ImplementMethod(wx_Joystick, __GetVPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -368,12 +368,12 @@ Gura_ImplementMethod(wx_Joystick, GetVPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetXMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetXMax, "GetXMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetXMax)
+Gura_ImplementMethod(wx_Joystick, __GetXMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -381,12 +381,12 @@ Gura_ImplementMethod(wx_Joystick, GetXMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetXMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetXMin, "GetXMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetXMin)
+Gura_ImplementMethod(wx_Joystick, __GetXMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -394,12 +394,12 @@ Gura_ImplementMethod(wx_Joystick, GetXMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetYMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetYMax, "GetYMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetYMax)
+Gura_ImplementMethod(wx_Joystick, __GetYMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -407,12 +407,12 @@ Gura_ImplementMethod(wx_Joystick, GetYMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetYMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetYMin, "GetYMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetYMin)
+Gura_ImplementMethod(wx_Joystick, __GetYMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -420,12 +420,12 @@ Gura_ImplementMethod(wx_Joystick, GetYMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetZMax)
+Gura_DeclareMethodAlias(wx_Joystick, __GetZMax, "GetZMax")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetZMax)
+Gura_ImplementMethod(wx_Joystick, __GetZMax)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -433,12 +433,12 @@ Gura_ImplementMethod(wx_Joystick, GetZMax)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetZMin)
+Gura_DeclareMethodAlias(wx_Joystick, __GetZMin, "GetZMin")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetZMin)
+Gura_ImplementMethod(wx_Joystick, __GetZMin)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -446,12 +446,12 @@ Gura_ImplementMethod(wx_Joystick, GetZMin)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, GetZPosition)
+Gura_DeclareMethodAlias(wx_Joystick, __GetZPosition, "GetZPosition")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, GetZPosition)
+Gura_ImplementMethod(wx_Joystick, __GetZPosition)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -459,12 +459,12 @@ Gura_ImplementMethod(wx_Joystick, GetZPosition)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasPOV)
+Gura_DeclareMethodAlias(wx_Joystick, __HasPOV, "HasPOV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasPOV)
+Gura_ImplementMethod(wx_Joystick, __HasPOV)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -472,12 +472,12 @@ Gura_ImplementMethod(wx_Joystick, HasPOV)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasPOV4Dir)
+Gura_DeclareMethodAlias(wx_Joystick, __HasPOV4Dir, "HasPOV4Dir")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasPOV4Dir)
+Gura_ImplementMethod(wx_Joystick, __HasPOV4Dir)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -485,12 +485,12 @@ Gura_ImplementMethod(wx_Joystick, HasPOV4Dir)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasPOVCTS)
+Gura_DeclareMethodAlias(wx_Joystick, __HasPOVCTS, "HasPOVCTS")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasPOVCTS)
+Gura_ImplementMethod(wx_Joystick, __HasPOVCTS)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -498,12 +498,12 @@ Gura_ImplementMethod(wx_Joystick, HasPOVCTS)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasRudder)
+Gura_DeclareMethodAlias(wx_Joystick, __HasRudder, "HasRudder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasRudder)
+Gura_ImplementMethod(wx_Joystick, __HasRudder)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -511,12 +511,12 @@ Gura_ImplementMethod(wx_Joystick, HasRudder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasU)
+Gura_DeclareMethodAlias(wx_Joystick, __HasU, "HasU")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasU)
+Gura_ImplementMethod(wx_Joystick, __HasU)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -524,12 +524,12 @@ Gura_ImplementMethod(wx_Joystick, HasU)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasV)
+Gura_DeclareMethodAlias(wx_Joystick, __HasV, "HasV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasV)
+Gura_ImplementMethod(wx_Joystick, __HasV)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -537,12 +537,12 @@ Gura_ImplementMethod(wx_Joystick, HasV)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, HasZ)
+Gura_DeclareMethodAlias(wx_Joystick, __HasZ, "HasZ")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, HasZ)
+Gura_ImplementMethod(wx_Joystick, __HasZ)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -550,12 +550,12 @@ Gura_ImplementMethod(wx_Joystick, HasZ)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, IsOk)
+Gura_DeclareMethodAlias(wx_Joystick, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, IsOk)
+Gura_ImplementMethod(wx_Joystick, __IsOk)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -563,12 +563,12 @@ Gura_ImplementMethod(wx_Joystick, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, ReleaseCapture)
+Gura_DeclareMethodAlias(wx_Joystick, __ReleaseCapture, "ReleaseCapture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Joystick, ReleaseCapture)
+Gura_ImplementMethod(wx_Joystick, __ReleaseCapture)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -576,14 +576,14 @@ Gura_ImplementMethod(wx_Joystick, ReleaseCapture)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, SetCapture)
+Gura_DeclareMethodAlias(wx_Joystick, __SetCapture, "SetCapture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pollingFreq", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, SetCapture)
+Gura_ImplementMethod(wx_Joystick, __SetCapture)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -593,13 +593,13 @@ Gura_ImplementMethod(wx_Joystick, SetCapture)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Joystick, SetMovementThreshold)
+Gura_DeclareMethodAlias(wx_Joystick, __SetMovementThreshold, "SetMovementThreshold")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Joystick, SetMovementThreshold)
+Gura_ImplementMethod(wx_Joystick, __SetMovementThreshold)
 {
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -613,49 +613,49 @@ Gura_ImplementMethod(wx_Joystick, SetMovementThreshold)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Joystick)
 {
-	Gura_AssignMethod(wx_Joystick, wxJoystick);
-	Gura_AssignMethod(wx_Joystick, GetButtonState);
-	Gura_AssignMethod(wx_Joystick, GetButtonState_1);
-	Gura_AssignMethod(wx_Joystick, GetManufacturerId);
-	Gura_AssignMethod(wx_Joystick, GetMovementThreshold);
-	Gura_AssignMethod(wx_Joystick, GetNumberAxes);
-	Gura_AssignMethod(wx_Joystick, GetNumberButtons);
-	Gura_AssignMethod(wx_Joystick, GetNumberJoysticks);
-	Gura_AssignMethod(wx_Joystick, GetPOVCTSPosition);
-	Gura_AssignMethod(wx_Joystick, GetPOVPosition);
-	Gura_AssignMethod(wx_Joystick, GetPollingMax);
-	Gura_AssignMethod(wx_Joystick, GetPollingMin);
-	Gura_AssignMethod(wx_Joystick, GetPosition);
-	Gura_AssignMethod(wx_Joystick, GetPosition_1);
-	Gura_AssignMethod(wx_Joystick, GetProductId);
-	Gura_AssignMethod(wx_Joystick, GetProductName);
-	Gura_AssignMethod(wx_Joystick, GetRudderMax);
-	Gura_AssignMethod(wx_Joystick, GetRudderMin);
-	Gura_AssignMethod(wx_Joystick, GetRudderPosition);
-	Gura_AssignMethod(wx_Joystick, GetUMax);
-	Gura_AssignMethod(wx_Joystick, GetUMin);
-	Gura_AssignMethod(wx_Joystick, GetUPosition);
-	Gura_AssignMethod(wx_Joystick, GetVMax);
-	Gura_AssignMethod(wx_Joystick, GetVMin);
-	Gura_AssignMethod(wx_Joystick, GetVPosition);
-	Gura_AssignMethod(wx_Joystick, GetXMax);
-	Gura_AssignMethod(wx_Joystick, GetXMin);
-	Gura_AssignMethod(wx_Joystick, GetYMax);
-	Gura_AssignMethod(wx_Joystick, GetYMin);
-	Gura_AssignMethod(wx_Joystick, GetZMax);
-	Gura_AssignMethod(wx_Joystick, GetZMin);
-	Gura_AssignMethod(wx_Joystick, GetZPosition);
-	Gura_AssignMethod(wx_Joystick, HasPOV);
-	Gura_AssignMethod(wx_Joystick, HasPOV4Dir);
-	Gura_AssignMethod(wx_Joystick, HasPOVCTS);
-	Gura_AssignMethod(wx_Joystick, HasRudder);
-	Gura_AssignMethod(wx_Joystick, HasU);
-	Gura_AssignMethod(wx_Joystick, HasV);
-	Gura_AssignMethod(wx_Joystick, HasZ);
-	Gura_AssignMethod(wx_Joystick, IsOk);
-	Gura_AssignMethod(wx_Joystick, ReleaseCapture);
-	Gura_AssignMethod(wx_Joystick, SetCapture);
-	Gura_AssignMethod(wx_Joystick, SetMovementThreshold);
+	Gura_AssignMethod(wx_Joystick, __wxJoystick);
+	Gura_AssignMethod(wx_Joystick, __GetButtonState);
+	Gura_AssignMethod(wx_Joystick, __GetButtonState_1);
+	Gura_AssignMethod(wx_Joystick, __GetManufacturerId);
+	Gura_AssignMethod(wx_Joystick, __GetMovementThreshold);
+	Gura_AssignMethod(wx_Joystick, __GetNumberAxes);
+	Gura_AssignMethod(wx_Joystick, __GetNumberButtons);
+	Gura_AssignMethod(wx_Joystick, __GetNumberJoysticks);
+	Gura_AssignMethod(wx_Joystick, __GetPOVCTSPosition);
+	Gura_AssignMethod(wx_Joystick, __GetPOVPosition);
+	Gura_AssignMethod(wx_Joystick, __GetPollingMax);
+	Gura_AssignMethod(wx_Joystick, __GetPollingMin);
+	Gura_AssignMethod(wx_Joystick, __GetPosition);
+	Gura_AssignMethod(wx_Joystick, __GetPosition_1);
+	Gura_AssignMethod(wx_Joystick, __GetProductId);
+	Gura_AssignMethod(wx_Joystick, __GetProductName);
+	Gura_AssignMethod(wx_Joystick, __GetRudderMax);
+	Gura_AssignMethod(wx_Joystick, __GetRudderMin);
+	Gura_AssignMethod(wx_Joystick, __GetRudderPosition);
+	Gura_AssignMethod(wx_Joystick, __GetUMax);
+	Gura_AssignMethod(wx_Joystick, __GetUMin);
+	Gura_AssignMethod(wx_Joystick, __GetUPosition);
+	Gura_AssignMethod(wx_Joystick, __GetVMax);
+	Gura_AssignMethod(wx_Joystick, __GetVMin);
+	Gura_AssignMethod(wx_Joystick, __GetVPosition);
+	Gura_AssignMethod(wx_Joystick, __GetXMax);
+	Gura_AssignMethod(wx_Joystick, __GetXMin);
+	Gura_AssignMethod(wx_Joystick, __GetYMax);
+	Gura_AssignMethod(wx_Joystick, __GetYMin);
+	Gura_AssignMethod(wx_Joystick, __GetZMax);
+	Gura_AssignMethod(wx_Joystick, __GetZMin);
+	Gura_AssignMethod(wx_Joystick, __GetZPosition);
+	Gura_AssignMethod(wx_Joystick, __HasPOV);
+	Gura_AssignMethod(wx_Joystick, __HasPOV4Dir);
+	Gura_AssignMethod(wx_Joystick, __HasPOVCTS);
+	Gura_AssignMethod(wx_Joystick, __HasRudder);
+	Gura_AssignMethod(wx_Joystick, __HasU);
+	Gura_AssignMethod(wx_Joystick, __HasV);
+	Gura_AssignMethod(wx_Joystick, __HasZ);
+	Gura_AssignMethod(wx_Joystick, __IsOk);
+	Gura_AssignMethod(wx_Joystick, __ReleaseCapture);
+	Gura_AssignMethod(wx_Joystick, __SetCapture);
+	Gura_AssignMethod(wx_Joystick, __SetMovementThreshold);
 }
 
 Gura_ImplementDescendantCreator(wx_Joystick)

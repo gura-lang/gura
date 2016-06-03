@@ -37,13 +37,13 @@ String Object_wx_FileStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FileStream, wxFileStream)
+Gura_DeclareMethodAlias(wx_FileStream, __wxFileStream, "wxFileStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "iofileName", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FileStream, wxFileStream)
+Gura_ImplementMethod(wx_FileStream, __wxFileStream)
 {
 	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_FileStream, wxFileStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FileStream, IsOk)
+Gura_DeclareMethodAlias(wx_FileStream, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FileStream, IsOk)
+Gura_ImplementMethod(wx_FileStream, __IsOk)
 {
 	Object_wx_FileStream *pThis = Object_wx_FileStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -70,8 +70,8 @@ Gura_ImplementMethod(wx_FileStream, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FileStream)
 {
-	Gura_AssignMethod(wx_FileStream, wxFileStream);
-	Gura_AssignMethod(wx_FileStream, IsOk);
+	Gura_AssignMethod(wx_FileStream, __wxFileStream);
+	Gura_AssignMethod(wx_FileStream, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_FileStream)

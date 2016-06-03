@@ -37,14 +37,14 @@ String Object_wx_FilterClassFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FilterClassFactory, CanHandle)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __CanHandle, "CanHandle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "protocol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, CanHandle)
+Gura_ImplementMethod(wx_FilterClassFactory, __CanHandle)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_FilterClassFactory, CanHandle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, Find)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __Find, "Find")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "protocol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, Find)
+Gura_ImplementMethod(wx_FilterClassFactory, __Find)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_FilterClassFactory, Find)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, GetFirst)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __GetFirst, "GetFirst")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, GetFirst)
+Gura_ImplementMethod(wx_FilterClassFactory, __GetFirst)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetFirst)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, GetNext)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __GetNext, "GetNext")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, GetNext)
+Gura_ImplementMethod(wx_FilterClassFactory, __GetNext)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetNext)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, GetProtocol)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __GetProtocol, "GetProtocol")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, GetProtocol)
+Gura_ImplementMethod(wx_FilterClassFactory, __GetProtocol)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetProtocol)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, GetProtocols)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __GetProtocols, "GetProtocols")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, GetProtocols)
+Gura_ImplementMethod(wx_FilterClassFactory, __GetProtocols)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, GetProtocols)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, NewStream)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __NewStream, "NewStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, NewStream)
+Gura_ImplementMethod(wx_FilterClassFactory, __NewStream)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, NewStream_1)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __NewStream_1, "NewStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, NewStream_1)
+Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_1)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, NewStream_2)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __NewStream_2, "NewStream_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, NewStream_2)
+Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_2)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, NewStream_3)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __NewStream_3, "NewStream_3")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, NewStream_3)
+Gura_ImplementMethod(wx_FilterClassFactory, __NewStream_3)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_FilterClassFactory, NewStream_3)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, PopExtension)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __PopExtension, "PopExtension")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, PopExtension)
+Gura_ImplementMethod(wx_FilterClassFactory, __PopExtension)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -200,12 +200,12 @@ Gura_ImplementMethod(wx_FilterClassFactory, PopExtension)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, PushFront)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __PushFront, "PushFront")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, PushFront)
+Gura_ImplementMethod(wx_FilterClassFactory, __PushFront)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -213,12 +213,12 @@ Gura_ImplementMethod(wx_FilterClassFactory, PushFront)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FilterClassFactory, Remove)
+Gura_DeclareMethodAlias(wx_FilterClassFactory, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FilterClassFactory, Remove)
+Gura_ImplementMethod(wx_FilterClassFactory, __Remove)
 {
 	Object_wx_FilterClassFactory *pThis = Object_wx_FilterClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -231,19 +231,19 @@ Gura_ImplementMethod(wx_FilterClassFactory, Remove)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FilterClassFactory)
 {
-	Gura_AssignMethod(wx_FilterClassFactory, CanHandle);
-	Gura_AssignMethod(wx_FilterClassFactory, Find);
-	Gura_AssignMethod(wx_FilterClassFactory, GetFirst);
-	Gura_AssignMethod(wx_FilterClassFactory, GetNext);
-	Gura_AssignMethod(wx_FilterClassFactory, GetProtocol);
-	Gura_AssignMethod(wx_FilterClassFactory, GetProtocols);
-	Gura_AssignMethod(wx_FilterClassFactory, NewStream);
-	Gura_AssignMethod(wx_FilterClassFactory, NewStream_1);
-	Gura_AssignMethod(wx_FilterClassFactory, NewStream_2);
-	Gura_AssignMethod(wx_FilterClassFactory, NewStream_3);
-	Gura_AssignMethod(wx_FilterClassFactory, PopExtension);
-	Gura_AssignMethod(wx_FilterClassFactory, PushFront);
-	Gura_AssignMethod(wx_FilterClassFactory, Remove);
+	Gura_AssignMethod(wx_FilterClassFactory, __CanHandle);
+	Gura_AssignMethod(wx_FilterClassFactory, __Find);
+	Gura_AssignMethod(wx_FilterClassFactory, __GetFirst);
+	Gura_AssignMethod(wx_FilterClassFactory, __GetNext);
+	Gura_AssignMethod(wx_FilterClassFactory, __GetProtocol);
+	Gura_AssignMethod(wx_FilterClassFactory, __GetProtocols);
+	Gura_AssignMethod(wx_FilterClassFactory, __NewStream);
+	Gura_AssignMethod(wx_FilterClassFactory, __NewStream_1);
+	Gura_AssignMethod(wx_FilterClassFactory, __NewStream_2);
+	Gura_AssignMethod(wx_FilterClassFactory, __NewStream_3);
+	Gura_AssignMethod(wx_FilterClassFactory, __PopExtension);
+	Gura_AssignMethod(wx_FilterClassFactory, __PushFront);
+	Gura_AssignMethod(wx_FilterClassFactory, __Remove);
 }
 
 Gura_ImplementDescendantCreator(wx_FilterClassFactory)

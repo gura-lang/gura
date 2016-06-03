@@ -37,12 +37,12 @@ String Object_wx_MessageQueue<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MessageQueue<T>, wxMessageQueue)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __wxMessageQueue, "wxMessageQueue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, wxMessageQueue)
+Gura_ImplementMethod(wx_MessageQueue<T>, __wxMessageQueue)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_MessageQueue<T>, wxMessageQueue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageQueue<T>, Clear)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Clear, "Clear")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, Clear)
+Gura_ImplementMethod(wx_MessageQueue<T>, __Clear)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_MessageQueue<T>, Clear)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageQueue<T>, IsOk)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, IsOk)
+Gura_ImplementMethod(wx_MessageQueue<T>, __IsOk)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_MessageQueue<T>, IsOk)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageQueue<T>, Post)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Post, "Post")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, Post)
+Gura_ImplementMethod(wx_MessageQueue<T>, __Post)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_MessageQueue<T>, Post)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageQueue<T>, Receive)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Receive, "Receive")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, Receive)
+Gura_ImplementMethod(wx_MessageQueue<T>, __Receive)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,14 +106,14 @@ Gura_ImplementMethod(wx_MessageQueue<T>, Receive)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MessageQueue<T>, ReceiveTimeout)
+Gura_DeclareMethodAlias(wx_MessageQueue<T>, __ReceiveTimeout, "ReceiveTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MessageQueue<T>, ReceiveTimeout)
+Gura_ImplementMethod(wx_MessageQueue<T>, __ReceiveTimeout)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -128,12 +128,12 @@ Gura_ImplementMethod(wx_MessageQueue<T>, ReceiveTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MessageQueue<T>)
 {
-	Gura_AssignMethod(wx_MessageQueue<T>, wxMessageQueue);
-	Gura_AssignMethod(wx_MessageQueue<T>, Clear);
-	Gura_AssignMethod(wx_MessageQueue<T>, IsOk);
-	Gura_AssignMethod(wx_MessageQueue<T>, Post);
-	Gura_AssignMethod(wx_MessageQueue<T>, Receive);
-	Gura_AssignMethod(wx_MessageQueue<T>, ReceiveTimeout);
+	Gura_AssignMethod(wx_MessageQueue<T>, __wxMessageQueue);
+	Gura_AssignMethod(wx_MessageQueue<T>, __Clear);
+	Gura_AssignMethod(wx_MessageQueue<T>, __IsOk);
+	Gura_AssignMethod(wx_MessageQueue<T>, __Post);
+	Gura_AssignMethod(wx_MessageQueue<T>, __Receive);
+	Gura_AssignMethod(wx_MessageQueue<T>, __ReceiveTimeout);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageQueue<T>)

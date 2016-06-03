@@ -37,12 +37,12 @@ String Object_wx_DocMDIParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame)
+Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __wxDocMDIParentFrame, "wxDocMDIParentFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame)
+Gura_ImplementMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame)
 {
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
+Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1, "wxDocMDIParentFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
+Gura_ImplementMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1)
 {
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_DocMDIParentFrame, Create)
+Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
@@ -92,7 +92,7 @@ Gura_DeclareMethod(wx_DocMDIParentFrame, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_DocMDIParentFrame, Create)
+Gura_ImplementMethod(wx_DocMDIParentFrame, __Create)
 {
 	Object_wx_DocMDIParentFrame *pThis = Object_wx_DocMDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,9 +113,9 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, Create)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)
 {
-	Gura_AssignMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame);
-	Gura_AssignMethod(wx_DocMDIParentFrame, wxDocMDIParentFrame_1);
-	Gura_AssignMethod(wx_DocMDIParentFrame, Create);
+	Gura_AssignMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame);
+	Gura_AssignMethod(wx_DocMDIParentFrame, __wxDocMDIParentFrame_1);
+	Gura_AssignMethod(wx_DocMDIParentFrame, __Create);
 }
 
 Gura_ImplementDescendantCreator(wx_DocMDIParentFrame)

@@ -37,12 +37,12 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ClientDataContainer, wxClientDataContainer)
+Gura_DeclareMethodAlias(wx_ClientDataContainer, __wxClientDataContainer, "wxClientDataContainer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, wxClientDataContainer)
+Gura_ImplementMethod(wx_ClientDataContainer, __wxClientDataContainer)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_ClientDataContainer, wxClientDataContainer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ClientDataContainer, GetClientData)
+Gura_DeclareMethodAlias(wx_ClientDataContainer, __GetClientData, "GetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
+Gura_ImplementMethod(wx_ClientDataContainer, __GetClientData)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ClientDataContainer, GetClientObject)
+Gura_DeclareMethodAlias(wx_ClientDataContainer, __GetClientObject, "GetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
+Gura_ImplementMethod(wx_ClientDataContainer, __GetClientObject)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_ClientDataContainer, GetClientObject)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ClientDataContainer, SetClientData)
+Gura_DeclareMethodAlias(wx_ClientDataContainer, __SetClientData, "SetClientData")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
+Gura_ImplementMethod(wx_ClientDataContainer, __SetClientData)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientData)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ClientDataContainer, SetClientObject)
+Gura_DeclareMethodAlias(wx_ClientDataContainer, __SetClientObject, "SetClientObject")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
+Gura_ImplementMethod(wx_ClientDataContainer, __SetClientObject)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -111,11 +111,11 @@ Gura_ImplementMethod(wx_ClientDataContainer, SetClientObject)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ClientDataContainer)
 {
-	Gura_AssignMethod(wx_ClientDataContainer, wxClientDataContainer);
-	Gura_AssignMethod(wx_ClientDataContainer, GetClientData);
-	Gura_AssignMethod(wx_ClientDataContainer, GetClientObject);
-	Gura_AssignMethod(wx_ClientDataContainer, SetClientData);
-	Gura_AssignMethod(wx_ClientDataContainer, SetClientObject);
+	Gura_AssignMethod(wx_ClientDataContainer, __wxClientDataContainer);
+	Gura_AssignMethod(wx_ClientDataContainer, __GetClientData);
+	Gura_AssignMethod(wx_ClientDataContainer, __GetClientObject);
+	Gura_AssignMethod(wx_ClientDataContainer, __SetClientData);
+	Gura_AssignMethod(wx_ClientDataContainer, __SetClientObject);
 }
 
 Gura_ImplementDescendantCreator(wx_ClientDataContainer)

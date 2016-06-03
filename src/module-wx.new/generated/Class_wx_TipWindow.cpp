@@ -37,7 +37,7 @@ String Object_wx_TipWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TipWindow, wxTipWindow)
+Gura_DeclareMethodAlias(wx_TipWindow, __wxTipWindow, "wxTipWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -47,7 +47,7 @@ Gura_DeclareMethod(wx_TipWindow, wxTipWindow)
 	//DeclareArg(env, "rectBounds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipWindow, wxTipWindow)
+Gura_ImplementMethod(wx_TipWindow, __wxTipWindow)
 {
 	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -60,13 +60,13 @@ Gura_ImplementMethod(wx_TipWindow, wxTipWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TipWindow, SetBoundingRect)
+Gura_DeclareMethodAlias(wx_TipWindow, __SetBoundingRect, "SetBoundingRect")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "rectBound", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipWindow, SetBoundingRect)
+Gura_ImplementMethod(wx_TipWindow, __SetBoundingRect)
 {
 	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -75,13 +75,13 @@ Gura_ImplementMethod(wx_TipWindow, SetBoundingRect)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TipWindow, SetTipWindowPtr)
+Gura_DeclareMethodAlias(wx_TipWindow, __SetTipWindowPtr, "SetTipWindowPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "windowPtr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_TipWindow, SetTipWindowPtr)
+Gura_ImplementMethod(wx_TipWindow, __SetTipWindowPtr)
 {
 	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,9 +95,9 @@ Gura_ImplementMethod(wx_TipWindow, SetTipWindowPtr)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TipWindow)
 {
-	Gura_AssignMethod(wx_TipWindow, wxTipWindow);
-	Gura_AssignMethod(wx_TipWindow, SetBoundingRect);
-	Gura_AssignMethod(wx_TipWindow, SetTipWindowPtr);
+	Gura_AssignMethod(wx_TipWindow, __wxTipWindow);
+	Gura_AssignMethod(wx_TipWindow, __SetBoundingRect);
+	Gura_AssignMethod(wx_TipWindow, __SetTipWindowPtr);
 }
 
 Gura_ImplementDescendantCreator(wx_TipWindow)

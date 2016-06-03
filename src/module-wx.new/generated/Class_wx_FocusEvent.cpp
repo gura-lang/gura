@@ -37,14 +37,14 @@ String Object_wx_FocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_FocusEvent, wxFocusEvent)
+Gura_DeclareMethodAlias(wx_FocusEvent, __wxFocusEvent, "wxFocusEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FocusEvent, wxFocusEvent)
+Gura_ImplementMethod(wx_FocusEvent, __wxFocusEvent)
 {
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_FocusEvent, wxFocusEvent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FocusEvent, GetWindow)
+Gura_DeclareMethodAlias(wx_FocusEvent, __GetWindow, "GetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_FocusEvent, GetWindow)
+Gura_ImplementMethod(wx_FocusEvent, __GetWindow)
 {
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,13 +67,13 @@ Gura_ImplementMethod(wx_FocusEvent, GetWindow)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_FocusEvent, SetWindow)
+Gura_DeclareMethodAlias(wx_FocusEvent, __SetWindow, "SetWindow")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_FocusEvent, SetWindow)
+Gura_ImplementMethod(wx_FocusEvent, __SetWindow)
 {
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -87,9 +87,9 @@ Gura_ImplementMethod(wx_FocusEvent, SetWindow)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_FocusEvent)
 {
-	Gura_AssignMethod(wx_FocusEvent, wxFocusEvent);
-	Gura_AssignMethod(wx_FocusEvent, GetWindow);
-	Gura_AssignMethod(wx_FocusEvent, SetWindow);
+	Gura_AssignMethod(wx_FocusEvent, __wxFocusEvent);
+	Gura_AssignMethod(wx_FocusEvent, __GetWindow);
+	Gura_AssignMethod(wx_FocusEvent, __SetWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_FocusEvent)

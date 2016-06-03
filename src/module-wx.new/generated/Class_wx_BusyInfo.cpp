@@ -37,13 +37,13 @@ String Object_wx_BusyInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BusyInfo, wxBusyInfo)
+Gura_DeclareMethodAlias(wx_BusyInfo, __wxBusyInfo, "wxBusyInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfo, wxBusyInfo)
+Gura_ImplementMethod(wx_BusyInfo, __wxBusyInfo)
 {
 	Object_wx_BusyInfo *pThis = Object_wx_BusyInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,14 +52,14 @@ Gura_ImplementMethod(wx_BusyInfo, wxBusyInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfo, wxBusyInfo_1)
+Gura_DeclareMethodAlias(wx_BusyInfo, __wxBusyInfo_1, "wxBusyInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfo, wxBusyInfo_1)
+Gura_ImplementMethod(wx_BusyInfo, __wxBusyInfo_1)
 {
 	Object_wx_BusyInfo *pThis = Object_wx_BusyInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -74,8 +74,8 @@ Gura_ImplementMethod(wx_BusyInfo, wxBusyInfo_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyInfo)
 {
-	Gura_AssignMethod(wx_BusyInfo, wxBusyInfo);
-	Gura_AssignMethod(wx_BusyInfo, wxBusyInfo_1);
+	Gura_AssignMethod(wx_BusyInfo, __wxBusyInfo);
+	Gura_AssignMethod(wx_BusyInfo, __wxBusyInfo_1);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyInfo)

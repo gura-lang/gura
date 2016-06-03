@@ -532,9 +532,11 @@ CreateFunctionInfo(classInfo:ClassInfo, functionInfos[],
 		refOperator = m[2].strip()
 		identifier = m[3]
 	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(operator\s*.+)$')) {
-		typeList = m[1]
-		refOperator = m[2].strip()
-		identifier = m[3]
+		//typeList = m[1]
+		//refOperator = m[2].strip()
+		//identifier = m[3]
+		WarningMessage(pathName, lineNo, strSrc, 'operator method is not acceptable')
+		return
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}

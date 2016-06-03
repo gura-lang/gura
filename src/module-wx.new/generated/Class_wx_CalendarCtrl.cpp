@@ -37,12 +37,12 @@ String Object_wx_CalendarCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_CalendarCtrl, wxCalendarCtrl)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __wxCalendarCtrl, "wxCalendarCtrl")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, wxCalendarCtrl)
+Gura_ImplementMethod(wx_CalendarCtrl, __wxCalendarCtrl)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, wxCalendarCtrl)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, wxCalendarCtrl_1)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __wxCalendarCtrl_1, "wxCalendarCtrl_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_CalendarCtrl, wxCalendarCtrl_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, wxCalendarCtrl_1)
+Gura_ImplementMethod(wx_CalendarCtrl, __wxCalendarCtrl_1)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, wxCalendarCtrl_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, Create)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -89,7 +89,7 @@ Gura_DeclareMethod(wx_CalendarCtrl, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, Create)
+Gura_ImplementMethod(wx_CalendarCtrl, __Create)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, EnableHolidayDisplay)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __EnableHolidayDisplay, "EnableHolidayDisplay")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "display", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, EnableHolidayDisplay)
+Gura_ImplementMethod(wx_CalendarCtrl, __EnableHolidayDisplay)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, EnableHolidayDisplay)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, EnableMonthChange)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __EnableMonthChange, "EnableMonthChange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, EnableMonthChange)
+Gura_ImplementMethod(wx_CalendarCtrl, __EnableMonthChange)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, EnableMonthChange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, EnableYearChange)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __EnableYearChange, "EnableYearChange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, EnableYearChange)
+Gura_ImplementMethod(wx_CalendarCtrl, __EnableYearChange)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, EnableYearChange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetAttr)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetAttr, "GetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetAttr)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetAttr)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -164,12 +164,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetDate)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetDate, "GetDate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetDate)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetDate)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -177,12 +177,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetDate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHeaderColourBg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHeaderColourBg, "GetHeaderColourBg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourBg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHeaderColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -190,12 +190,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourBg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHeaderColourFg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHeaderColourFg, "GetHeaderColourFg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourFg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHeaderColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -203,12 +203,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHeaderColourFg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHighlightColourBg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHighlightColourBg, "GetHighlightColourBg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourBg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHighlightColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -216,12 +216,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourBg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHighlightColourFg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHighlightColourFg, "GetHighlightColourFg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourFg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHighlightColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -229,12 +229,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHighlightColourFg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHolidayColourBg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHolidayColourBg, "GetHolidayColourBg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourBg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHolidayColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,12 +242,12 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourBg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetHolidayColourFg)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHolidayColourFg, "GetHolidayColourFg")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourFg)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetHolidayColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetHolidayColourFg)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, HitTest)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __HitTest, "HitTest")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -263,7 +263,7 @@ Gura_DeclareMethod(wx_CalendarCtrl, HitTest)
 	//DeclareArg(env, "wd", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, HitTest)
+Gura_ImplementMethod(wx_CalendarCtrl, __HitTest)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -274,13 +274,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, HitTest)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, ResetAttr)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __ResetAttr, "ResetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, ResetAttr)
+Gura_ImplementMethod(wx_CalendarCtrl, __ResetAttr)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -289,14 +289,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, ResetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetAttr)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetAttr, "SetAttr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetAttr)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetAttr)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -306,13 +306,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetAttr)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetDate)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetDate, "SetDate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetDate)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetDate)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -321,14 +321,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetDate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetHeaderColours)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetHeaderColours, "SetHeaderColours")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colFg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetHeaderColours)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetHeaderColours)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -338,14 +338,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetHeaderColours)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetHighlightColours)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetHighlightColours, "SetHighlightColours")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colFg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetHighlightColours)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetHighlightColours)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetHighlightColours)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetHoliday)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetHoliday, "SetHoliday")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetHoliday)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetHoliday)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -370,14 +370,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetHoliday)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetHolidayColours)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetHolidayColours, "SetHolidayColours")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "colFg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBg", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetHolidayColours)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetHolidayColours)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -387,14 +387,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetHolidayColours)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, Mark)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __Mark, "Mark")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mark", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, Mark)
+Gura_ImplementMethod(wx_CalendarCtrl, __Mark)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -404,14 +404,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, Mark)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, SetDateRange)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetDateRange, "SetDateRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lowerdate", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "upperdate", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, SetDateRange)
+Gura_ImplementMethod(wx_CalendarCtrl, __SetDateRange)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -421,14 +421,14 @@ Gura_ImplementMethod(wx_CalendarCtrl, SetDateRange)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_CalendarCtrl, GetDateRange)
+Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetDateRange, "GetDateRange")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "lowerdate", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "upperdate", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_CalendarCtrl, GetDateRange)
+Gura_ImplementMethod(wx_CalendarCtrl, __GetDateRange)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -443,31 +443,31 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetDateRange)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_CalendarCtrl)
 {
-	Gura_AssignMethod(wx_CalendarCtrl, wxCalendarCtrl);
-	Gura_AssignMethod(wx_CalendarCtrl, wxCalendarCtrl_1);
-	Gura_AssignMethod(wx_CalendarCtrl, Create);
-	Gura_AssignMethod(wx_CalendarCtrl, EnableHolidayDisplay);
-	Gura_AssignMethod(wx_CalendarCtrl, EnableMonthChange);
-	Gura_AssignMethod(wx_CalendarCtrl, EnableYearChange);
-	Gura_AssignMethod(wx_CalendarCtrl, GetAttr);
-	Gura_AssignMethod(wx_CalendarCtrl, GetDate);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHeaderColourBg);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHeaderColourFg);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHighlightColourBg);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHighlightColourFg);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHolidayColourBg);
-	Gura_AssignMethod(wx_CalendarCtrl, GetHolidayColourFg);
-	Gura_AssignMethod(wx_CalendarCtrl, HitTest);
-	Gura_AssignMethod(wx_CalendarCtrl, ResetAttr);
-	Gura_AssignMethod(wx_CalendarCtrl, SetAttr);
-	Gura_AssignMethod(wx_CalendarCtrl, SetDate);
-	Gura_AssignMethod(wx_CalendarCtrl, SetHeaderColours);
-	Gura_AssignMethod(wx_CalendarCtrl, SetHighlightColours);
-	Gura_AssignMethod(wx_CalendarCtrl, SetHoliday);
-	Gura_AssignMethod(wx_CalendarCtrl, SetHolidayColours);
-	Gura_AssignMethod(wx_CalendarCtrl, Mark);
-	Gura_AssignMethod(wx_CalendarCtrl, SetDateRange);
-	Gura_AssignMethod(wx_CalendarCtrl, GetDateRange);
+	Gura_AssignMethod(wx_CalendarCtrl, __wxCalendarCtrl);
+	Gura_AssignMethod(wx_CalendarCtrl, __wxCalendarCtrl_1);
+	Gura_AssignMethod(wx_CalendarCtrl, __Create);
+	Gura_AssignMethod(wx_CalendarCtrl, __EnableHolidayDisplay);
+	Gura_AssignMethod(wx_CalendarCtrl, __EnableMonthChange);
+	Gura_AssignMethod(wx_CalendarCtrl, __EnableYearChange);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetAttr);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetDate);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHeaderColourBg);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHeaderColourFg);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHighlightColourBg);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHighlightColourFg);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHolidayColourBg);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetHolidayColourFg);
+	Gura_AssignMethod(wx_CalendarCtrl, __HitTest);
+	Gura_AssignMethod(wx_CalendarCtrl, __ResetAttr);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetAttr);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetDate);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetHeaderColours);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetHighlightColours);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetHoliday);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetHolidayColours);
+	Gura_AssignMethod(wx_CalendarCtrl, __Mark);
+	Gura_AssignMethod(wx_CalendarCtrl, __SetDateRange);
+	Gura_AssignMethod(wx_CalendarCtrl, __GetDateRange);
 }
 
 Gura_ImplementDescendantCreator(wx_CalendarCtrl)

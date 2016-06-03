@@ -37,12 +37,12 @@ String Object_wx_TreeListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_TreeListItem, wxTreeListItem)
+Gura_DeclareMethodAlias(wx_TreeListItem, __wxTreeListItem, "wxTreeListItem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListItem, wxTreeListItem)
+Gura_ImplementMethod(wx_TreeListItem, __wxTreeListItem)
 {
 	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_TreeListItem, wxTreeListItem)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_TreeListItem, IsOk)
+Gura_DeclareMethodAlias(wx_TreeListItem, __IsOk, "IsOk")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_TreeListItem, IsOk)
+Gura_ImplementMethod(wx_TreeListItem, __IsOk)
 {
 	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_TreeListItem, IsOk)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_TreeListItem)
 {
-	Gura_AssignMethod(wx_TreeListItem, wxTreeListItem);
-	Gura_AssignMethod(wx_TreeListItem, IsOk);
+	Gura_AssignMethod(wx_TreeListItem, __wxTreeListItem);
+	Gura_AssignMethod(wx_TreeListItem, __IsOk);
 }
 
 Gura_ImplementDescendantCreator(wx_TreeListItem)

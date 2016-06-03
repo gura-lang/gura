@@ -37,12 +37,12 @@ String Object_wx_WebKitNewWindowEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_WebKitNewWindowEvent, GetURL)
+Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __GetURL, "GetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetURL)
+Gura_ImplementMethod(wx_WebKitNewWindowEvent, __GetURL)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitNewWindowEvent, SetURL)
+Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __SetURL, "SetURL")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetURL)
+Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetURL)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetURL)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitNewWindowEvent, GetTargetName)
+Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __GetTargetName, "GetTargetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetTargetName)
+Gura_ImplementMethod(wx_WebKitNewWindowEvent, __GetTargetName)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, GetTargetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitNewWindowEvent, SetTargetName)
+Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __SetTargetName, "SetTargetName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetTargetName)
+Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetTargetName)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, SetTargetName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent)
+Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent, "wxWebKitNewWindowEvent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent)
+Gura_ImplementMethod(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,11 +113,11 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WebKitNewWindowEvent)
 {
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, GetURL);
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, SetURL);
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, GetTargetName);
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, SetTargetName);
-	Gura_AssignMethod(wx_WebKitNewWindowEvent, wxWebKitNewWindowEvent);
+	Gura_AssignMethod(wx_WebKitNewWindowEvent, __GetURL);
+	Gura_AssignMethod(wx_WebKitNewWindowEvent, __SetURL);
+	Gura_AssignMethod(wx_WebKitNewWindowEvent, __GetTargetName);
+	Gura_AssignMethod(wx_WebKitNewWindowEvent, __SetTargetName);
+	Gura_AssignMethod(wx_WebKitNewWindowEvent, __wxWebKitNewWindowEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_WebKitNewWindowEvent)

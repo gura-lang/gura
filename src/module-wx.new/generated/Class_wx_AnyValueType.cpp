@@ -37,12 +37,12 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_AnyValueType, wxAnyValueType)
+Gura_DeclareMethodAlias(wx_AnyValueType, __wxAnyValueType, "wxAnyValueType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, wxAnyValueType)
+Gura_ImplementMethod(wx_AnyValueType, __wxAnyValueType)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_AnyValueType, wxAnyValueType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnyValueType, CheckType)
+Gura_DeclareMethodAlias(wx_AnyValueType, __CheckType, "CheckType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, CheckType)
+Gura_ImplementMethod(wx_AnyValueType, __CheckType)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_AnyValueType, CheckType)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnyValueType, ConvertValue)
+Gura_DeclareMethodAlias(wx_AnyValueType, __ConvertValue, "ConvertValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_DeclareMethod(wx_AnyValueType, ConvertValue)
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, ConvertValue)
+Gura_ImplementMethod(wx_AnyValueType, __ConvertValue)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_AnyValueType, ConvertValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnyValueType, CopyBuffer)
+Gura_DeclareMethodAlias(wx_AnyValueType, __CopyBuffer, "CopyBuffer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, CopyBuffer)
+Gura_ImplementMethod(wx_AnyValueType, __CopyBuffer)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_AnyValueType, CopyBuffer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnyValueType, DeleteValue)
+Gura_DeclareMethodAlias(wx_AnyValueType, __DeleteValue, "DeleteValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, DeleteValue)
+Gura_ImplementMethod(wx_AnyValueType, __DeleteValue)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_AnyValueType, DeleteValue)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_AnyValueType, IsSameType)
+Gura_DeclareMethodAlias(wx_AnyValueType, __IsSameType, "IsSameType")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "otherType", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_AnyValueType, IsSameType)
+Gura_ImplementMethod(wx_AnyValueType, __IsSameType)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -134,12 +134,12 @@ Gura_ImplementMethod(wx_AnyValueType, IsSameType)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_AnyValueType)
 {
-	Gura_AssignMethod(wx_AnyValueType, wxAnyValueType);
-	Gura_AssignMethod(wx_AnyValueType, CheckType);
-	Gura_AssignMethod(wx_AnyValueType, ConvertValue);
-	Gura_AssignMethod(wx_AnyValueType, CopyBuffer);
-	Gura_AssignMethod(wx_AnyValueType, DeleteValue);
-	Gura_AssignMethod(wx_AnyValueType, IsSameType);
+	Gura_AssignMethod(wx_AnyValueType, __wxAnyValueType);
+	Gura_AssignMethod(wx_AnyValueType, __CheckType);
+	Gura_AssignMethod(wx_AnyValueType, __ConvertValue);
+	Gura_AssignMethod(wx_AnyValueType, __CopyBuffer);
+	Gura_AssignMethod(wx_AnyValueType, __DeleteValue);
+	Gura_AssignMethod(wx_AnyValueType, __IsSameType);
 }
 
 Gura_ImplementDescendantCreator(wx_AnyValueType)

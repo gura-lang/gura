@@ -37,12 +37,12 @@ String Object_wx_NativeFontInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_NativeFontInfo, wxNativeFontInfo)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __wxNativeFontInfo, "wxNativeFontInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, wxNativeFontInfo)
+Gura_ImplementMethod(wx_NativeFontInfo, __wxNativeFontInfo)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, wxNativeFontInfo)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, wxNativeFontInfo_1)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __wxNativeFontInfo_1, "wxNativeFontInfo_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, wxNativeFontInfo_1)
+Gura_ImplementMethod(wx_NativeFontInfo, __wxNativeFontInfo_1)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, wxNativeFontInfo_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, Init)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __Init, "Init")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, Init)
+Gura_ImplementMethod(wx_NativeFontInfo, __Init)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, Init)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, InitFromFont)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __InitFromFont, "InitFromFont")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, InitFromFont)
+Gura_ImplementMethod(wx_NativeFontInfo, __InitFromFont)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,12 +93,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, InitFromFont)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetPointSize)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetPointSize, "GetPointSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetPointSize)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetPointSize)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,12 +106,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetPointSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetPixelSize)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetPixelSize, "GetPixelSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetPixelSize)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetPixelSize)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -119,12 +119,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetPixelSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetStyle)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetStyle, "GetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetStyle)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetStyle)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -132,12 +132,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetWeight)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetWeight, "GetWeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetWeight)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetWeight)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -145,12 +145,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetWeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetUnderlined)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetUnderlined, "GetUnderlined")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetUnderlined)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetUnderlined)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetUnderlined)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetFaceName)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetFaceName, "GetFaceName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetFaceName)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetFaceName)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -171,12 +171,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetFaceName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetFamily)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetFamily, "GetFamily")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetFamily)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetFamily)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -184,12 +184,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetFamily)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, GetEncoding)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __GetEncoding, "GetEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, GetEncoding)
+Gura_ImplementMethod(wx_NativeFontInfo, __GetEncoding)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -197,13 +197,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, GetEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetPointSize)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetPointSize, "SetPointSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pointsize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetPointSize)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetPointSize)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -212,13 +212,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetPointSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetPixelSize)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetPixelSize, "SetPixelSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "pixelSize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetPixelSize)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetPixelSize)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -227,13 +227,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetPixelSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetStyle)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetStyle, "SetStyle")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetStyle)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetStyle)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -242,13 +242,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetStyle)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetWeight)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetWeight, "SetWeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "weight", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetWeight)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetWeight)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -257,13 +257,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetWeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetUnderlined)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetUnderlined, "SetUnderlined")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "underlined", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetUnderlined)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetUnderlined)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -272,13 +272,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetUnderlined)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetFaceName)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetFaceName, "SetFaceName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "facename", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetFaceName)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -287,13 +287,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetFaceName)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetFamily)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetFamily, "SetFamily")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetFamily)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetFamily)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -302,13 +302,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetFamily)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetEncoding)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetEncoding, "SetEncoding")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "encoding", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetEncoding)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetEncoding)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -317,13 +317,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetEncoding)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, SetFaceName_1)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __SetFaceName_1, "SetFaceName_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "facenames", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, SetFaceName_1)
+Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName_1)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, SetFaceName_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, FromString)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __FromString, "FromString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, FromString)
+Gura_ImplementMethod(wx_NativeFontInfo, __FromString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -347,12 +347,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, FromString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, ToString)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __ToString, "ToString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, ToString)
+Gura_ImplementMethod(wx_NativeFontInfo, __ToString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -360,13 +360,13 @@ Gura_ImplementMethod(wx_NativeFontInfo, ToString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, FromUserString)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __FromUserString, "FromUserString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, FromUserString)
+Gura_ImplementMethod(wx_NativeFontInfo, __FromUserString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -375,12 +375,12 @@ Gura_ImplementMethod(wx_NativeFontInfo, FromUserString)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_NativeFontInfo, ToUserString)
+Gura_DeclareMethodAlias(wx_NativeFontInfo, __ToUserString, "ToUserString")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_NativeFontInfo, ToUserString)
+Gura_ImplementMethod(wx_NativeFontInfo, __ToUserString)
 {
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -393,31 +393,31 @@ Gura_ImplementMethod(wx_NativeFontInfo, ToUserString)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_NativeFontInfo)
 {
-	Gura_AssignMethod(wx_NativeFontInfo, wxNativeFontInfo);
-	Gura_AssignMethod(wx_NativeFontInfo, wxNativeFontInfo_1);
-	Gura_AssignMethod(wx_NativeFontInfo, Init);
-	Gura_AssignMethod(wx_NativeFontInfo, InitFromFont);
-	Gura_AssignMethod(wx_NativeFontInfo, GetPointSize);
-	Gura_AssignMethod(wx_NativeFontInfo, GetPixelSize);
-	Gura_AssignMethod(wx_NativeFontInfo, GetStyle);
-	Gura_AssignMethod(wx_NativeFontInfo, GetWeight);
-	Gura_AssignMethod(wx_NativeFontInfo, GetUnderlined);
-	Gura_AssignMethod(wx_NativeFontInfo, GetFaceName);
-	Gura_AssignMethod(wx_NativeFontInfo, GetFamily);
-	Gura_AssignMethod(wx_NativeFontInfo, GetEncoding);
-	Gura_AssignMethod(wx_NativeFontInfo, SetPointSize);
-	Gura_AssignMethod(wx_NativeFontInfo, SetPixelSize);
-	Gura_AssignMethod(wx_NativeFontInfo, SetStyle);
-	Gura_AssignMethod(wx_NativeFontInfo, SetWeight);
-	Gura_AssignMethod(wx_NativeFontInfo, SetUnderlined);
-	Gura_AssignMethod(wx_NativeFontInfo, SetFaceName);
-	Gura_AssignMethod(wx_NativeFontInfo, SetFamily);
-	Gura_AssignMethod(wx_NativeFontInfo, SetEncoding);
-	Gura_AssignMethod(wx_NativeFontInfo, SetFaceName_1);
-	Gura_AssignMethod(wx_NativeFontInfo, FromString);
-	Gura_AssignMethod(wx_NativeFontInfo, ToString);
-	Gura_AssignMethod(wx_NativeFontInfo, FromUserString);
-	Gura_AssignMethod(wx_NativeFontInfo, ToUserString);
+	Gura_AssignMethod(wx_NativeFontInfo, __wxNativeFontInfo);
+	Gura_AssignMethod(wx_NativeFontInfo, __wxNativeFontInfo_1);
+	Gura_AssignMethod(wx_NativeFontInfo, __Init);
+	Gura_AssignMethod(wx_NativeFontInfo, __InitFromFont);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetPointSize);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetPixelSize);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetStyle);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetWeight);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetUnderlined);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetFaceName);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetFamily);
+	Gura_AssignMethod(wx_NativeFontInfo, __GetEncoding);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetPointSize);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetPixelSize);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetStyle);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetWeight);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetUnderlined);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetFaceName);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetFamily);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetEncoding);
+	Gura_AssignMethod(wx_NativeFontInfo, __SetFaceName_1);
+	Gura_AssignMethod(wx_NativeFontInfo, __FromString);
+	Gura_AssignMethod(wx_NativeFontInfo, __ToString);
+	Gura_AssignMethod(wx_NativeFontInfo, __FromUserString);
+	Gura_AssignMethod(wx_NativeFontInfo, __ToUserString);
 }
 
 Gura_ImplementDescendantCreator(wx_NativeFontInfo)

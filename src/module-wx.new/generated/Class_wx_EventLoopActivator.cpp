@@ -37,13 +37,13 @@ String Object_wx_EventLoopActivator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_EventLoopActivator, wxEventLoopActivator)
+Gura_DeclareMethodAlias(wx_EventLoopActivator, __wxEventLoopActivator, "wxEventLoopActivator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "loop", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_EventLoopActivator, wxEventLoopActivator)
+Gura_ImplementMethod(wx_EventLoopActivator, __wxEventLoopActivator)
 {
 	Object_wx_EventLoopActivator *pThis = Object_wx_EventLoopActivator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -57,7 +57,7 @@ Gura_ImplementMethod(wx_EventLoopActivator, wxEventLoopActivator)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_EventLoopActivator)
 {
-	Gura_AssignMethod(wx_EventLoopActivator, wxEventLoopActivator);
+	Gura_AssignMethod(wx_EventLoopActivator, __wxEventLoopActivator);
 }
 
 Gura_ImplementDescendantCreator(wx_EventLoopActivator)

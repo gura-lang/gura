@@ -37,14 +37,14 @@ String Object_wx_ZipInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ZipInputStream, wxZipInputStream)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __wxZipInputStream, "wxZipInputStream")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream)
+Gura_ImplementMethod(wx_ZipInputStream, __wxZipInputStream)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,14 +54,14 @@ Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, wxZipInputStream_1)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __wxZipInputStream_1, "wxZipInputStream_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream_1)
+Gura_ImplementMethod(wx_ZipInputStream, __wxZipInputStream_1)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,12 +71,12 @@ Gura_ImplementMethod(wx_ZipInputStream, wxZipInputStream_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __CloseEntry, "CloseEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, CloseEntry)
+Gura_ImplementMethod(wx_ZipInputStream, __CloseEntry)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -84,12 +84,12 @@ Gura_ImplementMethod(wx_ZipInputStream, CloseEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, GetComment)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __GetComment, "GetComment")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, GetComment)
+Gura_ImplementMethod(wx_ZipInputStream, __GetComment)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -97,12 +97,12 @@ Gura_ImplementMethod(wx_ZipInputStream, GetComment)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, GetNextEntry)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __GetNextEntry, "GetNextEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
+Gura_ImplementMethod(wx_ZipInputStream, __GetNextEntry)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,12 +110,12 @@ Gura_ImplementMethod(wx_ZipInputStream, GetNextEntry)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, GetTotalEntries)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __GetTotalEntries, "GetTotalEntries")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, GetTotalEntries)
+Gura_ImplementMethod(wx_ZipInputStream, __GetTotalEntries)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_ZipInputStream, GetTotalEntries)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ZipInputStream, OpenEntry)
+Gura_DeclareMethodAlias(wx_ZipInputStream, __OpenEntry, "OpenEntry")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ZipInputStream, OpenEntry)
+Gura_ImplementMethod(wx_ZipInputStream, __OpenEntry)
 {
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_ZipInputStream, OpenEntry)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ZipInputStream)
 {
-	Gura_AssignMethod(wx_ZipInputStream, wxZipInputStream);
-	Gura_AssignMethod(wx_ZipInputStream, wxZipInputStream_1);
-	Gura_AssignMethod(wx_ZipInputStream, CloseEntry);
-	Gura_AssignMethod(wx_ZipInputStream, GetComment);
-	Gura_AssignMethod(wx_ZipInputStream, GetNextEntry);
-	Gura_AssignMethod(wx_ZipInputStream, GetTotalEntries);
-	Gura_AssignMethod(wx_ZipInputStream, OpenEntry);
+	Gura_AssignMethod(wx_ZipInputStream, __wxZipInputStream);
+	Gura_AssignMethod(wx_ZipInputStream, __wxZipInputStream_1);
+	Gura_AssignMethod(wx_ZipInputStream, __CloseEntry);
+	Gura_AssignMethod(wx_ZipInputStream, __GetComment);
+	Gura_AssignMethod(wx_ZipInputStream, __GetNextEntry);
+	Gura_AssignMethod(wx_ZipInputStream, __GetTotalEntries);
+	Gura_AssignMethod(wx_ZipInputStream, __OpenEntry);
 }
 
 Gura_ImplementDescendantCreator(wx_ZipInputStream)

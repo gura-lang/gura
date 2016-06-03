@@ -37,12 +37,12 @@ String Object_wx_BusyInfoFlags::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_BusyInfoFlags, wxBusyInfoFlags)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __wxBusyInfoFlags, "wxBusyInfoFlags")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, wxBusyInfoFlags)
+Gura_ImplementMethod(wx_BusyInfoFlags, __wxBusyInfoFlags)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, wxBusyInfoFlags)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Parent)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Parent, "Parent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Parent)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Parent)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Parent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Icon)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Icon, "Icon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Icon)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Icon)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,13 +80,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Icon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Title)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Title, "Title")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Title)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Title)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Title)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Text)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Text, "Text")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Text)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Text)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Text)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Label)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Label, "Label")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Label)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Label)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Label)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Foreground)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Foreground, "Foreground")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "foreground", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Foreground)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Foreground)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Foreground)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Background)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Background, "Background")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "background", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Background)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Background)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Background)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_BusyInfoFlags, Transparency)
+Gura_DeclareMethodAlias(wx_BusyInfoFlags, __Transparency, "Transparency")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_BusyInfoFlags, Transparency)
+Gura_ImplementMethod(wx_BusyInfoFlags, __Transparency)
 {
 	Object_wx_BusyInfoFlags *pThis = Object_wx_BusyInfoFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -175,15 +175,15 @@ Gura_ImplementMethod(wx_BusyInfoFlags, Transparency)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_BusyInfoFlags)
 {
-	Gura_AssignMethod(wx_BusyInfoFlags, wxBusyInfoFlags);
-	Gura_AssignMethod(wx_BusyInfoFlags, Parent);
-	Gura_AssignMethod(wx_BusyInfoFlags, Icon);
-	Gura_AssignMethod(wx_BusyInfoFlags, Title);
-	Gura_AssignMethod(wx_BusyInfoFlags, Text);
-	Gura_AssignMethod(wx_BusyInfoFlags, Label);
-	Gura_AssignMethod(wx_BusyInfoFlags, Foreground);
-	Gura_AssignMethod(wx_BusyInfoFlags, Background);
-	Gura_AssignMethod(wx_BusyInfoFlags, Transparency);
+	Gura_AssignMethod(wx_BusyInfoFlags, __wxBusyInfoFlags);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Parent);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Icon);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Title);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Text);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Label);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Foreground);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Background);
+	Gura_AssignMethod(wx_BusyInfoFlags, __Transparency);
 }
 
 Gura_ImplementDescendantCreator(wx_BusyInfoFlags)

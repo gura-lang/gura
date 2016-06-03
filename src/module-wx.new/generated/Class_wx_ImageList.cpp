@@ -37,12 +37,12 @@ String Object_wx_ImageList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_ImageList, wxImageList)
+Gura_DeclareMethodAlias(wx_ImageList, __wxImageList, "wxImageList")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageList, wxImageList)
+Gura_ImplementMethod(wx_ImageList, __wxImageList)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_ImageList, wxImageList)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, wxImageList_1)
+Gura_DeclareMethodAlias(wx_ImageList, __wxImageList_1, "wxImageList_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -59,7 +59,7 @@ Gura_DeclareMethod(wx_ImageList, wxImageList_1)
 	//DeclareArg(env, "initialCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, wxImageList_1)
+Gura_ImplementMethod(wx_ImageList, __wxImageList_1)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -71,14 +71,14 @@ Gura_ImplementMethod(wx_ImageList, wxImageList_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Add)
+Gura_DeclareMethodAlias(wx_ImageList, __Add, "Add")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Add)
+Gura_ImplementMethod(wx_ImageList, __Add)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -88,14 +88,14 @@ Gura_ImplementMethod(wx_ImageList, Add)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Add_1)
+Gura_DeclareMethodAlias(wx_ImageList, __Add_1, "Add_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maskColour", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Add_1)
+Gura_ImplementMethod(wx_ImageList, __Add_1)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_ImageList, Add_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Add_2)
+Gura_DeclareMethodAlias(wx_ImageList, __Add_2, "Add_2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Add_2)
+Gura_ImplementMethod(wx_ImageList, __Add_2)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_ImageList, Add_2)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Create)
+Gura_DeclareMethodAlias(wx_ImageList, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -129,7 +129,7 @@ Gura_DeclareMethod(wx_ImageList, Create)
 	//DeclareArg(env, "initialCount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Create)
+Gura_ImplementMethod(wx_ImageList, __Create)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_ImageList, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Draw)
+Gura_DeclareMethodAlias(wx_ImageList, __Draw, "Draw")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -152,7 +152,7 @@ Gura_DeclareMethod(wx_ImageList, Draw)
 	//DeclareArg(env, "solidBackground", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Draw)
+Gura_ImplementMethod(wx_ImageList, __Draw)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_ImageList, Draw)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, GetBitmap)
+Gura_DeclareMethodAlias(wx_ImageList, __GetBitmap, "GetBitmap")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, GetBitmap)
+Gura_ImplementMethod(wx_ImageList, __GetBitmap)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_ImageList, GetBitmap)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, GetIcon)
+Gura_DeclareMethodAlias(wx_ImageList, __GetIcon, "GetIcon")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, GetIcon)
+Gura_ImplementMethod(wx_ImageList, __GetIcon)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,12 +196,12 @@ Gura_ImplementMethod(wx_ImageList, GetIcon)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, GetImageCount)
+Gura_DeclareMethodAlias(wx_ImageList, __GetImageCount, "GetImageCount")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageList, GetImageCount)
+Gura_ImplementMethod(wx_ImageList, __GetImageCount)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_ImageList, GetImageCount)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, GetSize)
+Gura_DeclareMethodAlias(wx_ImageList, __GetSize, "GetSize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -217,7 +217,7 @@ Gura_DeclareMethod(wx_ImageList, GetSize)
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, GetSize)
+Gura_ImplementMethod(wx_ImageList, __GetSize)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -228,12 +228,12 @@ Gura_ImplementMethod(wx_ImageList, GetSize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, GetSize_1)
+Gura_DeclareMethodAlias(wx_ImageList, __GetSize_1, "GetSize_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageList, GetSize_1)
+Gura_ImplementMethod(wx_ImageList, __GetSize_1)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -241,13 +241,13 @@ Gura_ImplementMethod(wx_ImageList, GetSize_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Remove)
+Gura_DeclareMethodAlias(wx_ImageList, __Remove, "Remove")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Remove)
+Gura_ImplementMethod(wx_ImageList, __Remove)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -256,12 +256,12 @@ Gura_ImplementMethod(wx_ImageList, Remove)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, RemoveAll)
+Gura_DeclareMethodAlias(wx_ImageList, __RemoveAll, "RemoveAll")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_ImageList, RemoveAll)
+Gura_ImplementMethod(wx_ImageList, __RemoveAll)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_ImageList, RemoveAll)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Replace)
+Gura_DeclareMethodAlias(wx_ImageList, __Replace, "Replace")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -277,7 +277,7 @@ Gura_DeclareMethod(wx_ImageList, Replace)
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Replace)
+Gura_ImplementMethod(wx_ImageList, __Replace)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -288,14 +288,14 @@ Gura_ImplementMethod(wx_ImageList, Replace)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_ImageList, Replace_1)
+Gura_DeclareMethodAlias(wx_ImageList, __Replace_1, "Replace_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_ImageList, Replace_1)
+Gura_ImplementMethod(wx_ImageList, __Replace_1)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -310,22 +310,22 @@ Gura_ImplementMethod(wx_ImageList, Replace_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_ImageList)
 {
-	Gura_AssignMethod(wx_ImageList, wxImageList);
-	Gura_AssignMethod(wx_ImageList, wxImageList_1);
-	Gura_AssignMethod(wx_ImageList, Add);
-	Gura_AssignMethod(wx_ImageList, Add_1);
-	Gura_AssignMethod(wx_ImageList, Add_2);
-	Gura_AssignMethod(wx_ImageList, Create);
-	Gura_AssignMethod(wx_ImageList, Draw);
-	Gura_AssignMethod(wx_ImageList, GetBitmap);
-	Gura_AssignMethod(wx_ImageList, GetIcon);
-	Gura_AssignMethod(wx_ImageList, GetImageCount);
-	Gura_AssignMethod(wx_ImageList, GetSize);
-	Gura_AssignMethod(wx_ImageList, GetSize_1);
-	Gura_AssignMethod(wx_ImageList, Remove);
-	Gura_AssignMethod(wx_ImageList, RemoveAll);
-	Gura_AssignMethod(wx_ImageList, Replace);
-	Gura_AssignMethod(wx_ImageList, Replace_1);
+	Gura_AssignMethod(wx_ImageList, __wxImageList);
+	Gura_AssignMethod(wx_ImageList, __wxImageList_1);
+	Gura_AssignMethod(wx_ImageList, __Add);
+	Gura_AssignMethod(wx_ImageList, __Add_1);
+	Gura_AssignMethod(wx_ImageList, __Add_2);
+	Gura_AssignMethod(wx_ImageList, __Create);
+	Gura_AssignMethod(wx_ImageList, __Draw);
+	Gura_AssignMethod(wx_ImageList, __GetBitmap);
+	Gura_AssignMethod(wx_ImageList, __GetIcon);
+	Gura_AssignMethod(wx_ImageList, __GetImageCount);
+	Gura_AssignMethod(wx_ImageList, __GetSize);
+	Gura_AssignMethod(wx_ImageList, __GetSize_1);
+	Gura_AssignMethod(wx_ImageList, __Remove);
+	Gura_AssignMethod(wx_ImageList, __RemoveAll);
+	Gura_AssignMethod(wx_ImageList, __Replace);
+	Gura_AssignMethod(wx_ImageList, __Replace_1);
 }
 
 Gura_ImplementDescendantCreator(wx_ImageList)

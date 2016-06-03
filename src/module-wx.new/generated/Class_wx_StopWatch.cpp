@@ -37,12 +37,12 @@ String Object_wx_StopWatch::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_StopWatch, wxStopWatch)
+Gura_DeclareMethodAlias(wx_StopWatch, __wxStopWatch, "wxStopWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, wxStopWatch)
+Gura_ImplementMethod(wx_StopWatch, __wxStopWatch)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,12 +50,12 @@ Gura_ImplementMethod(wx_StopWatch, wxStopWatch)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StopWatch, Pause)
+Gura_DeclareMethodAlias(wx_StopWatch, __Pause, "Pause")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, Pause)
+Gura_ImplementMethod(wx_StopWatch, __Pause)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -63,12 +63,12 @@ Gura_ImplementMethod(wx_StopWatch, Pause)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StopWatch, Resume)
+Gura_DeclareMethodAlias(wx_StopWatch, __Resume, "Resume")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, Resume)
+Gura_ImplementMethod(wx_StopWatch, __Resume)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_StopWatch, Resume)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StopWatch, Start)
+Gura_DeclareMethodAlias(wx_StopWatch, __Start, "Start")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_StopWatch, Start)
+Gura_ImplementMethod(wx_StopWatch, __Start)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,12 +91,12 @@ Gura_ImplementMethod(wx_StopWatch, Start)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StopWatch, Time)
+Gura_DeclareMethodAlias(wx_StopWatch, __Time, "Time")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, Time)
+Gura_ImplementMethod(wx_StopWatch, __Time)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -104,12 +104,12 @@ Gura_ImplementMethod(wx_StopWatch, Time)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_StopWatch, TimeInMicro)
+Gura_DeclareMethodAlias(wx_StopWatch, __TimeInMicro, "TimeInMicro")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_StopWatch, TimeInMicro)
+Gura_ImplementMethod(wx_StopWatch, __TimeInMicro)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -122,12 +122,12 @@ Gura_ImplementMethod(wx_StopWatch, TimeInMicro)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StopWatch)
 {
-	Gura_AssignMethod(wx_StopWatch, wxStopWatch);
-	Gura_AssignMethod(wx_StopWatch, Pause);
-	Gura_AssignMethod(wx_StopWatch, Resume);
-	Gura_AssignMethod(wx_StopWatch, Start);
-	Gura_AssignMethod(wx_StopWatch, Time);
-	Gura_AssignMethod(wx_StopWatch, TimeInMicro);
+	Gura_AssignMethod(wx_StopWatch, __wxStopWatch);
+	Gura_AssignMethod(wx_StopWatch, __Pause);
+	Gura_AssignMethod(wx_StopWatch, __Resume);
+	Gura_AssignMethod(wx_StopWatch, __Start);
+	Gura_AssignMethod(wx_StopWatch, __Time);
+	Gura_AssignMethod(wx_StopWatch, __TimeInMicro);
 }
 
 Gura_ImplementDescendantCreator(wx_StopWatch)

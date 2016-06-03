@@ -37,14 +37,14 @@ String Object_wx_Semaphore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_Semaphore, wxSemaphore)
+Gura_DeclareMethodAlias(wx_Semaphore, __wxSemaphore, "wxSemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxcount", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Semaphore, wxSemaphore)
+Gura_ImplementMethod(wx_Semaphore, __wxSemaphore)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -54,12 +54,12 @@ Gura_ImplementMethod(wx_Semaphore, wxSemaphore)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Semaphore, Post)
+Gura_DeclareMethodAlias(wx_Semaphore, __Post, "Post")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Semaphore, Post)
+Gura_ImplementMethod(wx_Semaphore, __Post)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -67,12 +67,12 @@ Gura_ImplementMethod(wx_Semaphore, Post)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Semaphore, TryWait)
+Gura_DeclareMethodAlias(wx_Semaphore, __TryWait, "TryWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Semaphore, TryWait)
+Gura_ImplementMethod(wx_Semaphore, __TryWait)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -80,12 +80,12 @@ Gura_ImplementMethod(wx_Semaphore, TryWait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Semaphore, Wait)
+Gura_DeclareMethodAlias(wx_Semaphore, __Wait, "Wait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_Semaphore, Wait)
+Gura_ImplementMethod(wx_Semaphore, __Wait)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_Semaphore, Wait)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_Semaphore, WaitTimeout)
+Gura_DeclareMethodAlias(wx_Semaphore, __WaitTimeout, "WaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "timeout_millis", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
+Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -113,11 +113,11 @@ Gura_ImplementMethod(wx_Semaphore, WaitTimeout)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_Semaphore)
 {
-	Gura_AssignMethod(wx_Semaphore, wxSemaphore);
-	Gura_AssignMethod(wx_Semaphore, Post);
-	Gura_AssignMethod(wx_Semaphore, TryWait);
-	Gura_AssignMethod(wx_Semaphore, Wait);
-	Gura_AssignMethod(wx_Semaphore, WaitTimeout);
+	Gura_AssignMethod(wx_Semaphore, __wxSemaphore);
+	Gura_AssignMethod(wx_Semaphore, __Post);
+	Gura_AssignMethod(wx_Semaphore, __TryWait);
+	Gura_AssignMethod(wx_Semaphore, __Wait);
+	Gura_AssignMethod(wx_Semaphore, __WaitTimeout);
 }
 
 Gura_ImplementDescendantCreator(wx_Semaphore)

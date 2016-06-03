@@ -37,13 +37,13 @@ String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_HtmlContainerCell, wxHtmlContainerCell)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __wxHtmlContainerCell, "wxHtmlContainerCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, wxHtmlContainerCell)
+Gura_ImplementMethod(wx_HtmlContainerCell, __wxHtmlContainerCell)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -52,12 +52,12 @@ Gura_ImplementMethod(wx_HtmlContainerCell, wxHtmlContainerCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignHor)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetAlignHor, "GetAlignHor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignHor)
+Gura_ImplementMethod(wx_HtmlContainerCell, __GetAlignHor)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -65,12 +65,12 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignHor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, GetAlignVer)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetAlignVer, "GetAlignVer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignVer)
+Gura_ImplementMethod(wx_HtmlContainerCell, __GetAlignVer)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -78,12 +78,12 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetAlignVer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, GetBackgroundColour)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetBackgroundColour, "GetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, GetBackgroundColour)
+Gura_ImplementMethod(wx_HtmlContainerCell, __GetBackgroundColour)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, GetIndent)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetIndent, "GetIndent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, GetIndent)
+Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndent)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, GetIndentUnits)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetIndentUnits, "GetIndentUnits")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, GetIndentUnits)
+Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndentUnits)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, GetIndentUnits)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, InsertCell)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __InsertCell, "InsertCell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, InsertCell)
+Gura_ImplementMethod(wx_HtmlContainerCell, __InsertCell)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -136,13 +136,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, InsertCell)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetAlign)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetAlign, "SetAlign")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetAlign)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlign)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -151,13 +151,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlign)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignHor)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetAlignHor, "SetAlignHor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "al", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignHor)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlignHor)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignHor)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetAlignVer)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetAlignVer, "SetAlignVer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "al", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignVer)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlignVer)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetAlignVer)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetBackgroundColour)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetBackgroundColour, "SetBackgroundColour")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetBackgroundColour)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetBackgroundColour)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetBackgroundColour)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetBorder)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetBorder, "SetBorder")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "clr1", VTYPE_number, OCCUR_Once);
@@ -204,7 +204,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetBorder)
 	//DeclareArg(env, "border", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetBorder)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetBorder)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetBorder)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetIndent)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetIndent, "SetIndent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
@@ -223,7 +223,7 @@ Gura_DeclareMethod(wx_HtmlContainerCell, SetIndent)
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetIndent)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetIndent)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -234,14 +234,14 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetIndent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetMinHeight)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetMinHeight, "SetMinHeight")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "h", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetMinHeight)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetMinHeight)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -251,14 +251,14 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetMinHeight)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetWidthFloat, "SetWidthFloat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "units", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -268,14 +268,14 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_HtmlContainerCell, SetWidthFloat_1)
+Gura_DeclareMethodAlias(wx_HtmlContainerCell, __SetWidthFloat_1, "SetWidthFloat_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "tag", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pixel_scale", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat_1)
+Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat_1)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -290,22 +290,22 @@ Gura_ImplementMethod(wx_HtmlContainerCell, SetWidthFloat_1)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_HtmlContainerCell)
 {
-	Gura_AssignMethod(wx_HtmlContainerCell, wxHtmlContainerCell);
-	Gura_AssignMethod(wx_HtmlContainerCell, GetAlignHor);
-	Gura_AssignMethod(wx_HtmlContainerCell, GetAlignVer);
-	Gura_AssignMethod(wx_HtmlContainerCell, GetBackgroundColour);
-	Gura_AssignMethod(wx_HtmlContainerCell, GetIndent);
-	Gura_AssignMethod(wx_HtmlContainerCell, GetIndentUnits);
-	Gura_AssignMethod(wx_HtmlContainerCell, InsertCell);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetAlign);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetAlignHor);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetAlignVer);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetBackgroundColour);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetBorder);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetIndent);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetMinHeight);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetWidthFloat);
-	Gura_AssignMethod(wx_HtmlContainerCell, SetWidthFloat_1);
+	Gura_AssignMethod(wx_HtmlContainerCell, __wxHtmlContainerCell);
+	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignHor);
+	Gura_AssignMethod(wx_HtmlContainerCell, __GetAlignVer);
+	Gura_AssignMethod(wx_HtmlContainerCell, __GetBackgroundColour);
+	Gura_AssignMethod(wx_HtmlContainerCell, __GetIndent);
+	Gura_AssignMethod(wx_HtmlContainerCell, __GetIndentUnits);
+	Gura_AssignMethod(wx_HtmlContainerCell, __InsertCell);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetAlign);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetAlignHor);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetAlignVer);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetBackgroundColour);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetBorder);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetIndent);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetMinHeight);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetWidthFloat);
+	Gura_AssignMethod(wx_HtmlContainerCell, __SetWidthFloat_1);
 }
 
 Gura_ImplementDescendantCreator(wx_HtmlContainerCell)

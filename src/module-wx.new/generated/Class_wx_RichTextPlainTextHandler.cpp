@@ -37,7 +37,7 @@ String Object_wx_RichTextPlainTextHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
+Gura_DeclareMethodAlias(wx_RichTextPlainTextHandler, __wxRichTextPlainTextHandler, "wxRichTextPlainTextHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -45,7 +45,7 @@ Gura_DeclareMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
+Gura_ImplementMethod(wx_RichTextPlainTextHandler, __wxRichTextPlainTextHandler)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -56,12 +56,12 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPlainTextHandler, CanSave)
+Gura_DeclareMethodAlias(wx_RichTextPlainTextHandler, __CanSave, "CanSave")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanSave)
+Gura_ImplementMethod(wx_RichTextPlainTextHandler, __CanSave)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -69,12 +69,12 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanSave)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPlainTextHandler, CanLoad)
+Gura_DeclareMethodAlias(wx_RichTextPlainTextHandler, __CanLoad, "CanLoad")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanLoad)
+Gura_ImplementMethod(wx_RichTextPlainTextHandler, __CanLoad)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -82,14 +82,14 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, CanLoad)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPlainTextHandler, DoLoadFile)
+Gura_DeclareMethodAlias(wx_RichTextPlainTextHandler, __DoLoadFile, "DoLoadFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoLoadFile)
+Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoLoadFile)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -99,14 +99,14 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoLoadFile)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_RichTextPlainTextHandler, DoSaveFile)
+Gura_DeclareMethodAlias(wx_RichTextPlainTextHandler, __DoSaveFile, "DoSaveFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoSaveFile)
+Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoSaveFile)
 {
 	Object_wx_RichTextPlainTextHandler *pThis = Object_wx_RichTextPlainTextHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -121,11 +121,11 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, DoSaveFile)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_RichTextPlainTextHandler)
 {
-	Gura_AssignMethod(wx_RichTextPlainTextHandler, wxRichTextPlainTextHandler);
-	Gura_AssignMethod(wx_RichTextPlainTextHandler, CanSave);
-	Gura_AssignMethod(wx_RichTextPlainTextHandler, CanLoad);
-	Gura_AssignMethod(wx_RichTextPlainTextHandler, DoLoadFile);
-	Gura_AssignMethod(wx_RichTextPlainTextHandler, DoSaveFile);
+	Gura_AssignMethod(wx_RichTextPlainTextHandler, __wxRichTextPlainTextHandler);
+	Gura_AssignMethod(wx_RichTextPlainTextHandler, __CanSave);
+	Gura_AssignMethod(wx_RichTextPlainTextHandler, __CanLoad);
+	Gura_AssignMethod(wx_RichTextPlainTextHandler, __DoLoadFile);
+	Gura_AssignMethod(wx_RichTextPlainTextHandler, __DoSaveFile);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextPlainTextHandler)

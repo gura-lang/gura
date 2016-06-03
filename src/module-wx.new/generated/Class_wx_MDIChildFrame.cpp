@@ -37,12 +37,12 @@ String Object_wx_MDIChildFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Method implementation
 //----------------------------------------------------------------------------
-Gura_DeclareMethod(wx_MDIChildFrame, wxMDIChildFrame)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __wxMDIChildFrame, "wxMDIChildFrame")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame)
+Gura_ImplementMethod(wx_MDIChildFrame, __wxMDIChildFrame)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __wxMDIChildFrame_1, "wxMDIChildFrame_1")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_DeclareMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
+Gura_ImplementMethod(wx_MDIChildFrame, __wxMDIChildFrame_1)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -77,12 +77,12 @@ Gura_ImplementMethod(wx_MDIChildFrame, wxMDIChildFrame_1)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, Activate)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __Activate, "Activate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, Activate)
+Gura_ImplementMethod(wx_MDIChildFrame, __Activate)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, Activate)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, Create)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __Create, "Create")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -102,7 +102,7 @@ Gura_DeclareMethod(wx_MDIChildFrame, Create)
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, Create)
+Gura_ImplementMethod(wx_MDIChildFrame, __Create)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -117,12 +117,12 @@ Gura_ImplementMethod(wx_MDIChildFrame, Create)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, GetMDIParent)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __GetMDIParent, "GetMDIParent")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, GetMDIParent)
+Gura_ImplementMethod(wx_MDIChildFrame, __GetMDIParent)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -130,12 +130,12 @@ Gura_ImplementMethod(wx_MDIChildFrame, GetMDIParent)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, IsAlwaysMaximized)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __IsAlwaysMaximized, "IsAlwaysMaximized")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, IsAlwaysMaximized)
+Gura_ImplementMethod(wx_MDIChildFrame, __IsAlwaysMaximized)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_MDIChildFrame, IsAlwaysMaximized)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, Maximize)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __Maximize, "Maximize")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	//DeclareArg(env, "maximize", VTYPE_number, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
+Gura_ImplementMethod(wx_MDIChildFrame, __Maximize)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -158,12 +158,12 @@ Gura_ImplementMethod(wx_MDIChildFrame, Maximize)
 	return Value::Nil;
 }
 
-Gura_DeclareMethod(wx_MDIChildFrame, Restore)
+Gura_DeclareMethodAlias(wx_MDIChildFrame, __Restore, "Restore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 }
 
-Gura_ImplementMethod(wx_MDIChildFrame, Restore)
+Gura_ImplementMethod(wx_MDIChildFrame, __Restore)
 {
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
@@ -176,14 +176,14 @@ Gura_ImplementMethod(wx_MDIChildFrame, Restore)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_MDIChildFrame)
 {
-	Gura_AssignMethod(wx_MDIChildFrame, wxMDIChildFrame);
-	Gura_AssignMethod(wx_MDIChildFrame, wxMDIChildFrame_1);
-	Gura_AssignMethod(wx_MDIChildFrame, Activate);
-	Gura_AssignMethod(wx_MDIChildFrame, Create);
-	Gura_AssignMethod(wx_MDIChildFrame, GetMDIParent);
-	Gura_AssignMethod(wx_MDIChildFrame, IsAlwaysMaximized);
-	Gura_AssignMethod(wx_MDIChildFrame, Maximize);
-	Gura_AssignMethod(wx_MDIChildFrame, Restore);
+	Gura_AssignMethod(wx_MDIChildFrame, __wxMDIChildFrame);
+	Gura_AssignMethod(wx_MDIChildFrame, __wxMDIChildFrame_1);
+	Gura_AssignMethod(wx_MDIChildFrame, __Activate);
+	Gura_AssignMethod(wx_MDIChildFrame, __Create);
+	Gura_AssignMethod(wx_MDIChildFrame, __GetMDIParent);
+	Gura_AssignMethod(wx_MDIChildFrame, __IsAlwaysMaximized);
+	Gura_AssignMethod(wx_MDIChildFrame, __Maximize);
+	Gura_AssignMethod(wx_MDIChildFrame, __Restore);
 }
 
 Gura_ImplementDescendantCreator(wx_MDIChildFrame)
