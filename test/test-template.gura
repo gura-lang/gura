@@ -521,3 +521,37 @@ testcase('macro and line-break') {
 	Next Line
 	'''.template().render(sys.stdout)
 }
+
+//-----------------------------------------------------------------------------
+testcase('empty list') {
+	R'''
+	hello
+	${
+	[]
+	}
+	${[]}
+	gura
+	${''}
+	world
+	${[]}
+	!!!
+	ABCD${[]}EFG
+	'''.template().render(sys.stdout)
+}
+
+//-----------------------------------------------------------------------------
+testcase('empty iterator') {
+	R'''
+	hello
+	${
+	()
+	}
+	${()}
+	gura
+	${''}
+	world
+	${()}
+	!!!
+	ABCD${()}EFG
+	'''.template().render(sys.stdout)
+}

@@ -506,3 +506,21 @@ LineBreakGura
 Here
 Macro:Gura
 Next Line
+
+======== #26 empty list ========
+
+hello
+gura
+
+world
+!!!
+ABCDEFG
+
+======== #27 empty iterator ========
+
+hello
+gura
+
+world
+!!!
+ABCDEFG
