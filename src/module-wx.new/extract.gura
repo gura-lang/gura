@@ -319,12 +319,12 @@ ${if (lineSkipFlag) { '' }}
 Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+	${argInfos:*RenderDeclaration()}
 }
 
 Gura_ImplementFunction(${funcNameInternal})
 {
-	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
+	${argInfos:*RenderVariable()}
 	//${funcNameCPP}();
 	return Value::Nil;
 }
@@ -335,14 +335,14 @@ ${if (lineSkipFlag) { '' }}
 Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+	${argInfos:*RenderDeclaration()}
 	SetClassToConstruct(Gura_UserClass(wx_${classNameShort}));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(${funcNameInternal})
 {
-	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
+	${argInfos:*RenderVariable()}
 	//${funcNameCPP}();
 	return Value::Nil;
 }
@@ -353,14 +353,14 @@ ${if (lineSkipFlag) { '' }}
 Gura_DeclareMethodAlias(wx_${classNameShort}, ${funcNameInternal}, "${funcNameGura}")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	${if (!argInfos.isempty()) { argInfos:*RenderDeclaration() }}
+	${argInfos:*RenderDeclaration()}
 }
 
 Gura_ImplementMethod(wx_${classNameShort}, ${funcNameInternal})
 {
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	${if (!argInfos.isempty()) { argInfos:*RenderVariable() }}
+	${argInfos:*RenderVariable()}
 	//pThis->GetEntity()->${funcNameCPP}();
 	return Value::Nil;
 }
