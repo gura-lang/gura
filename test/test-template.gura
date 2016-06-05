@@ -6,7 +6,7 @@ sys.echo(false)
 sys.stdout.setcodec('shift_jis').addcr(false)
 
 //-----------------------------------------------------------------------------
-testcase {
+testcase('comment') {
 	R'''
 	  ${// comment}
 	  line.1
@@ -19,7 +19,7 @@ testcase {
 	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('block paramter') {
 	R'''
 	${(1..10).each() {|i|}}
 	  ${i}
@@ -27,7 +27,7 @@ testcase {
 	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('template script returns nil value') {
 	R'''
 	hello
 	${
@@ -52,7 +52,7 @@ testcase {
 	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('repeat sequence') {
 	companies = ['Gura company', 'Guri corporation', nil]
 	products = ['apple', 'grape', 'orange']
 	// iteration with for function
@@ -86,7 +86,7 @@ testcase {
 	${end}
 	'''.template().render(sys.stdout)
 }
-testcase {
+testcase('repeat and branch sequence') {
 	R'''
 	${for (i in 1..10)}
 	  ${if (i < 5)}
@@ -100,11 +100,11 @@ testcase {
 	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase() {
 	println('漢字のテスト ${"スクリプト文字列"}'.template().render())
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('template script that handles template internally') {
 tmpl = R'''
 ${if (company) {R"""
 Company: ${company}
@@ -126,7 +126,7 @@ ${R"""
 	}
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('auto-indentation') {
 	x = format('embedded #%d line\n', 1..4)
 	tmpl = R'''
 	space 1
@@ -156,7 +156,7 @@ testcase {
 	tmpl.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('error in template') {
 	try {
 		'abcdefg${hoge}hijklmn'.template().render()
 	} catch {|e|
@@ -164,11 +164,11 @@ testcase {
 	}
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('format in tempate script') {
 	tester(`'hello ${format("%d", 0..10).join(",")}'.template().render())
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('variable reference') {
 	var = 'HOGE'
 	tester(`'hello ${var} world'.template().render())
 	tester(`'hello ${var * 2} world'.template().render())
@@ -177,7 +177,7 @@ testcase {
 	tester(`'hello ${var} world'.template().render())
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('nil, number, string, and list') {
 	tester(`'${nil}'.template().render())
 	tester(`'${-}'.template().render())
 	tester(`'${3}'.template().render())
@@ -190,7 +190,7 @@ testcase {
 	}
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('branch sequence') {
 	R'''
 	${x = 10}
 	${x}

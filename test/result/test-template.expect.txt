@@ -1,11 +1,11 @@
-======== #1 ========
+======== #1 comment ========
 
   line.1
   line.2
   line.3
   line.4
 
-======== #2 ========
+======== #2 block paramter ========
 
   1
   2
@@ -18,7 +18,7 @@
   9
   10
 
-======== #3 ========
+======== #3 template script returns nil value ========
 
 hello
 gura
@@ -42,7 +42,7 @@ foobar
 foobar
 foobar
 
-======== #4 ========
+======== #4 repeat sequence ========
 
 [Companies]
     Company: Gura company
@@ -61,7 +61,7 @@ foobar
 - grape
 - orange
 
-======== #5 ========
+======== #5 repeat and branch sequence ========
 
     1 is less than five
     2 is less than five
@@ -78,7 +78,7 @@ foobar
 
 漢字のテスト スクリプト文字列
 
-======== #7 ========
+======== #7 template script that handles template internally ========
 
 Company: hoge
 [Products]
@@ -91,7 +91,7 @@ Company: hoge
 - bicycle
 - boat
 
-======== #8 ========
+======== #8 auto-indentation ========
 
 ** auto-indent **
 space 1
@@ -295,22 +295,22 @@ tab 2
 		single string
 not line top:  single string
 
-======== #9 ========
+======== #9 error in template ========
 
 expected error occurs: ValueError: undefined symbol 'hoge'
 
-======== #10 ========
+======== #10 format in tempate script ========
 
 'hello ${format("%d", 0..10).join(",")}'.template().render() .. hello 0,1,2,3,4,5,6,7,8,9,10
 
-======== #11 ========
+======== #11 variable reference ========
 
 'hello ${var} world'.template().render() .. hello HOGE world
 'hello ${var * 2} world'.template().render() .. hello HOGEHOGE world
 "hello '${format('%8s', var)}' world".template().render() .. hello '    HOGE' world
 'hello ${var} world'.template().render() .. hello 3.14 world
 
-======== #12 ========
+======== #12 nil, number, string, and list ========
 
 '${nil}'.template().render() .. 
 '${-}'.template().render() .. 
@@ -319,7 +319,7 @@ expected error occurs: ValueError: undefined symbol 'hoge'
 '${["first", "second", "third"]}'.template().render() .. firstsecondthird
 expected error occurs: TypeError: template script must return nil, string or number
 
-======== #13 ========
+======== #13 branch sequence ========
 
 10
 10
