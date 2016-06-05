@@ -547,15 +547,20 @@ Value Expr_TmplScript::DoExec(Environment &env) const
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	if (value.IsInvalid()) return Value::Nil;
-	_pTemplate->Print(sig, _strIndent.c_str());
 	String strLast;
 	if (value.Is_string()) {
+		_pTemplate->Print(sig, _strIndent.c_str());
 		strLast = value.GetStringSTL();
 	} else if (value.Is_list() || value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-		if (sig.IsSignalled()) return false;
+		if (sig.IsSignalled()) return Value::Nil;
+		bool firstFlag = true;
 		Value valueElem;
 		while (pIterator->Next(env, valueElem)) {
+			if (firstFlag) {
+				firstFlag = false;
+				_pTemplate->Print(sig, _strIndent.c_str());
+			}
 			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {
@@ -573,17 +578,20 @@ Value Expr_TmplScript::DoExec(Environment &env) const
 				strLast.clear();
 			} else if (valueElem.Is_number()) {
 				strLast = valueElem.ToString();
-				if (sig.IsSignalled()) return false;
+				if (sig.IsSignalled()) return Value::Nil;
 			} else {
 				sig.SetError(ERR_TypeError,
-					"template script must return nil, string or number");
+							 "an iterable returned by a template script must contain "
+							 "elements of nil, string or number");
 				sig.AddExprCause(this);
 				return Value::Nil;
 			}
 		}
+		if (firstFlag) return Value::Nil;
 	} else if (value.Is_number()) {
+		_pTemplate->Print(sig, _strIndent.c_str());
 		strLast = value.ToString();
-		if (sig.IsSignalled()) return false;
+		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		sig.SetError(ERR_TypeError,
 			"template script must return nil, string or number");
