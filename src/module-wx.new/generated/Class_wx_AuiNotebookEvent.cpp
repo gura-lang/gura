@@ -39,7 +39,7 @@ String Object_wx_AuiNotebookEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiNotebookEvent, "AuiNotebookEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AuiNotebookEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__AuiNotebookEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiNotebookEvent, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiNotebookEvent, __Clone)
 {
 	Object_wx_AuiNotebookEvent *pThis = Object_wx_AuiNotebookEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 

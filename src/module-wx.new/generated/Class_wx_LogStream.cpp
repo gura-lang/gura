@@ -39,7 +39,7 @@ String Object_wx_LogStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogStream, "LogStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ostr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_LogStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);

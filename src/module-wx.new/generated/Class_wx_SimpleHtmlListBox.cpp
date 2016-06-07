@@ -39,7 +39,7 @@ String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SimpleHtmlListBox, "SimpleHtmlListBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(__SimpleHtmlListBox)
 
 Gura_DeclareFunctionAlias(__SimpleHtmlListBox_1, "SimpleHtmlListBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__SimpleHtmlListBox_1)
 
 Gura_DeclareFunctionAlias(__SimpleHtmlListBox_2, "SimpleHtmlListBox_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SimpleHtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -115,7 +115,7 @@ Gura_ImplementFunction(__SimpleHtmlListBox_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, pos, size, n, _arg5, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SimpleHtmlListBox, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_SimpleHtmlListBox, __Create_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FloatingPointValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FloatingPointValidator, "FloatingPointValidator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FloatingPointValidator));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__FloatingPointValidator)
 
 Gura_DeclareFunctionAlias(__FloatingPointValidator_1, "FloatingPointValidator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);

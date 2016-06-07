@@ -39,7 +39,7 @@ String Object_wx_TextUrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextUrlEvent, "TextUrlEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "evtMouse", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__TextUrlEvent)
 
 Gura_DeclareFunctionAlias(__TextUrlEvent_1, "TextUrlEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TextUrlEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -78,53 +78,53 @@ Gura_ImplementFunction(__TextUrlEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextUrlEvent, __GetMouseEvent, "GetMouseEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextUrlEvent, __GetMouseEvent)
 {
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMouseEvent();
+	//const wxMouseEvent& _rtn = pThis->GetEntity()->GetMouseEvent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextUrlEvent, __GetURLStart, "GetURLStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextUrlEvent, __GetURLStart)
 {
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURLStart();
+	//long _rtn = pThis->GetEntity()->GetURLStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextUrlEvent, __GetURLEnd, "GetURLEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextUrlEvent, __GetURLEnd)
 {
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURLEnd();
+	//long _rtn = pThis->GetEntity()->GetURLEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextUrlEvent, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextUrlEvent, __Clone)
 {
 	Object_wx_TextUrlEvent *pThis = Object_wx_TextUrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_XmlResourceHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__XmlResourceHandler, "XmlResourceHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_XmlResourceHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__XmlResourceHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __CreateResource, "CreateResource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "instance", VTYPE_number, OCCUR_Once);
@@ -68,26 +68,26 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateResource)
 	//wxXmlNode* node = arg.GetNumber(0)
 	//wxObject* parent = arg.GetNumber(1)
 	//wxObject* instance = arg.GetNumber(2)
-	//pThis->GetEntity()->CreateResource(node, parent, instance);
+	//wxObject* _rtn = pThis->GetEntity()->CreateResource(node, parent, instance);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __DoCreateResource, "DoCreateResource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __DoCreateResource)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DoCreateResource();
+	//wxObject* _rtn = pThis->GetEntity()->DoCreateResource();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __CanHandle, "CanHandle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CanHandle)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->CanHandle(node);
+	//bool _rtn = pThis->GetEntity()->CanHandle(node);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateChildrenPrivately)
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __CreateResFromNode, "CreateResFromNode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "instance", VTYPE_number, OCCUR_Once);
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateResFromNode)
 	//wxXmlNode* node = arg.GetNumber(0)
 	//wxObject* parent = arg.GetNumber(1)
 	//wxObject* instance = arg.GetNumber(2)
-	//pThis->GetEntity()->CreateResFromNode(node, parent, instance);
+	//wxObject* _rtn = pThis->GetEntity()->CreateResFromNode(node, parent, instance);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetAnimation, "GetAnimation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetAnimation)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAnimation(param);
+	//wxAnimation* _rtn = pThis->GetEntity()->GetAnimation(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultArtClient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -228,13 +228,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBitmap)
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBitmap(param, defaultArtClient, size);
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap(param, defaultArtClient, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetBitmap_1, "GetBitmap_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultArtClient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBitmap_1)
 	//const wxXmlNode* node = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBitmap(node, defaultArtClient, size);
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap(node, defaultArtClient, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetBool, "GetBool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultv", VTYPE_number, OCCUR_Once);
 }
@@ -264,13 +264,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBool)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//bool defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetBool(param, defaultv);
+	//bool _rtn = pThis->GetEntity()->GetBool(param, defaultv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultColour", VTYPE_number, OCCUR_Once);
 }
@@ -281,26 +281,26 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//const wxColour& defaultColour = arg.GetNumber(1)
-	//pThis->GetEntity()->GetColour(param, defaultColour);
+	//wxColour _rtn = pThis->GetEntity()->GetColour(param, defaultColour);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetCurFileSystem, "GetCurFileSystem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetCurFileSystem)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurFileSystem();
+	//wxFileSystem& _rtn = pThis->GetEntity()->GetCurFileSystem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetDimension, "GetDimension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultv", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "windowToUse", VTYPE_number, OCCUR_Once);
@@ -313,13 +313,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetDimension)
 	//const wxString& param = arg.GetNumber(0)
 	//wxCoord defaultv = arg.GetNumber(1)
 	//wxWindow* windowToUse = arg.GetNumber(2)
-	//pThis->GetEntity()->GetDimension(param, defaultv, windowToUse);
+	//wxCoord _rtn = pThis->GetEntity()->GetDimension(param, defaultv, windowToUse);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetDirection, "GetDirection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dirDefault", VTYPE_number, OCCUR_Once);
 }
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetDirection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//wxDirection dirDefault = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDirection(param, dirDefault);
+	//wxDirection _rtn = pThis->GetEntity()->GetDirection(param, dirDefault);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -345,26 +345,26 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetFont)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont(param);
+	//wxFont _rtn = pThis->GetEntity()->GetFont(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetID, "GetID")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetID)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetID();
+	//int _rtn = pThis->GetEntity()->GetID();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetIcon, "GetIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultArtClient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -377,13 +377,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIcon)
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetIcon(param, defaultArtClient, size);
+	//wxIcon _rtn = pThis->GetEntity()->GetIcon(param, defaultArtClient, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetIcon_1, "GetIcon_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultArtClient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -396,13 +396,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIcon_1)
 	//const wxXmlNode* node = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetIcon(node, defaultArtClient, size);
+	//wxIcon _rtn = pThis->GetEntity()->GetIcon(node, defaultArtClient, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetIconBundle, "GetIconBundle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultArtClient", VTYPE_number, OCCUR_Once);
 }
@@ -413,13 +413,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIconBundle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
-	//pThis->GetEntity()->GetIconBundle(param, defaultArtClient);
+	//wxIconBundle _rtn = pThis->GetEntity()->GetIconBundle(param, defaultArtClient);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetImageList, "GetImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -428,13 +428,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetImageList)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageList(param);
+	//wxImageList* _rtn = pThis->GetEntity()->GetImageList(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetLong, "GetLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultv", VTYPE_number, OCCUR_Once);
 }
@@ -445,13 +445,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//long defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLong(param, defaultv);
+	//long _rtn = pThis->GetEntity()->GetLong(param, defaultv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetFloat, "GetFloat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultv", VTYPE_number, OCCUR_Once);
 }
@@ -462,26 +462,26 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetFloat)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//float defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFloat(param, defaultv);
+	//float _rtn = pThis->GetEntity()->GetFloat(param, defaultv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetName)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __IsObjectNode, "IsObjectNode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -490,13 +490,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __IsObjectNode)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->IsObjectNode(node);
+	//bool _rtn = pThis->GetEntity()->IsObjectNode(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetNodeContent, "GetNodeContent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -505,13 +505,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeContent)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeContent(node);
+	//wxString _rtn = pThis->GetEntity()->GetNodeContent(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetNodeParent, "GetNodeParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -520,13 +520,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeParent)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeParent(node);
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetNodeParent(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetNodeNext, "GetNodeNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -535,13 +535,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeNext)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeNext(node);
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetNodeNext(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetNodeChildren, "GetNodeChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -550,13 +550,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeChildren)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeChildren(node);
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetNodeChildren(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetParamNode, "GetParamNode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -565,13 +565,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamNode)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamNode(param);
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetParamNode(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetParamValue, "GetParamValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -580,13 +580,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamValue)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamValue(param);
+	//wxString _rtn = pThis->GetEntity()->GetParamValue(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetParamValue_1, "GetParamValue_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 }
 
@@ -595,13 +595,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamValue_1)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamValue(node);
+	//wxString _rtn = pThis->GetEntity()->GetParamValue(node);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -610,13 +610,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetPosition)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPosition(param);
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "windowToUse", VTYPE_number, OCCUR_Once);
 }
@@ -627,13 +627,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//wxWindow* windowToUse = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSize(param, windowToUse);
+	//wxSize _rtn = pThis->GetEntity()->GetSize(param, windowToUse);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaults", VTYPE_number, OCCUR_Once);
 }
@@ -644,13 +644,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//int defaults = arg.GetNumber(1)
-	//pThis->GetEntity()->GetStyle(param, defaults);
+	//int _rtn = pThis->GetEntity()->GetStyle(param, defaults);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "translate", VTYPE_number, OCCUR_Once);
 }
@@ -661,13 +661,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//bool translate = arg.GetNumber(1)
-	//pThis->GetEntity()->GetText(param, translate);
+	//wxString _rtn = pThis->GetEntity()->GetText(param, translate);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __HasParam, "HasParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
 
@@ -676,13 +676,13 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __HasParam)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->HasParam(param);
+	//bool _rtn = pThis->GetEntity()->HasParam(param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __IsOfClass, "IsOfClass")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "classname", VTYPE_number, OCCUR_Once);
 }
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __IsOfClass)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
 	//const wxString& classname = arg.GetNumber(1)
-	//pThis->GetEntity()->IsOfClass(node, classname);
+	//bool _rtn = pThis->GetEntity()->IsOfClass(node, classname);
 	return Value::Nil;
 }
 
@@ -763,79 +763,79 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __ReportParamError)
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetResource, "GetResource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetResource)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetResource();
+	//wxXmlResource* _rtn = pThis->GetEntity()->GetResource();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetNode, "GetNode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetNode)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNode();
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetNode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetClass, "GetClass")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetClass)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClass();
+	//wxString _rtn = pThis->GetEntity()->GetClass();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetParent)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParent();
+	//wxObject* _rtn = pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetInstance, "GetInstance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetInstance)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInstance();
+	//wxObject* _rtn = pThis->GetEntity()->GetInstance();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlResourceHandler, __GetParentAsWindow, "GetParentAsWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlResourceHandler, __GetParentAsWindow)
 {
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParentAsWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetParentAsWindow();
 	return Value::Nil;
 }
 

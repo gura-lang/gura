@@ -39,7 +39,7 @@ String Object_wx_RibbonPanel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonPanel, "RibbonPanel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonPanel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RibbonPanel)
 
 Gura_DeclareFunctionAlias(__RibbonPanel_1, "RibbonPanel_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__RibbonPanel_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonPanel, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -103,65 +103,65 @@ Gura_ImplementMethod(wx_RibbonPanel, __Create)
 	//const wxPoint& pos = arg.GetNumber(4)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, label, icon, pos, size, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, icon, pos, size, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __GetMinimisedIcon, "GetMinimisedIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __GetMinimisedIcon)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinimisedIcon();
+	//wxBitmap& _rtn = pThis->GetEntity()->GetMinimisedIcon();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __GetMinimisedIcon_1, "GetMinimisedIcon_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __GetMinimisedIcon_1)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinimisedIcon();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetMinimisedIcon();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __HasExtButton, "HasExtButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __HasExtButton)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasExtButton();
+	//bool _rtn = pThis->GetEntity()->HasExtButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __IsMinimised, "IsMinimised")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsMinimised();
+	//bool _rtn = pThis->GetEntity()->IsMinimised();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __IsMinimised_1, "IsMinimised_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "at_size", VTYPE_number, OCCUR_Once);
 }
 
@@ -170,72 +170,72 @@ Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised_1)
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSize at_size = arg.GetNumber(0)
-	//pThis->GetEntity()->IsMinimised(at_size);
+	//bool _rtn = pThis->GetEntity()->IsMinimised(at_size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __IsHovered, "IsHovered")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __IsHovered)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsHovered();
+	//bool _rtn = pThis->GetEntity()->IsHovered();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __IsExtButtonHovered, "IsExtButtonHovered")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __IsExtButtonHovered)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsExtButtonHovered();
+	//bool _rtn = pThis->GetEntity()->IsExtButtonHovered();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __CanAutoMinimise, "CanAutoMinimise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __CanAutoMinimise)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanAutoMinimise();
+	//bool _rtn = pThis->GetEntity()->CanAutoMinimise();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __ShowExpanded, "ShowExpanded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __ShowExpanded)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowExpanded();
+	//bool _rtn = pThis->GetEntity()->ShowExpanded();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __HideExpanded, "HideExpanded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __HideExpanded)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HideExpanded();
+	//bool _rtn = pThis->GetEntity()->HideExpanded();
 	return Value::Nil;
 }
 
@@ -256,40 +256,40 @@ Gura_ImplementMethod(wx_RibbonPanel, __SetArtProvider)
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __Realize, "Realize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __Realize)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Realize();
+	//bool _rtn = pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __GetExpandedDummy, "GetExpandedDummy")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __GetExpandedDummy)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExpandedDummy();
+	//wxRibbonPanel* _rtn = pThis->GetEntity()->GetExpandedDummy();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPanel, __GetExpandedPanel, "GetExpandedPanel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPanel, __GetExpandedPanel)
 {
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExpandedPanel();
+	//wxRibbonPanel* _rtn = pThis->GetEntity()->GetExpandedPanel();
 	return Value::Nil;
 }
 

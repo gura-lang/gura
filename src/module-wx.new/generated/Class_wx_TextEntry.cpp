@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_TextEntry, __AppendText)
 
 Gura_DeclareMethodAlias(wx_TextEntry, __AutoComplete, "AutoComplete")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_TextEntry, __AutoComplete)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& choices = arg.GetNumber(0)
-	//pThis->GetEntity()->AutoComplete(choices);
+	//bool _rtn = pThis->GetEntity()->AutoComplete(choices);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __AutoComplete_1, "AutoComplete_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "completer", VTYPE_number, OCCUR_Once);
 }
 
@@ -78,98 +78,98 @@ Gura_ImplementMethod(wx_TextEntry, __AutoComplete_1)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextCompleter* completer = arg.GetNumber(0)
-	//pThis->GetEntity()->AutoComplete(completer);
+	//bool _rtn = pThis->GetEntity()->AutoComplete(completer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __AutoCompleteFileNames, "AutoCompleteFileNames")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __AutoCompleteFileNames)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AutoCompleteFileNames();
+	//bool _rtn = pThis->GetEntity()->AutoCompleteFileNames();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __AutoCompleteDirectories, "AutoCompleteDirectories")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __AutoCompleteDirectories)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AutoCompleteDirectories();
+	//bool _rtn = pThis->GetEntity()->AutoCompleteDirectories();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __CanCopy, "CanCopy")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __CanCopy)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanCopy();
+	//bool _rtn = pThis->GetEntity()->CanCopy();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __CanCut, "CanCut")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __CanCut)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanCut();
+	//bool _rtn = pThis->GetEntity()->CanCut();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __CanPaste, "CanPaste")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __CanPaste)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanPaste();
+	//bool _rtn = pThis->GetEntity()->CanPaste();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __CanRedo, "CanRedo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __CanRedo)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanRedo();
+	//bool _rtn = pThis->GetEntity()->CanRedo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __CanUndo, "CanUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __CanUndo)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanUndo();
+	//bool _rtn = pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
 
@@ -242,33 +242,33 @@ Gura_ImplementMethod(wx_TextEntry, __ForceUpper)
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetInsertionPoint, "GetInsertionPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetInsertionPoint)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInsertionPoint();
+	//long _rtn = pThis->GetEntity()->GetInsertionPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetLastPosition, "GetLastPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetLastPosition)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLastPosition();
+	//wxTextPos _rtn = pThis->GetEntity()->GetLastPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_TextEntry, __GetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
-	//pThis->GetEntity()->GetRange(from, to);
+	//wxString _rtn = pThis->GetEntity()->GetRange(from, to);
 	return Value::Nil;
 }
 
@@ -302,53 +302,53 @@ Gura_ImplementMethod(wx_TextEntry, __GetSelection)
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetStringSelection, "GetStringSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetStringSelection)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStringSelection();
+	//wxString _rtn = pThis->GetEntity()->GetStringSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetValue)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxString _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __IsEditable, "IsEditable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __IsEditable)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEditable();
+	//bool _rtn = pThis->GetEntity()->IsEditable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __IsEmpty)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_TextEntry, __SelectNone)
 
 Gura_DeclareMethodAlias(wx_TextEntry, __SetHint, "SetHint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hint", VTYPE_number, OCCUR_Once);
 }
 
@@ -526,26 +526,26 @@ Gura_ImplementMethod(wx_TextEntry, __SetHint)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hint = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHint(hint);
+	//bool _rtn = pThis->GetEntity()->SetHint(hint);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetHint, "GetHint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetHint)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHint();
+	//wxString _rtn = pThis->GetEntity()->GetHint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __SetMargins, "SetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -554,13 +554,13 @@ Gura_ImplementMethod(wx_TextEntry, __SetMargins)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMargins(pt);
+	//bool _rtn = pThis->GetEntity()->SetMargins(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __SetMargins_1, "SetMargins_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "left", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "top", VTYPE_number, OCCUR_Once);
 }
@@ -571,20 +571,20 @@ Gura_ImplementMethod(wx_TextEntry, __SetMargins_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord left = arg.GetNumber(0)
 	//wxCoord top = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMargins(left, top);
+	//bool _rtn = pThis->GetEntity()->SetMargins(left, top);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntry, __GetMargins, "GetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntry, __GetMargins)
 {
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMargins();
+	//wxPoint _rtn = pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
 

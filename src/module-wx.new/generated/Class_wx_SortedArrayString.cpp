@@ -39,7 +39,7 @@ String Object_wx_SortedArrayString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SortedArrayString, "SortedArrayString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__SortedArrayString)
 
 Gura_DeclareFunctionAlias(__SortedArrayString_1, "SortedArrayString_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "compareFunction", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__SortedArrayString_1)
 
 Gura_DeclareFunctionAlias(__SortedArrayString_2, "SortedArrayString_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SortedArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__SortedArrayString_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SortedArrayString, __Add, "Add")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "copies", VTYPE_number, OCCUR_Once);
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_SortedArrayString, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(str, copies);
+	//size_t _rtn = pThis->GetEntity()->Add(str, copies);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SortedArrayString, __Index, "Index")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bFromEnd", VTYPE_number, OCCUR_Once);
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Index)
 	//const wxString& sz = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
 	//bool bFromEnd = arg.GetNumber(2)
-	//pThis->GetEntity()->Index(sz, bCase, bFromEnd);
+	//int _rtn = pThis->GetEntity()->Index(sz, bCase, bFromEnd);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FontList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FontList, "FontList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__FontList)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontList, __FindOrCreateFont, "FindOrCreateFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "point_size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "family", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_FontList, __FindOrCreateFont)
 	//bool underline = arg.GetNumber(4)
 	//const wxString& facename = arg.GetNumber(5)
 	//wxFontEncoding encoding = arg.GetNumber(6)
-	//pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
+	//wxFont* _rtn = pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
 	return Value::Nil;
 }
 

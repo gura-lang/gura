@@ -39,7 +39,7 @@ String Object_wx_DebugReportUpload::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DebugReportUpload, "DebugReportUpload")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(__DebugReportUpload)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugReportUpload, __OnServerReply, "OnServerReply")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "reply", VTYPE_number, OCCUR_Once);
 }
 
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_DebugReportUpload, __OnServerReply)
 	Object_wx_DebugReportUpload *pThis = Object_wx_DebugReportUpload::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& reply = arg.GetNumber(0)
-	//pThis->GetEntity()->OnServerReply(reply);
+	//bool _rtn = pThis->GetEntity()->OnServerReply(reply);
 	return Value::Nil;
 }
 

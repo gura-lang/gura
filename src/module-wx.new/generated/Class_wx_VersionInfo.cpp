@@ -39,7 +39,7 @@ String Object_wx_VersionInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VersionInfo, "VersionInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "major", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "minor", VTYPE_number, OCCUR_Once);
@@ -67,131 +67,131 @@ Gura_ImplementFunction(__VersionInfo)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetName)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetMajor, "GetMajor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetMajor)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMajor();
+	//int _rtn = pThis->GetEntity()->GetMajor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetMinor, "GetMinor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetMinor)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinor();
+	//int _rtn = pThis->GetEntity()->GetMinor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetMicro, "GetMicro")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetMicro)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMicro();
+	//int _rtn = pThis->GetEntity()->GetMicro();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __ToString, "ToString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __ToString)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToString();
+	//wxString _rtn = pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetVersionString, "GetVersionString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetVersionString)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVersionString();
+	//wxString _rtn = pThis->GetEntity()->GetVersionString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __HasDescription, "HasDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __HasDescription)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasDescription();
+	//bool _rtn = pThis->GetEntity()->HasDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetDescription, "GetDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetDescription)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDescription();
+	//const wxString& _rtn = pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __HasCopyright, "HasCopyright")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __HasCopyright)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasCopyright();
+	//bool _rtn = pThis->GetEntity()->HasCopyright();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VersionInfo, __GetCopyright, "GetCopyright")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VersionInfo, __GetCopyright)
 {
 	Object_wx_VersionInfo *pThis = Object_wx_VersionInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCopyright();
+	//const wxString& _rtn = pThis->GetEntity()->GetCopyright();
 	return Value::Nil;
 }
 

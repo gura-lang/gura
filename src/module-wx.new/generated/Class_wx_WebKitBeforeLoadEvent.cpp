@@ -39,7 +39,7 @@ String Object_wx_WebKitBeforeLoadEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebKitBeforeLoadEvent, "WebKitBeforeLoadEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebKitBeforeLoadEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__WebKitBeforeLoadEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __IsCancelled, "IsCancelled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __IsCancelled)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCancelled();
+	//bool _rtn = pThis->GetEntity()->IsCancelled();
 	return Value::Nil;
 }
 
@@ -85,14 +85,14 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __Cancel)
 
 Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetURL)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 
@@ -128,14 +128,14 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetNavigationType)
 
 Gura_DeclareMethodAlias(wx_WebKitBeforeLoadEvent, __GetNavigationType, "GetNavigationType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __GetNavigationType)
 {
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNavigationType();
+	//int _rtn = pThis->GetEntity()->GetNavigationType();
 	return Value::Nil;
 }
 

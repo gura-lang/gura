@@ -39,7 +39,7 @@ String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextFormattingDialogFactory, "RichTextFormattingDialogFactory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFormattingDialogFactory));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__RichTextFormattingDialogFactory)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreateButtons, "CreateButtons")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreateButtons)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextFormattingDialog* dialog = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateButtons(dialog);
+	//bool _rtn = pThis->GetEntity()->CreateButtons(dialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreatePage, "CreatePage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePage)
 	//int page = arg.GetNumber(0)
 	//wxString& title = arg.GetNumber(1)
 	//wxRichTextFormattingDialog* dialog = arg.GetNumber(2)
-	//pThis->GetEntity()->CreatePage(page, title, dialog);
+	//wxPanel* _rtn = pThis->GetEntity()->CreatePage(page, title, dialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __CreatePages, "CreatePages")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __CreatePages)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pages = arg.GetNumber(0)
 	//wxRichTextFormattingDialog* dialog = arg.GetNumber(1)
-	//pThis->GetEntity()->CreatePages(pages, dialog);
+	//bool _rtn = pThis->GetEntity()->CreatePages(pages, dialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageId, "GetPageId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -115,26 +115,26 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageId)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageId(i);
+	//int _rtn = pThis->GetEntity()->GetPageId(i);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageIdCount, "GetPageIdCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageIdCount)
 {
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageIdCount();
+	//int _rtn = pThis->GetEntity()->GetPageIdCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __GetPageImage, "GetPageImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __GetPageImage)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageImage(id);
+	//int _rtn = pThis->GetEntity()->GetPageImage(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __SetSheetStyle, "SetSheetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __SetSheetStyle)
 	Object_wx_RichTextFormattingDialogFactory *pThis = Object_wx_RichTextFormattingDialogFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextFormattingDialog* dialog = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSheetStyle(dialog);
+	//bool _rtn = pThis->GetEntity()->SetSheetStyle(dialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFormattingDialogFactory, __ShowHelp, "ShowHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_RichTextFormattingDialogFactory, __ShowHelp)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
 	//wxRichTextFormattingDialog* dialog = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowHelp(page, dialog);
+	//bool _rtn = pThis->GetEntity()->ShowHelp(page, dialog);
 	return Value::Nil;
 }
 

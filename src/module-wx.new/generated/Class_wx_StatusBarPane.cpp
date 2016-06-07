@@ -39,7 +39,7 @@ String Object_wx_StatusBarPane::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StatusBarPane, "StatusBarPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StatusBarPane));
@@ -59,40 +59,40 @@ Gura_ImplementFunction(__StatusBarPane)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StatusBarPane, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StatusBarPane, __GetWidth)
 {
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StatusBarPane, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StatusBarPane, __GetStyle)
 {
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//int _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StatusBarPane, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StatusBarPane, __GetText)
 {
 	Object_wx_StatusBarPane *pThis = Object_wx_StatusBarPane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//wxString _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 

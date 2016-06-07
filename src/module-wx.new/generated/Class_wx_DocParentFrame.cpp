@@ -39,7 +39,7 @@ String Object_wx_DocParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DocParentFrame, "DocParentFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DocParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DocParentFrame)
 
 Gura_DeclareFunctionAlias(__DocParentFrame_1, "DocParentFrame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__DocParentFrame_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocParentFrame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -107,20 +107,20 @@ Gura_ImplementMethod(wx_DocParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocParentFrame, __GetDocumentManager, "GetDocumentManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocParentFrame, __GetDocumentManager)
 {
 	Object_wx_DocParentFrame *pThis = Object_wx_DocParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocumentManager();
+	//wxDocManager* _rtn = pThis->GetEntity()->GetDocumentManager();
 	return Value::Nil;
 }
 

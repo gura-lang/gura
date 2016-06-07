@@ -39,7 +39,7 @@ String Object_wx_GridCellCoords::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellCoords, "GridCellCoords")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellCoords));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridCellCoords)
 
 Gura_DeclareFunctionAlias(__GridCellCoords_1, "GridCellCoords_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellCoords));
@@ -72,14 +72,14 @@ Gura_ImplementFunction(__GridCellCoords_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellCoords, __GetRow, "GetRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellCoords, __GetRow)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRow();
+	//int _rtn = pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
 
@@ -100,14 +100,14 @@ Gura_ImplementMethod(wx_GridCellCoords, __SetRow)
 
 Gura_DeclareMethodAlias(wx_GridCellCoords, __GetCol, "GetCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellCoords, __GetCol)
 {
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCol();
+	//int _rtn = pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
 

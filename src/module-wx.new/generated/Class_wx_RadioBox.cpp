@@ -39,7 +39,7 @@ String Object_wx_RadioBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RadioBox, "RadioBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RadioBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RadioBox)
 
 Gura_DeclareFunctionAlias(__RadioBox_1, "RadioBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(__RadioBox_1)
 
 Gura_DeclareFunctionAlias(__RadioBox_2, "RadioBox_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -123,7 +123,7 @@ Gura_ImplementFunction(__RadioBox_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RadioBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -152,13 +152,13 @@ Gura_ImplementMethod(wx_RadioBox, __Create)
 	//long style = arg.GetNumber(8)
 	//const wxValidator& validator = arg.GetNumber(9)
 	//const wxString& name = arg.GetNumber(10)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, n, _arg6, majorDimension, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, n, _arg6, majorDimension, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_RadioBox, __Create_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, choices, majorDimension, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, choices, majorDimension, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __Enable, "Enable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_RadioBox, __Enable)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
 	//bool enable = arg.GetNumber(1)
-	//pThis->GetEntity()->Enable(n, enable);
+	//bool _rtn = pThis->GetEntity()->Enable(n, enable);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __FindString, "FindString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 }
@@ -219,26 +219,26 @@ Gura_ImplementMethod(wx_RadioBox, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString(string, bCase);
+	//int _rtn = pThis->GetEntity()->FindString(string, bCase);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetColumnCount, "GetColumnCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RadioBox, __GetColumnCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumnCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetColumnCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetItemFromPoint, "GetItemFromPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_RadioBox, __GetItemFromPoint)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemFromPoint(pt);
+	//int _rtn = pThis->GetEntity()->GetItemFromPoint(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetItemHelpText, "GetItemHelpText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -262,13 +262,13 @@ Gura_ImplementMethod(wx_RadioBox, __GetItemHelpText)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemHelpText(item);
+	//wxString _rtn = pThis->GetEntity()->GetItemHelpText(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetItemToolTip, "GetItemToolTip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -277,26 +277,26 @@ Gura_ImplementMethod(wx_RadioBox, __GetItemToolTip)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemToolTip(item);
+	//wxToolTip* _rtn = pThis->GetEntity()->GetItemToolTip(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetRowCount, "GetRowCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RadioBox, __GetRowCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRowCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetRowCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __IsItemEnabled, "IsItemEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -305,13 +305,13 @@ Gura_ImplementMethod(wx_RadioBox, __IsItemEnabled)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->IsItemEnabled(n);
+	//bool _rtn = pThis->GetEntity()->IsItemEnabled(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __IsItemShown, "IsItemShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_RadioBox, __IsItemShown)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->IsItemShown(n);
+	//bool _rtn = pThis->GetEntity()->IsItemShown(n);
 	return Value::Nil;
 }
 
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_RadioBox, __SetSelection)
 
 Gura_DeclareMethodAlias(wx_RadioBox, __Show, "Show")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
@@ -386,26 +386,26 @@ Gura_ImplementMethod(wx_RadioBox, __Show)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
 	//bool show = arg.GetNumber(1)
-	//pThis->GetEntity()->Show(item, show);
+	//bool _rtn = pThis->GetEntity()->Show(item, show);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RadioBox, __GetCount)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_RadioBox, __GetString)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString(n);
+	//wxString _rtn = pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
@@ -437,14 +437,14 @@ Gura_ImplementMethod(wx_RadioBox, __SetString)
 
 Gura_DeclareMethodAlias(wx_RadioBox, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RadioBox, __GetSelection)
 {
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 

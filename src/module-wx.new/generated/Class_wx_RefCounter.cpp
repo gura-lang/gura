@@ -39,7 +39,7 @@ String Object_wx_RefCounter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RefCounter, "RefCounter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RefCounter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,14 +68,14 @@ Gura_ImplementMethod(wx_RefCounter, __DecRef)
 
 Gura_DeclareMethodAlias(wx_RefCounter, __GetRefCount, "GetRefCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RefCounter, __GetRefCount)
 {
 	Object_wx_RefCounter *pThis = Object_wx_RefCounter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRefCount();
+	//int _rtn = pThis->GetEntity()->GetRefCount();
 	return Value::Nil;
 }
 

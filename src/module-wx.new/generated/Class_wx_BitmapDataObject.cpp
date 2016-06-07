@@ -39,7 +39,7 @@ String Object_wx_BitmapDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BitmapDataObject, "BitmapDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__BitmapDataObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapDataObject, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BitmapDataObject, __GetBitmap)
 {
 	Object_wx_BitmapDataObject *pThis = Object_wx_BitmapDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 

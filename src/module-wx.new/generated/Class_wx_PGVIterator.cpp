@@ -39,7 +39,7 @@ String Object_wx_PGVIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PGVIterator, "PGVIterator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PGVIterator)
 
 Gura_DeclareFunctionAlias(__PGVIterator_1, "PGVIterator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PGVIterator_1)
 
 Gura_DeclareFunctionAlias(__PGVIterator_2, "PGVIterator_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGVIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -111,27 +111,27 @@ Gura_ImplementMethod(wx_PGVIterator, __Next)
 
 Gura_DeclareMethodAlias(wx_PGVIterator, __AtEnd, "AtEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGVIterator, __AtEnd)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AtEnd();
+	//bool _rtn = pThis->GetEntity()->AtEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGVIterator, __GetProperty, "GetProperty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGVIterator, __GetProperty)
 {
 	Object_wx_PGVIterator *pThis = Object_wx_PGVIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProperty();
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
 

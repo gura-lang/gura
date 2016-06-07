@@ -39,7 +39,7 @@ String Object_wx_Event::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Event, "Event")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Event));
@@ -59,118 +59,118 @@ Gura_ImplementFunction(__Event)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Event, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __Clone)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetEventObject, "GetEventObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetEventObject)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEventObject();
+	//wxObject* _rtn = pThis->GetEntity()->GetEventObject();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetEventType, "GetEventType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetEventType)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEventType();
+	//wxEventType _rtn = pThis->GetEntity()->GetEventType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetEventCategory, "GetEventCategory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetEventCategory)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEventCategory();
+	//wxEventCategory _rtn = pThis->GetEntity()->GetEventCategory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetId)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//int _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetEventUserData, "GetEventUserData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetEventUserData)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEventUserData();
+	//wxObject* _rtn = pThis->GetEntity()->GetEventUserData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetSkipped, "GetSkipped")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetSkipped)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSkipped();
+	//bool _rtn = pThis->GetEntity()->GetSkipped();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __GetTimestamp, "GetTimestamp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __GetTimestamp)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTimestamp();
+	//long _rtn = pThis->GetEntity()->GetTimestamp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Event, __IsCommandEvent, "IsCommandEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __IsCommandEvent)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCommandEvent();
+	//bool _rtn = pThis->GetEntity()->IsCommandEvent();
 	return Value::Nil;
 }
 
@@ -251,14 +251,14 @@ Gura_ImplementMethod(wx_Event, __SetTimestamp)
 
 Gura_DeclareMethodAlias(wx_Event, __ShouldPropagate, "ShouldPropagate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __ShouldPropagate)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShouldPropagate();
+	//bool _rtn = pThis->GetEntity()->ShouldPropagate();
 	return Value::Nil;
 }
 
@@ -279,14 +279,14 @@ Gura_ImplementMethod(wx_Event, __Skip)
 
 Gura_DeclareMethodAlias(wx_Event, __StopPropagation, "StopPropagation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Event, __StopPropagation)
 {
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->StopPropagation();
+	//int _rtn = pThis->GetEntity()->StopPropagation();
 	return Value::Nil;
 }
 

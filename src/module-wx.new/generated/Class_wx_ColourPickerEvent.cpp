@@ -39,7 +39,7 @@ String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ColourPickerEvent, "ColourPickerEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ColourPickerEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ColourPickerEvent)
 
 Gura_DeclareFunctionAlias(__ColourPickerEvent_1, "ColourPickerEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -74,14 +74,14 @@ Gura_ImplementFunction(__ColourPickerEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ColourPickerEvent, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ColourPickerEvent, __GetColour)
 {
 	Object_wx_ColourPickerEvent *pThis = Object_wx_ColourPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColour();
+	//wxColour _rtn = pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
 

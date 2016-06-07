@@ -39,7 +39,7 @@ String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SocketOutputStream, "SocketOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SocketOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);

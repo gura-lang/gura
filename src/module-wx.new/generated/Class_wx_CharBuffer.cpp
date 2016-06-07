@@ -39,7 +39,7 @@ String Object_wx_CharBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CharBuffer, "CharBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__CharBuffer)
 
 Gura_DeclareFunctionAlias(__CharBuffer_1, "CharBuffer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__CharBuffer_1)
 
 Gura_DeclareFunctionAlias(__CharBuffer_2, "CharBuffer_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__CharBuffer_2)
 
 Gura_DeclareFunctionAlias(__CharBuffer_3, "CharBuffer_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__CharBuffer_3)
 
 Gura_DeclareFunctionAlias(__CharBuffer_4, "CharBuffer_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cstr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);

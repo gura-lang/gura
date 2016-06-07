@@ -39,7 +39,7 @@ String Object_wx_JoystickEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__JoystickEvent, "JoystickEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "joystick", VTYPE_number, OCCUR_Once);
@@ -63,7 +63,7 @@ Gura_ImplementFunction(__JoystickEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonDown, "ButtonDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
@@ -72,13 +72,13 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonDown)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDown(button);
+	//bool _rtn = pThis->GetEntity()->ButtonDown(button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonIsDown, "ButtonIsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonIsDown)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonIsDown(button);
+	//bool _rtn = pThis->GetEntity()->ButtonIsDown(button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __ButtonUp, "ButtonUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
@@ -102,111 +102,111 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonUp)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonUp(button);
+	//bool _rtn = pThis->GetEntity()->ButtonUp(button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __GetButtonChange, "GetButtonChange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __GetButtonChange)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonChange();
+	//int _rtn = pThis->GetEntity()->GetButtonChange();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __GetButtonState, "GetButtonState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __GetButtonState)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonState();
+	//int _rtn = pThis->GetEntity()->GetButtonState();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __GetJoystick, "GetJoystick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __GetJoystick)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetJoystick();
+	//int _rtn = pThis->GetEntity()->GetJoystick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __GetPosition)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __GetZPosition, "GetZPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __GetZPosition)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetZPosition();
+	//int _rtn = pThis->GetEntity()->GetZPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __IsButton, "IsButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __IsButton)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsButton();
+	//bool _rtn = pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __IsMove, "IsMove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __IsMove)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsMove();
+	//bool _rtn = pThis->GetEntity()->IsMove();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_JoystickEvent, __IsZMove, "IsZMove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_JoystickEvent, __IsZMove)
 {
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsZMove();
+	//bool _rtn = pThis->GetEntity()->IsZMove();
 	return Value::Nil;
 }
 

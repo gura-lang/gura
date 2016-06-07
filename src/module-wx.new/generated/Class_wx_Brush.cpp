@@ -39,7 +39,7 @@ String Object_wx_Brush::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Brush, "Brush")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Brush)
 
 Gura_DeclareFunctionAlias(__Brush_1, "Brush_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__Brush_1)
 
 Gura_DeclareFunctionAlias(__Brush_2, "Brush_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stippleBitmap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Brush_2)
 
 Gura_DeclareFunctionAlias(__Brush_3, "Brush_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Brush));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -102,92 +102,92 @@ Gura_ImplementFunction(__Brush_3)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Brush, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __GetColour)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColour();
+	//wxColour _rtn = pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __GetStipple, "GetStipple")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __GetStipple)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStipple();
+	//wxBitmap* _rtn = pThis->GetEntity()->GetStipple();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __GetStyle)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//wxBrushStyle _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __IsHatch, "IsHatch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __IsHatch)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsHatch();
+	//bool _rtn = pThis->GetEntity()->IsHatch();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __IsOk)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __IsNonTransparent, "IsNonTransparent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __IsNonTransparent)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNonTransparent();
+	//bool _rtn = pThis->GetEntity()->IsNonTransparent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Brush, __IsTransparent, "IsTransparent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Brush, __IsTransparent)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTransparent();
+	//bool _rtn = pThis->GetEntity()->IsTransparent();
 	return Value::Nil;
 }
 

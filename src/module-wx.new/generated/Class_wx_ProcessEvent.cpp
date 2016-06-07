@@ -39,7 +39,7 @@ String Object_wx_ProcessEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ProcessEvent, "ProcessEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "exitcode", VTYPE_number, OCCUR_Once);
@@ -61,27 +61,27 @@ Gura_ImplementFunction(__ProcessEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ProcessEvent, __GetExitCode, "GetExitCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ProcessEvent, __GetExitCode)
 {
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExitCode();
+	//int _rtn = pThis->GetEntity()->GetExitCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ProcessEvent, __GetPid, "GetPid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ProcessEvent, __GetPid)
 {
 	Object_wx_ProcessEvent *pThis = Object_wx_ProcessEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPid();
+	//int _rtn = pThis->GetEntity()->GetPid();
 	return Value::Nil;
 }
 

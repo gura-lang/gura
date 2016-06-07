@@ -39,7 +39,7 @@ String Object_wx_AuiManagerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiManagerEvent, "AuiManagerEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AuiManagerEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,79 +57,79 @@ Gura_ImplementFunction(__AuiManagerEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __CanVeto, "CanVeto")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __CanVeto)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanVeto();
+	//bool _rtn = pThis->GetEntity()->CanVeto();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __GetButton, "GetButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __GetButton)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButton();
+	//int _rtn = pThis->GetEntity()->GetButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __GetDC, "GetDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __GetDC)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDC();
+	//wxDC* _rtn = pThis->GetEntity()->GetDC();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __GetVeto, "GetVeto")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __GetVeto)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVeto();
+	//bool _rtn = pThis->GetEntity()->GetVeto();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __GetManager, "GetManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __GetManager)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetManager();
+	//wxAuiManager* _rtn = pThis->GetEntity()->GetManager();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManagerEvent, __GetPane, "GetPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManagerEvent, __GetPane)
 {
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPane();
+	//wxAuiPaneInfo* _rtn = pThis->GetEntity()->GetPane();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_SharedPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __wxSharedPtr, "wxSharedPtr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,13 +48,13 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr)
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* ptr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSharedPtr(ptr);
+	//wxEXPLICIT _rtn = pThis->GetEntity()->wxSharedPtr(ptr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __wxSharedPtr_1, "wxSharedPtr_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 }
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* ptr = arg.GetNumber(0)
 	//Deleter d = arg.GetNumber(1)
-	//pThis->GetEntity()->wxSharedPtr(ptr, d);
+	//wxEXPLICIT _rtn = pThis->GetEntity()->wxSharedPtr(ptr, d);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __wxSharedPtr_2, "wxSharedPtr_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tocopy", VTYPE_number, OCCUR_Once);
 }
 
@@ -86,27 +86,27 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __wxSharedPtr_2)
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SharedPtr<T>, __get)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __unspecified_bool_type, "unspecified_bool_type")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SharedPtr<T>, __unspecified_bool_type)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->unspecified_bool_type();
+	//operator _rtn = pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }
 
@@ -144,27 +144,27 @@ Gura_ImplementMethod(wx_SharedPtr<T>, __reset_1)
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __unique, "unique")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SharedPtr<T>, __unique)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->unique();
+	//bool _rtn = pThis->GetEntity()->unique();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SharedPtr<T>, __use_count, "use_count")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SharedPtr<T>, __use_count)
 {
 	Object_wx_SharedPtr<T> *pThis = Object_wx_SharedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->use_count();
+	//long _rtn = pThis->GetEntity()->use_count();
 	return Value::Nil;
 }
 

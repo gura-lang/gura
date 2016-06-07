@@ -39,7 +39,7 @@ String Object_wx_ScopedArray::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ScopedArray, "ScopedArray")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedArray));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -48,13 +48,13 @@ Gura_DeclareFunctionAlias(__ScopedArray, "ScopedArray")
 Gura_ImplementFunction(__ScopedArray)
 {
 	//T* array = arg.GetNumber(0)
-	//wxScopedArray(array);
+	//explicit _rtn = wxScopedArray(array);
 	return Value::Nil;
 }
 
 Gura_DeclareFunctionAlias(__ScopedArray_1, "ScopedArray_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedArray));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__ScopedArray_1, "ScopedArray_1")
 Gura_ImplementFunction(__ScopedArray_1)
 {
 	//size_t count = arg.GetNumber(0)
-	//wxScopedArray(count);
+	//explicit _rtn = wxScopedArray(count);
 	return Value::Nil;
 }
 
@@ -72,14 +72,14 @@ Gura_ImplementFunction(__ScopedArray_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedArray, __unspecified_bool_type, "unspecified_bool_type")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedArray, __unspecified_bool_type)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->unspecified_bool_type();
+	//operator _rtn = pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }
 
@@ -100,14 +100,14 @@ Gura_ImplementMethod(wx_ScopedArray, __reset)
 
 Gura_DeclareMethodAlias(wx_ScopedArray, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedArray, __get)
 {
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 

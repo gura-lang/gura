@@ -39,7 +39,7 @@ String Object_wx_ImageHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ImageHandler, "ImageHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ImageHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__ImageHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ImageHandler, __CanRead, "CanRead")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->CanRead(stream);
+	//bool _rtn = pThis->GetEntity()->CanRead(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __CanRead_1, "CanRead_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,39 +79,39 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead_1)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->CanRead(filename);
+	//bool _rtn = pThis->GetEntity()->CanRead(filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetExtension, "GetExtension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetExtension)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtension();
+	//const wxString& _rtn = pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetAltExtensions, "GetAltExtensions")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetAltExtensions)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAltExtensions();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetAltExtensions();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetImageCount, "GetImageCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,52 +120,52 @@ Gura_ImplementMethod(wx_ImageHandler, __GetImageCount)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageCount(stream);
+	//int _rtn = pThis->GetEntity()->GetImageCount(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetMimeType, "GetMimeType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetMimeType)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMimeType();
+	//const wxString& _rtn = pThis->GetEntity()->GetMimeType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetName)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetType)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxBitmapType _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "verbose", VTYPE_number, OCCUR_Once);
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_ImageHandler, __LoadFile)
 	//wxInputStream& stream = arg.GetNumber(1)
 	//bool verbose = arg.GetNumber(2)
 	//int index = arg.GetNumber(3)
-	//pThis->GetEntity()->LoadFile(image, stream, verbose, index);
+	//bool _rtn = pThis->GetEntity()->LoadFile(image, stream, verbose, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __SaveFile, "SaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "verbose", VTYPE_number, OCCUR_Once);
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SaveFile)
 	//wxImage* image = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
 	//bool verbose = arg.GetNumber(2)
-	//pThis->GetEntity()->SaveFile(image, stream, verbose);
+	//bool _rtn = pThis->GetEntity()->SaveFile(image, stream, verbose);
 	return Value::Nil;
 }
 
@@ -265,20 +265,20 @@ Gura_ImplementMethod(wx_ImageHandler, __SetName)
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __GetLibraryVersionInfo, "GetLibraryVersionInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageHandler, __GetLibraryVersionInfo)
 {
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLibraryVersionInfo();
+	//wxVersionInfo _rtn = pThis->GetEntity()->GetLibraryVersionInfo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __DoGetImageCount, "DoGetImageCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -287,13 +287,13 @@ Gura_ImplementMethod(wx_ImageHandler, __DoGetImageCount)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->DoGetImageCount(stream);
+	//int _rtn = pThis->GetEntity()->DoGetImageCount(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHandler, __DoCanRead, "DoCanRead")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoCanRead)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->DoCanRead(stream);
+	//bool _rtn = pThis->GetEntity()->DoCanRead(stream);
 	return Value::Nil;
 }
 

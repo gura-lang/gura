@@ -39,7 +39,7 @@ String Object_wx_DataOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataOutputStream, "DataOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataOutputStream));
@@ -74,14 +74,14 @@ Gura_ImplementMethod(wx_DataOutputStream, __BigEndianOrdered)
 
 Gura_DeclareMethodAlias(wx_DataOutputStream, __GetConv, "GetConv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataOutputStream, __GetConv)
 {
 	Object_wx_DataOutputStream *pThis = Object_wx_DataOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetConv();
+	//wxMBConv* _rtn = pThis->GetEntity()->GetConv();
 	return Value::Nil;
 }
 

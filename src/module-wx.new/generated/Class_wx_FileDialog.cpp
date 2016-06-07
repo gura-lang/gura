@@ -39,7 +39,7 @@ String Object_wx_FileDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileDialog, "FileDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultDir", VTYPE_number, OCCUR_Once);
@@ -73,53 +73,53 @@ Gura_ImplementFunction(__FileDialog)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileDialog, __GetCurrentlySelectedFilename, "GetCurrentlySelectedFilename")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetCurrentlySelectedFilename)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentlySelectedFilename();
+	//wxString _rtn = pThis->GetEntity()->GetCurrentlySelectedFilename();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetDirectory, "GetDirectory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetDirectory)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDirectory();
+	//wxString _rtn = pThis->GetEntity()->GetDirectory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetExtraControl, "GetExtraControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetExtraControl)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtraControl();
+	//wxWindow* _rtn = pThis->GetEntity()->GetExtraControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetFilename, "GetFilename")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetFilename)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFilename();
+	//wxString _rtn = pThis->GetEntity()->GetFilename();
 	return Value::Nil;
 }
 
@@ -140,40 +140,40 @@ Gura_ImplementMethod(wx_FileDialog, __GetFilenames)
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetFilterIndex, "GetFilterIndex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetFilterIndex)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFilterIndex();
+	//int _rtn = pThis->GetEntity()->GetFilterIndex();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetMessage, "GetMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetMessage)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMessage();
+	//wxString _rtn = pThis->GetEntity()->GetMessage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetPath)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//wxString _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
@@ -194,14 +194,14 @@ Gura_ImplementMethod(wx_FileDialog, __GetPaths)
 
 Gura_DeclareMethodAlias(wx_FileDialog, __GetWildcard, "GetWildcard")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __GetWildcard)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWildcard();
+	//wxString _rtn = pThis->GetEntity()->GetWildcard();
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_FileDialog, __SetDirectory)
 
 Gura_DeclareMethodAlias(wx_FileDialog, __SetExtraControlCreator, "SetExtraControlCreator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "creator", VTYPE_number, OCCUR_Once);
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_FileDialog, __SetExtraControlCreator)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//ExtraControlCreatorFunction creator = arg.GetNumber(0)
-	//pThis->GetEntity()->SetExtraControlCreator(creator);
+	//bool _rtn = pThis->GetEntity()->SetExtraControlCreator(creator);
 	return Value::Nil;
 }
 
@@ -312,14 +312,14 @@ Gura_ImplementMethod(wx_FileDialog, __SetWildcard)
 
 Gura_DeclareMethodAlias(wx_FileDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDialog, __ShowModal)
 {
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

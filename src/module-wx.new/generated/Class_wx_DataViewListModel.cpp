@@ -39,7 +39,7 @@ String Object_wx_DataViewListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewListModel, __Compare, "Compare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item2", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
@@ -54,13 +54,13 @@ Gura_ImplementMethod(wx_DataViewListModel, __Compare)
 	//const wxDataViewItem& item2 = arg.GetNumber(1)
 	//unsigned int column = arg.GetNumber(2)
 	//bool ascending = arg.GetNumber(3)
-	//pThis->GetEntity()->Compare(item1, item2, column, ascending);
+	//int _rtn = pThis->GetEntity()->Compare(item1, item2, column, ascending);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListModel, __GetAttrByRow, "GetAttrByRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -73,13 +73,13 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetAttrByRow)
 	//unsigned int row = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
 	//wxDataViewItemAttr& attr = arg.GetNumber(2)
-	//pThis->GetEntity()->GetAttrByRow(row, col, attr);
+	//bool _rtn = pThis->GetEntity()->GetAttrByRow(row, col, attr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListModel, __IsEnabledByRow, "IsEnabledByRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -90,26 +90,26 @@ Gura_ImplementMethod(wx_DataViewListModel, __IsEnabledByRow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int row = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->IsEnabledByRow(row, col);
+	//bool _rtn = pThis->GetEntity()->IsEnabledByRow(row, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListModel, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewListModel, __GetCount)
 {
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListModel, __GetRow, "GetRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetRow)
 	Object_wx_DataViewListModel *pThis = Object_wx_DataViewListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRow(item);
+	//unsigned int _rtn = pThis->GetEntity()->GetRow(item);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DataViewListModel, __GetValueByRow)
 
 Gura_DeclareMethodAlias(wx_DataViewListModel, __SetValueByRow, "SetValueByRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DataViewListModel, __SetValueByRow)
 	//const wxVariant& variant = arg.GetNumber(0)
 	//unsigned int row = arg.GetNumber(1)
 	//unsigned int col = arg.GetNumber(2)
-	//pThis->GetEntity()->SetValueByRow(variant, row, col);
+	//bool _rtn = pThis->GetEntity()->SetValueByRow(variant, row, col);
 	return Value::Nil;
 }
 

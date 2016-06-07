@@ -39,7 +39,7 @@ String Object_wx_ConfigPathChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ConfigPathChanger, "ConfigPathChanger")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strEntry", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ConfigPathChanger));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__ConfigPathChanger)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ConfigPathChanger, __Name, "Name")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ConfigPathChanger, __Name)
 {
 	Object_wx_ConfigPathChanger *pThis = Object_wx_ConfigPathChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Name();
+	//const wxString& _rtn = pThis->GetEntity()->Name();
 	return Value::Nil;
 }
 

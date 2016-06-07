@@ -39,7 +39,7 @@ String Object_wx_FileDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileDataObject, "FileDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_FileDataObject, __AddFile)
 
 Gura_DeclareMethodAlias(wx_FileDataObject, __GetFilenames, "GetFilenames")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileDataObject, __GetFilenames)
 {
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFilenames();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetFilenames();
 	return Value::Nil;
 }
 

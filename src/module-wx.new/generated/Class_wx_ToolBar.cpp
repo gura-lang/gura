@@ -39,7 +39,7 @@ String Object_wx_ToolBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ToolBar, "ToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ToolBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ToolBar)
 
 Gura_DeclareFunctionAlias(__ToolBar_1, "ToolBar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__ToolBar_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ToolBar, __AddCheckTool, "AddCheckTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap1", VTYPE_number, OCCUR_Once);
@@ -101,13 +101,13 @@ Gura_ImplementMethod(wx_ToolBar, __AddCheckTool)
 	//const wxString& shortHelp = arg.GetNumber(4)
 	//const wxString& longHelp = arg.GetNumber(5)
 	//wxObject* clientData = arg.GetNumber(6)
-	//pThis->GetEntity()->AddCheckTool(toolId, label, bitmap1, bmpDisabled, shortHelp, longHelp, clientData);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddCheckTool(toolId, label, bitmap1, bmpDisabled, shortHelp, longHelp, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddControl, "AddControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_ToolBar, __AddControl)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxControl* control = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->AddControl(control, label);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddControl(control, label);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddRadioTool, "AddRadioTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap1", VTYPE_number, OCCUR_Once);
@@ -145,39 +145,39 @@ Gura_ImplementMethod(wx_ToolBar, __AddRadioTool)
 	//const wxString& shortHelp = arg.GetNumber(4)
 	//const wxString& longHelp = arg.GetNumber(5)
 	//wxObject* clientData = arg.GetNumber(6)
-	//pThis->GetEntity()->AddRadioTool(toolId, label, bitmap1, bmpDisabled, shortHelp, longHelp, clientData);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddRadioTool(toolId, label, bitmap1, bmpDisabled, shortHelp, longHelp, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddSeparator, "AddSeparator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __AddSeparator)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AddSeparator();
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddSeparator();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddStretchableSpace, "AddStretchableSpace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __AddStretchableSpace)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AddStretchableSpace();
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddStretchableSpace();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddTool, "AddTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tool", VTYPE_number, OCCUR_Once);
 }
 
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxToolBarToolBase* tool = arg.GetNumber(0)
-	//pThis->GetEntity()->AddTool(tool);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddTool(tool);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddTool_1, "AddTool_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool_1)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& shortHelp = arg.GetNumber(3)
 	//wxItemKind kind = arg.GetNumber(4)
-	//pThis->GetEntity()->AddTool(toolId, label, bitmap, shortHelp, kind);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddTool(toolId, label, bitmap, shortHelp, kind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __AddTool_2, "AddTool_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_ToolBar, __AddTool_2)
 	//const wxString& shortHelpString = arg.GetNumber(5)
 	//const wxString& longHelpString = arg.GetNumber(6)
 	//wxObject* clientData = arg.GetNumber(7)
-	//pThis->GetEntity()->AddTool(toolId, label, bitmap, bmpDisabled, kind, shortHelpString, longHelpString, clientData);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->AddTool(toolId, label, bitmap, bmpDisabled, kind, shortHelpString, longHelpString, clientData);
 	return Value::Nil;
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_ToolBar, __ClearTools)
 
 Gura_DeclareMethodAlias(wx_ToolBar, __DeleteTool, "DeleteTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -266,13 +266,13 @@ Gura_ImplementMethod(wx_ToolBar, __DeleteTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteTool(toolId);
+	//bool _rtn = pThis->GetEntity()->DeleteTool(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __DeleteToolByPos, "DeleteToolByPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_ToolBar, __DeleteToolByPos)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteToolByPos(pos);
+	//bool _rtn = pThis->GetEntity()->DeleteToolByPos(pos);
 	return Value::Nil;
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_ToolBar, __EnableTool)
 
 Gura_DeclareMethodAlias(wx_ToolBar, __FindById, "FindById")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -313,13 +313,13 @@ Gura_ImplementMethod(wx_ToolBar, __FindById)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->FindById(id);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->FindById(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __FindControl, "FindControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -328,13 +328,13 @@ Gura_ImplementMethod(wx_ToolBar, __FindControl)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->FindControl(id);
+	//wxControl* _rtn = pThis->GetEntity()->FindControl(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __FindToolForPosition, "FindToolForPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -345,39 +345,39 @@ Gura_ImplementMethod(wx_ToolBar, __FindToolForPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->FindToolForPosition(x, y);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->FindToolForPosition(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetMargins, "GetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetMargins)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMargins();
+	//wxSize _rtn = pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolBitmapSize, "GetToolBitmapSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetToolBitmapSize)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolBitmapSize();
+	//wxSize _rtn = pThis->GetEntity()->GetToolBitmapSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolByPos, "GetToolByPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -386,13 +386,13 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolByPos)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolByPos(pos);
+	//const wxToolBarToolBase* _rtn = pThis->GetEntity()->GetToolByPos(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolClientData, "GetToolClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -401,13 +401,13 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolClientData)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolClientData(toolId);
+	//wxObject* _rtn = pThis->GetEntity()->GetToolClientData(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolEnabled, "GetToolEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -416,13 +416,13 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolEnabled)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolEnabled(toolId);
+	//bool _rtn = pThis->GetEntity()->GetToolEnabled(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolLongHelp, "GetToolLongHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -431,26 +431,26 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolLongHelp)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolLongHelp(toolId);
+	//wxString _rtn = pThis->GetEntity()->GetToolLongHelp(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolPacking, "GetToolPacking")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetToolPacking)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolPacking();
+	//int _rtn = pThis->GetEntity()->GetToolPacking();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolPos, "GetToolPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -459,26 +459,26 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolPos)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolPos(toolId);
+	//int _rtn = pThis->GetEntity()->GetToolPos(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolSeparation, "GetToolSeparation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetToolSeparation)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolSeparation();
+	//int _rtn = pThis->GetEntity()->GetToolSeparation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolShortHelp, "GetToolShortHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -487,26 +487,26 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolShortHelp)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolShortHelp(toolId);
+	//wxString _rtn = pThis->GetEntity()->GetToolShortHelp(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolSize, "GetToolSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetToolSize)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolSize();
+	//wxSize _rtn = pThis->GetEntity()->GetToolSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolState, "GetToolState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 }
 
@@ -515,26 +515,26 @@ Gura_ImplementMethod(wx_ToolBar, __GetToolState)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolState(toolId);
+	//bool _rtn = pThis->GetEntity()->GetToolState(toolId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __GetToolsCount, "GetToolsCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __GetToolsCount)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolsCount();
+	//size_t _rtn = pThis->GetEntity()->GetToolsCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __InsertControl, "InsertControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -547,13 +547,13 @@ Gura_ImplementMethod(wx_ToolBar, __InsertControl)
 	//size_t pos = arg.GetNumber(0)
 	//wxControl* control = arg.GetNumber(1)
 	//const wxString& label = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertControl(pos, control, label);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->InsertControl(pos, control, label);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __InsertSeparator, "InsertSeparator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -562,13 +562,13 @@ Gura_ImplementMethod(wx_ToolBar, __InsertSeparator)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->InsertSeparator(pos);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->InsertSeparator(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __InsertStretchableSpace, "InsertStretchableSpace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -577,13 +577,13 @@ Gura_ImplementMethod(wx_ToolBar, __InsertStretchableSpace)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->InsertStretchableSpace(pos);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->InsertStretchableSpace(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __InsertTool, "InsertTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -608,13 +608,13 @@ Gura_ImplementMethod(wx_ToolBar, __InsertTool)
 	//const wxString& shortHelp = arg.GetNumber(6)
 	//const wxString& longHelp = arg.GetNumber(7)
 	//wxObject* clientData = arg.GetNumber(8)
-	//pThis->GetEntity()->InsertTool(pos, toolId, label, bitmap, bmpDisabled, kind, shortHelp, longHelp, clientData);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->InsertTool(pos, toolId, label, bitmap, bmpDisabled, kind, shortHelp, longHelp, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __InsertTool_1, "InsertTool_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tool", VTYPE_number, OCCUR_Once);
 }
@@ -625,13 +625,13 @@ Gura_ImplementMethod(wx_ToolBar, __InsertTool_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//wxToolBarToolBase* tool = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertTool(pos, tool);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->InsertTool(pos, tool);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __OnLeftClick, "OnLeftClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "toggleDown", VTYPE_number, OCCUR_Once);
 }
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_ToolBar, __OnLeftClick)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int toolId = arg.GetNumber(0)
 	//bool toggleDown = arg.GetNumber(1)
-	//pThis->GetEntity()->OnLeftClick(toolId, toggleDown);
+	//bool _rtn = pThis->GetEntity()->OnLeftClick(toolId, toggleDown);
 	return Value::Nil;
 }
 
@@ -682,20 +682,20 @@ Gura_ImplementMethod(wx_ToolBar, __OnRightClick)
 
 Gura_DeclareMethodAlias(wx_ToolBar, __Realize, "Realize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __Realize)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Realize();
+	//bool _rtn = pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __RemoveTool, "RemoveTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -704,13 +704,13 @@ Gura_ImplementMethod(wx_ToolBar, __RemoveTool)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveTool(id);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->RemoveTool(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __SetDropdownMenu, "SetDropdownMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
@@ -721,7 +721,7 @@ Gura_ImplementMethod(wx_ToolBar, __SetDropdownMenu)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//wxMenu* menu = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDropdownMenu(id, menu);
+	//bool _rtn = pThis->GetEntity()->SetDropdownMenu(id, menu);
 	return Value::Nil;
 }
 
@@ -906,7 +906,7 @@ Gura_ImplementMethod(wx_ToolBar, __ToggleTool)
 
 Gura_DeclareMethodAlias(wx_ToolBar, __CreateTool, "CreateTool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toolId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bmpNormal", VTYPE_number, OCCUR_Once);
@@ -929,13 +929,13 @@ Gura_ImplementMethod(wx_ToolBar, __CreateTool)
 	//wxObject* clientData = arg.GetNumber(5)
 	//const wxString& shortHelp = arg.GetNumber(6)
 	//const wxString& longHelp = arg.GetNumber(7)
-	//pThis->GetEntity()->CreateTool(toolId, label, bmpNormal, bmpDisabled, kind, clientData, shortHelp, longHelp);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->CreateTool(toolId, label, bmpNormal, bmpDisabled, kind, clientData, shortHelp, longHelp);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __CreateTool_1, "CreateTool_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
@@ -946,20 +946,20 @@ Gura_ImplementMethod(wx_ToolBar, __CreateTool_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxControl* control = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateTool(control, label);
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->CreateTool(control, label);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBar, __CreateSeparator, "CreateSeparator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, __CreateSeparator)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreateSeparator();
+	//wxToolBarToolBase* _rtn = pThis->GetEntity()->CreateSeparator();
 	return Value::Nil;
 }
 

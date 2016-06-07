@@ -39,7 +39,7 @@ String Object_wx_RichTextCompositeObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextCompositeObject, "RichTextCompositeObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextCompositeObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__RichTextCompositeObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __HitTest)
 	//wxRichTextObject** obj = arg.GetNumber(4)
 	//wxRichTextObject** contextObj = arg.GetNumber(5)
 	//int flags = arg.GetNumber(6)
-	//pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
+	//int _rtn = pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __FindPosition, "FindPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __FindPosition)
 	//wxPoint& pt = arg.GetNumber(3)
 	//int* height = arg.GetNumber(4)
 	//bool forceLineStart = arg.GetNumber(5)
-	//pThis->GetEntity()->FindPosition(dc, context, index, pt, height, forceLineStart);
+	//bool _rtn = pThis->GetEntity()->FindPosition(dc, context, index, pt, height, forceLineStart);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __CalculateRange)
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __DeleteRange, "DeleteRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
@@ -135,13 +135,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __DeleteRange)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteRange(range);
+	//bool _rtn = pThis->GetEntity()->DeleteRange(range);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetTextForRange, "GetTextForRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetTextForRange)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->GetTextForRange(range);
+	//wxString _rtn = pThis->GetEntity()->GetTextForRange(range);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetRangeSize, "GetRangeSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
+	//bool _rtn = pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -217,46 +217,46 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Invalidate)
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetChildren, "GetChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChildren)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildren();
+	//wxRichTextObjectList& _rtn = pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetChildren_1, "GetChildren_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChildren_1)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildren();
+	//const wxRichTextObjectList& _rtn = pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetChildCount, "GetChildCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChildCount)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildCount();
+	//size_t _rtn = pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetChild, "GetChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -265,52 +265,52 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChild)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChild(n);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetChild(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __IsComposite, "IsComposite")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __IsComposite)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsComposite();
+	//bool _rtn = pThis->GetEntity()->IsComposite();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __IsAtomic, "IsAtomic")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __IsAtomic)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAtomic();
+	//bool _rtn = pThis->GetEntity()->IsAtomic();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __IsEmpty)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __GetChildAtPosition, "GetChildAtPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChildAtPosition)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChildAtPosition(pos);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetChildAtPosition(pos);
 	return Value::Nil;
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Copy)
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __AppendChild, "AppendChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
@@ -349,13 +349,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __AppendChild)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendChild(child);
+	//size_t _rtn = pThis->GetEntity()->AppendChild(child);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __InsertChild, "InsertChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "inFrontOf", VTYPE_number, OCCUR_Once);
 }
@@ -366,13 +366,13 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __InsertChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
 	//wxRichTextObject* inFrontOf = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChild(child, inFrontOf);
+	//bool _rtn = pThis->GetEntity()->InsertChild(child, inFrontOf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __RemoveChild, "RemoveChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "deleteChild", VTYPE_number, OCCUR_Once);
 }
@@ -383,26 +383,26 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __RemoveChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
 	//bool deleteChild = arg.GetNumber(1)
-	//pThis->GetEntity()->RemoveChild(child, deleteChild);
+	//bool _rtn = pThis->GetEntity()->RemoveChild(child, deleteChild);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __DeleteChildren, "DeleteChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCompositeObject, __DeleteChildren)
 {
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DeleteChildren();
+	//bool _rtn = pThis->GetEntity()->DeleteChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCompositeObject, __Defragment, "Defragment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Defragment)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextDrawingContext& context = arg.GetNumber(0)
 	//const wxRichTextRange& range = arg.GetNumber(1)
-	//pThis->GetEntity()->Defragment(context, range);
+	//bool _rtn = pThis->GetEntity()->Defragment(context, range);
 	return Value::Nil;
 }
 

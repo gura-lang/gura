@@ -39,7 +39,7 @@ String Object_wx_DCFontChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DCFontChanger, "DCFontChanger")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCFontChanger));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__DCFontChanger)
 
 Gura_DeclareFunctionAlias(__DCFontChanger_1, "DCFontChanger_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCFontChanger));

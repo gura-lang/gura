@@ -39,14 +39,14 @@ String Object_wx_ObjectDataPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ObjectDataPtr<T>, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ObjectDataPtr<T>, __get)
 {
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_ObjectDataPtr<T>, __reset)
 
 Gura_DeclareMethodAlias(wx_ObjectDataPtr<T>, __unspecified_bool_type, "unspecified_bool_type")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ObjectDataPtr<T>, __unspecified_bool_type)
 {
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->unspecified_bool_type();
+	//operator _rtn = pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }
 

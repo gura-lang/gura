@@ -39,7 +39,7 @@ String Object_wx_AnyButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AnyButton, "AnyButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AnyButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,79 +55,79 @@ Gura_ImplementFunction(__AnyButton)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmap)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapCurrent, "GetBitmapCurrent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapCurrent)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapCurrent();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmapCurrent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapDisabled, "GetBitmapDisabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapDisabled)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapDisabled();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmapDisabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapFocus, "GetBitmapFocus")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapFocus)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapFocus();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmapFocus();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapLabel, "GetBitmapLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapLabel)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapLabel();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmapLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapPressed, "GetBitmapPressed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapPressed)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapPressed();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmapPressed();
 	return Value::Nil;
 }
 
@@ -225,14 +225,14 @@ Gura_ImplementMethod(wx_AnyButton, __SetBitmapPressed)
 
 Gura_DeclareMethodAlias(wx_AnyButton, __GetBitmapMargins, "GetBitmapMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyButton, __GetBitmapMargins)
 {
 	Object_wx_AnyButton *pThis = Object_wx_AnyButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapMargins();
+	//wxSize _rtn = pThis->GetEntity()->GetBitmapMargins();
 	return Value::Nil;
 }
 

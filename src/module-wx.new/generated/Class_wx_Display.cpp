@@ -39,7 +39,7 @@ String Object_wx_Display::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Display, "Display")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Display));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__Display)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Display, __ChangeMode, "ChangeMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,52 +66,52 @@ Gura_ImplementMethod(wx_Display, __ChangeMode)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVideoMode& mode = arg.GetNumber(0)
-	//pThis->GetEntity()->ChangeMode(mode);
+	//bool _rtn = pThis->GetEntity()->ChangeMode(mode);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetClientArea, "GetClientArea")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __GetClientArea)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientArea();
+	//wxRect _rtn = pThis->GetEntity()->GetClientArea();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __GetCount)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetCurrentMode, "GetCurrentMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __GetCurrentMode)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentMode();
+	//wxVideoMode _rtn = pThis->GetEntity()->GetCurrentMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetFromPoint, "GetFromPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,13 +120,13 @@ Gura_ImplementMethod(wx_Display, __GetFromPoint)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFromPoint(pt);
+	//int _rtn = pThis->GetEntity()->GetFromPoint(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetFromWindow, "GetFromWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -135,26 +135,26 @@ Gura_ImplementMethod(wx_Display, __GetFromWindow)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFromWindow(win);
+	//int _rtn = pThis->GetEntity()->GetFromWindow(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetGeometry, "GetGeometry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __GetGeometry)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGeometry();
+	//wxRect _rtn = pThis->GetEntity()->GetGeometry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetModes, "GetModes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
 
@@ -163,33 +163,33 @@ Gura_ImplementMethod(wx_Display, __GetModes)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVideoMode& mode = arg.GetNumber(0)
-	//pThis->GetEntity()->GetModes(mode);
+	//wxArrayVideoModes _rtn = pThis->GetEntity()->GetModes(mode);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __GetName)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Display, __IsPrimary, "IsPrimary")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Display, __IsPrimary)
 {
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPrimary();
+	//bool _rtn = pThis->GetEntity()->IsPrimary();
 	return Value::Nil;
 }
 

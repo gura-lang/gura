@@ -39,7 +39,7 @@ String Object_wx_IconizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__IconizeEvent, "IconizeEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iconized", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_IconizeEvent));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__IconizeEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IconizeEvent, __IsIconized, "IsIconized")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IconizeEvent, __IsIconized)
 {
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsIconized();
+	//bool _rtn = pThis->GetEntity()->IsIconized();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IconizeEvent, __Iconized, "Iconized")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IconizeEvent, __Iconized)
 {
 	Object_wx_IconizeEvent *pThis = Object_wx_IconizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Iconized();
+	//bool _rtn = pThis->GetEntity()->Iconized();
 	return Value::Nil;
 }
 

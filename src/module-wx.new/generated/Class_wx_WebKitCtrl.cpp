@@ -39,7 +39,7 @@ String Object_wx_WebKitCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebKitCtrl, "WebKitCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WebKitCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__WebKitCtrl)
 
 Gura_DeclareFunctionAlias(__WebKitCtrl_1, "WebKitCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strURL", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__WebKitCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strURL", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, winid, strURL, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, winid, strURL, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -128,53 +128,53 @@ Gura_ImplementMethod(wx_WebKitCtrl, __LoadURL)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __CanGoBack, "CanGoBack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __CanGoBack)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanGoBack();
+	//bool _rtn = pThis->GetEntity()->CanGoBack();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __CanGoForward, "CanGoForward")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __CanGoForward)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanGoForward();
+	//bool _rtn = pThis->GetEntity()->CanGoForward();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GoBack, "GoBack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GoBack)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GoBack();
+	//bool _rtn = pThis->GetEntity()->GoBack();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GoForward, "GoForward")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GoForward)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GoForward();
+	//bool _rtn = pThis->GetEntity()->GoForward();
 	return Value::Nil;
 }
 
@@ -206,27 +206,27 @@ Gura_ImplementMethod(wx_WebKitCtrl, __Stop)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __CanGetPageSource, "CanGetPageSource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __CanGetPageSource)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanGetPageSource();
+	//bool _rtn = pThis->GetEntity()->CanGetPageSource();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetPageSource, "GetPageSource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetPageSource)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSource();
+	//wxString _rtn = pThis->GetEntity()->GetPageSource();
 	return Value::Nil;
 }
 
@@ -249,14 +249,14 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetPageSource)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetPageURL, "GetPageURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetPageURL)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageURL();
+	//wxString _rtn = pThis->GetEntity()->GetPageURL();
 	return Value::Nil;
 }
 
@@ -277,14 +277,14 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetPageTitle)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetPageTitle, "GetPageTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetPageTitle)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageTitle();
+	//wxString _rtn = pThis->GetEntity()->GetPageTitle();
 	return Value::Nil;
 }
 
@@ -305,40 +305,40 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetTitle)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetTitle, "GetTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetTitle)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTitle();
+	//wxString _rtn = pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetSelection)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//wxString _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __CanIncreaseTextSize, "CanIncreaseTextSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __CanIncreaseTextSize)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanIncreaseTextSize();
+	//bool _rtn = pThis->GetEntity()->CanIncreaseTextSize();
 	return Value::Nil;
 }
 
@@ -357,14 +357,14 @@ Gura_ImplementMethod(wx_WebKitCtrl, __IncreaseTextSize)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __CanDecreaseTextSize, "CanDecreaseTextSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __CanDecreaseTextSize)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanDecreaseTextSize();
+	//bool _rtn = pThis->GetEntity()->CanDecreaseTextSize();
 	return Value::Nil;
 }
 
@@ -413,20 +413,20 @@ Gura_ImplementMethod(wx_WebKitCtrl, __MakeEditable)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __IsEditable, "IsEditable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __IsEditable)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEditable();
+	//bool _rtn = pThis->GetEntity()->IsEditable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __RunScript, "RunScript")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "javascript", VTYPE_number, OCCUR_Once);
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_WebKitCtrl, __RunScript)
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& javascript = arg.GetNumber(0)
-	//pThis->GetEntity()->RunScript(javascript);
+	//wxString _rtn = pThis->GetEntity()->RunScript(javascript);
 	return Value::Nil;
 }
 
@@ -456,14 +456,14 @@ Gura_ImplementMethod(wx_WebKitCtrl, __SetScrollPos)
 
 Gura_DeclareMethodAlias(wx_WebKitCtrl, __GetScrollPos, "GetScrollPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitCtrl, __GetScrollPos)
 {
 	Object_wx_WebKitCtrl *pThis = Object_wx_WebKitCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetScrollPos();
+	//int _rtn = pThis->GetEntity()->GetScrollPos();
 	return Value::Nil;
 }
 

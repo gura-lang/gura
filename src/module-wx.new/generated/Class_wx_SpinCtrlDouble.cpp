@@ -39,7 +39,7 @@ String Object_wx_SpinCtrlDouble::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SpinCtrlDouble, "SpinCtrlDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinCtrlDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__SpinCtrlDouble)
 
 Gura_DeclareFunctionAlias(__SpinCtrlDouble_1, "SpinCtrlDouble_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(__SpinCtrlDouble_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -119,72 +119,72 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __Create)
 	//double initial = arg.GetNumber(8)
 	//double inc = arg.GetNumber(9)
 	//const wxString& name = arg.GetNumber(10)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, inc, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, inc, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __GetDigits, "GetDigits")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, __GetDigits)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDigits();
+	//unsigned int _rtn = pThis->GetEntity()->GetDigits();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __GetIncrement, "GetIncrement")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, __GetIncrement)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIncrement();
+	//double _rtn = pThis->GetEntity()->GetIncrement();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __GetMax, "GetMax")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, __GetMax)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMax();
+	//double _rtn = pThis->GetEntity()->GetMax();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __GetMin, "GetMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, __GetMin)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMin();
+	//double _rtn = pThis->GetEntity()->GetMin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrlDouble, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrlDouble, __GetValue)
 {
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//double _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

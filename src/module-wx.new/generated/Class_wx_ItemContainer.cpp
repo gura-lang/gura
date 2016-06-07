@@ -39,7 +39,7 @@ String Object_wx_ItemContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append, "Append")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,13 +48,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(item);
+	//int _rtn = pThis->GetEntity()->Append(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_1, "Append_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
@@ -65,13 +65,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//void* clientData = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(item, clientData);
+	//int _rtn = pThis->GetEntity()->Append(item, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_2, "Append_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
@@ -82,13 +82,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//wxClientData* clientData = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(item, clientData);
+	//int _rtn = pThis->GetEntity()->Append(item, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_3, "Append_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
 
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_3)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& items = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(items);
+	//int _rtn = pThis->GetEntity()->Append(items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_4, "Append_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
 
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_4)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const std::vector<T>& items = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(items);
+	//int _rtn = pThis->GetEntity()->Append(items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_5, "Append_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& items = arg.GetNumber(0)
 	//void** clientData = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(items, clientData);
+	//int _rtn = pThis->GetEntity()->Append(items, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_6, "Append_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
 }
@@ -146,13 +146,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_6)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& items = arg.GetNumber(0)
 	//wxClientData** clientData = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(items, clientData);
+	//int _rtn = pThis->GetEntity()->Append(items, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_7, "Append_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_7)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString* items = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(n, items);
+	//int _rtn = pThis->GetEntity()->Append(n, items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_8, "Append_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -182,13 +182,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_8)
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString* items = arg.GetNumber(1)
 	//void** clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Append(n, items, clientData);
+	//int _rtn = pThis->GetEntity()->Append(n, items, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Append_9, "Append_9")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Append_9)
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString* items = arg.GetNumber(1)
 	//wxClientData** clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Append(n, items, clientData);
+	//int _rtn = pThis->GetEntity()->Append(n, items, clientData);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Delete)
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __DetachClientObject, "DetachClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -244,52 +244,52 @@ Gura_ImplementMethod(wx_ItemContainer, __DetachClientObject)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->DetachClientObject(n);
+	//wxClientData* _rtn = pThis->GetEntity()->DetachClientObject(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __HasClientData, "HasClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainer, __HasClientData)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasClientData();
+	//bool _rtn = pThis->GetEntity()->HasClientData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __HasClientObjectData, "HasClientObjectData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainer, __HasClientObjectData)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasClientObjectData();
+	//bool _rtn = pThis->GetEntity()->HasClientObjectData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __HasClientUntypedData, "HasClientUntypedData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainer, __HasClientUntypedData)
 {
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasClientUntypedData();
+	//bool _rtn = pThis->GetEntity()->HasClientUntypedData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -298,13 +298,13 @@ Gura_ImplementMethod(wx_ItemContainer, __GetClientData)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetClientData(n);
+	//void* _rtn = pThis->GetEntity()->GetClientData(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __GetClientObject, "GetClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_ItemContainer, __GetClientObject)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetClientObject(n);
+	//wxClientData* _rtn = pThis->GetEntity()->GetClientObject(n);
 	return Value::Nil;
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_ItemContainer, __SetClientObject)
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert, "Insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -364,13 +364,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert(item, pos);
+	//int _rtn = pThis->GetEntity()->Insert(item, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_1, "Insert_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_1)
 	//const wxString& item = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
 	//void* clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(item, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(item, pos, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_2, "Insert_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -402,13 +402,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_2)
 	//const wxString& item = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
 	//wxClientData* clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(item, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(item, pos, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_3, "Insert_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -419,13 +419,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& items = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert(items, pos);
+	//int _rtn = pThis->GetEntity()->Insert(items, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_4, "Insert_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
 
@@ -434,13 +434,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_4)
 	Object_wx_ItemContainer *pThis = Object_wx_ItemContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const std::vector<T>& items = arg.GetNumber(0)
-	//pThis->GetEntity()->Insert(items);
+	//int _rtn = pThis->GetEntity()->Insert(items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_5, "Insert_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -453,13 +453,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_5)
 	//const wxArrayString& items = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
 	//void** clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(items, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(items, pos, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_6, "Insert_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clientData", VTYPE_number, OCCUR_Once);
@@ -472,13 +472,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_6)
 	//const wxArrayString& items = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
 	//wxClientData** clientData = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(items, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(items, pos, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_7, "Insert_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -491,13 +491,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_7)
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString* items = arg.GetNumber(1)
 	//unsigned int pos = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(n, items, pos);
+	//int _rtn = pThis->GetEntity()->Insert(n, items, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_8, "Insert_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -512,13 +512,13 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_8)
 	//const wxString* items = arg.GetNumber(1)
 	//unsigned int pos = arg.GetNumber(2)
 	//void** clientData = arg.GetNumber(3)
-	//pThis->GetEntity()->Insert(n, items, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(n, items, pos, clientData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainer, __Insert_9, "Insert_9")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -533,7 +533,7 @@ Gura_ImplementMethod(wx_ItemContainer, __Insert_9)
 	//const wxString* items = arg.GetNumber(1)
 	//unsigned int pos = arg.GetNumber(2)
 	//wxClientData** clientData = arg.GetNumber(3)
-	//pThis->GetEntity()->Insert(n, items, pos, clientData);
+	//int _rtn = pThis->GetEntity()->Insert(n, items, pos, clientData);
 	return Value::Nil;
 }
 

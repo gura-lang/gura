@@ -39,7 +39,7 @@ String Object_wx_PersistentTLW::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PersistentTLW, "PersistentTLW")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "book", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PersistentTLW));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_PersistentTLW, __Save)
 
 Gura_DeclareMethodAlias(wx_PersistentTLW, __Restore, "Restore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PersistentTLW, __Restore)
 {
 	Object_wx_PersistentTLW *pThis = Object_wx_PersistentTLW::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Restore();
+	//bool _rtn = pThis->GetEntity()->Restore();
 	return Value::Nil;
 }
 

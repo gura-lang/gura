@@ -39,7 +39,7 @@ String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextParagraphStyleDefinition, "RichTextParagraphStyleDefinition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraphStyleDefinition));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__RichTextParagraphStyleDefinition)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextParagraphStyleDefinition, __GetNextStyle, "GetNextStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, __GetNextStyle)
 {
 	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNextStyle();
+	//const wxString& _rtn = pThis->GetEntity()->GetNextStyle();
 	return Value::Nil;
 }
 

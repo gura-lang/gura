@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawGauge)
 
 Gura_DeclareMethodAlias(wx_RendererNative, __DrawHeaderButton, "DrawHeaderButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -167,13 +167,13 @@ Gura_ImplementMethod(wx_RendererNative, __DrawHeaderButton)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
+	//int _rtn = pThis->GetEntity()->DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __DrawHeaderButtonContents, "DrawHeaderButtonContents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawHeaderButtonContents)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
+	//int _rtn = pThis->GetEntity()->DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawCollapseButton)
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetCollapseButtonSize, "GetCollapseButtonSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetCollapseButtonSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//wxDC& dc = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCollapseButtonSize(win, dc);
+	//wxSize _rtn = pThis->GetEntity()->GetCollapseButtonSize(win, dc);
 	return Value::Nil;
 }
 
@@ -479,46 +479,46 @@ Gura_ImplementMethod(wx_RendererNative, __DrawTitleBarBitmap)
 
 Gura_DeclareMethodAlias(wx_RendererNative, __Get, "Get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RendererNative, __Get)
 {
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Get();
+	//wxRendererNative& _rtn = pThis->GetEntity()->Get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetDefault, "GetDefault")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RendererNative, __GetDefault)
 {
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefault();
+	//wxRendererNative& _rtn = pThis->GetEntity()->GetDefault();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetGeneric, "GetGeneric")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RendererNative, __GetGeneric)
 {
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGeneric();
+	//wxRendererNative& _rtn = pThis->GetEntity()->GetGeneric();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetCheckBoxSize, "GetCheckBoxSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -527,13 +527,13 @@ Gura_ImplementMethod(wx_RendererNative, __GetCheckBoxSize)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCheckBoxSize(win);
+	//wxSize _rtn = pThis->GetEntity()->GetCheckBoxSize(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetHeaderButtonHeight, "GetHeaderButtonHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -542,13 +542,13 @@ Gura_ImplementMethod(wx_RendererNative, __GetHeaderButtonHeight)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonHeight(win);
+	//int _rtn = pThis->GetEntity()->GetHeaderButtonHeight(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetHeaderButtonMargin, "GetHeaderButtonMargin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -557,13 +557,13 @@ Gura_ImplementMethod(wx_RendererNative, __GetHeaderButtonMargin)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonMargin(win);
+	//int _rtn = pThis->GetEntity()->GetHeaderButtonMargin(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetSplitterParams, "GetSplitterParams")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -572,26 +572,26 @@ Gura_ImplementMethod(wx_RendererNative, __GetSplitterParams)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterParams(win);
+	//wxSplitterRenderParams _rtn = pThis->GetEntity()->GetSplitterParams(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __GetVersion, "GetVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RendererNative, __GetVersion)
 {
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVersion();
+	//wxRendererVersion _rtn = pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __Load, "Load")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -600,13 +600,13 @@ Gura_ImplementMethod(wx_RendererNative, __Load)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->Load(name);
+	//wxRendererNative* _rtn = pThis->GetEntity()->Load(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RendererNative, __Set, "Set")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "renderer", VTYPE_number, OCCUR_Once);
 }
 
@@ -615,7 +615,7 @@ Gura_ImplementMethod(wx_RendererNative, __Set)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRendererNative* renderer = arg.GetNumber(0)
-	//pThis->GetEntity()->Set(renderer);
+	//wxRendererNative* _rtn = pThis->GetEntity()->Set(renderer);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_PageSetupDialogData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PageSetupDialogData, "PageSetupDialogData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PageSetupDialogData)
 
 Gura_DeclareFunctionAlias(__PageSetupDialogData_1, "PageSetupDialogData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PageSetupDialogData_1)
 
 Gura_DeclareFunctionAlias(__PageSetupDialogData_2, "PageSetupDialogData_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -160,209 +160,209 @@ Gura_ImplementMethod(wx_PageSetupDialogData, __EnablePrinter)
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetDefaultInfo, "GetDefaultInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetDefaultInfo)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultInfo();
+	//bool _rtn = pThis->GetEntity()->GetDefaultInfo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetDefaultMinMargins, "GetDefaultMinMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetDefaultMinMargins)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultMinMargins();
+	//bool _rtn = pThis->GetEntity()->GetDefaultMinMargins();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetEnableHelp, "GetEnableHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetEnableHelp)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnableHelp();
+	//bool _rtn = pThis->GetEntity()->GetEnableHelp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetEnableMargins, "GetEnableMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetEnableMargins)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnableMargins();
+	//bool _rtn = pThis->GetEntity()->GetEnableMargins();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetEnableOrientation, "GetEnableOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetEnableOrientation)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnableOrientation();
+	//bool _rtn = pThis->GetEntity()->GetEnableOrientation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetEnablePaper, "GetEnablePaper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetEnablePaper)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnablePaper();
+	//bool _rtn = pThis->GetEntity()->GetEnablePaper();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetEnablePrinter, "GetEnablePrinter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetEnablePrinter)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnablePrinter();
+	//bool _rtn = pThis->GetEntity()->GetEnablePrinter();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetMarginBottomRight, "GetMarginBottomRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetMarginBottomRight)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMarginBottomRight();
+	//wxPoint _rtn = pThis->GetEntity()->GetMarginBottomRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetMarginTopLeft, "GetMarginTopLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetMarginTopLeft)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMarginTopLeft();
+	//wxPoint _rtn = pThis->GetEntity()->GetMarginTopLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetMinMarginBottomRight, "GetMinMarginBottomRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetMinMarginBottomRight)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinMarginBottomRight();
+	//wxPoint _rtn = pThis->GetEntity()->GetMinMarginBottomRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetMinMarginTopLeft, "GetMinMarginTopLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetMinMarginTopLeft)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinMarginTopLeft();
+	//wxPoint _rtn = pThis->GetEntity()->GetMinMarginTopLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetPaperId, "GetPaperId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetPaperId)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPaperId();
+	//wxPaperSize _rtn = pThis->GetEntity()->GetPaperId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetPaperSize, "GetPaperSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetPaperSize)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPaperSize();
+	//wxSize _rtn = pThis->GetEntity()->GetPaperSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetPrintData, "GetPrintData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetPrintData)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintData();
+	//wxPrintData& _rtn = pThis->GetEntity()->GetPrintData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __GetPrintData_1, "GetPrintData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __GetPrintData_1)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintData();
+	//const wxPrintData& _rtn = pThis->GetEntity()->GetPrintData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialogData, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialogData, __IsOk)
 {
 	Object_wx_PageSetupDialogData *pThis = Object_wx_PageSetupDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

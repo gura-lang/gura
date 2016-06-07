@@ -39,7 +39,7 @@ String Object_wx_Position::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Position, "Position")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Position));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Position)
 
 Gura_DeclareFunctionAlias(__Position_1, "Position_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Position));
@@ -72,40 +72,40 @@ Gura_ImplementFunction(__Position_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Position, __GetCol, "GetCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Position, __GetCol)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCol();
+	//int _rtn = pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Position, __GetColumn, "GetColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Position, __GetColumn)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumn();
+	//int _rtn = pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Position, __GetRow, "GetRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Position, __GetRow)
 {
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRow();
+	//int _rtn = pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
 

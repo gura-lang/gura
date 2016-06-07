@@ -39,7 +39,7 @@ String Object_wx_ScrollBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ScrollBar, "ScrollBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScrollBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ScrollBar)
 
 Gura_DeclareFunctionAlias(__ScrollBar_1, "ScrollBar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__ScrollBar_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScrollBar, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -103,59 +103,59 @@ Gura_ImplementMethod(wx_ScrollBar, __Create)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScrollBar, __GetPageSize, "GetPageSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScrollBar, __GetPageSize)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSize();
+	//int _rtn = pThis->GetEntity()->GetPageSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScrollBar, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScrollBar, __GetRange)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRange();
+	//int _rtn = pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScrollBar, __GetThumbPosition, "GetThumbPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScrollBar, __GetThumbPosition)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThumbPosition();
+	//int _rtn = pThis->GetEntity()->GetThumbPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScrollBar, __GetThumbSize, "GetThumbSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScrollBar, __GetThumbSize)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThumbSize();
+	//int _rtn = pThis->GetEntity()->GetThumbSize();
 	return Value::Nil;
 }
 
@@ -199,14 +199,14 @@ Gura_ImplementMethod(wx_ScrollBar, __SetThumbPosition)
 
 Gura_DeclareMethodAlias(wx_ScrollBar, __IsVertical, "IsVertical")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScrollBar, __IsVertical)
 {
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVertical();
+	//bool _rtn = pThis->GetEntity()->IsVertical();
 	return Value::Nil;
 }
 

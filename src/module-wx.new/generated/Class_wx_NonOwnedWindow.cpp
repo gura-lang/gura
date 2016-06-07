@@ -39,7 +39,7 @@ String Object_wx_NonOwnedWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_NonOwnedWindow, __SetShape, "SetShape")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,13 +48,13 @@ Gura_ImplementMethod(wx_NonOwnedWindow, __SetShape)
 	Object_wx_NonOwnedWindow *pThis = Object_wx_NonOwnedWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShape(region);
+	//bool _rtn = pThis->GetEntity()->SetShape(region);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_NonOwnedWindow, __SetShape_1, "SetShape_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_NonOwnedWindow, __SetShape_1)
 	Object_wx_NonOwnedWindow *pThis = Object_wx_NonOwnedWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGraphicsPath& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShape(path);
+	//bool _rtn = pThis->GetEntity()->SetShape(path);
 	return Value::Nil;
 }
 

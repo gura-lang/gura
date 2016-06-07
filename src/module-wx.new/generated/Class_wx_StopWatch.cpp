@@ -39,7 +39,7 @@ String Object_wx_StopWatch::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StopWatch, "StopWatch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StopWatch));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -96,27 +96,27 @@ Gura_ImplementMethod(wx_StopWatch, __Start)
 
 Gura_DeclareMethodAlias(wx_StopWatch, __Time, "Time")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StopWatch, __Time)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Time();
+	//long _rtn = pThis->GetEntity()->Time();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StopWatch, __TimeInMicro, "TimeInMicro")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StopWatch, __TimeInMicro)
 {
 	Object_wx_StopWatch *pThis = Object_wx_StopWatch::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TimeInMicro();
+	//wxLongLong _rtn = pThis->GetEntity()->TimeInMicro();
 	return Value::Nil;
 }
 

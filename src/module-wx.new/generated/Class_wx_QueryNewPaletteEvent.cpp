@@ -39,7 +39,7 @@ String Object_wx_QueryNewPaletteEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__QueryNewPaletteEvent, "QueryNewPaletteEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_QueryNewPaletteEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,14 +72,14 @@ Gura_ImplementMethod(wx_QueryNewPaletteEvent, __SetPaletteRealized)
 
 Gura_DeclareMethodAlias(wx_QueryNewPaletteEvent, __GetPaletteRealized, "GetPaletteRealized")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryNewPaletteEvent, __GetPaletteRealized)
 {
 	Object_wx_QueryNewPaletteEvent *pThis = Object_wx_QueryNewPaletteEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPaletteRealized();
+	//bool _rtn = pThis->GetEntity()->GetPaletteRealized();
 	return Value::Nil;
 }
 

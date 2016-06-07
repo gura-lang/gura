@@ -39,7 +39,7 @@ String Object_wx_RibbonBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonBarEvent, "RibbonBarEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
@@ -61,14 +61,14 @@ Gura_ImplementFunction(__RibbonBarEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonBarEvent, __GetPage, "GetPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonBarEvent, __GetPage)
 {
 	Object_wx_RibbonBarEvent *pThis = Object_wx_RibbonBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPage();
+	//wxRibbonPage* _rtn = pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }
 

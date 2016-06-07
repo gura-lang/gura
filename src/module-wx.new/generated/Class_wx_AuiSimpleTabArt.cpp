@@ -39,7 +39,7 @@ String Object_wx_AuiSimpleTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiSimpleTabArt, "AuiSimpleTabArt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiSimpleTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__AuiSimpleTabArt)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiSimpleTabArt, __Clone)
 {
 	Object_wx_AuiSimpleTabArt *pThis = Object_wx_AuiSimpleTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxAuiTabArt* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -250,20 +250,20 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __DrawButton)
 
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __GetIndentSize, "GetIndentSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiSimpleTabArt, __GetIndentSize)
 {
 	Object_wx_AuiSimpleTabArt *pThis = Object_wx_AuiSimpleTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndentSize();
+	//int _rtn = pThis->GetEntity()->GetIndentSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __GetTabSize, "GetTabSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -284,13 +284,13 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __GetTabSize)
 	//bool active = arg.GetNumber(4)
 	//int closeButtonState = arg.GetNumber(5)
 	//int* xExtent = arg.GetNumber(6)
-	//pThis->GetEntity()->GetTabSize(dc, wnd, caption, bitmap, active, closeButtonState, xExtent);
+	//wxSize _rtn = pThis->GetEntity()->GetTabSize(dc, wnd, caption, bitmap, active, closeButtonState, xExtent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __ShowDropDown, "ShowDropDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "activeIdx", VTYPE_number, OCCUR_Once);
@@ -303,13 +303,13 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __ShowDropDown)
 	//wxWindow* wnd = arg.GetNumber(0)
 	//const wxAuiNotebookPageArray& items = arg.GetNumber(1)
 	//int activeIdx = arg.GetNumber(2)
-	//pThis->GetEntity()->ShowDropDown(wnd, items, activeIdx);
+	//int _rtn = pThis->GetEntity()->ShowDropDown(wnd, items, activeIdx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiSimpleTabArt, __GetBestTabCtrlSize, "GetBestTabCtrlSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "requiredBmpSize", VTYPE_number, OCCUR_Once);
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_AuiSimpleTabArt, __GetBestTabCtrlSize)
 	//wxWindow* wnd = arg.GetNumber(0)
 	//const wxAuiNotebookPageArray& pages = arg.GetNumber(1)
 	//const wxSize& requiredBmpSize = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBestTabCtrlSize(wnd, pages, requiredBmpSize);
+	//int _rtn = pThis->GetEntity()->GetBestTabCtrlSize(wnd, pages, requiredBmpSize);
 	return Value::Nil;
 }
 

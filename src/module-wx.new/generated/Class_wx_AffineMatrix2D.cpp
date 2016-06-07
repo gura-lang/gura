@@ -39,7 +39,7 @@ String Object_wx_AffineMatrix2D::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AffineMatrix2D, "AffineMatrix2D")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AffineMatrix2D));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -104,27 +104,27 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Concat)
 
 Gura_DeclareMethodAlias(wx_AffineMatrix2D, __Invert, "Invert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, __Invert)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Invert();
+	//bool _rtn = pThis->GetEntity()->Invert();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AffineMatrix2D, __IsIdentity, "IsIdentity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AffineMatrix2D, __IsIdentity)
 {
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsIdentity();
+	//bool _rtn = pThis->GetEntity()->IsIdentity();
 	return Value::Nil;
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Rotate)
 
 Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformPoint, "TransformPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& p = arg.GetNumber(0)
-	//pThis->GetEntity()->TransformPoint(p);
+	//wxPoint2DDouble _rtn = pThis->GetEntity()->TransformPoint(p);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint_1)
 
 Gura_DeclareMethodAlias(wx_AffineMatrix2D, __TransformDistance, "TransformDistance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& p = arg.GetNumber(0)
-	//pThis->GetEntity()->TransformDistance(p);
+	//wxPoint2DDouble _rtn = pThis->GetEntity()->TransformDistance(p);
 	return Value::Nil;
 }
 

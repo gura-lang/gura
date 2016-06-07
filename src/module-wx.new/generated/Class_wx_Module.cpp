@@ -39,7 +39,7 @@ String Object_wx_Module::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Module, "Module")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Module));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,14 +68,14 @@ Gura_ImplementMethod(wx_Module, __OnExit)
 
 Gura_DeclareMethodAlias(wx_Module, __OnInit, "OnInit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Module, __OnInit)
 {
 	Object_wx_Module *pThis = Object_wx_Module::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OnInit();
+	//bool _rtn = pThis->GetEntity()->OnInit();
 	return Value::Nil;
 }
 

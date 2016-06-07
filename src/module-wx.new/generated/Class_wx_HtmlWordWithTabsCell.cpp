@@ -39,7 +39,7 @@ String Object_wx_HtmlWordWithTabsCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlWordWithTabsCell, "HtmlWordWithTabsCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "word", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wordOrig", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "linepos", VTYPE_number, OCCUR_Once);

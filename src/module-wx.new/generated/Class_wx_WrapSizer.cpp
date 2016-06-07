@@ -39,7 +39,7 @@ String Object_wx_WrapSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WrapSizer, "WrapSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WrapSizer));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__WrapSizer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WrapSizer, __InformFirstDirection, "InformFirstDirection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "availableOtherDir", VTYPE_number, OCCUR_Once);
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_WrapSizer, __InformFirstDirection)
 	//int direction = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int availableOtherDir = arg.GetNumber(2)
-	//pThis->GetEntity()->InformFirstDirection(direction, size, availableOtherDir);
+	//bool _rtn = pThis->GetEntity()->InformFirstDirection(direction, size, availableOtherDir);
 	return Value::Nil;
 }
 
@@ -91,20 +91,20 @@ Gura_ImplementMethod(wx_WrapSizer, __RecalcSizes)
 
 Gura_DeclareMethodAlias(wx_WrapSizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WrapSizer, __CalcMin)
 {
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WrapSizer, __IsSpaceItem, "IsSpaceItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_WrapSizer, __IsSpaceItem)
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizerItem* item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSpaceItem(item);
+	//bool _rtn = pThis->GetEntity()->IsSpaceItem(item);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextEntryDialog, "TextEntryDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextEntryDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TextEntryDialog)
 
 Gura_DeclareFunctionAlias(__TextEntryDialog_1, "TextEntryDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__TextEntryDialog_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextEntryDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -99,20 +99,20 @@ Gura_ImplementMethod(wx_TextEntryDialog, __Create)
 	//const wxString& value = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, message, caption, value, style, pos);
+	//bool _rtn = pThis->GetEntity()->Create(parent, message, caption, value, style, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextEntryDialog, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntryDialog, __GetValue)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxString _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
@@ -191,14 +191,14 @@ Gura_ImplementMethod(wx_TextEntryDialog, __ForceUpper)
 
 Gura_DeclareMethodAlias(wx_TextEntryDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextEntryDialog, __ShowModal)
 {
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

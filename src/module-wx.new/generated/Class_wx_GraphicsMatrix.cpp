@@ -94,14 +94,14 @@ Gura_ImplementMethod(wx_GraphicsMatrix, __Get)
 
 Gura_DeclareMethodAlias(wx_GraphicsMatrix, __GetNativeMatrix, "GetNativeMatrix")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsMatrix, __GetNativeMatrix)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNativeMatrix();
+	//void* _rtn = pThis->GetEntity()->GetNativeMatrix();
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_GraphicsMatrix, __Invert)
 
 Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsEqual, "IsEqual")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_GraphicsMatrix, __IsEqual)
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGraphicsMatrix* t = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEqual(t);
+	//bool _rtn = pThis->GetEntity()->IsEqual(t);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsEqual_1, "IsEqual_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "t", VTYPE_number, OCCUR_Once);
 }
 
@@ -144,20 +144,20 @@ Gura_ImplementMethod(wx_GraphicsMatrix, __IsEqual_1)
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGraphicsMatrix& t = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEqual(t);
+	//bool _rtn = pThis->GetEntity()->IsEqual(t);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsMatrix, __IsIdentity, "IsIdentity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsMatrix, __IsIdentity)
 {
 	Object_wx_GraphicsMatrix *pThis = Object_wx_GraphicsMatrix::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsIdentity();
+	//bool _rtn = pThis->GetEntity()->IsIdentity();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__OwnerDrawnComboBox, "OwnerDrawnComboBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_OwnerDrawnComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__OwnerDrawnComboBox)
 
 Gura_DeclareFunctionAlias(__OwnerDrawnComboBox_1, "OwnerDrawnComboBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__OwnerDrawnComboBox_1)
 
 Gura_DeclareFunctionAlias(__OwnerDrawnComboBox_2, "OwnerDrawnComboBox_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -119,7 +119,7 @@ Gura_ImplementFunction(__OwnerDrawnComboBox_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -175,13 +175,13 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, n, choices, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, n, choices, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __Create_2, "Create_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -206,72 +206,72 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create_2)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, choices, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, __IsEmpty)
 {
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __IsListEmpty, "IsListEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, __IsListEmpty)
 {
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsListEmpty();
+	//bool _rtn = pThis->GetEntity()->IsListEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __IsTextEmpty, "IsTextEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, __IsTextEmpty)
 {
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTextEmpty();
+	//bool _rtn = pThis->GetEntity()->IsTextEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __GetWidestItem, "GetWidestItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, __GetWidestItem)
 {
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidestItem();
+	//int _rtn = pThis->GetEntity()->GetWidestItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __GetWidestItemWidth, "GetWidestItemWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_OwnerDrawnComboBox, __GetWidestItemWidth)
 {
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidestItemWidth();
+	//int _rtn = pThis->GetEntity()->GetWidestItemWidth();
 	return Value::Nil;
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnDrawItem)
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __OnMeasureItem, "OnMeasureItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -328,13 +328,13 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItem)
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureItem(item);
+	//wxCoord _rtn = pThis->GetEntity()->OnMeasureItem(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_OwnerDrawnComboBox, __OnMeasureItemWidth, "OnMeasureItemWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItemWidth)
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureItemWidth(item);
+	//wxCoord _rtn = pThis->GetEntity()->OnMeasureItemWidth(item);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_TipWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TipWindow, "TipWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxLength", VTYPE_number, OCCUR_Once);

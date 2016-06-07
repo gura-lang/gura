@@ -39,7 +39,7 @@ String Object_wx_DisplayChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DisplayChangedEvent, "DisplayChangedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DisplayChangedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

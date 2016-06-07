@@ -39,7 +39,7 @@ String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextHeaderFooterData, "RichTextHeaderFooterData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextHeaderFooterData)
 
 Gura_DeclareFunctionAlias(__RichTextHeaderFooterData_1, "RichTextHeaderFooterData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextHeaderFooterData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -98,33 +98,33 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __Copy)
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetFont)
 {
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFont();
+	//const wxFont& _rtn = pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetFooterMargin, "GetFooterMargin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetFooterMargin)
 {
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFooterMargin();
+	//int _rtn = pThis->GetEntity()->GetFooterMargin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetFooterText, "GetFooterText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
@@ -135,26 +135,26 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetFooterText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFooterText(page, location);
+	//wxString _rtn = pThis->GetEntity()->GetFooterText(page, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetHeaderMargin, "GetHeaderMargin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetHeaderMargin)
 {
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeaderMargin();
+	//int _rtn = pThis->GetEntity()->GetHeaderMargin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetHeaderText, "GetHeaderText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
@@ -165,26 +165,26 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetHeaderText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetHeaderText(page, location);
+	//wxString _rtn = pThis->GetEntity()->GetHeaderText(page, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetShowOnFirstPage, "GetShowOnFirstPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetShowOnFirstPage)
 {
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShowOnFirstPage();
+	//bool _rtn = pThis->GetEntity()->GetShowOnFirstPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "headerFooter", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
@@ -197,20 +197,20 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetText)
 	//int headerFooter = arg.GetNumber(0)
 	//wxRichTextOddEvenPage page = arg.GetNumber(1)
 	//wxRichTextPageLocation location = arg.GetNumber(2)
-	//pThis->GetEntity()->GetText(headerFooter, page, location);
+	//wxString _rtn = pThis->GetEntity()->GetText(headerFooter, page, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHeaderFooterData, __GetTextColour, "GetTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetTextColour)
 {
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetTextColour();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_PrinterDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PrinterDC, "PrinterDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PrinterDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__PrinterDC)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrinterDC, __GetPaperRect, "GetPaperRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrinterDC, __GetPaperRect)
 {
 	Object_wx_PrinterDC *pThis = Object_wx_PrinterDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPaperRect();
+	//wxRect _rtn = pThis->GetEntity()->GetPaperRect();
 	return Value::Nil;
 }
 

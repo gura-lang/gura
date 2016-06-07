@@ -39,7 +39,7 @@ String Object_wx_TreeListItemComparator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeListItemComparator, "TreeListItemComparator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeListItemComparator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__TreeListItemComparator)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeListItemComparator, __Compare, "Compare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "treelist", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);

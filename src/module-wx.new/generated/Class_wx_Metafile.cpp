@@ -39,7 +39,7 @@ String Object_wx_Metafile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Metafile, "Metafile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Metafile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,20 +57,20 @@ Gura_ImplementFunction(__Metafile)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Metafile, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Metafile, __IsOk)
 {
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Metafile, __Play, "Play")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_Metafile, __Play)
 	Object_wx_Metafile *pThis = Object_wx_Metafile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC* dc = arg.GetNumber(0)
-	//pThis->GetEntity()->Play(dc);
+	//bool _rtn = pThis->GetEntity()->Play(dc);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Metafile, __SetClipboard, "SetClipboard")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_Metafile, __SetClipboard)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
-	//pThis->GetEntity()->SetClipboard(width, height);
+	//bool _rtn = pThis->GetEntity()->SetClipboard(width, height);
 	return Value::Nil;
 }
 

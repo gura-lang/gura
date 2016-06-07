@@ -39,40 +39,40 @@ String Object_wx_PGValidationInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetFailureBehavior, "GetFailureBehavior")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGValidationInfo, __GetFailureBehavior)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFailureBehavior();
+	//wxPGVFBFlags _rtn = pThis->GetEntity()->GetFailureBehavior();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetFailureMessage, "GetFailureMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGValidationInfo, __GetFailureMessage)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFailureMessage();
+	//const wxString& _rtn = pThis->GetEntity()->GetFailureMessage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGValidationInfo, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGValidationInfo, __GetValue)
 {
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxVariant& _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

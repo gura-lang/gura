@@ -39,7 +39,7 @@ String Object_wx_Printer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Printer, "Printer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Printer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__Printer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Printer, __CreateAbortWindow, "CreateAbortWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 }
@@ -68,52 +68,52 @@ Gura_ImplementMethod(wx_Printer, __CreateAbortWindow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintout* printout = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateAbortWindow(parent, printout);
+	//wxPrintAbortDialog* _rtn = pThis->GetEntity()->CreateAbortWindow(parent, printout);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Printer, __GetAbort, "GetAbort")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Printer, __GetAbort)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAbort();
+	//bool _rtn = pThis->GetEntity()->GetAbort();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Printer, __GetLastError, "GetLastError")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Printer, __GetLastError)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLastError();
+	//wxPrinterError _rtn = pThis->GetEntity()->GetLastError();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Printer, __GetPrintDialogData, "GetPrintDialogData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Printer, __GetPrintDialogData)
 {
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintDialogData();
+	//wxPrintDialogData& _rtn = pThis->GetEntity()->GetPrintDialogData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Printer, __Print, "Print")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "prompt", VTYPE_number, OCCUR_Once);
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_Printer, __Print)
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintout* printout = arg.GetNumber(1)
 	//bool prompt = arg.GetNumber(2)
-	//pThis->GetEntity()->Print(parent, printout, prompt);
+	//bool _rtn = pThis->GetEntity()->Print(parent, printout, prompt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Printer, __PrintDialog, "PrintDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Printer, __PrintDialog)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintDialog(parent);
+	//wxDC* _rtn = pThis->GetEntity()->PrintDialog(parent);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_Printer, __ReportError)
 
 Gura_DeclareMethodAlias(wx_Printer, __Setup, "Setup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Printer, __Setup)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Setup(parent);
+	//bool _rtn = pThis->GetEntity()->Setup(parent);
 	return Value::Nil;
 }
 

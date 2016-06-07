@@ -39,7 +39,7 @@ String Object_wx_Animation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Animation, "Animation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Animation));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Animation)
 
 Gura_DeclareFunctionAlias(__Animation_1, "Animation_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "anim", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Animation));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Animation_1)
 
 Gura_DeclareFunctionAlias(__Animation_2, "Animation_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Animation));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(__Animation_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Animation, __GetDelay, "GetDelay")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_Animation, __GetDelay)
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDelay(i);
+	//int _rtn = pThis->GetEntity()->GetDelay(i);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -111,52 +111,52 @@ Gura_ImplementMethod(wx_Animation, __GetFrame)
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFrame(i);
+	//wxImage _rtn = pThis->GetEntity()->GetFrame(i);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __GetFrameCount, "GetFrameCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Animation, __GetFrameCount)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrameCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetFrameCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Animation, __GetSize)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Animation, __IsOk)
 {
 	Object_wx_Animation *pThis = Object_wx_Animation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __Load, "Load")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -167,13 +167,13 @@ Gura_ImplementMethod(wx_Animation, __Load)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
 	//wxAnimationType type = arg.GetNumber(1)
-	//pThis->GetEntity()->Load(stream, type);
+	//bool _rtn = pThis->GetEntity()->Load(stream, type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Animation, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_Animation, __LoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxAnimationType type = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile(name, type);
+	//bool _rtn = pThis->GetEntity()->LoadFile(name, type);
 	return Value::Nil;
 }
 

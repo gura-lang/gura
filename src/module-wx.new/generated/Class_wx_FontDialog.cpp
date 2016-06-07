@@ -39,7 +39,7 @@ String Object_wx_FontDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FontDialog, "FontDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__FontDialog)
 
 Gura_DeclareFunctionAlias(__FontDialog_1, "FontDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__FontDialog_1)
 
 Gura_DeclareFunctionAlias(__FontDialog_2, "FontDialog_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FontDialog));
@@ -87,7 +87,7 @@ Gura_ImplementFunction(__FontDialog_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_FontDialog, __Create)
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(parent);
+	//bool _rtn = pThis->GetEntity()->Create(parent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontDialog, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -113,46 +113,46 @@ Gura_ImplementMethod(wx_FontDialog, __Create_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//const wxFontData& data = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(parent, data);
+	//bool _rtn = pThis->GetEntity()->Create(parent, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontDialog, __GetFontData, "GetFontData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontDialog, __GetFontData)
 {
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontData();
+	//const wxFontData& _rtn = pThis->GetEntity()->GetFontData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontDialog, __GetFontData_1, "GetFontData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontDialog, __GetFontData_1)
 {
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontData();
+	//wxFontData& _rtn = pThis->GetEntity()->GetFontData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontDialog, __ShowModal)
 {
 	Object_wx_FontDialog *pThis = Object_wx_FontDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

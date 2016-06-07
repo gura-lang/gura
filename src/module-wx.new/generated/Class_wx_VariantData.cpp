@@ -39,7 +39,7 @@ String Object_wx_VariantData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VariantData, "VariantData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VariantData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__VariantData)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantData, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantData, __Clone)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxVariantData* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_VariantData, __DecRef)
 
 Gura_DeclareMethodAlias(wx_VariantData, __Eq, "Eq")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -90,13 +90,13 @@ Gura_ImplementMethod(wx_VariantData, __Eq)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq(data);
+	//bool _rtn = pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __GetAny, "GetAny")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,33 +105,33 @@ Gura_ImplementMethod(wx_VariantData, __GetAny)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAny(any);
+	//bool _rtn = pThis->GetEntity()->GetAny(any);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantData, __GetType)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxString _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __GetValueClassInfo, "GetValueClassInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantData, __GetValueClassInfo)
 {
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValueClassInfo();
+	//wxClassInfo* _rtn = pThis->GetEntity()->GetValueClassInfo();
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_VariantData, __IncRef)
 
 Gura_DeclareMethodAlias(wx_VariantData, __Read, "Read")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_VariantData, __Read)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//istream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->Read(stream);
+	//bool _rtn = pThis->GetEntity()->Read(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __Read_1, "Read_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_VariantData, __Read_1)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->Read(string);
+	//bool _rtn = pThis->GetEntity()->Read(string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -189,13 +189,13 @@ Gura_ImplementMethod(wx_VariantData, __Write)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//ostream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->Write(stream);
+	//bool _rtn = pThis->GetEntity()->Write(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantData, __Write_1, "Write_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_VariantData, __Write_1)
 	Object_wx_VariantData *pThis = Object_wx_VariantData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->Write(string);
+	//bool _rtn = pThis->GetEntity()->Write(string);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_TipProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TipProvider, "TipProvider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "currentTip", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TipProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,27 +57,27 @@ Gura_ImplementFunction(__TipProvider)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TipProvider, __GetCurrentTip, "GetCurrentTip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TipProvider, __GetCurrentTip)
 {
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentTip();
+	//size_t _rtn = pThis->GetEntity()->GetCurrentTip();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TipProvider, __GetTip, "GetTip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TipProvider, __GetTip)
 {
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTip();
+	//wxString _rtn = pThis->GetEntity()->GetTip();
 	return Value::Nil;
 }
 

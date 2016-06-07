@@ -39,7 +39,7 @@ String Object_wx_RichTextObjectAddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextObjectAddress, "RichTextObjectAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__RichTextObjectAddress)
 
 Gura_DeclareFunctionAlias(__RichTextObjectAddress_1, "RichTextObjectAddress_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__RichTextObjectAddress_1)
 
 Gura_DeclareFunctionAlias(__RichTextObjectAddress_2, "RichTextObjectAddress_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextObjectAddress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Copy)
 
 Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __GetObject, "GetObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
 }
 
@@ -124,13 +124,13 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __GetObject)
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
-	//pThis->GetEntity()->GetObject(topLevelContainer);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetObject(topLevelContainer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topLevelContainer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
@@ -141,33 +141,33 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(topLevelContainer, obj);
+	//bool _rtn = pThis->GetEntity()->Create(topLevelContainer, obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __GetAddress, "GetAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextObjectAddress, __GetAddress)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAddress();
+	//wxArrayInt& _rtn = pThis->GetEntity()->GetAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextObjectAddress, __GetAddress_1, "GetAddress_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextObjectAddress, __GetAddress_1)
 {
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAddress();
+	//const wxArrayInt& _rtn = pThis->GetEntity()->GetAddress();
 	return Value::Nil;
 }
 

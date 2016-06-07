@@ -39,7 +39,7 @@ String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DirPickerCtrl, "DirPickerCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DirPickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DirPickerCtrl)
 
 Gura_DeclareFunctionAlias(__DirPickerCtrl_1, "DirPickerCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__DirPickerCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DirPickerCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
@@ -111,33 +111,33 @@ Gura_ImplementMethod(wx_DirPickerCtrl, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, path, message, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, path, message, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DirPickerCtrl, __GetDirName, "GetDirName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DirPickerCtrl, __GetDirName)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDirName();
+	//wxFileName _rtn = pThis->GetEntity()->GetDirName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DirPickerCtrl, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DirPickerCtrl, __GetPath)
 {
 	Object_wx_DirPickerCtrl *pThis = Object_wx_DirPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//wxString _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_HtmlDCRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlDCRenderer, "HtmlDCRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlDCRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,33 +55,33 @@ Gura_ImplementFunction(__HtmlDCRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __GetTotalWidth, "GetTotalWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, __GetTotalWidth)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTotalWidth();
+	//int _rtn = pThis->GetEntity()->GetTotalWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __GetTotalHeight, "GetTotalHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlDCRenderer, __GetTotalHeight)
 {
 	Object_wx_HtmlDCRenderer *pThis = Object_wx_HtmlDCRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTotalHeight();
+	//int _rtn = pThis->GetEntity()->GetTotalHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlDCRenderer, __Render, "Render")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "known_pagebreaks", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __Render)
 	//int from = arg.GetNumber(3)
 	//int dont_render = arg.GetNumber(4)
 	//int to = arg.GetNumber(5)
-	//pThis->GetEntity()->Render(x, y, known_pagebreaks, from, dont_render, to);
+	//int _rtn = pThis->GetEntity()->Render(x, y, known_pagebreaks, from, dont_render, to);
 	return Value::Nil;
 }
 

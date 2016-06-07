@@ -39,7 +39,7 @@ String Object_wx_CriticalSectionLocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CriticalSectionLocker, "CriticalSectionLocker")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "criticalsection", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CriticalSectionLocker));
 	DeclareBlock(OCCUR_ZeroOrOnce);

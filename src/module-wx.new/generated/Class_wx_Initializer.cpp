@@ -39,7 +39,7 @@ String Object_wx_Initializer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Initializer, "Initializer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Initializer));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__Initializer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Initializer, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Initializer, __IsOk)
 {
 	Object_wx_Initializer *pThis = Object_wx_Initializer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

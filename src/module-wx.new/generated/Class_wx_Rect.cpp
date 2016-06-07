@@ -39,7 +39,7 @@ String Object_wx_Rect::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Rect, "Rect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Rect)
 
 Gura_DeclareFunctionAlias(__Rect_1, "Rect_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(__Rect_1)
 
 Gura_DeclareFunctionAlias(__Rect_2, "Rect_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topLeft", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bottomRight", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
@@ -90,7 +90,7 @@ Gura_ImplementFunction(__Rect_2)
 
 Gura_DeclareFunctionAlias(__Rect_3, "Rect_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
@@ -107,7 +107,7 @@ Gura_ImplementFunction(__Rect_3)
 
 Gura_DeclareFunctionAlias(__Rect_4, "Rect_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -125,7 +125,7 @@ Gura_ImplementFunction(__Rect_4)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Rect, __CentreIn, "CentreIn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
@@ -136,13 +136,13 @@ Gura_ImplementMethod(wx_Rect, __CentreIn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& r = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
-	//pThis->GetEntity()->CentreIn(r, dir);
+	//wxRect _rtn = pThis->GetEntity()->CentreIn(r, dir);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __CenterIn, "CenterIn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_Rect, __CenterIn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& r = arg.GetNumber(0)
 	//int dir = arg.GetNumber(1)
-	//pThis->GetEntity()->CenterIn(r, dir);
+	//wxRect _rtn = pThis->GetEntity()->CenterIn(r, dir);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Contains, "Contains")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_Rect, __Contains)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->Contains(x, y);
+	//bool _rtn = pThis->GetEntity()->Contains(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Contains_1, "Contains_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_Rect, __Contains_1)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains(pt);
+	//bool _rtn = pThis->GetEntity()->Contains(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Contains_2, "Contains_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_Rect, __Contains_2)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains(rect);
+	//bool _rtn = pThis->GetEntity()->Contains(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Deflate, "Deflate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -217,13 +217,13 @@ Gura_ImplementMethod(wx_Rect, __Deflate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord dx = arg.GetNumber(0)
 	//wxCoord dy = arg.GetNumber(1)
-	//pThis->GetEntity()->Deflate(dx, dy);
+	//wxRect& _rtn = pThis->GetEntity()->Deflate(dx, dy);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Deflate_1, "Deflate_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_Rect, __Deflate_1)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& diff = arg.GetNumber(0)
-	//pThis->GetEntity()->Deflate(diff);
+	//wxRect& _rtn = pThis->GetEntity()->Deflate(diff);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Deflate_2, "Deflate_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_Rect, __Deflate_2)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord diff = arg.GetNumber(0)
-	//pThis->GetEntity()->Deflate(diff);
+	//wxRect& _rtn = pThis->GetEntity()->Deflate(diff);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Deflate_3, "Deflate_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -264,195 +264,195 @@ Gura_ImplementMethod(wx_Rect, __Deflate_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord dx = arg.GetNumber(0)
 	//wxCoord dy = arg.GetNumber(1)
-	//pThis->GetEntity()->Deflate(dx, dy);
+	//wxRect _rtn = pThis->GetEntity()->Deflate(dx, dy);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetBottom, "GetBottom")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetBottom)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBottom();
+	//int _rtn = pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetBottomLeft, "GetBottomLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetBottomLeft)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBottomLeft();
+	//wxPoint _rtn = pThis->GetEntity()->GetBottomLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetBottomRight, "GetBottomRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetBottomRight)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBottomRight();
+	//wxPoint _rtn = pThis->GetEntity()->GetBottomRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetHeight)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//int _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetLeft, "GetLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetLeft)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLeft();
+	//int _rtn = pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetPosition)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetRight, "GetRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetRight)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRight();
+	//int _rtn = pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetSize)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetTop, "GetTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetTop)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTop();
+	//int _rtn = pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetTopLeft, "GetTopLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetTopLeft)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTopLeft();
+	//wxPoint _rtn = pThis->GetEntity()->GetTopLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetTopRight, "GetTopRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetTopRight)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTopRight();
+	//wxPoint _rtn = pThis->GetEntity()->GetTopRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetWidth)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetX)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//int _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __GetY)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//int _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Inflate, "Inflate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -463,13 +463,13 @@ Gura_ImplementMethod(wx_Rect, __Inflate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord dx = arg.GetNumber(0)
 	//wxCoord dy = arg.GetNumber(1)
-	//pThis->GetEntity()->Inflate(dx, dy);
+	//wxRect& _rtn = pThis->GetEntity()->Inflate(dx, dy);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Inflate_1, "Inflate_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -478,13 +478,13 @@ Gura_ImplementMethod(wx_Rect, __Inflate_1)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& diff = arg.GetNumber(0)
-	//pThis->GetEntity()->Inflate(diff);
+	//wxRect& _rtn = pThis->GetEntity()->Inflate(diff);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Inflate_2, "Inflate_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "diff", VTYPE_number, OCCUR_Once);
 }
 
@@ -493,13 +493,13 @@ Gura_ImplementMethod(wx_Rect, __Inflate_2)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord diff = arg.GetNumber(0)
-	//pThis->GetEntity()->Inflate(diff);
+	//wxRect& _rtn = pThis->GetEntity()->Inflate(diff);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Inflate_3, "Inflate_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dx", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dy", VTYPE_number, OCCUR_Once);
 }
@@ -510,13 +510,13 @@ Gura_ImplementMethod(wx_Rect, __Inflate_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord dx = arg.GetNumber(0)
 	//wxCoord dy = arg.GetNumber(1)
-	//pThis->GetEntity()->Inflate(dx, dy);
+	//wxRect _rtn = pThis->GetEntity()->Inflate(dx, dy);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Intersect, "Intersect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -525,13 +525,13 @@ Gura_ImplementMethod(wx_Rect, __Intersect)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersect(rect);
+	//wxRect& _rtn = pThis->GetEntity()->Intersect(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Intersect_1, "Intersect_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -540,13 +540,13 @@ Gura_ImplementMethod(wx_Rect, __Intersect_1)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersect(rect);
+	//wxRect _rtn = pThis->GetEntity()->Intersect(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Intersects, "Intersects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -555,20 +555,20 @@ Gura_ImplementMethod(wx_Rect, __Intersects)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersects(rect);
+	//bool _rtn = pThis->GetEntity()->Intersects(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Rect, __IsEmpty)
 {
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
@@ -816,7 +816,7 @@ Gura_ImplementMethod(wx_Rect, __SetBottomLeft)
 
 Gura_DeclareMethodAlias(wx_Rect, __Union, "Union")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -825,13 +825,13 @@ Gura_ImplementMethod(wx_Rect, __Union)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Union(rect);
+	//wxRect _rtn = pThis->GetEntity()->Union(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Rect, __Union_1, "Union_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -840,7 +840,7 @@ Gura_ImplementMethod(wx_Rect, __Union_1)
 	Object_wx_Rect *pThis = Object_wx_Rect::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Union(rect);
+	//wxRect& _rtn = pThis->GetEntity()->Union(rect);
 	return Value::Nil;
 }
 

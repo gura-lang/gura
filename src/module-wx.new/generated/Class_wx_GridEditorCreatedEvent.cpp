@@ -39,7 +39,7 @@ String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridEditorCreatedEvent, "GridEditorCreatedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridEditorCreatedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridEditorCreatedEvent)
 
 Gura_DeclareFunctionAlias(__GridEditorCreatedEvent_1, "GridEditorCreatedEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -80,40 +80,40 @@ Gura_ImplementFunction(__GridEditorCreatedEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetCol, "GetCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetCol)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCol();
+	//int _rtn = pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetControl, "GetControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetControl)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetControl();
+	//wxControl* _rtn = pThis->GetEntity()->GetControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridEditorCreatedEvent, __GetRow, "GetRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridEditorCreatedEvent, __GetRow)
 {
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRow();
+	//int _rtn = pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
 

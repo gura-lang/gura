@@ -39,7 +39,7 @@ String Object_wx_Toolbook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Toolbook, "Toolbook")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Toolbook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Toolbook)
 
 Gura_DeclareFunctionAlias(__Toolbook_1, "Toolbook_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__Toolbook_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Toolbook, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,20 +99,20 @@ Gura_ImplementMethod(wx_Toolbook, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Toolbook, __GetToolBar, "GetToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Toolbook, __GetToolBar)
 {
 	Object_wx_Toolbook *pThis = Object_wx_Toolbook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolBar();
+	//wxToolBarBase* _rtn = pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
 

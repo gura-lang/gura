@@ -39,7 +39,7 @@ String Object_wx_DataViewSpinRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewSpinRenderer, "DataViewSpinRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);

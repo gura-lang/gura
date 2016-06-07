@@ -39,7 +39,7 @@ String Object_wx_ListItemAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ListItemAttr, "ListItemAttr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListItemAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ListItemAttr)
 
 Gura_DeclareFunctionAlias(__ListItemAttr_1, "ListItemAttr_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBack", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
@@ -74,79 +74,79 @@ Gura_ImplementFunction(__ListItemAttr_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListItemAttr, __GetBackgroundColour, "GetBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __GetBackgroundColour)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBackgroundColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListItemAttr, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __GetFont)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFont();
+	//const wxFont& _rtn = pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListItemAttr, __GetTextColour, "GetTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __GetTextColour)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetTextColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListItemAttr, __HasBackgroundColour, "HasBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __HasBackgroundColour)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBackgroundColour();
+	//bool _rtn = pThis->GetEntity()->HasBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListItemAttr, __HasFont, "HasFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __HasFont)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFont();
+	//bool _rtn = pThis->GetEntity()->HasFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListItemAttr, __HasTextColour, "HasTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListItemAttr, __HasTextColour)
 {
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasTextColour();
+	//bool _rtn = pThis->GetEntity()->HasTextColour();
 	return Value::Nil;
 }
 

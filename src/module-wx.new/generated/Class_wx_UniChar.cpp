@@ -39,7 +39,7 @@ String Object_wx_UniChar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__UniChar, "UniChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__UniChar)
 
 Gura_DeclareFunctionAlias(__UniChar_1, "UniChar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__UniChar_1)
 
 Gura_DeclareFunctionAlias(__UniChar_2, "UniChar_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__UniChar_2)
 
 Gura_DeclareFunctionAlias(__UniChar_3, "UniChar_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -97,7 +97,7 @@ Gura_ImplementFunction(__UniChar_3)
 
 Gura_DeclareFunctionAlias(__UniChar_4, "UniChar_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -112,7 +112,7 @@ Gura_ImplementFunction(__UniChar_4)
 
 Gura_DeclareFunctionAlias(__UniChar_5, "UniChar_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -127,7 +127,7 @@ Gura_ImplementFunction(__UniChar_5)
 
 Gura_DeclareFunctionAlias(__UniChar_6, "UniChar_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -142,7 +142,7 @@ Gura_ImplementFunction(__UniChar_6)
 
 Gura_DeclareFunctionAlias(__UniChar_7, "UniChar_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -157,7 +157,7 @@ Gura_ImplementFunction(__UniChar_7)
 
 Gura_DeclareFunctionAlias(__UniChar_8, "UniChar_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -172,7 +172,7 @@ Gura_ImplementFunction(__UniChar_8)
 
 Gura_DeclareFunctionAlias(__UniChar_9, "UniChar_9")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -187,7 +187,7 @@ Gura_ImplementFunction(__UniChar_9)
 
 Gura_DeclareFunctionAlias(__UniChar_10, "UniChar_10")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -202,7 +202,7 @@ Gura_ImplementFunction(__UniChar_10)
 
 Gura_DeclareFunctionAlias(__UniChar_11, "UniChar_11")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UniChar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -220,33 +220,33 @@ Gura_ImplementFunction(__UniChar_11)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_UniChar, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __GetValue)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//value_type _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __IsAscii, "IsAscii")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __IsAscii)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAscii();
+	//bool _rtn = pThis->GetEntity()->IsAscii();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __GetAsChar, "GetAsChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
@@ -255,150 +255,150 @@ Gura_ImplementMethod(wx_UniChar, __GetAsChar)
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char* c = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsChar(c);
+	//bool _rtn = pThis->GetEntity()->GetAsChar(c);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __char, "char")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __char)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->char();
+	//operator _rtn = pThis->GetEntity()->char();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __char_1, "char_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __char_1)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->char();
+	//operator unsigned _rtn = pThis->GetEntity()->char();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __wchar_t, "wchar_t")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __wchar_t)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wchar_t();
+	//operator _rtn = pThis->GetEntity()->wchar_t();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int, "int")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int_1, "int_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int_1)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator unsigned _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int_2, "int_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int_2)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator long _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int_3, "int_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int_3)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator unsigned long _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int_4, "int_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int_4)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator short _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __int_5, "int_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __int_5)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->int();
+	//operator unsigned short _rtn = pThis->GetEntity()->int();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __wxLongLong_t, "wxLongLong_t")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __wxLongLong_t)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxLongLong_t();
+	//operator _rtn = pThis->GetEntity()->wxLongLong_t();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UniChar, __wxULongLong_t, "wxULongLong_t")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UniChar, __wxULongLong_t)
 {
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wxULongLong_t();
+	//operator _rtn = pThis->GetEntity()->wxULongLong_t();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FileInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileInputStream, "FileInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ifileName", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__FileInputStream)
 
 Gura_DeclareFunctionAlias(__FileInputStream_1, "FileInputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__FileInputStream_1)
 
 Gura_DeclareFunctionAlias(__FileInputStream_2, "FileInputStream_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,27 +87,27 @@ Gura_ImplementFunction(__FileInputStream_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileInputStream, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileInputStream, __IsOk)
 {
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileInputStream, __GetFile, "GetFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileInputStream, __GetFile)
 {
 	Object_wx_FileInputStream *pThis = Object_wx_FileInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFile();
+	//wxFile* _rtn = pThis->GetEntity()->GetFile();
 	return Value::Nil;
 }
 

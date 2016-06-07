@@ -39,7 +39,7 @@ String Object_wx_GridCellEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellEditor, "GridCellEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -74,14 +74,14 @@ Gura_ImplementMethod(wx_GridCellEditor, __BeginEdit)
 
 Gura_DeclareMethodAlias(wx_GridCellEditor, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellEditor, __Clone)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxGridCellEditor* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __Destroy)
 
 Gura_DeclareMethodAlias(wx_GridCellEditor, __EndEdit, "EndEdit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_GridCellEditor, __EndEdit)
 	//const wxGrid* grid = arg.GetNumber(2)
 	//const wxString& oldval = arg.GetNumber(3)
 	//wxString* newval = arg.GetNumber(4)
-	//pThis->GetEntity()->EndEdit(row, col, grid, oldval, newval);
+	//bool _rtn = pThis->GetEntity()->EndEdit(row, col, grid, oldval, newval);
 	return Value::Nil;
 }
 
@@ -176,14 +176,14 @@ Gura_ImplementMethod(wx_GridCellEditor, __HandleReturn)
 
 Gura_DeclareMethodAlias(wx_GridCellEditor, __IsCreated, "IsCreated")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellEditor, __IsCreated)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCreated();
+	//bool _rtn = pThis->GetEntity()->IsCreated();
 	return Value::Nil;
 }
 
@@ -281,27 +281,27 @@ Gura_ImplementMethod(wx_GridCellEditor, __StartingKey)
 
 Gura_DeclareMethodAlias(wx_GridCellEditor, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellEditor, __GetValue)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxString _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellEditor, __GetControl, "GetControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellEditor, __GetControl)
 {
 	Object_wx_GridCellEditor *pThis = Object_wx_GridCellEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetControl();
+	//wxControl* _rtn = pThis->GetEntity()->GetControl();
 	return Value::Nil;
 }
 

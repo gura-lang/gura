@@ -39,7 +39,7 @@ String Object_wx_NavigationEnabled::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__NavigationEnabled, "NavigationEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_NavigationEnabled));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

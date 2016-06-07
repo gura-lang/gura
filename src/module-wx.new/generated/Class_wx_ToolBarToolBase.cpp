@@ -39,7 +39,7 @@ String Object_wx_ToolBarToolBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ToolBarToolBase, "ToolBarToolBase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "toolid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(__ToolBarToolBase)
 
 Gura_DeclareFunctionAlias(__ToolBarToolBase_1, "ToolBarToolBase_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tbar", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "control", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -92,261 +92,261 @@ Gura_ImplementFunction(__ToolBarToolBase_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetId)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//int _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetControl, "GetControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetControl)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetControl();
+	//wxControl* _rtn = pThis->GetEntity()->GetControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetToolBar, "GetToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetToolBar)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolBar();
+	//wxToolBarBase* _rtn = pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsStretchable, "IsStretchable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsStretchable)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsStretchable();
+	//bool _rtn = pThis->GetEntity()->IsStretchable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsButton, "IsButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsButton)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsButton();
+	//bool _rtn = pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsControl, "IsControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsControl)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsControl();
+	//bool _rtn = pThis->GetEntity()->IsControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsSeparator, "IsSeparator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsSeparator)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsSeparator();
+	//bool _rtn = pThis->GetEntity()->IsSeparator();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsStretchableSpace, "IsStretchableSpace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsStretchableSpace)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsStretchableSpace();
+	//bool _rtn = pThis->GetEntity()->IsStretchableSpace();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetStyle)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//int _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetKind, "GetKind")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetKind)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetKind();
+	//wxItemKind _rtn = pThis->GetEntity()->GetKind();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsEnabled, "IsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsEnabled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEnabled();
+	//bool _rtn = pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __IsToggled, "IsToggled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __IsToggled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsToggled();
+	//bool _rtn = pThis->GetEntity()->IsToggled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __CanBeToggled, "CanBeToggled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __CanBeToggled)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanBeToggled();
+	//bool _rtn = pThis->GetEntity()->CanBeToggled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetNormalBitmap, "GetNormalBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetNormalBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNormalBitmap();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetNormalBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetDisabledBitmap, "GetDisabledBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetDisabledBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDisabledBitmap();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetDisabledBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetBitmap)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetLabel)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabel();
+	//const wxString& _rtn = pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetShortHelp, "GetShortHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetShortHelp)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShortHelp();
+	//const wxString& _rtn = pThis->GetEntity()->GetShortHelp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetLongHelp, "GetLongHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetLongHelp)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLongHelp();
+	//const wxString& _rtn = pThis->GetEntity()->GetLongHelp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetClientData)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientData();
+	//wxObject* _rtn = pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
 
@@ -380,14 +380,14 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __Attach)
 
 Gura_DeclareMethodAlias(wx_ToolBarToolBase, __GetDropdownMenu, "GetDropdownMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBarToolBase, __GetDropdownMenu)
 {
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDropdownMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->GetDropdownMenu();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Image::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Image, __RGBValue, "RGBValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);

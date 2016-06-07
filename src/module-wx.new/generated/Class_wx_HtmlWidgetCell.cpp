@@ -39,7 +39,7 @@ String Object_wx_HtmlWidgetCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlWidgetCell, "HtmlWidgetCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "w", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWidgetCell));

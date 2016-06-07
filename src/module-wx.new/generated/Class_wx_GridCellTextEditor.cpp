@@ -39,7 +39,7 @@ String Object_wx_GridCellTextEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellTextEditor, "GridCellTextEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "maxChars", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellTextEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__GridCellTextEditor, "GridCellTextEditor")
 Gura_ImplementFunction(__GridCellTextEditor)
 {
 	//size_t maxChars = arg.GetNumber(0)
-	//wxGridCellTextEditor(maxChars);
+	//explicit _rtn = wxGridCellTextEditor(maxChars);
 	return Value::Nil;
 }
 

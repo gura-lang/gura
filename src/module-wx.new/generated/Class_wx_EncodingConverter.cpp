@@ -39,7 +39,7 @@ String Object_wx_EncodingConverter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__EncodingConverter, "EncodingConverter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_EncodingConverter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__EncodingConverter)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EncodingConverter, __CanConvert, "CanConvert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "encIn", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "encOut", VTYPE_number, OCCUR_Once);
 }
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __CanConvert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding encIn = arg.GetNumber(0)
 	//wxFontEncoding encOut = arg.GetNumber(1)
-	//pThis->GetEntity()->CanConvert(encIn, encOut);
+	//bool _rtn = pThis->GetEntity()->CanConvert(encIn, encOut);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert, "Convert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
 }
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* input = arg.GetNumber(0)
 	//char* output = arg.GetNumber(1)
-	//pThis->GetEntity()->Convert(input, output);
+	//bool _rtn = pThis->GetEntity()->Convert(input, output);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_1, "Convert_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
 }
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* input = arg.GetNumber(0)
 	//wchar_t* output = arg.GetNumber(1)
-	//pThis->GetEntity()->Convert(input, output);
+	//bool _rtn = pThis->GetEntity()->Convert(input, output);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_2, "Convert_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
 }
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* input = arg.GetNumber(0)
 	//wchar_t* output = arg.GetNumber(1)
-	//pThis->GetEntity()->Convert(input, output);
+	//bool _rtn = pThis->GetEntity()->Convert(input, output);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_3, "Convert_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "output", VTYPE_number, OCCUR_Once);
 }
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* input = arg.GetNumber(0)
 	//char* output = arg.GetNumber(1)
-	//pThis->GetEntity()->Convert(input, output);
+	//bool _rtn = pThis->GetEntity()->Convert(input, output);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_4, "Convert_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_4)
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert(str);
+	//bool _rtn = pThis->GetEntity()->Convert(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_5, "Convert_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_5)
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wchar_t* str = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert(str);
+	//bool _rtn = pThis->GetEntity()->Convert(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Convert_6, "Convert_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input", VTYPE_number, OCCUR_Once);
 }
 
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __Convert_6)
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& input = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert(input);
+	//wxString _rtn = pThis->GetEntity()->Convert(input);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __GetAllEquivalents, "GetAllEquivalents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 }
 
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __GetAllEquivalents)
 	Object_wx_EncodingConverter *pThis = Object_wx_EncodingConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding enc = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAllEquivalents(enc);
+	//wxFontEncodingArray _rtn = pThis->GetEntity()->GetAllEquivalents(enc);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __GetPlatformEquivalents, "GetPlatformEquivalents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "enc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "platform", VTYPE_number, OCCUR_Once);
 }
@@ -211,13 +211,13 @@ Gura_ImplementMethod(wx_EncodingConverter, __GetPlatformEquivalents)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding enc = arg.GetNumber(0)
 	//int platform = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPlatformEquivalents(enc, platform);
+	//wxFontEncodingArray _rtn = pThis->GetEntity()->GetPlatformEquivalents(enc, platform);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EncodingConverter, __Init, "Init")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "input_enc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "output_enc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_EncodingConverter, __Init)
 	//wxFontEncoding input_enc = arg.GetNumber(0)
 	//wxFontEncoding output_enc = arg.GetNumber(1)
 	//int method = arg.GetNumber(2)
-	//pThis->GetEntity()->Init(input_enc, output_enc, method);
+	//bool _rtn = pThis->GetEntity()->Init(input_enc, output_enc, method);
 	return Value::Nil;
 }
 

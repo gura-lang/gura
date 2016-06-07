@@ -39,7 +39,7 @@ String Object_wx_ScreenDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ScreenDC, "ScreenDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScreenDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,20 +55,20 @@ Gura_ImplementFunction(__ScreenDC)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScreenDC, __EndDrawingOnTop, "EndDrawingOnTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScreenDC, __EndDrawingOnTop)
 {
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->EndDrawingOnTop();
+	//bool _rtn = pThis->GetEntity()->EndDrawingOnTop();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScreenDC, __StartDrawingOnTop, "StartDrawingOnTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -77,13 +77,13 @@ Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop)
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->StartDrawingOnTop(window);
+	//bool _rtn = pThis->GetEntity()->StartDrawingOnTop(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScreenDC, __StartDrawingOnTop_1, "StartDrawingOnTop_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_ScreenDC, __StartDrawingOnTop_1)
 	Object_wx_ScreenDC *pThis = Object_wx_ScreenDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRect* rect = arg.GetNumber(0)
-	//pThis->GetEntity()->StartDrawingOnTop(rect);
+	//bool _rtn = pThis->GetEntity()->StartDrawingOnTop(rect);
 	return Value::Nil;
 }
 

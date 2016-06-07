@@ -39,7 +39,7 @@ String Object_wx_RichTextAction::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextAction, "RichTextAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -69,27 +69,27 @@ Gura_ImplementFunction(__RichTextAction)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextAction, __Do, "Do")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __Do)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Do();
+	//bool _rtn = pThis->GetEntity()->Do();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __Undo, "Undo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __Undo)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Undo();
+	//bool _rtn = pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
 
@@ -135,53 +135,53 @@ Gura_ImplementMethod(wx_RichTextAction, __ApplyParagraphs)
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetNewParagraphs, "GetNewParagraphs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetNewParagraphs)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNewParagraphs();
+	//wxRichTextParagraphLayoutBox& _rtn = pThis->GetEntity()->GetNewParagraphs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetOldParagraphs, "GetOldParagraphs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetOldParagraphs)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldParagraphs();
+	//wxRichTextParagraphLayoutBox& _rtn = pThis->GetEntity()->GetOldParagraphs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetAttributes, "GetAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetAttributes)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAttributes();
+	//wxRichTextAttr& _rtn = pThis->GetEntity()->GetAttributes();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetObject, "GetObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetObject)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetObject();
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetObject();
 	return Value::Nil;
 }
 
@@ -283,14 +283,14 @@ Gura_ImplementMethod(wx_RichTextAction, __SetPosition)
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetPosition)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//long _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
@@ -311,40 +311,40 @@ Gura_ImplementMethod(wx_RichTextAction, __SetRange)
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetRange)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRange();
+	//const wxRichTextRange& _rtn = pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetContainerAddress, "GetContainerAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetContainerAddress)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainerAddress();
+	//wxRichTextObjectAddress& _rtn = pThis->GetEntity()->GetContainerAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetContainerAddress_1, "GetContainerAddress_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetContainerAddress_1)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainerAddress();
+	//const wxRichTextObjectAddress& _rtn = pThis->GetEntity()->GetContainerAddress();
 	return Value::Nil;
 }
 
@@ -382,27 +382,27 @@ Gura_ImplementMethod(wx_RichTextAction, __SetContainerAddress_1)
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetContainer, "GetContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetContainer)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainer();
+	//wxRichTextParagraphLayoutBox* _rtn = pThis->GetEntity()->GetContainer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetName)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
@@ -423,14 +423,14 @@ Gura_ImplementMethod(wx_RichTextAction, __SetIgnoreFirstTime)
 
 Gura_DeclareMethodAlias(wx_RichTextAction, __GetIgnoreFirstTime, "GetIgnoreFirstTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextAction, __GetIgnoreFirstTime)
 {
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIgnoreFirstTime();
+	//bool _rtn = pThis->GetEntity()->GetIgnoreFirstTime();
 	return Value::Nil;
 }
 

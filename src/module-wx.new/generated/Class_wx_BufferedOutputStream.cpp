@@ -39,7 +39,7 @@ String Object_wx_BufferedOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BufferedOutputStream, "BufferedOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedOutputStream));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__BufferedOutputStream)
 
 Gura_DeclareFunctionAlias(__BufferedOutputStream_1, "BufferedOutputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedOutputStream));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(__BufferedOutputStream_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BufferedOutputStream, __SeekO, "SeekO")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_BufferedOutputStream, __SeekO)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset pos = arg.GetNumber(0)
 	//wxSeekMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->SeekO(pos, mode);
+	//wxFileOffset _rtn = pThis->GetEntity()->SeekO(pos, mode);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_DatagramSocket::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DatagramSocket, "DatagramSocket")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DatagramSocket));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__DatagramSocket)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DatagramSocket, __SendTo, "SendTo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nbytes", VTYPE_number, OCCUR_Once);
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//const void* buffer = arg.GetNumber(1)
 	//wxUint32 nbytes = arg.GetNumber(2)
-	//pThis->GetEntity()->SendTo(address, buffer, nbytes);
+	//wxDatagramSocket& _rtn = pThis->GetEntity()->SendTo(address, buffer, nbytes);
 	return Value::Nil;
 }
 

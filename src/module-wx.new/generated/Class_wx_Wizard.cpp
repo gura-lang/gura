@@ -39,7 +39,7 @@ String Object_wx_Wizard::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Wizard, "Wizard")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Wizard));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Wizard)
 
 Gura_DeclareFunctionAlias(__Wizard_1, "Wizard_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__Wizard_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Wizard, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Wizard, __Create)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
 	//const wxPoint& pos = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, title, bitmap, pos, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, bitmap, pos, style);
 	return Value::Nil;
 }
 
@@ -120,98 +120,98 @@ Gura_ImplementMethod(wx_Wizard, __FitToPage)
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetBitmap)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetBitmapBackgroundColour, "GetBitmapBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetBitmapBackgroundColour)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapBackgroundColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetBitmapBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetBitmapPlacement, "GetBitmapPlacement")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetBitmapPlacement)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapPlacement();
+	//int _rtn = pThis->GetEntity()->GetBitmapPlacement();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetCurrentPage, "GetCurrentPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetCurrentPage)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentPage();
+	//wxWizardPage* _rtn = pThis->GetEntity()->GetCurrentPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetMinimumBitmapWidth, "GetMinimumBitmapWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetMinimumBitmapWidth)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinimumBitmapWidth();
+	//int _rtn = pThis->GetEntity()->GetMinimumBitmapWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetPageAreaSizer, "GetPageAreaSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetPageAreaSizer)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageAreaSizer();
+	//wxSizer* _rtn = pThis->GetEntity()->GetPageAreaSizer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __GetPageSize, "GetPageSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Wizard, __GetPageSize)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSize();
+	//wxSize _rtn = pThis->GetEntity()->GetPageSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __HasNextPage, "HasNextPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -220,13 +220,13 @@ Gura_ImplementMethod(wx_Wizard, __HasNextPage)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPage* page = arg.GetNumber(0)
-	//pThis->GetEntity()->HasNextPage(page);
+	//bool _rtn = pThis->GetEntity()->HasNextPage(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __HasPrevPage, "HasPrevPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_Wizard, __HasPrevPage)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPage* page = arg.GetNumber(0)
-	//pThis->GetEntity()->HasPrevPage(page);
+	//bool _rtn = pThis->GetEntity()->HasPrevPage(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Wizard, __RunWizard, "RunWizard")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "firstPage", VTYPE_number, OCCUR_Once);
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Wizard, __RunWizard)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPage* firstPage = arg.GetNumber(0)
-	//pThis->GetEntity()->RunWizard(firstPage);
+	//bool _rtn = pThis->GetEntity()->RunWizard(firstPage);
 	return Value::Nil;
 }
 

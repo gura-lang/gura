@@ -39,7 +39,7 @@ String Object_wx_BannerWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BannerWindow, "BannerWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BannerWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__BannerWindow)
 
 Gura_DeclareFunctionAlias(__BannerWindow_1, "BannerWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BannerWindow));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__BannerWindow_1)
 
 Gura_DeclareFunctionAlias(__BannerWindow_2, "BannerWindow_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__BannerWindow_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BannerWindow, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_BannerWindow, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, winid, dir, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, winid, dir, pos, size, style, name);
 	return Value::Nil;
 }
 

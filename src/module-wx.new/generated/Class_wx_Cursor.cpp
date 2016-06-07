@@ -39,7 +39,7 @@ String Object_wx_Cursor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Cursor, "Cursor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Cursor)
 
 Gura_DeclareFunctionAlias(__Cursor_1, "Cursor_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(__Cursor_1)
 
 Gura_DeclareFunctionAlias(__Cursor_2, "Cursor_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cursorName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hotSpotX", VTYPE_number, OCCUR_Once);
@@ -98,7 +98,7 @@ Gura_ImplementFunction(__Cursor_2)
 
 Gura_DeclareFunctionAlias(__Cursor_3, "Cursor_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cursorId", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -113,7 +113,7 @@ Gura_ImplementFunction(__Cursor_3)
 
 Gura_DeclareFunctionAlias(__Cursor_4, "Cursor_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -128,7 +128,7 @@ Gura_ImplementFunction(__Cursor_4)
 
 Gura_DeclareFunctionAlias(__Cursor_5, "Cursor_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Cursor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -146,27 +146,27 @@ Gura_ImplementFunction(__Cursor_5)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Cursor, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Cursor, __IsOk)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Cursor, __GetHotSpot, "GetHotSpot")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Cursor, __GetHotSpot)
 {
 	Object_wx_Cursor *pThis = Object_wx_Cursor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHotSpot();
+	//wxPoint _rtn = pThis->GetEntity()->GetHotSpot();
 	return Value::Nil;
 }
 

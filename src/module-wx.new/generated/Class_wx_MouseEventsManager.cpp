@@ -39,7 +39,7 @@ String Object_wx_MouseEventsManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MouseEventsManager, "MouseEventsManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MouseEventsManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__MouseEventsManager)
 
 Gura_DeclareFunctionAlias(__MouseEventsManager_1, "MouseEventsManager_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MouseEventsManager));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(__MouseEventsManager_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseEventsManager, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, __Create)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(win);
+	//bool _rtn = pThis->GetEntity()->Create(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseHitTest, "MouseHitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseHitTest)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseHitTest(pos);
+	//int _rtn = pThis->GetEntity()->MouseHitTest(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseClicked, "MouseClicked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClicked)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseClicked(item);
+	//bool _rtn = pThis->GetEntity()->MouseClicked(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEventsManager, __MouseDragBegin, "MouseDragBegin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragBegin)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->MouseDragBegin(item, pos);
+	//bool _rtn = pThis->GetEntity()->MouseDragBegin(item, pos);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_CmdLineParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CmdLineParser, "CmdLineParser")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CmdLineParser)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_1, "CmdLineParser_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__CmdLineParser_1)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_2, "CmdLineParser_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__CmdLineParser_2)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_3, "CmdLineParser_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__CmdLineParser_3)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_4, "CmdLineParser_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -116,7 +116,7 @@ Gura_ImplementFunction(__CmdLineParser_4)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_5, "CmdLineParser_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argv", VTYPE_number, OCCUR_Once);
@@ -135,7 +135,7 @@ Gura_ImplementFunction(__CmdLineParser_5)
 
 Gura_DeclareFunctionAlias(__CmdLineParser_6, "CmdLineParser_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CmdLineParser));
@@ -273,20 +273,20 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddUsageText)
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __AreLongOptionsEnabled, "AreLongOptionsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, __AreLongOptionsEnabled)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AreLongOptionsEnabled();
+	//bool _rtn = pThis->GetEntity()->AreLongOptionsEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __ConvertStringToArgs, "ConvertStringToArgs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cmdline", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __EnableLongOptions)
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Found, "Found")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -340,13 +340,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->Found(name);
+	//bool _rtn = pThis->GetEntity()->Found(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __FoundSwitch, "FoundSwitch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __FoundSwitch)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->FoundSwitch(name);
+	//wxCmdLineSwitchState _rtn = pThis->GetEntity()->FoundSwitch(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_1, "Found_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -372,13 +372,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxString* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found(name, value);
+	//bool _rtn = pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_2, "Found_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -389,13 +389,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//long* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found(name, value);
+	//bool _rtn = pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_3, "Found_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -406,13 +406,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//double* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found(name, value);
+	//bool _rtn = pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Found_4, "Found_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -423,13 +423,13 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_4)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxDateTime* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found(name, value);
+	//bool _rtn = pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __GetParam, "GetParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -438,39 +438,39 @@ Gura_ImplementMethod(wx_CmdLineParser, __GetParam)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParam(n);
+	//wxString _rtn = pThis->GetEntity()->GetParam(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __GetParamCount, "GetParamCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, __GetParamCount)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParamCount();
+	//size_t _rtn = pThis->GetEntity()->GetParamCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __GetArguments, "GetArguments")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, __GetArguments)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetArguments();
+	//wxCmdLineArgs _rtn = pThis->GetEntity()->GetArguments();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __Parse, "Parse")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "giveUsage", VTYPE_number, OCCUR_Once);
 }
 
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Parse)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool giveUsage = arg.GetNumber(0)
-	//pThis->GetEntity()->Parse(giveUsage);
+	//int _rtn = pThis->GetEntity()->Parse(giveUsage);
 	return Value::Nil;
 }
 
@@ -592,14 +592,14 @@ Gura_ImplementMethod(wx_CmdLineParser, __Usage)
 
 Gura_DeclareMethodAlias(wx_CmdLineParser, __GetUsageString, "GetUsageString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineParser, __GetUsageString)
 {
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUsageString();
+	//wxString _rtn = pThis->GetEntity()->GetUsageString();
 	return Value::Nil;
 }
 

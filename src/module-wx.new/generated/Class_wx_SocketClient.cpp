@@ -39,7 +39,7 @@ String Object_wx_SocketClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SocketClient, "SocketClient")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SocketClient));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__SocketClient)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketClient, __Connect, "Connect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
@@ -68,13 +68,13 @@ Gura_ImplementMethod(wx_SocketClient, __Connect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//bool wait = arg.GetNumber(1)
-	//pThis->GetEntity()->Connect(address, wait);
+	//bool _rtn = pThis->GetEntity()->Connect(address, wait);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketClient, __Connect_1, "Connect_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "local", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_SocketClient, __Connect_1)
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//const wxSockAddress& local = arg.GetNumber(1)
 	//bool wait = arg.GetNumber(2)
-	//pThis->GetEntity()->Connect(address, local, wait);
+	//bool _rtn = pThis->GetEntity()->Connect(address, local, wait);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketClient, __WaitOnConnect, "WaitOnConnect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long seconds = arg.GetNumber(0)
 	//long milliseconds = arg.GetNumber(1)
-	//pThis->GetEntity()->WaitOnConnect(seconds, milliseconds);
+	//bool _rtn = pThis->GetEntity()->WaitOnConnect(seconds, milliseconds);
 	return Value::Nil;
 }
 

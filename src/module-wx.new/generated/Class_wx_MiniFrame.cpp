@@ -39,7 +39,7 @@ String Object_wx_MiniFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MiniFrame, "MiniFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MiniFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__MiniFrame)
 
 Gura_DeclareFunctionAlias(__MiniFrame_1, "MiniFrame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__MiniFrame_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MiniFrame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_MiniFrame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_TextOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextOutputStream, "TextOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
@@ -74,33 +74,33 @@ Gura_ImplementMethod(wx_TextOutputStream, __Flush)
 
 Gura_DeclareMethodAlias(wx_TextOutputStream, __GetOutputStream, "GetOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, __GetOutputStream)
 {
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOutputStream();
+	//const wxOutputStream& _rtn = pThis->GetEntity()->GetOutputStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextOutputStream, __GetMode, "GetMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextOutputStream, __GetMode)
 {
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMode();
+	//wxEOL _rtn = pThis->GetEntity()->GetMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextOutputStream, __PutChar, "PutChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_TextOutputStream, __PutChar)
 	Object_wx_TextOutputStream *pThis = Object_wx_TextOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxChar c = arg.GetNumber(0)
-	//pThis->GetEntity()->PutChar(c);
+	//wxTextOutputStream& _rtn = pThis->GetEntity()->PutChar(c);
 	return Value::Nil;
 }
 

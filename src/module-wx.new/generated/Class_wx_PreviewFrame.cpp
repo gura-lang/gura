@@ -39,7 +39,7 @@ String Object_wx_PreviewFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PreviewFrame, "PreviewFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);

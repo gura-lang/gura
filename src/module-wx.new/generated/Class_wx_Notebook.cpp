@@ -39,7 +39,7 @@ String Object_wx_Notebook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Notebook, "Notebook")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Notebook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Notebook)
 
 Gura_DeclareFunctionAlias(__Notebook_1, "Notebook_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__Notebook_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Notebook, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,33 +99,33 @@ Gura_ImplementMethod(wx_Notebook, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __GetRowCount, "GetRowCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Notebook, __GetRowCount)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRowCount();
+	//int _rtn = pThis->GetEntity()->GetRowCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __GetThemeBackgroundColour, "GetThemeBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Notebook, __GetThemeBackgroundColour)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThemeBackgroundColour();
+	//wxColour _rtn = pThis->GetEntity()->GetThemeBackgroundColour();
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPadding)
 
 Gura_DeclareMethodAlias(wx_Notebook, __GetPageImage, "GetPageImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 }
 
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_Notebook, __GetPageImage)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nPage = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageImage(nPage);
+	//int _rtn = pThis->GetEntity()->GetPageImage(nPage);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __SetPageImage, "SetPageImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_Notebook, __SetPageImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPageImage(page, image);
+	//bool _rtn = pThis->GetEntity()->SetPageImage(page, image);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __GetPageText, "GetPageText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPage", VTYPE_number, OCCUR_Once);
 }
 
@@ -202,13 +202,13 @@ Gura_ImplementMethod(wx_Notebook, __GetPageText)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nPage = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageText(nPage);
+	//wxString _rtn = pThis->GetEntity()->GetPageText(nPage);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __SetPageText, "SetPageText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
@@ -219,26 +219,26 @@ Gura_ImplementMethod(wx_Notebook, __SetPageText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPageText(page, text);
+	//bool _rtn = pThis->GetEntity()->SetPageText(page, text);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Notebook, __GetSelection)
 {
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __SetSelection, "SetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,13 +247,13 @@ Gura_ImplementMethod(wx_Notebook, __SetSelection)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection(page);
+	//int _rtn = pThis->GetEntity()->SetSelection(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __ChangeSelection, "ChangeSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -262,13 +262,13 @@ Gura_ImplementMethod(wx_Notebook, __ChangeSelection)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->ChangeSelection(page);
+	//int _rtn = pThis->GetEntity()->ChangeSelection(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Notebook, __InsertPage, "InsertPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_Notebook, __InsertPage)
 	//const wxString& text = arg.GetNumber(2)
 	//bool select = arg.GetNumber(3)
 	//int imageId = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertPage(index, page, text, select, imageId);
+	//bool _rtn = pThis->GetEntity()->InsertPage(index, page, text, select, imageId);
 	return Value::Nil;
 }
 

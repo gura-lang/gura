@@ -39,7 +39,7 @@ String Object_wx_TreeListItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeListItem, "TreeListItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeListItem));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__TreeListItem)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeListItem, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeListItem, __IsOk)
 {
 	Object_wx_TreeListItem *pThis = Object_wx_TreeListItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

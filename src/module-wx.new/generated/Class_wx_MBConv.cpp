@@ -39,7 +39,7 @@ String Object_wx_MBConv::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MBConv, "MBConv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MBConv));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,46 +55,46 @@ Gura_ImplementFunction(__MBConv)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MBConv, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MBConv, __Clone)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxMBConv* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __GetMBNulLen, "GetMBNulLen")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MBConv, __GetMBNulLen)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMBNulLen();
+	//size_t _rtn = pThis->GetEntity()->GetMBNulLen();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __GetMaxMBNulLen, "GetMaxMBNulLen")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MBConv, __GetMaxMBNulLen)
 {
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxMBNulLen();
+	//size_t _rtn = pThis->GetEntity()->GetMaxMBNulLen();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __ToWChar, "ToWChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dstLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_MBConv, __ToWChar)
 	//size_t dstLen = arg.GetNumber(1)
 	//const char* src = arg.GetNumber(2)
 	//size_t srcLen = arg.GetNumber(3)
-	//pThis->GetEntity()->ToWChar(dst, dstLen, src, srcLen);
+	//size_t _rtn = pThis->GetEntity()->ToWChar(dst, dstLen, src, srcLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __FromWChar, "FromWChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dstLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
@@ -130,13 +130,13 @@ Gura_ImplementMethod(wx_MBConv, __FromWChar)
 	//size_t dstLen = arg.GetNumber(1)
 	//const wchar_t* src = arg.GetNumber(2)
 	//size_t srcLen = arg.GetNumber(3)
-	//pThis->GetEntity()->FromWChar(dst, dstLen, src, srcLen);
+	//size_t _rtn = pThis->GetEntity()->FromWChar(dst, dstLen, src, srcLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cMB2WC, "cMB2WC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "in", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "inLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WC)
 	//const char* in = arg.GetNumber(0)
 	//size_t inLen = arg.GetNumber(1)
 	//size_t* outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->cMB2WC(in, inLen, outLen);
+	//const wxWCharBuffer _rtn = pThis->GetEntity()->cMB2WC(in, inLen, outLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cMB2WC_1, "cMB2WC_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WC_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxCharBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WC(buf);
+	//const wxWCharBuffer _rtn = pThis->GetEntity()->cMB2WC(buf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cMB2WX, "cMB2WX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WX)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WX(psz);
+	//const char* _rtn = pThis->GetEntity()->cMB2WX(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cMB2WX_1, "cMB2WX_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WX_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WX(psz);
+	//const wxWCharBuffer _rtn = pThis->GetEntity()->cMB2WX(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWC2MB, "cWC2MB")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "in", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "inLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
@@ -213,13 +213,13 @@ Gura_ImplementMethod(wx_MBConv, __cWC2MB)
 	//const wchar_t* in = arg.GetNumber(0)
 	//size_t inLen = arg.GetNumber(1)
 	//size_t* outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->cWC2MB(in, inLen, outLen);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->cWC2MB(in, inLen, outLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWC2MB_1, "cWC2MB_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
@@ -228,13 +228,13 @@ Gura_ImplementMethod(wx_MBConv, __cWC2MB_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWCharBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2MB(buf);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->cWC2MB(buf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWC2WX, "cWC2WX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -243,13 +243,13 @@ Gura_ImplementMethod(wx_MBConv, __cWC2WX)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2WX(psz);
+	//const wchar_t* _rtn = pThis->GetEntity()->cWC2WX(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWC2WX_1, "cWC2WX_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -258,13 +258,13 @@ Gura_ImplementMethod(wx_MBConv, __cWC2WX_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2WX(psz);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->cWC2WX(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWX2MB, "cWX2MB")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -273,13 +273,13 @@ Gura_ImplementMethod(wx_MBConv, __cWX2MB)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2MB(psz);
+	//const char* _rtn = pThis->GetEntity()->cWX2MB(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWX2MB_1, "cWX2MB_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -288,13 +288,13 @@ Gura_ImplementMethod(wx_MBConv, __cWX2MB_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2MB(psz);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->cWX2MB(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWX2WC, "cWX2WC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -303,13 +303,13 @@ Gura_ImplementMethod(wx_MBConv, __cWX2WC)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2WC(psz);
+	//const wchar_t* _rtn = pThis->GetEntity()->cWX2WC(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __cWX2WC_1, "cWX2WC_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -318,13 +318,13 @@ Gura_ImplementMethod(wx_MBConv, __cWX2WC_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2WC(psz);
+	//const wxWCharBuffer _rtn = pThis->GetEntity()->cWX2WC(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __MB2WC, "MB2WC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "out", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "in", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "outLen", VTYPE_number, OCCUR_Once);
@@ -337,13 +337,13 @@ Gura_ImplementMethod(wx_MBConv, __MB2WC)
 	//wchar_t* out = arg.GetNumber(0)
 	//const char* in = arg.GetNumber(1)
 	//size_t outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->MB2WC(out, in, outLen);
+	//size_t _rtn = pThis->GetEntity()->MB2WC(out, in, outLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MBConv, __WC2MB, "WC2MB")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_MBConv, __WC2MB)
 	//char* buf = arg.GetNumber(0)
 	//const wchar_t* psz = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->WC2MB(buf, psz, n);
+	//size_t _rtn = pThis->GetEntity()->WC2MB(buf, psz, n);
 	return Value::Nil;
 }
 

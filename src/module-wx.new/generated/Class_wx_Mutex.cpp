@@ -39,7 +39,7 @@ String Object_wx_Mutex::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Mutex, "Mutex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Mutex));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,20 +57,20 @@ Gura_ImplementFunction(__Mutex)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Mutex, __Lock, "Lock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Mutex, __Lock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Lock();
+	//wxMutexError _rtn = pThis->GetEntity()->Lock();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mutex, __LockTimeout, "LockTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "msec", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,33 +79,33 @@ Gura_ImplementMethod(wx_Mutex, __LockTimeout)
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long msec = arg.GetNumber(0)
-	//pThis->GetEntity()->LockTimeout(msec);
+	//wxMutexError _rtn = pThis->GetEntity()->LockTimeout(msec);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mutex, __TryLock, "TryLock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Mutex, __TryLock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TryLock();
+	//wxMutexError _rtn = pThis->GetEntity()->TryLock();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mutex, __Unlock, "Unlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Mutex, __Unlock)
 {
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Unlock();
+	//wxMutexError _rtn = pThis->GetEntity()->Unlock();
 	return Value::Nil;
 }
 

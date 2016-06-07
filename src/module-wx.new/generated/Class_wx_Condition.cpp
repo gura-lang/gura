@@ -39,7 +39,7 @@ String Object_wx_Condition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Condition, "Condition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mutex", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Condition));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,59 +57,59 @@ Gura_ImplementFunction(__Condition)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Condition, __Broadcast, "Broadcast")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Condition, __Broadcast)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Broadcast();
+	//wxCondError _rtn = pThis->GetEntity()->Broadcast();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Condition, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Condition, __IsOk)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Condition, __Signal, "Signal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Condition, __Signal)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Signal();
+	//wxCondError _rtn = pThis->GetEntity()->Signal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Condition, __Wait, "Wait")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Condition, __Wait)
 {
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Wait();
+	//wxCondError _rtn = pThis->GetEntity()->Wait();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Condition, __Wait_1, "Wait_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "predicate", VTYPE_number, OCCUR_Once);
 }
 
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_Condition, __Wait_1)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const Functor& predicate = arg.GetNumber(0)
-	//pThis->GetEntity()->Wait(predicate);
+	//wxCondError _rtn = pThis->GetEntity()->Wait(predicate);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Condition, __WaitTimeout, "WaitTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_Condition, __WaitTimeout)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long milliseconds = arg.GetNumber(0)
-	//pThis->GetEntity()->WaitTimeout(milliseconds);
+	//wxCondError _rtn = pThis->GetEntity()->WaitTimeout(milliseconds);
 	return Value::Nil;
 }
 

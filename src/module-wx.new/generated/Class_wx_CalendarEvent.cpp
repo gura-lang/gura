@@ -39,7 +39,7 @@ String Object_wx_CalendarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CalendarEvent, "CalendarEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CalendarEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CalendarEvent)
 
 Gura_DeclareFunctionAlias(__CalendarEvent_1, "CalendarEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -74,14 +74,14 @@ Gura_ImplementFunction(__CalendarEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CalendarEvent, __GetWeekDay, "GetWeekDay")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarEvent, __GetWeekDay)
 {
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWeekDay();
+	//wxDateTime::WeekDay _rtn = pThis->GetEntity()->GetWeekDay();
 	return Value::Nil;
 }
 

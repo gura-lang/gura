@@ -39,7 +39,7 @@ String Object_wx_ZlibOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ZlibOutputStream, "ZlibOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__ZlibOutputStream)
 
 Gura_DeclareFunctionAlias(__ZlibOutputStream_1, "ZlibOutputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -80,20 +80,20 @@ Gura_ImplementFunction(__ZlibOutputStream_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ZlibOutputStream, __CanHandleGZip, "CanHandleGZip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ZlibOutputStream, __CanHandleGZip)
 {
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanHandleGZip();
+	//bool _rtn = pThis->GetEntity()->CanHandleGZip();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ZlibOutputStream, __SetDictionary, "SetDictionary")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "datalen", VTYPE_number, OCCUR_Once);
 }
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* data = arg.GetNumber(0)
 	//size_t datalen = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDictionary(data, datalen);
+	//bool _rtn = pThis->GetEntity()->SetDictionary(data, datalen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ZlibOutputStream, __SetDictionary_1, "SetDictionary_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary_1)
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMemoryBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDictionary(buf);
+	//bool _rtn = pThis->GetEntity()->SetDictionary(buf);
 	return Value::Nil;
 }
 

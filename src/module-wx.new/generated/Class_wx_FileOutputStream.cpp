@@ -39,7 +39,7 @@ String Object_wx_FileOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileOutputStream, "FileOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ofileName", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__FileOutputStream)
 
 Gura_DeclareFunctionAlias(__FileOutputStream_1, "FileOutputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "file", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__FileOutputStream_1)
 
 Gura_DeclareFunctionAlias(__FileOutputStream_2, "FileOutputStream_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fd", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,27 +87,27 @@ Gura_ImplementFunction(__FileOutputStream_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileOutputStream, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileOutputStream, __IsOk)
 {
 	Object_wx_FileOutputStream *pThis = Object_wx_FileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileOutputStream, __GetFile, "GetFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileOutputStream, __GetFile)
 {
 	Object_wx_FileOutputStream *pThis = Object_wx_FileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFile();
+	//wxFile* _rtn = pThis->GetEntity()->GetFile();
 	return Value::Nil;
 }
 

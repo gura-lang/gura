@@ -39,7 +39,7 @@ String Object_wx_RegKey::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RegKey, "RegKey")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RegKey));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__RegKey)
 
 Gura_DeclareFunctionAlias(__RegKey_1, "RegKey_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RegKey));
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__RegKey_1)
 
 Gura_DeclareFunctionAlias(__RegKey_2, "RegKey_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "viewMode", VTYPE_number, OCCUR_Once);
@@ -90,7 +90,7 @@ Gura_ImplementFunction(__RegKey_2)
 
 Gura_DeclareFunctionAlias(__RegKey_3, "RegKey_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "keyParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strKey", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RegKey));

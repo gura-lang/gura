@@ -39,14 +39,14 @@ String Object_wx_IconLocation::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IconLocation, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IconLocation, __IsOk)
 {
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
@@ -67,14 +67,14 @@ Gura_ImplementMethod(wx_IconLocation, __SetFileName)
 
 Gura_DeclareMethodAlias(wx_IconLocation, __GetFileName, "GetFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IconLocation, __GetFileName)
 {
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileName();
+	//const wxString& _rtn = pThis->GetEntity()->GetFileName();
 	return Value::Nil;
 }
 

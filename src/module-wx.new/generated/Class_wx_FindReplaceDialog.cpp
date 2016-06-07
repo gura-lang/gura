@@ -39,7 +39,7 @@ String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FindReplaceDialog, "FindReplaceDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FindReplaceDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__FindReplaceDialog)
 
 Gura_DeclareFunctionAlias(__FindReplaceDialog_1, "FindReplaceDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(__FindReplaceDialog_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FindReplaceDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -91,20 +91,20 @@ Gura_ImplementMethod(wx_FindReplaceDialog, __Create)
 	//wxFindReplaceData* data = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//pThis->GetEntity()->Create(parent, data, title, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, data, title, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FindReplaceDialog, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FindReplaceDialog, __GetData)
 {
 	Object_wx_FindReplaceDialog *pThis = Object_wx_FindReplaceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//const wxFindReplaceData* _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 

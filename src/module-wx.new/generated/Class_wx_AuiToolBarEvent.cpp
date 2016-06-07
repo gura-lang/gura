@@ -39,53 +39,53 @@ String Object_wx_AuiToolBarEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __IsDropDownClicked, "IsDropDownClicked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, __IsDropDownClicked)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDropDownClicked();
+	//bool _rtn = pThis->GetEntity()->IsDropDownClicked();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetClickPoint, "GetClickPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, __GetClickPoint)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClickPoint();
+	//wxPoint _rtn = pThis->GetEntity()->GetClickPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetItemRect, "GetItemRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, __GetItemRect)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItemRect();
+	//wxRect _rtn = pThis->GetEntity()->GetItemRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiToolBarEvent, __GetToolId, "GetToolId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarEvent, __GetToolId)
 {
 	Object_wx_AuiToolBarEvent *pThis = Object_wx_AuiToolBarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolId();
+	//int _rtn = pThis->GetEntity()->GetToolId();
 	return Value::Nil;
 }
 

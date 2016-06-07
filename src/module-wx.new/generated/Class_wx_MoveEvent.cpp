@@ -39,7 +39,7 @@ String Object_wx_MoveEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MoveEvent, "MoveEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MoveEvent));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__MoveEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MoveEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MoveEvent, __GetPosition)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MoveEvent, __GetRect, "GetRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MoveEvent, __GetRect)
 {
 	Object_wx_MoveEvent *pThis = Object_wx_MoveEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRect();
+	//wxRect _rtn = pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
 

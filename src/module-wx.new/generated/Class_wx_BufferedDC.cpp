@@ -39,7 +39,7 @@ String Object_wx_BufferedDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BufferedDC, "BufferedDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__BufferedDC)
 
 Gura_DeclareFunctionAlias(__BufferedDC_1, "BufferedDC_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "area", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__BufferedDC_1)
 
 Gura_DeclareFunctionAlias(__BufferedDC_2, "BufferedDC_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -159,14 +159,14 @@ Gura_ImplementMethod(wx_BufferedDC, __SetStyle)
 
 Gura_DeclareMethodAlias(wx_BufferedDC, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BufferedDC, __GetStyle)
 {
 	Object_wx_BufferedDC *pThis = Object_wx_BufferedDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//int _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 

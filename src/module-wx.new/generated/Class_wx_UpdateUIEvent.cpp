@@ -39,7 +39,7 @@ String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__UpdateUIEvent, "UpdateUIEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandId", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_UpdateUIEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__UpdateUIEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __CanUpdate, "CanUpdate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __CanUpdate)
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->CanUpdate(window);
+	//bool _rtn = pThis->GetEntity()->CanUpdate(window);
 	return Value::Nil;
 }
 
@@ -102,131 +102,131 @@ Gura_ImplementMethod(wx_UpdateUIEvent, __Enable)
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetChecked, "GetChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetChecked)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChecked();
+	//bool _rtn = pThis->GetEntity()->GetChecked();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetEnabled, "GetEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetEnabled)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEnabled();
+	//bool _rtn = pThis->GetEntity()->GetEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetMode, "GetMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetMode)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMode();
+	//wxUpdateUIMode _rtn = pThis->GetEntity()->GetMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetChecked, "GetSetChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetChecked)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSetChecked();
+	//bool _rtn = pThis->GetEntity()->GetSetChecked();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetEnabled, "GetSetEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetEnabled)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSetEnabled();
+	//bool _rtn = pThis->GetEntity()->GetSetEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetShown, "GetSetShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetShown)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSetShown();
+	//bool _rtn = pThis->GetEntity()->GetSetShown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetSetText, "GetSetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetSetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSetText();
+	//bool _rtn = pThis->GetEntity()->GetSetText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetShown, "GetShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetShown)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShown();
+	//bool _rtn = pThis->GetEntity()->GetShown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetText)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//wxString _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_UpdateUIEvent, __GetUpdateInterval, "GetUpdateInterval")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_UpdateUIEvent, __GetUpdateInterval)
 {
 	Object_wx_UpdateUIEvent *pThis = Object_wx_UpdateUIEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUpdateInterval();
+	//long _rtn = pThis->GetEntity()->GetUpdateInterval();
 	return Value::Nil;
 }
 

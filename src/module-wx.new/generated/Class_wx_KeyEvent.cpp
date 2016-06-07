@@ -39,7 +39,7 @@ String Object_wx_KeyEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__KeyEvent, "KeyEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "keyEventType", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_KeyEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,20 +57,20 @@ Gura_ImplementFunction(__KeyEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetKeyCode, "GetKeyCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetKeyCode)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetKeyCode();
+	//int _rtn = pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __IsKeyInCategory, "IsKeyInCategory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "category", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,20 +79,20 @@ Gura_ImplementMethod(wx_KeyEvent, __IsKeyInCategory)
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int category = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKeyInCategory(category);
+	//bool _rtn = pThis->GetEntity()->IsKeyInCategory(category);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetPosition)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
@@ -115,66 +115,66 @@ Gura_ImplementMethod(wx_KeyEvent, __GetPosition_1)
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetRawKeyCode, "GetRawKeyCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetRawKeyCode)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRawKeyCode();
+	//wxUint32 _rtn = pThis->GetEntity()->GetRawKeyCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetRawKeyFlags, "GetRawKeyFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetRawKeyFlags)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRawKeyFlags();
+	//wxUint32 _rtn = pThis->GetEntity()->GetRawKeyFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetUnicodeKey, "GetUnicodeKey")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetUnicodeKey)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUnicodeKey();
+	//wxChar _rtn = pThis->GetEntity()->GetUnicodeKey();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetX)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//wxCoord _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __GetY)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//wxCoord _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
@@ -193,14 +193,14 @@ Gura_ImplementMethod(wx_KeyEvent, __DoAllowNextEvent)
 
 Gura_DeclareMethodAlias(wx_KeyEvent, __IsNextEventAllowed, "IsNextEventAllowed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyEvent, __IsNextEventAllowed)
 {
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNextEventAllowed();
+	//bool _rtn = pThis->GetEntity()->IsNextEventAllowed();
 	return Value::Nil;
 }
 

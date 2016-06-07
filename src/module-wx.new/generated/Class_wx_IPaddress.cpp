@@ -39,33 +39,33 @@ String Object_wx_IPaddress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IPaddress, __AnyAddress, "AnyAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __AnyAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AnyAddress();
+	//bool _rtn = pThis->GetEntity()->AnyAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __BroadcastAddress, "BroadcastAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __BroadcastAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->BroadcastAddress();
+	//bool _rtn = pThis->GetEntity()->BroadcastAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __Hostname, "Hostname")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hostname", VTYPE_number, OCCUR_Once);
 }
 
@@ -74,65 +74,65 @@ Gura_ImplementMethod(wx_IPaddress, __Hostname)
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hostname = arg.GetNumber(0)
-	//pThis->GetEntity()->Hostname(hostname);
+	//bool _rtn = pThis->GetEntity()->Hostname(hostname);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __Hostname_1, "Hostname_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __Hostname_1)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Hostname();
+	//wxString _rtn = pThis->GetEntity()->Hostname();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __IPAddress, "IPAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __IPAddress)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IPAddress();
+	//wxString _rtn = pThis->GetEntity()->IPAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __IsLocalHost, "IsLocalHost")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __IsLocalHost)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsLocalHost();
+	//bool _rtn = pThis->GetEntity()->IsLocalHost();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __LocalHost, "LocalHost")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __LocalHost)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LocalHost();
+	//bool _rtn = pThis->GetEntity()->LocalHost();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __Service, "Service")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_IPaddress, __Service)
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& service = arg.GetNumber(0)
-	//pThis->GetEntity()->Service(service);
+	//bool _rtn = pThis->GetEntity()->Service(service);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __Service_1, "Service_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 }
 
@@ -156,20 +156,20 @@ Gura_ImplementMethod(wx_IPaddress, __Service_1)
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned short service = arg.GetNumber(0)
-	//pThis->GetEntity()->Service(service);
+	//bool _rtn = pThis->GetEntity()->Service(service);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IPaddress, __Service_2, "Service_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IPaddress, __Service_2)
 {
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Service();
+	//unsigned short _rtn = pThis->GetEntity()->Service();
 	return Value::Nil;
 }
 

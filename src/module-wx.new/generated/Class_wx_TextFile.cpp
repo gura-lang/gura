@@ -39,7 +39,7 @@ String Object_wx_TextFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextFile, "TextFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TextFile)
 
 Gura_DeclareFunctionAlias(__TextFile_1, "TextFile_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TextFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -100,33 +100,33 @@ Gura_ImplementMethod(wx_TextFile, __Clear)
 
 Gura_DeclareMethodAlias(wx_TextFile, __Close, "Close")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __Close)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Close();
+	//bool _rtn = pThis->GetEntity()->Close();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __Create)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Create();
+	//bool _rtn = pThis->GetEntity()->Create();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
 }
 
@@ -135,52 +135,52 @@ Gura_ImplementMethod(wx_TextFile, __Create_1)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strFile = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(strFile);
+	//bool _rtn = pThis->GetEntity()->Create(strFile);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Eof, "Eof")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __Eof)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Eof();
+	//bool _rtn = pThis->GetEntity()->Eof();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Exists, "Exists")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __Exists)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Exists();
+	//bool _rtn = pThis->GetEntity()->Exists();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetCurrentLine, "GetCurrentLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetCurrentLine)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentLine();
+	//size_t _rtn = pThis->GetEntity()->GetCurrentLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetEOL, "GetEOL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -189,39 +189,39 @@ Gura_ImplementMethod(wx_TextFile, __GetEOL)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextFileType type = arg.GetNumber(0)
-	//pThis->GetEntity()->GetEOL(type);
+	//const wxChar* _rtn = pThis->GetEntity()->GetEOL(type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetFirstLine, "GetFirstLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetFirstLine)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFirstLine();
+	//wxString& _rtn = pThis->GetEntity()->GetFirstLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetLastLine, "GetLastLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetLastLine)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLastLine();
+	//wxString& _rtn = pThis->GetEntity()->GetLastLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetLine, "GetLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -230,13 +230,13 @@ Gura_ImplementMethod(wx_TextFile, __GetLine)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLine(n);
+	//wxString& _rtn = pThis->GetEntity()->GetLine(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetLine_1, "GetLine_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -245,26 +245,26 @@ Gura_ImplementMethod(wx_TextFile, __GetLine_1)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLine(n);
+	//const wxString& _rtn = pThis->GetEntity()->GetLine(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetLineCount, "GetLineCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetLineCount)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLineCount();
+	//size_t _rtn = pThis->GetEntity()->GetLineCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetLineType, "GetLineType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -273,46 +273,46 @@ Gura_ImplementMethod(wx_TextFile, __GetLineType)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLineType(n);
+	//wxTextFileType _rtn = pThis->GetEntity()->GetLineType(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetName)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetNextLine, "GetNextLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetNextLine)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNextLine();
+	//wxString& _rtn = pThis->GetEntity()->GetNextLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __GetPrevLine, "GetPrevLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GetPrevLine)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrevLine();
+	//wxString& _rtn = pThis->GetEntity()->GetPrevLine();
 	return Value::Nil;
 }
 
@@ -333,14 +333,14 @@ Gura_ImplementMethod(wx_TextFile, __GoToLine)
 
 Gura_DeclareMethodAlias(wx_TextFile, __GuessType, "GuessType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __GuessType)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GuessType();
+	//wxTextFileType _rtn = pThis->GetEntity()->GuessType();
 	return Value::Nil;
 }
 
@@ -365,20 +365,20 @@ Gura_ImplementMethod(wx_TextFile, __InsertLine)
 
 Gura_DeclareMethodAlias(wx_TextFile, __IsOpened, "IsOpened")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextFile, __IsOpened)
 {
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOpened();
+	//bool _rtn = pThis->GetEntity()->IsOpened();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Open, "Open")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
@@ -387,13 +387,13 @@ Gura_ImplementMethod(wx_TextFile, __Open)
 	Object_wx_TextFile *pThis = Object_wx_TextFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMBConv& conv = arg.GetNumber(0)
-	//pThis->GetEntity()->Open(conv);
+	//bool _rtn = pThis->GetEntity()->Open(conv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextFile, __Open_1, "Open_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_TextFile, __Open_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strFile = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->Open(strFile, conv);
+	//bool _rtn = pThis->GetEntity()->Open(strFile, conv);
 	return Value::Nil;
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_TextFile, __RemoveLine)
 
 Gura_DeclareMethodAlias(wx_TextFile, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "typeNew", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_TextFile, __Write)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextFileType typeNew = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->Write(typeNew, conv);
+	//bool _rtn = pThis->GetEntity()->Write(typeNew, conv);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_ToolTip::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ToolTip, "ToolTip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tip", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ToolTip));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,27 +72,27 @@ Gura_ImplementMethod(wx_ToolTip, __Enable)
 
 Gura_DeclareMethodAlias(wx_ToolTip, __GetTip, "GetTip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolTip, __GetTip)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTip();
+	//wxString _rtn = pThis->GetEntity()->GetTip();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToolTip, __GetWindow, "GetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolTip, __GetWindow)
 {
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
 

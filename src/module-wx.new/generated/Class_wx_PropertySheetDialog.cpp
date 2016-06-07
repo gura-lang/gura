@@ -39,7 +39,7 @@ String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PropertySheetDialog, "PropertySheetDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __AddBookCtrl)
 
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -105,20 +105,20 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __CreateBookCtrl, "CreateBookCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertySheetDialog, __CreateBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreateBookCtrl();
+	//wxBookCtrlBase* _rtn = pThis->GetEntity()->CreateBookCtrl();
 	return Value::Nil;
 }
 
@@ -139,40 +139,40 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __CreateButtons)
 
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetBookCtrl, "GetBookCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertySheetDialog, __GetBookCtrl)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBookCtrl();
+	//wxBookCtrlBase* _rtn = pThis->GetEntity()->GetBookCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetInnerSizer, "GetInnerSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertySheetDialog, __GetInnerSizer)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInnerSizer();
+	//wxSizer* _rtn = pThis->GetEntity()->GetInnerSizer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertySheetDialog, __GetSheetStyle, "GetSheetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertySheetDialog, __GetSheetStyle)
 {
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSheetStyle();
+	//long _rtn = pThis->GetEntity()->GetSheetStyle();
 	return Value::Nil;
 }
 

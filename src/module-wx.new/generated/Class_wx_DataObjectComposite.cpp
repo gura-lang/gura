@@ -39,7 +39,7 @@ String Object_wx_DataObjectComposite::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataObjectComposite, "DataObjectComposite")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataObjectComposite));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -72,20 +72,20 @@ Gura_ImplementMethod(wx_DataObjectComposite, __Add)
 
 Gura_DeclareMethodAlias(wx_DataObjectComposite, __GetReceivedFormat, "GetReceivedFormat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataObjectComposite, __GetReceivedFormat)
 {
 	Object_wx_DataObjectComposite *pThis = Object_wx_DataObjectComposite::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetReceivedFormat();
+	//wxDataFormat _rtn = pThis->GetEntity()->GetReceivedFormat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataObjectComposite, __GetObject, "GetObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dir", VTYPE_number, OCCUR_Once);
 }
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, __GetObject)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& format = arg.GetNumber(0)
 	//wxDataObject::Direction dir = arg.GetNumber(1)
-	//pThis->GetEntity()->GetObject(format, dir);
+	//wxDataObjectSimple* _rtn = pThis->GetEntity()->GetObject(format, dir);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_SplitterEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SplitterEvent, "SplitterEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "splitter", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SplitterEvent));
@@ -59,53 +59,53 @@ Gura_ImplementFunction(__SplitterEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplitterEvent, __GetSashPosition, "GetSashPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterEvent, __GetSashPosition)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSashPosition();
+	//int _rtn = pThis->GetEntity()->GetSashPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterEvent, __GetWindowBeingRemoved, "GetWindowBeingRemoved")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterEvent, __GetWindowBeingRemoved)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindowBeingRemoved();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindowBeingRemoved();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterEvent, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterEvent, __GetX)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//int _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterEvent, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterEvent, __GetY)
 {
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//int _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 

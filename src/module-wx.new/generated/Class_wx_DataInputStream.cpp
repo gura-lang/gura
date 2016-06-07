@@ -39,7 +39,7 @@ String Object_wx_DataInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataInputStream, "DataInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataInputStream));
@@ -74,27 +74,27 @@ Gura_ImplementMethod(wx_DataInputStream, __BigEndianOrdered)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __GetConv, "GetConv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __GetConv)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetConv();
+	//wxMBConv* _rtn = pThis->GetEntity()->GetConv();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __Read8, "Read8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __Read8)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Read8();
+	//wxUint8 _rtn = pThis->GetEntity()->Read8();
 	return Value::Nil;
 }
 
@@ -117,14 +117,14 @@ Gura_ImplementMethod(wx_DataInputStream, __Read8_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __Read16, "Read16")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __Read16)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Read16();
+	//wxUint16 _rtn = pThis->GetEntity()->Read16();
 	return Value::Nil;
 }
 
@@ -147,14 +147,14 @@ Gura_ImplementMethod(wx_DataInputStream, __Read16_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __Read32, "Read32")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __Read32)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Read32();
+	//wxUint32 _rtn = pThis->GetEntity()->Read32();
 	return Value::Nil;
 }
 
@@ -177,14 +177,14 @@ Gura_ImplementMethod(wx_DataInputStream, __Read32_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __Read64, "Read64")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __Read64)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Read64();
+	//wxUint64 _rtn = pThis->GetEntity()->Read64();
 	return Value::Nil;
 }
 
@@ -207,14 +207,14 @@ Gura_ImplementMethod(wx_DataInputStream, __Read64_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __ReadFloat, "ReadFloat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __ReadFloat)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadFloat();
+	//float _rtn = pThis->GetEntity()->ReadFloat();
 	return Value::Nil;
 }
 
@@ -237,14 +237,14 @@ Gura_ImplementMethod(wx_DataInputStream, __ReadFloat_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __ReadDouble, "ReadDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __ReadDouble)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadDouble();
+	//double _rtn = pThis->GetEntity()->ReadDouble();
 	return Value::Nil;
 }
 
@@ -267,14 +267,14 @@ Gura_ImplementMethod(wx_DataInputStream, __ReadDouble_1)
 
 Gura_DeclareMethodAlias(wx_DataInputStream, __ReadString, "ReadString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataInputStream, __ReadString)
 {
 	Object_wx_DataInputStream *pThis = Object_wx_DataInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadString();
+	//wxString _rtn = pThis->GetEntity()->ReadString();
 	return Value::Nil;
 }
 

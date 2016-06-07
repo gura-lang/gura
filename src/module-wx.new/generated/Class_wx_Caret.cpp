@@ -39,7 +39,7 @@ String Object_wx_Caret::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Caret, "Caret")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Caret)
 
 Gura_DeclareFunctionAlias(__Caret_1, "Caret_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Caret_1)
 
 Gura_DeclareFunctionAlias(__Caret_2, "Caret_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Caret));
@@ -91,7 +91,7 @@ Gura_ImplementFunction(__Caret_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Caret, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_Caret, __Create)
 	//wxWindow* window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->Create(window, width, height);
+	//bool _rtn = pThis->GetEntity()->Create(window, width, height);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Caret, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -121,20 +121,20 @@ Gura_ImplementMethod(wx_Caret, __Create_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxSize& size = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(window, size);
+	//bool _rtn = pThis->GetEntity()->Create(window, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Caret, __GetBlinkTime, "GetBlinkTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __GetBlinkTime)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBlinkTime();
+	//int _rtn = pThis->GetEntity()->GetBlinkTime();
 	return Value::Nil;
 }
 
@@ -157,14 +157,14 @@ Gura_ImplementMethod(wx_Caret, __GetPosition)
 
 Gura_DeclareMethodAlias(wx_Caret, __GetPosition_1, "GetPosition_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __GetPosition_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
@@ -187,27 +187,27 @@ Gura_ImplementMethod(wx_Caret, __GetSize)
 
 Gura_DeclareMethodAlias(wx_Caret, __GetSize_1, "GetSize_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __GetSize_1)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Caret, __GetWindow, "GetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __GetWindow)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
 
@@ -226,27 +226,27 @@ Gura_ImplementMethod(wx_Caret, __Hide)
 
 Gura_DeclareMethodAlias(wx_Caret, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __IsOk)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Caret, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Caret, __IsVisible)
 {
 	Object_wx_Caret *pThis = Object_wx_Caret::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVisible();
+	//bool _rtn = pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
 

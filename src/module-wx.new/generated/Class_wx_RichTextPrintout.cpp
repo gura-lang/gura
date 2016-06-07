@@ -39,7 +39,7 @@ String Object_wx_RichTextPrintout::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextPrintout, "RichTextPrintout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextPrintout));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -78,14 +78,14 @@ Gura_ImplementMethod(wx_RichTextPrintout, __CalculateScaling)
 
 Gura_DeclareMethodAlias(wx_RichTextPrintout, __GetHeaderFooterData, "GetHeaderFooterData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrintout, __GetHeaderFooterData)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeaderFooterData();
+	//const wxRichTextHeaderFooterData& _rtn = pThis->GetEntity()->GetHeaderFooterData();
 	return Value::Nil;
 }
 
@@ -112,20 +112,20 @@ Gura_ImplementMethod(wx_RichTextPrintout, __GetPageInfo)
 
 Gura_DeclareMethodAlias(wx_RichTextPrintout, __GetRichTextBuffer, "GetRichTextBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrintout, __GetRichTextBuffer)
 {
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRichTextBuffer();
+	//wxRichTextBuffer* _rtn = pThis->GetEntity()->GetRichTextBuffer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrintout, __HasPage, "HasPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, __HasPage)
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->HasPage(page);
+	//bool _rtn = pThis->GetEntity()->HasPage(page);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, __OnPreparePrinting)
 
 Gura_DeclareMethodAlias(wx_RichTextPrintout, __OnPrintPage, "OnPrintPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextPrintout, __OnPrintPage)
 	Object_wx_RichTextPrintout *pThis = Object_wx_RichTextPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->OnPrintPage(page);
+	//bool _rtn = pThis->GetEntity()->OnPrintPage(page);
 	return Value::Nil;
 }
 

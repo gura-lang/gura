@@ -39,7 +39,7 @@ String Object_wx_MemoryOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MemoryOutputStream, "MemoryOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryOutputStream));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__MemoryOutputStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryOutputStream, __CopyTo, "CopyTo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -70,20 +70,20 @@ Gura_ImplementMethod(wx_MemoryOutputStream, __CopyTo)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyTo(buffer, len);
+	//size_t _rtn = pThis->GetEntity()->CopyTo(buffer, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MemoryOutputStream, __GetOutputStreamBuffer, "GetOutputStreamBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MemoryOutputStream, __GetOutputStreamBuffer)
 {
 	Object_wx_MemoryOutputStream *pThis = Object_wx_MemoryOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOutputStreamBuffer();
+	//wxStreamBuffer* _rtn = pThis->GetEntity()->GetOutputStreamBuffer();
 	return Value::Nil;
 }
 

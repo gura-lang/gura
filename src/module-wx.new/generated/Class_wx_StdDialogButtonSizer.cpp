@@ -39,7 +39,7 @@ String Object_wx_StdDialogButtonSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StdDialogButtonSizer, "StdDialogButtonSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StdDialogButtonSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -141,14 +141,14 @@ Gura_ImplementMethod(wx_StdDialogButtonSizer, __RecalcSizes)
 
 Gura_DeclareMethodAlias(wx_StdDialogButtonSizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StdDialogButtonSizer, __CalcMin)
 {
 	Object_wx_StdDialogButtonSizer *pThis = Object_wx_StdDialogButtonSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 

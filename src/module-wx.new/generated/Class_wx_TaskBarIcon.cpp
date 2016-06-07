@@ -39,7 +39,7 @@ String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TaskBarIcon, "TaskBarIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "iconType", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TaskBarIcon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,33 +70,33 @@ Gura_ImplementMethod(wx_TaskBarIcon, __Destroy)
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsIconInstalled, "IsIconInstalled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarIcon, __IsIconInstalled)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsIconInstalled();
+	//bool _rtn = pThis->GetEntity()->IsIconInstalled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarIcon, __IsOk)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __PopupMenu, "PopupMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,26 +105,26 @@ Gura_ImplementMethod(wx_TaskBarIcon, __PopupMenu)
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
-	//pThis->GetEntity()->PopupMenu(menu);
+	//bool _rtn = pThis->GetEntity()->PopupMenu(menu);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __RemoveIcon, "RemoveIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarIcon, __RemoveIcon)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RemoveIcon();
+	//bool _rtn = pThis->GetEntity()->RemoveIcon();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __SetIcon, "SetIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tooltip", VTYPE_number, OCCUR_Once);
 }
@@ -135,33 +135,33 @@ Gura_ImplementMethod(wx_TaskBarIcon, __SetIcon)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
 	//const wxString& tooltip = arg.GetNumber(1)
-	//pThis->GetEntity()->SetIcon(icon, tooltip);
+	//bool _rtn = pThis->GetEntity()->SetIcon(icon, tooltip);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __IsAvailable, "IsAvailable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarIcon, __IsAvailable)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAvailable();
+	//bool _rtn = pThis->GetEntity()->IsAvailable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarIcon, __CreatePopupMenu, "CreatePopupMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarIcon, __CreatePopupMenu)
 {
 	Object_wx_TaskBarIcon *pThis = Object_wx_TaskBarIcon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreatePopupMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->CreatePopupMenu();
 	return Value::Nil;
 }
 

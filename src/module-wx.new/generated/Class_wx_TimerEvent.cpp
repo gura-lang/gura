@@ -39,7 +39,7 @@ String Object_wx_TimerEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TimerEvent, "TimerEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TimerEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TimerEvent)
 
 Gura_DeclareFunctionAlias(__TimerEvent_1, "TimerEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TimerEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,27 +70,27 @@ Gura_ImplementFunction(__TimerEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TimerEvent, __GetInterval, "GetInterval")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TimerEvent, __GetInterval)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInterval();
+	//int _rtn = pThis->GetEntity()->GetInterval();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TimerEvent, __GetTimer, "GetTimer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TimerEvent, __GetTimer)
 {
 	Object_wx_TimerEvent *pThis = Object_wx_TimerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTimer();
+	//wxTimer& _rtn = pThis->GetEntity()->GetTimer();
 	return Value::Nil;
 }
 

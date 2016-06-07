@@ -39,7 +39,7 @@ String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataObjectSimple, "DataObjectSimple")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataObjectSimple));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__DataObjectSimple)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataObjectSimple, __GetDataHere, "GetDataHere")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,39 +66,39 @@ Gura_ImplementMethod(wx_DataObjectSimple, __GetDataHere)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDataHere(buf);
+	//bool _rtn = pThis->GetEntity()->GetDataHere(buf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataObjectSimple, __GetDataSize, "GetDataSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataObjectSimple, __GetDataSize)
 {
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataSize();
+	//size_t _rtn = pThis->GetEntity()->GetDataSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataObjectSimple, __GetFormat, "GetFormat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataObjectSimple, __GetFormat)
 {
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFormat();
+	//const wxDataFormat& _rtn = pThis->GetEntity()->GetFormat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataObjectSimple, __SetData, "SetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, __SetData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
 	//const void* buf = arg.GetNumber(1)
-	//pThis->GetEntity()->SetData(len, buf);
+	//bool _rtn = pThis->GetEntity()->SetData(len, buf);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FocusEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FocusEvent, "FocusEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FocusEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__FocusEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FocusEvent, __GetWindow, "GetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FocusEvent, __GetWindow)
 {
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
 

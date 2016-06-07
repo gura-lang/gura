@@ -39,7 +39,7 @@ String Object_wx_DDEClient::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DDEClient, "DDEClient")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DDEClient));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__DDEClient)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DDEClient, __MakeConnection, "MakeConnection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "service", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
@@ -68,26 +68,26 @@ Gura_ImplementMethod(wx_DDEClient, __MakeConnection)
 	//const wxString& host = arg.GetNumber(0)
 	//const wxString& service = arg.GetNumber(1)
 	//const wxString& topic = arg.GetNumber(2)
-	//pThis->GetEntity()->MakeConnection(host, service, topic);
+	//wxConnectionBase* _rtn = pThis->GetEntity()->MakeConnection(host, service, topic);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEClient, __OnMakeConnection, "OnMakeConnection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DDEClient, __OnMakeConnection)
 {
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OnMakeConnection();
+	//wxConnectionBase* _rtn = pThis->GetEntity()->OnMakeConnection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEClient, __ValidHost, "ValidHost")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "host", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DDEClient, __ValidHost)
 	Object_wx_DDEClient *pThis = Object_wx_DDEClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& host = arg.GetNumber(0)
-	//pThis->GetEntity()->ValidHost(host);
+	//bool _rtn = pThis->GetEntity()->ValidHost(host);
 	return Value::Nil;
 }
 

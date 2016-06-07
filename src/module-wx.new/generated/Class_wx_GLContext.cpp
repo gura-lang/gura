@@ -39,7 +39,7 @@ String Object_wx_GLContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GLContext, "GLContext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctxAttrs", VTYPE_number, OCCUR_Once);
@@ -61,20 +61,20 @@ Gura_ImplementFunction(__GLContext)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLContext, __IsOK, "IsOK")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContext, __IsOK)
 {
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOK();
+	//bool _rtn = pThis->GetEntity()->IsOK();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContext, __SetCurrent, "SetCurrent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GLContext, __SetCurrent)
 	Object_wx_GLContext *pThis = Object_wx_GLContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGLCanvas& win = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrent(win);
+	//bool _rtn = pThis->GetEntity()->SetCurrent(win);
 	return Value::Nil;
 }
 

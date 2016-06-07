@@ -39,7 +39,7 @@ String Object_wx_RichTextContextMenuPropertiesInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextContextMenuPropertiesInfo, "RichTextContextMenuPropertiesInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextContextMenuPropertiesInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __Init)
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __AddItem, "AddItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->AddItem(label, obj);
+	//bool _rtn = pThis->GetEntity()->AddItem(label, obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __AddMenuItems, "AddMenuItems")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "startCmd", VTYPE_number, OCCUR_Once);
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddMenuItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
 	//int startCmd = arg.GetNumber(1)
-	//pThis->GetEntity()->AddMenuItems(menu, startCmd);
+	//int _rtn = pThis->GetEntity()->AddMenuItems(menu, startCmd);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __AddItems, "AddItems")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "container", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItems)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
 	//wxRichTextObject* container = arg.GetNumber(1)
 	//wxRichTextObject* obj = arg.GetNumber(2)
-	//pThis->GetEntity()->AddItems(ctrl, container, obj);
+	//int _rtn = pThis->GetEntity()->AddItems(ctrl, container, obj);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __Clear)
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetLabel)
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel(n);
+	//wxString _rtn = pThis->GetEntity()->GetLabel(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetObject, "GetObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -158,72 +158,72 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetObject)
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetObject(n);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetObject(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetObjects, "GetObjects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetObjects)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetObjects();
+	//wxRichTextObjectPtrArray& _rtn = pThis->GetEntity()->GetObjects();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetObjects_1, "GetObjects_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetObjects_1)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetObjects();
+	//const wxRichTextObjectPtrArray& _rtn = pThis->GetEntity()->GetObjects();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetLabels, "GetLabels")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetLabels)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabels();
+	//wxArrayString& _rtn = pThis->GetEntity()->GetLabels();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetLabels_1, "GetLabels_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetLabels_1)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabels();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetLabels();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextContextMenuPropertiesInfo, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetCount)
 {
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 

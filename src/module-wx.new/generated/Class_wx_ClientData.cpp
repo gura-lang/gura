@@ -39,7 +39,7 @@ String Object_wx_ClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ClientData, "ClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ClientData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

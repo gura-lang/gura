@@ -39,7 +39,7 @@ String Object_wx_HtmlCellEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlCellEvent, "HtmlCellEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
@@ -65,40 +65,40 @@ Gura_ImplementFunction(__HtmlCellEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetCell, "GetCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCellEvent, __GetCell)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCell();
+	//wxHtmlCell* _rtn = pThis->GetEntity()->GetCell();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetLinkClicked, "GetLinkClicked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCellEvent, __GetLinkClicked)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLinkClicked();
+	//bool _rtn = pThis->GetEntity()->GetLinkClicked();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCellEvent, __GetPoint, "GetPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCellEvent, __GetPoint)
 {
 	Object_wx_HtmlCellEvent *pThis = Object_wx_HtmlCellEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPoint();
+	//wxPoint _rtn = pThis->GetEntity()->GetPoint();
 	return Value::Nil;
 }
 

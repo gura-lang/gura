@@ -39,7 +39,7 @@ String Object_wx_HelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HelpController, "HelpController")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HelpController));
 	DeclareBlock(OCCUR_ZeroOrOnce);

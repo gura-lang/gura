@@ -39,7 +39,7 @@ String Object_wx_DataViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewEvent, "DataViewEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewEvent));
@@ -59,79 +59,79 @@ Gura_ImplementFunction(__DataViewEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetColumn, "GetColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumn();
+	//int _rtn = pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataViewColumn, "GetDataViewColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDataViewColumn)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataViewColumn();
+	//wxDataViewColumn* _rtn = pThis->GetEntity()->GetDataViewColumn();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetModel, "GetModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetModel)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetModel();
+	//wxDataViewModel* _rtn = pThis->GetEntity()->GetModel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetPosition)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetValue)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//const wxVariant& _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __IsEditCancelled, "IsEditCancelled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __IsEditCancelled)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEditCancelled();
+	//bool _rtn = pThis->GetEntity()->IsEditCancelled();
 	return Value::Nil;
 }
 
@@ -212,40 +212,40 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataObject)
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataFormat, "GetDataFormat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDataFormat)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataFormat();
+	//wxDataFormat _rtn = pThis->GetEntity()->GetDataFormat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataSize, "GetDataSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDataSize)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataSize();
+	//size_t _rtn = pThis->GetEntity()->GetDataSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataBuffer, "GetDataBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDataBuffer)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataBuffer();
+	//void* _rtn = pThis->GetEntity()->GetDataBuffer();
 	return Value::Nil;
 }
 
@@ -266,53 +266,53 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDragFlags)
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDropEffect, "GetDropEffect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDropEffect)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDropEffect();
+	//wxDragResult _rtn = pThis->GetEntity()->GetDropEffect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetCacheFrom, "GetCacheFrom")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetCacheFrom)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCacheFrom();
+	//int _rtn = pThis->GetEntity()->GetCacheFrom();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetCacheTo, "GetCacheTo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetCacheTo)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCacheTo();
+	//int _rtn = pThis->GetEntity()->GetCacheTo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetItem)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItem();
+	//wxDataViewItem _rtn = pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
 
@@ -382,14 +382,14 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetCache)
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDataObject, "GetDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDataObject)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataObject();
+	//wxDataObject* _rtn = pThis->GetEntity()->GetDataObject();
 	return Value::Nil;
 }
 
@@ -440,14 +440,14 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataBuffer)
 
 Gura_DeclareMethodAlias(wx_DataViewEvent, __GetDragFlags, "GetDragFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewEvent, __GetDragFlags)
 {
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDragFlags();
+	//int _rtn = pThis->GetEntity()->GetDragFlags();
 	return Value::Nil;
 }
 

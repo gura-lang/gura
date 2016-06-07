@@ -39,7 +39,7 @@ String Object_wx_HtmlListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlListBox, "HtmlListBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__HtmlListBox)
 
 Gura_DeclareFunctionAlias(__HtmlListBox_1, "HtmlListBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__HtmlListBox_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlListBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,33 +99,33 @@ Gura_ImplementMethod(wx_HtmlListBox, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __GetFileSystem, "GetFileSystem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlListBox, __GetFileSystem)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileSystem();
+	//wxFileSystem& _rtn = pThis->GetEntity()->GetFileSystem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __GetFileSystem_1, "GetFileSystem_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlListBox, __GetFileSystem_1)
 {
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileSystem();
+	//const wxFileSystem& _rtn = pThis->GetEntity()->GetFileSystem();
 	return Value::Nil;
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnLinkClicked)
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __GetSelectedTextBgColour, "GetSelectedTextBgColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colBg", VTYPE_number, OCCUR_Once);
 }
 
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextBgColour)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colBg = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextBgColour(colBg);
+	//wxColour _rtn = pThis->GetEntity()->GetSelectedTextBgColour(colBg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __GetSelectedTextColour, "GetSelectedTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colFg", VTYPE_number, OCCUR_Once);
 }
 
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextColour)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colFg = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextColour(colFg);
+	//wxColour _rtn = pThis->GetEntity()->GetSelectedTextColour(colFg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __OnGetItemMarkup, "OnGetItemMarkup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItemMarkup)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItemMarkup(n);
+	//wxString _rtn = pThis->GetEntity()->OnGetItemMarkup(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlListBox, __OnGetItem, "OnGetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItem(n);
+	//wxString _rtn = pThis->GetEntity()->OnGetItem(n);
 	return Value::Nil;
 }
 

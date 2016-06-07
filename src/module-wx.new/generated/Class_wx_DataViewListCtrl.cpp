@@ -39,7 +39,7 @@ String Object_wx_DataViewListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewListCtrl, "DataViewListCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DataViewListCtrl)
 
 Gura_DeclareFunctionAlias(__DataViewListCtrl_1, "DataViewListCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__DataViewListCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,39 +99,39 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, validator);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetStore, "GetStore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewListCtrl, __GetStore)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStore();
+	//wxDataViewListStore* _rtn = pThis->GetEntity()->GetStore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetStore_1, "GetStore_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewListCtrl, __GetStore_1)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStore();
+	//const wxDataViewListStore* _rtn = pThis->GetEntity()->GetStore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __ItemToRow, "ItemToRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __ItemToRow)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemToRow(item);
+	//int _rtn = pThis->GetEntity()->ItemToRow(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __RowToItem, "RowToItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -155,20 +155,20 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __RowToItem)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//pThis->GetEntity()->RowToItem(row);
+	//wxDataViewItem _rtn = pThis->GetEntity()->RowToItem(row);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetSelectedRow, "GetSelectedRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewListCtrl, __GetSelectedRow)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedRow();
+	//int _rtn = pThis->GetEntity()->GetSelectedRow();
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __UnselectRow)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __IsRowSelected, "IsRowSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -213,13 +213,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __IsRowSelected)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned row = arg.GetNumber(0)
-	//pThis->GetEntity()->IsRowSelected(row);
+	//bool _rtn = pThis->GetEntity()->IsRowSelected(row);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendColumn, "AppendColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendColumn)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataViewColumn* column = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendColumn(column);
+	//bool _rtn = pThis->GetEntity()->AppendColumn(column);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendColumn_1)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendTextColumn, "AppendTextColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -268,13 +268,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendTextColumn)
 	//int width = arg.GetNumber(2)
 	//wxAlignment align = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendTextColumn(label, mode, width, align, flags);
+	//wxDataViewColumn* _rtn = pThis->GetEntity()->AppendTextColumn(label, mode, width, align, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendToggleColumn, "AppendToggleColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -291,13 +291,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendToggleColumn)
 	//int width = arg.GetNumber(2)
 	//wxAlignment align = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendToggleColumn(label, mode, width, align, flags);
+	//wxDataViewColumn* _rtn = pThis->GetEntity()->AppendToggleColumn(label, mode, width, align, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendProgressColumn, "AppendProgressColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -314,13 +314,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendProgressColumn)
 	//int width = arg.GetNumber(2)
 	//wxAlignment align = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendProgressColumn(label, mode, width, align, flags);
+	//wxDataViewColumn* _rtn = pThis->GetEntity()->AppendProgressColumn(label, mode, width, align, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __AppendIconTextColumn, "AppendIconTextColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
@@ -337,13 +337,13 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __AppendIconTextColumn)
 	//int width = arg.GetNumber(2)
 	//wxAlignment align = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendIconTextColumn(label, mode, width, align, flags);
+	//wxDataViewColumn* _rtn = pThis->GetEntity()->AppendIconTextColumn(label, mode, width, align, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __InsertColumn, "InsertColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __InsertColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int pos = arg.GetNumber(0)
 	//wxDataViewColumn* column = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertColumn(pos, column);
+	//bool _rtn = pThis->GetEntity()->InsertColumn(pos, column);
 	return Value::Nil;
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __InsertColumn_1)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __PrependColumn, "PrependColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -388,7 +388,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __PrependColumn)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataViewColumn* column = arg.GetNumber(0)
-	//pThis->GetEntity()->PrependColumn(column);
+	//bool _rtn = pThis->GetEntity()->PrependColumn(column);
 	return Value::Nil;
 }
 
@@ -492,20 +492,20 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __DeleteAllItems)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetItemCount, "GetItemCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewListCtrl, __GetItemCount)
 {
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItemCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetItemCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetItemData, "GetItemData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -514,7 +514,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __GetItemData)
 	Object_wx_DataViewListCtrl *pThis = Object_wx_DataViewListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemData(item);
+	//wxUIntPtr _rtn = pThis->GetEntity()->GetItemData(item);
 	return Value::Nil;
 }
 
@@ -577,7 +577,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __SetTextValue)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetTextValue, "GetTextValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __GetTextValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int row = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->GetTextValue(row, col);
+	//wxString _rtn = pThis->GetEntity()->GetTextValue(row, col);
 	return Value::Nil;
 }
 
@@ -613,7 +613,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __SetToggleValue)
 
 Gura_DeclareMethodAlias(wx_DataViewListCtrl, __GetToggleValue, "GetToggleValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_DataViewListCtrl, __GetToggleValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int row = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->GetToggleValue(row, col);
+	//bool _rtn = pThis->GetEntity()->GetToggleValue(row, col);
 	return Value::Nil;
 }
 

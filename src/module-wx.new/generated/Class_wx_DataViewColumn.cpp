@@ -39,7 +39,7 @@ String Object_wx_DataViewColumn::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewColumn, "DataViewColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "renderer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__DataViewColumn)
 
 Gura_DeclareFunctionAlias(__DataViewColumn_1, "DataViewColumn_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "renderer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "model_column", VTYPE_number, OCCUR_Once);
@@ -92,40 +92,40 @@ Gura_ImplementFunction(__DataViewColumn_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewColumn, __GetModelColumn, "GetModelColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewColumn, __GetModelColumn)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetModelColumn();
+	//unsigned int _rtn = pThis->GetEntity()->GetModelColumn();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewColumn, __GetOwner, "GetOwner")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewColumn, __GetOwner)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOwner();
+	//wxDataViewCtrl* _rtn = pThis->GetEntity()->GetOwner();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewColumn, __GetRenderer, "GetRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewColumn, __GetRenderer)
 {
 	Object_wx_DataViewColumn *pThis = Object_wx_DataViewColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRenderer();
+	//wxDataViewRenderer* _rtn = pThis->GetEntity()->GetRenderer();
 	return Value::Nil;
 }
 

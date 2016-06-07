@@ -39,7 +39,7 @@ String Object_wx_URLDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__URLDataObject, "URLDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_URLDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__URLDataObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_URLDataObject, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_URLDataObject, __GetURL)
 {
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 

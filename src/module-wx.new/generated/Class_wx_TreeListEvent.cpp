@@ -39,7 +39,7 @@ String Object_wx_TreeListEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeListEvent, "TreeListEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeListEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,40 +55,40 @@ Gura_ImplementFunction(__TreeListEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeListEvent, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeListEvent, __GetItem)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItem();
+	//wxTreeListItem _rtn = pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeListEvent, __GetOldCheckedState, "GetOldCheckedState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeListEvent, __GetOldCheckedState)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldCheckedState();
+	//wxCheckBoxState _rtn = pThis->GetEntity()->GetOldCheckedState();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeListEvent, __GetColumn, "GetColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeListEvent, __GetColumn)
 {
 	Object_wx_TreeListEvent *pThis = Object_wx_TreeListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumn();
+	//unsigned _rtn = pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
 

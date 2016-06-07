@@ -39,7 +39,7 @@ String Object_wx_FileType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileType, "FileType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileType));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__FileType)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileType, __MessageParameters, "MessageParameters")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileType, __MessageParameters)
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_FileType, __MessageParameters)
 
 Gura_DeclareMethodAlias(wx_FileType, __MessageParameters_1, "MessageParameters_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mimetype", VTYPE_number, OCCUR_Once);
 }
@@ -85,33 +85,33 @@ Gura_ImplementMethod(wx_FileType, __MessageParameters_1)
 
 Gura_DeclareMethodAlias(wx_FileType, __GetFileName, "GetFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileType, __GetFileName)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileName();
+	//const wxString& _rtn = pThis->GetEntity()->GetFileName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileType, __GetMimeType, "GetMimeType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileType, __GetMimeType)
 {
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMimeType();
+	//const wxString& _rtn = pThis->GetEntity()->GetMimeType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileType, __GetParamValue, "GetParamValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_FileType, __GetParamValue)
 	Object_wx_FileType *pThis = Object_wx_FileType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamValue(name);
+	//wxString _rtn = pThis->GetEntity()->GetParamValue(name);
 	return Value::Nil;
 }
 

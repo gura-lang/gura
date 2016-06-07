@@ -39,7 +39,7 @@ String Object_wx_GraphicsBitmap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GraphicsBitmap, "GraphicsBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GraphicsBitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,27 +55,27 @@ Gura_ImplementFunction(__GraphicsBitmap)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GraphicsBitmap, __ConvertToImage, "ConvertToImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsBitmap, __ConvertToImage)
 {
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ConvertToImage();
+	//wxImage _rtn = pThis->GetEntity()->ConvertToImage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsBitmap, __GetNativeBitmap, "GetNativeBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsBitmap, __GetNativeBitmap)
 {
 	Object_wx_GraphicsBitmap *pThis = Object_wx_GraphicsBitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNativeBitmap();
+	//void* _rtn = pThis->GetEntity()->GetNativeBitmap();
 	return Value::Nil;
 }
 

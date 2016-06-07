@@ -39,7 +39,7 @@ String Object_wx_GBSizerItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GBSizerItem, "GBSizerItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__GBSizerItem)
 
 Gura_DeclareFunctionAlias(__GBSizerItem_1, "GBSizerItem_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(__GBSizerItem_1)
 
 Gura_DeclareFunctionAlias(__GBSizerItem_2, "GBSizerItem_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
@@ -136,14 +136,14 @@ Gura_ImplementMethod(wx_GBSizerItem, __GetEndPos)
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __GetPos, "GetPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBSizerItem, __GetPos)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPos();
+	//wxGBPosition _rtn = pThis->GetEntity()->GetPos();
 	return Value::Nil;
 }
 
@@ -166,14 +166,14 @@ Gura_ImplementMethod(wx_GBSizerItem, __GetPos_1)
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __GetSpan, "GetSpan")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBSizerItem, __GetSpan)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSpan();
+	//wxGBSpan _rtn = pThis->GetEntity()->GetSpan();
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_GBSizerItem, __GetSpan_1)
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __Intersects, "Intersects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 
@@ -205,13 +205,13 @@ Gura_ImplementMethod(wx_GBSizerItem, __Intersects)
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGBSizerItem& other = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersects(other);
+	//bool _rtn = pThis->GetEntity()->Intersects(other);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __Intersects_1, "Intersects_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_GBSizerItem, __Intersects_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGBPosition& pos = arg.GetNumber(0)
 	//const wxGBSpan& span = arg.GetNumber(1)
-	//pThis->GetEntity()->Intersects(pos, span);
+	//bool _rtn = pThis->GetEntity()->Intersects(pos, span);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __SetPos, "SetPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -237,13 +237,13 @@ Gura_ImplementMethod(wx_GBSizerItem, __SetPos)
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGBPosition& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPos(pos);
+	//bool _rtn = pThis->GetEntity()->SetPos(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __SetSpan, "SetSpan")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "span", VTYPE_number, OCCUR_Once);
 }
 
@@ -252,20 +252,20 @@ Gura_ImplementMethod(wx_GBSizerItem, __SetSpan)
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGBSpan& span = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSpan(span);
+	//bool _rtn = pThis->GetEntity()->SetSpan(span);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBSizerItem, __GetGBSizer, "GetGBSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBSizerItem, __GetGBSizer)
 {
 	Object_wx_GBSizerItem *pThis = Object_wx_GBSizerItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGBSizer();
+	//wxGridBagSizer* _rtn = pThis->GetEntity()->GetGBSizer();
 	return Value::Nil;
 }
 

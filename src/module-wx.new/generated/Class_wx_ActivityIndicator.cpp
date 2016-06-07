@@ -39,7 +39,7 @@ String Object_wx_ActivityIndicator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ActivityIndicator, "ActivityIndicator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ActivityIndicator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ActivityIndicator)
 
 Gura_DeclareFunctionAlias(__ActivityIndicator_1, "ActivityIndicator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__ActivityIndicator_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxActivityIndicator(parent, winid, pos, size, style, name);
+	//explicit _rtn = wxActivityIndicator(parent, winid, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__ActivityIndicator_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ActivityIndicator, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_ActivityIndicator, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, winid, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, winid, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -131,14 +131,14 @@ Gura_ImplementMethod(wx_ActivityIndicator, __Stop)
 
 Gura_DeclareMethodAlias(wx_ActivityIndicator, __IsRunning, "IsRunning")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ActivityIndicator, __IsRunning)
 {
 	Object_wx_ActivityIndicator *pThis = Object_wx_ActivityIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsRunning();
+	//bool _rtn = pThis->GetEntity()->IsRunning();
 	return Value::Nil;
 }
 

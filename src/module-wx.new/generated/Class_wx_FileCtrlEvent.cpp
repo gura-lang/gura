@@ -39,7 +39,7 @@ String Object_wx_FileCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileCtrlEvent, "FileCtrlEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "evtObject", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -61,53 +61,53 @@ Gura_ImplementFunction(__FileCtrlEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetDirectory, "GetDirectory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileCtrlEvent, __GetDirectory)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDirectory();
+	//wxString _rtn = pThis->GetEntity()->GetDirectory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFile, "GetFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileCtrlEvent, __GetFile)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFile();
+	//wxString _rtn = pThis->GetEntity()->GetFile();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFiles, "GetFiles")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileCtrlEvent, __GetFiles)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFiles();
+	//wxArrayString _rtn = pThis->GetEntity()->GetFiles();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileCtrlEvent, __GetFilterIndex, "GetFilterIndex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileCtrlEvent, __GetFilterIndex)
 {
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFilterIndex();
+	//int _rtn = pThis->GetEntity()->GetFilterIndex();
 	return Value::Nil;
 }
 

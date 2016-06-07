@@ -39,7 +39,7 @@ String Object_wx_DataViewChoiceRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewChoiceRenderer, "DataViewChoiceRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "alignment", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(__DataViewChoiceRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __GetChoice, "GetChoice")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -70,20 +70,20 @@ Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoice)
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChoice(index);
+	//wxString _rtn = pThis->GetEntity()->GetChoice(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewChoiceRenderer, __GetChoices, "GetChoices")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewChoiceRenderer, __GetChoices)
 {
 	Object_wx_DataViewChoiceRenderer *pThis = Object_wx_DataViewChoiceRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChoices();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetChoices();
 	return Value::Nil;
 }
 

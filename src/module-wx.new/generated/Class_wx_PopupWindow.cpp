@@ -39,7 +39,7 @@ String Object_wx_PopupWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PopupWindow, "PopupWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PopupWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PopupWindow)
 
 Gura_DeclareFunctionAlias(__PopupWindow_1, "PopupWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PopupWindow));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__PopupWindow_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PopupWindow, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_PopupWindow, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(parent, flags);
+	//bool _rtn = pThis->GetEntity()->Create(parent, flags);
 	return Value::Nil;
 }
 

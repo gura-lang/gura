@@ -39,7 +39,7 @@ String Object_wx_DocMDIChildFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DocMDIChildFrame, "DocMDIChildFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "view", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -73,27 +73,27 @@ Gura_ImplementFunction(__DocMDIChildFrame)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocMDIChildFrame, __GetDocument, "GetDocument")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocMDIChildFrame, __GetDocument)
 {
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocument();
+	//wxDocument* _rtn = pThis->GetEntity()->GetDocument();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocMDIChildFrame, __GetView, "GetView")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocMDIChildFrame, __GetView)
 {
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetView();
+	//wxView* _rtn = pThis->GetEntity()->GetView();
 	return Value::Nil;
 }
 

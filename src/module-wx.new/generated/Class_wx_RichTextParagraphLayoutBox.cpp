@@ -39,7 +39,7 @@ String Object_wx_RichTextParagraphLayoutBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextParagraphLayoutBox, "RichTextParagraphLayoutBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraphLayoutBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__RichTextParagraphLayoutBox)
 
 Gura_DeclareFunctionAlias(__RichTextParagraphLayoutBox_1, "RichTextParagraphLayoutBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextParagraphLayoutBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__RichTextParagraphLayoutBox_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __HitTest)
 	//wxRichTextObject** obj = arg.GetNumber(4)
 	//wxRichTextObject** contextObj = arg.GetNumber(5)
 	//int flags = arg.GetNumber(6)
-	//pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
+	//int _rtn = pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __Draw, "Draw")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -120,13 +120,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __Draw)
 	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
+	//bool _rtn = pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __Layout, "Layout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __Layout)
 	//const wxRect& rect = arg.GetNumber(2)
 	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->Layout(dc, context, rect, parentRect, style);
+	//bool _rtn = pThis->GetEntity()->Layout(dc, context, rect, parentRect, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetRangeSize, "GetRangeSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "descent", VTYPE_number, OCCUR_Once);
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
+	//bool _rtn = pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __DeleteRange, "DeleteRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
@@ -189,13 +189,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __DeleteRange)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteRange(range);
+	//bool _rtn = pThis->GetEntity()->DeleteRange(range);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetTextForRange, "GetTextForRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 }
 
@@ -204,13 +204,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetTextForRange)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->GetTextForRange(range);
+	//wxString _rtn = pThis->GetEntity()->GetTextForRange(range);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __ImportFromXML, "ImportFromXML")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __ImportFromXML)
 	//wxXmlNode* node = arg.GetNumber(1)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
 	//bool* recurse = arg.GetNumber(3)
-	//pThis->GetEntity()->ImportFromXML(buffer, node, handler, recurse);
+	//bool _rtn = pThis->GetEntity()->ImportFromXML(buffer, node, handler, recurse);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __ExportXML, "ExportXML")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "indent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __ExportXML)
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//int indent = arg.GetNumber(1)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
-	//pThis->GetEntity()->ExportXML(stream, indent, handler);
+	//bool _rtn = pThis->GetEntity()->ExportXML(stream, indent, handler);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __ExportXML_1, "ExportXML_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "handler", VTYPE_number, OCCUR_Once);
 }
@@ -261,33 +261,33 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __ExportXML_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* parent = arg.GetNumber(0)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(1)
-	//pThis->GetEntity()->ExportXML(parent, handler);
+	//bool _rtn = pThis->GetEntity()->ExportXML(parent, handler);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetXMLNodeName, "GetXMLNodeName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetXMLNodeName)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetXMLNodeName();
+	//wxString _rtn = pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __AcceptsFocus, "AcceptsFocus")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __AcceptsFocus)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AcceptsFocus();
+	//bool _rtn = pThis->GetEntity()->AcceptsFocus();
 	return Value::Nil;
 }
 
@@ -308,14 +308,14 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetRichTextCtrl)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetRichTextCtrl, "GetRichTextCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetRichTextCtrl)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRichTextCtrl();
+	//wxRichTextCtrl* _rtn = pThis->GetEntity()->GetRichTextCtrl();
 	return Value::Nil;
 }
 
@@ -336,46 +336,46 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetPartialParagraph)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetPartialParagraph, "GetPartialParagraph")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetPartialParagraph)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPartialParagraph();
+	//bool _rtn = pThis->GetEntity()->GetPartialParagraph();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetStyleSheet, "GetStyleSheet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetStyleSheet)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyleSheet();
+	//wxRichTextStyleSheet* _rtn = pThis->GetEntity()->GetStyleSheet();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __IsTopLevel, "IsTopLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __IsTopLevel)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTopLevel();
+	//bool _rtn = pThis->GetEntity()->IsTopLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertParagraphsWithUndo, "InsertParagraphsWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "paragraphs", VTYPE_number, OCCUR_Once);
@@ -392,13 +392,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertParagraphsWithUndo)
 	//const wxRichTextParagraphLayoutBox& paragraphs = arg.GetNumber(2)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertParagraphsWithUndo(buffer, pos, paragraphs, ctrl, flags);
+	//bool _rtn = pThis->GetEntity()->InsertParagraphsWithUndo(buffer, pos, paragraphs, ctrl, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertTextWithUndo, "InsertTextWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -415,13 +415,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertTextWithUndo)
 	//const wxString& text = arg.GetNumber(2)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertTextWithUndo(buffer, pos, text, ctrl, flags);
+	//bool _rtn = pThis->GetEntity()->InsertTextWithUndo(buffer, pos, text, ctrl, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertNewlineWithUndo, "InsertNewlineWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
@@ -436,13 +436,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertNewlineWithUndo)
 	//long pos = arg.GetNumber(1)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->InsertNewlineWithUndo(buffer, pos, ctrl, flags);
+	//bool _rtn = pThis->GetEntity()->InsertNewlineWithUndo(buffer, pos, ctrl, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertImageWithUndo, "InsertImageWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageBlock", VTYPE_number, OCCUR_Once);
@@ -461,13 +461,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertImageWithUndo)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
 	//const wxRichTextAttr& textAttr = arg.GetNumber(5)
-	//pThis->GetEntity()->InsertImageWithUndo(buffer, pos, imageBlock, ctrl, flags, textAttr);
+	//bool _rtn = pThis->GetEntity()->InsertImageWithUndo(buffer, pos, imageBlock, ctrl, flags, textAttr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertFieldWithUndo, "InsertFieldWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fieldType", VTYPE_number, OCCUR_Once);
@@ -488,13 +488,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertFieldWithUndo)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//const wxRichTextAttr& textAttr = arg.GetNumber(6)
-	//pThis->GetEntity()->InsertFieldWithUndo(buffer, pos, fieldType, properties, ctrl, flags, textAttr);
+	//wxRichTextField* _rtn = pThis->GetEntity()->InsertFieldWithUndo(buffer, pos, fieldType, properties, ctrl, flags, textAttr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetStyleForNewParagraph, "GetStyleForNewParagraph")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
@@ -509,13 +509,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetStyleForNewParagraph)
 	//long pos = arg.GetNumber(1)
 	//bool caretPosition = arg.GetNumber(2)
 	//bool lookUpNewParaStyle = arg.GetNumber(3)
-	//pThis->GetEntity()->GetStyleForNewParagraph(buffer, pos, caretPosition, lookUpNewParaStyle);
+	//wxRichTextAttr _rtn = pThis->GetEntity()->GetStyleForNewParagraph(buffer, pos, caretPosition, lookUpNewParaStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertObjectWithUndo, "InsertObjectWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "object", VTYPE_number, OCCUR_Once);
@@ -532,13 +532,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertObjectWithUndo)
 	//wxRichTextObject* object = arg.GetNumber(2)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertObjectWithUndo(buffer, pos, object, ctrl, flags);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->InsertObjectWithUndo(buffer, pos, object, ctrl, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __DeleteRangeWithUndo, "DeleteRangeWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -551,7 +551,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __DeleteRangeWithUndo)
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(1)
 	//wxRichTextBuffer* buffer = arg.GetNumber(2)
-	//pThis->GetEntity()->DeleteRangeWithUndo(range, ctrl, buffer);
+	//bool _rtn = pThis->GetEntity()->DeleteRangeWithUndo(range, ctrl, buffer);
 	return Value::Nil;
 }
 
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __Reset)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __AddParagraph, "AddParagraph")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "paraStyle", VTYPE_number, OCCUR_Once);
 }
@@ -653,13 +653,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __AddParagraph)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//wxRichTextAttr* paraStyle = arg.GetNumber(1)
-	//pThis->GetEntity()->AddParagraph(text, paraStyle);
+	//wxRichTextRange _rtn = pThis->GetEntity()->AddParagraph(text, paraStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __AddImage, "AddImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "paraStyle", VTYPE_number, OCCUR_Once);
 }
@@ -670,13 +670,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __AddImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxImage& image = arg.GetNumber(0)
 	//wxRichTextAttr* paraStyle = arg.GetNumber(1)
-	//pThis->GetEntity()->AddImage(image, paraStyle);
+	//wxRichTextRange _rtn = pThis->GetEntity()->AddImage(image, paraStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __AddParagraphs, "AddParagraphs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "paraStyle", VTYPE_number, OCCUR_Once);
 }
@@ -687,13 +687,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __AddParagraphs)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//wxRichTextAttr* paraStyle = arg.GetNumber(1)
-	//pThis->GetEntity()->AddParagraphs(text, paraStyle);
+	//wxRichTextRange _rtn = pThis->GetEntity()->AddParagraphs(text, paraStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLineAtPosition, "GetLineAtPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
 }
@@ -704,13 +704,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLineAtPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//bool caretPosition = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLineAtPosition(pos, caretPosition);
+	//wxRichTextLine* _rtn = pThis->GetEntity()->GetLineAtPosition(pos, caretPosition);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLineAtYPosition, "GetLineAtYPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
 
@@ -719,13 +719,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLineAtYPosition)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int y = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLineAtYPosition(y);
+	//wxRichTextLine* _rtn = pThis->GetEntity()->GetLineAtYPosition(y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphAtPosition, "GetParagraphAtPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
 }
@@ -736,13 +736,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphAtPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//bool caretPosition = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParagraphAtPosition(pos, caretPosition);
+	//wxRichTextParagraph* _rtn = pThis->GetEntity()->GetParagraphAtPosition(pos, caretPosition);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLineSizeAtPosition, "GetLineSizeAtPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
 }
@@ -753,13 +753,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLineSizeAtPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//bool caretPosition = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLineSizeAtPosition(pos, caretPosition);
+	//wxSize _rtn = pThis->GetEntity()->GetLineSizeAtPosition(pos, caretPosition);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetVisibleLineNumber, "GetVisibleLineNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caretPosition", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "startOfLine", VTYPE_number, OCCUR_Once);
@@ -772,13 +772,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetVisibleLineNumber)
 	//long pos = arg.GetNumber(0)
 	//bool caretPosition = arg.GetNumber(1)
 	//bool startOfLine = arg.GetNumber(2)
-	//pThis->GetEntity()->GetVisibleLineNumber(pos, caretPosition, startOfLine);
+	//long _rtn = pThis->GetEntity()->GetVisibleLineNumber(pos, caretPosition, startOfLine);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLineForVisibleLineNumber, "GetLineForVisibleLineNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lineNumber", VTYPE_number, OCCUR_Once);
 }
 
@@ -787,13 +787,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLineForVisibleLineNumbe
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long lineNumber = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLineForVisibleLineNumber(lineNumber);
+	//wxRichTextLine* _rtn = pThis->GetEntity()->GetLineForVisibleLineNumber(lineNumber);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLeafObjectAtPosition, "GetLeafObjectAtPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 }
 
@@ -802,13 +802,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLeafObjectAtPosition)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLeafObjectAtPosition(position);
+	//wxRichTextObject* _rtn = pThis->GetEntity()->GetLeafObjectAtPosition(position);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphAtLine, "GetParagraphAtLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraphNumber", VTYPE_number, OCCUR_Once);
 }
 
@@ -817,13 +817,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphAtLine)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long paragraphNumber = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParagraphAtLine(paragraphNumber);
+	//wxRichTextParagraph* _rtn = pThis->GetEntity()->GetParagraphAtLine(paragraphNumber);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphForLine, "GetParagraphForLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "line", VTYPE_number, OCCUR_Once);
 }
 
@@ -832,13 +832,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphForLine)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextLine* line = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParagraphForLine(line);
+	//wxRichTextParagraph* _rtn = pThis->GetEntity()->GetParagraphForLine(line);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphLength, "GetParagraphLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraphNumber", VTYPE_number, OCCUR_Once);
 }
 
@@ -847,39 +847,39 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphLength)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long paragraphNumber = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParagraphLength(paragraphNumber);
+	//int _rtn = pThis->GetEntity()->GetParagraphLength(paragraphNumber);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphCount, "GetParagraphCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphCount)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParagraphCount();
+	//int _rtn = pThis->GetEntity()->GetParagraphCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetLineCount, "GetLineCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetLineCount)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLineCount();
+	//int _rtn = pThis->GetEntity()->GetLineCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetParagraphText, "GetParagraphText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraphNumber", VTYPE_number, OCCUR_Once);
 }
 
@@ -888,13 +888,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetParagraphText)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long paragraphNumber = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParagraphText(paragraphNumber);
+	//wxString _rtn = pThis->GetEntity()->GetParagraphText(paragraphNumber);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __XYToPosition, "XYToPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -905,13 +905,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __XYToPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long x = arg.GetNumber(0)
 	//long y = arg.GetNumber(1)
-	//pThis->GetEntity()->XYToPosition(x, y);
+	//long _rtn = pThis->GetEntity()->XYToPosition(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __PositionToXY, "PositionToXY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -924,13 +924,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __PositionToXY)
 	//long pos = arg.GetNumber(0)
 	//long* x = arg.GetNumber(1)
 	//long* y = arg.GetNumber(2)
-	//pThis->GetEntity()->PositionToXY(pos, x, y);
+	//bool _rtn = pThis->GetEntity()->PositionToXY(pos, x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetStyle, "SetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -943,7 +943,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetStyle)
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//const wxRichTextAttr& style = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->SetStyle(range, style, flags);
+	//bool _rtn = pThis->GetEntity()->SetStyle(range, style, flags);
 	return Value::Nil;
 }
 
@@ -968,7 +968,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetStyle_1)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -979,13 +979,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
 	//wxRichTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetStyle(position, style);
+	//bool _rtn = pThis->GetEntity()->GetStyle(position, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetUncombinedStyle, "GetUncombinedStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -996,13 +996,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetUncombinedStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
 	//wxRichTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetUncombinedStyle(position, style);
+	//bool _rtn = pThis->GetEntity()->GetUncombinedStyle(position, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __DoGetStyle, "DoGetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "combineStyles", VTYPE_number, OCCUR_Once);
@@ -1015,13 +1015,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __DoGetStyle)
 	//long position = arg.GetNumber(0)
 	//wxRichTextAttr& style = arg.GetNumber(1)
 	//bool combineStyles = arg.GetNumber(2)
-	//pThis->GetEntity()->DoGetStyle(position, style, combineStyles);
+	//bool _rtn = pThis->GetEntity()->DoGetStyle(position, style, combineStyles);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetStyleForRange, "GetStyleForRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -1032,13 +1032,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetStyleForRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetStyleForRange(range, style);
+	//bool _rtn = pThis->GetEntity()->GetStyleForRange(range, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __CollectStyle, "CollectStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "currentStyle", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clashingAttr", VTYPE_number, OCCUR_Once);
@@ -1053,13 +1053,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __CollectStyle)
 	//const wxRichTextAttr& style = arg.GetNumber(1)
 	//wxRichTextAttr& clashingAttr = arg.GetNumber(2)
 	//wxRichTextAttr& absentAttr = arg.GetNumber(3)
-	//pThis->GetEntity()->CollectStyle(currentStyle, style, clashingAttr, absentAttr);
+	//bool _rtn = pThis->GetEntity()->CollectStyle(currentStyle, style, clashingAttr, absentAttr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetListStyle, "SetListStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "def", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1076,13 +1076,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetListStyle)
 	//int flags = arg.GetNumber(2)
 	//int startFrom = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->SetListStyle(range, def, flags, startFrom, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->SetListStyle(range, def, flags, startFrom, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetListStyle_1, "SetListStyle_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1099,13 +1099,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetListStyle_1)
 	//int flags = arg.GetNumber(2)
 	//int startFrom = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->SetListStyle(range, defName, flags, startFrom, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->SetListStyle(range, defName, flags, startFrom, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __ClearListStyle, "ClearListStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -1116,13 +1116,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __ClearListStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->ClearListStyle(range, flags);
+	//bool _rtn = pThis->GetEntity()->ClearListStyle(range, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __NumberList, "NumberList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "def", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1139,13 +1139,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __NumberList)
 	//int flags = arg.GetNumber(2)
 	//int startFrom = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->NumberList(range, def, flags, startFrom, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->NumberList(range, def, flags, startFrom, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __NumberList_1, "NumberList_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1162,13 +1162,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __NumberList_1)
 	//int flags = arg.GetNumber(2)
 	//int startFrom = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->NumberList(range, defName, flags, startFrom, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->NumberList(range, defName, flags, startFrom, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __PromoteList, "PromoteList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "promoteBy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "def", VTYPE_number, OCCUR_Once);
@@ -1185,13 +1185,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __PromoteList)
 	//wxRichTextListStyleDefinition* def = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->PromoteList(promoteBy, range, def, flags, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->PromoteList(promoteBy, range, def, flags, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __PromoteList_1, "PromoteList_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "promoteBy", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defName", VTYPE_number, OCCUR_Once);
@@ -1208,13 +1208,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __PromoteList_1)
 	//const wxString& defName = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
 	//int specifiedLevel = arg.GetNumber(4)
-	//pThis->GetEntity()->PromoteList(promoteBy, range, defName, flags, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->PromoteList(promoteBy, range, defName, flags, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __DoNumberList, "DoNumberList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "promotionRange", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "promoteBy", VTYPE_number, OCCUR_Once);
@@ -1235,13 +1235,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __DoNumberList)
 	//int flags = arg.GetNumber(4)
 	//int startFrom = arg.GetNumber(5)
 	//int specifiedLevel = arg.GetNumber(6)
-	//pThis->GetEntity()->DoNumberList(range, promotionRange, promoteBy, def, flags, startFrom, specifiedLevel);
+	//bool _rtn = pThis->GetEntity()->DoNumberList(range, promotionRange, promoteBy, def, flags, startFrom, specifiedLevel);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __FindNextParagraphNumber, "FindNextParagraphNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "previousParagraph", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
@@ -1252,13 +1252,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __FindNextParagraphNumber)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraph* previousParagraph = arg.GetNumber(0)
 	//wxRichTextAttr& attr = arg.GetNumber(1)
-	//pThis->GetEntity()->FindNextParagraphNumber(previousParagraph, attr);
+	//bool _rtn = pThis->GetEntity()->FindNextParagraphNumber(previousParagraph, attr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetProperties, "SetProperties")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "properties", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -1271,13 +1271,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetProperties)
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//const wxRichTextProperties& properties = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->SetProperties(range, properties, flags);
+	//bool _rtn = pThis->GetEntity()->SetProperties(range, properties, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetObjectPropertiesWithUndo, "SetObjectPropertiesWithUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "properties", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "objToSet", VTYPE_number, OCCUR_Once);
@@ -1290,13 +1290,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetObjectPropertiesWithUnd
 	//wxRichTextObject& obj = arg.GetNumber(0)
 	//const wxRichTextProperties& properties = arg.GetNumber(1)
 	//wxRichTextObject* objToSet = arg.GetNumber(2)
-	//pThis->GetEntity()->SetObjectPropertiesWithUndo(obj, properties, objToSet);
+	//bool _rtn = pThis->GetEntity()->SetObjectPropertiesWithUndo(obj, properties, objToSet);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __HasCharacterAttributes, "HasCharacterAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -1307,13 +1307,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __HasCharacterAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//const wxRichTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->HasCharacterAttributes(range, style);
+	//bool _rtn = pThis->GetEntity()->HasCharacterAttributes(range, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __HasParagraphAttributes, "HasParagraphAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -1324,20 +1324,20 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __HasParagraphAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//const wxRichTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->HasParagraphAttributes(range, style);
+	//bool _rtn = pThis->GetEntity()->HasParagraphAttributes(range, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __Clone)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxRichTextObject* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -1358,7 +1358,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __PrepareContent)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __InsertFragment, "InsertFragment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fragment", VTYPE_number, OCCUR_Once);
 }
@@ -1369,13 +1369,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InsertFragment)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
 	//wxRichTextParagraphLayoutBox& fragment = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertFragment(position, fragment);
+	//bool _rtn = pThis->GetEntity()->InsertFragment(position, fragment);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __CopyFragment, "CopyFragment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fragment", VTYPE_number, OCCUR_Once);
 }
@@ -1386,13 +1386,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __CopyFragment)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextParagraphLayoutBox& fragment = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyFragment(range, fragment);
+	//bool _rtn = pThis->GetEntity()->CopyFragment(range, fragment);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __ApplyStyleSheet, "ApplyStyleSheet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "styleSheet", VTYPE_number, OCCUR_Once);
 }
 
@@ -1401,7 +1401,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __ApplyStyleSheet)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(0)
-	//pThis->GetEntity()->ApplyStyleSheet(styleSheet);
+	//bool _rtn = pThis->GetEntity()->ApplyStyleSheet(styleSheet);
 	return Value::Nil;
 }
 
@@ -1435,20 +1435,20 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __UpdateRanges)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetText)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//wxString _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __SetDefaultStyle, "SetDefaultStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -1457,20 +1457,20 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetDefaultStyle)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDefaultStyle(style);
+	//bool _rtn = pThis->GetEntity()->SetDefaultStyle(style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetDefaultStyle, "GetDefaultStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetDefaultStyle)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultStyle();
+	//const wxRichTextAttr& _rtn = pThis->GetEntity()->GetDefaultStyle();
 	return Value::Nil;
 }
 
@@ -1491,14 +1491,14 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __SetBasicStyle)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetBasicStyle, "GetBasicStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetBasicStyle)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBasicStyle();
+	//const wxRichTextAttr& _rtn = pThis->GetEntity()->GetBasicStyle();
 	return Value::Nil;
 }
 
@@ -1549,7 +1549,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __InvalidateHierarchy)
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __UpdateFloatingObjects, "UpdateFloatingObjects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "availableRect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "untilObj", VTYPE_number, OCCUR_Once);
 }
@@ -1560,13 +1560,13 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __UpdateFloatingObjects)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& availableRect = arg.GetNumber(0)
 	//wxRichTextObject* untilObj = arg.GetNumber(1)
-	//pThis->GetEntity()->UpdateFloatingObjects(availableRect, untilObj);
+	//bool _rtn = pThis->GetEntity()->UpdateFloatingObjects(availableRect, untilObj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetInvalidRange, "GetInvalidRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wholeParagraphs", VTYPE_number, OCCUR_Once);
 }
 
@@ -1575,52 +1575,52 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetInvalidRange)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool wholeParagraphs = arg.GetNumber(0)
-	//pThis->GetEntity()->GetInvalidRange(wholeParagraphs);
+	//wxRichTextRange _rtn = pThis->GetEntity()->GetInvalidRange(wholeParagraphs);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __IsDirty, "IsDirty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __IsDirty)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDirty();
+	//bool _rtn = pThis->GetEntity()->IsDirty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetFloatCollector, "GetFloatCollector")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetFloatCollector)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFloatCollector();
+	//wxRichTextFloatCollector* _rtn = pThis->GetEntity()->GetFloatCollector();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetFloatingObjectCount, "GetFloatingObjectCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetFloatingObjectCount)
 {
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFloatingObjectCount();
+	//int _rtn = pThis->GetEntity()->GetFloatingObjectCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextParagraphLayoutBox, __GetFloatingObjects, "GetFloatingObjects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "objects", VTYPE_number, OCCUR_Once);
 }
 
@@ -1629,7 +1629,7 @@ Gura_ImplementMethod(wx_RichTextParagraphLayoutBox, __GetFloatingObjects)
 	Object_wx_RichTextParagraphLayoutBox *pThis = Object_wx_RichTextParagraphLayoutBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObjectList& objects = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFloatingObjects(objects);
+	//bool _rtn = pThis->GetEntity()->GetFloatingObjects(objects);
 	return Value::Nil;
 }
 

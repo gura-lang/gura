@@ -39,20 +39,20 @@ String Object_wx_MessageOutput::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MessageOutput, __Get, "Get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MessageOutput, __Get)
 {
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Get();
+	//wxMessageOutput* _rtn = pThis->GetEntity()->Get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MessageOutput, __Set, "Set")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "msgout", VTYPE_number, OCCUR_Once);
 }
 
@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_MessageOutput, __Set)
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMessageOutput* msgout = arg.GetNumber(0)
-	//pThis->GetEntity()->Set(msgout);
+	//wxMessageOutput* _rtn = pThis->GetEntity()->Set(msgout);
 	return Value::Nil;
 }
 

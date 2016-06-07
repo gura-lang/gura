@@ -39,7 +39,7 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WizardPage, "WizardPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__WizardPage)
 
 Gura_DeclareFunctionAlias(__WizardPage_1, "WizardPage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__WizardPage_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WizardPage, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
@@ -83,46 +83,46 @@ Gura_ImplementMethod(wx_WizardPage, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizard* parent = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(parent, bitmap);
+	//bool _rtn = pThis->GetEntity()->Create(parent, bitmap);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WizardPage, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WizardPage, __GetBitmap)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WizardPage, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WizardPage, __GetNext)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//wxWizardPage* _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WizardPage, __GetPrev, "GetPrev")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WizardPage, __GetPrev)
 {
 	Object_wx_WizardPage *pThis = Object_wx_WizardPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrev();
+	//wxWizardPage* _rtn = pThis->GetEntity()->GetPrev();
 	return Value::Nil;
 }
 

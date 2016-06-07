@@ -39,7 +39,7 @@ String Object_wx_RegEx::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RegEx, "RegEx")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RegEx));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RegEx)
 
 Gura_DeclareFunctionAlias(__RegEx_1, "RegEx_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "expr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RegEx));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__RegEx_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RegEx, __Compile, "Compile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pattern", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_RegEx, __Compile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& pattern = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Compile(pattern, flags);
+	//bool _rtn = pThis->GetEntity()->Compile(pattern, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __GetMatch, "GetMatch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -102,13 +102,13 @@ Gura_ImplementMethod(wx_RegEx, __GetMatch)
 	//size_t* start = arg.GetNumber(0)
 	//size_t* len = arg.GetNumber(1)
 	//size_t index = arg.GetNumber(2)
-	//pThis->GetEntity()->GetMatch(start, len, index);
+	//bool _rtn = pThis->GetEntity()->GetMatch(start, len, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __GetMatch_1, "GetMatch_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -119,39 +119,39 @@ Gura_ImplementMethod(wx_RegEx, __GetMatch_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//size_t index = arg.GetNumber(1)
-	//pThis->GetEntity()->GetMatch(text, index);
+	//wxString _rtn = pThis->GetEntity()->GetMatch(text, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __GetMatchCount, "GetMatchCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegEx, __GetMatchCount)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMatchCount();
+	//size_t _rtn = pThis->GetEntity()->GetMatchCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __IsValid, "IsValid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegEx, __IsValid)
 {
 	Object_wx_RegEx *pThis = Object_wx_RegEx::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsValid();
+	//bool _rtn = pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __Matches, "Matches")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -162,13 +162,13 @@ Gura_ImplementMethod(wx_RegEx, __Matches)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Matches(text, flags);
+	//bool _rtn = pThis->GetEntity()->Matches(text, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __Matches_1, "Matches_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_RegEx, __Matches_1)
 	//const wxChar* text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
 	//size_t len = arg.GetNumber(2)
-	//pThis->GetEntity()->Matches(text, flags, len);
+	//bool _rtn = pThis->GetEntity()->Matches(text, flags, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __Matches_2, "Matches_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_RegEx, __Matches_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Matches(text, flags);
+	//bool _rtn = pThis->GetEntity()->Matches(text, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __Replace, "Replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replacement", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxMatches", VTYPE_number, OCCUR_Once);
@@ -217,13 +217,13 @@ Gura_ImplementMethod(wx_RegEx, __Replace)
 	//wxString* text = arg.GetNumber(0)
 	//const wxString& replacement = arg.GetNumber(1)
 	//size_t maxMatches = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(text, replacement, maxMatches);
+	//int _rtn = pThis->GetEntity()->Replace(text, replacement, maxMatches);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __ReplaceAll, "ReplaceAll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replacement", VTYPE_number, OCCUR_Once);
 }
@@ -234,13 +234,13 @@ Gura_ImplementMethod(wx_RegEx, __ReplaceAll)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString* text = arg.GetNumber(0)
 	//const wxString& replacement = arg.GetNumber(1)
-	//pThis->GetEntity()->ReplaceAll(text, replacement);
+	//int _rtn = pThis->GetEntity()->ReplaceAll(text, replacement);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegEx, __ReplaceFirst, "ReplaceFirst")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replacement", VTYPE_number, OCCUR_Once);
 }
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_RegEx, __ReplaceFirst)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString* text = arg.GetNumber(0)
 	//const wxString& replacement = arg.GetNumber(1)
-	//pThis->GetEntity()->ReplaceFirst(text, replacement);
+	//int _rtn = pThis->GetEntity()->ReplaceFirst(text, replacement);
 	return Value::Nil;
 }
 

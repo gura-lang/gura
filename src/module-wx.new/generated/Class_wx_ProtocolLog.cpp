@@ -39,7 +39,7 @@ String Object_wx_ProtocolLog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ProtocolLog, "ProtocolLog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "traceMask", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ProtocolLog));
 	DeclareBlock(OCCUR_ZeroOrOnce);

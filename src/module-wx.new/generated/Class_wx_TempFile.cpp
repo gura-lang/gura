@@ -39,7 +39,7 @@ String Object_wx_TempFile::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TempFile, "TempFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TempFile));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__TempFile)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TempFile, __Commit, "Commit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFile, __Commit)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Commit();
+	//bool _rtn = pThis->GetEntity()->Commit();
 	return Value::Nil;
 }
 
@@ -83,46 +83,46 @@ Gura_ImplementMethod(wx_TempFile, __Discard)
 
 Gura_DeclareMethodAlias(wx_TempFile, __Flush, "Flush")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFile, __Flush)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Flush();
+	//bool _rtn = pThis->GetEntity()->Flush();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __IsOpened, "IsOpened")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFile, __IsOpened)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOpened();
+	//bool _rtn = pThis->GetEntity()->IsOpened();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __Length, "Length")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFile, __Length)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Length();
+	//wxFileOffset _rtn = pThis->GetEntity()->Length();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __Open, "Open")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
 }
 
@@ -131,13 +131,13 @@ Gura_ImplementMethod(wx_TempFile, __Open)
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strName = arg.GetNumber(0)
-	//pThis->GetEntity()->Open(strName);
+	//bool _rtn = pThis->GetEntity()->Open(strName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __Seek, "Seek")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ofs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
@@ -148,26 +148,26 @@ Gura_ImplementMethod(wx_TempFile, __Seek)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset ofs = arg.GetNumber(0)
 	//wxSeekMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->Seek(ofs, mode);
+	//wxFileOffset _rtn = pThis->GetEntity()->Seek(ofs, mode);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __Tell, "Tell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFile, __Tell)
 {
 	Object_wx_TempFile *pThis = Object_wx_TempFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Tell();
+	//wxFileOffset _rtn = pThis->GetEntity()->Tell();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TempFile, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_TempFile, __Write)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->Write(str, conv);
+	//bool _rtn = pThis->GetEntity()->Write(str, conv);
 	return Value::Nil;
 }
 

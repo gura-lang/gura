@@ -39,7 +39,7 @@ String Object_wx_PrintDialogData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PrintDialogData, "PrintDialogData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PrintDialogData)
 
 Gura_DeclareFunctionAlias(__PrintDialogData_1, "PrintDialogData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialogData", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PrintDialogData_1)
 
 Gura_DeclareFunctionAlias(__PrintDialogData_2, "PrintDialogData_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printData", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PrintDialogData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -145,144 +145,144 @@ Gura_ImplementMethod(wx_PrintDialogData, __EnableSelection)
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetAllPages, "GetAllPages")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetAllPages)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAllPages();
+	//bool _rtn = pThis->GetEntity()->GetAllPages();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetCollate, "GetCollate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetCollate)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCollate();
+	//bool _rtn = pThis->GetEntity()->GetCollate();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetFromPage, "GetFromPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetFromPage)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFromPage();
+	//int _rtn = pThis->GetEntity()->GetFromPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetMaxPage, "GetMaxPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetMaxPage)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxPage();
+	//int _rtn = pThis->GetEntity()->GetMaxPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetMinPage, "GetMinPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetMinPage)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinPage();
+	//int _rtn = pThis->GetEntity()->GetMinPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetNoCopies, "GetNoCopies")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetNoCopies)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNoCopies();
+	//int _rtn = pThis->GetEntity()->GetNoCopies();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetPrintData, "GetPrintData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetPrintData)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintData();
+	//wxPrintData& _rtn = pThis->GetEntity()->GetPrintData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetPrintToFile, "GetPrintToFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetPrintToFile)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintToFile();
+	//bool _rtn = pThis->GetEntity()->GetPrintToFile();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetSelection)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//bool _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __GetToPage, "GetToPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __GetToPage)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToPage();
+	//int _rtn = pThis->GetEntity()->GetToPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintDialogData, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintDialogData, __IsOk)
 {
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

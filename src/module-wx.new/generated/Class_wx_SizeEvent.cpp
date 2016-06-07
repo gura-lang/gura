@@ -39,7 +39,7 @@ String Object_wx_SizeEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SizeEvent, "SizeEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SizeEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__SizeEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SizeEvent, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SizeEvent, __GetSize)
 {
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
@@ -87,14 +87,14 @@ Gura_ImplementMethod(wx_SizeEvent, __SetSize)
 
 Gura_DeclareMethodAlias(wx_SizeEvent, __GetRect, "GetRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SizeEvent, __GetRect)
 {
 	Object_wx_SizeEvent *pThis = Object_wx_SizeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRect();
+	//wxRect _rtn = pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
 

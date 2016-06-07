@@ -39,7 +39,7 @@ String Object_wx_ModalDialogHook::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ModalDialogHook, "ModalDialogHook")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ModalDialogHook));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Unregister)
 
 Gura_DeclareMethodAlias(wx_ModalDialogHook, __Enter, "Enter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_ModalDialogHook, __Enter)
 	Object_wx_ModalDialogHook *pThis = Object_wx_ModalDialogHook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDialog* dialog = arg.GetNumber(0)
-	//pThis->GetEntity()->Enter(dialog);
+	//int _rtn = pThis->GetEntity()->Enter(dialog);
 	return Value::Nil;
 }
 

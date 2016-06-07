@@ -39,7 +39,7 @@ String Object_wx_PrintPreview::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PrintPreview, "PrintPreview")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__PrintPreview)
 
 Gura_DeclareFunctionAlias(__PrintPreview_1, "PrintPreview_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "printoutForPrinting", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -80,111 +80,111 @@ Gura_ImplementFunction(__PrintPreview_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetCanvas, "GetCanvas")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetCanvas)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCanvas();
+	//wxPreviewCanvas* _rtn = pThis->GetEntity()->GetCanvas();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetCurrentPage, "GetCurrentPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetCurrentPage)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentPage();
+	//int _rtn = pThis->GetEntity()->GetCurrentPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetFrame)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrame();
+	//wxFrame* _rtn = pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetMaxPage, "GetMaxPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetMaxPage)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxPage();
+	//int _rtn = pThis->GetEntity()->GetMaxPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetMinPage, "GetMinPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetMinPage)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinPage();
+	//int _rtn = pThis->GetEntity()->GetMinPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetPrintout, "GetPrintout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetPrintout)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintout();
+	//wxPrintout* _rtn = pThis->GetEntity()->GetPrintout();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __GetPrintoutForPrinting, "GetPrintoutForPrinting")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __GetPrintoutForPrinting)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintoutForPrinting();
+	//wxPrintout* _rtn = pThis->GetEntity()->GetPrintoutForPrinting();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintPreview, __IsOk)
 {
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __PaintPage, "PaintPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "canvas", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
@@ -195,13 +195,13 @@ Gura_ImplementMethod(wx_PrintPreview, __PaintPage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPreviewCanvas* canvas = arg.GetNumber(0)
 	//wxDC& dc = arg.GetNumber(1)
-	//pThis->GetEntity()->PaintPage(canvas, dc);
+	//bool _rtn = pThis->GetEntity()->PaintPage(canvas, dc);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __Print, "Print")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "prompt", VTYPE_number, OCCUR_Once);
 }
 
@@ -210,13 +210,13 @@ Gura_ImplementMethod(wx_PrintPreview, __Print)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool prompt = arg.GetNumber(0)
-	//pThis->GetEntity()->Print(prompt);
+	//bool _rtn = pThis->GetEntity()->Print(prompt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __RenderPage, "RenderPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_PrintPreview, __RenderPage)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageNum = arg.GetNumber(0)
-	//pThis->GetEntity()->RenderPage(pageNum);
+	//bool _rtn = pThis->GetEntity()->RenderPage(pageNum);
 	return Value::Nil;
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetCanvas)
 
 Gura_DeclareMethodAlias(wx_PrintPreview, __SetCurrentPage, "SetCurrentPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pageNum", VTYPE_number, OCCUR_Once);
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetCurrentPage)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageNum = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrentPage(pageNum);
+	//bool _rtn = pThis->GetEntity()->SetCurrentPage(pageNum);
 	return Value::Nil;
 }
 

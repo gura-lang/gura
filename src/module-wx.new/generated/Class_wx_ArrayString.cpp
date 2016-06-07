@@ -39,7 +39,7 @@ String Object_wx_ArrayString::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ArrayString, "ArrayString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ArrayString)
 
 Gura_DeclareFunctionAlias(__ArrayString_1, "ArrayString_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "array", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__ArrayString_1)
 
 Gura_DeclareFunctionAlias(__ArrayString_2, "ArrayString_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__ArrayString_2)
 
 Gura_DeclareFunctionAlias(__ArrayString_3, "ArrayString_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__ArrayString_3)
 
 Gura_DeclareFunctionAlias(__ArrayString_4, "ArrayString_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "arr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ArrayString));
@@ -121,7 +121,7 @@ Gura_ImplementFunction(__ArrayString_4)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArrayString, __int, "int")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "second", VTYPE_number, OCCUR_Once);
 }
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_ArrayString, __int)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//*CompareFunction)(const wxString& first = arg.GetNumber(0)
 	//const wxString& second = arg.GetNumber(1)
-	//pThis->GetEntity()->int(first, second);
+	//typedef _rtn = pThis->GetEntity()->int(first, second);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Add, "Add")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "copies", VTYPE_number, OCCUR_Once);
 }
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_ArrayString, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(str, copies);
+	//size_t _rtn = pThis->GetEntity()->Add(str, copies);
 	return Value::Nil;
 }
 
@@ -196,20 +196,20 @@ Gura_ImplementMethod(wx_ArrayString, __Empty)
 
 Gura_DeclareMethodAlias(wx_ArrayString, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArrayString, __GetCount)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//size_t _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Index, "Index")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bFromEnd", VTYPE_number, OCCUR_Once);
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_ArrayString, __Index)
 	//const wxString& sz = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
 	//bool bFromEnd = arg.GetNumber(2)
-	//pThis->GetEntity()->Index(sz, bCase, bFromEnd);
+	//int _rtn = pThis->GetEntity()->Index(sz, bCase, bFromEnd);
 	return Value::Nil;
 }
 
@@ -247,20 +247,20 @@ Gura_ImplementMethod(wx_ArrayString, __Insert)
 
 Gura_DeclareMethodAlias(wx_ArrayString, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArrayString, __IsEmpty)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Item, "Item")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nIndex", VTYPE_number, OCCUR_Once);
 }
 
@@ -269,13 +269,13 @@ Gura_ImplementMethod(wx_ArrayString, __Item)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(nIndex);
+	//wxString& _rtn = pThis->GetEntity()->Item(nIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Item_1, "Item_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nIndex", VTYPE_number, OCCUR_Once);
 }
 
@@ -284,33 +284,33 @@ Gura_ImplementMethod(wx_ArrayString, __Item_1)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(nIndex);
+	//const wxString& _rtn = pThis->GetEntity()->Item(nIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Last, "Last")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArrayString, __Last)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Last();
+	//wxString& _rtn = pThis->GetEntity()->Last();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArrayString, __Last_1, "Last_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArrayString, __Last_1)
 {
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Last();
+	//const wxString& _rtn = pThis->GetEntity()->Last();
 	return Value::Nil;
 }
 

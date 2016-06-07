@@ -39,7 +39,7 @@ String Object_wx_WindowCreateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WindowCreateEvent, "WindowCreateEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WindowCreateEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__WindowCreateEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WindowCreateEvent, __GetWindow, "GetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WindowCreateEvent, __GetWindow)
 {
 	Object_wx_WindowCreateEvent *pThis = Object_wx_WindowCreateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
 

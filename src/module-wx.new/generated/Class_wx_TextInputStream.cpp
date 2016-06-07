@@ -39,7 +39,7 @@ String Object_wx_TextInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextInputStream, "TextInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sep", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
@@ -61,33 +61,33 @@ Gura_ImplementFunction(__TextInputStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextInputStream, __GetInputStream, "GetInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __GetInputStream)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInputStream();
+	//const wxInputStream& _rtn = pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __GetChar, "GetChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __GetChar)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChar();
+	//wxChar _rtn = pThis->GetEntity()->GetChar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read16, "Read16")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read16)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read16(base);
+	//wxUint16 _rtn = pThis->GetEntity()->Read16(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read16S, "Read16S")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read16S)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read16S(base);
+	//wxInt16 _rtn = pThis->GetEntity()->Read16S(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read32, "Read32")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read32)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read32(base);
+	//wxUint32 _rtn = pThis->GetEntity()->Read32(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read32S, "Read32S")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read32S)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read32S(base);
+	//wxInt32 _rtn = pThis->GetEntity()->Read32S(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read64, "Read64")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read64)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read64(base);
+	//wxUint64 _rtn = pThis->GetEntity()->Read64(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read64S, "Read64S")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read64S)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read64S(base);
+	//wxInt64 _rtn = pThis->GetEntity()->Read64S(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read8, "Read8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -186,13 +186,13 @@ Gura_ImplementMethod(wx_TextInputStream, __Read8)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read8(base);
+	//wxUint8 _rtn = pThis->GetEntity()->Read8(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __Read8S, "Read8S")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -201,59 +201,59 @@ Gura_ImplementMethod(wx_TextInputStream, __Read8S)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->Read8S(base);
+	//wxInt8 _rtn = pThis->GetEntity()->Read8S(base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __ReadDouble, "ReadDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __ReadDouble)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadDouble();
+	//double _rtn = pThis->GetEntity()->ReadDouble();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __ReadLine, "ReadLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __ReadLine)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadLine();
+	//wxString _rtn = pThis->GetEntity()->ReadLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __ReadString, "ReadString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __ReadString)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadString();
+	//wxString _rtn = pThis->GetEntity()->ReadString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextInputStream, __ReadWord, "ReadWord")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextInputStream, __ReadWord)
 {
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ReadWord();
+	//wxString _rtn = pThis->GetEntity()->ReadWord();
 	return Value::Nil;
 }
 

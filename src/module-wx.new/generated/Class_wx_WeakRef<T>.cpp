@@ -39,7 +39,7 @@ String Object_wx_WeakRef<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WeakRef<T>, __wxWeakRef, "wxWeakRef")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pobj", VTYPE_number, OCCUR_Once);
 }
 
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_WeakRef<T>, __wxWeakRef)
 
 Gura_DeclareMethodAlias(wx_WeakRef<T>, __wxWeakRef_1, "wxWeakRef_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wr", VTYPE_number, OCCUR_Once);
 }
 
@@ -95,14 +95,14 @@ Gura_ImplementMethod(wx_WeakRef<T>, __Release)
 
 Gura_DeclareMethodAlias(wx_WeakRef<T>, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WeakRef<T>, __get)
 {
 	Object_wx_WeakRef<T> *pThis = Object_wx_WeakRef<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 

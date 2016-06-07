@@ -39,7 +39,7 @@ String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextImageBlock, "RichTextImageBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextImageBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextImageBlock)
 
 Gura_DeclareFunctionAlias(__RichTextImageBlock_1, "RichTextImageBlock_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextImageBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Clear)
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlock, "MakeImageBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock)
 	//wxBitmapType imageType = arg.GetNumber(1)
 	//wxImage& image = arg.GetNumber(2)
 	//bool convertToJPEG = arg.GetNumber(3)
-	//pThis->GetEntity()->MakeImageBlock(filename, imageType, image, convertToJPEG);
+	//bool _rtn = pThis->GetEntity()->MakeImageBlock(filename, imageType, image, convertToJPEG);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlock_1, "MakeImageBlock_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "quality", VTYPE_number, OCCUR_Once);
@@ -130,13 +130,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlock_1)
 	//wxImage& image = arg.GetNumber(0)
 	//wxBitmapType imageType = arg.GetNumber(1)
 	//int quality = arg.GetNumber(2)
-	//pThis->GetEntity()->MakeImageBlock(image, imageType, quality);
+	//bool _rtn = pThis->GetEntity()->MakeImageBlock(image, imageType, quality);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality, "MakeImageBlockDefaultQuality")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __MakeImageBlockDefaultQuality)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxImage& image = arg.GetNumber(0)
 	//wxBitmapType imageType = arg.GetNumber(1)
-	//pThis->GetEntity()->MakeImageBlockDefaultQuality(image, imageType);
+	//bool _rtn = pThis->GetEntity()->MakeImageBlockDefaultQuality(image, imageType);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __DoMakeImageBlock, "DoMakeImageBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
 }
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __DoMakeImageBlock)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxImage& image = arg.GetNumber(0)
 	//wxBitmapType imageType = arg.GetNumber(1)
-	//pThis->GetEntity()->DoMakeImageBlock(image, imageType);
+	//bool _rtn = pThis->GetEntity()->DoMakeImageBlock(image, imageType);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
@@ -179,13 +179,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Write)
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->Write(filename);
+	//bool _rtn = pThis->GetEntity()->Write(filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteHex, "WriteHex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteHex)
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->WriteHex(stream);
+	//bool _rtn = pThis->GetEntity()->WriteHex(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadHex, "ReadHex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "length", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageType", VTYPE_number, OCCUR_Once);
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadHex)
 	//wxInputStream& stream = arg.GetNumber(0)
 	//int length = arg.GetNumber(1)
 	//wxBitmapType imageType = arg.GetNumber(2)
-	//pThis->GetEntity()->ReadHex(stream, length, imageType);
+	//bool _rtn = pThis->GetEntity()->ReadHex(stream, length, imageType);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Copy)
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Load, "Load")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 }
 
@@ -243,46 +243,46 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __Load)
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxImage& image = arg.GetNumber(0)
-	//pThis->GetEntity()->Load(image);
+	//bool _rtn = pThis->GetEntity()->Load(image);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __GetData)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//unsigned char* _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetDataSize, "GetDataSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __GetDataSize)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataSize();
+	//size_t _rtn = pThis->GetEntity()->GetDataSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetImageType, "GetImageType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __GetImageType)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImageType();
+	//wxBitmapType _rtn = pThis->GetEntity()->GetImageType();
 	return Value::Nil;
 }
 
@@ -333,46 +333,46 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __SetImageType)
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __IsOk)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __Ok, "Ok")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __Ok)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Ok();
+	//bool _rtn = pThis->GetEntity()->Ok();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __GetExtension, "GetExtension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextImageBlock, __GetExtension)
 {
 	Object_wx_RichTextImageBlock *pThis = Object_wx_RichTextImageBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtension();
+	//wxString _rtn = pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadBlock, "ReadBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -383,13 +383,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->ReadBlock(stream, size);
+	//unsigned char* _rtn = pThis->GetEntity()->ReadBlock(stream, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __ReadBlock_1, "ReadBlock_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -400,13 +400,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __ReadBlock_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->ReadBlock(filename, size);
+	//unsigned char* _rtn = pThis->GetEntity()->ReadBlock(filename, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteBlock, "WriteBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -419,13 +419,13 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock)
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//unsigned char* block = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
-	//pThis->GetEntity()->WriteBlock(stream, block, size);
+	//bool _rtn = pThis->GetEntity()->WriteBlock(stream, block, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextImageBlock, __WriteBlock_1, "WriteBlock_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_RichTextImageBlock, __WriteBlock_1)
 	//const wxString& filename = arg.GetNumber(0)
 	//unsigned char* block = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
-	//pThis->GetEntity()->WriteBlock(filename, block, size);
+	//bool _rtn = pThis->GetEntity()->WriteBlock(filename, block, size);
 	return Value::Nil;
 }
 

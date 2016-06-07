@@ -39,7 +39,7 @@ String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ArchiveIterator, "ArchiveIterator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ArchiveIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ArchiveIterator)
 
 Gura_DeclareFunctionAlias(__ArchiveIterator_1, "ArchiveIterator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "arc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ArchiveIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);

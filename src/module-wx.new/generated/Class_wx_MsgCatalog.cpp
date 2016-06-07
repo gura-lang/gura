@@ -39,7 +39,7 @@ String Object_wx_MsgCatalog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MsgCatalog, __CreateFromFile, "CreateFromFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_MsgCatalog, __CreateFromFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& domain = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateFromFile(filename, domain);
+	//wxMsgCatalog* _rtn = pThis->GetEntity()->CreateFromFile(filename, domain);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MsgCatalog, __CreateFromData, "CreateFromData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_MsgCatalog, __CreateFromData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxScopedCharBuffer& data = arg.GetNumber(0)
 	//const wxString& domain = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateFromData(data, domain);
+	//wxMsgCatalog* _rtn = pThis->GetEntity()->CreateFromData(data, domain);
 	return Value::Nil;
 }
 

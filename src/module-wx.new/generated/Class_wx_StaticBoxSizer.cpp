@@ -39,7 +39,7 @@ String Object_wx_StaticBoxSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StaticBoxSizer, "StaticBoxSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "box", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StaticBoxSizer));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__StaticBoxSizer)
 
 Gura_DeclareFunctionAlias(__StaticBoxSizer_1, "StaticBoxSizer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -78,27 +78,27 @@ Gura_ImplementFunction(__StaticBoxSizer_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StaticBoxSizer, __GetStaticBox, "GetStaticBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StaticBoxSizer, __GetStaticBox)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStaticBox();
+	//wxStaticBox* _rtn = pThis->GetEntity()->GetStaticBox();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StaticBoxSizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StaticBoxSizer, __CalcMin)
 {
 	Object_wx_StaticBoxSizer *pThis = Object_wx_StaticBoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 

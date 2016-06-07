@@ -39,7 +39,7 @@ String Object_wx_BitmapToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BitmapToggleButton, "BitmapToggleButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapToggleButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__BitmapToggleButton)
 
 Gura_DeclareFunctionAlias(__BitmapToggleButton_1, "BitmapToggleButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__BitmapToggleButton_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapToggleButton, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,20 +107,20 @@ Gura_ImplementMethod(wx_BitmapToggleButton, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapToggleButton, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BitmapToggleButton, __GetValue)
 {
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//bool _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

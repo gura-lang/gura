@@ -39,7 +39,7 @@ String Object_wx_VListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VListBox, "VListBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__VListBox)
 
 Gura_DeclareFunctionAlias(__VListBox_1, "VListBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_VListBox, __Clear)
 
 Gura_DeclareMethodAlias(wx_VListBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -112,26 +112,26 @@ Gura_ImplementMethod(wx_VListBox, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __DeselectAll, "DeselectAll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __DeselectAll)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DeselectAll();
+	//bool _rtn = pThis->GetEntity()->DeselectAll();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetFirstSelected, "GetFirstSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 }
 
@@ -140,39 +140,39 @@ Gura_ImplementMethod(wx_VListBox, __GetFirstSelected)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long& cookie = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFirstSelected(cookie);
+	//int _rtn = pThis->GetEntity()->GetFirstSelected(cookie);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetItemCount, "GetItemCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __GetItemCount)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItemCount();
+	//size_t _rtn = pThis->GetEntity()->GetItemCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetMargins, "GetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __GetMargins)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMargins();
+	//wxPoint _rtn = pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetItemRect, "GetItemRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_VListBox, __GetItemRect)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemRect(item);
+	//wxRect _rtn = pThis->GetEntity()->GetItemRect(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetNextSelected, "GetNextSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 }
 
@@ -196,65 +196,65 @@ Gura_ImplementMethod(wx_VListBox, __GetNextSelected)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long& cookie = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextSelected(cookie);
+	//int _rtn = pThis->GetEntity()->GetNextSelected(cookie);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetSelectedCount, "GetSelectedCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __GetSelectedCount)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedCount();
+	//size_t _rtn = pThis->GetEntity()->GetSelectedCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __GetSelection)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __GetSelectionBackground, "GetSelectionBackground")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __GetSelectionBackground)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectionBackground();
+	//const wxColour& _rtn = pThis->GetEntity()->GetSelectionBackground();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __HasMultipleSelection, "HasMultipleSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __HasMultipleSelection)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasMultipleSelection();
+	//bool _rtn = pThis->GetEntity()->HasMultipleSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __IsCurrent, "IsCurrent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -263,13 +263,13 @@ Gura_ImplementMethod(wx_VListBox, __IsCurrent)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsCurrent(item);
+	//bool _rtn = pThis->GetEntity()->IsCurrent(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __IsSelected, "IsSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -278,13 +278,13 @@ Gura_ImplementMethod(wx_VListBox, __IsSelected)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSelected(item);
+	//bool _rtn = pThis->GetEntity()->IsSelected(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __Select, "Select")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "select", VTYPE_number, OCCUR_Once);
 }
@@ -295,26 +295,26 @@ Gura_ImplementMethod(wx_VListBox, __Select)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
 	//bool select = arg.GetNumber(1)
-	//pThis->GetEntity()->Select(item, select);
+	//bool _rtn = pThis->GetEntity()->Select(item, select);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __SelectAll, "SelectAll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VListBox, __SelectAll)
 {
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->SelectAll();
+	//bool _rtn = pThis->GetEntity()->SelectAll();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VListBox, __SelectRange, "SelectRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_VListBox, __SelectRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t from = arg.GetNumber(0)
 	//size_t to = arg.GetNumber(1)
-	//pThis->GetEntity()->SelectRange(from, to);
+	//bool _rtn = pThis->GetEntity()->SelectRange(from, to);
 	return Value::Nil;
 }
 
@@ -480,7 +480,7 @@ Gura_ImplementMethod(wx_VListBox, __OnDrawSeparator)
 
 Gura_DeclareMethodAlias(wx_VListBox, __OnMeasureItem, "OnMeasureItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_VListBox, __OnMeasureItem)
 	Object_wx_VListBox *pThis = Object_wx_VListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureItem(n);
+	//wxCoord _rtn = pThis->GetEntity()->OnMeasureItem(n);
 	return Value::Nil;
 }
 

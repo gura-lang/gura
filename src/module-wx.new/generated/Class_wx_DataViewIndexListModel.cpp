@@ -39,7 +39,7 @@ String Object_wx_DataViewIndexListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewIndexListModel, "DataViewIndexListModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewIndexListModel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__DataViewIndexListModel)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIndexListModel, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_DataViewIndexListModel, __GetItem)
 	Object_wx_DataViewIndexListModel *pThis = Object_wx_DataViewIndexListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int row = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItem(row);
+	//wxDataViewItem _rtn = pThis->GetEntity()->GetItem(row);
 	return Value::Nil;
 }
 

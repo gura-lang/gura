@@ -39,7 +39,7 @@ String Object_wx_CommandEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CommandEvent, "CommandEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CommandEvent));
@@ -59,105 +59,105 @@ Gura_ImplementFunction(__CommandEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetClientData)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientData();
+	//void* _rtn = pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetClientObject, "GetClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetClientObject)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientObject();
+	//wxClientData* _rtn = pThis->GetEntity()->GetClientObject();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetExtraLong, "GetExtraLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetExtraLong)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtraLong();
+	//long _rtn = pThis->GetEntity()->GetExtraLong();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetInt, "GetInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetInt)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInt();
+	//int _rtn = pThis->GetEntity()->GetInt();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetSelection)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __GetString)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetString();
+	//wxString _rtn = pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __IsChecked, "IsChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __IsChecked)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsChecked();
+	//bool _rtn = pThis->GetEntity()->IsChecked();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandEvent, __IsSelection, "IsSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandEvent, __IsSelection)
 {
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsSelection();
+	//bool _rtn = pThis->GetEntity()->IsSelection();
 	return Value::Nil;
 }
 

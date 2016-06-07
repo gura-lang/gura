@@ -39,7 +39,7 @@ String Object_wx_CountingOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CountingOutputStream, "CountingOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CountingOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__CountingOutputStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CountingOutputStream, __GetLength, "GetLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CountingOutputStream, __GetLength)
 {
 	Object_wx_CountingOutputStream *pThis = Object_wx_CountingOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLength();
+	//wxFileOffset _rtn = pThis->GetEntity()->GetLength();
 	return Value::Nil;
 }
 

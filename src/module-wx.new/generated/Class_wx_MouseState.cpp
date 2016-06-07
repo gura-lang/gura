@@ -39,7 +39,7 @@ String Object_wx_MouseState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MouseState, "MouseState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MouseState));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,40 +55,40 @@ Gura_ImplementFunction(__MouseState)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseState, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __GetX)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//wxCoord _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __GetY)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//wxCoord _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __GetPosition)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
@@ -111,66 +111,66 @@ Gura_ImplementMethod(wx_MouseState, __GetPosition_1)
 
 Gura_DeclareMethodAlias(wx_MouseState, __LeftIsDown, "LeftIsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __LeftIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LeftIsDown();
+	//bool _rtn = pThis->GetEntity()->LeftIsDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __MiddleIsDown, "MiddleIsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __MiddleIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MiddleIsDown();
+	//bool _rtn = pThis->GetEntity()->MiddleIsDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __RightIsDown, "RightIsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __RightIsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RightIsDown();
+	//bool _rtn = pThis->GetEntity()->RightIsDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __Aux1IsDown, "Aux1IsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __Aux1IsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux1IsDown();
+	//bool _rtn = pThis->GetEntity()->Aux1IsDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseState, __Aux2IsDown, "Aux2IsDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseState, __Aux2IsDown)
 {
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux2IsDown();
+	//bool _rtn = pThis->GetEntity()->Aux2IsDown();
 	return Value::Nil;
 }
 

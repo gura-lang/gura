@@ -39,7 +39,7 @@ String Object_wx_ThreadHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ThreadHelper, "ThreadHelper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ThreadHelper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__ThreadHelper)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ThreadHelper, __Entry, "Entry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadHelper, __Entry)
 {
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Entry();
+	//ExitCode _rtn = pThis->GetEntity()->Entry();
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ThreadHelper, __OnKill)
 
 Gura_DeclareMethodAlias(wx_ThreadHelper, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stackSize", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_ThreadHelper, __Create)
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int stackSize = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(stackSize);
+	//wxThreadError _rtn = pThis->GetEntity()->Create(stackSize);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadHelper, __CreateThread, "CreateThread")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stackSize", VTYPE_number, OCCUR_Once);
 }
@@ -122,33 +122,33 @@ Gura_ImplementMethod(wx_ThreadHelper, __CreateThread)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxThreadKind kind = arg.GetNumber(0)
 	//unsigned int stackSize = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateThread(kind, stackSize);
+	//wxThreadError _rtn = pThis->GetEntity()->CreateThread(kind, stackSize);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadHelper, __GetThread, "GetThread")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadHelper, __GetThread)
 {
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThread();
+	//wxThread* _rtn = pThis->GetEntity()->GetThread();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadHelper, __GetThreadKind, "GetThreadKind")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadHelper, __GetThreadKind)
 {
 	Object_wx_ThreadHelper *pThis = Object_wx_ThreadHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThreadKind();
+	//wxThreadKind _rtn = pThis->GetEntity()->GetThreadKind();
 	return Value::Nil;
 }
 

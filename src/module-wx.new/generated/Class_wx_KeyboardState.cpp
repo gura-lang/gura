@@ -39,7 +39,7 @@ String Object_wx_KeyboardState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__KeyboardState, "KeyboardState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "controlDown", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "shiftDown", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "altDown", VTYPE_number, OCCUR_Once);
@@ -63,118 +63,118 @@ Gura_ImplementFunction(__KeyboardState)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_KeyboardState, __GetModifiers, "GetModifiers")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __GetModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetModifiers();
+	//int _rtn = pThis->GetEntity()->GetModifiers();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __HasAnyModifiers, "HasAnyModifiers")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __HasAnyModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasAnyModifiers();
+	//bool _rtn = pThis->GetEntity()->HasAnyModifiers();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __HasModifiers, "HasModifiers")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __HasModifiers)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasModifiers();
+	//bool _rtn = pThis->GetEntity()->HasModifiers();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __ControlDown, "ControlDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __ControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ControlDown();
+	//bool _rtn = pThis->GetEntity()->ControlDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __RawControlDown, "RawControlDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __RawControlDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RawControlDown();
+	//bool _rtn = pThis->GetEntity()->RawControlDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __ShiftDown, "ShiftDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __ShiftDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShiftDown();
+	//bool _rtn = pThis->GetEntity()->ShiftDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __MetaDown, "MetaDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __MetaDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MetaDown();
+	//bool _rtn = pThis->GetEntity()->MetaDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __AltDown, "AltDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __AltDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AltDown();
+	//bool _rtn = pThis->GetEntity()->AltDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_KeyboardState, __CmdDown, "CmdDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_KeyboardState, __CmdDown)
 {
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CmdDown();
+	//bool _rtn = pThis->GetEntity()->CmdDown();
 	return Value::Nil;
 }
 

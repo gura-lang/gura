@@ -39,7 +39,7 @@ String Object_wx_BoxSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BoxSizer, "BoxSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BoxSizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__BoxSizer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BoxSizer, __AddSpacer, "AddSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,33 +66,33 @@ Gura_ImplementMethod(wx_BoxSizer, __AddSpacer)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->AddSpacer(size);
+	//wxSizerItem* _rtn = pThis->GetEntity()->AddSpacer(size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BoxSizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BoxSizer, __CalcMin)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BoxSizer, __GetOrientation, "GetOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BoxSizer, __GetOrientation)
 {
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOrientation();
+	//int _rtn = pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
 

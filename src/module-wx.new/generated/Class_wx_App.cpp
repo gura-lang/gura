@@ -39,7 +39,7 @@ String Object_wx_App::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__App, "App")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_App));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,85 +55,85 @@ Gura_ImplementFunction(__App)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_App, __GetDisplayMode, "GetDisplayMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __GetDisplayMode)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDisplayMode();
+	//wxVideoMode _rtn = pThis->GetEntity()->GetDisplayMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __GetExitOnFrameDelete, "GetExitOnFrameDelete")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __GetExitOnFrameDelete)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExitOnFrameDelete();
+	//bool _rtn = pThis->GetEntity()->GetExitOnFrameDelete();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __GetLayoutDirection, "GetLayoutDirection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __GetLayoutDirection)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLayoutDirection();
+	//wxLayoutDirection _rtn = pThis->GetEntity()->GetLayoutDirection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __GetUseBestVisual, "GetUseBestVisual")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __GetUseBestVisual)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUseBestVisual();
+	//bool _rtn = pThis->GetEntity()->GetUseBestVisual();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __GetTopWindow, "GetTopWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __GetTopWindow)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTopWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetTopWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __IsActive, "IsActive")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __IsActive)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsActive();
+	//bool _rtn = pThis->GetEntity()->IsActive();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __SafeYield, "SafeYield")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "onlyIfNeeded", VTYPE_number, OCCUR_Once);
 }
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_App, __SafeYield)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//bool onlyIfNeeded = arg.GetNumber(1)
-	//pThis->GetEntity()->SafeYield(win, onlyIfNeeded);
+	//bool _rtn = pThis->GetEntity()->SafeYield(win, onlyIfNeeded);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __SafeYieldFor, "SafeYieldFor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "eventsToProcess", VTYPE_number, OCCUR_Once);
 }
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_App, __SafeYieldFor)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//long eventsToProcess = arg.GetNumber(1)
-	//pThis->GetEntity()->SafeYieldFor(win, eventsToProcess);
+	//bool _rtn = pThis->GetEntity()->SafeYieldFor(win, eventsToProcess);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __ProcessMessage, "ProcessMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
@@ -176,13 +176,13 @@ Gura_ImplementMethod(wx_App, __ProcessMessage)
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//WXMSG* msg = arg.GetNumber(0)
-	//pThis->GetEntity()->ProcessMessage(msg);
+	//bool _rtn = pThis->GetEntity()->ProcessMessage(msg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_App, __SetDisplayMode, "SetDisplayMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_App, __SetDisplayMode)
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVideoMode& info = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDisplayMode(info);
+	//bool _rtn = pThis->GetEntity()->SetDisplayMode(info);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_App, __SetExitOnFrameDelete)
 
 Gura_DeclareMethodAlias(wx_App, __SetNativeTheme, "SetNativeTheme")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "theme", VTYPE_number, OCCUR_Once);
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_App, __SetNativeTheme)
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& theme = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNativeTheme(theme);
+	//bool _rtn = pThis->GetEntity()->SetNativeTheme(theme);
 	return Value::Nil;
 }
 
@@ -345,14 +345,14 @@ Gura_ImplementMethod(wx_App, __MacReopenApp)
 
 Gura_DeclareMethodAlias(wx_App, __OSXIsGUIApplication, "OSXIsGUIApplication")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_App, __OSXIsGUIApplication)
 {
 	Object_wx_App *pThis = Object_wx_App::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OSXIsGUIApplication();
+	//bool _rtn = pThis->GetEntity()->OSXIsGUIApplication();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_LogInterposerTemp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogInterposerTemp, "LogInterposerTemp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogInterposerTemp));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

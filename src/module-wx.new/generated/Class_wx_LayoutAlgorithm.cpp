@@ -39,7 +39,7 @@ String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LayoutAlgorithm, "LayoutAlgorithm")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LayoutAlgorithm));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__LayoutAlgorithm)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutFrame, "LayoutFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainWindow", VTYPE_number, OCCUR_Once);
 }
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutFrame)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFrame* frame = arg.GetNumber(0)
 	//wxWindow* mainWindow = arg.GetNumber(1)
-	//pThis->GetEntity()->LayoutFrame(frame, mainWindow);
+	//bool _rtn = pThis->GetEntity()->LayoutFrame(frame, mainWindow);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutMDIFrame, "LayoutMDIFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutMDIFrame)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMDIParentFrame* frame = arg.GetNumber(0)
 	//wxRect* rect = arg.GetNumber(1)
-	//pThis->GetEntity()->LayoutMDIFrame(frame, rect);
+	//bool _rtn = pThis->GetEntity()->LayoutMDIFrame(frame, rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LayoutAlgorithm, __LayoutWindow, "LayoutWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainWindow", VTYPE_number, OCCUR_Once);
 }
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, __LayoutWindow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxWindow* mainWindow = arg.GetNumber(1)
-	//pThis->GetEntity()->LayoutWindow(parent, mainWindow);
+	//bool _rtn = pThis->GetEntity()->LayoutWindow(parent, mainWindow);
 	return Value::Nil;
 }
 

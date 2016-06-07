@@ -39,7 +39,7 @@ String Object_wx_WindowModalDialogEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WindowModalDialogEvent, "WindowModalDialogEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WindowModalDialogEvent));
@@ -59,40 +59,40 @@ Gura_ImplementFunction(__WindowModalDialogEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __GetDialog, "GetDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, __GetDialog)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDialog();
+	//wxDialog* _rtn = pThis->GetEntity()->GetDialog();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __GetReturnCode, "GetReturnCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, __GetReturnCode)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetReturnCode();
+	//int _rtn = pThis->GetEntity()->GetReturnCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WindowModalDialogEvent, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WindowModalDialogEvent, __Clone)
 {
 	Object_wx_WindowModalDialogEvent *pThis = Object_wx_WindowModalDialogEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 

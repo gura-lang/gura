@@ -39,7 +39,7 @@ String Object_wx_Sizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Sizer, "Sizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Sizer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__Sizer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Sizer, __Add, "Add")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_Sizer, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxSizerFlags& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(window, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(window, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_1, "Add_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
@@ -89,13 +89,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_1)
 	//int flag = arg.GetNumber(2)
 	//int border = arg.GetNumber(3)
 	//wxObject* userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Add(window, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(window, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_2, "Add_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
 	//const wxSizerFlags& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(sizer, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(sizer, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_3, "Add_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_3)
 	//int flag = arg.GetNumber(2)
 	//int border = arg.GetNumber(3)
 	//wxObject* userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Add(sizer, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(sizer, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_4, "Add_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -154,13 +154,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_4)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//wxObject* userData = arg.GetNumber(5)
-	//pThis->GetEntity()->Add(width, height, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(width, height, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_5, "Add_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_5)
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//const wxSizerFlags& flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Add(width, height, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(width, height, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Add_6, "Add_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_Sizer, __Add_6)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizerItem* item = arg.GetNumber(0)
-	//pThis->GetEntity()->Add(item);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Add(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __AddSpacer, "AddSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -203,13 +203,13 @@ Gura_ImplementMethod(wx_Sizer, __AddSpacer)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->AddSpacer(size);
+	//wxSizerItem* _rtn = pThis->GetEntity()->AddSpacer(size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __AddStretchSpacer, "AddStretchSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
 
@@ -218,20 +218,20 @@ Gura_ImplementMethod(wx_Sizer, __AddStretchSpacer)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prop = arg.GetNumber(0)
-	//pThis->GetEntity()->AddStretchSpacer(prop);
+	//wxSizerItem* _rtn = pThis->GetEntity()->AddStretchSpacer(prop);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __CalcMin)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_Sizer, __Clear)
 
 Gura_DeclareMethodAlias(wx_Sizer, __ComputeFittingClientSize, "ComputeFittingClientSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -261,13 +261,13 @@ Gura_ImplementMethod(wx_Sizer, __ComputeFittingClientSize)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->ComputeFittingClientSize(window);
+	//wxSize _rtn = pThis->GetEntity()->ComputeFittingClientSize(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __ComputeFittingWindowSize, "ComputeFittingWindowSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -276,13 +276,13 @@ Gura_ImplementMethod(wx_Sizer, __ComputeFittingWindowSize)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->ComputeFittingWindowSize(window);
+	//wxSize _rtn = pThis->GetEntity()->ComputeFittingWindowSize(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Detach, "Detach")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -291,13 +291,13 @@ Gura_ImplementMethod(wx_Sizer, __Detach)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->Detach(window);
+	//bool _rtn = pThis->GetEntity()->Detach(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Detach_1, "Detach_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
@@ -306,13 +306,13 @@ Gura_ImplementMethod(wx_Sizer, __Detach_1)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
-	//pThis->GetEntity()->Detach(sizer);
+	//bool _rtn = pThis->GetEntity()->Detach(sizer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Detach_2, "Detach_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -321,13 +321,13 @@ Gura_ImplementMethod(wx_Sizer, __Detach_2)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->Detach(index);
+	//bool _rtn = pThis->GetEntity()->Detach(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Fit, "Fit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_Sizer, __Fit)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->Fit(window);
+	//wxSize _rtn = pThis->GetEntity()->Fit(window);
 	return Value::Nil;
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_Sizer, __FitInside)
 
 Gura_DeclareMethodAlias(wx_Sizer, __InformFirstDirection, "InformFirstDirection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "availableOtherDir", VTYPE_number, OCCUR_Once);
@@ -370,46 +370,46 @@ Gura_ImplementMethod(wx_Sizer, __InformFirstDirection)
 	//int direction = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int availableOtherDir = arg.GetNumber(2)
-	//pThis->GetEntity()->InformFirstDirection(direction, size, availableOtherDir);
+	//bool _rtn = pThis->GetEntity()->InformFirstDirection(direction, size, availableOtherDir);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetChildren, "GetChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetChildren)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildren();
+	//wxSizerItemList& _rtn = pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetChildren_1, "GetChildren_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetChildren_1)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildren();
+	//const wxSizerItemList& _rtn = pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetContainingWindow, "GetContainingWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetContainingWindow)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainingWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetContainingWindow();
 	return Value::Nil;
 }
 
@@ -430,20 +430,20 @@ Gura_ImplementMethod(wx_Sizer, __SetContainingWindow)
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetItemCount, "GetItemCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetItemCount)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItemCount();
+	//size_t _rtn = pThis->GetEntity()->GetItemCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
 }
@@ -454,13 +454,13 @@ Gura_ImplementMethod(wx_Sizer, __GetItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//bool recursive = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItem(window, recursive);
+	//wxSizerItem* _rtn = pThis->GetEntity()->GetItem(window, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetItem_1, "GetItem_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
 }
@@ -471,13 +471,13 @@ Gura_ImplementMethod(wx_Sizer, __GetItem_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
 	//bool recursive = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItem(sizer, recursive);
+	//wxSizerItem* _rtn = pThis->GetEntity()->GetItem(sizer, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetItem_2, "GetItem_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -486,13 +486,13 @@ Gura_ImplementMethod(wx_Sizer, __GetItem_2)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItem(index);
+	//wxSizerItem* _rtn = pThis->GetEntity()->GetItem(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetItemById, "GetItemById")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
 }
@@ -503,52 +503,52 @@ Gura_ImplementMethod(wx_Sizer, __GetItemById)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//bool recursive = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItemById(id, recursive);
+	//wxSizerItem* _rtn = pThis->GetEntity()->GetItemById(id, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetMinSize, "GetMinSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetMinSize)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinSize();
+	//wxSize _rtn = pThis->GetEntity()->GetMinSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetPosition)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//wxPoint _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __GetSize)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Hide, "Hide")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
 }
@@ -559,13 +559,13 @@ Gura_ImplementMethod(wx_Sizer, __Hide)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//bool recursive = arg.GetNumber(1)
-	//pThis->GetEntity()->Hide(window, recursive);
+	//bool _rtn = pThis->GetEntity()->Hide(window, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Hide_1, "Hide_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
 }
@@ -576,13 +576,13 @@ Gura_ImplementMethod(wx_Sizer, __Hide_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
 	//bool recursive = arg.GetNumber(1)
-	//pThis->GetEntity()->Hide(sizer, recursive);
+	//bool _rtn = pThis->GetEntity()->Hide(sizer, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Hide_2, "Hide_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -591,13 +591,13 @@ Gura_ImplementMethod(wx_Sizer, __Hide_2)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->Hide(index);
+	//bool _rtn = pThis->GetEntity()->Hide(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert, "Insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -610,13 +610,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert)
 	//size_t index = arg.GetNumber(0)
 	//wxWindow* window = arg.GetNumber(1)
 	//const wxSizerFlags& flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(index, window, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, window, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_1, "Insert_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -635,13 +635,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_1)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//wxObject* userData = arg.GetNumber(5)
-	//pThis->GetEntity()->Insert(index, window, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, window, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_2, "Insert_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -654,13 +654,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_2)
 	//size_t index = arg.GetNumber(0)
 	//wxSizer* sizer = arg.GetNumber(1)
 	//const wxSizerFlags& flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(index, sizer, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, sizer, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_3, "Insert_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -679,13 +679,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_3)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//wxObject* userData = arg.GetNumber(5)
-	//pThis->GetEntity()->Insert(index, sizer, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, sizer, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_4, "Insert_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -706,13 +706,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_4)
 	//int flag = arg.GetNumber(4)
 	//int border = arg.GetNumber(5)
 	//wxObject* userData = arg.GetNumber(6)
-	//pThis->GetEntity()->Insert(index, width, height, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, width, height, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_5, "Insert_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -727,13 +727,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_5)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//const wxSizerFlags& flags = arg.GetNumber(3)
-	//pThis->GetEntity()->Insert(index, width, height, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, width, height, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Insert_6, "Insert_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
@@ -744,13 +744,13 @@ Gura_ImplementMethod(wx_Sizer, __Insert_6)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//wxSizerItem* item = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert(index, item);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Insert(index, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __InsertSpacer, "InsertSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -761,13 +761,13 @@ Gura_ImplementMethod(wx_Sizer, __InsertSpacer)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertSpacer(index, size);
+	//wxSizerItem* _rtn = pThis->GetEntity()->InsertSpacer(index, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __InsertStretchSpacer, "InsertStretchSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
@@ -778,26 +778,26 @@ Gura_ImplementMethod(wx_Sizer, __InsertStretchSpacer)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//int prop = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertStretchSpacer(index, prop);
+	//wxSizerItem* _rtn = pThis->GetEntity()->InsertStretchSpacer(index, prop);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sizer, __IsEmpty)
 {
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __IsShown, "IsShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -806,13 +806,13 @@ Gura_ImplementMethod(wx_Sizer, __IsShown)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->IsShown(window);
+	//bool _rtn = pThis->GetEntity()->IsShown(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __IsShown_1, "IsShown_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
@@ -821,13 +821,13 @@ Gura_ImplementMethod(wx_Sizer, __IsShown_1)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
-	//pThis->GetEntity()->IsShown(sizer);
+	//bool _rtn = pThis->GetEntity()->IsShown(sizer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __IsShown_2, "IsShown_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -836,7 +836,7 @@ Gura_ImplementMethod(wx_Sizer, __IsShown_2)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->IsShown(index);
+	//bool _rtn = pThis->GetEntity()->IsShown(index);
 	return Value::Nil;
 }
 
@@ -855,7 +855,7 @@ Gura_ImplementMethod(wx_Sizer, __Layout)
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend, "Prepend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -866,13 +866,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxSizerFlags& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Prepend(window, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(window, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_1, "Prepend_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
@@ -889,13 +889,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_1)
 	//int flag = arg.GetNumber(2)
 	//int border = arg.GetNumber(3)
 	//wxObject* userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Prepend(window, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(window, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_2, "Prepend_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -906,13 +906,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
 	//const wxSizerFlags& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Prepend(sizer, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(sizer, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_3, "Prepend_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
@@ -929,13 +929,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_3)
 	//int flag = arg.GetNumber(2)
 	//int border = arg.GetNumber(3)
 	//wxObject* userData = arg.GetNumber(4)
-	//pThis->GetEntity()->Prepend(sizer, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(sizer, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_4, "Prepend_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "proportion", VTYPE_number, OCCUR_Once);
@@ -954,13 +954,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_4)
 	//int flag = arg.GetNumber(3)
 	//int border = arg.GetNumber(4)
 	//wxObject* userData = arg.GetNumber(5)
-	//pThis->GetEntity()->Prepend(width, height, proportion, flag, border, userData);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(width, height, proportion, flag, border, userData);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_5, "Prepend_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -973,13 +973,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_5)
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//const wxSizerFlags& flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Prepend(width, height, flags);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(width, height, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Prepend_6, "Prepend_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -988,13 +988,13 @@ Gura_ImplementMethod(wx_Sizer, __Prepend_6)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizerItem* item = arg.GetNumber(0)
-	//pThis->GetEntity()->Prepend(item);
+	//wxSizerItem* _rtn = pThis->GetEntity()->Prepend(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __PrependSpacer, "PrependSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -1003,13 +1003,13 @@ Gura_ImplementMethod(wx_Sizer, __PrependSpacer)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->PrependSpacer(size);
+	//wxSizerItem* _rtn = pThis->GetEntity()->PrependSpacer(size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __PrependStretchSpacer, "PrependStretchSpacer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "prop", VTYPE_number, OCCUR_Once);
 }
 
@@ -1018,7 +1018,7 @@ Gura_ImplementMethod(wx_Sizer, __PrependStretchSpacer)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int prop = arg.GetNumber(0)
-	//pThis->GetEntity()->PrependStretchSpacer(prop);
+	//wxSizerItem* _rtn = pThis->GetEntity()->PrependStretchSpacer(prop);
 	return Value::Nil;
 }
 
@@ -1037,7 +1037,7 @@ Gura_ImplementMethod(wx_Sizer, __RecalcSizes)
 
 Gura_DeclareMethodAlias(wx_Sizer, __Remove, "Remove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -1046,13 +1046,13 @@ Gura_ImplementMethod(wx_Sizer, __Remove)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(window);
+	//bool _rtn = pThis->GetEntity()->Remove(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Remove_1, "Remove_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 }
 
@@ -1061,13 +1061,13 @@ Gura_ImplementMethod(wx_Sizer, __Remove_1)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(sizer);
+	//bool _rtn = pThis->GetEntity()->Remove(sizer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Remove_2, "Remove_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -1076,13 +1076,13 @@ Gura_ImplementMethod(wx_Sizer, __Remove_2)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(index);
+	//bool _rtn = pThis->GetEntity()->Remove(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Replace, "Replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "oldwin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newwin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
@@ -1095,13 +1095,13 @@ Gura_ImplementMethod(wx_Sizer, __Replace)
 	//wxWindow* oldwin = arg.GetNumber(0)
 	//wxWindow* newwin = arg.GetNumber(1)
 	//bool recursive = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(oldwin, newwin, recursive);
+	//bool _rtn = pThis->GetEntity()->Replace(oldwin, newwin, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Replace_1, "Replace_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "oldsz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newsz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
@@ -1114,13 +1114,13 @@ Gura_ImplementMethod(wx_Sizer, __Replace_1)
 	//wxSizer* oldsz = arg.GetNumber(0)
 	//wxSizer* newsz = arg.GetNumber(1)
 	//bool recursive = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(oldsz, newsz, recursive);
+	//bool _rtn = pThis->GetEntity()->Replace(oldsz, newsz, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Replace_2, "Replace_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newitem", VTYPE_number, OCCUR_Once);
 }
@@ -1131,7 +1131,7 @@ Gura_ImplementMethod(wx_Sizer, __Replace_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//wxSizerItem* newitem = arg.GetNumber(1)
-	//pThis->GetEntity()->Replace(index, newitem);
+	//bool _rtn = pThis->GetEntity()->Replace(index, newitem);
 	return Value::Nil;
 }
 
@@ -1175,7 +1175,7 @@ Gura_ImplementMethod(wx_Sizer, __SetDimension_1)
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize, "SetItemMinSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -1188,13 +1188,13 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize)
 	//wxWindow* window = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemMinSize(window, width, height);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(window, width, height);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize_1, "SetItemMinSize_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -1205,13 +1205,13 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxSize& size = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemMinSize(window, size);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(window, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize_2, "SetItemMinSize_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -1224,13 +1224,13 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize_2)
 	//wxSizer* sizer = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemMinSize(sizer, width, height);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(sizer, width, height);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize_3, "SetItemMinSize_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -1241,13 +1241,13 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
 	//const wxSize& size = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemMinSize(sizer, size);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(sizer, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize_4, "SetItemMinSize_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -1260,13 +1260,13 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize_4)
 	//size_t index = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemMinSize(index, width, height);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(index, width, height);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __SetItemMinSize_5, "SetItemMinSize_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -1277,7 +1277,7 @@ Gura_ImplementMethod(wx_Sizer, __SetItemMinSize_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//const wxSize& size = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemMinSize(index, size);
+	//bool _rtn = pThis->GetEntity()->SetItemMinSize(index, size);
 	return Value::Nil;
 }
 
@@ -1345,7 +1345,7 @@ Gura_ImplementMethod(wx_Sizer, __SetVirtualSizeHints)
 
 Gura_DeclareMethodAlias(wx_Sizer, __Show, "Show")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
@@ -1358,13 +1358,13 @@ Gura_ImplementMethod(wx_Sizer, __Show)
 	//wxWindow* window = arg.GetNumber(0)
 	//bool show = arg.GetNumber(1)
 	//bool recursive = arg.GetNumber(2)
-	//pThis->GetEntity()->Show(window, show, recursive);
+	//bool _rtn = pThis->GetEntity()->Show(window, show, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Show_1, "Show_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sizer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursive", VTYPE_number, OCCUR_Once);
@@ -1377,13 +1377,13 @@ Gura_ImplementMethod(wx_Sizer, __Show_1)
 	//wxSizer* sizer = arg.GetNumber(0)
 	//bool show = arg.GetNumber(1)
 	//bool recursive = arg.GetNumber(2)
-	//pThis->GetEntity()->Show(sizer, show, recursive);
+	//bool _rtn = pThis->GetEntity()->Show(sizer, show, recursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sizer, __Show_2, "Show_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 }
@@ -1394,7 +1394,7 @@ Gura_ImplementMethod(wx_Sizer, __Show_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//bool show = arg.GetNumber(1)
-	//pThis->GetEntity()->Show(index, show);
+	//bool _rtn = pThis->GetEntity()->Show(index, show);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_HtmlParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlParser, "HtmlParser")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -128,40 +128,40 @@ Gura_ImplementMethod(wx_HtmlParser, __DoneParser)
 
 Gura_DeclareMethodAlias(wx_HtmlParser, __GetFS, "GetFS")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, __GetFS)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFS();
+	//wxFileSystem* _rtn = pThis->GetEntity()->GetFS();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlParser, __GetProduct, "GetProduct")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, __GetProduct)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProduct();
+	//wxObject* _rtn = pThis->GetEntity()->GetProduct();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlParser, __GetSource, "GetSource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlParser, __GetSource)
 {
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSource();
+	//const wxString* _rtn = pThis->GetEntity()->GetSource();
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HtmlParser, __InitParser)
 
 Gura_DeclareMethodAlias(wx_HtmlParser, __OpenURL, "OpenURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_HtmlParser, __OpenURL)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlURLType type = arg.GetNumber(0)
 	//const wxString& url = arg.GetNumber(1)
-	//pThis->GetEntity()->OpenURL(type, url);
+	//wxFSFile* _rtn = pThis->GetEntity()->OpenURL(type, url);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlParser, __Parse, "Parse")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_HtmlParser, __Parse)
 	Object_wx_HtmlParser *pThis = Object_wx_HtmlParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& source = arg.GetNumber(0)
-	//pThis->GetEntity()->Parse(source);
+	//wxObject* _rtn = pThis->GetEntity()->Parse(source);
 	return Value::Nil;
 }
 

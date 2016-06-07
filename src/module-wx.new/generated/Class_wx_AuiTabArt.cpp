@@ -39,7 +39,7 @@ String Object_wx_AuiTabArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiTabArt, "AuiTabArt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiTabArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__AuiTabArt)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiTabArt, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabArt, __Clone)
 {
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxAuiTabArt* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __DrawTab)
 
 Gura_DeclareMethodAlias(wx_AuiTabArt, __GetBestTabCtrlSize, "GetBestTabCtrlSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "_arg0", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "_arg1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "_arg2", VTYPE_number, OCCUR_Once);
@@ -156,26 +156,26 @@ Gura_ImplementMethod(wx_AuiTabArt, __GetBestTabCtrlSize)
 	//wxWindow* _arg0 = arg.GetNumber(0)
 	//const wxAuiNotebookPageArray& _arg1 = arg.GetNumber(1)
 	//const wxSize& _arg2 = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBestTabCtrlSize(_arg0, _arg1, _arg2);
+	//int _rtn = pThis->GetEntity()->GetBestTabCtrlSize(_arg0, _arg1, _arg2);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabArt, __GetIndentSize, "GetIndentSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabArt, __GetIndentSize)
 {
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndentSize();
+	//int _rtn = pThis->GetEntity()->GetIndentSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabArt, __GetTabSize, "GetTabSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __GetTabSize)
 	//bool active = arg.GetNumber(4)
 	//int close_button_state = arg.GetNumber(5)
 	//int* x_extent = arg.GetNumber(6)
-	//pThis->GetEntity()->GetTabSize(dc, wnd, caption, bitmap, active, close_button_state, x_extent);
+	//wxSize _rtn = pThis->GetEntity()->GetTabSize(dc, wnd, caption, bitmap, active, close_button_state, x_extent);
 	return Value::Nil;
 }
 

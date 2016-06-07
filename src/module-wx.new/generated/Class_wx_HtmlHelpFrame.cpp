@@ -39,7 +39,7 @@ String Object_wx_HtmlHelpFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlHelpFrame, "HtmlHelpFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HtmlHelpFrame)
 
 Gura_DeclareFunctionAlias(__HtmlHelpFrame_1, "HtmlHelpFrame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __AddToolbarButtons)
 
 Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -120,20 +120,20 @@ Gura_ImplementMethod(wx_HtmlHelpFrame, __Create)
 	//int style = arg.GetNumber(3)
 	//wxConfigBase* config = arg.GetNumber(4)
 	//const wxString& rootpath = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, title, style, config, rootpath);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, style, config, rootpath);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpFrame, __GetController, "GetController")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpFrame, __GetController)
 {
 	Object_wx_HtmlHelpFrame *pThis = Object_wx_HtmlHelpFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetController();
+	//wxHtmlHelpController* _rtn = pThis->GetEntity()->GetController();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_RibbonButtonBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonButtonBar, "RibbonButtonBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonButtonBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RibbonButtonBar)
 
 Gura_DeclareFunctionAlias(__RibbonButtonBar_1, "RibbonButtonBar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__RibbonButtonBar_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -95,13 +95,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __AddButton, "AddButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddButton)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& help_string = arg.GetNumber(3)
 	//wxRibbonButtonKind kind = arg.GetNumber(4)
-	//pThis->GetEntity()->AddButton(button_id, label, bitmap, help_string, kind);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->AddButton(button_id, label, bitmap, help_string, kind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __AddDropdownButton, "AddDropdownButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddDropdownButton)
 	//const wxString& label = arg.GetNumber(1)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& help_string = arg.GetNumber(3)
-	//pThis->GetEntity()->AddDropdownButton(button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->AddDropdownButton(button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __AddHybridButton, "AddHybridButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddHybridButton)
 	//const wxString& label = arg.GetNumber(1)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& help_string = arg.GetNumber(3)
-	//pThis->GetEntity()->AddHybridButton(button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->AddHybridButton(button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __AddToggleButton, "AddToggleButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddToggleButton)
 	//const wxString& label = arg.GetNumber(1)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& help_string = arg.GetNumber(3)
-	//pThis->GetEntity()->AddToggleButton(button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->AddToggleButton(button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __AddButton_1, "AddButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
@@ -210,13 +210,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __AddButton_1)
 	//const wxBitmap& bitmap_small_disabled = arg.GetNumber(5)
 	//wxRibbonButtonKind kind = arg.GetNumber(6)
 	//const wxString& help_string = arg.GetNumber(7)
-	//pThis->GetEntity()->AddButton(button_id, label, bitmap, bitmap_small, bitmap_disabled, bitmap_small_disabled, kind, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->AddButton(button_id, label, bitmap, bitmap_small, bitmap_disabled, bitmap_small_disabled, kind, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __InsertButton, "InsertButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -235,13 +235,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertButton)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
 	//const wxString& help_string = arg.GetNumber(4)
 	//wxRibbonButtonKind kind = arg.GetNumber(5)
-	//pThis->GetEntity()->InsertButton(pos, button_id, label, bitmap, help_string, kind);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->InsertButton(pos, button_id, label, bitmap, help_string, kind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __InsertDropdownButton, "InsertDropdownButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -258,13 +258,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertDropdownButton)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
 	//const wxString& help_string = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertDropdownButton(pos, button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->InsertDropdownButton(pos, button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __InsertHybridButton, "InsertHybridButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -281,13 +281,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertHybridButton)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
 	//const wxString& help_string = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertHybridButton(pos, button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->InsertHybridButton(pos, button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __InsertToggleButton, "InsertToggleButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -304,13 +304,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertToggleButton)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
 	//const wxString& help_string = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertToggleButton(pos, button_id, label, bitmap, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->InsertToggleButton(pos, button_id, label, bitmap, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __InsertButton_1, "InsertButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -335,20 +335,20 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __InsertButton_1)
 	//const wxBitmap& bitmap_small_disabled = arg.GetNumber(6)
 	//wxRibbonButtonKind kind = arg.GetNumber(7)
 	//const wxString& help_string = arg.GetNumber(8)
-	//pThis->GetEntity()->InsertButton(pos, button_id, label, bitmap, bitmap_small, bitmap_disabled, bitmap_small_disabled, kind, help_string);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->InsertButton(pos, button_id, label, bitmap, bitmap_small, bitmap_disabled, bitmap_small_disabled, kind, help_string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetButtonCount, "GetButtonCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonButtonBar, __GetButtonCount)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonCount();
+	//size_t _rtn = pThis->GetEntity()->GetButtonCount();
 	return Value::Nil;
 }
 
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetItemClientObject)
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetItemClientObject, "GetItemClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemClientObject)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemClientObject(item);
+	//wxClientData* _rtn = pThis->GetEntity()->GetItemClientObject(item);
 	return Value::Nil;
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetItemClientData)
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetItemClientData, "GetItemClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -412,13 +412,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemClientData)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRibbonButtonBarButtonBase* item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemClientData(item);
+	//void* _rtn = pThis->GetEntity()->GetItemClientData(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -427,13 +427,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItem)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItem(n);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->GetItem(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetItemById, "GetItemById")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -442,13 +442,13 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemById)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemById(id);
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->GetItemById(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetItemId, "GetItemId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "_arg0", VTYPE_number, OCCUR_Once);
 }
 
@@ -457,20 +457,20 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __GetItemId)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonButtonBarButtonBase* _arg0 = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemId(_arg0);
+	//int _rtn = pThis->GetEntity()->GetItemId(_arg0);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __Realize, "Realize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonButtonBar, __Realize)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Realize();
+	//bool _rtn = pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __ClearButtons)
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __DeleteButton, "DeleteButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button_id", VTYPE_number, OCCUR_Once);
 }
 
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __DeleteButton)
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button_id = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteButton(button_id);
+	//bool _rtn = pThis->GetEntity()->DeleteButton(button_id);
 	return Value::Nil;
 }
 
@@ -538,27 +538,27 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __ToggleButton)
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetActiveItem, "GetActiveItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonButtonBar, __GetActiveItem)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActiveItem();
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->GetActiveItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetHoveredItem, "GetHoveredItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonButtonBar, __GetHoveredItem)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHoveredItem();
+	//wxRibbonButtonBarButtonBase* _rtn = pThis->GetEntity()->GetHoveredItem();
 	return Value::Nil;
 }
 
@@ -579,14 +579,14 @@ Gura_ImplementMethod(wx_RibbonButtonBar, __SetShowToolTipsForDisabled)
 
 Gura_DeclareMethodAlias(wx_RibbonButtonBar, __GetShowToolTipsForDisabled, "GetShowToolTipsForDisabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonButtonBar, __GetShowToolTipsForDisabled)
 {
 	Object_wx_RibbonButtonBar *pThis = Object_wx_RibbonButtonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShowToolTipsForDisabled();
+	//bool _rtn = pThis->GetEntity()->GetShowToolTipsForDisabled();
 	return Value::Nil;
 }
 

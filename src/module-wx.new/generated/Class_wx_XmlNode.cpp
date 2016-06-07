@@ -39,7 +39,7 @@ String Object_wx_XmlNode::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__XmlNode, "XmlNode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__XmlNode)
 
 Gura_DeclareFunctionAlias(__XmlNode_1, "XmlNode_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "content", VTYPE_number, OCCUR_Once);
@@ -87,7 +87,7 @@ Gura_ImplementFunction(__XmlNode_1)
 
 Gura_DeclareFunctionAlias(__XmlNode_2, "XmlNode_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "node", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_XmlNode));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_XmlNode, __AddChild)
 
 Gura_DeclareMethodAlias(wx_XmlNode, __DeleteAttribute, "DeleteAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -161,13 +161,13 @@ Gura_ImplementMethod(wx_XmlNode, __DeleteAttribute)
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteAttribute(name);
+	//bool _rtn = pThis->GetEntity()->DeleteAttribute(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetAttribute, "GetAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attrName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -178,13 +178,13 @@ Gura_ImplementMethod(wx_XmlNode, __GetAttribute)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& attrName = arg.GetNumber(0)
 	//wxString* value = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttribute(attrName, value);
+	//bool _rtn = pThis->GetEntity()->GetAttribute(attrName, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetAttribute_1, "GetAttribute_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attrName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultVal", VTYPE_number, OCCUR_Once);
 }
@@ -195,52 +195,52 @@ Gura_ImplementMethod(wx_XmlNode, __GetAttribute_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& attrName = arg.GetNumber(0)
 	//const wxString& defaultVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttribute(attrName, defaultVal);
+	//wxString _rtn = pThis->GetEntity()->GetAttribute(attrName, defaultVal);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetAttributes, "GetAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetAttributes)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAttributes();
+	//wxXmlAttribute* _rtn = pThis->GetEntity()->GetAttributes();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetChildren, "GetChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetChildren)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildren();
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetContent, "GetContent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetContent)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContent();
+	//const wxString& _rtn = pThis->GetEntity()->GetContent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetDepth, "GetDepth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "grandparent", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,104 +249,104 @@ Gura_ImplementMethod(wx_XmlNode, __GetDepth)
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* grandparent = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDepth(grandparent);
+	//int _rtn = pThis->GetEntity()->GetDepth(grandparent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetNoConversion, "GetNoConversion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetNoConversion)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNoConversion();
+	//bool _rtn = pThis->GetEntity()->GetNoConversion();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetLineNumber, "GetLineNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetLineNumber)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLineNumber();
+	//int _rtn = pThis->GetEntity()->GetLineNumber();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetName)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetNext)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetNodeContent, "GetNodeContent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetNodeContent)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNodeContent();
+	//wxString _rtn = pThis->GetEntity()->GetNodeContent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetParent)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParent();
+	//wxXmlNode* _rtn = pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __GetType)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxXmlNodeType _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __HasAttribute, "HasAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attrName", VTYPE_number, OCCUR_Once);
 }
 
@@ -355,13 +355,13 @@ Gura_ImplementMethod(wx_XmlNode, __HasAttribute)
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& attrName = arg.GetNumber(0)
-	//pThis->GetEntity()->HasAttribute(attrName);
+	//bool _rtn = pThis->GetEntity()->HasAttribute(attrName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __InsertChild, "InsertChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "followingNode", VTYPE_number, OCCUR_Once);
 }
@@ -372,13 +372,13 @@ Gura_ImplementMethod(wx_XmlNode, __InsertChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* child = arg.GetNumber(0)
 	//wxXmlNode* followingNode = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChild(child, followingNode);
+	//bool _rtn = pThis->GetEntity()->InsertChild(child, followingNode);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __InsertChildAfter, "InsertChildAfter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precedingNode", VTYPE_number, OCCUR_Once);
 }
@@ -389,26 +389,26 @@ Gura_ImplementMethod(wx_XmlNode, __InsertChildAfter)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* child = arg.GetNumber(0)
 	//wxXmlNode* precedingNode = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChildAfter(child, precedingNode);
+	//bool _rtn = pThis->GetEntity()->InsertChildAfter(child, precedingNode);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __IsWhitespaceOnly, "IsWhitespaceOnly")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlNode, __IsWhitespaceOnly)
 {
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsWhitespaceOnly();
+	//bool _rtn = pThis->GetEntity()->IsWhitespaceOnly();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlNode, __RemoveChild, "RemoveChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_XmlNode, __RemoveChild)
 	Object_wx_XmlNode *pThis = Object_wx_XmlNode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* child = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveChild(child);
+	//bool _rtn = pThis->GetEntity()->RemoveChild(child);
 	return Value::Nil;
 }
 

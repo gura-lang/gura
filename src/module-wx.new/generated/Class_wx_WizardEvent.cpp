@@ -39,7 +39,7 @@ String Object_wx_WizardEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WizardEvent, "WizardEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
@@ -63,27 +63,27 @@ Gura_ImplementFunction(__WizardEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WizardEvent, __GetDirection, "GetDirection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WizardEvent, __GetDirection)
 {
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDirection();
+	//bool _rtn = pThis->GetEntity()->GetDirection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WizardEvent, __GetPage, "GetPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WizardEvent, __GetPage)
 {
 	Object_wx_WizardEvent *pThis = Object_wx_WizardEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPage();
+	//wxWizardPage* _rtn = pThis->GetEntity()->GetPage();
 	return Value::Nil;
 }
 

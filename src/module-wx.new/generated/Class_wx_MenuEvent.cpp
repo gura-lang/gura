@@ -39,7 +39,7 @@ String Object_wx_MenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MenuEvent, "MenuEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
@@ -61,40 +61,40 @@ Gura_ImplementFunction(__MenuEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MenuEvent, __GetMenu, "GetMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuEvent, __GetMenu)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->GetMenu();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuEvent, __GetMenuId, "GetMenuId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuEvent, __GetMenuId)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMenuId();
+	//int _rtn = pThis->GetEntity()->GetMenuId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuEvent, __IsPopup, "IsPopup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuEvent, __IsPopup)
 {
 	Object_wx_MenuEvent *pThis = Object_wx_MenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPopup();
+	//bool _rtn = pThis->GetEntity()->IsPopup();
 	return Value::Nil;
 }
 

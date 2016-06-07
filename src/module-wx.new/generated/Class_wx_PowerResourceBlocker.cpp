@@ -39,7 +39,7 @@ String Object_wx_PowerResourceBlocker::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PowerResourceBlocker, "PowerResourceBlocker")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PowerResourceBlocker));
@@ -50,7 +50,7 @@ Gura_ImplementFunction(__PowerResourceBlocker)
 {
 	//wxPowerResourceKind kind = arg.GetNumber(0)
 	//const wxString& reason = arg.GetNumber(1)
-	//wxPowerResourceBlocker(kind, reason);
+	//explicit _rtn = wxPowerResourceBlocker(kind, reason);
 	return Value::Nil;
 }
 
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__PowerResourceBlocker)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PowerResourceBlocker, __IsInEffect, "IsInEffect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PowerResourceBlocker, __IsInEffect)
 {
 	Object_wx_PowerResourceBlocker *pThis = Object_wx_PowerResourceBlocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsInEffect();
+	//bool _rtn = pThis->GetEntity()->IsInEffect();
 	return Value::Nil;
 }
 

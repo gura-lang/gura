@@ -39,7 +39,7 @@ String Object_wx_FileConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileConfig, "FileConfig")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vendorName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "localFilename", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__FileConfig)
 
 Gura_DeclareFunctionAlias(__FileConfig_1, "FileConfig_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "is", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileConfig));
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__FileConfig_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileConfig, __GetGlobalFile, "GetGlobalFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "basename", VTYPE_number, OCCUR_Once);
 }
 
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetGlobalFile)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& basename = arg.GetNumber(0)
-	//pThis->GetEntity()->GetGlobalFile(basename);
+	//wxFileName _rtn = pThis->GetEntity()->GetGlobalFile(basename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetLocalFile, "GetLocalFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "basename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -110,13 +110,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetLocalFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& basename = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLocalFile(basename, style);
+	//wxFileName _rtn = pThis->GetEntity()->GetLocalFile(basename, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetGlobalFileName, "GetGlobalFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "szFile", VTYPE_number, OCCUR_Once);
 }
 
@@ -125,13 +125,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetGlobalFileName)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& szFile = arg.GetNumber(0)
-	//pThis->GetEntity()->GetGlobalFileName(szFile);
+	//wxString _rtn = pThis->GetEntity()->GetGlobalFileName(szFile);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetLocalFileName, "GetLocalFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "szFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetLocalFileName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& szFile = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLocalFileName(szFile, style);
+	//wxString _rtn = pThis->GetEntity()->GetLocalFileName(szFile, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __Save, "Save")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "os", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_FileConfig, __Save)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream& os = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->Save(os, conv);
+	//bool _rtn = pThis->GetEntity()->Save(os, conv);
 	return Value::Nil;
 }
 
@@ -195,20 +195,20 @@ Gura_ImplementMethod(wx_FileConfig, __SetPath)
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileConfig, __GetPath)
 {
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//const wxString& _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetFirstGroup, "GetFirstGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
 }
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetFirstGroup)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& lIndex = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFirstGroup(str, lIndex);
+	//bool _rtn = pThis->GetEntity()->GetFirstGroup(str, lIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetNextGroup, "GetNextGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
 }
@@ -236,13 +236,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetNextGroup)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& lIndex = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextGroup(str, lIndex);
+	//bool _rtn = pThis->GetEntity()->GetNextGroup(str, lIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetFirstEntry, "GetFirstEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
 }
@@ -253,13 +253,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetFirstEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& lIndex = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFirstEntry(str, lIndex);
+	//bool _rtn = pThis->GetEntity()->GetFirstEntry(str, lIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetNextEntry, "GetNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lIndex", VTYPE_number, OCCUR_Once);
 }
@@ -270,13 +270,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetNextEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& lIndex = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextEntry(str, lIndex);
+	//bool _rtn = pThis->GetEntity()->GetNextEntry(str, lIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetNumberOfEntries, "GetNumberOfEntries")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
@@ -285,13 +285,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetNumberOfEntries)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bRecursive = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNumberOfEntries(bRecursive);
+	//size_t _rtn = pThis->GetEntity()->GetNumberOfEntries(bRecursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __GetNumberOfGroups, "GetNumberOfGroups")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
@@ -300,13 +300,13 @@ Gura_ImplementMethod(wx_FileConfig, __GetNumberOfGroups)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bRecursive = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNumberOfGroups(bRecursive);
+	//size_t _rtn = pThis->GetEntity()->GetNumberOfGroups(bRecursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __HasGroup, "HasGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
 }
 
@@ -315,13 +315,13 @@ Gura_ImplementMethod(wx_FileConfig, __HasGroup)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strName = arg.GetNumber(0)
-	//pThis->GetEntity()->HasGroup(strName);
+	//bool _rtn = pThis->GetEntity()->HasGroup(strName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __HasEntry, "HasEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strName", VTYPE_number, OCCUR_Once);
 }
 
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_FileConfig, __HasEntry)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strName = arg.GetNumber(0)
-	//pThis->GetEntity()->HasEntry(strName);
+	//bool _rtn = pThis->GetEntity()->HasEntry(strName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __Flush, "Flush")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bCurrentOnly", VTYPE_number, OCCUR_Once);
 }
 
@@ -345,13 +345,13 @@ Gura_ImplementMethod(wx_FileConfig, __Flush)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bCurrentOnly = arg.GetNumber(0)
-	//pThis->GetEntity()->Flush(bCurrentOnly);
+	//bool _rtn = pThis->GetEntity()->Flush(bCurrentOnly);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __RenameEntry, "RenameEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "oldName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newName", VTYPE_number, OCCUR_Once);
 }
@@ -362,13 +362,13 @@ Gura_ImplementMethod(wx_FileConfig, __RenameEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& oldName = arg.GetNumber(0)
 	//const wxString& newName = arg.GetNumber(1)
-	//pThis->GetEntity()->RenameEntry(oldName, newName);
+	//bool _rtn = pThis->GetEntity()->RenameEntry(oldName, newName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __RenameGroup, "RenameGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "oldName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newName", VTYPE_number, OCCUR_Once);
 }
@@ -379,13 +379,13 @@ Gura_ImplementMethod(wx_FileConfig, __RenameGroup)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& oldName = arg.GetNumber(0)
 	//const wxString& newName = arg.GetNumber(1)
-	//pThis->GetEntity()->RenameGroup(oldName, newName);
+	//bool _rtn = pThis->GetEntity()->RenameGroup(oldName, newName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __DeleteEntry, "DeleteEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bGroupIfEmptyAlso", VTYPE_number, OCCUR_Once);
 }
@@ -396,13 +396,13 @@ Gura_ImplementMethod(wx_FileConfig, __DeleteEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& key = arg.GetNumber(0)
 	//bool bGroupIfEmptyAlso = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteEntry(key, bGroupIfEmptyAlso);
+	//bool _rtn = pThis->GetEntity()->DeleteEntry(key, bGroupIfEmptyAlso);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __DeleteGroup, "DeleteGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "szKey", VTYPE_number, OCCUR_Once);
 }
 
@@ -411,20 +411,20 @@ Gura_ImplementMethod(wx_FileConfig, __DeleteGroup)
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& szKey = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteGroup(szKey);
+	//bool _rtn = pThis->GetEntity()->DeleteGroup(szKey);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileConfig, __DeleteAll, "DeleteAll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileConfig, __DeleteAll)
 {
 	Object_wx_FileConfig *pThis = Object_wx_FileConfig::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DeleteAll();
+	//bool _rtn = pThis->GetEntity()->DeleteAll();
 	return Value::Nil;
 }
 

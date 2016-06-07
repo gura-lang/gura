@@ -39,7 +39,7 @@ String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ActiveXContainer, "ActiveXContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pUnk", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(__ActiveXContainer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ActiveXContainer, __QueryClientSiteInterface, "QueryClientSiteInterface")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "iid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "_interface", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desc", VTYPE_number, OCCUR_Once);
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 	//REFIID iid = arg.GetNumber(0)
 	//void** _interface = arg.GetNumber(1)
 	//const char*& desc = arg.GetNumber(2)
-	//pThis->GetEntity()->QueryClientSiteInterface(iid, _interface, desc);
+	//bool _rtn = pThis->GetEntity()->QueryClientSiteInterface(iid, _interface, desc);
 	return Value::Nil;
 }
 

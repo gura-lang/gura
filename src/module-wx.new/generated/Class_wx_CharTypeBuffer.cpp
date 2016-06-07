@@ -39,7 +39,7 @@ String Object_wx_CharTypeBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CharTypeBuffer, "CharTypeBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__CharTypeBuffer)
 
 Gura_DeclareFunctionAlias(__CharTypeBuffer_1, "CharTypeBuffer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__CharTypeBuffer_1)
 
 Gura_DeclareFunctionAlias(__CharTypeBuffer_2, "CharTypeBuffer_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__CharTypeBuffer_2)
 
 Gura_DeclareFunctionAlias(__CharTypeBuffer_3, "CharTypeBuffer_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CharTypeBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -104,7 +104,7 @@ Gura_ImplementFunction(__CharTypeBuffer_3)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CharTypeBuffer, __extend, "extend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -113,13 +113,13 @@ Gura_ImplementMethod(wx_CharTypeBuffer, __extend)
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->extend(len);
+	//bool _rtn = pThis->GetEntity()->extend(len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CharTypeBuffer, __shrink, "shrink")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_CharTypeBuffer, __shrink)
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->shrink(len);
+	//bool _rtn = pThis->GetEntity()->shrink(len);
 	return Value::Nil;
 }
 

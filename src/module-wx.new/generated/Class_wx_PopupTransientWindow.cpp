@@ -39,7 +39,7 @@ String Object_wx_PopupTransientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PopupTransientWindow, "PopupTransientWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PopupTransientWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PopupTransientWindow)
 
 Gura_DeclareFunctionAlias(__PopupTransientWindow_1, "PopupTransientWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PopupTransientWindow));
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, __Dismiss)
 
 Gura_DeclareMethodAlias(wx_PopupTransientWindow, __ProcessLeftDown, "ProcessLeftDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, __ProcessLeftDown)
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->ProcessLeftDown(event);
+	//bool _rtn = pThis->GetEntity()->ProcessLeftDown(event);
 	return Value::Nil;
 }
 

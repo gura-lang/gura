@@ -39,7 +39,7 @@ String Object_wx_DirDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DirDialog, "DirDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defaultPath", VTYPE_number, OCCUR_Once);
@@ -69,27 +69,27 @@ Gura_ImplementFunction(__DirDialog)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DirDialog, __GetMessage, "GetMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DirDialog, __GetMessage)
 {
 	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMessage();
+	//wxString _rtn = pThis->GetEntity()->GetMessage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DirDialog, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DirDialog, __GetPath)
 {
 	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//wxString _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
@@ -125,14 +125,14 @@ Gura_ImplementMethod(wx_DirDialog, __SetPath)
 
 Gura_DeclareMethodAlias(wx_DirDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DirDialog, __ShowModal)
 {
 	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_SashEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SashEvent, "SashEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "edge", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SashEvent));
@@ -59,40 +59,40 @@ Gura_ImplementFunction(__SashEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SashEvent, __GetDragRect, "GetDragRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SashEvent, __GetDragRect)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDragRect();
+	//wxRect _rtn = pThis->GetEntity()->GetDragRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SashEvent, __GetDragStatus, "GetDragStatus")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SashEvent, __GetDragStatus)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDragStatus();
+	//wxSashDragStatus _rtn = pThis->GetEntity()->GetDragStatus();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SashEvent, __GetEdge, "GetEdge")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SashEvent, __GetEdge)
 {
 	Object_wx_SashEvent *pThis = Object_wx_SashEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEdge();
+	//wxSashEdgePosition _rtn = pThis->GetEntity()->GetEdge();
 	return Value::Nil;
 }
 

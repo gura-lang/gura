@@ -39,7 +39,7 @@ String Object_wx_DynamicLibrary::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DynamicLibrary, "DynamicLibrary")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DynamicLibrary)
 
 Gura_DeclareFunctionAlias(__DynamicLibrary_1, "DynamicLibrary_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DynamicLibrary));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__DynamicLibrary_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __CanonicalizeName, "CanonicalizeName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizeName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxDynamicLibraryCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->CanonicalizeName(name, cat);
+	//wxString _rtn = pThis->GetEntity()->CanonicalizeName(name, cat);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __CanonicalizePluginName, "CanonicalizePluginName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
@@ -100,39 +100,39 @@ Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizePluginName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxPluginCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->CanonicalizePluginName(name, cat);
+	//wxString _rtn = pThis->GetEntity()->CanonicalizePluginName(name, cat);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __Detach, "Detach")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibrary, __Detach)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Detach();
+	//wxDllType _rtn = pThis->GetEntity()->Detach();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetProgramHandle, "GetProgramHandle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibrary, __GetProgramHandle)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProgramHandle();
+	//wxDllType _rtn = pThis->GetEntity()->GetProgramHandle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetSymbol, "GetSymbol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "success", VTYPE_number, OCCUR_Once);
 }
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbol)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//bool* success = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSymbol(name, success);
+	//void* _rtn = pThis->GetEntity()->GetSymbol(name, success);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetSymbolAorW, "GetSymbolAorW")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbolAorW)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSymbolAorW(name);
+	//void* _rtn = pThis->GetEntity()->GetSymbolAorW(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __HasSymbol, "HasSymbol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -173,39 +173,39 @@ Gura_ImplementMethod(wx_DynamicLibrary, __HasSymbol)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->HasSymbol(name);
+	//bool _rtn = pThis->GetEntity()->HasSymbol(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __IsLoaded, "IsLoaded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibrary, __IsLoaded)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsLoaded();
+	//bool _rtn = pThis->GetEntity()->IsLoaded();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __ListLoaded, "ListLoaded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibrary, __ListLoaded)
 {
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ListLoaded();
+	//wxDynamicLibraryDetailsArray _rtn = pThis->GetEntity()->ListLoaded();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __GetModuleFromAddress, "GetModuleFromAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
@@ -216,13 +216,13 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetModuleFromAddress)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* addr = arg.GetNumber(0)
 	//wxString* path = arg.GetNumber(1)
-	//pThis->GetEntity()->GetModuleFromAddress(addr, path);
+	//void* _rtn = pThis->GetEntity()->GetModuleFromAddress(addr, path);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibrary, __Load, "Load")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __Load)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Load(name, flags);
+	//bool _rtn = pThis->GetEntity()->Load(name, flags);
 	return Value::Nil;
 }
 

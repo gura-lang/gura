@@ -39,7 +39,7 @@ String Object_wx_ArchiveClassFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __CanHandle, "CanHandle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "protocol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -50,13 +50,13 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __CanHandle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& protocol = arg.GetNumber(0)
 	//wxStreamProtocolType type = arg.GetNumber(1)
-	//pThis->GetEntity()->CanHandle(protocol, type);
+	//bool _rtn = pThis->GetEntity()->CanHandle(protocol, type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __Find, "Find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "protocol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -67,20 +67,20 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __Find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& protocol = arg.GetNumber(0)
 	//wxStreamProtocolType type = arg.GetNumber(1)
-	//pThis->GetEntity()->Find(protocol, type);
+	//const wxArchiveClassFactory* _rtn = pThis->GetEntity()->Find(protocol, type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetConv, "GetConv")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, __GetConv)
 {
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetConv();
+	//wxMBConv& _rtn = pThis->GetEntity()->GetConv();
 	return Value::Nil;
 }
 
@@ -101,33 +101,33 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __SetConv)
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetFirst, "GetFirst")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, __GetFirst)
 {
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFirst();
+	//const wxArchiveClassFactory* _rtn = pThis->GetEntity()->GetFirst();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, __GetNext)
 {
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//const wxArchiveClassFactory* _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetInternalName, "GetInternalName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
@@ -138,26 +138,26 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __GetInternalName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxPathFormat format = arg.GetNumber(1)
-	//pThis->GetEntity()->GetInternalName(name, format);
+	//wxString _rtn = pThis->GetEntity()->GetInternalName(name, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetProtocol, "GetProtocol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, __GetProtocol)
 {
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProtocol();
+	//wxString _rtn = pThis->GetEntity()->GetProtocol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __GetProtocols, "GetProtocols")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -166,26 +166,26 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __GetProtocols)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxStreamProtocolType type = arg.GetNumber(0)
-	//pThis->GetEntity()->GetProtocols(type);
+	//const wxChar** _rtn = pThis->GetEntity()->GetProtocols(type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __NewEntry, "NewEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveClassFactory, __NewEntry)
 {
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->NewEntry();
+	//wxArchiveEntry* _rtn = pThis->GetEntity()->NewEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __NewStream, "NewStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -194,13 +194,13 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __NewStream)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->NewStream(stream);
+	//wxArchiveInputStream* _rtn = pThis->GetEntity()->NewStream(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __NewStream_1, "NewStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -209,13 +209,13 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __NewStream_1)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->NewStream(stream);
+	//wxArchiveOutputStream* _rtn = pThis->GetEntity()->NewStream(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __NewStream_2, "NewStream_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -224,13 +224,13 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __NewStream_2)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream* stream = arg.GetNumber(0)
-	//pThis->GetEntity()->NewStream(stream);
+	//wxArchiveInputStream* _rtn = pThis->GetEntity()->NewStream(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveClassFactory, __NewStream_3, "NewStream_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, __NewStream_3)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream* stream = arg.GetNumber(0)
-	//pThis->GetEntity()->NewStream(stream);
+	//wxArchiveOutputStream* _rtn = pThis->GetEntity()->NewStream(stream);
 	return Value::Nil;
 }
 

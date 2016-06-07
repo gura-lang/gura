@@ -39,7 +39,7 @@ String Object_wx_WebView::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebView, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -60,13 +60,13 @@ Gura_ImplementMethod(wx_WebView, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, url, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, url, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __New, "New")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "backend", VTYPE_number, OCCUR_Once);
 }
 
@@ -75,13 +75,13 @@ Gura_ImplementMethod(wx_WebView, __New)
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& backend = arg.GetNumber(0)
-	//pThis->GetEntity()->New(backend);
+	//wxWebView* _rtn = pThis->GetEntity()->New(backend);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __New_1, "New_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_WebView, __New_1)
 	//const wxString& backend = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->New(parent, id, url, pos, size, backend, style, name);
+	//wxWebView* _rtn = pThis->GetEntity()->New(parent, id, url, pos, size, backend, style, name);
 	return Value::Nil;
 }
 
@@ -127,92 +127,92 @@ Gura_ImplementMethod(wx_WebView, __RegisterFactory)
 
 Gura_DeclareMethodAlias(wx_WebView, __GetCurrentTitle, "GetCurrentTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetCurrentTitle)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentTitle();
+	//wxString _rtn = pThis->GetEntity()->GetCurrentTitle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetCurrentURL, "GetCurrentURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetCurrentURL)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentURL();
+	//wxString _rtn = pThis->GetEntity()->GetCurrentURL();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetNativeBackend, "GetNativeBackend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetNativeBackend)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNativeBackend();
+	//void* _rtn = pThis->GetEntity()->GetNativeBackend();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetPageSource, "GetPageSource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetPageSource)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSource();
+	//wxString _rtn = pThis->GetEntity()->GetPageSource();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetPageText, "GetPageText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetPageText)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageText();
+	//wxString _rtn = pThis->GetEntity()->GetPageText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __IsBusy, "IsBusy")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __IsBusy)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsBusy();
+	//bool _rtn = pThis->GetEntity()->IsBusy();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __IsEditable, "IsEditable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __IsEditable)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEditable();
+	//bool _rtn = pThis->GetEntity()->IsEditable();
 	return Value::Nil;
 }
 
@@ -353,40 +353,40 @@ Gura_ImplementMethod(wx_WebView, __Stop)
 
 Gura_DeclareMethodAlias(wx_WebView, __CanCopy, "CanCopy")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanCopy)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanCopy();
+	//bool _rtn = pThis->GetEntity()->CanCopy();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanCut, "CanCut")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanCut)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanCut();
+	//bool _rtn = pThis->GetEntity()->CanCut();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanPaste, "CanPaste")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanPaste)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanPaste();
+	//bool _rtn = pThis->GetEntity()->CanPaste();
 	return Value::Nil;
 }
 
@@ -446,40 +446,40 @@ Gura_ImplementMethod(wx_WebView, __EnableContextMenu)
 
 Gura_DeclareMethodAlias(wx_WebView, __IsContextMenuEnabled, "IsContextMenuEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __IsContextMenuEnabled)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsContextMenuEnabled();
+	//bool _rtn = pThis->GetEntity()->IsContextMenuEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanGoBack, "CanGoBack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanGoBack)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanGoBack();
+	//bool _rtn = pThis->GetEntity()->CanGoBack();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanGoForward, "CanGoForward")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanGoForward)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanGoForward();
+	//bool _rtn = pThis->GetEntity()->CanGoForward();
 	return Value::Nil;
 }
 
@@ -513,27 +513,27 @@ Gura_ImplementMethod(wx_WebView, __EnableHistory)
 
 Gura_DeclareMethodAlias(wx_WebView, __GetBackwardHistory, "GetBackwardHistory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetBackwardHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBackwardHistory();
+	//wxVector<wxSharedPtr<wxWebViewHistoryItem> > _rtn = pThis->GetEntity()->GetBackwardHistory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetForwardHistory, "GetForwardHistory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetForwardHistory)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetForwardHistory();
+	//wxVector<wxSharedPtr<wxWebViewHistoryItem> > _rtn = pThis->GetEntity()->GetForwardHistory();
 	return Value::Nil;
 }
 
@@ -606,40 +606,40 @@ Gura_ImplementMethod(wx_WebView, __DeleteSelection)
 
 Gura_DeclareMethodAlias(wx_WebView, __GetSelectedSource, "GetSelectedSource")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetSelectedSource)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedSource();
+	//wxString _rtn = pThis->GetEntity()->GetSelectedSource();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetSelectedText, "GetSelectedText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetSelectedText)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedText();
+	//wxString _rtn = pThis->GetEntity()->GetSelectedText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __HasSelection, "HasSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __HasSelection)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasSelection();
+	//bool _rtn = pThis->GetEntity()->HasSelection();
 	return Value::Nil;
 }
 
@@ -658,27 +658,27 @@ Gura_ImplementMethod(wx_WebView, __SelectAll)
 
 Gura_DeclareMethodAlias(wx_WebView, __CanRedo, "CanRedo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanRedo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanRedo();
+	//bool _rtn = pThis->GetEntity()->CanRedo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanUndo, "CanUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __CanUndo)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanUndo();
+	//bool _rtn = pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
 
@@ -710,7 +710,7 @@ Gura_ImplementMethod(wx_WebView, __Undo)
 
 Gura_DeclareMethodAlias(wx_WebView, __Find, "Find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -721,13 +721,13 @@ Gura_ImplementMethod(wx_WebView, __Find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//wxWebViewFindFlags flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Find(text, flags);
+	//long _rtn = pThis->GetEntity()->Find(text, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __CanSetZoomType, "CanSetZoomType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -736,33 +736,33 @@ Gura_ImplementMethod(wx_WebView, __CanSetZoomType)
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWebViewZoomType type = arg.GetNumber(0)
-	//pThis->GetEntity()->CanSetZoomType(type);
+	//bool _rtn = pThis->GetEntity()->CanSetZoomType(type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetZoom, "GetZoom")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetZoom)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetZoom();
+	//wxWebViewZoom _rtn = pThis->GetEntity()->GetZoom();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebView, __GetZoomType, "GetZoomType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebView, __GetZoomType)
 {
 	Object_wx_WebView *pThis = Object_wx_WebView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetZoomType();
+	//wxWebViewZoomType _rtn = pThis->GetEntity()->GetZoomType();
 	return Value::Nil;
 }
 

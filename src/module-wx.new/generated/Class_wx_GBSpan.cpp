@@ -39,7 +39,7 @@ String Object_wx_GBSpan::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GBSpan, "GBSpan")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GBSpan)
 
 Gura_DeclareFunctionAlias(__GBSpan_1, "GBSpan_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rowspan", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colspan", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GBSpan));
@@ -72,27 +72,27 @@ Gura_ImplementFunction(__GBSpan_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GBSpan, __GetColspan, "GetColspan")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBSpan, __GetColspan)
 {
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColspan();
+	//int _rtn = pThis->GetEntity()->GetColspan();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBSpan, __GetRowspan, "GetRowspan")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBSpan, __GetRowspan)
 {
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRowspan();
+	//int _rtn = pThis->GetEntity()->GetRowspan();
 	return Value::Nil;
 }
 

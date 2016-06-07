@@ -39,7 +39,7 @@ String Object_wx_MessageQueue<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __wxMessageQueue, "wxMessageQueue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MessageQueue<T>, __wxMessageQueue)
@@ -52,33 +52,33 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __wxMessageQueue)
 
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Clear, "Clear")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MessageQueue<T>, __Clear)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clear();
+	//wxMessageQueueError _rtn = pThis->GetEntity()->Clear();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MessageQueue<T>, __IsOk)
 {
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Post, "Post")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __Post)
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T const& msg = arg.GetNumber(0)
-	//pThis->GetEntity()->Post(msg);
+	//wxMessageQueueError _rtn = pThis->GetEntity()->Post(msg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __Receive, "Receive")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
 
@@ -102,13 +102,13 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __Receive)
 	Object_wx_MessageQueue<T> *pThis = Object_wx_MessageQueue<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T& msg = arg.GetNumber(0)
-	//pThis->GetEntity()->Receive(msg);
+	//wxMessageQueueError _rtn = pThis->GetEntity()->Receive(msg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MessageQueue<T>, __ReceiveTimeout, "ReceiveTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 }
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_MessageQueue<T>, __ReceiveTimeout)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long timeout = arg.GetNumber(0)
 	//T& msg = arg.GetNumber(1)
-	//pThis->GetEntity()->ReceiveTimeout(timeout, msg);
+	//wxMessageQueueError _rtn = pThis->GetEntity()->ReceiveTimeout(timeout, msg);
 	return Value::Nil;
 }
 

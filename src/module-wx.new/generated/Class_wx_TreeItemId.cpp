@@ -39,7 +39,7 @@ String Object_wx_TreeItemId::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeItemId, "TreeItemId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeItemId));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,27 +55,27 @@ Gura_ImplementFunction(__TreeItemId)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeItemId, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeItemId, __IsOk)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeItemId, __GetID, "GetID")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeItemId, __GetID)
 {
 	Object_wx_TreeItemId *pThis = Object_wx_TreeItemId::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetID();
+	//void* _rtn = pThis->GetEntity()->GetID();
 	return Value::Nil;
 }
 

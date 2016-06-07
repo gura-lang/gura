@@ -39,7 +39,7 @@ String Object_wx_TextCompleter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextCompleter, __Start, "Start")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,20 +48,20 @@ Gura_ImplementMethod(wx_TextCompleter, __Start)
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& prefix = arg.GetNumber(0)
-	//pThis->GetEntity()->Start(prefix);
+	//bool _rtn = pThis->GetEntity()->Start(prefix);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCompleter, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCompleter, __GetNext)
 {
 	Object_wx_TextCompleter *pThis = Object_wx_TextCompleter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//wxString _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_WebKitNewWindowEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebKitNewWindowEvent, "WebKitNewWindowEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebKitNewWindowEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__WebKitNewWindowEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, __GetURL)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 
@@ -85,14 +85,14 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetURL)
 
 Gura_DeclareMethodAlias(wx_WebKitNewWindowEvent, __GetTargetName, "GetTargetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitNewWindowEvent, __GetTargetName)
 {
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTargetName();
+	//wxString _rtn = pThis->GetEntity()->GetTargetName();
 	return Value::Nil;
 }
 

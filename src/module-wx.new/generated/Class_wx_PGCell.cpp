@@ -39,7 +39,7 @@ String Object_wx_PGCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PGCell, "PGCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PGCell)
 
 Gura_DeclareFunctionAlias(__PGCell_1, "PGCell_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PGCell_1)
 
 Gura_DeclareFunctionAlias(__PGCell_2, "PGCell_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fgCol", VTYPE_number, OCCUR_Once);
@@ -91,27 +91,27 @@ Gura_ImplementFunction(__PGCell_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGCell, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetData)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//const wxPGCellData* _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGCell, __HasText, "HasText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __HasText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasText();
+	//bool _rtn = pThis->GetEntity()->HasText();
 	return Value::Nil;
 }
 
@@ -207,66 +207,66 @@ Gura_ImplementMethod(wx_PGCell, __SetBgCol)
 
 Gura_DeclareMethodAlias(wx_PGCell, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetText)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//const wxString& _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGCell, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetBitmap)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGCell, __GetFgCol, "GetFgCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetFgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFgCol();
+	//const wxColour& _rtn = pThis->GetEntity()->GetFgCol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGCell, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetFont)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFont();
+	//const wxFont& _rtn = pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGCell, __GetBgCol, "GetBgCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGCell, __GetBgCol)
 {
 	Object_wx_PGCell *pThis = Object_wx_PGCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBgCol();
+	//const wxColour& _rtn = pThis->GetEntity()->GetBgCol();
 	return Value::Nil;
 }
 

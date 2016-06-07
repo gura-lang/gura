@@ -39,7 +39,7 @@ String Object_wx_RichTextFontTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextFontTable, "RichTextFontTable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFontTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextFontTable)
 
 Gura_DeclareFunctionAlias(__RichTextFontTable_1, "RichTextFontTable_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextFontTable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,20 +70,20 @@ Gura_ImplementFunction(__RichTextFontTable_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFontTable, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFontTable, __IsOk)
 {
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFontTable, __FindFont, "FindFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fontSpec", VTYPE_number, OCCUR_Once);
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_RichTextFontTable, __FindFont)
 	Object_wx_RichTextFontTable *pThis = Object_wx_RichTextFontTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& fontSpec = arg.GetNumber(0)
-	//pThis->GetEntity()->FindFont(fontSpec);
+	//wxFont _rtn = pThis->GetEntity()->FindFont(fontSpec);
 	return Value::Nil;
 }
 

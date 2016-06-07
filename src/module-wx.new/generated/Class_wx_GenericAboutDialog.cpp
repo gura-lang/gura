@@ -39,7 +39,7 @@ String Object_wx_GenericAboutDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GenericAboutDialog, "GenericAboutDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GenericAboutDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GenericAboutDialog)
 
 Gura_DeclareFunctionAlias(__GenericAboutDialog_1, "GenericAboutDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GenericAboutDialog));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__GenericAboutDialog_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GenericAboutDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAboutDialogInfo& info = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(info, parent);
+	//bool _rtn = pThis->GetEntity()->Create(info, parent);
 	return Value::Nil;
 }
 

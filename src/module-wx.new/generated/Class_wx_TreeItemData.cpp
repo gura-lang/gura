@@ -39,7 +39,7 @@ String Object_wx_TreeItemData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeItemData, "TreeItemData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeItemData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__TreeItemData)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeItemData, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeItemData, __GetId)
 {
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//const wxTreeItemId& _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 

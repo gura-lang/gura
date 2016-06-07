@@ -39,7 +39,7 @@ String Object_wx_Size::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Size, "Size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Size));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Size)
 
 Gura_DeclareFunctionAlias(__Size_1, "Size_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Size));
@@ -164,27 +164,27 @@ Gura_ImplementMethod(wx_Size, __DecToIfSpecified)
 
 Gura_DeclareMethodAlias(wx_Size, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Size, __GetHeight)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//int _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Size, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Size, __GetWidth)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
@@ -267,20 +267,20 @@ Gura_ImplementMethod(wx_Size, __IncTo)
 
 Gura_DeclareMethodAlias(wx_Size, __IsFullySpecified, "IsFullySpecified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Size, __IsFullySpecified)
 {
 	Object_wx_Size *pThis = Object_wx_Size::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsFullySpecified();
+	//bool _rtn = pThis->GetEntity()->IsFullySpecified();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Size, __Scale, "Scale")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "xscale", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "yscale", VTYPE_number, OCCUR_Once);
 }
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_Size, __Scale)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//float xscale = arg.GetNumber(0)
 	//float yscale = arg.GetNumber(1)
-	//pThis->GetEntity()->Scale(xscale, yscale);
+	//wxSize& _rtn = pThis->GetEntity()->Scale(xscale, yscale);
 	return Value::Nil;
 }
 

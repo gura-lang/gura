@@ -39,7 +39,7 @@ String Object_wx_MouseCaptureLostEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MouseCaptureLostEvent, "MouseCaptureLostEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MouseCaptureLostEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);

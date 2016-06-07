@@ -39,7 +39,7 @@ String Object_wx_BookCtrlEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BookCtrlEvent, "BookCtrlEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sel", VTYPE_number, OCCUR_Once);
@@ -63,27 +63,27 @@ Gura_ImplementFunction(__BookCtrlEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BookCtrlEvent, __GetOldSelection, "GetOldSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BookCtrlEvent, __GetOldSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldSelection();
+	//int _rtn = pThis->GetEntity()->GetOldSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BookCtrlEvent, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BookCtrlEvent, __GetSelection)
 {
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 

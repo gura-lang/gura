@@ -39,7 +39,7 @@ String Object_wx_AutomationObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AutomationObject, "AutomationObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dispatchPtr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AutomationObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__AutomationObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AutomationObject, __CallMethod, "CallMethod")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "method", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "args", VTYPE_number, OCCUR_Once);
@@ -70,13 +70,13 @@ Gura_ImplementMethod(wx_AutomationObject, __CallMethod)
 	//const wxString& method = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
 	//wxVariant args = arg.GetNumber(2)
-	//pThis->GetEntity()->CallMethod(method, noArgs, args);
+	//wxVariant _rtn = pThis->GetEntity()->CallMethod(method, noArgs, args);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __CreateInstance, "CreateInstance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "progId", VTYPE_number, OCCUR_Once);
 }
 
@@ -85,39 +85,39 @@ Gura_ImplementMethod(wx_AutomationObject, __CreateInstance)
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& progId = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateInstance(progId);
+	//bool _rtn = pThis->GetEntity()->CreateInstance(progId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __IsOk)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetDispatchPtr, "GetDispatchPtr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __GetDispatchPtr)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDispatchPtr();
+	//void* _rtn = pThis->GetEntity()->GetDispatchPtr();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetInstance, "GetInstance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "progId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -128,13 +128,13 @@ Gura_ImplementMethod(wx_AutomationObject, __GetInstance)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& progId = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->GetInstance(progId, flags);
+	//bool _rtn = pThis->GetEntity()->GetInstance(progId, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetObject, "GetObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_AutomationObject, __GetObject)
 	//const wxString& property = arg.GetNumber(1)
 	//int noArgs = arg.GetNumber(2)
 	//wxVariant args[] _arg3 = arg.GetNumber(3)
-	//pThis->GetEntity()->GetObject(obj, property, noArgs, _arg3);
+	//bool _rtn = pThis->GetEntity()->GetObject(obj, property, noArgs, _arg3);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetProperty, "GetProperty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "args", VTYPE_number, OCCUR_Once);
@@ -168,13 +168,13 @@ Gura_ImplementMethod(wx_AutomationObject, __GetProperty)
 	//const wxString& property = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
 	//wxVariant args = arg.GetNumber(2)
-	//pThis->GetEntity()->GetProperty(property, noArgs, args);
+	//wxVariant _rtn = pThis->GetEntity()->GetProperty(property, noArgs, args);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __Invoke, "Invoke")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "member", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "action", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "retValue", VTYPE_number, OCCUR_Once);
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_AutomationObject, __Invoke)
 	//int noArgs = arg.GetNumber(3)
 	//wxVariant args = arg.GetNumber(4)
 	//const wxVariant* ptrArgs[] _arg5 = arg.GetNumber(5)
-	//pThis->GetEntity()->Invoke(member, action, retValue, noArgs, args, _arg5);
+	//bool _rtn = pThis->GetEntity()->Invoke(member, action, retValue, noArgs, args, _arg5);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __PutProperty, "PutProperty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "noArgs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "args", VTYPE_number, OCCUR_Once);
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_AutomationObject, __PutProperty)
 	//const wxString& property = arg.GetNumber(0)
 	//int noArgs = arg.GetNumber(1)
 	//wxVariant args = arg.GetNumber(2)
-	//pThis->GetEntity()->PutProperty(property, noArgs, args);
+	//bool _rtn = pThis->GetEntity()->PutProperty(property, noArgs, args);
 	return Value::Nil;
 }
 
@@ -233,14 +233,14 @@ Gura_ImplementMethod(wx_AutomationObject, __SetDispatchPtr)
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetLCID, "GetLCID")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __GetLCID)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLCID();
+	//LCID _rtn = pThis->GetEntity()->GetLCID();
 	return Value::Nil;
 }
 
@@ -261,14 +261,14 @@ Gura_ImplementMethod(wx_AutomationObject, __SetLCID)
 
 Gura_DeclareMethodAlias(wx_AutomationObject, __GetConvertVariantFlags, "GetConvertVariantFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AutomationObject, __GetConvertVariantFlags)
 {
 	Object_wx_AutomationObject *pThis = Object_wx_AutomationObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetConvertVariantFlags();
+	//long _rtn = pThis->GetEntity()->GetConvertVariantFlags();
 	return Value::Nil;
 }
 

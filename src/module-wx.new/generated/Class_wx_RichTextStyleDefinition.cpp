@@ -39,7 +39,7 @@ String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextStyleDefinition, "RichTextStyleDefinition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleDefinition));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,72 +57,72 @@ Gura_ImplementFunction(__RichTextStyleDefinition)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetBaseStyle, "GetBaseStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetBaseStyle)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBaseStyle();
+	//const wxString& _rtn = pThis->GetEntity()->GetBaseStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetDescription, "GetDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetDescription)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDescription();
+	//const wxString& _rtn = pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetName)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetStyle)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//wxRichTextAttr _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetStyle_1, "GetStyle_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetStyle_1)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//const wxRichTextAttr _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetStyleMergedWithBase, "GetStyleMergedWithBase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sheet", VTYPE_number, OCCUR_Once);
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetStyleMergedWithBase)
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextStyleSheet* sheet = arg.GetNumber(0)
-	//pThis->GetEntity()->GetStyleMergedWithBase(sheet);
+	//wxRichTextAttr _rtn = pThis->GetEntity()->GetStyleMergedWithBase(sheet);
 	return Value::Nil;
 }
 
@@ -197,27 +197,27 @@ Gura_ImplementMethod(wx_RichTextStyleDefinition, __SetStyle)
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetProperties, "GetProperties")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetProperties)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProperties();
+	//wxRichTextProperties& _rtn = pThis->GetEntity()->GetProperties();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleDefinition, __GetProperties_1, "GetProperties_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleDefinition, __GetProperties_1)
 {
 	Object_wx_RichTextStyleDefinition *pThis = Object_wx_RichTextStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProperties();
+	//const wxRichTextProperties& _rtn = pThis->GetEntity()->GetProperties();
 	return Value::Nil;
 }
 

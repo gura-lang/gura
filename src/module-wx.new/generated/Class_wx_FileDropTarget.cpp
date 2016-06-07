@@ -39,7 +39,7 @@ String Object_wx_FileDropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileDropTarget, "FileDropTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__FileDropTarget)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileDropTarget, __OnDrop, "OnDrop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_FileDropTarget, __OnDrop)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->OnDrop(x, y);
+	//bool _rtn = pThis->GetEntity()->OnDrop(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileDropTarget, __OnDropFiles, "OnDropFiles")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filenames", VTYPE_number, OCCUR_Once);
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_FileDropTarget, __OnDropFiles)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//const wxArrayString& filenames = arg.GetNumber(2)
-	//pThis->GetEntity()->OnDropFiles(x, y, filenames);
+	//bool _rtn = pThis->GetEntity()->OnDropFiles(x, y, filenames);
 	return Value::Nil;
 }
 

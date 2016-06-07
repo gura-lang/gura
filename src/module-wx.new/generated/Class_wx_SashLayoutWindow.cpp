@@ -39,7 +39,7 @@ String Object_wx_SashLayoutWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SashLayoutWindow, "SashLayoutWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SashLayoutWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__SashLayoutWindow)
 
 Gura_DeclareFunctionAlias(__SashLayoutWindow_1, "SashLayoutWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__SashLayoutWindow_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SashLayoutWindow, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -99,33 +99,33 @@ Gura_ImplementMethod(wx_SashLayoutWindow, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SashLayoutWindow, __GetAlignment, "GetAlignment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SashLayoutWindow, __GetAlignment)
 {
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlignment();
+	//wxLayoutAlignment _rtn = pThis->GetEntity()->GetAlignment();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SashLayoutWindow, __GetOrientation, "GetOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SashLayoutWindow, __GetOrientation)
 {
 	Object_wx_SashLayoutWindow *pThis = Object_wx_SashLayoutWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOrientation();
+	//wxLayoutOrientation _rtn = pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FindReplaceData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FindReplaceData, "FindReplaceData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FindReplaceData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,40 +57,40 @@ Gura_ImplementFunction(__FindReplaceData)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FindReplaceData, __GetFindString, "GetFindString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FindReplaceData, __GetFindString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFindString();
+	//const wxString& _rtn = pThis->GetEntity()->GetFindString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FindReplaceData, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FindReplaceData, __GetFlags)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FindReplaceData, __GetReplaceString, "GetReplaceString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FindReplaceData, __GetReplaceString)
 {
 	Object_wx_FindReplaceData *pThis = Object_wx_FindReplaceData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetReplaceString();
+	//const wxString& _rtn = pThis->GetEntity()->GetReplaceString();
 	return Value::Nil;
 }
 

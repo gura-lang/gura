@@ -39,7 +39,7 @@ String Object_wx_WindowPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WindowPtr<T>, __wxWindowPtr, "wxWindowPtr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr)
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr)
 
 Gura_DeclareMethodAlias(wx_WindowPtr<T>, __wxWindowPtr_1, "wxWindowPtr_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 }
 
@@ -61,13 +61,13 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr_1)
 	Object_wx_WindowPtr<T> *pThis = Object_wx_WindowPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* ptr = arg.GetNumber(0)
-	//pThis->GetEntity()->wxWindowPtr(ptr);
+	//explicit _rtn = pThis->GetEntity()->wxWindowPtr(ptr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WindowPtr<T>, __wxWindowPtr_2, "wxWindowPtr_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 }
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_WindowPtr<T>, __wxWindowPtr_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* ptr = arg.GetNumber(0)
 	//Deleter d = arg.GetNumber(1)
-	//pThis->GetEntity()->wxWindowPtr(ptr, d);
+	//explicit _rtn = pThis->GetEntity()->wxWindowPtr(ptr, d);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WindowPtr<T>, __wxWindowPtr_3, "wxWindowPtr_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tocopy", VTYPE_number, OCCUR_Once);
 }
 

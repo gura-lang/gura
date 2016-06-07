@@ -39,7 +39,7 @@ String Object_wx_DataViewTreeCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewTreeCtrl, "DataViewTreeCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewTreeCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DataViewTreeCtrl)
 
 Gura_DeclareFunctionAlias(__DataViewTreeCtrl_1, "DataViewTreeCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__DataViewTreeCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __AppendContainer, "AppendContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __AppendContainer)
 	//int icon = arg.GetNumber(2)
 	//int expanded = arg.GetNumber(3)
 	//wxClientData* data = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendContainer(parent, text, icon, expanded, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->AppendContainer(parent, text, icon, expanded, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __AppendItem, "AppendItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __AppendItem)
 	//const wxString& text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
 	//wxClientData* data = arg.GetNumber(3)
-	//pThis->GetEntity()->AppendItem(parent, text, icon, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->AppendItem(parent, text, icon, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, validator);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __DeleteItem)
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetChildCount, "GetChildCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -201,26 +201,26 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetChildCount)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChildCount(parent);
+	//int _rtn = pThis->GetEntity()->GetChildCount(parent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetImageList, "GetImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetImageList)
 {
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImageList();
+	//wxImageList* _rtn = pThis->GetEntity()->GetImageList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetItemData, "GetItemData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -229,13 +229,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetItemData)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemData(item);
+	//wxClientData* _rtn = pThis->GetEntity()->GetItemData(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetItemExpandedIcon, "GetItemExpandedIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetItemExpandedIcon)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemExpandedIcon(item);
+	//const wxIcon& _rtn = pThis->GetEntity()->GetItemExpandedIcon(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetItemIcon, "GetItemIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -259,13 +259,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetItemIcon)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemIcon(item);
+	//const wxIcon& _rtn = pThis->GetEntity()->GetItemIcon(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetItemText, "GetItemText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -274,13 +274,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetItemText)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemText(item);
+	//wxString _rtn = pThis->GetEntity()->GetItemText(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetNthChild, "GetNthChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -291,39 +291,39 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetNthChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNthChild(parent, pos);
+	//wxDataViewItem _rtn = pThis->GetEntity()->GetNthChild(parent, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetStore, "GetStore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetStore)
 {
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStore();
+	//wxDataViewTreeStore* _rtn = pThis->GetEntity()->GetStore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __GetStore_1, "GetStore_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewTreeCtrl, __GetStore_1)
 {
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStore();
+	//const wxDataViewTreeStore* _rtn = pThis->GetEntity()->GetStore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __InsertContainer, "InsertContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "previous", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -342,13 +342,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __InsertContainer)
 	//int icon = arg.GetNumber(3)
 	//int expanded = arg.GetNumber(4)
 	//wxClientData* data = arg.GetNumber(5)
-	//pThis->GetEntity()->InsertContainer(parent, previous, text, icon, expanded, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->InsertContainer(parent, previous, text, icon, expanded, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __InsertItem, "InsertItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "previous", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -365,13 +365,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __InsertItem)
 	//const wxString& text = arg.GetNumber(2)
 	//int icon = arg.GetNumber(3)
 	//wxClientData* data = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertItem(parent, previous, text, icon, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->InsertItem(parent, previous, text, icon, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __IsContainer, "IsContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -380,13 +380,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __IsContainer)
 	Object_wx_DataViewTreeCtrl *pThis = Object_wx_DataViewTreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsContainer(item);
+	//bool _rtn = pThis->GetEntity()->IsContainer(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __PrependContainer, "PrependContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -403,13 +403,13 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __PrependContainer)
 	//int icon = arg.GetNumber(2)
 	//int expanded = arg.GetNumber(3)
 	//wxClientData* data = arg.GetNumber(4)
-	//pThis->GetEntity()->PrependContainer(parent, text, icon, expanded, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->PrependContainer(parent, text, icon, expanded, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewTreeCtrl, __PrependItem, "PrependItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_DataViewTreeCtrl, __PrependItem)
 	//const wxString& text = arg.GetNumber(1)
 	//int icon = arg.GetNumber(2)
 	//wxClientData* data = arg.GetNumber(3)
-	//pThis->GetEntity()->PrependItem(parent, text, icon, data);
+	//wxDataViewItem _rtn = pThis->GetEntity()->PrependItem(parent, text, icon, data);
 	return Value::Nil;
 }
 

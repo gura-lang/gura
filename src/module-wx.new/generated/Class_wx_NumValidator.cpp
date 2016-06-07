@@ -101,27 +101,27 @@ Gura_ImplementMethod(wx_NumValidator, __SetStyle)
 
 Gura_DeclareMethodAlias(wx_NumValidator, __TransferToWindow, "TransferToWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_NumValidator, __TransferToWindow)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TransferToWindow();
+	//bool _rtn = pThis->GetEntity()->TransferToWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_NumValidator, __TransferFromWindow, "TransferFromWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_NumValidator, __TransferFromWindow)
 {
 	Object_wx_NumValidator *pThis = Object_wx_NumValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TransferFromWindow();
+	//bool _rtn = pThis->GetEntity()->TransferFromWindow();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_GridCellRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellRenderer, "GridCellRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__GridCellRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellRenderer, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellRenderer, __Clone)
 {
 	Object_wx_GridCellRenderer *pThis = Object_wx_GridCellRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxGridCellRenderer* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __Draw)
 
 Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestSize, "GetBestSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -112,13 +112,13 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestSize)
 	//wxDC& dc = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
-	//pThis->GetEntity()->GetBestSize(grid, attr, dc, row, col);
+	//wxSize _rtn = pThis->GetEntity()->GetBestSize(grid, attr, dc, row, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestHeight, "GetBestHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -137,13 +137,13 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestHeight)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int width = arg.GetNumber(5)
-	//pThis->GetEntity()->GetBestHeight(grid, attr, dc, row, col, width);
+	//wxSize _rtn = pThis->GetEntity()->GetBestHeight(grid, attr, dc, row, col, width);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellRenderer, __GetBestWidth, "GetBestWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "grid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestWidth)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)
-	//pThis->GetEntity()->GetBestWidth(grid, attr, dc, row, col, height);
+	//wxSize _rtn = pThis->GetEntity()->GetBestWidth(grid, attr, dc, row, col, height);
 	return Value::Nil;
 }
 

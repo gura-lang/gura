@@ -39,7 +39,7 @@ String Object_wx_PropertyGridPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PropertyGridPage, "PropertyGridPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PropertyGridPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,46 +68,46 @@ Gura_ImplementMethod(wx_PropertyGridPage, __Clear)
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __FitColumns, "FitColumns")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridPage, __FitColumns)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->FitColumns();
+	//wxSize _rtn = pThis->GetEntity()->FitColumns();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __GetIndex, "GetIndex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridPage, __GetIndex)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndex();
+	//inline int _rtn = pThis->GetEntity()->GetIndex();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __GetRoot, "GetRoot")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridPage, __GetRoot)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRoot();
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetRoot();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __GetSplitterPosition, "GetSplitterPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -116,20 +116,20 @@ Gura_ImplementMethod(wx_PropertyGridPage, __GetSplitterPosition)
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterPosition(col);
+	//int _rtn = pThis->GetEntity()->GetSplitterPosition(col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __GetToolId, "GetToolId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridPage, __GetToolId)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolId();
+	//int _rtn = pThis->GetEntity()->GetToolId();
 	return Value::Nil;
 }
 
@@ -148,14 +148,14 @@ Gura_ImplementMethod(wx_PropertyGridPage, __Init)
 
 Gura_DeclareMethodAlias(wx_PropertyGridPage, __IsHandlingAllEvents, "IsHandlingAllEvents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridPage, __IsHandlingAllEvents)
 {
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsHandlingAllEvents();
+	//bool _rtn = pThis->GetEntity()->IsHandlingAllEvents();
 	return Value::Nil;
 }
 

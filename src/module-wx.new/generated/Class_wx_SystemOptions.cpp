@@ -39,7 +39,7 @@ String Object_wx_SystemOptions::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SystemOptions, "SystemOptions")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SystemOptions));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__SystemOptions)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SystemOptions, __GetOption, "GetOption")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOption)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOption(name);
+	//wxString _rtn = pThis->GetEntity()->GetOption(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SystemOptions, __GetOptionInt, "GetOptionInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOptionInt)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOptionInt(name);
+	//int _rtn = pThis->GetEntity()->GetOptionInt(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SystemOptions, __HasOption, "HasOption")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_SystemOptions, __HasOption)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->HasOption(name);
+	//bool _rtn = pThis->GetEntity()->HasOption(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SystemOptions, __IsFalse, "IsFalse")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_SystemOptions, __IsFalse)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->IsFalse(name);
+	//bool _rtn = pThis->GetEntity()->IsFalse(name);
 	return Value::Nil;
 }
 

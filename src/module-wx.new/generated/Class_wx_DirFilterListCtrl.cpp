@@ -39,7 +39,7 @@ String Object_wx_DirFilterListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DirFilterListCtrl, "DirFilterListCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DirFilterListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DirFilterListCtrl)
 
 Gura_DeclareFunctionAlias(__DirFilterListCtrl_1, "DirFilterListCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__DirFilterListCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DirFilterListCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 

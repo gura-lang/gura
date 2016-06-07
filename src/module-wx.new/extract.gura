@@ -318,15 +318,15 @@ tmpl@ImplementFunction = R'''
 ${if (lineSkipFlag) { '' }}
 Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(${funcAttr});
 	${argInfos:*RenderDeclaration()}
 }
 
 Gura_ImplementFunction(${funcNameInternal})
 {
 	${argInfos:*RenderVariable()}
-	//${funcNameCPP}(${argInfos:*argName.join(', ')});
-	return Value::Nil;
+	//${funcRtnVariable}${funcNameCPP}(${argInfos:*argName.join(', ')});
+	${funcFinish}
 }
 '''.template()
 
@@ -334,7 +334,7 @@ tmpl@ImplementConstructor = R'''
 ${if (lineSkipFlag) { '' }}
 Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(${funcAttr});
 	${argInfos:*RenderDeclaration()}
 	SetClassToConstruct(Gura_UserClass(wx_${classNameShort}));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -343,8 +343,8 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 Gura_ImplementFunction(${funcNameInternal})
 {
 	${argInfos:*RenderVariable()}
-	//${funcNameCPP}(${argInfos:*argName.join(', ')});
-	return Value::Nil;
+	//${funcRtnVariable}${funcNameCPP}(${argInfos:*argName.join(', ')});
+	${funcFinish}
 }
 '''.template()
 
@@ -352,7 +352,7 @@ tmpl@ImplementMethod = R'''
 ${if (lineSkipFlag) { '' }}
 Gura_DeclareMethodAlias(wx_${classNameShort}, ${funcNameInternal}, "${funcNameGura}")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(${funcAttr});
 	${argInfos:*RenderDeclaration()}
 }
 
@@ -361,8 +361,8 @@ Gura_ImplementMethod(wx_${classNameShort}, ${funcNameInternal})
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	${argInfos:*RenderVariable()}
-	//pThis->GetEntity()->${funcNameCPP}(${argInfos:*argName.join(', ')});
-	return Value::Nil;
+	//${funcRtnVariable}pThis->GetEntity()->${funcNameCPP}(${argInfos:*argName.join(', ')});
+	${funcFinish}
 }
 '''.template()
 
@@ -507,7 +507,11 @@ ArgInfo = struct(iArg:number, typesStr:string, refOperator:string,
 }
 
 FuncInfo = class {
-	__init__(typesStr, refOperator, funcNameCPP:string) = {
+	__init__(staticFlag:boolean, virtualFlag:boolean, voidFlag:boolean,
+			 typesStr, refOperator, funcNameCPP:string) = {
+		this.staticFlag:public = staticFlag
+		this.virtualFlag:public = virtualFlag
+		this.voidFlag:public = voidFlag
 		this.typesStr:public = typesStr
 		this.refOperator:public = refOperator
 		this.funcNameCPP:public = funcNameCPP
@@ -518,6 +522,19 @@ FuncInfo = class {
 	}
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
+		if (this.voidFlag) {
+			funcAttr = 'VTYPE_any, RSLTMODE_Void, FLAG_None'
+		} else {
+			funcAttr = 'VTYPE_any, RSLTMODE_Normal, FLAG_None'
+		}
+		if (this.typesStr.isempty()) {
+			funcRtnVariable = ''
+		} else {
+			funcRtnVariable = this.typesStr + this.refOperator + ' _rtn = '
+		}
+		funcFinish = R'''
+		return Value::Nil;
+		'''
 		funcNameCPP = this.funcNameCPP
 		funcNameGura = this.funcNameGura
 		funcNameInternal = this.MakeFuncNameInternal()
@@ -624,15 +641,15 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function syntax')
 	}
 	if (m = funcHead.match(r'^(~?\w+)$')) {
-		typesStr = ''
+		funcHdr = ''
 		refOperator = ''
 		funcNameCPP = m[1]
 	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(~?\w+)$')) {
-		typesStr = m[1]
+		funcHdr = m[1]
 		refOperator = m[2].strip()
 		funcNameCPP = m[3]
 	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(operator\s*.+)$')) {
-		//typesStr = m[1]
+		//funcHdr = m[1]
 		//refOperator = m[2].strip()
 		//funcNameCPP = m[3]
 		WarningMessage(pathName, lineNo, strSrc, 'operator method is not acceptable')
@@ -641,7 +658,23 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}
 	funcNameCPP.startswith('~') && return	// ignore destructor
-	funcInfo = FuncInfo(typesStr, refOperator, funcNameCPP)
+	staticFlag = false
+	virtualFlag = false
+	voidFlag = false
+	typesStr = ''
+	funcHdr.splitreg(r'\s+') {|elem|
+		if (elem == 'static') {
+			staticFlag = true
+		} elsif (elem == 'virtual') {
+			virtualFlag = true
+		} elsif (elem == 'void' && refOperator.isempty()) {
+			voidFlag = true
+		} else {
+			if (!typesStr.isempty()) { typesStr += ' ' }
+			typesStr += elem
+		}
+	}
+	funcInfo = FuncInfo(staticFlag, virtualFlag, voidFlag, typesStr, refOperator, funcNameCPP)
 	pos = 0
 	iArg = 0
 	while (pos < argsStr.len()) {

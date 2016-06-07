@@ -39,7 +39,7 @@ String Object_wx_ComboCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ComboCtrl, "ComboCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ComboCtrl)
 
 Gura_DeclareFunctionAlias(__ComboCtrl_1, "ComboCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __Copy)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __EnablePopupAnimation)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __IsKeyPopupToggle, "IsKeyPopupToggle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __IsKeyPopupToggle)
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxKeyEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKeyPopupToggle(event);
+	//bool _rtn = pThis->GetEntity()->IsKeyPopupToggle(event);
 	return Value::Nil;
 }
 
@@ -201,235 +201,235 @@ Gura_ImplementMethod(wx_ComboCtrl, __PrepareBackground)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __ShouldDrawFocus, "ShouldDrawFocus")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __ShouldDrawFocus)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShouldDrawFocus();
+	//bool _rtn = pThis->GetEntity()->ShouldDrawFocus();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetBitmapDisabled, "GetBitmapDisabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetBitmapDisabled)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapDisabled();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmapDisabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetBitmapHover, "GetBitmapHover")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetBitmapHover)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapHover();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmapHover();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetBitmapNormal, "GetBitmapNormal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetBitmapNormal)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapNormal();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmapNormal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetBitmapPressed, "GetBitmapPressed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetBitmapPressed)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmapPressed();
+	//const wxBitmap& _rtn = pThis->GetEntity()->GetBitmapPressed();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetButtonSize, "GetButtonSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetButtonSize)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonSize();
+	//wxSize _rtn = pThis->GetEntity()->GetButtonSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetCustomPaintWidth, "GetCustomPaintWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetCustomPaintWidth)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCustomPaintWidth();
+	//int _rtn = pThis->GetEntity()->GetCustomPaintWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetFeatures, "GetFeatures")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetFeatures)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFeatures();
+	//int _rtn = pThis->GetEntity()->GetFeatures();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetHint, "GetHint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetHint)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHint();
+	//wxString _rtn = pThis->GetEntity()->GetHint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetInsertionPoint, "GetInsertionPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetInsertionPoint)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInsertionPoint();
+	//long _rtn = pThis->GetEntity()->GetInsertionPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetLastPosition, "GetLastPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetLastPosition)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLastPosition();
+	//long _rtn = pThis->GetEntity()->GetLastPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetMargins, "GetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetMargins)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMargins();
+	//wxPoint _rtn = pThis->GetEntity()->GetMargins();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetPopupControl, "GetPopupControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetPopupControl)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPopupControl();
+	//wxComboPopup* _rtn = pThis->GetEntity()->GetPopupControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetPopupWindow, "GetPopupWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetPopupWindow)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPopupWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetPopupWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetTextCtrl, "GetTextCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetTextCtrl)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextCtrl();
+	//wxTextCtrl* _rtn = pThis->GetEntity()->GetTextCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetTextIndent, "GetTextIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetTextIndent)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextIndent();
+	//wxCoord _rtn = pThis->GetEntity()->GetTextIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetTextRect, "GetTextRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetTextRect)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextRect();
+	//const wxRect& _rtn = pThis->GetEntity()->GetTextRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __GetValue)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxString _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
@@ -450,20 +450,20 @@ Gura_ImplementMethod(wx_ComboCtrl, __HidePopup)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __IsPopupShown, "IsPopupShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboCtrl, __IsPopupShown)
 {
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPopupShown();
+	//bool _rtn = pThis->GetEntity()->IsPopupShown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __IsPopupWindowState, "IsPopupWindowState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __IsPopupWindowState)
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
-	//pThis->GetEntity()->IsPopupWindowState(state);
+	//bool _rtn = pThis->GetEntity()->IsPopupWindowState(state);
 	return Value::Nil;
 }
 
@@ -612,7 +612,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetCustomPaintWidth)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __SetHint, "SetHint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hint", VTYPE_number, OCCUR_Once);
 }
 
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetHint)
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hint = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHint(hint);
+	//bool _rtn = pThis->GetEntity()->SetHint(hint);
 	return Value::Nil;
 }
 
@@ -655,7 +655,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetInsertionPointEnd)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __SetMargins, "SetMargins")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -664,13 +664,13 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetMargins)
 	Object_wx_ComboCtrl *pThis = Object_wx_ComboCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMargins(pt);
+	//bool _rtn = pThis->GetEntity()->SetMargins(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __SetMargins_1, "SetMargins_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "left", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "top", VTYPE_number, OCCUR_Once);
 }
@@ -681,7 +681,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __SetMargins_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord left = arg.GetNumber(0)
 	//wxCoord top = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMargins(left, top);
+	//bool _rtn = pThis->GetEntity()->SetMargins(left, top);
 	return Value::Nil;
 }
 
@@ -897,7 +897,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __UseAltPopupWindow)
 
 Gura_DeclareMethodAlias(wx_ComboCtrl, __AnimateShow, "AnimateShow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -908,7 +908,7 @@ Gura_ImplementMethod(wx_ComboCtrl, __AnimateShow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->AnimateShow(rect, flags);
+	//bool _rtn = pThis->GetEntity()->AnimateShow(rect, flags);
 	return Value::Nil;
 }
 

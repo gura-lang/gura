@@ -39,7 +39,7 @@ String Object_wx_DDEConnection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DDEConnection, "DDEConnection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DDEConnection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DDEConnection)
 
 Gura_DeclareFunctionAlias(__DDEConnection_1, "DDEConnection_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DDEConnection));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__DDEConnection_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DDEConnection, __Advise, "Advise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise)
 	//const void* data = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
 	//wxIPCFormat format = arg.GetNumber(3)
-	//pThis->GetEntity()->Advise(item, data, size, format);
+	//bool _rtn = pThis->GetEntity()->Advise(item, data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_1, "Advise_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const char* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Advise(item, data);
+	//bool _rtn = pThis->GetEntity()->Advise(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_2, "Advise_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -121,13 +121,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const wchar_t* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Advise(item, data);
+	//bool _rtn = pThis->GetEntity()->Advise(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Advise_3, "Advise_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -138,26 +138,26 @@ Gura_ImplementMethod(wx_DDEConnection, __Advise_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const wxString data = arg.GetNumber(1)
-	//pThis->GetEntity()->Advise(item, data);
+	//bool _rtn = pThis->GetEntity()->Advise(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Disconnect, "Disconnect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DDEConnection, __Disconnect)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Disconnect();
+	//bool _rtn = pThis->GetEntity()->Disconnect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Execute, "Execute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -170,13 +170,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute)
 	//const void* data = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
 	//wxIPCFormat format = arg.GetNumber(2)
-	//pThis->GetEntity()->Execute(data, size, format);
+	//bool _rtn = pThis->GetEntity()->Execute(data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_1, "Execute_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -185,13 +185,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_1)
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* data = arg.GetNumber(0)
-	//pThis->GetEntity()->Execute(data);
+	//bool _rtn = pThis->GetEntity()->Execute(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_2, "Execute_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_2)
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* data = arg.GetNumber(0)
-	//pThis->GetEntity()->Execute(data);
+	//bool _rtn = pThis->GetEntity()->Execute(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Execute_3, "Execute_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -215,13 +215,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Execute_3)
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString data = arg.GetNumber(0)
-	//pThis->GetEntity()->Execute(data);
+	//bool _rtn = pThis->GetEntity()->Execute(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnAdvise, "OnAdvise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -238,26 +238,26 @@ Gura_ImplementMethod(wx_DDEConnection, __OnAdvise)
 	//const void* data = arg.GetNumber(2)
 	//size_t size = arg.GetNumber(3)
 	//wxIPCFormat format = arg.GetNumber(4)
-	//pThis->GetEntity()->OnAdvise(topic, item, data, size, format);
+	//bool _rtn = pThis->GetEntity()->OnAdvise(topic, item, data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnDisconnect, "OnDisconnect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DDEConnection, __OnDisconnect)
 {
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OnDisconnect();
+	//bool _rtn = pThis->GetEntity()->OnDisconnect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnExecute, "OnExecute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -272,13 +272,13 @@ Gura_ImplementMethod(wx_DDEConnection, __OnExecute)
 	//const void* data = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
 	//wxIPCFormat format = arg.GetNumber(3)
-	//pThis->GetEntity()->OnExecute(topic, data, size, format);
+	//bool _rtn = pThis->GetEntity()->OnExecute(topic, data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnPoke, "OnPoke")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
@@ -295,13 +295,13 @@ Gura_ImplementMethod(wx_DDEConnection, __OnPoke)
 	//const void* data = arg.GetNumber(2)
 	//size_t size = arg.GetNumber(3)
 	//wxIPCFormat format = arg.GetNumber(4)
-	//pThis->GetEntity()->OnPoke(topic, item, data, size, format);
+	//bool _rtn = pThis->GetEntity()->OnPoke(topic, item, data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnRequest, "OnRequest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -316,13 +316,13 @@ Gura_ImplementMethod(wx_DDEConnection, __OnRequest)
 	//const wxString& item = arg.GetNumber(1)
 	//size_t* size = arg.GetNumber(2)
 	//wxIPCFormat format = arg.GetNumber(3)
-	//pThis->GetEntity()->OnRequest(topic, item, size, format);
+	//const void* _rtn = pThis->GetEntity()->OnRequest(topic, item, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnStartAdvise, "OnStartAdvise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
@@ -333,13 +333,13 @@ Gura_ImplementMethod(wx_DDEConnection, __OnStartAdvise)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& topic = arg.GetNumber(0)
 	//const wxString& item = arg.GetNumber(1)
-	//pThis->GetEntity()->OnStartAdvise(topic, item);
+	//bool _rtn = pThis->GetEntity()->OnStartAdvise(topic, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __OnStopAdvise, "OnStopAdvise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
@@ -350,13 +350,13 @@ Gura_ImplementMethod(wx_DDEConnection, __OnStopAdvise)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& topic = arg.GetNumber(0)
 	//const wxString& item = arg.GetNumber(1)
-	//pThis->GetEntity()->OnStopAdvise(topic, item);
+	//bool _rtn = pThis->GetEntity()->OnStopAdvise(topic, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Poke, "Poke")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -371,13 +371,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke)
 	//const void* data = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
 	//wxIPCFormat format = arg.GetNumber(3)
-	//pThis->GetEntity()->Poke(item, data, size, format);
+	//bool _rtn = pThis->GetEntity()->Poke(item, data, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_1, "Poke_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -388,13 +388,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const char* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Poke(item, data);
+	//bool _rtn = pThis->GetEntity()->Poke(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_2, "Poke_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -405,13 +405,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const wchar_t* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Poke(item, data);
+	//bool _rtn = pThis->GetEntity()->Poke(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Poke_3, "Poke_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -422,13 +422,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Poke_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//const wxString data = arg.GetNumber(1)
-	//pThis->GetEntity()->Poke(item, data);
+	//bool _rtn = pThis->GetEntity()->Poke(item, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __Request, "Request")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -441,13 +441,13 @@ Gura_ImplementMethod(wx_DDEConnection, __Request)
 	//const wxString& item = arg.GetNumber(0)
 	//size_t* size = arg.GetNumber(1)
 	//wxIPCFormat format = arg.GetNumber(2)
-	//pThis->GetEntity()->Request(item, size, format);
+	//const void* _rtn = pThis->GetEntity()->Request(item, size, format);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __StartAdvise, "StartAdvise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -456,13 +456,13 @@ Gura_ImplementMethod(wx_DDEConnection, __StartAdvise)
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
-	//pThis->GetEntity()->StartAdvise(item);
+	//bool _rtn = pThis->GetEntity()->StartAdvise(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DDEConnection, __StopAdvise, "StopAdvise")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_DDEConnection, __StopAdvise)
 	Object_wx_DDEConnection *pThis = Object_wx_DDEConnection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
-	//pThis->GetEntity()->StopAdvise(item);
+	//bool _rtn = pThis->GetEntity()->StopAdvise(item);
 	return Value::Nil;
 }
 

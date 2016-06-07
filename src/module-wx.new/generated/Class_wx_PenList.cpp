@@ -39,7 +39,7 @@ String Object_wx_PenList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PenList, "PenList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PenList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__PenList)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PenList, __FindOrCreatePen, "FindOrCreatePen")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_PenList, __FindOrCreatePen)
 	//const wxColour& colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//wxPenStyle style = arg.GetNumber(2)
-	//pThis->GetEntity()->FindOrCreatePen(colour, width, style);
+	//wxPen* _rtn = pThis->GetEntity()->FindOrCreatePen(colour, width, style);
 	return Value::Nil;
 }
 

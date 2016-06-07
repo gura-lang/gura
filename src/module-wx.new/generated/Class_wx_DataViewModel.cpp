@@ -39,7 +39,7 @@ String Object_wx_DataViewModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewModel, "DataViewModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewModel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_DataViewModel, __AddNotifier)
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ChangeValue, "ChangeValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -83,26 +83,26 @@ Gura_ImplementMethod(wx_DataViewModel, __ChangeValue)
 	//const wxVariant& variant = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
 	//unsigned int col = arg.GetNumber(2)
-	//pThis->GetEntity()->ChangeValue(variant, item, col);
+	//bool _rtn = pThis->GetEntity()->ChangeValue(variant, item, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __Cleared, "Cleared")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewModel, __Cleared)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Cleared();
+	//bool _rtn = pThis->GetEntity()->Cleared();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __Compare, "Compare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item2", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
@@ -117,13 +117,13 @@ Gura_ImplementMethod(wx_DataViewModel, __Compare)
 	//const wxDataViewItem& item2 = arg.GetNumber(1)
 	//unsigned int column = arg.GetNumber(2)
 	//bool ascending = arg.GetNumber(3)
-	//pThis->GetEntity()->Compare(item1, item2, column, ascending);
+	//int _rtn = pThis->GetEntity()->Compare(item1, item2, column, ascending);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __GetAttr, "GetAttr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -136,13 +136,13 @@ Gura_ImplementMethod(wx_DataViewModel, __GetAttr)
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
 	//wxDataViewItemAttr& attr = arg.GetNumber(2)
-	//pThis->GetEntity()->GetAttr(item, col, attr);
+	//bool _rtn = pThis->GetEntity()->GetAttr(item, col, attr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __IsEnabled, "IsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -153,13 +153,13 @@ Gura_ImplementMethod(wx_DataViewModel, __IsEnabled)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->IsEnabled(item, col);
+	//bool _rtn = pThis->GetEntity()->IsEnabled(item, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __GetChildren, "GetChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "children", VTYPE_number, OCCUR_Once);
 }
@@ -170,26 +170,26 @@ Gura_ImplementMethod(wx_DataViewModel, __GetChildren)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//wxDataViewItemArray& children = arg.GetNumber(1)
-	//pThis->GetEntity()->GetChildren(item, children);
+	//unsigned int _rtn = pThis->GetEntity()->GetChildren(item, children);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __GetColumnCount, "GetColumnCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewModel, __GetColumnCount)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumnCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetColumnCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __GetColumnType, "GetColumnType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
 
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_DataViewModel, __GetColumnType)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnType(col);
+	//wxString _rtn = pThis->GetEntity()->GetColumnType(col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_DataViewModel, __GetParent)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParent(item);
+	//wxDataViewItem _rtn = pThis->GetEntity()->GetParent(item);
 	return Value::Nil;
 }
 
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_DataViewModel, __GetValue)
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __HasContainerColumns, "HasContainerColumns")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,26 +247,26 @@ Gura_ImplementMethod(wx_DataViewModel, __HasContainerColumns)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->HasContainerColumns(item);
+	//bool _rtn = pThis->GetEntity()->HasContainerColumns(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __HasDefaultCompare, "HasDefaultCompare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewModel, __HasDefaultCompare)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasDefaultCompare();
+	//bool _rtn = pThis->GetEntity()->HasDefaultCompare();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __HasValue, "HasValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -277,13 +277,13 @@ Gura_ImplementMethod(wx_DataViewModel, __HasValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//unsigned col = arg.GetNumber(1)
-	//pThis->GetEntity()->HasValue(item, col);
+	//bool _rtn = pThis->GetEntity()->HasValue(item, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __IsContainer, "IsContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -292,13 +292,13 @@ Gura_ImplementMethod(wx_DataViewModel, __IsContainer)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsContainer(item);
+	//bool _rtn = pThis->GetEntity()->IsContainer(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemAdded, "ItemAdded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
@@ -309,13 +309,13 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemAdded)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemAdded(parent, item);
+	//bool _rtn = pThis->GetEntity()->ItemAdded(parent, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemChanged, "ItemChanged")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -324,13 +324,13 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemChanged)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemChanged(item);
+	//bool _rtn = pThis->GetEntity()->ItemChanged(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemDeleted, "ItemDeleted")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
@@ -341,13 +341,13 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemDeleted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemDeleted(parent, item);
+	//bool _rtn = pThis->GetEntity()->ItemDeleted(parent, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemsAdded, "ItemsAdded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
@@ -358,13 +358,13 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsAdded)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItemArray& items = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemsAdded(parent, items);
+	//bool _rtn = pThis->GetEntity()->ItemsAdded(parent, items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemsChanged, "ItemsChanged")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
 
@@ -373,13 +373,13 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsChanged)
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItemArray& items = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemsChanged(items);
+	//bool _rtn = pThis->GetEntity()->ItemsChanged(items);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ItemsDeleted, "ItemsDeleted")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_DataViewModel, __ItemsDeleted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItemArray& items = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemsDeleted(parent, items);
+	//bool _rtn = pThis->GetEntity()->ItemsDeleted(parent, items);
 	return Value::Nil;
 }
 
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_DataViewModel, __Resort)
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __SetValue, "SetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
@@ -437,13 +437,13 @@ Gura_ImplementMethod(wx_DataViewModel, __SetValue)
 	//const wxVariant& variant = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
 	//unsigned int col = arg.GetNumber(2)
-	//pThis->GetEntity()->SetValue(variant, item, col);
+	//bool _rtn = pThis->GetEntity()->SetValue(variant, item, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __ValueChanged, "ValueChanged")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 }
@@ -454,33 +454,33 @@ Gura_ImplementMethod(wx_DataViewModel, __ValueChanged)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->ValueChanged(item, col);
+	//bool _rtn = pThis->GetEntity()->ValueChanged(item, col);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __IsListModel, "IsListModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewModel, __IsListModel)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsListModel();
+	//bool _rtn = pThis->GetEntity()->IsListModel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewModel, __IsVirtualListModel, "IsVirtualListModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewModel, __IsVirtualListModel)
 {
 	Object_wx_DataViewModel *pThis = Object_wx_DataViewModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVirtualListModel();
+	//bool _rtn = pThis->GetEntity()->IsVirtualListModel();
 	return Value::Nil;
 }
 

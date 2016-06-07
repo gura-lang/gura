@@ -39,7 +39,7 @@ String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellChoiceEditor, "GridCellChoiceEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "_arg1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__GridCellChoiceEditor)
 
 Gura_DeclareFunctionAlias(__GridCellChoiceEditor_1, "GridCellChoiceEditor_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "allowOthers", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellChoiceEditor));

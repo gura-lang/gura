@@ -39,7 +39,7 @@ String Object_wx_MessageOutputStderr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MessageOutputStderr, "MessageOutputStderr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fp", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MessageOutputStderr));
 	DeclareBlock(OCCUR_ZeroOrOnce);

@@ -39,7 +39,7 @@ String Object_wx_StringInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StringInputStream, "StringInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StringInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);

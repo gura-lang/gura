@@ -39,7 +39,7 @@ String Object_wx_LongLong::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LongLong, "LongLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__LongLong)
 
 Gura_DeclareFunctionAlias(__LongLong_1, "LongLong_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ll", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__LongLong_1)
 
 Gura_DeclareFunctionAlias(__LongLong_2, "LongLong_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hi", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lo", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_LongLong));
@@ -87,33 +87,33 @@ Gura_ImplementFunction(__LongLong_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LongLong, __Abs, "Abs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __Abs)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Abs();
+	//wxLongLong _rtn = pThis->GetEntity()->Abs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __Abs_1, "Abs_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __Abs_1)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Abs();
+	//wxLongLong& _rtn = pThis->GetEntity()->Abs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __Assign, "Assign")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "d", VTYPE_number, OCCUR_Once);
 }
 
@@ -122,85 +122,85 @@ Gura_ImplementMethod(wx_LongLong, __Assign)
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double d = arg.GetNumber(0)
-	//pThis->GetEntity()->Assign(d);
+	//wxLongLong _rtn = pThis->GetEntity()->Assign(d);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __GetHi, "GetHi")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __GetHi)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHi();
+	//long _rtn = pThis->GetEntity()->GetHi();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __GetLo, "GetLo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __GetLo)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLo();
+	//unsigned long _rtn = pThis->GetEntity()->GetLo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __GetValue)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxLongLong_t _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __ToDouble, "ToDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __ToDouble)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToDouble();
+	//double _rtn = pThis->GetEntity()->ToDouble();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __ToLong, "ToLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __ToLong)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToLong();
+	//long _rtn = pThis->GetEntity()->ToLong();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LongLong, __ToString, "ToString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LongLong, __ToString)
 {
 	Object_wx_LongLong *pThis = Object_wx_LongLong::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToString();
+	//wxString _rtn = pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
 

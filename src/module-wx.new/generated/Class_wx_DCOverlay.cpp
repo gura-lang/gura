@@ -39,7 +39,7 @@ String Object_wx_DCOverlay::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DCOverlay, "DCOverlay")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__DCOverlay)
 
 Gura_DeclareFunctionAlias(__DCOverlay_1, "DCOverlay_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCOverlay));

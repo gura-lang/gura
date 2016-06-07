@@ -39,7 +39,7 @@ String Object_wx_DCTextColourChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DCTextColourChanger, "DCTextColourChanger")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCTextColourChanger));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__DCTextColourChanger)
 
 Gura_DeclareFunctionAlias(__DCTextColourChanger_1, "DCTextColourChanger_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCTextColourChanger));

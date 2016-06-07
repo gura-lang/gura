@@ -39,7 +39,7 @@ String Object_wx_ItemContainerImmutable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ItemContainerImmutable, "ItemContainerImmutable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ItemContainerImmutable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,33 +55,33 @@ Gura_ImplementFunction(__ItemContainerImmutable)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainerImmutable, __GetCount)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainerImmutable, __IsEmpty)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -90,20 +90,20 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __GetString)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString(n);
+	//wxString _rtn = pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetStrings, "GetStrings")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainerImmutable, __GetStrings)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStrings();
+	//wxArrayString _rtn = pThis->GetEntity()->GetStrings();
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetString)
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __FindString, "FindString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caseSensitive", VTYPE_number, OCCUR_Once);
 }
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
 	//bool caseSensitive = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString(string, caseSensitive);
+	//int _rtn = pThis->GetEntity()->FindString(string, caseSensitive);
 	return Value::Nil;
 }
 
@@ -158,20 +158,20 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetSelection)
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainerImmutable, __GetSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __SetStringSelection, "SetStringSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
@@ -180,20 +180,20 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetStringSelection)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStringSelection(string);
+	//bool _rtn = pThis->GetEntity()->SetStringSelection(string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ItemContainerImmutable, __GetStringSelection, "GetStringSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ItemContainerImmutable, __GetStringSelection)
 {
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStringSelection();
+	//wxString _rtn = pThis->GetEntity()->GetStringSelection();
 	return Value::Nil;
 }
 

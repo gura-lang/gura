@@ -39,7 +39,7 @@ String Object_wx_AddRemoveAdaptor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AddRemoveAdaptor, "AddRemoveAdaptor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AddRemoveAdaptor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,40 +55,40 @@ Gura_ImplementFunction(__AddRemoveAdaptor)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __GetItemsCtrl, "GetItemsCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, __GetItemsCtrl)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItemsCtrl();
+	//wxWindow* _rtn = pThis->GetEntity()->GetItemsCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __CanAdd, "CanAdd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, __CanAdd)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanAdd();
+	//bool _rtn = pThis->GetEntity()->CanAdd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AddRemoveAdaptor, __CanRemove, "CanRemove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AddRemoveAdaptor, __CanRemove)
 {
 	Object_wx_AddRemoveAdaptor *pThis = Object_wx_AddRemoveAdaptor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanRemove();
+	//bool _rtn = pThis->GetEntity()->CanRemove();
 	return Value::Nil;
 }
 

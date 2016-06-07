@@ -39,7 +39,7 @@ String Object_wx_BitmapHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BitmapHandler, "BitmapHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_BitmapHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__BitmapHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BitmapHandler, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -74,52 +74,52 @@ Gura_ImplementMethod(wx_BitmapHandler, __Create)
 	//int width = arg.GetNumber(3)
 	//int height = arg.GetNumber(4)
 	//int depth = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(bitmap, data, type, width, height, depth);
+	//bool _rtn = pThis->GetEntity()->Create(bitmap, data, type, width, height, depth);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapHandler, __GetExtension, "GetExtension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BitmapHandler, __GetExtension)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtension();
+	//const wxString& _rtn = pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapHandler, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BitmapHandler, __GetName)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapHandler, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_BitmapHandler, __GetType)
 {
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxBitmapType _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapHandler, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -136,13 +136,13 @@ Gura_ImplementMethod(wx_BitmapHandler, __LoadFile)
 	//wxBitmapType type = arg.GetNumber(2)
 	//int desiredWidth = arg.GetNumber(3)
 	//int desiredHeight = arg.GetNumber(4)
-	//pThis->GetEntity()->LoadFile(bitmap, name, type, desiredWidth, desiredHeight);
+	//bool _rtn = pThis->GetEntity()->LoadFile(bitmap, name, type, desiredWidth, desiredHeight);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_BitmapHandler, __SaveFile, "SaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SaveFile)
 	//const wxString& name = arg.GetNumber(1)
 	//wxBitmapType type = arg.GetNumber(2)
 	//const wxPalette* palette = arg.GetNumber(3)
-	//pThis->GetEntity()->SaveFile(bitmap, name, type, palette);
+	//bool _rtn = pThis->GetEntity()->SaveFile(bitmap, name, type, palette);
 	return Value::Nil;
 }
 

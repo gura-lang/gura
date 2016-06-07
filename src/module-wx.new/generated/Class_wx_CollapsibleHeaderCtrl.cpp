@@ -39,7 +39,7 @@ String Object_wx_CollapsibleHeaderCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CollapsibleHeaderCtrl, "CollapsibleHeaderCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsibleHeaderCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CollapsibleHeaderCtrl)
 
 Gura_DeclareFunctionAlias(__CollapsibleHeaderCtrl_1, "CollapsibleHeaderCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__CollapsibleHeaderCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -128,14 +128,14 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __SetCollapsed)
 
 Gura_DeclareMethodAlias(wx_CollapsibleHeaderCtrl, __IsCollapsed, "IsCollapsed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __IsCollapsed)
 {
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCollapsed();
+	//bool _rtn = pThis->GetEntity()->IsCollapsed();
 	return Value::Nil;
 }
 

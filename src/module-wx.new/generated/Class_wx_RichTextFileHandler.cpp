@@ -39,7 +39,7 @@ String Object_wx_RichTextFileHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextFileHandler, "RichTextFileHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -61,7 +61,7 @@ Gura_ImplementFunction(__RichTextFileHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -72,13 +72,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile(buffer, stream);
+	//bool _rtn = pThis->GetEntity()->LoadFile(buffer, stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SaveFile, "SaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -89,13 +89,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->SaveFile(buffer, stream);
+	//bool _rtn = pThis->GetEntity()->SaveFile(buffer, stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __LoadFile_1, "LoadFile_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __LoadFile_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//const wxString& filename = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile(buffer, filename);
+	//bool _rtn = pThis->GetEntity()->LoadFile(buffer, filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __SaveFile_1, "SaveFile_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SaveFile_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//const wxString& filename = arg.GetNumber(1)
-	//pThis->GetEntity()->SaveFile(buffer, filename);
+	//bool _rtn = pThis->GetEntity()->SaveFile(buffer, filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanHandle, "CanHandle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
@@ -138,46 +138,46 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __CanHandle)
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->CanHandle(filename);
+	//bool _rtn = pThis->GetEntity()->CanHandle(filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanSave, "CanSave")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __CanSave)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanSave();
+	//bool _rtn = pThis->GetEntity()->CanSave();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __CanLoad, "CanLoad")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __CanLoad)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanLoad();
+	//bool _rtn = pThis->GetEntity()->CanLoad();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __IsVisible)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVisible();
+	//bool _rtn = pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
 
@@ -213,14 +213,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetName)
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __GetName)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
@@ -241,14 +241,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetExtension)
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetExtension, "GetExtension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __GetExtension)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtension();
+	//wxString _rtn = pThis->GetEntity()->GetExtension();
 	return Value::Nil;
 }
 
@@ -269,14 +269,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetType)
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __GetType)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//int _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
@@ -297,14 +297,14 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetFlags)
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __GetFlags)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
@@ -325,20 +325,20 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __SetEncoding)
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __GetEncoding, "GetEncoding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextFileHandler, __GetEncoding)
 {
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEncoding();
+	//const wxString& _rtn = pThis->GetEntity()->GetEncoding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __DoLoadFile, "DoLoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -349,13 +349,13 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoLoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoLoadFile(buffer, stream);
+	//bool _rtn = pThis->GetEntity()->DoLoadFile(buffer, stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextFileHandler, __DoSaveFile, "DoSaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, __DoSaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSaveFile(buffer, stream);
+	//bool _rtn = pThis->GetEntity()->DoSaveFile(buffer, stream);
 	return Value::Nil;
 }
 

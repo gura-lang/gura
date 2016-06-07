@@ -39,7 +39,7 @@ String Object_wx_ImageHistogram::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ImageHistogram, "ImageHistogram")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ImageHistogram));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__ImageHistogram)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ImageHistogram, __MakeKey, "MakeKey")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
@@ -68,13 +68,13 @@ Gura_ImplementMethod(wx_ImageHistogram, __MakeKey)
 	//unsigned char r = arg.GetNumber(0)
 	//unsigned char g = arg.GetNumber(1)
 	//unsigned char b = arg.GetNumber(2)
-	//pThis->GetEntity()->MakeKey(r, g, b);
+	//unsigned long _rtn = pThis->GetEntity()->MakeKey(r, g, b);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageHistogram, __FindFirstUnusedColour, "FindFirstUnusedColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "g", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "b", VTYPE_number, OCCUR_Once);
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_ImageHistogram, __FindFirstUnusedColour)
 	//unsigned char startR = arg.GetNumber(3)
 	//unsigned char startG = arg.GetNumber(4)
 	//unsigned char startB = arg.GetNumber(5)
-	//pThis->GetEntity()->FindFirstUnusedColour(r, g, b, startR, startG, startB);
+	//bool _rtn = pThis->GetEntity()->FindFirstUnusedColour(r, g, b, startR, startG, startB);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ContextMenuEvent, "ContextMenuEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -61,14 +61,14 @@ Gura_ImplementFunction(__ContextMenuEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ContextMenuEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ContextMenuEvent, __GetPosition)
 {
 	Object_wx_ContextMenuEvent *pThis = Object_wx_ContextMenuEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//const wxPoint& _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 

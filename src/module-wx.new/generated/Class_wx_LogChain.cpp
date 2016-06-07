@@ -39,7 +39,7 @@ String Object_wx_LogChain::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogChain, "LogChain")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_LogChain));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,27 +70,27 @@ Gura_ImplementMethod(wx_LogChain, __DetachOldLog)
 
 Gura_DeclareMethodAlias(wx_LogChain, __GetOldLog, "GetOldLog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogChain, __GetOldLog)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldLog();
+	//wxLog* _rtn = pThis->GetEntity()->GetOldLog();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LogChain, __IsPassingMessages, "IsPassingMessages")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogChain, __IsPassingMessages)
 {
 	Object_wx_LogChain *pThis = Object_wx_LogChain::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPassingMessages();
+	//bool _rtn = pThis->GetEntity()->IsPassingMessages();
 	return Value::Nil;
 }
 

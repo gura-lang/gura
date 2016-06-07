@@ -39,7 +39,7 @@ String Object_wx_GLCanvas::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GLCanvas, "GLCanvas")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dispAttrs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementFunction(__GLCanvas)
 
 Gura_DeclareFunctionAlias(__GLCanvas_1, "GLCanvas_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attribList", VTYPE_number, OCCUR_Once);
@@ -100,7 +100,7 @@ Gura_ImplementFunction(__GLCanvas_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLCanvas, __IsDisplaySupported, "IsDisplaySupported")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dispAttrs", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGLAttributes& dispAttrs = arg.GetNumber(0)
-	//pThis->GetEntity()->IsDisplaySupported(dispAttrs);
+	//bool _rtn = pThis->GetEntity()->IsDisplaySupported(dispAttrs);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLCanvas, __IsDisplaySupported_1, "IsDisplaySupported_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attribList", VTYPE_number, OCCUR_Once);
 }
 
@@ -124,13 +124,13 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported_1)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const int* attribList = arg.GetNumber(0)
-	//pThis->GetEntity()->IsDisplaySupported(attribList);
+	//bool _rtn = pThis->GetEntity()->IsDisplaySupported(attribList);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLCanvas, __IsExtensionSupported, "IsExtensionSupported")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 }
 
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_GLCanvas, __IsExtensionSupported)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* extension = arg.GetNumber(0)
-	//pThis->GetEntity()->IsExtensionSupported(extension);
+	//bool _rtn = pThis->GetEntity()->IsExtensionSupported(extension);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLCanvas, __SetColour, "SetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
 
@@ -154,13 +154,13 @@ Gura_ImplementMethod(wx_GLCanvas, __SetColour)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour(colour);
+	//bool _rtn = pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLCanvas, __SetCurrent, "SetCurrent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 }
 
@@ -169,20 +169,20 @@ Gura_ImplementMethod(wx_GLCanvas, __SetCurrent)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGLContext& context = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrent(context);
+	//bool _rtn = pThis->GetEntity()->SetCurrent(context);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLCanvas, __SwapBuffers, "SwapBuffers")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLCanvas, __SwapBuffers)
 {
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->SwapBuffers();
+	//bool _rtn = pThis->GetEntity()->SwapBuffers();
 	return Value::Nil;
 }
 

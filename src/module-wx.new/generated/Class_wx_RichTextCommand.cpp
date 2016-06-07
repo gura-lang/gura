@@ -39,7 +39,7 @@ String Object_wx_RichTextCommand::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextCommand, "RichTextCommand")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
@@ -64,7 +64,7 @@ Gura_ImplementFunction(__RichTextCommand)
 
 Gura_DeclareFunctionAlias(__RichTextCommand_1, "RichTextCommand_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextCommand));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -82,27 +82,27 @@ Gura_ImplementFunction(__RichTextCommand_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextCommand, __Do, "Do")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCommand, __Do)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Do();
+	//bool _rtn = pThis->GetEntity()->Do();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextCommand, __Undo, "Undo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCommand, __Undo)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Undo();
+	//bool _rtn = pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
 
@@ -136,14 +136,14 @@ Gura_ImplementMethod(wx_RichTextCommand, __ClearActions)
 
 Gura_DeclareMethodAlias(wx_RichTextCommand, __GetActions, "GetActions")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextCommand, __GetActions)
 {
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActions();
+	//wxList& _rtn = pThis->GetEntity()->GetActions();
 	return Value::Nil;
 }
 

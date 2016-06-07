@@ -39,7 +39,7 @@ String Object_wx_TextAttrBorders::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextAttrBorders, "TextAttrBorders")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrBorders));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_TextAttrBorders, __Reset)
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __EqPartial, "EqPartial")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "borders", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_TextAttrBorders, __EqPartial)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorders& borders = arg.GetNumber(0)
 	//bool weakTest = arg.GetNumber(1)
-	//pThis->GetEntity()->EqPartial(borders, weakTest);
+	//bool _rtn = pThis->GetEntity()->EqPartial(borders, weakTest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __Apply, "Apply")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "borders", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_TextAttrBorders, __Apply)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorders& borders = arg.GetNumber(0)
 	//const wxTextAttrBorders* compareWith = arg.GetNumber(1)
-	//pThis->GetEntity()->Apply(borders, compareWith);
+	//bool _rtn = pThis->GetEntity()->Apply(borders, compareWith);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __RemoveStyle, "RemoveStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_TextAttrBorders, __RemoveStyle)
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorders& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveStyle(attr);
+	//bool _rtn = pThis->GetEntity()->RemoveStyle(attr);
 	return Value::Nil;
 }
 
@@ -213,118 +213,118 @@ Gura_ImplementMethod(wx_TextAttrBorders, __CollectCommonAttributes)
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __IsValid, "IsValid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __IsValid)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsValid();
+	//bool _rtn = pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetLeft, "GetLeft")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetLeft)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLeft();
+	//const wxTextAttrBorder& _rtn = pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetLeft_1, "GetLeft_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetLeft_1)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLeft();
+	//wxTextAttrBorder& _rtn = pThis->GetEntity()->GetLeft();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetRight, "GetRight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetRight)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRight();
+	//const wxTextAttrBorder& _rtn = pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetRight_1, "GetRight_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetRight_1)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRight();
+	//wxTextAttrBorder& _rtn = pThis->GetEntity()->GetRight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetTop, "GetTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetTop)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTop();
+	//const wxTextAttrBorder& _rtn = pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetTop_1, "GetTop_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetTop_1)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTop();
+	//wxTextAttrBorder& _rtn = pThis->GetEntity()->GetTop();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetBottom, "GetBottom")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetBottom)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBottom();
+	//const wxTextAttrBorder& _rtn = pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrBorders, __GetBottom_1, "GetBottom_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrBorders, __GetBottom_1)
 {
 	Object_wx_TextAttrBorders *pThis = Object_wx_TextAttrBorders::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBottom();
+	//wxTextAttrBorder& _rtn = pThis->GetEntity()->GetBottom();
 	return Value::Nil;
 }
 

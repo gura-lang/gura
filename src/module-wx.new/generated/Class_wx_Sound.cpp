@@ -39,7 +39,7 @@ String Object_wx_Sound::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Sound, "Sound")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Sound)
 
 Gura_DeclareFunctionAlias(__Sound_1, "Sound_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__Sound_1)
 
 Gura_DeclareFunctionAlias(__Sound_2, "Sound_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Sound));
@@ -89,7 +89,7 @@ Gura_ImplementFunction(__Sound_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Sound, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isResource", VTYPE_number, OCCUR_Once);
 }
@@ -100,13 +100,13 @@ Gura_ImplementMethod(wx_Sound, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& fileName = arg.GetNumber(0)
 	//bool isResource = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(fileName, isResource);
+	//bool _rtn = pThis->GetEntity()->Create(fileName, isResource);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sound, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -117,39 +117,39 @@ Gura_ImplementMethod(wx_Sound, __Create_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t size = arg.GetNumber(0)
 	//const void* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(size, data);
+	//bool _rtn = pThis->GetEntity()->Create(size, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sound, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sound, __IsOk)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sound, __IsPlaying, "IsPlaying")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Sound, __IsPlaying)
 {
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPlaying();
+	//bool _rtn = pThis->GetEntity()->IsPlaying();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sound, __Play, "Play")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
 
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_Sound, __Play)
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned flags = arg.GetNumber(0)
-	//pThis->GetEntity()->Play(flags);
+	//bool _rtn = pThis->GetEntity()->Play(flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Sound, __Play_1, "Play_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Sound, __Play_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//unsigned flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Play(filename, flags);
+	//bool _rtn = pThis->GetEntity()->Play(filename, flags);
 	return Value::Nil;
 }
 

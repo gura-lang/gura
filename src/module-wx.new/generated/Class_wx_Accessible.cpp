@@ -39,7 +39,7 @@ String Object_wx_Accessible::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Accessible, "Accessible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Accessible));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__Accessible)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Accessible, __DoDefaultAction, "DoDefaultAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_Accessible, __DoDefaultAction)
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
-	//pThis->GetEntity()->DoDefaultAction(childId);
+	//wxAccStatus _rtn = pThis->GetEntity()->DoDefaultAction(childId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetChild, "GetChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_Accessible, __GetChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxAccessible** child = arg.GetNumber(1)
-	//pThis->GetEntity()->GetChild(childId, child);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetChild(childId, child);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetChildCount, "GetChildCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childCount", VTYPE_number, OCCUR_Once);
 }
 
@@ -98,13 +98,13 @@ Gura_ImplementMethod(wx_Accessible, __GetChildCount)
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int* childCount = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChildCount(childCount);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetChildCount(childCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetDefaultAction, "GetDefaultAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "actionName", VTYPE_number, OCCUR_Once);
 }
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_Accessible, __GetDefaultAction)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* actionName = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDefaultAction(childId, actionName);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetDefaultAction(childId, actionName);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetDescription, "GetDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "description", VTYPE_number, OCCUR_Once);
 }
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_Accessible, __GetDescription)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* description = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDescription(childId, description);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetDescription(childId, description);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetFocus, "GetFocus")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "child", VTYPE_number, OCCUR_Once);
 }
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_Accessible, __GetFocus)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int* childId = arg.GetNumber(0)
 	//wxAccessible** child = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFocus(childId, child);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetFocus(childId, child);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetHelpText, "GetHelpText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "helpText", VTYPE_number, OCCUR_Once);
 }
@@ -166,13 +166,13 @@ Gura_ImplementMethod(wx_Accessible, __GetHelpText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* helpText = arg.GetNumber(1)
-	//pThis->GetEntity()->GetHelpText(childId, helpText);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetHelpText(childId, helpText);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetKeyboardShortcut, "GetKeyboardShortcut")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "shortcut", VTYPE_number, OCCUR_Once);
 }
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_Accessible, __GetKeyboardShortcut)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* shortcut = arg.GetNumber(1)
-	//pThis->GetEntity()->GetKeyboardShortcut(childId, shortcut);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetKeyboardShortcut(childId, shortcut);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetLocation, "GetLocation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "elementId", VTYPE_number, OCCUR_Once);
 }
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_Accessible, __GetLocation)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRect& rect = arg.GetNumber(0)
 	//int elementId = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLocation(rect, elementId);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetLocation(rect, elementId);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
@@ -217,13 +217,13 @@ Gura_ImplementMethod(wx_Accessible, __GetName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* name = arg.GetNumber(1)
-	//pThis->GetEntity()->GetName(childId, name);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetName(childId, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_Accessible, __GetParent)
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAccessible** parent = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParent(parent);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetParent(parent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetRole, "GetRole")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "role", VTYPE_number, OCCUR_Once);
 }
@@ -249,13 +249,13 @@ Gura_ImplementMethod(wx_Accessible, __GetRole)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxAccRole* role = arg.GetNumber(1)
-	//pThis->GetEntity()->GetRole(childId, role);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetRole(childId, role);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetSelections, "GetSelections")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "selections", VTYPE_number, OCCUR_Once);
 }
 
@@ -264,13 +264,13 @@ Gura_ImplementMethod(wx_Accessible, __GetSelections)
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant* selections = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelections(selections);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetSelections(selections);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetState, "GetState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "state", VTYPE_number, OCCUR_Once);
 }
@@ -281,13 +281,13 @@ Gura_ImplementMethod(wx_Accessible, __GetState)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//long* state = arg.GetNumber(1)
-	//pThis->GetEntity()->GetState(childId, state);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetState(childId, state);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strValue", VTYPE_number, OCCUR_Once);
 }
@@ -298,26 +298,26 @@ Gura_ImplementMethod(wx_Accessible, __GetValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxString* strValue = arg.GetNumber(1)
-	//pThis->GetEntity()->GetValue(childId, strValue);
+	//wxAccStatus _rtn = pThis->GetEntity()->GetValue(childId, strValue);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __GetWindow, "GetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Accessible, __GetWindow)
 {
 	Object_wx_Accessible *pThis = Object_wx_Accessible::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childObject", VTYPE_number, OCCUR_Once);
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_Accessible, __HitTest)
 	//const wxPoint& pt = arg.GetNumber(0)
 	//int* childId = arg.GetNumber(1)
 	//wxAccessible** childObject = arg.GetNumber(2)
-	//pThis->GetEntity()->HitTest(pt, childId, childObject);
+	//wxAccStatus _rtn = pThis->GetEntity()->HitTest(pt, childId, childObject);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Accessible, __Navigate, "Navigate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "navDir", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fromId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "toId", VTYPE_number, OCCUR_Once);
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_Accessible, __Navigate)
 	//int fromId = arg.GetNumber(1)
 	//int* toId = arg.GetNumber(2)
 	//wxAccessible** toObject = arg.GetNumber(3)
-	//pThis->GetEntity()->Navigate(navDir, fromId, toId, toObject);
+	//wxAccStatus _rtn = pThis->GetEntity()->Navigate(navDir, fromId, toId, toObject);
 	return Value::Nil;
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_Accessible, __NotifyEvent)
 
 Gura_DeclareMethodAlias(wx_Accessible, __Select, "Select")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "selectFlags", VTYPE_number, OCCUR_Once);
 }
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_Accessible, __Select)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int childId = arg.GetNumber(0)
 	//wxAccSelectionFlags selectFlags = arg.GetNumber(1)
-	//pThis->GetEntity()->Select(childId, selectFlags);
+	//wxAccStatus _rtn = pThis->GetEntity()->Select(childId, selectFlags);
 	return Value::Nil;
 }
 

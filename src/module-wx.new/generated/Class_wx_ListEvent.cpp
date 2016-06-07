@@ -39,7 +39,7 @@ String Object_wx_ListEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ListEvent, "ListEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ListEvent));
@@ -59,170 +59,170 @@ Gura_ImplementFunction(__ListEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ListEvent, __GetCacheFrom, "GetCacheFrom")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetCacheFrom)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCacheFrom();
+	//long _rtn = pThis->GetEntity()->GetCacheFrom();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetCacheTo, "GetCacheTo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetCacheTo)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCacheTo();
+	//long _rtn = pThis->GetEntity()->GetCacheTo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetColumn, "GetColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetColumn)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumn();
+	//int _rtn = pThis->GetEntity()->GetColumn();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetData)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//wxUIntPtr _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetImage, "GetImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetImage)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImage();
+	//int _rtn = pThis->GetEntity()->GetImage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetIndex, "GetIndex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetIndex)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndex();
+	//long _rtn = pThis->GetEntity()->GetIndex();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetItem)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetItem();
+	//const wxListItem& _rtn = pThis->GetEntity()->GetItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetKeyCode, "GetKeyCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetKeyCode)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetKeyCode();
+	//int _rtn = pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetLabel)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabel();
+	//const wxString& _rtn = pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetMask, "GetMask")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetMask)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMask();
+	//long _rtn = pThis->GetEntity()->GetMask();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetPoint, "GetPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetPoint)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPoint();
+	//wxPoint _rtn = pThis->GetEntity()->GetPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __GetText)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//const wxString& _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListEvent, __IsEditCancelled, "IsEditCancelled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListEvent, __IsEditCancelled)
 {
 	Object_wx_ListEvent *pThis = Object_wx_ListEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEditCancelled();
+	//bool _rtn = pThis->GetEntity()->IsEditCancelled();
 	return Value::Nil;
 }
 

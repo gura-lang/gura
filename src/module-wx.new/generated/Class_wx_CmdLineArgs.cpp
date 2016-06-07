@@ -39,40 +39,40 @@ String Object_wx_CmdLineArgs::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CmdLineArgs, __begin, "begin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArgs, __begin)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//const_iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArgs, __end, "end")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArgs, __end)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//const_iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArgs, __size, "size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArgs, __size)
 {
 	Object_wx_CmdLineArgs *pThis = Object_wx_CmdLineArgs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->size();
+	//size_t _rtn = pThis->GetEntity()->size();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_HtmlWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlWindow, "HtmlWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__HtmlWindow)
 
 Gura_DeclareFunctionAlias(__HtmlWindow_1, "HtmlWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __AddFilter)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __AppendToPage, "AppendToPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
@@ -104,111 +104,111 @@ Gura_ImplementMethod(wx_HtmlWindow, __AppendToPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& source = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendToPage(source);
+	//bool _rtn = pThis->GetEntity()->AppendToPage(source);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetInternalRepresentation, "GetInternalRepresentation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __GetInternalRepresentation)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInternalRepresentation();
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->GetInternalRepresentation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedAnchor, "GetOpenedAnchor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedAnchor)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOpenedAnchor();
+	//wxString _rtn = pThis->GetEntity()->GetOpenedAnchor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedPage, "GetOpenedPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedPage)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOpenedPage();
+	//wxString _rtn = pThis->GetEntity()->GetOpenedPage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetOpenedPageTitle, "GetOpenedPageTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __GetOpenedPageTitle)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOpenedPageTitle();
+	//wxString _rtn = pThis->GetEntity()->GetOpenedPageTitle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetRelatedFrame, "GetRelatedFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __GetRelatedFrame)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRelatedFrame();
+	//wxFrame* _rtn = pThis->GetEntity()->GetRelatedFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryBack, "HistoryBack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __HistoryBack)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HistoryBack();
+	//bool _rtn = pThis->GetEntity()->HistoryBack();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryCanBack, "HistoryCanBack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __HistoryCanBack)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HistoryCanBack();
+	//bool _rtn = pThis->GetEntity()->HistoryCanBack();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryCanForward, "HistoryCanForward")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __HistoryCanForward)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HistoryCanForward();
+	//bool _rtn = pThis->GetEntity()->HistoryCanForward();
 	return Value::Nil;
 }
 
@@ -227,20 +227,20 @@ Gura_ImplementMethod(wx_HtmlWindow, __HistoryClear)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __HistoryForward, "HistoryForward")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __HistoryForward)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HistoryForward();
+	//bool _rtn = pThis->GetEntity()->HistoryForward();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,13 +249,13 @@ Gura_ImplementMethod(wx_HtmlWindow, __LoadFile)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->LoadFile(filename);
+	//bool _rtn = pThis->GetEntity()->LoadFile(filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __LoadPage, "LoadPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __LoadPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->LoadPage(location);
+	//bool _rtn = pThis->GetEntity()->LoadPage(location);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnLinkClicked)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __OnOpeningURL, "OnOpeningURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "redirect", VTYPE_number, OCCUR_Once);
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnOpeningURL)
 	//wxHtmlURLType type = arg.GetNumber(0)
 	//const wxString& url = arg.GetNumber(1)
 	//wxString* redirect = arg.GetNumber(2)
-	//pThis->GetEntity()->OnOpeningURL(type, url, redirect);
+	//wxHtmlOpeningStatus _rtn = pThis->GetEntity()->OnOpeningURL(type, url, redirect);
 	return Value::Nil;
 }
 
@@ -379,14 +379,14 @@ Gura_ImplementMethod(wx_HtmlWindow, __SelectWord)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __SelectionToText, "SelectionToText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __SelectionToText)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->SelectionToText();
+	//wxString _rtn = pThis->GetEntity()->SelectionToText();
 	return Value::Nil;
 }
 
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetStandardFonts)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __SetPage, "SetPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 }
 
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& source = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPage(source);
+	//bool _rtn = pThis->GetEntity()->SetPage(source);
 	return Value::Nil;
 }
 
@@ -509,14 +509,14 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedStatusBar_1)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __ToText, "ToText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWindow, __ToText)
 {
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToText();
+	//wxString _rtn = pThis->GetEntity()->ToText();
 	return Value::Nil;
 }
 
@@ -539,7 +539,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __WriteCustomization)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __GetDefaultHTMLCursor, "GetDefaultHTMLCursor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
 
@@ -548,7 +548,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __GetDefaultHTMLCursor)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//HTMLCursor type = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDefaultHTMLCursor(type);
+	//wxCursor _rtn = pThis->GetEntity()->GetDefaultHTMLCursor(type);
 	return Value::Nil;
 }
 
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetDefaultHTMLCursor)
 
 Gura_DeclareMethodAlias(wx_HtmlWindow, __OnCellClicked, "OnCellClicked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cell", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -586,7 +586,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnCellClicked)
 	//wxCoord x = arg.GetNumber(1)
 	//wxCoord y = arg.GetNumber(2)
 	//const wxMouseEvent& event = arg.GetNumber(3)
-	//pThis->GetEntity()->OnCellClicked(cell, x, y, event);
+	//bool _rtn = pThis->GetEntity()->OnCellClicked(cell, x, y, event);
 	return Value::Nil;
 }
 

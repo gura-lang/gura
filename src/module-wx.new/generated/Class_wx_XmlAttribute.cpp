@@ -39,7 +39,7 @@ String Object_wx_XmlAttribute::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__XmlAttribute, "XmlAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_XmlAttribute));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__XmlAttribute)
 
 Gura_DeclareFunctionAlias(__XmlAttribute_1, "XmlAttribute_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
@@ -74,40 +74,40 @@ Gura_ImplementFunction(__XmlAttribute_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_XmlAttribute, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlAttribute, __GetName)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlAttribute, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlAttribute, __GetNext)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//wxXmlAttribute* _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_XmlAttribute, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_XmlAttribute, __GetValue)
 {
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxString _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

@@ -39,98 +39,98 @@ String Object_wx_StackFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StackFrame, __GetAddress, "GetAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetAddress)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAddress();
+	//void* _rtn = pThis->GetEntity()->GetAddress();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetFileName, "GetFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetFileName)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileName();
+	//wxString _rtn = pThis->GetEntity()->GetFileName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetLevel, "GetLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetLevel)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLevel();
+	//size_t _rtn = pThis->GetEntity()->GetLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetLine, "GetLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetLine)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLine();
+	//size_t _rtn = pThis->GetEntity()->GetLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetModule, "GetModule")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetModule)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetModule();
+	//wxString _rtn = pThis->GetEntity()->GetModule();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetName)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetOffset, "GetOffset")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetOffset)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffset();
+	//size_t _rtn = pThis->GetEntity()->GetOffset();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetParam, "GetParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -145,33 +145,33 @@ Gura_ImplementMethod(wx_StackFrame, __GetParam)
 	//wxString* type = arg.GetNumber(1)
 	//wxString* name = arg.GetNumber(2)
 	//wxString* value = arg.GetNumber(3)
-	//pThis->GetEntity()->GetParam(n, type, name, value);
+	//bool _rtn = pThis->GetEntity()->GetParam(n, type, name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __GetParamCount, "GetParamCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __GetParamCount)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParamCount();
+	//size_t _rtn = pThis->GetEntity()->GetParamCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_StackFrame, __HasSourceLocation, "HasSourceLocation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StackFrame, __HasSourceLocation)
 {
 	Object_wx_StackFrame *pThis = Object_wx_StackFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasSourceLocation();
+	//bool _rtn = pThis->GetEntity()->HasSourceLocation();
 	return Value::Nil;
 }
 

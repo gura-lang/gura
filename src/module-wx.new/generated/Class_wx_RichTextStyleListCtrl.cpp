@@ -39,7 +39,7 @@ String Object_wx_RichTextStyleListCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextStyleListCtrl, "RichTextStyleListCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -62,7 +62,7 @@ Gura_ImplementFunction(__RichTextStyleListCtrl)
 
 Gura_DeclareFunctionAlias(__RichTextStyleListCtrl_1, "RichTextStyleListCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextStyleListCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__RichTextStyleListCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -95,72 +95,72 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetRichTextCtrl, "GetRichTextCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetRichTextCtrl)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRichTextCtrl();
+	//wxRichTextCtrl* _rtn = pThis->GetEntity()->GetRichTextCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleChoice, "GetStyleChoice")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleChoice)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyleChoice();
+	//wxChoice* _rtn = pThis->GetEntity()->GetStyleChoice();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleListBox, "GetStyleListBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleListBox)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyleListBox();
+	//wxRichTextStyleListBox* _rtn = pThis->GetEntity()->GetStyleListBox();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleSheet, "GetStyleSheet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleSheet)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyleSheet();
+	//wxRichTextStyleSheet* _rtn = pThis->GetEntity()->GetStyleSheet();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextStyleListCtrl, __GetStyleType, "GetStyleType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextStyleListCtrl, __GetStyleType)
 {
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyleType();
+	//wxRichTextStyleListBox::wxRichTextStyleType _rtn = pThis->GetEntity()->GetStyleType();
 	return Value::Nil;
 }
 

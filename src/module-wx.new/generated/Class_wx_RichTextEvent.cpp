@@ -39,7 +39,7 @@ String Object_wx_RichTextEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextEvent, "RichTextEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__RichTextEvent)
 
 Gura_DeclareFunctionAlias(__RichTextEvent_1, "RichTextEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -74,14 +74,14 @@ Gura_ImplementFunction(__RichTextEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetPosition)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//long _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 
@@ -102,14 +102,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetPosition)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetFlags)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
@@ -130,14 +130,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetFlags)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetOldStyleSheet, "GetOldStyleSheet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetOldStyleSheet)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldStyleSheet();
+	//wxRichTextStyleSheet* _rtn = pThis->GetEntity()->GetOldStyleSheet();
 	return Value::Nil;
 }
 
@@ -158,14 +158,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetOldStyleSheet)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetNewStyleSheet, "GetNewStyleSheet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetNewStyleSheet)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNewStyleSheet();
+	//wxRichTextStyleSheet* _rtn = pThis->GetEntity()->GetNewStyleSheet();
 	return Value::Nil;
 }
 
@@ -186,14 +186,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetNewStyleSheet)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetRange)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRange();
+	//const wxRichTextRange& _rtn = pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
 
@@ -214,14 +214,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetRange)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetCharacter, "GetCharacter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetCharacter)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCharacter();
+	//wxChar _rtn = pThis->GetEntity()->GetCharacter();
 	return Value::Nil;
 }
 
@@ -242,14 +242,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetCharacter)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetContainer, "GetContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetContainer)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainer();
+	//wxRichTextParagraphLayoutBox* _rtn = pThis->GetEntity()->GetContainer();
 	return Value::Nil;
 }
 
@@ -270,14 +270,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetContainer)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __GetOldContainer, "GetOldContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __GetOldContainer)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOldContainer();
+	//wxRichTextParagraphLayoutBox* _rtn = pThis->GetEntity()->GetOldContainer();
 	return Value::Nil;
 }
 
@@ -298,14 +298,14 @@ Gura_ImplementMethod(wx_RichTextEvent, __SetOldContainer)
 
 Gura_DeclareMethodAlias(wx_RichTextEvent, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextEvent, __Clone)
 {
 	Object_wx_RichTextEvent *pThis = Object_wx_RichTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 

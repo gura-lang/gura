@@ -39,118 +39,118 @@ String Object_wx_CmdLineArg::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetDateVal, "GetDateVal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetDateVal)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDateVal();
+	//const wxDateTime& _rtn = pThis->GetEntity()->GetDateVal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetDoubleVal, "GetDoubleVal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetDoubleVal)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDoubleVal();
+	//double _rtn = pThis->GetEntity()->GetDoubleVal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetKind, "GetKind")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetKind)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetKind();
+	//wxCmdLineEntryType _rtn = pThis->GetEntity()->GetKind();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetLongVal, "GetLongVal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetLongVal)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLongVal();
+	//long _rtn = pThis->GetEntity()->GetLongVal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetLongName, "GetLongName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetLongName)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLongName();
+	//wxString _rtn = pThis->GetEntity()->GetLongName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetShortName, "GetShortName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetShortName)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShortName();
+	//wxString _rtn = pThis->GetEntity()->GetShortName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetStrVal, "GetStrVal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetStrVal)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStrVal();
+	//const wxString& _rtn = pThis->GetEntity()->GetStrVal();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __GetType)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxCmdLineParamType _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CmdLineArg, __IsNegated, "IsNegated")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CmdLineArg, __IsNegated)
 {
 	Object_wx_CmdLineArg *pThis = Object_wx_CmdLineArg::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNegated();
+	//bool _rtn = pThis->GetEntity()->IsNegated();
 	return Value::Nil;
 }
 

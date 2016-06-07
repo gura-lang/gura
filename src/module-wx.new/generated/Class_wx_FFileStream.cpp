@@ -39,7 +39,7 @@ String Object_wx_FFileStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FFileStream, "FFileStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "iofileName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FFileStream));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__FFileStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FFileStream, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FFileStream, __IsOk)
 {
 	Object_wx_FFileStream *pThis = Object_wx_FFileStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

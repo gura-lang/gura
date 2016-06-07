@@ -39,7 +39,7 @@ String Object_wx_TextValidator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextValidator, "TextValidator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "validator", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__TextValidator)
 
 Gura_DeclareFunctionAlias(__TextValidator_1, "TextValidator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "valPtr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TextValidator));
@@ -74,59 +74,59 @@ Gura_ImplementFunction(__TextValidator_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextValidator, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __Clone)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxObject* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __GetExcludes, "GetExcludes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __GetExcludes)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExcludes();
+	//wxArrayString& _rtn = pThis->GetEntity()->GetExcludes();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __GetIncludes, "GetIncludes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __GetIncludes)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIncludes();
+	//wxArrayString& _rtn = pThis->GetEntity()->GetIncludes();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __GetStyle)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//long _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __HasFlag, "HasFlag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_TextValidator, __HasFlag)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextValidatorStyle style = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFlag(style);
+	//bool _rtn = pThis->GetEntity()->HasFlag(style);
 	return Value::Nil;
 }
 
@@ -231,33 +231,33 @@ Gura_ImplementMethod(wx_TextValidator, __SetStyle)
 
 Gura_DeclareMethodAlias(wx_TextValidator, __TransferFromWindow, "TransferFromWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __TransferFromWindow)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TransferFromWindow();
+	//bool _rtn = pThis->GetEntity()->TransferFromWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __TransferToWindow, "TransferToWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextValidator, __TransferToWindow)
 {
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TransferToWindow();
+	//bool _rtn = pThis->GetEntity()->TransferToWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __Validate, "Validate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -266,13 +266,13 @@ Gura_ImplementMethod(wx_TextValidator, __Validate)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Validate(parent);
+	//bool _rtn = pThis->GetEntity()->Validate(parent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __ContainsOnlyIncludedCharacters, "ContainsOnlyIncludedCharacters")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -281,13 +281,13 @@ Gura_ImplementMethod(wx_TextValidator, __ContainsOnlyIncludedCharacters)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& val = arg.GetNumber(0)
-	//pThis->GetEntity()->ContainsOnlyIncludedCharacters(val);
+	//bool _rtn = pThis->GetEntity()->ContainsOnlyIncludedCharacters(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __ContainsExcludedCharacters, "ContainsExcludedCharacters")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -296,13 +296,13 @@ Gura_ImplementMethod(wx_TextValidator, __ContainsExcludedCharacters)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& val = arg.GetNumber(0)
-	//pThis->GetEntity()->ContainsExcludedCharacters(val);
+	//bool _rtn = pThis->GetEntity()->ContainsExcludedCharacters(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextValidator, __IsValid, "IsValid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_TextValidator, __IsValid)
 	Object_wx_TextValidator *pThis = Object_wx_TextValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& val = arg.GetNumber(0)
-	//pThis->GetEntity()->IsValid(val);
+	//wxString _rtn = pThis->GetEntity()->IsValid(val);
 	return Value::Nil;
 }
 

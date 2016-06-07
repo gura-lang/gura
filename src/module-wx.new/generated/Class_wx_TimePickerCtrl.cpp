@@ -39,7 +39,7 @@ String Object_wx_TimePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TimePickerCtrl, "TimePickerCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TimePickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TimePickerCtrl)
 
 Gura_DeclareFunctionAlias(__TimePickerCtrl_1, "TimePickerCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__TimePickerCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TimePickerCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TimePickerCtrl, __GetTime, "GetTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
@@ -126,26 +126,26 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __GetTime)
 	//int* hour = arg.GetNumber(0)
 	//int* min = arg.GetNumber(1)
 	//int* sec = arg.GetNumber(2)
-	//pThis->GetEntity()->GetTime(hour, min, sec);
+	//bool _rtn = pThis->GetEntity()->GetTime(hour, min, sec);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TimePickerCtrl, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TimePickerCtrl, __GetValue)
 {
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxDateTime _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TimePickerCtrl, __SetTime, "SetTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sec", VTYPE_number, OCCUR_Once);
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __SetTime)
 	//int hour = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
-	//pThis->GetEntity()->SetTime(hour, min, sec);
+	//bool _rtn = pThis->GetEntity()->SetTime(hour, min, sec);
 	return Value::Nil;
 }
 

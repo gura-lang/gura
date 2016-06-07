@@ -39,7 +39,7 @@ String Object_wx_HtmlRenderingStyle::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlRenderingStyle, __GetSelectedTextColour, "GetSelectedTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,13 +48,13 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextColour)
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextColour(clr);
+	//wxColour _rtn = pThis->GetEntity()->GetSelectedTextColour(clr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingStyle, __GetSelectedTextBgColour, "GetSelectedTextBgColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour)
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextBgColour(clr);
+	//wxColour _rtn = pThis->GetEntity()->GetSelectedTextBgColour(clr);
 	return Value::Nil;
 }
 

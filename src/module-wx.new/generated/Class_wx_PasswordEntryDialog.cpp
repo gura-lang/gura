@@ -39,7 +39,7 @@ String Object_wx_PasswordEntryDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PasswordEntryDialog, "PasswordEntryDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);

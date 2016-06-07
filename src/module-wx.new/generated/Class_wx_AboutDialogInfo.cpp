@@ -39,7 +39,7 @@ String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AboutDialogInfo, "AboutDialogInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AboutDialogInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -115,66 +115,66 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __AddTranslator)
 
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, __GetName)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __HasDescription, "HasDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, __HasDescription)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasDescription();
+	//bool _rtn = pThis->GetEntity()->HasDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __GetDescription, "GetDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, __GetDescription)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDescription();
+	//const wxString& _rtn = pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __HasCopyright, "HasCopyright")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, __HasCopyright)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasCopyright();
+	//bool _rtn = pThis->GetEntity()->HasCopyright();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AboutDialogInfo, __GetCopyright, "GetCopyright")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AboutDialogInfo, __GetCopyright)
 {
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCopyright();
+	//const wxString& _rtn = pThis->GetEntity()->GetCopyright();
 	return Value::Nil;
 }
 

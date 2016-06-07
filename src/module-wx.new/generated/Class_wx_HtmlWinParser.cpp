@@ -39,7 +39,7 @@ String Object_wx_HtmlWinParser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlWinParser, "HtmlWinParser")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wndIface", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWinParser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,274 +72,274 @@ Gura_ImplementMethod(wx_HtmlWinParser, __AddModule)
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __CloseContainer, "CloseContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __CloseContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CloseContainer();
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->CloseContainer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __CreateCurrentFont, "CreateCurrentFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __CreateCurrentFont)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreateCurrentFont();
+	//wxFont* _rtn = pThis->GetEntity()->CreateCurrentFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetActualColor, "GetActualColor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetActualColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActualColor();
+	//const wxColour& _rtn = pThis->GetEntity()->GetActualColor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetAlign, "GetAlign")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetAlign)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlign();
+	//int _rtn = pThis->GetEntity()->GetAlign();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetCharHeight, "GetCharHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetCharHeight)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCharHeight();
+	//int _rtn = pThis->GetEntity()->GetCharHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetCharWidth, "GetCharWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetCharWidth)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCharWidth();
+	//int _rtn = pThis->GetEntity()->GetCharWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetContainer, "GetContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContainer();
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->GetContainer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetDC, "GetDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetDC)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDC();
+	//wxDC* _rtn = pThis->GetEntity()->GetDC();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetEncodingConverter, "GetEncodingConverter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetEncodingConverter)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEncodingConverter();
+	//wxEncodingConverter* _rtn = pThis->GetEntity()->GetEncodingConverter();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontBold, "GetFontBold")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontBold)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontBold();
+	//int _rtn = pThis->GetEntity()->GetFontBold();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontFace, "GetFontFace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontFace)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontFace();
+	//wxString _rtn = pThis->GetEntity()->GetFontFace();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontFixed, "GetFontFixed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontFixed)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontFixed();
+	//int _rtn = pThis->GetEntity()->GetFontFixed();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontItalic, "GetFontItalic")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontItalic)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontItalic();
+	//int _rtn = pThis->GetEntity()->GetFontItalic();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontSize, "GetFontSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontSize)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontSize();
+	//int _rtn = pThis->GetEntity()->GetFontSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetFontUnderlined, "GetFontUnderlined")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetFontUnderlined)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontUnderlined();
+	//int _rtn = pThis->GetEntity()->GetFontUnderlined();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetInputEncoding, "GetInputEncoding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetInputEncoding)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInputEncoding();
+	//wxFontEncoding _rtn = pThis->GetEntity()->GetInputEncoding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetLink, "GetLink")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetLink)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLink();
+	//const wxHtmlLinkInfo& _rtn = pThis->GetEntity()->GetLink();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetLinkColor, "GetLinkColor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetLinkColor)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLinkColor();
+	//const wxColour& _rtn = pThis->GetEntity()->GetLinkColor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetOutputEncoding, "GetOutputEncoding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetOutputEncoding)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOutputEncoding();
+	//wxFontEncoding _rtn = pThis->GetEntity()->GetOutputEncoding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __GetWindowInterface, "GetWindowInterface")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __GetWindowInterface)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindowInterface();
+	//wxHtmlWindowInterface* _rtn = pThis->GetEntity()->GetWindowInterface();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __OpenContainer, "OpenContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlWinParser, __OpenContainer)
 {
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OpenContainer();
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->OpenContainer();
 	return Value::Nil;
 }
 
@@ -375,7 +375,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, __SetAlign)
 
 Gura_DeclareMethodAlias(wx_HtmlWinParser, __SetContainer, "SetContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, __SetContainer)
 	Object_wx_HtmlWinParser *pThis = Object_wx_HtmlWinParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlContainerCell* c = arg.GetNumber(0)
-	//pThis->GetEntity()->SetContainer(c);
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->SetContainer(c);
 	return Value::Nil;
 }
 

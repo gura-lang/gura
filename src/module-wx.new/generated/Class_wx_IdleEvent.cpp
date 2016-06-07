@@ -39,7 +39,7 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__IdleEvent, "IdleEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IdleEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,27 +55,27 @@ Gura_ImplementFunction(__IdleEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_IdleEvent, __GetMode, "GetMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IdleEvent, __GetMode)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMode();
+	//wxIdleMode _rtn = pThis->GetEntity()->GetMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IdleEvent, __MoreRequested, "MoreRequested")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IdleEvent, __MoreRequested)
 {
 	Object_wx_IdleEvent *pThis = Object_wx_IdleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MoreRequested();
+	//bool _rtn = pThis->GetEntity()->MoreRequested();
 	return Value::Nil;
 }
 

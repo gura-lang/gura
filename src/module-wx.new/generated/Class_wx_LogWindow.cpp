@@ -39,7 +39,7 @@ String Object_wx_LogWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogWindow, "LogWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pParent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "szTitle", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
@@ -63,20 +63,20 @@ Gura_ImplementFunction(__LogWindow)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogWindow, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogWindow, __GetFrame)
 {
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrame();
+	//wxFrame* _rtn = pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LogWindow, __OnFrameClose, "OnFrameClose")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "frame", VTYPE_number, OCCUR_Once);
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_LogWindow, __OnFrameClose)
 	Object_wx_LogWindow *pThis = Object_wx_LogWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFrame* frame = arg.GetNumber(0)
-	//pThis->GetEntity()->OnFrameClose(frame);
+	//bool _rtn = pThis->GetEntity()->OnFrameClose(frame);
 	return Value::Nil;
 }
 

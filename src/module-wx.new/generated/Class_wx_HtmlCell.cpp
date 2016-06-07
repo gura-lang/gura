@@ -39,7 +39,7 @@ String Object_wx_HtmlCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlCell, "HtmlCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__HtmlCell)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlCell, __AdjustPagebreak, "AdjustPagebreak")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pagebreak", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "known_pagebreaks", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pageHeight", VTYPE_number, OCCUR_Once);
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_HtmlCell, __AdjustPagebreak)
 	//int* pagebreak = arg.GetNumber(0)
 	//const wxArrayInt& known_pagebreaks = arg.GetNumber(1)
 	//int pageHeight = arg.GetNumber(2)
-	//pThis->GetEntity()->AdjustPagebreak(pagebreak, known_pagebreaks, pageHeight);
+	//bool _rtn = pThis->GetEntity()->AdjustPagebreak(pagebreak, known_pagebreaks, pageHeight);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HtmlCell, __DrawInvisible)
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __Find, "Find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "condition", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "param", VTYPE_number, OCCUR_Once);
 }
@@ -131,65 +131,65 @@ Gura_ImplementMethod(wx_HtmlCell, __Find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int condition = arg.GetNumber(0)
 	//const void* param = arg.GetNumber(1)
-	//pThis->GetEntity()->Find(condition, param);
+	//const wxHtmlCell* _rtn = pThis->GetEntity()->Find(condition, param);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetDescent, "GetDescent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetDescent)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDescent();
+	//int _rtn = pThis->GetEntity()->GetDescent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetFirstChild, "GetFirstChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetFirstChild)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFirstChild();
+	//wxHtmlCell* _rtn = pThis->GetEntity()->GetFirstChild();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetHeight)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//int _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetId)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//const wxString& _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetLink, "GetLink")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_HtmlCell, __GetLink)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLink(x, y);
+	//wxHtmlLinkInfo* _rtn = pThis->GetEntity()->GetLink(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetMouseCursor, "GetMouseCursor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -215,13 +215,13 @@ Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursor)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMouseCursor(window);
+	//wxCursor _rtn = pThis->GetEntity()->GetMouseCursor(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetMouseCursorAt, "GetMouseCursorAt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rePos", VTYPE_number, OCCUR_Once);
 }
@@ -232,72 +232,72 @@ Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursorAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
 	//const wxPoint& rePos = arg.GetNumber(1)
-	//pThis->GetEntity()->GetMouseCursorAt(window, rePos);
+	//wxCursor _rtn = pThis->GetEntity()->GetMouseCursorAt(window, rePos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetNext, "GetNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetNext)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNext();
+	//wxHtmlCell* _rtn = pThis->GetEntity()->GetNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetParent)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParent();
+	//wxHtmlContainerCell* _rtn = pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetPosX, "GetPosX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetPosX)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosX();
+	//int _rtn = pThis->GetEntity()->GetPosX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetPosY, "GetPosY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetPosY)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosY();
+	//int _rtn = pThis->GetEntity()->GetPosY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlCell, __GetWidth)
 {
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_HtmlCell, __Layout)
 
 Gura_DeclareMethodAlias(wx_HtmlCell, __ProcessMouseClick, "ProcessMouseClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_HtmlCell, __ProcessMouseClick)
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
 	//const wxMouseEvent& event = arg.GetNumber(2)
-	//pThis->GetEntity()->ProcessMouseClick(window, pos, event);
+	//bool _rtn = pThis->GetEntity()->ProcessMouseClick(window, pos, event);
 	return Value::Nil;
 }
 

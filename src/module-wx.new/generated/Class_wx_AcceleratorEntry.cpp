@@ -39,7 +39,7 @@ String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AcceleratorEntry, "AcceleratorEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "keyCode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
@@ -60,7 +60,7 @@ Gura_ImplementFunction(__AcceleratorEntry)
 
 Gura_DeclareFunctionAlias(__AcceleratorEntry_1, "AcceleratorEntry_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AcceleratorEntry));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -78,53 +78,53 @@ Gura_ImplementFunction(__AcceleratorEntry_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetCommand, "GetCommand")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __GetCommand)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCommand();
+	//int _rtn = pThis->GetEntity()->GetCommand();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __GetFlags)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetKeyCode, "GetKeyCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __GetKeyCode)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetKeyCode();
+	//int _rtn = pThis->GetEntity()->GetKeyCode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __GetMenuItem, "GetMenuItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __GetMenuItem)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMenuItem();
+	//wxMenuItem* _rtn = pThis->GetEntity()->GetMenuItem();
 	return Value::Nil;
 }
 
@@ -151,46 +151,46 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __Set)
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __IsOk)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __ToString, "ToString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __ToString)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToString();
+	//wxString _rtn = pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __ToRawString, "ToRawString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AcceleratorEntry, __ToRawString)
 {
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToRawString();
+	//wxString _rtn = pThis->GetEntity()->ToRawString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AcceleratorEntry, __FromString, "FromString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __FromString)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->FromString(str);
+	//bool _rtn = pThis->GetEntity()->FromString(str);
 	return Value::Nil;
 }
 

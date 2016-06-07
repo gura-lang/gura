@@ -39,7 +39,7 @@ String Object_wx_LogGui::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogGui, "LogGui")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogGui));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,27 +68,27 @@ Gura_ImplementMethod(wx_LogGui, __Flush)
 
 Gura_DeclareMethodAlias(wx_LogGui, __GetTitle, "GetTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogGui, __GetTitle)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTitle();
+	//wxString _rtn = pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LogGui, __GetSeverityIcon, "GetSeverityIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogGui, __GetSeverityIcon)
 {
 	Object_wx_LogGui *pThis = Object_wx_LogGui::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSeverityIcon();
+	//int _rtn = pThis->GetEntity()->GetSeverityIcon();
 	return Value::Nil;
 }
 

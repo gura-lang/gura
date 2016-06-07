@@ -39,7 +39,7 @@ String Object_wx_ThreadEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ThreadEvent, "ThreadEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ThreadEvent));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__ThreadEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ThreadEvent, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __Clone)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxEvent* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadEvent, __GetEventCategory, "GetEventCategory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __GetEventCategory)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEventCategory();
+	//wxEventCategory _rtn = pThis->GetEntity()->GetEventCategory();
 	return Value::Nil;
 }
 
@@ -100,53 +100,53 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetPayload)
 
 Gura_DeclareMethodAlias(wx_ThreadEvent, __GetPayload, "GetPayload")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __GetPayload)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPayload();
+	//T _rtn = pThis->GetEntity()->GetPayload();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadEvent, __GetExtraLong, "GetExtraLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __GetExtraLong)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetExtraLong();
+	//long _rtn = pThis->GetEntity()->GetExtraLong();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadEvent, __GetInt, "GetInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __GetInt)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInt();
+	//int _rtn = pThis->GetEntity()->GetInt();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ThreadEvent, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ThreadEvent, __GetString)
 {
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetString();
+	//wxString _rtn = pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
 

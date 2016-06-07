@@ -39,7 +39,7 @@ String Object_wx_DCBrushChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DCBrushChanger, "DCBrushChanger")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "brush", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCBrushChanger));

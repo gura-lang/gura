@@ -39,7 +39,7 @@ String Object_wx_DialogLayoutAdapter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DialogLayoutAdapter, "DialogLayoutAdapter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DialogLayoutAdapter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__DialogLayoutAdapter)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation, "CanDoLayoutAdaptation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __CanDoLayoutAdaptation)
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDialog* dialog = arg.GetNumber(0)
-	//pThis->GetEntity()->CanDoLayoutAdaptation(dialog);
+	//bool _rtn = pThis->GetEntity()->CanDoLayoutAdaptation(dialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DialogLayoutAdapter, __DoLayoutAdaptation, "DoLayoutAdaptation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dialog", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DialogLayoutAdapter, __DoLayoutAdaptation)
 	Object_wx_DialogLayoutAdapter *pThis = Object_wx_DialogLayoutAdapter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDialog* dialog = arg.GetNumber(0)
-	//pThis->GetEntity()->DoLayoutAdaptation(dialog);
+	//bool _rtn = pThis->GetEntity()->DoLayoutAdaptation(dialog);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_View::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__View, "View")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_View));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_View, __Activate)
 
 Gura_DeclareMethodAlias(wx_View, __Close, "Close")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "deleteWindow", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,59 +79,59 @@ Gura_ImplementMethod(wx_View, __Close)
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool deleteWindow = arg.GetNumber(0)
-	//pThis->GetEntity()->Close(deleteWindow);
+	//bool _rtn = pThis->GetEntity()->Close(deleteWindow);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_View, __GetDocument, "GetDocument")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_View, __GetDocument)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocument();
+	//wxDocument* _rtn = pThis->GetEntity()->GetDocument();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_View, __GetDocumentManager, "GetDocumentManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_View, __GetDocumentManager)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocumentManager();
+	//wxDocManager* _rtn = pThis->GetEntity()->GetDocumentManager();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_View, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_View, __GetFrame)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrame();
+	//wxWindow* _rtn = pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_View, __GetViewName, "GetViewName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_View, __GetViewName)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetViewName();
+	//wxString _rtn = pThis->GetEntity()->GetViewName();
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_View, __OnChangeFilename)
 
 Gura_DeclareMethodAlias(wx_View, __OnClose, "OnClose")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "deleteWindow", VTYPE_number, OCCUR_Once);
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_View, __OnClose)
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool deleteWindow = arg.GetNumber(0)
-	//pThis->GetEntity()->OnClose(deleteWindow);
+	//bool _rtn = pThis->GetEntity()->OnClose(deleteWindow);
 	return Value::Nil;
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_View, __OnClosingDocument)
 
 Gura_DeclareMethodAlias(wx_View, __OnCreate, "OnCreate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -208,20 +208,20 @@ Gura_ImplementMethod(wx_View, __OnCreate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDocument* doc = arg.GetNumber(0)
 	//long flags = arg.GetNumber(1)
-	//pThis->GetEntity()->OnCreate(doc, flags);
+	//bool _rtn = pThis->GetEntity()->OnCreate(doc, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_View, __OnCreatePrintout, "OnCreatePrintout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_View, __OnCreatePrintout)
 {
 	Object_wx_View *pThis = Object_wx_View::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OnCreatePrintout();
+	//wxPrintout* _rtn = pThis->GetEntity()->OnCreatePrintout();
 	return Value::Nil;
 }
 

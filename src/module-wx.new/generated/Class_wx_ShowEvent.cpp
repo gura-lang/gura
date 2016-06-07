@@ -39,7 +39,7 @@ String Object_wx_ShowEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ShowEvent, "ShowEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "show", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ShowEvent));
@@ -74,27 +74,27 @@ Gura_ImplementMethod(wx_ShowEvent, __SetShow)
 
 Gura_DeclareMethodAlias(wx_ShowEvent, __IsShown, "IsShown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ShowEvent, __IsShown)
 {
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsShown();
+	//bool _rtn = pThis->GetEntity()->IsShown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ShowEvent, __GetShow, "GetShow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ShowEvent, __GetShow)
 {
 	Object_wx_ShowEvent *pThis = Object_wx_ShowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShow();
+	//bool _rtn = pThis->GetEntity()->GetShow();
 	return Value::Nil;
 }
 

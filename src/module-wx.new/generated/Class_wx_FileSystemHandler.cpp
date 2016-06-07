@@ -39,7 +39,7 @@ String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileSystemHandler, "FileSystemHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystemHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__FileSystemHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __CanOpen, "CanOpen")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,13 +64,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __CanOpen)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->CanOpen(location);
+	//bool _rtn = pThis->GetEntity()->CanOpen(location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __FindFirst, "FindFirst")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wildcard", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -81,26 +81,26 @@ Gura_ImplementMethod(wx_FileSystemHandler, __FindFirst)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& wildcard = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->FindFirst(wildcard, flags);
+	//wxString _rtn = pThis->GetEntity()->FindFirst(wildcard, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __FindNext, "FindNext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemHandler, __FindNext)
 {
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->FindNext();
+	//wxString _rtn = pThis->GetEntity()->FindNext();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetMimeTypeFromExt, "GetMimeTypeFromExt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetMimeTypeFromExt)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMimeTypeFromExt(location);
+	//wxString _rtn = pThis->GetEntity()->GetMimeTypeFromExt(location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __OpenFile, "OpenFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fs", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __OpenFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileSystem& fs = arg.GetNumber(0)
 	//const wxString& location = arg.GetNumber(1)
-	//pThis->GetEntity()->OpenFile(fs, location);
+	//wxFSFile* _rtn = pThis->GetEntity()->OpenFile(fs, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetAnchor, "GetAnchor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetAnchor)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAnchor(location);
+	//wxString _rtn = pThis->GetEntity()->GetAnchor(location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetLeftLocation, "GetLeftLocation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -156,13 +156,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetLeftLocation)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLeftLocation(location);
+	//wxString _rtn = pThis->GetEntity()->GetLeftLocation(location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetProtocol, "GetProtocol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -171,13 +171,13 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetProtocol)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->GetProtocol(location);
+	//wxString _rtn = pThis->GetEntity()->GetProtocol(location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemHandler, __GetRightLocation, "GetRightLocation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FileSystemHandler, __GetRightLocation)
 	Object_wx_FileSystemHandler *pThis = Object_wx_FileSystemHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRightLocation(location);
+	//wxString _rtn = pThis->GetEntity()->GetRightLocation(location);
 	return Value::Nil;
 }
 

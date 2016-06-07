@@ -39,7 +39,7 @@ String Object_wx_WebViewEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebViewEvent, "WebViewEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WebViewEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__WebViewEvent)
 
 Gura_DeclareFunctionAlias(__WebViewEvent_1, "WebViewEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "href", VTYPE_number, OCCUR_Once);
@@ -76,27 +76,27 @@ Gura_ImplementFunction(__WebViewEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewEvent, __GetTarget, "GetTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewEvent, __GetTarget)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTarget();
+	//const wxString& _rtn = pThis->GetEntity()->GetTarget();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebViewEvent, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewEvent, __GetURL)
 {
 	Object_wx_WebViewEvent *pThis = Object_wx_WebViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//const wxString& _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 

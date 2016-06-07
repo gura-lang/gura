@@ -39,7 +39,7 @@ String Object_wx_HtmlHelpController::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlHelpController, "HtmlHelpController")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpController));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__HtmlHelpController)
 
 Gura_DeclareFunctionAlias(__HtmlHelpController_1, "HtmlHelpController_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlHelpController));
@@ -76,7 +76,7 @@ Gura_ImplementFunction(__HtmlHelpController_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __AddBook, "AddBook")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bookFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "showWaitMsg", VTYPE_number, OCCUR_Once);
 }
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_HtmlHelpController, __AddBook)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& bookFile = arg.GetNumber(0)
 	//bool showWaitMsg = arg.GetNumber(1)
-	//pThis->GetEntity()->AddBook(bookFile, showWaitMsg);
+	//bool _rtn = pThis->GetEntity()->AddBook(bookFile, showWaitMsg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __AddBook_1, "AddBook_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bookUrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "showWaitMsg", VTYPE_number, OCCUR_Once);
 }
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_HtmlHelpController, __AddBook_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& bookUrl = arg.GetNumber(0)
 	//bool showWaitMsg = arg.GetNumber(1)
-	//pThis->GetEntity()->AddBook(bookUrl, showWaitMsg);
+	//bool _rtn = pThis->GetEntity()->AddBook(bookUrl, showWaitMsg);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __Display, "Display")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 }
 
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_HtmlHelpController, __Display)
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& x = arg.GetNumber(0)
-	//pThis->GetEntity()->Display(x);
+	//bool _rtn = pThis->GetEntity()->Display(x);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __Display_1, "Display_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -134,39 +134,39 @@ Gura_ImplementMethod(wx_HtmlHelpController, __Display_1)
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->Display(id);
+	//bool _rtn = pThis->GetEntity()->Display(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __DisplayContents, "DisplayContents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, __DisplayContents)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DisplayContents();
+	//bool _rtn = pThis->GetEntity()->DisplayContents();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __DisplayIndex, "DisplayIndex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, __DisplayIndex)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DisplayIndex();
+	//bool _rtn = pThis->GetEntity()->DisplayIndex();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __KeywordSearch, "KeywordSearch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "keyword", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __KeywordSearch)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& keyword = arg.GetNumber(0)
 	//wxHelpSearchMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->KeywordSearch(keyword, mode);
+	//bool _rtn = pThis->GetEntity()->KeywordSearch(keyword, mode);
 	return Value::Nil;
 }
 
@@ -279,14 +279,14 @@ Gura_ImplementMethod(wx_HtmlHelpController, __WriteCustomization)
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __GetHelpWindow, "GetHelpWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, __GetHelpWindow)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHelpWindow();
+	//wxHtmlHelpWindow* _rtn = pThis->GetEntity()->GetHelpWindow();
 	return Value::Nil;
 }
 
@@ -307,33 +307,33 @@ Gura_ImplementMethod(wx_HtmlHelpController, __SetHelpWindow)
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, __GetFrame)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrame();
+	//wxHtmlHelpFrame* _rtn = pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __GetDialog, "GetDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlHelpController, __GetDialog)
 {
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDialog();
+	//wxHtmlHelpDialog* _rtn = pThis->GetEntity()->GetDialog();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __CreateHelpDialog, "CreateHelpDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -342,13 +342,13 @@ Gura_ImplementMethod(wx_HtmlHelpController, __CreateHelpDialog)
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlHelpData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateHelpDialog(data);
+	//wxHtmlHelpDialog* _rtn = pThis->GetEntity()->CreateHelpDialog(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlHelpController, __CreateHelpFrame, "CreateHelpFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_HtmlHelpController, __CreateHelpFrame)
 	Object_wx_HtmlHelpController *pThis = Object_wx_HtmlHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlHelpData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateHelpFrame(data);
+	//wxHtmlHelpFrame* _rtn = pThis->GetEntity()->CreateHelpFrame(data);
 	return Value::Nil;
 }
 

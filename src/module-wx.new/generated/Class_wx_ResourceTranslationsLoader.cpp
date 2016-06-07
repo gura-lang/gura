@@ -39,27 +39,27 @@ String Object_wx_ResourceTranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ResourceTranslationsLoader, __GetResourceType, "GetResourceType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ResourceTranslationsLoader, __GetResourceType)
 {
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetResourceType();
+	//wxString _rtn = pThis->GetEntity()->GetResourceType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ResourceTranslationsLoader, __GetModule, "GetModule")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ResourceTranslationsLoader, __GetModule)
 {
 	Object_wx_ResourceTranslationsLoader *pThis = Object_wx_ResourceTranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetModule();
+	//WXHINSTANCE _rtn = pThis->GetEntity()->GetModule();
 	return Value::Nil;
 }
 

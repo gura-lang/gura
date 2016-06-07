@@ -39,7 +39,7 @@ String Object_wx_ToggleButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ToggleButton, "ToggleButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ToggleButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ToggleButton)
 
 Gura_DeclareFunctionAlias(__ToggleButton_1, "ToggleButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__ToggleButton_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ToggleButton, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,20 +107,20 @@ Gura_ImplementMethod(wx_ToggleButton, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ToggleButton, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToggleButton, __GetValue)
 {
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//bool _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

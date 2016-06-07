@@ -39,27 +39,27 @@ String Object_wx_GraphicsObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GraphicsObject, __GetRenderer, "GetRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsObject, __GetRenderer)
 {
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRenderer();
+	//wxGraphicsRenderer* _rtn = pThis->GetEntity()->GetRenderer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsObject, __IsNull, "IsNull")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsObject, __IsNull)
 {
 	Object_wx_GraphicsObject *pThis = Object_wx_GraphicsObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNull();
+	//bool _rtn = pThis->GetEntity()->IsNull();
 	return Value::Nil;
 }
 

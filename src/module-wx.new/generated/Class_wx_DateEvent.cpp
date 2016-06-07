@@ -39,7 +39,7 @@ String Object_wx_DateEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DateEvent, "DateEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DateEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DateEvent)
 
 Gura_DeclareFunctionAlias(__DateEvent_1, "DateEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -74,14 +74,14 @@ Gura_ImplementFunction(__DateEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DateEvent, __GetDate, "GetDate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DateEvent, __GetDate)
 {
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDate();
+	//const wxDateTime& _rtn = pThis->GetEntity()->GetDate();
 	return Value::Nil;
 }
 

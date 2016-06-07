@@ -39,7 +39,7 @@ String Object_wx_SpinDoubleEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SpinDoubleEvent, "SpinDoubleEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__SpinDoubleEvent)
 
 Gura_DeclareFunctionAlias(__SpinDoubleEvent_1, "SpinDoubleEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SpinDoubleEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -76,14 +76,14 @@ Gura_ImplementFunction(__SpinDoubleEvent_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SpinDoubleEvent, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinDoubleEvent, __GetValue)
 {
 	Object_wx_SpinDoubleEvent *pThis = Object_wx_SpinDoubleEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//double _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

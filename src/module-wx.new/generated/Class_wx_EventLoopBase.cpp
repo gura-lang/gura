@@ -39,14 +39,14 @@ String Object_wx_EventLoopBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EventLoopBase, __GetActive, "GetActive")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __GetActive)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActive();
+	//wxEventLoopBase* _rtn = pThis->GetEntity()->GetActive();
 	return Value::Nil;
 }
 
@@ -67,53 +67,53 @@ Gura_ImplementMethod(wx_EventLoopBase, __SetActive)
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __IsMain, "IsMain")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __IsMain)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsMain();
+	//bool _rtn = pThis->GetEntity()->IsMain();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __Run, "Run")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __Run)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Run();
+	//int _rtn = pThis->GetEntity()->Run();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __IsRunning, "IsRunning")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __IsRunning)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsRunning();
+	//bool _rtn = pThis->GetEntity()->IsRunning();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __IsOk)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
@@ -149,33 +149,33 @@ Gura_ImplementMethod(wx_EventLoopBase, __ScheduleExit)
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __Pending, "Pending")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __Pending)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Pending();
+	//bool _rtn = pThis->GetEntity()->Pending();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __Dispatch, "Dispatch")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __Dispatch)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Dispatch();
+	//bool _rtn = pThis->GetEntity()->Dispatch();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __DispatchTimeout, "DispatchTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once);
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __DispatchTimeout)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long timeout = arg.GetNumber(0)
-	//pThis->GetEntity()->DispatchTimeout(timeout);
+	//int _rtn = pThis->GetEntity()->DispatchTimeout(timeout);
 	return Value::Nil;
 }
 
@@ -216,33 +216,33 @@ Gura_ImplementMethod(wx_EventLoopBase, __WakeUpIdle)
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __ProcessIdle, "ProcessIdle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __ProcessIdle)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ProcessIdle();
+	//bool _rtn = pThis->GetEntity()->ProcessIdle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __IsYielding, "IsYielding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EventLoopBase, __IsYielding)
 {
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsYielding();
+	//bool _rtn = pThis->GetEntity()->IsYielding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __Yield, "Yield")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "onlyIfNeeded", VTYPE_number, OCCUR_Once);
 }
 
@@ -251,13 +251,13 @@ Gura_ImplementMethod(wx_EventLoopBase, __Yield)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool onlyIfNeeded = arg.GetNumber(0)
-	//pThis->GetEntity()->Yield(onlyIfNeeded);
+	//bool _rtn = pThis->GetEntity()->Yield(onlyIfNeeded);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __YieldFor, "YieldFor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "eventsToProcess", VTYPE_number, OCCUR_Once);
 }
 
@@ -266,13 +266,13 @@ Gura_ImplementMethod(wx_EventLoopBase, __YieldFor)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long eventsToProcess = arg.GetNumber(0)
-	//pThis->GetEntity()->YieldFor(eventsToProcess);
+	//bool _rtn = pThis->GetEntity()->YieldFor(eventsToProcess);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_EventLoopBase, __IsEventAllowedInsideYield, "IsEventAllowedInsideYield")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cat", VTYPE_number, OCCUR_Once);
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __IsEventAllowedInsideYield)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventCategory cat = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEventAllowedInsideYield(cat);
+	//bool _rtn = pThis->GetEntity()->IsEventAllowedInsideYield(cat);
 	return Value::Nil;
 }
 

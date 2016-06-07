@@ -39,7 +39,7 @@ String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HyperlinkEvent, "HyperlinkEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -61,14 +61,14 @@ Gura_ImplementFunction(__HyperlinkEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HyperlinkEvent, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkEvent, __GetURL)
 {
 	Object_wx_HyperlinkEvent *pThis = Object_wx_HyperlinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 

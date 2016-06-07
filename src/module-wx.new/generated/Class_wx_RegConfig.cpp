@@ -39,7 +39,7 @@ String Object_wx_RegConfig::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RegConfig, "RegConfig")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vendorName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "localFilename", VTYPE_number, OCCUR_Once);

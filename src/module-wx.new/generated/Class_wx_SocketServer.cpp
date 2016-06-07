@@ -39,7 +39,7 @@ String Object_wx_SocketServer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SocketServer, "SocketServer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "address", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SocketServer));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__SocketServer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketServer, __Accept, "Accept")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
 
@@ -68,13 +68,13 @@ Gura_ImplementMethod(wx_SocketServer, __Accept)
 	Object_wx_SocketServer *pThis = Object_wx_SocketServer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool wait = arg.GetNumber(0)
-	//pThis->GetEntity()->Accept(wait);
+	//wxSocketBase* _rtn = pThis->GetEntity()->Accept(wait);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketServer, __AcceptWith, "AcceptWith")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "socket", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wait", VTYPE_number, OCCUR_Once);
 }
@@ -85,13 +85,13 @@ Gura_ImplementMethod(wx_SocketServer, __AcceptWith)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSocketBase& socket = arg.GetNumber(0)
 	//bool wait = arg.GetNumber(1)
-	//pThis->GetEntity()->AcceptWith(socket, wait);
+	//bool _rtn = pThis->GetEntity()->AcceptWith(socket, wait);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketServer, __WaitForAccept, "WaitForAccept")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "seconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "millisecond", VTYPE_number, OCCUR_Once);
 }
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_SocketServer, __WaitForAccept)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long seconds = arg.GetNumber(0)
 	//long millisecond = arg.GetNumber(1)
-	//pThis->GetEntity()->WaitForAccept(seconds, millisecond);
+	//bool _rtn = pThis->GetEntity()->WaitForAccept(seconds, millisecond);
 	return Value::Nil;
 }
 

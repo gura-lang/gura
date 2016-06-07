@@ -39,7 +39,7 @@ String Object_wx_TarOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TarOutputStream, "TarOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__TarOutputStream)
 
 Gura_DeclareFunctionAlias(__TarOutputStream_1, "TarOutputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
@@ -80,33 +80,33 @@ Gura_ImplementFunction(__TarOutputStream_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TarOutputStream, __Close, "Close")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarOutputStream, __Close)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Close();
+	//bool _rtn = pThis->GetEntity()->Close();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __CloseEntry, "CloseEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarOutputStream, __CloseEntry)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CloseEntry();
+	//bool _rtn = pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __CopyArchiveMetaData, "CopyArchiveMetaData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_TarOutputStream, __CopyArchiveMetaData)
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTarInputStream& s = arg.GetNumber(0)
-	//pThis->GetEntity()->CopyArchiveMetaData(s);
+	//bool _rtn = pThis->GetEntity()->CopyArchiveMetaData(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __CopyEntry, "CopyEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "inputStream", VTYPE_number, OCCUR_Once);
 }
@@ -132,20 +132,20 @@ Gura_ImplementMethod(wx_TarOutputStream, __CopyEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTarEntry* entry = arg.GetNumber(0)
 	//wxTarInputStream& inputStream = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyEntry(entry, inputStream);
+	//bool _rtn = pThis->GetEntity()->CopyEntry(entry, inputStream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __GetBlockingFactor, "GetBlockingFactor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarOutputStream, __GetBlockingFactor)
 {
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBlockingFactor();
+	//int _rtn = pThis->GetEntity()->GetBlockingFactor();
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_TarOutputStream, __SetBlockingFactor)
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __PutNextDirEntry, "PutNextDirEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextDirEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
-	//pThis->GetEntity()->PutNextDirEntry(name, dt);
+	//bool _rtn = pThis->GetEntity()->PutNextDirEntry(name, dt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __PutNextEntry, "PutNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
@@ -192,13 +192,13 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextEntry)
 	Object_wx_TarOutputStream *pThis = Object_wx_TarOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTarEntry* entry = arg.GetNumber(0)
-	//pThis->GetEntity()->PutNextEntry(entry);
+	//bool _rtn = pThis->GetEntity()->PutNextEntry(entry);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarOutputStream, __PutNextEntry_1, "PutNextEntry_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_TarOutputStream, __PutNextEntry_1)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
 	//wxFileOffset size = arg.GetNumber(2)
-	//pThis->GetEntity()->PutNextEntry(name, dt, size);
+	//bool _rtn = pThis->GetEntity()->PutNextEntry(name, dt, size);
 	return Value::Nil;
 }
 

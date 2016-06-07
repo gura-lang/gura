@@ -39,7 +39,7 @@ String Object_wx_SVGBitmapFileHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SVGBitmapFileHandler, __ProcessBitmap, "ProcessBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_SVGBitmapFileHandler, __ProcessBitmap)
 	//wxCoord x = arg.GetNumber(1)
 	//wxCoord y = arg.GetNumber(2)
 	//wxOutputStream& stream = arg.GetNumber(3)
-	//pThis->GetEntity()->ProcessBitmap(bitmap, x, y, stream);
+	//bool _rtn = pThis->GetEntity()->ProcessBitmap(bitmap, x, y, stream);
 	return Value::Nil;
 }
 

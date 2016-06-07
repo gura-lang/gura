@@ -39,7 +39,7 @@ String Object_wx_SplashScreen::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SplashScreen, "SplashScreen")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "splashStyle", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
@@ -71,40 +71,40 @@ Gura_ImplementFunction(__SplashScreen)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplashScreen, __GetSplashStyle, "GetSplashStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplashScreen, __GetSplashStyle)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSplashStyle();
+	//long _rtn = pThis->GetEntity()->GetSplashStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplashScreen, __GetSplashWindow, "GetSplashWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplashScreen, __GetSplashWindow)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSplashWindow();
+	//wxSplashScreenWindow* _rtn = pThis->GetEntity()->GetSplashWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplashScreen, __GetTimeout, "GetTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplashScreen, __GetTimeout)
 {
 	Object_wx_SplashScreen *pThis = Object_wx_SplashScreen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTimeout();
+	//int _rtn = pThis->GetEntity()->GetTimeout();
 	return Value::Nil;
 }
 

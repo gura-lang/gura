@@ -39,7 +39,7 @@ String Object_wx_CustomDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CustomDataObject, "CustomDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CustomDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__CustomDataObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CustomDataObject, __Alloc, "Alloc")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_CustomDataObject, __Alloc)
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t size = arg.GetNumber(0)
-	//pThis->GetEntity()->Alloc(size);
+	//void* _rtn = pThis->GetEntity()->Alloc(size);
 	return Value::Nil;
 }
 
@@ -85,33 +85,33 @@ Gura_ImplementMethod(wx_CustomDataObject, __Free)
 
 Gura_DeclareMethodAlias(wx_CustomDataObject, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CustomDataObject, __GetData)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//void* _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CustomDataObject, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CustomDataObject, __GetSize)
 {
 	Object_wx_CustomDataObject *pThis = Object_wx_CustomDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//size_t _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CustomDataObject, __SetData, "SetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_CustomDataObject, __SetData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t size = arg.GetNumber(0)
 	//const void* data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetData(size, data);
+	//bool _rtn = pThis->GetEntity()->SetData(size, data);
 	return Value::Nil;
 }
 

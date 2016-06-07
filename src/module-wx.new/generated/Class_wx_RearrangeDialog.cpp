@@ -39,7 +39,7 @@ String Object_wx_RearrangeDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RearrangeDialog, "RearrangeDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RearrangeDialog));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RearrangeDialog)
 
 Gura_DeclareFunctionAlias(__RearrangeDialog_1, "RearrangeDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__RearrangeDialog_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RearrangeDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RearrangeDialog, __Create)
 	//const wxArrayString& items = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, message, title, order, items, pos, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, message, title, order, items, pos, name);
 	return Value::Nil;
 }
 
@@ -124,27 +124,27 @@ Gura_ImplementMethod(wx_RearrangeDialog, __AddExtraControls)
 
 Gura_DeclareMethodAlias(wx_RearrangeDialog, __GetList, "GetList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeDialog, __GetList)
 {
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetList();
+	//wxRearrangeList* _rtn = pThis->GetEntity()->GetList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeDialog, __GetOrder, "GetOrder")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeDialog, __GetOrder)
 {
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOrder();
+	//wxArrayInt _rtn = pThis->GetEntity()->GetOrder();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Bitmap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Bitmap, "Bitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Bitmap)
 
 Gura_DeclareFunctionAlias(__Bitmap_1, "Bitmap_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Bitmap_1)
 
 Gura_DeclareFunctionAlias(__Bitmap_2, "Bitmap_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(__Bitmap_2)
 
 Gura_DeclareFunctionAlias(__Bitmap_3, "Bitmap_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementFunction(__Bitmap_3)
 
 Gura_DeclareFunctionAlias(__Bitmap_4, "Bitmap_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
@@ -124,7 +124,7 @@ Gura_ImplementFunction(__Bitmap_4)
 
 Gura_DeclareFunctionAlias(__Bitmap_5, "Bitmap_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -139,7 +139,7 @@ Gura_ImplementFunction(__Bitmap_5)
 
 Gura_DeclareFunctionAlias(__Bitmap_6, "Bitmap_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
@@ -156,7 +156,7 @@ Gura_ImplementFunction(__Bitmap_6)
 
 Gura_DeclareFunctionAlias(__Bitmap_7, "Bitmap_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "img", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
@@ -173,7 +173,7 @@ Gura_ImplementFunction(__Bitmap_7)
 
 Gura_DeclareFunctionAlias(__Bitmap_8, "Bitmap_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Bitmap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -182,7 +182,7 @@ Gura_DeclareFunctionAlias(__Bitmap_8, "Bitmap_8")
 Gura_ImplementFunction(__Bitmap_8)
 {
 	//const wxCursor& cursor = arg.GetNumber(0)
-	//wxBitmap(cursor);
+	//explicit _rtn = wxBitmap(cursor);
 	return Value::Nil;
 }
 
@@ -219,20 +219,20 @@ Gura_ImplementMethod(wx_Bitmap, __CleanUpHandlers)
 
 Gura_DeclareMethodAlias(wx_Bitmap, __ConvertToImage, "ConvertToImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __ConvertToImage)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ConvertToImage();
+	//wxImage _rtn = pThis->GetEntity()->ConvertToImage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __CopyFromIcon, "CopyFromIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
@@ -241,13 +241,13 @@ Gura_ImplementMethod(wx_Bitmap, __CopyFromIcon)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->CopyFromIcon(icon);
+	//bool _rtn = pThis->GetEntity()->CopyFromIcon(icon);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
@@ -260,13 +260,13 @@ Gura_ImplementMethod(wx_Bitmap, __Create)
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//int depth = arg.GetNumber(2)
-	//pThis->GetEntity()->Create(width, height, depth);
+	//bool _rtn = pThis->GetEntity()->Create(width, height, depth);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
 }
@@ -277,13 +277,13 @@ Gura_ImplementMethod(wx_Bitmap, __Create_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& sz = arg.GetNumber(0)
 	//int depth = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(sz, depth);
+	//bool _rtn = pThis->GetEntity()->Create(sz, depth);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __Create_2, "Create_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -296,13 +296,13 @@ Gura_ImplementMethod(wx_Bitmap, __Create_2)
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
 	//const wxDC& dc = arg.GetNumber(2)
-	//pThis->GetEntity()->Create(width, height, dc);
+	//bool _rtn = pThis->GetEntity()->Create(width, height, dc);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __CreateScaled, "CreateScaled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "logwidth", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "logheight", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "depth", VTYPE_number, OCCUR_Once);
@@ -317,13 +317,13 @@ Gura_ImplementMethod(wx_Bitmap, __CreateScaled)
 	//int logheight = arg.GetNumber(1)
 	//int depth = arg.GetNumber(2)
 	//double logicalScale = arg.GetNumber(3)
-	//pThis->GetEntity()->CreateScaled(logwidth, logheight, depth, logicalScale);
+	//bool _rtn = pThis->GetEntity()->CreateScaled(logwidth, logheight, depth, logicalScale);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __FindHandler, "FindHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_Bitmap, __FindHandler)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->FindHandler(name);
+	//wxBitmapHandler* _rtn = pThis->GetEntity()->FindHandler(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __FindHandler_1, "FindHandler_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "extension", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_Once);
 }
@@ -349,13 +349,13 @@ Gura_ImplementMethod(wx_Bitmap, __FindHandler_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& extension = arg.GetNumber(0)
 	//wxBitmapType bitmapType = arg.GetNumber(1)
-	//pThis->GetEntity()->FindHandler(extension, bitmapType);
+	//wxBitmapHandler* _rtn = pThis->GetEntity()->FindHandler(extension, bitmapType);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __FindHandler_2, "FindHandler_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmapType", VTYPE_number, OCCUR_Once);
 }
 
@@ -364,78 +364,78 @@ Gura_ImplementMethod(wx_Bitmap, __FindHandler_2)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBitmapType bitmapType = arg.GetNumber(0)
-	//pThis->GetEntity()->FindHandler(bitmapType);
+	//wxBitmapHandler* _rtn = pThis->GetEntity()->FindHandler(bitmapType);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetDepth, "GetDepth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetDepth)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDepth();
+	//int _rtn = pThis->GetEntity()->GetDepth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetHandlers, "GetHandlers")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetHandlers)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHandlers();
+	//wxList& _rtn = pThis->GetEntity()->GetHandlers();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetHeight)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//int _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetMask, "GetMask")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetMask)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMask();
+	//wxMask* _rtn = pThis->GetEntity()->GetMask();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetPalette, "GetPalette")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetPalette)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPalette();
+	//wxPalette* _rtn = pThis->GetEntity()->GetPalette();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetSubBitmap, "GetSubBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -444,26 +444,26 @@ Gura_ImplementMethod(wx_Bitmap, __GetSubBitmap)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSubBitmap(rect);
+	//wxBitmap _rtn = pThis->GetEntity()->GetSubBitmap(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetSize)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __ConvertToDisabled, "ConvertToDisabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "brightness", VTYPE_number, OCCUR_Once);
 }
 
@@ -472,20 +472,20 @@ Gura_ImplementMethod(wx_Bitmap, __ConvertToDisabled)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned char brightness = arg.GetNumber(0)
-	//pThis->GetEntity()->ConvertToDisabled(brightness);
+	//wxBitmap _rtn = pThis->GetEntity()->ConvertToDisabled(brightness);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __GetWidth)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
@@ -519,20 +519,20 @@ Gura_ImplementMethod(wx_Bitmap, __InsertHandler)
 
 Gura_DeclareMethodAlias(wx_Bitmap, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Bitmap, __IsOk)
 {
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 }
@@ -543,13 +543,13 @@ Gura_ImplementMethod(wx_Bitmap, __LoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxBitmapType type = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile(name, type);
+	//bool _rtn = pThis->GetEntity()->LoadFile(name, type);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __NewFromPNGData, "NewFromPNGData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
@@ -560,13 +560,13 @@ Gura_ImplementMethod(wx_Bitmap, __NewFromPNGData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* data = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->NewFromPNGData(data, size);
+	//wxBitmap _rtn = pThis->GetEntity()->NewFromPNGData(data, size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __RemoveHandler, "RemoveHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -575,13 +575,13 @@ Gura_ImplementMethod(wx_Bitmap, __RemoveHandler)
 	Object_wx_Bitmap *pThis = Object_wx_Bitmap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveHandler(name);
+	//bool _rtn = pThis->GetEntity()->RemoveHandler(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Bitmap, __SaveFile, "SaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_Bitmap, __SaveFile)
 	//const wxString& name = arg.GetNumber(0)
 	//wxBitmapType type = arg.GetNumber(1)
 	//const wxPalette* palette = arg.GetNumber(2)
-	//pThis->GetEntity()->SaveFile(name, type, palette);
+	//bool _rtn = pThis->GetEntity()->SaveFile(name, type, palette);
 	return Value::Nil;
 }
 

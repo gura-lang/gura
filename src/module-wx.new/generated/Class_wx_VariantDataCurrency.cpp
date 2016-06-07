@@ -39,7 +39,7 @@ String Object_wx_VariantDataCurrency::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VariantDataCurrency, "VariantDataCurrency")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_VariantDataCurrency));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__VariantDataCurrency)
 
 Gura_DeclareFunctionAlias(__VariantDataCurrency_1, "VariantDataCurrency_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_VariantDataCurrency));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,14 +70,14 @@ Gura_ImplementFunction(__VariantDataCurrency_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataCurrency, __GetValue)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//CURRENCY _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __SetValue)
 
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Eq, "Eq")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __Eq)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq(data);
+	//bool _rtn = pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -122,39 +122,39 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __Write)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Write(str);
+	//bool _rtn = pThis->GetEntity()->Write(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataCurrency, __Clone)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxVariantData* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataCurrency, __GetType)
 {
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxString _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataCurrency, __GetAsAny, "GetAsAny")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __GetAsAny)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsAny(any);
+	//bool _rtn = pThis->GetEntity()->GetAsAny(any);
 	return Value::Nil;
 }
 

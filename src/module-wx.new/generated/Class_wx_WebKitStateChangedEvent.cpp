@@ -39,7 +39,7 @@ String Object_wx_WebKitStateChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebKitStateChangedEvent, "WebKitStateChangedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebKitStateChangedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__WebKitStateChangedEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebKitStateChangedEvent, __GetState, "GetState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, __GetState)
 {
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetState();
+	//int _rtn = pThis->GetEntity()->GetState();
 	return Value::Nil;
 }
 
@@ -85,14 +85,14 @@ Gura_ImplementMethod(wx_WebKitStateChangedEvent, __SetState)
 
 Gura_DeclareMethodAlias(wx_WebKitStateChangedEvent, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebKitStateChangedEvent, __GetURL)
 {
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 

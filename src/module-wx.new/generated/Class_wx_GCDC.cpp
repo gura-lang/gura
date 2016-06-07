@@ -39,7 +39,7 @@ String Object_wx_GCDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GCDC, "GCDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "windowDC", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__GCDC)
 
 Gura_DeclareFunctionAlias(__GCDC_1, "GCDC_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "memoryDC", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__GCDC_1)
 
 Gura_DeclareFunctionAlias(__GCDC_2, "GCDC_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "printerDC", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__GCDC_2)
 
 Gura_DeclareFunctionAlias(__GCDC_3, "GCDC_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__GCDC_3)
 
 Gura_DeclareFunctionAlias(__GCDC_4, "GCDC_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "emfDC", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -114,7 +114,7 @@ Gura_ImplementFunction(__GCDC_4)
 
 Gura_DeclareFunctionAlias(__GCDC_5, "GCDC_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GCDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -130,14 +130,14 @@ Gura_ImplementFunction(__GCDC_5)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GCDC, __GetGraphicsContext, "GetGraphicsContext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GCDC, __GetGraphicsContext)
 {
 	Object_wx_GCDC *pThis = Object_wx_GCDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGraphicsContext();
+	//wxGraphicsContext* _rtn = pThis->GetEntity()->GetGraphicsContext();
 	return Value::Nil;
 }
 

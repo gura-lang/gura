@@ -39,7 +39,7 @@ String Object_wx_URL::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__URL, "URL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_URL));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,53 +57,53 @@ Gura_ImplementFunction(__URL)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_URL, __GetError, "GetError")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_URL, __GetError)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetError();
+	//wxURLError _rtn = pThis->GetEntity()->GetError();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_URL, __GetInputStream, "GetInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_URL, __GetInputStream)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInputStream();
+	//wxInputStream* _rtn = pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_URL, __GetProtocol, "GetProtocol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_URL, __GetProtocol)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProtocol();
+	//wxProtocol& _rtn = pThis->GetEntity()->GetProtocol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_URL, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_URL, __IsOk)
 {
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_URL, __SetProxy)
 
 Gura_DeclareMethodAlias(wx_URL, __SetURL, "SetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_URL, __SetURL)
 	Object_wx_URL *pThis = Object_wx_URL::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& url = arg.GetNumber(0)
-	//pThis->GetEntity()->SetURL(url);
+	//wxURLError _rtn = pThis->GetEntity()->SetURL(url);
 	return Value::Nil;
 }
 

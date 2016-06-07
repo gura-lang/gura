@@ -39,7 +39,7 @@ String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MultiChoiceDialog, "MultiChoiceDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -66,7 +66,7 @@ Gura_ImplementFunction(__MultiChoiceDialog)
 
 Gura_DeclareFunctionAlias(__MultiChoiceDialog_1, "MultiChoiceDialog_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -94,14 +94,14 @@ Gura_ImplementFunction(__MultiChoiceDialog_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __GetSelections, "GetSelections")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, __GetSelections)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelections();
+	//wxArrayInt _rtn = pThis->GetEntity()->GetSelections();
 	return Value::Nil;
 }
 
@@ -122,14 +122,14 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, __SetSelections)
 
 Gura_DeclareMethodAlias(wx_MultiChoiceDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MultiChoiceDialog, __ShowModal)
 {
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

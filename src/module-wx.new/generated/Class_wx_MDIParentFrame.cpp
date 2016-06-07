@@ -39,7 +39,7 @@ String Object_wx_MDIParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MDIParentFrame, "MDIParentFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__MDIParentFrame)
 
 Gura_DeclareFunctionAlias(__MDIParentFrame_1, "MDIParentFrame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, __Cascade)
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -155,72 +155,72 @@ Gura_ImplementMethod(wx_MDIParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetActiveChild, "GetActiveChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIParentFrame, __GetActiveChild)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActiveChild();
+	//wxMDIChildFrame* _rtn = pThis->GetEntity()->GetActiveChild();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetClientWindow, "GetClientWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIParentFrame, __GetClientWindow)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientWindow();
+	//wxMDIClientWindowBase* _rtn = pThis->GetEntity()->GetClientWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __GetWindowMenu, "GetWindowMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIParentFrame, __GetWindowMenu)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindowMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->GetWindowMenu();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __IsTDI, "IsTDI")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIParentFrame, __IsTDI)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTDI();
+	//bool _rtn = pThis->GetEntity()->IsTDI();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MDIParentFrame, __OnCreateClient, "OnCreateClient")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MDIParentFrame, __OnCreateClient)
 {
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OnCreateClient();
+	//wxMDIClientWindow* _rtn = pThis->GetEntity()->OnCreateClient();
 	return Value::Nil;
 }
 

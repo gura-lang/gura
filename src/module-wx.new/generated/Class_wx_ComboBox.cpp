@@ -39,7 +39,7 @@ String Object_wx_ComboBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ComboBox, "ComboBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ComboBox)
 
 Gura_DeclareFunctionAlias(__ComboBox_1, "ComboBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__ComboBox_1)
 
 Gura_DeclareFunctionAlias(__ComboBox_2, "ComboBox_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -119,7 +119,7 @@ Gura_ImplementFunction(__ComboBox_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ComboBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -146,13 +146,13 @@ Gura_ImplementMethod(wx_ComboBox, __Create)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, n, _arg6, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, n, _arg6, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -177,72 +177,72 @@ Gura_ImplementMethod(wx_ComboBox, __Create_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, choices, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetCurrentSelection, "GetCurrentSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __GetCurrentSelection)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentSelection();
+	//int _rtn = pThis->GetEntity()->GetCurrentSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetInsertionPoint, "GetInsertionPoint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __GetInsertionPoint)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInsertionPoint();
+	//long _rtn = pThis->GetEntity()->GetInsertionPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __IsEmpty)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __IsListEmpty, "IsListEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __IsListEmpty)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsListEmpty();
+	//bool _rtn = pThis->GetEntity()->IsListEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __IsTextEmpty, "IsTextEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __IsTextEmpty)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTextEmpty();
+	//bool _rtn = pThis->GetEntity()->IsTextEmpty();
 	return Value::Nil;
 }
 
@@ -306,14 +306,14 @@ Gura_ImplementMethod(wx_ComboBox, __Dismiss)
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __GetSelection)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//int _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_ComboBox, __SetSelection_1)
 
 Gura_DeclareMethodAlias(wx_ComboBox, __FindString, "FindString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bCase", VTYPE_number, OCCUR_Once);
 }
@@ -362,13 +362,13 @@ Gura_ImplementMethod(wx_ComboBox, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString(s, bCase);
+	//int _rtn = pThis->GetEntity()->FindString(s, bCase);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -377,20 +377,20 @@ Gura_ImplementMethod(wx_ComboBox, __GetString)
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString(n);
+	//wxString _rtn = pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetStringSelection, "GetStringSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __GetStringSelection)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStringSelection();
+	//wxString _rtn = pThis->GetEntity()->GetStringSelection();
 	return Value::Nil;
 }
 
@@ -413,14 +413,14 @@ Gura_ImplementMethod(wx_ComboBox, __SetString)
 
 Gura_DeclareMethodAlias(wx_ComboBox, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboBox, __GetCount)
 {
 	Object_wx_ComboBox *pThis = Object_wx_ComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 

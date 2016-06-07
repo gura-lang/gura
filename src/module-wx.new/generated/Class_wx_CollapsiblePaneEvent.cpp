@@ -39,7 +39,7 @@ String Object_wx_CollapsiblePaneEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CollapsiblePaneEvent, "CollapsiblePaneEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "generator", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "collapsed", VTYPE_number, OCCUR_Once);
@@ -61,14 +61,14 @@ Gura_ImplementFunction(__CollapsiblePaneEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CollapsiblePaneEvent, __GetCollapsed, "GetCollapsed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsiblePaneEvent, __GetCollapsed)
 {
 	Object_wx_CollapsiblePaneEvent *pThis = Object_wx_CollapsiblePaneEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCollapsed();
+	//bool _rtn = pThis->GetEntity()->GetCollapsed();
 	return Value::Nil;
 }
 

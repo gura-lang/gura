@@ -39,7 +39,7 @@ String Object_wx_StringClientData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StringClientData, "StringClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_StringClientData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__StringClientData)
 
 Gura_DeclareFunctionAlias(__StringClientData_1, "StringClientData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StringClientData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,14 +70,14 @@ Gura_ImplementFunction(__StringClientData_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StringClientData, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StringClientData, __GetData)
 {
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//const wxString& _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 

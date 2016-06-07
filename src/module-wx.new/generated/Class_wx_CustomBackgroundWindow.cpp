@@ -39,7 +39,7 @@ String Object_wx_CustomBackgroundWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CustomBackgroundWindow, "CustomBackgroundWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CustomBackgroundWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

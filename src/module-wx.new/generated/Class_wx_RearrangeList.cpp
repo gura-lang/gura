@@ -39,7 +39,7 @@ String Object_wx_RearrangeList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RearrangeList, "RearrangeList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RearrangeList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RearrangeList)
 
 Gura_DeclareFunctionAlias(__RearrangeList_1, "RearrangeList_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__RearrangeList_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RearrangeList, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -111,72 +111,72 @@ Gura_ImplementMethod(wx_RearrangeList, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, pos, size, order, items, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, order, items, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeList, __GetCurrentOrder, "GetCurrentOrder")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeList, __GetCurrentOrder)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentOrder();
+	//const wxArrayInt& _rtn = pThis->GetEntity()->GetCurrentOrder();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeList, __CanMoveCurrentUp, "CanMoveCurrentUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeList, __CanMoveCurrentUp)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanMoveCurrentUp();
+	//bool _rtn = pThis->GetEntity()->CanMoveCurrentUp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeList, __CanMoveCurrentDown, "CanMoveCurrentDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeList, __CanMoveCurrentDown)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanMoveCurrentDown();
+	//bool _rtn = pThis->GetEntity()->CanMoveCurrentDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeList, __MoveCurrentUp, "MoveCurrentUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeList, __MoveCurrentUp)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MoveCurrentUp();
+	//bool _rtn = pThis->GetEntity()->MoveCurrentUp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RearrangeList, __MoveCurrentDown, "MoveCurrentDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RearrangeList, __MoveCurrentDown)
 {
 	Object_wx_RearrangeList *pThis = Object_wx_RearrangeList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MoveCurrentDown();
+	//bool _rtn = pThis->GetEntity()->MoveCurrentDown();
 	return Value::Nil;
 }
 

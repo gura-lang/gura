@@ -39,7 +39,7 @@ String Object_wx_DataViewVirtualListModel::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewVirtualListModel, "DataViewVirtualListModel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "initial_size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewVirtualListModel));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__DataViewVirtualListModel)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewVirtualListModel, __GetItem, "GetItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_DataViewVirtualListModel, __GetItem)
 	Object_wx_DataViewVirtualListModel *pThis = Object_wx_DataViewVirtualListModel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int row = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItem(row);
+	//wxDataViewItem _rtn = pThis->GetEntity()->GetItem(row);
 	return Value::Nil;
 }
 

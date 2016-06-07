@@ -39,20 +39,20 @@ String Object_wx_WebViewFactory::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewFactory, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewFactory, __Create)
 {
 	Object_wx_WebViewFactory *pThis = Object_wx_WebViewFactory::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Create();
+	//wxWebView* _rtn = pThis->GetEntity()->Create();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebViewFactory, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_WebViewFactory, __Create_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, url, pos, size, style, name);
+	//wxWebView* _rtn = pThis->GetEntity()->Create(parent, id, url, pos, size, style, name);
 	return Value::Nil;
 }
 

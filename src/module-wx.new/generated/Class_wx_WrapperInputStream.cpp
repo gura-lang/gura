@@ -39,7 +39,7 @@ String Object_wx_WrapperInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WrapperInputStream, "WrapperInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__WrapperInputStream)
 
 Gura_DeclareFunctionAlias(__WrapperInputStream_1, "WrapperInputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__WrapperInputStream_1)
 
 Gura_DeclareFunctionAlias(__WrapperInputStream_2, "WrapperInputStream_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WrapperInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

@@ -39,7 +39,7 @@ String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ClientDataContainer, "ClientDataContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ClientDataContainer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,27 +55,27 @@ Gura_ImplementFunction(__ClientDataContainer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ClientDataContainer, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClientDataContainer, __GetClientData)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientData();
+	//void* _rtn = pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClientDataContainer, __GetClientObject, "GetClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClientDataContainer, __GetClientObject)
 {
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientObject();
+	//wxClientData* _rtn = pThis->GetEntity()->GetClientObject();
 	return Value::Nil;
 }
 

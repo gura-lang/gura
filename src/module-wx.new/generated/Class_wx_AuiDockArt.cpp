@@ -39,7 +39,7 @@ String Object_wx_AuiDockArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiDockArt, "AuiDockArt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiDockArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawSash)
 
 Gura_DeclareMethodAlias(wx_AuiDockArt, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -196,13 +196,13 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetColour)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColour(id);
+	//wxColour _rtn = pThis->GetEntity()->GetColour(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiDockArt, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -211,13 +211,13 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetFont)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont(id);
+	//wxFont _rtn = pThis->GetEntity()->GetFont(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiDockArt, __GetMetric, "GetMetric")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetMetric)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMetric(id);
+	//int _rtn = pThis->GetEntity()->GetMetric(id);
 	return Value::Nil;
 }
 

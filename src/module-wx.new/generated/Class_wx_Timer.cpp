@@ -39,7 +39,7 @@ String Object_wx_Timer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Timer, "Timer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Timer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Timer)
 
 Gura_DeclareFunctionAlias(__Timer_1, "Timer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "owner", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Timer));
@@ -72,66 +72,66 @@ Gura_ImplementFunction(__Timer_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Timer, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, __GetId)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//int _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Timer, __GetInterval, "GetInterval")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, __GetInterval)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInterval();
+	//int _rtn = pThis->GetEntity()->GetInterval();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Timer, __GetOwner, "GetOwner")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, __GetOwner)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOwner();
+	//wxEvtHandler* _rtn = pThis->GetEntity()->GetOwner();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Timer, __IsOneShot, "IsOneShot")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, __IsOneShot)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOneShot();
+	//bool _rtn = pThis->GetEntity()->IsOneShot();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Timer, __IsRunning, "IsRunning")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Timer, __IsRunning)
 {
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsRunning();
+	//bool _rtn = pThis->GetEntity()->IsRunning();
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_Timer, __SetOwner)
 
 Gura_DeclareMethodAlias(wx_Timer, __Start, "Start")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);
 }
@@ -178,13 +178,13 @@ Gura_ImplementMethod(wx_Timer, __Start)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milliseconds = arg.GetNumber(0)
 	//bool oneShot = arg.GetNumber(1)
-	//pThis->GetEntity()->Start(milliseconds, oneShot);
+	//bool _rtn = pThis->GetEntity()->Start(milliseconds, oneShot);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Timer, __StartOnce, "StartOnce")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "milliseconds", VTYPE_number, OCCUR_Once);
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_Timer, __StartOnce)
 	Object_wx_Timer *pThis = Object_wx_Timer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int milliseconds = arg.GetNumber(0)
-	//pThis->GetEntity()->StartOnce(milliseconds);
+	//bool _rtn = pThis->GetEntity()->StartOnce(milliseconds);
 	return Value::Nil;
 }
 

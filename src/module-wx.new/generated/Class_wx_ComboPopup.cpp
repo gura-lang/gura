@@ -39,7 +39,7 @@ String Object_wx_ComboPopup::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ComboPopup, "ComboPopup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ComboPopup));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__ComboPopup)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ComboPopup, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_ComboPopup, __Create)
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(parent);
+	//bool _rtn = pThis->GetEntity()->Create(parent);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ComboPopup, __Dismiss)
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __FindItem, "FindItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "trueItem", VTYPE_number, OCCUR_Once);
 }
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_ComboPopup, __FindItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//wxString* trueItem = arg.GetNumber(1)
-	//pThis->GetEntity()->FindItem(item, trueItem);
+	//bool _rtn = pThis->GetEntity()->FindItem(item, trueItem);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __GetAdjustedSize, "GetAdjustedSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "minWidth", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "prefHeight", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxHeight", VTYPE_number, OCCUR_Once);
@@ -126,46 +126,46 @@ Gura_ImplementMethod(wx_ComboPopup, __GetAdjustedSize)
 	//int minWidth = arg.GetNumber(0)
 	//int prefHeight = arg.GetNumber(1)
 	//int maxHeight = arg.GetNumber(2)
-	//pThis->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
+	//wxSize _rtn = pThis->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __GetComboCtrl, "GetComboCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, __GetComboCtrl)
 {
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetComboCtrl();
+	//wxComboCtrl* _rtn = pThis->GetEntity()->GetComboCtrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __GetControl, "GetControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, __GetControl)
 {
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetControl();
+	//wxWindow* _rtn = pThis->GetEntity()->GetControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __GetStringValue, "GetStringValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, __GetStringValue)
 {
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStringValue();
+	//wxString _rtn = pThis->GetEntity()->GetStringValue();
 	return Value::Nil;
 }
 
@@ -184,27 +184,27 @@ Gura_ImplementMethod(wx_ComboPopup, __Init)
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __IsCreated, "IsCreated")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, __IsCreated)
 {
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCreated();
+	//bool _rtn = pThis->GetEntity()->IsCreated();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ComboPopup, __LazyCreate, "LazyCreate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ComboPopup, __LazyCreate)
 {
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LazyCreate();
+	//bool _rtn = pThis->GetEntity()->LazyCreate();
 	return Value::Nil;
 }
 

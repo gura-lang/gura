@@ -39,7 +39,7 @@ String Object_wx_MessageOutputMessageBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MessageOutputMessageBox, "MessageOutputMessageBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MessageOutputMessageBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

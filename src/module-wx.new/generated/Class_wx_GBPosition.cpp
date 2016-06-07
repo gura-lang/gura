@@ -39,7 +39,7 @@ String Object_wx_GBPosition::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GBPosition, "GBPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GBPosition));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GBPosition)
 
 Gura_DeclareFunctionAlias(__GBPosition_1, "GBPosition_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GBPosition));
@@ -72,27 +72,27 @@ Gura_ImplementFunction(__GBPosition_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GBPosition, __GetCol, "GetCol")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBPosition, __GetCol)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCol();
+	//int _rtn = pThis->GetEntity()->GetCol();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GBPosition, __GetRow, "GetRow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GBPosition, __GetRow)
 {
 	Object_wx_GBPosition *pThis = Object_wx_GBPosition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRow();
+	//int _rtn = pThis->GetEntity()->GetRow();
 	return Value::Nil;
 }
 

@@ -69,7 +69,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_1)
 
 Gura_DeclareMethodAlias(wx_Transform2D, __Transform_2, "Transform_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -78,13 +78,13 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_2)
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DInt& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Transform(pt);
+	//wxPoint2DInt _rtn = pThis->GetEntity()->Transform(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Transform2D, __Transform_3, "Transform_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_Transform2D, __Transform_3)
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DInt& r = arg.GetNumber(0)
-	//pThis->GetEntity()->Transform(r);
+	//wxRect2DInt _rtn = pThis->GetEntity()->Transform(r);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_1)
 
 Gura_DeclareMethodAlias(wx_Transform2D, __InverseTransform_2, "InverseTransform_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_2)
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DInt& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->InverseTransform(pt);
+	//wxPoint2DInt _rtn = pThis->GetEntity()->InverseTransform(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Transform2D, __InverseTransform_3, "InverseTransform_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "r", VTYPE_number, OCCUR_Once);
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Transform2D, __InverseTransform_3)
 	Object_wx_Transform2D *pThis = Object_wx_Transform2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DInt& r = arg.GetNumber(0)
-	//pThis->GetEntity()->InverseTransform(r);
+	//wxRect2DInt _rtn = pThis->GetEntity()->InverseTransform(r);
 	return Value::Nil;
 }
 

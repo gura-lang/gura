@@ -39,7 +39,7 @@ String Object_wx_Overlay::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Overlay, "Overlay")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Overlay));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

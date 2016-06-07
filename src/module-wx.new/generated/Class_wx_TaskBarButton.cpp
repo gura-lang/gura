@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailContents)
 
 Gura_DeclareMethodAlias(wx_TaskBarButton, __InsertThumbBarButton, "InsertThumbBarButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_TaskBarButton, __InsertThumbBarButton)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//wxThumbBarButton* button = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertThumbBarButton(pos, button);
+	//bool _rtn = pThis->GetEntity()->InsertThumbBarButton(pos, button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarButton, __AppendThumbBarButton, "AppendThumbBarButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
@@ -213,26 +213,26 @@ Gura_ImplementMethod(wx_TaskBarButton, __AppendThumbBarButton)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxThumbBarButton* button = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendThumbBarButton(button);
+	//bool _rtn = pThis->GetEntity()->AppendThumbBarButton(button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarButton, __AppendSeparatorInThumbBar, "AppendSeparatorInThumbBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TaskBarButton, __AppendSeparatorInThumbBar)
 {
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AppendSeparatorInThumbBar();
+	//bool _rtn = pThis->GetEntity()->AppendSeparatorInThumbBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarButton, __RemoveThumbBarButton, "RemoveThumbBarButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "button", VTYPE_number, OCCUR_Once);
 }
 
@@ -241,13 +241,13 @@ Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxThumbBarButton* button = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveThumbBarButton(button);
+	//wxThumbBarButton* _rtn = pThis->GetEntity()->RemoveThumbBarButton(button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TaskBarButton, __RemoveThumbBarButton_1, "RemoveThumbBarButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton_1)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveThumbBarButton(id);
+	//wxThumbBarButton* _rtn = pThis->GetEntity()->RemoveThumbBarButton(id);
 	return Value::Nil;
 }
 

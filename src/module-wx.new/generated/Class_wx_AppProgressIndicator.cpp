@@ -39,7 +39,7 @@ String Object_wx_AppProgressIndicator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AppProgressIndicator, "AppProgressIndicator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxValue", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AppProgressIndicator));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__AppProgressIndicator)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AppProgressIndicator, __IsAvailable, "IsAvailable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AppProgressIndicator, __IsAvailable)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAvailable();
+	//bool _rtn = pThis->GetEntity()->IsAvailable();
 	return Value::Nil;
 }
 
@@ -102,14 +102,14 @@ Gura_ImplementMethod(wx_AppProgressIndicator, __SetRange)
 
 Gura_DeclareMethodAlias(wx_AppProgressIndicator, __Pulse, "Pulse")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AppProgressIndicator, __Pulse)
 {
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Pulse();
+	//bool _rtn = pThis->GetEntity()->Pulse();
 	return Value::Nil;
 }
 

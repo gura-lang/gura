@@ -39,7 +39,7 @@ String Object_wx_HTMLDataObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HTMLDataObject, "HTMLDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "html", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HTMLDataObject));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__HTMLDataObject)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HTMLDataObject, __GetHTML, "GetHTML")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HTMLDataObject, __GetHTML)
 {
 	Object_wx_HTMLDataObject *pThis = Object_wx_HTMLDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHTML();
+	//wxString _rtn = pThis->GetEntity()->GetHTML();
 	return Value::Nil;
 }
 

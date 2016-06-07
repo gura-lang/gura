@@ -39,7 +39,7 @@ String Object_wx_TreeCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TreeCtrl, "TreeCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TreeCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TreeCtrl)
 
 Gura_DeclareFunctionAlias(__TreeCtrl_1, "TreeCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__TreeCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TreeCtrl, __AddRoot, "AddRoot")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "selImage", VTYPE_number, OCCUR_Once);
@@ -97,13 +97,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __AddRoot)
 	//int image = arg.GetNumber(1)
 	//int selImage = arg.GetNumber(2)
 	//wxTreeItemData* data = arg.GetNumber(3)
-	//pThis->GetEntity()->AddRoot(text, image, selImage, data);
+	//wxTreeItemId _rtn = pThis->GetEntity()->AddRoot(text, image, selImage, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __AppendItem, "AppendItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __AppendItem)
 	//int image = arg.GetNumber(2)
 	//int selImage = arg.GetNumber(3)
 	//wxTreeItemData* data = arg.GetNumber(4)
-	//pThis->GetEntity()->AppendItem(parent, text, image, selImage, data);
+	//wxTreeItemId _rtn = pThis->GetEntity()->AppendItem(parent, text, image, selImage, data);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __CollapseAndReset)
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __Create)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __DeleteChildren)
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __EditLabel, "EditLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "textCtrlClass", VTYPE_number, OCCUR_Once);
 }
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __EditLabel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//wxClassInfo* textCtrlClass = arg.GetNumber(1)
-	//pThis->GetEntity()->EditLabel(item, textCtrlClass);
+	//wxTextCtrl* _rtn = pThis->GetEntity()->EditLabel(item, textCtrlClass);
 	return Value::Nil;
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __ExpandAllChildren)
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetBoundingRect, "GetBoundingRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "textOnly", VTYPE_number, OCCUR_Once);
@@ -419,26 +419,26 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetBoundingRect)
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//wxRect& rect = arg.GetNumber(1)
 	//bool textOnly = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBoundingRect(item, rect, textOnly);
+	//bool _rtn = pThis->GetEntity()->GetBoundingRect(item, rect, textOnly);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetButtonsImageList, "GetButtonsImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetButtonsImageList)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonsImageList();
+	//wxImageList* _rtn = pThis->GetEntity()->GetButtonsImageList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetChildrenCount, "GetChildrenCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "recursively", VTYPE_number, OCCUR_Once);
 }
@@ -449,39 +449,39 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetChildrenCount)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//bool recursively = arg.GetNumber(1)
-	//pThis->GetEntity()->GetChildrenCount(item, recursively);
+	//size_t _rtn = pThis->GetEntity()->GetChildrenCount(item, recursively);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetCount)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetEditControl, "GetEditControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetEditControl)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEditControl();
+	//wxTextCtrl* _rtn = pThis->GetEntity()->GetEditControl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetFirstChild, "GetFirstChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 }
@@ -492,33 +492,33 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetFirstChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//wxTreeItemIdValue& cookie = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFirstChild(item, cookie);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetFirstChild(item, cookie);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetFirstVisibleItem, "GetFirstVisibleItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetFirstVisibleItem)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFirstVisibleItem();
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetFirstVisibleItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetFocusedItem, "GetFocusedItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetFocusedItem)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFocusedItem();
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetFocusedItem();
 	return Value::Nil;
 }
 
@@ -552,33 +552,33 @@ Gura_ImplementMethod(wx_TreeCtrl, __SetFocusedItem)
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetImageList, "GetImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetImageList)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImageList();
+	//wxImageList* _rtn = pThis->GetEntity()->GetImageList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetIndent, "GetIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetIndent)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndent();
+	//unsigned int _rtn = pThis->GetEntity()->GetIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemBackgroundColour, "GetItemBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -587,13 +587,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemBackgroundColour)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemBackgroundColour(item);
+	//wxColour _rtn = pThis->GetEntity()->GetItemBackgroundColour(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemData, "GetItemData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -602,13 +602,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemData)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemData(item);
+	//wxTreeItemData* _rtn = pThis->GetEntity()->GetItemData(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemFont, "GetItemFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -617,13 +617,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemFont)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemFont(item);
+	//wxFont _rtn = pThis->GetEntity()->GetItemFont(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemImage, "GetItemImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "which", VTYPE_number, OCCUR_Once);
 }
@@ -634,13 +634,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//wxTreeItemIcon which = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItemImage(item, which);
+	//int _rtn = pThis->GetEntity()->GetItemImage(item, which);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemParent, "GetItemParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -649,13 +649,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemParent)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemParent(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetItemParent(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemState, "GetItemState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -664,13 +664,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemState)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemState(item);
+	//int _rtn = pThis->GetEntity()->GetItemState(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemText, "GetItemText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -679,13 +679,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemText)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemText(item);
+	//wxString _rtn = pThis->GetEntity()->GetItemText(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetItemTextColour, "GetItemTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -694,13 +694,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetItemTextColour)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemTextColour(item);
+	//wxColour _rtn = pThis->GetEntity()->GetItemTextColour(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetLastChild, "GetLastChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -709,13 +709,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetLastChild)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLastChild(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetLastChild(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetNextChild, "GetNextChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cookie", VTYPE_number, OCCUR_Once);
 }
@@ -726,13 +726,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetNextChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
 	//wxTreeItemIdValue& cookie = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextChild(item, cookie);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetNextChild(item, cookie);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetNextSibling, "GetNextSibling")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -741,13 +741,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetNextSibling)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextSibling(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetNextSibling(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetNextVisible, "GetNextVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -756,13 +756,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetNextVisible)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextVisible(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetNextVisible(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetPrevSibling, "GetPrevSibling")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -771,13 +771,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetPrevSibling)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPrevSibling(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetPrevSibling(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetPrevVisible, "GetPrevVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -786,52 +786,52 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetPrevVisible)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPrevVisible(item);
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetPrevVisible(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetQuickBestSize, "GetQuickBestSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetQuickBestSize)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetQuickBestSize();
+	//bool _rtn = pThis->GetEntity()->GetQuickBestSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetRootItem, "GetRootItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetRootItem)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRootItem();
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetRootItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetSelection)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//wxTreeItemId _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetSelections, "GetSelections")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "selection", VTYPE_number, OCCUR_Once);
 }
 
@@ -840,26 +840,26 @@ Gura_ImplementMethod(wx_TreeCtrl, __GetSelections)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayTreeItemIds& selection = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelections(selection);
+	//size_t _rtn = pThis->GetEntity()->GetSelections(selection);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __GetStateImageList, "GetStateImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __GetStateImageList)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStateImageList();
+	//wxImageList* _rtn = pThis->GetEntity()->GetStateImageList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -870,13 +870,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __HitTest)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& point = arg.GetNumber(0)
 	//int& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->HitTest(point, flags);
+	//wxTreeItemId _rtn = pThis->GetEntity()->HitTest(point, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __InsertItem, "InsertItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "previous", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -895,13 +895,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __InsertItem)
 	//int image = arg.GetNumber(3)
 	//int selImage = arg.GetNumber(4)
 	//wxTreeItemData* data = arg.GetNumber(5)
-	//pThis->GetEntity()->InsertItem(parent, previous, text, image, selImage, data);
+	//wxTreeItemId _rtn = pThis->GetEntity()->InsertItem(parent, previous, text, image, selImage, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __InsertItem_1, "InsertItem_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
@@ -920,13 +920,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __InsertItem_1)
 	//int image = arg.GetNumber(3)
 	//int selImage = arg.GetNumber(4)
 	//wxTreeItemData* data = arg.GetNumber(5)
-	//pThis->GetEntity()->InsertItem(parent, pos, text, image, selImage, data);
+	//wxTreeItemId _rtn = pThis->GetEntity()->InsertItem(parent, pos, text, image, selImage, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __IsBold, "IsBold")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -935,26 +935,26 @@ Gura_ImplementMethod(wx_TreeCtrl, __IsBold)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsBold(item);
+	//bool _rtn = pThis->GetEntity()->IsBold(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TreeCtrl, __IsEmpty)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __IsExpanded, "IsExpanded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -963,13 +963,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __IsExpanded)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsExpanded(item);
+	//bool _rtn = pThis->GetEntity()->IsExpanded(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __IsSelected, "IsSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -978,13 +978,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __IsSelected)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSelected(item);
+	//bool _rtn = pThis->GetEntity()->IsSelected(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -993,13 +993,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __IsVisible)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsVisible(item);
+	//bool _rtn = pThis->GetEntity()->IsVisible(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __ItemHasChildren, "ItemHasChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -1008,13 +1008,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __ItemHasChildren)
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemHasChildren(item);
+	//bool _rtn = pThis->GetEntity()->ItemHasChildren(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __OnCompareItems, "OnCompareItems")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item2", VTYPE_number, OCCUR_Once);
 }
@@ -1025,13 +1025,13 @@ Gura_ImplementMethod(wx_TreeCtrl, __OnCompareItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& item1 = arg.GetNumber(0)
 	//const wxTreeItemId& item2 = arg.GetNumber(1)
-	//pThis->GetEntity()->OnCompareItems(item1, item2);
+	//int _rtn = pThis->GetEntity()->OnCompareItems(item1, item2);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TreeCtrl, __PrependItem, "PrependItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
@@ -1048,7 +1048,7 @@ Gura_ImplementMethod(wx_TreeCtrl, __PrependItem)
 	//int image = arg.GetNumber(2)
 	//int selImage = arg.GetNumber(3)
 	//wxTreeItemData* data = arg.GetNumber(4)
-	//pThis->GetEntity()->PrependItem(parent, text, image, selImage, data);
+	//wxTreeItemId _rtn = pThis->GetEntity()->PrependItem(parent, text, image, selImage, data);
 	return Value::Nil;
 }
 

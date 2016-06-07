@@ -39,7 +39,7 @@ String Object_wx_MenuBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MenuBar, "MenuBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MenuBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__MenuBar)
 
 Gura_DeclareFunctionAlias(__MenuBar_1, "MenuBar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menus", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "titles", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__MenuBar_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MenuBar, __Append, "Append")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_MenuBar, __Append)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
 	//const wxString& title = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(menu, title);
+	//bool _rtn = pThis->GetEntity()->Append(menu, title);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_MenuBar, __Enable)
 
 Gura_DeclareMethodAlias(wx_MenuBar, __IsEnabledTop, "IsEnabledTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_MenuBar, __IsEnabledTop)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEnabledTop(pos);
+	//bool _rtn = pThis->GetEntity()->IsEnabledTop(pos);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_MenuBar, __EnableTop)
 
 Gura_DeclareMethodAlias(wx_MenuBar, __FindItem, "FindItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 }
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_MenuBar, __FindItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//wxMenu** menu = arg.GetNumber(1)
-	//pThis->GetEntity()->FindItem(id, menu);
+	//wxMenuItem* _rtn = pThis->GetEntity()->FindItem(id, menu);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __FindMenu, "FindMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 }
 
@@ -187,13 +187,13 @@ Gura_ImplementMethod(wx_MenuBar, __FindMenu)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->FindMenu(title);
+	//int _rtn = pThis->GetEntity()->FindMenu(title);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __FindMenuItem, "FindMenuItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "menuString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "itemString", VTYPE_number, OCCUR_Once);
 }
@@ -204,13 +204,13 @@ Gura_ImplementMethod(wx_MenuBar, __FindMenuItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& menuString = arg.GetNumber(0)
 	//const wxString& itemString = arg.GetNumber(1)
-	//pThis->GetEntity()->FindMenuItem(menuString, itemString);
+	//int _rtn = pThis->GetEntity()->FindMenuItem(menuString, itemString);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetHelpString, "GetHelpString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_MenuBar, __GetHelpString)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHelpString(id);
+	//wxString _rtn = pThis->GetEntity()->GetHelpString(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -234,13 +234,13 @@ Gura_ImplementMethod(wx_MenuBar, __GetLabel)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel(id);
+	//wxString _rtn = pThis->GetEntity()->GetLabel(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetLabelTop, "GetLabelTop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,13 +249,13 @@ Gura_ImplementMethod(wx_MenuBar, __GetLabelTop)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabelTop(pos);
+	//wxString _rtn = pThis->GetEntity()->GetLabelTop(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetMenu, "GetMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "menuIndex", VTYPE_number, OCCUR_Once);
 }
 
@@ -264,26 +264,26 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenu)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t menuIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenu(menuIndex);
+	//wxMenu* _rtn = pThis->GetEntity()->GetMenu(menuIndex);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetMenuCount, "GetMenuCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, __GetMenuCount)
 {
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMenuCount();
+	//size_t _rtn = pThis->GetEntity()->GetMenuCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetMenuLabel, "GetMenuLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -292,13 +292,13 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenuLabel)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenuLabel(pos);
+	//wxString _rtn = pThis->GetEntity()->GetMenuLabel(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetMenuLabelText, "GetMenuLabelText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -307,13 +307,13 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenuLabelText)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenuLabelText(pos);
+	//wxString _rtn = pThis->GetEntity()->GetMenuLabelText(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __Insert, "Insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -326,13 +326,13 @@ Gura_ImplementMethod(wx_MenuBar, __Insert)
 	//size_t pos = arg.GetNumber(0)
 	//wxMenu* menu = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(pos, menu, title);
+	//bool _rtn = pThis->GetEntity()->Insert(pos, menu, title);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __IsChecked, "IsChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -341,13 +341,13 @@ Gura_ImplementMethod(wx_MenuBar, __IsChecked)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->IsChecked(id);
+	//bool _rtn = pThis->GetEntity()->IsChecked(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __IsEnabled, "IsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_MenuBar, __IsEnabled)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEnabled(id);
+	//bool _rtn = pThis->GetEntity()->IsEnabled(id);
 	return Value::Nil;
 }
 
@@ -379,7 +379,7 @@ Gura_ImplementMethod(wx_MenuBar, __Refresh)
 
 Gura_DeclareMethodAlias(wx_MenuBar, __Remove, "Remove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -388,13 +388,13 @@ Gura_ImplementMethod(wx_MenuBar, __Remove)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(pos);
+	//wxMenu* _rtn = pThis->GetEntity()->Remove(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __Replace, "Replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "menu", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_MenuBar, __Replace)
 	//size_t pos = arg.GetNumber(0)
 	//wxMenu* menu = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(pos, menu, title);
+	//wxMenu* _rtn = pThis->GetEntity()->Replace(pos, menu, title);
 	return Value::Nil;
 }
 
@@ -496,53 +496,53 @@ Gura_ImplementMethod(wx_MenuBar, __MacSetCommonMenuBar)
 
 Gura_DeclareMethodAlias(wx_MenuBar, __MacGetCommonMenuBar, "MacGetCommonMenuBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, __MacGetCommonMenuBar)
 {
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MacGetCommonMenuBar();
+	//wxMenuBar* _rtn = pThis->GetEntity()->MacGetCommonMenuBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __OSXGetAppleMenu, "OSXGetAppleMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, __OSXGetAppleMenu)
 {
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->OSXGetAppleMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->OSXGetAppleMenu();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __GetFrame, "GetFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, __GetFrame)
 {
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFrame();
+	//wxFrame* _rtn = pThis->GetEntity()->GetFrame();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MenuBar, __IsAttached, "IsAttached")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MenuBar, __IsAttached)
 {
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAttached();
+	//bool _rtn = pThis->GetEntity()->IsAttached();
 	return Value::Nil;
 }
 

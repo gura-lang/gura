@@ -39,7 +39,7 @@ String Object_wx_DCPenChanger::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DCPenChanger, "DCPenChanger")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pen", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DCPenChanger));

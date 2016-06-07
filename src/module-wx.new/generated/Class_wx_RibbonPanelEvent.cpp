@@ -39,7 +39,7 @@ String Object_wx_RibbonPanelEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonPanelEvent, "RibbonPanelEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "panel", VTYPE_number, OCCUR_Once);

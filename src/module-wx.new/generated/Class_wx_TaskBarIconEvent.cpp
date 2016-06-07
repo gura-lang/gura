@@ -39,7 +39,7 @@ String Object_wx_TaskBarIconEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TaskBarIconEvent, "TaskBarIconEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "evtType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tbIcon", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TaskBarIconEvent));

@@ -39,7 +39,7 @@ String Object_wx_TranslationsLoader::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TranslationsLoader, "TranslationsLoader")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TranslationsLoader));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__TranslationsLoader)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TranslationsLoader, __LoadCatalog, "LoadCatalog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lang", VTYPE_number, OCCUR_Once);
 }
@@ -66,13 +66,13 @@ Gura_ImplementMethod(wx_TranslationsLoader, __LoadCatalog)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
 	//const wxString& lang = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadCatalog(domain, lang);
+	//wxMsgCatalog* _rtn = pThis->GetEntity()->LoadCatalog(domain, lang);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TranslationsLoader, __GetAvailableTranslations, "GetAvailableTranslations")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "domain", VTYPE_number, OCCUR_Once);
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_TranslationsLoader, __GetAvailableTranslations)
 	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAvailableTranslations(domain);
+	//wxArrayString _rtn = pThis->GetEntity()->GetAvailableTranslations(domain);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_GridCellFloatEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellFloatEditor, "GridCellFloatEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);

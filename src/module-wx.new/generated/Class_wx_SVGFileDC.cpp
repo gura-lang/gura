@@ -39,7 +39,7 @@ String Object_wx_SVGFileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SVGFileDC, "SVGFileDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __CrossHair)
 
 Gura_DeclareMethodAlias(wx_SVGFileDC, __FloodFill, "FloodFill")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __FloodFill)
 	//wxCoord y = arg.GetNumber(1)
 	//const wxColour& colour = arg.GetNumber(2)
 	//wxFloodFillStyle style = arg.GetNumber(3)
-	//pThis->GetEntity()->FloodFill(x, y, colour, style);
+	//bool _rtn = pThis->GetEntity()->FloodFill(x, y, colour, style);
 	return Value::Nil;
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetClippingBox)
 
 Gura_DeclareMethodAlias(wx_SVGFileDC, __GetPixel, "GetPixel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetPixel)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxColour* colour = arg.GetNumber(2)
-	//pThis->GetEntity()->GetPixel(x, y, colour);
+	//bool _rtn = pThis->GetEntity()->GetPixel(x, y, colour);
 	return Value::Nil;
 }
 
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetPalette)
 
 Gura_DeclareMethodAlias(wx_SVGFileDC, __StartDoc, "StartDoc")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& message = arg.GetNumber(0)
-	//pThis->GetEntity()->StartDoc(message);
+	//bool _rtn = pThis->GetEntity()->StartDoc(message);
 	return Value::Nil;
 }
 

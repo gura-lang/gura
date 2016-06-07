@@ -39,7 +39,7 @@ String Object_wx_DebugReportPreviewStd::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DebugReportPreviewStd, "DebugReportPreviewStd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportPreviewStd));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__DebugReportPreviewStd)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugReportPreviewStd, __Show, "Show")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dbgrpt", VTYPE_number, OCCUR_Once);
 }
 
@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_DebugReportPreviewStd, __Show)
 	Object_wx_DebugReportPreviewStd *pThis = Object_wx_DebugReportPreviewStd::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDebugReport& dbgrpt = arg.GetNumber(0)
-	//pThis->GetEntity()->Show(dbgrpt);
+	//bool _rtn = pThis->GetEntity()->Show(dbgrpt);
 	return Value::Nil;
 }
 

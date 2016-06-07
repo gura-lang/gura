@@ -39,7 +39,7 @@ String Object_wx_RichTextDrawingContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextDrawingContext, "RichTextDrawingContext")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextDrawingContext));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __Init)
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __HasVirtualAttributes, "HasVirtualAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __HasVirtualAttributes)
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->HasVirtualAttributes(obj);
+	//bool _rtn = pThis->GetEntity()->HasVirtualAttributes(obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetVirtualAttributes, "GetVirtualAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualAttributes)
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->GetVirtualAttributes(obj);
+	//wxRichTextAttr _rtn = pThis->GetEntity()->GetVirtualAttributes(obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __ApplyVirtualAttributes, "ApplyVirtualAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
@@ -111,13 +111,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __ApplyVirtualAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextAttr& attr = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->ApplyVirtualAttributes(attr, obj);
+	//bool _rtn = pThis->GetEntity()->ApplyVirtualAttributes(attr, obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributesCount, "GetVirtualSubobjectAttributesCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
@@ -126,13 +126,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributesC
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->GetVirtualSubobjectAttributesCount(obj);
+	//int _rtn = pThis->GetEntity()->GetVirtualSubobjectAttributesCount(obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributes, "GetVirtualSubobjectAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "positions", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attributes", VTYPE_number, OCCUR_Once);
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualSubobjectAttributes)
 	//wxRichTextObject* obj = arg.GetNumber(0)
 	//wxArrayInt& positions = arg.GetNumber(1)
 	//wxRichTextAttrArray& attributes = arg.GetNumber(2)
-	//pThis->GetEntity()->GetVirtualSubobjectAttributes(obj, positions, attributes);
+	//int _rtn = pThis->GetEntity()->GetVirtualSubobjectAttributes(obj, positions, attributes);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __HasVirtualText, "HasVirtualText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __HasVirtualText)
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextPlainText* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->HasVirtualText(obj);
+	//bool _rtn = pThis->GetEntity()->HasVirtualText(obj);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetVirtualText, "GetVirtualText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 }
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextPlainText* obj = arg.GetNumber(0)
 	//wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->GetVirtualText(obj, text);
+	//bool _rtn = pThis->GetEntity()->GetVirtualText(obj, text);
 	return Value::Nil;
 }
 
@@ -198,14 +198,14 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableVirtualAttributes)
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetVirtualAttributesEnabled, "GetVirtualAttributesEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextDrawingContext, __GetVirtualAttributesEnabled)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVirtualAttributesEnabled();
+	//bool _rtn = pThis->GetEntity()->GetVirtualAttributesEnabled();
 	return Value::Nil;
 }
 
@@ -226,14 +226,14 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableImages)
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetImagesEnabled, "GetImagesEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextDrawingContext, __GetImagesEnabled)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImagesEnabled();
+	//bool _rtn = pThis->GetEntity()->GetImagesEnabled();
 	return Value::Nil;
 }
 
@@ -254,14 +254,14 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __SetLayingOut)
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetLayingOut, "GetLayingOut")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextDrawingContext, __GetLayingOut)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLayingOut();
+	//bool _rtn = pThis->GetEntity()->GetLayingOut();
 	return Value::Nil;
 }
 
@@ -282,14 +282,14 @@ Gura_ImplementMethod(wx_RichTextDrawingContext, __EnableDelayedImageLoading)
 
 Gura_DeclareMethodAlias(wx_RichTextDrawingContext, __GetDelayedImageLoading, "GetDelayedImageLoading")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextDrawingContext, __GetDelayedImageLoading)
 {
 	Object_wx_RichTextDrawingContext *pThis = Object_wx_RichTextDrawingContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDelayedImageLoading();
+	//bool _rtn = pThis->GetEntity()->GetDelayedImageLoading();
 	return Value::Nil;
 }
 

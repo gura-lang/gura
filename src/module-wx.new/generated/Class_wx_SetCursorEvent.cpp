@@ -39,7 +39,7 @@ String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SetCursorEvent, "SetCursorEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SetCursorEvent));
@@ -59,53 +59,53 @@ Gura_ImplementFunction(__SetCursorEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SetCursorEvent, __GetCursor, "GetCursor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SetCursorEvent, __GetCursor)
 {
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCursor();
+	//const wxCursor& _rtn = pThis->GetEntity()->GetCursor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SetCursorEvent, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SetCursorEvent, __GetX)
 {
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//wxCoord _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SetCursorEvent, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SetCursorEvent, __GetY)
 {
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//wxCoord _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SetCursorEvent, __HasCursor, "HasCursor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SetCursorEvent, __HasCursor)
 {
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasCursor();
+	//bool _rtn = pThis->GetEntity()->HasCursor();
 	return Value::Nil;
 }
 

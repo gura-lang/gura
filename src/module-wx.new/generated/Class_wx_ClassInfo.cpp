@@ -39,7 +39,7 @@ String Object_wx_ClassInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ClassInfo, "ClassInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "className", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "baseClass1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "baseClass2", VTYPE_number, OCCUR_Once);
@@ -65,20 +65,20 @@ Gura_ImplementFunction(__ClassInfo)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ClassInfo, __CreateObject, "CreateObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __CreateObject)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreateObject();
+	//wxObject* _rtn = pThis->GetEntity()->CreateObject();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __FindClass, "FindClass")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "className", VTYPE_number, OCCUR_Once);
 }
 
@@ -87,78 +87,78 @@ Gura_ImplementMethod(wx_ClassInfo, __FindClass)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& className = arg.GetNumber(0)
-	//pThis->GetEntity()->FindClass(className);
+	//wxClassInfo* _rtn = pThis->GetEntity()->FindClass(className);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __GetBaseClassName1, "GetBaseClassName1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __GetBaseClassName1)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBaseClassName1();
+	//const wxChar* _rtn = pThis->GetEntity()->GetBaseClassName1();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __GetBaseClassName2, "GetBaseClassName2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __GetBaseClassName2)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBaseClassName2();
+	//const wxChar* _rtn = pThis->GetEntity()->GetBaseClassName2();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __GetClassName, "GetClassName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __GetClassName)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClassName();
+	//const wxChar* _rtn = pThis->GetEntity()->GetClassName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __GetSize)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//int _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __IsDynamic, "IsDynamic")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ClassInfo, __IsDynamic)
 {
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDynamic();
+	//bool _rtn = pThis->GetEntity()->IsDynamic();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ClassInfo, __IsKindOf, "IsKindOf")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ClassInfo, __IsKindOf)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxClassInfo* info = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKindOf(info);
+	//bool _rtn = pThis->GetEntity()->IsKindOf(info);
 	return Value::Nil;
 }
 

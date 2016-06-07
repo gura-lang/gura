@@ -39,7 +39,7 @@ String Object_wx_RibbonArtProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonArtProvider, "RibbonArtProvider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonArtProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__RibbonArtProvider)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonArtProvider, __Clone)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxRibbonArtProvider* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -83,20 +83,20 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetFlags)
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonArtProvider, __GetFlags)
 {
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//long _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetMetric, "GetMetric")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetMetric)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMetric(id);
+	//int _rtn = pThis->GetEntity()->GetMetric(id);
 	return Value::Nil;
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetFont)
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -154,13 +154,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetFont)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont(id);
+	//wxFont _rtn = pThis->GetEntity()->GetFont(id);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetColour)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColour(id);
+	//wxColour _rtn = pThis->GetEntity()->GetColour(id);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __SetColour)
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetColor, "GetColor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetColor)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColor(id);
+	//wxColour _rtn = pThis->GetEntity()->GetColor(id);
 	return Value::Nil;
 }
 
@@ -621,7 +621,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetBarTabWidth)
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetTabCtrlHeight, "GetTabCtrlHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pages", VTYPE_number, OCCUR_Once);
@@ -634,13 +634,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetTabCtrlHeight)
 	//wxDC& dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
 	//const wxRibbonPageTabInfoArray& pages = arg.GetNumber(2)
-	//pThis->GetEntity()->GetTabCtrlHeight(dc, wnd, pages);
+	//int _rtn = pThis->GetEntity()->GetTabCtrlHeight(dc, wnd, pages);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetScrollButtonMinimumSize, "GetScrollButtonMinimumSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -653,13 +653,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetScrollButtonMinimumSize)
 	//wxDC& dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
 	//long style = arg.GetNumber(2)
-	//pThis->GetEntity()->GetScrollButtonMinimumSize(dc, wnd, style);
+	//wxSize _rtn = pThis->GetEntity()->GetScrollButtonMinimumSize(dc, wnd, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetPanelSize, "GetPanelSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "client_size", VTYPE_number, OCCUR_Once);
@@ -674,13 +674,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelSize)
 	//const wxRibbonPanel* wnd = arg.GetNumber(1)
 	//wxSize client_size = arg.GetNumber(2)
 	//wxPoint* client_offset = arg.GetNumber(3)
-	//pThis->GetEntity()->GetPanelSize(dc, wnd, client_size, client_offset);
+	//wxSize _rtn = pThis->GetEntity()->GetPanelSize(dc, wnd, client_size, client_offset);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetPanelClientSize, "GetPanelClientSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -695,13 +695,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelClientSize)
 	//const wxRibbonPanel* wnd = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
 	//wxPoint* client_offset = arg.GetNumber(3)
-	//pThis->GetEntity()->GetPanelClientSize(dc, wnd, size, client_offset);
+	//wxSize _rtn = pThis->GetEntity()->GetPanelClientSize(dc, wnd, size, client_offset);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetPanelExtButtonArea, "GetPanelExtButtonArea")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -714,13 +714,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPanelExtButtonArea)
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRibbonPanel* wnd = arg.GetNumber(1)
 	//wxRect rect = arg.GetNumber(2)
-	//pThis->GetEntity()->GetPanelExtButtonArea(dc, wnd, rect);
+	//wxRect _rtn = pThis->GetEntity()->GetPanelExtButtonArea(dc, wnd, rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetGallerySize, "GetGallerySize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "client_size", VTYPE_number, OCCUR_Once);
@@ -733,13 +733,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetGallerySize)
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRibbonGallery* wnd = arg.GetNumber(1)
 	//wxSize client_size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetGallerySize(dc, wnd, client_size);
+	//wxSize _rtn = pThis->GetEntity()->GetGallerySize(dc, wnd, client_size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetGalleryClientSize, "GetGalleryClientSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -760,13 +760,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetGalleryClientSize)
 	//wxRect* scroll_up_button = arg.GetNumber(4)
 	//wxRect* scroll_down_button = arg.GetNumber(5)
 	//wxRect* extension_button = arg.GetNumber(6)
-	//pThis->GetEntity()->GetGalleryClientSize(dc, wnd, size, client_offset, scroll_up_button, scroll_down_button, extension_button);
+	//wxSize _rtn = pThis->GetEntity()->GetGalleryClientSize(dc, wnd, size, client_offset, scroll_up_button, scroll_down_button, extension_button);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetPageBackgroundRedrawArea, "GetPageBackgroundRedrawArea")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "page_old_size", VTYPE_number, OCCUR_Once);
@@ -781,13 +781,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetPageBackgroundRedrawArea)
 	//const wxRibbonPage* wnd = arg.GetNumber(1)
 	//wxSize page_old_size = arg.GetNumber(2)
 	//wxSize page_new_size = arg.GetNumber(3)
-	//pThis->GetEntity()->GetPageBackgroundRedrawArea(dc, wnd, page_old_size, page_new_size);
+	//wxRect _rtn = pThis->GetEntity()->GetPageBackgroundRedrawArea(dc, wnd, page_old_size, page_new_size);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetButtonBarButtonSize, "GetButtonBarButtonSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
@@ -814,13 +814,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetButtonBarButtonSize)
 	//wxSize* button_size = arg.GetNumber(7)
 	//wxRect* normal_region = arg.GetNumber(8)
 	//wxRect* dropdown_region = arg.GetNumber(9)
-	//pThis->GetEntity()->GetButtonBarButtonSize(dc, wnd, kind, size, label, bitmap_size_large, bitmap_size_small, button_size, normal_region, dropdown_region);
+	//bool _rtn = pThis->GetEntity()->GetButtonBarButtonSize(dc, wnd, kind, size, label, bitmap_size_large, bitmap_size_small, button_size, normal_region, dropdown_region);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetMinimisedPanelMinimumSize, "GetMinimisedPanelMinimumSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desired_bitmap_size", VTYPE_number, OCCUR_Once);
@@ -835,13 +835,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetMinimisedPanelMinimumSize)
 	//const wxRibbonPanel* wnd = arg.GetNumber(1)
 	//wxSize* desired_bitmap_size = arg.GetNumber(2)
 	//wxDirection* expanded_panel_direction = arg.GetNumber(3)
-	//pThis->GetEntity()->GetMinimisedPanelMinimumSize(dc, wnd, desired_bitmap_size, expanded_panel_direction);
+	//wxSize _rtn = pThis->GetEntity()->GetMinimisedPanelMinimumSize(dc, wnd, desired_bitmap_size, expanded_panel_direction);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetToolSize, "GetToolSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap_size", VTYPE_number, OCCUR_Once);
@@ -862,13 +862,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetToolSize)
 	//bool is_first = arg.GetNumber(4)
 	//bool is_last = arg.GetNumber(5)
 	//wxRect* dropdown_region = arg.GetNumber(6)
-	//pThis->GetEntity()->GetToolSize(dc, wnd, bitmap_size, kind, is_first, is_last, dropdown_region);
+	//wxSize _rtn = pThis->GetEntity()->GetToolSize(dc, wnd, bitmap_size, kind, is_first, is_last, dropdown_region);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetBarToggleButtonArea, "GetBarToggleButtonArea")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -877,13 +877,13 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetBarToggleButtonArea)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->GetBarToggleButtonArea(rect);
+	//wxRect _rtn = pThis->GetEntity()->GetBarToggleButtonArea(rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonArtProvider, __GetRibbonHelpButtonArea, "GetRibbonHelpButtonArea")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
 }
 
@@ -892,7 +892,7 @@ Gura_ImplementMethod(wx_RibbonArtProvider, __GetRibbonHelpButtonArea)
 	Object_wx_RibbonArtProvider *pThis = Object_wx_RibbonArtProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRibbonHelpButtonArea(rect);
+	//wxRect _rtn = pThis->GetEntity()->GetRibbonHelpButtonArea(rect);
 	return Value::Nil;
 }
 

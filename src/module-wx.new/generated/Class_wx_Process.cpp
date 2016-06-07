@@ -39,7 +39,7 @@ String Object_wx_Process::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Process, "Process")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Process));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__Process)
 
 Gura_DeclareFunctionAlias(__Process_1, "Process_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Process));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -74,14 +74,14 @@ Gura_ImplementFunction(__Process_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Process, __Activate, "Activate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __Activate)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Activate();
+	//bool _rtn = pThis->GetEntity()->Activate();
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_Process, __Detach)
 
 Gura_DeclareMethodAlias(wx_Process, __Exists, "Exists")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 }
 
@@ -122,104 +122,104 @@ Gura_ImplementMethod(wx_Process, __Exists)
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
-	//pThis->GetEntity()->Exists(pid);
+	//bool _rtn = pThis->GetEntity()->Exists(pid);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __GetErrorStream, "GetErrorStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __GetErrorStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetErrorStream();
+	//wxInputStream* _rtn = pThis->GetEntity()->GetErrorStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __GetInputStream, "GetInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __GetInputStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInputStream();
+	//wxInputStream* _rtn = pThis->GetEntity()->GetInputStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __GetOutputStream, "GetOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __GetOutputStream)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOutputStream();
+	//wxOutputStream* _rtn = pThis->GetEntity()->GetOutputStream();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __GetPid, "GetPid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __GetPid)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPid();
+	//long _rtn = pThis->GetEntity()->GetPid();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __IsErrorAvailable, "IsErrorAvailable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __IsErrorAvailable)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsErrorAvailable();
+	//bool _rtn = pThis->GetEntity()->IsErrorAvailable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __IsInputAvailable, "IsInputAvailable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __IsInputAvailable)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsInputAvailable();
+	//bool _rtn = pThis->GetEntity()->IsInputAvailable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __IsInputOpened, "IsInputOpened")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Process, __IsInputOpened)
 {
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsInputOpened();
+	//bool _rtn = pThis->GetEntity()->IsInputOpened();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Process, __Kill, "Kill")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sig", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Process, __Kill)
 	//int pid = arg.GetNumber(0)
 	//wxSignal sig = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Kill(pid, sig, flags);
+	//wxKillError _rtn = pThis->GetEntity()->Kill(pid, sig, flags);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_Process, __OnTerminate)
 
 Gura_DeclareMethodAlias(wx_Process, __Open, "Open")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cmd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Process, __Open)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& cmd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Open(cmd, flags);
+	//wxProcess* _rtn = pThis->GetEntity()->Open(cmd, flags);
 	return Value::Nil;
 }
 

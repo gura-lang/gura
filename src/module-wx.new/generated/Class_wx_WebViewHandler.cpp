@@ -39,7 +39,7 @@ String Object_wx_WebViewHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebViewHandler, "WebViewHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebViewHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__WebViewHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewHandler, __GetFile, "GetFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,20 +66,20 @@ Gura_ImplementMethod(wx_WebViewHandler, __GetFile)
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFile(uri);
+	//wxFSFile* _rtn = pThis->GetEntity()->GetFile(uri);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebViewHandler, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewHandler, __GetName)
 {
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 

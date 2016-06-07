@@ -39,7 +39,7 @@ String Object_wx_Slider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Slider, "Slider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Slider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Slider)
 
 Gura_DeclareFunctionAlias(__Slider_1, "Slider_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_Slider, __ClearTicks)
 
 Gura_DeclareMethodAlias(wx_Slider, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -141,124 +141,124 @@ Gura_ImplementMethod(wx_Slider, __Create)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create(parent, id, value, minValue, maxValue, point, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, minValue, maxValue, point, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetLineSize, "GetLineSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetLineSize)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLineSize();
+	//int _rtn = pThis->GetEntity()->GetLineSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetMax, "GetMax")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetMax)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMax();
+	//int _rtn = pThis->GetEntity()->GetMax();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetMin, "GetMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetMin)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMin();
+	//int _rtn = pThis->GetEntity()->GetMin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetPageSize, "GetPageSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetPageSize)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSize();
+	//int _rtn = pThis->GetEntity()->GetPageSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetSelEnd, "GetSelEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetSelEnd)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelEnd();
+	//int _rtn = pThis->GetEntity()->GetSelEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetSelStart, "GetSelStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetSelStart)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelStart();
+	//int _rtn = pThis->GetEntity()->GetSelStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetThumbLength, "GetThumbLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetThumbLength)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetThumbLength();
+	//int _rtn = pThis->GetEntity()->GetThumbLength();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetTickFreq, "GetTickFreq")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetTickFreq)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTickFreq();
+	//int _rtn = pThis->GetEntity()->GetTickFreq();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Slider, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Slider, __GetValue)
 {
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//int _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

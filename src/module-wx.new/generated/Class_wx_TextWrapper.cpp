@@ -39,7 +39,7 @@ String Object_wx_TextWrapper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextWrapper, "TextWrapper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextWrapper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

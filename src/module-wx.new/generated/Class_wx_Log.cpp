@@ -67,20 +67,20 @@ Gura_ImplementMethod(wx_Log, __ClearTraceMasks)
 
 Gura_DeclareMethodAlias(wx_Log, __GetTraceMasks, "GetTraceMasks")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetTraceMasks)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTraceMasks();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetTraceMasks();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __IsAllowedTraceMask, "IsAllowedTraceMask")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Log, __IsAllowedTraceMask)
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mask = arg.GetNumber(0)
-	//pThis->GetEntity()->IsAllowedTraceMask(mask);
+	//bool _rtn = pThis->GetEntity()->IsAllowedTraceMask(mask);
 	return Value::Nil;
 }
 
@@ -123,20 +123,20 @@ Gura_ImplementMethod(wx_Log, __DontCreateOnDemand)
 
 Gura_DeclareMethodAlias(wx_Log, __GetActiveTarget, "GetActiveTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetActiveTarget)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActiveTarget();
+	//wxLog* _rtn = pThis->GetEntity()->GetActiveTarget();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __SetActiveTarget, "SetActiveTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "logtarget", VTYPE_number, OCCUR_Once);
 }
 
@@ -145,13 +145,13 @@ Gura_ImplementMethod(wx_Log, __SetActiveTarget)
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLog* logtarget = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActiveTarget(logtarget);
+	//wxLog* _rtn = pThis->GetEntity()->SetActiveTarget(logtarget);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __SetThreadActiveTarget, "SetThreadActiveTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "logger", VTYPE_number, OCCUR_Once);
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_Log, __SetThreadActiveTarget)
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLog* logger = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThreadActiveTarget(logger);
+	//wxLog* _rtn = pThis->GetEntity()->SetThreadActiveTarget(logger);
 	return Value::Nil;
 }
 
@@ -205,20 +205,20 @@ Gura_ImplementMethod(wx_Log, __Suspend)
 
 Gura_DeclareMethodAlias(wx_Log, __GetLogLevel, "GetLogLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetLogLevel)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLogLevel();
+	//wxLogLevel _rtn = pThis->GetEntity()->GetLogLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __IsLevelEnabled, "IsLevelEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "component", VTYPE_number, OCCUR_Once);
 }
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_Log, __IsLevelEnabled)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLogLevel level = arg.GetNumber(0)
 	//wxString component = arg.GetNumber(1)
-	//pThis->GetEntity()->IsLevelEnabled(level, component);
+	//bool _rtn = pThis->GetEntity()->IsLevelEnabled(level, component);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_Log, __SetLogLevel)
 
 Gura_DeclareMethodAlias(wx_Log, __EnableLogging, "EnableLogging")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
@@ -276,33 +276,33 @@ Gura_ImplementMethod(wx_Log, __EnableLogging)
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableLogging(enable);
+	//bool _rtn = pThis->GetEntity()->EnableLogging(enable);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __IsEnabled, "IsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __IsEnabled)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEnabled();
+	//bool _rtn = pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Log, __GetRepetitionCounting, "GetRepetitionCounting")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetRepetitionCounting)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRepetitionCounting();
+	//bool _rtn = pThis->GetEntity()->GetRepetitionCounting();
 	return Value::Nil;
 }
 
@@ -323,14 +323,14 @@ Gura_ImplementMethod(wx_Log, __SetRepetitionCounting)
 
 Gura_DeclareMethodAlias(wx_Log, __GetTimestamp, "GetTimestamp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetTimestamp)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTimestamp();
+	//const wxString& _rtn = pThis->GetEntity()->GetTimestamp();
 	return Value::Nil;
 }
 
@@ -364,14 +364,14 @@ Gura_ImplementMethod(wx_Log, __DisableTimestamp)
 
 Gura_DeclareMethodAlias(wx_Log, __GetVerbose, "GetVerbose")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Log, __GetVerbose)
 {
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVerbose();
+	//bool _rtn = pThis->GetEntity()->GetVerbose();
 	return Value::Nil;
 }
 
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_Log, __SetVerbose)
 
 Gura_DeclareMethodAlias(wx_Log, __SetFormatter, "SetFormatter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "formatter", VTYPE_number, OCCUR_Once);
 }
 
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_Log, __SetFormatter)
 	Object_wx_Log *pThis = Object_wx_Log::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLogFormatter* formatter = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFormatter(formatter);
+	//wxLogFormatter* _rtn = pThis->GetEntity()->SetFormatter(formatter);
 	return Value::Nil;
 }
 

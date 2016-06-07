@@ -39,7 +39,7 @@ String Object_wx_ConfigBase::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ConfigBase, "ConfigBase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "appName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vendorName", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "localFilename", VTYPE_number, OCCUR_Once);
@@ -67,14 +67,14 @@ Gura_ImplementFunction(__ConfigBase)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ConfigBase, __GetPath)
 {
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//const wxString& _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_ConfigBase, __SetPath)
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetFirstEntry, "GetFirstEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -106,13 +106,13 @@ Gura_ImplementMethod(wx_ConfigBase, __GetFirstEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& index = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFirstEntry(str, index);
+	//bool _rtn = pThis->GetEntity()->GetFirstEntry(str, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetFirstGroup, "GetFirstGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_ConfigBase, __GetFirstGroup)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& index = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFirstGroup(str, index);
+	//bool _rtn = pThis->GetEntity()->GetFirstGroup(str, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetNextEntry, "GetNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNextEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& index = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextEntry(str, index);
+	//bool _rtn = pThis->GetEntity()->GetNextEntry(str, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetNextGroup, "GetNextGroup")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -157,13 +157,13 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNextGroup)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
 	//long& index = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextGroup(str, index);
+	//bool _rtn = pThis->GetEntity()->GetNextGroup(str, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetNumberOfEntries, "GetNumberOfEntries")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
@@ -172,13 +172,13 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfEntries)
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bRecursive = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNumberOfEntries(bRecursive);
+	//size_t _rtn = pThis->GetEntity()->GetNumberOfEntries(bRecursive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ConfigBase, __GetNumberOfGroups, "GetNumberOfGroups")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bRecursive", VTYPE_number, OCCUR_Once);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_ConfigBase, __GetNumberOfGroups)
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bRecursive = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNumberOfGroups(bRecursive);
+	//size_t _rtn = pThis->GetEntity()->GetNumberOfGroups(bRecursive);
 	return Value::Nil;
 }
 

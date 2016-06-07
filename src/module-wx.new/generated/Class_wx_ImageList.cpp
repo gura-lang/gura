@@ -39,7 +39,7 @@ String Object_wx_ImageList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ImageList, "ImageList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ImageList));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ImageList)
 
 Gura_DeclareFunctionAlias(__ImageList_1, "ImageList_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(__ImageList_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ImageList, __Add, "Add")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
@@ -87,13 +87,13 @@ Gura_ImplementMethod(wx_ImageList, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxBitmap& mask = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(bitmap, mask);
+	//int _rtn = pThis->GetEntity()->Add(bitmap, mask);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Add_1, "Add_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maskColour", VTYPE_number, OCCUR_Once);
 }
@@ -104,13 +104,13 @@ Gura_ImplementMethod(wx_ImageList, __Add_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxColour& maskColour = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(bitmap, maskColour);
+	//int _rtn = pThis->GetEntity()->Add(bitmap, maskColour);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Add_2, "Add_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_ImageList, __Add_2)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->Add(icon);
+	//int _rtn = pThis->GetEntity()->Add(icon);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_ImageList, __Create)
 	//int height = arg.GetNumber(1)
 	//bool mask = arg.GetNumber(2)
 	//int initialCount = arg.GetNumber(3)
-	//pThis->GetEntity()->Create(width, height, mask, initialCount);
+	//bool _rtn = pThis->GetEntity()->Create(width, height, mask, initialCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Draw, "Draw")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_ImageList, __Draw)
 	//int y = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
 	//bool solidBackground = arg.GetNumber(5)
-	//pThis->GetEntity()->Draw(index, dc, x, y, flags, solidBackground);
+	//bool _rtn = pThis->GetEntity()->Draw(index, dc, x, y, flags, solidBackground);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -180,13 +180,13 @@ Gura_ImplementMethod(wx_ImageList, __GetBitmap)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetBitmap(index);
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __GetIcon, "GetIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -195,26 +195,26 @@ Gura_ImplementMethod(wx_ImageList, __GetIcon)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIcon(index);
+	//wxIcon _rtn = pThis->GetEntity()->GetIcon(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __GetImageCount, "GetImageCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageList, __GetImageCount)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetImageCount();
+	//int _rtn = pThis->GetEntity()->GetImageCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -227,26 +227,26 @@ Gura_ImplementMethod(wx_ImageList, __GetSize)
 	//int index = arg.GetNumber(0)
 	//int& width = arg.GetNumber(1)
 	//int& height = arg.GetNumber(2)
-	//pThis->GetEntity()->GetSize(index, width, height);
+	//bool _rtn = pThis->GetEntity()->GetSize(index, width, height);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __GetSize_1, "GetSize_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageList, __GetSize_1)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Remove, "Remove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -255,26 +255,26 @@ Gura_ImplementMethod(wx_ImageList, __Remove)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(index);
+	//bool _rtn = pThis->GetEntity()->Remove(index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __RemoveAll, "RemoveAll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ImageList, __RemoveAll)
 {
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RemoveAll();
+	//bool _rtn = pThis->GetEntity()->RemoveAll();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Replace, "Replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
@@ -287,13 +287,13 @@ Gura_ImplementMethod(wx_ImageList, __Replace)
 	//int index = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//const wxBitmap& mask = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(index, bitmap, mask);
+	//bool _rtn = pThis->GetEntity()->Replace(index, bitmap, mask);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ImageList, __Replace_1, "Replace_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_ImageList, __Replace_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//const wxIcon& icon = arg.GetNumber(1)
-	//pThis->GetEntity()->Replace(index, icon);
+	//bool _rtn = pThis->GetEntity()->Replace(index, icon);
 	return Value::Nil;
 }
 

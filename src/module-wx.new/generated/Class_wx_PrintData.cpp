@@ -39,7 +39,7 @@ String Object_wx_PrintData::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PrintData, "PrintData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PrintData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PrintData)
 
 Gura_DeclareFunctionAlias(__PrintData_1, "PrintData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PrintData));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,131 +70,131 @@ Gura_ImplementFunction(__PrintData_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PrintData, __GetBin, "GetBin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetBin)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBin();
+	//wxPrintBin _rtn = pThis->GetEntity()->GetBin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetCollate, "GetCollate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetCollate)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCollate();
+	//bool _rtn = pThis->GetEntity()->GetCollate();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetColour)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColour();
+	//bool _rtn = pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetDuplex, "GetDuplex")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetDuplex)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDuplex();
+	//wxDuplexMode _rtn = pThis->GetEntity()->GetDuplex();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetNoCopies, "GetNoCopies")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetNoCopies)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNoCopies();
+	//int _rtn = pThis->GetEntity()->GetNoCopies();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetOrientation, "GetOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetOrientation)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOrientation();
+	//wxPrintOrientation _rtn = pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetPaperId, "GetPaperId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetPaperId)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPaperId();
+	//wxPaperSize _rtn = pThis->GetEntity()->GetPaperId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetPrinterName, "GetPrinterName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetPrinterName)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrinterName();
+	//const wxString& _rtn = pThis->GetEntity()->GetPrinterName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetQuality, "GetQuality")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetQuality)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetQuality();
+	//wxPrintQuality _rtn = pThis->GetEntity()->GetQuality();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PrintData, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __IsOk)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
@@ -350,14 +350,14 @@ Gura_ImplementMethod(wx_PrintData, __SetQuality)
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetFilename, "GetFilename")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetFilename)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFilename();
+	//wxString _rtn = pThis->GetEntity()->GetFilename();
 	return Value::Nil;
 }
 
@@ -378,14 +378,14 @@ Gura_ImplementMethod(wx_PrintData, __SetFilename)
 
 Gura_DeclareMethodAlias(wx_PrintData, __GetPrintMode, "GetPrintMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PrintData, __GetPrintMode)
 {
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintMode();
+	//wxPrintMode _rtn = pThis->GetEntity()->GetPrintMode();
 	return Value::Nil;
 }
 

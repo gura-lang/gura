@@ -39,33 +39,33 @@ String Object_wx_ArchiveOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __Close, "Close")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, __Close)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Close();
+	//bool _rtn = pThis->GetEntity()->Close();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CloseEntry, "CloseEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveOutputStream, __CloseEntry)
 {
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CloseEntry();
+	//bool _rtn = pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CopyArchiveMetaData, "CopyArchiveMetaData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
 
@@ -74,13 +74,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyArchiveMetaData)
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->CopyArchiveMetaData(stream);
+	//bool _rtn = pThis->GetEntity()->CopyArchiveMetaData(stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __CopyEntry, "CopyEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry* entry = arg.GetNumber(0)
 	//wxArchiveInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyEntry(entry, stream);
+	//bool _rtn = pThis->GetEntity()->CopyEntry(entry, stream);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextDirEntry, "PutNextDirEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 }
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextDirEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
-	//pThis->GetEntity()->PutNextDirEntry(name, dt);
+	//bool _rtn = pThis->GetEntity()->PutNextDirEntry(name, dt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextEntry, "PutNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
@@ -123,13 +123,13 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry)
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry* entry = arg.GetNumber(0)
-	//pThis->GetEntity()->PutNextEntry(entry);
+	//bool _rtn = pThis->GetEntity()->PutNextEntry(entry);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveOutputStream, __PutNextEntry_1, "PutNextEntry_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry_1)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
 	//wxFileOffset size = arg.GetNumber(2)
-	//pThis->GetEntity()->PutNextEntry(name, dt, size);
+	//bool _rtn = pThis->GetEntity()->PutNextEntry(name, dt, size);
 	return Value::Nil;
 }
 

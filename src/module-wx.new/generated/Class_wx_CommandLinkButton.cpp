@@ -39,7 +39,7 @@ String Object_wx_CommandLinkButton::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CommandLinkButton, "CommandLinkButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CommandLinkButton));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CommandLinkButton)
 
 Gura_DeclareFunctionAlias(__CommandLinkButton_1, "CommandLinkButton_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainLabel", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__CommandLinkButton_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandLinkButton, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mainLabel", VTYPE_number, OCCUR_Once);
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, mainLabel, note, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, mainLabel, note, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -149,14 +149,14 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetLabel)
 
 Gura_DeclareMethodAlias(wx_CommandLinkButton, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandLinkButton, __GetLabel)
 {
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabel();
+	//wxString _rtn = pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
 
@@ -192,27 +192,27 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetNote)
 
 Gura_DeclareMethodAlias(wx_CommandLinkButton, __GetMainLabel, "GetMainLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandLinkButton, __GetMainLabel)
 {
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMainLabel();
+	//wxString _rtn = pThis->GetEntity()->GetMainLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandLinkButton, __GetNote, "GetNote")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandLinkButton, __GetNote)
 {
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNote();
+	//wxString _rtn = pThis->GetEntity()->GetNote();
 	return Value::Nil;
 }
 

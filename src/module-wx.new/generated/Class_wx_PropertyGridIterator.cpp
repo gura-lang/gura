@@ -54,27 +54,27 @@ Gura_ImplementMethod(wx_PropertyGridIterator, __Assign)
 
 Gura_DeclareMethodAlias(wx_PropertyGridIterator, __AtEnd, "AtEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridIterator, __AtEnd)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AtEnd();
+	//bool _rtn = pThis->GetEntity()->AtEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PropertyGridIterator, __GetProperty, "GetProperty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PropertyGridIterator, __GetProperty)
 {
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetProperty();
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetProperty();
 	return Value::Nil;
 }
 

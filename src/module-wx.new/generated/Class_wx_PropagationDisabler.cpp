@@ -39,7 +39,7 @@ String Object_wx_PropagationDisabler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PropagationDisabler, "PropagationDisabler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PropagationDisabler));
 	DeclareBlock(OCCUR_ZeroOrOnce);

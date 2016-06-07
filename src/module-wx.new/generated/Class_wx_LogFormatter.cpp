@@ -39,7 +39,7 @@ String Object_wx_LogFormatter::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogFormatter, "LogFormatter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogFormatter));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__LogFormatter)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_LogFormatter, __Format, "Format")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "msg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
@@ -68,13 +68,13 @@ Gura_ImplementMethod(wx_LogFormatter, __Format)
 	//wxLogLevel level = arg.GetNumber(0)
 	//const wxString& msg = arg.GetNumber(1)
 	//const wxLogRecordInfo& info = arg.GetNumber(2)
-	//pThis->GetEntity()->Format(level, msg, info);
+	//wxString _rtn = pThis->GetEntity()->Format(level, msg, info);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_LogFormatter, __FormatTime, "FormatTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "time", VTYPE_number, OCCUR_Once);
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_LogFormatter, __FormatTime)
 	Object_wx_LogFormatter *pThis = Object_wx_LogFormatter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//time_t time = arg.GetNumber(0)
-	//pThis->GetEntity()->FormatTime(time);
+	//wxString _rtn = pThis->GetEntity()->FormatTime(time);
 	return Value::Nil;
 }
 

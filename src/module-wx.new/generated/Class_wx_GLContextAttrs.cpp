@@ -39,20 +39,20 @@ String Object_wx_GLContextAttrs::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __CoreProfile, "CoreProfile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __CoreProfile)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CoreProfile();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->CoreProfile();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __MajorVersion, "MajorVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -61,13 +61,13 @@ Gura_ImplementMethod(wx_GLContextAttrs, __MajorVersion)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->MajorVersion(val);
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->MajorVersion(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __MinorVersion, "MinorVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -76,13 +76,13 @@ Gura_ImplementMethod(wx_GLContextAttrs, __MinorVersion)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->MinorVersion(val);
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->MinorVersion(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __OGLVersion, "OGLVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "vmayor", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vminor", VTYPE_number, OCCUR_Once);
 }
@@ -93,117 +93,117 @@ Gura_ImplementMethod(wx_GLContextAttrs, __OGLVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vmayor = arg.GetNumber(0)
 	//int vminor = arg.GetNumber(1)
-	//pThis->GetEntity()->OGLVersion(vmayor, vminor);
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->OGLVersion(vmayor, vminor);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __CompatibilityProfile, "CompatibilityProfile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __CompatibilityProfile)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CompatibilityProfile();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->CompatibilityProfile();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __ForwardCompatible, "ForwardCompatible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __ForwardCompatible)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ForwardCompatible();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->ForwardCompatible();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __ES2, "ES2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __ES2)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ES2();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->ES2();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __DebugCtx, "DebugCtx")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __DebugCtx)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DebugCtx();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->DebugCtx();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __Robust, "Robust")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __Robust)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Robust();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->Robust();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __NoResetNotify, "NoResetNotify")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __NoResetNotify)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->NoResetNotify();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->NoResetNotify();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __LoseOnReset, "LoseOnReset")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __LoseOnReset)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LoseOnReset();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->LoseOnReset();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __ResetIsolation, "ResetIsolation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __ResetIsolation)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ResetIsolation();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->ResetIsolation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __ReleaseFlush, "ReleaseFlush")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -212,20 +212,20 @@ Gura_ImplementMethod(wx_GLContextAttrs, __ReleaseFlush)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->ReleaseFlush(val);
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->ReleaseFlush(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GLContextAttrs, __PlatformDefaults, "PlatformDefaults")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GLContextAttrs, __PlatformDefaults)
 {
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->PlatformDefaults();
+	//wxGLContextAttrs& _rtn = pThis->GetEntity()->PlatformDefaults();
 	return Value::Nil;
 }
 

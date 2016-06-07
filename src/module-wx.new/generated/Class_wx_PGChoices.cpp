@@ -39,7 +39,7 @@ String Object_wx_PGChoices::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PGChoices, "PGChoices")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PGChoices)
 
 Gura_DeclareFunctionAlias(__PGChoices_1, "PGChoices_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "a", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PGChoices_1)
 
 Gura_DeclareFunctionAlias(__PGChoices_2, "PGChoices_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__PGChoices_2)
 
 Gura_DeclareFunctionAlias(__PGChoices_3, "PGChoices_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "labels", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "values", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__PGChoices_3)
 
 Gura_DeclareFunctionAlias(__PGChoices_4, "PGChoices_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGChoices));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add_1)
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Add_2, "Add_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_PGChoices, __Add_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->Add(label, value);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Add(label, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Add_3, "Add_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -183,13 +183,13 @@ Gura_ImplementMethod(wx_PGChoices, __Add_3)
 	//const wxString& label = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->Add(label, bitmap, value);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Add(label, bitmap, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Add_4, "Add_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_PGChoices, __Add_4)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGChoiceEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->Add(entry);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Add(entry);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __AddAsSorted, "AddAsSorted")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_PGChoices, __AddAsSorted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->AddAsSorted(label, value);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->AddAsSorted(label, value);
 	return Value::Nil;
 }
 
@@ -264,20 +264,20 @@ Gura_ImplementMethod(wx_PGChoices, __Clear)
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Copy, "Copy")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGChoices, __Copy)
 {
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Copy();
+	//wxPGChoices _rtn = pThis->GetEntity()->Copy();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
@@ -286,26 +286,26 @@ Gura_ImplementMethod(wx_PGChoices, __GetLabel)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel(ind);
+	//const wxString& _rtn = pThis->GetEntity()->GetLabel(ind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGChoices, __GetCount)
 {
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
@@ -314,13 +314,13 @@ Gura_ImplementMethod(wx_PGChoices, __GetValue)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValue(ind);
+	//int _rtn = pThis->GetEntity()->GetValue(ind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetValuesForStrings, "GetValuesForStrings")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strings", VTYPE_number, OCCUR_Once);
 }
 
@@ -329,13 +329,13 @@ Gura_ImplementMethod(wx_PGChoices, __GetValuesForStrings)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& strings = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValuesForStrings(strings);
+	//wxArrayInt _rtn = pThis->GetEntity()->GetValuesForStrings(strings);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetIndicesForStrings, "GetIndicesForStrings")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strings", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "unmatched", VTYPE_number, OCCUR_Once);
 }
@@ -346,13 +346,13 @@ Gura_ImplementMethod(wx_PGChoices, __GetIndicesForStrings)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& strings = arg.GetNumber(0)
 	//wxArrayString* unmatched = arg.GetNumber(1)
-	//pThis->GetEntity()->GetIndicesForStrings(strings, unmatched);
+	//wxArrayInt _rtn = pThis->GetEntity()->GetIndicesForStrings(strings, unmatched);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Index, "Index")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 }
 
@@ -361,13 +361,13 @@ Gura_ImplementMethod(wx_PGChoices, __Index)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->Index(label);
+	//int _rtn = pThis->GetEntity()->Index(label);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Index_1, "Index_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -376,13 +376,13 @@ Gura_ImplementMethod(wx_PGChoices, __Index_1)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Index(val);
+	//int _rtn = pThis->GetEntity()->Index(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Insert, "Insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -395,13 +395,13 @@ Gura_ImplementMethod(wx_PGChoices, __Insert)
 	//const wxString& label = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert(label, index, value);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Insert(label, index, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Insert_1, "Insert_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -412,26 +412,26 @@ Gura_ImplementMethod(wx_PGChoices, __Insert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGChoiceEntry& entry = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert(entry, index);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Insert(entry, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGChoices, __IsOk)
 {
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Item, "Item")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -440,13 +440,13 @@ Gura_ImplementMethod(wx_PGChoices, __Item)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(i);
+	//const wxPGChoiceEntry& _rtn = pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGChoices, __Item_1, "Item_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_PGChoices, __Item_1)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(i);
+	//wxPGChoiceEntry& _rtn = pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
@@ -525,14 +525,14 @@ Gura_ImplementMethod(wx_PGChoices, __AllocExclusive)
 
 Gura_DeclareMethodAlias(wx_PGChoices, __GetLabels, "GetLabels")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGChoices, __GetLabels)
 {
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabels();
+	//wxArrayString _rtn = pThis->GetEntity()->GetLabels();
 	return Value::Nil;
 }
 

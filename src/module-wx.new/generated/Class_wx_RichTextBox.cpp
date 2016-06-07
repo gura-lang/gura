@@ -39,7 +39,7 @@ String Object_wx_RichTextBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextBox, "RichTextBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__RichTextBox)
 
 Gura_DeclareFunctionAlias(__RichTextBox_1, "RichTextBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__RichTextBox_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextBox, __Draw, "Draw")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "context", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "range", VTYPE_number, OCCUR_Once);
@@ -93,39 +93,39 @@ Gura_ImplementMethod(wx_RichTextBox, __Draw)
 	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
+	//bool _rtn = pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextBox, __GetXMLNodeName, "GetXMLNodeName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextBox, __GetXMLNodeName)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetXMLNodeName();
+	//wxString _rtn = pThis->GetEntity()->GetXMLNodeName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextBox, __CanEditProperties, "CanEditProperties")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextBox, __CanEditProperties)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanEditProperties();
+	//bool _rtn = pThis->GetEntity()->CanEditProperties();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextBox, __EditProperties, "EditProperties")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
@@ -136,33 +136,33 @@ Gura_ImplementMethod(wx_RichTextBox, __EditProperties)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxRichTextBuffer* buffer = arg.GetNumber(1)
-	//pThis->GetEntity()->EditProperties(parent, buffer);
+	//bool _rtn = pThis->GetEntity()->EditProperties(parent, buffer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextBox, __GetPropertiesMenuLabel, "GetPropertiesMenuLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextBox, __GetPropertiesMenuLabel)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPropertiesMenuLabel();
+	//wxString _rtn = pThis->GetEntity()->GetPropertiesMenuLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextBox, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextBox, __Clone)
 {
 	Object_wx_RichTextBox *pThis = Object_wx_RichTextBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxRichTextObject* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Command::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Command, "Command")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "canUndo", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Command));
@@ -59,53 +59,53 @@ Gura_ImplementFunction(__Command)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Command, __CanUndo, "CanUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Command, __CanUndo)
 {
 	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanUndo();
+	//bool _rtn = pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Command, __Do, "Do")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Command, __Do)
 {
 	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Do();
+	//bool _rtn = pThis->GetEntity()->Do();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Command, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Command, __GetName)
 {
 	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Command, __Undo, "Undo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Command, __Undo)
 {
 	Object_wx_Command *pThis = Object_wx_Command::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Undo();
+	//bool _rtn = pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
 

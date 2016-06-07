@@ -39,7 +39,7 @@ String Object_wx_WizardPageSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WizardPageSimple, "WizardPageSimple")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_WizardPageSimple));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__WizardPageSimple)
 
 Gura_DeclareFunctionAlias(__WizardPageSimple_1, "WizardPageSimple_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "prev", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(__WizardPageSimple_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WizardPageSimple, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "prev", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
@@ -91,13 +91,13 @@ Gura_ImplementMethod(wx_WizardPageSimple, __Create)
 	//wxWizardPage* prev = arg.GetNumber(1)
 	//wxWizardPage* next = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
-	//pThis->GetEntity()->Create(parent, prev, next, bitmap);
+	//bool _rtn = pThis->GetEntity()->Create(parent, prev, next, bitmap);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WizardPageSimple, __Chain, "Chain")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "next", VTYPE_number, OCCUR_Once);
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __Chain)
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPageSimple* next = arg.GetNumber(0)
-	//pThis->GetEntity()->Chain(next);
+	//wxWizardPageSimple& _rtn = pThis->GetEntity()->Chain(next);
 	return Value::Nil;
 }
 

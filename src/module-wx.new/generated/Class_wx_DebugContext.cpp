@@ -39,7 +39,7 @@ String Object_wx_DebugContext::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DebugContext, __Check, "Check")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "checkAll", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,78 +48,78 @@ Gura_ImplementMethod(wx_DebugContext, __Check)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool checkAll = arg.GetNumber(0)
-	//pThis->GetEntity()->Check(checkAll);
+	//int _rtn = pThis->GetEntity()->Check(checkAll);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __Dump, "Dump")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugContext, __Dump)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Dump();
+	//bool _rtn = pThis->GetEntity()->Dump();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __GetCheckPrevious, "GetCheckPrevious")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugContext, __GetCheckPrevious)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCheckPrevious();
+	//bool _rtn = pThis->GetEntity()->GetCheckPrevious();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __GetDebugMode, "GetDebugMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugContext, __GetDebugMode)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDebugMode();
+	//bool _rtn = pThis->GetEntity()->GetDebugMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __GetLevel, "GetLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugContext, __GetLevel)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLevel();
+	//int _rtn = pThis->GetEntity()->GetLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __PrintClasses, "PrintClasses")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugContext, __PrintClasses)
 {
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->PrintClasses();
+	//bool _rtn = pThis->GetEntity()->PrintClasses();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DebugContext, __PrintStatistics, "PrintStatistics")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "detailed", VTYPE_number, OCCUR_Once);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DebugContext, __PrintStatistics)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool detailed = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintStatistics(detailed);
+	//bool _rtn = pThis->GetEntity()->PrintStatistics(detailed);
 	return Value::Nil;
 }
 

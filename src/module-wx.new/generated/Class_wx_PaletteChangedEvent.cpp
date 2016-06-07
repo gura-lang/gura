@@ -39,7 +39,7 @@ String Object_wx_PaletteChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PaletteChangedEvent, "PaletteChangedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PaletteChangedEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,14 +72,14 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, __SetChangedWindow)
 
 Gura_DeclareMethodAlias(wx_PaletteChangedEvent, __GetChangedWindow, "GetChangedWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PaletteChangedEvent, __GetChangedWindow)
 {
 	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChangedWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetChangedWindow();
 	return Value::Nil;
 }
 

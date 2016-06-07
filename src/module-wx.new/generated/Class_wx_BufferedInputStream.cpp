@@ -39,7 +39,7 @@ String Object_wx_BufferedInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__BufferedInputStream, "BufferedInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedInputStream));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__BufferedInputStream)
 
 Gura_DeclareFunctionAlias(__BufferedInputStream_1, "BufferedInputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "bufsize", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_BufferedInputStream));

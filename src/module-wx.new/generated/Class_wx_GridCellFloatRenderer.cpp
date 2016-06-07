@@ -39,7 +39,7 @@ String Object_wx_GridCellFloatRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellFloatRenderer, "GridCellFloatRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
@@ -61,40 +61,40 @@ Gura_ImplementFunction(__GridCellFloatRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetFormat, "GetFormat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetFormat)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFormat();
+	//int _rtn = pThis->GetEntity()->GetFormat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetPrecision, "GetPrecision")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetPrecision)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrecision();
+	//int _rtn = pThis->GetEntity()->GetPrecision();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellFloatRenderer, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellFloatRenderer, __GetWidth)
 {
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_WebViewFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebViewFSHandler, "WebViewFSHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "scheme", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebViewFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(__WebViewFSHandler)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewFSHandler, __GetFile, "GetFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "uri", VTYPE_number, OCCUR_Once);
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_WebViewFSHandler, __GetFile)
 	Object_wx_WebViewFSHandler *pThis = Object_wx_WebViewFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFile(uri);
+	//wxFSFile* _rtn = pThis->GetEntity()->GetFile(uri);
 	return Value::Nil;
 }
 

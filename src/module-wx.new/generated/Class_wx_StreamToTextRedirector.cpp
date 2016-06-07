@@ -39,7 +39,7 @@ String Object_wx_StreamToTextRedirector::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StreamToTextRedirector, "StreamToTextRedirector")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ostr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StreamToTextRedirector));

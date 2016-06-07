@@ -39,7 +39,7 @@ String Object_wx_StringOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__StringOutputStream, "StringOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pString", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_StringOutputStream));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__StringOutputStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_StringOutputStream, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_StringOutputStream, __GetString)
 {
 	Object_wx_StringOutputStream *pThis = Object_wx_StringOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetString();
+	//const wxString& _rtn = pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
 

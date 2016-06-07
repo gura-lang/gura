@@ -39,7 +39,7 @@ String Object_wx_AnyValueType::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AnyValueType, "AnyValueType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AnyValueType));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,20 +55,20 @@ Gura_ImplementFunction(__AnyValueType)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AnyValueType, __CheckType, "CheckType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AnyValueType, __CheckType)
 {
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CheckType();
+	//bool _rtn = pThis->GetEntity()->CheckType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AnyValueType, __ConvertValue, "ConvertValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dstType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dst", VTYPE_number, OCCUR_Once);
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_AnyValueType, __ConvertValue)
 	//const wxAnyValueBuffer& src = arg.GetNumber(0)
 	//wxAnyValueType* dstType = arg.GetNumber(1)
 	//wxAnyValueBuffer& dst = arg.GetNumber(2)
-	//pThis->GetEntity()->ConvertValue(src, dstType, dst);
+	//bool _rtn = pThis->GetEntity()->ConvertValue(src, dstType, dst);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AnyValueType, __DeleteValue)
 
 Gura_DeclareMethodAlias(wx_AnyValueType, __IsSameType, "IsSameType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "otherType", VTYPE_number, OCCUR_Once);
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_AnyValueType, __IsSameType)
 	Object_wx_AnyValueType *pThis = Object_wx_AnyValueType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAnyValueType* otherType = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSameType(otherType);
+	//bool _rtn = pThis->GetEntity()->IsSameType(otherType);
 	return Value::Nil;
 }
 

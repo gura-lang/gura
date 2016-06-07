@@ -39,7 +39,7 @@ String Object_wx_SocketEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SocketEvent, "SocketEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_SocketEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,40 +57,40 @@ Gura_ImplementFunction(__SocketEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SocketEvent, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketEvent, __GetClientData)
 {
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientData();
+	//void* _rtn = pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketEvent, __GetSocket, "GetSocket")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketEvent, __GetSocket)
 {
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSocket();
+	//wxSocketBase* _rtn = pThis->GetEntity()->GetSocket();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SocketEvent, __GetSocketEvent, "GetSocketEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SocketEvent, __GetSocketEvent)
 {
 	Object_wx_SocketEvent *pThis = Object_wx_SocketEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSocketEvent();
+	//wxSocketNotify _rtn = pThis->GetEntity()->GetSocketEvent();
 	return Value::Nil;
 }
 

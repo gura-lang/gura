@@ -39,7 +39,7 @@ String Object_wx_TimerRunner::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TimerRunner, "TimerRunner")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TimerRunner));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__TimerRunner)
 
 Gura_DeclareFunctionAlias(__TimerRunner_1, "TimerRunner_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "milli", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "oneShot", VTYPE_number, OCCUR_Once);

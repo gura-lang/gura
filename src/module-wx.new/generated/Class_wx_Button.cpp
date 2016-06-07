@@ -39,7 +39,7 @@ String Object_wx_Button::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Button, "Button")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Button));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Button)
 
 Gura_DeclareFunctionAlias(__Button_1, "Button_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Button_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Button, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,46 +107,46 @@ Gura_ImplementMethod(wx_Button, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Button, __GetAuthNeeded, "GetAuthNeeded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Button, __GetAuthNeeded)
 {
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAuthNeeded();
+	//bool _rtn = pThis->GetEntity()->GetAuthNeeded();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Button, __GetDefaultSize, "GetDefaultSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Button, __GetDefaultSize)
 {
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultSize();
+	//wxSize _rtn = pThis->GetEntity()->GetDefaultSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Button, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Button, __GetLabel)
 {
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabel();
+	//wxString _rtn = pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
 
@@ -167,14 +167,14 @@ Gura_ImplementMethod(wx_Button, __SetAuthNeeded)
 
 Gura_DeclareMethodAlias(wx_Button, __SetDefault, "SetDefault")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Button, __SetDefault)
 {
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->SetDefault();
+	//wxWindow* _rtn = pThis->GetEntity()->SetDefault();
 	return Value::Nil;
 }
 

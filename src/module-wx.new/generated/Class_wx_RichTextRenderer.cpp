@@ -39,7 +39,7 @@ String Object_wx_RichTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextRenderer, "RichTextRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextRenderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__RichTextRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextRenderer, __DrawStandardBullet, "DrawStandardBullet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -70,13 +70,13 @@ Gura_ImplementMethod(wx_RichTextRenderer, __DrawStandardBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawStandardBullet(paragraph, dc, attr, rect);
+	//bool _rtn = pThis->GetEntity()->DrawStandardBullet(paragraph, dc, attr, rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextRenderer, __DrawTextBullet, "DrawTextBullet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -93,13 +93,13 @@ Gura_ImplementMethod(wx_RichTextRenderer, __DrawTextBullet)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
 	//const wxString& text = arg.GetNumber(4)
-	//pThis->GetEntity()->DrawTextBullet(paragraph, dc, attr, rect, text);
+	//bool _rtn = pThis->GetEntity()->DrawTextBullet(paragraph, dc, attr, rect, text);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextRenderer, __DrawBitmapBullet, "DrawBitmapBullet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_RichTextRenderer, __DrawBitmapBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawBitmapBullet(paragraph, dc, attr, rect);
+	//bool _rtn = pThis->GetEntity()->DrawBitmapBullet(paragraph, dc, attr, rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextRenderer, __EnumerateStandardBulletNames, "EnumerateStandardBulletNames")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bulletNames", VTYPE_number, OCCUR_Once);
 }
 
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_RichTextRenderer, __EnumerateStandardBulletNames)
 	Object_wx_RichTextRenderer *pThis = Object_wx_RichTextRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& bulletNames = arg.GetNumber(0)
-	//pThis->GetEntity()->EnumerateStandardBulletNames(bulletNames);
+	//bool _rtn = pThis->GetEntity()->EnumerateStandardBulletNames(bulletNames);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextRenderer, __MeasureBullet, "MeasureBullet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "paragraph", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RichTextRenderer, __MeasureBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//wxSize& sz = arg.GetNumber(3)
-	//pThis->GetEntity()->MeasureBullet(paragraph, dc, attr, sz);
+	//bool _rtn = pThis->GetEntity()->MeasureBullet(paragraph, dc, attr, sz);
 	return Value::Nil;
 }
 

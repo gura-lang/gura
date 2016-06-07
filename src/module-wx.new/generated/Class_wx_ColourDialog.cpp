@@ -39,7 +39,7 @@ String Object_wx_ColourDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ColourDialog, "ColourDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ColourDialog));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__ColourDialog)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ColourDialog, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
@@ -70,33 +70,33 @@ Gura_ImplementMethod(wx_ColourDialog, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxColourData* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(parent, data);
+	//bool _rtn = pThis->GetEntity()->Create(parent, data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ColourDialog, __GetColourData, "GetColourData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ColourDialog, __GetColourData)
 {
 	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColourData();
+	//wxColourData& _rtn = pThis->GetEntity()->GetColourData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ColourDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ColourDialog, __ShowModal)
 {
 	Object_wx_ColourDialog *pThis = Object_wx_ColourDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

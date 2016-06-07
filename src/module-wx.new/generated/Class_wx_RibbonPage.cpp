@@ -39,7 +39,7 @@ String Object_wx_RibbonPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonPage, "RibbonPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RibbonPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RibbonPage)
 
 Gura_DeclareFunctionAlias(__RibbonPage_1, "RibbonPage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__RibbonPage_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonPage, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RibbonPage, __Create)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& icon = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create(parent, id, label, icon, style);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, icon, style);
 	return Value::Nil;
 }
 
@@ -116,14 +116,14 @@ Gura_ImplementMethod(wx_RibbonPage, __SetArtProvider)
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __GetIcon, "GetIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPage, __GetIcon)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIcon();
+	//wxBitmap& _rtn = pThis->GetEntity()->GetIcon();
 	return Value::Nil;
 }
 
@@ -165,33 +165,33 @@ Gura_ImplementMethod(wx_RibbonPage, __AdjustRectToIncludeScrollButtons)
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __DismissExpandedPanel, "DismissExpandedPanel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPage, __DismissExpandedPanel)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DismissExpandedPanel();
+	//bool _rtn = pThis->GetEntity()->DismissExpandedPanel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __Realize, "Realize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPage, __Realize)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Realize();
+	//bool _rtn = pThis->GetEntity()->Realize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __ScrollLines, "ScrollLines")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lines", VTYPE_number, OCCUR_Once);
 }
 
@@ -200,13 +200,13 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollLines)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lines = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollLines(lines);
+	//bool _rtn = pThis->GetEntity()->ScrollLines(lines);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __ScrollPixels, "ScrollPixels")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pixels", VTYPE_number, OCCUR_Once);
 }
 
@@ -215,13 +215,13 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollPixels)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollPixels(pixels);
+	//bool _rtn = pThis->GetEntity()->ScrollPixels(pixels);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __ScrollSections, "ScrollSections")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sections", VTYPE_number, OCCUR_Once);
 }
 
@@ -230,20 +230,20 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollSections)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sections = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollSections(sections);
+	//bool _rtn = pThis->GetEntity()->ScrollSections(sections);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonPage, __GetMajorAxis, "GetMajorAxis")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonPage, __GetMajorAxis)
 {
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMajorAxis();
+	//wxOrientation _rtn = pThis->GetEntity()->GetMajorAxis();
 	return Value::Nil;
 }
 

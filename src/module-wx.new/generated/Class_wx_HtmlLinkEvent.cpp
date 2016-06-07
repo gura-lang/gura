@@ -39,7 +39,7 @@ String Object_wx_HtmlLinkEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlLinkEvent, "HtmlLinkEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "linkinfo", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlLinkEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__HtmlLinkEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlLinkEvent, __GetLinkInfo, "GetLinkInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlLinkEvent, __GetLinkInfo)
 {
 	Object_wx_HtmlLinkEvent *pThis = Object_wx_HtmlLinkEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLinkInfo();
+	//const wxHtmlLinkInfo& _rtn = pThis->GetEntity()->GetLinkInfo();
 	return Value::Nil;
 }
 

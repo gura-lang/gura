@@ -39,7 +39,7 @@ String Object_wx_GenericProgressDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GenericProgressDialog, "GenericProgressDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "message", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maximum", VTYPE_number, OCCUR_Once);
@@ -65,46 +65,46 @@ Gura_ImplementFunction(__GenericProgressDialog)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericProgressDialog, __GetValue)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//int _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericProgressDialog, __GetRange)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRange();
+	//int _rtn = pThis->GetEntity()->GetRange();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __GetMessage, "GetMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericProgressDialog, __GetMessage)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMessage();
+	//wxString _rtn = pThis->GetEntity()->GetMessage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __Pulse, "Pulse")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "newmsg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
 }
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Pulse)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& newmsg = arg.GetNumber(0)
 	//bool* skip = arg.GetNumber(1)
-	//pThis->GetEntity()->Pulse(newmsg, skip);
+	//bool _rtn = pThis->GetEntity()->Pulse(newmsg, skip);
 	return Value::Nil;
 }
 
@@ -149,33 +149,33 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __SetRange)
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __WasCancelled, "WasCancelled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericProgressDialog, __WasCancelled)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->WasCancelled();
+	//bool _rtn = pThis->GetEntity()->WasCancelled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __WasSkipped, "WasSkipped")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GenericProgressDialog, __WasSkipped)
 {
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->WasSkipped();
+	//bool _rtn = pThis->GetEntity()->WasSkipped();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GenericProgressDialog, __Update, "Update")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newmsg", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "skip", VTYPE_number, OCCUR_Once);
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Update)
 	//int value = arg.GetNumber(0)
 	//const wxString& newmsg = arg.GetNumber(1)
 	//bool* skip = arg.GetNumber(2)
-	//pThis->GetEntity()->Update(value, newmsg, skip);
+	//bool _rtn = pThis->GetEntity()->Update(value, newmsg, skip);
 	return Value::Nil;
 }
 

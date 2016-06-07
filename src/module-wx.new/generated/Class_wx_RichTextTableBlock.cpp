@@ -39,7 +39,7 @@ String Object_wx_RichTextTableBlock::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextTableBlock, "RichTextTableBlock")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextTableBlock)
 
 Gura_DeclareFunctionAlias(__RichTextTableBlock_1, "RichTextTableBlock_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colEnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rowStart", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(__RichTextTableBlock_1)
 
 Gura_DeclareFunctionAlias(__RichTextTableBlock_2, "RichTextTableBlock_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "block", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextTableBlock));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __Copy)
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __ComputeBlockForSelection, "ComputeBlockForSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "requireCellSelection", VTYPE_number, OCCUR_Once);
@@ -132,13 +132,13 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __ComputeBlockForSelection)
 	//wxRichTextTable* table = arg.GetNumber(0)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(1)
 	//bool requireCellSelection = arg.GetNumber(2)
-	//pThis->GetEntity()->ComputeBlockForSelection(table, ctrl, requireCellSelection);
+	//bool _rtn = pThis->GetEntity()->ComputeBlockForSelection(table, ctrl, requireCellSelection);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __IsWholeTable, "IsWholeTable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 }
 
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __IsWholeTable)
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextTable* table = arg.GetNumber(0)
-	//pThis->GetEntity()->IsWholeTable(table);
+	//bool _rtn = pThis->GetEntity()->IsWholeTable(table);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __GetFocusedCell, "GetFocusedCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 }
 
@@ -162,111 +162,111 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __GetFocusedCell)
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFocusedCell(ctrl);
+	//wxRichTextCell* _rtn = pThis->GetEntity()->GetFocusedCell(ctrl);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __ColStart, "ColStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __ColStart)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ColStart();
+	//int& _rtn = pThis->GetEntity()->ColStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __ColStart_1, "ColStart_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __ColStart_1)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ColStart();
+	//int _rtn = pThis->GetEntity()->ColStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __ColEnd, "ColEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __ColEnd)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ColEnd();
+	//int& _rtn = pThis->GetEntity()->ColEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __ColEnd_1, "ColEnd_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __ColEnd_1)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ColEnd();
+	//int _rtn = pThis->GetEntity()->ColEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __RowStart, "RowStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __RowStart)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RowStart();
+	//int& _rtn = pThis->GetEntity()->RowStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __RowStart_1, "RowStart_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __RowStart_1)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RowStart();
+	//int _rtn = pThis->GetEntity()->RowStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __RowEnd, "RowEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __RowEnd)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RowEnd();
+	//int& _rtn = pThis->GetEntity()->RowEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextTableBlock, __RowEnd_1, "RowEnd_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextTableBlock, __RowEnd_1)
 {
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RowEnd();
+	//int _rtn = pThis->GetEntity()->RowEnd();
 	return Value::Nil;
 }
 

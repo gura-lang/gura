@@ -39,7 +39,7 @@ String Object_wx_Vector<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Vector<T>, __wxVector, "wxVector")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __wxVector)
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __wxVector_1, "wxVector_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_1)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __wxVector_2, "wxVector_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_2)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __wxVector_3, "wxVector_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_3)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __wxVector_4, "wxVector_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_Vector<T>, __assign_1)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __at, "at")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_Vector<T>, __at)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type idx = arg.GetNumber(0)
-	//pThis->GetEntity()->at(idx);
+	//const value_type& _rtn = pThis->GetEntity()->at(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __at_1, "at_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -174,98 +174,98 @@ Gura_ImplementMethod(wx_Vector<T>, __at_1)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type idx = arg.GetNumber(0)
-	//pThis->GetEntity()->at(idx);
+	//value_type& _rtn = pThis->GetEntity()->at(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __back, "back")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __back)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->back();
+	//const value_type& _rtn = pThis->GetEntity()->back();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __back_1, "back_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __back_1)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->back();
+	//value_type& _rtn = pThis->GetEntity()->back();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __begin, "begin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __begin)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//const_iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __begin_1, "begin_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __begin_1)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __rbegin, "rbegin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __rbegin)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rbegin();
+	//reverse_iterator _rtn = pThis->GetEntity()->rbegin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __rend, "rend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __rend)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rend();
+	//reverse_iterator _rtn = pThis->GetEntity()->rend();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __capacity, "capacity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __capacity)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->capacity();
+	//size_type _rtn = pThis->GetEntity()->capacity();
 	return Value::Nil;
 }
 
@@ -284,46 +284,46 @@ Gura_ImplementMethod(wx_Vector<T>, __clear)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __empty, "empty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __empty)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->empty();
+	//bool _rtn = pThis->GetEntity()->empty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __end, "end")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __end)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//const_iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __end_1, "end_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __end_1)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __erase, "erase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 }
 
@@ -332,13 +332,13 @@ Gura_ImplementMethod(wx_Vector<T>, __erase)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
-	//pThis->GetEntity()->erase(it);
+	//iterator _rtn = pThis->GetEntity()->erase(it);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __erase_1, "erase_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
@@ -349,39 +349,39 @@ Gura_ImplementMethod(wx_Vector<T>, __erase_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator first = arg.GetNumber(0)
 	//iterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->erase(first, last);
+	//iterator _rtn = pThis->GetEntity()->erase(first, last);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __front, "front")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __front)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->front();
+	//const value_type& _rtn = pThis->GetEntity()->front();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __front_1, "front_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __front_1)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->front();
+	//value_type& _rtn = pThis->GetEntity()->front();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __insert, "insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_Vector<T>, __insert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
 	//const value_type& v = arg.GetNumber(1)
-	//pThis->GetEntity()->insert(it, v);
+	//iterator _rtn = pThis->GetEntity()->insert(it, v);
 	return Value::Nil;
 }
 
@@ -473,14 +473,14 @@ Gura_ImplementMethod(wx_Vector<T>, __resize_1)
 
 Gura_DeclareMethodAlias(wx_Vector<T>, __size, "size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Vector<T>, __size)
 {
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->size();
+	//size_type _rtn = pThis->GetEntity()->size();
 	return Value::Nil;
 }
 

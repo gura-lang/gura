@@ -39,7 +39,7 @@ String Object_wx_GridSizer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridSizer, "GridSizer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hgap", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__GridSizer)
 
 Gura_DeclareFunctionAlias(__GridSizer_1, "GridSizer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridSizer));
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__GridSizer_1)
 
 Gura_DeclareFunctionAlias(__GridSizer_2, "GridSizer_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "vgap", VTYPE_number, OCCUR_Once);
@@ -96,7 +96,7 @@ Gura_ImplementFunction(__GridSizer_2)
 
 Gura_DeclareFunctionAlias(__GridSizer_3, "GridSizer_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rows", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cols", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gap", VTYPE_number, OCCUR_Once);
@@ -118,79 +118,79 @@ Gura_ImplementFunction(__GridSizer_3)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GridSizer, __GetCols, "GetCols")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetCols)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCols();
+	//int _rtn = pThis->GetEntity()->GetCols();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridSizer, __GetRows, "GetRows")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetRows)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRows();
+	//int _rtn = pThis->GetEntity()->GetRows();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridSizer, __GetEffectiveColsCount, "GetEffectiveColsCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetEffectiveColsCount)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEffectiveColsCount();
+	//int _rtn = pThis->GetEntity()->GetEffectiveColsCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridSizer, __GetEffectiveRowsCount, "GetEffectiveRowsCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetEffectiveRowsCount)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEffectiveRowsCount();
+	//int _rtn = pThis->GetEntity()->GetEffectiveRowsCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridSizer, __GetHGap, "GetHGap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetHGap)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHGap();
+	//int _rtn = pThis->GetEntity()->GetHGap();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridSizer, __GetVGap, "GetVGap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __GetVGap)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVGap();
+	//int _rtn = pThis->GetEntity()->GetVGap();
 	return Value::Nil;
 }
 
@@ -256,14 +256,14 @@ Gura_ImplementMethod(wx_GridSizer, __SetVGap)
 
 Gura_DeclareMethodAlias(wx_GridSizer, __CalcMin, "CalcMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridSizer, __CalcMin)
 {
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CalcMin();
+	//wxSize _rtn = pThis->GetEntity()->CalcMin();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_InfoBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__InfoBar, "InfoBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_InfoBar));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__InfoBar)
 
 Gura_DeclareFunctionAlias(__InfoBar_1, "InfoBar_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_InfoBar));
@@ -72,7 +72,7 @@ Gura_ImplementFunction(__InfoBar_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_InfoBar, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 }
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_InfoBar, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxWindowID winid = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(parent, winid);
+	//bool _rtn = pThis->GetEntity()->Create(parent, winid);
 	return Value::Nil;
 }
 
@@ -151,20 +151,20 @@ Gura_ImplementMethod(wx_InfoBar, __ShowMessage)
 
 Gura_DeclareMethodAlias(wx_InfoBar, __GetButtonCount, "GetButtonCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_InfoBar, __GetButtonCount)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButtonCount();
+	//size_t _rtn = pThis->GetEntity()->GetButtonCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_InfoBar, __GetButtonId, "GetButtonId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_InfoBar, __GetButtonId)
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetButtonId(idx);
+	//wxWindowID _rtn = pThis->GetEntity()->GetButtonId(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_InfoBar, __HasButtonId, "HasButtonId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "btnid", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_InfoBar, __HasButtonId)
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindowID btnid = arg.GetNumber(0)
-	//pThis->GetEntity()->HasButtonId(btnid);
+	//bool _rtn = pThis->GetEntity()->HasButtonId(btnid);
 	return Value::Nil;
 }
 
@@ -211,27 +211,27 @@ Gura_ImplementMethod(wx_InfoBar, __SetShowHideEffects)
 
 Gura_DeclareMethodAlias(wx_InfoBar, __GetShowEffect, "GetShowEffect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_InfoBar, __GetShowEffect)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetShowEffect();
+	//wxShowEffect _rtn = pThis->GetEntity()->GetShowEffect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_InfoBar, __GetHideEffect, "GetHideEffect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_InfoBar, __GetHideEffect)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHideEffect();
+	//wxShowEffect _rtn = pThis->GetEntity()->GetHideEffect();
 	return Value::Nil;
 }
 
@@ -252,20 +252,20 @@ Gura_ImplementMethod(wx_InfoBar, __SetEffectDuration)
 
 Gura_DeclareMethodAlias(wx_InfoBar, __GetEffectDuration, "GetEffectDuration")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_InfoBar, __GetEffectDuration)
 {
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEffectDuration();
+	//int _rtn = pThis->GetEntity()->GetEffectDuration();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_InfoBar, __SetFont, "SetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_InfoBar, __SetFont)
 	Object_wx_InfoBar *pThis = Object_wx_InfoBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFont(font);
+	//bool _rtn = pThis->GetEntity()->SetFont(font);
 	return Value::Nil;
 }
 

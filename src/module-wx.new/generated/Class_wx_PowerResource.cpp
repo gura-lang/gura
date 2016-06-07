@@ -39,7 +39,7 @@ String Object_wx_PowerResource::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PowerResource, __Acquire, "Acquire")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "kind", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "reason", VTYPE_number, OCCUR_Once);
 }
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_PowerResource, __Acquire)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPowerResourceKind kind = arg.GetNumber(0)
 	//const wxString& reason = arg.GetNumber(1)
-	//pThis->GetEntity()->Acquire(kind, reason);
+	//bool _rtn = pThis->GetEntity()->Acquire(kind, reason);
 	return Value::Nil;
 }
 

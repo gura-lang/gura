@@ -39,7 +39,7 @@ String Object_wx_DynamicLibraryDetails::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetAddress, "GetAddress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "addr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -50,46 +50,46 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetAddress)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* addr = arg.GetNumber(0)
 	//size_t* len = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAddress(addr, len);
+	//bool _rtn = pThis->GetEntity()->GetAddress(addr, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetName)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetPath)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//wxString _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DynamicLibraryDetails, __GetVersion, "GetVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetVersion)
 {
 	Object_wx_DynamicLibraryDetails *pThis = Object_wx_DynamicLibraryDetails::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVersion();
+	//wxString _rtn = pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }
 

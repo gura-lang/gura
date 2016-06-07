@@ -39,7 +39,7 @@ String Object_wx_WebViewHistoryItem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WebViewHistoryItem, "WebViewHistoryItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "url", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WebViewHistoryItem));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__WebViewHistoryItem)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_WebViewHistoryItem, __GetUrl, "GetUrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewHistoryItem, __GetUrl)
 {
 	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUrl();
+	//wxString _rtn = pThis->GetEntity()->GetUrl();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_WebViewHistoryItem, __GetTitle, "GetTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_WebViewHistoryItem, __GetTitle)
 {
 	Object_wx_WebViewHistoryItem *pThis = Object_wx_WebViewHistoryItem::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTitle();
+	//wxString _rtn = pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
 

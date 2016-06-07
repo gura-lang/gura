@@ -39,7 +39,7 @@ String Object_wx_TextAttrShadow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextAttrShadow, "TextAttrShadow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttrShadow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_TextAttrShadow, __Reset)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __EqPartial, "EqPartial")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "shadow", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
@@ -79,13 +79,13 @@ Gura_ImplementMethod(wx_TextAttrShadow, __EqPartial)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrShadow& shadow = arg.GetNumber(0)
 	//bool weakTest = arg.GetNumber(1)
-	//pThis->GetEntity()->EqPartial(shadow, weakTest);
+	//bool _rtn = pThis->GetEntity()->EqPartial(shadow, weakTest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __Apply, "Apply")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "shadow", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
@@ -96,13 +96,13 @@ Gura_ImplementMethod(wx_TextAttrShadow, __Apply)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrShadow& shadow = arg.GetNumber(0)
 	//const wxTextAttrShadow* compareWith = arg.GetNumber(1)
-	//pThis->GetEntity()->Apply(shadow, compareWith);
+	//bool _rtn = pThis->GetEntity()->Apply(shadow, compareWith);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __RemoveStyle, "RemoveStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_TextAttrShadow, __RemoveStyle)
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrShadow& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveStyle(attr);
+	//bool _rtn = pThis->GetEntity()->RemoveStyle(attr);
 	return Value::Nil;
 }
 
@@ -166,66 +166,66 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetColour_1)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetColourLong, "GetColourLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetColourLong)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColourLong();
+	//unsigned long _rtn = pThis->GetEntity()->GetColourLong();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetColour)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColour();
+	//wxColour _rtn = pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __HasColour, "HasColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __HasColour)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasColour();
+	//bool _rtn = pThis->GetEntity()->HasColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOffsetX, "GetOffsetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOffsetX)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffsetX();
+	//wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOffsetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOffsetX_1, "GetOffsetX_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOffsetX_1)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffsetX();
+	//const wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOffsetX();
 	return Value::Nil;
 }
 
@@ -246,27 +246,27 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetOffsetX)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOffsetY, "GetOffsetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOffsetY)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffsetY();
+	//wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOffsetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOffsetY_1, "GetOffsetY_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOffsetY_1)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffsetY();
+	//const wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOffsetY();
 	return Value::Nil;
 }
 
@@ -287,27 +287,27 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetOffsetY)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetSpread, "GetSpread")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetSpread)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSpread();
+	//wxTextAttrDimension& _rtn = pThis->GetEntity()->GetSpread();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetSpread_1, "GetSpread_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetSpread_1)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSpread();
+	//const wxTextAttrDimension& _rtn = pThis->GetEntity()->GetSpread();
 	return Value::Nil;
 }
 
@@ -328,27 +328,27 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetSpread)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetBlurDistance, "GetBlurDistance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetBlurDistance)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBlurDistance();
+	//wxTextAttrDimension& _rtn = pThis->GetEntity()->GetBlurDistance();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetBlurDistance_1, "GetBlurDistance_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetBlurDistance_1)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBlurDistance();
+	//const wxTextAttrDimension& _rtn = pThis->GetEntity()->GetBlurDistance();
 	return Value::Nil;
 }
 
@@ -369,40 +369,40 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetBlurDistance)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOpacity, "GetOpacity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOpacity)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOpacity();
+	//wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOpacity();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetOpacity_1, "GetOpacity_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetOpacity_1)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOpacity();
+	//const wxTextAttrDimension& _rtn = pThis->GetEntity()->GetOpacity();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __IsValid, "IsValid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __IsValid)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsValid();
+	//bool _rtn = pThis->GetEntity()->IsValid();
 	return Value::Nil;
 }
 
@@ -423,14 +423,14 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetValid)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __GetFlags)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
@@ -496,14 +496,14 @@ Gura_ImplementMethod(wx_TextAttrShadow, __SetOpacity)
 
 Gura_DeclareMethodAlias(wx_TextAttrShadow, __IsDefault, "IsDefault")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttrShadow, __IsDefault)
 {
 	Object_wx_TextAttrShadow *pThis = Object_wx_TextAttrShadow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDefault();
+	//bool _rtn = pThis->GetEntity()->IsDefault();
 	return Value::Nil;
 }
 

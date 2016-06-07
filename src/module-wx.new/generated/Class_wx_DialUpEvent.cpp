@@ -39,7 +39,7 @@ String Object_wx_DialUpEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DialUpEvent, "DialUpEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "isConnected", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "isOwnEvent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DialUpEvent));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__DialUpEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DialUpEvent, __IsConnectedEvent, "IsConnectedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DialUpEvent, __IsConnectedEvent)
 {
 	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsConnectedEvent();
+	//bool _rtn = pThis->GetEntity()->IsConnectedEvent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DialUpEvent, __IsOwnEvent, "IsOwnEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DialUpEvent, __IsOwnEvent)
 {
 	Object_wx_DialUpEvent *pThis = Object_wx_DialUpEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOwnEvent();
+	//bool _rtn = pThis->GetEntity()->IsOwnEvent();
 	return Value::Nil;
 }
 

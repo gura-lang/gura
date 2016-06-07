@@ -39,7 +39,7 @@ String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__IndividualLayoutConstraint, "IndividualLayoutConstraint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_IndividualLayoutConstraint));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -225,27 +225,27 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __AsIs)
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetOtherWindow, "GetOtherWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetOtherWindow)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOtherWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetOtherWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetMyEdge, "GetMyEdge")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetMyEdge)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMyEdge();
+	//wxEdge _rtn = pThis->GetEntity()->GetMyEdge();
 	return Value::Nil;
 }
 
@@ -281,14 +281,14 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __SetValue)
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetMargin, "GetMargin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetMargin)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMargin();
+	//int _rtn = pThis->GetEntity()->GetMargin();
 	return Value::Nil;
 }
 
@@ -309,53 +309,53 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __SetMargin)
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetValue)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//int _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetPercent, "GetPercent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetPercent)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPercent();
+	//int _rtn = pThis->GetEntity()->GetPercent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetOtherEdge, "GetOtherEdge")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetOtherEdge)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOtherEdge();
+	//int _rtn = pThis->GetEntity()->GetOtherEdge();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetDone, "GetDone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetDone)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDone();
+	//bool _rtn = pThis->GetEntity()->GetDone();
 	return Value::Nil;
 }
 
@@ -376,14 +376,14 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __SetDone)
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetRelationship, "GetRelationship")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetRelationship)
 {
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRelationship();
+	//wxRelationship _rtn = pThis->GetEntity()->GetRelationship();
 	return Value::Nil;
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __SetRelationship)
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __ResetIfWin, "ResetIfWin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "otherW", VTYPE_number, OCCUR_Once);
 }
 
@@ -413,13 +413,13 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __ResetIfWin)
 	Object_wx_IndividualLayoutConstraint *pThis = Object_wx_IndividualLayoutConstraint::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* otherW = arg.GetNumber(0)
-	//pThis->GetEntity()->ResetIfWin(otherW);
+	//bool _rtn = pThis->GetEntity()->ResetIfWin(otherW);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __SatisfyConstraint, "SatisfyConstraint")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "constraints", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
@@ -430,13 +430,13 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __SatisfyConstraint)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLayoutConstraints* constraints = arg.GetNumber(0)
 	//wxWindow* win = arg.GetNumber(1)
-	//pThis->GetEntity()->SatisfyConstraint(constraints, win);
+	//bool _rtn = pThis->GetEntity()->SatisfyConstraint(constraints, win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_IndividualLayoutConstraint, __GetEdge, "GetEdge")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "which", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "thisWin", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_IndividualLayoutConstraint, __GetEdge)
 	//wxEdge which = arg.GetNumber(0)
 	//wxWindow* thisWin = arg.GetNumber(1)
 	//wxWindow* other = arg.GetNumber(2)
-	//pThis->GetEntity()->GetEdge(which, thisWin, other);
+	//int _rtn = pThis->GetEntity()->GetEdge(which, thisWin, other);
 	return Value::Nil;
 }
 

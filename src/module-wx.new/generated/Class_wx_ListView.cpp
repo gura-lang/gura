@@ -39,7 +39,7 @@ String Object_wx_ListView::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ListView, "ListView")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ListView));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ListView)
 
 Gura_DeclareFunctionAlias(__ListView_1, "ListView_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -112,33 +112,33 @@ Gura_ImplementMethod(wx_ListView, __Focus)
 
 Gura_DeclareMethodAlias(wx_ListView, __GetFirstSelected, "GetFirstSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListView, __GetFirstSelected)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFirstSelected();
+	//long _rtn = pThis->GetEntity()->GetFirstSelected();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListView, __GetFocusedItem, "GetFocusedItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ListView, __GetFocusedItem)
 {
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFocusedItem();
+	//long _rtn = pThis->GetEntity()->GetFocusedItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListView, __GetNextSelected, "GetNextSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_ListView, __GetNextSelected)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextSelected(item);
+	//long _rtn = pThis->GetEntity()->GetNextSelected(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ListView, __IsSelected, "IsSelected")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_ListView, __IsSelected)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long index = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSelected(index);
+	//bool _rtn = pThis->GetEntity()->IsSelected(index);
 	return Value::Nil;
 }
 

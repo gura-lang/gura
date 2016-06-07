@@ -39,7 +39,7 @@ String Object_wx_GridTableMessage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridTableMessage, "GridTableMessage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_GridTableMessage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridTableMessage)
 
 Gura_DeclareFunctionAlias(__GridTableMessage_1, "GridTableMessage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "table", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "comInt1", VTYPE_number, OCCUR_Once);
@@ -91,14 +91,14 @@ Gura_ImplementMethod(wx_GridTableMessage, __SetTableObject)
 
 Gura_DeclareMethodAlias(wx_GridTableMessage, __GetTableObject, "GetTableObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridTableMessage, __GetTableObject)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTableObject();
+	//wxGridTableBase* _rtn = pThis->GetEntity()->GetTableObject();
 	return Value::Nil;
 }
 
@@ -119,14 +119,14 @@ Gura_ImplementMethod(wx_GridTableMessage, __SetId)
 
 Gura_DeclareMethodAlias(wx_GridTableMessage, __GetId, "GetId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridTableMessage, __GetId)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetId();
+	//int _rtn = pThis->GetEntity()->GetId();
 	return Value::Nil;
 }
 
@@ -147,14 +147,14 @@ Gura_ImplementMethod(wx_GridTableMessage, __SetCommandInt)
 
 Gura_DeclareMethodAlias(wx_GridTableMessage, __GetCommandInt, "GetCommandInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridTableMessage, __GetCommandInt)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCommandInt();
+	//int _rtn = pThis->GetEntity()->GetCommandInt();
 	return Value::Nil;
 }
 
@@ -175,14 +175,14 @@ Gura_ImplementMethod(wx_GridTableMessage, __SetCommandInt2)
 
 Gura_DeclareMethodAlias(wx_GridTableMessage, __GetCommandInt2, "GetCommandInt2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridTableMessage, __GetCommandInt2)
 {
 	Object_wx_GridTableMessage *pThis = Object_wx_GridTableMessage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCommandInt2();
+	//int _rtn = pThis->GetEntity()->GetCommandInt2();
 	return Value::Nil;
 }
 

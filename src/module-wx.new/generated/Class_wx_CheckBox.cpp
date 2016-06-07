@@ -39,7 +39,7 @@ String Object_wx_CheckBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CheckBox, "CheckBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CheckBox)
 
 Gura_DeclareFunctionAlias(__CheckBox_1, "CheckBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__CheckBox_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CheckBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,72 +107,72 @@ Gura_ImplementMethod(wx_CheckBox, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckBox, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CheckBox, __GetValue)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//bool _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckBox, __Get3StateValue, "Get3StateValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CheckBox, __Get3StateValue)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Get3StateValue();
+	//wxCheckBoxState _rtn = pThis->GetEntity()->Get3StateValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckBox, __Is3State, "Is3State")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CheckBox, __Is3State)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Is3State();
+	//bool _rtn = pThis->GetEntity()->Is3State();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckBox, __Is3rdStateAllowedForUser, "Is3rdStateAllowedForUser")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CheckBox, __Is3rdStateAllowedForUser)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Is3rdStateAllowedForUser();
+	//bool _rtn = pThis->GetEntity()->Is3rdStateAllowedForUser();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckBox, __IsChecked, "IsChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CheckBox, __IsChecked)
 {
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsChecked();
+	//bool _rtn = pThis->GetEntity()->IsChecked();
 	return Value::Nil;
 }
 

@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_GraphicsPath, __CloseSubpath)
 
 Gura_DeclareMethodAlias(wx_GraphicsPath, __Contains, "Contains")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
 }
@@ -330,13 +330,13 @@ Gura_ImplementMethod(wx_GraphicsPath, __Contains)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& c = arg.GetNumber(0)
 	//wxPolygonFillMode fillStyle = arg.GetNumber(1)
-	//pThis->GetEntity()->Contains(c, fillStyle);
+	//bool _rtn = pThis->GetEntity()->Contains(c, fillStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsPath, __Contains_1, "Contains_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_Once);
@@ -349,20 +349,20 @@ Gura_ImplementMethod(wx_GraphicsPath, __Contains_1)
 	//wxDouble x = arg.GetNumber(0)
 	//wxDouble y = arg.GetNumber(1)
 	//wxPolygonFillMode fillStyle = arg.GetNumber(2)
-	//pThis->GetEntity()->Contains(x, y, fillStyle);
+	//bool _rtn = pThis->GetEntity()->Contains(x, y, fillStyle);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsPath, __GetBox, "GetBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsPath, __GetBox)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBox();
+	//wxRect2DDouble _rtn = pThis->GetEntity()->GetBox();
 	return Value::Nil;
 }
 
@@ -406,27 +406,27 @@ Gura_ImplementMethod(wx_GraphicsPath, __GetCurrentPoint)
 
 Gura_DeclareMethodAlias(wx_GraphicsPath, __GetCurrentPoint_1, "GetCurrentPoint_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsPath, __GetCurrentPoint_1)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentPoint();
+	//wxPoint2DDouble _rtn = pThis->GetEntity()->GetCurrentPoint();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsPath, __GetNativePath, "GetNativePath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsPath, __GetNativePath)
 {
 	Object_wx_GraphicsPath *pThis = Object_wx_GraphicsPath::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNativePath();
+	//void* _rtn = pThis->GetEntity()->GetNativePath();
 	return Value::Nil;
 }
 

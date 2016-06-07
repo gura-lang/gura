@@ -39,7 +39,7 @@ String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PreviewControlBar, "PreviewControlBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "preview", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "buttons", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
@@ -82,27 +82,27 @@ Gura_ImplementMethod(wx_PreviewControlBar, __CreateButtons)
 
 Gura_DeclareMethodAlias(wx_PreviewControlBar, __GetPrintPreview, "GetPrintPreview")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewControlBar, __GetPrintPreview)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintPreview();
+	//wxPrintPreviewBase* _rtn = pThis->GetEntity()->GetPrintPreview();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PreviewControlBar, __GetZoomControl, "GetZoomControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreviewControlBar, __GetZoomControl)
 {
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetZoomControl();
+	//int _rtn = pThis->GetEntity()->GetZoomControl();
 	return Value::Nil;
 }
 

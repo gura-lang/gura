@@ -39,7 +39,7 @@ String Object_wx_LogBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__LogBuffer, "LogBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_LogBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,14 +68,14 @@ Gura_ImplementMethod(wx_LogBuffer, __Flush)
 
 Gura_DeclareMethodAlias(wx_LogBuffer, __GetBuffer, "GetBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_LogBuffer, __GetBuffer)
 {
 	Object_wx_LogBuffer *pThis = Object_wx_LogBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBuffer();
+	//const wxString& _rtn = pThis->GetEntity()->GetBuffer();
 	return Value::Nil;
 }
 

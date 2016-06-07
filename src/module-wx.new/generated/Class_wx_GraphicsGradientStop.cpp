@@ -39,7 +39,7 @@ String Object_wx_GraphicsGradientStop::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GraphicsGradientStop, "GraphicsGradientStop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GraphicsGradientStop));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__GraphicsGradientStop)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __GetColour, "GetColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, __GetColour)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetColour();
 	return Value::Nil;
 }
 
@@ -87,14 +87,14 @@ Gura_ImplementMethod(wx_GraphicsGradientStop, __SetColour)
 
 Gura_DeclareMethodAlias(wx_GraphicsGradientStop, __GetPosition, "GetPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsGradientStop, __GetPosition)
 {
 	Object_wx_GraphicsGradientStop *pThis = Object_wx_GraphicsGradientStop::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPosition();
+	//float _rtn = pThis->GetEntity()->GetPosition();
 	return Value::Nil;
 }
 

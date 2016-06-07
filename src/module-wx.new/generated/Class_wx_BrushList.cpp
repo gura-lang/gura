@@ -39,7 +39,7 @@ String Object_wx_BrushList::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_BrushList, __FindOrCreateBrush, "FindOrCreateBrush")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_BrushList, __FindOrCreateBrush)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
 	//wxBrushStyle style = arg.GetNumber(1)
-	//pThis->GetEntity()->FindOrCreateBrush(colour, style);
+	//wxBrush* _rtn = pThis->GetEntity()->FindOrCreateBrush(colour, style);
 	return Value::Nil;
 }
 

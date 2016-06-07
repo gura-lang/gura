@@ -39,7 +39,7 @@ String Object_wx_DragImage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DragImage, "DragImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DragImage)
 
 Gura_DeclareFunctionAlias(__DragImage_1, "DragImage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__DragImage_1)
 
 Gura_DeclareFunctionAlias(__DragImage_2, "DragImage_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__DragImage_2)
 
 Gura_DeclareFunctionAlias(__DragImage_3, "DragImage_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "cursor", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
@@ -103,7 +103,7 @@ Gura_ImplementFunction(__DragImage_3)
 
 Gura_DeclareFunctionAlias(__DragImage_4, "DragImage_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "treeCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
@@ -120,7 +120,7 @@ Gura_ImplementFunction(__DragImage_4)
 
 Gura_DeclareFunctionAlias(__DragImage_5, "DragImage_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "listCtrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DragImage));
@@ -140,7 +140,7 @@ Gura_ImplementFunction(__DragImage_5)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DragImage, __BeginDrag, "BeginDrag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hotspot", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fullScreen", VTYPE_number, OCCUR_Once);
@@ -155,13 +155,13 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag)
 	//wxWindow* window = arg.GetNumber(1)
 	//bool fullScreen = arg.GetNumber(2)
 	//wxRect* rect = arg.GetNumber(3)
-	//pThis->GetEntity()->BeginDrag(hotspot, window, fullScreen, rect);
+	//bool _rtn = pThis->GetEntity()->BeginDrag(hotspot, window, fullScreen, rect);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __BeginDrag_1, "BeginDrag_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hotspot", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "boundingWindow", VTYPE_number, OCCUR_Once);
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag_1)
 	//const wxPoint& hotspot = arg.GetNumber(0)
 	//wxWindow* window = arg.GetNumber(1)
 	//wxWindow* boundingWindow = arg.GetNumber(2)
-	//pThis->GetEntity()->BeginDrag(hotspot, window, boundingWindow);
+	//bool _rtn = pThis->GetEntity()->BeginDrag(hotspot, window, boundingWindow);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __DoDrawImage, "DoDrawImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -191,26 +191,26 @@ Gura_ImplementMethod(wx_DragImage, __DoDrawImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->DoDrawImage(dc, pos);
+	//bool _rtn = pThis->GetEntity()->DoDrawImage(dc, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __EndDrag, "EndDrag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DragImage, __EndDrag)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->EndDrag();
+	//bool _rtn = pThis->GetEntity()->EndDrag();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __GetImageRect, "GetImageRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -219,26 +219,26 @@ Gura_ImplementMethod(wx_DragImage, __GetImageRect)
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageRect(pos);
+	//wxRect _rtn = pThis->GetEntity()->GetImageRect(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __Hide, "Hide")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DragImage, __Hide)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Hide();
+	//bool _rtn = pThis->GetEntity()->Hide();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __Move, "Move")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -247,26 +247,26 @@ Gura_ImplementMethod(wx_DragImage, __Move)
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Move(pt);
+	//bool _rtn = pThis->GetEntity()->Move(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __Show, "Show")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DragImage, __Show)
 {
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Show();
+	//bool _rtn = pThis->GetEntity()->Show();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DragImage, __UpdateBackingFromWindow, "UpdateBackingFromWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "windowDC", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "destDC", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sourceRect", VTYPE_number, OCCUR_Once);
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_DragImage, __UpdateBackingFromWindow)
 	//wxMemoryDC& destDC = arg.GetNumber(1)
 	//const wxRect& sourceRect = arg.GetNumber(2)
 	//const wxRect& destRect = arg.GetNumber(3)
-	//pThis->GetEntity()->UpdateBackingFromWindow(windowDC, destDC, sourceRect, destRect);
+	//bool _rtn = pThis->GetEntity()->UpdateBackingFromWindow(windowDC, destDC, sourceRect, destRect);
 	return Value::Nil;
 }
 

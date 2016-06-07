@@ -39,7 +39,7 @@ String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DatePickerCtrl, "DatePickerCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DatePickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DatePickerCtrl)
 
 Gura_DeclareFunctionAlias(__DatePickerCtrl_1, "DatePickerCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__DatePickerCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DatePickerCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
@@ -107,13 +107,13 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DatePickerCtrl, __GetRange, "GetRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dt1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt2", VTYPE_number, OCCUR_Once);
 }
@@ -124,20 +124,20 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __GetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDateTime* dt1 = arg.GetNumber(0)
 	//wxDateTime* dt2 = arg.GetNumber(1)
-	//pThis->GetEntity()->GetRange(dt1, dt2);
+	//bool _rtn = pThis->GetEntity()->GetRange(dt1, dt2);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DatePickerCtrl, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DatePickerCtrl, __GetValue)
 {
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxDateTime _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 

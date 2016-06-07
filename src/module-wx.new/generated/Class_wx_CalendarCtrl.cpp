@@ -39,7 +39,7 @@ String Object_wx_CalendarCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CalendarCtrl, "CalendarCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CalendarCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CalendarCtrl)
 
 Gura_DeclareFunctionAlias(__CalendarCtrl_1, "CalendarCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__CalendarCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, date, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, date, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __EnableHolidayDisplay)
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __EnableMonthChange, "EnableMonthChange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "enable", VTYPE_number, OCCUR_Once);
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __EnableMonthChange)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableMonthChange(enable);
+	//bool _rtn = pThis->GetEntity()->EnableMonthChange(enable);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __EnableYearChange)
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetAttr, "GetAttr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "day", VTYPE_number, OCCUR_Once);
 }
 
@@ -163,104 +163,104 @@ Gura_ImplementMethod(wx_CalendarCtrl, __GetAttr)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t day = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAttr(day);
+	//wxCalendarDateAttr* _rtn = pThis->GetEntity()->GetAttr(day);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetDate, "GetDate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetDate)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDate();
+	//wxDateTime _rtn = pThis->GetEntity()->GetDate();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHeaderColourBg, "GetHeaderColourBg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHeaderColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeaderColourBg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHeaderColourBg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHeaderColourFg, "GetHeaderColourFg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHeaderColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeaderColourFg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHeaderColourFg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHighlightColourBg, "GetHighlightColourBg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHighlightColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHighlightColourBg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHighlightColourBg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHighlightColourFg, "GetHighlightColourFg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHighlightColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHighlightColourFg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHighlightColourFg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHolidayColourBg, "GetHolidayColourBg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHolidayColourBg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHolidayColourBg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHolidayColourBg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetHolidayColourFg, "GetHolidayColourFg")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalendarCtrl, __GetHolidayColourFg)
 {
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHolidayColourFg();
+	//const wxColour& _rtn = pThis->GetEntity()->GetHolidayColourFg();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wd", VTYPE_number, OCCUR_Once);
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __HitTest)
 	//const wxPoint& pos = arg.GetNumber(0)
 	//wxDateTime* date = arg.GetNumber(1)
 	//wxDateTime::WeekDay* wd = arg.GetNumber(2)
-	//pThis->GetEntity()->HitTest(pos, date, wd);
+	//wxCalendarHitTestResult _rtn = pThis->GetEntity()->HitTest(pos, date, wd);
 	return Value::Nil;
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __SetAttr)
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetDate, "SetDate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "date", VTYPE_number, OCCUR_Once);
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __SetDate)
 	Object_wx_CalendarCtrl *pThis = Object_wx_CalendarCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& date = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDate(date);
+	//bool _rtn = pThis->GetEntity()->SetDate(date);
 	return Value::Nil;
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __Mark)
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __SetDateRange, "SetDateRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lowerdate", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "upperdate", VTYPE_number, OCCUR_Once);
 }
@@ -420,13 +420,13 @@ Gura_ImplementMethod(wx_CalendarCtrl, __SetDateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& lowerdate = arg.GetNumber(0)
 	//const wxDateTime& upperdate = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDateRange(lowerdate, upperdate);
+	//bool _rtn = pThis->GetEntity()->SetDateRange(lowerdate, upperdate);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalendarCtrl, __GetDateRange, "GetDateRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lowerdate", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "upperdate", VTYPE_number, OCCUR_Once);
 }
@@ -437,7 +437,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, __GetDateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDateTime* lowerdate = arg.GetNumber(0)
 	//wxDateTime* upperdate = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDateRange(lowerdate, upperdate);
+	//bool _rtn = pThis->GetEntity()->GetDateRange(lowerdate, upperdate);
 	return Value::Nil;
 }
 

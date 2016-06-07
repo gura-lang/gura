@@ -39,7 +39,7 @@ String Object_wx_Point::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Point, "Point")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Point)
 
 Gura_DeclareFunctionAlias(__Point_1, "Point_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__Point_1)
 
 Gura_DeclareFunctionAlias(__Point_2, "Point_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -87,14 +87,14 @@ Gura_ImplementFunction(__Point_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Point, __IsFullySpecified, "IsFullySpecified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Point, __IsFullySpecified)
 {
 	Object_wx_Point *pThis = Object_wx_Point::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsFullySpecified();
+	//bool _rtn = pThis->GetEntity()->IsFullySpecified();
 	return Value::Nil;
 }
 

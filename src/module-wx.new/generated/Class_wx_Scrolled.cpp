@@ -39,7 +39,7 @@ String Object_wx_Scrolled::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Scrolled, "Scrolled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Scrolled));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Scrolled)
 
 Gura_DeclareFunctionAlias(__Scrolled_1, "Scrolled_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -101,7 +101,7 @@ Gura_ImplementMethod(wx_Scrolled, __CalcScrolledPosition)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __CalcScrolledPosition_1, "CalcScrolledPosition_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_Scrolled, __CalcScrolledPosition_1)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->CalcScrolledPosition(pt);
+	//wxPoint _rtn = pThis->GetEntity()->CalcScrolledPosition(pt);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_Scrolled, __CalcUnscrolledPosition)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __CalcUnscrolledPosition_1, "CalcUnscrolledPosition_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -146,13 +146,13 @@ Gura_ImplementMethod(wx_Scrolled, __CalcUnscrolledPosition_1)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->CalcUnscrolledPosition(pt);
+	//wxPoint _rtn = pThis->GetEntity()->CalcUnscrolledPosition(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Scrolled, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_Scrolled, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -273,14 +273,14 @@ Gura_ImplementMethod(wx_Scrolled, __GetViewStart)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetViewStart_1, "GetViewStart_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __GetViewStart_1)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetViewStart();
+	//wxPoint _rtn = pThis->GetEntity()->GetViewStart();
 	return Value::Nil;
 }
 
@@ -303,14 +303,14 @@ Gura_ImplementMethod(wx_Scrolled, __GetVirtualSize)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __IsRetained, "IsRetained")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __IsRetained)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsRetained();
+	//bool _rtn = pThis->GetEntity()->IsRetained();
 	return Value::Nil;
 }
 
@@ -437,14 +437,14 @@ Gura_ImplementMethod(wx_Scrolled, __SetTargetWindow)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetTargetWindow, "GetTargetWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __GetTargetWindow)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTargetWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetTargetWindow();
 	return Value::Nil;
 }
 
@@ -465,20 +465,20 @@ Gura_ImplementMethod(wx_Scrolled, __SetTargetRect)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetTargetRect, "GetTargetRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __GetTargetRect)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTargetRect();
+	//wxRect _rtn = pThis->GetEntity()->GetTargetRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetScrollPageSize, "GetScrollPageSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_Scrolled, __GetScrollPageSize)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->GetScrollPageSize(orient);
+	//int _rtn = pThis->GetEntity()->GetScrollPageSize(orient);
 	return Value::Nil;
 }
 
@@ -510,7 +510,7 @@ Gura_ImplementMethod(wx_Scrolled, __SetScrollPageSize)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetScrollLines, "GetScrollLines")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "orient", VTYPE_number, OCCUR_Once);
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_Scrolled, __GetScrollLines)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->GetScrollLines(orient);
+	//int _rtn = pThis->GetEntity()->GetScrollLines(orient);
 	return Value::Nil;
 }
 
@@ -542,27 +542,27 @@ Gura_ImplementMethod(wx_Scrolled, __SetScale)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetScaleX, "GetScaleX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __GetScaleX)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetScaleX();
+	//double _rtn = pThis->GetEntity()->GetScaleX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetScaleY, "GetScaleY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __GetScaleY)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetScaleY();
+	//double _rtn = pThis->GetEntity()->GetScaleY();
 	return Value::Nil;
 }
 
@@ -581,14 +581,14 @@ Gura_ImplementMethod(wx_Scrolled, __AdjustScrollbars)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __IsAutoScrolling, "IsAutoScrolling")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Scrolled, __IsAutoScrolling)
 {
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAutoScrolling();
+	//bool _rtn = pThis->GetEntity()->IsAutoScrolling();
 	return Value::Nil;
 }
 
@@ -607,7 +607,7 @@ Gura_ImplementMethod(wx_Scrolled, __StopAutoScrolling)
 
 Gura_DeclareMethodAlias(wx_Scrolled, __SendAutoScrollEvents, "SendAutoScrollEvents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
@@ -616,13 +616,13 @@ Gura_ImplementMethod(wx_Scrolled, __SendAutoScrollEvents)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxScrollWinEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->SendAutoScrollEvents(event);
+	//bool _rtn = pThis->GetEntity()->SendAutoScrollEvents(event);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Scrolled, __GetSizeAvailableForScrollTarget, "GetSizeAvailableForScrollTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 }
 
@@ -631,7 +631,7 @@ Gura_ImplementMethod(wx_Scrolled, __GetSizeAvailableForScrollTarget)
 	Object_wx_Scrolled *pThis = Object_wx_Scrolled::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& size = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSizeAvailableForScrollTarget(size);
+	//wxSize _rtn = pThis->GetEntity()->GetSizeAvailableForScrollTarget(size);
 	return Value::Nil;
 }
 

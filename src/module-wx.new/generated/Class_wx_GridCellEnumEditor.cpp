@@ -39,7 +39,7 @@ String Object_wx_GridCellEnumEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellEnumEditor, "GridCellEnumEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellEnumEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);

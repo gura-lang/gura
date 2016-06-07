@@ -39,7 +39,7 @@ String Object_wx_TextCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextCtrl, "TextCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TextCtrl)
 
 Gura_DeclareFunctionAlias(__TextCtrl_1, "TextCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__TextCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_TextCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_TextCtrl, __DiscardEdits)
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __EmulateKeyPress, "EmulateKeyPress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
 }
 
@@ -135,26 +135,26 @@ Gura_ImplementMethod(wx_TextCtrl, __EmulateKeyPress)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxKeyEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->EmulateKeyPress(event);
+	//bool _rtn = pThis->GetEntity()->EmulateKeyPress(event);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __GetDefaultStyle, "GetDefaultStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCtrl, __GetDefaultStyle)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultStyle();
+	//const wxTextAttr& _rtn = pThis->GetEntity()->GetDefaultStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __GetLineLength, "GetLineLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 }
 
@@ -163,13 +163,13 @@ Gura_ImplementMethod(wx_TextCtrl, __GetLineLength)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long lineNo = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLineLength(lineNo);
+	//int _rtn = pThis->GetEntity()->GetLineLength(lineNo);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __GetLineText, "GetLineText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lineNo", VTYPE_number, OCCUR_Once);
 }
 
@@ -178,26 +178,26 @@ Gura_ImplementMethod(wx_TextCtrl, __GetLineText)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long lineNo = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLineText(lineNo);
+	//wxString _rtn = pThis->GetEntity()->GetLineText(lineNo);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __GetNumberOfLines, "GetNumberOfLines")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCtrl, __GetNumberOfLines)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNumberOfLines();
+	//int _rtn = pThis->GetEntity()->GetNumberOfLines();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_TextCtrl, __GetStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
 	//wxTextAttr& style = arg.GetNumber(1)
-	//pThis->GetEntity()->GetStyle(position, style);
+	//bool _rtn = pThis->GetEntity()->GetStyle(position, style);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __HitTest, "HitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_TextCtrl, __HitTest)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
 	//long* pos = arg.GetNumber(1)
-	//pThis->GetEntity()->HitTest(pt, pos);
+	//wxTextCtrlHitTestResult _rtn = pThis->GetEntity()->HitTest(pt, pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __HitTest_1, "HitTest_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "col", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
@@ -244,52 +244,52 @@ Gura_ImplementMethod(wx_TextCtrl, __HitTest_1)
 	//const wxPoint& pt = arg.GetNumber(0)
 	//wxTextCoord* col = arg.GetNumber(1)
 	//wxTextCoord* row = arg.GetNumber(2)
-	//pThis->GetEntity()->HitTest(pt, col, row);
+	//wxTextCtrlHitTestResult _rtn = pThis->GetEntity()->HitTest(pt, col, row);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __IsModified, "IsModified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCtrl, __IsModified)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsModified();
+	//bool _rtn = pThis->GetEntity()->IsModified();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __IsMultiLine, "IsMultiLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCtrl, __IsMultiLine)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsMultiLine();
+	//bool _rtn = pThis->GetEntity()->IsMultiLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __IsSingleLine, "IsSingleLine")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextCtrl, __IsSingleLine)
 {
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsSingleLine();
+	//bool _rtn = pThis->GetEntity()->IsSingleLine();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fileType", VTYPE_number, OCCUR_Once);
 }
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_TextCtrl, __LoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//int fileType = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile(filename, fileType);
+	//bool _rtn = pThis->GetEntity()->LoadFile(filename, fileType);
 	return Value::Nil;
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_TextCtrl, __OnDropFiles)
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __PositionToXY, "PositionToXY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
@@ -347,13 +347,13 @@ Gura_ImplementMethod(wx_TextCtrl, __PositionToXY)
 	//long pos = arg.GetNumber(0)
 	//long* x = arg.GetNumber(1)
 	//long* y = arg.GetNumber(2)
-	//pThis->GetEntity()->PositionToXY(pos, x, y);
+	//bool _rtn = pThis->GetEntity()->PositionToXY(pos, x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __PositionToCoords, "PositionToCoords")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -362,13 +362,13 @@ Gura_ImplementMethod(wx_TextCtrl, __PositionToCoords)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->PositionToCoords(pos);
+	//wxPoint _rtn = pThis->GetEntity()->PositionToCoords(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __SaveFile, "SaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fileType", VTYPE_number, OCCUR_Once);
 }
@@ -379,13 +379,13 @@ Gura_ImplementMethod(wx_TextCtrl, __SaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//int fileType = arg.GetNumber(1)
-	//pThis->GetEntity()->SaveFile(filename, fileType);
+	//bool _rtn = pThis->GetEntity()->SaveFile(filename, fileType);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __SetDefaultStyle, "SetDefaultStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
 
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SetDefaultStyle)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttr& style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDefaultStyle(style);
+	//bool _rtn = pThis->GetEntity()->SetDefaultStyle(style);
 	return Value::Nil;
 }
 
@@ -415,7 +415,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SetModified)
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __SetStyle, "SetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "end", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_TextCtrl, __SetStyle)
 	//long start = arg.GetNumber(0)
 	//long end = arg.GetNumber(1)
 	//const wxTextAttr& style = arg.GetNumber(2)
-	//pThis->GetEntity()->SetStyle(start, end, style);
+	//bool _rtn = pThis->GetEntity()->SetStyle(start, end, style);
 	return Value::Nil;
 }
 
@@ -449,7 +449,7 @@ Gura_ImplementMethod(wx_TextCtrl, __ShowPosition)
 
 Gura_DeclareMethodAlias(wx_TextCtrl, __XYToPosition, "XYToPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -460,7 +460,7 @@ Gura_ImplementMethod(wx_TextCtrl, __XYToPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long x = arg.GetNumber(0)
 	//long y = arg.GetNumber(1)
-	//pThis->GetEntity()->XYToPosition(x, y);
+	//long _rtn = pThis->GetEntity()->XYToPosition(x, y);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_CriticalSection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CriticalSection, "CriticalSection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "critSecType", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CriticalSection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_CriticalSection, __Enter)
 
 Gura_DeclareMethodAlias(wx_CriticalSection, __TryEnter, "TryEnter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CriticalSection, __TryEnter)
 {
 	Object_wx_CriticalSection *pThis = Object_wx_CriticalSection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TryEnter();
+	//bool _rtn = pThis->GetEntity()->TryEnter();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_SpinCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SpinCtrl, "SpinCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SpinCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__SpinCtrl)
 
 Gura_DeclareFunctionAlias(__SpinCtrl_1, "SpinCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -88,7 +88,7 @@ Gura_ImplementFunction(__SpinCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SpinCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -115,65 +115,65 @@ Gura_ImplementMethod(wx_SpinCtrl, __Create)
 	//int max = arg.GetNumber(7)
 	//int initial = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrl, __GetBase, "GetBase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrl, __GetBase)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBase();
+	//int _rtn = pThis->GetEntity()->GetBase();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrl, __GetMax, "GetMax")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrl, __GetMax)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMax();
+	//int _rtn = pThis->GetEntity()->GetMax();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrl, __GetMin, "GetMin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrl, __GetMin)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMin();
+	//int _rtn = pThis->GetEntity()->GetMin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrl, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SpinCtrl, __GetValue)
 {
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//int _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SpinCtrl, __SetBase, "SetBase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetBase)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBase(base);
+	//bool _rtn = pThis->GetEntity()->SetBase(base);
 	return Value::Nil;
 }
 

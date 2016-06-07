@@ -39,7 +39,7 @@ String Object_wx_HashTable::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HashTable, "HashTable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HashTable));
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_HashTable, __Clear)
 
 Gura_DeclareMethodAlias(wx_HashTable, __Delete, "Delete")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_HashTable, __Delete)
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long key = arg.GetNumber(0)
-	//pThis->GetEntity()->Delete(key);
+	//wxObject* _rtn = pThis->GetEntity()->Delete(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashTable, __Delete_1, "Delete_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_HashTable, __Delete_1)
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& key = arg.GetNumber(0)
-	//pThis->GetEntity()->Delete(key);
+	//wxObject* _rtn = pThis->GetEntity()->Delete(key);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_HashTable, __DeleteContents)
 
 Gura_DeclareMethodAlias(wx_HashTable, __Get, "Get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_HashTable, __Get)
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long key = arg.GetNumber(0)
-	//pThis->GetEntity()->Get(key);
+	//wxObject* _rtn = pThis->GetEntity()->Get(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashTable, __Get_1, "Get_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -154,26 +154,26 @@ Gura_ImplementMethod(wx_HashTable, __Get_1)
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* key = arg.GetNumber(0)
-	//pThis->GetEntity()->Get(key);
+	//wxObject* _rtn = pThis->GetEntity()->Get(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashTable, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashTable, __GetCount)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//size_t _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashTable, __MakeKey, "MakeKey")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "string", VTYPE_number, OCCUR_Once);
 }
 
@@ -182,20 +182,20 @@ Gura_ImplementMethod(wx_HashTable, __MakeKey)
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->MakeKey(string);
+	//long _rtn = pThis->GetEntity()->MakeKey(string);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashTable, __Next, "Next")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashTable, __Next)
 {
 	Object_wx_HashTable *pThis = Object_wx_HashTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Next();
+	//wxHashTable::Node* _rtn = pThis->GetEntity()->Next();
 	return Value::Nil;
 }
 

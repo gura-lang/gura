@@ -39,7 +39,7 @@ String Object_wx_DataViewIconText::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewIconText, "DataViewIconText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewIconText));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__DataViewIconText)
 
 Gura_DeclareFunctionAlias(__DataViewIconText_1, "DataViewIconText_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DataViewIconText));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -74,27 +74,27 @@ Gura_ImplementFunction(__DataViewIconText_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIconText, __GetIcon, "GetIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewIconText, __GetIcon)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIcon();
+	//const wxIcon& _rtn = pThis->GetEntity()->GetIcon();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DataViewIconText, __GetText, "GetText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewIconText, __GetText)
 {
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetText();
+	//wxString _rtn = pThis->GetEntity()->GetText();
 	return Value::Nil;
 }
 

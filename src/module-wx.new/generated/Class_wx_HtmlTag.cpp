@@ -39,7 +39,7 @@ String Object_wx_HtmlTag::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlTag, "HtmlTag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "source", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -67,72 +67,72 @@ Gura_ImplementFunction(__HtmlTag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetAllParams, "GetAllParams")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __GetAllParams)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAllParams();
+	//wxString _rtn = pThis->GetEntity()->GetAllParams();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetBeginPos, "GetBeginPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __GetBeginPos)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBeginPos();
+	//int _rtn = pThis->GetEntity()->GetBeginPos();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetEndPos1, "GetEndPos1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __GetEndPos1)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEndPos1();
+	//int _rtn = pThis->GetEntity()->GetEndPos1();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetEndPos2, "GetEndPos2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __GetEndPos2)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEndPos2();
+	//int _rtn = pThis->GetEntity()->GetEndPos2();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __GetName)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetParam, "GetParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "with_quotes", VTYPE_number, OCCUR_Once);
 }
@@ -143,13 +143,13 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParam)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//bool with_quotes = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParam(par, with_quotes);
+	//wxString _rtn = pThis->GetEntity()->GetParam(par, with_quotes);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsColour, "GetParamAsColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
@@ -160,13 +160,13 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//wxColour* clr = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsColour(par, clr);
+	//bool _rtn = pThis->GetEntity()->GetParamAsColour(par, clr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsInt, "GetParamAsInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -177,13 +177,13 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsInt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//int* value = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsInt(par, value);
+	//bool _rtn = pThis->GetEntity()->GetParamAsInt(par, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __GetParamAsString, "GetParamAsString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -194,26 +194,26 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//wxString* value = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsString(par, value);
+	//bool _rtn = pThis->GetEntity()->GetParamAsString(par, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __HasEnding, "HasEnding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlTag, __HasEnding)
 {
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasEnding();
+	//bool _rtn = pThis->GetEntity()->HasEnding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __HasParam, "HasParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 }
 
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_HtmlTag, __HasParam)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
-	//pThis->GetEntity()->HasParam(par);
+	//bool _rtn = pThis->GetEntity()->HasParam(par);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __ParseAsColour, "ParseAsColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "clr", VTYPE_number, OCCUR_Once);
 }
@@ -239,13 +239,13 @@ Gura_ImplementMethod(wx_HtmlTag, __ParseAsColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//wxColour* clr = arg.GetNumber(1)
-	//pThis->GetEntity()->ParseAsColour(str, clr);
+	//bool _rtn = pThis->GetEntity()->ParseAsColour(str, clr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __ScanParam, "ScanParam")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -258,13 +258,13 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam)
 	//const wxString& par = arg.GetNumber(0)
 	//const wchar_t* format = arg.GetNumber(1)
 	//void* value = arg.GetNumber(2)
-	//pThis->GetEntity()->ScanParam(par, format, value);
+	//int _rtn = pThis->GetEntity()->ScanParam(par, format, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlTag, __ScanParam_1, "ScanParam_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "par", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam_1)
 	//const wxString& par = arg.GetNumber(0)
 	//const char* format = arg.GetNumber(1)
 	//void* value = arg.GetNumber(2)
-	//pThis->GetEntity()->ScanParam(par, format, value);
+	//int _rtn = pThis->GetEntity()->ScanParam(par, format, value);
 	return Value::Nil;
 }
 

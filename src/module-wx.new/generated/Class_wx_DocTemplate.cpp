@@ -39,7 +39,7 @@ String Object_wx_DocTemplate::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DocTemplate, "DocTemplate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "descr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filter", VTYPE_number, OCCUR_Once);
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__DocTemplate)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocTemplate, __CreateDocument, "CreateDocument")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -86,13 +86,13 @@ Gura_ImplementMethod(wx_DocTemplate, __CreateDocument)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
 	//long flags = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateDocument(path, flags);
+	//wxDocument* _rtn = pThis->GetEntity()->CreateDocument(path, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __CreateView, "CreateView")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -103,13 +103,13 @@ Gura_ImplementMethod(wx_DocTemplate, __CreateView)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDocument* doc = arg.GetNumber(0)
 	//long flags = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateView(doc, flags);
+	//wxView* _rtn = pThis->GetEntity()->CreateView(doc, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __FileMatchesTemplate, "FileMatchesTemplate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 }
 
@@ -118,169 +118,169 @@ Gura_ImplementMethod(wx_DocTemplate, __FileMatchesTemplate)
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->FileMatchesTemplate(path);
+	//bool _rtn = pThis->GetEntity()->FileMatchesTemplate(path);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDefaultExtension, "GetDefaultExtension")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDefaultExtension)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultExtension();
+	//wxString _rtn = pThis->GetEntity()->GetDefaultExtension();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDescription, "GetDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDescription)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDescription();
+	//wxString _rtn = pThis->GetEntity()->GetDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDirectory, "GetDirectory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDirectory)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDirectory();
+	//wxString _rtn = pThis->GetEntity()->GetDirectory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDocClassInfo, "GetDocClassInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDocClassInfo)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocClassInfo();
+	//wxClassInfo* _rtn = pThis->GetEntity()->GetDocClassInfo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDocumentManager, "GetDocumentManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDocumentManager)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocumentManager();
+	//wxDocManager* _rtn = pThis->GetEntity()->GetDocumentManager();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetDocumentName, "GetDocumentName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetDocumentName)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDocumentName();
+	//wxString _rtn = pThis->GetEntity()->GetDocumentName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetFileFilter, "GetFileFilter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetFileFilter)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFileFilter();
+	//wxString _rtn = pThis->GetEntity()->GetFileFilter();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetFlags)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//long _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetPageSetupDialogData, "GetPageSetupDialogData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetPageSetupDialogData)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSetupDialogData();
+	//wxPageSetupDialogData& _rtn = pThis->GetEntity()->GetPageSetupDialogData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetPageSetupDialogData_1, "GetPageSetupDialogData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetPageSetupDialogData_1)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSetupDialogData();
+	//const wxPageSetupDialogData& _rtn = pThis->GetEntity()->GetPageSetupDialogData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetViewClassInfo, "GetViewClassInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetViewClassInfo)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetViewClassInfo();
+	//wxClassInfo* _rtn = pThis->GetEntity()->GetViewClassInfo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __GetViewName, "GetViewName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __GetViewName)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetViewName();
+	//wxString _rtn = pThis->GetEntity()->GetViewName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __InitDocument, "InitDocument")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "doc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
@@ -293,20 +293,20 @@ Gura_ImplementMethod(wx_DocTemplate, __InitDocument)
 	//wxDocument* doc = arg.GetNumber(0)
 	//const wxString& path = arg.GetNumber(1)
 	//long flags = arg.GetNumber(2)
-	//pThis->GetEntity()->InitDocument(doc, path, flags);
+	//bool _rtn = pThis->GetEntity()->InitDocument(doc, path, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DocTemplate, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DocTemplate, __IsVisible)
 {
 	Object_wx_DocTemplate *pThis = Object_wx_DocTemplate::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVisible();
+	//bool _rtn = pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
 

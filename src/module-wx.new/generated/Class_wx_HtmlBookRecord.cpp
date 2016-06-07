@@ -39,7 +39,7 @@ String Object_wx_HtmlBookRecord::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlBookRecord, "HtmlBookRecord")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bookfile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -63,53 +63,53 @@ Gura_ImplementFunction(__HtmlBookRecord)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetBookFile, "GetBookFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetBookFile)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBookFile();
+	//wxString _rtn = pThis->GetEntity()->GetBookFile();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetTitle, "GetTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetTitle)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTitle();
+	//wxString _rtn = pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetStart, "GetStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStart();
+	//wxString _rtn = pThis->GetEntity()->GetStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetBasePath, "GetBasePath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetBasePath)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBasePath();
+	//wxString _rtn = pThis->GetEntity()->GetBasePath();
 	return Value::Nil;
 }
 
@@ -132,27 +132,27 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetContentsRange)
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetContentsStart, "GetContentsStart")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetContentsStart)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContentsStart();
+	//int _rtn = pThis->GetEntity()->GetContentsStart();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetContentsEnd, "GetContentsEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlBookRecord, __GetContentsEnd)
 {
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetContentsEnd();
+	//int _rtn = pThis->GetEntity()->GetContentsEnd();
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetStart)
 
 Gura_DeclareMethodAlias(wx_HtmlBookRecord, __GetFullPath, "GetFullPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFullPath(page);
+	//wxString _rtn = pThis->GetEntity()->GetFullPath(page);
 	return Value::Nil;
 }
 

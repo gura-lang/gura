@@ -39,7 +39,7 @@ String Object_wx_HeaderCtrlSimple::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HeaderCtrlSimple, "HeaderCtrlSimple")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HeaderCtrlSimple));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__HeaderCtrlSimple)
 
 Gura_DeclareFunctionAlias(__HeaderCtrlSimple_1, "HeaderCtrlSimple_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __RemoveSortIndicator)
 
 Gura_DeclareMethodAlias(wx_HeaderCtrlSimple, __GetBestFittingWidth, "GetBestFittingWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_HeaderCtrlSimple, __GetBestFittingWidth)
 	Object_wx_HeaderCtrlSimple *pThis = Object_wx_HeaderCtrlSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetBestFittingWidth(idx);
+	//int _rtn = pThis->GetEntity()->GetBestFittingWidth(idx);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_RegionIterator::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RegionIterator, "RegionIterator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RegionIterator)
 
 Gura_DeclareFunctionAlias(__RegionIterator_1, "RegionIterator_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "region", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RegionIterator));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,105 +70,105 @@ Gura_ImplementFunction(__RegionIterator_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetH, "GetH")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetH)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetH();
+	//wxCoord _rtn = pThis->GetEntity()->GetH();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetHeight)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//wxCoord _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetRect, "GetRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetRect)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRect();
+	//wxRect _rtn = pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetW, "GetW")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetW)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetW();
+	//wxCoord _rtn = pThis->GetEntity()->GetW();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetWidth)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//wxCoord _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetX, "GetX")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetX)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetX();
+	//wxCoord _rtn = pThis->GetEntity()->GetX();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __GetY)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//wxCoord _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __HaveRects, "HaveRects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __HaveRects)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HaveRects();
+	//bool _rtn = pThis->GetEntity()->HaveRects();
 	return Value::Nil;
 }
 
@@ -202,14 +202,14 @@ Gura_ImplementMethod(wx_RegionIterator, __Reset_1)
 
 Gura_DeclareMethodAlias(wx_RegionIterator, __bool, "bool")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RegionIterator, __bool)
 {
 	Object_wx_RegionIterator *pThis = Object_wx_RegionIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->bool();
+	//operator _rtn = pThis->GetEntity()->bool();
 	return Value::Nil;
 }
 

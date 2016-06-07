@@ -39,7 +39,7 @@ String Object_wx_PGProperty::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PGProperty, "PGProperty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGProperty));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PGProperty)
 
 Gura_DeclareFunctionAlias(__PGProperty_1, "PGProperty_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PGProperty));
@@ -85,20 +85,20 @@ Gura_ImplementMethod(wx_PGProperty, __OnSetValue)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __DoGetValue, "DoGetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __DoGetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DoGetValue();
+	//wxVariant _rtn = pThis->GetEntity()->DoGetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __ValidateValue, "ValidateValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "validationInfo", VTYPE_number, OCCUR_Once);
 }
@@ -109,13 +109,13 @@ Gura_ImplementMethod(wx_PGProperty, __ValidateValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& value = arg.GetNumber(0)
 	//wxPGValidationInfo& validationInfo = arg.GetNumber(1)
-	//pThis->GetEntity()->ValidateValue(value, validationInfo);
+	//bool _rtn = pThis->GetEntity()->ValidateValue(value, validationInfo);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __StringToValue, "StringToValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
@@ -128,13 +128,13 @@ Gura_ImplementMethod(wx_PGProperty, __StringToValue)
 	//wxVariant& variant = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
 	//int argFlags = arg.GetNumber(2)
-	//pThis->GetEntity()->StringToValue(variant, text, argFlags);
+	//bool _rtn = pThis->GetEntity()->StringToValue(variant, text, argFlags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IntToValue, "IntToValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
@@ -147,13 +147,13 @@ Gura_ImplementMethod(wx_PGProperty, __IntToValue)
 	//wxVariant& variant = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//int argFlags = arg.GetNumber(2)
-	//pThis->GetEntity()->IntToValue(variant, number, argFlags);
+	//bool _rtn = pThis->GetEntity()->IntToValue(variant, number, argFlags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __ValueToString, "ValueToString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
@@ -164,13 +164,13 @@ Gura_ImplementMethod(wx_PGProperty, __ValueToString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& value = arg.GetNumber(0)
 	//int argFlags = arg.GetNumber(1)
-	//pThis->GetEntity()->ValueToString(value, argFlags);
+	//wxString _rtn = pThis->GetEntity()->ValueToString(value, argFlags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __SetValueFromString, "SetValueFromString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "text", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -181,13 +181,13 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueFromString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetValueFromString(text, flags);
+	//bool _rtn = pThis->GetEntity()->SetValueFromString(text, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __SetValueFromInt, "SetValueFromInt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -198,13 +198,13 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueFromInt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long value = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetValueFromInt(value, flags);
+	//bool _rtn = pThis->GetEntity()->SetValueFromInt(value, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __OnMeasureImage, "OnMeasureImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -213,13 +213,13 @@ Gura_ImplementMethod(wx_PGProperty, __OnMeasureImage)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureImage(item);
+	//wxSize _rtn = pThis->GetEntity()->OnMeasureImage(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __OnEvent, "OnEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd_primary", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "event", VTYPE_number, OCCUR_Once);
@@ -232,13 +232,13 @@ Gura_ImplementMethod(wx_PGProperty, __OnEvent)
 	//wxPropertyGrid* propgrid = arg.GetNumber(0)
 	//wxWindow* wnd_primary = arg.GetNumber(1)
 	//wxEvent& event = arg.GetNumber(2)
-	//pThis->GetEntity()->OnEvent(propgrid, wnd_primary, event);
+	//bool _rtn = pThis->GetEntity()->OnEvent(propgrid, wnd_primary, event);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __ChildChanged, "ChildChanged")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "thisValue", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childIndex", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childValue", VTYPE_number, OCCUR_Once);
@@ -251,33 +251,33 @@ Gura_ImplementMethod(wx_PGProperty, __ChildChanged)
 	//wxVariant& thisValue = arg.GetNumber(0)
 	//int childIndex = arg.GetNumber(1)
 	//wxVariant& childValue = arg.GetNumber(2)
-	//pThis->GetEntity()->ChildChanged(thisValue, childIndex, childValue);
+	//wxVariant _rtn = pThis->GetEntity()->ChildChanged(thisValue, childIndex, childValue);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __DoGetEditorClass, "DoGetEditorClass")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __DoGetEditorClass)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DoGetEditorClass();
+	//const wxPGEditor* _rtn = pThis->GetEntity()->DoGetEditorClass();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __DoGetValidator, "DoGetValidator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __DoGetValidator)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DoGetValidator();
+	//wxValidator* _rtn = pThis->GetEntity()->DoGetValidator();
 	return Value::Nil;
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnCustomPaint)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetCellRenderer, "GetCellRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -311,20 +311,20 @@ Gura_ImplementMethod(wx_PGProperty, __GetCellRenderer)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCellRenderer(column);
+	//wxPGCellRenderer* _rtn = pThis->GetEntity()->GetCellRenderer(column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetChoiceSelection, "GetChoiceSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetChoiceSelection)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChoiceSelection();
+	//int _rtn = pThis->GetEntity()->GetChoiceSelection();
 	return Value::Nil;
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_PGProperty, __RefreshChildren)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __DoSetAttribute, "DoSetAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -354,13 +354,13 @@ Gura_ImplementMethod(wx_PGProperty, __DoSetAttribute)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxVariant& value = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSetAttribute(name, value);
+	//bool _rtn = pThis->GetEntity()->DoSetAttribute(name, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __DoGetAttribute, "DoGetAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -369,20 +369,20 @@ Gura_ImplementMethod(wx_PGProperty, __DoGetAttribute)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->DoGetAttribute(name);
+	//wxVariant _rtn = pThis->GetEntity()->DoGetAttribute(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetEditorDialog, "GetEditorDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetEditorDialog)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEditorDialog();
+	//wxPGEditorDialogAdapter* _rtn = pThis->GetEntity()->GetEditorDialog();
 	return Value::Nil;
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnValidationFailure)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __AddChoice, "AddChoice")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 }
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_PGProperty, __AddChoice)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->AddChoice(label, value);
+	//int _rtn = pThis->GetEntity()->AddChoice(label, value);
 	return Value::Nil;
 }
 
@@ -452,7 +452,7 @@ Gura_ImplementMethod(wx_PGProperty, __AdaptListToValue)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __AppendChild, "AppendChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "childProperty", VTYPE_number, OCCUR_Once);
 }
 
@@ -461,13 +461,13 @@ Gura_ImplementMethod(wx_PGProperty, __AppendChild)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* childProperty = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendChild(childProperty);
+	//wxPGProperty* _rtn = pThis->GetEntity()->AppendChild(childProperty);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __AreAllChildrenSpecified, "AreAllChildrenSpecified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pendingList", VTYPE_number, OCCUR_Once);
 }
 
@@ -476,20 +476,20 @@ Gura_ImplementMethod(wx_PGProperty, __AreAllChildrenSpecified)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant* pendingList = arg.GetNumber(0)
-	//pThis->GetEntity()->AreAllChildrenSpecified(pendingList);
+	//bool _rtn = pThis->GetEntity()->AreAllChildrenSpecified(pendingList);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __AreChildrenComponents, "AreChildrenComponents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __AreChildrenComponents)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AreChildrenComponents();
+	//bool _rtn = pThis->GetEntity()->AreChildrenComponents();
 	return Value::Nil;
 }
 
@@ -555,20 +555,20 @@ Gura_ImplementMethod(wx_PGProperty, __Enable)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GenerateComposedValue, "GenerateComposedValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GenerateComposedValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GenerateComposedValue();
+	//wxString _rtn = pThis->GetEntity()->GenerateComposedValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetAttribute, "GetAttribute")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -577,13 +577,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttribute)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAttribute(name);
+	//wxVariant _rtn = pThis->GetEntity()->GetAttribute(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetAttribute_1, "GetAttribute_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
@@ -594,13 +594,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttribute_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttribute(name, defVal);
+	//wxString _rtn = pThis->GetEntity()->GetAttribute(name, defVal);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributeAsLong, "GetAttributeAsLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
@@ -611,13 +611,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//long defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttributeAsLong(name, defVal);
+	//long _rtn = pThis->GetEntity()->GetAttributeAsLong(name, defVal);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributeAsDouble, "GetAttributeAsDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defVal", VTYPE_number, OCCUR_Once);
 }
@@ -628,26 +628,26 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsDouble)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//double defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttributeAsDouble(name, defVal);
+	//double _rtn = pThis->GetEntity()->GetAttributeAsDouble(name, defVal);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetAttributesAsList, "GetAttributesAsList")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetAttributesAsList)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAttributesAsList();
+	//wxVariant _rtn = pThis->GetEntity()->GetAttributesAsList();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetColumnEditor, "GetColumnEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -656,26 +656,26 @@ Gura_ImplementMethod(wx_PGProperty, __GetColumnEditor)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnEditor(column);
+	//const wxPGEditor* _rtn = pThis->GetEntity()->GetColumnEditor(column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetBaseName, "GetBaseName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetBaseName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBaseName();
+	//const wxString& _rtn = pThis->GetEntity()->GetBaseName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetCell, "GetCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -684,13 +684,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetCell)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCell(column);
+	//const wxPGCell& _rtn = pThis->GetEntity()->GetCell(column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetCell_1, "GetCell_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -699,13 +699,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetCell_1)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCell(column);
+	//wxPGCell& _rtn = pThis->GetEntity()->GetCell(column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetOrCreateCell, "GetOrCreateCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
 
@@ -714,26 +714,26 @@ Gura_ImplementMethod(wx_PGProperty, __GetOrCreateCell)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOrCreateCell(column);
+	//wxPGCell& _rtn = pThis->GetEntity()->GetOrCreateCell(column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetChildCount, "GetChildCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetChildCount)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChildCount();
+	//unsigned int _rtn = pThis->GetEntity()->GetChildCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetChildrenHeight, "GetChildrenHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "lh", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "iMax", VTYPE_number, OCCUR_Once);
 }
@@ -744,234 +744,234 @@ Gura_ImplementMethod(wx_PGProperty, __GetChildrenHeight)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lh = arg.GetNumber(0)
 	//int iMax = arg.GetNumber(1)
-	//pThis->GetEntity()->GetChildrenHeight(lh, iMax);
+	//int _rtn = pThis->GetEntity()->GetChildrenHeight(lh, iMax);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetChoices, "GetChoices")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetChoices)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChoices();
+	//const wxPGChoices& _rtn = pThis->GetEntity()->GetChoices();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetClientData, "GetClientData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetClientData)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientData();
+	//void* _rtn = pThis->GetEntity()->GetClientData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetClientObject, "GetClientObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetClientObject)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientObject();
+	//wxClientData* _rtn = pThis->GetEntity()->GetClientObject();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetDefaultValue, "GetDefaultValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetDefaultValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultValue();
+	//wxVariant _rtn = pThis->GetEntity()->GetDefaultValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetDisplayedString, "GetDisplayedString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetDisplayedString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDisplayedString();
+	//wxString _rtn = pThis->GetEntity()->GetDisplayedString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetEditorClass, "GetEditorClass")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetEditorClass)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEditorClass();
+	//const wxPGEditor* _rtn = pThis->GetEntity()->GetEditorClass();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetFlags)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//FlagType _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetGrid, "GetGrid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetGrid)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGrid();
+	//wxPropertyGrid* _rtn = pThis->GetEntity()->GetGrid();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetGridIfDisplayed, "GetGridIfDisplayed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetGridIfDisplayed)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGridIfDisplayed();
+	//wxPropertyGrid* _rtn = pThis->GetEntity()->GetGridIfDisplayed();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetHelpString, "GetHelpString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetHelpString)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHelpString();
+	//const wxString& _rtn = pThis->GetEntity()->GetHelpString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetIndexInParent, "GetIndexInParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetIndexInParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetIndexInParent();
+	//unsigned int _rtn = pThis->GetEntity()->GetIndexInParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetLabel, "GetLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetLabel)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLabel();
+	//const wxString& _rtn = pThis->GetEntity()->GetLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetLastVisibleSubItem, "GetLastVisibleSubItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetLastVisibleSubItem)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLastVisibleSubItem();
+	//const wxPGProperty* _rtn = pThis->GetEntity()->GetLastVisibleSubItem();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetMainParent, "GetMainParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetMainParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMainParent();
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetMainParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetMaxLength, "GetMaxLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetMaxLength)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxLength();
+	//int _rtn = pThis->GetEntity()->GetMaxLength();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetName)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetParent, "GetParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetParent)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParent();
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetParent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetPropertyByName, "GetPropertyByName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -980,52 +980,52 @@ Gura_ImplementMethod(wx_PGProperty, __GetPropertyByName)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPropertyByName(name);
+	//wxPGProperty* _rtn = pThis->GetEntity()->GetPropertyByName(name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetValidator, "GetValidator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetValidator)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValidator();
+	//wxValidator* _rtn = pThis->GetEntity()->GetValidator();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetValue)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//wxVariant _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetValueImage, "GetValueImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetValueImage)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValueImage();
+	//wxBitmap* _rtn = pThis->GetEntity()->GetValueImage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetValueAsString, "GetValueAsString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
@@ -1034,13 +1034,13 @@ Gura_ImplementMethod(wx_PGProperty, __GetValueAsString)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argFlags = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValueAsString(argFlags);
+	//wxString _rtn = pThis->GetEntity()->GetValueAsString(argFlags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __wxDEPRECATED, "wxDEPRECATED")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "argFlags", VTYPE_number, OCCUR_Once);
 }
 
@@ -1055,33 +1055,33 @@ Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetValueType, "GetValueType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetValueType)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValueType();
+	//wxString _rtn = pThis->GetEntity()->GetValueType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __GetY, "GetY")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __GetY)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetY();
+	//int _rtn = pThis->GetEntity()->GetY();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __HasFlag, "HasFlag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
@@ -1090,26 +1090,26 @@ Gura_ImplementMethod(wx_PGProperty, __HasFlag)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropertyFlags flag = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFlag(flag);
+	//FlagType _rtn = pThis->GetEntity()->HasFlag(flag);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __HasVisibleChildren, "HasVisibleChildren")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __HasVisibleChildren)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasVisibleChildren();
+	//bool _rtn = pThis->GetEntity()->HasVisibleChildren();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __Hide, "Hide")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hide", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -1120,13 +1120,13 @@ Gura_ImplementMethod(wx_PGProperty, __Hide)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool hide = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Hide(hide, flags);
+	//bool _rtn = pThis->GetEntity()->Hide(hide, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __Index, "Index")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
@@ -1135,13 +1135,13 @@ Gura_ImplementMethod(wx_PGProperty, __Index)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGProperty* p = arg.GetNumber(0)
-	//pThis->GetEntity()->Index(p);
+	//int _rtn = pThis->GetEntity()->Index(p);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __InsertChild, "InsertChild")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "childProperty", VTYPE_number, OCCUR_Once);
 }
@@ -1152,13 +1152,13 @@ Gura_ImplementMethod(wx_PGProperty, __InsertChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//wxPGProperty* childProperty = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChild(index, childProperty);
+	//wxPGProperty* _rtn = pThis->GetEntity()->InsertChild(index, childProperty);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __InsertChoice, "InsertChoice")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
@@ -1171,65 +1171,65 @@ Gura_ImplementMethod(wx_PGProperty, __InsertChoice)
 	//const wxString& label = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertChoice(label, index, value);
+	//int _rtn = pThis->GetEntity()->InsertChoice(label, index, value);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsCategory, "IsCategory")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsCategory)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCategory();
+	//bool _rtn = pThis->GetEntity()->IsCategory();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsEnabled, "IsEnabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsEnabled)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEnabled();
+	//bool _rtn = pThis->GetEntity()->IsEnabled();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsExpanded, "IsExpanded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsExpanded)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsExpanded();
+	//bool _rtn = pThis->GetEntity()->IsExpanded();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsRoot, "IsRoot")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsRoot)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsRoot();
+	//bool _rtn = pThis->GetEntity()->IsRoot();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsSomeParent, "IsSomeParent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "candidateParent", VTYPE_number, OCCUR_Once);
 }
 
@@ -1238,52 +1238,52 @@ Gura_ImplementMethod(wx_PGProperty, __IsSomeParent)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* candidateParent = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSomeParent(candidateParent);
+	//bool _rtn = pThis->GetEntity()->IsSomeParent(candidateParent);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsTextEditable, "IsTextEditable")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsTextEditable)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsTextEditable();
+	//bool _rtn = pThis->GetEntity()->IsTextEditable();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsValueUnspecified, "IsValueUnspecified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsValueUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsValueUnspecified();
+	//bool _rtn = pThis->GetEntity()->IsValueUnspecified();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __IsVisible)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsVisible();
+	//bool _rtn = pThis->GetEntity()->IsVisible();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __Item, "Item")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "i", VTYPE_number, OCCUR_Once);
 }
 
@@ -1292,7 +1292,7 @@ Gura_ImplementMethod(wx_PGProperty, __Item)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(i);
+	//wxPGProperty* _rtn = pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
@@ -1407,7 +1407,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetCell)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __SetChoices, "SetChoices")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "choices", VTYPE_number, OCCUR_Once);
 }
 
@@ -1416,7 +1416,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetChoices)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGChoices& choices = arg.GetNumber(0)
-	//pThis->GetEntity()->SetChoices(choices);
+	//bool _rtn = pThis->GetEntity()->SetChoices(choices);
 	return Value::Nil;
 }
 
@@ -1529,7 +1529,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetLabel)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __SetMaxLength, "SetMaxLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "maxLen", VTYPE_number, OCCUR_Once);
 }
 
@@ -1538,7 +1538,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetMaxLength)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxLen = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxLength(maxLen);
+	//bool _rtn = pThis->GetEntity()->SetMaxLength(maxLen);
 	return Value::Nil;
 }
 
@@ -1698,27 +1698,27 @@ Gura_ImplementMethod(wx_PGProperty, __SetWasModified)
 
 Gura_DeclareMethodAlias(wx_PGProperty, __UpdateParentValues, "UpdateParentValues")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __UpdateParentValues)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->UpdateParentValues();
+	//wxPGProperty* _rtn = pThis->GetEntity()->UpdateParentValues();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGProperty, __UsesAutoUnspecified, "UsesAutoUnspecified")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGProperty, __UsesAutoUnspecified)
 {
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->UsesAutoUnspecified();
+	//bool _rtn = pThis->GetEntity()->UsesAutoUnspecified();
 	return Value::Nil;
 }
 

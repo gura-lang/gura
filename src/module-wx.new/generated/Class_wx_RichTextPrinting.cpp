@@ -39,7 +39,7 @@ String Object_wx_RichTextPrinting::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextPrinting, "RichTextPrinting")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_RichTextPrinting));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__RichTextPrinting)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetFooterText, "GetFooterText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
@@ -70,26 +70,26 @@ Gura_ImplementMethod(wx_RichTextPrinting, __GetFooterText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFooterText(page, location);
+	//wxString _rtn = pThis->GetEntity()->GetFooterText(page, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetHeaderFooterData, "GetHeaderFooterData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetHeaderFooterData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeaderFooterData();
+	//const wxRichTextHeaderFooterData& _rtn = pThis->GetEntity()->GetHeaderFooterData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetHeaderText, "GetHeaderText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "location", VTYPE_number, OCCUR_Once);
 }
@@ -100,72 +100,72 @@ Gura_ImplementMethod(wx_RichTextPrinting, __GetHeaderText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetHeaderText(page, location);
+	//wxString _rtn = pThis->GetEntity()->GetHeaderText(page, location);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetPageSetupData, "GetPageSetupData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetPageSetupData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSetupData();
+	//wxPageSetupDialogData* _rtn = pThis->GetEntity()->GetPageSetupData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetParentWindow, "GetParentWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetParentWindow)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParentWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetParentWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetPreviewRect, "GetPreviewRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetPreviewRect)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPreviewRect();
+	//const wxRect& _rtn = pThis->GetEntity()->GetPreviewRect();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetPrintData, "GetPrintData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetPrintData)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintData();
+	//wxPrintData* _rtn = pThis->GetEntity()->GetPrintData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __GetTitle, "GetTitle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextPrinting, __GetTitle)
 {
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTitle();
+	//const wxString& _rtn = pThis->GetEntity()->GetTitle();
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PageSetup)
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __PreviewBuffer, "PreviewBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 }
 
@@ -193,13 +193,13 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PreviewBuffer)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextBuffer& buffer = arg.GetNumber(0)
-	//pThis->GetEntity()->PreviewBuffer(buffer);
+	//bool _rtn = pThis->GetEntity()->PreviewBuffer(buffer);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __PreviewFile, "PreviewFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "richTextFile", VTYPE_number, OCCUR_Once);
 }
 
@@ -208,13 +208,13 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PreviewFile)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& richTextFile = arg.GetNumber(0)
-	//pThis->GetEntity()->PreviewFile(richTextFile);
+	//bool _rtn = pThis->GetEntity()->PreviewFile(richTextFile);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __PrintBuffer, "PrintBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "showPrintDialog", VTYPE_number, OCCUR_Once);
 }
@@ -225,13 +225,13 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PrintBuffer)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextBuffer& buffer = arg.GetNumber(0)
 	//bool showPrintDialog = arg.GetNumber(1)
-	//pThis->GetEntity()->PrintBuffer(buffer, showPrintDialog);
+	//bool _rtn = pThis->GetEntity()->PrintBuffer(buffer, showPrintDialog);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextPrinting, __PrintFile, "PrintFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "richTextFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "showPrintDialog", VTYPE_number, OCCUR_Once);
 }
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, __PrintFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& richTextFile = arg.GetNumber(0)
 	//bool showPrintDialog = arg.GetNumber(1)
-	//pThis->GetEntity()->PrintFile(richTextFile, showPrintDialog);
+	//bool _rtn = pThis->GetEntity()->PrintFile(richTextFile, showPrintDialog);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_WindowDisabler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__WindowDisabler, "WindowDisabler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "disable", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__WindowDisabler)
 
 Gura_DeclareFunctionAlias(__WindowDisabler_1, "WindowDisabler_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winToSkip", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_WindowDisabler));
 	DeclareBlock(OCCUR_ZeroOrOnce);

@@ -39,7 +39,7 @@ String Object_wx_TextAttr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TextAttr, "TextAttr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TextAttr)
 
 Gura_DeclareFunctionAlias(__TextAttr_1, "TextAttr_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "colText", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colBack", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
@@ -73,7 +73,7 @@ Gura_ImplementFunction(__TextAttr_1)
 
 Gura_DeclareFunctionAlias(__TextAttr_2, "TextAttr_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TextAttr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(__TextAttr_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TextAttr, __Apply, "Apply")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "compareWith", VTYPE_number, OCCUR_Once);
 }
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_TextAttr, __Apply)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttr& style = arg.GetNumber(0)
 	//const wxTextAttr* compareWith = arg.GetNumber(1)
-	//pThis->GetEntity()->Apply(style, compareWith);
+	//bool _rtn = pThis->GetEntity()->Apply(style, compareWith);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_TextAttr, __Merge)
 
 Gura_DeclareMethodAlias(wx_TextAttr, __Merge_1, "Merge_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "overlay", VTYPE_number, OCCUR_Once);
 }
@@ -134,13 +134,13 @@ Gura_ImplementMethod(wx_TextAttr, __Merge_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttr& base = arg.GetNumber(0)
 	//const wxTextAttr& overlay = arg.GetNumber(1)
-	//pThis->GetEntity()->Merge(base, overlay);
+	//wxTextAttr _rtn = pThis->GetEntity()->Merge(base, overlay);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __EqPartial, "EqPartial")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "attr", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "weakTest", VTYPE_number, OCCUR_Once);
 }
@@ -151,143 +151,143 @@ Gura_ImplementMethod(wx_TextAttr, __EqPartial)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttr& attr = arg.GetNumber(0)
 	//bool weakTest = arg.GetNumber(1)
-	//pThis->GetEntity()->EqPartial(attr, weakTest);
+	//bool _rtn = pThis->GetEntity()->EqPartial(attr, weakTest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetAlignment, "GetAlignment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetAlignment)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlignment();
+	//wxTextAttrAlignment _rtn = pThis->GetEntity()->GetAlignment();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBackgroundColour, "GetBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBackgroundColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBackgroundColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBulletFont, "GetBulletFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBulletFont)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBulletFont();
+	//const wxString& _rtn = pThis->GetEntity()->GetBulletFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBulletName, "GetBulletName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBulletName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBulletName();
+	//const wxString& _rtn = pThis->GetEntity()->GetBulletName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBulletNumber, "GetBulletNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBulletNumber)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBulletNumber();
+	//int _rtn = pThis->GetEntity()->GetBulletNumber();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBulletStyle, "GetBulletStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBulletStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBulletStyle();
+	//int _rtn = pThis->GetEntity()->GetBulletStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetBulletText, "GetBulletText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetBulletText)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBulletText();
+	//const wxString& _rtn = pThis->GetEntity()->GetBulletText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetCharacterStyleName, "GetCharacterStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetCharacterStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCharacterStyleName();
+	//const wxString& _rtn = pThis->GetEntity()->GetCharacterStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFlags)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//long _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFont)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFont();
+	//wxFont _rtn = pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontAttributes, "GetFontAttributes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 }
@@ -298,377 +298,377 @@ Gura_ImplementMethod(wx_TextAttr, __GetFontAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFontAttributes(font, flags);
+	//bool _rtn = pThis->GetEntity()->GetFontAttributes(font, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontEncoding, "GetFontEncoding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontEncoding)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontEncoding();
+	//wxFontEncoding _rtn = pThis->GetEntity()->GetFontEncoding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontFaceName, "GetFontFaceName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontFaceName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontFaceName();
+	//const wxString& _rtn = pThis->GetEntity()->GetFontFaceName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontFamily, "GetFontFamily")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontFamily)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontFamily();
+	//wxFontFamily _rtn = pThis->GetEntity()->GetFontFamily();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontSize, "GetFontSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontSize)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontSize();
+	//int _rtn = pThis->GetEntity()->GetFontSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontStyle, "GetFontStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontStyle();
+	//wxFontStyle _rtn = pThis->GetEntity()->GetFontStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontUnderlined, "GetFontUnderlined")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontUnderlined)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontUnderlined();
+	//bool _rtn = pThis->GetEntity()->GetFontUnderlined();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetFontWeight, "GetFontWeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetFontWeight)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontWeight();
+	//wxFontWeight _rtn = pThis->GetEntity()->GetFontWeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetLeftIndent, "GetLeftIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetLeftIndent)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLeftIndent();
+	//long _rtn = pThis->GetEntity()->GetLeftIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetLeftSubIndent, "GetLeftSubIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetLeftSubIndent)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLeftSubIndent();
+	//long _rtn = pThis->GetEntity()->GetLeftSubIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetLineSpacing, "GetLineSpacing")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetLineSpacing)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLineSpacing();
+	//int _rtn = pThis->GetEntity()->GetLineSpacing();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetListStyleName, "GetListStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetListStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetListStyleName();
+	//const wxString& _rtn = pThis->GetEntity()->GetListStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetOutlineLevel, "GetOutlineLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetOutlineLevel)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOutlineLevel();
+	//int _rtn = pThis->GetEntity()->GetOutlineLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetParagraphSpacingAfter, "GetParagraphSpacingAfter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetParagraphSpacingAfter)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParagraphSpacingAfter();
+	//int _rtn = pThis->GetEntity()->GetParagraphSpacingAfter();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetParagraphSpacingBefore, "GetParagraphSpacingBefore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetParagraphSpacingBefore)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParagraphSpacingBefore();
+	//int _rtn = pThis->GetEntity()->GetParagraphSpacingBefore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetParagraphStyleName, "GetParagraphStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetParagraphStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParagraphStyleName();
+	//const wxString& _rtn = pThis->GetEntity()->GetParagraphStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetRightIndent, "GetRightIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetRightIndent)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRightIndent();
+	//long _rtn = pThis->GetEntity()->GetRightIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetTabs, "GetTabs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetTabs)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTabs();
+	//const wxArrayInt& _rtn = pThis->GetEntity()->GetTabs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetTextColour, "GetTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetTextColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetTextColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetTextEffectFlags, "GetTextEffectFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetTextEffectFlags)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextEffectFlags();
+	//int _rtn = pThis->GetEntity()->GetTextEffectFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetTextEffects, "GetTextEffects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetTextEffects)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextEffects();
+	//int _rtn = pThis->GetEntity()->GetTextEffects();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __GetURL)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//const wxString& _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasAlignment, "HasAlignment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasAlignment)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasAlignment();
+	//bool _rtn = pThis->GetEntity()->HasAlignment();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasBackgroundColour, "HasBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasBackgroundColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBackgroundColour();
+	//bool _rtn = pThis->GetEntity()->HasBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasBulletName, "HasBulletName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasBulletName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBulletName();
+	//bool _rtn = pThis->GetEntity()->HasBulletName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasBulletNumber, "HasBulletNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasBulletNumber)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBulletNumber();
+	//bool _rtn = pThis->GetEntity()->HasBulletNumber();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasBulletStyle, "HasBulletStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasBulletStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBulletStyle();
+	//bool _rtn = pThis->GetEntity()->HasBulletStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasBulletText, "HasBulletText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasBulletText)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasBulletText();
+	//bool _rtn = pThis->GetEntity()->HasBulletText();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasCharacterStyleName, "HasCharacterStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasCharacterStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasCharacterStyleName();
+	//bool _rtn = pThis->GetEntity()->HasCharacterStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFlag, "HasFlag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flag", VTYPE_number, OCCUR_Once);
 }
 
@@ -677,345 +677,345 @@ Gura_ImplementMethod(wx_TextAttr, __HasFlag)
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long flag = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFlag(flag);
+	//bool _rtn = pThis->GetEntity()->HasFlag(flag);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFont, "HasFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFont)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFont();
+	//bool _rtn = pThis->GetEntity()->HasFont();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontEncoding, "HasFontEncoding")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontEncoding)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontEncoding();
+	//bool _rtn = pThis->GetEntity()->HasFontEncoding();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontFaceName, "HasFontFaceName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontFaceName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontFaceName();
+	//bool _rtn = pThis->GetEntity()->HasFontFaceName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontFamily, "HasFontFamily")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontFamily)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontFamily();
+	//bool _rtn = pThis->GetEntity()->HasFontFamily();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontItalic, "HasFontItalic")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontItalic)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontItalic();
+	//bool _rtn = pThis->GetEntity()->HasFontItalic();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontSize, "HasFontSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontSize)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontSize();
+	//bool _rtn = pThis->GetEntity()->HasFontSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontPointSize, "HasFontPointSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontPointSize)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontPointSize();
+	//bool _rtn = pThis->GetEntity()->HasFontPointSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontPixelSize, "HasFontPixelSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontPixelSize)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontPixelSize();
+	//bool _rtn = pThis->GetEntity()->HasFontPixelSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontUnderlined, "HasFontUnderlined")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontUnderlined)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontUnderlined();
+	//bool _rtn = pThis->GetEntity()->HasFontUnderlined();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasFontWeight, "HasFontWeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasFontWeight)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasFontWeight();
+	//bool _rtn = pThis->GetEntity()->HasFontWeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasLeftIndent, "HasLeftIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasLeftIndent)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasLeftIndent();
+	//bool _rtn = pThis->GetEntity()->HasLeftIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasLineSpacing, "HasLineSpacing")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasLineSpacing)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasLineSpacing();
+	//bool _rtn = pThis->GetEntity()->HasLineSpacing();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasListStyleName, "HasListStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasListStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasListStyleName();
+	//bool _rtn = pThis->GetEntity()->HasListStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasOutlineLevel, "HasOutlineLevel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasOutlineLevel)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasOutlineLevel();
+	//bool _rtn = pThis->GetEntity()->HasOutlineLevel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasPageBreak, "HasPageBreak")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasPageBreak)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasPageBreak();
+	//bool _rtn = pThis->GetEntity()->HasPageBreak();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasParagraphSpacingAfter, "HasParagraphSpacingAfter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasParagraphSpacingAfter)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasParagraphSpacingAfter();
+	//bool _rtn = pThis->GetEntity()->HasParagraphSpacingAfter();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasParagraphSpacingBefore, "HasParagraphSpacingBefore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasParagraphSpacingBefore)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasParagraphSpacingBefore();
+	//bool _rtn = pThis->GetEntity()->HasParagraphSpacingBefore();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasParagraphStyleName, "HasParagraphStyleName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasParagraphStyleName)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasParagraphStyleName();
+	//bool _rtn = pThis->GetEntity()->HasParagraphStyleName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasRightIndent, "HasRightIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasRightIndent)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasRightIndent();
+	//bool _rtn = pThis->GetEntity()->HasRightIndent();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasTabs, "HasTabs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasTabs)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasTabs();
+	//bool _rtn = pThis->GetEntity()->HasTabs();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasTextColour, "HasTextColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasTextColour)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasTextColour();
+	//bool _rtn = pThis->GetEntity()->HasTextColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasTextEffects, "HasTextEffects")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasTextEffects)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasTextEffects();
+	//bool _rtn = pThis->GetEntity()->HasTextEffects();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __HasURL, "HasURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __HasURL)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasURL();
+	//bool _rtn = pThis->GetEntity()->HasURL();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __IsCharacterStyle, "IsCharacterStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __IsCharacterStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCharacterStyle();
+	//bool _rtn = pThis->GetEntity()->IsCharacterStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __IsDefault, "IsDefault")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __IsDefault)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDefault();
+	//bool _rtn = pThis->GetEntity()->IsDefault();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TextAttr, __IsParagraphStyle, "IsParagraphStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TextAttr, __IsParagraphStyle)
 {
 	Object_wx_TextAttr *pThis = Object_wx_TextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsParagraphStyle();
+	//bool _rtn = pThis->GetEntity()->IsParagraphStyle();
 	return Value::Nil;
 }
 

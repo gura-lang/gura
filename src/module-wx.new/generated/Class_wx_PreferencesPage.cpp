@@ -39,7 +39,7 @@ String Object_wx_PreferencesPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PreferencesPage, "PreferencesPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PreferencesPage));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,33 +55,33 @@ Gura_ImplementFunction(__PreferencesPage)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PreferencesPage, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreferencesPage, __GetName)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PreferencesPage, __GetLargeIcon, "GetLargeIcon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreferencesPage, __GetLargeIcon)
 {
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLargeIcon();
+	//wxBitmap _rtn = pThis->GetEntity()->GetLargeIcon();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PreferencesPage, __CreateWindow, "CreateWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_PreferencesPage, __CreateWindow)
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateWindow(parent);
+	//wxWindow* _rtn = pThis->GetEntity()->CreateWindow(parent);
 	return Value::Nil;
 }
 

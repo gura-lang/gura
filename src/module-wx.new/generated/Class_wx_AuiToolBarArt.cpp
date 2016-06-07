@@ -39,7 +39,7 @@ String Object_wx_AuiToolBarArt::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiToolBarArt, "AuiToolBarArt")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiToolBarArt));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,14 +55,14 @@ Gura_ImplementFunction(__AuiToolBarArt)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarArt, __Clone)
 {
 	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxAuiToolBarArt* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -83,14 +83,14 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __SetFlags)
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarArt, __GetFlags)
 {
 	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//unsigned int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
@@ -111,14 +111,14 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __SetFont)
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetFont, "GetFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarArt, __GetFont)
 {
 	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFont();
+	//wxFont _rtn = pThis->GetEntity()->GetFont();
 	return Value::Nil;
 }
 
@@ -139,14 +139,14 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __SetTextOrientation)
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetTextOrientation, "GetTextOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiToolBarArt, __GetTextOrientation)
 {
 	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTextOrientation();
+	//int _rtn = pThis->GetEntity()->GetTextOrientation();
 	return Value::Nil;
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __DrawOverflowButton)
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetLabelSize, "GetLabelSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -346,13 +346,13 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __GetLabelSize)
 	//wxDC& dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
 	//const wxAuiToolBarItem& item = arg.GetNumber(2)
-	//pThis->GetEntity()->GetLabelSize(dc, wnd, item);
+	//wxSize _rtn = pThis->GetEntity()->GetLabelSize(dc, wnd, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetToolSize, "GetToolSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
@@ -365,13 +365,13 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __GetToolSize)
 	//wxDC& dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
 	//const wxAuiToolBarItem& item = arg.GetNumber(2)
-	//pThis->GetEntity()->GetToolSize(dc, wnd, item);
+	//wxSize _rtn = pThis->GetEntity()->GetToolSize(dc, wnd, item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __GetElementSize, "GetElementSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "element_id", VTYPE_number, OCCUR_Once);
 }
 
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __GetElementSize)
 	Object_wx_AuiToolBarArt *pThis = Object_wx_AuiToolBarArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int element_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetElementSize(element_id);
+	//int _rtn = pThis->GetEntity()->GetElementSize(element_id);
 	return Value::Nil;
 }
 
@@ -403,7 +403,7 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __SetElementSize)
 
 Gura_DeclareMethodAlias(wx_AuiToolBarArt, __ShowDropDown, "ShowDropDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "items", VTYPE_number, OCCUR_Once);
 }
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_AuiToolBarArt, __ShowDropDown)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* wnd = arg.GetNumber(0)
 	//const wxAuiToolBarItemArray& items = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowDropDown(wnd, items);
+	//int _rtn = pThis->GetEntity()->ShowDropDown(wnd, items);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlContainerCell, "HtmlContainerCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlContainerCell));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,46 +57,46 @@ Gura_ImplementFunction(__HtmlContainerCell)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetAlignHor, "GetAlignHor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlContainerCell, __GetAlignHor)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlignHor();
+	//int _rtn = pThis->GetEntity()->GetAlignHor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetAlignVer, "GetAlignVer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlContainerCell, __GetAlignVer)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlignVer();
+	//int _rtn = pThis->GetEntity()->GetAlignVer();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetBackgroundColour, "GetBackgroundColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlContainerCell, __GetBackgroundColour)
 {
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBackgroundColour();
+	//wxColour _rtn = pThis->GetEntity()->GetBackgroundColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetIndent, "GetIndent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndent)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIndent(ind);
+	//int _rtn = pThis->GetEntity()->GetIndent(ind);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlContainerCell, __GetIndentUnits, "GetIndentUnits")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ind", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndentUnits)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIndentUnits(ind);
+	//int _rtn = pThis->GetEntity()->GetIndentUnits(ind);
 	return Value::Nil;
 }
 

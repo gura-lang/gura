@@ -39,33 +39,33 @@ String Object_wx_ArchiveInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArchiveInputStream, __CloseEntry, "CloseEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveInputStream, __CloseEntry)
 {
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CloseEntry();
+	//bool _rtn = pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveInputStream, __GetNextEntry, "GetNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveInputStream, __GetNextEntry)
 {
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNextEntry();
+	//wxArchiveEntry* _rtn = pThis->GetEntity()->GetNextEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveInputStream, __OpenEntry, "OpenEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, __OpenEntry)
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OpenEntry(entry);
+	//bool _rtn = pThis->GetEntity()->OpenEntry(entry);
 	return Value::Nil;
 }
 

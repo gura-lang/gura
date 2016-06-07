@@ -39,7 +39,7 @@ String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlEasyPrinting, "HtmlEasyPrinting")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parentWindow", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlEasyPrinting));
@@ -59,53 +59,53 @@ Gura_ImplementFunction(__HtmlEasyPrinting)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetName)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//const wxString& _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetPageSetupData, "GetPageSetupData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetPageSetupData)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSetupData();
+	//wxPageSetupDialogData* _rtn = pThis->GetEntity()->GetPageSetupData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetParentWindow, "GetParentWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetParentWindow)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetParentWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetParentWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __GetPrintData, "GetPrintData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlEasyPrinting, __GetPrintData)
 {
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPrintData();
+	//wxPrintData* _rtn = pThis->GetEntity()->GetPrintData();
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PageSetup)
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PreviewFile, "PreviewFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "htmlfile", VTYPE_number, OCCUR_Once);
 }
 
@@ -133,13 +133,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewFile)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmlfile = arg.GetNumber(0)
-	//pThis->GetEntity()->PreviewFile(htmlfile);
+	//bool _rtn = pThis->GetEntity()->PreviewFile(htmlfile);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PreviewText, "PreviewText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "htmltext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 }
@@ -150,13 +150,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmltext = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
-	//pThis->GetEntity()->PreviewText(htmltext, basepath);
+	//bool _rtn = pThis->GetEntity()->PreviewText(htmltext, basepath);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PrintFile, "PrintFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "htmlfile", VTYPE_number, OCCUR_Once);
 }
 
@@ -165,13 +165,13 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintFile)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmlfile = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintFile(htmlfile);
+	//bool _rtn = pThis->GetEntity()->PrintFile(htmlfile);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __PrintText, "PrintText")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "htmltext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "basepath", VTYPE_number, OCCUR_Once);
 }
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmltext = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
-	//pThis->GetEntity()->PrintText(htmltext, basepath);
+	//bool _rtn = pThis->GetEntity()->PrintText(htmltext, basepath);
 	return Value::Nil;
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetParentWindow)
 
 Gura_DeclareMethodAlias(wx_HtmlEasyPrinting, __CheckFit, "CheckFit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pageArea", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "docArea", VTYPE_number, OCCUR_Once);
 }
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __CheckFit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& pageArea = arg.GetNumber(0)
 	//const wxSize& docArea = arg.GetNumber(1)
-	//pThis->GetEntity()->CheckFit(pageArea, docArea);
+	//bool _rtn = pThis->GetEntity()->CheckFit(pageArea, docArea);
 	return Value::Nil;
 }
 

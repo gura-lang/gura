@@ -39,7 +39,7 @@ String Object_wx_Frame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Frame, "Frame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Frame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Frame)
 
 Gura_DeclareFunctionAlias(__Frame_1, "Frame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_Frame, __Centre)
 
 Gura_DeclareMethodAlias(wx_Frame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
@@ -118,13 +118,13 @@ Gura_ImplementMethod(wx_Frame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __CreateStatusBar, "CreateStatusBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -139,13 +139,13 @@ Gura_ImplementMethod(wx_Frame, __CreateStatusBar)
 	//long style = arg.GetNumber(1)
 	//wxWindowID id = arg.GetNumber(2)
 	//const wxString& name = arg.GetNumber(3)
-	//pThis->GetEntity()->CreateStatusBar(number, style, id, name);
+	//wxStatusBar* _rtn = pThis->GetEntity()->CreateStatusBar(number, style, id, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __CreateToolBar, "CreateToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Frame, __CreateToolBar)
 	//long style = arg.GetNumber(0)
 	//wxWindowID id = arg.GetNumber(1)
 	//const wxString& name = arg.GetNumber(2)
-	//pThis->GetEntity()->CreateToolBar(style, id, name);
+	//wxToolBar* _rtn = pThis->GetEntity()->CreateToolBar(style, id, name);
 	return Value::Nil;
 }
 
@@ -181,72 +181,72 @@ Gura_ImplementMethod(wx_Frame, __DoGiveHelp)
 
 Gura_DeclareMethodAlias(wx_Frame, __GetClientAreaOrigin, "GetClientAreaOrigin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __GetClientAreaOrigin)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClientAreaOrigin();
+	//wxPoint _rtn = pThis->GetEntity()->GetClientAreaOrigin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __GetMenuBar, "GetMenuBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __GetMenuBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMenuBar();
+	//wxMenuBar* _rtn = pThis->GetEntity()->GetMenuBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __GetStatusBar, "GetStatusBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __GetStatusBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStatusBar();
+	//wxStatusBar* _rtn = pThis->GetEntity()->GetStatusBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __GetStatusBarPane, "GetStatusBarPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __GetStatusBarPane)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStatusBarPane();
+	//int _rtn = pThis->GetEntity()->GetStatusBarPane();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __GetToolBar, "GetToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __GetToolBar)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToolBar();
+	//wxToolBar* _rtn = pThis->GetEntity()->GetToolBar();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __OnCreateStatusBar, "OnCreateStatusBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "number", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -261,13 +261,13 @@ Gura_ImplementMethod(wx_Frame, __OnCreateStatusBar)
 	//long style = arg.GetNumber(1)
 	//wxWindowID id = arg.GetNumber(2)
 	//const wxString& name = arg.GetNumber(3)
-	//pThis->GetEntity()->OnCreateStatusBar(number, style, id, name);
+	//wxStatusBar* _rtn = pThis->GetEntity()->OnCreateStatusBar(number, style, id, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __OnCreateToolBar, "OnCreateToolBar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
@@ -280,13 +280,13 @@ Gura_ImplementMethod(wx_Frame, __OnCreateToolBar)
 	//long style = arg.GetNumber(0)
 	//wxWindowID id = arg.GetNumber(1)
 	//const wxString& name = arg.GetNumber(2)
-	//pThis->GetEntity()->OnCreateToolBar(style, id, name);
+	//wxToolBar* _rtn = pThis->GetEntity()->OnCreateToolBar(style, id, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Frame, __ProcessCommand, "ProcessCommand")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 }
 
@@ -295,7 +295,7 @@ Gura_ImplementMethod(wx_Frame, __ProcessCommand)
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->ProcessCommand(id);
+	//bool _rtn = pThis->GetEntity()->ProcessCommand(id);
 	return Value::Nil;
 }
 
@@ -395,14 +395,14 @@ Gura_ImplementMethod(wx_Frame, __SetToolBar)
 
 Gura_DeclareMethodAlias(wx_Frame, __MSWGetTaskBarButton, "MSWGetTaskBarButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Frame, __MSWGetTaskBarButton)
 {
 	Object_wx_Frame *pThis = Object_wx_Frame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MSWGetTaskBarButton();
+	//wxTaskBarButton* _rtn = pThis->GetEntity()->MSWGetTaskBarButton();
 	return Value::Nil;
 }
 

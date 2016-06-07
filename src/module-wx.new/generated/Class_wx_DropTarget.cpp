@@ -39,7 +39,7 @@ String Object_wx_DropTarget::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DropTarget, "DropTarget")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,20 +57,20 @@ Gura_ImplementFunction(__DropTarget)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DropTarget, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DropTarget, __GetData)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//bool _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DropTarget, __OnData, "OnData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
@@ -83,13 +83,13 @@ Gura_ImplementMethod(wx_DropTarget, __OnData)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnData(x, y, defResult);
+	//wxDragResult _rtn = pThis->GetEntity()->OnData(x, y, defResult);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DropTarget, __OnDragOver, "OnDragOver")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
@@ -102,13 +102,13 @@ Gura_ImplementMethod(wx_DropTarget, __OnDragOver)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnDragOver(x, y, defResult);
+	//wxDragResult _rtn = pThis->GetEntity()->OnDragOver(x, y, defResult);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DropTarget, __OnDrop, "OnDrop")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -119,13 +119,13 @@ Gura_ImplementMethod(wx_DropTarget, __OnDrop)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->OnDrop(x, y);
+	//bool _rtn = pThis->GetEntity()->OnDrop(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DropTarget, __OnEnter, "OnEnter")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "defResult", VTYPE_number, OCCUR_Once);
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_DropTarget, __OnEnter)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnEnter(x, y, defResult);
+	//wxDragResult _rtn = pThis->GetEntity()->OnEnter(x, y, defResult);
 	return Value::Nil;
 }
 
@@ -157,14 +157,14 @@ Gura_ImplementMethod(wx_DropTarget, __OnLeave)
 
 Gura_DeclareMethodAlias(wx_DropTarget, __GetDataObject, "GetDataObject")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DropTarget, __GetDataObject)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDataObject();
+	//wxDataObject* _rtn = pThis->GetEntity()->GetDataObject();
 	return Value::Nil;
 }
 
@@ -200,14 +200,14 @@ Gura_ImplementMethod(wx_DropTarget, __SetDefaultAction)
 
 Gura_DeclareMethodAlias(wx_DropTarget, __GetDefaultAction, "GetDefaultAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DropTarget, __GetDefaultAction)
 {
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultAction();
+	//wxDragResult _rtn = pThis->GetEntity()->GetDefaultAction();
 	return Value::Nil;
 }
 

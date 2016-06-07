@@ -39,7 +39,7 @@ String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CalculateLayoutEvent, "CalculateLayoutEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CalculateLayoutEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,27 +57,27 @@ Gura_ImplementFunction(__CalculateLayoutEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, __GetFlags)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CalculateLayoutEvent, __GetRect, "GetRect")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CalculateLayoutEvent, __GetRect)
 {
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRect();
+	//wxRect _rtn = pThis->GetEntity()->GetRect();
 	return Value::Nil;
 }
 

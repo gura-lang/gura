@@ -39,7 +39,7 @@ String Object_wx_ContextHelp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ContextHelp, "ContextHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "doNow", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ContextHelp));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__ContextHelp)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ContextHelp, __BeginContextHelp, "BeginContextHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -68,20 +68,20 @@ Gura_ImplementMethod(wx_ContextHelp, __BeginContextHelp)
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->BeginContextHelp(window);
+	//bool _rtn = pThis->GetEntity()->BeginContextHelp(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ContextHelp, __EndContextHelp, "EndContextHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ContextHelp, __EndContextHelp)
 {
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->EndContextHelp();
+	//bool _rtn = pThis->GetEntity()->EndContextHelp();
 	return Value::Nil;
 }
 

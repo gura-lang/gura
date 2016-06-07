@@ -39,7 +39,7 @@ String Object_wx_PreferencesEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PreferencesEditor, "PreferencesEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "title", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PreferencesEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -100,27 +100,27 @@ Gura_ImplementMethod(wx_PreferencesEditor, __Dismiss)
 
 Gura_DeclareMethodAlias(wx_PreferencesEditor, __ShouldApplyChangesImmediately, "ShouldApplyChangesImmediately")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreferencesEditor, __ShouldApplyChangesImmediately)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShouldApplyChangesImmediately();
+	//bool _rtn = pThis->GetEntity()->ShouldApplyChangesImmediately();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PreferencesEditor, __ShownModally, "ShownModally")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PreferencesEditor, __ShownModally)
 {
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShownModally();
+	//bool _rtn = pThis->GetEntity()->ShownModally();
 	return Value::Nil;
 }
 

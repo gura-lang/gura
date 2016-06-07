@@ -39,7 +39,7 @@ String Object_wx_HelpControllerHelpProvider::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HelpControllerHelpProvider, "HelpControllerHelpProvider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "hc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HelpControllerHelpProvider));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__HelpControllerHelpProvider)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HelpControllerHelpProvider, __GetHelpController, "GetHelpController")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HelpControllerHelpProvider, __GetHelpController)
 {
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHelpController();
+	//wxHelpControllerBase* _rtn = pThis->GetEntity()->GetHelpController();
 	return Value::Nil;
 }
 

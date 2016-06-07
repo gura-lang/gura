@@ -39,7 +39,7 @@ String Object_wx_Icon::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Icon, "Icon")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Icon)
 
 Gura_DeclareFunctionAlias(__Icon_1, "Icon_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Icon_1)
 
 Gura_DeclareFunctionAlias(__Icon_2, "Icon_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "height", VTYPE_number, OCCUR_Once);
@@ -86,7 +86,7 @@ Gura_ImplementFunction(__Icon_2)
 
 Gura_DeclareFunctionAlias(__Icon_3, "Icon_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bits", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__Icon_3)
 
 Gura_DeclareFunctionAlias(__Icon_4, "Icon_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desiredWidth", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_ImplementFunction(__Icon_4)
 
 Gura_DeclareFunctionAlias(__Icon_5, "Icon_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "loc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Icon));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -140,7 +140,7 @@ Gura_ImplementFunction(__Icon_5)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Icon, __CreateFromHICON, "CreateFromHICON")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "icon", VTYPE_number, OCCUR_Once);
 }
 
@@ -149,13 +149,13 @@ Gura_ImplementMethod(wx_Icon, __CreateFromHICON)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//WXHICON icon = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateFromHICON(icon);
+	//bool _rtn = pThis->GetEntity()->CreateFromHICON(icon);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Icon, __ConvertToDisabled, "ConvertToDisabled")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "brightness", VTYPE_number, OCCUR_Once);
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_Icon, __ConvertToDisabled)
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned char brightness = arg.GetNumber(0)
-	//pThis->GetEntity()->ConvertToDisabled(brightness);
+	//wxIcon _rtn = pThis->GetEntity()->ConvertToDisabled(brightness);
 	return Value::Nil;
 }
 
@@ -185,59 +185,59 @@ Gura_ImplementMethod(wx_Icon, __CopyFromBitmap)
 
 Gura_DeclareMethodAlias(wx_Icon, __GetDepth, "GetDepth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Icon, __GetDepth)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDepth();
+	//int _rtn = pThis->GetEntity()->GetDepth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Icon, __GetHeight, "GetHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Icon, __GetHeight)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHeight();
+	//int _rtn = pThis->GetEntity()->GetHeight();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Icon, __GetWidth, "GetWidth")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Icon, __GetWidth)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWidth();
+	//int _rtn = pThis->GetEntity()->GetWidth();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Icon, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Icon, __IsOk)
 {
 	Object_wx_Icon *pThis = Object_wx_Icon::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Icon, __LoadFile, "LoadFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desiredWidth", VTYPE_number, OCCUR_Once);
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_Icon, __LoadFile)
 	//wxBitmapType type = arg.GetNumber(1)
 	//int desiredWidth = arg.GetNumber(2)
 	//int desiredHeight = arg.GetNumber(3)
-	//pThis->GetEntity()->LoadFile(name, type, desiredWidth, desiredHeight);
+	//bool _rtn = pThis->GetEntity()->LoadFile(name, type, desiredWidth, desiredHeight);
 	return Value::Nil;
 }
 

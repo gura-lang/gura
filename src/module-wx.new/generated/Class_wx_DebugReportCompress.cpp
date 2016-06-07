@@ -39,7 +39,7 @@ String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DebugReportCompress, "DebugReportCompress")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DebugReportCompress));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -85,14 +85,14 @@ Gura_ImplementMethod(wx_DebugReportCompress, __SetCompressedFileBaseName)
 
 Gura_DeclareMethodAlias(wx_DebugReportCompress, __GetCompressedFileName, "GetCompressedFileName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DebugReportCompress, __GetCompressedFileName)
 {
 	Object_wx_DebugReportCompress *pThis = Object_wx_DebugReportCompress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCompressedFileName();
+	//const wxString& _rtn = pThis->GetEntity()->GetCompressedFileName();
 	return Value::Nil;
 }
 

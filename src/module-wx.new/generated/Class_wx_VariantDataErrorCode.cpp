@@ -39,7 +39,7 @@ String Object_wx_VariantDataErrorCode::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VariantDataErrorCode, "VariantDataErrorCode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_VariantDataErrorCode));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__VariantDataErrorCode)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __GetValue, "GetValue")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataErrorCode, __GetValue)
 {
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetValue();
+	//SCODE _rtn = pThis->GetEntity()->GetValue();
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __SetValue)
 
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __Eq, "Eq")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -94,13 +94,13 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __Eq)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq(data);
+	//bool _rtn = pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __Write, "Write")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -109,39 +109,39 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __Write)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Write(str);
+	//bool _rtn = pThis->GetEntity()->Write(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataErrorCode, __Clone)
 {
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxVariantData* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __GetType, "GetType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VariantDataErrorCode, __GetType)
 {
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetType();
+	//wxString _rtn = pThis->GetEntity()->GetType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VariantDataErrorCode, __GetAsAny, "GetAsAny")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "any", VTYPE_number, OCCUR_Once);
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __GetAsAny)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsAny(any);
+	//bool _rtn = pThis->GetEntity()->GetAsAny(any);
 	return Value::Nil;
 }
 

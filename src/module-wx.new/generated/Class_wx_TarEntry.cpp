@@ -39,7 +39,7 @@ String Object_wx_TarEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TarEntry, "TarEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dt", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
@@ -58,7 +58,7 @@ Gura_ImplementFunction(__TarEntry)
 
 Gura_DeclareFunctionAlias(__TarEntry_1, "TarEntry_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TarEntry));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -76,14 +76,14 @@ Gura_ImplementFunction(__TarEntry_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TarEntry, __GetAccessTime, "GetAccessTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetAccessTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAccessTime();
+	//wxDateTime _rtn = pThis->GetEntity()->GetAccessTime();
 	return Value::Nil;
 }
 
@@ -104,14 +104,14 @@ Gura_ImplementMethod(wx_TarEntry, __SetAccessTime)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetCreateTime, "GetCreateTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetCreateTime)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCreateTime();
+	//wxDateTime _rtn = pThis->GetEntity()->GetCreateTime();
 	return Value::Nil;
 }
 
@@ -132,27 +132,27 @@ Gura_ImplementMethod(wx_TarEntry, __SetCreateTime)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetDevMajor, "GetDevMajor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetDevMajor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDevMajor();
+	//int _rtn = pThis->GetEntity()->GetDevMajor();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetDevMinor, "GetDevMinor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetDevMinor)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDevMinor();
+	//int _rtn = pThis->GetEntity()->GetDevMinor();
 	return Value::Nil;
 }
 
@@ -188,27 +188,27 @@ Gura_ImplementMethod(wx_TarEntry, __SetDevMinor)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetGroupId, "GetGroupId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetGroupId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGroupId();
+	//int _rtn = pThis->GetEntity()->GetGroupId();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetUserId, "GetUserId")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetUserId)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUserId();
+	//int _rtn = pThis->GetEntity()->GetUserId();
 	return Value::Nil;
 }
 
@@ -244,27 +244,27 @@ Gura_ImplementMethod(wx_TarEntry, __SetUserId)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetGroupName, "GetGroupName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetGroupName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGroupName();
+	//wxString _rtn = pThis->GetEntity()->GetGroupName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetUserName, "GetUserName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetUserName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUserName();
+	//wxString _rtn = pThis->GetEntity()->GetUserName();
 	return Value::Nil;
 }
 
@@ -300,14 +300,14 @@ Gura_ImplementMethod(wx_TarEntry, __SetUserName)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetLinkName, "GetLinkName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetLinkName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLinkName();
+	//wxString _rtn = pThis->GetEntity()->GetLinkName();
 	return Value::Nil;
 }
 
@@ -328,14 +328,14 @@ Gura_ImplementMethod(wx_TarEntry, __SetLinkName)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetMode, "GetMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetMode)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMode();
+	//int _rtn = pThis->GetEntity()->GetMode();
 	return Value::Nil;
 }
 
@@ -371,27 +371,27 @@ Gura_ImplementMethod(wx_TarEntry, __SetSize)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetSize)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxFileOffset _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetTypeFlag, "GetTypeFlag")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetTypeFlag)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTypeFlag();
+	//int _rtn = pThis->GetEntity()->GetTypeFlag();
 	return Value::Nil;
 }
 
@@ -412,20 +412,20 @@ Gura_ImplementMethod(wx_TarEntry, __SetTypeFlag)
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetInternalName, "GetInternalName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarEntry, __GetInternalName)
 {
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInternalName();
+	//wxString _rtn = pThis->GetEntity()->GetInternalName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, __GetInternalName_1, "GetInternalName_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pIsDir", VTYPE_number, OCCUR_Once);
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_TarEntry, __GetInternalName_1)
 	//const wxString& name = arg.GetNumber(0)
 	//wxPathFormat format = arg.GetNumber(1)
 	//bool* pIsDir = arg.GetNumber(2)
-	//pThis->GetEntity()->GetInternalName(name, format, pIsDir);
+	//wxString _rtn = pThis->GetEntity()->GetInternalName(name, format, pIsDir);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FontPickerCtrl, "FontPickerCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_FontPickerCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__FontPickerCtrl)
 
 Gura_DeclareFunctionAlias(__FontPickerCtrl_1, "FontPickerCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__FontPickerCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FontPickerCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "font", VTYPE_number, OCCUR_Once);
@@ -107,46 +107,46 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, font, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, font, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetMaxPointSize, "GetMaxPointSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontPickerCtrl, __GetMaxPointSize)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxPointSize();
+	//unsigned int _rtn = pThis->GetEntity()->GetMaxPointSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetSelectedColour, "GetSelectedColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontPickerCtrl, __GetSelectedColour)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedColour();
+	//wxColour _rtn = pThis->GetEntity()->GetSelectedColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FontPickerCtrl, __GetSelectedFont, "GetSelectedFont")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FontPickerCtrl, __GetSelectedFont)
 {
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectedFont();
+	//wxFont _rtn = pThis->GetEntity()->GetSelectedFont();
 	return Value::Nil;
 }
 

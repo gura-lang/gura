@@ -39,7 +39,7 @@ String Object_wx_MetafileDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MetafileDC, "MetafileDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MetafileDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__MetafileDC)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MetafileDC, __Close, "Close")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MetafileDC, __Close)
 {
 	Object_wx_MetafileDC *pThis = Object_wx_MetafileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Close();
+	//wxMetafile* _rtn = pThis->GetEntity()->Close();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_String::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__String, "String")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__String)
 
 Gura_DeclareFunctionAlias(__String_1, "String_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stringSrc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__String_1)
 
 Gura_DeclareFunctionAlias(__String_2, "String_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__String_2)
 
 Gura_DeclareFunctionAlias(__String_3, "String_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__String_3)
 
 Gura_DeclareFunctionAlias(__String_4, "String_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -118,7 +118,7 @@ Gura_ImplementFunction(__String_4)
 
 Gura_DeclareFunctionAlias(__String_5, "String_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nRepeat", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -135,7 +135,7 @@ Gura_ImplementFunction(__String_5)
 
 Gura_DeclareFunctionAlias(__String_6, "String_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -150,7 +150,7 @@ Gura_ImplementFunction(__String_6)
 
 Gura_DeclareFunctionAlias(__String_7, "String_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -167,7 +167,7 @@ Gura_ImplementFunction(__String_7)
 
 Gura_DeclareFunctionAlias(__String_8, "String_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -184,7 +184,7 @@ Gura_ImplementFunction(__String_8)
 
 Gura_DeclareFunctionAlias(__String_9, "String_9")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
@@ -203,7 +203,7 @@ Gura_ImplementFunction(__String_9)
 
 Gura_DeclareFunctionAlias(__String_10, "String_10")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -218,7 +218,7 @@ Gura_ImplementFunction(__String_10)
 
 Gura_DeclareFunctionAlias(__String_11, "String_11")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLength", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
@@ -235,7 +235,7 @@ Gura_ImplementFunction(__String_11)
 
 Gura_DeclareFunctionAlias(__String_12, "String_12")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -250,7 +250,7 @@ Gura_ImplementFunction(__String_12)
 
 Gura_DeclareFunctionAlias(__String_13, "String_13")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -265,7 +265,7 @@ Gura_ImplementFunction(__String_13)
 
 Gura_DeclareFunctionAlias(__String_14, "String_14")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -280,7 +280,7 @@ Gura_ImplementFunction(__String_14)
 
 Gura_DeclareFunctionAlias(__String_15, "String_15")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_String));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -298,59 +298,59 @@ Gura_ImplementFunction(__String_15)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_String, __Len, "Len")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Len)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Len();
+	//size_t _rtn = pThis->GetEntity()->Len();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Length, "Length")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Length)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Length();
+	//size_t _rtn = pThis->GetEntity()->Length();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __IsEmpty)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsNull, "IsNull")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __IsNull)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNull();
+	//bool _rtn = pThis->GetEntity()->IsNull();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __GetChar, "GetChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -359,26 +359,26 @@ Gura_ImplementMethod(wx_String, __GetChar)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChar(n);
+	//wxUniChar _rtn = pThis->GetEntity()->GetChar(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __GetData, "GetData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __GetData)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetData();
+	//const wxCStrData _rtn = pThis->GetEntity()->GetData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __GetWritableChar, "GetWritableChar")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -387,13 +387,13 @@ Gura_ImplementMethod(wx_String, __GetWritableChar)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetWritableChar(n);
+	//wxUniCharRef _rtn = pThis->GetEntity()->GetWritableChar(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __GetWriteBuf, "GetWriteBuf")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_String, __GetWriteBuf)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->GetWriteBuf(len);
+	//wxStringCharType* _rtn = pThis->GetEntity()->GetWriteBuf(len);
 	return Value::Nil;
 }
 
@@ -453,46 +453,46 @@ Gura_ImplementMethod(wx_String, __SetChar)
 
 Gura_DeclareMethodAlias(wx_String, __Last, "Last")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Last)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Last();
+	//wxUniChar _rtn = pThis->GetEntity()->Last();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Last_1, "Last_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Last_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Last();
+	//wxUniCharRef _rtn = pThis->GetEntity()->Last();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __c_str, "c_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __c_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->c_str();
+	//wxCStrData _rtn = pThis->GetEntity()->c_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __char_str, "char_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
@@ -501,13 +501,13 @@ Gura_ImplementMethod(wx_String, __char_str)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMBConv& conv = arg.GetNumber(0)
-	//pThis->GetEntity()->char_str(conv);
+	//wxWritableCharBuffer _rtn = pThis->GetEntity()->char_str(conv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __tchar_str, "tchar_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -516,52 +516,52 @@ Gura_ImplementMethod(wx_String, __tchar_str)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t* len = arg.GetNumber(0)
-	//pThis->GetEntity()->tchar_str(len);
+	//wxCharTypeBuffer<T> _rtn = pThis->GetEntity()->tchar_str(len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __fn_str, "fn_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __fn_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->fn_str();
+	//const wchar_t* _rtn = pThis->GetEntity()->fn_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __fn_str_1, "fn_str_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __fn_str_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->fn_str();
+	//const char* _rtn = pThis->GetEntity()->fn_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __fn_str_2, "fn_str_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __fn_str_2)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->fn_str();
+	//const wxCharBuffer _rtn = pThis->GetEntity()->fn_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __mb_str, "mb_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 }
 
@@ -570,91 +570,91 @@ Gura_ImplementMethod(wx_String, __mb_str)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMBConv& conv = arg.GetNumber(0)
-	//pThis->GetEntity()->mb_str(conv);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->mb_str(conv);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __utf8_str, "utf8_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __utf8_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->utf8_str();
+	//const wxScopedCharBuffer _rtn = pThis->GetEntity()->utf8_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __wc_str, "wc_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __wc_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wc_str();
+	//const wchar_t* _rtn = pThis->GetEntity()->wc_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __wc_str_1, "wc_str_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __wc_str_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wc_str();
+	//const wxWCharBuffer _rtn = pThis->GetEntity()->wc_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __wchar_str, "wchar_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __wchar_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wchar_str();
+	//wxWritableWCharBuffer _rtn = pThis->GetEntity()->wchar_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __wx_str, "wx_str")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __wx_str)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->wx_str();
+	//const wxStringCharType* _rtn = pThis->GetEntity()->wx_str();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __To8BitData, "To8BitData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __To8BitData)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->To8BitData();
+	//const wxScopedCharBuffer _rtn = pThis->GetEntity()->To8BitData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToAscii, "ToAscii")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "replaceWith", VTYPE_number, OCCUR_Once);
 }
 
@@ -663,13 +663,13 @@ Gura_ImplementMethod(wx_String, __ToAscii)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char replaceWith = arg.GetNumber(0)
-	//pThis->GetEntity()->ToAscii(replaceWith);
+	//const char* _rtn = pThis->GetEntity()->ToAscii(replaceWith);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToAscii_1, "ToAscii_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "replaceWith", VTYPE_number, OCCUR_Once);
 }
 
@@ -678,52 +678,52 @@ Gura_ImplementMethod(wx_String, __ToAscii_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char replaceWith = arg.GetNumber(0)
-	//pThis->GetEntity()->ToAscii(replaceWith);
+	//const wxCharBuffer _rtn = pThis->GetEntity()->ToAscii(replaceWith);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToStdString, "ToStdString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __ToStdString)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToStdString();
+	//std::string _rtn = pThis->GetEntity()->ToStdString();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToStdWstring, "ToStdWstring")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __ToStdWstring)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToStdWstring();
+	//std::wstring _rtn = pThis->GetEntity()->ToStdWstring();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToUTF8, "ToUTF8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __ToUTF8)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToUTF8();
+	//const wxScopedCharBuffer _rtn = pThis->GetEntity()->ToUTF8();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append, "Append")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 }
 
@@ -732,13 +732,13 @@ Gura_ImplementMethod(wx_String, __Append)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(psz);
+	//wxString& _rtn = pThis->GetEntity()->Append(psz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append_1, "Append_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
 }
 
@@ -747,13 +747,13 @@ Gura_ImplementMethod(wx_String, __Append_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* pwz = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(pwz);
+	//wxString& _rtn = pThis->GetEntity()->Append(pwz);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append_2, "Append_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "psz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 }
@@ -764,13 +764,13 @@ Gura_ImplementMethod(wx_String, __Append_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
 	//size_t nLen = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(psz, nLen);
+	//wxString& _rtn = pThis->GetEntity()->Append(psz, nLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append_3, "Append_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pwz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 }
@@ -781,13 +781,13 @@ Gura_ImplementMethod(wx_String, __Append_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* pwz = arg.GetNumber(0)
 	//size_t nLen = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(pwz, nLen);
+	//wxString& _rtn = pThis->GetEntity()->Append(pwz, nLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append_4, "Append_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -796,13 +796,13 @@ Gura_ImplementMethod(wx_String, __Append_4)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->Append(s);
+	//wxString& _rtn = pThis->GetEntity()->Append(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Append_5, "Append_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
@@ -813,13 +813,13 @@ Gura_ImplementMethod(wx_String, __Append_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->Append(ch, count);
+	//wxString& _rtn = pThis->GetEntity()->Append(ch, count);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Prepend, "Prepend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -828,13 +828,13 @@ Gura_ImplementMethod(wx_String, __Prepend)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Prepend(str);
+	//wxString& _rtn = pThis->GetEntity()->Prepend(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Cmp, "Cmp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -843,13 +843,13 @@ Gura_ImplementMethod(wx_String, __Cmp)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->Cmp(s);
+	//int _rtn = pThis->GetEntity()->Cmp(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __CmpNoCase, "CmpNoCase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -858,13 +858,13 @@ Gura_ImplementMethod(wx_String, __CmpNoCase)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->CmpNoCase(s);
+	//int _rtn = pThis->GetEntity()->CmpNoCase(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsSameAs, "IsSameAs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caseSensitive", VTYPE_number, OCCUR_Once);
 }
@@ -875,13 +875,13 @@ Gura_ImplementMethod(wx_String, __IsSameAs)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
 	//bool caseSensitive = arg.GetNumber(1)
-	//pThis->GetEntity()->IsSameAs(s, caseSensitive);
+	//bool _rtn = pThis->GetEntity()->IsSameAs(s, caseSensitive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsSameAs_1, "IsSameAs_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caseSensitive", VTYPE_number, OCCUR_Once);
 }
@@ -892,13 +892,13 @@ Gura_ImplementMethod(wx_String, __IsSameAs_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//bool caseSensitive = arg.GetNumber(1)
-	//pThis->GetEntity()->IsSameAs(ch, caseSensitive);
+	//bool _rtn = pThis->GetEntity()->IsSameAs(ch, caseSensitive);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Matches, "Matches")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mask", VTYPE_number, OCCUR_Once);
 }
 
@@ -907,13 +907,13 @@ Gura_ImplementMethod(wx_String, __Matches)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mask = arg.GetNumber(0)
-	//pThis->GetEntity()->Matches(mask);
+	//bool _rtn = pThis->GetEntity()->Matches(mask);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __StartsWith, "StartsWith")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "prefix", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rest", VTYPE_number, OCCUR_Once);
 }
@@ -924,13 +924,13 @@ Gura_ImplementMethod(wx_String, __StartsWith)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& prefix = arg.GetNumber(0)
 	//wxString* rest = arg.GetNumber(1)
-	//pThis->GetEntity()->StartsWith(prefix, rest);
+	//bool _rtn = pThis->GetEntity()->StartsWith(prefix, rest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __EndsWith, "EndsWith")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "suffix", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rest", VTYPE_number, OCCUR_Once);
 }
@@ -941,13 +941,13 @@ Gura_ImplementMethod(wx_String, __EndsWith)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& suffix = arg.GetNumber(0)
 	//wxString* rest = arg.GetNumber(1)
-	//pThis->GetEntity()->EndsWith(suffix, rest);
+	//bool _rtn = pThis->GetEntity()->EndsWith(suffix, rest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Mid, "Mid")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nCount", VTYPE_number, OCCUR_Once);
 }
@@ -958,13 +958,13 @@ Gura_ImplementMethod(wx_String, __Mid)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t first = arg.GetNumber(0)
 	//size_t nCount = arg.GetNumber(1)
-	//pThis->GetEntity()->Mid(first, nCount);
+	//wxString _rtn = pThis->GetEntity()->Mid(first, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __SubString, "SubString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "from", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "to", VTYPE_number, OCCUR_Once);
 }
@@ -975,13 +975,13 @@ Gura_ImplementMethod(wx_String, __SubString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t from = arg.GetNumber(0)
 	//size_t to = arg.GetNumber(1)
-	//pThis->GetEntity()->SubString(from, to);
+	//wxString _rtn = pThis->GetEntity()->SubString(from, to);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __operator, "operator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "start", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -992,13 +992,13 @@ Gura_ImplementMethod(wx_String, __operator)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//)(size_t start = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->operator(start, len);
+	//wxString _rtn = pThis->GetEntity()->operator(start, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Left, "Left")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
@@ -1007,13 +1007,13 @@ Gura_ImplementMethod(wx_String, __Left)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t count = arg.GetNumber(0)
-	//pThis->GetEntity()->Left(count);
+	//wxString _rtn = pThis->GetEntity()->Left(count);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Right, "Right")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 }
 
@@ -1022,13 +1022,13 @@ Gura_ImplementMethod(wx_String, __Right)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t count = arg.GetNumber(0)
-	//pThis->GetEntity()->Right(count);
+	//wxString _rtn = pThis->GetEntity()->Right(count);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __AfterFirst, "AfterFirst")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
 
@@ -1037,13 +1037,13 @@ Gura_ImplementMethod(wx_String, __AfterFirst)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
-	//pThis->GetEntity()->AfterFirst(ch);
+	//wxString _rtn = pThis->GetEntity()->AfterFirst(ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __AfterLast, "AfterLast")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
 
@@ -1052,13 +1052,13 @@ Gura_ImplementMethod(wx_String, __AfterLast)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
-	//pThis->GetEntity()->AfterLast(ch);
+	//wxString _rtn = pThis->GetEntity()->AfterLast(ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __BeforeFirst, "BeforeFirst")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rest", VTYPE_number, OCCUR_Once);
 }
@@ -1069,13 +1069,13 @@ Gura_ImplementMethod(wx_String, __BeforeFirst)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//wxString* rest = arg.GetNumber(1)
-	//pThis->GetEntity()->BeforeFirst(ch, rest);
+	//wxString _rtn = pThis->GetEntity()->BeforeFirst(ch, rest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __BeforeLast, "BeforeLast")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rest", VTYPE_number, OCCUR_Once);
 }
@@ -1086,33 +1086,33 @@ Gura_ImplementMethod(wx_String, __BeforeLast)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//wxString* rest = arg.GetNumber(1)
-	//pThis->GetEntity()->BeforeLast(ch, rest);
+	//wxString _rtn = pThis->GetEntity()->BeforeLast(ch, rest);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Capitalize, "Capitalize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Capitalize)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Capitalize();
+	//wxString _rtn = pThis->GetEntity()->Capitalize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Lower, "Lower")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Lower)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Lower();
+	//wxString _rtn = pThis->GetEntity()->Lower();
 	return Value::Nil;
 }
 
@@ -1131,53 +1131,53 @@ Gura_ImplementMethod(wx_String, __LowerCase)
 
 Gura_DeclareMethodAlias(wx_String, __MakeCapitalized, "MakeCapitalized")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __MakeCapitalized)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MakeCapitalized();
+	//wxString& _rtn = pThis->GetEntity()->MakeCapitalized();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __MakeLower, "MakeLower")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __MakeLower)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MakeLower();
+	//wxString& _rtn = pThis->GetEntity()->MakeLower();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __MakeUpper, "MakeUpper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __MakeUpper)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MakeUpper();
+	//wxString& _rtn = pThis->GetEntity()->MakeUpper();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Upper, "Upper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Upper)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Upper();
+	//wxString _rtn = pThis->GetEntity()->Upper();
 	return Value::Nil;
 }
 
@@ -1196,7 +1196,7 @@ Gura_ImplementMethod(wx_String, __UpperCase)
 
 Gura_DeclareMethodAlias(wx_String, __Find, "Find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fromEnd", VTYPE_number, OCCUR_Once);
 }
@@ -1207,13 +1207,13 @@ Gura_ImplementMethod(wx_String, __Find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//bool fromEnd = arg.GetNumber(1)
-	//pThis->GetEntity()->Find(ch, fromEnd);
+	//int _rtn = pThis->GetEntity()->Find(ch, fromEnd);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Find_1, "Find_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sub", VTYPE_number, OCCUR_Once);
 }
 
@@ -1222,13 +1222,13 @@ Gura_ImplementMethod(wx_String, __Find_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& sub = arg.GetNumber(0)
-	//pThis->GetEntity()->Find(sub);
+	//int _rtn = pThis->GetEntity()->Find(sub);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __First, "First")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
 
@@ -1237,13 +1237,13 @@ Gura_ImplementMethod(wx_String, __First)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
-	//pThis->GetEntity()->First(ch);
+	//int _rtn = pThis->GetEntity()->First(ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __First_1, "First_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -1252,13 +1252,13 @@ Gura_ImplementMethod(wx_String, __First_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->First(str);
+	//int _rtn = pThis->GetEntity()->First(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Replace, "Replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "strOld", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "strNew", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "replaceAll", VTYPE_number, OCCUR_Once);
@@ -1271,13 +1271,13 @@ Gura_ImplementMethod(wx_String, __Replace)
 	//const wxString& strOld = arg.GetNumber(0)
 	//const wxString& strNew = arg.GetNumber(1)
 	//bool replaceAll = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace(strOld, strNew, replaceAll);
+	//size_t _rtn = pThis->GetEntity()->Replace(strOld, strNew, replaceAll);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToDouble, "ToDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -1286,13 +1286,13 @@ Gura_ImplementMethod(wx_String, __ToDouble)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double* val = arg.GetNumber(0)
-	//pThis->GetEntity()->ToDouble(val);
+	//bool _rtn = pThis->GetEntity()->ToDouble(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToCDouble, "ToCDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 }
 
@@ -1301,13 +1301,13 @@ Gura_ImplementMethod(wx_String, __ToCDouble)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double* val = arg.GetNumber(0)
-	//pThis->GetEntity()->ToCDouble(val);
+	//bool _rtn = pThis->GetEntity()->ToCDouble(val);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToLong, "ToLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1318,13 +1318,13 @@ Gura_ImplementMethod(wx_String, __ToLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToLong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToLong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToCLong, "ToCLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1335,13 +1335,13 @@ Gura_ImplementMethod(wx_String, __ToCLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToCLong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToCLong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToLongLong, "ToLongLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1352,13 +1352,13 @@ Gura_ImplementMethod(wx_String, __ToLongLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLongLong_t* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToLongLong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToLongLong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToULong, "ToULong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1369,13 +1369,13 @@ Gura_ImplementMethod(wx_String, __ToULong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToULong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToULong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToCULong, "ToCULong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1386,13 +1386,13 @@ Gura_ImplementMethod(wx_String, __ToCULong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToCULong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToCULong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __ToULongLong, "ToULongLong")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "base", VTYPE_number, OCCUR_Once);
 }
@@ -1403,13 +1403,13 @@ Gura_ImplementMethod(wx_String, __ToULongLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxULongLong_t* val = arg.GetNumber(0)
 	//int base = arg.GetNumber(1)
-	//pThis->GetEntity()->ToULongLong(val, base);
+	//bool _rtn = pThis->GetEntity()->ToULongLong(val, base);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __PrintfV, "PrintfV")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pszFormat", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argPtr", VTYPE_number, OCCUR_Once);
 }
@@ -1420,13 +1420,13 @@ Gura_ImplementMethod(wx_String, __PrintfV)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& pszFormat = arg.GetNumber(0)
 	//va_list argPtr = arg.GetNumber(1)
-	//pThis->GetEntity()->PrintfV(pszFormat, argPtr);
+	//int _rtn = pThis->GetEntity()->PrintfV(pszFormat, argPtr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Alloc, "Alloc")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 }
 
@@ -1435,33 +1435,33 @@ Gura_ImplementMethod(wx_String, __Alloc)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nLen = arg.GetNumber(0)
-	//pThis->GetEntity()->Alloc(nLen);
+	//bool _rtn = pThis->GetEntity()->Alloc(nLen);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Shrink, "Shrink")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Shrink)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Shrink();
+	//bool _rtn = pThis->GetEntity()->Shrink();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __Clone)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxString _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
@@ -1480,7 +1480,7 @@ Gura_ImplementMethod(wx_String, __Clear)
 
 Gura_DeclareMethodAlias(wx_String, __Contains, "Contains")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -1489,7 +1489,7 @@ Gura_ImplementMethod(wx_String, __Contains)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains(str);
+	//bool _rtn = pThis->GetEntity()->Contains(str);
 	return Value::Nil;
 }
 
@@ -1508,7 +1508,7 @@ Gura_ImplementMethod(wx_String, __Empty)
 
 Gura_DeclareMethodAlias(wx_String, __Freq, "Freq")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
 
@@ -1517,52 +1517,52 @@ Gura_ImplementMethod(wx_String, __Freq)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
-	//pThis->GetEntity()->Freq(ch);
+	//int _rtn = pThis->GetEntity()->Freq(ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsAscii, "IsAscii")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __IsAscii)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsAscii();
+	//bool _rtn = pThis->GetEntity()->IsAscii();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsNumber, "IsNumber")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __IsNumber)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsNumber();
+	//bool _rtn = pThis->GetEntity()->IsNumber();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __IsWord, "IsWord")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __IsWord)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsWord();
+	//bool _rtn = pThis->GetEntity()->IsWord();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Pad, "Pad")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "count", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "chPad", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "fromRight", VTYPE_number, OCCUR_Once);
@@ -1575,13 +1575,13 @@ Gura_ImplementMethod(wx_String, __Pad)
 	//size_t count = arg.GetNumber(0)
 	//wxUniChar chPad = arg.GetNumber(1)
 	//bool fromRight = arg.GetNumber(2)
-	//pThis->GetEntity()->Pad(count, chPad, fromRight);
+	//wxString& _rtn = pThis->GetEntity()->Pad(count, chPad, fromRight);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Remove, "Remove")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -1590,13 +1590,13 @@ Gura_ImplementMethod(wx_String, __Remove)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove(pos);
+	//wxString& _rtn = pThis->GetEntity()->Remove(pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Remove_1, "Remove_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -1607,13 +1607,13 @@ Gura_ImplementMethod(wx_String, __Remove_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->Remove(pos, len);
+	//wxString& _rtn = pThis->GetEntity()->Remove(pos, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __RemoveLast, "RemoveLast")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -1622,13 +1622,13 @@ Gura_ImplementMethod(wx_String, __RemoveLast)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveLast(n);
+	//wxString& _rtn = pThis->GetEntity()->RemoveLast(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Strip, "Strip")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -1637,13 +1637,13 @@ Gura_ImplementMethod(wx_String, __Strip)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//stripType s = arg.GetNumber(0)
-	//pThis->GetEntity()->Strip(s);
+	//wxString _rtn = pThis->GetEntity()->Strip(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Trim, "Trim")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fromRight", VTYPE_number, OCCUR_Once);
 }
 
@@ -1652,13 +1652,13 @@ Gura_ImplementMethod(wx_String, __Trim)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool fromRight = arg.GetNumber(0)
-	//pThis->GetEntity()->Trim(fromRight);
+	//wxString& _rtn = pThis->GetEntity()->Trim(fromRight);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __Truncate, "Truncate")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
 
@@ -1667,117 +1667,117 @@ Gura_ImplementMethod(wx_String, __Truncate)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->Truncate(len);
+	//wxString& _rtn = pThis->GetEntity()->Truncate(len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __begin, "begin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __begin)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//const_iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __begin_1, "begin_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __begin_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __end, "end")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __end)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//const_iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __end_1, "end_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __end_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rbegin, "rbegin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __rbegin)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rbegin();
+	//const_reverse_iterator _rtn = pThis->GetEntity()->rbegin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rbegin_1, "rbegin_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __rbegin_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rbegin();
+	//reverse_iterator _rtn = pThis->GetEntity()->rbegin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rend, "rend")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __rend)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rend();
+	//const_reverse_iterator _rtn = pThis->GetEntity()->rend();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rend_1, "rend_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __rend_1)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->rend();
+	//reverse_iterator _rtn = pThis->GetEntity()->rend();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append, "append")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -1790,13 +1790,13 @@ Gura_ImplementMethod(wx_String, __append)
 	//const wxString& str = arg.GetNumber(0)
 	//size_t pos = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->append(str, pos, n);
+	//wxString& _rtn = pThis->GetEntity()->append(str, pos, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append_1, "append_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -1805,13 +1805,13 @@ Gura_ImplementMethod(wx_String, __append_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->append(str);
+	//wxString& _rtn = pThis->GetEntity()->append(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append_2, "append_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
@@ -1822,13 +1822,13 @@ Gura_ImplementMethod(wx_String, __append_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->append(sz, n);
+	//wxString& _rtn = pThis->GetEntity()->append(sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append_3, "append_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
@@ -1839,13 +1839,13 @@ Gura_ImplementMethod(wx_String, __append_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->append(sz, n);
+	//wxString& _rtn = pThis->GetEntity()->append(sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append_4, "append_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
@@ -1856,13 +1856,13 @@ Gura_ImplementMethod(wx_String, __append_4)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
 	//wxUniChar ch = arg.GetNumber(1)
-	//pThis->GetEntity()->append(n, ch);
+	//wxString& _rtn = pThis->GetEntity()->append(n, ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __append_5, "append_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
@@ -1873,13 +1873,13 @@ Gura_ImplementMethod(wx_String, __append_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_iterator first = arg.GetNumber(0)
 	//const_iterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->append(first, last);
+	//wxString& _rtn = pThis->GetEntity()->append(first, last);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign, "assign")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -1892,13 +1892,13 @@ Gura_ImplementMethod(wx_String, __assign)
 	//const wxString& str = arg.GetNumber(0)
 	//size_t pos = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->assign(str, pos, n);
+	//wxString& _rtn = pThis->GetEntity()->assign(str, pos, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign_1, "assign_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -1907,13 +1907,13 @@ Gura_ImplementMethod(wx_String, __assign_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->assign(str);
+	//wxString& _rtn = pThis->GetEntity()->assign(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign_2, "assign_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
@@ -1924,13 +1924,13 @@ Gura_ImplementMethod(wx_String, __assign_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->assign(sz, n);
+	//wxString& _rtn = pThis->GetEntity()->assign(sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign_3, "assign_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
@@ -1941,13 +1941,13 @@ Gura_ImplementMethod(wx_String, __assign_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->assign(sz, n);
+	//wxString& _rtn = pThis->GetEntity()->assign(sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign_4, "assign_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
@@ -1958,13 +1958,13 @@ Gura_ImplementMethod(wx_String, __assign_4)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
 	//wxUniChar ch = arg.GetNumber(1)
-	//pThis->GetEntity()->assign(n, ch);
+	//wxString& _rtn = pThis->GetEntity()->assign(n, ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __assign_5, "assign_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
@@ -1975,13 +1975,13 @@ Gura_ImplementMethod(wx_String, __assign_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_iterator first = arg.GetNumber(0)
 	//const_iterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->assign(first, last);
+	//wxString& _rtn = pThis->GetEntity()->assign(first, last);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __at, "at")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -1990,13 +1990,13 @@ Gura_ImplementMethod(wx_String, __at)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->at(n);
+	//wxUniChar _rtn = pThis->GetEntity()->at(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __at_1, "at_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -2005,7 +2005,7 @@ Gura_ImplementMethod(wx_String, __at_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->at(n);
+	//wxUniCharRef _rtn = pThis->GetEntity()->at(n);
 	return Value::Nil;
 }
 
@@ -2024,20 +2024,20 @@ Gura_ImplementMethod(wx_String, __clear)
 
 Gura_DeclareMethodAlias(wx_String, __capacity, "capacity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __capacity)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->capacity();
+	//size_type _rtn = pThis->GetEntity()->capacity();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __compare, "compare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
 
@@ -2046,13 +2046,13 @@ Gura_ImplementMethod(wx_String, __compare)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->compare(str);
+	//int _rtn = pThis->GetEntity()->compare(str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __compare_1, "compare_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -2065,13 +2065,13 @@ Gura_ImplementMethod(wx_String, __compare_1)
 	//size_t nStart = arg.GetNumber(0)
 	//size_t nLen = arg.GetNumber(1)
 	//const wxString& str = arg.GetNumber(2)
-	//pThis->GetEntity()->compare(nStart, nLen, str);
+	//int _rtn = pThis->GetEntity()->compare(nStart, nLen, str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __compare_2, "compare_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -2088,13 +2088,13 @@ Gura_ImplementMethod(wx_String, __compare_2)
 	//const wxString& str = arg.GetNumber(2)
 	//size_t nStart2 = arg.GetNumber(3)
 	//size_t nLen2 = arg.GetNumber(4)
-	//pThis->GetEntity()->compare(nStart, nLen, str, nStart2, nLen2);
+	//int _rtn = pThis->GetEntity()->compare(nStart, nLen, str, nStart2, nLen2);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __compare_3, "compare_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -2109,13 +2109,13 @@ Gura_ImplementMethod(wx_String, __compare_3)
 	//size_t nLen = arg.GetNumber(1)
 	//const char* sz = arg.GetNumber(2)
 	//size_t nCount = arg.GetNumber(3)
-	//pThis->GetEntity()->compare(nStart, nLen, sz, nCount);
+	//int _rtn = pThis->GetEntity()->compare(nStart, nLen, sz, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __compare_4, "compare_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -2130,39 +2130,39 @@ Gura_ImplementMethod(wx_String, __compare_4)
 	//size_t nLen = arg.GetNumber(1)
 	//const wchar_t* sz = arg.GetNumber(2)
 	//size_t nCount = arg.GetNumber(3)
-	//pThis->GetEntity()->compare(nStart, nLen, sz, nCount);
+	//int _rtn = pThis->GetEntity()->compare(nStart, nLen, sz, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __data, "data")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __data)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->data();
+	//wxCStrData _rtn = pThis->GetEntity()->data();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __empty, "empty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __empty)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->empty();
+	//bool _rtn = pThis->GetEntity()->empty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __erase, "erase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
@@ -2173,13 +2173,13 @@ Gura_ImplementMethod(wx_String, __erase)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type pos = arg.GetNumber(0)
 	//size_type n = arg.GetNumber(1)
-	//pThis->GetEntity()->erase(pos, n);
+	//wxString& _rtn = pThis->GetEntity()->erase(pos, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __erase_1, "erase_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 }
@@ -2190,13 +2190,13 @@ Gura_ImplementMethod(wx_String, __erase_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator first = arg.GetNumber(0)
 	//iterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->erase(first, last);
+	//iterator _rtn = pThis->GetEntity()->erase(first, last);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __erase_2, "erase_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 }
 
@@ -2205,13 +2205,13 @@ Gura_ImplementMethod(wx_String, __erase_2)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator first = arg.GetNumber(0)
-	//pThis->GetEntity()->erase(first);
+	//iterator _rtn = pThis->GetEntity()->erase(first);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find, "find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2222,13 +2222,13 @@ Gura_ImplementMethod(wx_String, __find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find(str, nStart);
+	//size_t _rtn = pThis->GetEntity()->find(str, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_1, "find_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2241,13 +2241,13 @@ Gura_ImplementMethod(wx_String, __find_1)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_2, "find_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2260,13 +2260,13 @@ Gura_ImplementMethod(wx_String, __find_2)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_3, "find_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2277,13 +2277,13 @@ Gura_ImplementMethod(wx_String, __find_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find(ch, nStart);
+	//size_t _rtn = pThis->GetEntity()->find(ch, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_of, "find_first_of")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2294,13 +2294,13 @@ Gura_ImplementMethod(wx_String, __find_first_of)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_of_1, "find_first_of_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2311,13 +2311,13 @@ Gura_ImplementMethod(wx_String, __find_first_of_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_of_2, "find_first_of_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2330,13 +2330,13 @@ Gura_ImplementMethod(wx_String, __find_first_of_2)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_first_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_first_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_of_3, "find_first_of_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2349,13 +2349,13 @@ Gura_ImplementMethod(wx_String, __find_first_of_3)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_first_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_first_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_of_4, "find_first_of_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2366,13 +2366,13 @@ Gura_ImplementMethod(wx_String, __find_first_of_4)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar c = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_of(c, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_of(c, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of, "find_last_of")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2383,13 +2383,13 @@ Gura_ImplementMethod(wx_String, __find_last_of)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_of(str, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(str, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of_1, "find_last_of_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2400,13 +2400,13 @@ Gura_ImplementMethod(wx_String, __find_last_of_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of_2, "find_last_of_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2417,13 +2417,13 @@ Gura_ImplementMethod(wx_String, __find_last_of_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of_3, "find_last_of_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2436,13 +2436,13 @@ Gura_ImplementMethod(wx_String, __find_last_of_3)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_last_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of_4, "find_last_of_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2455,13 +2455,13 @@ Gura_ImplementMethod(wx_String, __find_last_of_4)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_last_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_of_5, "find_last_of_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2472,13 +2472,13 @@ Gura_ImplementMethod(wx_String, __find_last_of_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar c = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_of(c, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_of(c, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of, "find_first_not_of")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2489,13 +2489,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_not_of(str, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(str, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of_1, "find_first_not_of_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2506,13 +2506,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_not_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of_2, "find_first_not_of_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2523,13 +2523,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_not_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of_3, "find_first_not_of_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2542,13 +2542,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_3)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_first_not_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of_4, "find_first_not_of_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2561,13 +2561,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_4)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_first_not_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_first_not_of_5, "find_first_not_of_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2578,13 +2578,13 @@ Gura_ImplementMethod(wx_String, __find_first_not_of_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_first_not_of(ch, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_first_not_of(ch, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_not_of, "find_last_not_of")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2595,13 +2595,13 @@ Gura_ImplementMethod(wx_String, __find_last_not_of)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_not_of(str, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_not_of(str, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_not_of_1, "find_last_not_of_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2612,13 +2612,13 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_not_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_not_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_not_of_2, "find_last_not_of_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -2629,13 +2629,13 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->find_last_not_of(sz, nStart);
+	//size_t _rtn = pThis->GetEntity()->find_last_not_of(sz, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_not_of_3, "find_last_not_of_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2648,13 +2648,13 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_3)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_last_not_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_last_not_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __find_last_not_of_4, "find_last_not_of_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2667,13 +2667,13 @@ Gura_ImplementMethod(wx_String, __find_last_not_of_4)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->find_last_not_of(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->find_last_not_of(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert, "insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 }
@@ -2684,13 +2684,13 @@ Gura_ImplementMethod(wx_String, __insert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nPos = arg.GetNumber(0)
 	//const wxString& str = arg.GetNumber(1)
-	//pThis->GetEntity()->insert(nPos, str);
+	//wxString& _rtn = pThis->GetEntity()->insert(nPos, str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert_1, "insert_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
@@ -2705,13 +2705,13 @@ Gura_ImplementMethod(wx_String, __insert_1)
 	//const wxString& str = arg.GetNumber(1)
 	//size_t nStart = arg.GetNumber(2)
 	//size_t n = arg.GetNumber(3)
-	//pThis->GetEntity()->insert(nPos, str, nStart, n);
+	//wxString& _rtn = pThis->GetEntity()->insert(nPos, str, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert_2, "insert_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2724,13 +2724,13 @@ Gura_ImplementMethod(wx_String, __insert_2)
 	//size_t nPos = arg.GetNumber(0)
 	//const char* sz = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->insert(nPos, sz, n);
+	//wxString& _rtn = pThis->GetEntity()->insert(nPos, sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert_3, "insert_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -2743,13 +2743,13 @@ Gura_ImplementMethod(wx_String, __insert_3)
 	//size_t nPos = arg.GetNumber(0)
 	//const wchar_t* sz = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->insert(nPos, sz, n);
+	//wxString& _rtn = pThis->GetEntity()->insert(nPos, sz, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert_4, "insert_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nPos", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
@@ -2762,13 +2762,13 @@ Gura_ImplementMethod(wx_String, __insert_4)
 	//size_t nPos = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
 	//wxUniChar ch = arg.GetNumber(2)
-	//pThis->GetEntity()->insert(nPos, n, ch);
+	//wxString& _rtn = pThis->GetEntity()->insert(nPos, n, ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __insert_5, "insert_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "it", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 }
@@ -2779,7 +2779,7 @@ Gura_ImplementMethod(wx_String, __insert_5)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
 	//wxUniChar ch = arg.GetNumber(1)
-	//pThis->GetEntity()->insert(it, ch);
+	//iterator _rtn = pThis->GetEntity()->insert(it, ch);
 	return Value::Nil;
 }
 
@@ -2823,27 +2823,27 @@ Gura_ImplementMethod(wx_String, __insert_7)
 
 Gura_DeclareMethodAlias(wx_String, __length, "length")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __length)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->length();
+	//size_t _rtn = pThis->GetEntity()->length();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __max_size, "max_size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __max_size)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->max_size();
+	//size_type _rtn = pThis->GetEntity()->max_size();
 	return Value::Nil;
 }
 
@@ -2881,7 +2881,7 @@ Gura_ImplementMethod(wx_String, __resize)
 
 Gura_DeclareMethodAlias(wx_String, __replace, "replace")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -2894,13 +2894,13 @@ Gura_ImplementMethod(wx_String, __replace)
 	//size_t nStart = arg.GetNumber(0)
 	//size_t nLen = arg.GetNumber(1)
 	//const wxString& str = arg.GetNumber(2)
-	//pThis->GetEntity()->replace(nStart, nLen, str);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, str);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_1, "replace_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nCount", VTYPE_number, OCCUR_Once);
@@ -2915,13 +2915,13 @@ Gura_ImplementMethod(wx_String, __replace_1)
 	//size_t nLen = arg.GetNumber(1)
 	//size_t nCount = arg.GetNumber(2)
 	//wxUniChar ch = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(nStart, nLen, nCount, ch);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, nCount, ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_2, "replace_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
@@ -2938,13 +2938,13 @@ Gura_ImplementMethod(wx_String, __replace_2)
 	//const wxString& str = arg.GetNumber(2)
 	//size_t nStart2 = arg.GetNumber(3)
 	//size_t nLen2 = arg.GetNumber(4)
-	//pThis->GetEntity()->replace(nStart, nLen, str, nStart2, nLen2);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, str, nStart2, nLen2);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_3, "replace_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -2959,13 +2959,13 @@ Gura_ImplementMethod(wx_String, __replace_3)
 	//size_t nLen = arg.GetNumber(1)
 	//const char* sz = arg.GetNumber(2)
 	//size_t nCount = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(nStart, nLen, sz, nCount);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, sz, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_4, "replace_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
@@ -2980,13 +2980,13 @@ Gura_ImplementMethod(wx_String, __replace_4)
 	//size_t nLen = arg.GetNumber(1)
 	//const wchar_t* sz = arg.GetNumber(2)
 	//size_t nCount = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(nStart, nLen, sz, nCount);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, sz, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_5, "replace_5")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
@@ -3001,13 +3001,13 @@ Gura_ImplementMethod(wx_String, __replace_5)
 	//size_t nLen = arg.GetNumber(1)
 	//const wxString& s = arg.GetNumber(2)
 	//size_t nCount = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(nStart, nLen, s, nCount);
+	//wxString& _rtn = pThis->GetEntity()->replace(nStart, nLen, s, nCount);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_6, "replace_6")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
@@ -3020,13 +3020,13 @@ Gura_ImplementMethod(wx_String, __replace_6)
 	//iterator first = arg.GetNumber(0)
 	//iterator last = arg.GetNumber(1)
 	//const wxString& s = arg.GetNumber(2)
-	//pThis->GetEntity()->replace(first, last, s);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_7, "replace_7")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
@@ -3041,13 +3041,13 @@ Gura_ImplementMethod(wx_String, __replace_7)
 	//iterator last = arg.GetNumber(1)
 	//const char* s = arg.GetNumber(2)
 	//size_type n = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, s, n);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, s, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_8, "replace_8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
@@ -3062,13 +3062,13 @@ Gura_ImplementMethod(wx_String, __replace_8)
 	//iterator last = arg.GetNumber(1)
 	//const wchar_t* s = arg.GetNumber(2)
 	//size_type n = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, s, n);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, s, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_9, "replace_9")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -3083,13 +3083,13 @@ Gura_ImplementMethod(wx_String, __replace_9)
 	//iterator last = arg.GetNumber(1)
 	//size_type n = arg.GetNumber(2)
 	//wxUniChar ch = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, n, ch);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, n, ch);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_10, "replace_10")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "first1", VTYPE_number, OCCUR_Once);
@@ -3104,13 +3104,13 @@ Gura_ImplementMethod(wx_String, __replace_10)
 	//iterator last = arg.GetNumber(1)
 	//const_iterator first1 = arg.GetNumber(2)
 	//const_iterator last1 = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, first1, last1);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, first1, last1);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_11, "replace_11")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "first1", VTYPE_number, OCCUR_Once);
@@ -3125,13 +3125,13 @@ Gura_ImplementMethod(wx_String, __replace_11)
 	//iterator last = arg.GetNumber(1)
 	//const char* first1 = arg.GetNumber(2)
 	//const char* last1 = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, first1, last1);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, first1, last1);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __replace_12, "replace_12")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "first", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "last", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "first1", VTYPE_number, OCCUR_Once);
@@ -3146,13 +3146,13 @@ Gura_ImplementMethod(wx_String, __replace_12)
 	//iterator last = arg.GetNumber(1)
 	//const wchar_t* first1 = arg.GetNumber(2)
 	//const wchar_t* last1 = arg.GetNumber(3)
-	//pThis->GetEntity()->replace(first, last, first1, last1);
+	//wxString& _rtn = pThis->GetEntity()->replace(first, last, first1, last1);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rfind, "rfind")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -3163,13 +3163,13 @@ Gura_ImplementMethod(wx_String, __rfind)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->rfind(str, nStart);
+	//size_t _rtn = pThis->GetEntity()->rfind(str, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rfind_1, "rfind_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -3182,13 +3182,13 @@ Gura_ImplementMethod(wx_String, __rfind_1)
 	//const char* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->rfind(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->rfind(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rfind_2, "rfind_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "sz", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
@@ -3201,13 +3201,13 @@ Gura_ImplementMethod(wx_String, __rfind_2)
 	//const wchar_t* sz = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->rfind(sz, nStart, n);
+	//size_t _rtn = pThis->GetEntity()->rfind(sz, nStart, n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __rfind_3, "rfind_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ch", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 }
@@ -3218,26 +3218,26 @@ Gura_ImplementMethod(wx_String, __rfind_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUniChar ch = arg.GetNumber(0)
 	//size_t nStart = arg.GetNumber(1)
-	//pThis->GetEntity()->rfind(ch, nStart);
+	//size_t _rtn = pThis->GetEntity()->rfind(ch, nStart);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __size, "size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_String, __size)
 {
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->size();
+	//size_type _rtn = pThis->GetEntity()->size();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __substr, "substr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "nStart", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "nLen", VTYPE_number, OCCUR_Once);
 }
@@ -3248,7 +3248,7 @@ Gura_ImplementMethod(wx_String, __substr)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nStart = arg.GetNumber(0)
 	//size_t nLen = arg.GetNumber(1)
-	//pThis->GetEntity()->substr(nStart, nLen);
+	//wxString _rtn = pThis->GetEntity()->substr(nStart, nLen);
 	return Value::Nil;
 }
 
@@ -3269,7 +3269,7 @@ Gura_ImplementMethod(wx_String, __swap)
 
 Gura_DeclareMethodAlias(wx_String, __FormatV, "FormatV")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "argptr", VTYPE_number, OCCUR_Once);
 }
@@ -3280,13 +3280,13 @@ Gura_ImplementMethod(wx_String, __FormatV)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& format = arg.GetNumber(0)
 	//va_list argptr = arg.GetNumber(1)
-	//pThis->GetEntity()->FormatV(format, argptr);
+	//wxString _rtn = pThis->GetEntity()->FormatV(format, argptr);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __From8BitData, "From8BitData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -3297,13 +3297,13 @@ Gura_ImplementMethod(wx_String, __From8BitData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* buf = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->From8BitData(buf, len);
+	//wxString _rtn = pThis->GetEntity()->From8BitData(buf, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __From8BitData_1, "From8BitData_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buf", VTYPE_number, OCCUR_Once);
 }
 
@@ -3312,13 +3312,13 @@ Gura_ImplementMethod(wx_String, __From8BitData_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->From8BitData(buf);
+	//wxString _rtn = pThis->GetEntity()->From8BitData(buf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromAscii, "FromAscii")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -3327,13 +3327,13 @@ Gura_ImplementMethod(wx_String, __FromAscii)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromAscii(s);
+	//wxString _rtn = pThis->GetEntity()->FromAscii(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromAscii_1, "FromAscii_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -3342,13 +3342,13 @@ Gura_ImplementMethod(wx_String, __FromAscii_1)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const unsigned char* s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromAscii(s);
+	//wxString _rtn = pThis->GetEntity()->FromAscii(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromAscii_2, "FromAscii_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -3359,13 +3359,13 @@ Gura_ImplementMethod(wx_String, __FromAscii_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->FromAscii(s, len);
+	//wxString _rtn = pThis->GetEntity()->FromAscii(s, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromAscii_3, "FromAscii_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -3376,13 +3376,13 @@ Gura_ImplementMethod(wx_String, __FromAscii_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const unsigned char* s = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->FromAscii(s, len);
+	//wxString _rtn = pThis->GetEntity()->FromAscii(s, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromAscii_4, "FromAscii_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "c", VTYPE_number, OCCUR_Once);
 }
 
@@ -3391,13 +3391,13 @@ Gura_ImplementMethod(wx_String, __FromAscii_4)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char c = arg.GetNumber(0)
-	//pThis->GetEntity()->FromAscii(c);
+	//wxString _rtn = pThis->GetEntity()->FromAscii(c);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromCDouble, "FromCDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 }
@@ -3408,13 +3408,13 @@ Gura_ImplementMethod(wx_String, __FromCDouble)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double val = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
-	//pThis->GetEntity()->FromCDouble(val, precision);
+	//wxString _rtn = pThis->GetEntity()->FromCDouble(val, precision);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromDouble, "FromDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "val", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "precision", VTYPE_number, OCCUR_Once);
 }
@@ -3425,13 +3425,13 @@ Gura_ImplementMethod(wx_String, __FromDouble)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double val = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
-	//pThis->GetEntity()->FromDouble(val, precision);
+	//wxString _rtn = pThis->GetEntity()->FromDouble(val, precision);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromUTF8, "FromUTF8")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -3440,13 +3440,13 @@ Gura_ImplementMethod(wx_String, __FromUTF8)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromUTF8(s);
+	//wxString _rtn = pThis->GetEntity()->FromUTF8(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromUTF8_1, "FromUTF8_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -3457,13 +3457,13 @@ Gura_ImplementMethod(wx_String, __FromUTF8_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->FromUTF8(s, len);
+	//wxString _rtn = pThis->GetEntity()->FromUTF8(s, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromUTF8Unchecked, "FromUTF8Unchecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 }
 
@@ -3472,13 +3472,13 @@ Gura_ImplementMethod(wx_String, __FromUTF8Unchecked)
 	Object_wx_String *pThis = Object_wx_String::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromUTF8Unchecked(s);
+	//wxString _rtn = pThis->GetEntity()->FromUTF8Unchecked(s);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_String, __FromUTF8Unchecked_1, "FromUTF8Unchecked_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "s", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -3489,7 +3489,7 @@ Gura_ImplementMethod(wx_String, __FromUTF8Unchecked_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* s = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->FromUTF8Unchecked(s, len);
+	//wxString _rtn = pThis->GetEntity()->FromUTF8Unchecked(s, len);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_GraphicsGradientStops::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GraphicsGradientStops, "GraphicsGradientStops")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "startCol", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "endCol", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GraphicsGradientStops));
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __Add_1)
 
 Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __Item, "Item")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 }
 
@@ -100,20 +100,20 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __Item)
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned n = arg.GetNumber(0)
-	//pThis->GetEntity()->Item(n);
+	//wxGraphicsGradientStop _rtn = pThis->GetEntity()->Item(n);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __GetCount, "GetCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, __GetCount)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCount();
+	//size_t _rtn = pThis->GetEntity()->GetCount();
 	return Value::Nil;
 }
 
@@ -134,14 +134,14 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __SetStartColour)
 
 Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __GetStartColour, "GetStartColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, __GetStartColour)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStartColour();
+	//wxColour _rtn = pThis->GetEntity()->GetStartColour();
 	return Value::Nil;
 }
 
@@ -162,14 +162,14 @@ Gura_ImplementMethod(wx_GraphicsGradientStops, __SetEndColour)
 
 Gura_DeclareMethodAlias(wx_GraphicsGradientStops, __GetEndColour, "GetEndColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GraphicsGradientStops, __GetEndColour)
 {
 	Object_wx_GraphicsGradientStops *pThis = Object_wx_GraphicsGradientStops::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEndColour();
+	//wxColour _rtn = pThis->GetEntity()->GetEndColour();
 	return Value::Nil;
 }
 

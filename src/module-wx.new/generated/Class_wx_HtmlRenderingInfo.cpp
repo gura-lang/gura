@@ -39,7 +39,7 @@ String Object_wx_HtmlRenderingInfo::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlRenderingInfo, "HtmlRenderingInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlRenderingInfo));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __SetSelection)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingInfo, __GetSelection, "GetSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, __GetSelection)
 {
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelection();
+	//wxHtmlSelection* _rtn = pThis->GetEntity()->GetSelection();
 	return Value::Nil;
 }
 
@@ -98,27 +98,27 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __SetStyle)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingInfo, __GetStyle, "GetStyle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, __GetStyle)
 {
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetStyle();
+	//wxHtmlRenderingStyle& _rtn = pThis->GetEntity()->GetStyle();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingInfo, __GetState, "GetState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingInfo, __GetState)
 {
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetState();
+	//wxHtmlRenderingState& _rtn = pThis->GetEntity()->GetState();
 	return Value::Nil;
 }
 

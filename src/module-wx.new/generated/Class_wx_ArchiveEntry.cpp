@@ -39,27 +39,27 @@ String Object_wx_ArchiveEntry::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __Clone, "Clone")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __Clone)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Clone();
+	//wxArchiveEntry* _rtn = pThis->GetEntity()->Clone();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetDateTime, "GetDateTime")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __GetDateTime)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDateTime();
+	//wxDateTime _rtn = pThis->GetEntity()->GetDateTime();
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetDateTime)
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "format", VTYPE_number, OCCUR_Once);
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __GetName)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPathFormat format = arg.GetNumber(0)
-	//pThis->GetEntity()->GetName(format);
+	//wxString _rtn = pThis->GetEntity()->GetName(format);
 	return Value::Nil;
 }
 
@@ -112,14 +112,14 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetName)
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __GetSize)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxFileOffset _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 
@@ -140,53 +140,53 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetSize)
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetInternalFormat, "GetInternalFormat")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __GetInternalFormat)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInternalFormat();
+	//wxPathFormat _rtn = pThis->GetEntity()->GetInternalFormat();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetInternalName, "GetInternalName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __GetInternalName)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInternalName();
+	//wxString _rtn = pThis->GetEntity()->GetInternalName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __GetOffset, "GetOffset")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __GetOffset)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOffset();
+	//wxFileOffset _rtn = pThis->GetEntity()->GetOffset();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __IsDir, "IsDir")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __IsDir)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDir();
+	//bool _rtn = pThis->GetEntity()->IsDir();
 	return Value::Nil;
 }
 
@@ -207,14 +207,14 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetIsDir)
 
 Gura_DeclareMethodAlias(wx_ArchiveEntry, __IsReadOnly, "IsReadOnly")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ArchiveEntry, __IsReadOnly)
 {
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsReadOnly();
+	//bool _rtn = pThis->GetEntity()->IsReadOnly();
 	return Value::Nil;
 }
 

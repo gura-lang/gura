@@ -39,7 +39,7 @@ String Object_wx_HtmlModalHelp::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlModalHelp, "HtmlModalHelp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "helpFile", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "topic", VTYPE_number, OCCUR_Once);

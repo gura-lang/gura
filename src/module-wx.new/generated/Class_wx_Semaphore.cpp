@@ -39,7 +39,7 @@ String Object_wx_Semaphore::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Semaphore, "Semaphore")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "initialcount", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "maxcount", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Semaphore));
@@ -59,46 +59,46 @@ Gura_ImplementFunction(__Semaphore)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Semaphore, __Post, "Post")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Semaphore, __Post)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Post();
+	//wxSemaError _rtn = pThis->GetEntity()->Post();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Semaphore, __TryWait, "TryWait")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Semaphore, __TryWait)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->TryWait();
+	//wxSemaError _rtn = pThis->GetEntity()->TryWait();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Semaphore, __Wait, "Wait")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Semaphore, __Wait)
 {
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Wait();
+	//wxSemaError _rtn = pThis->GetEntity()->Wait();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Semaphore, __WaitTimeout, "WaitTimeout")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "timeout_millis", VTYPE_number, OCCUR_Once);
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long timeout_millis = arg.GetNumber(0)
-	//pThis->GetEntity()->WaitTimeout(timeout_millis);
+	//wxSemaError _rtn = pThis->GetEntity()->WaitTimeout(timeout_millis);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_PGEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PGEditor, "PGEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_PGEditor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,20 +55,20 @@ Gura_ImplementFunction(__PGEditor)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PGEditor, __GetName, "GetName")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGEditor, __GetName)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetName();
+	//wxString _rtn = pThis->GetEntity()->GetName();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGEditor, __CreateControls, "CreateControls")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_PGEditor, __CreateControls)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
-	//pThis->GetEntity()->CreateControls(propgrid, property, pos, size);
+	//wxPGWindowList _rtn = pThis->GetEntity()->CreateControls(propgrid, property, pos, size);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_PGEditor, __DrawValue)
 
 Gura_DeclareMethodAlias(wx_PGEditor, __OnEvent, "OnEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "propgrid", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "wnd_primary", VTYPE_number, OCCUR_Once);
@@ -142,13 +142,13 @@ Gura_ImplementMethod(wx_PGEditor, __OnEvent)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//wxWindow* wnd_primary = arg.GetNumber(2)
 	//wxEvent& event = arg.GetNumber(3)
-	//pThis->GetEntity()->OnEvent(propgrid, property, wnd_primary, event);
+	//bool _rtn = pThis->GetEntity()->OnEvent(propgrid, property, wnd_primary, event);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PGEditor, __GetValueFromControl, "GetValueFromControl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "variant", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "property", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_PGEditor, __GetValueFromControl)
 	//wxVariant& variant = arg.GetNumber(0)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//wxWindow* ctrl = arg.GetNumber(2)
-	//pThis->GetEntity()->GetValueFromControl(variant, property, ctrl);
+	//bool _rtn = pThis->GetEntity()->GetValueFromControl(variant, property, ctrl);
 	return Value::Nil;
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_PGEditor, __SetControlIntValue)
 
 Gura_DeclareMethodAlias(wx_PGEditor, __InsertItem, "InsertItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ctrl", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_PGEditor, __InsertItem)
 	//wxWindow* ctrl = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
 	//int index = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertItem(ctrl, label, index);
+	//int _rtn = pThis->GetEntity()->InsertItem(ctrl, label, index);
 	return Value::Nil;
 }
 
@@ -300,14 +300,14 @@ Gura_ImplementMethod(wx_PGEditor, __OnFocus)
 
 Gura_DeclareMethodAlias(wx_PGEditor, __CanContainCustomImage, "CanContainCustomImage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PGEditor, __CanContainCustomImage)
 {
 	Object_wx_PGEditor *pThis = Object_wx_PGEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanContainCustomImage();
+	//bool _rtn = pThis->GetEntity()->CanContainCustomImage();
 	return Value::Nil;
 }
 

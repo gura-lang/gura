@@ -39,7 +39,7 @@ String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CollapsiblePane, "CollapsiblePane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CollapsiblePane));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CollapsiblePane)
 
 Gura_DeclareFunctionAlias(__CollapsiblePane_1, "CollapsiblePane_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__CollapsiblePane_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CollapsiblePane, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -141,40 +141,40 @@ Gura_ImplementMethod(wx_CollapsiblePane, __Expand)
 
 Gura_DeclareMethodAlias(wx_CollapsiblePane, __GetPane, "GetPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsiblePane, __GetPane)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPane();
+	//wxWindow* _rtn = pThis->GetEntity()->GetPane();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CollapsiblePane, __IsCollapsed, "IsCollapsed")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsiblePane, __IsCollapsed)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsCollapsed();
+	//bool _rtn = pThis->GetEntity()->IsCollapsed();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CollapsiblePane, __IsExpanded, "IsExpanded")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CollapsiblePane, __IsExpanded)
 {
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsExpanded();
+	//bool _rtn = pThis->GetEntity()->IsExpanded();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_DocMDIParentFrame::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DocMDIParentFrame, "DocMDIParentFrame")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DocMDIParentFrame));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DocMDIParentFrame)
 
 Gura_DeclareFunctionAlias(__DocMDIParentFrame_1, "DocMDIParentFrame_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__DocMDIParentFrame_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DocMDIParentFrame, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "manager", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 

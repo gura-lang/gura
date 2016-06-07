@@ -39,7 +39,7 @@ String Object_wx_PageSetupDialog::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__PageSetupDialog, "PageSetupDialog")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_PageSetupDialog));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__PageSetupDialog)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_PageSetupDialog, __GetPageSetupData, "GetPageSetupData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialog, __GetPageSetupData)
 {
 	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageSetupData();
+	//wxPageSetupDialogData& _rtn = pThis->GetEntity()->GetPageSetupData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_PageSetupDialog, __ShowModal, "ShowModal")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_PageSetupDialog, __ShowModal)
 {
 	Object_wx_PageSetupDialog *pThis = Object_wx_PageSetupDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ShowModal();
+	//int _rtn = pThis->GetEntity()->ShowModal();
 	return Value::Nil;
 }
 

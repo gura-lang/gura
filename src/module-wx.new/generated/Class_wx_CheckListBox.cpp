@@ -39,7 +39,7 @@ String Object_wx_CheckListBox::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CheckListBox, "CheckListBox")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_CheckListBox));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__CheckListBox)
 
 Gura_DeclareFunctionAlias(__CheckListBox_1, "CheckListBox_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__CheckListBox_1)
 
 Gura_DeclareFunctionAlias(__CheckListBox_2, "CheckListBox_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(__CheckListBox_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CheckListBox, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -140,13 +140,13 @@ Gura_ImplementMethod(wx_CheckListBox, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create(parent, id, pos, size, nStrings, _arg5, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, nStrings, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckListBox, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_CheckListBox, __Create_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_CheckListBox, __Check)
 
 Gura_DeclareMethodAlias(wx_CheckListBox, __IsChecked, "IsChecked")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 }
 
@@ -201,13 +201,13 @@ Gura_ImplementMethod(wx_CheckListBox, __IsChecked)
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsChecked(item);
+	//bool _rtn = pThis->GetEntity()->IsChecked(item);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CheckListBox, __GetCheckedItems, "GetCheckedItems")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "checkedItems", VTYPE_number, OCCUR_Once);
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_CheckListBox, __GetCheckedItems)
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayInt& checkedItems = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCheckedItems(checkedItems);
+	//unsigned int _rtn = pThis->GetEntity()->GetCheckedItems(checkedItems);
 	return Value::Nil;
 }
 

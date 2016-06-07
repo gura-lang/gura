@@ -39,7 +39,7 @@ String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TempFileOutputStream, "TempFileOutputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "fileName", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TempFileOutputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,14 +57,14 @@ Gura_ImplementFunction(__TempFileOutputStream)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TempFileOutputStream, __Commit, "Commit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TempFileOutputStream, __Commit)
 {
 	Object_wx_TempFileOutputStream *pThis = Object_wx_TempFileOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Commit();
+	//bool _rtn = pThis->GetEntity()->Commit();
 	return Value::Nil;
 }
 

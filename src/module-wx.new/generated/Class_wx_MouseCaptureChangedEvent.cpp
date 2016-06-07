@@ -39,7 +39,7 @@ String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MouseCaptureChangedEvent, "MouseCaptureChangedEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "windowId", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gainedCapture", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MouseCaptureChangedEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__MouseCaptureChangedEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseCaptureChangedEvent, __GetCapturedWindow, "GetCapturedWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseCaptureChangedEvent, __GetCapturedWindow)
 {
 	Object_wx_MouseCaptureChangedEvent *pThis = Object_wx_MouseCaptureChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCapturedWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetCapturedWindow();
 	return Value::Nil;
 }
 

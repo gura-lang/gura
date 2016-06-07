@@ -39,7 +39,7 @@ String Object_wx_AuiManager::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiManager, "AuiManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "managed_wnd", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AuiManager));
@@ -59,7 +59,7 @@ Gura_ImplementFunction(__AuiManager)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_AuiManager, __AddPane, "AddPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pane_info", VTYPE_number, OCCUR_Once);
 }
@@ -70,13 +70,13 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxAuiPaneInfo& pane_info = arg.GetNumber(1)
-	//pThis->GetEntity()->AddPane(window, pane_info);
+	//bool _rtn = pThis->GetEntity()->AddPane(window, pane_info);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __AddPane_1, "AddPane_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "direction", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "caption", VTYPE_number, OCCUR_Once);
@@ -89,13 +89,13 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane_1)
 	//wxWindow* window = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
 	//const wxString& caption = arg.GetNumber(2)
-	//pThis->GetEntity()->AddPane(window, direction, caption);
+	//bool _rtn = pThis->GetEntity()->AddPane(window, direction, caption);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __AddPane_2, "AddPane_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pane_info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "drop_pos", VTYPE_number, OCCUR_Once);
@@ -108,13 +108,13 @@ Gura_ImplementMethod(wx_AuiManager, __AddPane_2)
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxAuiPaneInfo& pane_info = arg.GetNumber(1)
 	//const wxPoint& drop_pos = arg.GetNumber(2)
-	//pThis->GetEntity()->AddPane(window, pane_info, drop_pos);
+	//bool _rtn = pThis->GetEntity()->AddPane(window, pane_info, drop_pos);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __DetachPane, "DetachPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -123,33 +123,33 @@ Gura_ImplementMethod(wx_AuiManager, __DetachPane)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->DetachPane(window);
+	//bool _rtn = pThis->GetEntity()->DetachPane(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetAllPanes, "GetAllPanes")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, __GetAllPanes)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAllPanes();
+	//wxAuiPaneInfoArray& _rtn = pThis->GetEntity()->GetAllPanes();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetArtProvider, "GetArtProvider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, __GetArtProvider)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetArtProvider();
+	//wxAuiDockArt* _rtn = pThis->GetEntity()->GetArtProvider();
 	return Value::Nil;
 }
 
@@ -172,33 +172,33 @@ Gura_ImplementMethod(wx_AuiManager, __GetDockSizeConstraint)
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, __GetFlags)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//unsigned int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetManagedWindow, "GetManagedWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, __GetManagedWindow)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetManagedWindow();
+	//wxWindow* _rtn = pThis->GetEntity()->GetManagedWindow();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetManager, "GetManager")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -207,13 +207,13 @@ Gura_ImplementMethod(wx_AuiManager, __GetManager)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->GetManager(window);
+	//wxAuiManager* _rtn = pThis->GetEntity()->GetManager(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetPane, "GetPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 }
 
@@ -222,13 +222,13 @@ Gura_ImplementMethod(wx_AuiManager, __GetPane)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPane(window);
+	//wxAuiPaneInfo& _rtn = pThis->GetEntity()->GetPane(window);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __GetPane_1, "GetPane_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_AuiManager, __GetPane_1)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPane(name);
+	//wxAuiPaneInfo& _rtn = pThis->GetEntity()->GetPane(name);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_AuiManager, __HideHint)
 
 Gura_DeclareMethodAlias(wx_AuiManager, __InsertPane, "InsertPane")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "insert_location", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "insert_level", VTYPE_number, OCCUR_Once);
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_AuiManager, __InsertPane)
 	//wxWindow* window = arg.GetNumber(0)
 	//const wxAuiPaneInfo& insert_location = arg.GetNumber(1)
 	//int insert_level = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertPane(window, insert_location, insert_level);
+	//bool _rtn = pThis->GetEntity()->InsertPane(window, insert_location, insert_level);
 	return Value::Nil;
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_AuiManager, __LoadPaneInfo)
 
 Gura_DeclareMethodAlias(wx_AuiManager, __LoadPerspective, "LoadPerspective")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "perspective", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "update", VTYPE_number, OCCUR_Once);
 }
@@ -303,13 +303,13 @@ Gura_ImplementMethod(wx_AuiManager, __LoadPerspective)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& perspective = arg.GetNumber(0)
 	//bool update = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadPerspective(perspective, update);
+	//bool _rtn = pThis->GetEntity()->LoadPerspective(perspective, update);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __SavePaneInfo, "SavePaneInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pane", VTYPE_number, OCCUR_Once);
 }
 
@@ -318,20 +318,20 @@ Gura_ImplementMethod(wx_AuiManager, __SavePaneInfo)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiPaneInfo& pane = arg.GetNumber(0)
-	//pThis->GetEntity()->SavePaneInfo(pane);
+	//wxString _rtn = pThis->GetEntity()->SavePaneInfo(pane);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiManager, __SavePerspective, "SavePerspective")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiManager, __SavePerspective)
 {
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->SavePerspective();
+	//wxString _rtn = pThis->GetEntity()->SavePerspective();
 	return Value::Nil;
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_AuiManager, __Update)
 
 Gura_DeclareMethodAlias(wx_AuiManager, __ProcessDockResult, "ProcessDockResult")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "target", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "new_pos", VTYPE_number, OCCUR_Once);
 }
@@ -451,7 +451,7 @@ Gura_ImplementMethod(wx_AuiManager, __ProcessDockResult)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiPaneInfo& target = arg.GetNumber(0)
 	//const wxAuiPaneInfo& new_pos = arg.GetNumber(1)
-	//pThis->GetEntity()->ProcessDockResult(target, new_pos);
+	//bool _rtn = pThis->GetEntity()->ProcessDockResult(target, new_pos);
 	return Value::Nil;
 }
 

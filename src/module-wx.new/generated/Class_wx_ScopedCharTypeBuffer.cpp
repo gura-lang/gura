@@ -39,7 +39,7 @@ String Object_wx_ScopedCharTypeBuffer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ScopedCharTypeBuffer, "ScopedCharTypeBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedCharTypeBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ScopedCharTypeBuffer)
 
 Gura_DeclareFunctionAlias(__ScopedCharTypeBuffer_1, "ScopedCharTypeBuffer_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedCharTypeBuffer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(__ScopedCharTypeBuffer_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __CreateNonOwned, "CreateNonOwned")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -81,13 +81,13 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __CreateNonOwned)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const CharType* str = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateNonOwned(str, len);
+	//const wxScopedCharTypeBuffer _rtn = pThis->GetEntity()->CreateNonOwned(str, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __CreateOwned, "CreateOwned")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "str", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 }
@@ -98,20 +98,20 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __CreateOwned)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//CharType* str = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateOwned(str, len);
+	//const wxScopedCharTypeBuffer _rtn = pThis->GetEntity()->CreateOwned(str, len);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __release, "release")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __release)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->release();
+	//CharType* _rtn = pThis->GetEntity()->release();
 	return Value::Nil;
 }
 
@@ -130,40 +130,40 @@ Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __reset)
 
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __data, "data")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __data)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->data();
+	//CharType* _rtn = pThis->GetEntity()->data();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __data_1, "data_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __data_1)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->data();
+	//const CharType* _rtn = pThis->GetEntity()->data();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedCharTypeBuffer, __length, "length")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedCharTypeBuffer, __length)
 {
 	Object_wx_ScopedCharTypeBuffer *pThis = Object_wx_ScopedCharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->length();
+	//size_t _rtn = pThis->GetEntity()->length();
 	return Value::Nil;
 }
 

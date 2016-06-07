@@ -39,7 +39,7 @@ String Object_wx_DataViewIconTextRenderer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DataViewIconTextRenderer, "DataViewIconTextRenderer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "varianttype", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "align", VTYPE_number, OCCUR_Once);
@@ -61,14 +61,14 @@ Gura_ImplementFunction(__DataViewIconTextRenderer)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DataViewIconTextRenderer, __GetDefaultType, "GetDefaultType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DataViewIconTextRenderer, __GetDefaultType)
 {
 	Object_wx_DataViewIconTextRenderer *pThis = Object_wx_DataViewIconTextRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultType();
+	//wxString _rtn = pThis->GetEntity()->GetDefaultType();
 	return Value::Nil;
 }
 

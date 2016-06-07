@@ -39,7 +39,7 @@ String Object_wx_GridCellNumberEditor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__GridCellNumberEditor, "GridCellNumberEditor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "min", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "max", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_GridCellNumberEditor));
@@ -74,27 +74,27 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, __SetParameters)
 
 Gura_DeclareMethodAlias(wx_GridCellNumberEditor, __HasRange, "HasRange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, __HasRange)
 {
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->HasRange();
+	//bool _rtn = pThis->GetEntity()->HasRange();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_GridCellNumberEditor, __GetString, "GetString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_GridCellNumberEditor, __GetString)
 {
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetString();
+	//wxString _rtn = pThis->GetEntity()->GetString();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Object::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Object, "Object")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Object)
 
 Gura_DeclareFunctionAlias(__Object_1, "Object_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Object));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,33 +70,33 @@ Gura_ImplementFunction(__Object_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Object, __GetClassInfo, "GetClassInfo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Object, __GetClassInfo)
 {
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClassInfo();
+	//wxClassInfo* _rtn = pThis->GetEntity()->GetClassInfo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Object, __GetRefData, "GetRefData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Object, __GetRefData)
 {
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRefData();
+	//wxObjectRefData* _rtn = pThis->GetEntity()->GetRefData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Object, __IsKindOf, "IsKindOf")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
 
@@ -105,13 +105,13 @@ Gura_ImplementMethod(wx_Object, __IsKindOf)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxClassInfo* info = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKindOf(info);
+	//bool _rtn = pThis->GetEntity()->IsKindOf(info);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Object, __IsSameAs, "IsSameAs")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "obj", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Object, __IsSameAs)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObject& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSameAs(obj);
+	//bool _rtn = pThis->GetEntity()->IsSameAs(obj);
 	return Value::Nil;
 }
 
@@ -191,13 +191,13 @@ Gura_ImplementMethod(wx_Object, __delete)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->delete(buf);
+	//operator _rtn = pThis->GetEntity()->delete(buf);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Object, __new, "new")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "lineNum", VTYPE_number, OCCUR_Once);
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Object, __new)
 	//size_t size = arg.GetNumber(0)
 	//const wxString& filename = arg.GetNumber(1)
 	//int lineNum = arg.GetNumber(2)
-	//pThis->GetEntity()->new(size, filename, lineNum);
+	//void* operator _rtn = pThis->GetEntity()->new(size, filename, lineNum);
 	return Value::Nil;
 }
 
@@ -229,20 +229,20 @@ Gura_ImplementMethod(wx_Object, __AllocExclusive)
 
 Gura_DeclareMethodAlias(wx_Object, __CreateRefData, "CreateRefData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Object, __CreateRefData)
 {
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CreateRefData();
+	//wxObjectRefData* _rtn = pThis->GetEntity()->CreateRefData();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Object, __CloneRefData, "CloneRefData")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Object, __CloneRefData)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObjectRefData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->CloneRefData(data);
+	//wxObjectRefData* _rtn = pThis->GetEntity()->CloneRefData(data);
 	return Value::Nil;
 }
 

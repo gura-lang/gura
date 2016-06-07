@@ -39,7 +39,7 @@ String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__DelegateRendererNative, "DelegateRendererNative")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DelegateRendererNative)
 
 Gura_DeclareFunctionAlias(__DelegateRendererNative_1, "DelegateRendererNative_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "rendererNative", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_DelegateRendererNative));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -70,7 +70,7 @@ Gura_ImplementFunction(__DelegateRendererNative_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawHeaderButton, "DrawHeaderButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -89,13 +89,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButton)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
+	//int _rtn = pThis->GetEntity()->DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __DrawHeaderButtonContents, "DrawHeaderButtonContents")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "rect", VTYPE_number, OCCUR_Once);
@@ -114,13 +114,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawHeaderButtonContents)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
+	//int _rtn = pThis->GetEntity()->DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetHeaderButtonHeight, "GetHeaderButtonHeight")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -129,13 +129,13 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonHeight)
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonHeight(win);
+	//int _rtn = pThis->GetEntity()->GetHeaderButtonHeight(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetHeaderButtonMargin, "GetHeaderButtonMargin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetHeaderButtonMargin)
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonMargin(win);
+	//int _rtn = pThis->GetEntity()->GetHeaderButtonMargin(win);
 	return Value::Nil;
 }
 
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawCheckBox)
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetCheckBoxSize, "GetCheckBoxSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetCheckBoxSize)
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCheckBoxSize(win);
+	//wxSize _rtn = pThis->GetEntity()->GetCheckBoxSize(win);
 	return Value::Nil;
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __DrawFocusRect)
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetSplitterParams, "GetSplitterParams")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "win", VTYPE_number, OCCUR_Once);
 }
 
@@ -367,20 +367,20 @@ Gura_ImplementMethod(wx_DelegateRendererNative, __GetSplitterParams)
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterParams(win);
+	//wxSplitterRenderParams _rtn = pThis->GetEntity()->GetSplitterParams(win);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DelegateRendererNative, __GetVersion, "GetVersion")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_DelegateRendererNative, __GetVersion)
 {
 	Object_wx_DelegateRendererNative *pThis = Object_wx_DelegateRendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVersion();
+	//wxRendererVersion _rtn = pThis->GetEntity()->GetVersion();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Palette::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Palette, "Palette")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Palette));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Palette)
 
 Gura_DeclareFunctionAlias(__Palette_1, "Palette_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "palette", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Palette));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Palette_1)
 
 Gura_DeclareFunctionAlias(__Palette_2, "Palette_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
@@ -91,7 +91,7 @@ Gura_ImplementFunction(__Palette_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Palette, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
@@ -106,26 +106,26 @@ Gura_ImplementMethod(wx_Palette, __Create)
 	//const unsigned char* red = arg.GetNumber(1)
 	//const unsigned char* green = arg.GetNumber(2)
 	//const unsigned char* blue = arg.GetNumber(3)
-	//pThis->GetEntity()->Create(n, red, green, blue);
+	//bool _rtn = pThis->GetEntity()->Create(n, red, green, blue);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Palette, __GetColoursCount, "GetColoursCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Palette, __GetColoursCount)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColoursCount();
+	//int _rtn = pThis->GetEntity()->GetColoursCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Palette, __GetPixel, "GetPixel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "blue", VTYPE_number, OCCUR_Once);
@@ -138,13 +138,13 @@ Gura_ImplementMethod(wx_Palette, __GetPixel)
 	//unsigned char red = arg.GetNumber(0)
 	//unsigned char green = arg.GetNumber(1)
 	//unsigned char blue = arg.GetNumber(2)
-	//pThis->GetEntity()->GetPixel(red, green, blue);
+	//int _rtn = pThis->GetEntity()->GetPixel(red, green, blue);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Palette, __GetRGB, "GetRGB")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "red", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "green", VTYPE_number, OCCUR_Once);
@@ -159,20 +159,20 @@ Gura_ImplementMethod(wx_Palette, __GetRGB)
 	//unsigned char* red = arg.GetNumber(1)
 	//unsigned char* green = arg.GetNumber(2)
 	//unsigned char* blue = arg.GetNumber(3)
-	//pThis->GetEntity()->GetRGB(pixel, red, green, blue);
+	//bool _rtn = pThis->GetEntity()->GetRGB(pixel, red, green, blue);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Palette, __IsOk, "IsOk")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Palette, __IsOk)
 {
 	Object_wx_Palette *pThis = Object_wx_Palette::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsOk();
+	//bool _rtn = pThis->GetEntity()->IsOk();
 	return Value::Nil;
 }
 

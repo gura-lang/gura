@@ -39,7 +39,7 @@ String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RichTextHTMLHandler, "RichTextHTMLHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "name", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "ext", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "type", VTYPE_number, OCCUR_Once);
@@ -74,20 +74,20 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __ClearTemporaryImageLocations)
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DeleteTemporaryImages, "DeleteTemporaryImages")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->DeleteTemporaryImages();
+	//bool _rtn = pThis->GetEntity()->DeleteTemporaryImages();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1, "DeleteTemporaryImages_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "flags", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "imageLocations", VTYPE_number, OCCUR_Once);
 }
@@ -98,46 +98,46 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//const wxArrayString& imageLocations = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteTemporaryImages(flags, imageLocations);
+	//bool _rtn = pThis->GetEntity()->DeleteTemporaryImages(flags, imageLocations);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetFontSizeMapping, "GetFontSizeMapping")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetFontSizeMapping)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFontSizeMapping();
+	//wxArrayInt _rtn = pThis->GetEntity()->GetFontSizeMapping();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetTempDir, "GetTempDir")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetTempDir)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTempDir();
+	//const wxString& _rtn = pThis->GetEntity()->GetTempDir();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __GetTemporaryImageLocations, "GetTemporaryImageLocations")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RichTextHTMLHandler, __GetTemporaryImageLocations)
 {
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTemporaryImageLocations();
+	//const wxArrayString& _rtn = pThis->GetEntity()->GetTemporaryImageLocations();
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTemporaryImageLocations)
 
 Gura_DeclareMethodAlias(wx_RichTextHTMLHandler, __DoSaveFile, "DoSaveFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "buffer", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 }
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSaveFile(buffer, stream);
+	//bool _rtn = pThis->GetEntity()->DoSaveFile(buffer, stream);
 	return Value::Nil;
 }
 

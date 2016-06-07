@@ -39,7 +39,7 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MDIClientWindow, "MDIClientWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_MDIClientWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -55,7 +55,7 @@ Gura_ImplementFunction(__MDIClientWindow)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MDIClientWindow, __CreateClient, "CreateClient")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "style", VTYPE_number, OCCUR_Once);
 }
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_MDIClientWindow, __CreateClient)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMDIParentFrame* parent = arg.GetNumber(0)
 	//long style = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateClient(parent, style);
+	//bool _rtn = pThis->GetEntity()->CreateClient(parent, style);
 	return Value::Nil;
 }
 

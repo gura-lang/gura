@@ -39,7 +39,7 @@ String Object_wx_AutoBufferedPaintDC::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AutoBufferedPaintDC, "AutoBufferedPaintDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_AutoBufferedPaintDC));
 	DeclareBlock(OCCUR_ZeroOrOnce);

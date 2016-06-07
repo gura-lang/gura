@@ -39,7 +39,7 @@ String Object_wx_DirTraverser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_DirTraverser, __OnDir, "OnDir")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dirname", VTYPE_number, OCCUR_Once);
 }
 
@@ -48,13 +48,13 @@ Gura_ImplementMethod(wx_DirTraverser, __OnDir)
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dirname = arg.GetNumber(0)
-	//pThis->GetEntity()->OnDir(dirname);
+	//wxDirTraverseResult _rtn = pThis->GetEntity()->OnDir(dirname);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DirTraverser, __OnFile, "OnFile")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "filename", VTYPE_number, OCCUR_Once);
 }
 
@@ -63,13 +63,13 @@ Gura_ImplementMethod(wx_DirTraverser, __OnFile)
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->OnFile(filename);
+	//wxDirTraverseResult _rtn = pThis->GetEntity()->OnFile(filename);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_DirTraverser, __OnOpenError, "OnOpenError")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "openerrorname", VTYPE_number, OCCUR_Once);
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_DirTraverser, __OnOpenError)
 	Object_wx_DirTraverser *pThis = Object_wx_DirTraverser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& openerrorname = arg.GetNumber(0)
-	//pThis->GetEntity()->OnOpenError(openerrorname);
+	//wxDirTraverseResult _rtn = pThis->GetEntity()->OnOpenError(openerrorname);
 	return Value::Nil;
 }
 

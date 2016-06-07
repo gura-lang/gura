@@ -39,7 +39,7 @@ String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HyperlinkCtrl, "HyperlinkCtrl")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HyperlinkCtrl));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__HyperlinkCtrl)
 
 Gura_DeclareFunctionAlias(__HyperlinkCtrl_1, "HyperlinkCtrl_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__HyperlinkCtrl_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "label", VTYPE_number, OCCUR_Once);
@@ -107,72 +107,72 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create(parent, id, label, url, pos, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, label, url, pos, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetHoverColour, "GetHoverColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, __GetHoverColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetHoverColour();
+	//wxColour _rtn = pThis->GetEntity()->GetHoverColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetNormalColour, "GetNormalColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, __GetNormalColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNormalColour();
+	//wxColour _rtn = pThis->GetEntity()->GetNormalColour();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetURL, "GetURL")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, __GetURL)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetURL();
+	//wxString _rtn = pThis->GetEntity()->GetURL();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetVisited, "GetVisited")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, __GetVisited)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVisited();
+	//bool _rtn = pThis->GetEntity()->GetVisited();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HyperlinkCtrl, __GetVisitedColour, "GetVisitedColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HyperlinkCtrl, __GetVisitedColour)
 {
 	Object_wx_HyperlinkCtrl *pThis = Object_wx_HyperlinkCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVisitedColour();
+	//wxColour _rtn = pThis->GetEntity()->GetVisitedColour();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_VarHVScrollHelper::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__VarHVScrollHelper, "VarHVScrollHelper")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winToScroll", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_VarHVScrollHelper));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -74,46 +74,46 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __EnablePhysicalScrolling)
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __GetRowColumnCount, "GetRowColumnCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, __GetRowColumnCount)
 {
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRowColumnCount();
+	//wxSize _rtn = pThis->GetEntity()->GetRowColumnCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __GetVisibleBegin, "GetVisibleBegin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, __GetVisibleBegin)
 {
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVisibleBegin();
+	//wxPosition _rtn = pThis->GetEntity()->GetVisibleBegin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __GetVisibleEnd, "GetVisibleEnd")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_VarHVScrollHelper, __GetVisibleEnd)
 {
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVisibleEnd();
+	//wxPosition _rtn = pThis->GetEntity()->GetVisibleEnd();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __IsVisible, "IsVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
@@ -124,13 +124,13 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __IsVisible)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t row = arg.GetNumber(0)
 	//size_t column = arg.GetNumber(1)
-	//pThis->GetEntity()->IsVisible(row, column);
+	//bool _rtn = pThis->GetEntity()->IsVisible(row, column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __IsVisible_1, "IsVisible_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __IsVisible_1)
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPosition& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->IsVisible(pos);
+	//bool _rtn = pThis->GetEntity()->IsVisible(pos);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __RefreshRowsColumns_1)
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __ScrollToRowColumn, "ScrollToRowColumn")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "row", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "column", VTYPE_number, OCCUR_Once);
 }
@@ -226,13 +226,13 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __ScrollToRowColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t row = arg.GetNumber(0)
 	//size_t column = arg.GetNumber(1)
-	//pThis->GetEntity()->ScrollToRowColumn(row, column);
+	//bool _rtn = pThis->GetEntity()->ScrollToRowColumn(row, column);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __ScrollToRowColumn_1, "ScrollToRowColumn_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __ScrollToRowColumn_1)
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPosition& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollToRowColumn(pos);
+	//bool _rtn = pThis->GetEntity()->ScrollToRowColumn(pos);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __SetRowColumnCount)
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __VirtualHitTest, "VirtualHitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 }
@@ -275,13 +275,13 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __VirtualHitTest)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->VirtualHitTest(x, y);
+	//wxPosition _rtn = pThis->GetEntity()->VirtualHitTest(x, y);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_VarHVScrollHelper, __VirtualHitTest_1, "VirtualHitTest_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_VarHVScrollHelper, __VirtualHitTest_1)
 	Object_wx_VarHVScrollHelper *pThis = Object_wx_VarHVScrollHelper::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->VirtualHitTest(pos);
+	//wxPosition _rtn = pThis->GetEntity()->VirtualHitTest(pos);
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_Mask::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Mask, "Mask")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Mask));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Mask)
 
 Gura_DeclareFunctionAlias(__Mask_1, "Mask_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Mask));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__Mask_1)
 
 Gura_DeclareFunctionAlias(__Mask_2, "Mask_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Mask));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Mask_2)
 
 Gura_DeclareFunctionAlias(__Mask_3, "Mask_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Mask));
@@ -104,7 +104,7 @@ Gura_ImplementFunction(__Mask_3)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Mask, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "index", VTYPE_number, OCCUR_Once);
 }
@@ -115,13 +115,13 @@ Gura_ImplementMethod(wx_Mask, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(bitmap, index);
+	//bool _rtn = pThis->GetEntity()->Create(bitmap, index);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mask, __Create_1, "Create_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 }
 
@@ -130,13 +130,13 @@ Gura_ImplementMethod(wx_Mask, __Create_1)
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->Create(bitmap);
+	//bool _rtn = pThis->GetEntity()->Create(bitmap);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mask, __Create_2, "Create_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "bitmap", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "colour", VTYPE_number, OCCUR_Once);
 }
@@ -147,20 +147,20 @@ Gura_ImplementMethod(wx_Mask, __Create_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxColour& colour = arg.GetNumber(1)
-	//pThis->GetEntity()->Create(bitmap, colour);
+	//bool _rtn = pThis->GetEntity()->Create(bitmap, colour);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Mask, __GetBitmap, "GetBitmap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Mask, __GetBitmap)
 {
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBitmap();
+	//wxBitmap _rtn = pThis->GetEntity()->GetBitmap();
 	return Value::Nil;
 }
 

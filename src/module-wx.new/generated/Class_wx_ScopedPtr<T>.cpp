@@ -39,7 +39,7 @@ String Object_wx_ScopedPtr<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __wxScopedPtr, "wxScopedPtr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "ptr", VTYPE_number, OCCUR_Once);
 }
 
@@ -54,40 +54,40 @@ Gura_ImplementMethod(wx_ScopedPtr<T>, __wxScopedPtr)
 
 Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, __get)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __unspecified_bool_type, "unspecified_bool_type")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, __unspecified_bool_type)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->unspecified_bool_type();
+	//operator _rtn = pThis->GetEntity()->unspecified_bool_type();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedPtr<T>, __release, "release")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr<T>, __release)
 {
 	Object_wx_ScopedPtr<T> *pThis = Object_wx_ScopedPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->release();
+	//T* _rtn = pThis->GetEntity()->release();
 	return Value::Nil;
 }
 

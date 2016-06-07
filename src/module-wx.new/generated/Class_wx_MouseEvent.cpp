@@ -39,7 +39,7 @@ String Object_wx_MouseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MouseEvent, "MouseEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "mouseEventType", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MouseEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,85 +57,85 @@ Gura_ImplementFunction(__MouseEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux1DClick, "Aux1DClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux1DClick)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux1DClick();
+	//bool _rtn = pThis->GetEntity()->Aux1DClick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux1Down, "Aux1Down")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux1Down)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux1Down();
+	//bool _rtn = pThis->GetEntity()->Aux1Down();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux1Up, "Aux1Up")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux1Up)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux1Up();
+	//bool _rtn = pThis->GetEntity()->Aux1Up();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux2DClick, "Aux2DClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux2DClick)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux2DClick();
+	//bool _rtn = pThis->GetEntity()->Aux2DClick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux2Down, "Aux2Down")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux2Down)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux2Down();
+	//bool _rtn = pThis->GetEntity()->Aux2Down();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Aux2Up, "Aux2Up")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Aux2Up)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Aux2Up();
+	//bool _rtn = pThis->GetEntity()->Aux2Up();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Button, "Button")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "but", VTYPE_number, OCCUR_Once);
 }
 
@@ -144,13 +144,13 @@ Gura_ImplementMethod(wx_MouseEvent, __Button)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->Button(but);
+	//bool _rtn = pThis->GetEntity()->Button(but);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __ButtonDClick, "ButtonDClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "but", VTYPE_number, OCCUR_Once);
 }
 
@@ -159,13 +159,13 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonDClick)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDClick(but);
+	//bool _rtn = pThis->GetEntity()->ButtonDClick(but);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __ButtonDown, "ButtonDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "but", VTYPE_number, OCCUR_Once);
 }
 
@@ -174,13 +174,13 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonDown)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDown(but);
+	//bool _rtn = pThis->GetEntity()->ButtonDown(but);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __ButtonUp, "ButtonUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "but", VTYPE_number, OCCUR_Once);
 }
 
@@ -189,91 +189,91 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonUp)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonUp(but);
+	//bool _rtn = pThis->GetEntity()->ButtonUp(but);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Dragging, "Dragging")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Dragging)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Dragging();
+	//bool _rtn = pThis->GetEntity()->Dragging();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Entering, "Entering")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Entering)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Entering();
+	//bool _rtn = pThis->GetEntity()->Entering();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetButton, "GetButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetButton)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetButton();
+	//int _rtn = pThis->GetEntity()->GetButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetClickCount, "GetClickCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetClickCount)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetClickCount();
+	//int _rtn = pThis->GetEntity()->GetClickCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetLinesPerAction, "GetLinesPerAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetLinesPerAction)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLinesPerAction();
+	//int _rtn = pThis->GetEntity()->GetLinesPerAction();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetColumnsPerAction, "GetColumnsPerAction")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetColumnsPerAction)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetColumnsPerAction();
+	//int _rtn = pThis->GetEntity()->GetColumnsPerAction();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetLogicalPosition, "GetLogicalPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 }
 
@@ -282,254 +282,254 @@ Gura_ImplementMethod(wx_MouseEvent, __GetLogicalPosition)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDC& dc = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLogicalPosition(dc);
+	//wxPoint _rtn = pThis->GetEntity()->GetLogicalPosition(dc);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetMagnification, "GetMagnification")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetMagnification)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMagnification();
+	//float _rtn = pThis->GetEntity()->GetMagnification();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetWheelDelta, "GetWheelDelta")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetWheelDelta)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWheelDelta();
+	//int _rtn = pThis->GetEntity()->GetWheelDelta();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetWheelRotation, "GetWheelRotation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetWheelRotation)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWheelRotation();
+	//int _rtn = pThis->GetEntity()->GetWheelRotation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __GetWheelAxis, "GetWheelAxis")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __GetWheelAxis)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWheelAxis();
+	//wxMouseWheelAxis _rtn = pThis->GetEntity()->GetWheelAxis();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __IsButton, "IsButton")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __IsButton)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsButton();
+	//bool _rtn = pThis->GetEntity()->IsButton();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __IsPageScroll, "IsPageScroll")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __IsPageScroll)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsPageScroll();
+	//bool _rtn = pThis->GetEntity()->IsPageScroll();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Leaving, "Leaving")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Leaving)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Leaving();
+	//bool _rtn = pThis->GetEntity()->Leaving();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __LeftDClick, "LeftDClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __LeftDClick)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LeftDClick();
+	//bool _rtn = pThis->GetEntity()->LeftDClick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __LeftDown, "LeftDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __LeftDown)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LeftDown();
+	//bool _rtn = pThis->GetEntity()->LeftDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __LeftUp, "LeftUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __LeftUp)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->LeftUp();
+	//bool _rtn = pThis->GetEntity()->LeftUp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Magnify, "Magnify")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Magnify)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Magnify();
+	//bool _rtn = pThis->GetEntity()->Magnify();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __MetaDown, "MetaDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __MetaDown)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MetaDown();
+	//bool _rtn = pThis->GetEntity()->MetaDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __MiddleDClick, "MiddleDClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __MiddleDClick)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MiddleDClick();
+	//bool _rtn = pThis->GetEntity()->MiddleDClick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __MiddleDown, "MiddleDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __MiddleDown)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MiddleDown();
+	//bool _rtn = pThis->GetEntity()->MiddleDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __MiddleUp, "MiddleUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __MiddleUp)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->MiddleUp();
+	//bool _rtn = pThis->GetEntity()->MiddleUp();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __Moving, "Moving")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __Moving)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Moving();
+	//bool _rtn = pThis->GetEntity()->Moving();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __RightDClick, "RightDClick")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __RightDClick)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RightDClick();
+	//bool _rtn = pThis->GetEntity()->RightDClick();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __RightDown, "RightDown")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __RightDown)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RightDown();
+	//bool _rtn = pThis->GetEntity()->RightDown();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_MouseEvent, __RightUp, "RightUp")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MouseEvent, __RightUp)
 {
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->RightUp();
+	//bool _rtn = pThis->GetEntity()->RightUp();
 	return Value::Nil;
 }
 

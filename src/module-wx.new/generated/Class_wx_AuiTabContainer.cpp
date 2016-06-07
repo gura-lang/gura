@@ -39,7 +39,7 @@ String Object_wx_AuiTabContainer::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__AuiTabContainer, "AuiTabContainer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_AuiTabContainer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetArtProvider)
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetArtProvider, "GetArtProvider")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetArtProvider)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetArtProvider();
+	//wxAuiTabArt* _rtn = pThis->GetEntity()->GetArtProvider();
 	return Value::Nil;
 }
 
@@ -98,20 +98,20 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetFlags)
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetFlags)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//unsigned int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __AddPage, "AddPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 }
@@ -122,13 +122,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __AddPage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
 	//const wxAuiNotebookPage& info = arg.GetNumber(1)
-	//pThis->GetEntity()->AddPage(page, info);
+	//bool _rtn = pThis->GetEntity()->AddPage(page, info);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __InsertPage, "InsertPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "info", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
@@ -141,13 +141,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __InsertPage)
 	//wxWindow* page = arg.GetNumber(0)
 	//const wxAuiNotebookPage& info = arg.GetNumber(1)
 	//size_t idx = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertPage(page, info, idx);
+	//bool _rtn = pThis->GetEntity()->InsertPage(page, info, idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __MovePage, "MovePage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newIdx", VTYPE_number, OCCUR_Once);
 }
@@ -158,13 +158,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __MovePage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
 	//size_t newIdx = arg.GetNumber(1)
-	//pThis->GetEntity()->MovePage(page, newIdx);
+	//bool _rtn = pThis->GetEntity()->MovePage(page, newIdx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __RemovePage, "RemovePage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -173,13 +173,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __RemovePage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->RemovePage(page);
+	//bool _rtn = pThis->GetEntity()->RemovePage(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetActivePage, "SetActivePage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -188,13 +188,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage(page);
+	//bool _rtn = pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __SetActivePage_1, "SetActivePage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage_1)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage(page);
+	//bool _rtn = pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
@@ -222,20 +222,20 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetNoneActive)
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetActivePage, "GetActivePage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetActivePage)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetActivePage();
+	//int _rtn = pThis->GetEntity()->GetActivePage();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __TabHitTest, "TabHitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hit", VTYPE_number, OCCUR_Once);
@@ -248,13 +248,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __TabHitTest)
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//wxWindow** hit = arg.GetNumber(2)
-	//pThis->GetEntity()->TabHitTest(x, y, hit);
+	//bool _rtn = pThis->GetEntity()->TabHitTest(x, y, hit);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __ButtonHitTest, "ButtonHitTest")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "hit", VTYPE_number, OCCUR_Once);
@@ -267,13 +267,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __ButtonHitTest)
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//wxAuiTabContainerButton** hit = arg.GetNumber(2)
-	//pThis->GetEntity()->ButtonHitTest(x, y, hit);
+	//bool _rtn = pThis->GetEntity()->ButtonHitTest(x, y, hit);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetWindowFromIdx, "GetWindowFromIdx")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -282,13 +282,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetWindowFromIdx)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetWindowFromIdx(idx);
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindowFromIdx(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetIdxFromWindow, "GetIdxFromWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "page", VTYPE_number, OCCUR_Once);
 }
 
@@ -297,26 +297,26 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetIdxFromWindow)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIdxFromWindow(page);
+	//int _rtn = pThis->GetEntity()->GetIdxFromWindow(page);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPageCount, "GetPageCount")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetPageCount)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPageCount();
+	//size_t _rtn = pThis->GetEntity()->GetPageCount();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPage, "GetPage")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -325,13 +325,13 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetPage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPage(idx);
+	//wxAuiNotebookPage& _rtn = pThis->GetEntity()->GetPage(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPage_1, "GetPage_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "idx", VTYPE_number, OCCUR_Once);
 }
 
@@ -340,20 +340,20 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetPage_1)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPage(idx);
+	//const wxAuiNotebookPage& _rtn = pThis->GetEntity()->GetPage(idx);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetPages, "GetPages")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetPages)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPages();
+	//wxAuiNotebookPageArray& _rtn = pThis->GetEntity()->GetPages();
 	return Value::Nil;
 }
 
@@ -498,14 +498,14 @@ Gura_ImplementMethod(wx_AuiTabContainer, __AddButton)
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __GetTabOffset, "GetTabOffset")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_AuiTabContainer, __GetTabOffset)
 {
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetTabOffset();
+	//size_t _rtn = pThis->GetEntity()->GetTabOffset();
 	return Value::Nil;
 }
 
@@ -526,7 +526,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetTabOffset)
 
 Gura_DeclareMethodAlias(wx_AuiTabContainer, __IsTabVisible, "IsTabVisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "tabPage", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "tabOffset", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __IsTabVisible)
 	//int tabOffset = arg.GetNumber(1)
 	//wxDC* dc = arg.GetNumber(2)
 	//wxWindow* wnd = arg.GetNumber(3)
-	//pThis->GetEntity()->IsTabVisible(tabPage, tabOffset, dc, wnd);
+	//bool _rtn = pThis->GetEntity()->IsTabVisible(tabPage, tabOffset, dc, wnd);
 	return Value::Nil;
 }
 

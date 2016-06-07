@@ -39,7 +39,7 @@ String Object_wx_MemoryInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__MemoryInputStream, "MemoryInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "data", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__MemoryInputStream)
 
 Gura_DeclareFunctionAlias(__MemoryInputStream_1, "MemoryInputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__MemoryInputStream_1)
 
 Gura_DeclareFunctionAlias(__MemoryInputStream_2, "MemoryInputStream_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "len", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_MemoryInputStream));
@@ -91,14 +91,14 @@ Gura_ImplementFunction(__MemoryInputStream_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_MemoryInputStream, __GetInputStreamBuffer, "GetInputStreamBuffer")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_MemoryInputStream, __GetInputStreamBuffer)
 {
 	Object_wx_MemoryInputStream *pThis = Object_wx_MemoryInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetInputStreamBuffer();
+	//wxStreamBuffer* _rtn = pThis->GetEntity()->GetInputStreamBuffer();
 	return Value::Nil;
 }
 

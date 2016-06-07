@@ -39,7 +39,7 @@ String Object_wx_EraseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__EraseEvent, "EraseEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dc", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_EraseEvent));
@@ -59,14 +59,14 @@ Gura_ImplementFunction(__EraseEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_EraseEvent, __GetDC, "GetDC")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_EraseEvent, __GetDC)
 {
 	Object_wx_EraseEvent *pThis = Object_wx_EraseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDC();
+	//wxDC* _rtn = pThis->GetEntity()->GetDC();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlWinTagHandler, "HtmlWinTagHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlWinTagHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

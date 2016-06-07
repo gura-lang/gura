@@ -39,7 +39,7 @@ String Object_wx_SplitterWindow::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__SplitterWindow, "SplitterWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_SplitterWindow));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__SplitterWindow)
 
 Gura_DeclareFunctionAlias(__SplitterWindow_1, "SplitterWindow_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pos", VTYPE_number, OCCUR_Once);
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__SplitterWindow_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_SplitterWindow, __Create, "Create")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "parent", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "point", VTYPE_number, OCCUR_Once);
@@ -99,111 +99,111 @@ Gura_ImplementMethod(wx_SplitterWindow, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create(parent, id, point, size, style, name);
+	//bool _rtn = pThis->GetEntity()->Create(parent, id, point, size, style, name);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetMinimumPaneSize, "GetMinimumPaneSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetMinimumPaneSize)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMinimumPaneSize();
+	//int _rtn = pThis->GetEntity()->GetMinimumPaneSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetSashGravity, "GetSashGravity")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetSashGravity)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSashGravity();
+	//double _rtn = pThis->GetEntity()->GetSashGravity();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetSashPosition, "GetSashPosition")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetSashPosition)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSashPosition();
+	//int _rtn = pThis->GetEntity()->GetSashPosition();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetSashSize, "GetSashSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetSashSize)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSashSize();
+	//int _rtn = pThis->GetEntity()->GetSashSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetDefaultSashSize, "GetDefaultSashSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetDefaultSashSize)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetDefaultSashSize();
+	//int _rtn = pThis->GetEntity()->GetDefaultSashSize();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetSplitMode, "GetSplitMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetSplitMode)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSplitMode();
+	//wxSplitMode _rtn = pThis->GetEntity()->GetSplitMode();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetWindow1, "GetWindow1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetWindow1)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow1();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow1();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __GetWindow2, "GetWindow2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __GetWindow2)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWindow2();
+	//wxWindow* _rtn = pThis->GetEntity()->GetWindow2();
 	return Value::Nil;
 }
 
@@ -224,27 +224,27 @@ Gura_ImplementMethod(wx_SplitterWindow, __Initialize)
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __IsSashInvisible, "IsSashInvisible")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __IsSashInvisible)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsSashInvisible();
+	//bool _rtn = pThis->GetEntity()->IsSashInvisible();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __IsSplit, "IsSplit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_SplitterWindow, __IsSplit)
 {
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsSplit();
+	//bool _rtn = pThis->GetEntity()->IsSplit();
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __OnDoubleClickSash)
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __OnSashPositionChange, "OnSashPositionChange")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "newSashPosition", VTYPE_number, OCCUR_Once);
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __OnSashPositionChange)
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int newSashPosition = arg.GetNumber(0)
-	//pThis->GetEntity()->OnSashPositionChange(newSashPosition);
+	//bool _rtn = pThis->GetEntity()->OnSashPositionChange(newSashPosition);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __OnUnsplit)
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __ReplaceWindow, "ReplaceWindow")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "winOld", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "winNew", VTYPE_number, OCCUR_Once);
 }
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __ReplaceWindow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* winOld = arg.GetNumber(0)
 	//wxWindow* winNew = arg.GetNumber(1)
-	//pThis->GetEntity()->ReplaceWindow(winOld, winNew);
+	//bool _rtn = pThis->GetEntity()->ReplaceWindow(winOld, winNew);
 	return Value::Nil;
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __SetSashInvisible)
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __SplitHorizontally, "SplitHorizontally")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window2", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sashPosition", VTYPE_number, OCCUR_Once);
@@ -404,13 +404,13 @@ Gura_ImplementMethod(wx_SplitterWindow, __SplitHorizontally)
 	//wxWindow* window1 = arg.GetNumber(0)
 	//wxWindow* window2 = arg.GetNumber(1)
 	//int sashPosition = arg.GetNumber(2)
-	//pThis->GetEntity()->SplitHorizontally(window1, window2, sashPosition);
+	//bool _rtn = pThis->GetEntity()->SplitHorizontally(window1, window2, sashPosition);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __SplitVertically, "SplitVertically")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "window1", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "window2", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "sashPosition", VTYPE_number, OCCUR_Once);
@@ -423,13 +423,13 @@ Gura_ImplementMethod(wx_SplitterWindow, __SplitVertically)
 	//wxWindow* window1 = arg.GetNumber(0)
 	//wxWindow* window2 = arg.GetNumber(1)
 	//int sashPosition = arg.GetNumber(2)
-	//pThis->GetEntity()->SplitVertically(window1, window2, sashPosition);
+	//bool _rtn = pThis->GetEntity()->SplitVertically(window1, window2, sashPosition);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_SplitterWindow, __Unsplit, "Unsplit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "toRemove", VTYPE_number, OCCUR_Once);
 }
 
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_SplitterWindow, __Unsplit)
 	Object_wx_SplitterWindow *pThis = Object_wx_SplitterWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* toRemove = arg.GetNumber(0)
-	//pThis->GetEntity()->Unsplit(toRemove);
+	//bool _rtn = pThis->GetEntity()->Unsplit(toRemove);
 	return Value::Nil;
 }
 

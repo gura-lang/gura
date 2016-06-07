@@ -39,7 +39,7 @@ String Object_wx_HtmlRenderingState::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlRenderingState, "HtmlRenderingState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlRenderingState));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -70,14 +70,14 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetSelectionState)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetSelectionState, "GetSelectionState")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingState, __GetSelectionState)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSelectionState();
+	//wxHtmlSelectionState _rtn = pThis->GetEntity()->GetSelectionState();
 	return Value::Nil;
 }
 
@@ -98,14 +98,14 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetFgColour)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetFgColour, "GetFgColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingState, __GetFgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFgColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetFgColour();
 	return Value::Nil;
 }
 
@@ -126,14 +126,14 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgColour)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetBgColour, "GetBgColour")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgColour)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBgColour();
+	//const wxColour& _rtn = pThis->GetEntity()->GetBgColour();
 	return Value::Nil;
 }
 
@@ -154,14 +154,14 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgMode)
 
 Gura_DeclareMethodAlias(wx_HtmlRenderingState, __GetBgMode, "GetBgMode")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlRenderingState, __GetBgMode)
 {
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetBgMode();
+	//int _rtn = pThis->GetEntity()->GetBgMode();
 	return Value::Nil;
 }
 

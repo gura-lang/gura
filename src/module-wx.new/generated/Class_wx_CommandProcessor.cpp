@@ -39,7 +39,7 @@ String Object_wx_CommandProcessor::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CommandProcessor, "CommandProcessor")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "maxCommands", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CommandProcessor));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,27 +57,27 @@ Gura_ImplementFunction(__CommandProcessor)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CommandProcessor, __CanUndo, "CanUndo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __CanUndo)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanUndo();
+	//bool _rtn = pThis->GetEntity()->CanUndo();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __CanRedo, "CanRedo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __CanRedo)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanRedo();
+	//bool _rtn = pThis->GetEntity()->CanRedo();
 	return Value::Nil;
 }
 
@@ -96,105 +96,105 @@ Gura_ImplementMethod(wx_CommandProcessor, __ClearCommands)
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetCommands, "GetCommands")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetCommands)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCommands();
+	//wxList& _rtn = pThis->GetEntity()->GetCommands();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetCurrentCommand, "GetCurrentCommand")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetCurrentCommand)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetCurrentCommand();
+	//wxCommand* _rtn = pThis->GetEntity()->GetCurrentCommand();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetEditMenu, "GetEditMenu")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetEditMenu)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetEditMenu();
+	//wxMenu* _rtn = pThis->GetEntity()->GetEditMenu();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetMaxCommands, "GetMaxCommands")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetMaxCommands)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetMaxCommands();
+	//int _rtn = pThis->GetEntity()->GetMaxCommands();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetRedoAccelerator, "GetRedoAccelerator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetRedoAccelerator)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRedoAccelerator();
+	//const wxString& _rtn = pThis->GetEntity()->GetRedoAccelerator();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetRedoMenuLabel, "GetRedoMenuLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetRedoMenuLabel)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRedoMenuLabel();
+	//wxString _rtn = pThis->GetEntity()->GetRedoMenuLabel();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetUndoAccelerator, "GetUndoAccelerator")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetUndoAccelerator)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUndoAccelerator();
+	//const wxString& _rtn = pThis->GetEntity()->GetUndoAccelerator();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __GetUndoMenuLabel, "GetUndoMenuLabel")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __GetUndoMenuLabel)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetUndoMenuLabel();
+	//wxString _rtn = pThis->GetEntity()->GetUndoMenuLabel();
 	return Value::Nil;
 }
 
@@ -213,14 +213,14 @@ Gura_ImplementMethod(wx_CommandProcessor, __Initialize)
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __IsDirty, "IsDirty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __IsDirty)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsDirty();
+	//bool _rtn = pThis->GetEntity()->IsDirty();
 	return Value::Nil;
 }
 
@@ -239,14 +239,14 @@ Gura_ImplementMethod(wx_CommandProcessor, __MarkAsSaved)
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __Redo, "Redo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __Redo)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Redo();
+	//bool _rtn = pThis->GetEntity()->Redo();
 	return Value::Nil;
 }
 
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __SetUndoAccelerator)
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __Submit, "Submit")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "command", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "storeIt", VTYPE_number, OCCUR_Once);
 }
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_CommandProcessor, __Submit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCommand* command = arg.GetNumber(0)
 	//bool storeIt = arg.GetNumber(1)
-	//pThis->GetEntity()->Submit(command, storeIt);
+	//bool _rtn = pThis->GetEntity()->Submit(command, storeIt);
 	return Value::Nil;
 }
 
@@ -342,14 +342,14 @@ Gura_ImplementMethod(wx_CommandProcessor, __Store)
 
 Gura_DeclareMethodAlias(wx_CommandProcessor, __Undo, "Undo")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CommandProcessor, __Undo)
 {
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->Undo();
+	//bool _rtn = pThis->GetEntity()->Undo();
 	return Value::Nil;
 }
 

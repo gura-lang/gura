@@ -39,7 +39,7 @@ String Object_wx_RibbonGalleryEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__RibbonGalleryEvent, "RibbonGalleryEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "command_type", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "win_id", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "gallery", VTYPE_number, OCCUR_Once);
@@ -63,27 +63,27 @@ Gura_ImplementFunction(__RibbonGalleryEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_RibbonGalleryEvent, __GetGallery, "GetGallery")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, __GetGallery)
 {
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGallery();
+	//wxRibbonGallery* _rtn = pThis->GetEntity()->GetGallery();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_RibbonGalleryEvent, __GetGalleryItem, "GetGalleryItem")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_RibbonGalleryEvent, __GetGalleryItem)
 {
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetGalleryItem();
+	//wxRibbonGalleryItem* _rtn = pThis->GetEntity()->GetGalleryItem();
 	return Value::Nil;
 }
 

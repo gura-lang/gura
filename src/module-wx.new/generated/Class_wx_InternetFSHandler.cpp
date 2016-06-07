@@ -39,7 +39,7 @@ String Object_wx_InternetFSHandler::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__InternetFSHandler, "InternetFSHandler")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_InternetFSHandler));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

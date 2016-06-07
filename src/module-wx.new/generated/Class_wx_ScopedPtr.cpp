@@ -39,7 +39,7 @@ String Object_wx_ScopedPtr::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__ScopedPtr, "ScopedPtr")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "T", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_ScopedPtr));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ScopedPtr, "ScopedPtr")
 Gura_ImplementFunction(__ScopedPtr)
 {
 	//type* T = arg.GetNumber(0)
-	//wxScopedPtr(T);
+	//explicit _rtn = wxScopedPtr(T);
 	return Value::Nil;
 }
 
@@ -57,33 +57,33 @@ Gura_ImplementFunction(__ScopedPtr)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_ScopedPtr, __get, "get")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr, __get)
 {
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->get();
+	//T* _rtn = pThis->GetEntity()->get();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedPtr, __release, "release")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ScopedPtr, __release)
 {
 	Object_wx_ScopedPtr *pThis = Object_wx_ScopedPtr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->release();
+	//T* _rtn = pThis->GetEntity()->release();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_ScopedPtr, __reset, "reset")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "p", VTYPE_number, OCCUR_Once);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_ScopedPtr, __reset)
 
 Gura_DeclareMethodAlias(wx_ScopedPtr, __swap, "swap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "other", VTYPE_number, OCCUR_Once);
 }
 

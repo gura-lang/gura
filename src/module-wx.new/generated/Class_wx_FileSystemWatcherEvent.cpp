@@ -39,7 +39,7 @@ String Object_wx_FileSystemWatcherEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__FileSystemWatcherEvent, "FileSystemWatcherEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "watchid", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_FileSystemWatcherEvent));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__FileSystemWatcherEvent)
 
 Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_1, "FileSystemWatcherEvent_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "warningType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "errorMsg", VTYPE_number, OCCUR_Once);
@@ -77,7 +77,7 @@ Gura_ImplementFunction(__FileSystemWatcherEvent_1)
 
 Gura_DeclareFunctionAlias(__FileSystemWatcherEvent_2, "FileSystemWatcherEvent_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "changeType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "path", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "newPath", VTYPE_number, OCCUR_Once);
@@ -101,92 +101,92 @@ Gura_ImplementFunction(__FileSystemWatcherEvent_2)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetPath, "GetPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __GetPath)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetPath();
+	//const wxFileName& _rtn = pThis->GetEntity()->GetPath();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetNewPath, "GetNewPath")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __GetNewPath)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNewPath();
+	//const wxFileName& _rtn = pThis->GetEntity()->GetNewPath();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetChangeType, "GetChangeType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __GetChangeType)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetChangeType();
+	//int _rtn = pThis->GetEntity()->GetChangeType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __IsError, "IsError")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __IsError)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsError();
+	//bool _rtn = pThis->GetEntity()->IsError();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetErrorDescription, "GetErrorDescription")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __GetErrorDescription)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetErrorDescription();
+	//wxString _rtn = pThis->GetEntity()->GetErrorDescription();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __GetWarningType, "GetWarningType")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __GetWarningType)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetWarningType();
+	//wxFSWWarningType _rtn = pThis->GetEntity()->GetWarningType();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_FileSystemWatcherEvent, __ToString, "ToString")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_FileSystemWatcherEvent, __ToString)
 {
 	Object_wx_FileSystemWatcherEvent *pThis = Object_wx_FileSystemWatcherEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->ToString();
+	//wxString _rtn = pThis->GetEntity()->ToString();
 	return Value::Nil;
 }
 

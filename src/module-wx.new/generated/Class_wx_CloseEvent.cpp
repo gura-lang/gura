@@ -39,7 +39,7 @@ String Object_wx_CloseEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__CloseEvent, "CloseEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "commandEventType", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_CloseEvent));
@@ -59,27 +59,27 @@ Gura_ImplementFunction(__CloseEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_CloseEvent, __CanVeto, "CanVeto")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CloseEvent, __CanVeto)
 {
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CanVeto();
+	//bool _rtn = pThis->GetEntity()->CanVeto();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_CloseEvent, __GetLoggingOff, "GetLoggingOff")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CloseEvent, __GetLoggingOff)
 {
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetLoggingOff();
+	//bool _rtn = pThis->GetEntity()->GetLoggingOff();
 	return Value::Nil;
 }
 
@@ -130,14 +130,14 @@ Gura_ImplementMethod(wx_CloseEvent, __Veto)
 
 Gura_DeclareMethodAlias(wx_CloseEvent, __GetVeto, "GetVeto")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_CloseEvent, __GetVeto)
 {
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVeto();
+	//bool _rtn = pThis->GetEntity()->GetVeto();
 	return Value::Nil;
 }
 

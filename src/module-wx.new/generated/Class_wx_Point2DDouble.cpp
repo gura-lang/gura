@@ -39,7 +39,7 @@ String Object_wx_Point2DDouble::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Point2DDouble, "Point2DDouble")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Point2DDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -52,7 +52,7 @@ Gura_ImplementFunction(__Point2DDouble)
 
 Gura_DeclareFunctionAlias(__Point2DDouble_1, "Point2DDouble_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point2DDouble));
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__Point2DDouble_1)
 
 Gura_DeclareFunctionAlias(__Point2DDouble_2, "Point2DDouble_2")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point2DDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Point2DDouble_2)
 
 Gura_DeclareFunctionAlias(__Point2DDouble_3, "Point2DDouble_3")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point2DDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -99,7 +99,7 @@ Gura_ImplementFunction(__Point2DDouble_3)
 
 Gura_DeclareFunctionAlias(__Point2DDouble_4, "Point2DDouble_4")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_Point2DDouble));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -151,27 +151,27 @@ Gura_ImplementMethod(wx_Point2DDouble, __GetRounded)
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetVectorLength, "GetVectorLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Point2DDouble, __GetVectorLength)
 {
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVectorLength();
+	//wxDouble _rtn = pThis->GetEntity()->GetVectorLength();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetVectorAngle, "GetVectorAngle")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Point2DDouble, __GetVectorAngle)
 {
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetVectorAngle();
+	//wxDouble _rtn = pThis->GetEntity()->GetVectorAngle();
 	return Value::Nil;
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_Point2DDouble, __Normalize)
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetDistance, "GetDistance")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -229,13 +229,13 @@ Gura_ImplementMethod(wx_Point2DDouble, __GetDistance)
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDistance(pt);
+	//wxDouble _rtn = pThis->GetEntity()->GetDistance(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetDistanceSquare, "GetDistanceSquare")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "pt", VTYPE_number, OCCUR_Once);
 }
 
@@ -244,13 +244,13 @@ Gura_ImplementMethod(wx_Point2DDouble, __GetDistanceSquare)
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDistanceSquare(pt);
+	//wxDouble _rtn = pThis->GetEntity()->GetDistanceSquare(pt);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetDotProduct, "GetDotProduct")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "vec", VTYPE_number, OCCUR_Once);
 }
 
@@ -259,13 +259,13 @@ Gura_ImplementMethod(wx_Point2DDouble, __GetDotProduct)
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& vec = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDotProduct(vec);
+	//wxDouble _rtn = pThis->GetEntity()->GetDotProduct(vec);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Point2DDouble, __GetCrossProduct, "GetCrossProduct")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "vec", VTYPE_number, OCCUR_Once);
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_Point2DDouble, __GetCrossProduct)
 	Object_wx_Point2DDouble *pThis = Object_wx_Point2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& vec = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCrossProduct(vec);
+	//wxDouble _rtn = pThis->GetEntity()->GetCrossProduct(vec);
 	return Value::Nil;
 }
 

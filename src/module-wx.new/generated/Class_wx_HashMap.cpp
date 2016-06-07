@@ -39,7 +39,7 @@ String Object_wx_HashMap::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HashMap, "HashMap")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "size", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HashMap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HashMap)
 
 Gura_DeclareFunctionAlias(__HashMap_1, "HashMap_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "map", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_HashMap));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -72,27 +72,27 @@ Gura_ImplementFunction(__HashMap_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_HashMap, __begin, "begin")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __begin)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//const_iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __begin_1, "begin_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __begin_1)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->begin();
+	//iterator _rtn = pThis->GetEntity()->begin();
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_HashMap, __clear)
 
 Gura_DeclareMethodAlias(wx_HashMap, __count, "count")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -120,52 +120,52 @@ Gura_ImplementMethod(wx_HashMap, __count)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->count(key);
+	//size_type _rtn = pThis->GetEntity()->count(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __empty, "empty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __empty)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->empty();
+	//bool _rtn = pThis->GetEntity()->empty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __end, "end")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __end)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//const_iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __end_1, "end_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __end_1)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->end();
+	//iterator _rtn = pThis->GetEntity()->end();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __erase, "erase")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_HashMap, __erase)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->erase(key);
+	//size_type _rtn = pThis->GetEntity()->erase(key);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_HashMap, __erase_2)
 
 Gura_DeclareMethodAlias(wx_HashMap, __find, "find")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -219,13 +219,13 @@ Gura_ImplementMethod(wx_HashMap, __find)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->find(key);
+	//iterator _rtn = pThis->GetEntity()->find(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __find_1, "find_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "key", VTYPE_number, OCCUR_Once);
 }
 
@@ -234,13 +234,13 @@ Gura_ImplementMethod(wx_HashMap, __find_1)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->find(key);
+	//const_iterator _rtn = pThis->GetEntity()->find(key);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __insert, "insert")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "v", VTYPE_number, OCCUR_Once);
 }
 
@@ -249,20 +249,20 @@ Gura_ImplementMethod(wx_HashMap, __insert)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const value_type& v = arg.GetNumber(0)
-	//pThis->GetEntity()->insert(v);
+	//Insert_Result _rtn = pThis->GetEntity()->insert(v);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HashMap, __size, "size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HashMap, __size)
 {
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->size();
+	//size_type _rtn = pThis->GetEntity()->size();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_QueryLayoutInfoEvent::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__QueryLayoutInfoEvent, "QueryLayoutInfoEvent")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_QueryLayoutInfoEvent));
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -57,66 +57,66 @@ Gura_ImplementFunction(__QueryLayoutInfoEvent)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetAlignment, "GetAlignment")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __GetAlignment)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetAlignment();
+	//wxLayoutAlignment _rtn = pThis->GetEntity()->GetAlignment();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetFlags, "GetFlags")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __GetFlags)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFlags();
+	//int _rtn = pThis->GetEntity()->GetFlags();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetOrientation, "GetOrientation")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __GetOrientation)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetOrientation();
+	//wxLayoutOrientation _rtn = pThis->GetEntity()->GetOrientation();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetRequestedLength, "GetRequestedLength")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __GetRequestedLength)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetRequestedLength();
+	//int _rtn = pThis->GetEntity()->GetRequestedLength();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_QueryLayoutInfoEvent, __GetSize, "GetSize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __GetSize)
 {
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetSize();
+	//wxSize _rtn = pThis->GetEntity()->GetSize();
 	return Value::Nil;
 }
 

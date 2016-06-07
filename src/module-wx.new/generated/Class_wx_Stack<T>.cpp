@@ -39,7 +39,7 @@ String Object_wx_Stack<T>::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_Stack<T>, __wxStack, "wxStack")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Stack<T>, __wxStack)
@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_Stack<T>, __wxStack)
 
 Gura_DeclareMethodAlias(wx_Stack<T>, __wxStack_1, "wxStack_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "cont", VTYPE_number, OCCUR_Once);
 }
 
@@ -61,59 +61,59 @@ Gura_ImplementMethod(wx_Stack<T>, __wxStack_1)
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const container_type& cont = arg.GetNumber(0)
-	//pThis->GetEntity()->wxStack(cont);
+	//explicit _rtn = pThis->GetEntity()->wxStack(cont);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Stack<T>, __empty, "empty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Stack<T>, __empty)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->empty();
+	//bool _rtn = pThis->GetEntity()->empty();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Stack<T>, __size, "size")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Stack<T>, __size)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->size();
+	//size_type _rtn = pThis->GetEntity()->size();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Stack<T>, __top, "top")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Stack<T>, __top)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->top();
+	//value_type& _rtn = pThis->GetEntity()->top();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Stack<T>, __top_1, "top_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_Stack<T>, __top_1)
 {
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->top();
+	//const value_type& _rtn = pThis->GetEntity()->top();
 	return Value::Nil;
 }
 

@@ -39,7 +39,7 @@ String Object_wx_TarInputStream::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__TarInputStream, "TarInputStream")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TarInputStream));
@@ -56,7 +56,7 @@ Gura_ImplementFunction(__TarInputStream)
 
 Gura_DeclareFunctionAlias(__TarInputStream_1, "TarInputStream_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "stream", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "conv", VTYPE_number, OCCUR_Once);
 	SetClassToConstruct(Gura_UserClass(wx_TarInputStream));
@@ -76,33 +76,33 @@ Gura_ImplementFunction(__TarInputStream_1)
 //----------------------------------------------------------------------------
 Gura_DeclareMethodAlias(wx_TarInputStream, __CloseEntry, "CloseEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarInputStream, __CloseEntry)
 {
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->CloseEntry();
+	//bool _rtn = pThis->GetEntity()->CloseEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarInputStream, __GetNextEntry, "GetNextEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_TarInputStream, __GetNextEntry)
 {
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetNextEntry();
+	//wxTarEntry* _rtn = pThis->GetEntity()->GetNextEntry();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_TarInputStream, __OpenEntry, "OpenEntry")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "entry", VTYPE_number, OCCUR_Once);
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_TarInputStream, __OpenEntry)
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTarEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OpenEntry(entry);
+	//bool _rtn = pThis->GetEntity()->OpenEntry(entry);
 	return Value::Nil;
 }
 

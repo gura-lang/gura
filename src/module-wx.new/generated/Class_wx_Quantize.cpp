@@ -39,7 +39,7 @@ String Object_wx_Quantize::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__Quantize, "Quantize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_Quantize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_Quantize, __DoQuantize)
 
 Gura_DeclareMethodAlias(wx_Quantize, __Quantize, "Quantize")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "pPalette", VTYPE_number, OCCUR_Once);
@@ -99,13 +99,13 @@ Gura_ImplementMethod(wx_Quantize, __Quantize)
 	//int desiredNoColours = arg.GetNumber(3)
 	//unsigned char** eightBitData = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//pThis->GetEntity()->Quantize(src, dest, pPalette, desiredNoColours, eightBitData, flags);
+	//bool _rtn = pThis->GetEntity()->Quantize(src, dest, pPalette, desiredNoColours, eightBitData, flags);
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_Quantize, __Quantize_1, "Quantize_1")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	//DeclareArg(env, "src", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "dest", VTYPE_number, OCCUR_Once);
 	//DeclareArg(env, "desiredNoColours", VTYPE_number, OCCUR_Once);
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Quantize, __Quantize_1)
 	//int desiredNoColours = arg.GetNumber(2)
 	//unsigned char** eightBitData = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->Quantize(src, dest, desiredNoColours, eightBitData, flags);
+	//bool _rtn = pThis->GetEntity()->Quantize(src, dest, desiredNoColours, eightBitData, flags);
 	return Value::Nil;
 }
 

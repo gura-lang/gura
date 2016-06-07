@@ -39,7 +39,7 @@ String Object_wx_HtmlSelection::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_DeclareFunctionAlias(__HtmlSelection, "HtmlSelection")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(wx_HtmlSelection));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -93,53 +93,53 @@ Gura_ImplementMethod(wx_HtmlSelection, __Set_1)
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromCell, "GetFromCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetFromCell)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFromCell();
+	//const wxHtmlCell* _rtn = pThis->GetEntity()->GetFromCell();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToCell, "GetToCell")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetToCell)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToCell();
+	//const wxHtmlCell* _rtn = pThis->GetEntity()->GetToCell();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromPos, "GetFromPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetFromPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFromPos();
+	//const wxPoint& _rtn = pThis->GetEntity()->GetFromPos();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToPos, "GetToPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetToPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToPos();
+	//const wxPoint& _rtn = pThis->GetEntity()->GetToPos();
 	return Value::Nil;
 }
 
@@ -158,14 +158,14 @@ Gura_ImplementMethod(wx_HtmlSelection, __ClearFromToCharacterPos)
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __AreFromToCharacterPosSet, "AreFromToCharacterPosSet")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __AreFromToCharacterPosSet)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->AreFromToCharacterPosSet();
+	//bool _rtn = pThis->GetEntity()->AreFromToCharacterPosSet();
 	return Value::Nil;
 }
 
@@ -201,40 +201,40 @@ Gura_ImplementMethod(wx_HtmlSelection, __SetToCharacterPos)
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetFromCharacterPos, "GetFromCharacterPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetFromCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetFromCharacterPos();
+	//wxCoord _rtn = pThis->GetEntity()->GetFromCharacterPos();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __GetToCharacterPos, "GetToCharacterPos")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __GetToCharacterPos)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->GetToCharacterPos();
+	//wxCoord _rtn = pThis->GetEntity()->GetToCharacterPos();
 	return Value::Nil;
 }
 
 Gura_DeclareMethodAlias(wx_HtmlSelection, __IsEmpty, "IsEmpty")
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_HtmlSelection, __IsEmpty)
 {
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
-	//pThis->GetEntity()->IsEmpty();
+	//bool _rtn = pThis->GetEntity()->IsEmpty();
 	return Value::Nil;
 }
 
