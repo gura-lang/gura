@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HashMap, "HashMap")
 Gura_ImplementFunction(__HashMap)
 {
 	//size_type size = arg.GetNumber(0)
-	//wxHashMap();
+	//wxHashMap(size);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__HashMap_1, "HashMap_1")
 Gura_ImplementFunction(__HashMap_1)
 {
 	//const wxHashMap& map = arg.GetNumber(0)
-	//wxHashMap();
+	//wxHashMap(map);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HashMap, __count)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->count();
+	//pThis->GetEntity()->count(key);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_HashMap, __erase)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(key);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_HashMap, __erase_1)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(it);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_HashMap, __erase_2)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_iterator it = arg.GetNumber(0)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(it);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_HashMap, __find)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->find();
+	//pThis->GetEntity()->find(key);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_HashMap, __find_1)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const key_type& key = arg.GetNumber(0)
-	//pThis->GetEntity()->find();
+	//pThis->GetEntity()->find(key);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_HashMap, __insert)
 	Object_wx_HashMap *pThis = Object_wx_HashMap::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const value_type& v = arg.GetNumber(0)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(v);
 	return Value::Nil;
 }
 

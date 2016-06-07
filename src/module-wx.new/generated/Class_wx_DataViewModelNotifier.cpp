@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemAdded)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemAdded();
+	//pThis->GetEntity()->ItemAdded(parent, item);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemChanged)
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemChanged();
+	//pThis->GetEntity()->ItemChanged(item);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemDeleted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemDeleted();
+	//pThis->GetEntity()->ItemDeleted(parent, item);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemsAdded)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItemArray& items = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemsAdded();
+	//pThis->GetEntity()->ItemsAdded(parent, items);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemsChanged)
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItemArray& items = arg.GetNumber(0)
-	//pThis->GetEntity()->ItemsChanged();
+	//pThis->GetEntity()->ItemsChanged(items);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ItemsDeleted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& parent = arg.GetNumber(0)
 	//const wxDataViewItemArray& items = arg.GetNumber(1)
-	//pThis->GetEntity()->ItemsDeleted();
+	//pThis->GetEntity()->ItemsDeleted(parent, items);
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __SetOwner)
 	Object_wx_DataViewModelNotifier *pThis = Object_wx_DataViewModelNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataViewModel* owner = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOwner();
+	//pThis->GetEntity()->SetOwner(owner);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_DataViewModelNotifier, __ValueChanged)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//unsigned int col = arg.GetNumber(1)
-	//pThis->GetEntity()->ValueChanged();
+	//pThis->GetEntity()->ValueChanged(item, col);
 	return Value::Nil;
 }
 

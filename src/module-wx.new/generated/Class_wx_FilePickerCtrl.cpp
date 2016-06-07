@@ -79,7 +79,7 @@ Gura_ImplementFunction(__FilePickerCtrl_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//wxFilePickerCtrl();
+	//wxFilePickerCtrl(parent, id, path, message, wildcard, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, __Create)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, path, message, wildcard, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, __SetFileName)
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFileName();
+	//pThis->GetEntity()->SetFileName(filename);
 	return Value::Nil;
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, __SetInitialDirectory)
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInitialDirectory();
+	//pThis->GetEntity()->SetInitialDirectory(dir);
 	return Value::Nil;
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_FilePickerCtrl, __SetPath)
 	Object_wx_FilePickerCtrl *pThis = Object_wx_FilePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPath();
+	//pThis->GetEntity()->SetPath(filename);
 	return Value::Nil;
 }
 

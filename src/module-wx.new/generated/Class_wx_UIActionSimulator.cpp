@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseMove)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long x = arg.GetNumber(0)
 	//long y = arg.GetNumber(1)
-	//pThis->GetEntity()->MouseMove();
+	//pThis->GetEntity()->MouseMove(x, y);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseMove_1)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& point = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseMove();
+	//pThis->GetEntity()->MouseMove(point);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseDown)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseDown();
+	//pThis->GetEntity()->MouseDown(button);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseUp)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseUp();
+	//pThis->GetEntity()->MouseUp(button);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseClick)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseClick();
+	//pThis->GetEntity()->MouseClick(button);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseDblClick)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseDblClick();
+	//pThis->GetEntity()->MouseDblClick(button);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __MouseDragDrop)
 	//long x2 = arg.GetNumber(2)
 	//long y2 = arg.GetNumber(3)
 	//int button = arg.GetNumber(4)
-	//pThis->GetEntity()->MouseDragDrop();
+	//pThis->GetEntity()->MouseDragDrop(x1, y1, x2, y2, button);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __KeyDown)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keycode = arg.GetNumber(0)
 	//int modifiers = arg.GetNumber(1)
-	//pThis->GetEntity()->KeyDown();
+	//pThis->GetEntity()->KeyDown(keycode, modifiers);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __KeyUp)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keycode = arg.GetNumber(0)
 	//int modifiers = arg.GetNumber(1)
-	//pThis->GetEntity()->KeyUp();
+	//pThis->GetEntity()->KeyUp(keycode, modifiers);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __Char)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keycode = arg.GetNumber(0)
 	//int modifiers = arg.GetNumber(1)
-	//pThis->GetEntity()->Char();
+	//pThis->GetEntity()->Char(keycode, modifiers);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __Select)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->Select();
+	//pThis->GetEntity()->Select(text);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_UIActionSimulator, __Text)
 	Object_wx_UIActionSimulator *pThis = Object_wx_UIActionSimulator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->Text();
+	//pThis->GetEntity()->Text(text);
 	return Value::Nil;
 }
 

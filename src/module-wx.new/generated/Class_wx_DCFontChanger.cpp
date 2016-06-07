@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__DCFontChanger, "DCFontChanger")
 Gura_ImplementFunction(__DCFontChanger)
 {
 	//wxDC& dc = arg.GetNumber(0)
-	//wxDCFontChanger();
+	//wxDCFontChanger(dc);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementFunction(__DCFontChanger_1)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxFont& font = arg.GetNumber(1)
-	//wxDCFontChanger();
+	//wxDCFontChanger(dc, font);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_DCFontChanger, __Set)
 	Object_wx_DCFontChanger *pThis = Object_wx_DCFontChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(font);
 	return Value::Nil;
 }
 

@@ -60,7 +60,7 @@ Gura_ImplementFunction(__PreviewControlBar)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxPreviewControlBar();
+	//wxPreviewControlBar(preview, buttons, parent, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_PreviewControlBar, __SetZoomControl)
 	Object_wx_PreviewControlBar *pThis = Object_wx_PreviewControlBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int percent = arg.GetNumber(0)
-	//pThis->GetEntity()->SetZoomControl();
+	//pThis->GetEntity()->SetZoomControl(percent);
 	return Value::Nil;
 }
 

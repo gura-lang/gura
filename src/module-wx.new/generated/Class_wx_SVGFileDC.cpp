@@ -54,7 +54,7 @@ Gura_ImplementFunction(__SVGFileDC)
 	//int width = arg.GetNumber(1)
 	//int height = arg.GetNumber(2)
 	//double dpi = arg.GetNumber(3)
-	//wxSVGFileDC();
+	//wxSVGFileDC(filename, width, height, dpi);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetBitmapHandler)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSVGBitmapHandler* handler = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBitmapHandler();
+	//pThis->GetEntity()->SetBitmapHandler(handler);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetLogicalFunction)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRasterOperationMode function = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLogicalFunction();
+	//pThis->GetEntity()->SetLogicalFunction(function);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//pThis->GetEntity()->SetClippingRegion();
+	//pThis->GetEntity()->SetClippingRegion(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
 	//const wxSize& sz = arg.GetNumber(1)
-	//pThis->GetEntity()->SetClippingRegion();
+	//pThis->GetEntity()->SetClippingRegion(pt, sz);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_2)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClippingRegion();
+	//pThis->GetEntity()->SetClippingRegion(rect);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetClippingRegion_3)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClippingRegion();
+	//pThis->GetEntity()->SetClippingRegion(region);
 	return Value::Nil;
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __CrossHair)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->CrossHair();
+	//pThis->GetEntity()->CrossHair(x, y);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __FloodFill)
 	//wxCoord y = arg.GetNumber(1)
 	//const wxColour& colour = arg.GetNumber(2)
 	//wxFloodFillStyle style = arg.GetNumber(3)
-	//pThis->GetEntity()->FloodFill();
+	//pThis->GetEntity()->FloodFill(x, y, colour, style);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetClippingBox)
 	//wxCoord* y = arg.GetNumber(1)
 	//wxCoord* width = arg.GetNumber(2)
 	//wxCoord* height = arg.GetNumber(3)
-	//pThis->GetEntity()->GetClippingBox();
+	//pThis->GetEntity()->GetClippingBox(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __GetPixel)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxColour* colour = arg.GetNumber(2)
-	//pThis->GetEntity()->GetPixel();
+	//pThis->GetEntity()->GetPixel(x, y, colour);
 	return Value::Nil;
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __SetPalette)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPalette& palette = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPalette();
+	//pThis->GetEntity()->SetPalette(palette);
 	return Value::Nil;
 }
 
@@ -315,7 +315,7 @@ Gura_ImplementMethod(wx_SVGFileDC, __StartDoc)
 	Object_wx_SVGFileDC *pThis = Object_wx_SVGFileDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& message = arg.GetNumber(0)
-	//pThis->GetEntity()->StartDoc();
+	//pThis->GetEntity()->StartDoc(message);
 	return Value::Nil;
 }
 

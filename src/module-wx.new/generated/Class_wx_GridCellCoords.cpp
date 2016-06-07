@@ -63,7 +63,7 @@ Gura_ImplementFunction(__GridCellCoords_1)
 {
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//wxGridCellCoords();
+	//wxGridCellCoords(row, col);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_GridCellCoords, __SetRow)
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRow();
+	//pThis->GetEntity()->SetRow(n);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_GridCellCoords, __SetCol)
 	Object_wx_GridCellCoords *pThis = Object_wx_GridCellCoords::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCol();
+	//pThis->GetEntity()->SetCol(n);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_GridCellCoords, __Set)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(row, col);
 	return Value::Nil;
 }
 

@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetDateTime)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& dt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDateTime();
+	//pThis->GetEntity()->SetDateTime(dt);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __GetName)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPathFormat format = arg.GetNumber(0)
-	//pThis->GetEntity()->GetName();
+	//pThis->GetEntity()->GetName(format);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxPathFormat format = arg.GetNumber(1)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name, format);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetSize)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSize();
+	//pThis->GetEntity()->SetSize(size);
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetIsDir)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool isDir = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIsDir();
+	//pThis->GetEntity()->SetIsDir(isDir);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetIsReadOnly)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool isReadOnly = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIsReadOnly();
+	//pThis->GetEntity()->SetIsReadOnly(isReadOnly);
 	return Value::Nil;
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_ArchiveEntry, __SetNotifier)
 	Object_wx_ArchiveEntry *pThis = Object_wx_ArchiveEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveNotifier& notifier = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNotifier();
+	//pThis->GetEntity()->SetNotifier(notifier);
 	return Value::Nil;
 }
 

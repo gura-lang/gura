@@ -73,7 +73,7 @@ Gura_ImplementFunction(__StaticText_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxStaticText();
+	//wxStaticText(parent, id, label, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_StaticText, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_StaticText, __Wrap)
 	Object_wx_StaticText *pThis = Object_wx_StaticText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->Wrap();
+	//pThis->GetEntity()->Wrap(width);
 	return Value::Nil;
 }
 

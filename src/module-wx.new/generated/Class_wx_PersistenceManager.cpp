@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Set)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPersistenceManager& manager = arg.GetNumber(0)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(manager);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Register)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Register();
+	//pThis->GetEntity()->Register(obj);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Register_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
 	//wxPersistentObject* po = arg.GetNumber(1)
-	//pThis->GetEntity()->Register();
+	//pThis->GetEntity()->Register(obj, po);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Find)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Find();
+	//pThis->GetEntity()->Find(obj);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Unregister)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Unregister();
+	//pThis->GetEntity()->Unregister(obj);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Save)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Save();
+	//pThis->GetEntity()->Save(obj);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __Restore)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Restore();
+	//pThis->GetEntity()->Restore(obj);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __SaveAndUnregister)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->SaveAndUnregister();
+	//pThis->GetEntity()->SaveAndUnregister(obj);
 	return Value::Nil;
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __RegisterAndRestore)
 	Object_wx_PersistenceManager *pThis = Object_wx_PersistenceManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->RegisterAndRestore();
+	//pThis->GetEntity()->RegisterAndRestore(obj);
 	return Value::Nil;
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __RegisterAndRestore_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* obj = arg.GetNumber(0)
 	//wxPersistentObject* po = arg.GetNumber(1)
-	//pThis->GetEntity()->RegisterAndRestore();
+	//pThis->GetEntity()->RegisterAndRestore(obj, po);
 	return Value::Nil;
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_PersistenceManager, __GetKey)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPersistentObject& who = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//pThis->GetEntity()->GetKey();
+	//pThis->GetEntity()->GetKey(who, name);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HelpController, "HelpController")
 Gura_ImplementFunction(__HelpController)
 {
 	//wxWindow* parentWindow = arg.GetNumber(0)
-	//wxHelpController();
+	//wxHelpController(parentWindow);
 	return Value::Nil;
 }
 

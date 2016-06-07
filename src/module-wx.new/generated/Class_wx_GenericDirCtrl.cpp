@@ -77,7 +77,7 @@ Gura_ImplementFunction(__GenericDirCtrl_1)
 	//const wxString& filter = arg.GetNumber(6)
 	//int defaultFilter = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxGenericDirCtrl();
+	//wxGenericDirCtrl(parent, id, dir, pos, size, style, filter, defaultFilter, name);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __CollapsePath)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->CollapsePath();
+	//pThis->GetEntity()->CollapsePath(path);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __Create)
 	//const wxString& filter = arg.GetNumber(6)
 	//int defaultFilter = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, dir, pos, size, style, filter, defaultFilter, name);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __ExpandPath)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->ExpandPath();
+	//pThis->GetEntity()->ExpandPath(path);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __GetFilePaths)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& paths = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFilePaths();
+	//pThis->GetEntity()->GetFilePaths(paths);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __GetPath_1)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTreeItemId itemId = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPath();
+	//pThis->GetEntity()->GetPath(itemId);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __GetPaths)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& paths = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPaths();
+	//pThis->GetEntity()->GetPaths(paths);
 	return Value::Nil;
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SetDefaultPath)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDefaultPath();
+	//pThis->GetEntity()->SetDefaultPath(path);
 	return Value::Nil;
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SetFilter)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filter = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilter();
+	//pThis->GetEntity()->SetFilter(filter);
 	return Value::Nil;
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SetFilterIndex)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilterIndex();
+	//pThis->GetEntity()->SetFilterIndex(n);
 	return Value::Nil;
 }
 
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SetPath)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPath();
+	//pThis->GetEntity()->SetPath(path);
 	return Value::Nil;
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __ShowHidden)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowHidden();
+	//pThis->GetEntity()->ShowHidden(show);
 	return Value::Nil;
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SelectPath)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
 	//bool select = arg.GetNumber(1)
-	//pThis->GetEntity()->SelectPath();
+	//pThis->GetEntity()->SelectPath(path, select);
 	return Value::Nil;
 }
 
@@ -436,7 +436,7 @@ Gura_ImplementMethod(wx_GenericDirCtrl, __SelectPaths)
 	Object_wx_GenericDirCtrl *pThis = Object_wx_GenericDirCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& paths = arg.GetNumber(0)
-	//pThis->GetEntity()->SelectPaths();
+	//pThis->GetEntity()->SelectPaths(paths);
 	return Value::Nil;
 }
 

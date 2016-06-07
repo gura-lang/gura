@@ -60,7 +60,7 @@ Gura_ImplementFunction(__AnimationCtrl)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxAnimationCtrl();
+	//wxAnimationCtrl(parent, id, anim, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, anim, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __LoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& file = arg.GetNumber(0)
 	//wxAnimationType animType = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadFile();
+	//pThis->GetEntity()->LoadFile(file, animType);
 	return Value::Nil;
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __Load)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& file = arg.GetNumber(0)
 	//wxAnimationType animType = arg.GetNumber(1)
-	//pThis->GetEntity()->Load();
+	//pThis->GetEntity()->Load(file, animType);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __SetAnimation)
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAnimation& anim = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAnimation();
+	//pThis->GetEntity()->SetAnimation(anim);
 	return Value::Nil;
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_AnimationCtrl, __SetInactiveBitmap)
 	Object_wx_AnimationCtrl *pThis = Object_wx_AnimationCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bmp = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInactiveBitmap();
+	//pThis->GetEntity()->SetInactiveBitmap(bmp);
 	return Value::Nil;
 }
 

@@ -60,7 +60,7 @@ Gura_ImplementFunction(__DirDialog)
 	//const wxPoint& pos = arg.GetNumber(4)
 	//const wxSize& size = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxDirDialog();
+	//wxDirDialog(parent, message, defaultPath, style, pos, size, name);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_DirDialog, __SetMessage)
 	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& message = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMessage();
+	//pThis->GetEntity()->SetMessage(message);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_DirDialog, __SetPath)
 	Object_wx_DirDialog *pThis = Object_wx_DirDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPath();
+	//pThis->GetEntity()->SetPath(path);
 	return Value::Nil;
 }
 

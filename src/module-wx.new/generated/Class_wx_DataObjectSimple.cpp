@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__DataObjectSimple, "DataObjectSimple")
 Gura_ImplementFunction(__DataObjectSimple)
 {
 	//const wxDataFormat& format = arg.GetNumber(0)
-	//wxDataObjectSimple();
+	//wxDataObjectSimple(format);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, __GetDataHere)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDataHere();
+	//pThis->GetEntity()->GetDataHere(buf);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, __SetData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
 	//const void* buf = arg.GetNumber(1)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(len, buf);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DataObjectSimple, __SetFormat)
 	Object_wx_DataObjectSimple *pThis = Object_wx_DataObjectSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& format = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFormat();
+	//pThis->GetEntity()->SetFormat(format);
 	return Value::Nil;
 }
 

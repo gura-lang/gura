@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__TextDataObject, "TextDataObject")
 Gura_ImplementFunction(__TextDataObject)
 {
 	//const wxString& text = arg.GetNumber(0)
-	//wxTextDataObject();
+	//wxTextDataObject(text);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_TextDataObject, __GetFormatCount)
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataObject::Direction dir = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFormatCount();
+	//pThis->GetEntity()->GetFormatCount(dir);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_TextDataObject, __GetAllFormats)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataFormat* formats = arg.GetNumber(0)
 	//wxDataObject::Direction dir = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAllFormats();
+	//pThis->GetEntity()->GetAllFormats(formats, dir);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_TextDataObject, __SetText)
 	Object_wx_TextDataObject *pThis = Object_wx_TextDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& strText = arg.GetNumber(0)
-	//pThis->GetEntity()->SetText();
+	//pThis->GetEntity()->SetText(strText);
 	return Value::Nil;
 }
 

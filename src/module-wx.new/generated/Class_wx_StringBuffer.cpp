@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StringBuffer)
 {
 	//const wxString& str = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//wxStringBuffer();
+	//wxStringBuffer(str, len);
 	return Value::Nil;
 }
 

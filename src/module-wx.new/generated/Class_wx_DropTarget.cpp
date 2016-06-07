@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__DropTarget, "DropTarget")
 Gura_ImplementFunction(__DropTarget)
 {
 	//wxDataObject* data = arg.GetNumber(0)
-	//wxDropTarget();
+	//wxDropTarget(data);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_DropTarget, __OnData)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnData();
+	//pThis->GetEntity()->OnData(x, y, defResult);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_DropTarget, __OnDragOver)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnDragOver();
+	//pThis->GetEntity()->OnDragOver(x, y, defResult);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_DropTarget, __OnDrop)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->OnDrop();
+	//pThis->GetEntity()->OnDrop(x, y);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_DropTarget, __OnEnter)
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
 	//wxDragResult defResult = arg.GetNumber(2)
-	//pThis->GetEntity()->OnEnter();
+	//pThis->GetEntity()->OnEnter(x, y, defResult);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_DropTarget, __SetDataObject)
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataObject* data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataObject();
+	//pThis->GetEntity()->SetDataObject(data);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_DropTarget, __SetDefaultAction)
 	Object_wx_DropTarget *pThis = Object_wx_DropTarget::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult action = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDefaultAction();
+	//pThis->GetEntity()->SetDefaultAction(action);
 	return Value::Nil;
 }
 

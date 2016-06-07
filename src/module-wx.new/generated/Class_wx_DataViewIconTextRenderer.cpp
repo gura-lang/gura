@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DataViewIconTextRenderer)
 	//const wxString& varianttype = arg.GetNumber(0)
 	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int align = arg.GetNumber(2)
-	//wxDataViewIconTextRenderer();
+	//wxDataViewIconTextRenderer(varianttype, mode, align);
 	return Value::Nil;
 }
 

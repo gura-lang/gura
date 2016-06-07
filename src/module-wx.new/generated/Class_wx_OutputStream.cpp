@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_OutputStream, __PutC)
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char c = arg.GetNumber(0)
-	//pThis->GetEntity()->PutC();
+	//pThis->GetEntity()->PutC(c);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_OutputStream, __SeekO)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset pos = arg.GetNumber(0)
 	//wxSeekMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->SeekO();
+	//pThis->GetEntity()->SeekO(pos, mode);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_OutputStream, __Write)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* buffer = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(buffer, size);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_OutputStream, __Write_1)
 	Object_wx_OutputStream *pThis = Object_wx_OutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream_in = arg.GetNumber(0)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(stream_in);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_OutputStream, __WriteAll)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* buffer = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->WriteAll();
+	//pThis->GetEntity()->WriteAll(buffer, size);
 	return Value::Nil;
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_OutputStream, __OnSysWrite)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* buffer = arg.GetNumber(0)
 	//size_t bufsize = arg.GetNumber(1)
-	//pThis->GetEntity()->OnSysWrite();
+	//pThis->GetEntity()->OnSysWrite(buffer, bufsize);
 	return Value::Nil;
 }
 

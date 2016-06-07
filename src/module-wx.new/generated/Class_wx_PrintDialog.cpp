@@ -50,7 +50,7 @@ Gura_ImplementFunction(__PrintDialog)
 {
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintDialogData* data = arg.GetNumber(1)
-	//wxPrintDialog();
+	//wxPrintDialog(parent, data);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__PrintDialog_1)
 {
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintData* data = arg.GetNumber(1)
-	//wxPrintDialog();
+	//wxPrintDialog(parent, data);
 	return Value::Nil;
 }
 

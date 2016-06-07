@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __PrependColumn)
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& varianttype = arg.GetNumber(0)
-	//pThis->GetEntity()->PrependColumn();
+	//pThis->GetEntity()->PrependColumn(varianttype);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __InsertColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int pos = arg.GetNumber(0)
 	//const wxString& varianttype = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertColumn();
+	//pThis->GetEntity()->InsertColumn(pos, varianttype);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __AppendColumn)
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& varianttype = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendColumn();
+	//pThis->GetEntity()->AppendColumn(varianttype);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __AppendItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVector<wxVariant>& values = arg.GetNumber(0)
 	//wxUIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->AppendItem();
+	//pThis->GetEntity()->AppendItem(values, data);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __PrependItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVector<wxVariant>& values = arg.GetNumber(0)
 	//wxUIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->PrependItem();
+	//pThis->GetEntity()->PrependItem(values, data);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __InsertItem)
 	//unsigned int row = arg.GetNumber(0)
 	//const wxVector<wxVariant>& values = arg.GetNumber(1)
 	//wxUIntPtr data = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(row, values, data);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __DeleteItem)
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned pos = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteItem();
+	//pThis->GetEntity()->DeleteItem(pos);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __GetItemData)
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemData();
+	//pThis->GetEntity()->GetItemData(item);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __GetColumnType)
 	Object_wx_DataViewListStore *pThis = Object_wx_DataViewListStore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnType();
+	//pThis->GetEntity()->GetColumnType(col);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __SetItemData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
 	//wxUIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemData();
+	//pThis->GetEntity()->SetItemData(item, data);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __GetValueByRow)
 	//wxVariant& value = arg.GetNumber(0)
 	//unsigned int row = arg.GetNumber(1)
 	//unsigned int col = arg.GetNumber(2)
-	//pThis->GetEntity()->GetValueByRow();
+	//pThis->GetEntity()->GetValueByRow(value, row, col);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_DataViewListStore, __SetValueByRow)
 	//const wxVariant& value = arg.GetNumber(0)
 	//unsigned int row = arg.GetNumber(1)
 	//unsigned int col = arg.GetNumber(2)
-	//pThis->GetEntity()->SetValueByRow();
+	//pThis->GetEntity()->SetValueByRow(value, row, col);
 	return Value::Nil;
 }
 

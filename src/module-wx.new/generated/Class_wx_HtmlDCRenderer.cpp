@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __Render)
 	//int from = arg.GetNumber(3)
 	//int dont_render = arg.GetNumber(4)
 	//int to = arg.GetNumber(5)
-	//pThis->GetEntity()->Render();
+	//pThis->GetEntity()->Render(x, y, known_pagebreaks, from, dont_render, to);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetDC)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC* dc = arg.GetNumber(0)
 	//double pixel_scale = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDC();
+	//pThis->GetEntity()->SetDC(dc, pixel_scale);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetFonts)
 	//const wxString& normal_face = arg.GetNumber(0)
 	//const wxString& fixed_face = arg.GetNumber(1)
 	//const int* sizes = arg.GetNumber(2)
-	//pThis->GetEntity()->SetFonts();
+	//pThis->GetEntity()->SetFonts(normal_face, fixed_face, sizes);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetStandardFonts)
 	//int size = arg.GetNumber(0)
 	//const wxString& normal_face = arg.GetNumber(1)
 	//const wxString& fixed_face = arg.GetNumber(2)
-	//pThis->GetEntity()->SetStandardFonts();
+	//pThis->GetEntity()->SetStandardFonts(size, normal_face, fixed_face);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetHtmlText)
 	//const wxString& html = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
 	//bool isdir = arg.GetNumber(2)
-	//pThis->GetEntity()->SetHtmlText();
+	//pThis->GetEntity()->SetHtmlText(html, basepath, isdir);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_HtmlDCRenderer, __SetSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
 	//int height = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSize();
+	//pThis->GetEntity()->SetSize(width, height);
 	return Value::Nil;
 }
 

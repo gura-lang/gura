@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HtmlBookRecord)
 	//const wxString& basepath = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
 	//const wxString& start = arg.GetNumber(3)
-	//wxHtmlBookRecord();
+	//wxHtmlBookRecord(bookfile, basepath, title, start);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetContentsRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int start = arg.GetNumber(0)
 	//int end = arg.GetNumber(1)
-	//pThis->GetEntity()->SetContentsRange();
+	//pThis->GetEntity()->SetContentsRange(start, end);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetTitle)
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTitle();
+	//pThis->GetEntity()->SetTitle(title);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetBasePath)
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBasePath();
+	//pThis->GetEntity()->SetBasePath(path);
 	return Value::Nil;
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __SetStart)
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& start = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStart();
+	//pThis->GetEntity()->SetStart(start);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_HtmlBookRecord, __GetFullPath)
 	Object_wx_HtmlBookRecord *pThis = Object_wx_HtmlBookRecord::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFullPath();
+	//pThis->GetEntity()->GetFullPath(page);
 	return Value::Nil;
 }
 

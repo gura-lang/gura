@@ -63,7 +63,7 @@ Gura_ImplementFunction(__WizardPage_1)
 {
 	//wxWizard* parent = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
-	//wxWizardPage();
+	//wxWizardPage(parent, bitmap);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_WizardPage, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizard* parent = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, bitmap);
 	return Value::Nil;
 }
 

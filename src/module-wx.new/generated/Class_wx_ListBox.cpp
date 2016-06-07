@@ -77,7 +77,7 @@ Gura_ImplementFunction(__ListBox_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxListBox();
+	//wxListBox(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementFunction(__ListBox_2)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxListBox();
+	//wxListBox(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_ListBox, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_ListBox, __Create_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_ListBox, __Deselect)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->Deselect();
+	//pThis->GetEntity()->Deselect(n);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_ListBox, __SetSelection)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(n);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ListBox, __SetStringSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
 	//bool select = arg.GetNumber(1)
-	//pThis->GetEntity()->SetStringSelection();
+	//pThis->GetEntity()->SetStringSelection(s, select);
 	return Value::Nil;
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_ListBox, __SetStringSelection_1)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStringSelection();
+	//pThis->GetEntity()->SetStringSelection(s);
 	return Value::Nil;
 }
 
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_ListBox, __GetSelections)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayInt& selections = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelections();
+	//pThis->GetEntity()->GetSelections(selections);
 	return Value::Nil;
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_ListBox, __HitTest)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& point = arg.GetNumber(0)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(point);
 	return Value::Nil;
 }
 
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_ListBox, __HitTest_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(x, y);
 	return Value::Nil;
 }
 
@@ -310,7 +310,7 @@ Gura_ImplementMethod(wx_ListBox, __InsertItems)
 	//unsigned int nItems = arg.GetNumber(0)
 	//const wxString* items = arg.GetNumber(1)
 	//unsigned int pos = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertItems();
+	//pThis->GetEntity()->InsertItems(nItems, items, pos);
 	return Value::Nil;
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_ListBox, __InsertItems_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& items = arg.GetNumber(0)
 	//unsigned int pos = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertItems();
+	//pThis->GetEntity()->InsertItems(items, pos);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_ListBox, __IsSelected)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSelected();
+	//pThis->GetEntity()->IsSelected(n);
 	return Value::Nil;
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_ListBox, __SetFirstItem)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFirstItem();
+	//pThis->GetEntity()->SetFirstItem(n);
 	return Value::Nil;
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_ListBox, __SetFirstItem_1)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFirstItem();
+	//pThis->GetEntity()->SetFirstItem(string);
 	return Value::Nil;
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_ListBox, __EnsureVisible)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->EnsureVisible();
+	//pThis->GetEntity()->EnsureVisible(n);
 	return Value::Nil;
 }
 
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_ListBox, __GetString)
 	Object_wx_ListBox *pThis = Object_wx_ListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString();
+	//pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_ListBox, __SetString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString& s = arg.GetNumber(1)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(n, s);
 	return Value::Nil;
 }
 
@@ -488,7 +488,7 @@ Gura_ImplementMethod(wx_ListBox, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString();
+	//pThis->GetEntity()->FindString(s, bCase);
 	return Value::Nil;
 }
 

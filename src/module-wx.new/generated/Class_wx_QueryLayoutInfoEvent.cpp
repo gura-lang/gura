@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__QueryLayoutInfoEvent, "QueryLayoutInfoEvent")
 Gura_ImplementFunction(__QueryLayoutInfoEvent)
 {
 	//wxWindowID id = arg.GetNumber(0)
-	//wxQueryLayoutInfoEvent();
+	//wxQueryLayoutInfoEvent(id);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetAlignment)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLayoutAlignment alignment = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlignment();
+	//pThis->GetEntity()->SetAlignment(alignment);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetFlags)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetOrientation)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLayoutOrientation orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOrientation();
+	//pThis->GetEntity()->SetOrientation(orientation);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetRequestedLength)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int length = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRequestedLength();
+	//pThis->GetEntity()->SetRequestedLength(length);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_QueryLayoutInfoEvent, __SetSize)
 	Object_wx_QueryLayoutInfoEvent *pThis = Object_wx_QueryLayoutInfoEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSize();
+	//pThis->GetEntity()->SetSize(size);
 	return Value::Nil;
 }
 

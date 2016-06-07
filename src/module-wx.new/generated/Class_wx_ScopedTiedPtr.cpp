@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ScopedTiedPtr)
 {
 	//T** ppTie = arg.GetNumber(0)
 	//T* ptr = arg.GetNumber(1)
-	//wxScopedTiedPtr();
+	//wxScopedTiedPtr(ppTie, ptr);
 	return Value::Nil;
 }
 

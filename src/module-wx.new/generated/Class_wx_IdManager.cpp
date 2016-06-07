@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_IdManager, __ReserveId)
 	Object_wx_IdManager *pThis = Object_wx_IdManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int count = arg.GetNumber(0)
-	//pThis->GetEntity()->ReserveId();
+	//pThis->GetEntity()->ReserveId(count);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_IdManager, __UnreserveId)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindowID id = arg.GetNumber(0)
 	//int count = arg.GetNumber(1)
-	//pThis->GetEntity()->UnreserveId();
+	//pThis->GetEntity()->UnreserveId(id, count);
 	return Value::Nil;
 }
 

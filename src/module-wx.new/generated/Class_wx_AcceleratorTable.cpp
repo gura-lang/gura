@@ -63,7 +63,7 @@ Gura_ImplementFunction(__AcceleratorTable_1)
 {
 	//int n = arg.GetNumber(0)
 	//const wxAcceleratorEntry entries = arg.GetNumber(1)
-	//wxAcceleratorTable();
+	//wxAcceleratorTable(n, entries);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__AcceleratorTable_2, "AcceleratorTable_2")
 Gura_ImplementFunction(__AcceleratorTable_2)
 {
 	//const wxString& resource = arg.GetNumber(0)
-	//wxAcceleratorTable();
+	//wxAcceleratorTable(resource);
 	return Value::Nil;
 }
 

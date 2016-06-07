@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__DCTextColourChanger, "DCTextColourChanger")
 Gura_ImplementFunction(__DCTextColourChanger)
 {
 	//wxDC& dc = arg.GetNumber(0)
-	//wxDCTextColourChanger();
+	//wxDCTextColourChanger(dc);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementFunction(__DCTextColourChanger_1)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxColour& col = arg.GetNumber(1)
-	//wxDCTextColourChanger();
+	//wxDCTextColourChanger(dc, col);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_DCTextColourChanger, __Set)
 	Object_wx_DCTextColourChanger *pThis = Object_wx_DCTextColourChanger::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(col);
 	return Value::Nil;
 }
 

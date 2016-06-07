@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__FilterOutputStream, "FilterOutputStream")
 Gura_ImplementFunction(__FilterOutputStream)
 {
 	//wxOutputStream& stream = arg.GetNumber(0)
-	//wxFilterOutputStream();
+	//wxFilterOutputStream(stream);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__FilterOutputStream_1, "FilterOutputStream_1")
 Gura_ImplementFunction(__FilterOutputStream_1)
 {
 	//wxOutputStream* stream = arg.GetNumber(0)
-	//wxFilterOutputStream();
+	//wxFilterOutputStream(stream);
 	return Value::Nil;
 }
 

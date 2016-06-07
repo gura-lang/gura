@@ -75,7 +75,7 @@ Gura_ImplementFunction(__SearchCtrl_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxSearchCtrl();
+	//wxSearchCtrl(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_SearchCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_SearchCtrl, __SetMenu)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMenu();
+	//pThis->GetEntity()->SetMenu(menu);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_SearchCtrl, __ShowCancelButton)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowCancelButton();
+	//pThis->GetEntity()->ShowCancelButton(show);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_SearchCtrl, __ShowSearchButton)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowSearchButton();
+	//pThis->GetEntity()->ShowSearchButton(show);
 	return Value::Nil;
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_SearchCtrl, __SetDescriptiveText)
 	Object_wx_SearchCtrl *pThis = Object_wx_SearchCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDescriptiveText();
+	//pThis->GetEntity()->SetDescriptiveText(text);
 	return Value::Nil;
 }
 

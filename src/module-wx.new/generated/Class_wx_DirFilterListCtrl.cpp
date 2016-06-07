@@ -69,7 +69,7 @@ Gura_ImplementFunction(__DirFilterListCtrl_1)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxDirFilterListCtrl();
+	//wxDirFilterListCtrl(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -125,7 +125,7 @@ Gura_ImplementMethod(wx_DirFilterListCtrl, __FillFilterList)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filter = arg.GetNumber(0)
 	//int defaultFilter = arg.GetNumber(1)
-	//pThis->GetEntity()->FillFilterList();
+	//pThis->GetEntity()->FillFilterList(filter, defaultFilter);
 	return Value::Nil;
 }
 

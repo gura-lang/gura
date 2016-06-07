@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Sound_1)
 {
 	//const wxString& fileName = arg.GetNumber(0)
 	//bool isResource = arg.GetNumber(1)
-	//wxSound();
+	//wxSound(fileName, isResource);
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__Sound_2)
 {
 	//size_t size = arg.GetNumber(0)
 	//const void* data = arg.GetNumber(1)
-	//wxSound();
+	//wxSound(size, data);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_Sound, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& fileName = arg.GetNumber(0)
 	//bool isResource = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(fileName, isResource);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_Sound, __Create_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t size = arg.GetNumber(0)
 	//const void* data = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(size, data);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_Sound, __Play)
 	Object_wx_Sound *pThis = Object_wx_Sound::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned flags = arg.GetNumber(0)
-	//pThis->GetEntity()->Play();
+	//pThis->GetEntity()->Play(flags);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Sound, __Play_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//unsigned flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Play();
+	//pThis->GetEntity()->Play(filename, flags);
 	return Value::Nil;
 }
 

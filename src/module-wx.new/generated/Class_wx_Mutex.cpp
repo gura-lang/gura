@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__Mutex, "Mutex")
 Gura_ImplementFunction(__Mutex)
 {
 	//wxMutexType type = arg.GetNumber(0)
-	//wxMutex();
+	//wxMutex(type);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_Mutex, __LockTimeout)
 	Object_wx_Mutex *pThis = Object_wx_Mutex::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long msec = arg.GetNumber(0)
-	//pThis->GetEntity()->LockTimeout();
+	//pThis->GetEntity()->LockTimeout(msec);
 	return Value::Nil;
 }
 

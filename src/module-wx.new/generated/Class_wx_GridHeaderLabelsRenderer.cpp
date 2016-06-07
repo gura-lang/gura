@@ -60,7 +60,7 @@ Gura_ImplementMethod(wx_GridHeaderLabelsRenderer, __DrawLabel)
 	//int horizAlign = arg.GetNumber(4)
 	//int vertAlign = arg.GetNumber(5)
 	//int textOrientation = arg.GetNumber(6)
-	//pThis->GetEntity()->DrawLabel();
+	//pThis->GetEntity()->DrawLabel(grid, dc, value, rect, horizAlign, vertAlign, textOrientation);
 	return Value::Nil;
 }
 

@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawStandardBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawStandardBullet();
+	//pThis->GetEntity()->DrawStandardBullet(paragraph, dc, attr, rect);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawTextBullet)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
 	//const wxString& text = arg.GetNumber(4)
-	//pThis->GetEntity()->DrawTextBullet();
+	//pThis->GetEntity()->DrawTextBullet(paragraph, dc, attr, rect, text);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __DrawBitmapBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawBitmapBullet();
+	//pThis->GetEntity()->DrawBitmapBullet(paragraph, dc, attr, rect);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __EnumerateStandardBulletNames)
 	Object_wx_RichTextStdRenderer *pThis = Object_wx_RichTextStdRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& bulletNames = arg.GetNumber(0)
-	//pThis->GetEntity()->EnumerateStandardBulletNames();
+	//pThis->GetEntity()->EnumerateStandardBulletNames(bulletNames);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RichTextStdRenderer, __MeasureBullet)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRichTextAttr& attr = arg.GetNumber(2)
 	//wxSize& sz = arg.GetNumber(3)
-	//pThis->GetEntity()->MeasureBullet();
+	//pThis->GetEntity()->MeasureBullet(paragraph, dc, attr, sz);
 	return Value::Nil;
 }
 

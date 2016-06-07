@@ -50,7 +50,7 @@ Gura_ImplementFunction(__AppProgressIndicator)
 {
 	//wxWindow* parent = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
-	//wxAppProgressIndicator();
+	//wxAppProgressIndicator(parent, maxValue);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_AppProgressIndicator, __SetValue)
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_AppProgressIndicator, __SetRange)
 	Object_wx_AppProgressIndicator *pThis = Object_wx_AppProgressIndicator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(range);
 	return Value::Nil;
 }
 

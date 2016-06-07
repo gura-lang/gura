@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Panel_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxPanel();
+	//wxPanel(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_Panel, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Panel, __OnSysColourChanged)
 	Object_wx_Panel *pThis = Object_wx_Panel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSysColourChangedEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->OnSysColourChanged();
+	//pThis->GetEntity()->OnSysColourChanged(event);
 	return Value::Nil;
 }
 

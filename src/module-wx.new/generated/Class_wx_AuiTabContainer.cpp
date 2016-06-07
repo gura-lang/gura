@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetArtProvider)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiTabArt* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetFlags)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __AddPage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
 	//const wxAuiNotebookPage& info = arg.GetNumber(1)
-	//pThis->GetEntity()->AddPage();
+	//pThis->GetEntity()->AddPage(page, info);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __InsertPage)
 	//wxWindow* page = arg.GetNumber(0)
 	//const wxAuiNotebookPage& info = arg.GetNumber(1)
 	//size_t idx = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertPage();
+	//pThis->GetEntity()->InsertPage(page, info, idx);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __MovePage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
 	//size_t newIdx = arg.GetNumber(1)
-	//pThis->GetEntity()->MovePage();
+	//pThis->GetEntity()->MovePage(page, newIdx);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __RemovePage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->RemovePage();
+	//pThis->GetEntity()->RemovePage(page);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage();
+	//pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetActivePage_1)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage();
+	//pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __TabHitTest)
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//wxWindow** hit = arg.GetNumber(2)
-	//pThis->GetEntity()->TabHitTest();
+	//pThis->GetEntity()->TabHitTest(x, y, hit);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __ButtonHitTest)
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
 	//wxAuiTabContainerButton** hit = arg.GetNumber(2)
-	//pThis->GetEntity()->ButtonHitTest();
+	//pThis->GetEntity()->ButtonHitTest(x, y, hit);
 	return Value::Nil;
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetWindowFromIdx)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetWindowFromIdx();
+	//pThis->GetEntity()->GetWindowFromIdx(idx);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetIdxFromWindow)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIdxFromWindow();
+	//pThis->GetEntity()->GetIdxFromWindow(page);
 	return Value::Nil;
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetPage)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPage();
+	//pThis->GetEntity()->GetPage(idx);
 	return Value::Nil;
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __GetPage_1)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t idx = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPage();
+	//pThis->GetEntity()->GetPage(idx);
 	return Value::Nil;
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetNormalFont)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& normalFont = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNormalFont();
+	//pThis->GetEntity()->SetNormalFont(normalFont);
 	return Value::Nil;
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetSelectedFont)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& selectedFont = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectedFont();
+	//pThis->GetEntity()->SetSelectedFont(selectedFont);
 	return Value::Nil;
 }
 
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetMeasuringFont)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& measuringFont = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMeasuringFont();
+	//pThis->GetEntity()->SetMeasuringFont(measuringFont);
 	return Value::Nil;
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetColour)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetActiveColour)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActiveColour();
+	//pThis->GetEntity()->SetActiveColour(colour);
 	return Value::Nil;
 }
 
@@ -456,7 +456,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetRect)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRect();
+	//pThis->GetEntity()->SetRect(rect);
 	return Value::Nil;
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __RemoveButton)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveButton();
+	//pThis->GetEntity()->RemoveButton(id);
 	return Value::Nil;
 }
 
@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __AddButton)
 	//int location = arg.GetNumber(1)
 	//const wxBitmap& normalBitmap = arg.GetNumber(2)
 	//const wxBitmap& disabledBitmap = arg.GetNumber(3)
-	//pThis->GetEntity()->AddButton();
+	//pThis->GetEntity()->AddButton(id, location, normalBitmap, disabledBitmap);
 	return Value::Nil;
 }
 
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __SetTabOffset)
 	Object_wx_AuiTabContainer *pThis = Object_wx_AuiTabContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t offset = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTabOffset();
+	//pThis->GetEntity()->SetTabOffset(offset);
 	return Value::Nil;
 }
 
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __IsTabVisible)
 	//int tabOffset = arg.GetNumber(1)
 	//wxDC* dc = arg.GetNumber(2)
 	//wxWindow* wnd = arg.GetNumber(3)
-	//pThis->GetEntity()->IsTabVisible();
+	//pThis->GetEntity()->IsTabVisible(tabPage, tabOffset, dc, wnd);
 	return Value::Nil;
 }
 
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __MakeTabVisible)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tabPage = arg.GetNumber(0)
 	//wxWindow* win = arg.GetNumber(1)
-	//pThis->GetEntity()->MakeTabVisible();
+	//pThis->GetEntity()->MakeTabVisible(tabPage, win);
 	return Value::Nil;
 }
 
@@ -575,7 +575,7 @@ Gura_ImplementMethod(wx_AuiTabContainer, __Render)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC* dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
-	//pThis->GetEntity()->Render();
+	//pThis->GetEntity()->Render(dc, wnd);
 	return Value::Nil;
 }
 

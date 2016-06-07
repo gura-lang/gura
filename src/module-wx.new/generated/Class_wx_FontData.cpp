@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_FontData, __EnableEffects)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableEffects();
+	//pThis->GetEntity()->EnableEffects(enable);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_FontData, __SetAllowSymbols)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool allowSymbols = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAllowSymbols();
+	//pThis->GetEntity()->SetAllowSymbols(allowSymbols);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_FontData, __SetChosenFont)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetChosenFont();
+	//pThis->GetEntity()->SetChosenFont(font);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_FontData, __SetColour)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_FontData, __SetInitialFont)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInitialFont();
+	//pThis->GetEntity()->SetInitialFont(font);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_FontData, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(min, max);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_FontData, __SetShowHelp)
 	Object_wx_FontData *pThis = Object_wx_FontData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool showHelp = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShowHelp();
+	//pThis->GetEntity()->SetShowHelp(showHelp);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PaintEvent, "PaintEvent")
 Gura_ImplementFunction(__PaintEvent)
 {
 	//int id = arg.GetNumber(0)
-	//wxPaintEvent();
+	//wxPaintEvent(id);
 	return Value::Nil;
 }
 

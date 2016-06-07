@@ -56,7 +56,7 @@ Gura_ImplementFunction(__RegConfig)
 	//const wxString& localFilename = arg.GetNumber(2)
 	//const wxString& globalFilename = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxRegConfig();
+	//wxRegConfig(appName, vendorName, localFilename, globalFilename, style);
 	return Value::Nil;
 }
 

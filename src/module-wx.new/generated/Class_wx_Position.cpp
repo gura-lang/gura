@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Position_1)
 {
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//wxPosition();
+	//wxPosition(row, col);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Position, __SetCol)
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCol();
+	//pThis->GetEntity()->SetCol(column);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_Position, __SetColumn)
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumn();
+	//pThis->GetEntity()->SetColumn(column);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_Position, __SetRow)
 	Object_wx_Position *pThis = Object_wx_Position::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRow();
+	//pThis->GetEntity()->SetRow(row);
 	return Value::Nil;
 }
 

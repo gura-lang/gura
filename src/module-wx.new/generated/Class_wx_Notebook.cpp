@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Notebook_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxNotebook();
+	//wxNotebook(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Notebook, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_Notebook, __OnSelChange)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBookCtrlEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->OnSelChange();
+	//pThis->GetEntity()->OnSelChange(event);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPadding)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& padding = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPadding();
+	//pThis->GetEntity()->SetPadding(padding);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_Notebook, __GetPageImage)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nPage = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageImage();
+	//pThis->GetEntity()->GetPageImage(nPage);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPageImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPageImage();
+	//pThis->GetEntity()->SetPageImage(page, image);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Notebook, __GetPageText)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nPage = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageText();
+	//pThis->GetEntity()->GetPageText(nPage);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_Notebook, __SetPageText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPageText();
+	//pThis->GetEntity()->SetPageText(page, text);
 	return Value::Nil;
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_Notebook, __SetSelection)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(page);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Notebook, __ChangeSelection)
 	Object_wx_Notebook *pThis = Object_wx_Notebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->ChangeSelection();
+	//pThis->GetEntity()->ChangeSelection(page);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_Notebook, __InsertPage)
 	//const wxString& text = arg.GetNumber(2)
 	//bool select = arg.GetNumber(3)
 	//int imageId = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertPage();
+	//pThis->GetEntity()->InsertPage(index, page, text, select, imageId);
 	return Value::Nil;
 }
 

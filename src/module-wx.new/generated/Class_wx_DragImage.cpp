@@ -63,7 +63,7 @@ Gura_ImplementFunction(__DragImage_1)
 {
 	//const wxBitmap& image = arg.GetNumber(0)
 	//const wxCursor& cursor = arg.GetNumber(1)
-	//wxDragImage();
+	//wxDragImage(image, cursor);
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__DragImage_2)
 {
 	//const wxIcon& image = arg.GetNumber(0)
 	//const wxCursor& cursor = arg.GetNumber(1)
-	//wxDragImage();
+	//wxDragImage(image, cursor);
 	return Value::Nil;
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementFunction(__DragImage_3)
 {
 	//const wxString& text = arg.GetNumber(0)
 	//const wxCursor& cursor = arg.GetNumber(1)
-	//wxDragImage();
+	//wxDragImage(text, cursor);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementFunction(__DragImage_4)
 {
 	//const wxTreeCtrl& treeCtrl = arg.GetNumber(0)
 	//wxTreeItemId& id = arg.GetNumber(1)
-	//wxDragImage();
+	//wxDragImage(treeCtrl, id);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementFunction(__DragImage_5)
 {
 	//const wxListCtrl& listCtrl = arg.GetNumber(0)
 	//long id = arg.GetNumber(1)
-	//wxDragImage();
+	//wxDragImage(listCtrl, id);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag)
 	//wxWindow* window = arg.GetNumber(1)
 	//bool fullScreen = arg.GetNumber(2)
 	//wxRect* rect = arg.GetNumber(3)
-	//pThis->GetEntity()->BeginDrag();
+	//pThis->GetEntity()->BeginDrag(hotspot, window, fullScreen, rect);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_DragImage, __BeginDrag_1)
 	//const wxPoint& hotspot = arg.GetNumber(0)
 	//wxWindow* window = arg.GetNumber(1)
 	//wxWindow* boundingWindow = arg.GetNumber(2)
-	//pThis->GetEntity()->BeginDrag();
+	//pThis->GetEntity()->BeginDrag(hotspot, window, boundingWindow);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_DragImage, __DoDrawImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->DoDrawImage();
+	//pThis->GetEntity()->DoDrawImage(dc, pos);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_DragImage, __GetImageRect)
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageRect();
+	//pThis->GetEntity()->GetImageRect(pos);
 	return Value::Nil;
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_DragImage, __Move)
 	Object_wx_DragImage *pThis = Object_wx_DragImage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Move();
+	//pThis->GetEntity()->Move(pt);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_DragImage, __UpdateBackingFromWindow)
 	//wxMemoryDC& destDC = arg.GetNumber(1)
 	//const wxRect& sourceRect = arg.GetNumber(2)
 	//const wxRect& destRect = arg.GetNumber(3)
-	//pThis->GetEntity()->UpdateBackingFromWindow();
+	//pThis->GetEntity()->UpdateBackingFromWindow(windowDC, destDC, sourceRect, destRect);
 	return Value::Nil;
 }
 

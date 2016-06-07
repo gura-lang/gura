@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_IconLocation, __SetFileName)
 	Object_wx_IconLocation *pThis = Object_wx_IconLocation::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFileName();
+	//pThis->GetEntity()->SetFileName(filename);
 	return Value::Nil;
 }
 

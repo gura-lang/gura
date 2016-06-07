@@ -58,7 +58,7 @@ Gura_ImplementFunction(__RichTextCommand)
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(3)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(4)
 	//bool ignoreFirstTime = arg.GetNumber(5)
-	//wxRichTextCommand();
+	//wxRichTextCommand(name, id, buffer, container, ctrl, ignoreFirstTime);
 	return Value::Nil;
 }
 
@@ -73,7 +73,7 @@ Gura_DeclareFunctionAlias(__RichTextCommand_1, "RichTextCommand_1")
 Gura_ImplementFunction(__RichTextCommand_1)
 {
 	//const wxString& name = arg.GetNumber(0)
-	//wxRichTextCommand();
+	//wxRichTextCommand(name);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RichTextCommand, __AddAction)
 	Object_wx_RichTextCommand *pThis = Object_wx_RichTextCommand::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextAction* action = arg.GetNumber(0)
-	//pThis->GetEntity()->AddAction();
+	//pThis->GetEntity()->AddAction(action);
 	return Value::Nil;
 }
 

@@ -54,7 +54,7 @@ Gura_ImplementFunction(__DropSource)
 	//const wxCursor& iconCopy = arg.GetNumber(1)
 	//const wxCursor& iconMove = arg.GetNumber(2)
 	//const wxCursor& iconNone = arg.GetNumber(3)
-	//wxDropSource();
+	//wxDropSource(win, iconCopy, iconMove, iconNone);
 	return Value::Nil;
 }
 
@@ -77,7 +77,7 @@ Gura_ImplementFunction(__DropSource_1)
 	//const wxCursor& iconCopy = arg.GetNumber(2)
 	//const wxCursor& iconMove = arg.GetNumber(3)
 	//const wxCursor& iconNone = arg.GetNumber(4)
-	//wxDropSource();
+	//wxDropSource(data, win, iconCopy, iconMove, iconNone);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementFunction(__DropSource_2)
 	//const wxIcon& iconCopy = arg.GetNumber(1)
 	//const wxIcon& iconMove = arg.GetNumber(2)
 	//const wxIcon& iconNone = arg.GetNumber(3)
-	//wxDropSource();
+	//wxDropSource(win, iconCopy, iconMove, iconNone);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementFunction(__DropSource_3)
 	//const wxIcon& iconCopy = arg.GetNumber(2)
 	//const wxIcon& iconMove = arg.GetNumber(3)
 	//const wxIcon& iconNone = arg.GetNumber(4)
-	//wxDropSource();
+	//wxDropSource(data, win, iconCopy, iconMove, iconNone);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_DropSource, __DoDragDrop)
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->DoDragDrop();
+	//pThis->GetEntity()->DoDragDrop(flags);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_DropSource, __GiveFeedback)
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult effect = arg.GetNumber(0)
-	//pThis->GetEntity()->GiveFeedback();
+	//pThis->GetEntity()->GiveFeedback(effect);
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_DropSource, __SetCursor)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult res = arg.GetNumber(0)
 	//const wxCursor& cursor = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCursor();
+	//pThis->GetEntity()->SetCursor(res, cursor);
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_DropSource, __SetIcon)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult res = arg.GetNumber(0)
 	//const wxIcon& icon = arg.GetNumber(1)
-	//pThis->GetEntity()->SetIcon();
+	//pThis->GetEntity()->SetIcon(res, icon);
 	return Value::Nil;
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_DropSource, __SetData)
 	Object_wx_DropSource *pThis = Object_wx_DropSource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataObject& data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(data);
 	return Value::Nil;
 }
 

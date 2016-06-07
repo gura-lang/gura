@@ -54,7 +54,7 @@ Gura_ImplementFunction(__BookCtrlEvent)
 	//int id = arg.GetNumber(1)
 	//int sel = arg.GetNumber(2)
 	//int oldSel = arg.GetNumber(3)
-	//wxBookCtrlEvent();
+	//wxBookCtrlEvent(eventType, id, sel, oldSel);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_BookCtrlEvent, __SetOldSelection)
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOldSelection();
+	//pThis->GetEntity()->SetOldSelection(page);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_BookCtrlEvent, __SetSelection)
 	Object_wx_BookCtrlEvent *pThis = Object_wx_BookCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(page);
 	return Value::Nil;
 }
 

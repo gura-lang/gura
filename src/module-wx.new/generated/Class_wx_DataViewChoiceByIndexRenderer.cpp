@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DataViewChoiceByIndexRenderer)
 	//const wxArrayString& choices = arg.GetNumber(0)
 	//wxDataViewCellMode mode = arg.GetNumber(1)
 	//int alignment = arg.GetNumber(2)
-	//wxDataViewChoiceByIndexRenderer();
+	//wxDataViewChoiceByIndexRenderer(choices, mode, alignment);
 	return Value::Nil;
 }
 

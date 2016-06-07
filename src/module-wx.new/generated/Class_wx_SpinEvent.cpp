@@ -50,7 +50,7 @@ Gura_ImplementFunction(__SpinEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxSpinEvent();
+	//wxSpinEvent(commandType, id);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_SpinEvent, __SetPosition)
 	Object_wx_SpinEvent *pThis = Object_wx_SpinEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }
 

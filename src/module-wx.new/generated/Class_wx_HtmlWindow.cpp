@@ -71,7 +71,7 @@ Gura_ImplementFunction(__HtmlWindow_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxHtmlWindow();
+	//wxHtmlWindow(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __AddFilter)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlFilter* filter = arg.GetNumber(0)
-	//pThis->GetEntity()->AddFilter();
+	//pThis->GetEntity()->AddFilter(filter);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __AppendToPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& source = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendToPage();
+	//pThis->GetEntity()->AppendToPage(source);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __LoadFile)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->LoadFile();
+	//pThis->GetEntity()->LoadFile(filename);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __LoadPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& location = arg.GetNumber(0)
-	//pThis->GetEntity()->LoadPage();
+	//pThis->GetEntity()->LoadPage(location);
 	return Value::Nil;
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnLinkClicked)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlLinkInfo& link = arg.GetNumber(0)
-	//pThis->GetEntity()->OnLinkClicked();
+	//pThis->GetEntity()->OnLinkClicked(link);
 	return Value::Nil;
 }
 
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnOpeningURL)
 	//wxHtmlURLType type = arg.GetNumber(0)
 	//const wxString& url = arg.GetNumber(1)
 	//wxString* redirect = arg.GetNumber(2)
-	//pThis->GetEntity()->OnOpeningURL();
+	//pThis->GetEntity()->OnOpeningURL(type, url, redirect);
 	return Value::Nil;
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnSetTitle)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->OnSetTitle();
+	//pThis->GetEntity()->OnSetTitle(title);
 	return Value::Nil;
 }
 
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __ReadCustomization)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxConfigBase* cfg = arg.GetNumber(0)
 	//wxString path = arg.GetNumber(1)
-	//pThis->GetEntity()->ReadCustomization();
+	//pThis->GetEntity()->ReadCustomization(cfg, path);
 	return Value::Nil;
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SelectLine)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SelectLine();
+	//pThis->GetEntity()->SelectLine(pos);
 	return Value::Nil;
 }
 
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SelectWord)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SelectWord();
+	//pThis->GetEntity()->SelectWord(pos);
 	return Value::Nil;
 }
 
@@ -401,7 +401,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetBorders)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int b = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBorders();
+	//pThis->GetEntity()->SetBorders(b);
 	return Value::Nil;
 }
 
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetFonts)
 	//const wxString& normal_face = arg.GetNumber(0)
 	//const wxString& fixed_face = arg.GetNumber(1)
 	//const int* sizes = arg.GetNumber(2)
-	//pThis->GetEntity()->SetFonts();
+	//pThis->GetEntity()->SetFonts(normal_face, fixed_face, sizes);
 	return Value::Nil;
 }
 
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetStandardFonts)
 	//int size = arg.GetNumber(0)
 	//const wxString& normal_face = arg.GetNumber(1)
 	//const wxString& fixed_face = arg.GetNumber(2)
-	//pThis->GetEntity()->SetStandardFonts();
+	//pThis->GetEntity()->SetStandardFonts(size, normal_face, fixed_face);
 	return Value::Nil;
 }
 
@@ -454,7 +454,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& source = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPage();
+	//pThis->GetEntity()->SetPage(source);
 	return Value::Nil;
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedFrame)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFrame* frame = arg.GetNumber(0)
 	//const wxString& format = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRelatedFrame();
+	//pThis->GetEntity()->SetRelatedFrame(frame, format);
 	return Value::Nil;
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedStatusBar)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRelatedStatusBar();
+	//pThis->GetEntity()->SetRelatedStatusBar(index);
 	return Value::Nil;
 }
 
@@ -503,7 +503,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetRelatedStatusBar_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxStatusBar* statusbar = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRelatedStatusBar();
+	//pThis->GetEntity()->SetRelatedStatusBar(statusbar, index);
 	return Value::Nil;
 }
 
@@ -533,7 +533,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __WriteCustomization)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxConfigBase* cfg = arg.GetNumber(0)
 	//wxString path = arg.GetNumber(1)
-	//pThis->GetEntity()->WriteCustomization();
+	//pThis->GetEntity()->WriteCustomization(cfg, path);
 	return Value::Nil;
 }
 
@@ -548,7 +548,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __GetDefaultHTMLCursor)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//HTMLCursor type = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDefaultHTMLCursor();
+	//pThis->GetEntity()->GetDefaultHTMLCursor(type);
 	return Value::Nil;
 }
 
@@ -565,7 +565,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __SetDefaultHTMLCursor)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//HTMLCursor type = arg.GetNumber(0)
 	//const wxCursor& cursor = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDefaultHTMLCursor();
+	//pThis->GetEntity()->SetDefaultHTMLCursor(type, cursor);
 	return Value::Nil;
 }
 
@@ -586,7 +586,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnCellClicked)
 	//wxCoord x = arg.GetNumber(1)
 	//wxCoord y = arg.GetNumber(2)
 	//const wxMouseEvent& event = arg.GetNumber(3)
-	//pThis->GetEntity()->OnCellClicked();
+	//pThis->GetEntity()->OnCellClicked(cell, x, y, event);
 	return Value::Nil;
 }
 
@@ -605,7 +605,7 @@ Gura_ImplementMethod(wx_HtmlWindow, __OnCellMouseHover)
 	//wxHtmlCell* cell = arg.GetNumber(0)
 	//wxCoord x = arg.GetNumber(1)
 	//wxCoord y = arg.GetNumber(2)
-	//pThis->GetEntity()->OnCellMouseHover();
+	//pThis->GetEntity()->OnCellMouseHover(cell, x, y);
 	return Value::Nil;
 }
 

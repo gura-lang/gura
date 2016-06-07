@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Mask_1)
 {
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//wxMask();
+	//wxMask(bitmap, index);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__Mask_2, "Mask_2")
 Gura_ImplementFunction(__Mask_2)
 {
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//wxMask();
+	//wxMask(bitmap);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementFunction(__Mask_3)
 {
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxColour& colour = arg.GetNumber(1)
-	//wxMask();
+	//wxMask(bitmap, colour);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_Mask, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(bitmap, index);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_Mask, __Create_1)
 	Object_wx_Mask *pThis = Object_wx_Mask::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(bitmap);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_Mask, __Create_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxColour& colour = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(bitmap, colour);
 	return Value::Nil;
 }
 

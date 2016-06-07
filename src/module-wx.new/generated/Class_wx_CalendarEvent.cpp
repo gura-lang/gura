@@ -65,7 +65,7 @@ Gura_ImplementFunction(__CalendarEvent_1)
 	//wxWindow* win = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
 	//wxEventType type = arg.GetNumber(2)
-	//wxCalendarEvent();
+	//wxCalendarEvent(win, dt, type);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_CalendarEvent, __SetWeekDay)
 	Object_wx_CalendarEvent *pThis = Object_wx_CalendarEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDateTime::WeekDay day = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWeekDay();
+	//pThis->GetEntity()->SetWeekDay(day);
 	return Value::Nil;
 }
 

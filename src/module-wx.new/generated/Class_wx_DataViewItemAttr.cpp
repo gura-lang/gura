@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __SetBold)
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool set = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBold();
+	//pThis->GetEntity()->SetBold(set);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __SetColour)
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __SetBackgroundColour)
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(colour);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __SetItalic)
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool set = arg.GetNumber(0)
-	//pThis->GetEntity()->SetItalic();
+	//pThis->GetEntity()->SetItalic(set);
 	return Value::Nil;
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_DataViewItemAttr, __GetEffectiveFont)
 	Object_wx_DataViewItemAttr *pThis = Object_wx_DataViewItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->GetEffectiveFont();
+	//pThis->GetEntity()->GetEffectiveFont(font);
 	return Value::Nil;
 }
 

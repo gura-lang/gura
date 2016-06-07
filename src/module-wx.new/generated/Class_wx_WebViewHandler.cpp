@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WebViewHandler, "WebViewHandler")
 Gura_ImplementFunction(__WebViewHandler)
 {
 	//const wxString& scheme = arg.GetNumber(0)
-	//wxWebViewHandler();
+	//wxWebViewHandler(scheme);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_WebViewHandler, __GetFile)
 	Object_wx_WebViewHandler *pThis = Object_wx_WebViewHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFile();
+	//pThis->GetEntity()->GetFile(uri);
 	return Value::Nil;
 }
 

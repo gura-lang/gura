@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_HTTP, __Connect)
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& host = arg.GetNumber(0)
-	//pThis->GetEntity()->Connect();
+	//pThis->GetEntity()->Connect(host);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_HTTP, __Connect_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& host = arg.GetNumber(0)
 	//unsigned short port = arg.GetNumber(1)
-	//pThis->GetEntity()->Connect();
+	//pThis->GetEntity()->Connect(host, port);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_HTTP, __Connect_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSockAddress& addr = arg.GetNumber(0)
 	//bool wait = arg.GetNumber(1)
-	//pThis->GetEntity()->Connect();
+	//pThis->GetEntity()->Connect(addr, wait);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_HTTP, __GetHeader)
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& header = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeader();
+	//pThis->GetEntity()->GetHeader(header);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_HTTP, __GetInputStream)
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->GetInputStream();
+	//pThis->GetEntity()->GetInputStream(path);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_HTTP, __SetMethod)
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& method = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMethod();
+	//pThis->GetEntity()->SetMethod(method);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_HTTP, __SetHeader)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& header = arg.GetNumber(0)
 	//const wxString& h_data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetHeader();
+	//pThis->GetEntity()->SetHeader(header, h_data);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_HTTP, __GetCookie)
 	Object_wx_HTTP *pThis = Object_wx_HTTP::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& cookie = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCookie();
+	//pThis->GetEntity()->GetCookie(cookie);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_HTTP, __SetPostBuffer)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& contentType = arg.GetNumber(0)
 	//const wxMemoryBuffer& data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPostBuffer();
+	//pThis->GetEntity()->SetPostBuffer(contentType, data);
 	return Value::Nil;
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_HTTP, __SetPostText)
 	//const wxString& contentType = arg.GetNumber(0)
 	//const wxString& data = arg.GetNumber(1)
 	//const wxMBConv& conv = arg.GetNumber(2)
-	//pThis->GetEntity()->SetPostText();
+	//pThis->GetEntity()->SetPostText(contentType, data, conv);
 	return Value::Nil;
 }
 

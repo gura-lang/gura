@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextBufferDataObject, "RichTextBufferDataObject"
 Gura_ImplementFunction(__RichTextBufferDataObject)
 {
 	//wxRichTextBuffer* richTextBuffer = arg.GetNumber(0)
-	//wxRichTextBufferDataObject();
+	//wxRichTextBufferDataObject(richTextBuffer);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __GetPreferredFormat)
 	Object_wx_RichTextBufferDataObject *pThis = Object_wx_RichTextBufferDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//Direction dir = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPreferredFormat();
+	//pThis->GetEntity()->GetPreferredFormat(dir);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __GetDataHere)
 	Object_wx_RichTextBufferDataObject *pThis = Object_wx_RichTextBufferDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* pBuf = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDataHere();
+	//pThis->GetEntity()->GetDataHere(pBuf);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __SetData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
 	//const void* buf = arg.GetNumber(1)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(len, buf);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __GetDataSize_1)
 	Object_wx_RichTextBufferDataObject *pThis = Object_wx_RichTextBufferDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& _arg0 = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDataSize();
+	//pThis->GetEntity()->GetDataSize(_arg0);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __GetDataHere_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& _arg0 = arg.GetNumber(0)
 	//void* buf = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDataHere();
+	//pThis->GetEntity()->GetDataHere(_arg0, buf);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_RichTextBufferDataObject, __SetData_1)
 	//const wxDataFormat& _arg0 = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
 	//const void* buf = arg.GetNumber(2)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(_arg0, len, buf);
 	return Value::Nil;
 }
 

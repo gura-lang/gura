@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetProgressRange)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
-	//pThis->GetEntity()->SetProgressRange();
+	//pThis->GetEntity()->SetProgressRange(range);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetProgressValue)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetProgressValue();
+	//pThis->GetEntity()->SetProgressValue(value);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __Show)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->Show();
+	//pThis->GetEntity()->Show(show);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailTooltip)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& tooltip = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThumbnailTooltip();
+	//pThis->GetEntity()->SetThumbnailTooltip(tooltip);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetProgressState)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTaskBarButtonState state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetProgressState();
+	//pThis->GetEntity()->SetProgressState(state);
 	return Value::Nil;
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetOverlayIcon)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
 	//const wxString& description = arg.GetNumber(1)
-	//pThis->GetEntity()->SetOverlayIcon();
+	//pThis->GetEntity()->SetOverlayIcon(icon, description);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailClip)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThumbnailClip();
+	//pThis->GetEntity()->SetThumbnailClip(rect);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __SetThumbnailContents)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* child = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThumbnailContents();
+	//pThis->GetEntity()->SetThumbnailContents(child);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __InsertThumbBarButton)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//wxThumbBarButton* button = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertThumbBarButton();
+	//pThis->GetEntity()->InsertThumbBarButton(pos, button);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __AppendThumbBarButton)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxThumbBarButton* button = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendThumbBarButton();
+	//pThis->GetEntity()->AppendThumbBarButton(button);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxThumbBarButton* button = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveThumbBarButton();
+	//pThis->GetEntity()->RemoveThumbBarButton(button);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_TaskBarButton, __RemoveThumbBarButton_1)
 	Object_wx_TaskBarButton *pThis = Object_wx_TaskBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveThumbBarButton();
+	//pThis->GetEntity()->RemoveThumbBarButton(id);
 	return Value::Nil;
 }
 

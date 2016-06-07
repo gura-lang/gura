@@ -75,7 +75,7 @@ Gura_ImplementFunction(__PlatformInfo_1)
 	//int osMinor = arg.GetNumber(5)
 	//wxArchitecture arch = arg.GetNumber(6)
 	//wxEndianness endian = arg.GetNumber(7)
-	//wxPlatformInfo();
+	//wxPlatformInfo(pid, tkMajor, tkMinor, id, osMajor, osMinor, arch, endian);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __CheckOSVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int major = arg.GetNumber(0)
 	//int minor = arg.GetNumber(1)
-	//pThis->GetEntity()->CheckOSVersion();
+	//pThis->GetEntity()->CheckOSVersion(major, minor);
 	return Value::Nil;
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __CheckToolkitVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int major = arg.GetNumber(0)
 	//int minor = arg.GetNumber(1)
-	//pThis->GetEntity()->CheckToolkitVersion();
+	//pThis->GetEntity()->CheckToolkitVersion(major, minor);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetArch)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& arch = arg.GetNumber(0)
-	//pThis->GetEntity()->GetArch();
+	//pThis->GetEntity()->GetArch(arch);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetEndianness)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& end = arg.GetNumber(0)
-	//pThis->GetEntity()->GetEndianness();
+	//pThis->GetEntity()->GetEndianness(end);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetOperatingSystemId)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOperatingSystemId();
+	//pThis->GetEntity()->GetOperatingSystemId(name);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetPortId)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& portname = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPortId();
+	//pThis->GetEntity()->GetPortId(portname);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetArchName)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchitecture arch = arg.GetNumber(0)
-	//pThis->GetEntity()->GetArchName();
+	//pThis->GetEntity()->GetArchName(arch);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetEndiannessName)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEndianness end = arg.GetNumber(0)
-	//pThis->GetEntity()->GetEndiannessName();
+	//pThis->GetEntity()->GetEndiannessName(end);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetOperatingSystemFamilyName)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOperatingSystemId os = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOperatingSystemFamilyName();
+	//pThis->GetEntity()->GetOperatingSystemFamilyName(os);
 	return Value::Nil;
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetOperatingSystemIdName)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOperatingSystemId os = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOperatingSystemIdName();
+	//pThis->GetEntity()->GetOperatingSystemIdName(os);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetPortIdName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPortId port = arg.GetNumber(0)
 	//bool usingUniversal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPortIdName();
+	//pThis->GetEntity()->GetPortIdName(port, usingUniversal);
 	return Value::Nil;
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __GetPortIdShortName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPortId port = arg.GetNumber(0)
 	//bool usingUniversal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPortIdShortName();
+	//pThis->GetEntity()->GetPortIdShortName(port, usingUniversal);
 	return Value::Nil;
 }
 
@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetArchitecture)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchitecture n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArchitecture();
+	//pThis->GetEntity()->SetArchitecture(n);
 	return Value::Nil;
 }
 
@@ -569,7 +569,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetEndianness)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEndianness n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEndianness();
+	//pThis->GetEntity()->SetEndianness(n);
 	return Value::Nil;
 }
 
@@ -586,7 +586,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetOSVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int major = arg.GetNumber(0)
 	//int minor = arg.GetNumber(1)
-	//pThis->GetEntity()->SetOSVersion();
+	//pThis->GetEntity()->SetOSVersion(major, minor);
 	return Value::Nil;
 }
 
@@ -601,7 +601,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetOperatingSystemId)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOperatingSystemId n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOperatingSystemId();
+	//pThis->GetEntity()->SetOperatingSystemId(n);
 	return Value::Nil;
 }
 
@@ -616,7 +616,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetPortId)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPortId n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPortId();
+	//pThis->GetEntity()->SetPortId(n);
 	return Value::Nil;
 }
 
@@ -633,7 +633,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetToolkitVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int major = arg.GetNumber(0)
 	//int minor = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolkitVersion();
+	//pThis->GetEntity()->SetToolkitVersion(major, minor);
 	return Value::Nil;
 }
 
@@ -648,7 +648,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetOperatingSystemDescription)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& desc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOperatingSystemDescription();
+	//pThis->GetEntity()->SetOperatingSystemDescription(desc);
 	return Value::Nil;
 }
 
@@ -663,7 +663,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetDesktopEnvironment)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& de = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDesktopEnvironment();
+	//pThis->GetEntity()->SetDesktopEnvironment(de);
 	return Value::Nil;
 }
 
@@ -678,7 +678,7 @@ Gura_ImplementMethod(wx_PlatformInfo, __SetLinuxDistributionInfo)
 	Object_wx_PlatformInfo *pThis = Object_wx_PlatformInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxLinuxDistributionInfo& di = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLinuxDistributionInfo();
+	//pThis->GetEntity()->SetLinuxDistributionInfo(di);
 	return Value::Nil;
 }
 

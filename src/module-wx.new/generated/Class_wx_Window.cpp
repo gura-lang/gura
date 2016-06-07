@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Window_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxWindow();
+	//wxWindow(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Window, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_Window, __SetCanFocus)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool canFocus = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCanFocus();
+	//pThis->GetEntity()->SetCanFocus(canFocus);
 	return Value::Nil;
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_Window, __AddChild)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* child = arg.GetNumber(0)
-	//pThis->GetEntity()->AddChild();
+	//pThis->GetEntity()->AddChild(child);
 	return Value::Nil;
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_Window, __FindWindow)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long id = arg.GetNumber(0)
-	//pThis->GetEntity()->FindWindow();
+	//pThis->GetEntity()->FindWindow(id);
 	return Value::Nil;
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_Window, __FindWindow_1)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->FindWindow();
+	//pThis->GetEntity()->FindWindow(name);
 	return Value::Nil;
 }
 
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_Window, __RemoveChild)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* child = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveChild();
+	//pThis->GetEntity()->RemoveChild(child);
 	return Value::Nil;
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_Window, __IsDescendant)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindowBase* win = arg.GetNumber(0)
-	//pThis->GetEntity()->IsDescendant();
+	//pThis->GetEntity()->IsDescendant(win);
 	return Value::Nil;
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Window, __Reparent)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* newParent = arg.GetNumber(0)
-	//pThis->GetEntity()->Reparent();
+	//pThis->GetEntity()->Reparent(newParent);
 	return Value::Nil;
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_Window, __AlwaysShowScrollbars)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool hflag = arg.GetNumber(0)
 	//bool vflag = arg.GetNumber(1)
-	//pThis->GetEntity()->AlwaysShowScrollbars();
+	//pThis->GetEntity()->AlwaysShowScrollbars(hflag, vflag);
 	return Value::Nil;
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_Window, __GetScrollPos)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->GetScrollPos();
+	//pThis->GetEntity()->GetScrollPos(orientation);
 	return Value::Nil;
 }
 
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Window, __GetScrollRange)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->GetScrollRange();
+	//pThis->GetEntity()->GetScrollRange(orientation);
 	return Value::Nil;
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_Window, __GetScrollThumb)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->GetScrollThumb();
+	//pThis->GetEntity()->GetScrollThumb(orientation);
 	return Value::Nil;
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_Window, __CanScroll)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->CanScroll();
+	//pThis->GetEntity()->CanScroll(orient);
 	return Value::Nil;
 }
 
@@ -504,7 +504,7 @@ Gura_ImplementMethod(wx_Window, __HasScrollbar)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->HasScrollbar();
+	//pThis->GetEntity()->HasScrollbar(orient);
 	return Value::Nil;
 }
 
@@ -519,7 +519,7 @@ Gura_ImplementMethod(wx_Window, __IsScrollbarAlwaysShown)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->IsScrollbarAlwaysShown();
+	//pThis->GetEntity()->IsScrollbarAlwaysShown(orient);
 	return Value::Nil;
 }
 
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_Window, __ScrollLines)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lines = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollLines();
+	//pThis->GetEntity()->ScrollLines(lines);
 	return Value::Nil;
 }
 
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_Window, __ScrollPages)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pages = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollPages();
+	//pThis->GetEntity()->ScrollPages(pages);
 	return Value::Nil;
 }
 
@@ -568,7 +568,7 @@ Gura_ImplementMethod(wx_Window, __ScrollWindow)
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
 	//const wxRect* rect = arg.GetNumber(2)
-	//pThis->GetEntity()->ScrollWindow();
+	//pThis->GetEntity()->ScrollWindow(dx, dy, rect);
 	return Value::Nil;
 }
 
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_Window, __SetScrollPos)
 	//int orientation = arg.GetNumber(0)
 	//int pos = arg.GetNumber(1)
 	//bool refresh = arg.GetNumber(2)
-	//pThis->GetEntity()->SetScrollPos();
+	//pThis->GetEntity()->SetScrollPos(orientation, pos, refresh);
 	return Value::Nil;
 }
 
@@ -662,7 +662,7 @@ Gura_ImplementMethod(wx_Window, __SetScrollbar)
 	//int thumbSize = arg.GetNumber(2)
 	//int range = arg.GetNumber(3)
 	//bool refresh = arg.GetNumber(4)
-	//pThis->GetEntity()->SetScrollbar();
+	//pThis->GetEntity()->SetScrollbar(orientation, position, thumbSize, range, refresh);
 	return Value::Nil;
 }
 
@@ -677,7 +677,7 @@ Gura_ImplementMethod(wx_Window, __ChildrenRepositioningGuard)
 	Object_wx_Window *pThis = Object_wx_Window::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->ChildrenRepositioningGuard();
+	//pThis->GetEntity()->ChildrenRepositioningGuard(win);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WebKitNewWindowEvent, "WebKitNewWindowEvent")
 Gura_ImplementFunction(__WebKitNewWindowEvent)
 {
 	//wxWindow* win = arg.GetNumber(0)
-	//wxWebKitNewWindowEvent();
+	//wxWebKitNewWindowEvent(win);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetURL)
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& url = arg.GetNumber(0)
-	//pThis->GetEntity()->SetURL();
+	//pThis->GetEntity()->SetURL(url);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_WebKitNewWindowEvent, __SetTargetName)
 	Object_wx_WebKitNewWindowEvent *pThis = Object_wx_WebKitNewWindowEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTargetName();
+	//pThis->GetEntity()->SetTargetName(name);
 	return Value::Nil;
 }
 

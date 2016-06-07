@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Treebook_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxTreebook();
+	//wxTreebook(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Treebook, __AddPage)
 	//const wxString& text = arg.GetNumber(1)
 	//bool bSelect = arg.GetNumber(2)
 	//int imageId = arg.GetNumber(3)
-	//pThis->GetEntity()->AddPage();
+	//pThis->GetEntity()->AddPage(page, text, bSelect, imageId);
 	return Value::Nil;
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Treebook, __AddSubPage)
 	//const wxString& text = arg.GetNumber(1)
 	//bool bSelect = arg.GetNumber(2)
 	//int imageId = arg.GetNumber(3)
-	//pThis->GetEntity()->AddSubPage();
+	//pThis->GetEntity()->AddSubPage(page, text, bSelect, imageId);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Treebook, __CollapseNode)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pageId = arg.GetNumber(0)
-	//pThis->GetEntity()->CollapseNode();
+	//pThis->GetEntity()->CollapseNode(pageId);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_Treebook, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_Treebook, __DeletePage)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pagePos = arg.GetNumber(0)
-	//pThis->GetEntity()->DeletePage();
+	//pThis->GetEntity()->DeletePage(pagePos);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_Treebook, __ExpandNode)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pageId = arg.GetNumber(0)
 	//bool expand = arg.GetNumber(1)
-	//pThis->GetEntity()->ExpandNode();
+	//pThis->GetEntity()->ExpandNode(pageId, expand);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Treebook, __GetPageParent)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageParent();
+	//pThis->GetEntity()->GetPageParent(page);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_Treebook, __InsertPage)
 	//const wxString& text = arg.GetNumber(2)
 	//bool bSelect = arg.GetNumber(3)
 	//int imageId = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertPage();
+	//pThis->GetEntity()->InsertPage(pagePos, page, text, bSelect, imageId);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Treebook, __InsertSubPage)
 	//const wxString& text = arg.GetNumber(2)
 	//bool bSelect = arg.GetNumber(3)
 	//int imageId = arg.GetNumber(4)
-	//pThis->GetEntity()->InsertSubPage();
+	//pThis->GetEntity()->InsertSubPage(pagePos, page, text, bSelect, imageId);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_Treebook, __IsNodeExpanded)
 	Object_wx_Treebook *pThis = Object_wx_Treebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pageId = arg.GetNumber(0)
-	//pThis->GetEntity()->IsNodeExpanded();
+	//pThis->GetEntity()->IsNodeExpanded(pageId);
 	return Value::Nil;
 }
 

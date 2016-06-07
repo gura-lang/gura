@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DataViewIconText)
 {
 	//const wxString& text = arg.GetNumber(0)
 	//const wxIcon& icon = arg.GetNumber(1)
-	//wxDataViewIconText();
+	//wxDataViewIconText(text, icon);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__DataViewIconText_1, "DataViewIconText_1")
 Gura_ImplementFunction(__DataViewIconText_1)
 {
 	//const wxDataViewIconText& other = arg.GetNumber(0)
-	//wxDataViewIconText();
+	//wxDataViewIconText(other);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_DataViewIconText, __SetIcon)
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIcon();
+	//pThis->GetEntity()->SetIcon(icon);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DataViewIconText, __SetText)
 	Object_wx_DataViewIconText *pThis = Object_wx_DataViewIconText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetText();
+	//pThis->GetEntity()->SetText(text);
 	return Value::Nil;
 }
 

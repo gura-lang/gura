@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__Joystick, "Joystick")
 Gura_ImplementFunction(__Joystick)
 {
 	//int joystick = arg.GetNumber(0)
-	//wxJoystick();
+	//wxJoystick(joystick);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_Joystick, __GetButtonState_1)
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetButtonState();
+	//pThis->GetEntity()->GetButtonState(id);
 	return Value::Nil;
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Joystick, __GetPosition_1)
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int axis = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPosition();
+	//pThis->GetEntity()->GetPosition(axis);
 	return Value::Nil;
 }
 
@@ -592,7 +592,7 @@ Gura_ImplementMethod(wx_Joystick, __SetCapture)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//int pollingFreq = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCapture();
+	//pThis->GetEntity()->SetCapture(win, pollingFreq);
 	return Value::Nil;
 }
 
@@ -607,7 +607,7 @@ Gura_ImplementMethod(wx_Joystick, __SetMovementThreshold)
 	Object_wx_Joystick *pThis = Object_wx_Joystick::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int threshold = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMovementThreshold();
+	//pThis->GetEntity()->SetMovementThreshold(threshold);
 	return Value::Nil;
 }
 

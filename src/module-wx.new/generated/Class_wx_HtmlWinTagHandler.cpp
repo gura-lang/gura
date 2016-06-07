@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_HtmlWinTagHandler, __SetParser)
 	Object_wx_HtmlWinTagHandler *pThis = Object_wx_HtmlWinTagHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlWinParser* parser = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParser();
+	//pThis->GetEntity()->SetParser(parser);
 	return Value::Nil;
 }
 

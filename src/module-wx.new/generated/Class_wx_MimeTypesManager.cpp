@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __AddFallbacks)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileTypeInfo* fallbacks = arg.GetNumber(0)
-	//pThis->GetEntity()->AddFallbacks();
+	//pThis->GetEntity()->AddFallbacks(fallbacks);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __GetFileTypeFromExtension)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& extension = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFileTypeFromExtension();
+	//pThis->GetEntity()->GetFileTypeFromExtension(extension);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __GetFileTypeFromMimeType)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mimeType = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFileTypeFromMimeType();
+	//pThis->GetEntity()->GetFileTypeFromMimeType(mimeType);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __IsOfType)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mimeType = arg.GetNumber(0)
 	//const wxString& wildcard = arg.GetNumber(1)
-	//pThis->GetEntity()->IsOfType();
+	//pThis->GetEntity()->IsOfType(mimeType, wildcard);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __Associate)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileTypeInfo& ftInfo = arg.GetNumber(0)
-	//pThis->GetEntity()->Associate();
+	//pThis->GetEntity()->Associate(ftInfo);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __Unassociate)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileType* ft = arg.GetNumber(0)
-	//pThis->GetEntity()->Unassociate();
+	//pThis->GetEntity()->Unassociate(ft);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, __EnumAllFileTypes)
 	Object_wx_MimeTypesManager *pThis = Object_wx_MimeTypesManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& mimetypes = arg.GetNumber(0)
-	//pThis->GetEntity()->EnumAllFileTypes();
+	//pThis->GetEntity()->EnumAllFileTypes(mimetypes);
 	return Value::Nil;
 }
 

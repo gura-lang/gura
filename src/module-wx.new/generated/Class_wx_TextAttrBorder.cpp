@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __EqPartial)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorder& border = arg.GetNumber(0)
 	//bool weakTest = arg.GetNumber(1)
-	//pThis->GetEntity()->EqPartial();
+	//pThis->GetEntity()->EqPartial(border, weakTest);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __Apply)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorder& border = arg.GetNumber(0)
 	//const wxTextAttrBorder* compareWith = arg.GetNumber(1)
-	//pThis->GetEntity()->Apply();
+	//pThis->GetEntity()->Apply(border, compareWith);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __RemoveStyle)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrBorder& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveStyle();
+	//pThis->GetEntity()->RemoveStyle(attr);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __CollectCommonAttributes)
 	//const wxTextAttrBorder& attr = arg.GetNumber(0)
 	//wxTextAttrBorder& clashingAttr = arg.GetNumber(1)
 	//wxTextAttrBorder& absentAttr = arg.GetNumber(2)
-	//pThis->GetEntity()->CollectCommonAttributes();
+	//pThis->GetEntity()->CollectCommonAttributes(attr, clashingAttr, absentAttr);
 	return Value::Nil;
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetStyle)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyle();
+	//pThis->GetEntity()->SetStyle(style);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetColour)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetColour_1)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetWidth)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrDimension& width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetWidth_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
 	//wxTextAttrUnits units = arg.GetNumber(1)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(value, units);
 	return Value::Nil;
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __SetFlags)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -393,7 +393,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __AddFlag)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
-	//pThis->GetEntity()->AddFlag();
+	//pThis->GetEntity()->AddFlag(flag);
 	return Value::Nil;
 }
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_TextAttrBorder, __RemoveFlag)
 	Object_wx_TextAttrBorder *pThis = Object_wx_TextAttrBorder::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveFlag();
+	//pThis->GetEntity()->RemoveFlag(flag);
 	return Value::Nil;
 }
 

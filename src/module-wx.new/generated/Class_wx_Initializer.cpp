@@ -50,7 +50,7 @@ Gura_ImplementFunction(__Initializer)
 {
 	//int argc = arg.GetNumber(0)
 	//wxChar** argv = arg.GetNumber(1)
-	//wxInitializer();
+	//wxInitializer(argc, argv);
 	return Value::Nil;
 }
 

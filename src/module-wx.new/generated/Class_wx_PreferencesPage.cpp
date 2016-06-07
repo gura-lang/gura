@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_PreferencesPage, __CreateWindow)
 	Object_wx_PreferencesPage *pThis = Object_wx_PreferencesPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateWindow();
+	//pThis->GetEntity()->CreateWindow(parent);
 	return Value::Nil;
 }
 

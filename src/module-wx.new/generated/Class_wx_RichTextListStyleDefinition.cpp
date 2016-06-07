@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextListStyleDefinition, "RichTextListStyleDefin
 Gura_ImplementFunction(__RichTextListStyleDefinition)
 {
 	//const wxString& name = arg.GetNumber(0)
-	//wxRichTextListStyleDefinition();
+	//wxRichTextListStyleDefinition(name);
 	return Value::Nil;
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __CombineWithParagraphStyle
 	//int indent = arg.GetNumber(0)
 	//const wxRichTextAttr& paraStyle = arg.GetNumber(1)
 	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(2)
-	//pThis->GetEntity()->CombineWithParagraphStyle();
+	//pThis->GetEntity()->CombineWithParagraphStyle(indent, paraStyle, styleSheet);
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __FindLevelForIndent)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int indent = arg.GetNumber(0)
-	//pThis->GetEntity()->FindLevelForIndent();
+	//pThis->GetEntity()->FindLevelForIndent(indent);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __GetCombinedStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int indent = arg.GetNumber(0)
 	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCombinedStyle();
+	//pThis->GetEntity()->GetCombinedStyle(indent, styleSheet);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __GetCombinedStyleForLevel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCombinedStyleForLevel();
+	//pThis->GetEntity()->GetCombinedStyleForLevel(level, styleSheet);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __GetLevelAttributes)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLevelAttributes();
+	//pThis->GetEntity()->GetLevelAttributes(level);
 	return Value::Nil;
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __IsNumbered)
 	Object_wx_RichTextListStyleDefinition *pThis = Object_wx_RichTextListStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
-	//pThis->GetEntity()->IsNumbered();
+	//pThis->GetEntity()->IsNumbered(level);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_RichTextListStyleDefinition, __SetLevelAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
 	//const wxRichTextAttr& attr = arg.GetNumber(1)
-	//pThis->GetEntity()->SetLevelAttributes();
+	//pThis->GetEntity()->SetLevelAttributes(level, attr);
 	return Value::Nil;
 }
 

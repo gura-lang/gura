@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WebKitBeforeLoadEvent, "WebKitBeforeLoadEvent")
 Gura_ImplementFunction(__WebKitBeforeLoadEvent)
 {
 	//wxWindow* win = arg.GetNumber(0)
-	//wxWebKitBeforeLoadEvent();
+	//wxWebKitBeforeLoadEvent(win);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __Cancel)
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool cancel = arg.GetNumber(0)
-	//pThis->GetEntity()->Cancel();
+	//pThis->GetEntity()->Cancel(cancel);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetURL)
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& url = arg.GetNumber(0)
-	//pThis->GetEntity()->SetURL();
+	//pThis->GetEntity()->SetURL(url);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_WebKitBeforeLoadEvent, __SetNavigationType)
 	Object_wx_WebKitBeforeLoadEvent *pThis = Object_wx_WebKitBeforeLoadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int navType = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNavigationType();
+	//pThis->GetEntity()->SetNavigationType(navType);
 	return Value::Nil;
 }
 

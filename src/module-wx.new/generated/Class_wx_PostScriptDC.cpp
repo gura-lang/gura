@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PostScriptDC_1, "PostScriptDC_1")
 Gura_ImplementFunction(__PostScriptDC_1)
 {
 	//const wxPrintData& printData = arg.GetNumber(0)
-	//wxPostScriptDC();
+	//wxPostScriptDC(printData);
 	return Value::Nil;
 }
 

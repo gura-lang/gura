@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__GridCellTextEditor, "GridCellTextEditor")
 Gura_ImplementFunction(__GridCellTextEditor)
 {
 	//size_t maxChars = arg.GetNumber(0)
-	//wxGridCellTextEditor();
+	//wxGridCellTextEditor(maxChars);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_GridCellTextEditor, __SetParameters)
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& params = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParameters();
+	//pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_GridCellTextEditor, __SetValidator)
 	Object_wx_GridCellTextEditor *pThis = Object_wx_GridCellTextEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxValidator& validator = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValidator();
+	//pThis->GetEntity()->SetValidator(validator);
 	return Value::Nil;
 }
 

@@ -63,7 +63,7 @@ Gura_ImplementFunction(__HtmlLinkInfo_1)
 {
 	//const wxString& href = arg.GetNumber(0)
 	//const wxString& target = arg.GetNumber(1)
-	//wxHtmlLinkInfo();
+	//wxHtmlLinkInfo(href, target);
 	return Value::Nil;
 }
 

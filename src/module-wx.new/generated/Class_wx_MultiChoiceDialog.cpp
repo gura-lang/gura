@@ -60,7 +60,7 @@ Gura_ImplementFunction(__MultiChoiceDialog)
 	//const wxString* choices = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxPoint& pos = arg.GetNumber(6)
-	//wxMultiChoiceDialog();
+	//wxMultiChoiceDialog(parent, message, caption, n, choices, style, pos);
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementFunction(__MultiChoiceDialog_1)
 	//const wxArrayString& choices = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
-	//wxMultiChoiceDialog();
+	//wxMultiChoiceDialog(parent, message, caption, choices, style, pos);
 	return Value::Nil;
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_MultiChoiceDialog, __SetSelections)
 	Object_wx_MultiChoiceDialog *pThis = Object_wx_MultiChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayInt& selections = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelections();
+	//pThis->GetEntity()->SetSelections(selections);
 	return Value::Nil;
 }
 

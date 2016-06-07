@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HtmlLinkEvent)
 {
 	//int id = arg.GetNumber(0)
 	//const wxHtmlLinkInfo& linkinfo = arg.GetNumber(1)
-	//wxHtmlLinkEvent();
+	//wxHtmlLinkEvent(id, linkinfo);
 	return Value::Nil;
 }
 

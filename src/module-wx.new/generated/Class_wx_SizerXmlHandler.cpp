@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_SizerXmlHandler, __CanHandle)
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->CanHandle();
+	//pThis->GetEntity()->CanHandle(node);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_SizerXmlHandler, __DoCreateSizer)
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->DoCreateSizer();
+	//pThis->GetEntity()->DoCreateSizer(name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_SizerXmlHandler, __IsSizerNode)
 	Object_wx_SizerXmlHandler *pThis = Object_wx_SizerXmlHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSizerNode();
+	//pThis->GetEntity()->IsSizerNode(node);
 	return Value::Nil;
 }
 

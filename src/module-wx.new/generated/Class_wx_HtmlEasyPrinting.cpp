@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HtmlEasyPrinting)
 {
 	//const wxString& name = arg.GetNumber(0)
 	//wxWindow* parentWindow = arg.GetNumber(1)
-	//wxHtmlEasyPrinting();
+	//wxHtmlEasyPrinting(name, parentWindow);
 	return Value::Nil;
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewFile)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmlfile = arg.GetNumber(0)
-	//pThis->GetEntity()->PreviewFile();
+	//pThis->GetEntity()->PreviewFile(htmlfile);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PreviewText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmltext = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
-	//pThis->GetEntity()->PreviewText();
+	//pThis->GetEntity()->PreviewText(htmltext, basepath);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintFile)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmlfile = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintFile();
+	//pThis->GetEntity()->PrintFile(htmlfile);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __PrintText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmltext = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
-	//pThis->GetEntity()->PrintText();
+	//pThis->GetEntity()->PrintText(htmltext, basepath);
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetFonts)
 	//const wxString& normal_face = arg.GetNumber(0)
 	//const wxString& fixed_face = arg.GetNumber(1)
 	//const int* sizes = arg.GetNumber(2)
-	//pThis->GetEntity()->SetFonts();
+	//pThis->GetEntity()->SetFonts(normal_face, fixed_face, sizes);
 	return Value::Nil;
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetName)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetStandardFonts)
 	//int size = arg.GetNumber(0)
 	//const wxString& normal_face = arg.GetNumber(1)
 	//const wxString& fixed_face = arg.GetNumber(2)
-	//pThis->GetEntity()->SetStandardFonts();
+	//pThis->GetEntity()->SetStandardFonts(size, normal_face, fixed_face);
 	return Value::Nil;
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetFooter)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& footer = arg.GetNumber(0)
 	//int pg = arg.GetNumber(1)
-	//pThis->GetEntity()->SetFooter();
+	//pThis->GetEntity()->SetFooter(footer, pg);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetHeader)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& header = arg.GetNumber(0)
 	//int pg = arg.GetNumber(1)
-	//pThis->GetEntity()->SetHeader();
+	//pThis->GetEntity()->SetHeader(header, pg);
 	return Value::Nil;
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __SetParentWindow)
 	Object_wx_HtmlEasyPrinting *pThis = Object_wx_HtmlEasyPrinting::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParentWindow();
+	//pThis->GetEntity()->SetParentWindow(window);
 	return Value::Nil;
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_HtmlEasyPrinting, __CheckFit)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& pageArea = arg.GetNumber(0)
 	//const wxSize& docArea = arg.GetNumber(1)
-	//pThis->GetEntity()->CheckFit();
+	//pThis->GetEntity()->CheckFit(pageArea, docArea);
 	return Value::Nil;
 }
 

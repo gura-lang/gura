@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__XLocale_1, "XLocale_1")
 Gura_ImplementFunction(__XLocale_1)
 {
 	//wxLanguage lang = arg.GetNumber(0)
-	//wxXLocale();
+	//wxXLocale(lang);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__XLocale_2, "XLocale_2")
 Gura_ImplementFunction(__XLocale_2)
 {
 	//const char* loc = arg.GetNumber(0)
-	//wxXLocale();
+	//wxXLocale(loc);
 	return Value::Nil;
 }
 

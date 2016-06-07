@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_GLAttribsBase, __AddAttribute)
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int attribute = arg.GetNumber(0)
-	//pThis->GetEntity()->AddAttribute();
+	//pThis->GetEntity()->AddAttribute(attribute);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_GLAttribsBase, __AddAttribBits)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int searchVal = arg.GetNumber(0)
 	//int combineVal = arg.GetNumber(1)
-	//pThis->GetEntity()->AddAttribBits();
+	//pThis->GetEntity()->AddAttribBits(searchVal, combineVal);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_GLAttribsBase, __SetNeedsARB)
 	Object_wx_GLAttribsBase *pThis = Object_wx_GLAttribsBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool needsARB = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNeedsARB();
+	//pThis->GetEntity()->SetNeedsARB(needsARB);
 	return Value::Nil;
 }
 

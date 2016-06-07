@@ -63,7 +63,7 @@ Gura_ImplementFunction(__PopupTransientWindow_1)
 {
 	//wxWindow* parent = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//wxPopupTransientWindow();
+	//wxPopupTransientWindow(parent, flags);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, __Popup)
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* focus = arg.GetNumber(0)
-	//pThis->GetEntity()->Popup();
+	//pThis->GetEntity()->Popup(focus);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PopupTransientWindow, __ProcessLeftDown)
 	Object_wx_PopupTransientWindow *pThis = Object_wx_PopupTransientWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->ProcessLeftDown();
+	//pThis->GetEntity()->ProcessLeftDown(event);
 	return Value::Nil;
 }
 

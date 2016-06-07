@@ -56,7 +56,7 @@ Gura_ImplementFunction(__TipWindow)
 	//wxCoord maxLength = arg.GetNumber(2)
 	//wxTipWindow** windowPtr = arg.GetNumber(3)
 	//wxRect* rectBounds = arg.GetNumber(4)
-	//wxTipWindow();
+	//wxTipWindow(parent, text, maxLength, windowPtr, rectBounds);
 	return Value::Nil;
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_TipWindow, __SetBoundingRect)
 	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rectBound = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBoundingRect();
+	//pThis->GetEntity()->SetBoundingRect(rectBound);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_TipWindow, __SetTipWindowPtr)
 	Object_wx_TipWindow *pThis = Object_wx_TipWindow::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTipWindow** windowPtr = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTipWindowPtr();
+	//pThis->GetEntity()->SetTipWindowPtr(windowPtr);
 	return Value::Nil;
 }
 

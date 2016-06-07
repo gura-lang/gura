@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_TreeItemData, __SetId)
 	Object_wx_TreeItemData *pThis = Object_wx_TreeItemData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTreeItemId& id = arg.GetNumber(0)
-	//pThis->GetEntity()->SetId();
+	//pThis->GetEntity()->SetId(id);
 	return Value::Nil;
 }
 

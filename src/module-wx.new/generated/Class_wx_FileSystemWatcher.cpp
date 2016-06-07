@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& path = arg.GetNumber(0)
 	//int events = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(path, events);
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __AddTree)
 	//const wxFileName& path = arg.GetNumber(0)
 	//int events = arg.GetNumber(1)
 	//const wxString& filter = arg.GetNumber(2)
-	//pThis->GetEntity()->AddTree();
+	//pThis->GetEntity()->AddTree(path, events, filter);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __Remove)
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& path = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(path);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __RemoveTree)
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFileName& path = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveTree();
+	//pThis->GetEntity()->RemoveTree(path);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __GetWatchedPaths)
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString* paths = arg.GetNumber(0)
-	//pThis->GetEntity()->GetWatchedPaths();
+	//pThis->GetEntity()->GetWatchedPaths(paths);
 	return Value::Nil;
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FileSystemWatcher, __SetOwner)
 	Object_wx_FileSystemWatcher *pThis = Object_wx_FileSystemWatcher::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEvtHandler* handler = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOwner();
+	//pThis->GetEntity()->SetOwner(handler);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__CollapsiblePane_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxCollapsiblePane();
+	//wxCollapsiblePane(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_CollapsiblePane, __Collapse)
 	Object_wx_CollapsiblePane *pThis = Object_wx_CollapsiblePane::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool collapse = arg.GetNumber(0)
-	//pThis->GetEntity()->Collapse();
+	//pThis->GetEntity()->Collapse(collapse);
 	return Value::Nil;
 }
 

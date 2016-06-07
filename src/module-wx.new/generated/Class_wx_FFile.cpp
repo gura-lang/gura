@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__FFile_1, "FFile_1")
 Gura_ImplementFunction(__FFile_1)
 {
 	//FILE* fp = arg.GetNumber(0)
-	//wxFFile();
+	//wxFFile(fp);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__FFile_2)
 {
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& mode = arg.GetNumber(1)
-	//wxFFile();
+	//wxFFile(filename, mode);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_FFile, __Attach)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//FILE* fp = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//pThis->GetEntity()->Attach();
+	//pThis->GetEntity()->Attach(fp, name);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_FFile, __Open)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& mode = arg.GetNumber(1)
-	//pThis->GetEntity()->Open();
+	//pThis->GetEntity()->Open(filename, mode);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_FFile, __Read)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->Read();
+	//pThis->GetEntity()->Read(buffer, count);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_FFile, __ReadAll)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString* str = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->ReadAll();
+	//pThis->GetEntity()->ReadAll(str, conv);
 	return Value::Nil;
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_FFile, __Seek)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset ofs = arg.GetNumber(0)
 	//wxSeekMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->Seek();
+	//pThis->GetEntity()->Seek(ofs, mode);
 	return Value::Nil;
 }
 
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_FFile, __SeekEnd)
 	Object_wx_FFile *pThis = Object_wx_FFile::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset ofs = arg.GetNumber(0)
-	//pThis->GetEntity()->SeekEnd();
+	//pThis->GetEntity()->SeekEnd(ofs);
 	return Value::Nil;
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_FFile, __Write)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(str, conv);
 	return Value::Nil;
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_FFile, __Write_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* buffer = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(buffer, count);
 	return Value::Nil;
 }
 

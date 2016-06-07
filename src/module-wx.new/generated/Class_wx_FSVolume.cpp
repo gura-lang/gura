@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__FSVolume_1, "FSVolume_1")
 Gura_ImplementFunction(__FSVolume_1)
 {
 	//const wxString& name = arg.GetNumber(0)
-	//wxFSVolume();
+	//wxFSVolume(name);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_FSVolume, __Create)
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(name);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_FSVolume, __GetVolumes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flagsSet = arg.GetNumber(0)
 	//int flagsUnset = arg.GetNumber(1)
-	//pThis->GetEntity()->GetVolumes();
+	//pThis->GetEntity()->GetVolumes(flagsSet, flagsUnset);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_FSVolume, __GetIcon)
 	Object_wx_FSVolume *pThis = Object_wx_FSVolume::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFSIconType type = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIcon();
+	//pThis->GetEntity()->GetIcon(type);
 	return Value::Nil;
 }
 

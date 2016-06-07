@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_HeaderColumn, __HasFlag)
 	Object_wx_HeaderColumn *pThis = Object_wx_HeaderColumn::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFlag();
+	//pThis->GetEntity()->HasFlag(flag);
 	return Value::Nil;
 }
 

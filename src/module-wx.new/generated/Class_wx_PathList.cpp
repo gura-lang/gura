@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PathList_1, "PathList_1")
 Gura_ImplementFunction(__PathList_1)
 {
 	//const wxArrayString& arr = arg.GetNumber(0)
-	//wxPathList();
+	//wxPathList(arr);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_PathList, __Add)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(path);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_PathList, __Add_1)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& arr = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(arr);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PathList, __AddEnvList)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& env_variable = arg.GetNumber(0)
-	//pThis->GetEntity()->AddEnvList();
+	//pThis->GetEntity()->AddEnvList(env_variable);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_PathList, __EnsureFileAccessible)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->EnsureFileAccessible();
+	//pThis->GetEntity()->EnsureFileAccessible(filename);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_PathList, __FindAbsoluteValidPath)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& file = arg.GetNumber(0)
-	//pThis->GetEntity()->FindAbsoluteValidPath();
+	//pThis->GetEntity()->FindAbsoluteValidPath(file);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_PathList, __FindValidPath)
 	Object_wx_PathList *pThis = Object_wx_PathList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& file = arg.GetNumber(0)
-	//pThis->GetEntity()->FindValidPath();
+	//pThis->GetEntity()->FindValidPath(file);
 	return Value::Nil;
 }
 

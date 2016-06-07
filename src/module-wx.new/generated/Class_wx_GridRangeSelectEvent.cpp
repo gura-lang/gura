@@ -73,7 +73,7 @@ Gura_ImplementFunction(__GridRangeSelectEvent_1)
 	//const wxGridCellCoords& bottomRight = arg.GetNumber(4)
 	//bool sel = arg.GetNumber(5)
 	//const wxKeyboardState& kbd = arg.GetNumber(6)
-	//wxGridRangeSelectEvent();
+	//wxGridRangeSelectEvent(id, type, obj, topLeft, bottomRight, sel, kbd);
 	return Value::Nil;
 }
 

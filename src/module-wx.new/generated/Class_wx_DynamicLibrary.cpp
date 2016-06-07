@@ -63,7 +63,7 @@ Gura_ImplementFunction(__DynamicLibrary_1)
 {
 	//const wxString& name = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//wxDynamicLibrary();
+	//wxDynamicLibrary(name, flags);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizeName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxDynamicLibraryCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->CanonicalizeName();
+	//pThis->GetEntity()->CanonicalizeName(name, cat);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __CanonicalizePluginName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxPluginCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->CanonicalizePluginName();
+	//pThis->GetEntity()->CanonicalizePluginName(name, cat);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbol)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//bool* success = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSymbol();
+	//pThis->GetEntity()->GetSymbol(name, success);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetSymbolAorW)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSymbolAorW();
+	//pThis->GetEntity()->GetSymbolAorW(name);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __HasSymbol)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->HasSymbol();
+	//pThis->GetEntity()->HasSymbol(name);
 	return Value::Nil;
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __GetModuleFromAddress)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* addr = arg.GetNumber(0)
 	//wxString* path = arg.GetNumber(1)
-	//pThis->GetEntity()->GetModuleFromAddress();
+	//pThis->GetEntity()->GetModuleFromAddress(addr, path);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __Load)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Load();
+	//pThis->GetEntity()->Load(name, flags);
 	return Value::Nil;
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_DynamicLibrary, __Unload_1)
 	Object_wx_DynamicLibrary *pThis = Object_wx_DynamicLibrary::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDllType handle = arg.GetNumber(0)
-	//pThis->GetEntity()->Unload();
+	//pThis->GetEntity()->Unload(handle);
 	return Value::Nil;
 }
 

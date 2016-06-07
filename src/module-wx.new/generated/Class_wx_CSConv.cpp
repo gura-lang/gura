@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__CSConv, "CSConv")
 Gura_ImplementFunction(__CSConv)
 {
 	//const wxString& charset = arg.GetNumber(0)
-	//wxCSConv();
+	//wxCSConv(charset);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__CSConv_1, "CSConv_1")
 Gura_ImplementFunction(__CSConv_1)
 {
 	//wxFontEncoding encoding = arg.GetNumber(0)
-	//wxCSConv();
+	//wxCSConv(encoding);
 	return Value::Nil;
 }
 

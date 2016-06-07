@@ -50,7 +50,7 @@ Gura_ImplementFunction(__RichToolTip)
 {
 	//const wxString& title = arg.GetNumber(0)
 	//const wxString& message = arg.GetNumber(1)
-	//wxRichToolTip();
+	//wxRichToolTip(title, message);
 	return Value::Nil;
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetBackgroundColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
 	//const wxColour& colEnd = arg.GetNumber(1)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(col, colEnd);
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetIcon)
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int icon = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIcon();
+	//pThis->GetEntity()->SetIcon(icon);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetIcon_1)
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIcon();
+	//pThis->GetEntity()->SetIcon(icon);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetTimeout)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned millisecondsTimeout = arg.GetNumber(0)
 	//unsigned millisecondsDelay = arg.GetNumber(1)
-	//pThis->GetEntity()->SetTimeout();
+	//pThis->GetEntity()->SetTimeout(millisecondsTimeout, millisecondsDelay);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetTipKind)
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTipKind tipKind = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTipKind();
+	//pThis->GetEntity()->SetTipKind(tipKind);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RichToolTip, __SetTitleFont)
 	Object_wx_RichToolTip *pThis = Object_wx_RichToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTitleFont();
+	//pThis->GetEntity()->SetTitleFont(font);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_RichToolTip, __ShowFor)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//const wxRect* rect = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowFor();
+	//pThis->GetEntity()->ShowFor(win, rect);
 	return Value::Nil;
 }
 

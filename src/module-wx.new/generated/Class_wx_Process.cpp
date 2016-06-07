@@ -50,7 +50,7 @@ Gura_ImplementFunction(__Process)
 {
 	//wxEvtHandler* parent = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxProcess();
+	//wxProcess(parent, id);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__Process_1, "Process_1")
 Gura_ImplementFunction(__Process_1)
 {
 	//int flags = arg.GetNumber(0)
-	//wxProcess();
+	//wxProcess(flags);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Process, __Exists)
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
-	//pThis->GetEntity()->Exists();
+	//pThis->GetEntity()->Exists(pid);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_Process, __Kill)
 	//int pid = arg.GetNumber(0)
 	//wxSignal sig = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Kill();
+	//pThis->GetEntity()->Kill(pid, sig, flags);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_Process, __OnTerminate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pid = arg.GetNumber(0)
 	//int status = arg.GetNumber(1)
-	//pThis->GetEntity()->OnTerminate();
+	//pThis->GetEntity()->OnTerminate(pid, status);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Process, __Open)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& cmd = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Open();
+	//pThis->GetEntity()->Open(cmd, flags);
 	return Value::Nil;
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_Process, __SetPriority)
 	Object_wx_Process *pThis = Object_wx_Process::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned priority = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPriority();
+	//pThis->GetEntity()->SetPriority(priority);
 	return Value::Nil;
 }
 

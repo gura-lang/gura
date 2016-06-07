@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ExtHelpController, "ExtHelpController")
 Gura_ImplementFunction(__ExtHelpController)
 {
 	//wxWindow* parentWindow = arg.GetNumber(0)
-	//wxExtHelpController();
+	//wxExtHelpController(parentWindow);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __SetViewer)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& viewer = arg.GetNumber(0)
 	//long flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetViewer();
+	//pThis->GetEntity()->SetViewer(viewer, flags);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __Initialize)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
-	//pThis->GetEntity()->Initialize();
+	//pThis->GetEntity()->Initialize(dir);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __LoadFile)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& file = arg.GetNumber(0)
-	//pThis->GetEntity()->LoadFile();
+	//pThis->GetEntity()->LoadFile(file);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __DisplaySection)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sectionNo = arg.GetNumber(0)
-	//pThis->GetEntity()->DisplaySection();
+	//pThis->GetEntity()->DisplaySection(sectionNo);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __DisplaySection_1)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& section = arg.GetNumber(0)
-	//pThis->GetEntity()->DisplaySection();
+	//pThis->GetEntity()->DisplaySection(section);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __DisplayBlock)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long blockNo = arg.GetNumber(0)
-	//pThis->GetEntity()->DisplayBlock();
+	//pThis->GetEntity()->DisplayBlock(blockNo);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __KeywordSearch)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& k = arg.GetNumber(0)
 	//wxHelpSearchMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->KeywordSearch();
+	//pThis->GetEntity()->KeywordSearch(k, mode);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __DisplayHelp)
 	Object_wx_ExtHelpController *pThis = Object_wx_ExtHelpController::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& relativeURL = arg.GetNumber(0)
-	//pThis->GetEntity()->DisplayHelp();
+	//pThis->GetEntity()->DisplayHelp(relativeURL);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __SetFrameParameters)
 	//const wxSize& size = arg.GetNumber(1)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//bool newFrameEachTime = arg.GetNumber(3)
-	//pThis->GetEntity()->SetFrameParameters();
+	//pThis->GetEntity()->SetFrameParameters(titleFormat, size, pos, newFrameEachTime);
 	return Value::Nil;
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_ExtHelpController, __GetFrameParameters)
 	//wxSize* size = arg.GetNumber(0)
 	//wxPoint* pos = arg.GetNumber(1)
 	//bool* newFrameEachTime = arg.GetNumber(2)
-	//pThis->GetEntity()->GetFrameParameters();
+	//pThis->GetEntity()->GetFrameParameters(size, pos, newFrameEachTime);
 	return Value::Nil;
 }
 

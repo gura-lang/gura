@@ -60,7 +60,7 @@ Gura_ImplementFunction(__RichTextAction)
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(4)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(5)
 	//bool ignoreFirstTime = arg.GetNumber(6)
-	//wxRichTextAction();
+	//wxRichTextAction(cmd, name, id, buffer, container, ctrl, ignoreFirstTime);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_RichTextAction, __UpdateAppearance)
 	//wxArrayInt* optimizationLineCharPositions = arg.GetNumber(3)
 	//wxArrayInt* optimizationLineYPositions = arg.GetNumber(4)
 	//bool isDoCmd = arg.GetNumber(5)
-	//pThis->GetEntity()->UpdateAppearance();
+	//pThis->GetEntity()->UpdateAppearance(caretPosition, sendUpdateEvent, oldFloatRect, optimizationLineCharPositions, optimizationLineYPositions, isDoCmd);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_RichTextAction, __ApplyParagraphs)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextParagraphLayoutBox& fragment = arg.GetNumber(0)
-	//pThis->GetEntity()->ApplyParagraphs();
+	//pThis->GetEntity()->ApplyParagraphs(fragment);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_RichTextAction, __StoreObject)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->StoreObject();
+	//pThis->GetEntity()->StoreObject(obj);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetObject)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->SetObject();
+	//pThis->GetEntity()->SetObject(obj);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_RichTextAction, __MakeObject)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->MakeObject();
+	//pThis->GetEntity()->MakeObject(obj);
 	return Value::Nil;
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetOldAndNewObjects)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* oldObj = arg.GetNumber(0)
 	//wxRichTextObject* newObj = arg.GetNumber(1)
-	//pThis->GetEntity()->SetOldAndNewObjects();
+	//pThis->GetEntity()->SetOldAndNewObjects(oldObj, newObj);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_RichTextAction, __CalculateRefreshOptimizations)
 	//wxArrayInt& optimizationLineCharPositions = arg.GetNumber(0)
 	//wxArrayInt& optimizationLineYPositions = arg.GetNumber(1)
 	//wxRect& oldFloatRect = arg.GetNumber(2)
-	//pThis->GetEntity()->CalculateRefreshOptimizations();
+	//pThis->GetEntity()->CalculateRefreshOptimizations(optimizationLineCharPositions, optimizationLineYPositions, oldFloatRect);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetPosition)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetRange)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(range);
 	return Value::Nil;
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetContainerAddress)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextObjectAddress& address = arg.GetNumber(0)
-	//pThis->GetEntity()->SetContainerAddress();
+	//pThis->GetEntity()->SetContainerAddress(address);
 	return Value::Nil;
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetContainerAddress_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->SetContainerAddress();
+	//pThis->GetEntity()->SetContainerAddress(container, obj);
 	return Value::Nil;
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_RichTextAction, __SetIgnoreFirstTime)
 	Object_wx_RichTextAction *pThis = Object_wx_RichTextAction::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool b = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIgnoreFirstTime();
+	//pThis->GetEntity()->SetIgnoreFirstTime(b);
 	return Value::Nil;
 }
 

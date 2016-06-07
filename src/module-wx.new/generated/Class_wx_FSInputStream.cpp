@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_FSInputStream, __wxFileInputStream)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->wxFileInputStream();
+	//pThis->GetEntity()->wxFileInputStream(filename, flags);
 	return Value::Nil;
 }
 

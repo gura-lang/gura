@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawCheckBox)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawCheckBox();
+	//pThis->GetEntity()->DrawCheckBox(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawComboBoxDropButton)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawComboBoxDropButton();
+	//pThis->GetEntity()->DrawComboBoxDropButton(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawDropArrow)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawDropArrow();
+	//pThis->GetEntity()->DrawDropArrow(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawFocusRect)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawFocusRect();
+	//pThis->GetEntity()->DrawFocusRect(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawGauge)
 	//int value = arg.GetNumber(3)
 	//int max = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawGauge();
+	//pThis->GetEntity()->DrawGauge(win, dc, rect, value, max, flags);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawHeaderButton)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButton();
+	//pThis->GetEntity()->DrawHeaderButton(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawHeaderButtonContents)
 	//int flags = arg.GetNumber(3)
 	//wxHeaderSortIconType sortArrow = arg.GetNumber(4)
 	//wxHeaderButtonParams* params = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawHeaderButtonContents();
+	//pThis->GetEntity()->DrawHeaderButtonContents(win, dc, rect, flags, sortArrow, params);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawItemSelectionRect)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawItemSelectionRect();
+	//pThis->GetEntity()->DrawItemSelectionRect(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawItemText)
 	//int align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
 	//wxEllipsizeMode ellipsizeMode = arg.GetNumber(6)
-	//pThis->GetEntity()->DrawItemText();
+	//pThis->GetEntity()->DrawItemText(win, dc, text, rect, align, flags, ellipsizeMode);
 	return Value::Nil;
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawPushButton)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawPushButton();
+	//pThis->GetEntity()->DrawPushButton(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawCollapseButton)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawCollapseButton();
+	//pThis->GetEntity()->DrawCollapseButton(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetCollapseButtonSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//wxDC& dc = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCollapseButtonSize();
+	//pThis->GetEntity()->GetCollapseButtonSize(win, dc);
 	return Value::Nil;
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawSplitterBorder)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawSplitterBorder();
+	//pThis->GetEntity()->DrawSplitterBorder(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawSplitterSash)
 	//wxCoord position = arg.GetNumber(3)
 	//wxOrientation orient = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawSplitterSash();
+	//pThis->GetEntity()->DrawSplitterSash(win, dc, size, position, orient, flags);
 	return Value::Nil;
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawTreeItemButton)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawTreeItemButton();
+	//pThis->GetEntity()->DrawTreeItemButton(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawChoice)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawChoice();
+	//pThis->GetEntity()->DrawChoice(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawComboBox)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawComboBox();
+	//pThis->GetEntity()->DrawComboBox(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawTextCtrl)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawTextCtrl();
+	//pThis->GetEntity()->DrawTextCtrl(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawRadioBitmap)
 	//wxDC& dc = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawRadioBitmap();
+	//pThis->GetEntity()->DrawRadioBitmap(win, dc, rect, flags);
 	return Value::Nil;
 }
 
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_RendererNative, __DrawTitleBarBitmap)
 	//const wxRect& rect = arg.GetNumber(2)
 	//wxTitleBarButton button = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->DrawTitleBarBitmap();
+	//pThis->GetEntity()->DrawTitleBarBitmap(win, dc, rect, button, flags);
 	return Value::Nil;
 }
 
@@ -527,7 +527,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetCheckBoxSize)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCheckBoxSize();
+	//pThis->GetEntity()->GetCheckBoxSize(win);
 	return Value::Nil;
 }
 
@@ -542,7 +542,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetHeaderButtonHeight)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonHeight();
+	//pThis->GetEntity()->GetHeaderButtonHeight(win);
 	return Value::Nil;
 }
 
@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetHeaderButtonMargin)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHeaderButtonMargin();
+	//pThis->GetEntity()->GetHeaderButtonMargin(win);
 	return Value::Nil;
 }
 
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_RendererNative, __GetSplitterParams)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterParams();
+	//pThis->GetEntity()->GetSplitterParams(win);
 	return Value::Nil;
 }
 
@@ -600,7 +600,7 @@ Gura_ImplementMethod(wx_RendererNative, __Load)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->Load();
+	//pThis->GetEntity()->Load(name);
 	return Value::Nil;
 }
 
@@ -615,7 +615,7 @@ Gura_ImplementMethod(wx_RendererNative, __Set)
 	Object_wx_RendererNative *pThis = Object_wx_RendererNative::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRendererNative* renderer = arg.GetNumber(0)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(renderer);
 	return Value::Nil;
 }
 

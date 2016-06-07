@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__VarScrollHelperBase, "VarScrollHelperBase")
 Gura_ImplementFunction(__VarScrollHelperBase)
 {
 	//wxWindow* winToScroll = arg.GetNumber(0)
-	//wxVarScrollHelperBase();
+	//wxVarScrollHelperBase(winToScroll);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __CalcScrolledPosition)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int coord = arg.GetNumber(0)
-	//pThis->GetEntity()->CalcScrolledPosition();
+	//pThis->GetEntity()->CalcScrolledPosition(coord);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __CalcUnscrolledPosition)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int coord = arg.GetNumber(0)
-	//pThis->GetEntity()->CalcUnscrolledPosition();
+	//pThis->GetEntity()->CalcUnscrolledPosition(coord);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __EnablePhysicalScrolling)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool scrolling = arg.GetNumber(0)
-	//pThis->GetEntity()->EnablePhysicalScrolling();
+	//pThis->GetEntity()->EnablePhysicalScrolling(scrolling);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __IsVisible)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t unit = arg.GetNumber(0)
-	//pThis->GetEntity()->IsVisible();
+	//pThis->GetEntity()->IsVisible(unit);
 	return Value::Nil;
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __SetTargetWindow)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* target = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTargetWindow();
+	//pThis->GetEntity()->SetTargetWindow(target);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __VirtualHitTest)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord coord = arg.GetNumber(0)
-	//pThis->GetEntity()->VirtualHitTest();
+	//pThis->GetEntity()->VirtualHitTest(coord);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitsSizeHint)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t unitMin = arg.GetNumber(0)
 	//size_t unitMax = arg.GetNumber(1)
-	//pThis->GetEntity()->OnGetUnitsSizeHint();
+	//pThis->GetEntity()->OnGetUnitsSizeHint(unitMin, unitMax);
 	return Value::Nil;
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_VarScrollHelperBase, __OnGetUnitSize)
 	Object_wx_VarScrollHelperBase *pThis = Object_wx_VarScrollHelperBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t unit = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetUnitSize();
+	//pThis->GetEntity()->OnGetUnitSize(unit);
 	return Value::Nil;
 }
 

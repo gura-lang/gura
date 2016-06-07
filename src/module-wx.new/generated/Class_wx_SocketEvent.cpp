@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__SocketEvent, "SocketEvent")
 Gura_ImplementFunction(__SocketEvent)
 {
 	//int id = arg.GetNumber(0)
-	//wxSocketEvent();
+	//wxSocketEvent(id);
 	return Value::Nil;
 }
 

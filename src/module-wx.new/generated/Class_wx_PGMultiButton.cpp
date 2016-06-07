@@ -50,7 +50,7 @@ Gura_ImplementFunction(__PGMultiButton)
 {
 	//wxPropertyGrid* pg = arg.GetNumber(0)
 	//const wxSize& sz = arg.GetNumber(1)
-	//wxPGMultiButton();
+	//wxPGMultiButton(pg, sz);
 	return Value::Nil;
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(label, id);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __Add_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(bitmap, id);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __Finalize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPropertyGrid* propGrid = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->Finalize();
+	//pThis->GetEntity()->Finalize(propGrid, pos);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetButton)
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetButton();
+	//pThis->GetEntity()->GetButton(i);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_PGMultiButton, __GetButtonId)
 	Object_wx_PGMultiButton *pThis = Object_wx_PGMultiButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetButtonId();
+	//pThis->GetEntity()->GetButtonId(i);
 	return Value::Nil;
 }
 

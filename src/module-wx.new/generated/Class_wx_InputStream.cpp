@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_InputStream, __Read)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->Read();
+	//pThis->GetEntity()->Read(buffer, size);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_InputStream, __Read_1)
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream& stream_out = arg.GetNumber(0)
-	//pThis->GetEntity()->Read();
+	//pThis->GetEntity()->Read(stream_out);
 	return Value::Nil;
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_InputStream, __ReadAll)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->ReadAll();
+	//pThis->GetEntity()->ReadAll(buffer, size);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_InputStream, __SeekI)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFileOffset pos = arg.GetNumber(0)
 	//wxSeekMode mode = arg.GetNumber(1)
-	//pThis->GetEntity()->SeekI();
+	//pThis->GetEntity()->SeekI(pos, mode);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_InputStream, __Ungetch)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const void* buffer = arg.GetNumber(0)
 	//size_t size = arg.GetNumber(1)
-	//pThis->GetEntity()->Ungetch();
+	//pThis->GetEntity()->Ungetch(buffer, size);
 	return Value::Nil;
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_InputStream, __Ungetch_1)
 	Object_wx_InputStream *pThis = Object_wx_InputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char c = arg.GetNumber(0)
-	//pThis->GetEntity()->Ungetch();
+	//pThis->GetEntity()->Ungetch(c);
 	return Value::Nil;
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_InputStream, __OnSysRead)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t bufsize = arg.GetNumber(1)
-	//pThis->GetEntity()->OnSysRead();
+	//pThis->GetEntity()->OnSysRead(buffer, bufsize);
 	return Value::Nil;
 }
 

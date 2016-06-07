@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_PGValidationInfo, __SetFailureBehavior)
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGVFBFlags failureBehavior = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFailureBehavior();
+	//pThis->GetEntity()->SetFailureBehavior(failureBehavior);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_PGValidationInfo, __SetFailureMessage)
 	Object_wx_PGValidationInfo *pThis = Object_wx_PGValidationInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& message = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFailureMessage();
+	//pThis->GetEntity()->SetFailureMessage(message);
 	return Value::Nil;
 }
 

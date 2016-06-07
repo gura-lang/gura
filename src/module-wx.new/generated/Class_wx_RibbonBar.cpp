@@ -69,7 +69,7 @@ Gura_ImplementFunction(__RibbonBar_1)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxRibbonBar();
+	//wxRibbonBar(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RibbonBar, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_RibbonBar, __SetTabCtrlMargins)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int left = arg.GetNumber(0)
 	//int right = arg.GetNumber(1)
-	//pThis->GetEntity()->SetTabCtrlMargins();
+	//pThis->GetEntity()->SetTabCtrlMargins(left, right);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_RibbonBar, __SetArtProvider)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonArtProvider* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_RibbonBar, __SetActivePage)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage();
+	//pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_RibbonBar, __SetActivePage_1)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonPage* page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActivePage();
+	//pThis->GetEntity()->SetActivePage(page);
 	return Value::Nil;
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_RibbonBar, __GetPage)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPage();
+	//pThis->GetEntity()->GetPage(n);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_RibbonBar, __GetPageNumber)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonPage* page = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPageNumber();
+	//pThis->GetEntity()->GetPageNumber(page);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_RibbonBar, __DeletePage)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->DeletePage();
+	//pThis->GetEntity()->DeletePage(n);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_RibbonBar, __IsPageShown)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->IsPageShown();
+	//pThis->GetEntity()->IsPageShown(page);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_RibbonBar, __ShowPage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//bool show_tab = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowPage();
+	//pThis->GetEntity()->ShowPage(page, show_tab);
 	return Value::Nil;
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_RibbonBar, __HidePage)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->HidePage();
+	//pThis->GetEntity()->HidePage(page);
 	return Value::Nil;
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_RibbonBar, __IsPageHighlighted)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->IsPageHighlighted();
+	//pThis->GetEntity()->IsPageHighlighted(page);
 	return Value::Nil;
 }
 
@@ -333,7 +333,7 @@ Gura_ImplementMethod(wx_RibbonBar, __AddPageHighlight)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
 	//bool highlight = arg.GetNumber(1)
-	//pThis->GetEntity()->AddPageHighlight();
+	//pThis->GetEntity()->AddPageHighlight(page, highlight);
 	return Value::Nil;
 }
 
@@ -348,7 +348,7 @@ Gura_ImplementMethod(wx_RibbonBar, __RemovePageHighlight)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t page = arg.GetNumber(0)
-	//pThis->GetEntity()->RemovePageHighlight();
+	//pThis->GetEntity()->RemovePageHighlight(page);
 	return Value::Nil;
 }
 
@@ -363,7 +363,7 @@ Gura_ImplementMethod(wx_RibbonBar, __ShowPanels)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonDisplayMode mode = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowPanels();
+	//pThis->GetEntity()->ShowPanels(mode);
 	return Value::Nil;
 }
 
@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_RibbonBar, __ShowPanels_1)
 	Object_wx_RibbonBar *pThis = Object_wx_RibbonBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowPanels();
+	//pThis->GetEntity()->ShowPanels(show);
 	return Value::Nil;
 }
 

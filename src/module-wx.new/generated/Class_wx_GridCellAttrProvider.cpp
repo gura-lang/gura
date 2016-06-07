@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __GetAttr)
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//wxGridCellAttr::wxAttrKind kind = arg.GetNumber(2)
-	//pThis->GetEntity()->GetAttr();
+	//pThis->GetEntity()->GetAttr(row, col, kind);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __SetAttr)
 	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
 	//int col = arg.GetNumber(2)
-	//pThis->GetEntity()->SetAttr();
+	//pThis->GetEntity()->SetAttr(attr, row, col);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __SetRowAttr)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int row = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRowAttr();
+	//pThis->GetEntity()->SetRowAttr(attr, row);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __SetColAttr)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxGridCellAttr* attr = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColAttr();
+	//pThis->GetEntity()->SetColAttr(attr, col);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __GetColumnHeaderRenderer)
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnHeaderRenderer();
+	//pThis->GetEntity()->GetColumnHeaderRenderer(col);
 	return Value::Nil;
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_GridCellAttrProvider, __GetRowHeaderRenderer)
 	Object_wx_GridCellAttrProvider *pThis = Object_wx_GridCellAttrProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRowHeaderRenderer();
+	//pThis->GetEntity()->GetRowHeaderRenderer(row);
 	return Value::Nil;
 }
 

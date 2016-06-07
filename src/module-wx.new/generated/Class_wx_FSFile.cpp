@@ -56,7 +56,7 @@ Gura_ImplementFunction(__FSFile)
 	//const wxString& mimetype = arg.GetNumber(2)
 	//const wxString& anchor = arg.GetNumber(3)
 	//wxDateTime modif = arg.GetNumber(4)
-	//wxFSFile();
+	//wxFSFile(stream, location, mimetype, anchor, modif);
 	return Value::Nil;
 }
 

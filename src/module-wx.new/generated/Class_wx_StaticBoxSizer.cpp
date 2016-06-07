@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StaticBoxSizer)
 {
 	//wxStaticBox* box = arg.GetNumber(0)
 	//int orient = arg.GetNumber(1)
-	//wxStaticBoxSizer();
+	//wxStaticBoxSizer(box, orient);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__StaticBoxSizer_1)
 	//int orient = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
 	//const wxString& label = arg.GetNumber(2)
-	//wxStaticBoxSizer();
+	//wxStaticBoxSizer(orient, parent, label);
 	return Value::Nil;
 }
 

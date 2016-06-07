@@ -79,7 +79,7 @@ Gura_ImplementFunction(__SpinCtrl_1)
 	//int max = arg.GetNumber(7)
 	//int initial = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//wxSpinCtrl();
+	//wxSpinCtrl(parent, id, value, pos, size, style, min, max, initial, name);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __Create)
 	//int max = arg.GetNumber(7)
 	//int initial = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, name);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetBase)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int base = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBase();
+	//pThis->GetEntity()->SetBase(base);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int minVal = arg.GetNumber(0)
 	//int maxVal = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(minVal, maxVal);
 	return Value::Nil;
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(from, to);
 	return Value::Nil;
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetValue)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(text);
 	return Value::Nil;
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_SpinCtrl, __SetValue_1)
 	Object_wx_SpinCtrl *pThis = Object_wx_SpinCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

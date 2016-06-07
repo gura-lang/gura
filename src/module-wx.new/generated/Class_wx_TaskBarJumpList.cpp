@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__TaskBarJumpList, "TaskBarJumpList")
 Gura_ImplementFunction(__TaskBarJumpList)
 {
 	//const wxString& appID = arg.GetNumber(0)
-	//wxTaskBarJumpList();
+	//wxTaskBarJumpList(appID);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __ShowRecentCategory)
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool shown = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowRecentCategory();
+	//pThis->GetEntity()->ShowRecentCategory(shown);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __ShowFrequentCategory)
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool shown = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowFrequentCategory();
+	//pThis->GetEntity()->ShowFrequentCategory(shown);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __AddCustomCategory)
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTaskBarJumpListCategory* category = arg.GetNumber(0)
-	//pThis->GetEntity()->AddCustomCategory();
+	//pThis->GetEntity()->AddCustomCategory(category);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __RemoveCustomCategory)
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveCustomCategory();
+	//pThis->GetEntity()->RemoveCustomCategory(title);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_TaskBarJumpList, __DeleteCustomCategory)
 	Object_wx_TaskBarJumpList *pThis = Object_wx_TaskBarJumpList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteCustomCategory();
+	//pThis->GetEntity()->DeleteCustomCategory(title);
 	return Value::Nil;
 }
 

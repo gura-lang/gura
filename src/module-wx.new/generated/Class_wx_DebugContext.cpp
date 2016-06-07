@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_DebugContext, __Check)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool checkAll = arg.GetNumber(0)
-	//pThis->GetEntity()->Check();
+	//pThis->GetEntity()->Check(checkAll);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_DebugContext, __PrintStatistics)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool detailed = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintStatistics();
+	//pThis->GetEntity()->PrintStatistics(detailed);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetCheckPrevious)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool check = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCheckPrevious();
+	//pThis->GetEntity()->SetCheckPrevious(check);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetCheckpoint)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool all = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCheckpoint();
+	//pThis->GetEntity()->SetCheckpoint(all);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetDebugMode)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool debug = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDebugMode();
+	//pThis->GetEntity()->SetDebugMode(debug);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetLevel)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int level = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLevel();
+	//pThis->GetEntity()->SetLevel(level);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_DebugContext, __SetShutdownNotifyFunction)
 	Object_wx_DebugContext *pThis = Object_wx_DebugContext::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxShutdownNotifyFunction func = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShutdownNotifyFunction();
+	//pThis->GetEntity()->SetShutdownNotifyFunction(func);
 	return Value::Nil;
 }
 

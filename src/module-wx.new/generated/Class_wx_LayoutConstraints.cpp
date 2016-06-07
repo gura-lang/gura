@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_LayoutConstraints, __SatisfyConstraints)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//int* noChanges = arg.GetNumber(1)
-	//pThis->GetEntity()->SatisfyConstraints();
+	//pThis->GetEntity()->SatisfyConstraints(win, noChanges);
 	return Value::Nil;
 }
 

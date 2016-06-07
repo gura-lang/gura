@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Brush_1)
 {
 	//const wxColour& colour = arg.GetNumber(0)
 	//wxBrushStyle style = arg.GetNumber(1)
-	//wxBrush();
+	//wxBrush(colour, style);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__Brush_2, "Brush_2")
 Gura_ImplementFunction(__Brush_2)
 {
 	//const wxBitmap& stippleBitmap = arg.GetNumber(0)
-	//wxBrush();
+	//wxBrush(stippleBitmap);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_DeclareFunctionAlias(__Brush_3, "Brush_3")
 Gura_ImplementFunction(__Brush_3)
 {
 	//const wxBrush& brush = arg.GetNumber(0)
-	//wxBrush();
+	//wxBrush(brush);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_Brush, __SetColour)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_Brush, __SetColour_1)
 	//unsigned char red = arg.GetNumber(0)
 	//unsigned char green = arg.GetNumber(1)
 	//unsigned char blue = arg.GetNumber(2)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(red, green, blue);
 	return Value::Nil;
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_Brush, __SetStipple)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStipple();
+	//pThis->GetEntity()->SetStipple(bitmap);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Brush, __SetStyle)
 	Object_wx_Brush *pThis = Object_wx_Brush::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBrushStyle style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyle();
+	//pThis->GetEntity()->SetStyle(style);
 	return Value::Nil;
 }
 

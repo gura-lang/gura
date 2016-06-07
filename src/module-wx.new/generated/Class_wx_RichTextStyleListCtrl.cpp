@@ -56,7 +56,7 @@ Gura_ImplementFunction(__RichTextStyleListCtrl)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxRichTextStyleListCtrl();
+	//wxRichTextStyleListCtrl(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetRichTextCtrl)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRichTextCtrl();
+	//pThis->GetEntity()->SetRichTextCtrl(ctrl);
 	return Value::Nil;
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleSheet)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextStyleSheet* styleSheet = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyleSheet();
+	//pThis->GetEntity()->SetStyleSheet(styleSheet);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_RichTextStyleListCtrl, __SetStyleType)
 	Object_wx_RichTextStyleListCtrl *pThis = Object_wx_RichTextStyleListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextStyleListBox::wxRichTextStyleType styleType = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyleType();
+	//pThis->GetEntity()->SetStyleType(styleType);
 	return Value::Nil;
 }
 

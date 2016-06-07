@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, __SetClientData)
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientData();
+	//pThis->GetEntity()->SetClientData(data);
 	return Value::Nil;
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_ClientDataContainer, __SetClientObject)
 	Object_wx_ClientDataContainer *pThis = Object_wx_ClientDataContainer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxClientData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientObject();
+	//pThis->GetEntity()->SetClientObject(data);
 	return Value::Nil;
 }
 

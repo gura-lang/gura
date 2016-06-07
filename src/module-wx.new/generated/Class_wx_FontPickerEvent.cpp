@@ -52,7 +52,7 @@ Gura_ImplementFunction(__FontPickerEvent)
 	//wxObject* generator = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//const wxFont& font = arg.GetNumber(2)
-	//wxFontPickerEvent();
+	//wxFontPickerEvent(generator, id, font);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_FontPickerEvent, __SetFont)
 	Object_wx_FontPickerEvent *pThis = Object_wx_FontPickerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& f = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFont();
+	//pThis->GetEntity()->SetFont(f);
 	return Value::Nil;
 }
 

@@ -69,7 +69,7 @@ Gura_ImplementFunction(__NativeWindow_1)
 	//wxNativeWindowHandle handle)  bool Create(wxWindow* parent = arg.GetNumber(2)
 	//wxWindowID winid = arg.GetNumber(3)
 	//wxNativeWindowHandle handle = arg.GetNumber(4)
-	//wxNativeWindow();
+	//wxNativeWindow(parent, winid, parent, winid, handle);
 	return Value::Nil;
 }
 

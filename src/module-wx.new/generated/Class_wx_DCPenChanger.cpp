@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DCPenChanger)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxPen& pen = arg.GetNumber(1)
-	//wxDCPenChanger();
+	//wxDCPenChanger(dc, pen);
 	return Value::Nil;
 }
 

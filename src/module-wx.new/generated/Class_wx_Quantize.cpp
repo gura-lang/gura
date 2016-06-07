@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_Quantize, __DoQuantize)
 	//unsigned char** out_rows = arg.GetNumber(3)
 	//unsigned char* palette = arg.GetNumber(4)
 	//int desiredNoColours = arg.GetNumber(5)
-	//pThis->GetEntity()->DoQuantize();
+	//pThis->GetEntity()->DoQuantize(w, h, in_rows, out_rows, palette, desiredNoColours);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Quantize, __Quantize)
 	//int desiredNoColours = arg.GetNumber(3)
 	//unsigned char** eightBitData = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//pThis->GetEntity()->Quantize();
+	//pThis->GetEntity()->Quantize(src, dest, pPalette, desiredNoColours, eightBitData, flags);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_Quantize, __Quantize_1)
 	//int desiredNoColours = arg.GetNumber(2)
 	//unsigned char** eightBitData = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->Quantize();
+	//pThis->GetEntity()->Quantize(src, dest, desiredNoColours, eightBitData, flags);
 	return Value::Nil;
 }
 

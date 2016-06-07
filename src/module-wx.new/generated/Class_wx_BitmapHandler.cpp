@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __Create)
 	//int width = arg.GetNumber(3)
 	//int height = arg.GetNumber(4)
 	//int depth = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(bitmap, data, type, width, height, depth);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __LoadFile)
 	//wxBitmapType type = arg.GetNumber(2)
 	//int desiredWidth = arg.GetNumber(3)
 	//int desiredHeight = arg.GetNumber(4)
-	//pThis->GetEntity()->LoadFile();
+	//pThis->GetEntity()->LoadFile(bitmap, name, type, desiredWidth, desiredHeight);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SaveFile)
 	//const wxString& name = arg.GetNumber(1)
 	//wxBitmapType type = arg.GetNumber(2)
 	//const wxPalette* palette = arg.GetNumber(3)
-	//pThis->GetEntity()->SaveFile();
+	//pThis->GetEntity()->SaveFile(bitmap, name, type, palette);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SetExtension)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& extension = arg.GetNumber(0)
-	//pThis->GetEntity()->SetExtension();
+	//pThis->GetEntity()->SetExtension(extension);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SetName)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_BitmapHandler, __SetType)
 	Object_wx_BitmapHandler *pThis = Object_wx_BitmapHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBitmapType type = arg.GetNumber(0)
-	//pThis->GetEntity()->SetType();
+	//pThis->GetEntity()->SetType(type);
 	return Value::Nil;
 }
 

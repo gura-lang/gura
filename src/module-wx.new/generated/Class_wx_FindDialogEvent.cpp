@@ -50,7 +50,7 @@ Gura_ImplementFunction(__FindDialogEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxFindDialogEvent();
+	//wxFindDialogEvent(commandType, id);
 	return Value::Nil;
 }
 

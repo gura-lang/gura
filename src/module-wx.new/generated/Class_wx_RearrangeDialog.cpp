@@ -73,7 +73,7 @@ Gura_ImplementFunction(__RearrangeDialog_1)
 	//const wxArrayString& items = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxRearrangeDialog();
+	//wxRearrangeDialog(parent, message, title, order, items, pos, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RearrangeDialog, __Create)
 	//const wxArrayString& items = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, message, title, order, items, pos, name);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RearrangeDialog, __AddExtraControls)
 	Object_wx_RearrangeDialog *pThis = Object_wx_RearrangeDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->AddExtraControls();
+	//pThis->GetEntity()->AddExtraControls(win);
 	return Value::Nil;
 }
 

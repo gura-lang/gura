@@ -77,7 +77,7 @@ Gura_ImplementFunction(__Choice_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxChoice();
+	//wxChoice(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementFunction(__Choice_2)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxChoice();
+	//wxChoice(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_Choice, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_Choice, __Create_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Choice, __SetColumns)
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumns();
+	//pThis->GetEntity()->SetColumns(n);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_Choice, __SetSelection)
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(n);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_Choice, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString();
+	//pThis->GetEntity()->FindString(s, bCase);
 	return Value::Nil;
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_Choice, __GetString)
 	Object_wx_Choice *pThis = Object_wx_Choice::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString();
+	//pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_Choice, __SetString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int pos = arg.GetNumber(0)
 	//const wxString& s = arg.GetNumber(1)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(pos, s);
 	return Value::Nil;
 }
 

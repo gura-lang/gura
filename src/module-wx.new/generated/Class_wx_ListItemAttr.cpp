@@ -65,7 +65,7 @@ Gura_ImplementFunction(__ListItemAttr_1)
 	//const wxColour& colText = arg.GetNumber(0)
 	//const wxColour& colBack = arg.GetNumber(1)
 	//const wxFont& font = arg.GetNumber(2)
-	//wxListItemAttr();
+	//wxListItemAttr(colText, colBack, font);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_ListItemAttr, __SetBackgroundColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(colour);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_ListItemAttr, __SetFont)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFont();
+	//pThis->GetEntity()->SetFont(font);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_ListItemAttr, __SetTextColour)
 	Object_wx_ListItemAttr *pThis = Object_wx_ListItemAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextColour();
+	//pThis->GetEntity()->SetTextColour(colour);
 	return Value::Nil;
 }
 

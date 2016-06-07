@@ -77,7 +77,7 @@ Gura_ImplementFunction(__FileCtrl_1)
 	//const wxPoint& pos = arg.GetNumber(6)
 	//const wxSize& size = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxFileCtrl();
+	//wxFileCtrl(parent, id, defaultDirectory, defaultFilename, wildCard, style, pos, size, name);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_FileCtrl, __Create)
 	//const wxPoint& pos = arg.GetNumber(6)
 	//const wxSize& size = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, defaultDirectory, defaultFilename, wildCard, style, pos, size, name);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_FileCtrl, __GetFilenames)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& filenames = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFilenames();
+	//pThis->GetEntity()->GetFilenames(filenames);
 	return Value::Nil;
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_FileCtrl, __GetPaths)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& paths = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPaths();
+	//pThis->GetEntity()->GetPaths(paths);
 	return Value::Nil;
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_FileCtrl, __SetDirectory)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& directory = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDirectory();
+	//pThis->GetEntity()->SetDirectory(directory);
 	return Value::Nil;
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_FileCtrl, __SetFilename)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilename();
+	//pThis->GetEntity()->SetFilename(filename);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_FileCtrl, __SetPath)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& path = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPath();
+	//pThis->GetEntity()->SetPath(path);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_FileCtrl, __SetFilterIndex)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int filterIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilterIndex();
+	//pThis->GetEntity()->SetFilterIndex(filterIndex);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_FileCtrl, __SetWildcard)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& wildCard = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWildcard();
+	//pThis->GetEntity()->SetWildcard(wildCard);
 	return Value::Nil;
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_FileCtrl, __ShowHidden)
 	Object_wx_FileCtrl *pThis = Object_wx_FileCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool show = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowHidden();
+	//pThis->GetEntity()->ShowHidden(show);
 	return Value::Nil;
 }
 

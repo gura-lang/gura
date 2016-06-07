@@ -63,7 +63,7 @@ Gura_ImplementFunction(__GBSpan_1)
 {
 	//int rowspan = arg.GetNumber(0)
 	//int colspan = arg.GetNumber(1)
-	//wxGBSpan();
+	//wxGBSpan(rowspan, colspan);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_GBSpan, __SetColspan)
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colspan = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColspan();
+	//pThis->GetEntity()->SetColspan(colspan);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_GBSpan, __SetRowspan)
 	Object_wx_GBSpan *pThis = Object_wx_GBSpan::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rowspan = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRowspan();
+	//pThis->GetEntity()->SetRowspan(rowspan);
 	return Value::Nil;
 }
 

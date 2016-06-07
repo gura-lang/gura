@@ -67,7 +67,7 @@ Gura_ImplementFunction(__FindReplaceDialog_1)
 	//wxFindReplaceData* data = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//wxFindReplaceDialog();
+	//wxFindReplaceDialog(parent, data, title, style);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_FindReplaceDialog, __Create)
 	//wxFindReplaceData* data = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, data, title, style);
 	return Value::Nil;
 }
 

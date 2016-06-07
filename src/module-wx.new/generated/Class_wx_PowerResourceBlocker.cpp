@@ -50,7 +50,7 @@ Gura_ImplementFunction(__PowerResourceBlocker)
 {
 	//wxPowerResourceKind kind = arg.GetNumber(0)
 	//const wxString& reason = arg.GetNumber(1)
-	//wxPowerResourceBlocker();
+	//wxPowerResourceBlocker(kind, reason);
 	return Value::Nil;
 }
 

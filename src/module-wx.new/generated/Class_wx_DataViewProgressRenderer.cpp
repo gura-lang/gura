@@ -54,7 +54,7 @@ Gura_ImplementFunction(__DataViewProgressRenderer)
 	//const wxString& varianttype = arg.GetNumber(1)
 	//wxDataViewCellMode mode = arg.GetNumber(2)
 	//int align = arg.GetNumber(3)
-	//wxDataViewProgressRenderer();
+	//wxDataViewProgressRenderer(label, varianttype, mode, align);
 	return Value::Nil;
 }
 

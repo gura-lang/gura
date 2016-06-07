@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TextAttrDimensionConverter)
 	//wxDC& dc = arg.GetNumber(0)
 	//double scale = arg.GetNumber(1)
 	//const wxSize& parentSize = arg.GetNumber(2)
-	//wxTextAttrDimensionConverter();
+	//wxTextAttrDimensionConverter(dc, scale, parentSize);
 	return Value::Nil;
 }
 
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__TextAttrDimensionConverter_1)
 	//int ppi = arg.GetNumber(0)
 	//double scale = arg.GetNumber(1)
 	//const wxSize& parentSize = arg.GetNumber(2)
-	//wxTextAttrDimensionConverter();
+	//wxTextAttrDimensionConverter(ppi, scale, parentSize);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetPixels)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrDimension& dim = arg.GetNumber(0)
 	//int direction = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPixels();
+	//pThis->GetEntity()->GetPixels(dim, direction);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __GetTenthsMM)
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextAttrDimension& dim = arg.GetNumber(0)
-	//pThis->GetEntity()->GetTenthsMM();
+	//pThis->GetEntity()->GetTenthsMM(dim);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertTenthsMMToPixels)
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int units = arg.GetNumber(0)
-	//pThis->GetEntity()->ConvertTenthsMMToPixels();
+	//pThis->GetEntity()->ConvertTenthsMMToPixels(units);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_TextAttrDimensionConverter, __ConvertPixelsToTenthsMM)
 	Object_wx_TextAttrDimensionConverter *pThis = Object_wx_TextAttrDimensionConverter::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
-	//pThis->GetEntity()->ConvertPixelsToTenthsMM();
+	//pThis->GetEntity()->ConvertPixelsToTenthsMM(pixels);
 	return Value::Nil;
 }
 

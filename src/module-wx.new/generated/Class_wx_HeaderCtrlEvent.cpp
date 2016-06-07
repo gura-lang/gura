@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HeaderCtrlEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//wxHeaderCtrlEvent();
+	//wxHeaderCtrlEvent(commandType, winid);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__HeaderCtrlEvent_1, "HeaderCtrlEvent_1")
 Gura_ImplementFunction(__HeaderCtrlEvent_1)
 {
 	//const wxHeaderCtrlEvent& event = arg.GetNumber(0)
-	//wxHeaderCtrlEvent();
+	//wxHeaderCtrlEvent(event);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetColumn)
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumn();
+	//pThis->GetEntity()->SetColumn(col);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetWidth)
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_HeaderCtrlEvent, __SetNewOrder)
 	Object_wx_HeaderCtrlEvent *pThis = Object_wx_HeaderCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int order = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNewOrder();
+	//pThis->GetEntity()->SetNewOrder(order);
 	return Value::Nil;
 }
 

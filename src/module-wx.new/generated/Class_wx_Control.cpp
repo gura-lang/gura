@@ -60,7 +60,7 @@ Gura_ImplementFunction(__Control)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxControl();
+	//wxControl(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_Control, __Create)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Control, __Command)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCommandEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->Command();
+	//pThis->GetEntity()->Command(event);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_Control, __GetSizeFromTextSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int xlen = arg.GetNumber(0)
 	//int ylen = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSizeFromTextSize();
+	//pThis->GetEntity()->GetSizeFromTextSize(xlen, ylen);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_Control, __GetSizeFromTextSize_1)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& tsize = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSizeFromTextSize();
+	//pThis->GetEntity()->GetSizeFromTextSize(tsize);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_Control, __SetLabel)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabel();
+	//pThis->GetEntity()->SetLabel(label);
 	return Value::Nil;
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_Control, __SetLabelText)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabelText();
+	//pThis->GetEntity()->SetLabelText(text);
 	return Value::Nil;
 }
 
@@ -221,7 +221,7 @@ Gura_ImplementMethod(wx_Control, __SetLabelMarkup)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& markup = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabelMarkup();
+	//pThis->GetEntity()->SetLabelMarkup(markup);
 	return Value::Nil;
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_Control, __GetLabelText_1)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabelText();
+	//pThis->GetEntity()->GetLabelText(label);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Control, __RemoveMnemonics)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveMnemonics();
+	//pThis->GetEntity()->RemoveMnemonics(str);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_Control, __EscapeMnemonics)
 	Object_wx_Control *pThis = Object_wx_Control::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->EscapeMnemonics();
+	//pThis->GetEntity()->EscapeMnemonics(text);
 	return Value::Nil;
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_Control, __Ellipsize)
 	//wxEllipsizeMode mode = arg.GetNumber(2)
 	//int maxWidth = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->Ellipsize();
+	//pThis->GetEntity()->Ellipsize(label, dc, mode, maxWidth, flags);
 	return Value::Nil;
 }
 

@@ -77,7 +77,7 @@ Gura_ImplementFunction(__SymbolPickerDialog_1)
 	//const wxPoint& pos = arg.GetNumber(6)
 	//const wxSize& size = arg.GetNumber(7)
 	//long style = arg.GetNumber(8)
-	//wxSymbolPickerDialog();
+	//wxSymbolPickerDialog(symbol, initialFont, normalTextFont, parent, id, title, pos, size, style);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __Create)
 	//const wxPoint& pos = arg.GetNumber(6)
 	//const wxSize& size = arg.GetNumber(7)
 	//long style = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(symbol, initialFont, normalTextFont, parent, id, caption, pos, size, style);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __SetFontName)
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFontName();
+	//pThis->GetEntity()->SetFontName(value);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __SetFromUnicode)
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFromUnicode();
+	//pThis->GetEntity()->SetFromUnicode(value);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __SetNormalTextFontName)
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNormalTextFontName();
+	//pThis->GetEntity()->SetNormalTextFontName(value);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __SetSymbol)
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSymbol();
+	//pThis->GetEntity()->SetSymbol(value);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_SymbolPickerDialog, __SetUnicodeMode)
 	Object_wx_SymbolPickerDialog *pThis = Object_wx_SymbolPickerDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool unicodeMode = arg.GetNumber(0)
-	//pThis->GetEntity()->SetUnicodeMode();
+	//pThis->GetEntity()->SetUnicodeMode(unicodeMode);
 	return Value::Nil;
 }
 

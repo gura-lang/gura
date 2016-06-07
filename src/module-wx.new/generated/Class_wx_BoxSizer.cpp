@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__BoxSizer, "BoxSizer")
 Gura_ImplementFunction(__BoxSizer)
 {
 	//int orient = arg.GetNumber(0)
-	//wxBoxSizer();
+	//wxBoxSizer(orient);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_BoxSizer, __AddSpacer)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int size = arg.GetNumber(0)
-	//pThis->GetEntity()->AddSpacer();
+	//pThis->GetEntity()->AddSpacer(size);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_BoxSizer, __SetOrientation)
 	Object_wx_BoxSizer *pThis = Object_wx_BoxSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOrientation();
+	//pThis->GetEntity()->SetOrientation(orient);
 	return Value::Nil;
 }
 

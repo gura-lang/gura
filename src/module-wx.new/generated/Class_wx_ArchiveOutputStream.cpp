@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyArchiveMetaData)
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->CopyArchiveMetaData();
+	//pThis->GetEntity()->CopyArchiveMetaData(stream);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __CopyEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry* entry = arg.GetNumber(0)
 	//wxArchiveInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyEntry();
+	//pThis->GetEntity()->CopyEntry(entry, stream);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextDirEntry)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
-	//pThis->GetEntity()->PutNextDirEntry();
+	//pThis->GetEntity()->PutNextDirEntry(name, dt);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry)
 	Object_wx_ArchiveOutputStream *pThis = Object_wx_ArchiveOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry* entry = arg.GetNumber(0)
-	//pThis->GetEntity()->PutNextEntry();
+	//pThis->GetEntity()->PutNextEntry(entry);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_ArchiveOutputStream, __PutNextEntry_1)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
 	//wxFileOffset size = arg.GetNumber(2)
-	//pThis->GetEntity()->PutNextEntry();
+	//pThis->GetEntity()->PutNextEntry(name, dt, size);
 	return Value::Nil;
 }
 

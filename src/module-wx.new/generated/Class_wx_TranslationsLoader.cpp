@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_TranslationsLoader, __LoadCatalog)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
 	//const wxString& lang = arg.GetNumber(1)
-	//pThis->GetEntity()->LoadCatalog();
+	//pThis->GetEntity()->LoadCatalog(domain, lang);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_TranslationsLoader, __GetAvailableTranslations)
 	Object_wx_TranslationsLoader *pThis = Object_wx_TranslationsLoader::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAvailableTranslations();
+	//pThis->GetEntity()->GetAvailableTranslations(domain);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__FontPickerCtrl_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxFontPickerCtrl();
+	//wxFontPickerCtrl(parent, id, font, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, font, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __SetMaxPointSize)
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int max = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxPointSize();
+	//pThis->GetEntity()->SetMaxPointSize(max);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __SetSelectedColour)
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectedColour();
+	//pThis->GetEntity()->SetSelectedColour(colour);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_FontPickerCtrl, __SetSelectedFont)
 	Object_wx_FontPickerCtrl *pThis = Object_wx_FontPickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectedFont();
+	//pThis->GetEntity()->SetSelectedFont(font);
 	return Value::Nil;
 }
 

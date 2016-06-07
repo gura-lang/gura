@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WindowCreateEvent, "WindowCreateEvent")
 Gura_ImplementFunction(__WindowCreateEvent)
 {
 	//wxWindow* win = arg.GetNumber(0)
-	//wxWindowCreateEvent();
+	//wxWindowCreateEvent(win);
 	return Value::Nil;
 }
 

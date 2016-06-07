@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __GetString)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetString();
+	//pThis->GetEntity()->GetString(n);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int n = arg.GetNumber(0)
 	//const wxString& string = arg.GetNumber(1)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(n, string);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __FindString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
 	//bool caseSensitive = arg.GetNumber(1)
-	//pThis->GetEntity()->FindString();
+	//pThis->GetEntity()->FindString(string, caseSensitive);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetSelection)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(n);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __SetStringSelection)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStringSelection();
+	//pThis->GetEntity()->SetStringSelection(string);
 	return Value::Nil;
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_ItemContainerImmutable, __Select)
 	Object_wx_ItemContainerImmutable *pThis = Object_wx_ItemContainerImmutable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->Select();
+	//pThis->GetEntity()->Select(n);
 	return Value::Nil;
 }
 

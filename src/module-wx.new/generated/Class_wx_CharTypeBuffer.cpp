@@ -50,7 +50,7 @@ Gura_ImplementFunction(__CharTypeBuffer)
 {
 	//const CharType* str = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//wxCharTypeBuffer();
+	//wxCharTypeBuffer(str, len);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__CharTypeBuffer_1, "CharTypeBuffer_1")
 Gura_ImplementFunction(__CharTypeBuffer_1)
 {
 	//size_t len = arg.GetNumber(0)
-	//wxCharTypeBuffer();
+	//wxCharTypeBuffer(len);
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_DeclareFunctionAlias(__CharTypeBuffer_2, "CharTypeBuffer_2")
 Gura_ImplementFunction(__CharTypeBuffer_2)
 {
 	//const wxCharTypeBuffer& src = arg.GetNumber(0)
-	//wxCharTypeBuffer();
+	//wxCharTypeBuffer(src);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_DeclareFunctionAlias(__CharTypeBuffer_3, "CharTypeBuffer_3")
 Gura_ImplementFunction(__CharTypeBuffer_3)
 {
 	//const wxScopedCharTypeBuffer<T>& src = arg.GetNumber(0)
-	//wxCharTypeBuffer();
+	//wxCharTypeBuffer(src);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_CharTypeBuffer, __extend)
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->extend();
+	//pThis->GetEntity()->extend(len);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_CharTypeBuffer, __shrink)
 	Object_wx_CharTypeBuffer *pThis = Object_wx_CharTypeBuffer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t len = arg.GetNumber(0)
-	//pThis->GetEntity()->shrink();
+	//pThis->GetEntity()->shrink(len);
 	return Value::Nil;
 }
 

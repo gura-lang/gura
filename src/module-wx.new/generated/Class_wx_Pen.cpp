@@ -65,7 +65,7 @@ Gura_ImplementFunction(__Pen_1)
 	//const wxColour& colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//wxPenStyle style = arg.GetNumber(2)
-	//wxPen();
+	//wxPen(colour, width, style);
 	return Value::Nil;
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__Pen_2)
 {
 	//const wxBitmap& stipple = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//wxPen();
+	//wxPen(stipple, width);
 	return Value::Nil;
 }
 
@@ -97,7 +97,7 @@ Gura_DeclareFunctionAlias(__Pen_3, "Pen_3")
 Gura_ImplementFunction(__Pen_3)
 {
 	//const wxPen& pen = arg.GetNumber(0)
-	//wxPen();
+	//wxPen(pen);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Pen, __GetDashes)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDash** dashes = arg.GetNumber(0)
-	//pThis->GetEntity()->GetDashes();
+	//pThis->GetEntity()->GetDashes(dashes);
 	return Value::Nil;
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_Pen, __SetCap)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPenCap capStyle = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCap();
+	//pThis->GetEntity()->SetCap(capStyle);
 	return Value::Nil;
 }
 
@@ -262,7 +262,7 @@ Gura_ImplementMethod(wx_Pen, __SetColour)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_Pen, __SetColour_1)
 	//unsigned char red = arg.GetNumber(0)
 	//unsigned char green = arg.GetNumber(1)
 	//unsigned char blue = arg.GetNumber(2)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(red, green, blue);
 	return Value::Nil;
 }
 
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_Pen, __SetDashes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//const wxDash* dash = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDashes();
+	//pThis->GetEntity()->SetDashes(n, dash);
 	return Value::Nil;
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_Pen, __SetJoin)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPenJoin join_style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetJoin();
+	//pThis->GetEntity()->SetJoin(join_style);
 	return Value::Nil;
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_Pen, __SetStipple)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& stipple = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStipple();
+	//pThis->GetEntity()->SetStipple(stipple);
 	return Value::Nil;
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_Pen, __SetStyle)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPenStyle style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyle();
+	//pThis->GetEntity()->SetStyle(style);
 	return Value::Nil;
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_Pen, __SetWidth)
 	Object_wx_Pen *pThis = Object_wx_Pen::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }
 

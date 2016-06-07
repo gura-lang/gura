@@ -67,7 +67,7 @@ Gura_ImplementFunction(__RichTextTableBlock_1)
 	//int colEnd = arg.GetNumber(1)
 	//int rowStart = arg.GetNumber(2)
 	//int rowEnd = arg.GetNumber(3)
-	//wxRichTextTableBlock();
+	//wxRichTextTableBlock(colStart, colEnd, rowStart, rowEnd);
 	return Value::Nil;
 }
 
@@ -82,7 +82,7 @@ Gura_DeclareFunctionAlias(__RichTextTableBlock_2, "RichTextTableBlock_2")
 Gura_ImplementFunction(__RichTextTableBlock_2)
 {
 	//const wxRichTextTableBlock& block = arg.GetNumber(0)
-	//wxRichTextTableBlock();
+	//wxRichTextTableBlock(block);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __Copy)
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextTableBlock& block = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(block);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __ComputeBlockForSelection)
 	//wxRichTextTable* table = arg.GetNumber(0)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(1)
 	//bool requireCellSelection = arg.GetNumber(2)
-	//pThis->GetEntity()->ComputeBlockForSelection();
+	//pThis->GetEntity()->ComputeBlockForSelection(table, ctrl, requireCellSelection);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __IsWholeTable)
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextTable* table = arg.GetNumber(0)
-	//pThis->GetEntity()->IsWholeTable();
+	//pThis->GetEntity()->IsWholeTable(table);
 	return Value::Nil;
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextTableBlock, __GetFocusedCell)
 	Object_wx_RichTextTableBlock *pThis = Object_wx_RichTextTableBlock::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFocusedCell();
+	//pThis->GetEntity()->GetFocusedCell(ctrl);
 	return Value::Nil;
 }
 

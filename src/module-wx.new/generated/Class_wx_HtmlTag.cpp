@@ -58,7 +58,7 @@ Gura_ImplementFunction(__HtmlTag)
 	//const const_iterator& end_pos = arg.GetNumber(3)
 	//wxHtmlTagsCache* cache = arg.GetNumber(4)
 	//wxHtmlEntitiesParser* entParser = arg.GetNumber(5)
-	//wxHtmlTag();
+	//wxHtmlTag(parent, source, pos, end_pos, cache, entParser);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParam)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//bool with_quotes = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParam();
+	//pThis->GetEntity()->GetParam(par, with_quotes);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//wxColour* clr = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsColour();
+	//pThis->GetEntity()->GetParamAsColour(par, clr);
 	return Value::Nil;
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsInt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//int* value = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsInt();
+	//pThis->GetEntity()->GetParamAsInt(par, value);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_HtmlTag, __GetParamAsString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
 	//wxString* value = arg.GetNumber(1)
-	//pThis->GetEntity()->GetParamAsString();
+	//pThis->GetEntity()->GetParamAsString(par, value);
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_HtmlTag, __HasParam)
 	Object_wx_HtmlTag *pThis = Object_wx_HtmlTag::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& par = arg.GetNumber(0)
-	//pThis->GetEntity()->HasParam();
+	//pThis->GetEntity()->HasParam(par);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_HtmlTag, __ParseAsColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//wxColour* clr = arg.GetNumber(1)
-	//pThis->GetEntity()->ParseAsColour();
+	//pThis->GetEntity()->ParseAsColour(str, clr);
 	return Value::Nil;
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam)
 	//const wxString& par = arg.GetNumber(0)
 	//const wchar_t* format = arg.GetNumber(1)
 	//void* value = arg.GetNumber(2)
-	//pThis->GetEntity()->ScanParam();
+	//pThis->GetEntity()->ScanParam(par, format, value);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_HtmlTag, __ScanParam_1)
 	//const wxString& par = arg.GetNumber(0)
 	//const char* format = arg.GetNumber(1)
 	//void* value = arg.GetNumber(2)
-	//pThis->GetEntity()->ScanParam();
+	//pThis->GetEntity()->ScanParam(par, format, value);
 	return Value::Nil;
 }
 

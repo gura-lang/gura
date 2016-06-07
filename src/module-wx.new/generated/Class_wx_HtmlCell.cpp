@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_HtmlCell, __AdjustPagebreak)
 	//int* pagebreak = arg.GetNumber(0)
 	//const wxArrayInt& known_pagebreaks = arg.GetNumber(1)
 	//int pageHeight = arg.GetNumber(2)
-	//pThis->GetEntity()->AdjustPagebreak();
+	//pThis->GetEntity()->AdjustPagebreak(pagebreak, known_pagebreaks, pageHeight);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HtmlCell, __Draw)
 	//int view_y1 = arg.GetNumber(3)
 	//int view_y2 = arg.GetNumber(4)
 	//wxHtmlRenderingInfo& info = arg.GetNumber(5)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(dc, x, y, view_y1, view_y2, info);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_HtmlCell, __DrawInvisible)
 	//int x = arg.GetNumber(1)
 	//int y = arg.GetNumber(2)
 	//wxHtmlRenderingInfo& info = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawInvisible();
+	//pThis->GetEntity()->DrawInvisible(dc, x, y, info);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_HtmlCell, __Find)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int condition = arg.GetNumber(0)
 	//const void* param = arg.GetNumber(1)
-	//pThis->GetEntity()->Find();
+	//pThis->GetEntity()->Find(condition, param);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_HtmlCell, __GetLink)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLink();
+	//pThis->GetEntity()->GetLink(x, y);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursor)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMouseCursor();
+	//pThis->GetEntity()->GetMouseCursor(window);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_HtmlCell, __GetMouseCursorAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
 	//const wxPoint& rePos = arg.GetNumber(1)
-	//pThis->GetEntity()->GetMouseCursorAt();
+	//pThis->GetEntity()->GetMouseCursorAt(window, rePos);
 	return Value::Nil;
 }
 
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_HtmlCell, __Layout)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int w = arg.GetNumber(0)
-	//pThis->GetEntity()->Layout();
+	//pThis->GetEntity()->Layout(w);
 	return Value::Nil;
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_HtmlCell, __ProcessMouseClick)
 	//wxHtmlWindowInterface* window = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
 	//const wxMouseEvent& event = arg.GetNumber(2)
-	//pThis->GetEntity()->ProcessMouseClick();
+	//pThis->GetEntity()->ProcessMouseClick(window, pos, event);
 	return Value::Nil;
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetId)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& id = arg.GetNumber(0)
-	//pThis->GetEntity()->SetId();
+	//pThis->GetEntity()->SetId(id);
 	return Value::Nil;
 }
 
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetLink)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlLinkInfo& link = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLink();
+	//pThis->GetEntity()->SetLink(link);
 	return Value::Nil;
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetNext)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlCell* cell = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNext();
+	//pThis->GetEntity()->SetNext(cell);
 	return Value::Nil;
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetParent)
 	Object_wx_HtmlCell *pThis = Object_wx_HtmlCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlContainerCell* p = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParent();
+	//pThis->GetEntity()->SetParent(p);
 	return Value::Nil;
 }
 
@@ -408,7 +408,7 @@ Gura_ImplementMethod(wx_HtmlCell, __SetPos)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPos();
+	//pThis->GetEntity()->SetPos(x, y);
 	return Value::Nil;
 }
 

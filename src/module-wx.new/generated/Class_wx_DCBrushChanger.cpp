@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DCBrushChanger)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxBrush& brush = arg.GetNumber(1)
-	//wxDCBrushChanger();
+	//wxDCBrushChanger(dc, brush);
 	return Value::Nil;
 }
 

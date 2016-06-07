@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_PropertyGridPage, __GetSplitterPosition)
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterPosition();
+	//pThis->GetEntity()->GetSplitterPosition(col);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_PropertyGridPage, __RefreshProperty)
 	Object_wx_PropertyGridPage *pThis = Object_wx_PropertyGridPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* p = arg.GetNumber(0)
-	//pThis->GetEntity()->RefreshProperty();
+	//pThis->GetEntity()->RefreshProperty(p);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_PropertyGridPage, __SetSplitterPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int splitterPos = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSplitterPosition();
+	//pThis->GetEntity()->SetSplitterPosition(splitterPos, col);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__DocParentFrame_1)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxDocParentFrame();
+	//wxDocParentFrame(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DocParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 

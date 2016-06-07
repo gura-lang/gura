@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PGChoices_1, "PGChoices_1")
 Gura_ImplementFunction(__PGChoices_1)
 {
 	//const wxPGChoices& a = arg.GetNumber(0)
-	//wxPGChoices();
+	//wxPGChoices(a);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__PGChoices_2)
 {
 	//const wxChar** labels = arg.GetNumber(0)
 	//const long* values = arg.GetNumber(1)
-	//wxPGChoices();
+	//wxPGChoices(labels, values);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementFunction(__PGChoices_3)
 {
 	//const wxArrayString& labels = arg.GetNumber(0)
 	//const wxArrayInt& values = arg.GetNumber(1)
-	//wxPGChoices();
+	//wxPGChoices(labels, values);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_DeclareFunctionAlias(__PGChoices_4, "PGChoices_4")
 Gura_ImplementFunction(__PGChoices_4)
 {
 	//wxPGChoicesData* data = arg.GetNumber(0)
-	//wxPGChoices();
+	//wxPGChoices(data);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar** labels = arg.GetNumber(0)
 	//const ValArrItem* values = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(labels, values);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& arr = arg.GetNumber(0)
 	//const wxArrayInt& arrint = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(arr, arrint);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(label, value);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add_3)
 	//const wxString& label = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(label, bitmap, value);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_PGChoices, __Add_4)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGChoiceEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(entry);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_PGChoices, __AddAsSorted)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->AddAsSorted();
+	//pThis->GetEntity()->AddAsSorted(label, value);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_PGChoices, __Assign)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGChoices& a = arg.GetNumber(0)
-	//pThis->GetEntity()->Assign();
+	//pThis->GetEntity()->Assign(a);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_PGChoices, __AssignData)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGChoicesData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->AssignData();
+	//pThis->GetEntity()->AssignData(data);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_PGChoices, __GetLabel)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel();
+	//pThis->GetEntity()->GetLabel(ind);
 	return Value::Nil;
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_PGChoices, __GetValue)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValue();
+	//pThis->GetEntity()->GetValue(ind);
 	return Value::Nil;
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_PGChoices, __GetValuesForStrings)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& strings = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValuesForStrings();
+	//pThis->GetEntity()->GetValuesForStrings(strings);
 	return Value::Nil;
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_PGChoices, __GetIndicesForStrings)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& strings = arg.GetNumber(0)
 	//wxArrayString* unmatched = arg.GetNumber(1)
-	//pThis->GetEntity()->GetIndicesForStrings();
+	//pThis->GetEntity()->GetIndicesForStrings(strings, unmatched);
 	return Value::Nil;
 }
 
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_PGChoices, __Index)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(label);
 	return Value::Nil;
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_PGChoices, __Index_1)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(val);
 	return Value::Nil;
 }
 
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_PGChoices, __Insert)
 	//const wxString& label = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(label, index, value);
 	return Value::Nil;
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_PGChoices, __Insert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGChoiceEntry& entry = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(entry, index);
 	return Value::Nil;
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_PGChoices, __Item)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_PGChoices, __Item_1)
 	Object_wx_PGChoices *pThis = Object_wx_PGChoices::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_PGChoices, __RemoveAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->RemoveAt();
+	//pThis->GetEntity()->RemoveAt(nIndex, count);
 	return Value::Nil;
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_PGChoices, __Set)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar** labels = arg.GetNumber(0)
 	//const long* values = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(labels, values);
 	return Value::Nil;
 }
 
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_PGChoices, __Set_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& labels = arg.GetNumber(0)
 	//const wxArrayInt& values = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(labels, values);
 	return Value::Nil;
 }
 

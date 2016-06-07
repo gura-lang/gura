@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_FontList, __FindOrCreateFont)
 	//bool underline = arg.GetNumber(4)
 	//const wxString& facename = arg.GetNumber(5)
 	//wxFontEncoding encoding = arg.GetNumber(6)
-	//pThis->GetEntity()->FindOrCreateFont();
+	//pThis->GetEntity()->FindOrCreateFont(point_size, family, style, weight, underline, facename, encoding);
 	return Value::Nil;
 }
 

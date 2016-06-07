@@ -50,7 +50,7 @@ Gura_ImplementFunction(__CommandEvent)
 {
 	//wxEventType commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxCommandEvent();
+	//wxCommandEvent(commandEventType, id);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetClientData)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* clientData = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientData();
+	//pThis->GetEntity()->SetClientData(clientData);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetClientObject)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxClientData* clientObject = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientObject();
+	//pThis->GetEntity()->SetClientObject(clientObject);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetExtraLong)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long extraLong = arg.GetNumber(0)
-	//pThis->GetEntity()->SetExtraLong();
+	//pThis->GetEntity()->SetExtraLong(extraLong);
 	return Value::Nil;
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetInt)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int intCommand = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInt();
+	//pThis->GetEntity()->SetInt(intCommand);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_CommandEvent, __SetString)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(string);
 	return Value::Nil;
 }
 

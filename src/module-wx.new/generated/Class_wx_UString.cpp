@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__UString_1, "UString_1")
 Gura_ImplementFunction(__UString_1)
 {
 	//const wxUString& str = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(str);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__UString_2, "UString_2")
 Gura_ImplementFunction(__UString_2)
 {
 	//const wxChar32* str = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(str);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__UString_3, "UString_3")
 Gura_ImplementFunction(__UString_3)
 {
 	//const wxU32CharBuffer& buf = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(buf);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_DeclareFunctionAlias(__UString_4, "UString_4")
 Gura_ImplementFunction(__UString_4)
 {
 	//const char* str = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(str);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_DeclareFunctionAlias(__UString_5, "UString_5")
 Gura_ImplementFunction(__UString_5)
 {
 	//const wxCharBuffer& buf = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(buf);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementFunction(__UString_6)
 {
 	//const char* str = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(str, conv);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementFunction(__UString_7)
 {
 	//const wxCharBuffer& buf = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(buf, conv);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_DeclareFunctionAlias(__UString_8, "UString_8")
 Gura_ImplementFunction(__UString_8)
 {
 	//const wxChar16* str = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(str);
 	return Value::Nil;
 }
 
@@ -185,7 +185,7 @@ Gura_DeclareFunctionAlias(__UString_9, "UString_9")
 Gura_ImplementFunction(__UString_9)
 {
 	//const wxU16CharBuffer& buf = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(buf);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_DeclareFunctionAlias(__UString_10, "UString_10")
 Gura_ImplementFunction(__UString_10)
 {
 	//const wxString& str = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(str);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_DeclareFunctionAlias(__UString_11, "UString_11")
 Gura_ImplementFunction(__UString_11)
 {
 	//char ch = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(ch);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_DeclareFunctionAlias(__UString_12, "UString_12")
 Gura_ImplementFunction(__UString_12)
 {
 	//wxChar16 ch = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(ch);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_DeclareFunctionAlias(__UString_13, "UString_13")
 Gura_ImplementFunction(__UString_13)
 {
 	//wxChar32 ch = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(ch);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_DeclareFunctionAlias(__UString_14, "UString_14")
 Gura_ImplementFunction(__UString_14)
 {
 	//wxUniChar ch = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(ch);
 	return Value::Nil;
 }
 
@@ -275,7 +275,7 @@ Gura_DeclareFunctionAlias(__UString_15, "UString_15")
 Gura_ImplementFunction(__UString_15)
 {
 	//wxUniCharRef ch = arg.GetNumber(0)
-	//wxUString();
+	//wxUString(ch);
 	return Value::Nil;
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementFunction(__UString_16)
 {
 	//size_t n = arg.GetNumber(0)
 	//char ch = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(n, ch);
 	return Value::Nil;
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementFunction(__UString_17)
 {
 	//size_t n = arg.GetNumber(0)
 	//wxChar16 ch = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(n, ch);
 	return Value::Nil;
 }
 
@@ -326,7 +326,7 @@ Gura_ImplementFunction(__UString_18)
 {
 	//size_t n = arg.GetNumber(0)
 	//wxChar32 ch = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(n, ch);
 	return Value::Nil;
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementFunction(__UString_19)
 {
 	//size_t n = arg.GetNumber(0)
 	//wxUniChar ch = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(n, ch);
 	return Value::Nil;
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementFunction(__UString_20)
 {
 	//size_t n = arg.GetNumber(0)
 	//wxUniCharRef ch = arg.GetNumber(1)
-	//wxUString();
+	//wxUString(n, ch);
 	return Value::Nil;
 }
 
@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_UString, __FromAscii)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->FromAscii();
+	//pThis->GetEntity()->FromAscii(str, n);
 	return Value::Nil;
 }
 
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_UString, __FromAscii_1)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->FromAscii();
+	//pThis->GetEntity()->FromAscii(str);
 	return Value::Nil;
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_UString, __FromUTF8)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->FromUTF8();
+	//pThis->GetEntity()->FromUTF8(str, n);
 	return Value::Nil;
 }
 
@@ -427,7 +427,7 @@ Gura_ImplementMethod(wx_UString, __FromUTF8_1)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->FromUTF8();
+	//pThis->GetEntity()->FromUTF8(str);
 	return Value::Nil;
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_UString, __FromUTF16)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar16* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->FromUTF16();
+	//pThis->GetEntity()->FromUTF16(str, n);
 	return Value::Nil;
 }
 
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_UString, __FromUTF16_1)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar16* str = arg.GetNumber(0)
-	//pThis->GetEntity()->FromUTF16();
+	//pThis->GetEntity()->FromUTF16(str);
 	return Value::Nil;
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_UString, __assignFromAscii)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->assignFromAscii();
+	//pThis->GetEntity()->assignFromAscii(str);
 	return Value::Nil;
 }
 
@@ -491,7 +491,7 @@ Gura_ImplementMethod(wx_UString, __assignFromAscii_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->assignFromAscii();
+	//pThis->GetEntity()->assignFromAscii(str, n);
 	return Value::Nil;
 }
 
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_UString, __assignFromUTF8)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->assignFromUTF8();
+	//pThis->GetEntity()->assignFromUTF8(str);
 	return Value::Nil;
 }
 
@@ -523,7 +523,7 @@ Gura_ImplementMethod(wx_UString, __assignFromUTF8_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->assignFromUTF8();
+	//pThis->GetEntity()->assignFromUTF8(str, n);
 	return Value::Nil;
 }
 
@@ -538,7 +538,7 @@ Gura_ImplementMethod(wx_UString, __assignFromUTF16)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar16* str = arg.GetNumber(0)
-	//pThis->GetEntity()->assignFromUTF16();
+	//pThis->GetEntity()->assignFromUTF16(str);
 	return Value::Nil;
 }
 
@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_UString, __assignFromUTF16_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar16* str = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->assignFromUTF16();
+	//pThis->GetEntity()->assignFromUTF16(str, n);
 	return Value::Nil;
 }
 
@@ -570,7 +570,7 @@ Gura_ImplementMethod(wx_UString, __assignFromCString)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
-	//pThis->GetEntity()->assignFromCString();
+	//pThis->GetEntity()->assignFromCString(str);
 	return Value::Nil;
 }
 
@@ -587,7 +587,7 @@ Gura_ImplementMethod(wx_UString, __assignFromCString_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* str = arg.GetNumber(0)
 	//const wxMBConv& conv = arg.GetNumber(1)
-	//pThis->GetEntity()->assignFromCString();
+	//pThis->GetEntity()->assignFromCString(str, conv);
 	return Value::Nil;
 }
 
@@ -654,7 +654,7 @@ Gura_ImplementMethod(wx_UString, __assign)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxUString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->assign();
+	//pThis->GetEntity()->assign(str);
 	return Value::Nil;
 }
 
@@ -669,7 +669,7 @@ Gura_ImplementMethod(wx_UString, __append)
 	Object_wx_UString *pThis = Object_wx_UString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxUString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->append();
+	//pThis->GetEntity()->append(s);
 	return Value::Nil;
 }
 
@@ -686,7 +686,7 @@ Gura_ImplementMethod(wx_UString, __insert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//const wxUString& s = arg.GetNumber(1)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(pos, s);
 	return Value::Nil;
 }
 

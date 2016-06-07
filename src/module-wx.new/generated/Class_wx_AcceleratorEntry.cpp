@@ -54,7 +54,7 @@ Gura_ImplementFunction(__AcceleratorEntry)
 	//int keyCode = arg.GetNumber(1)
 	//int cmd = arg.GetNumber(2)
 	//wxMenuItem* item = arg.GetNumber(3)
-	//wxAcceleratorEntry();
+	//wxAcceleratorEntry(flags, keyCode, cmd, item);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_DeclareFunctionAlias(__AcceleratorEntry_1, "AcceleratorEntry_1")
 Gura_ImplementFunction(__AcceleratorEntry_1)
 {
 	//const wxAcceleratorEntry& entry = arg.GetNumber(0)
-	//wxAcceleratorEntry();
+	//wxAcceleratorEntry(entry);
 	return Value::Nil;
 }
 
@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __Set)
 	//int keyCode = arg.GetNumber(1)
 	//int cmd = arg.GetNumber(2)
 	//wxMenuItem* item = arg.GetNumber(3)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(flags, keyCode, cmd, item);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_AcceleratorEntry, __FromString)
 	Object_wx_AcceleratorEntry *pThis = Object_wx_AcceleratorEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->FromString();
+	//pThis->GetEntity()->FromString(str);
 	return Value::Nil;
 }
 

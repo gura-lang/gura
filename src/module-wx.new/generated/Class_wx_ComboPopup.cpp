@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_ComboPopup, __Create)
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_ComboPopup, __FindItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& item = arg.GetNumber(0)
 	//wxString* trueItem = arg.GetNumber(1)
-	//pThis->GetEntity()->FindItem();
+	//pThis->GetEntity()->FindItem(item, trueItem);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_ComboPopup, __GetAdjustedSize)
 	//int minWidth = arg.GetNumber(0)
 	//int prefHeight = arg.GetNumber(1)
 	//int maxHeight = arg.GetNumber(2)
-	//pThis->GetEntity()->GetAdjustedSize();
+	//pThis->GetEntity()->GetAdjustedSize(minWidth, prefHeight, maxHeight);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_ComboPopup, __OnComboKeyEvent)
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxKeyEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->OnComboKeyEvent();
+	//pThis->GetEntity()->OnComboKeyEvent(event);
 	return Value::Nil;
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_ComboPopup, __PaintComboControl)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRect& rect = arg.GetNumber(1)
-	//pThis->GetEntity()->PaintComboControl();
+	//pThis->GetEntity()->PaintComboControl(dc, rect);
 	return Value::Nil;
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_ComboPopup, __SetStringValue)
 	Object_wx_ComboPopup *pThis = Object_wx_ComboPopup::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStringValue();
+	//pThis->GetEntity()->SetStringValue(value);
 	return Value::Nil;
 }
 

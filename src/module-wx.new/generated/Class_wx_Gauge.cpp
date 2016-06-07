@@ -75,7 +75,7 @@ Gura_ImplementFunction(__Gauge_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxGauge();
+	//wxGauge(parent, id, range, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Gauge, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, range, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_Gauge, __SetRange)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int range = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(range);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_Gauge, __SetValue)
 	Object_wx_Gauge *pThis = Object_wx_Gauge::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(pos);
 	return Value::Nil;
 }
 

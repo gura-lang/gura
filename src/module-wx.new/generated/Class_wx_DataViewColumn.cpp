@@ -58,7 +58,7 @@ Gura_ImplementFunction(__DataViewColumn)
 	//int width = arg.GetNumber(3)
 	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//wxDataViewColumn();
+	//wxDataViewColumn(title, renderer, model_column, width, align, flags);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__DataViewColumn_1)
 	//int width = arg.GetNumber(3)
 	//wxAlignment align = arg.GetNumber(4)
 	//int flags = arg.GetNumber(5)
-	//wxDataViewColumn();
+	//wxDataViewColumn(bitmap, renderer, model_column, width, align, flags);
 	return Value::Nil;
 }
 

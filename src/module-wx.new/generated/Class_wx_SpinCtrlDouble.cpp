@@ -81,7 +81,7 @@ Gura_ImplementFunction(__SpinCtrlDouble_1)
 	//double initial = arg.GetNumber(8)
 	//double inc = arg.GetNumber(9)
 	//const wxString& name = arg.GetNumber(10)
-	//wxSpinCtrlDouble();
+	//wxSpinCtrlDouble(parent, id, value, pos, size, style, min, max, initial, inc, name);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __Create)
 	//double initial = arg.GetNumber(8)
 	//double inc = arg.GetNumber(9)
 	//const wxString& name = arg.GetNumber(10)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, min, max, initial, inc, name);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetDigits)
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int digits = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDigits();
+	//pThis->GetEntity()->SetDigits(digits);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetIncrement)
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double inc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIncrement();
+	//pThis->GetEntity()->SetIncrement(inc);
 	return Value::Nil;
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double minVal = arg.GetNumber(0)
 	//double maxVal = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(minVal, maxVal);
 	return Value::Nil;
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetValue)
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(text);
 	return Value::Nil;
 }
 
@@ -261,7 +261,7 @@ Gura_ImplementMethod(wx_SpinCtrlDouble, __SetValue_1)
 	Object_wx_SpinCtrlDouble *pThis = Object_wx_SpinCtrlDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

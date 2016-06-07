@@ -75,7 +75,7 @@ Gura_ImplementFunction(__DocMDIParentFrame_1)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxDocMDIParentFrame();
+	//wxDocMDIParentFrame(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(manager, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 

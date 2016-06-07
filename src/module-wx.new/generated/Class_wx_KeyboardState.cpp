@@ -54,7 +54,7 @@ Gura_ImplementFunction(__KeyboardState)
 	//bool shiftDown = arg.GetNumber(1)
 	//bool altDown = arg.GetNumber(2)
 	//bool metaDown = arg.GetNumber(3)
-	//wxKeyboardState();
+	//wxKeyboardState(controlDown, shiftDown, altDown, metaDown);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetControlDown)
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetControlDown();
+	//pThis->GetEntity()->SetControlDown(down);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetRawControlDown)
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRawControlDown();
+	//pThis->GetEntity()->SetRawControlDown(down);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetShiftDown)
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShiftDown();
+	//pThis->GetEntity()->SetShiftDown(down);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetAltDown)
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAltDown();
+	//pThis->GetEntity()->SetAltDown(down);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_KeyboardState, __SetMetaDown)
 	Object_wx_KeyboardState *pThis = Object_wx_KeyboardState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMetaDown();
+	//pThis->GetEntity()->SetMetaDown(down);
 	return Value::Nil;
 }
 

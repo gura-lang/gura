@@ -71,7 +71,7 @@ Gura_ImplementFunction(__SpinButton_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxSpinButton();
+	//wxSpinButton(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_SpinButton, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_SpinButton, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(min, max);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_SpinButton, __SetValue)
 	Object_wx_SpinButton *pThis = Object_wx_SpinButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

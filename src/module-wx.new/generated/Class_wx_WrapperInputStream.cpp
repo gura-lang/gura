@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WrapperInputStream, "WrapperInputStream")
 Gura_ImplementFunction(__WrapperInputStream)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
-	//wxWrapperInputStream();
+	//wxWrapperInputStream(stream);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__WrapperInputStream_1, "WrapperInputStream_1")
 Gura_ImplementFunction(__WrapperInputStream_1)
 {
 	//wxInputStream* stream = arg.GetNumber(0)
-	//wxWrapperInputStream();
+	//wxWrapperInputStream(stream);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_WrapperInputStream, __InitParentStream)
 	Object_wx_WrapperInputStream *pThis = Object_wx_WrapperInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->InitParentStream();
+	//pThis->GetEntity()->InitParentStream(stream);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_WrapperInputStream, __InitParentStream_1)
 	Object_wx_WrapperInputStream *pThis = Object_wx_WrapperInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream* stream = arg.GetNumber(0)
-	//pThis->GetEntity()->InitParentStream();
+	//pThis->GetEntity()->InitParentStream(stream);
 	return Value::Nil;
 }
 

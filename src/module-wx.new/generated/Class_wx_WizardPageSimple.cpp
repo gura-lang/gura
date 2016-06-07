@@ -67,7 +67,7 @@ Gura_ImplementFunction(__WizardPageSimple_1)
 	//wxWizardPage* prev = arg.GetNumber(1)
 	//wxWizardPage* next = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
-	//wxWizardPageSimple();
+	//wxWizardPageSimple(parent, prev, next, bitmap);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __Create)
 	//wxWizardPage* prev = arg.GetNumber(1)
 	//wxWizardPage* next = arg.GetNumber(2)
 	//const wxBitmap& bitmap = arg.GetNumber(3)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, prev, next, bitmap);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __Chain)
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPageSimple* next = arg.GetNumber(0)
-	//pThis->GetEntity()->Chain();
+	//pThis->GetEntity()->Chain(next);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __Chain_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPageSimple* first = arg.GetNumber(0)
 	//wxWizardPageSimple* second = arg.GetNumber(1)
-	//pThis->GetEntity()->Chain();
+	//pThis->GetEntity()->Chain(first, second);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __SetNext)
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPage* next = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNext();
+	//pThis->GetEntity()->SetNext(next);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, __SetPrev)
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWizardPage* prev = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrev();
+	//pThis->GetEntity()->SetPrev(prev);
 	return Value::Nil;
 }
 

@@ -73,7 +73,7 @@ Gura_ImplementFunction(__EditableListBox_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxEditableListBox();
+	//wxEditableListBox(parent, id, label, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_EditableListBox, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_EditableListBox, __SetStrings)
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& strings = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStrings();
+	//pThis->GetEntity()->SetStrings(strings);
 	return Value::Nil;
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_EditableListBox, __GetStrings)
 	Object_wx_EditableListBox *pThis = Object_wx_EditableListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& strings = arg.GetNumber(0)
-	//pThis->GetEntity()->GetStrings();
+	//pThis->GetEntity()->GetStrings(strings);
 	return Value::Nil;
 }
 

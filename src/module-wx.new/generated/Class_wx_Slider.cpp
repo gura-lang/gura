@@ -79,7 +79,7 @@ Gura_ImplementFunction(__Slider_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//wxSlider();
+	//wxSlider(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Slider, __Create)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, minValue, maxValue, point, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_Slider, __SetLineSize)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lineSize = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLineSize();
+	//pThis->GetEntity()->SetLineSize(lineSize);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_Slider, __SetMin)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int minValue = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMin();
+	//pThis->GetEntity()->SetMin(minValue);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_Slider, __SetMax)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxValue = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMax();
+	//pThis->GetEntity()->SetMax(maxValue);
 	return Value::Nil;
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_Slider, __SetPageSize)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageSize = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPageSize();
+	//pThis->GetEntity()->SetPageSize(pageSize);
 	return Value::Nil;
 }
 
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_Slider, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int minValue = arg.GetNumber(0)
 	//int maxValue = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(minValue, maxValue);
 	return Value::Nil;
 }
 
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_Slider, __SetSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int startPos = arg.GetNumber(0)
 	//int endPos = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(startPos, endPos);
 	return Value::Nil;
 }
 
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_Slider, __SetThumbLength)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThumbLength();
+	//pThis->GetEntity()->SetThumbLength(len);
 	return Value::Nil;
 }
 
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_Slider, __SetTick)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tickPos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTick();
+	//pThis->GetEntity()->SetTick(tickPos);
 	return Value::Nil;
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_Slider, __SetTickFreq)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTickFreq();
+	//pThis->GetEntity()->SetTickFreq(n);
 	return Value::Nil;
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Slider, __SetValue)
 	Object_wx_Slider *pThis = Object_wx_Slider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

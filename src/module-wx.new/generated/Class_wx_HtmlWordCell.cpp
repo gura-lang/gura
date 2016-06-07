@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HtmlWordCell)
 {
 	//const wxString& word = arg.GetNumber(0)
 	//const wxDC& dc = arg.GetNumber(1)
-	//wxHtmlWordCell();
+	//wxHtmlWordCell(word, dc);
 	return Value::Nil;
 }
 

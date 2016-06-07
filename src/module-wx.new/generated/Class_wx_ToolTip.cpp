@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ToolTip, "ToolTip")
 Gura_ImplementFunction(__ToolTip)
 {
 	//const wxString& tip = arg.GetNumber(0)
-	//wxToolTip();
+	//wxToolTip(tip);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_ToolTip, __Enable)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->Enable();
+	//pThis->GetEntity()->Enable(flag);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetAutoPop)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long msecs = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAutoPop();
+	//pThis->GetEntity()->SetAutoPop(msecs);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetDelay)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long msecs = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDelay();
+	//pThis->GetEntity()->SetDelay(msecs);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetMaxWidth)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxWidth();
+	//pThis->GetEntity()->SetMaxWidth(width);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetReshow)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long msecs = arg.GetNumber(0)
-	//pThis->GetEntity()->SetReshow();
+	//pThis->GetEntity()->SetReshow(msecs);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ToolTip, __SetTip)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& tip = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTip();
+	//pThis->GetEntity()->SetTip(tip);
 	return Value::Nil;
 }
 

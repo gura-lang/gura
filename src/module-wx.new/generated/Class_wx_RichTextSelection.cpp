@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextSelection, "RichTextSelection")
 Gura_ImplementFunction(__RichTextSelection)
 {
 	//const wxRichTextSelection& sel = arg.GetNumber(0)
-	//wxRichTextSelection();
+	//wxRichTextSelection(sel);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementFunction(__RichTextSelection_1)
 {
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(1)
-	//wxRichTextSelection();
+	//wxRichTextSelection(range, container);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __Set)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(range, container);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __Add)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(range);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __Set_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRangeArray& ranges = arg.GetNumber(0)
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(ranges, container);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __Copy)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextSelection& sel = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(sel);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __SetRanges)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRangeArray& ranges = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRanges();
+	//pThis->GetEntity()->SetRanges(ranges);
 	return Value::Nil;
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __GetRange)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRange();
+	//pThis->GetEntity()->GetRange(i);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __SetRange)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(range);
 	return Value::Nil;
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __SetContainer)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* container = arg.GetNumber(0)
-	//pThis->GetEntity()->SetContainer();
+	//pThis->GetEntity()->SetContainer(container);
 	return Value::Nil;
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __GetSelectionForObject)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectionForObject();
+	//pThis->GetEntity()->GetSelectionForObject(obj);
 	return Value::Nil;
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->WithinSelection();
+	//pThis->GetEntity()->WithinSelection(pos, obj);
 	return Value::Nil;
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection_1)
 	Object_wx_RichTextSelection *pThis = Object_wx_RichTextSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->WithinSelection();
+	//pThis->GetEntity()->WithinSelection(pos);
 	return Value::Nil;
 }
 
@@ -360,7 +360,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//const wxRichTextRangeArray& ranges = arg.GetNumber(1)
-	//pThis->GetEntity()->WithinSelection();
+	//pThis->GetEntity()->WithinSelection(pos, ranges);
 	return Value::Nil;
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_RichTextSelection, __WithinSelection_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
 	//const wxRichTextRangeArray& ranges = arg.GetNumber(1)
-	//pThis->GetEntity()->WithinSelection();
+	//pThis->GetEntity()->WithinSelection(range, ranges);
 	return Value::Nil;
 }
 

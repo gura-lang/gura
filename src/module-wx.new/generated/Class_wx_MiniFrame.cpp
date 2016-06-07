@@ -73,7 +73,7 @@ Gura_ImplementFunction(__MiniFrame_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxMiniFrame();
+	//wxMiniFrame(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_MiniFrame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 

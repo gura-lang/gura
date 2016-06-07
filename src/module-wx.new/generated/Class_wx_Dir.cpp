@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__Dir_1, "Dir_1")
 Gura_ImplementFunction(__Dir_1)
 {
 	//const wxString& dir = arg.GetNumber(0)
-	//wxDir();
+	//wxDir(dir);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_Dir, __Exists)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
-	//pThis->GetEntity()->Exists();
+	//pThis->GetEntity()->Exists(dir);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_Dir, __FindFirst)
 	//const wxString& dirname = arg.GetNumber(0)
 	//const wxString& filespec = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->FindFirst();
+	//pThis->GetEntity()->FindFirst(dirname, filespec, flags);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_Dir, __GetAllFiles)
 	//wxArrayString* files = arg.GetNumber(1)
 	//const wxString& filespec = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->GetAllFiles();
+	//pThis->GetEntity()->GetAllFiles(dirname, files, filespec, flags);
 	return Value::Nil;
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_Dir, __GetFirst)
 	//wxString* filename = arg.GetNumber(0)
 	//const wxString& filespec = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->GetFirst();
+	//pThis->GetEntity()->GetFirst(filename, filespec, flags);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_Dir, __GetNext)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString* filename = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNext();
+	//pThis->GetEntity()->GetNext(filename);
 	return Value::Nil;
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_Dir, __GetTotalSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
 	//wxArrayString* filesSkipped = arg.GetNumber(1)
-	//pThis->GetEntity()->GetTotalSize();
+	//pThis->GetEntity()->GetTotalSize(dir, filesSkipped);
 	return Value::Nil;
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_Dir, __HasFiles)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filespec = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFiles();
+	//pThis->GetEntity()->HasFiles(filespec);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_Dir, __HasSubDirs)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dirspec = arg.GetNumber(0)
-	//pThis->GetEntity()->HasSubDirs();
+	//pThis->GetEntity()->HasSubDirs(dirspec);
 	return Value::Nil;
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_Dir, __Make)
 	//const wxString& dir = arg.GetNumber(0)
 	//int perm = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Make();
+	//pThis->GetEntity()->Make(dir, perm, flags);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_Dir, __Open)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
-	//pThis->GetEntity()->Open();
+	//pThis->GetEntity()->Open(dir);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_Dir, __Remove)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& dir = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(dir, flags);
 	return Value::Nil;
 }
 
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_Dir, __Traverse)
 	//wxDirTraverser& sink = arg.GetNumber(0)
 	//const wxString& filespec = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Traverse();
+	//pThis->GetEntity()->Traverse(sink, filespec, flags);
 	return Value::Nil;
 }
 

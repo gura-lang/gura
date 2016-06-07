@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__BusyInfo, "BusyInfo")
 Gura_ImplementFunction(__BusyInfo)
 {
 	//const wxBusyInfoFlags& flags = arg.GetNumber(0)
-	//wxBusyInfo();
+	//wxBusyInfo(flags);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementFunction(__BusyInfo_1)
 {
 	//const wxString& msg = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
-	//wxBusyInfo();
+	//wxBusyInfo(msg, parent);
 	return Value::Nil;
 }
 

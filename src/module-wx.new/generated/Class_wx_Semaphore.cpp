@@ -50,7 +50,7 @@ Gura_ImplementFunction(__Semaphore)
 {
 	//int initialcount = arg.GetNumber(0)
 	//int maxcount = arg.GetNumber(1)
-	//wxSemaphore();
+	//wxSemaphore(initialcount, maxcount);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Semaphore, __WaitTimeout)
 	Object_wx_Semaphore *pThis = Object_wx_Semaphore::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long timeout_millis = arg.GetNumber(0)
-	//pThis->GetEntity()->WaitTimeout();
+	//pThis->GetEntity()->WaitTimeout(timeout_millis);
 	return Value::Nil;
 }
 

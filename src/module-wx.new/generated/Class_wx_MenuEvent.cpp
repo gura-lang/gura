@@ -52,7 +52,7 @@ Gura_ImplementFunction(__MenuEvent)
 	//wxEventType type = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
 	//wxMenu* menu = arg.GetNumber(2)
-	//wxMenuEvent();
+	//wxMenuEvent(type, id, menu);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__Button_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxButton();
+	//wxButton(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_Button, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_Button, __SetAuthNeeded)
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool needed = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAuthNeeded();
+	//pThis->GetEntity()->SetAuthNeeded(needed);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_Button, __SetLabel)
 	Object_wx_Button *pThis = Object_wx_Button::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabel();
+	//pThis->GetEntity()->SetLabel(label);
 	return Value::Nil;
 }
 

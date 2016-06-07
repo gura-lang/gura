@@ -65,7 +65,7 @@ Gura_ImplementFunction(__DateEvent_1)
 	//wxWindow* win = arg.GetNumber(0)
 	//const wxDateTime& dt = arg.GetNumber(1)
 	//wxEventType type = arg.GetNumber(2)
-	//wxDateEvent();
+	//wxDateEvent(win, dt, type);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DateEvent, __SetDate)
 	Object_wx_DateEvent *pThis = Object_wx_DateEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& date = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDate();
+	//pThis->GetEntity()->SetDate(date);
 	return Value::Nil;
 }
 

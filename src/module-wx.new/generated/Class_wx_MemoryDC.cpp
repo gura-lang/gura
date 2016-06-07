@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__MemoryDC_1, "MemoryDC_1")
 Gura_ImplementFunction(__MemoryDC_1)
 {
 	//wxDC* dc = arg.GetNumber(0)
-	//wxMemoryDC();
+	//wxMemoryDC(dc);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__MemoryDC_2, "MemoryDC_2")
 Gura_ImplementFunction(__MemoryDC_2)
 {
 	//wxBitmap& bitmap = arg.GetNumber(0)
-	//wxMemoryDC();
+	//wxMemoryDC(bitmap);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_MemoryDC, __SelectObject)
 	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->SelectObject();
+	//pThis->GetEntity()->SelectObject(bitmap);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_MemoryDC, __SelectObjectAsSource)
 	Object_wx_MemoryDC *pThis = Object_wx_MemoryDC::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->SelectObjectAsSource();
+	//pThis->GetEntity()->SelectObjectAsSource(bitmap);
 	return Value::Nil;
 }
 

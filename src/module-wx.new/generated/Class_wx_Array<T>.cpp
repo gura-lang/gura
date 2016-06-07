@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_Array<T>, __wxArray_1)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArray& array = arg.GetNumber(0)
-	//pThis->GetEntity()->wxArray();
+	//pThis->GetEntity()->wxArray(array);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_Array<T>, __wxSortedArray)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSortedArray& array = arg.GetNumber(0)
-	//pThis->GetEntity()->wxSortedArray();
+	//pThis->GetEntity()->wxSortedArray(array);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_Array<T>, __wxObjArray_1)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObjArray& array = arg.GetNumber(0)
-	//pThis->GetEntity()->wxObjArray();
+	//pThis->GetEntity()->wxObjArray(array);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_Array<T>, __Alloc)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t count = arg.GetNumber(0)
-	//pThis->GetEntity()->Alloc();
+	//pThis->GetEntity()->Alloc(count);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Array<T>, __Item)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(index);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Array<T>, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T item = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(item, copies);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_Array<T>, __Add_1)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T item = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(item);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_Array<T>, __Add_2)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* item = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(item);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_Array<T>, __Add_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T& item = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(item, copies);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_Array<T>, __AddAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T item = arg.GetNumber(0)
 	//size_t index = arg.GetNumber(1)
-	//pThis->GetEntity()->AddAt();
+	//pThis->GetEntity()->AddAt(item, index);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_Array<T>, __Insert)
 	//T item = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
 	//size_t copies = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(item, n, copies);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_Array<T>, __Insert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* item = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(item, n);
 	return Value::Nil;
 }
 
@@ -322,7 +322,7 @@ Gura_ImplementMethod(wx_Array<T>, __Insert_2)
 	//T& item = arg.GetNumber(0)
 	//size_t n = arg.GetNumber(1)
 	//size_t copies = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(item, n, copies);
 	return Value::Nil;
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Array<T>, __SetCount)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t count = arg.GetNumber(0)
 	//T defval = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCount();
+	//pThis->GetEntity()->SetCount(count, defval);
 	return Value::Nil;
 }
 
@@ -367,7 +367,7 @@ Gura_ImplementMethod(wx_Array<T>, __Detach)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->Detach();
+	//pThis->GetEntity()->Detach(index);
 	return Value::Nil;
 }
 
@@ -395,7 +395,7 @@ Gura_ImplementMethod(wx_Array<T>, __Remove)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T item = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(item);
 	return Value::Nil;
 }
 
@@ -412,7 +412,7 @@ Gura_ImplementMethod(wx_Array<T>, __RemoveAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->RemoveAt();
+	//pThis->GetEntity()->RemoveAt(index, count);
 	return Value::Nil;
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_Array<T>, __Index)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T& item = arg.GetNumber(0)
 	//bool searchFromEnd = arg.GetNumber(1)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(item, searchFromEnd);
 	return Value::Nil;
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_Array<T>, __Index_1)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T& item = arg.GetNumber(0)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(item);
 	return Value::Nil;
 }
 
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Array<T>, __IndexForInsert)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T item = arg.GetNumber(0)
-	//pThis->GetEntity()->IndexForInsert();
+	//pThis->GetEntity()->IndexForInsert(item);
 	return Value::Nil;
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_Array<T>, __Sort)
 	Object_wx_Array<T> *pThis = Object_wx_Array<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//CMPFUNC<T> compareFunction = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(compareFunction);
 	return Value::Nil;
 }
 

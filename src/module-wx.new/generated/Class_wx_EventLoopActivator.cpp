@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__EventLoopActivator, "EventLoopActivator")
 Gura_ImplementFunction(__EventLoopActivator)
 {
 	//wxEventLoopBase* loop = arg.GetNumber(0)
-	//wxEventLoopActivator();
+	//wxEventLoopActivator(loop);
 	return Value::Nil;
 }
 

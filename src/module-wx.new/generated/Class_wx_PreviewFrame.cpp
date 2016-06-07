@@ -60,7 +60,7 @@ Gura_ImplementFunction(__PreviewFrame)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxPreviewFrame();
+	//wxPreviewFrame(preview, parent, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_PreviewFrame, __InitializeWithModality)
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPreviewFrameModalityKind kind = arg.GetNumber(0)
-	//pThis->GetEntity()->InitializeWithModality();
+	//pThis->GetEntity()->InitializeWithModality(kind);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_PreviewFrame, __OnCloseWindow)
 	Object_wx_PreviewFrame *pThis = Object_wx_PreviewFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCloseEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->OnCloseWindow();
+	//pThis->GetEntity()->OnCloseWindow(event);
 	return Value::Nil;
 }
 

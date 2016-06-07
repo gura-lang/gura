@@ -56,7 +56,7 @@ Gura_ImplementFunction(__ContextHelpButton)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxContextHelpButton();
+	//wxContextHelpButton(parent, id, pos, size, style);
 	return Value::Nil;
 }
 

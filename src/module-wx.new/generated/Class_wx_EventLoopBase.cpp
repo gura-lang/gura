@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __SetActive)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventLoopBase* loop = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActive();
+	//pThis->GetEntity()->SetActive(loop);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __Exit)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rc = arg.GetNumber(0)
-	//pThis->GetEntity()->Exit();
+	//pThis->GetEntity()->Exit(rc);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __ScheduleExit)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rc = arg.GetNumber(0)
-	//pThis->GetEntity()->ScheduleExit();
+	//pThis->GetEntity()->ScheduleExit(rc);
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __DispatchTimeout)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long timeout = arg.GetNumber(0)
-	//pThis->GetEntity()->DispatchTimeout();
+	//pThis->GetEntity()->DispatchTimeout(timeout);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __Yield)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool onlyIfNeeded = arg.GetNumber(0)
-	//pThis->GetEntity()->Yield();
+	//pThis->GetEntity()->Yield(onlyIfNeeded);
 	return Value::Nil;
 }
 
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __YieldFor)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long eventsToProcess = arg.GetNumber(0)
-	//pThis->GetEntity()->YieldFor();
+	//pThis->GetEntity()->YieldFor(eventsToProcess);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_EventLoopBase, __IsEventAllowedInsideYield)
 	Object_wx_EventLoopBase *pThis = Object_wx_EventLoopBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventCategory cat = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEventAllowedInsideYield();
+	//pThis->GetEntity()->IsEventAllowedInsideYield(cat);
 	return Value::Nil;
 }
 

@@ -56,7 +56,7 @@ Gura_ImplementFunction(__GenericProgressDialog)
 	//int maximum = arg.GetNumber(2)
 	//wxWindow* parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//wxGenericProgressDialog();
+	//wxGenericProgressDialog(title, message, maximum, parent, style);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Pulse)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& newmsg = arg.GetNumber(0)
 	//bool* skip = arg.GetNumber(1)
-	//pThis->GetEntity()->Pulse();
+	//pThis->GetEntity()->Pulse(newmsg, skip);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __SetRange)
 	Object_wx_GenericProgressDialog *pThis = Object_wx_GenericProgressDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maximum = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(maximum);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_GenericProgressDialog, __Update)
 	//int value = arg.GetNumber(0)
 	//const wxString& newmsg = arg.GetNumber(1)
 	//bool* skip = arg.GetNumber(2)
-	//pThis->GetEntity()->Update();
+	//pThis->GetEntity()->Update(value, newmsg, skip);
 	return Value::Nil;
 }
 

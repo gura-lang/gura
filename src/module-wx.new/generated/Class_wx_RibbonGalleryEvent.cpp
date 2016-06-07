@@ -54,7 +54,7 @@ Gura_ImplementFunction(__RibbonGalleryEvent)
 	//int win_id = arg.GetNumber(1)
 	//wxRibbonGallery* gallery = arg.GetNumber(2)
 	//wxRibbonGalleryItem* item = arg.GetNumber(3)
-	//wxRibbonGalleryEvent();
+	//wxRibbonGalleryEvent(command_type, win_id, gallery, item);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RibbonGalleryEvent, __SetGallery)
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonGallery* gallery = arg.GetNumber(0)
-	//pThis->GetEntity()->SetGallery();
+	//pThis->GetEntity()->SetGallery(gallery);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_RibbonGalleryEvent, __SetGalleryItem)
 	Object_wx_RibbonGalleryEvent *pThis = Object_wx_RibbonGalleryEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonGalleryItem* item = arg.GetNumber(0)
-	//pThis->GetEntity()->SetGalleryItem();
+	//pThis->GetEntity()->SetGalleryItem(item);
 	return Value::Nil;
 }
 

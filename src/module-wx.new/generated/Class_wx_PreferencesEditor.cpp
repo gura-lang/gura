@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PreferencesEditor, "PreferencesEditor")
 Gura_ImplementFunction(__PreferencesEditor)
 {
 	//const wxString& title = arg.GetNumber(0)
-	//wxPreferencesEditor();
+	//wxPreferencesEditor(title);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_PreferencesEditor, __AddPage)
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPreferencesPage* page = arg.GetNumber(0)
-	//pThis->GetEntity()->AddPage();
+	//pThis->GetEntity()->AddPage(page);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_PreferencesEditor, __Show)
 	Object_wx_PreferencesEditor *pThis = Object_wx_PreferencesEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Show();
+	//pThis->GetEntity()->Show(parent);
 	return Value::Nil;
 }
 

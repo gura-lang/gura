@@ -69,7 +69,7 @@ Gura_ImplementFunction(__AuiToolBar_1)
 	//const wxPoint& position = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxAuiToolBar();
+	//wxAuiToolBar(parent, id, position, size, style);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __Create)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetWindowStyleFlag)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWindowStyleFlag();
+	//pThis->GetEntity()->SetWindowStyleFlag(style);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetArtProvider)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiToolBarArt* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetFont)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFont();
+	//pThis->GetEntity()->SetFont(font);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddTool)
 	//const wxBitmap& bitmap = arg.GetNumber(2)
 	//const wxString& short_help_string = arg.GetNumber(3)
 	//wxItemKind kind = arg.GetNumber(4)
-	//pThis->GetEntity()->AddTool();
+	//pThis->GetEntity()->AddTool(tool_id, label, bitmap, short_help_string, kind);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddTool_1)
 	//const wxString& short_help_string = arg.GetNumber(5)
 	//const wxString& long_help_string = arg.GetNumber(6)
 	//wxObject* client_data = arg.GetNumber(7)
-	//pThis->GetEntity()->AddTool();
+	//pThis->GetEntity()->AddTool(tool_id, label, bitmap, disabled_bitmap, kind, short_help_string, long_help_string, client_data);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddTool_2)
 	//wxObject* client_data = arg.GetNumber(4)
 	//const wxString& short_help_string = arg.GetNumber(5)
 	//const wxString& long_help_string = arg.GetNumber(6)
-	//pThis->GetEntity()->AddTool();
+	//pThis->GetEntity()->AddTool(tool_id, bitmap, disabled_bitmap, toggle, client_data, short_help_string, long_help_string);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddLabel)
 	//int tool_id = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
 	//const int width = arg.GetNumber(2)
-	//pThis->GetEntity()->AddLabel();
+	//pThis->GetEntity()->AddLabel(tool_id, label, width);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddControl)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxControl* control = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->AddControl();
+	//pThis->GetEntity()->AddControl(control, label);
 	return Value::Nil;
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddSpacer)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
-	//pThis->GetEntity()->AddSpacer();
+	//pThis->GetEntity()->AddSpacer(pixels);
 	return Value::Nil;
 }
 
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __AddStretchSpacer)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int proportion = arg.GetNumber(0)
-	//pThis->GetEntity()->AddStretchSpacer();
+	//pThis->GetEntity()->AddStretchSpacer(proportion);
 	return Value::Nil;
 }
 
@@ -352,7 +352,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __FindControl)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int window_id = arg.GetNumber(0)
-	//pThis->GetEntity()->FindControl();
+	//pThis->GetEntity()->FindControl(window_id);
 	return Value::Nil;
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __FindToolByPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->FindToolByPosition();
+	//pThis->GetEntity()->FindToolByPosition(x, y);
 	return Value::Nil;
 }
 
@@ -384,7 +384,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __FindToolByIndex)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int idx = arg.GetNumber(0)
-	//pThis->GetEntity()->FindToolByIndex();
+	//pThis->GetEntity()->FindToolByIndex(idx);
 	return Value::Nil;
 }
 
@@ -399,7 +399,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __FindTool)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->FindTool();
+	//pThis->GetEntity()->FindTool(tool_id);
 	return Value::Nil;
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __DeleteTool)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteTool();
+	//pThis->GetEntity()->DeleteTool(tool_id);
 	return Value::Nil;
 }
 
@@ -455,7 +455,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __DeleteByIndex)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteByIndex();
+	//pThis->GetEntity()->DeleteByIndex(tool_id);
 	return Value::Nil;
 }
 
@@ -483,7 +483,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolPos)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolPos();
+	//pThis->GetEntity()->GetToolPos(tool_id);
 	return Value::Nil;
 }
 
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolIndex)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolIndex();
+	//pThis->GetEntity()->GetToolIndex(tool_id);
 	return Value::Nil;
 }
 
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolFits)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolFits();
+	//pThis->GetEntity()->GetToolFits(tool_id);
 	return Value::Nil;
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolRect)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolRect();
+	//pThis->GetEntity()->GetToolRect(tool_id);
 	return Value::Nil;
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolFitsByIndex)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolFitsByIndex();
+	//pThis->GetEntity()->GetToolFitsByIndex(tool_id);
 	return Value::Nil;
 }
 
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetMargins)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(size);
 	return Value::Nil;
 }
 
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetMargins_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(x, y);
 	return Value::Nil;
 }
 
@@ -609,7 +609,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetMargins_2)
 	//int right = arg.GetNumber(1)
 	//int top = arg.GetNumber(2)
 	//int bottom = arg.GetNumber(3)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(left, right, top, bottom);
 	return Value::Nil;
 }
 
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolBitmapSize)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolBitmapSize();
+	//pThis->GetEntity()->SetToolBitmapSize(size);
 	return Value::Nil;
 }
 
@@ -665,7 +665,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetOverflowVisible)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool visible = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOverflowVisible();
+	//pThis->GetEntity()->SetOverflowVisible(visible);
 	return Value::Nil;
 }
 
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetGripperVisible)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool visible = arg.GetNumber(0)
-	//pThis->GetEntity()->SetGripperVisible();
+	//pThis->GetEntity()->SetGripperVisible(visible);
 	return Value::Nil;
 }
 
@@ -710,7 +710,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __ToggleTool)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//bool state = arg.GetNumber(1)
-	//pThis->GetEntity()->ToggleTool();
+	//pThis->GetEntity()->ToggleTool(tool_id, state);
 	return Value::Nil;
 }
 
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolToggled)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolToggled();
+	//pThis->GetEntity()->GetToolToggled(tool_id);
 	return Value::Nil;
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __EnableTool)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//bool state = arg.GetNumber(1)
-	//pThis->GetEntity()->EnableTool();
+	//pThis->GetEntity()->EnableTool(tool_id, state);
 	return Value::Nil;
 }
 
@@ -757,7 +757,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolEnabled)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolEnabled();
+	//pThis->GetEntity()->GetToolEnabled(tool_id);
 	return Value::Nil;
 }
 
@@ -774,7 +774,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolDropDown)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//bool dropdown = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolDropDown();
+	//pThis->GetEntity()->SetToolDropDown(tool_id, dropdown);
 	return Value::Nil;
 }
 
@@ -789,7 +789,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolDropDown)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolDropDown();
+	//pThis->GetEntity()->GetToolDropDown(tool_id);
 	return Value::Nil;
 }
 
@@ -804,7 +804,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolBorderPadding)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int padding = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolBorderPadding();
+	//pThis->GetEntity()->SetToolBorderPadding(padding);
 	return Value::Nil;
 }
 
@@ -832,7 +832,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolTextOrientation)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolTextOrientation();
+	//pThis->GetEntity()->SetToolTextOrientation(orientation);
 	return Value::Nil;
 }
 
@@ -860,7 +860,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolPacking)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int packing = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolPacking();
+	//pThis->GetEntity()->SetToolPacking(packing);
 	return Value::Nil;
 }
 
@@ -890,7 +890,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolProportion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//int proportion = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolProportion();
+	//pThis->GetEntity()->SetToolProportion(tool_id, proportion);
 	return Value::Nil;
 }
 
@@ -905,7 +905,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolProportion)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolProportion();
+	//pThis->GetEntity()->GetToolProportion(tool_id);
 	return Value::Nil;
 }
 
@@ -920,7 +920,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolSeparation)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int separation = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolSeparation();
+	//pThis->GetEntity()->SetToolSeparation(separation);
 	return Value::Nil;
 }
 
@@ -950,7 +950,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolSticky)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//bool sticky = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolSticky();
+	//pThis->GetEntity()->SetToolSticky(tool_id, sticky);
 	return Value::Nil;
 }
 
@@ -965,7 +965,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolSticky)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolSticky();
+	//pThis->GetEntity()->GetToolSticky(tool_id);
 	return Value::Nil;
 }
 
@@ -980,7 +980,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolLabel)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolLabel();
+	//pThis->GetEntity()->GetToolLabel(tool_id);
 	return Value::Nil;
 }
 
@@ -997,7 +997,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolLabel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolLabel();
+	//pThis->GetEntity()->SetToolLabel(tool_id, label);
 	return Value::Nil;
 }
 
@@ -1012,7 +1012,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolBitmap)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolBitmap();
+	//pThis->GetEntity()->GetToolBitmap(tool_id);
 	return Value::Nil;
 }
 
@@ -1029,7 +1029,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolBitmap)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolBitmap();
+	//pThis->GetEntity()->SetToolBitmap(tool_id, bitmap);
 	return Value::Nil;
 }
 
@@ -1044,7 +1044,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolShortHelp)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolShortHelp();
+	//pThis->GetEntity()->GetToolShortHelp(tool_id);
 	return Value::Nil;
 }
 
@@ -1061,7 +1061,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolShortHelp)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//const wxString& help_string = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolShortHelp();
+	//pThis->GetEntity()->SetToolShortHelp(tool_id, help_string);
 	return Value::Nil;
 }
 
@@ -1076,7 +1076,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetToolLongHelp)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetToolLongHelp();
+	//pThis->GetEntity()->GetToolLongHelp(tool_id);
 	return Value::Nil;
 }
 
@@ -1093,7 +1093,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetToolLongHelp)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int tool_id = arg.GetNumber(0)
 	//const wxString& help_string = arg.GetNumber(1)
-	//pThis->GetEntity()->SetToolLongHelp();
+	//pThis->GetEntity()->SetToolLongHelp(tool_id, help_string);
 	return Value::Nil;
 }
 
@@ -1110,7 +1110,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __SetCustomOverflowItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAuiToolBarItemArray& prepend = arg.GetNumber(0)
 	//const wxAuiToolBarItemArray& append = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCustomOverflowItems();
+	//pThis->GetEntity()->SetCustomOverflowItems(prepend, append);
 	return Value::Nil;
 }
 
@@ -1125,7 +1125,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __GetHintSize)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dock_direction = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHintSize();
+	//pThis->GetEntity()->GetHintSize(dock_direction);
 	return Value::Nil;
 }
 
@@ -1140,7 +1140,7 @@ Gura_ImplementMethod(wx_AuiToolBar, __IsPaneValid)
 	Object_wx_AuiToolBar *pThis = Object_wx_AuiToolBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAuiPaneInfo& pane = arg.GetNumber(0)
-	//pThis->GetEntity()->IsPaneValid();
+	//pThis->GetEntity()->IsPaneValid(pane);
 	return Value::Nil;
 }
 

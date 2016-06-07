@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextAttr, "RichTextAttr")
 Gura_ImplementFunction(__RichTextAttr)
 {
 	//const wxTextAttr& attr = arg.GetNumber(0)
-	//wxRichTextAttr();
+	//wxRichTextAttr(attr);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__RichTextAttr_1, "RichTextAttr_1")
 Gura_ImplementFunction(__RichTextAttr_1)
 {
 	//const wxRichTextAttr& attr = arg.GetNumber(0)
-	//wxRichTextAttr();
+	//wxRichTextAttr(attr);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __Copy)
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(attr);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __EqPartial)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& attr = arg.GetNumber(0)
 	//bool weakTest = arg.GetNumber(1)
-	//pThis->GetEntity()->EqPartial();
+	//pThis->GetEntity()->EqPartial(attr, weakTest);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __Apply)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& style = arg.GetNumber(0)
 	//const wxRichTextAttr* compareWith = arg.GetNumber(1)
-	//pThis->GetEntity()->Apply();
+	//pThis->GetEntity()->Apply(style, compareWith);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __CollectCommonAttributes)
 	//const wxRichTextAttr& attr = arg.GetNumber(0)
 	//wxRichTextAttr& clashingAttr = arg.GetNumber(1)
 	//wxRichTextAttr& absentAttr = arg.GetNumber(2)
-	//pThis->GetEntity()->CollectCommonAttributes();
+	//pThis->GetEntity()->CollectCommonAttributes(attr, clashingAttr, absentAttr);
 	return Value::Nil;
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __RemoveStyle)
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveStyle();
+	//pThis->GetEntity()->RemoveStyle(attr);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_RichTextAttr, __SetTextBoxAttr)
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextBoxAttr& attr = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextBoxAttr();
+	//pThis->GetEntity()->SetTextBoxAttr(attr);
 	return Value::Nil;
 }
 

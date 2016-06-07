@@ -63,7 +63,7 @@ Gura_ImplementFunction(__PGProperty_1)
 {
 	//const wxString& label = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxPGProperty();
+	//wxPGProperty(label, name);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PGProperty, __ValidateValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& value = arg.GetNumber(0)
 	//wxPGValidationInfo& validationInfo = arg.GetNumber(1)
-	//pThis->GetEntity()->ValidateValue();
+	//pThis->GetEntity()->ValidateValue(value, validationInfo);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_PGProperty, __StringToValue)
 	//wxVariant& variant = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
 	//int argFlags = arg.GetNumber(2)
-	//pThis->GetEntity()->StringToValue();
+	//pThis->GetEntity()->StringToValue(variant, text, argFlags);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_PGProperty, __IntToValue)
 	//wxVariant& variant = arg.GetNumber(0)
 	//int number = arg.GetNumber(1)
 	//int argFlags = arg.GetNumber(2)
-	//pThis->GetEntity()->IntToValue();
+	//pThis->GetEntity()->IntToValue(variant, number, argFlags);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_PGProperty, __ValueToString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& value = arg.GetNumber(0)
 	//int argFlags = arg.GetNumber(1)
-	//pThis->GetEntity()->ValueToString();
+	//pThis->GetEntity()->ValueToString(value, argFlags);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueFromString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetValueFromString();
+	//pThis->GetEntity()->SetValueFromString(text, flags);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueFromInt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long value = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetValueFromInt();
+	//pThis->GetEntity()->SetValueFromInt(value, flags);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnMeasureImage)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureImage();
+	//pThis->GetEntity()->OnMeasureImage(item);
 	return Value::Nil;
 }
 
@@ -232,7 +232,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnEvent)
 	//wxPropertyGrid* propgrid = arg.GetNumber(0)
 	//wxWindow* wnd_primary = arg.GetNumber(1)
 	//wxEvent& event = arg.GetNumber(2)
-	//pThis->GetEntity()->OnEvent();
+	//pThis->GetEntity()->OnEvent(propgrid, wnd_primary, event);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_PGProperty, __ChildChanged)
 	//wxVariant& thisValue = arg.GetNumber(0)
 	//int childIndex = arg.GetNumber(1)
 	//wxVariant& childValue = arg.GetNumber(2)
-	//pThis->GetEntity()->ChildChanged();
+	//pThis->GetEntity()->ChildChanged(thisValue, childIndex, childValue);
 	return Value::Nil;
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnCustomPaint)
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRect& rect = arg.GetNumber(1)
 	//wxPGPaintData& paintdata = arg.GetNumber(2)
-	//pThis->GetEntity()->OnCustomPaint();
+	//pThis->GetEntity()->OnCustomPaint(dc, rect, paintdata);
 	return Value::Nil;
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetCellRenderer)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCellRenderer();
+	//pThis->GetEntity()->GetCellRenderer(column);
 	return Value::Nil;
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_PGProperty, __DoSetAttribute)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxVariant& value = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSetAttribute();
+	//pThis->GetEntity()->DoSetAttribute(name, value);
 	return Value::Nil;
 }
 
@@ -369,7 +369,7 @@ Gura_ImplementMethod(wx_PGProperty, __DoGetAttribute)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->DoGetAttribute();
+	//pThis->GetEntity()->DoGetAttribute(name);
 	return Value::Nil;
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_PGProperty, __OnValidationFailure)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& pendingValue = arg.GetNumber(0)
-	//pThis->GetEntity()->OnValidationFailure();
+	//pThis->GetEntity()->OnValidationFailure(pendingValue);
 	return Value::Nil;
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_PGProperty, __AddChoice)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->AddChoice();
+	//pThis->GetEntity()->AddChoice(label, value);
 	return Value::Nil;
 }
 
@@ -429,7 +429,7 @@ Gura_ImplementMethod(wx_PGProperty, __AddPrivateChild)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* prop = arg.GetNumber(0)
-	//pThis->GetEntity()->AddPrivateChild();
+	//pThis->GetEntity()->AddPrivateChild(prop);
 	return Value::Nil;
 }
 
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_PGProperty, __AdaptListToValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& list = arg.GetNumber(0)
 	//wxVariant* value = arg.GetNumber(1)
-	//pThis->GetEntity()->AdaptListToValue();
+	//pThis->GetEntity()->AdaptListToValue(list, value);
 	return Value::Nil;
 }
 
@@ -461,7 +461,7 @@ Gura_ImplementMethod(wx_PGProperty, __AppendChild)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* childProperty = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendChild();
+	//pThis->GetEntity()->AppendChild(childProperty);
 	return Value::Nil;
 }
 
@@ -476,7 +476,7 @@ Gura_ImplementMethod(wx_PGProperty, __AreAllChildrenSpecified)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant* pendingList = arg.GetNumber(0)
-	//pThis->GetEntity()->AreAllChildrenSpecified();
+	//pThis->GetEntity()->AreAllChildrenSpecified(pendingList);
 	return Value::Nil;
 }
 
@@ -506,7 +506,7 @@ Gura_ImplementMethod(wx_PGProperty, __ChangeFlag)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropertyFlags flag = arg.GetNumber(0)
 	//bool set = arg.GetNumber(1)
-	//pThis->GetEntity()->ChangeFlag();
+	//pThis->GetEntity()->ChangeFlag(flag, set);
 	return Value::Nil;
 }
 
@@ -534,7 +534,7 @@ Gura_ImplementMethod(wx_PGProperty, __DeleteChoice)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteChoice();
+	//pThis->GetEntity()->DeleteChoice(index);
 	return Value::Nil;
 }
 
@@ -549,7 +549,7 @@ Gura_ImplementMethod(wx_PGProperty, __Enable)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->Enable();
+	//pThis->GetEntity()->Enable(enable);
 	return Value::Nil;
 }
 
@@ -577,7 +577,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttribute)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAttribute();
+	//pThis->GetEntity()->GetAttribute(name);
 	return Value::Nil;
 }
 
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttribute_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttribute();
+	//pThis->GetEntity()->GetAttribute(name, defVal);
 	return Value::Nil;
 }
 
@@ -611,7 +611,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//long defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttributeAsLong();
+	//pThis->GetEntity()->GetAttributeAsLong(name, defVal);
 	return Value::Nil;
 }
 
@@ -628,7 +628,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetAttributeAsDouble)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//double defVal = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAttributeAsDouble();
+	//pThis->GetEntity()->GetAttributeAsDouble(name, defVal);
 	return Value::Nil;
 }
 
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetColumnEditor)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnEditor();
+	//pThis->GetEntity()->GetColumnEditor(column);
 	return Value::Nil;
 }
 
@@ -684,7 +684,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetCell)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCell();
+	//pThis->GetEntity()->GetCell(column);
 	return Value::Nil;
 }
 
@@ -699,7 +699,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetCell_1)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCell();
+	//pThis->GetEntity()->GetCell(column);
 	return Value::Nil;
 }
 
@@ -714,7 +714,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetOrCreateCell)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOrCreateCell();
+	//pThis->GetEntity()->GetOrCreateCell(column);
 	return Value::Nil;
 }
 
@@ -744,7 +744,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetChildrenHeight)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lh = arg.GetNumber(0)
 	//int iMax = arg.GetNumber(1)
-	//pThis->GetEntity()->GetChildrenHeight();
+	//pThis->GetEntity()->GetChildrenHeight(lh, iMax);
 	return Value::Nil;
 }
 
@@ -980,7 +980,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetPropertyByName)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPropertyByName();
+	//pThis->GetEntity()->GetPropertyByName(name);
 	return Value::Nil;
 }
 
@@ -1034,7 +1034,7 @@ Gura_ImplementMethod(wx_PGProperty, __GetValueAsString)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argFlags = arg.GetNumber(0)
-	//pThis->GetEntity()->GetValueAsString();
+	//pThis->GetEntity()->GetValueAsString(argFlags);
 	return Value::Nil;
 }
 
@@ -1049,7 +1049,7 @@ Gura_ImplementMethod(wx_PGProperty, __wxDEPRECATED)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString GetValueString( int argFlags = arg.GetNumber(0)
-	//pThis->GetEntity()->wxDEPRECATED();
+	//pThis->GetEntity()->wxDEPRECATED(argFlags);
 	return Value::Nil;
 }
 
@@ -1090,7 +1090,7 @@ Gura_ImplementMethod(wx_PGProperty, __HasFlag)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropertyFlags flag = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFlag();
+	//pThis->GetEntity()->HasFlag(flag);
 	return Value::Nil;
 }
 
@@ -1120,7 +1120,7 @@ Gura_ImplementMethod(wx_PGProperty, __Hide)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool hide = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Hide();
+	//pThis->GetEntity()->Hide(hide, flags);
 	return Value::Nil;
 }
 
@@ -1135,7 +1135,7 @@ Gura_ImplementMethod(wx_PGProperty, __Index)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGProperty* p = arg.GetNumber(0)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(p);
 	return Value::Nil;
 }
 
@@ -1152,7 +1152,7 @@ Gura_ImplementMethod(wx_PGProperty, __InsertChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//wxPGProperty* childProperty = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChild();
+	//pThis->GetEntity()->InsertChild(index, childProperty);
 	return Value::Nil;
 }
 
@@ -1171,7 +1171,7 @@ Gura_ImplementMethod(wx_PGProperty, __InsertChoice)
 	//const wxString& label = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertChoice();
+	//pThis->GetEntity()->InsertChoice(label, index, value);
 	return Value::Nil;
 }
 
@@ -1238,7 +1238,7 @@ Gura_ImplementMethod(wx_PGProperty, __IsSomeParent)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* candidateParent = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSomeParent();
+	//pThis->GetEntity()->IsSomeParent(candidateParent);
 	return Value::Nil;
 }
 
@@ -1292,7 +1292,7 @@ Gura_ImplementMethod(wx_PGProperty, __Item)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int i = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(i);
 	return Value::Nil;
 }
 
@@ -1322,7 +1322,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetAttribute)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxVariant value = arg.GetNumber(1)
-	//pThis->GetEntity()->SetAttribute();
+	//pThis->GetEntity()->SetAttribute(name, value);
 	return Value::Nil;
 }
 
@@ -1337,7 +1337,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetAutoUnspecified)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAutoUnspecified();
+	//pThis->GetEntity()->SetAutoUnspecified(enable);
 	return Value::Nil;
 }
 
@@ -1354,7 +1354,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetBackgroundColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(colour, flags);
 	return Value::Nil;
 }
 
@@ -1369,7 +1369,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetEditor)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGEditor* editor = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEditor();
+	//pThis->GetEntity()->SetEditor(editor);
 	return Value::Nil;
 }
 
@@ -1384,7 +1384,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetEditor_1)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& editorName = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEditor();
+	//pThis->GetEntity()->SetEditor(editorName);
 	return Value::Nil;
 }
 
@@ -1401,7 +1401,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetCell)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int column = arg.GetNumber(0)
 	//const wxPGCell& cell = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCell();
+	//pThis->GetEntity()->SetCell(column, cell);
 	return Value::Nil;
 }
 
@@ -1416,7 +1416,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetChoices)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGChoices& choices = arg.GetNumber(0)
-	//pThis->GetEntity()->SetChoices();
+	//pThis->GetEntity()->SetChoices(choices);
 	return Value::Nil;
 }
 
@@ -1431,7 +1431,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetClientData)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* clientData = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientData();
+	//pThis->GetEntity()->SetClientData(clientData);
 	return Value::Nil;
 }
 
@@ -1446,7 +1446,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetClientObject)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxClientData* clientObject = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClientObject();
+	//pThis->GetEntity()->SetClientObject(clientObject);
 	return Value::Nil;
 }
 
@@ -1461,7 +1461,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetChoiceSelection)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int newValue = arg.GetNumber(0)
-	//pThis->GetEntity()->SetChoiceSelection();
+	//pThis->GetEntity()->SetChoiceSelection(newValue);
 	return Value::Nil;
 }
 
@@ -1476,7 +1476,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetDefaultValue)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDefaultValue();
+	//pThis->GetEntity()->SetDefaultValue(value);
 	return Value::Nil;
 }
 
@@ -1493,7 +1493,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetFlagRecursively)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropertyFlags flag = arg.GetNumber(0)
 	//bool set = arg.GetNumber(1)
-	//pThis->GetEntity()->SetFlagRecursively();
+	//pThis->GetEntity()->SetFlagRecursively(flag, set);
 	return Value::Nil;
 }
 
@@ -1508,7 +1508,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetHelpString)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& helpString = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHelpString();
+	//pThis->GetEntity()->SetHelpString(helpString);
 	return Value::Nil;
 }
 
@@ -1523,7 +1523,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetLabel)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabel();
+	//pThis->GetEntity()->SetLabel(label);
 	return Value::Nil;
 }
 
@@ -1538,7 +1538,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetMaxLength)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int maxLen = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxLength();
+	//pThis->GetEntity()->SetMaxLength(maxLen);
 	return Value::Nil;
 }
 
@@ -1553,7 +1553,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetModifiedStatus)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool modified = arg.GetNumber(0)
-	//pThis->GetEntity()->SetModifiedStatus();
+	//pThis->GetEntity()->SetModifiedStatus(modified);
 	return Value::Nil;
 }
 
@@ -1568,7 +1568,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetName)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& newName = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(newName);
 	return Value::Nil;
 }
 
@@ -1583,7 +1583,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetParentalType)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParentalType();
+	//pThis->GetEntity()->SetParentalType(flag);
 	return Value::Nil;
 }
 
@@ -1600,7 +1600,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetTextColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->SetTextColour();
+	//pThis->GetEntity()->SetTextColour(colour, flags);
 	return Value::Nil;
 }
 
@@ -1615,7 +1615,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValidator)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxValidator& validator = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValidator();
+	//pThis->GetEntity()->SetValidator(validator);
 	return Value::Nil;
 }
 
@@ -1634,7 +1634,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValue)
 	//wxVariant value = arg.GetNumber(0)
 	//wxVariant* pList = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value, pList, flags);
 	return Value::Nil;
 }
 
@@ -1649,7 +1649,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueImage)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBitmap& bmp = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValueImage();
+	//pThis->GetEntity()->SetValueImage(bmp);
 	return Value::Nil;
 }
 
@@ -1664,7 +1664,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetValueInEvent)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariant value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValueInEvent();
+	//pThis->GetEntity()->SetValueInEvent(value);
 	return Value::Nil;
 }
 
@@ -1692,7 +1692,7 @@ Gura_ImplementMethod(wx_PGProperty, __SetWasModified)
 	Object_wx_PGProperty *pThis = Object_wx_PGProperty::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool set = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWasModified();
+	//pThis->GetEntity()->SetWasModified(set);
 	return Value::Nil;
 }
 

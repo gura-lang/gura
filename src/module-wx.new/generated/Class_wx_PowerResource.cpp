@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_PowerResource, __Acquire)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPowerResourceKind kind = arg.GetNumber(0)
 	//const wxString& reason = arg.GetNumber(1)
-	//pThis->GetEntity()->Acquire();
+	//pThis->GetEntity()->Acquire(kind, reason);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementMethod(wx_PowerResource, __Release)
 	Object_wx_PowerResource *pThis = Object_wx_PowerResource::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPowerResourceKind kind = arg.GetNumber(0)
-	//pThis->GetEntity()->Release();
+	//pThis->GetEntity()->Release(kind);
 	return Value::Nil;
 }
 

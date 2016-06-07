@@ -50,7 +50,7 @@ Gura_ImplementFunction(__RichTextObjectAddress)
 {
 	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//wxRichTextObjectAddress();
+	//wxRichTextObjectAddress(topLevelContainer, obj);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__RichTextObjectAddress_2, "RichTextObjectAddress_2")
 Gura_ImplementFunction(__RichTextObjectAddress_2)
 {
 	//const wxRichTextObjectAddress& address = arg.GetNumber(0)
-	//wxRichTextObjectAddress();
+	//wxRichTextObjectAddress(address);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Copy)
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextObjectAddress& address = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(address);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __GetObject)
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
-	//pThis->GetEntity()->GetObject();
+	//pThis->GetEntity()->GetObject(topLevelContainer);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextParagraphLayoutBox* topLevelContainer = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(topLevelContainer, obj);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_RichTextObjectAddress, __SetAddress)
 	Object_wx_RichTextObjectAddress *pThis = Object_wx_RichTextObjectAddress::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayInt& address = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAddress();
+	//pThis->GetEntity()->SetAddress(address);
 	return Value::Nil;
 }
 

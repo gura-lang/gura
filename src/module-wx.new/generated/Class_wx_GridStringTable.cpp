@@ -63,7 +63,7 @@ Gura_ImplementFunction(__GridStringTable_1)
 {
 	//int numRows = arg.GetNumber(0)
 	//int numCols = arg.GetNumber(1)
-	//wxGridStringTable();
+	//wxGridStringTable(numRows, numCols);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_GridStringTable, __GetValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->GetValue();
+	//pThis->GetEntity()->GetValue(row, col);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_GridStringTable, __SetValue)
 	//int row = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
 	//const wxString& value = arg.GetNumber(2)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(row, col, value);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_GridStringTable, __InsertRows)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//size_t numRows = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertRows();
+	//pThis->GetEntity()->InsertRows(pos, numRows);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_GridStringTable, __AppendRows)
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t numRows = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendRows();
+	//pThis->GetEntity()->AppendRows(numRows);
 	return Value::Nil;
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_GridStringTable, __DeleteRows)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//size_t numRows = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteRows();
+	//pThis->GetEntity()->DeleteRows(pos, numRows);
 	return Value::Nil;
 }
 
@@ -207,7 +207,7 @@ Gura_ImplementMethod(wx_GridStringTable, __InsertCols)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//size_t numCols = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertCols();
+	//pThis->GetEntity()->InsertCols(pos, numCols);
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_GridStringTable, __AppendCols)
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t numCols = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendCols();
+	//pThis->GetEntity()->AppendCols(numCols);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_GridStringTable, __DeleteCols)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//size_t numCols = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteCols();
+	//pThis->GetEntity()->DeleteCols(pos, numCols);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_GridStringTable, __SetRowLabelValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
 	//const wxString& _arg1 = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRowLabelValue();
+	//pThis->GetEntity()->SetRowLabelValue(row, _arg1);
 	return Value::Nil;
 }
 
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_GridStringTable, __SetColLabelValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//const wxString& _arg1 = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColLabelValue();
+	//pThis->GetEntity()->SetColLabelValue(col, _arg1);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_GridStringTable, __GetRowLabelValue)
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//pThis->GetEntity()->GetRowLabelValue();
+	//pThis->GetEntity()->GetRowLabelValue(row);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_GridStringTable, __GetColLabelValue)
 	Object_wx_GridStringTable *pThis = Object_wx_GridStringTable::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColLabelValue();
+	//pThis->GetEntity()->GetColLabelValue(col);
 	return Value::Nil;
 }
 

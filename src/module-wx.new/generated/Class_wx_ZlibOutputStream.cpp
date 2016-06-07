@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ZlibOutputStream)
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//wxZlibOutputStream();
+	//wxZlibOutputStream(stream, level, flags);
 	return Value::Nil;
 }
 
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__ZlibOutputStream_1)
 	//wxOutputStream* stream = arg.GetNumber(0)
 	//int level = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//wxZlibOutputStream();
+	//wxZlibOutputStream(stream, level, flags);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* data = arg.GetNumber(0)
 	//size_t datalen = arg.GetNumber(1)
-	//pThis->GetEntity()->SetDictionary();
+	//pThis->GetEntity()->SetDictionary(data, datalen);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ZlibOutputStream, __SetDictionary_1)
 	Object_wx_ZlibOutputStream *pThis = Object_wx_ZlibOutputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMemoryBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDictionary();
+	//pThis->GetEntity()->SetDictionary(buf);
 	return Value::Nil;
 }
 

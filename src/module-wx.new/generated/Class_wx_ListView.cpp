@@ -73,7 +73,7 @@ Gura_ImplementFunction(__ListView_1)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxListView();
+	//wxListView(parent, winid, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_ListView, __ClearColumnImage)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->ClearColumnImage();
+	//pThis->GetEntity()->ClearColumnImage(col);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_ListView, __Focus)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long index = arg.GetNumber(0)
-	//pThis->GetEntity()->Focus();
+	//pThis->GetEntity()->Focus(index);
 	return Value::Nil;
 }
 
@@ -147,7 +147,7 @@ Gura_ImplementMethod(wx_ListView, __GetNextSelected)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextSelected();
+	//pThis->GetEntity()->GetNextSelected(item);
 	return Value::Nil;
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_ListView, __IsSelected)
 	Object_wx_ListView *pThis = Object_wx_ListView::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long index = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSelected();
+	//pThis->GetEntity()->IsSelected(index);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_ListView, __Select)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long n = arg.GetNumber(0)
 	//bool on = arg.GetNumber(1)
-	//pThis->GetEntity()->Select();
+	//pThis->GetEntity()->Select(n, on);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_ListView, __SetColumnImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColumnImage();
+	//pThis->GetEntity()->SetColumnImage(col, image);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextParagraphStyleDefinition, "RichTextParagraph
 Gura_ImplementFunction(__RichTextParagraphStyleDefinition)
 {
 	//const wxString& name = arg.GetNumber(0)
-	//wxRichTextParagraphStyleDefinition();
+	//wxRichTextParagraphStyleDefinition(name);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_RichTextParagraphStyleDefinition, __SetNextStyle)
 	Object_wx_RichTextParagraphStyleDefinition *pThis = Object_wx_RichTextParagraphStyleDefinition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNextStyle();
+	//pThis->GetEntity()->SetNextStyle(name);
 	return Value::Nil;
 }
 

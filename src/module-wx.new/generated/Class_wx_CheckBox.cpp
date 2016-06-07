@@ -75,7 +75,7 @@ Gura_ImplementFunction(__CheckBox_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxCheckBox();
+	//wxCheckBox(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CheckBox, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_CheckBox, __SetValue)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(state);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_CheckBox, __Set3StateValue)
 	Object_wx_CheckBox *pThis = Object_wx_CheckBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCheckBoxState state = arg.GetNumber(0)
-	//pThis->GetEntity()->Set3StateValue();
+	//pThis->GetEntity()->Set3StateValue(state);
 	return Value::Nil;
 }
 

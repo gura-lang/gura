@@ -73,7 +73,7 @@ Gura_ImplementFunction(__ScrollBar_1)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxScrollBar();
+	//wxScrollBar(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_ScrollBar, __Create)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_ScrollBar, __SetScrollbar)
 	//int range = arg.GetNumber(2)
 	//int pageSize = arg.GetNumber(3)
 	//bool refresh = arg.GetNumber(4)
-	//pThis->GetEntity()->SetScrollbar();
+	//pThis->GetEntity()->SetScrollbar(position, thumbSize, range, pageSize, refresh);
 	return Value::Nil;
 }
 
@@ -193,7 +193,7 @@ Gura_ImplementMethod(wx_ScrollBar, __SetThumbPosition)
 	Object_wx_ScrollBar *pThis = Object_wx_ScrollBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int viewStart = arg.GetNumber(0)
-	//pThis->GetEntity()->SetThumbPosition();
+	//pThis->GetEntity()->SetThumbPosition(viewStart);
 	return Value::Nil;
 }
 

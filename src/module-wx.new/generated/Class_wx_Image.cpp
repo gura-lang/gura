@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_Image, __RGBValue)
 	//unsigned char r = arg.GetNumber(0)
 	//unsigned char g = arg.GetNumber(1)
 	//unsigned char b = arg.GetNumber(2)
-	//pThis->GetEntity()->RGBValue();
+	//pThis->GetEntity()->RGBValue(r, g, b);
 	return Value::Nil;
 }
 

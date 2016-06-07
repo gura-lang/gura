@@ -50,7 +50,7 @@ Gura_ImplementFunction(__MediaEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//wxMediaEvent();
+	//wxMediaEvent(commandType, winid);
 	return Value::Nil;
 }
 

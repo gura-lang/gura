@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StreamToTextRedirector)
 {
 	//wxTextCtrl* text = arg.GetNumber(0)
 	//ostream* ostr = arg.GetNumber(1)
-	//wxStreamToTextRedirector();
+	//wxStreamToTextRedirector(text, ostr);
 	return Value::Nil;
 }
 

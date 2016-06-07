@@ -50,7 +50,7 @@ Gura_ImplementFunction(__RichTextField)
 {
 	//const wxString& fieldType = arg.GetNumber(0)
 	//wxRichTextObject* parent = arg.GetNumber(1)
-	//wxRichTextField();
+	//wxRichTextField(fieldType, parent);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__RichTextField_1, "RichTextField_1")
 Gura_ImplementFunction(__RichTextField_1)
 {
 	//const wxRichTextField& obj = arg.GetNumber(0)
-	//wxRichTextField();
+	//wxRichTextField(obj);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RichTextField, __Draw)
 	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RichTextField, __Layout)
 	//const wxRect& rect = arg.GetNumber(2)
 	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->Layout();
+	//pThis->GetEntity()->Layout(dc, context, rect, parentRect, style);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_RichTextField, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
+	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -192,7 +192,7 @@ Gura_ImplementMethod(wx_RichTextField, __EditProperties)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxRichTextBuffer* buffer = arg.GetNumber(1)
-	//pThis->GetEntity()->EditProperties();
+	//pThis->GetEntity()->EditProperties(parent, buffer);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RichTextField, __CalculateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long start = arg.GetNumber(0)
 	//long& end = arg.GetNumber(1)
-	//pThis->GetEntity()->CalculateRange();
+	//pThis->GetEntity()->CalculateRange(start, end);
 	return Value::Nil;
 }
 
@@ -289,7 +289,7 @@ Gura_ImplementMethod(wx_RichTextField, __SetFieldType)
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& fieldType = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFieldType();
+	//pThis->GetEntity()->SetFieldType(fieldType);
 	return Value::Nil;
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_RichTextField, __UpdateField)
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
-	//pThis->GetEntity()->UpdateField();
+	//pThis->GetEntity()->UpdateField(buffer);
 	return Value::Nil;
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_RichTextField, __Copy)
 	Object_wx_RichTextField *pThis = Object_wx_RichTextField::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextField& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(obj);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__ToggleButton_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxToggleButton();
+	//wxToggleButton(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_ToggleButton, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_ToggleButton, __SetValue)
 	Object_wx_ToggleButton *pThis = Object_wx_ToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(state);
 	return Value::Nil;
 }
 

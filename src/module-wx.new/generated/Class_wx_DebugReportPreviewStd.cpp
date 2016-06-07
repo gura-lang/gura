@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_DebugReportPreviewStd, __Show)
 	Object_wx_DebugReportPreviewStd *pThis = Object_wx_DebugReportPreviewStd::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDebugReport& dbgrpt = arg.GetNumber(0)
-	//pThis->GetEntity()->Show();
+	//pThis->GetEntity()->Show(dbgrpt);
 	return Value::Nil;
 }
 

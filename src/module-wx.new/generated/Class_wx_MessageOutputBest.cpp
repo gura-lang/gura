@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MessageOutputBest, "MessageOutputBest")
 Gura_ImplementFunction(__MessageOutputBest)
 {
 	//wxMessageOutputFlags flags = arg.GetNumber(0)
-	//wxMessageOutputBest();
+	//wxMessageOutputBest(flags);
 	return Value::Nil;
 }
 

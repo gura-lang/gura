@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__LogTextCtrl, "LogTextCtrl")
 Gura_ImplementFunction(__LogTextCtrl)
 {
 	//wxTextCtrl* pTextCtrl = arg.GetNumber(0)
-	//wxLogTextCtrl();
+	//wxLogTextCtrl(pTextCtrl);
 	return Value::Nil;
 }
 

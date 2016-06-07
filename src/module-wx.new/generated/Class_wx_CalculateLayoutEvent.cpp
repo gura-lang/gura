@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__CalculateLayoutEvent, "CalculateLayoutEvent")
 Gura_ImplementFunction(__CalculateLayoutEvent)
 {
 	//wxWindowID id = arg.GetNumber(0)
-	//wxCalculateLayoutEvent();
+	//wxCalculateLayoutEvent(id);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetFlags)
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CalculateLayoutEvent, __SetRect)
 	Object_wx_CalculateLayoutEvent *pThis = Object_wx_CalculateLayoutEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRect();
+	//pThis->GetEntity()->SetRect(rect);
 	return Value::Nil;
 }
 

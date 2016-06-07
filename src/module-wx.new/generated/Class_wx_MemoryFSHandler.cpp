@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __AddFile)
 	//const wxString& filename = arg.GetNumber(0)
 	//wxImage& image = arg.GetNumber(1)
 	//wxBitmapType type = arg.GetNumber(2)
-	//pThis->GetEntity()->AddFile();
+	//pThis->GetEntity()->AddFile(filename, image, type);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __AddFile_1)
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//wxBitmapType type = arg.GetNumber(2)
-	//pThis->GetEntity()->AddFile();
+	//pThis->GetEntity()->AddFile(filename, bitmap, type);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __AddFileWithMimeType)
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& textdata = arg.GetNumber(1)
 	//const wxString& mimetype = arg.GetNumber(2)
-	//pThis->GetEntity()->AddFileWithMimeType();
+	//pThis->GetEntity()->AddFileWithMimeType(filename, textdata, mimetype);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __AddFileWithMimeType_1)
 	//const void* binarydata = arg.GetNumber(1)
 	//size_t size = arg.GetNumber(2)
 	//const wxString& mimetype = arg.GetNumber(3)
-	//pThis->GetEntity()->AddFileWithMimeType();
+	//pThis->GetEntity()->AddFileWithMimeType(filename, binarydata, size, mimetype);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_MemoryFSHandler, __RemoveFile)
 	Object_wx_MemoryFSHandler *pThis = Object_wx_MemoryFSHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveFile();
+	//pThis->GetEntity()->RemoveFile(filename);
 	return Value::Nil;
 }
 

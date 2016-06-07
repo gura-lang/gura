@@ -75,7 +75,7 @@ Gura_ImplementFunction(__TimePickerCtrl_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxTimePickerCtrl();
+	//wxTimePickerCtrl(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __GetTime)
 	//int* hour = arg.GetNumber(0)
 	//int* min = arg.GetNumber(1)
 	//int* sec = arg.GetNumber(2)
-	//pThis->GetEntity()->GetTime();
+	//pThis->GetEntity()->GetTime(hour, min, sec);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __SetTime)
 	//int hour = arg.GetNumber(0)
 	//int min = arg.GetNumber(1)
 	//int sec = arg.GetNumber(2)
-	//pThis->GetEntity()->SetTime();
+	//pThis->GetEntity()->SetTime(hour, min, sec);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_TimePickerCtrl, __SetValue)
 	Object_wx_TimePickerCtrl *pThis = Object_wx_TimePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& dt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(dt);
 	return Value::Nil;
 }
 

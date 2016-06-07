@@ -325,7 +325,7 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 Gura_ImplementFunction(${funcNameInternal})
 {
 	${argInfos:*RenderVariable()}
-	//${funcNameCPP}();
+	//${funcNameCPP}(${argInfos:*argName.join(', ')});
 	return Value::Nil;
 }
 '''.template()
@@ -343,7 +343,7 @@ Gura_DeclareFunctionAlias(${funcNameInternal}, "${funcNameGura}")
 Gura_ImplementFunction(${funcNameInternal})
 {
 	${argInfos:*RenderVariable()}
-	//${funcNameCPP}();
+	//${funcNameCPP}(${argInfos:*argName.join(', ')});
 	return Value::Nil;
 }
 '''.template()
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_${classNameShort}, ${funcNameInternal})
 	Object_wx_${classNameShort} *pThis = Object_wx_${classNameShort}::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	${argInfos:*RenderVariable()}
-	//pThis->GetEntity()->${funcNameCPP}();
+	//pThis->GetEntity()->${funcNameCPP}(${argInfos:*argName.join(', ')});
 	return Value::Nil;
 }
 '''.template()
@@ -506,8 +506,16 @@ ArgInfo = struct(iArg:number, typesStr:string, refOperator:string,
 	}
 }
 
-FuncInfo = struct(funcNameCPP:string, funcNameGura:string,
-				  classInfo?:ClassInfo, funcType:symbol => `Function, argInfos[]:ArgInfo => []) {
+FuncInfo = class {
+	__init__(typesStr, refOperator, funcNameCPP:string) = {
+		this.typesStr:public = typesStr
+		this.refOperator:public = refOperator
+		this.funcNameCPP:public = funcNameCPP
+		this.funcNameGura:public = funcNameCPP
+		this.classInfo:public = nil
+		this.funcType:public = `Function
+		this.argInfos:public = []
+	}
 	MakeFuncNameInternal() = '__' + this.funcNameGura
 	RenderImplementation(lineSkipFlag:boolean):map = {
 		funcNameCPP = this.funcNameCPP
@@ -616,26 +624,24 @@ CreateFuncInfo(pathName:string, lineNo:string, strSrc:string) = {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function syntax')
 	}
 	if (m = funcHead.match(r'^(~?\w+)$')) {
-		typeList = ''
+		typesStr = ''
 		refOperator = ''
-		identifier = m[1]
+		funcNameCPP = m[1]
 	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(~?\w+)$')) {
-		typeList = m[1]
+		typesStr = m[1]
 		refOperator = m[2].strip()
-		identifier = m[3]
+		funcNameCPP = m[3]
 	} elsif (m = funcHead.match(r'^(.+?)([\s\*&]+)(operator\s*.+)$')) {
-		//typeList = m[1]
+		//typesStr = m[1]
 		//refOperator = m[2].strip()
-		//identifier = m[3]
+		//funcNameCPP = m[3]
 		WarningMessage(pathName, lineNo, strSrc, 'operator method is not acceptable')
 		return
 	} else {
 		ErrorMessage(pathName, lineNo, strSrc, 'unacceptable function declaration')
 	}
-	identifier.startswith('~') && return	// ignore destructor
-	funcNameCPP = identifier
-	funcNameGura = identifier
-	funcInfo = FuncInfo(funcNameCPP, funcNameGura)
+	funcNameCPP.startswith('~') && return	// ignore destructor
+	funcInfo = FuncInfo(typesStr, refOperator, funcNameCPP)
 	pos = 0
 	iArg = 0
 	while (pos < argsStr.len()) {

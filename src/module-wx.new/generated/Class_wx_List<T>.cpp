@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_List<T>, __Append)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* object = arg.GetNumber(0)
-	//pThis->GetEntity()->Append();
+	//pThis->GetEntity()->Append(object);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteContents)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool destroy = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteContents();
+	//pThis->GetEntity()->DeleteContents(destroy);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteNode)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const compatibility_iterator& iter = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteNode();
+	//pThis->GetEntity()->DeleteNode(iter);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_List<T>, __DeleteObject)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* object = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteObject();
+	//pThis->GetEntity()->DeleteObject(object);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_List<T>, __Erase)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const compatibility_iterator& iter = arg.GetNumber(0)
-	//pThis->GetEntity()->Erase();
+	//pThis->GetEntity()->Erase(iter);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_List<T>, __Find)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* object = arg.GetNumber(0)
-	//pThis->GetEntity()->Find();
+	//pThis->GetEntity()->Find(object);
 	return Value::Nil;
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_List<T>, __IndexOf)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->IndexOf();
+	//pThis->GetEntity()->IndexOf(obj);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_List<T>, __Insert)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* object = arg.GetNumber(0)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(object);
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_List<T>, __Insert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t position = arg.GetNumber(0)
 	//T* object = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(position, object);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_List<T>, __Insert_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//compatibility_iterator iter = arg.GetNumber(0)
 	//T* object = arg.GetNumber(1)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(iter, object);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_List<T>, __Item)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t index = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(index);
 	return Value::Nil;
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_List<T>, __Member)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* object = arg.GetNumber(0)
-	//pThis->GetEntity()->Member();
+	//pThis->GetEntity()->Member(object);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_List<T>, __Nth)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->Nth();
+	//pThis->GetEntity()->Nth(n);
 	return Value::Nil;
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_List<T>, __Sort)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSortCompareFunction compfunc = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(compfunc);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_List<T>, __assign)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_iterator first = arg.GetNumber(0)
 	//const const_iterator& last = arg.GetNumber(1)
-	//pThis->GetEntity()->assign();
+	//pThis->GetEntity()->assign(first, last);
 	return Value::Nil;
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_List<T>, __assign_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
 	//const_reference v = arg.GetNumber(1)
-	//pThis->GetEntity()->assign();
+	//pThis->GetEntity()->assign(n, v);
 	return Value::Nil;
 }
 
@@ -478,7 +478,7 @@ Gura_ImplementMethod(wx_List<T>, __erase)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const iterator& it = arg.GetNumber(0)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(it);
 	return Value::Nil;
 }
 
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_List<T>, __erase_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const iterator& first = arg.GetNumber(0)
 	//const iterator& last = arg.GetNumber(1)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(first, last);
 	return Value::Nil;
 }
 
@@ -536,7 +536,7 @@ Gura_ImplementMethod(wx_List<T>, __insert)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const iterator& it = arg.GetNumber(0)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(it);
 	return Value::Nil;
 }
 
@@ -553,7 +553,7 @@ Gura_ImplementMethod(wx_List<T>, __insert_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const iterator& it = arg.GetNumber(0)
 	//size_type n = arg.GetNumber(1)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(it, n);
 	return Value::Nil;
 }
 
@@ -572,7 +572,7 @@ Gura_ImplementMethod(wx_List<T>, __insert_2)
 	//const iterator& it = arg.GetNumber(0)
 	//const_iterator first = arg.GetNumber(1)
 	//const const_iterator& last = arg.GetNumber(2)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(it, first, last);
 	return Value::Nil;
 }
 
@@ -626,7 +626,7 @@ Gura_ImplementMethod(wx_List<T>, __push_back)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_reference v = arg.GetNumber(0)
-	//pThis->GetEntity()->push_back();
+	//pThis->GetEntity()->push_back(v);
 	return Value::Nil;
 }
 
@@ -641,7 +641,7 @@ Gura_ImplementMethod(wx_List<T>, __push_front)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_reference v = arg.GetNumber(0)
-	//pThis->GetEntity()->push_front();
+	//pThis->GetEntity()->push_front(v);
 	return Value::Nil;
 }
 
@@ -682,7 +682,7 @@ Gura_ImplementMethod(wx_List<T>, __remove)
 	Object_wx_List<T> *pThis = Object_wx_List<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const_reference v = arg.GetNumber(0)
-	//pThis->GetEntity()->remove();
+	//pThis->GetEntity()->remove(v);
 	return Value::Nil;
 }
 
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_List<T>, __resize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
 	//value_type v = arg.GetNumber(1)
-	//pThis->GetEntity()->resize();
+	//pThis->GetEntity()->resize(n, v);
 	return Value::Nil;
 }
 

@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_ColourDatabase, __AddColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& colourName = arg.GetNumber(0)
 	//const wxColour& colour = arg.GetNumber(1)
-	//pThis->GetEntity()->AddColour();
+	//pThis->GetEntity()->AddColour(colourName, colour);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_ColourDatabase, __Find)
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& colourName = arg.GetNumber(0)
-	//pThis->GetEntity()->Find();
+	//pThis->GetEntity()->Find(colourName);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_ColourDatabase, __FindName)
 	Object_wx_ColourDatabase *pThis = Object_wx_ColourDatabase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->FindName();
+	//pThis->GetEntity()->FindName(colour);
 	return Value::Nil;
 }
 

@@ -75,7 +75,7 @@ Gura_ImplementFunction(__CollapsibleHeaderCtrl_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxCollapsibleHeaderCtrl();
+	//wxCollapsibleHeaderCtrl(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_CollapsibleHeaderCtrl, __SetCollapsed)
 	Object_wx_CollapsibleHeaderCtrl *pThis = Object_wx_CollapsibleHeaderCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool collapsed = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCollapsed();
+	//pThis->GetEntity()->SetCollapsed(collapsed);
 	return Value::Nil;
 }
 

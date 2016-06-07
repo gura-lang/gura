@@ -75,7 +75,7 @@ Gura_ImplementFunction(__DatePickerCtrl_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxDatePickerCtrl();
+	//wxDatePickerCtrl(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, dt, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __GetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDateTime* dt1 = arg.GetNumber(0)
 	//wxDateTime* dt2 = arg.GetNumber(1)
-	//pThis->GetEntity()->GetRange();
+	//pThis->GetEntity()->GetRange(dt1, dt2);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __SetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& dt1 = arg.GetNumber(0)
 	//const wxDateTime& dt2 = arg.GetNumber(1)
-	//pThis->GetEntity()->SetRange();
+	//pThis->GetEntity()->SetRange(dt1, dt2);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_DatePickerCtrl, __SetValue)
 	Object_wx_DatePickerCtrl *pThis = Object_wx_DatePickerCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDateTime& dt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(dt);
 	return Value::Nil;
 }
 

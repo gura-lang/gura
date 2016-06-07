@@ -50,7 +50,7 @@ Gura_ImplementFunction(__Command)
 {
 	//bool canUndo = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxCommand();
+	//wxCommand(canUndo, name);
 	return Value::Nil;
 }
 

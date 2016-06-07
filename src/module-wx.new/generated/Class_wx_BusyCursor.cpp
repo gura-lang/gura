@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__BusyCursor, "BusyCursor")
 Gura_ImplementFunction(__BusyCursor)
 {
 	//const wxCursor* cursor = arg.GetNumber(0)
-	//wxBusyCursor();
+	//wxBusyCursor(cursor);
 	return Value::Nil;
 }
 

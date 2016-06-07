@@ -75,7 +75,7 @@ Gura_ImplementFunction(__BitmapToggleButton_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxBitmapToggleButton();
+	//wxBitmapToggleButton(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_BitmapToggleButton, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& val = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, pos, size, style, val, name);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_BitmapToggleButton, __SetValue)
 	Object_wx_BitmapToggleButton *pThis = Object_wx_BitmapToggleButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(state);
 	return Value::Nil;
 }
 

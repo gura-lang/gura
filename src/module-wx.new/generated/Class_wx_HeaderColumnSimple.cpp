@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HeaderColumnSimple)
 	//int width = arg.GetNumber(1)
 	//wxAlignment align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//wxHeaderColumnSimple();
+	//wxHeaderColumnSimple(title, width, align, flags);
 	return Value::Nil;
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__HeaderColumnSimple_1)
 	//int width = arg.GetNumber(1)
 	//wxAlignment align = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//wxHeaderColumnSimple();
+	//wxHeaderColumnSimple(bitmap, width, align, flags);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetTitle)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTitle();
+	//pThis->GetEntity()->SetTitle(title);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetBitmap)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBitmap();
+	//pThis->GetEntity()->SetBitmap(bitmap);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetWidth)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }
 
@@ -177,7 +177,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetMinWidth)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int minWidth = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMinWidth();
+	//pThis->GetEntity()->SetMinWidth(minWidth);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetAlignment)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAlignment align = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlignment();
+	//pThis->GetEntity()->SetAlignment(align);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetFlags)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_HeaderColumnSimple, __SetSortOrder)
 	Object_wx_HeaderColumnSimple *pThis = Object_wx_HeaderColumnSimple::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool ascending = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSortOrder();
+	//pThis->GetEntity()->SetSortOrder(ascending);
 	return Value::Nil;
 }
 

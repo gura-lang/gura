@@ -73,7 +73,7 @@ Gura_ImplementFunction(__MDIParentFrame_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxMDIParentFrame();
+	//wxMDIParentFrame(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, __SetWindowMenu)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWindowMenu();
+	//pThis->GetEntity()->SetWindowMenu(menu);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_MDIParentFrame, __Tile)
 	Object_wx_MDIParentFrame *pThis = Object_wx_MDIParentFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation orient = arg.GetNumber(0)
-	//pThis->GetEntity()->Tile();
+	//pThis->GetEntity()->Tile(orient);
 	return Value::Nil;
 }
 

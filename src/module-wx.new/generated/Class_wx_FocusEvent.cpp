@@ -50,7 +50,7 @@ Gura_ImplementFunction(__FocusEvent)
 {
 	//wxEventType eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxFocusEvent();
+	//wxFocusEvent(eventType, id);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_FocusEvent, __SetWindow)
 	Object_wx_FocusEvent *pThis = Object_wx_FocusEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWindow();
+	//pThis->GetEntity()->SetWindow(win);
 	return Value::Nil;
 }
 

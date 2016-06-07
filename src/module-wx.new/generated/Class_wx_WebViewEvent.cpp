@@ -67,7 +67,7 @@ Gura_ImplementFunction(__WebViewEvent_1)
 	//int id = arg.GetNumber(1)
 	//const wxString href = arg.GetNumber(2)
 	//const wxString target = arg.GetNumber(3)
-	//wxWebViewEvent();
+	//wxWebViewEvent(type, id, href, target);
 	return Value::Nil;
 }
 

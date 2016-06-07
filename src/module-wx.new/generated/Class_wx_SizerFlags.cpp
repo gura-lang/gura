@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__SizerFlags, "SizerFlags")
 Gura_ImplementFunction(__SizerFlags)
 {
 	//int proportion = arg.GetNumber(0)
-	//wxSizerFlags();
+	//wxSizerFlags(proportion);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_SizerFlags, __Align)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int alignment = arg.GetNumber(0)
-	//pThis->GetEntity()->Align();
+	//pThis->GetEntity()->Align(alignment);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_SizerFlags, __Border)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
 	//int borderinpixels = arg.GetNumber(1)
-	//pThis->GetEntity()->Border();
+	//pThis->GetEntity()->Border(direction, borderinpixels);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_SizerFlags, __Border_1)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
-	//pThis->GetEntity()->Border();
+	//pThis->GetEntity()->Border(direction);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_SizerFlags, __DoubleBorder)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
-	//pThis->GetEntity()->DoubleBorder();
+	//pThis->GetEntity()->DoubleBorder(direction);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_SizerFlags, __Proportion)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int proportion = arg.GetNumber(0)
-	//pThis->GetEntity()->Proportion();
+	//pThis->GetEntity()->Proportion(proportion);
 	return Value::Nil;
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_SizerFlags, __TripleBorder)
 	Object_wx_SizerFlags *pThis = Object_wx_SizerFlags::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
-	//pThis->GetEntity()->TripleBorder();
+	//pThis->GetEntity()->TripleBorder(direction);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextFieldType, "RichTextFieldType")
 Gura_ImplementFunction(__RichTextFieldType)
 {
 	//const wxString& name = arg.GetNumber(0)
-	//wxRichTextFieldType();
+	//wxRichTextFieldType(name);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__RichTextFieldType_1, "RichTextFieldType_1")
 Gura_ImplementFunction(__RichTextFieldType_1)
 {
 	//const wxRichTextFieldType& fieldType = arg.GetNumber(0)
-	//wxRichTextFieldType();
+	//wxRichTextFieldType(fieldType);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __Copy)
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextFieldType& fieldType = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(fieldType);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __Draw)
 	//const wxRect& rect = arg.GetNumber(5)
 	//int descent = arg.GetNumber(6)
 	//int style = arg.GetNumber(7)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(obj, dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __Layout)
 	//const wxRect& rect = arg.GetNumber(3)
 	//const wxRect& parentRect = arg.GetNumber(4)
 	//int style = arg.GetNumber(5)
-	//pThis->GetEntity()->Layout();
+	//pThis->GetEntity()->Layout(obj, dc, context, rect, parentRect, style);
 	return Value::Nil;
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(7)
 	//const wxSize& parentSize = arg.GetNumber(8)
 	//wxArrayInt* partialExtents = arg.GetNumber(9)
-	//pThis->GetEntity()->GetRangeSize();
+	//pThis->GetEntity()->GetRangeSize(obj, range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __CanEditProperties)
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextField* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->CanEditProperties();
+	//pThis->GetEntity()->CanEditProperties(obj);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __EditProperties)
 	//wxRichTextField* obj = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
 	//wxRichTextBuffer* buffer = arg.GetNumber(2)
-	//pThis->GetEntity()->EditProperties();
+	//pThis->GetEntity()->EditProperties(obj, parent, buffer);
 	return Value::Nil;
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __GetPropertiesMenuLabel)
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextField* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPropertiesMenuLabel();
+	//pThis->GetEntity()->GetPropertiesMenuLabel(obj);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __UpdateField)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxRichTextField* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->UpdateField();
+	//pThis->GetEntity()->UpdateField(buffer, obj);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __IsTopLevel)
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextField* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->IsTopLevel();
+	//pThis->GetEntity()->IsTopLevel(obj);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_RichTextFieldType, __SetName)
 	Object_wx_RichTextFieldType *pThis = Object_wx_RichTextFieldType::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 

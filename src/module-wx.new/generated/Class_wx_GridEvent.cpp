@@ -77,7 +77,7 @@ Gura_ImplementFunction(__GridEvent_1)
 	//int y = arg.GetNumber(6)
 	//bool sel = arg.GetNumber(7)
 	//const wxKeyboardState& kbd = arg.GetNumber(8)
-	//wxGridEvent();
+	//wxGridEvent(id, type, obj, row, col, x, y, sel, kbd);
 	return Value::Nil;
 }
 

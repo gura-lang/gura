@@ -65,7 +65,7 @@ Gura_ImplementFunction(__StringTokenizer_1)
 	//const wxString& str = arg.GetNumber(0)
 	//const wxString& delims = arg.GetNumber(1)
 	//wxStringTokenizerMode mode = arg.GetNumber(2)
-	//wxStringTokenizer();
+	//wxStringTokenizer(str, delims, mode);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_StringTokenizer, __SetString)
 	//const wxString& str = arg.GetNumber(0)
 	//const wxString& delims = arg.GetNumber(1)
 	//wxStringTokenizerMode mode = arg.GetNumber(2)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(str, delims, mode);
 	return Value::Nil;
 }
 

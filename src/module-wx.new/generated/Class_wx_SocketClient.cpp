@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__SocketClient, "SocketClient")
 Gura_ImplementFunction(__SocketClient)
 {
 	//wxSocketFlags flags = arg.GetNumber(0)
-	//wxSocketClient();
+	//wxSocketClient(flags);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_SocketClient, __Connect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//bool wait = arg.GetNumber(1)
-	//pThis->GetEntity()->Connect();
+	//pThis->GetEntity()->Connect(address, wait);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_SocketClient, __Connect_1)
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//const wxSockAddress& local = arg.GetNumber(1)
 	//bool wait = arg.GetNumber(2)
-	//pThis->GetEntity()->Connect();
+	//pThis->GetEntity()->Connect(address, local, wait);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_SocketClient, __WaitOnConnect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long seconds = arg.GetNumber(0)
 	//long milliseconds = arg.GetNumber(1)
-	//pThis->GetEntity()->WaitOnConnect();
+	//pThis->GetEntity()->WaitOnConnect(seconds, milliseconds);
 	return Value::Nil;
 }
 

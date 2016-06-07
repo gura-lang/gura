@@ -63,7 +63,7 @@ Gura_ImplementFunction(__RealPoint_1)
 {
 	//double x = arg.GetNumber(0)
 	//double y = arg.GetNumber(1)
-	//wxRealPoint();
+	//wxRealPoint(x, y);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__RealPoint_2, "RealPoint_2")
 Gura_ImplementFunction(__RealPoint_2)
 {
 	//const wxPoint& pt = arg.GetNumber(0)
-	//wxRealPoint();
+	//wxRealPoint(pt);
 	return Value::Nil;
 }
 

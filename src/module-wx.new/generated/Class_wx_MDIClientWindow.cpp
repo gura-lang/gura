@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_MDIClientWindow, __CreateClient)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMDIParentFrame* parent = arg.GetNumber(0)
 	//long style = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateClient();
+	//pThis->GetEntity()->CreateClient(parent, style);
 	return Value::Nil;
 }
 

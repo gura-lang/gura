@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __AddArtist)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& artist = arg.GetNumber(0)
-	//pThis->GetEntity()->AddArtist();
+	//pThis->GetEntity()->AddArtist(artist);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __AddDeveloper)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& developer = arg.GetNumber(0)
-	//pThis->GetEntity()->AddDeveloper();
+	//pThis->GetEntity()->AddDeveloper(developer);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __AddDocWriter)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& docwriter = arg.GetNumber(0)
-	//pThis->GetEntity()->AddDocWriter();
+	//pThis->GetEntity()->AddDocWriter(docwriter);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __AddTranslator)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& translator = arg.GetNumber(0)
-	//pThis->GetEntity()->AddTranslator();
+	//pThis->GetEntity()->AddTranslator(translator);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetArtists)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& artists = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtists();
+	//pThis->GetEntity()->SetArtists(artists);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetCopyright)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& copyright = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCopyright();
+	//pThis->GetEntity()->SetCopyright(copyright);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetDescription)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& desc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDescription();
+	//pThis->GetEntity()->SetDescription(desc);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetDevelopers)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& developers = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDevelopers();
+	//pThis->GetEntity()->SetDevelopers(developers);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetDocWriters)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& docwriters = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDocWriters();
+	//pThis->GetEntity()->SetDocWriters(docwriters);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetIcon)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->SetIcon();
+	//pThis->GetEntity()->SetIcon(icon);
 	return Value::Nil;
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetLicence)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& licence = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLicence();
+	//pThis->GetEntity()->SetLicence(licence);
 	return Value::Nil;
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetLicense)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& licence = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLicense();
+	//pThis->GetEntity()->SetLicense(licence);
 	return Value::Nil;
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetName)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 
@@ -324,7 +324,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetTranslators)
 	Object_wx_AboutDialogInfo *pThis = Object_wx_AboutDialogInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& translators = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTranslators();
+	//pThis->GetEntity()->SetTranslators(translators);
 	return Value::Nil;
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& version = arg.GetNumber(0)
 	//const wxString& longVersion = arg.GetNumber(1)
-	//pThis->GetEntity()->SetVersion();
+	//pThis->GetEntity()->SetVersion(version, longVersion);
 	return Value::Nil;
 }
 
@@ -358,7 +358,7 @@ Gura_ImplementMethod(wx_AboutDialogInfo, __SetWebSite)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& url = arg.GetNumber(0)
 	//const wxString& desc = arg.GetNumber(1)
-	//pThis->GetEntity()->SetWebSite();
+	//pThis->GetEntity()->SetWebSite(url, desc);
 	return Value::Nil;
 }
 

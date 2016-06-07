@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_1)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type size = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVector();
+	//pThis->GetEntity()->wxVector(size);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type size = arg.GetNumber(0)
 	//const value_type& value = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVector();
+	//pThis->GetEntity()->wxVector(size, value);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//InputIterator first = arg.GetNumber(0)
 	//InputIterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->wxVector();
+	//pThis->GetEntity()->wxVector(first, last);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_Vector<T>, __wxVector_4)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVector<T>& c = arg.GetNumber(0)
-	//pThis->GetEntity()->wxVector();
+	//pThis->GetEntity()->wxVector(c);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_Vector<T>, __assign)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
 	//const value_type& v = arg.GetNumber(1)
-	//pThis->GetEntity()->assign();
+	//pThis->GetEntity()->assign(n, v);
 	return Value::Nil;
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_Vector<T>, __assign_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//InputIterator first = arg.GetNumber(0)
 	//InputIterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->assign();
+	//pThis->GetEntity()->assign(first, last);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Vector<T>, __at)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type idx = arg.GetNumber(0)
-	//pThis->GetEntity()->at();
+	//pThis->GetEntity()->at(idx);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_Vector<T>, __at_1)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type idx = arg.GetNumber(0)
-	//pThis->GetEntity()->at();
+	//pThis->GetEntity()->at(idx);
 	return Value::Nil;
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_Vector<T>, __erase)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(it);
 	return Value::Nil;
 }
 
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_Vector<T>, __erase_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator first = arg.GetNumber(0)
 	//iterator last = arg.GetNumber(1)
-	//pThis->GetEntity()->erase();
+	//pThis->GetEntity()->erase(first, last);
 	return Value::Nil;
 }
 
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_Vector<T>, __insert)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//iterator it = arg.GetNumber(0)
 	//const value_type& v = arg.GetNumber(1)
-	//pThis->GetEntity()->insert();
+	//pThis->GetEntity()->insert(it, v);
 	return Value::Nil;
 }
 
@@ -420,7 +420,7 @@ Gura_ImplementMethod(wx_Vector<T>, __push_back)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const value_type& v = arg.GetNumber(0)
-	//pThis->GetEntity()->push_back();
+	//pThis->GetEntity()->push_back(v);
 	return Value::Nil;
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_Vector<T>, __reserve)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
-	//pThis->GetEntity()->reserve();
+	//pThis->GetEntity()->reserve(n);
 	return Value::Nil;
 }
 
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_Vector<T>, __resize)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
-	//pThis->GetEntity()->resize();
+	//pThis->GetEntity()->resize(n);
 	return Value::Nil;
 }
 
@@ -467,7 +467,7 @@ Gura_ImplementMethod(wx_Vector<T>, __resize_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_type n = arg.GetNumber(0)
 	//const value_type& v = arg.GetNumber(1)
-	//pThis->GetEntity()->resize();
+	//pThis->GetEntity()->resize(n, v);
 	return Value::Nil;
 }
 
@@ -495,7 +495,7 @@ Gura_ImplementMethod(wx_Vector<T>, __swap)
 	Object_wx_Vector<T> *pThis = Object_wx_Vector<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVector& v = arg.GetNumber(0)
-	//pThis->GetEntity()->swap();
+	//pThis->GetEntity()->swap(v);
 	return Value::Nil;
 }
 

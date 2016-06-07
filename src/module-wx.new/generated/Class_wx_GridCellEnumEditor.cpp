@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__GridCellEnumEditor, "GridCellEnumEditor")
 Gura_ImplementFunction(__GridCellEnumEditor)
 {
 	//const wxString& choices = arg.GetNumber(0)
-	//wxGridCellEnumEditor();
+	//wxGridCellEnumEditor(choices);
 	return Value::Nil;
 }
 

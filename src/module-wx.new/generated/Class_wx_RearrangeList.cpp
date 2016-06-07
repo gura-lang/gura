@@ -77,7 +77,7 @@ Gura_ImplementFunction(__RearrangeList_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxRearrangeList();
+	//wxRearrangeList(parent, id, pos, size, order, items, style, validator, name);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_RearrangeList, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, order, items, style, validator, name);
 	return Value::Nil;
 }
 

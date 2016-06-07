@@ -54,7 +54,7 @@ Gura_ImplementFunction(__RichMessageDialog)
 	//const wxString& message = arg.GetNumber(1)
 	//const wxString& caption = arg.GetNumber(2)
 	//long style = arg.GetNumber(3)
-	//wxRichMessageDialog();
+	//wxRichMessageDialog(parent, message, caption, style);
 	return Value::Nil;
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowCheckBox)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& checkBoxText = arg.GetNumber(0)
 	//bool checked = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowCheckBox();
+	//pThis->GetEntity()->ShowCheckBox(checkBoxText, checked);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_RichMessageDialog, __ShowDetailedText)
 	Object_wx_RichMessageDialog *pThis = Object_wx_RichMessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& detailedText = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowDetailedText();
+	//pThis->GetEntity()->ShowDetailedText(detailedText);
 	return Value::Nil;
 }
 

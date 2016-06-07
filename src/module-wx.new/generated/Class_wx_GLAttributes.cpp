@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_GLAttributes, __BufferSize)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->BufferSize();
+	//pThis->GetEntity()->BufferSize(val);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_GLAttributes, __Level)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Level();
+	//pThis->GetEntity()->Level(val);
 	return Value::Nil;
 }
 
@@ -117,7 +117,7 @@ Gura_ImplementMethod(wx_GLAttributes, __AuxBuffers)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->AuxBuffers();
+	//pThis->GetEntity()->AuxBuffers(val);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_GLAttributes, __MinRGBA)
 	//int mGreen = arg.GetNumber(1)
 	//int mBlue = arg.GetNumber(2)
 	//int mAlpha = arg.GetNumber(3)
-	//pThis->GetEntity()->MinRGBA();
+	//pThis->GetEntity()->MinRGBA(mRed, mGreen, mBlue, mAlpha);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_GLAttributes, __Depth)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Depth();
+	//pThis->GetEntity()->Depth(val);
 	return Value::Nil;
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_GLAttributes, __Stencil)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Stencil();
+	//pThis->GetEntity()->Stencil(val);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_GLAttributes, __MinAcumRGBA)
 	//int mGreen = arg.GetNumber(1)
 	//int mBlue = arg.GetNumber(2)
 	//int mAlpha = arg.GetNumber(3)
-	//pThis->GetEntity()->MinAcumRGBA();
+	//pThis->GetEntity()->MinAcumRGBA(mRed, mGreen, mBlue, mAlpha);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_GLAttributes, __SampleBuffers)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SampleBuffers();
+	//pThis->GetEntity()->SampleBuffers(val);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_GLAttributes, __Samplers)
 	Object_wx_GLAttributes *pThis = Object_wx_GLAttributes::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->Samplers();
+	//pThis->GetEntity()->Samplers(val);
 	return Value::Nil;
 }
 

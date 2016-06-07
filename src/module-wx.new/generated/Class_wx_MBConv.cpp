@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_MBConv, __ToWChar)
 	//size_t dstLen = arg.GetNumber(1)
 	//const char* src = arg.GetNumber(2)
 	//size_t srcLen = arg.GetNumber(3)
-	//pThis->GetEntity()->ToWChar();
+	//pThis->GetEntity()->ToWChar(dst, dstLen, src, srcLen);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_MBConv, __FromWChar)
 	//size_t dstLen = arg.GetNumber(1)
 	//const wchar_t* src = arg.GetNumber(2)
 	//size_t srcLen = arg.GetNumber(3)
-	//pThis->GetEntity()->FromWChar();
+	//pThis->GetEntity()->FromWChar(dst, dstLen, src, srcLen);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WC)
 	//const char* in = arg.GetNumber(0)
 	//size_t inLen = arg.GetNumber(1)
 	//size_t* outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->cMB2WC();
+	//pThis->GetEntity()->cMB2WC(in, inLen, outLen);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WC_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxCharBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WC();
+	//pThis->GetEntity()->cMB2WC(buf);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WX)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WX();
+	//pThis->GetEntity()->cMB2WX(psz);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_MBConv, __cMB2WX_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cMB2WX();
+	//pThis->GetEntity()->cMB2WX(psz);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_MBConv, __cWC2MB)
 	//const wchar_t* in = arg.GetNumber(0)
 	//size_t inLen = arg.GetNumber(1)
 	//size_t* outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->cWC2MB();
+	//pThis->GetEntity()->cWC2MB(in, inLen, outLen);
 	return Value::Nil;
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_MBConv, __cWC2MB_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWCharBuffer& buf = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2MB();
+	//pThis->GetEntity()->cWC2MB(buf);
 	return Value::Nil;
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_MBConv, __cWC2WX)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2WX();
+	//pThis->GetEntity()->cWC2WX(psz);
 	return Value::Nil;
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_MBConv, __cWC2WX_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wchar_t* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWC2WX();
+	//pThis->GetEntity()->cWC2WX(psz);
 	return Value::Nil;
 }
 
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_MBConv, __cWX2MB)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2MB();
+	//pThis->GetEntity()->cWX2MB(psz);
 	return Value::Nil;
 }
 
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_MBConv, __cWX2MB_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2MB();
+	//pThis->GetEntity()->cWX2MB(psz);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_MBConv, __cWX2WC)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2WC();
+	//pThis->GetEntity()->cWX2WC(psz);
 	return Value::Nil;
 }
 
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_MBConv, __cWX2WC_1)
 	Object_wx_MBConv *pThis = Object_wx_MBConv::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxChar* psz = arg.GetNumber(0)
-	//pThis->GetEntity()->cWX2WC();
+	//pThis->GetEntity()->cWX2WC(psz);
 	return Value::Nil;
 }
 
@@ -337,7 +337,7 @@ Gura_ImplementMethod(wx_MBConv, __MB2WC)
 	//wchar_t* out = arg.GetNumber(0)
 	//const char* in = arg.GetNumber(1)
 	//size_t outLen = arg.GetNumber(2)
-	//pThis->GetEntity()->MB2WC();
+	//pThis->GetEntity()->MB2WC(out, in, outLen);
 	return Value::Nil;
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_MBConv, __WC2MB)
 	//char* buf = arg.GetNumber(0)
 	//const wchar_t* psz = arg.GetNumber(1)
 	//size_t n = arg.GetNumber(2)
-	//pThis->GetEntity()->WC2MB();
+	//pThis->GetEntity()->WC2MB(buf, psz, n);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__Condition, "Condition")
 Gura_ImplementFunction(__Condition)
 {
 	//wxMutex& mutex = arg.GetNumber(0)
-	//wxCondition();
+	//wxCondition(mutex);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Condition, __Wait_1)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const Functor& predicate = arg.GetNumber(0)
-	//pThis->GetEntity()->Wait();
+	//pThis->GetEntity()->Wait(predicate);
 	return Value::Nil;
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_Condition, __WaitTimeout)
 	Object_wx_Condition *pThis = Object_wx_Condition::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long milliseconds = arg.GetNumber(0)
-	//pThis->GetEntity()->WaitTimeout();
+	//pThis->GetEntity()->WaitTimeout(milliseconds);
 	return Value::Nil;
 }
 

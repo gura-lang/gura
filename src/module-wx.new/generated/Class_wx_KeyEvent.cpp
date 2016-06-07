@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__KeyEvent, "KeyEvent")
 Gura_ImplementFunction(__KeyEvent)
 {
 	//wxEventType keyEventType = arg.GetNumber(0)
-	//wxKeyEvent();
+	//wxKeyEvent(keyEventType);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_KeyEvent, __IsKeyInCategory)
 	Object_wx_KeyEvent *pThis = Object_wx_KeyEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int category = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKeyInCategory();
+	//pThis->GetEntity()->IsKeyInCategory(category);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_KeyEvent, __GetPosition_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord* x = arg.GetNumber(0)
 	//wxCoord* y = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPosition();
+	//pThis->GetEntity()->GetPosition(x, y);
 	return Value::Nil;
 }
 

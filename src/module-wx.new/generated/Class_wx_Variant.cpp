@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Variant_1)
 {
 	//wxVariantData* data = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(data, name);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__Variant_2, "Variant_2")
 Gura_ImplementFunction(__Variant_2)
 {
 	//const wxVariant& variant = arg.GetNumber(0)
-	//wxVariant();
+	//wxVariant(variant);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_DeclareFunctionAlias(__Variant_3, "Variant_3")
 Gura_ImplementFunction(__Variant_3)
 {
 	//const wxAny& any = arg.GetNumber(0)
-	//wxVariant();
+	//wxVariant(any);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementFunction(__Variant_4)
 {
 	//const wxChar* value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementFunction(__Variant_5)
 {
 	//const wxString& value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementFunction(__Variant_6)
 {
 	//wxChar value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementFunction(__Variant_7)
 {
 	//long value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementFunction(__Variant_8)
 {
 	//bool value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementFunction(__Variant_9)
 {
 	//double value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementFunction(__Variant_10)
 {
 	//wxLongLong value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementFunction(__Variant_11)
 {
 	//wxULongLong value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -246,7 +246,7 @@ Gura_ImplementFunction(__Variant_12)
 {
 	//const wxVariantList& value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementFunction(__Variant_13)
 {
 	//void* value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -280,7 +280,7 @@ Gura_ImplementFunction(__Variant_14)
 {
 	//wxObject* value = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(value, name);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementFunction(__Variant_15)
 {
 	//const wxDateTime& val = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(val, name);
 	return Value::Nil;
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementFunction(__Variant_16)
 {
 	//const wxArrayString& val = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
-	//wxVariant();
+	//wxVariant(val, name);
 	return Value::Nil;
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_Variant, __Append)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVariant& value = arg.GetNumber(0)
-	//pThis->GetEntity()->Append();
+	//pThis->GetEntity()->Append(value);
 	return Value::Nil;
 }
 
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_Variant, __Delete)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->Delete();
+	//pThis->GetEntity()->Delete(item);
 	return Value::Nil;
 }
 
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_Variant, __Insert)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVariant& value = arg.GetNumber(0)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(value);
 	return Value::Nil;
 }
 
@@ -442,7 +442,7 @@ Gura_ImplementMethod(wx_Variant, __Convert)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -457,7 +457,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_1)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -472,7 +472,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_2)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//double* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -487,7 +487,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_3)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -502,7 +502,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_4)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxChar* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -517,7 +517,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_5)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLongLong* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -532,7 +532,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_6)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxULongLong* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -547,7 +547,7 @@ Gura_ImplementMethod(wx_Variant, __Convert_7)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDateTime* value = arg.GetNumber(0)
-	//pThis->GetEntity()->Convert();
+	//pThis->GetEntity()->Convert(value);
 	return Value::Nil;
 }
 
@@ -770,7 +770,7 @@ Gura_ImplementMethod(wx_Variant, __IsType)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& type = arg.GetNumber(0)
-	//pThis->GetEntity()->IsType();
+	//pThis->GetEntity()->IsType(type);
 	return Value::Nil;
 }
 
@@ -785,7 +785,7 @@ Gura_ImplementMethod(wx_Variant, __IsValueKindOf)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxClassInfo* type = arg.GetNumber(0)
-	//pThis->GetEntity()->IsValueKindOf();
+	//pThis->GetEntity()->IsValueKindOf(type);
 	return Value::Nil;
 }
 
@@ -826,7 +826,7 @@ Gura_ImplementMethod(wx_Variant, __Member)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVariant& value = arg.GetNumber(0)
-	//pThis->GetEntity()->Member();
+	//pThis->GetEntity()->Member(value);
 	return Value::Nil;
 }
 
@@ -841,7 +841,7 @@ Gura_ImplementMethod(wx_Variant, __SetData)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(data);
 	return Value::Nil;
 }
 

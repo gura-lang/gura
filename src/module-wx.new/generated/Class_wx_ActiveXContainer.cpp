@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ActiveXContainer)
 	//wxWindow* parent = arg.GetNumber(0)
 	//REFIID iid = arg.GetNumber(1)
 	//IUnknown* pUnk = arg.GetNumber(2)
-	//wxActiveXContainer();
+	//wxActiveXContainer(parent, iid, pUnk);
 	return Value::Nil;
 }
 
@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ActiveXContainer, __QueryClientSiteInterface)
 	//REFIID iid = arg.GetNumber(0)
 	//void** _interface = arg.GetNumber(1)
 	//const char*& desc = arg.GetNumber(2)
-	//pThis->GetEntity()->QueryClientSiteInterface();
+	//pThis->GetEntity()->QueryClientSiteInterface(iid, _interface, desc);
 	return Value::Nil;
 }
 

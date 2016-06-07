@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_SystemSettings, __GetColour)
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSystemColour index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColour();
+	//pThis->GetEntity()->GetColour(index);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_SystemSettings, __GetFont)
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSystemFont index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont();
+	//pThis->GetEntity()->GetFont(index);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_SystemSettings, __GetMetric)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSystemMetric index = arg.GetNumber(0)
 	//wxWindow* win = arg.GetNumber(1)
-	//pThis->GetEntity()->GetMetric();
+	//pThis->GetEntity()->GetMetric(index, win);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_SystemSettings, __HasFeature)
 	Object_wx_SystemSettings *pThis = Object_wx_SystemSettings::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSystemFeature index = arg.GetNumber(0)
-	//pThis->GetEntity()->HasFeature();
+	//pThis->GetEntity()->HasFeature(index);
 	return Value::Nil;
 }
 

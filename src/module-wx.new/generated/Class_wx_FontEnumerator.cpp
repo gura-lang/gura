@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __EnumerateEncodings)
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& font = arg.GetNumber(0)
-	//pThis->GetEntity()->EnumerateEncodings();
+	//pThis->GetEntity()->EnumerateEncodings(font);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __EnumerateFacenames)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding encoding = arg.GetNumber(0)
 	//bool fixedWidthOnly = arg.GetNumber(1)
-	//pThis->GetEntity()->EnumerateFacenames();
+	//pThis->GetEntity()->EnumerateFacenames(encoding, fixedWidthOnly);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __GetEncodings)
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& facename = arg.GetNumber(0)
-	//pThis->GetEntity()->GetEncodings();
+	//pThis->GetEntity()->GetEncodings(facename);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __GetFacenames)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding encoding = arg.GetNumber(0)
 	//bool fixedWidthOnly = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFacenames();
+	//pThis->GetEntity()->GetFacenames(encoding, fixedWidthOnly);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __IsValidFacename)
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& facename = arg.GetNumber(0)
-	//pThis->GetEntity()->IsValidFacename();
+	//pThis->GetEntity()->IsValidFacename(facename);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __OnFacename)
 	Object_wx_FontEnumerator *pThis = Object_wx_FontEnumerator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& font = arg.GetNumber(0)
-	//pThis->GetEntity()->OnFacename();
+	//pThis->GetEntity()->OnFacename(font);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_FontEnumerator, __OnFontEncoding)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& font = arg.GetNumber(0)
 	//const wxString& encoding = arg.GetNumber(1)
-	//pThis->GetEntity()->OnFontEncoding();
+	//pThis->GetEntity()->OnFontEncoding(font, encoding);
 	return Value::Nil;
 }
 

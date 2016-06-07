@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PersistentWindow, "PersistentWindow")
 Gura_ImplementFunction(__PersistentWindow)
 {
 	//WindowType* win = arg.GetNumber(0)
-	//wxPersistentWindow();
+	//wxPersistentWindow(win);
 	return Value::Nil;
 }
 

@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_MouseState, __GetPosition_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int* x = arg.GetNumber(0)
 	//int* y = arg.GetNumber(1)
-	//pThis->GetEntity()->GetPosition();
+	//pThis->GetEntity()->GetPosition(x, y);
 	return Value::Nil;
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_MouseState, __SetX)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
-	//pThis->GetEntity()->SetX();
+	//pThis->GetEntity()->SetX(x);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_MouseState, __SetY)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord y = arg.GetNumber(0)
-	//pThis->GetEntity()->SetY();
+	//pThis->GetEntity()->SetY(y);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_MouseState, __SetPosition)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPoint pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_MouseState, __SetLeftDown)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLeftDown();
+	//pThis->GetEntity()->SetLeftDown(down);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_MouseState, __SetMiddleDown)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMiddleDown();
+	//pThis->GetEntity()->SetMiddleDown(down);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_MouseState, __SetRightDown)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRightDown();
+	//pThis->GetEntity()->SetRightDown(down);
 	return Value::Nil;
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_MouseState, __SetAux1Down)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAux1Down();
+	//pThis->GetEntity()->SetAux1Down(down);
 	return Value::Nil;
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_MouseState, __SetAux2Down)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool down = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAux2Down();
+	//pThis->GetEntity()->SetAux2Down(down);
 	return Value::Nil;
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_MouseState, __SetState)
 	Object_wx_MouseState *pThis = Object_wx_MouseState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMouseState& state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetState();
+	//pThis->GetEntity()->SetState(state);
 	return Value::Nil;
 }
 

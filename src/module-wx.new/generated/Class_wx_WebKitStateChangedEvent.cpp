@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WebKitStateChangedEvent, "WebKitStateChangedEvent")
 Gura_ImplementFunction(__WebKitStateChangedEvent)
 {
 	//wxWindow* win = arg.GetNumber(0)
-	//wxWebKitStateChangedEvent();
+	//wxWebKitStateChangedEvent(win);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_WebKitStateChangedEvent, __SetState)
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int state = arg.GetNumber(0)
-	//pThis->GetEntity()->SetState();
+	//pThis->GetEntity()->SetState(state);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_WebKitStateChangedEvent, __SetURL)
 	Object_wx_WebKitStateChangedEvent *pThis = Object_wx_WebKitStateChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& url = arg.GetNumber(0)
-	//pThis->GetEntity()->SetURL();
+	//pThis->GetEntity()->SetURL(url);
 	return Value::Nil;
 }
 

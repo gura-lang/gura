@@ -63,7 +63,7 @@ Gura_ImplementFunction(__GenericAboutDialog_1)
 {
 	//const wxAboutDialogInfo& info = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
-	//wxGenericAboutDialog();
+	//wxGenericAboutDialog(info, parent);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __Create)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAboutDialogInfo& info = arg.GetNumber(0)
 	//wxWindow* parent = arg.GetNumber(1)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(info, parent);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddControl)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
 	//const wxSizerFlags& flags = arg.GetNumber(1)
-	//pThis->GetEntity()->AddControl();
+	//pThis->GetEntity()->AddControl(win, flags);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddControl_1)
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->AddControl();
+	//pThis->GetEntity()->AddControl(win);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddText)
 	Object_wx_GenericAboutDialog *pThis = Object_wx_GenericAboutDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->AddText();
+	//pThis->GetEntity()->AddText(text);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_GenericAboutDialog, __AddCollapsiblePane)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->AddCollapsiblePane();
+	//pThis->GetEntity()->AddCollapsiblePane(title, text);
 	return Value::Nil;
 }
 

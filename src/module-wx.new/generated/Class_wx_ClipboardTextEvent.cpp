@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ClipboardTextEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxClipboardTextEvent();
+	//wxClipboardTextEvent(commandType, id);
 	return Value::Nil;
 }
 

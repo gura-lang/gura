@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__VariantDataSafeArray, "VariantDataSafeArray")
 Gura_ImplementFunction(__VariantDataSafeArray)
 {
 	//SAFEARRAY* value = arg.GetNumber(0)
-	//wxVariantDataSafeArray();
+	//wxVariantDataSafeArray(value);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __SetValue)
 	Object_wx_VariantDataSafeArray *pThis = Object_wx_VariantDataSafeArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//SAFEARRAY* value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __Eq)
 	Object_wx_VariantDataSafeArray *pThis = Object_wx_VariantDataSafeArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq();
+	//pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __Write)
 	Object_wx_VariantDataSafeArray *pThis = Object_wx_VariantDataSafeArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(str);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_VariantDataSafeArray, __GetAsAny)
 	Object_wx_VariantDataSafeArray *pThis = Object_wx_VariantDataSafeArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsAny();
+	//pThis->GetEntity()->GetAsAny(any);
 	return Value::Nil;
 }
 

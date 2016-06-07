@@ -50,7 +50,7 @@ Gura_ImplementFunction(__MouseCaptureChangedEvent)
 {
 	//wxWindowID windowId = arg.GetNumber(0)
 	//wxWindow* gainedCapture = arg.GetNumber(1)
-	//wxMouseCaptureChangedEvent();
+	//wxMouseCaptureChangedEvent(windowId, gainedCapture);
 	return Value::Nil;
 }
 

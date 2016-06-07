@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__VariantDataCurrency_1, "VariantDataCurrency_1")
 Gura_ImplementFunction(__VariantDataCurrency_1)
 {
 	//CURRENCY value = arg.GetNumber(0)
-	//wxVariantDataCurrency();
+	//wxVariantDataCurrency(value);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __SetValue)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//CURRENCY value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __Eq)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq();
+	//pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __Write)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(str);
 	return Value::Nil;
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_VariantDataCurrency, __GetAsAny)
 	Object_wx_VariantDataCurrency *pThis = Object_wx_VariantDataCurrency::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsAny();
+	//pThis->GetEntity()->GetAsAny(any);
 	return Value::Nil;
 }
 

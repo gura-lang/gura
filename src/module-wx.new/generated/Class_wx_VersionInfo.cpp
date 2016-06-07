@@ -58,7 +58,7 @@ Gura_ImplementFunction(__VersionInfo)
 	//int micro = arg.GetNumber(3)
 	//const wxString& description = arg.GetNumber(4)
 	//const wxString& copyright = arg.GetNumber(5)
-	//wxVersionInfo();
+	//wxVersionInfo(name, major, minor, micro, description, copyright);
 	return Value::Nil;
 }
 

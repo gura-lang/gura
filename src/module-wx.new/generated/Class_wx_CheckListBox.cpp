@@ -77,7 +77,7 @@ Gura_ImplementFunction(__CheckListBox_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxCheckListBox();
+	//wxCheckListBox(parent, id, pos, size, n, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementFunction(__CheckListBox_2)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxCheckListBox();
+	//wxCheckListBox(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_CheckListBox, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, nStrings, _arg5, style, validator, name);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_CheckListBox, __Create_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_CheckListBox, __Check)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
 	//bool check = arg.GetNumber(1)
-	//pThis->GetEntity()->Check();
+	//pThis->GetEntity()->Check(item, check);
 	return Value::Nil;
 }
 
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_CheckListBox, __IsChecked)
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsChecked();
+	//pThis->GetEntity()->IsChecked(item);
 	return Value::Nil;
 }
 
@@ -216,7 +216,7 @@ Gura_ImplementMethod(wx_CheckListBox, __GetCheckedItems)
 	Object_wx_CheckListBox *pThis = Object_wx_CheckListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayInt& checkedItems = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCheckedItems();
+	//pThis->GetEntity()->GetCheckedItems(checkedItems);
 	return Value::Nil;
 }
 

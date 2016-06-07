@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_GLContextAttrs, __MajorVersion)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->MajorVersion();
+	//pThis->GetEntity()->MajorVersion(val);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_GLContextAttrs, __MinorVersion)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->MinorVersion();
+	//pThis->GetEntity()->MinorVersion(val);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_GLContextAttrs, __OGLVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vmayor = arg.GetNumber(0)
 	//int vminor = arg.GetNumber(1)
-	//pThis->GetEntity()->OGLVersion();
+	//pThis->GetEntity()->OGLVersion(vmayor, vminor);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_GLContextAttrs, __ReleaseFlush)
 	Object_wx_GLContextAttrs *pThis = Object_wx_GLContextAttrs::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->ReleaseFlush();
+	//pThis->GetEntity()->ReleaseFlush(val);
 	return Value::Nil;
 }
 

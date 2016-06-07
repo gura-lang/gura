@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ScopedArray, "ScopedArray")
 Gura_ImplementFunction(__ScopedArray)
 {
 	//T* array = arg.GetNumber(0)
-	//wxScopedArray();
+	//wxScopedArray(array);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__ScopedArray_1, "ScopedArray_1")
 Gura_ImplementFunction(__ScopedArray_1)
 {
 	//size_t count = arg.GetNumber(0)
-	//wxScopedArray();
+	//wxScopedArray(count);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ScopedArray, __reset)
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* array = arg.GetNumber(0)
-	//pThis->GetEntity()->reset();
+	//pThis->GetEntity()->reset(array);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ScopedArray, __swap)
 	Object_wx_ScopedArray *pThis = Object_wx_ScopedArray::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxScopedArray& other = arg.GetNumber(0)
-	//pThis->GetEntity()->swap();
+	//pThis->GetEntity()->swap(other);
 	return Value::Nil;
 }
 

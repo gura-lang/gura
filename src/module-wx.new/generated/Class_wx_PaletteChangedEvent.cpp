@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PaletteChangedEvent, "PaletteChangedEvent")
 Gura_ImplementFunction(__PaletteChangedEvent)
 {
 	//wxWindowID winid = arg.GetNumber(0)
-	//wxPaletteChangedEvent();
+	//wxPaletteChangedEvent(winid);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_PaletteChangedEvent, __SetChangedWindow)
 	Object_wx_PaletteChangedEvent *pThis = Object_wx_PaletteChangedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->SetChangedWindow();
+	//pThis->GetEntity()->SetChangedWindow(win);
 	return Value::Nil;
 }
 

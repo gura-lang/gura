@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridSizer)
 	//int cols = arg.GetNumber(0)
 	//int vgap = arg.GetNumber(1)
 	//int hgap = arg.GetNumber(2)
-	//wxGridSizer();
+	//wxGridSizer(cols, vgap, hgap);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__GridSizer_1)
 {
 	//int cols = arg.GetNumber(0)
 	//const wxSize& gap = arg.GetNumber(1)
-	//wxGridSizer();
+	//wxGridSizer(cols, gap);
 	return Value::Nil;
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementFunction(__GridSizer_2)
 	//int cols = arg.GetNumber(1)
 	//int vgap = arg.GetNumber(2)
 	//int hgap = arg.GetNumber(3)
-	//wxGridSizer();
+	//wxGridSizer(rows, cols, vgap, hgap);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementFunction(__GridSizer_3)
 	//int rows = arg.GetNumber(0)
 	//int cols = arg.GetNumber(1)
 	//const wxSize& gap = arg.GetNumber(2)
-	//wxGridSizer();
+	//wxGridSizer(rows, cols, gap);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_GridSizer, __SetCols)
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int cols = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCols();
+	//pThis->GetEntity()->SetCols(cols);
 	return Value::Nil;
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_GridSizer, __SetHGap)
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int gap = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHGap();
+	//pThis->GetEntity()->SetHGap(gap);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_GridSizer, __SetRows)
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int rows = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRows();
+	//pThis->GetEntity()->SetRows(rows);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_GridSizer, __SetVGap)
 	Object_wx_GridSizer *pThis = Object_wx_GridSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int gap = arg.GetNumber(0)
-	//pThis->GetEntity()->SetVGap();
+	//pThis->GetEntity()->SetVGap(gap);
 	return Value::Nil;
 }
 

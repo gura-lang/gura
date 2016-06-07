@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_PropertyGridIterator, __Assign)
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPropertyGridIteratorBase& it = arg.GetNumber(0)
-	//pThis->GetEntity()->Assign();
+	//pThis->GetEntity()->Assign(it);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_PropertyGridIterator, __Next)
 	Object_wx_PropertyGridIterator *pThis = Object_wx_PropertyGridIterator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool iterateChildren = arg.GetNumber(0)
-	//pThis->GetEntity()->Next();
+	//pThis->GetEntity()->Next(iterateChildren);
 	return Value::Nil;
 }
 

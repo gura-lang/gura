@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_HtmlSelection, __Set)
 	//const wxHtmlCell* fromCell = arg.GetNumber(1)
 	//const wxPoint& toPos = arg.GetNumber(2)
 	//const wxHtmlCell* toCell = arg.GetNumber(3)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(fromPos, fromCell, toPos, toCell);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HtmlSelection, __Set_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlCell* fromCell = arg.GetNumber(0)
 	//const wxHtmlCell* toCell = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(fromCell, toCell);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_HtmlSelection, __SetFromCharacterPos)
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFromCharacterPos();
+	//pThis->GetEntity()->SetFromCharacterPos(pos);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_HtmlSelection, __SetToCharacterPos)
 	Object_wx_HtmlSelection *pThis = Object_wx_HtmlSelection::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToCharacterPos();
+	//pThis->GetEntity()->SetToCharacterPos(pos);
 	return Value::Nil;
 }
 

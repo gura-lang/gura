@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawBackground)
 	//wxWindow* window = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawBackground();
+	//pThis->GetEntity()->DrawBackground(dc, window, orientation, rect);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawBorder)
 	//wxWindow* window = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//wxAuiPaneInfo& pane = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawBorder();
+	//pThis->GetEntity()->DrawBorder(dc, window, rect, pane);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawCaption)
 	//const wxString& text = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
 	//wxAuiPaneInfo& pane = arg.GetNumber(4)
-	//pThis->GetEntity()->DrawCaption();
+	//pThis->GetEntity()->DrawCaption(dc, window, text, rect, pane);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawGripper)
 	//wxWindow* window = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//wxAuiPaneInfo& pane = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawGripper();
+	//pThis->GetEntity()->DrawGripper(dc, window, rect, pane);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawPaneButton)
 	//int button_state = arg.GetNumber(3)
 	//const wxRect& rect = arg.GetNumber(4)
 	//wxAuiPaneInfo& pane = arg.GetNumber(5)
-	//pThis->GetEntity()->DrawPaneButton();
+	//pThis->GetEntity()->DrawPaneButton(dc, window, button, button_state, rect, pane);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __DrawSash)
 	//wxWindow* window = arg.GetNumber(1)
 	//int orientation = arg.GetNumber(2)
 	//const wxRect& rect = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawSash();
+	//pThis->GetEntity()->DrawSash(dc, window, orientation, rect);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetColour)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColour();
+	//pThis->GetEntity()->GetColour(id);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetFont)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont();
+	//pThis->GetEntity()->GetFont(id);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __GetMetric)
 	Object_wx_AuiDockArt *pThis = Object_wx_AuiDockArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMetric();
+	//pThis->GetEntity()->GetMetric(id);
 	return Value::Nil;
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __SetColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//const wxColour& colour = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(id, colour);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __SetFont)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//const wxFont& font = arg.GetNumber(1)
-	//pThis->GetEntity()->SetFont();
+	//pThis->GetEntity()->SetFont(id, font);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_AuiDockArt, __SetMetric)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//int new_val = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMetric();
+	//pThis->GetEntity()->SetMetric(id, new_val);
 	return Value::Nil;
 }
 

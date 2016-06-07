@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextColour)
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextColour();
+	//pThis->GetEntity()->GetSelectedTextColour(clr);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_HtmlRenderingStyle, __GetSelectedTextBgColour)
 	Object_wx_HtmlRenderingStyle *pThis = Object_wx_HtmlRenderingStyle::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextBgColour();
+	//pThis->GetEntity()->GetSelectedTextBgColour(clr);
 	return Value::Nil;
 }
 

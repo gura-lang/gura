@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HtmlWordWithTabsCell)
 	//const wxString& wordOrig = arg.GetNumber(1)
 	//size_t linepos = arg.GetNumber(2)
 	//const wxDC& dc = arg.GetNumber(3)
-	//wxHtmlWordWithTabsCell();
+	//wxHtmlWordWithTabsCell(word, wordOrig, linepos, dc);
 	return Value::Nil;
 }
 

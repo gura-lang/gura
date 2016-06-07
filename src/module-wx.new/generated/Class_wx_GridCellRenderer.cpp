@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __Draw)
 	//int row = arg.GetNumber(4)
 	//int col = arg.GetNumber(5)
 	//bool isSelected = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(grid, attr, dc, rect, row, col, isSelected);
 	return Value::Nil;
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestSize)
 	//wxDC& dc = arg.GetNumber(2)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
-	//pThis->GetEntity()->GetBestSize();
+	//pThis->GetEntity()->GetBestSize(grid, attr, dc, row, col);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestHeight)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int width = arg.GetNumber(5)
-	//pThis->GetEntity()->GetBestHeight();
+	//pThis->GetEntity()->GetBestHeight(grid, attr, dc, row, col, width);
 	return Value::Nil;
 }
 
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_GridCellRenderer, __GetBestWidth)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)
-	//pThis->GetEntity()->GetBestWidth();
+	//pThis->GetEntity()->GetBestWidth(grid, attr, dc, row, col, height);
 	return Value::Nil;
 }
 

@@ -54,7 +54,7 @@ Gura_ImplementFunction(__WizardEvent)
 	//int id = arg.GetNumber(1)
 	//bool direction = arg.GetNumber(2)
 	//wxWizardPage* page = arg.GetNumber(3)
-	//wxWizardEvent();
+	//wxWizardEvent(type, id, direction, page);
 	return Value::Nil;
 }
 

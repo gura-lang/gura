@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->CanRead();
+	//pThis->GetEntity()->CanRead(stream);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_ImageHandler, __CanRead_1)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->CanRead();
+	//pThis->GetEntity()->CanRead(filename);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_ImageHandler, __GetImageCount)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageCount();
+	//pThis->GetEntity()->GetImageCount(stream);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ImageHandler, __LoadFile)
 	//wxInputStream& stream = arg.GetNumber(1)
 	//bool verbose = arg.GetNumber(2)
 	//int index = arg.GetNumber(3)
-	//pThis->GetEntity()->LoadFile();
+	//pThis->GetEntity()->LoadFile(image, stream, verbose, index);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SaveFile)
 	//wxImage* image = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
 	//bool verbose = arg.GetNumber(2)
-	//pThis->GetEntity()->SaveFile();
+	//pThis->GetEntity()->SaveFile(image, stream, verbose);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetExtension)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& extension = arg.GetNumber(0)
-	//pThis->GetEntity()->SetExtension();
+	//pThis->GetEntity()->SetExtension(extension);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetAltExtensions)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& extensions = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAltExtensions();
+	//pThis->GetEntity()->SetAltExtensions(extensions);
 	return Value::Nil;
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetMimeType)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mimetype = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMimeType();
+	//pThis->GetEntity()->SetMimeType(mimetype);
 	return Value::Nil;
 }
 
@@ -259,7 +259,7 @@ Gura_ImplementMethod(wx_ImageHandler, __SetName)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoGetImageCount)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->DoGetImageCount();
+	//pThis->GetEntity()->DoGetImageCount(stream);
 	return Value::Nil;
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_ImageHandler, __DoCanRead)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->DoCanRead();
+	//pThis->GetEntity()->DoCanRead(stream);
 	return Value::Nil;
 }
 

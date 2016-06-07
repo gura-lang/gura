@@ -52,7 +52,7 @@ Gura_ImplementFunction(__TreeEvent)
 	//wxEventType commandType = arg.GetNumber(0)
 	//wxTreeCtrl* tree = arg.GetNumber(1)
 	//const wxTreeItemId& item = arg.GetNumber(2)
-	//wxTreeEvent();
+	//wxTreeEvent(commandType, tree, item);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_TreeEvent, __SetToolTip)
 	Object_wx_TreeEvent *pThis = Object_wx_TreeEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& tooltip = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToolTip();
+	//pThis->GetEntity()->SetToolTip(tooltip);
 	return Value::Nil;
 }
 

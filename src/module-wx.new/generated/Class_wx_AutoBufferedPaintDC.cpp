@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__AutoBufferedPaintDC, "AutoBufferedPaintDC")
 Gura_ImplementFunction(__AutoBufferedPaintDC)
 {
 	//wxWindow* window = arg.GetNumber(0)
-	//wxAutoBufferedPaintDC();
+	//wxAutoBufferedPaintDC(window);
 	return Value::Nil;
 }
 

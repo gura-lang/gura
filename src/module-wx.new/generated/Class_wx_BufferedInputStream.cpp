@@ -50,7 +50,7 @@ Gura_ImplementFunction(__BufferedInputStream)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
 	//wxStreamBuffer* buffer = arg.GetNumber(1)
-	//wxBufferedInputStream();
+	//wxBufferedInputStream(stream, buffer);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__BufferedInputStream_1)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
 	//size_t bufsize = arg.GetNumber(1)
-	//wxBufferedInputStream();
+	//wxBufferedInputStream(stream, bufsize);
 	return Value::Nil;
 }
 

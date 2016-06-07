@@ -60,7 +60,7 @@ Gura_ImplementFunction(__PropertySheetDialog)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxPropertySheetDialog();
+	//wxPropertySheetDialog(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __AddBookCtrl)
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizer* sizer = arg.GetNumber(0)
-	//pThis->GetEntity()->AddBookCtrl();
+	//pThis->GetEntity()->AddBookCtrl(sizer);
 	return Value::Nil;
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __CreateButtons)
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateButtons();
+	//pThis->GetEntity()->CreateButtons(flags);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __LayoutDialog)
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int centreFlags = arg.GetNumber(0)
-	//pThis->GetEntity()->LayoutDialog();
+	//pThis->GetEntity()->LayoutDialog(centreFlags);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __SetBookCtrl)
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBookCtrlBase* bookCtrl = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBookCtrl();
+	//pThis->GetEntity()->SetBookCtrl(bookCtrl);
 	return Value::Nil;
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_PropertySheetDialog, __SetSheetStyle)
 	Object_wx_PropertySheetDialog *pThis = Object_wx_PropertySheetDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSheetStyle();
+	//pThis->GetEntity()->SetSheetStyle(style);
 	return Value::Nil;
 }
 

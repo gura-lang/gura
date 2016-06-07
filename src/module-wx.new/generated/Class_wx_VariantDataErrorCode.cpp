@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__VariantDataErrorCode, "VariantDataErrorCode")
 Gura_ImplementFunction(__VariantDataErrorCode)
 {
 	//SCODE value = arg.GetNumber(0)
-	//wxVariantDataErrorCode();
+	//wxVariantDataErrorCode(value);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __SetValue)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//SCODE value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __Eq)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxVariantData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Eq();
+	//pThis->GetEntity()->Eq(data);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __Write)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Write();
+	//pThis->GetEntity()->Write(str);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_VariantDataErrorCode, __GetAsAny)
 	Object_wx_VariantDataErrorCode *pThis = Object_wx_VariantDataErrorCode::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAny* any = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsAny();
+	//pThis->GetEntity()->GetAsAny(any);
 	return Value::Nil;
 }
 

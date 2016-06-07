@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ListEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxListEvent();
+	//wxListEvent(commandType, id);
 	return Value::Nil;
 }
 

@@ -50,7 +50,7 @@ Gura_ImplementFunction(__WrapSizer)
 {
 	//int orient = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//wxWrapSizer();
+	//wxWrapSizer(orient, flags);
 	return Value::Nil;
 }
 
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_WrapSizer, __InformFirstDirection)
 	//int direction = arg.GetNumber(0)
 	//int size = arg.GetNumber(1)
 	//int availableOtherDir = arg.GetNumber(2)
-	//pThis->GetEntity()->InformFirstDirection();
+	//pThis->GetEntity()->InformFirstDirection(direction, size, availableOtherDir);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_WrapSizer, __IsSpaceItem)
 	Object_wx_WrapSizer *pThis = Object_wx_WrapSizer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSizerItem* item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSpaceItem();
+	//pThis->GetEntity()->IsSpaceItem(item);
 	return Value::Nil;
 }
 

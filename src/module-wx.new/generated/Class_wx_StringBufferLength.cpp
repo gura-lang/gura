@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StringBufferLength)
 {
 	//const wxString& str = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//wxStringBufferLength();
+	//wxStringBufferLength(str, len);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_StringBufferLength, __SetLength)
 	Object_wx_StringBufferLength *pThis = Object_wx_StringBufferLength::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nLength = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLength();
+	//pThis->GetEntity()->SetLength(nLength);
 	return Value::Nil;
 }
 

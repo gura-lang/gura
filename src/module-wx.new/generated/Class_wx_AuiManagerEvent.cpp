@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__AuiManagerEvent, "AuiManagerEvent")
 Gura_ImplementFunction(__AuiManagerEvent)
 {
 	//wxEventType type = arg.GetNumber(0)
-	//wxAuiManagerEvent();
+	//wxAuiManagerEvent(type);
 	return Value::Nil;
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetButton)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->SetButton();
+	//pThis->GetEntity()->SetButton(button);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetCanVeto)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool can_veto = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCanVeto();
+	//pThis->GetEntity()->SetCanVeto(can_veto);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetDC)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDC* pdc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDC();
+	//pThis->GetEntity()->SetDC(pdc);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetManager)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiManager* manager = arg.GetNumber(0)
-	//pThis->GetEntity()->SetManager();
+	//pThis->GetEntity()->SetManager(manager);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __SetPane)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAuiPaneInfo* pane = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPane();
+	//pThis->GetEntity()->SetPane(pane);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_AuiManagerEvent, __Veto)
 	Object_wx_AuiManagerEvent *pThis = Object_wx_AuiManagerEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool veto = arg.GetNumber(0)
-	//pThis->GetEntity()->Veto();
+	//pThis->GetEntity()->Veto(veto);
 	return Value::Nil;
 }
 

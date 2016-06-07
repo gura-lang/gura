@@ -50,7 +50,7 @@ Gura_ImplementFunction(__IntegerValidator)
 {
 	//ValueType* value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//wxIntegerValidator();
+	//wxIntegerValidator(value, style);
 	return Value::Nil;
 }
 

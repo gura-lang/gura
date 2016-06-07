@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_TextEntry, __AppendText)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendText();
+	//pThis->GetEntity()->AppendText(text);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_TextEntry, __AutoComplete)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& choices = arg.GetNumber(0)
-	//pThis->GetEntity()->AutoComplete();
+	//pThis->GetEntity()->AutoComplete(choices);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_TextEntry, __AutoComplete_1)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextCompleter* completer = arg.GetNumber(0)
-	//pThis->GetEntity()->AutoComplete();
+	//pThis->GetEntity()->AutoComplete(completer);
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_TextEntry, __ChangeValue)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& value = arg.GetNumber(0)
-	//pThis->GetEntity()->ChangeValue();
+	//pThis->GetEntity()->ChangeValue(value);
 	return Value::Nil;
 }
 
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_TextEntry, __GetRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
-	//pThis->GetEntity()->GetRange();
+	//pThis->GetEntity()->GetRange(from, to);
 	return Value::Nil;
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_TextEntry, __GetSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long* from = arg.GetNumber(0)
 	//long* to = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSelection();
+	//pThis->GetEntity()->GetSelection(from, to);
 	return Value::Nil;
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_TextEntry, __Remove)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(from, to);
 	return Value::Nil;
 }
 
@@ -410,7 +410,7 @@ Gura_ImplementMethod(wx_TextEntry, __Replace)
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
 	//const wxString& value = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace();
+	//pThis->GetEntity()->Replace(from, to, value);
 	return Value::Nil;
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetEditable)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool editable = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEditable();
+	//pThis->GetEntity()->SetEditable(editable);
 	return Value::Nil;
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetInsertionPoint)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInsertionPoint();
+	//pThis->GetEntity()->SetInsertionPoint(pos);
 	return Value::Nil;
 }
 
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetMaxLength)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long len = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxLength();
+	//pThis->GetEntity()->SetMaxLength(len);
 	return Value::Nil;
 }
 
@@ -485,7 +485,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetSelection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long from = arg.GetNumber(0)
 	//long to = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(from, to);
 	return Value::Nil;
 }
 
@@ -526,7 +526,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetHint)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hint = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHint();
+	//pThis->GetEntity()->SetHint(hint);
 	return Value::Nil;
 }
 
@@ -554,7 +554,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetMargins)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(pt);
 	return Value::Nil;
 }
 
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetMargins_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord left = arg.GetNumber(0)
 	//wxCoord top = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(left, top);
 	return Value::Nil;
 }
 
@@ -599,7 +599,7 @@ Gura_ImplementMethod(wx_TextEntry, __SetValue)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -627,7 +627,7 @@ Gura_ImplementMethod(wx_TextEntry, __WriteText)
 	Object_wx_TextEntry *pThis = Object_wx_TextEntry::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->WriteText();
+	//pThis->GetEntity()->WriteText(text);
 	return Value::Nil;
 }
 

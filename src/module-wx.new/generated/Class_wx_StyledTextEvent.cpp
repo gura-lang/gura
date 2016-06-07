@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StyledTextEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxStyledTextEvent();
+	//wxStyledTextEvent(commandType, id);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_DeclareFunctionAlias(__StyledTextEvent_1, "StyledTextEvent_1")
 Gura_ImplementFunction(__StyledTextEvent_1)
 {
 	//const wxStyledTextEvent& event = arg.GetNumber(0)
-	//wxStyledTextEvent();
+	//wxStyledTextEvent(event);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetPosition)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetKey)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int k = arg.GetNumber(0)
-	//pThis->GetEntity()->SetKey();
+	//pThis->GetEntity()->SetKey(k);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetModifiers)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int m = arg.GetNumber(0)
-	//pThis->GetEntity()->SetModifiers();
+	//pThis->GetEntity()->SetModifiers(m);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetModificationType)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int t = arg.GetNumber(0)
-	//pThis->GetEntity()->SetModificationType();
+	//pThis->GetEntity()->SetModificationType(t);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetText)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& t = arg.GetNumber(0)
-	//pThis->GetEntity()->SetText();
+	//pThis->GetEntity()->SetText(t);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetLength)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int len = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLength();
+	//pThis->GetEntity()->SetLength(len);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetLinesAdded)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int num = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLinesAdded();
+	//pThis->GetEntity()->SetLinesAdded(num);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetLine)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLine();
+	//pThis->GetEntity()->SetLine(val);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetFoldLevelNow)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFoldLevelNow();
+	//pThis->GetEntity()->SetFoldLevelNow(val);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetFoldLevelPrev)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFoldLevelPrev();
+	//pThis->GetEntity()->SetFoldLevelPrev(val);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetMargin)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMargin();
+	//pThis->GetEntity()->SetMargin(val);
 	return Value::Nil;
 }
 
@@ -248,7 +248,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetMessage)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMessage();
+	//pThis->GetEntity()->SetMessage(val);
 	return Value::Nil;
 }
 
@@ -263,7 +263,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetWParam)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWParam();
+	//pThis->GetEntity()->SetWParam(val);
 	return Value::Nil;
 }
 
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetLParam)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLParam();
+	//pThis->GetEntity()->SetLParam(val);
 	return Value::Nil;
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetListType)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetListType();
+	//pThis->GetEntity()->SetListType(val);
 	return Value::Nil;
 }
 
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetX)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetX();
+	//pThis->GetEntity()->SetX(val);
 	return Value::Nil;
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetY)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetY();
+	//pThis->GetEntity()->SetY(val);
 	return Value::Nil;
 }
 
@@ -338,7 +338,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetToken)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToken();
+	//pThis->GetEntity()->SetToken(val);
 	return Value::Nil;
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetAnnotationLinesAdded)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAnnotationLinesAdded();
+	//pThis->GetEntity()->SetAnnotationLinesAdded(val);
 	return Value::Nil;
 }
 
@@ -368,7 +368,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetUpdated)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetUpdated();
+	//pThis->GetEntity()->SetUpdated(val);
 	return Value::Nil;
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetDragText)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDragText();
+	//pThis->GetEntity()->SetDragText(val);
 	return Value::Nil;
 }
 
@@ -398,7 +398,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetDragFlags)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDragFlags();
+	//pThis->GetEntity()->SetDragFlags(flags);
 	return Value::Nil;
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_StyledTextEvent, __SetDragResult)
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult val = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDragResult();
+	//pThis->GetEntity()->SetDragResult(val);
 	return Value::Nil;
 }
 

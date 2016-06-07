@@ -65,7 +65,7 @@ Gura_ImplementFunction(__XmlAttribute_1)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& value = arg.GetNumber(1)
 	//wxXmlAttribute* next = arg.GetNumber(2)
-	//wxXmlAttribute();
+	//wxXmlAttribute(name, value, next);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetName)
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetName();
+	//pThis->GetEntity()->SetName(name);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetNext)
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlAttribute* next = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNext();
+	//pThis->GetEntity()->SetNext(next);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_XmlAttribute, __SetValue)
 	Object_wx_XmlAttribute *pThis = Object_wx_XmlAttribute::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

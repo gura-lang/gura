@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetSelectionState)
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlSelectionState s = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectionState();
+	//pThis->GetEntity()->SetSelectionState(s);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetFgColour)
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& c = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFgColour();
+	//pThis->GetEntity()->SetFgColour(c);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgColour)
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& c = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBgColour();
+	//pThis->GetEntity()->SetBgColour(c);
 	return Value::Nil;
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_HtmlRenderingState, __SetBgMode)
 	Object_wx_HtmlRenderingState *pThis = Object_wx_HtmlRenderingState::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int m = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBgMode();
+	//pThis->GetEntity()->SetBgMode(m);
 	return Value::Nil;
 }
 

@@ -90,7 +90,7 @@ Gura_ImplementMethod(wx_Validator, __SuppressBellOnError)
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool suppress = arg.GetNumber(0)
-	//pThis->GetEntity()->SuppressBellOnError();
+	//pThis->GetEntity()->SuppressBellOnError(suppress);
 	return Value::Nil;
 }
 
@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_Validator, __SetWindow)
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWindow();
+	//pThis->GetEntity()->SetWindow(window);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Validator, __Validate)
 	Object_wx_Validator *pThis = Object_wx_Validator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Validate();
+	//pThis->GetEntity()->Validate(parent);
 	return Value::Nil;
 }
 

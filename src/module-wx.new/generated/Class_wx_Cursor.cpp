@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Cursor_1)
 	//int hotSpotX = arg.GetNumber(3)
 	//int hotSpotY = arg.GetNumber(4)
 	//const char maskBits[] _arg5 = arg.GetNumber(5)
-	//wxCursor();
+	//wxCursor(bits, width, height, hotSpotX, hotSpotY, _arg5);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementFunction(__Cursor_2)
 	//wxBitmapType type = arg.GetNumber(1)
 	//int hotSpotX = arg.GetNumber(2)
 	//int hotSpotY = arg.GetNumber(3)
-	//wxCursor();
+	//wxCursor(cursorName, type, hotSpotX, hotSpotY);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_DeclareFunctionAlias(__Cursor_3, "Cursor_3")
 Gura_ImplementFunction(__Cursor_3)
 {
 	//wxStockCursor cursorId = arg.GetNumber(0)
-	//wxCursor();
+	//wxCursor(cursorId);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_DeclareFunctionAlias(__Cursor_4, "Cursor_4")
 Gura_ImplementFunction(__Cursor_4)
 {
 	//const wxImage& image = arg.GetNumber(0)
-	//wxCursor();
+	//wxCursor(image);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_DeclareFunctionAlias(__Cursor_5, "Cursor_5")
 Gura_ImplementFunction(__Cursor_5)
 {
 	//const wxCursor& cursor = arg.GetNumber(0)
-	//wxCursor();
+	//wxCursor(cursor);
 	return Value::Nil;
 }
 

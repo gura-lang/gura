@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_ObjectDataPtr<T>, __reset)
 	Object_wx_ObjectDataPtr<T> *pThis = Object_wx_ObjectDataPtr<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//T* ptr = arg.GetNumber(0)
-	//pThis->GetEntity()->reset();
+	//pThis->GetEntity()->reset(ptr);
 	return Value::Nil;
 }
 

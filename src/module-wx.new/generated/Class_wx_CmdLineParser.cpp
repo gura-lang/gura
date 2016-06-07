@@ -63,7 +63,7 @@ Gura_ImplementFunction(__CmdLineParser_1)
 {
 	//int argc = arg.GetNumber(0)
 	//char** argv = arg.GetNumber(1)
-	//wxCmdLineParser();
+	//wxCmdLineParser(argc, argv);
 	return Value::Nil;
 }
 
@@ -80,7 +80,7 @@ Gura_ImplementFunction(__CmdLineParser_2)
 {
 	//int argc = arg.GetNumber(0)
 	//wchar_t** argv = arg.GetNumber(1)
-	//wxCmdLineParser();
+	//wxCmdLineParser(argc, argv);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_DeclareFunctionAlias(__CmdLineParser_3, "CmdLineParser_3")
 Gura_ImplementFunction(__CmdLineParser_3)
 {
 	//const wxString& cmdline = arg.GetNumber(0)
-	//wxCmdLineParser();
+	//wxCmdLineParser(cmdline);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_DeclareFunctionAlias(__CmdLineParser_4, "CmdLineParser_4")
 Gura_ImplementFunction(__CmdLineParser_4)
 {
 	//const wxCmdLineEntryDesc* desc = arg.GetNumber(0)
-	//wxCmdLineParser();
+	//wxCmdLineParser(desc);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementFunction(__CmdLineParser_5)
 	//const wxCmdLineEntryDesc* desc = arg.GetNumber(0)
 	//int argc = arg.GetNumber(1)
 	//char** argv = arg.GetNumber(2)
-	//wxCmdLineParser();
+	//wxCmdLineParser(desc, argc, argv);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementFunction(__CmdLineParser_6)
 {
 	//const wxCmdLineEntryDesc* desc = arg.GetNumber(0)
 	//const wxString& cmdline = arg.GetNumber(1)
-	//wxCmdLineParser();
+	//wxCmdLineParser(desc, cmdline);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddLongOption)
 	//const wxString& desc = arg.GetNumber(1)
 	//wxCmdLineParamType type = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->AddLongOption();
+	//pThis->GetEntity()->AddLongOption(lng, desc, type, flags);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddLongSwitch)
 	//const wxString& lng = arg.GetNumber(0)
 	//const wxString& desc = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->AddLongSwitch();
+	//pThis->GetEntity()->AddLongSwitch(lng, desc, flags);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddOption)
 	//const wxString& desc = arg.GetNumber(2)
 	//wxCmdLineParamType type = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
-	//pThis->GetEntity()->AddOption();
+	//pThis->GetEntity()->AddOption(name, lng, desc, type, flags);
 	return Value::Nil;
 }
 
@@ -231,7 +231,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddParam)
 	//const wxString& desc = arg.GetNumber(0)
 	//wxCmdLineParamType type = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->AddParam();
+	//pThis->GetEntity()->AddParam(desc, type, flags);
 	return Value::Nil;
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddSwitch)
 	//const wxString& lng = arg.GetNumber(1)
 	//const wxString& desc = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->AddSwitch();
+	//pThis->GetEntity()->AddSwitch(name, lng, desc, flags);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __AddUsageText)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->AddUsageText();
+	//pThis->GetEntity()->AddUsageText(text);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __ConvertStringToArgs)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& cmdline = arg.GetNumber(0)
 	//wxCmdLineSplitType flags = arg.GetNumber(1)
-	//pThis->GetEntity()->ConvertStringToArgs();
+	//pThis->GetEntity()->ConvertStringToArgs(cmdline, flags);
 	return Value::Nil;
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __EnableLongOptions)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableLongOptions();
+	//pThis->GetEntity()->EnableLongOptions(enable);
 	return Value::Nil;
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->Found();
+	//pThis->GetEntity()->Found(name);
 	return Value::Nil;
 }
 
@@ -355,7 +355,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __FoundSwitch)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->FoundSwitch();
+	//pThis->GetEntity()->FoundSwitch(name);
 	return Value::Nil;
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxString* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found();
+	//pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
@@ -389,7 +389,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//long* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found();
+	//pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_3)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//double* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found();
+	//pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
@@ -423,7 +423,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Found_4)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//wxDateTime* value = arg.GetNumber(1)
-	//pThis->GetEntity()->Found();
+	//pThis->GetEntity()->Found(name, value);
 	return Value::Nil;
 }
 
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __GetParam)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParam();
+	//pThis->GetEntity()->GetParam(n);
 	return Value::Nil;
 }
 
@@ -479,7 +479,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __Parse)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool giveUsage = arg.GetNumber(0)
-	//pThis->GetEntity()->Parse();
+	//pThis->GetEntity()->Parse(giveUsage);
 	return Value::Nil;
 }
 
@@ -496,7 +496,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argc = arg.GetNumber(0)
 	//char** argv = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCmdLine();
+	//pThis->GetEntity()->SetCmdLine(argc, argv);
 	return Value::Nil;
 }
 
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argc = arg.GetNumber(0)
 	//wchar_t** argv = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCmdLine();
+	//pThis->GetEntity()->SetCmdLine(argc, argv);
 	return Value::Nil;
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetCmdLine_2)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& cmdline = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCmdLine();
+	//pThis->GetEntity()->SetCmdLine(cmdline);
 	return Value::Nil;
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetDesc)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxCmdLineEntryDesc* desc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDesc();
+	//pThis->GetEntity()->SetDesc(desc);
 	return Value::Nil;
 }
 
@@ -558,7 +558,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetLogo)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& logo = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLogo();
+	//pThis->GetEntity()->SetLogo(logo);
 	return Value::Nil;
 }
 
@@ -573,7 +573,7 @@ Gura_ImplementMethod(wx_CmdLineParser, __SetSwitchChars)
 	Object_wx_CmdLineParser *pThis = Object_wx_CmdLineParser::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& switchChars = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSwitchChars();
+	//pThis->GetEntity()->SetSwitchChars(switchChars);
 	return Value::Nil;
 }
 

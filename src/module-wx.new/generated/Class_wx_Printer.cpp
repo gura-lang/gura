@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__Printer, "Printer")
 Gura_ImplementFunction(__Printer)
 {
 	//wxPrintDialogData* data = arg.GetNumber(0)
-	//wxPrinter();
+	//wxPrinter(data);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_Printer, __CreateAbortWindow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintout* printout = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateAbortWindow();
+	//pThis->GetEntity()->CreateAbortWindow(parent, printout);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_Printer, __Print)
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintout* printout = arg.GetNumber(1)
 	//bool prompt = arg.GetNumber(2)
-	//pThis->GetEntity()->Print();
+	//pThis->GetEntity()->Print(parent, printout, prompt);
 	return Value::Nil;
 }
 
@@ -141,7 +141,7 @@ Gura_ImplementMethod(wx_Printer, __PrintDialog)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->PrintDialog();
+	//pThis->GetEntity()->PrintDialog(parent);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_Printer, __ReportError)
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPrintout* printout = arg.GetNumber(1)
 	//const wxString& message = arg.GetNumber(2)
-	//pThis->GetEntity()->ReportError();
+	//pThis->GetEntity()->ReportError(parent, printout, message);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_Printer, __Setup)
 	Object_wx_Printer *pThis = Object_wx_Printer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
-	//pThis->GetEntity()->Setup();
+	//pThis->GetEntity()->Setup(parent);
 	return Value::Nil;
 }
 

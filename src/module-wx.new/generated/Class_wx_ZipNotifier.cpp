@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_ZipNotifier, __OnEntryUpdated)
 	Object_wx_ZipNotifier *pThis = Object_wx_ZipNotifier::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxZipEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OnEntryUpdated();
+	//pThis->GetEntity()->OnEntryUpdated(entry);
 	return Value::Nil;
 }
 

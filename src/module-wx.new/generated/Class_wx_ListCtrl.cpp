@@ -73,7 +73,7 @@ Gura_ImplementFunction(__ListCtrl_1)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxListCtrl();
+	//wxListCtrl(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_ListCtrl, __AppendColumn)
 	//const wxString& heading = arg.GetNumber(0)
 	//wxListColumnFormat format = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
-	//pThis->GetEntity()->AppendColumn();
+	//pThis->GetEntity()->AppendColumn(heading, format, width);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_ListCtrl, __Arrange)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flag = arg.GetNumber(0)
-	//pThis->GetEntity()->Arrange();
+	//pThis->GetEntity()->Arrange(flag);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_ListCtrl, __AssignImageList)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxImageList* imageList = arg.GetNumber(0)
 	//int which = arg.GetNumber(1)
-	//pThis->GetEntity()->AssignImageList();
+	//pThis->GetEntity()->AssignImageList(imageList, which);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ListCtrl, __Create)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_ListCtrl, __DeleteColumn)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteColumn();
+	//pThis->GetEntity()->DeleteColumn(col);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_ListCtrl, __DeleteItem)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteItem();
+	//pThis->GetEntity()->DeleteItem(item);
 	return Value::Nil;
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EditLabel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//wxClassInfo* textControlClass = arg.GetNumber(1)
-	//pThis->GetEntity()->EditLabel();
+	//pThis->GetEntity()->EditLabel(item, textControlClass);
 	return Value::Nil;
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EnableAlternateRowColours)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableAlternateRowColours();
+	//pThis->GetEntity()->EnableAlternateRowColours(enable);
 	return Value::Nil;
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EnableBellOnNoMatch)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool on = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableBellOnNoMatch();
+	//pThis->GetEntity()->EnableBellOnNoMatch(on);
 	return Value::Nil;
 }
 
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EndEditLabel)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool cancel = arg.GetNumber(0)
-	//pThis->GetEntity()->EndEditLabel();
+	//pThis->GetEntity()->EndEditLabel(cancel);
 	return Value::Nil;
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EnsureVisible)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->EnsureVisible();
+	//pThis->GetEntity()->EnsureVisible(item);
 	return Value::Nil;
 }
 
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_ListCtrl, __FindItem)
 	//long start = arg.GetNumber(0)
 	//const wxString& str = arg.GetNumber(1)
 	//bool partial = arg.GetNumber(2)
-	//pThis->GetEntity()->FindItem();
+	//pThis->GetEntity()->FindItem(start, str, partial);
 	return Value::Nil;
 }
 
@@ -323,7 +323,7 @@ Gura_ImplementMethod(wx_ListCtrl, __FindItem_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long start = arg.GetNumber(0)
 	//wxUIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->FindItem();
+	//pThis->GetEntity()->FindItem(start, data);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_ListCtrl, __FindItem_2)
 	//long start = arg.GetNumber(0)
 	//const wxPoint& pt = arg.GetNumber(1)
 	//int direction = arg.GetNumber(2)
-	//pThis->GetEntity()->FindItem();
+	//pThis->GetEntity()->FindItem(start, pt, direction);
 	return Value::Nil;
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//wxListItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->GetColumn();
+	//pThis->GetEntity()->GetColumn(col, item);
 	return Value::Nil;
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetColumnIndexFromOrder)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnIndexFromOrder();
+	//pThis->GetEntity()->GetColumnIndexFromOrder(pos);
 	return Value::Nil;
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetColumnOrder)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnOrder();
+	//pThis->GetEntity()->GetColumnOrder(col);
 	return Value::Nil;
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetColumnWidth)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->GetColumnWidth();
+	//pThis->GetEntity()->GetColumnWidth(col);
 	return Value::Nil;
 }
 
@@ -471,7 +471,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetImageList)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int which = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageList();
+	//pThis->GetEntity()->GetImageList(which);
 	return Value::Nil;
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItem)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxListItem& info = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItem();
+	//pThis->GetEntity()->GetItem(info);
 	return Value::Nil;
 }
 
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemBackgroundColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemBackgroundColour();
+	//pThis->GetEntity()->GetItemBackgroundColour(item);
 	return Value::Nil;
 }
 
@@ -529,7 +529,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemData)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemData();
+	//pThis->GetEntity()->GetItemData(item);
 	return Value::Nil;
 }
 
@@ -544,7 +544,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemFont)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemFont();
+	//pThis->GetEntity()->GetItemFont(item);
 	return Value::Nil;
 }
 
@@ -561,7 +561,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItemPosition();
+	//pThis->GetEntity()->GetItemPosition(item, pos);
 	return Value::Nil;
 }
 
@@ -580,7 +580,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemRect)
 	//long item = arg.GetNumber(0)
 	//wxRect& rect = arg.GetNumber(1)
 	//int code = arg.GetNumber(2)
-	//pThis->GetEntity()->GetItemRect();
+	//pThis->GetEntity()->GetItemRect(item, rect, code);
 	return Value::Nil;
 }
 
@@ -610,7 +610,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemState)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//long stateMask = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItemState();
+	//pThis->GetEntity()->GetItemState(item, stateMask);
 	return Value::Nil;
 }
 
@@ -627,7 +627,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->GetItemText();
+	//pThis->GetEntity()->GetItemText(item, col);
 	return Value::Nil;
 }
 
@@ -642,7 +642,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetItemTextColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->GetItemTextColour();
+	//pThis->GetEntity()->GetItemTextColour(item);
 	return Value::Nil;
 }
 
@@ -661,7 +661,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetNextItem)
 	//long item = arg.GetNumber(0)
 	//int geometry = arg.GetNumber(1)
 	//int state = arg.GetNumber(2)
-	//pThis->GetEntity()->GetNextItem();
+	//pThis->GetEntity()->GetNextItem(item, geometry, state);
 	return Value::Nil;
 }
 
@@ -695,7 +695,7 @@ Gura_ImplementMethod(wx_ListCtrl, __GetSubItemRect)
 	//long subItem = arg.GetNumber(1)
 	//wxRect& rect = arg.GetNumber(2)
 	//int code = arg.GetNumber(3)
-	//pThis->GetEntity()->GetSubItemRect();
+	//pThis->GetEntity()->GetSubItemRect(item, subItem, rect, code);
 	return Value::Nil;
 }
 
@@ -749,7 +749,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetAlternateRowColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlternateRowColour();
+	//pThis->GetEntity()->SetAlternateRowColour(colour);
 	return Value::Nil;
 }
 
@@ -781,7 +781,7 @@ Gura_ImplementMethod(wx_ListCtrl, __HitTest)
 	//const wxPoint& point = arg.GetNumber(0)
 	//int& flags = arg.GetNumber(1)
 	//long* ptrSubItem = arg.GetNumber(2)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(point, flags, ptrSubItem);
 	return Value::Nil;
 }
 
@@ -811,7 +811,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long col = arg.GetNumber(0)
 	//const wxListItem& info = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertColumn();
+	//pThis->GetEntity()->InsertColumn(col, info);
 	return Value::Nil;
 }
 
@@ -832,7 +832,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertColumn_1)
 	//const wxString& heading = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
 	//int width = arg.GetNumber(3)
-	//pThis->GetEntity()->InsertColumn();
+	//pThis->GetEntity()->InsertColumn(col, heading, format, width);
 	return Value::Nil;
 }
 
@@ -847,7 +847,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertItem)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxListItem& info = arg.GetNumber(0)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(info);
 	return Value::Nil;
 }
 
@@ -864,7 +864,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertItem_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long index = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(index, label);
 	return Value::Nil;
 }
 
@@ -881,7 +881,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertItem_2)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long index = arg.GetNumber(0)
 	//int imageIndex = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(index, imageIndex);
 	return Value::Nil;
 }
 
@@ -900,7 +900,7 @@ Gura_ImplementMethod(wx_ListCtrl, __InsertItem_3)
 	//long index = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
 	//int imageIndex = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(index, label, imageIndex);
 	return Value::Nil;
 }
 
@@ -928,7 +928,7 @@ Gura_ImplementMethod(wx_ListCtrl, __RefreshItem)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->RefreshItem();
+	//pThis->GetEntity()->RefreshItem(item);
 	return Value::Nil;
 }
 
@@ -945,7 +945,7 @@ Gura_ImplementMethod(wx_ListCtrl, __RefreshItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long itemFrom = arg.GetNumber(0)
 	//long itemTo = arg.GetNumber(1)
-	//pThis->GetEntity()->RefreshItems();
+	//pThis->GetEntity()->RefreshItems(itemFrom, itemTo);
 	return Value::Nil;
 }
 
@@ -962,7 +962,7 @@ Gura_ImplementMethod(wx_ListCtrl, __ScrollList)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int dx = arg.GetNumber(0)
 	//int dy = arg.GetNumber(1)
-	//pThis->GetEntity()->ScrollList();
+	//pThis->GetEntity()->ScrollList(dx, dy);
 	return Value::Nil;
 }
 
@@ -977,7 +977,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetBackgroundColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(col);
 	return Value::Nil;
 }
 
@@ -994,7 +994,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetColumn)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//wxListItem& item = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColumn();
+	//pThis->GetEntity()->SetColumn(col, item);
 	return Value::Nil;
 }
 
@@ -1011,7 +1011,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetColumnWidth)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//pThis->GetEntity()->SetColumnWidth();
+	//pThis->GetEntity()->SetColumnWidth(col, width);
 	return Value::Nil;
 }
 
@@ -1026,7 +1026,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetColumnsOrder)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayInt& orders = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumnsOrder();
+	//pThis->GetEntity()->SetColumnsOrder(orders);
 	return Value::Nil;
 }
 
@@ -1043,7 +1043,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetImageList)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxImageList* imageList = arg.GetNumber(0)
 	//int which = arg.GetNumber(1)
-	//pThis->GetEntity()->SetImageList();
+	//pThis->GetEntity()->SetImageList(imageList, which);
 	return Value::Nil;
 }
 
@@ -1058,7 +1058,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItem)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxListItem& info = arg.GetNumber(0)
-	//pThis->GetEntity()->SetItem();
+	//pThis->GetEntity()->SetItem(info);
 	return Value::Nil;
 }
 
@@ -1079,7 +1079,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItem_1)
 	//int column = arg.GetNumber(1)
 	//const wxString& label = arg.GetNumber(2)
 	//int imageId = arg.GetNumber(3)
-	//pThis->GetEntity()->SetItem();
+	//pThis->GetEntity()->SetItem(index, column, label, imageId);
 	return Value::Nil;
 }
 
@@ -1096,7 +1096,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemBackgroundColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//const wxColour& col = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemBackgroundColour();
+	//pThis->GetEntity()->SetItemBackgroundColour(item, col);
 	return Value::Nil;
 }
 
@@ -1115,7 +1115,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemColumnImage)
 	//long item = arg.GetNumber(0)
 	//long column = arg.GetNumber(1)
 	//int image = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemColumnImage();
+	//pThis->GetEntity()->SetItemColumnImage(item, column, image);
 	return Value::Nil;
 }
 
@@ -1130,7 +1130,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemCount)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long count = arg.GetNumber(0)
-	//pThis->GetEntity()->SetItemCount();
+	//pThis->GetEntity()->SetItemCount(count);
 	return Value::Nil;
 }
 
@@ -1147,7 +1147,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//long data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemData();
+	//pThis->GetEntity()->SetItemData(item, data);
 	return Value::Nil;
 }
 
@@ -1164,7 +1164,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemFont)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//const wxFont& font = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemFont();
+	//pThis->GetEntity()->SetItemFont(item, font);
 	return Value::Nil;
 }
 
@@ -1183,7 +1183,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemImage)
 	//long item = arg.GetNumber(0)
 	//int image = arg.GetNumber(1)
 	//int selImage = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemImage();
+	//pThis->GetEntity()->SetItemImage(item, image, selImage);
 	return Value::Nil;
 }
 
@@ -1200,7 +1200,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemPosition();
+	//pThis->GetEntity()->SetItemPosition(item, pos);
 	return Value::Nil;
 }
 
@@ -1217,7 +1217,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemPtrData)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//wxUIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemPtrData();
+	//pThis->GetEntity()->SetItemPtrData(item, data);
 	return Value::Nil;
 }
 
@@ -1236,7 +1236,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemState)
 	//long item = arg.GetNumber(0)
 	//long state = arg.GetNumber(1)
 	//long stateMask = arg.GetNumber(2)
-	//pThis->GetEntity()->SetItemState();
+	//pThis->GetEntity()->SetItemState(item, state, stateMask);
 	return Value::Nil;
 }
 
@@ -1253,7 +1253,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemText();
+	//pThis->GetEntity()->SetItemText(item, text);
 	return Value::Nil;
 }
 
@@ -1270,7 +1270,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetItemTextColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//const wxColour& col = arg.GetNumber(1)
-	//pThis->GetEntity()->SetItemTextColour();
+	//pThis->GetEntity()->SetItemTextColour(item, col);
 	return Value::Nil;
 }
 
@@ -1287,7 +1287,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetSingleStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long style = arg.GetNumber(0)
 	//bool add = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSingleStyle();
+	//pThis->GetEntity()->SetSingleStyle(style, add);
 	return Value::Nil;
 }
 
@@ -1302,7 +1302,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetTextColour)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextColour();
+	//pThis->GetEntity()->SetTextColour(col);
 	return Value::Nil;
 }
 
@@ -1317,7 +1317,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SetWindowStyleFlag)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWindowStyleFlag();
+	//pThis->GetEntity()->SetWindowStyleFlag(style);
 	return Value::Nil;
 }
 
@@ -1334,7 +1334,7 @@ Gura_ImplementMethod(wx_ListCtrl, __SortItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxListCtrlCompare fnSortCallBack = arg.GetNumber(0)
 	//wxIntPtr data = arg.GetNumber(1)
-	//pThis->GetEntity()->SortItems();
+	//pThis->GetEntity()->SortItems(fnSortCallBack, data);
 	return Value::Nil;
 }
 
@@ -1362,7 +1362,7 @@ Gura_ImplementMethod(wx_ListCtrl, __EnableCheckboxes)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableCheckboxes();
+	//pThis->GetEntity()->EnableCheckboxes(enable);
 	return Value::Nil;
 }
 
@@ -1377,7 +1377,7 @@ Gura_ImplementMethod(wx_ListCtrl, __IsItemChecked)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->IsItemChecked();
+	//pThis->GetEntity()->IsItemChecked(item);
 	return Value::Nil;
 }
 
@@ -1394,7 +1394,7 @@ Gura_ImplementMethod(wx_ListCtrl, __CheckItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//bool check = arg.GetNumber(1)
-	//pThis->GetEntity()->CheckItem();
+	//pThis->GetEntity()->CheckItem(item, check);
 	return Value::Nil;
 }
 
@@ -1409,7 +1409,7 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemAttr)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItemAttr();
+	//pThis->GetEntity()->OnGetItemAttr(item);
 	return Value::Nil;
 }
 
@@ -1426,7 +1426,7 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemColumnAttr)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//long column = arg.GetNumber(1)
-	//pThis->GetEntity()->OnGetItemColumnAttr();
+	//pThis->GetEntity()->OnGetItemColumnAttr(item, column);
 	return Value::Nil;
 }
 
@@ -1443,7 +1443,7 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemColumnImage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//long column = arg.GetNumber(1)
-	//pThis->GetEntity()->OnGetItemColumnImage();
+	//pThis->GetEntity()->OnGetItemColumnImage(item, column);
 	return Value::Nil;
 }
 
@@ -1458,7 +1458,7 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemImage)
 	Object_wx_ListCtrl *pThis = Object_wx_ListCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItemImage();
+	//pThis->GetEntity()->OnGetItemImage(item);
 	return Value::Nil;
 }
 
@@ -1475,7 +1475,7 @@ Gura_ImplementMethod(wx_ListCtrl, __OnGetItemText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long item = arg.GetNumber(0)
 	//long column = arg.GetNumber(1)
-	//pThis->GetEntity()->OnGetItemText();
+	//pThis->GetEntity()->OnGetItemText(item, column);
 	return Value::Nil;
 }
 

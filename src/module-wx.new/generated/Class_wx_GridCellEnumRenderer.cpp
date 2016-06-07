@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__GridCellEnumRenderer, "GridCellEnumRenderer")
 Gura_ImplementFunction(__GridCellEnumRenderer)
 {
 	//const wxString& choices = arg.GetNumber(0)
-	//wxGridCellEnumRenderer();
+	//wxGridCellEnumRenderer(choices);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_GridCellEnumRenderer, __SetParameters)
 	Object_wx_GridCellEnumRenderer *pThis = Object_wx_GridCellEnumRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& params = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParameters();
+	//pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }
 

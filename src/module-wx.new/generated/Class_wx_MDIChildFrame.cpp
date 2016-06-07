@@ -73,7 +73,7 @@ Gura_ImplementFunction(__MDIChildFrame_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxMDIChildFrame();
+	//wxMDIChildFrame(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, __Create)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_MDIChildFrame, __Maximize)
 	Object_wx_MDIChildFrame *pThis = Object_wx_MDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool maximize = arg.GetNumber(0)
-	//pThis->GetEntity()->Maximize();
+	//pThis->GetEntity()->Maximize(maximize);
 	return Value::Nil;
 }
 

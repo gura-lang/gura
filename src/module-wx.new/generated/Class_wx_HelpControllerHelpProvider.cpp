@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HelpControllerHelpProvider, "HelpControllerHelpProvi
 Gura_ImplementFunction(__HelpControllerHelpProvider)
 {
 	//wxHelpControllerBase* hc = arg.GetNumber(0)
-	//wxHelpControllerHelpProvider();
+	//wxHelpControllerHelpProvider(hc);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_HelpControllerHelpProvider, __SetHelpController)
 	Object_wx_HelpControllerHelpProvider *pThis = Object_wx_HelpControllerHelpProvider::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHelpControllerBase* hc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHelpController();
+	//pThis->GetEntity()->SetHelpController(hc);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_ImplementMethod(wx_MessageDialog, __ButtonLabel)
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int stockId = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonLabel();
+	//pThis->GetEntity()->ButtonLabel(stockId);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_MessageDialog, __ButtonLabel_1)
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonLabel();
+	//pThis->GetEntity()->ButtonLabel(label);
 	return Value::Nil;
 }
 

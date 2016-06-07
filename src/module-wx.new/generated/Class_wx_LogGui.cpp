@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_LogGui, __DoShowSingleLogMessage)
 	//const wxString& message = arg.GetNumber(0)
 	//const wxString& title = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//pThis->GetEntity()->DoShowSingleLogMessage();
+	//pThis->GetEntity()->DoShowSingleLogMessage(message, title, style);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_LogGui, __DoShowMultipleLogMessages)
 	//const wxArrayLong& times = arg.GetNumber(2)
 	//const wxString& title = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->DoShowMultipleLogMessages();
+	//pThis->GetEntity()->DoShowMultipleLogMessages(messages, severities, times, title, style);
 	return Value::Nil;
 }
 

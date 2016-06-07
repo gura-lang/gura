@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__InitDialogEvent, "InitDialogEvent")
 Gura_ImplementFunction(__InitDialogEvent)
 {
 	//int id = arg.GetNumber(0)
-	//wxInitDialogEvent();
+	//wxInitDialogEvent(id);
 	return Value::Nil;
 }
 

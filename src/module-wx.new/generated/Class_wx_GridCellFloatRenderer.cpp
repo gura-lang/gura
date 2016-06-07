@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridCellFloatRenderer)
 	//int width = arg.GetNumber(0)
 	//int precision = arg.GetNumber(1)
 	//int format = arg.GetNumber(2)
-	//wxGridCellFloatRenderer();
+	//wxGridCellFloatRenderer(width, precision, format);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetFormat)
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int format = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFormat();
+	//pThis->GetEntity()->SetFormat(format);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetParameters)
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& params = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParameters();
+	//pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetPrecision)
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int precision = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrecision();
+	//pThis->GetEntity()->SetPrecision(precision);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_GridCellFloatRenderer, __SetWidth)
 	Object_wx_GridCellFloatRenderer *pThis = Object_wx_GridCellFloatRenderer::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int width = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWidth();
+	//pThis->GetEntity()->SetWidth(width);
 	return Value::Nil;
 }
 

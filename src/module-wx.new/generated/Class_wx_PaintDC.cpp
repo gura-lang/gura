@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PaintDC, "PaintDC")
 Gura_ImplementFunction(__PaintDC)
 {
 	//wxWindow* window = arg.GetNumber(0)
-	//wxPaintDC();
+	//wxPaintDC(window);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ConvAuto, "ConvAuto")
 Gura_ImplementFunction(__ConvAuto)
 {
 	//wxFontEncoding enc = arg.GetNumber(0)
-	//wxConvAuto();
+	//wxConvAuto(enc);
 	return Value::Nil;
 }
 
@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_ConvAuto, __GetBOMChars)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxBOM bom = arg.GetNumber(0)
 	//size_t* count = arg.GetNumber(1)
-	//pThis->GetEntity()->GetBOMChars();
+	//pThis->GetEntity()->GetBOMChars(bom, count);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_ConvAuto, __SetFallbackEncoding)
 	Object_wx_ConvAuto *pThis = Object_wx_ConvAuto::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding enc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFallbackEncoding();
+	//pThis->GetEntity()->SetFallbackEncoding(enc);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_ConvAuto, __DetectBOM)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* src = arg.GetNumber(0)
 	//size_t srcLen = arg.GetNumber(1)
-	//pThis->GetEntity()->DetectBOM();
+	//pThis->GetEntity()->DetectBOM(src, srcLen);
 	return Value::Nil;
 }
 

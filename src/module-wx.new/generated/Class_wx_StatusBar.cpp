@@ -67,7 +67,7 @@ Gura_ImplementFunction(__StatusBar_1)
 	//wxWindowID id = arg.GetNumber(1)
 	//long style = arg.GetNumber(2)
 	//const wxString& name = arg.GetNumber(3)
-	//wxStatusBar();
+	//wxStatusBar(parent, id, style, name);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_StatusBar, __Create)
 	//wxWindowID id = arg.GetNumber(1)
 	//long style = arg.GetNumber(2)
 	//const wxString& name = arg.GetNumber(3)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, style, name);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_StatusBar, __GetFieldRect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
 	//wxRect& rect = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFieldRect();
+	//pThis->GetEntity()->GetFieldRect(i, rect);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_StatusBar, __GetField)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetField();
+	//pThis->GetEntity()->GetField(n);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_StatusBar, __GetStatusText)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
-	//pThis->GetEntity()->GetStatusText();
+	//pThis->GetEntity()->GetStatusText(i);
 	return Value::Nil;
 }
 
@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_StatusBar, __GetStatusWidth)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetStatusWidth();
+	//pThis->GetEntity()->GetStatusWidth(n);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_StatusBar, __GetStatusStyle)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetStatusStyle();
+	//pThis->GetEntity()->GetStatusStyle(n);
 	return Value::Nil;
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_StatusBar, __PopStatusText)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int field = arg.GetNumber(0)
-	//pThis->GetEntity()->PopStatusText();
+	//pThis->GetEntity()->PopStatusText(field);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_StatusBar, __PushStatusText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
 	//int field = arg.GetNumber(1)
-	//pThis->GetEntity()->PushStatusText();
+	//pThis->GetEntity()->PushStatusText(string, field);
 	return Value::Nil;
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_StatusBar, __SetFieldsCount)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int number = arg.GetNumber(0)
 	//const int* widths = arg.GetNumber(1)
-	//pThis->GetEntity()->SetFieldsCount();
+	//pThis->GetEntity()->SetFieldsCount(number, widths);
 	return Value::Nil;
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_StatusBar, __SetMinHeight)
 	Object_wx_StatusBar *pThis = Object_wx_StatusBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int height = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMinHeight();
+	//pThis->GetEntity()->SetMinHeight(height);
 	return Value::Nil;
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_StatusBar, __SetStatusStyles)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//const int* styles = arg.GetNumber(1)
-	//pThis->GetEntity()->SetStatusStyles();
+	//pThis->GetEntity()->SetStatusStyles(n, styles);
 	return Value::Nil;
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_StatusBar, __SetStatusText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
 	//int i = arg.GetNumber(1)
-	//pThis->GetEntity()->SetStatusText();
+	//pThis->GetEntity()->SetStatusText(text, i);
 	return Value::Nil;
 }
 
@@ -309,7 +309,7 @@ Gura_ImplementMethod(wx_StatusBar, __SetStatusWidths)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
 	//const int* widths_field = arg.GetNumber(1)
-	//pThis->GetEntity()->SetStatusWidths();
+	//pThis->GetEntity()->SetStatusWidths(n, widths_field);
 	return Value::Nil;
 }
 

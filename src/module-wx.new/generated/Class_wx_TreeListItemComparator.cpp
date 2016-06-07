@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_TreeListItemComparator, __Compare)
 	//unsigned column = arg.GetNumber(1)
 	//wxTreeListItem first = arg.GetNumber(2)
 	//wxTreeListItem second = arg.GetNumber(3)
-	//pThis->GetEntity()->Compare();
+	//pThis->GetEntity()->Compare(treelist, column, first, second);
 	return Value::Nil;
 }
 

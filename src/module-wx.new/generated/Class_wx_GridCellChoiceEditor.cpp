@@ -52,7 +52,7 @@ Gura_ImplementFunction(__GridCellChoiceEditor)
 	//size_t count = arg.GetNumber(0)
 	//const wxString choices[] _arg1 = arg.GetNumber(1)
 	//bool allowOthers = arg.GetNumber(2)
-	//wxGridCellChoiceEditor();
+	//wxGridCellChoiceEditor(count, _arg1, allowOthers);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__GridCellChoiceEditor_1)
 {
 	//const wxArrayString& choices = arg.GetNumber(0)
 	//bool allowOthers = arg.GetNumber(1)
-	//wxGridCellChoiceEditor();
+	//wxGridCellChoiceEditor(choices, allowOthers);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_GridCellChoiceEditor, __SetParameters)
 	Object_wx_GridCellChoiceEditor *pThis = Object_wx_GridCellChoiceEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& params = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParameters();
+	//pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }
 

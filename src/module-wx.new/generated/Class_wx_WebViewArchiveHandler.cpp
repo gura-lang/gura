@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WebViewArchiveHandler, "WebViewArchiveHandler")
 Gura_ImplementFunction(__WebViewArchiveHandler)
 {
 	//const wxString& scheme = arg.GetNumber(0)
-	//wxWebViewArchiveHandler();
+	//wxWebViewArchiveHandler(scheme);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_WebViewArchiveHandler, __GetFile)
 	Object_wx_WebViewArchiveHandler *pThis = Object_wx_WebViewArchiveHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFile();
+	//pThis->GetEntity()->GetFile(uri);
 	return Value::Nil;
 }
 

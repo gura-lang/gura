@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ConfigPathChanger)
 {
 	//const wxConfigBase* pContainer = arg.GetNumber(0)
 	//const wxString& strEntry = arg.GetNumber(1)
-	//wxConfigPathChanger();
+	//wxConfigPathChanger(pContainer, strEntry);
 	return Value::Nil;
 }
 

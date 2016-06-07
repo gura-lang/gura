@@ -52,7 +52,7 @@ Gura_ImplementMethod(wx_GridCornerHeaderRenderer, __DrawBorder)
 	//const wxGrid& grid = arg.GetNumber(0)
 	//wxDC& dc = arg.GetNumber(1)
 	//wxRect& rect = arg.GetNumber(2)
-	//pThis->GetEntity()->DrawBorder();
+	//pThis->GetEntity()->DrawBorder(grid, dc, rect);
 	return Value::Nil;
 }
 

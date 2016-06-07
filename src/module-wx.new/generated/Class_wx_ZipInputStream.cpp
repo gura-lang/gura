@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ZipInputStream)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
 	//wxMBConv& conv = arg.GetNumber(1)
-	//wxZipInputStream();
+	//wxZipInputStream(stream, conv);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__ZipInputStream_1)
 {
 	//wxInputStream* stream = arg.GetNumber(0)
 	//wxMBConv& conv = arg.GetNumber(1)
-	//wxZipInputStream();
+	//wxZipInputStream(stream, conv);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_ZipInputStream, __OpenEntry)
 	Object_wx_ZipInputStream *pThis = Object_wx_ZipInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxZipEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OpenEntry();
+	//pThis->GetEntity()->OpenEntry(entry);
 	return Value::Nil;
 }
 

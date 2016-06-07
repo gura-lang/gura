@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PrintData_1, "PrintData_1")
 Gura_ImplementFunction(__PrintData_1)
 {
 	//const wxPrintData& data = arg.GetNumber(0)
-	//wxPrintData();
+	//wxPrintData(data);
 	return Value::Nil;
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_PrintData, __SetBin)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPrintBin flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBin();
+	//pThis->GetEntity()->SetBin(flag);
 	return Value::Nil;
 }
 
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_PrintData, __SetCollate)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCollate();
+	//pThis->GetEntity()->SetCollate(flag);
 	return Value::Nil;
 }
 
@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_PrintData, __SetColour)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(flag);
 	return Value::Nil;
 }
 
@@ -254,7 +254,7 @@ Gura_ImplementMethod(wx_PrintData, __SetDuplex)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDuplexMode mode = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDuplex();
+	//pThis->GetEntity()->SetDuplex(mode);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_PrintData, __SetNoCopies)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNoCopies();
+	//pThis->GetEntity()->SetNoCopies(n);
 	return Value::Nil;
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_PrintData, __SetOrientation)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPrintOrientation orientation = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOrientation();
+	//pThis->GetEntity()->SetOrientation(orientation);
 	return Value::Nil;
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(wx_PrintData, __SetPaperId)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPaperSize paperId = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPaperId();
+	//pThis->GetEntity()->SetPaperId(paperId);
 	return Value::Nil;
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_PrintData, __SetPaperSize)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPaperSize();
+	//pThis->GetEntity()->SetPaperSize(size);
 	return Value::Nil;
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_PrintData, __SetPrinterName)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& printerName = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrinterName();
+	//pThis->GetEntity()->SetPrinterName(printerName);
 	return Value::Nil;
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_PrintData, __SetQuality)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPrintQuality quality = arg.GetNumber(0)
-	//pThis->GetEntity()->SetQuality();
+	//pThis->GetEntity()->SetQuality(quality);
 	return Value::Nil;
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_PrintData, __SetFilename)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilename();
+	//pThis->GetEntity()->SetFilename(filename);
 	return Value::Nil;
 }
 
@@ -400,7 +400,7 @@ Gura_ImplementMethod(wx_PrintData, __SetPrintMode)
 	Object_wx_PrintData *pThis = Object_wx_PrintData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPrintMode printMode = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrintMode();
+	//pThis->GetEntity()->SetPrintMode(printMode);
 	return Value::Nil;
 }
 

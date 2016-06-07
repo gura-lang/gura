@@ -145,7 +145,7 @@ Gura_ImplementMethod(wx_StackFrame, __GetParam)
 	//wxString* type = arg.GetNumber(1)
 	//wxString* name = arg.GetNumber(2)
 	//wxString* value = arg.GetNumber(3)
-	//pThis->GetEntity()->GetParam();
+	//pThis->GetEntity()->GetParam(n, type, name, value);
 	return Value::Nil;
 }
 

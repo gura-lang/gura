@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DCClipper)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRegion& region = arg.GetNumber(1)
-	//wxDCClipper();
+	//wxDCClipper(dc, region);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__DCClipper_1)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//const wxRect& rect = arg.GetNumber(1)
-	//wxDCClipper();
+	//wxDCClipper(dc, rect);
 	return Value::Nil;
 }
 
@@ -90,7 +90,7 @@ Gura_ImplementFunction(__DCClipper_2)
 	//wxCoord y = arg.GetNumber(2)
 	//wxCoord w = arg.GetNumber(3)
 	//wxCoord h = arg.GetNumber(4)
-	//wxDCClipper();
+	//wxDCClipper(dc, x, y, w, h);
 	return Value::Nil;
 }
 

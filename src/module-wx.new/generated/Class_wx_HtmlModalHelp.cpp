@@ -54,7 +54,7 @@ Gura_ImplementFunction(__HtmlModalHelp)
 	//const wxString& helpFile = arg.GetNumber(1)
 	//const wxString& topic = arg.GetNumber(2)
 	//int style = arg.GetNumber(3)
-	//wxHtmlModalHelp();
+	//wxHtmlModalHelp(parent, helpFile, topic, style);
 	return Value::Nil;
 }
 

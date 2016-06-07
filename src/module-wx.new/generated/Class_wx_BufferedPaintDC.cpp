@@ -52,7 +52,7 @@ Gura_ImplementFunction(__BufferedPaintDC)
 	//wxWindow* window = arg.GetNumber(0)
 	//wxBitmap& buffer = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//wxBufferedPaintDC();
+	//wxBufferedPaintDC(window, buffer, style);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__BufferedPaintDC_1)
 {
 	//wxWindow* window = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//wxBufferedPaintDC();
+	//wxBufferedPaintDC(window, style);
 	return Value::Nil;
 }
 

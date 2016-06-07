@@ -58,7 +58,7 @@ Gura_ImplementFunction(__PrintAbortDialog)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxPrintAbortDialog();
+	//wxPrintAbortDialog(parent, documentTitle, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementMethod(wx_PrintAbortDialog, __SetProgress)
 	//int totalPages = arg.GetNumber(1)
 	//int currentCopy = arg.GetNumber(2)
 	//int totalCopies = arg.GetNumber(3)
-	//pThis->GetEntity()->SetProgress();
+	//pThis->GetEntity()->SetProgress(currentPage, totalPages, currentCopy, totalCopies);
 	return Value::Nil;
 }
 

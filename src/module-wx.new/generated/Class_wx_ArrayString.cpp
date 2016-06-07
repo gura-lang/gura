@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__ArrayString_1, "ArrayString_1")
 Gura_ImplementFunction(__ArrayString_1)
 {
 	//const wxArrayString& array = arg.GetNumber(0)
-	//wxArrayString();
+	//wxArrayString(array);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__ArrayString_2)
 {
 	//size_t sz = arg.GetNumber(0)
 	//const char** arr = arg.GetNumber(1)
-	//wxArrayString();
+	//wxArrayString(sz, arr);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementFunction(__ArrayString_3)
 {
 	//size_t sz = arg.GetNumber(0)
 	//const wchar_t** arr = arg.GetNumber(1)
-	//wxArrayString();
+	//wxArrayString(sz, arr);
 	return Value::Nil;
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementFunction(__ArrayString_4)
 {
 	//size_t sz = arg.GetNumber(0)
 	//const wxString* arr = arg.GetNumber(1)
-	//wxArrayString();
+	//wxArrayString(sz, arr);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_ArrayString, __int)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//*CompareFunction)(const wxString& first = arg.GetNumber(0)
 	//const wxString& second = arg.GetNumber(1)
-	//pThis->GetEntity()->int();
+	//pThis->GetEntity()->int(first, second);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_ArrayString, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(str, copies);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_ArrayString, __Alloc)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nCount = arg.GetNumber(0)
-	//pThis->GetEntity()->Alloc();
+	//pThis->GetEntity()->Alloc(nCount);
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_ArrayString, __Index)
 	//const wxString& sz = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
 	//bool bFromEnd = arg.GetNumber(2)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(sz, bCase, bFromEnd);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_ArrayString, __Insert)
 	//wxString lItem = arg.GetNumber(0)
 	//size_t nIndex = arg.GetNumber(1)
 	//size_t copies = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(lItem, nIndex, copies);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_ArrayString, __Item)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(nIndex);
 	return Value::Nil;
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_ArrayString, __Item_1)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->Item();
+	//pThis->GetEntity()->Item(nIndex);
 	return Value::Nil;
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_ArrayString, __Remove)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& sz = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(sz);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_ArrayString, __RemoveAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nIndex = arg.GetNumber(0)
 	//size_t count = arg.GetNumber(1)
-	//pThis->GetEntity()->RemoveAt();
+	//pThis->GetEntity()->RemoveAt(nIndex, count);
 	return Value::Nil;
 }
 
@@ -370,7 +370,7 @@ Gura_ImplementMethod(wx_ArrayString, __Sort)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool reverseOrder = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(reverseOrder);
 	return Value::Nil;
 }
 
@@ -385,7 +385,7 @@ Gura_ImplementMethod(wx_ArrayString, __Sort_1)
 	Object_wx_ArrayString *pThis = Object_wx_ArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//CompareFunction compareFunction = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(compareFunction);
 	return Value::Nil;
 }
 

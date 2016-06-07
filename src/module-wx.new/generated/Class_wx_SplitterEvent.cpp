@@ -50,7 +50,7 @@ Gura_ImplementFunction(__SplitterEvent)
 {
 	//wxEventType eventType = arg.GetNumber(0)
 	//wxSplitterWindow* splitter = arg.GetNumber(1)
-	//wxSplitterEvent();
+	//wxSplitterEvent(eventType, splitter);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_SplitterEvent, __SetSashPosition)
 	Object_wx_SplitterEvent *pThis = Object_wx_SplitterEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSashPosition();
+	//pThis->GetEntity()->SetSashPosition(pos);
 	return Value::Nil;
 }
 

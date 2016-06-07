@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MetafileDC, "MetafileDC")
 Gura_ImplementFunction(__MetafileDC)
 {
 	//const wxString& filename = arg.GetNumber(0)
-	//wxMetafileDC();
+	//wxMetafileDC(filename);
 	return Value::Nil;
 }
 

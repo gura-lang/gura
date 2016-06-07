@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DialUpEvent)
 {
 	//bool isConnected = arg.GetNumber(0)
 	//bool isOwnEvent = arg.GetNumber(1)
-	//wxDialUpEvent();
+	//wxDialUpEvent(isConnected, isOwnEvent);
 	return Value::Nil;
 }
 

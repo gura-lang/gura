@@ -50,7 +50,7 @@ Gura_ImplementFunction(__FFileStream)
 {
 	//const wxString& iofileName = arg.GetNumber(0)
 	//const wxString& mode = arg.GetNumber(1)
-	//wxFFileStream();
+	//wxFFileStream(iofileName, mode);
 	return Value::Nil;
 }
 

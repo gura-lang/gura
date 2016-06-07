@@ -50,7 +50,7 @@ Gura_ImplementFunction(__SetCursorEvent)
 {
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//wxSetCursorEvent();
+	//wxSetCursorEvent(x, y);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_SetCursorEvent, __SetCursor)
 	Object_wx_SetCursorEvent *pThis = Object_wx_SetCursorEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxCursor& cursor = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCursor();
+	//pThis->GetEntity()->SetCursor(cursor);
 	return Value::Nil;
 }
 

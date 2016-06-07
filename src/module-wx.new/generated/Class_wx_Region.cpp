@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Region_1)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//wxRegion();
+	//wxRegion(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Region_2)
 {
 	//const wxPoint& topLeft = arg.GetNumber(0)
 	//const wxPoint& bottomRight = arg.GetNumber(1)
-	//wxRegion();
+	//wxRegion(topLeft, bottomRight);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_DeclareFunctionAlias(__Region_3, "Region_3")
 Gura_ImplementFunction(__Region_3)
 {
 	//const wxRect& rect = arg.GetNumber(0)
-	//wxRegion();
+	//wxRegion(rect);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_DeclareFunctionAlias(__Region_4, "Region_4")
 Gura_ImplementFunction(__Region_4)
 {
 	//const wxRegion& region = arg.GetNumber(0)
-	//wxRegion();
+	//wxRegion(region);
 	return Value::Nil;
 }
 
@@ -133,7 +133,7 @@ Gura_ImplementFunction(__Region_5)
 	//size_t n = arg.GetNumber(0)
 	//const wxPoint* points = arg.GetNumber(1)
 	//wxPolygonFillMode fillStyle = arg.GetNumber(2)
-	//wxRegion();
+	//wxRegion(n, points, fillStyle);
 	return Value::Nil;
 }
 
@@ -148,7 +148,7 @@ Gura_DeclareFunctionAlias(__Region_6, "Region_6")
 Gura_ImplementFunction(__Region_6)
 {
 	//const wxBitmap& bmp = arg.GetNumber(0)
-	//wxRegion();
+	//wxRegion(bmp);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementFunction(__Region_7)
 	//const wxBitmap& bmp = arg.GetNumber(0)
 	//const wxColour& transColour = arg.GetNumber(1)
 	//int tolerance = arg.GetNumber(2)
-	//wxRegion();
+	//wxRegion(bmp, transColour, tolerance);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_Region, __Contains)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(x, y);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Region, __Contains_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(pt);
 	return Value::Nil;
 }
 
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_Region, __Contains_2)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Region, __Contains_3)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(rect);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_Region, __GetBox)
 	//wxCoord& y = arg.GetNumber(1)
 	//wxCoord& width = arg.GetNumber(2)
 	//wxCoord& height = arg.GetNumber(3)
-	//pThis->GetEntity()->GetBox();
+	//pThis->GetEntity()->GetBox(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_Region, __Intersect)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//pThis->GetEntity()->Intersect();
+	//pThis->GetEntity()->Intersect(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_Region, __Intersect_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersect();
+	//pThis->GetEntity()->Intersect(rect);
 	return Value::Nil;
 }
 
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_Region, __Intersect_2)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersect();
+	//pThis->GetEntity()->Intersect(region);
 	return Value::Nil;
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_Region, __IsEqual)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEqual();
+	//pThis->GetEntity()->IsEqual(region);
 	return Value::Nil;
 }
 
@@ -394,7 +394,7 @@ Gura_ImplementMethod(wx_Region, __Offset)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCoord x = arg.GetNumber(0)
 	//wxCoord y = arg.GetNumber(1)
-	//pThis->GetEntity()->Offset();
+	//pThis->GetEntity()->Offset(x, y);
 	return Value::Nil;
 }
 
@@ -409,7 +409,7 @@ Gura_ImplementMethod(wx_Region, __Offset_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Offset();
+	//pThis->GetEntity()->Offset(pt);
 	return Value::Nil;
 }
 
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_Region, __Subtract)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Subtract();
+	//pThis->GetEntity()->Subtract(rect);
 	return Value::Nil;
 }
 
@@ -439,7 +439,7 @@ Gura_ImplementMethod(wx_Region, __Subtract_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->Subtract();
+	//pThis->GetEntity()->Subtract(region);
 	return Value::Nil;
 }
 
@@ -460,7 +460,7 @@ Gura_ImplementMethod(wx_Region, __Union)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_Region, __Union_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(rect);
 	return Value::Nil;
 }
 
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_Region, __Union_2)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(region);
 	return Value::Nil;
 }
 
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_Region, __Union_3)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bmp = arg.GetNumber(0)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(bmp);
 	return Value::Nil;
 }
 
@@ -524,7 +524,7 @@ Gura_ImplementMethod(wx_Region, __Union_4)
 	//const wxBitmap& bmp = arg.GetNumber(0)
 	//const wxColour& transColour = arg.GetNumber(1)
 	//int tolerance = arg.GetNumber(2)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(bmp, transColour, tolerance);
 	return Value::Nil;
 }
 
@@ -545,7 +545,7 @@ Gura_ImplementMethod(wx_Region, __Xor)
 	//wxCoord y = arg.GetNumber(1)
 	//wxCoord width = arg.GetNumber(2)
 	//wxCoord height = arg.GetNumber(3)
-	//pThis->GetEntity()->Xor();
+	//pThis->GetEntity()->Xor(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -560,7 +560,7 @@ Gura_ImplementMethod(wx_Region, __Xor_1)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Xor();
+	//pThis->GetEntity()->Xor(rect);
 	return Value::Nil;
 }
 
@@ -575,7 +575,7 @@ Gura_ImplementMethod(wx_Region, __Xor_2)
 	Object_wx_Region *pThis = Object_wx_Region::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRegion& region = arg.GetNumber(0)
-	//pThis->GetEntity()->Xor();
+	//pThis->GetEntity()->Xor(region);
 	return Value::Nil;
 }
 

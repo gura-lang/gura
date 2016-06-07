@@ -50,7 +50,7 @@ Gura_ImplementFunction(__MirrorDC)
 {
 	//wxDC& dc = arg.GetNumber(0)
 	//bool mirror = arg.GetNumber(1)
-	//wxMirrorDC();
+	//wxMirrorDC(dc, mirror);
 	return Value::Nil;
 }
 

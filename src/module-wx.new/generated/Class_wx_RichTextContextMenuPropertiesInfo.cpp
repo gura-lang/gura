@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
-	//pThis->GetEntity()->AddItem();
+	//pThis->GetEntity()->AddItem(label, obj);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddMenuItems)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
 	//int startCmd = arg.GetNumber(1)
-	//pThis->GetEntity()->AddMenuItems();
+	//pThis->GetEntity()->AddMenuItems(menu, startCmd);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __AddItems)
 	//wxRichTextCtrl* ctrl = arg.GetNumber(0)
 	//wxRichTextObject* container = arg.GetNumber(1)
 	//wxRichTextObject* obj = arg.GetNumber(2)
-	//pThis->GetEntity()->AddItems();
+	//pThis->GetEntity()->AddItems(ctrl, container, obj);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetLabel)
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel();
+	//pThis->GetEntity()->GetLabel(n);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_RichTextContextMenuPropertiesInfo, __GetObject)
 	Object_wx_RichTextContextMenuPropertiesInfo *pThis = Object_wx_RichTextContextMenuPropertiesInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetObject();
+	//pThis->GetEntity()->GetObject(n);
 	return Value::Nil;
 }
 

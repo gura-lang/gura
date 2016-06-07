@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__XmlDocument_1, "XmlDocument_1")
 Gura_ImplementFunction(__XmlDocument_1)
 {
 	//const wxXmlDocument& doc = arg.GetNumber(0)
-	//wxXmlDocument();
+	//wxXmlDocument(doc);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementFunction(__XmlDocument_2)
 {
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& encoding = arg.GetNumber(1)
-	//wxXmlDocument();
+	//wxXmlDocument(filename, encoding);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementFunction(__XmlDocument_3)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
 	//const wxString& encoding = arg.GetNumber(1)
-	//wxXmlDocument();
+	//wxXmlDocument(stream, encoding);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_XmlDocument, __AppendToProlog)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendToProlog();
+	//pThis->GetEntity()->AppendToProlog(node);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Load)
 	//const wxString& filename = arg.GetNumber(0)
 	//const wxString& encoding = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Load();
+	//pThis->GetEntity()->Load(filename, encoding, flags);
 	return Value::Nil;
 }
 
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Load_1)
 	//wxInputStream& stream = arg.GetNumber(0)
 	//const wxString& encoding = arg.GetNumber(1)
 	//int flags = arg.GetNumber(2)
-	//pThis->GetEntity()->Load();
+	//pThis->GetEntity()->Load(stream, encoding, flags);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Save)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& filename = arg.GetNumber(0)
 	//int indentstep = arg.GetNumber(1)
-	//pThis->GetEntity()->Save();
+	//pThis->GetEntity()->Save(filename, indentstep);
 	return Value::Nil;
 }
 
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_XmlDocument, __Save_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//int indentstep = arg.GetNumber(1)
-	//pThis->GetEntity()->Save();
+	//pThis->GetEntity()->Save(stream, indentstep);
 	return Value::Nil;
 }
 
@@ -317,7 +317,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetDocumentNode)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDocumentNode();
+	//pThis->GetEntity()->SetDocumentNode(node);
 	return Value::Nil;
 }
 
@@ -332,7 +332,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& enc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEncoding();
+	//pThis->GetEntity()->SetEncoding(enc);
 	return Value::Nil;
 }
 
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetFileEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& encoding = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFileEncoding();
+	//pThis->GetEntity()->SetFileEncoding(encoding);
 	return Value::Nil;
 }
 
@@ -362,7 +362,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetDoctype)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlDoctype& doctype = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDoctype();
+	//pThis->GetEntity()->SetDoctype(doctype);
 	return Value::Nil;
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetRoot)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRoot();
+	//pThis->GetEntity()->SetRoot(node);
 	return Value::Nil;
 }
 
@@ -392,7 +392,7 @@ Gura_ImplementMethod(wx_XmlDocument, __SetVersion)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& version = arg.GetNumber(0)
-	//pThis->GetEntity()->SetVersion();
+	//pThis->GetEntity()->SetVersion(version);
 	return Value::Nil;
 }
 

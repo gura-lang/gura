@@ -52,7 +52,7 @@ Gura_ImplementFunction(__PrintPreview)
 	//wxPrintout* printout = arg.GetNumber(0)
 	//wxPrintout* printoutForPrinting = arg.GetNumber(1)
 	//wxPrintDialogData* data = arg.GetNumber(2)
-	//wxPrintPreview();
+	//wxPrintPreview(printout, printoutForPrinting, data);
 	return Value::Nil;
 }
 
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__PrintPreview_1)
 	//wxPrintout* printout = arg.GetNumber(0)
 	//wxPrintout* printoutForPrinting = arg.GetNumber(1)
 	//wxPrintData* data = arg.GetNumber(2)
-	//wxPrintPreview();
+	//wxPrintPreview(printout, printoutForPrinting, data);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_PrintPreview, __PaintPage)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPreviewCanvas* canvas = arg.GetNumber(0)
 	//wxDC& dc = arg.GetNumber(1)
-	//pThis->GetEntity()->PaintPage();
+	//pThis->GetEntity()->PaintPage(canvas, dc);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_PrintPreview, __Print)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool prompt = arg.GetNumber(0)
-	//pThis->GetEntity()->Print();
+	//pThis->GetEntity()->Print(prompt);
 	return Value::Nil;
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_PrintPreview, __RenderPage)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageNum = arg.GetNumber(0)
-	//pThis->GetEntity()->RenderPage();
+	//pThis->GetEntity()->RenderPage(pageNum);
 	return Value::Nil;
 }
 
@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetCanvas)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPreviewCanvas* window = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCanvas();
+	//pThis->GetEntity()->SetCanvas(window);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetCurrentPage)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pageNum = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrentPage();
+	//pThis->GetEntity()->SetCurrentPage(pageNum);
 	return Value::Nil;
 }
 
@@ -270,7 +270,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetFrame)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFrame* frame = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFrame();
+	//pThis->GetEntity()->SetFrame(frame);
 	return Value::Nil;
 }
 
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetPrintout)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPrintout* printout = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrintout();
+	//pThis->GetEntity()->SetPrintout(printout);
 	return Value::Nil;
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(wx_PrintPreview, __SetZoom)
 	Object_wx_PrintPreview *pThis = Object_wx_PrintPreview::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int percent = arg.GetNumber(0)
-	//pThis->GetEntity()->SetZoom();
+	//pThis->GetEntity()->SetZoom(percent);
 	return Value::Nil;
 }
 

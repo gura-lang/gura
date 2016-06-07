@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__WindowDisabler, "WindowDisabler")
 Gura_ImplementFunction(__WindowDisabler)
 {
 	//bool disable = arg.GetNumber(0)
-	//wxWindowDisabler();
+	//wxWindowDisabler(disable);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__WindowDisabler_1, "WindowDisabler_1")
 Gura_ImplementFunction(__WindowDisabler_1)
 {
 	//wxWindow* winToSkip = arg.GetNumber(0)
-	//wxWindowDisabler();
+	//wxWindowDisabler(winToSkip);
 	return Value::Nil;
 }
 

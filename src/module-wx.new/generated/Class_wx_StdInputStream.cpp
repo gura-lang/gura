@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__StdInputStream, "StdInputStream")
 Gura_ImplementFunction(__StdInputStream)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
-	//wxStdInputStream();
+	//wxStdInputStream(stream);
 	return Value::Nil;
 }
 

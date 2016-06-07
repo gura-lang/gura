@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__RichTextHeaderFooterData_1, "RichTextHeaderFooterDat
 Gura_ImplementFunction(__RichTextHeaderFooterData_1)
 {
 	//const wxRichTextHeaderFooterData& data = arg.GetNumber(0)
-	//wxRichTextHeaderFooterData();
+	//wxRichTextHeaderFooterData(data);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __Copy)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextHeaderFooterData& data = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(data);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetFooterText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFooterText();
+	//pThis->GetEntity()->GetFooterText(page, location);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetHeaderText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextOddEvenPage page = arg.GetNumber(0)
 	//wxRichTextPageLocation location = arg.GetNumber(1)
-	//pThis->GetEntity()->GetHeaderText();
+	//pThis->GetEntity()->GetHeaderText(page, location);
 	return Value::Nil;
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __GetText)
 	//int headerFooter = arg.GetNumber(0)
 	//wxRichTextOddEvenPage page = arg.GetNumber(1)
 	//wxRichTextPageLocation location = arg.GetNumber(2)
-	//pThis->GetEntity()->GetText();
+	//pThis->GetEntity()->GetText(headerFooter, page, location);
 	return Value::Nil;
 }
 
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetFont)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFont();
+	//pThis->GetEntity()->SetFont(font);
 	return Value::Nil;
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetFooterText)
 	//const wxString& text = arg.GetNumber(0)
 	//wxRichTextOddEvenPage page = arg.GetNumber(1)
 	//wxRichTextPageLocation location = arg.GetNumber(2)
-	//pThis->GetEntity()->SetFooterText();
+	//pThis->GetEntity()->SetFooterText(text, page, location);
 	return Value::Nil;
 }
 
@@ -276,7 +276,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetHeaderText)
 	//const wxString& text = arg.GetNumber(0)
 	//wxRichTextOddEvenPage page = arg.GetNumber(1)
 	//wxRichTextPageLocation location = arg.GetNumber(2)
-	//pThis->GetEntity()->SetHeaderText();
+	//pThis->GetEntity()->SetHeaderText(text, page, location);
 	return Value::Nil;
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetMargins)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int headerMargin = arg.GetNumber(0)
 	//int footerMargin = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(headerMargin, footerMargin);
 	return Value::Nil;
 }
 
@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetShowOnFirstPage)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool showOnFirstPage = arg.GetNumber(0)
-	//pThis->GetEntity()->SetShowOnFirstPage();
+	//pThis->GetEntity()->SetShowOnFirstPage(showOnFirstPage);
 	return Value::Nil;
 }
 
@@ -329,7 +329,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetText)
 	//int headerFooter = arg.GetNumber(1)
 	//wxRichTextOddEvenPage page = arg.GetNumber(2)
 	//wxRichTextPageLocation location = arg.GetNumber(3)
-	//pThis->GetEntity()->SetText();
+	//pThis->GetEntity()->SetText(text, headerFooter, page, location);
 	return Value::Nil;
 }
 
@@ -344,7 +344,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, __SetTextColour)
 	Object_wx_RichTextHeaderFooterData *pThis = Object_wx_RichTextHeaderFooterData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextColour();
+	//pThis->GetEntity()->SetTextColour(col);
 	return Value::Nil;
 }
 

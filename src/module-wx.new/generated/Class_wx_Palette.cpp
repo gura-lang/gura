@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__Palette_1, "Palette_1")
 Gura_ImplementFunction(__Palette_1)
 {
 	//const wxPalette& palette = arg.GetNumber(0)
-	//wxPalette();
+	//wxPalette(palette);
 	return Value::Nil;
 }
 
@@ -82,7 +82,7 @@ Gura_ImplementFunction(__Palette_2)
 	//const unsigned char* red = arg.GetNumber(1)
 	//const unsigned char* green = arg.GetNumber(2)
 	//const unsigned char* blue = arg.GetNumber(3)
-	//wxPalette();
+	//wxPalette(n, red, green, blue);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_Palette, __Create)
 	//const unsigned char* red = arg.GetNumber(1)
 	//const unsigned char* green = arg.GetNumber(2)
 	//const unsigned char* blue = arg.GetNumber(3)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(n, red, green, blue);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Palette, __GetPixel)
 	//unsigned char red = arg.GetNumber(0)
 	//unsigned char green = arg.GetNumber(1)
 	//unsigned char blue = arg.GetNumber(2)
-	//pThis->GetEntity()->GetPixel();
+	//pThis->GetEntity()->GetPixel(red, green, blue);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_Palette, __GetRGB)
 	//unsigned char* red = arg.GetNumber(1)
 	//unsigned char* green = arg.GetNumber(2)
 	//unsigned char* blue = arg.GetNumber(3)
-	//pThis->GetEntity()->GetRGB();
+	//pThis->GetEntity()->GetRGB(pixel, red, green, blue);
 	return Value::Nil;
 }
 

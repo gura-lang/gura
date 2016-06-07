@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOption)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOption();
+	//pThis->GetEntity()->GetOption(name);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_SystemOptions, __GetOptionInt)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOptionInt();
+	//pThis->GetEntity()->GetOptionInt(name);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_SystemOptions, __HasOption)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->HasOption();
+	//pThis->GetEntity()->HasOption(name);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_SystemOptions, __IsFalse)
 	Object_wx_SystemOptions *pThis = Object_wx_SystemOptions::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->IsFalse();
+	//pThis->GetEntity()->IsFalse(name);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& value = arg.GetNumber(1)
-	//pThis->GetEntity()->SetOption();
+	//pThis->GetEntity()->SetOption(name, value);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_SystemOptions, __SetOption_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->SetOption();
+	//pThis->GetEntity()->SetOption(name, value);
 	return Value::Nil;
 }
 

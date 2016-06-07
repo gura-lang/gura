@@ -50,7 +50,7 @@ Gura_ImplementFunction(__PageSetupDialog)
 {
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxPageSetupDialogData* data = arg.GetNumber(1)
-	//wxPageSetupDialog();
+	//wxPageSetupDialog(parent, data);
 	return Value::Nil;
 }
 

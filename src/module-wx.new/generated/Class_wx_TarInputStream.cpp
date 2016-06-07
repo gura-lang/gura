@@ -50,7 +50,7 @@ Gura_ImplementFunction(__TarInputStream)
 {
 	//wxInputStream& stream = arg.GetNumber(0)
 	//wxMBConv& conv = arg.GetNumber(1)
-	//wxTarInputStream();
+	//wxTarInputStream(stream, conv);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_ImplementFunction(__TarInputStream_1)
 {
 	//wxInputStream* stream = arg.GetNumber(0)
 	//wxMBConv& conv = arg.GetNumber(1)
-	//wxTarInputStream();
+	//wxTarInputStream(stream, conv);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_TarInputStream, __OpenEntry)
 	Object_wx_TarInputStream *pThis = Object_wx_TarInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTarEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OpenEntry();
+	//pThis->GetEntity()->OpenEntry(entry);
 	return Value::Nil;
 }
 

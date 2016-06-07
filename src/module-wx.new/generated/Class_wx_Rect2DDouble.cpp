@@ -67,7 +67,7 @@ Gura_ImplementFunction(__Rect2DDouble_1)
 	//wxDouble y = arg.GetNumber(1)
 	//wxDouble w = arg.GetNumber(2)
 	//wxDouble h = arg.GetNumber(3)
-	//wxRect2DDouble();
+	//wxRect2DDouble(x, y, w, h);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetLeft)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLeft();
+	//pThis->GetEntity()->SetLeft(n);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveLeftTo();
+	//pThis->GetEntity()->MoveLeftTo(n);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetTop)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTop();
+	//pThis->GetEntity()->SetTop(n);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveTopTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveTopTo();
+	//pThis->GetEntity()->MoveTopTo(n);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetBottom)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBottom();
+	//pThis->GetEntity()->SetBottom(n);
 	return Value::Nil;
 }
 
@@ -225,7 +225,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveBottomTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveBottomTo();
+	//pThis->GetEntity()->MoveBottomTo(n);
 	return Value::Nil;
 }
 
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetRight)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRight();
+	//pThis->GetEntity()->SetRight(n);
 	return Value::Nil;
 }
 
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble n = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveRightTo();
+	//pThis->GetEntity()->MoveRightTo(n);
 	return Value::Nil;
 }
 
@@ -296,7 +296,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetLeftTop)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLeftTop();
+	//pThis->GetEntity()->SetLeftTop(pt);
 	return Value::Nil;
 }
 
@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftTopTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveLeftTopTo();
+	//pThis->GetEntity()->MoveLeftTopTo(pt);
 	return Value::Nil;
 }
 
@@ -339,7 +339,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetLeftBottom)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLeftBottom();
+	//pThis->GetEntity()->SetLeftBottom(pt);
 	return Value::Nil;
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveLeftBottomTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveLeftBottomTo();
+	//pThis->GetEntity()->MoveLeftBottomTo(pt);
 	return Value::Nil;
 }
 
@@ -382,7 +382,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetRightTop)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRightTop();
+	//pThis->GetEntity()->SetRightTop(pt);
 	return Value::Nil;
 }
 
@@ -397,7 +397,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightTopTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveRightTopTo();
+	//pThis->GetEntity()->MoveRightTopTo(pt);
 	return Value::Nil;
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetRightBottom)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRightBottom();
+	//pThis->GetEntity()->SetRightBottom(pt);
 	return Value::Nil;
 }
 
@@ -440,7 +440,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveRightBottomTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveRightBottomTo();
+	//pThis->GetEntity()->MoveRightBottomTo(pt);
 	return Value::Nil;
 }
 
@@ -468,7 +468,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __SetCentre)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCentre();
+	//pThis->GetEntity()->SetCentre(pt);
 	return Value::Nil;
 }
 
@@ -483,7 +483,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __MoveCentreTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveCentreTo();
+	//pThis->GetEntity()->MoveCentreTo(pt);
 	return Value::Nil;
 }
 
@@ -498,7 +498,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __GetOutCode)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOutCode();
+	//pThis->GetEntity()->GetOutCode(pt);
 	return Value::Nil;
 }
 
@@ -513,7 +513,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __GetOutcode)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetOutcode();
+	//pThis->GetEntity()->GetOutcode(pt);
 	return Value::Nil;
 }
 
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Contains)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(pt);
 	return Value::Nil;
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Contains_1)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Contains();
+	//pThis->GetEntity()->Contains(rect);
 	return Value::Nil;
 }
 
@@ -571,7 +571,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __HaveEqualSize)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->HaveEqualSize();
+	//pThis->GetEntity()->HaveEqualSize(rect);
 	return Value::Nil;
 }
 
@@ -588,7 +588,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Inset)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble x = arg.GetNumber(0)
 	//wxDouble y = arg.GetNumber(1)
-	//pThis->GetEntity()->Inset();
+	//pThis->GetEntity()->Inset(x, y);
 	return Value::Nil;
 }
 
@@ -609,7 +609,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Inset_1)
 	//wxDouble top = arg.GetNumber(1)
 	//wxDouble right = arg.GetNumber(2)
 	//wxDouble bottom = arg.GetNumber(3)
-	//pThis->GetEntity()->Inset();
+	//pThis->GetEntity()->Inset(left, top, right, bottom);
 	return Value::Nil;
 }
 
@@ -624,7 +624,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Offset)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Offset();
+	//pThis->GetEntity()->Offset(pt);
 	return Value::Nil;
 }
 
@@ -639,7 +639,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __ConstrainTo)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->ConstrainTo();
+	//pThis->GetEntity()->ConstrainTo(rect);
 	return Value::Nil;
 }
 
@@ -656,7 +656,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Interpolate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInt32 widthfactor = arg.GetNumber(0)
 	//wxInt32 heightfactor = arg.GetNumber(1)
-	//pThis->GetEntity()->Interpolate();
+	//pThis->GetEntity()->Interpolate(widthfactor, heightfactor);
 	return Value::Nil;
 }
 
@@ -675,7 +675,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Intersect)
 	//const wxRect2DDouble& src1 = arg.GetNumber(0)
 	//const wxRect2DDouble& src2 = arg.GetNumber(1)
 	//wxRect2DDouble* dest = arg.GetNumber(2)
-	//pThis->GetEntity()->Intersect();
+	//pThis->GetEntity()->Intersect(src1, src2, dest);
 	return Value::Nil;
 }
 
@@ -690,7 +690,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Intersect_1)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& otherRect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersect();
+	//pThis->GetEntity()->Intersect(otherRect);
 	return Value::Nil;
 }
 
@@ -705,7 +705,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __CreateIntersection)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& otherRect = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateIntersection();
+	//pThis->GetEntity()->CreateIntersection(otherRect);
 	return Value::Nil;
 }
 
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Intersects)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& rect = arg.GetNumber(0)
-	//pThis->GetEntity()->Intersects();
+	//pThis->GetEntity()->Intersects(rect);
 	return Value::Nil;
 }
 
@@ -739,7 +739,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Union)
 	//const wxRect2DDouble& src1 = arg.GetNumber(0)
 	//const wxRect2DDouble& src2 = arg.GetNumber(1)
 	//wxRect2DDouble* dest = arg.GetNumber(2)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(src1, src2, dest);
 	return Value::Nil;
 }
 
@@ -754,7 +754,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Union_1)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& otherRect = arg.GetNumber(0)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(otherRect);
 	return Value::Nil;
 }
 
@@ -769,7 +769,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Union_2)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Union();
+	//pThis->GetEntity()->Union(pt);
 	return Value::Nil;
 }
 
@@ -784,7 +784,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __CreateUnion)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRect2DDouble& otherRect = arg.GetNumber(0)
-	//pThis->GetEntity()->CreateUnion();
+	//pThis->GetEntity()->CreateUnion(otherRect);
 	return Value::Nil;
 }
 
@@ -799,7 +799,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Scale)
 	Object_wx_Rect2DDouble *pThis = Object_wx_Rect2DDouble::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble f = arg.GetNumber(0)
-	//pThis->GetEntity()->Scale();
+	//pThis->GetEntity()->Scale(f);
 	return Value::Nil;
 }
 
@@ -816,7 +816,7 @@ Gura_ImplementMethod(wx_Rect2DDouble, __Scale_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxInt32 num = arg.GetNumber(0)
 	//wxInt32 denum = arg.GetNumber(1)
-	//pThis->GetEntity()->Scale();
+	//pThis->GetEntity()->Scale(num, denum);
 	return Value::Nil;
 }
 

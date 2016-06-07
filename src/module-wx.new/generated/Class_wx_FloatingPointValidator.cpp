@@ -50,7 +50,7 @@ Gura_ImplementFunction(__FloatingPointValidator)
 {
 	//ValueType* value = arg.GetNumber(0)
 	//int style = arg.GetNumber(1)
-	//wxFloatingPointValidator();
+	//wxFloatingPointValidator(value, style);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__FloatingPointValidator_1)
 	//int precision = arg.GetNumber(0)
 	//ValueType* value = arg.GetNumber(1)
 	//int style = arg.GetNumber(2)
-	//wxFloatingPointValidator();
+	//wxFloatingPointValidator(precision, value, style);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_FloatingPointValidator, __SetPrecision)
 	Object_wx_FloatingPointValidator *pThis = Object_wx_FloatingPointValidator::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned precision = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrecision();
+	//pThis->GetEntity()->SetPrecision(precision);
 	return Value::Nil;
 }
 

@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextHTMLHandler)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
-	//wxRichTextHTMLHandler();
+	//wxRichTextHTMLHandler(name, ext, type);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DeleteTemporaryImages_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
 	//const wxArrayString& imageLocations = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteTemporaryImages();
+	//pThis->GetEntity()->DeleteTemporaryImages(flags, imageLocations);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetFileCounter)
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int counter = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFileCounter();
+	//pThis->GetEntity()->SetFileCounter(counter);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetFontSizeMapping)
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayInt& fontSizeMapping = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFontSizeMapping();
+	//pThis->GetEntity()->SetFontSizeMapping(fontSizeMapping);
 	return Value::Nil;
 }
 
@@ -182,7 +182,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTempDir)
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& tempDir = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTempDir();
+	//pThis->GetEntity()->SetTempDir(tempDir);
 	return Value::Nil;
 }
 
@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __SetTemporaryImageLocations)
 	Object_wx_RichTextHTMLHandler *pThis = Object_wx_RichTextHTMLHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& locations = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTemporaryImageLocations();
+	//pThis->GetEntity()->SetTemporaryImageLocations(locations);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RichTextHTMLHandler, __DoSaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSaveFile();
+	//pThis->GetEntity()->DoSaveFile(buffer, stream);
 	return Value::Nil;
 }
 

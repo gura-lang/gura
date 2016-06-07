@@ -52,7 +52,7 @@ Gura_ImplementFunction(__ProcessEvent)
 	//int id = arg.GetNumber(0)
 	//int pid = arg.GetNumber(1)
 	//int exitcode = arg.GetNumber(2)
-	//wxProcessEvent();
+	//wxProcessEvent(id, pid, exitcode);
 	return Value::Nil;
 }
 

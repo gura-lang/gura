@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextPlainText)
 	//const wxString& text = arg.GetNumber(0)
 	//wxRichTextObject* parent = arg.GetNumber(1)
 	//wxRichTextAttr* style = arg.GetNumber(2)
-	//wxRichTextPlainText();
+	//wxRichTextPlainText(text, parent, style);
 	return Value::Nil;
 }
 
@@ -67,7 +67,7 @@ Gura_DeclareFunctionAlias(__RichTextPlainText_1, "RichTextPlainText_1")
 Gura_ImplementFunction(__RichTextPlainText_1)
 {
 	//const wxRichTextPlainText& obj = arg.GetNumber(0)
-	//wxRichTextPlainText();
+	//wxRichTextPlainText(obj);
 	return Value::Nil;
 }
 
@@ -97,7 +97,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Draw)
 	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Layout)
 	//const wxRect& rect = arg.GetNumber(2)
 	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->Layout();
+	//pThis->GetEntity()->Layout(dc, context, rect, parentRect, style);
 	return Value::Nil;
 }
 
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
+	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __GetTextForRange)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->GetTextForRange();
+	//pThis->GetEntity()->GetTextForRange(range);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __DoSplit)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->DoSplit();
+	//pThis->GetEntity()->DoSplit(pos);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __CalculateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long start = arg.GetNumber(0)
 	//long& end = arg.GetNumber(1)
-	//pThis->GetEntity()->CalculateRange();
+	//pThis->GetEntity()->CalculateRange(start, end);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __DeleteRange)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteRange();
+	//pThis->GetEntity()->DeleteRange(range);
 	return Value::Nil;
 }
 
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __CanMerge)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* object = arg.GetNumber(0)
 	//wxRichTextDrawingContext& context = arg.GetNumber(1)
-	//pThis->GetEntity()->CanMerge();
+	//pThis->GetEntity()->CanMerge(object, context);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Merge)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* object = arg.GetNumber(0)
 	//wxRichTextDrawingContext& context = arg.GetNumber(1)
-	//pThis->GetEntity()->Merge();
+	//pThis->GetEntity()->Merge(object, context);
 	return Value::Nil;
 }
 
@@ -275,7 +275,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __CanSplit)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextDrawingContext& context = arg.GetNumber(0)
-	//pThis->GetEntity()->CanSplit();
+	//pThis->GetEntity()->CanSplit(context);
 	return Value::Nil;
 }
 
@@ -290,7 +290,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Split)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextDrawingContext& context = arg.GetNumber(0)
-	//pThis->GetEntity()->Split();
+	//pThis->GetEntity()->Split(context);
 	return Value::Nil;
 }
 
@@ -305,7 +305,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Dump)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextOutputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->Dump();
+	//pThis->GetEntity()->Dump(stream);
 	return Value::Nil;
 }
 
@@ -320,7 +320,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __GetFirstLineBreakPosition)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFirstLineBreakPosition();
+	//pThis->GetEntity()->GetFirstLineBreakPosition(pos);
 	return Value::Nil;
 }
 
@@ -354,7 +354,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __ImportFromXML)
 	//wxXmlNode* node = arg.GetNumber(1)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
 	//bool* recurse = arg.GetNumber(3)
-	//pThis->GetEntity()->ImportFromXML();
+	//pThis->GetEntity()->ImportFromXML(buffer, node, handler, recurse);
 	return Value::Nil;
 }
 
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __ExportXML)
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//int indent = arg.GetNumber(1)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(2)
-	//pThis->GetEntity()->ExportXML();
+	//pThis->GetEntity()->ExportXML(stream, indent, handler);
 	return Value::Nil;
 }
 
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __ExportXML_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* parent = arg.GetNumber(0)
 	//wxRichTextXMLHandler* handler = arg.GetNumber(1)
-	//pThis->GetEntity()->ExportXML();
+	//pThis->GetEntity()->ExportXML(parent, handler);
 	return Value::Nil;
 }
 
@@ -431,7 +431,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __SetText)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetText();
+	//pThis->GetEntity()->SetText(text);
 	return Value::Nil;
 }
 
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __Copy)
 	Object_wx_RichTextPlainText *pThis = Object_wx_RichTextPlainText::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextPlainText& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(obj);
 	return Value::Nil;
 }
 
@@ -486,7 +486,7 @@ Gura_ImplementMethod(wx_RichTextPlainText, __DrawTabbedString)
 	//wxCoord& x = arg.GetNumber(4)
 	//wxCoord& y = arg.GetNumber(5)
 	//bool selected = arg.GetNumber(6)
-	//pThis->GetEntity()->DrawTabbedString();
+	//pThis->GetEntity()->DrawTabbedString(dc, attr, rect, str, x, y, selected);
 	return Value::Nil;
 }
 

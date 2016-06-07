@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MenuBar, "MenuBar")
 Gura_ImplementFunction(__MenuBar)
 {
 	//long style = arg.GetNumber(0)
-	//wxMenuBar();
+	//wxMenuBar(style);
 	return Value::Nil;
 }
 
@@ -69,7 +69,7 @@ Gura_ImplementFunction(__MenuBar_1)
 	//wxMenu* menus = arg.GetNumber(1)
 	//const wxString titles = arg.GetNumber(2)
 	//long style = arg.GetNumber(3)
-	//wxMenuBar();
+	//wxMenuBar(n, menus, titles, style);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_MenuBar, __Append)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenu* menu = arg.GetNumber(0)
 	//const wxString& title = arg.GetNumber(1)
-	//pThis->GetEntity()->Append();
+	//pThis->GetEntity()->Append(menu, title);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_ImplementMethod(wx_MenuBar, __Check)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//bool check = arg.GetNumber(1)
-	//pThis->GetEntity()->Check();
+	//pThis->GetEntity()->Check(id, check);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_MenuBar, __Enable)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//bool enable = arg.GetNumber(1)
-	//pThis->GetEntity()->Enable();
+	//pThis->GetEntity()->Enable(id, enable);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_MenuBar, __IsEnabledTop)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEnabledTop();
+	//pThis->GetEntity()->IsEnabledTop(pos);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_MenuBar, __EnableTop)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//bool enable = arg.GetNumber(1)
-	//pThis->GetEntity()->EnableTop();
+	//pThis->GetEntity()->EnableTop(pos, enable);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_MenuBar, __FindItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//wxMenu** menu = arg.GetNumber(1)
-	//pThis->GetEntity()->FindItem();
+	//pThis->GetEntity()->FindItem(id, menu);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_MenuBar, __FindMenu)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->FindMenu();
+	//pThis->GetEntity()->FindMenu(title);
 	return Value::Nil;
 }
 
@@ -204,7 +204,7 @@ Gura_ImplementMethod(wx_MenuBar, __FindMenuItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& menuString = arg.GetNumber(0)
 	//const wxString& itemString = arg.GetNumber(1)
-	//pThis->GetEntity()->FindMenuItem();
+	//pThis->GetEntity()->FindMenuItem(menuString, itemString);
 	return Value::Nil;
 }
 
@@ -219,7 +219,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetHelpString)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetHelpString();
+	//pThis->GetEntity()->GetHelpString(id);
 	return Value::Nil;
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetLabel)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabel();
+	//pThis->GetEntity()->GetLabel(id);
 	return Value::Nil;
 }
 
@@ -249,7 +249,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetLabelTop)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLabelTop();
+	//pThis->GetEntity()->GetLabelTop(pos);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenu)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t menuIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenu();
+	//pThis->GetEntity()->GetMenu(menuIndex);
 	return Value::Nil;
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenuLabel)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenuLabel();
+	//pThis->GetEntity()->GetMenuLabel(pos);
 	return Value::Nil;
 }
 
@@ -307,7 +307,7 @@ Gura_ImplementMethod(wx_MenuBar, __GetMenuLabelText)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetMenuLabelText();
+	//pThis->GetEntity()->GetMenuLabelText(pos);
 	return Value::Nil;
 }
 
@@ -326,7 +326,7 @@ Gura_ImplementMethod(wx_MenuBar, __Insert)
 	//size_t pos = arg.GetNumber(0)
 	//wxMenu* menu = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(pos, menu, title);
 	return Value::Nil;
 }
 
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_MenuBar, __IsChecked)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->IsChecked();
+	//pThis->GetEntity()->IsChecked(id);
 	return Value::Nil;
 }
 
@@ -356,7 +356,7 @@ Gura_ImplementMethod(wx_MenuBar, __IsEnabled)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEnabled();
+	//pThis->GetEntity()->IsEnabled(id);
 	return Value::Nil;
 }
 
@@ -373,7 +373,7 @@ Gura_ImplementMethod(wx_MenuBar, __Refresh)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool eraseBackground = arg.GetNumber(0)
 	//const wxRect* rect = arg.GetNumber(1)
-	//pThis->GetEntity()->Refresh();
+	//pThis->GetEntity()->Refresh(eraseBackground, rect);
 	return Value::Nil;
 }
 
@@ -388,7 +388,7 @@ Gura_ImplementMethod(wx_MenuBar, __Remove)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(pos);
 	return Value::Nil;
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(wx_MenuBar, __Replace)
 	//size_t pos = arg.GetNumber(0)
 	//wxMenu* menu = arg.GetNumber(1)
 	//const wxString& title = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace();
+	//pThis->GetEntity()->Replace(pos, menu, title);
 	return Value::Nil;
 }
 
@@ -424,7 +424,7 @@ Gura_ImplementMethod(wx_MenuBar, __SetHelpString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//const wxString& helpString = arg.GetNumber(1)
-	//pThis->GetEntity()->SetHelpString();
+	//pThis->GetEntity()->SetHelpString(id, helpString);
 	return Value::Nil;
 }
 
@@ -441,7 +441,7 @@ Gura_ImplementMethod(wx_MenuBar, __SetLabel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->SetLabel();
+	//pThis->GetEntity()->SetLabel(id, label);
 	return Value::Nil;
 }
 
@@ -458,7 +458,7 @@ Gura_ImplementMethod(wx_MenuBar, __SetLabelTop)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->SetLabelTop();
+	//pThis->GetEntity()->SetLabelTop(pos, label);
 	return Value::Nil;
 }
 
@@ -475,7 +475,7 @@ Gura_ImplementMethod(wx_MenuBar, __SetMenuLabel)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t pos = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMenuLabel();
+	//pThis->GetEntity()->SetMenuLabel(pos, label);
 	return Value::Nil;
 }
 
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_MenuBar, __MacSetCommonMenuBar)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMenuBar* menubar = arg.GetNumber(0)
-	//pThis->GetEntity()->MacSetCommonMenuBar();
+	//pThis->GetEntity()->MacSetCommonMenuBar(menubar);
 	return Value::Nil;
 }
 
@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_MenuBar, __Attach)
 	Object_wx_MenuBar *pThis = Object_wx_MenuBar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFrame* frame = arg.GetNumber(0)
-	//pThis->GetEntity()->Attach();
+	//pThis->GetEntity()->Attach(frame);
 	return Value::Nil;
 }
 

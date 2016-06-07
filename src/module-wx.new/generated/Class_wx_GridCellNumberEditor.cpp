@@ -50,7 +50,7 @@ Gura_ImplementFunction(__GridCellNumberEditor)
 {
 	//int min = arg.GetNumber(0)
 	//int max = arg.GetNumber(1)
-	//wxGridCellNumberEditor();
+	//wxGridCellNumberEditor(min, max);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_GridCellNumberEditor, __SetParameters)
 	Object_wx_GridCellNumberEditor *pThis = Object_wx_GridCellNumberEditor::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& params = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParameters();
+	//pThis->GetEntity()->SetParameters(params);
 	return Value::Nil;
 }
 

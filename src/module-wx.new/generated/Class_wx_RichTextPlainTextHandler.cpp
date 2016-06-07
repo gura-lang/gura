@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextPlainTextHandler)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& ext = arg.GetNumber(1)
 	//wxRichTextFileType type = arg.GetNumber(2)
-	//wxRichTextPlainTextHandler();
+	//wxRichTextPlainTextHandler(name, ext, type);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoLoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoLoadFile();
+	//pThis->GetEntity()->DoLoadFile(buffer, stream);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_RichTextPlainTextHandler, __DoSaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSaveFile();
+	//pThis->GetEntity()->DoSaveFile(buffer, stream);
 	return Value::Nil;
 }
 

@@ -54,7 +54,7 @@ Gura_ImplementFunction(__ScrollEvent)
 	//int id = arg.GetNumber(1)
 	//int pos = arg.GetNumber(2)
 	//int orientation = arg.GetNumber(3)
-	//wxScrollEvent();
+	//wxScrollEvent(commandType, id, pos, orientation);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_ScrollEvent, __SetOrientation)
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int orient = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOrientation();
+	//pThis->GetEntity()->SetOrientation(orient);
 	return Value::Nil;
 }
 
@@ -113,7 +113,7 @@ Gura_ImplementMethod(wx_ScrollEvent, __SetPosition)
 	Object_wx_ScrollEvent *pThis = Object_wx_ScrollEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(pos);
 	return Value::Nil;
 }
 

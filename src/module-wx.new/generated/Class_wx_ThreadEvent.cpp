@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ThreadEvent)
 {
 	//wxEventType eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxThreadEvent();
+	//wxThreadEvent(eventType, id);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetPayload)
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const T& payload = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPayload();
+	//pThis->GetEntity()->SetPayload(payload);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetExtraLong)
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long extraLong = arg.GetNumber(0)
-	//pThis->GetEntity()->SetExtraLong();
+	//pThis->GetEntity()->SetExtraLong(extraLong);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetInt)
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int intCommand = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInt();
+	//pThis->GetEntity()->SetInt(intCommand);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_ThreadEvent, __SetString)
 	Object_wx_ThreadEvent *pThis = Object_wx_ThreadEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& string = arg.GetNumber(0)
-	//pThis->GetEntity()->SetString();
+	//pThis->GetEntity()->SetString(string);
 	return Value::Nil;
 }
 

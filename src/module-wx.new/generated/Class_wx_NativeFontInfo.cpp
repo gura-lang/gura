@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__NativeFontInfo_1, "NativeFontInfo_1")
 Gura_ImplementFunction(__NativeFontInfo_1)
 {
 	//const wxNativeFontInfo& info = arg.GetNumber(0)
-	//wxNativeFontInfo();
+	//wxNativeFontInfo(info);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __InitFromFont)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->InitFromFont();
+	//pThis->GetEntity()->InitFromFont(font);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetPointSize)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pointsize = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPointSize();
+	//pThis->GetEntity()->SetPointSize(pointsize);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetPixelSize)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& pixelSize = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPixelSize();
+	//pThis->GetEntity()->SetPixelSize(pixelSize);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetStyle)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontStyle style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyle();
+	//pThis->GetEntity()->SetStyle(style);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetWeight)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontWeight weight = arg.GetNumber(0)
-	//pThis->GetEntity()->SetWeight();
+	//pThis->GetEntity()->SetWeight(weight);
 	return Value::Nil;
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetUnderlined)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool underlined = arg.GetNumber(0)
-	//pThis->GetEntity()->SetUnderlined();
+	//pThis->GetEntity()->SetUnderlined(underlined);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& facename = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFaceName();
+	//pThis->GetEntity()->SetFaceName(facename);
 	return Value::Nil;
 }
 
@@ -301,7 +301,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFamily)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontFamily family = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFamily();
+	//pThis->GetEntity()->SetFamily(family);
 	return Value::Nil;
 }
 
@@ -316,7 +316,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetEncoding)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding encoding = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEncoding();
+	//pThis->GetEntity()->SetEncoding(encoding);
 	return Value::Nil;
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __SetFaceName_1)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& facenames = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFaceName();
+	//pThis->GetEntity()->SetFaceName(facenames);
 	return Value::Nil;
 }
 
@@ -346,7 +346,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __FromString)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromString();
+	//pThis->GetEntity()->FromString(s);
 	return Value::Nil;
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_NativeFontInfo, __FromUserString)
 	Object_wx_NativeFontInfo *pThis = Object_wx_NativeFontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& s = arg.GetNumber(0)
-	//pThis->GetEntity()->FromUserString();
+	//pThis->GetEntity()->FromUserString(s);
 	return Value::Nil;
 }
 

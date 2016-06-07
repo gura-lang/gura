@@ -73,7 +73,7 @@ Gura_ImplementMethod(wx_WebViewFactory, __Create_1)
 	//const wxSize& size = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, url, pos, size, style, name);
 	return Value::Nil;
 }
 

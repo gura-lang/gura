@@ -54,7 +54,7 @@ Gura_ImplementMethod(wx_SVGBitmapEmbedHandler, __ProcessBitmap)
 	//wxCoord x = arg.GetNumber(1)
 	//wxCoord y = arg.GetNumber(2)
 	//wxOutputStream& stream = arg.GetNumber(3)
-	//pThis->GetEntity()->ProcessBitmap();
+	//pThis->GetEntity()->ProcessBitmap(bitmap, x, y, stream);
 	return Value::Nil;
 }
 

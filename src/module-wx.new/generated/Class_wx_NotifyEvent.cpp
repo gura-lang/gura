@@ -50,7 +50,7 @@ Gura_ImplementFunction(__NotifyEvent)
 {
 	//wxEventType eventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxNotifyEvent();
+	//wxNotifyEvent(eventType, id);
 	return Value::Nil;
 }
 

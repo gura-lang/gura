@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__ClientDC, "ClientDC")
 Gura_ImplementFunction(__ClientDC)
 {
 	//wxWindow* window = arg.GetNumber(0)
-	//wxClientDC();
+	//wxClientDC(window);
 	return Value::Nil;
 }
 

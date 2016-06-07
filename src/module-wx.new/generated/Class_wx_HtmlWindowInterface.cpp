@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLWindowTitle)
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& title = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHTMLWindowTitle();
+	//pThis->GetEntity()->SetHTMLWindowTitle(title);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __OnHTMLLinkClicked)
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlLinkInfo& link = arg.GetNumber(0)
-	//pThis->GetEntity()->OnHTMLLinkClicked();
+	//pThis->GetEntity()->OnHTMLLinkClicked(link);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __OnHTMLOpeningURL)
 	//wxHtmlURLType type = arg.GetNumber(0)
 	//const wxString& url = arg.GetNumber(1)
 	//wxString* redirect = arg.GetNumber(2)
-	//pThis->GetEntity()->OnHTMLOpeningURL();
+	//pThis->GetEntity()->OnHTMLOpeningURL(type, url, redirect);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __HTMLCoordsToWindow)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlCell* cell = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->HTMLCoordsToWindow();
+	//pThis->GetEntity()->HTMLCoordsToWindow(cell, pos);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundColour)
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHTMLBackgroundColour();
+	//pThis->GetEntity()->SetHTMLBackgroundColour(clr);
 	return Value::Nil;
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLBackgroundImage)
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bmpBg = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHTMLBackgroundImage();
+	//pThis->GetEntity()->SetHTMLBackgroundImage(bmpBg);
 	return Value::Nil;
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_HtmlWindowInterface, __SetHTMLStatusText)
 	Object_wx_HtmlWindowInterface *pThis = Object_wx_HtmlWindowInterface::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& text = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHTMLStatusText();
+	//pThis->GetEntity()->SetHTMLStatusText(text);
 	return Value::Nil;
 }
 

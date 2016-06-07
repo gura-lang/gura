@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__Object_1, "Object_1")
 Gura_ImplementFunction(__Object_1)
 {
 	//const wxObject& other = arg.GetNumber(0)
-	//wxObject();
+	//wxObject(other);
 	return Value::Nil;
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_Object, __IsKindOf)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxClassInfo* info = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKindOf();
+	//pThis->GetEntity()->IsKindOf(info);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Object, __IsSameAs)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObject& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->IsSameAs();
+	//pThis->GetEntity()->IsSameAs(obj);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_Object, __Ref)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObject& clone = arg.GetNumber(0)
-	//pThis->GetEntity()->Ref();
+	//pThis->GetEntity()->Ref(clone);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_Object, __SetRefData)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObjectRefData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRefData();
+	//pThis->GetEntity()->SetRefData(data);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_Object, __delete)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->delete();
+	//pThis->GetEntity()->delete(buf);
 	return Value::Nil;
 }
 
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_Object, __new)
 	//size_t size = arg.GetNumber(0)
 	//const wxString& filename = arg.GetNumber(1)
 	//int lineNum = arg.GetNumber(2)
-	//pThis->GetEntity()->new();
+	//pThis->GetEntity()->new(size, filename, lineNum);
 	return Value::Nil;
 }
 
@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Object, __CloneRefData)
 	Object_wx_Object *pThis = Object_wx_Object::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxObjectRefData* data = arg.GetNumber(0)
-	//pThis->GetEntity()->CloneRefData();
+	//pThis->GetEntity()->CloneRefData(data);
 	return Value::Nil;
 }
 

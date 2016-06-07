@@ -67,7 +67,7 @@ Gura_ImplementFunction(__ImageList_1)
 	//int height = arg.GetNumber(1)
 	//bool mask = arg.GetNumber(2)
 	//int initialCount = arg.GetNumber(3)
-	//wxImageList();
+	//wxImageList(width, height, mask, initialCount);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ImageList, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxBitmap& mask = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(bitmap, mask);
 	return Value::Nil;
 }
 
@@ -104,7 +104,7 @@ Gura_ImplementMethod(wx_ImageList, __Add_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxBitmap& bitmap = arg.GetNumber(0)
 	//const wxColour& maskColour = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(bitmap, maskColour);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_ImageList, __Add_2)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxIcon& icon = arg.GetNumber(0)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(icon);
 	return Value::Nil;
 }
 
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_ImageList, __Create)
 	//int height = arg.GetNumber(1)
 	//bool mask = arg.GetNumber(2)
 	//int initialCount = arg.GetNumber(3)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(width, height, mask, initialCount);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_ImageList, __Draw)
 	//int y = arg.GetNumber(3)
 	//int flags = arg.GetNumber(4)
 	//bool solidBackground = arg.GetNumber(5)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(index, dc, x, y, flags, solidBackground);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_ImageList, __GetBitmap)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetBitmap();
+	//pThis->GetEntity()->GetBitmap(index);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_ImageList, __GetIcon)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIcon();
+	//pThis->GetEntity()->GetIcon(index);
 	return Value::Nil;
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_ImageList, __GetSize)
 	//int index = arg.GetNumber(0)
 	//int& width = arg.GetNumber(1)
 	//int& height = arg.GetNumber(2)
-	//pThis->GetEntity()->GetSize();
+	//pThis->GetEntity()->GetSize(index, width, height);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_ImageList, __Remove)
 	Object_wx_ImageList *pThis = Object_wx_ImageList::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->Remove();
+	//pThis->GetEntity()->Remove(index);
 	return Value::Nil;
 }
 
@@ -287,7 +287,7 @@ Gura_ImplementMethod(wx_ImageList, __Replace)
 	//int index = arg.GetNumber(0)
 	//const wxBitmap& bitmap = arg.GetNumber(1)
 	//const wxBitmap& mask = arg.GetNumber(2)
-	//pThis->GetEntity()->Replace();
+	//pThis->GetEntity()->Replace(index, bitmap, mask);
 	return Value::Nil;
 }
 
@@ -304,7 +304,7 @@ Gura_ImplementMethod(wx_ImageList, __Replace_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
 	//const wxIcon& icon = arg.GetNumber(1)
-	//pThis->GetEntity()->Replace();
+	//pThis->GetEntity()->Replace(index, icon);
 	return Value::Nil;
 }
 

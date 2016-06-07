@@ -58,7 +58,7 @@ Gura_ImplementFunction(__PasswordEntryDialog)
 	//const wxString& defaultValue = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
-	//wxPasswordEntryDialog();
+	//wxPasswordEntryDialog(parent, message, caption, defaultValue, style, pos);
 	return Value::Nil;
 }
 

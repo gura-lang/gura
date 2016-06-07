@@ -75,7 +75,7 @@ Gura_ImplementFunction(__BitmapButton_1)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//wxBitmapButton();
+	//wxBitmapButton(parent, id, bitmap, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_BitmapButton, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, bitmap, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_BitmapButton, __NewCloseButton)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* parent = arg.GetNumber(0)
 	//wxWindowID winid = arg.GetNumber(1)
-	//pThis->GetEntity()->NewCloseButton();
+	//pThis->GetEntity()->NewCloseButton(parent, winid);
 	return Value::Nil;
 }
 

@@ -52,7 +52,7 @@ Gura_ImplementFunction(__FileCtrlEvent)
 	//wxEventType type = arg.GetNumber(0)
 	//wxObject* evtObject = arg.GetNumber(1)
 	//int id = arg.GetNumber(2)
-	//wxFileCtrlEvent();
+	//wxFileCtrlEvent(type, evtObject, id);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetFiles)
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayString& files = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFiles();
+	//pThis->GetEntity()->SetFiles(files);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetDirectory)
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& directory = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDirectory();
+	//pThis->GetEntity()->SetDirectory(directory);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_FileCtrlEvent, __SetFilterIndex)
 	Object_wx_FileCtrlEvent *pThis = Object_wx_FileCtrlEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int index = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFilterIndex();
+	//pThis->GetEntity()->SetFilterIndex(index);
 	return Value::Nil;
 }
 

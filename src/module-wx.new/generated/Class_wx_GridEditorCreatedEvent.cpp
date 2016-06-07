@@ -71,7 +71,7 @@ Gura_ImplementFunction(__GridEditorCreatedEvent_1)
 	//int row = arg.GetNumber(3)
 	//int col = arg.GetNumber(4)
 	//wxControl* ctrl = arg.GetNumber(5)
-	//wxGridEditorCreatedEvent();
+	//wxGridEditorCreatedEvent(id, type, obj, row, col, ctrl);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetCol)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCol();
+	//pThis->GetEntity()->SetCol(col);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetControl)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxControl* ctrl = arg.GetNumber(0)
-	//pThis->GetEntity()->SetControl();
+	//pThis->GetEntity()->SetControl(ctrl);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_GridEditorCreatedEvent, __SetRow)
 	Object_wx_GridEditorCreatedEvent *pThis = Object_wx_GridEditorCreatedEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int row = arg.GetNumber(0)
-	//pThis->GetEntity()->SetRow();
+	//pThis->GetEntity()->SetRow(row);
 	return Value::Nil;
 }
 

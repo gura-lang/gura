@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__GenericValidator, "GenericValidator")
 Gura_ImplementFunction(__GenericValidator)
 {
 	//const wxGenericValidator& validator = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(validator);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_1, "GenericValidator_1")
 Gura_ImplementFunction(__GenericValidator_1)
 {
 	//bool* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_2, "GenericValidator_2")
 Gura_ImplementFunction(__GenericValidator_2)
 {
 	//wxString* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_3, "GenericValidator_3")
 Gura_ImplementFunction(__GenericValidator_3)
 {
 	//int* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_4, "GenericValidator_4")
 Gura_ImplementFunction(__GenericValidator_4)
 {
 	//wxArrayInt* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_5, "GenericValidator_5")
 Gura_ImplementFunction(__GenericValidator_5)
 {
 	//wxDateTime* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_6, "GenericValidator_6")
 Gura_ImplementFunction(__GenericValidator_6)
 {
 	//wxFileName* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_7, "GenericValidator_7")
 Gura_ImplementFunction(__GenericValidator_7)
 {
 	//float* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 
@@ -168,7 +168,7 @@ Gura_DeclareFunctionAlias(__GenericValidator_8, "GenericValidator_8")
 Gura_ImplementFunction(__GenericValidator_8)
 {
 	//double* valPtr = arg.GetNumber(0)
-	//wxGenericValidator();
+	//wxGenericValidator(valPtr);
 	return Value::Nil;
 }
 

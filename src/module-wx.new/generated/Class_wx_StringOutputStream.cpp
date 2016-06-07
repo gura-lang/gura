@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StringOutputStream)
 {
 	//wxString* pString = arg.GetNumber(0)
 	//wxMBConv& conv = arg.GetNumber(1)
-	//wxStringOutputStream();
+	//wxStringOutputStream(pString, conv);
 	return Value::Nil;
 }
 

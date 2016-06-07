@@ -79,7 +79,7 @@ Gura_ImplementFunction(__OwnerDrawnComboBox_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//wxOwnerDrawnComboBox();
+	//wxOwnerDrawnComboBox(parent, id, value, pos, size, n, _arg6, style, validator, name);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementFunction(__OwnerDrawnComboBox_2)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxOwnerDrawnComboBox();
+	//wxOwnerDrawnComboBox(parent, id, value, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create)
 	//long style = arg.GetNumber(5)
 	//const wxValidator& validator = arg.GetNumber(6)
 	//const wxString& name = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create_1)
 	//long style = arg.GetNumber(7)
 	//const wxValidator& validator = arg.GetNumber(8)
 	//const wxString& name = arg.GetNumber(9)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, n, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __Create_2)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, value, pos, size, choices, style, validator, name);
 	return Value::Nil;
 }
 
@@ -292,7 +292,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnDrawBackground)
 	//const wxRect& rect = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->OnDrawBackground();
+	//pThis->GetEntity()->OnDrawBackground(dc, rect, item, flags);
 	return Value::Nil;
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnDrawItem)
 	//const wxRect& rect = arg.GetNumber(1)
 	//int item = arg.GetNumber(2)
 	//int flags = arg.GetNumber(3)
-	//pThis->GetEntity()->OnDrawItem();
+	//pThis->GetEntity()->OnDrawItem(dc, rect, item, flags);
 	return Value::Nil;
 }
 
@@ -328,7 +328,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItem)
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureItem();
+	//pThis->GetEntity()->OnMeasureItem(item);
 	return Value::Nil;
 }
 
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_OwnerDrawnComboBox, __OnMeasureItemWidth)
 	Object_wx_OwnerDrawnComboBox *pThis = Object_wx_OwnerDrawnComboBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t item = arg.GetNumber(0)
-	//pThis->GetEntity()->OnMeasureItemWidth();
+	//pThis->GetEntity()->OnMeasureItemWidth(item);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__Display, "Display")
 Gura_ImplementFunction(__Display)
 {
 	//unsigned int index = arg.GetNumber(0)
-	//wxDisplay();
+	//wxDisplay(index);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_Display, __ChangeMode)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVideoMode& mode = arg.GetNumber(0)
-	//pThis->GetEntity()->ChangeMode();
+	//pThis->GetEntity()->ChangeMode(mode);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_Display, __GetFromPoint)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFromPoint();
+	//pThis->GetEntity()->GetFromPoint(pt);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_Display, __GetFromWindow)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFromWindow();
+	//pThis->GetEntity()->GetFromWindow(win);
 	return Value::Nil;
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_Display, __GetModes)
 	Object_wx_Display *pThis = Object_wx_Display::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVideoMode& mode = arg.GetNumber(0)
-	//pThis->GetEntity()->GetModes();
+	//pThis->GetEntity()->GetModes(mode);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MessageOutputStderr, "MessageOutputStderr")
 Gura_ImplementFunction(__MessageOutputStderr)
 {
 	//FILE* fp = arg.GetNumber(0)
-	//wxMessageOutputStderr();
+	//wxMessageOutputStderr(fp);
 	return Value::Nil;
 }
 

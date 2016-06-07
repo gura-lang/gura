@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_IPV4address, __Hostname)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hostname = arg.GetNumber(0)
-	//pThis->GetEntity()->Hostname();
+	//pThis->GetEntity()->Hostname(hostname);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_IPV4address, __Service)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& service = arg.GetNumber(0)
-	//pThis->GetEntity()->Service();
+	//pThis->GetEntity()->Service(service);
 	return Value::Nil;
 }
 
@@ -130,7 +130,7 @@ Gura_ImplementMethod(wx_IPV4address, __Service_1)
 	Object_wx_IPV4address *pThis = Object_wx_IPV4address::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned short service = arg.GetNumber(0)
-	//pThis->GetEntity()->Service();
+	//pThis->GetEntity()->Service(service);
 	return Value::Nil;
 }
 

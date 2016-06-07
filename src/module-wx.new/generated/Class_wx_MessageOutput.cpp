@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_MessageOutput, __Set)
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMessageOutput* msgout = arg.GetNumber(0)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(msgout);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_MessageOutput, __Output)
 	Object_wx_MessageOutput *pThis = Object_wx_MessageOutput::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
-	//pThis->GetEntity()->Output();
+	//pThis->GetEntity()->Output(str);
 	return Value::Nil;
 }
 

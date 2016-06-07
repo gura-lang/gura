@@ -74,7 +74,7 @@ Gura_ImplementMethod(wx_ArchiveInputStream, __OpenEntry)
 	Object_wx_ArchiveInputStream *pThis = Object_wx_ArchiveInputStream::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArchiveEntry& entry = arg.GetNumber(0)
-	//pThis->GetEntity()->OpenEntry();
+	//pThis->GetEntity()->OpenEntry(entry);
 	return Value::Nil;
 }
 

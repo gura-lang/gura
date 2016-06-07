@@ -50,7 +50,7 @@ Gura_ImplementFunction(__EventBlocker)
 {
 	//wxWindow* win = arg.GetNumber(0)
 	//wxEventType type = arg.GetNumber(1)
-	//wxEventBlocker();
+	//wxEventBlocker(win, type);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_EventBlocker, __Block)
 	Object_wx_EventBlocker *pThis = Object_wx_EventBlocker::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventType eventType = arg.GetNumber(0)
-	//pThis->GetEntity()->Block();
+	//pThis->GetEntity()->Block(eventType);
 	return Value::Nil;
 }
 

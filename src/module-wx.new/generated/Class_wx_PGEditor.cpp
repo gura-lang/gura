@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_PGEditor, __CreateControls)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//const wxPoint& pos = arg.GetNumber(2)
 	//const wxSize& size = arg.GetNumber(3)
-	//pThis->GetEntity()->CreateControls();
+	//pThis->GetEntity()->CreateControls(propgrid, property, pos, size);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_PGEditor, __UpdateControl)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//wxWindow* ctrl = arg.GetNumber(1)
-	//pThis->GetEntity()->UpdateControl();
+	//pThis->GetEntity()->UpdateControl(property, ctrl);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(wx_PGEditor, __DrawValue)
 	//const wxRect& rect = arg.GetNumber(1)
 	//wxPGProperty* property = arg.GetNumber(2)
 	//const wxString& text = arg.GetNumber(3)
-	//pThis->GetEntity()->DrawValue();
+	//pThis->GetEntity()->DrawValue(dc, rect, property, text);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_PGEditor, __OnEvent)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//wxWindow* wnd_primary = arg.GetNumber(2)
 	//wxEvent& event = arg.GetNumber(3)
-	//pThis->GetEntity()->OnEvent();
+	//pThis->GetEntity()->OnEvent(propgrid, property, wnd_primary, event);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_PGEditor, __GetValueFromControl)
 	//wxVariant& variant = arg.GetNumber(0)
 	//wxPGProperty* property = arg.GetNumber(1)
 	//wxWindow* ctrl = arg.GetNumber(2)
-	//pThis->GetEntity()->GetValueFromControl();
+	//pThis->GetEntity()->GetValueFromControl(variant, property, ctrl);
 	return Value::Nil;
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_PGEditor, __SetValueToUnspecified)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//wxWindow* ctrl = arg.GetNumber(1)
-	//pThis->GetEntity()->SetValueToUnspecified();
+	//pThis->GetEntity()->SetValueToUnspecified(property, ctrl);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_PGEditor, __SetControlAppearance)
 	//const wxPGCell& appearance = arg.GetNumber(3)
 	//const wxPGCell& oldAppearance = arg.GetNumber(4)
 	//bool unspecified = arg.GetNumber(5)
-	//pThis->GetEntity()->SetControlAppearance();
+	//pThis->GetEntity()->SetControlAppearance(pg, property, ctrl, appearance, oldAppearance, unspecified);
 	return Value::Nil;
 }
 
@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_PGEditor, __SetControlStringValue)
 	//wxPGProperty* property = arg.GetNumber(0)
 	//wxWindow* ctrl = arg.GetNumber(1)
 	//const wxString& txt = arg.GetNumber(2)
-	//pThis->GetEntity()->SetControlStringValue();
+	//pThis->GetEntity()->SetControlStringValue(property, ctrl, txt);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_PGEditor, __SetControlIntValue)
 	//wxPGProperty* property = arg.GetNumber(0)
 	//wxWindow* ctrl = arg.GetNumber(1)
 	//int value = arg.GetNumber(2)
-	//pThis->GetEntity()->SetControlIntValue();
+	//pThis->GetEntity()->SetControlIntValue(property, ctrl, value);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_PGEditor, __InsertItem)
 	//wxWindow* ctrl = arg.GetNumber(0)
 	//const wxString& label = arg.GetNumber(1)
 	//int index = arg.GetNumber(2)
-	//pThis->GetEntity()->InsertItem();
+	//pThis->GetEntity()->InsertItem(ctrl, label, index);
 	return Value::Nil;
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_PGEditor, __DeleteItem)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* ctrl = arg.GetNumber(0)
 	//int index = arg.GetNumber(1)
-	//pThis->GetEntity()->DeleteItem();
+	//pThis->GetEntity()->DeleteItem(ctrl, index);
 	return Value::Nil;
 }
 
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_PGEditor, __OnFocus)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
-	//pThis->GetEntity()->OnFocus();
+	//pThis->GetEntity()->OnFocus(property, wnd);
 	return Value::Nil;
 }
 

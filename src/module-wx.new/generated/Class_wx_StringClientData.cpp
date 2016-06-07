@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__StringClientData_1, "StringClientData_1")
 Gura_ImplementFunction(__StringClientData_1)
 {
 	//const wxString& data = arg.GetNumber(0)
-	//wxStringClientData();
+	//wxStringClientData(data);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_StringClientData, __SetData)
 	Object_wx_StringClientData *pThis = Object_wx_StringClientData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& data = arg.GetNumber(0)
-	//pThis->GetEntity()->SetData();
+	//pThis->GetEntity()->SetData(data);
 	return Value::Nil;
 }
 

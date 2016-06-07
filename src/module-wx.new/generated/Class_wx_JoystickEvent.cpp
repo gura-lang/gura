@@ -54,7 +54,7 @@ Gura_ImplementFunction(__JoystickEvent)
 	//int state = arg.GetNumber(1)
 	//int joystick = arg.GetNumber(2)
 	//int change = arg.GetNumber(3)
-	//wxJoystickEvent();
+	//wxJoystickEvent(eventType, state, joystick, change);
 	return Value::Nil;
 }
 
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonDown)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDown();
+	//pThis->GetEntity()->ButtonDown(button);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonIsDown)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonIsDown();
+	//pThis->GetEntity()->ButtonIsDown(button);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_JoystickEvent, __ButtonUp)
 	Object_wx_JoystickEvent *pThis = Object_wx_JoystickEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int button = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonUp();
+	//pThis->GetEntity()->ButtonUp(button);
 	return Value::Nil;
 }
 

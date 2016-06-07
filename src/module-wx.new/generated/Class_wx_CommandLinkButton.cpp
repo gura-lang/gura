@@ -77,7 +77,7 @@ Gura_ImplementFunction(__CommandLinkButton_1)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxCommandLinkButton();
+	//wxCommandLinkButton(parent, id, mainLabel, note, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __Create)
 	//long style = arg.GetNumber(6)
 	//const wxValidator& validator = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, mainLabel, note, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetMainLabelAndNote)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mainLabel = arg.GetNumber(0)
 	//const wxString& note = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMainLabelAndNote();
+	//pThis->GetEntity()->SetMainLabelAndNote(mainLabel, note);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetLabel)
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& label = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLabel();
+	//pThis->GetEntity()->SetLabel(label);
 	return Value::Nil;
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetMainLabel)
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& mainLabel = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMainLabel();
+	//pThis->GetEntity()->SetMainLabel(mainLabel);
 	return Value::Nil;
 }
 
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_CommandLinkButton, __SetNote)
 	Object_wx_CommandLinkButton *pThis = Object_wx_CommandLinkButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& note = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNote();
+	//pThis->GetEntity()->SetNote(note);
 	return Value::Nil;
 }
 

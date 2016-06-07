@@ -69,7 +69,7 @@ Gura_ImplementFunction(__RibbonPage_1)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& icon = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//wxRibbonPage();
+	//wxRibbonPage(parent, id, label, icon, style);
 	return Value::Nil;
 }
 
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_RibbonPage, __Create)
 	//const wxString& label = arg.GetNumber(2)
 	//const wxBitmap& icon = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, icon, style);
 	return Value::Nil;
 }
 
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_RibbonPage, __SetArtProvider)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonArtProvider* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_RibbonPage, __SetSizeWithScrollButtonAdjustment)
 	//int y = arg.GetNumber(1)
 	//int width = arg.GetNumber(2)
 	//int height = arg.GetNumber(3)
-	//pThis->GetEntity()->SetSizeWithScrollButtonAdjustment();
+	//pThis->GetEntity()->SetSizeWithScrollButtonAdjustment(x, y, width, height);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_RibbonPage, __AdjustRectToIncludeScrollButtons)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRect* rect = arg.GetNumber(0)
-	//pThis->GetEntity()->AdjustRectToIncludeScrollButtons();
+	//pThis->GetEntity()->AdjustRectToIncludeScrollButtons(rect);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollLines)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lines = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollLines();
+	//pThis->GetEntity()->ScrollLines(lines);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollPixels)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pixels = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollPixels();
+	//pThis->GetEntity()->ScrollPixels(pixels);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_RibbonPage, __ScrollSections)
 	Object_wx_RibbonPage *pThis = Object_wx_RibbonPage::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int sections = arg.GetNumber(0)
-	//pThis->GetEntity()->ScrollSections();
+	//pThis->GetEntity()->ScrollSections(sections);
 	return Value::Nil;
 }
 

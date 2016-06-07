@@ -50,7 +50,7 @@ Gura_ImplementFunction(__IconizeEvent)
 {
 	//int id = arg.GetNumber(0)
 	//bool iconized = arg.GetNumber(1)
-	//wxIconizeEvent();
+	//wxIconizeEvent(id, iconized);
 	return Value::Nil;
 }
 

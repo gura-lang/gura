@@ -71,7 +71,7 @@ Gura_ImplementFunction(__TextEntryDialog_1)
 	//const wxString& value = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
-	//wxTextEntryDialog();
+	//wxTextEntryDialog(parent, message, caption, value, style, pos);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, __Create)
 	//const wxString& value = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxPoint& pos = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, message, caption, value, style, pos);
 	return Value::Nil;
 }
 
@@ -127,7 +127,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, __SetTextValidator)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxTextValidator& validator = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextValidator();
+	//pThis->GetEntity()->SetTextValidator(validator);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, __SetTextValidator_1)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextValidatorStyle style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTextValidator();
+	//pThis->GetEntity()->SetTextValidator(style);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, __SetMaxLength)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned long len = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxLength();
+	//pThis->GetEntity()->SetMaxLength(len);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_TextEntryDialog, __SetValue)
 	Object_wx_TextEntryDialog *pThis = Object_wx_TextEntryDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 

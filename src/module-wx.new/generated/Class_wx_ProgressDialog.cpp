@@ -56,7 +56,7 @@ Gura_ImplementFunction(__ProgressDialog)
 	//int maximum = arg.GetNumber(2)
 	//wxWindow* parent = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//wxProgressDialog();
+	//wxProgressDialog(title, message, maximum, parent, style);
 	return Value::Nil;
 }
 

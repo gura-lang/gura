@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __SetSelection)
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlSelection* s = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(s);
 	return Value::Nil;
 }
 
@@ -92,7 +92,7 @@ Gura_ImplementMethod(wx_HtmlRenderingInfo, __SetStyle)
 	Object_wx_HtmlRenderingInfo *pThis = Object_wx_HtmlRenderingInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlRenderingStyle* style = arg.GetNumber(0)
-	//pThis->GetEntity()->SetStyle();
+	//pThis->GetEntity()->SetStyle(style);
 	return Value::Nil;
 }
 

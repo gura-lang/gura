@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RichTextCompositeObject, "RichTextCompositeObject")
 Gura_ImplementFunction(__RichTextCompositeObject)
 {
 	//wxRichTextObject* parent = arg.GetNumber(0)
-	//wxRichTextCompositeObject();
+	//wxRichTextCompositeObject(parent);
 	return Value::Nil;
 }
 
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __HitTest)
 	//wxRichTextObject** obj = arg.GetNumber(4)
 	//wxRichTextObject** contextObj = arg.GetNumber(5)
 	//int flags = arg.GetNumber(6)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __FindPosition)
 	//wxPoint& pt = arg.GetNumber(3)
 	//int* height = arg.GetNumber(4)
 	//bool forceLineStart = arg.GetNumber(5)
-	//pThis->GetEntity()->FindPosition();
+	//pThis->GetEntity()->FindPosition(dc, context, index, pt, height, forceLineStart);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __CalculateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long start = arg.GetNumber(0)
 	//long& end = arg.GetNumber(1)
-	//pThis->GetEntity()->CalculateRange();
+	//pThis->GetEntity()->CalculateRange(start, end);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __DeleteRange)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->DeleteRange();
+	//pThis->GetEntity()->DeleteRange(range);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetTextForRange)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& range = arg.GetNumber(0)
-	//pThis->GetEntity()->GetTextForRange();
+	//pThis->GetEntity()->GetTextForRange(range);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
+	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Dump)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxTextOutputStream& stream = arg.GetNumber(0)
-	//pThis->GetEntity()->Dump();
+	//pThis->GetEntity()->Dump(stream);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Invalidate)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextRange& invalidRange = arg.GetNumber(0)
-	//pThis->GetEntity()->Invalidate();
+	//pThis->GetEntity()->Invalidate(invalidRange);
 	return Value::Nil;
 }
 
@@ -265,7 +265,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChild)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChild();
+	//pThis->GetEntity()->GetChild(n);
 	return Value::Nil;
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __GetChildAtPosition)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetChildAtPosition();
+	//pThis->GetEntity()->GetChildAtPosition(pos);
 	return Value::Nil;
 }
 
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Copy)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextCompositeObject& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(obj);
 	return Value::Nil;
 }
 
@@ -349,7 +349,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __AppendChild)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
-	//pThis->GetEntity()->AppendChild();
+	//pThis->GetEntity()->AppendChild(child);
 	return Value::Nil;
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __InsertChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
 	//wxRichTextObject* inFrontOf = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertChild();
+	//pThis->GetEntity()->InsertChild(child, inFrontOf);
 	return Value::Nil;
 }
 
@@ -383,7 +383,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __RemoveChild)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* child = arg.GetNumber(0)
 	//bool deleteChild = arg.GetNumber(1)
-	//pThis->GetEntity()->RemoveChild();
+	//pThis->GetEntity()->RemoveChild(child, deleteChild);
 	return Value::Nil;
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Defragment)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextDrawingContext& context = arg.GetNumber(0)
 	//const wxRichTextRange& range = arg.GetNumber(1)
-	//pThis->GetEntity()->Defragment();
+	//pThis->GetEntity()->Defragment(context, range);
 	return Value::Nil;
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_RichTextCompositeObject, __Move)
 	Object_wx_RichTextCompositeObject *pThis = Object_wx_RichTextCompositeObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->Move();
+	//pThis->GetEntity()->Move(pt);
 	return Value::Nil;
 }
 

@@ -64,7 +64,7 @@ Gura_ImplementMethod(wx_FileDataObject, __AddFile)
 	Object_wx_FileDataObject *pThis = Object_wx_FileDataObject::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& file = arg.GetNumber(0)
-	//pThis->GetEntity()->AddFile();
+	//pThis->GetEntity()->AddFile(file);
 	return Value::Nil;
 }
 

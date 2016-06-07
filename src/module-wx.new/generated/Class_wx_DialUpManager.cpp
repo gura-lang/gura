@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_DialUpManager, __Dial)
 	//const wxString& username = arg.GetNumber(1)
 	//const wxString& password = arg.GetNumber(2)
 	//bool async = arg.GetNumber(3)
-	//pThis->GetEntity()->Dial();
+	//pThis->GetEntity()->Dial(nameOfISP, username, password, async);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_DialUpManager, __EnableAutoCheckOnlineStatus)
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t nSeconds = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableAutoCheckOnlineStatus();
+	//pThis->GetEntity()->EnableAutoCheckOnlineStatus(nSeconds);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_DialUpManager, __GetISPNames)
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxArrayString& names = arg.GetNumber(0)
-	//pThis->GetEntity()->GetISPNames();
+	//pThis->GetEntity()->GetISPNames(names);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_DialUpManager, __SetConnectCommand)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& commandDial = arg.GetNumber(0)
 	//const wxString& commandHangup = arg.GetNumber(1)
-	//pThis->GetEntity()->SetConnectCommand();
+	//pThis->GetEntity()->SetConnectCommand(commandDial, commandHangup);
 	return Value::Nil;
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(wx_DialUpManager, __SetOnlineStatus)
 	Object_wx_DialUpManager *pThis = Object_wx_DialUpManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool isOnline = arg.GetNumber(0)
-	//pThis->GetEntity()->SetOnlineStatus();
+	//pThis->GetEntity()->SetOnlineStatus(isOnline);
 	return Value::Nil;
 }
 
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_DialUpManager, __SetWellKnownHost)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& hostname = arg.GetNumber(0)
 	//int portno = arg.GetNumber(1)
-	//pThis->GetEntity()->SetWellKnownHost();
+	//pThis->GetEntity()->SetWellKnownHost(hostname, portno);
 	return Value::Nil;
 }
 

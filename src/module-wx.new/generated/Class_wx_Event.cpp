@@ -50,7 +50,7 @@ Gura_ImplementFunction(__Event)
 {
 	//int id = arg.GetNumber(0)
 	//wxEventType eventType = arg.GetNumber(1)
-	//wxEvent();
+	//wxEvent(id, eventType);
 	return Value::Nil;
 }
 
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_Event, __ResumePropagation)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int propagationLevel = arg.GetNumber(0)
-	//pThis->GetEntity()->ResumePropagation();
+	//pThis->GetEntity()->ResumePropagation(propagationLevel);
 	return Value::Nil;
 }
 
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_Event, __SetEventObject)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObject* object = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEventObject();
+	//pThis->GetEntity()->SetEventObject(object);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_Event, __SetEventType)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventType type = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEventType();
+	//pThis->GetEntity()->SetEventType(type);
 	return Value::Nil;
 }
 
@@ -230,7 +230,7 @@ Gura_ImplementMethod(wx_Event, __SetId)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int id = arg.GetNumber(0)
-	//pThis->GetEntity()->SetId();
+	//pThis->GetEntity()->SetId(id);
 	return Value::Nil;
 }
 
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_Event, __SetTimestamp)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long timeStamp = arg.GetNumber(0)
-	//pThis->GetEntity()->SetTimestamp();
+	//pThis->GetEntity()->SetTimestamp(timeStamp);
 	return Value::Nil;
 }
 
@@ -273,7 +273,7 @@ Gura_ImplementMethod(wx_Event, __Skip)
 	Object_wx_Event *pThis = Object_wx_Event::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool skip = arg.GetNumber(0)
-	//pThis->GetEntity()->Skip();
+	//pThis->GetEntity()->Skip(skip);
 	return Value::Nil;
 }
 

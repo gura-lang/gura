@@ -50,7 +50,7 @@ Gura_ImplementFunction(__ContextHelp)
 {
 	//wxWindow* window = arg.GetNumber(0)
 	//bool doNow = arg.GetNumber(1)
-	//wxContextHelp();
+	//wxContextHelp(window, doNow);
 	return Value::Nil;
 }
 
@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_ContextHelp, __BeginContextHelp)
 	Object_wx_ContextHelp *pThis = Object_wx_ContextHelp::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* window = arg.GetNumber(0)
-	//pThis->GetEntity()->BeginContextHelp();
+	//pThis->GetEntity()->BeginContextHelp(window);
 	return Value::Nil;
 }
 

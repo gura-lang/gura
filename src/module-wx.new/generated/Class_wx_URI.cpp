@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__URI_1, "URI_1")
 Gura_ImplementFunction(__URI_1)
 {
 	//const wxString& uri = arg.GetNumber(0)
-	//wxURI();
+	//wxURI(uri);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__URI_2, "URI_2")
 Gura_ImplementFunction(__URI_2)
 {
 	//const wxURI& uri = arg.GetNumber(0)
-	//wxURI();
+	//wxURI(uri);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_URI, __Create)
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(uri);
 	return Value::Nil;
 }
 
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_URI, __Resolve)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxURI& base = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Resolve();
+	//pThis->GetEntity()->Resolve(base, flags);
 	return Value::Nil;
 }
 
@@ -386,7 +386,7 @@ Gura_ImplementMethod(wx_URI, __Unescape)
 	Object_wx_URI *pThis = Object_wx_URI::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& uri = arg.GetNumber(0)
-	//pThis->GetEntity()->Unescape();
+	//pThis->GetEntity()->Unescape(uri);
 	return Value::Nil;
 }
 

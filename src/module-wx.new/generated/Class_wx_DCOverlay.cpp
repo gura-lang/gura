@@ -58,7 +58,7 @@ Gura_ImplementFunction(__DCOverlay)
 	//int y = arg.GetNumber(3)
 	//int width = arg.GetNumber(4)
 	//int height = arg.GetNumber(5)
-	//wxDCOverlay();
+	//wxDCOverlay(overlay, dc, x, y, width, height);
 	return Value::Nil;
 }
 
@@ -75,7 +75,7 @@ Gura_ImplementFunction(__DCOverlay_1)
 {
 	//wxOverlay& overlay = arg.GetNumber(0)
 	//wxDC* dc = arg.GetNumber(1)
-	//wxDCOverlay();
+	//wxDCOverlay(overlay, dc);
 	return Value::Nil;
 }
 

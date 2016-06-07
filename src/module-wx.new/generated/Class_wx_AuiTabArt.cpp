@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __DrawBackground)
 	//wxDC& dc = arg.GetNumber(0)
 	//wxWindow* wnd = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
-	//pThis->GetEntity()->DrawBackground();
+	//pThis->GetEntity()->DrawBackground(dc, wnd, rect);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __DrawButton)
 	//int button_state = arg.GetNumber(4)
 	//int orientation = arg.GetNumber(5)
 	//wxRect* out_rect = arg.GetNumber(6)
-	//pThis->GetEntity()->DrawButton();
+	//pThis->GetEntity()->DrawButton(dc, wnd, in_rect, bitmap_id, button_state, orientation, out_rect);
 	return Value::Nil;
 }
 
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __DrawTab)
 	//wxRect* out_tab_rect = arg.GetNumber(5)
 	//wxRect* out_button_rect = arg.GetNumber(6)
 	//int* x_extent = arg.GetNumber(7)
-	//pThis->GetEntity()->DrawTab();
+	//pThis->GetEntity()->DrawTab(dc, wnd, page, rect, close_button_state, out_tab_rect, out_button_rect, x_extent);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __GetBestTabCtrlSize)
 	//wxWindow* _arg0 = arg.GetNumber(0)
 	//const wxAuiNotebookPageArray& _arg1 = arg.GetNumber(1)
 	//const wxSize& _arg2 = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBestTabCtrlSize();
+	//pThis->GetEntity()->GetBestTabCtrlSize(_arg0, _arg1, _arg2);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __GetTabSize)
 	//bool active = arg.GetNumber(4)
 	//int close_button_state = arg.GetNumber(5)
 	//int* x_extent = arg.GetNumber(6)
-	//pThis->GetEntity()->GetTabSize();
+	//pThis->GetEntity()->GetTabSize(dc, wnd, caption, bitmap, active, close_button_state, x_extent);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetFlags)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFlags();
+	//pThis->GetEntity()->SetFlags(flags);
 	return Value::Nil;
 }
 
@@ -226,7 +226,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetMeasuringFont)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMeasuringFont();
+	//pThis->GetEntity()->SetMeasuringFont(font);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetNormalFont)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNormalFont();
+	//pThis->GetEntity()->SetNormalFont(font);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetSelectedFont)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxFont& font = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectedFont();
+	//pThis->GetEntity()->SetSelectedFont(font);
 	return Value::Nil;
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetColour)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -286,7 +286,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetActiveColour)
 	Object_wx_AuiTabArt *pThis = Object_wx_AuiTabArt::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetActiveColour();
+	//pThis->GetEntity()->SetActiveColour(colour);
 	return Value::Nil;
 }
 
@@ -303,7 +303,7 @@ Gura_ImplementMethod(wx_AuiTabArt, __SetSizingInfo)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& tab_ctrl_size = arg.GetNumber(0)
 	//size_t tab_count = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSizingInfo();
+	//pThis->GetEntity()->SetSizingInfo(tab_ctrl_size, tab_count);
 	return Value::Nil;
 }
 

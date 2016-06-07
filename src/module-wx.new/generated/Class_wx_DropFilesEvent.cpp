@@ -52,7 +52,7 @@ Gura_ImplementFunction(__DropFilesEvent)
 	//wxEventType id = arg.GetNumber(0)
 	//int noFiles = arg.GetNumber(1)
 	//wxString* files = arg.GetNumber(2)
-	//wxDropFilesEvent();
+	//wxDropFilesEvent(id, noFiles, files);
 	return Value::Nil;
 }
 

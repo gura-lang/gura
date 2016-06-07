@@ -64,7 +64,7 @@ Gura_ImplementFunction(__DocMDIChildFrame)
 	//const wxSize& size = arg.GetNumber(6)
 	//long style = arg.GetNumber(7)
 	//const wxString& name = arg.GetNumber(8)
-	//wxDocMDIChildFrame();
+	//wxDocMDIChildFrame(doc, view, parent, id, title, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, __SetDocument)
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDocument* doc = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDocument();
+	//pThis->GetEntity()->SetDocument(doc);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_DocMDIChildFrame, __SetView)
 	Object_wx_DocMDIChildFrame *pThis = Object_wx_DocMDIChildFrame::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxView* view = arg.GetNumber(0)
-	//pThis->GetEntity()->SetView();
+	//pThis->GetEntity()->SetView(view);
 	return Value::Nil;
 }
 

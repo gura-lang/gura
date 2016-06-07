@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HtmlWidgetCell)
 {
 	//wxWindow* wnd = arg.GetNumber(0)
 	//int w = arg.GetNumber(1)
-	//wxHtmlWidgetCell();
+	//wxHtmlWidgetCell(wnd, w);
 	return Value::Nil;
 }
 

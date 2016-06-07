@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__UniChar_1, "UniChar_1")
 Gura_ImplementFunction(__UniChar_1)
 {
 	//char c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__UniChar_2, "UniChar_2")
 Gura_ImplementFunction(__UniChar_2)
 {
 	//unsigned char c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_DeclareFunctionAlias(__UniChar_3, "UniChar_3")
 Gura_ImplementFunction(__UniChar_3)
 {
 	//int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -106,7 +106,7 @@ Gura_DeclareFunctionAlias(__UniChar_4, "UniChar_4")
 Gura_ImplementFunction(__UniChar_4)
 {
 	//unsigned int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -121,7 +121,7 @@ Gura_DeclareFunctionAlias(__UniChar_5, "UniChar_5")
 Gura_ImplementFunction(__UniChar_5)
 {
 	//long int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_DeclareFunctionAlias(__UniChar_6, "UniChar_6")
 Gura_ImplementFunction(__UniChar_6)
 {
 	//unsigned long int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -151,7 +151,7 @@ Gura_DeclareFunctionAlias(__UniChar_7, "UniChar_7")
 Gura_ImplementFunction(__UniChar_7)
 {
 	//short int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_DeclareFunctionAlias(__UniChar_8, "UniChar_8")
 Gura_ImplementFunction(__UniChar_8)
 {
 	//unsigned short int c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_DeclareFunctionAlias(__UniChar_9, "UniChar_9")
 Gura_ImplementFunction(__UniChar_9)
 {
 	//wxLongLong_t c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -196,7 +196,7 @@ Gura_DeclareFunctionAlias(__UniChar_10, "UniChar_10")
 Gura_ImplementFunction(__UniChar_10)
 {
 	//wxULongLong_t c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -211,7 +211,7 @@ Gura_DeclareFunctionAlias(__UniChar_11, "UniChar_11")
 Gura_ImplementFunction(__UniChar_11)
 {
 	//const wxUniCharRef& c = arg.GetNumber(0)
-	//wxUniChar();
+	//wxUniChar(c);
 	return Value::Nil;
 }
 
@@ -255,7 +255,7 @@ Gura_ImplementMethod(wx_UniChar, __GetAsChar)
 	Object_wx_UniChar *pThis = Object_wx_UniChar::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//char* c = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAsChar();
+	//pThis->GetEntity()->GetAsChar(c);
 	return Value::Nil;
 }
 

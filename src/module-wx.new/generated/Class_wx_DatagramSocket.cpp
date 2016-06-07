@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DatagramSocket)
 {
 	//const wxSockAddress& addr = arg.GetNumber(0)
 	//wxSocketFlags flags = arg.GetNumber(1)
-	//wxDatagramSocket();
+	//wxDatagramSocket(addr, flags);
 	return Value::Nil;
 }
 
@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_DatagramSocket, __SendTo)
 	//const wxSockAddress& address = arg.GetNumber(0)
 	//const void* buffer = arg.GetNumber(1)
 	//wxUint32 nbytes = arg.GetNumber(2)
-	//pThis->GetEntity()->SendTo();
+	//pThis->GetEntity()->SendTo(address, buffer, nbytes);
 	return Value::Nil;
 }
 

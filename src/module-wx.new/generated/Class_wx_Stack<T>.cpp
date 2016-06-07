@@ -61,7 +61,7 @@ Gura_ImplementMethod(wx_Stack<T>, __wxStack_1)
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const container_type& cont = arg.GetNumber(0)
-	//pThis->GetEntity()->wxStack();
+	//pThis->GetEntity()->wxStack(cont);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_Stack<T>, __push)
 	Object_wx_Stack<T> *pThis = Object_wx_Stack<T>::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const value_type& val = arg.GetNumber(0)
-	//pThis->GetEntity()->push();
+	//pThis->GetEntity()->push(val);
 	return Value::Nil;
 }
 

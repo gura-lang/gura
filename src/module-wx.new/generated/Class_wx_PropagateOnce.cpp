@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PropagateOnce, "PropagateOnce")
 Gura_ImplementFunction(__PropagateOnce)
 {
 	//wxEvent& event = arg.GetNumber(0)
-	//wxPropagateOnce();
+	//wxPropagateOnce(event);
 	return Value::Nil;
 }
 

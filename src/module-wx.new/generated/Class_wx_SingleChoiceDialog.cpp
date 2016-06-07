@@ -62,7 +62,7 @@ Gura_ImplementFunction(__SingleChoiceDialog)
 	//void** clientData = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
 	//const wxPoint& pos = arg.GetNumber(7)
-	//wxSingleChoiceDialog();
+	//wxSingleChoiceDialog(parent, message, caption, n, choices, clientData, style, pos);
 	return Value::Nil;
 }
 
@@ -89,7 +89,7 @@ Gura_ImplementFunction(__SingleChoiceDialog_1)
 	//void** clientData = arg.GetNumber(4)
 	//long style = arg.GetNumber(5)
 	//const wxPoint& pos = arg.GetNumber(6)
-	//wxSingleChoiceDialog();
+	//wxSingleChoiceDialog(parent, message, caption, choices, clientData, style, pos);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_SingleChoiceDialog, __SetSelection)
 	Object_wx_SingleChoiceDialog *pThis = Object_wx_SingleChoiceDialog::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int selection = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(selection);
 	return Value::Nil;
 }
 

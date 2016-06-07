@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MaximizeEvent, "MaximizeEvent")
 Gura_ImplementFunction(__MaximizeEvent)
 {
 	//int id = arg.GetNumber(0)
-	//wxMaximizeEvent();
+	//wxMaximizeEvent(id);
 	return Value::Nil;
 }
 

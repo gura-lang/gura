@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__MouseEventsManager_1, "MouseEventsManager_1")
 Gura_ImplementFunction(__MouseEventsManager_1)
 {
 	//wxWindow* win = arg.GetNumber(0)
-	//wxMouseEventsManager();
+	//wxMouseEventsManager(win);
 	return Value::Nil;
 }
 
@@ -79,7 +79,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __Create)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* win = arg.GetNumber(0)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(win);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseHitTest)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pos = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseHitTest();
+	//pThis->GetEntity()->MouseHitTest(pos);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClicked)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseClicked();
+	//pThis->GetEntity()->MouseClicked(item);
 	return Value::Nil;
 }
 
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragBegin)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->MouseDragBegin();
+	//pThis->GetEntity()->MouseDragBegin(item, pos);
 	return Value::Nil;
 }
 
@@ -143,7 +143,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragging)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->MouseDragging();
+	//pThis->GetEntity()->MouseDragging(item, pos);
 	return Value::Nil;
 }
 
@@ -160,7 +160,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragEnd)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
 	//const wxPoint& pos = arg.GetNumber(1)
-	//pThis->GetEntity()->MouseDragEnd();
+	//pThis->GetEntity()->MouseDragEnd(item, pos);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseDragCancelled)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseDragCancelled();
+	//pThis->GetEntity()->MouseDragCancelled(item);
 	return Value::Nil;
 }
 
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickBegin)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseClickBegin();
+	//pThis->GetEntity()->MouseClickBegin(item);
 	return Value::Nil;
 }
 
@@ -205,7 +205,7 @@ Gura_ImplementMethod(wx_MouseEventsManager, __MouseClickCancelled)
 	Object_wx_MouseEventsManager *pThis = Object_wx_MouseEventsManager::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int item = arg.GetNumber(0)
-	//pThis->GetEntity()->MouseClickCancelled();
+	//pThis->GetEntity()->MouseClickCancelled(item);
 	return Value::Nil;
 }
 

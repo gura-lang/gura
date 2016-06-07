@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__DataFormat, "DataFormat")
 Gura_ImplementFunction(__DataFormat)
 {
 	//wxDataFormatId format = arg.GetNumber(0)
-	//wxDataFormat();
+	//wxDataFormat(format);
 	return Value::Nil;
 }
 
@@ -63,7 +63,7 @@ Gura_DeclareFunctionAlias(__DataFormat_1, "DataFormat_1")
 Gura_ImplementFunction(__DataFormat_1)
 {
 	//const wxString& format = arg.GetNumber(0)
-	//wxDataFormat();
+	//wxDataFormat(format);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_DataFormat, __SetId)
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& format = arg.GetNumber(0)
-	//pThis->GetEntity()->SetId();
+	//pThis->GetEntity()->SetId(format);
 	return Value::Nil;
 }
 
@@ -122,7 +122,7 @@ Gura_ImplementMethod(wx_DataFormat, __SetType)
 	Object_wx_DataFormat *pThis = Object_wx_DataFormat::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataFormatId type = arg.GetNumber(0)
-	//pThis->GetEntity()->SetType();
+	//pThis->GetEntity()->SetType(type);
 	return Value::Nil;
 }
 

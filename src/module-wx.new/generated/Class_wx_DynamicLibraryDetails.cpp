@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_DynamicLibraryDetails, __GetAddress)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* addr = arg.GetNumber(0)
 	//size_t* len = arg.GetNumber(1)
-	//pThis->GetEntity()->GetAddress();
+	//pThis->GetEntity()->GetAddress(addr, len);
 	return Value::Nil;
 }
 

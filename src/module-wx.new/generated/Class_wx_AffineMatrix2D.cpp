@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Get)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMatrix2D* mat2D = arg.GetNumber(0)
 	//wxPoint2DDouble* tr = arg.GetNumber(1)
-	//pThis->GetEntity()->Get();
+	//pThis->GetEntity()->Get(mat2D, tr);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Set)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxMatrix2D& mat2D = arg.GetNumber(0)
 	//const wxPoint2DDouble& tr = arg.GetNumber(1)
-	//pThis->GetEntity()->Set();
+	//pThis->GetEntity()->Set(mat2D, tr);
 	return Value::Nil;
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Concat)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAffineMatrix2DBase& t = arg.GetNumber(0)
-	//pThis->GetEntity()->Concat();
+	//pThis->GetEntity()->Concat(t);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __IsEqual)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxAffineMatrix2DBase& t = arg.GetNumber(0)
-	//pThis->GetEntity()->IsEqual();
+	//pThis->GetEntity()->IsEqual(t);
 	return Value::Nil;
 }
 
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Translate)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble dx = arg.GetNumber(0)
 	//wxDouble dy = arg.GetNumber(1)
-	//pThis->GetEntity()->Translate();
+	//pThis->GetEntity()->Translate(dx, dy);
 	return Value::Nil;
 }
 
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Scale)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble xScale = arg.GetNumber(0)
 	//wxDouble yScale = arg.GetNumber(1)
-	//pThis->GetEntity()->Scale();
+	//pThis->GetEntity()->Scale(xScale, yScale);
 	return Value::Nil;
 }
 
@@ -188,7 +188,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Mirror)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int direction = arg.GetNumber(0)
-	//pThis->GetEntity()->Mirror();
+	//pThis->GetEntity()->Mirror(direction);
 	return Value::Nil;
 }
 
@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __Rotate)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble cRadians = arg.GetNumber(0)
-	//pThis->GetEntity()->Rotate();
+	//pThis->GetEntity()->Rotate(cRadians);
 	return Value::Nil;
 }
 
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& p = arg.GetNumber(0)
-	//pThis->GetEntity()->TransformPoint();
+	//pThis->GetEntity()->TransformPoint(p);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformPoint_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble* x = arg.GetNumber(0)
 	//wxDouble* y = arg.GetNumber(1)
-	//pThis->GetEntity()->TransformPoint();
+	//pThis->GetEntity()->TransformPoint(x, y);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance)
 	Object_wx_AffineMatrix2D *pThis = Object_wx_AffineMatrix2D::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint2DDouble& p = arg.GetNumber(0)
-	//pThis->GetEntity()->TransformDistance();
+	//pThis->GetEntity()->TransformDistance(p);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_AffineMatrix2D, __TransformDistance_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDouble* dx = arg.GetNumber(0)
 	//wxDouble* dy = arg.GetNumber(1)
-	//pThis->GetEntity()->TransformDistance();
+	//pThis->GetEntity()->TransformDistance(dx, dy);
 	return Value::Nil;
 }
 

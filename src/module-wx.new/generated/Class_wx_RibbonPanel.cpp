@@ -73,7 +73,7 @@ Gura_ImplementFunction(__RibbonPanel_1)
 	//const wxPoint& pos = arg.GetNumber(4)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
-	//wxRibbonPanel();
+	//wxRibbonPanel(parent, id, label, minimised_icon, pos, size, style);
 	return Value::Nil;
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_RibbonPanel, __Create)
 	//const wxPoint& pos = arg.GetNumber(4)
 	//const wxSize& size = arg.GetNumber(5)
 	//long style = arg.GetNumber(6)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, label, icon, pos, size, style);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_RibbonPanel, __IsMinimised_1)
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxSize at_size = arg.GetNumber(0)
-	//pThis->GetEntity()->IsMinimised();
+	//pThis->GetEntity()->IsMinimised(at_size);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_RibbonPanel, __SetArtProvider)
 	Object_wx_RibbonPanel *pThis = Object_wx_RibbonPanel::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonArtProvider* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 

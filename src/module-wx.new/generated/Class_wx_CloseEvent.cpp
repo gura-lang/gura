@@ -50,7 +50,7 @@ Gura_ImplementFunction(__CloseEvent)
 {
 	//wxEventType commandEventType = arg.GetNumber(0)
 	//int id = arg.GetNumber(1)
-	//wxCloseEvent();
+	//wxCloseEvent(commandEventType, id);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_CloseEvent, __SetCanVeto)
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool canVeto = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCanVeto();
+	//pThis->GetEntity()->SetCanVeto(canVeto);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_CloseEvent, __SetLoggingOff)
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool loggingOff = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLoggingOff();
+	//pThis->GetEntity()->SetLoggingOff(loggingOff);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_CloseEvent, __Veto)
 	Object_wx_CloseEvent *pThis = Object_wx_CloseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool veto = arg.GetNumber(0)
-	//pThis->GetEntity()->Veto();
+	//pThis->GetEntity()->Veto(veto);
 	return Value::Nil;
 }
 

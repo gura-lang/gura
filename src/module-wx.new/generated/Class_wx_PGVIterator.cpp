@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PGVIterator_1, "PGVIterator_1")
 Gura_ImplementFunction(__PGVIterator_1)
 {
 	//wxPGVIteratorBase* obj = arg.GetNumber(0)
-	//wxPGVIterator();
+	//wxPGVIterator(obj);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__PGVIterator_2, "PGVIterator_2")
 Gura_ImplementFunction(__PGVIterator_2)
 {
 	//const wxPGVIterator& it = arg.GetNumber(0)
-	//wxPGVIterator();
+	//wxPGVIterator(it);
 	return Value::Nil;
 }
 

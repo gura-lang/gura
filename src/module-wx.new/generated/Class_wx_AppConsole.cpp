@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_AppConsole, __FilterEvent)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->FilterEvent();
+	//pThis->GetEntity()->FilterEvent(event);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_AppConsole, __HandleEvent)
 	//wxEvtHandler* handler = arg.GetNumber(0)
 	//wxEventFunction func = arg.GetNumber(1)
 	//wxEvent& event = arg.GetNumber(2)
-	//pThis->GetEntity()->HandleEvent();
+	//pThis->GetEntity()->HandleEvent(handler, func, event);
 	return Value::Nil;
 }
 
@@ -212,7 +212,7 @@ Gura_ImplementMethod(wx_AppConsole, __ScheduleForDestruction)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObject* object = arg.GetNumber(0)
-	//pThis->GetEntity()->ScheduleForDestruction();
+	//pThis->GetEntity()->ScheduleForDestruction(object);
 	return Value::Nil;
 }
 
@@ -227,7 +227,7 @@ Gura_ImplementMethod(wx_AppConsole, __IsScheduledForDestruction)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObject* object = arg.GetNumber(0)
-	//pThis->GetEntity()->IsScheduledForDestruction();
+	//pThis->GetEntity()->IsScheduledForDestruction(object);
 	return Value::Nil;
 }
 
@@ -242,7 +242,7 @@ Gura_ImplementMethod(wx_AppConsole, __Yield)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool onlyIfNeeded = arg.GetNumber(0)
-	//pThis->GetEntity()->Yield();
+	//pThis->GetEntity()->Yield(onlyIfNeeded);
 	return Value::Nil;
 }
 
@@ -257,7 +257,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetInstance)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAppConsole* app = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInstance();
+	//pThis->GetEntity()->SetInstance(app);
 	return Value::Nil;
 }
 
@@ -306,7 +306,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnAssertFailure)
 	//const wxChar* func = arg.GetNumber(2)
 	//const wxChar* cond = arg.GetNumber(3)
 	//const wxChar* msg = arg.GetNumber(4)
-	//pThis->GetEntity()->OnAssertFailure();
+	//pThis->GetEntity()->OnAssertFailure(file, line, func, cond, msg);
 	return Value::Nil;
 }
 
@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnCmdLineError)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCmdLineParser& parser = arg.GetNumber(0)
-	//pThis->GetEntity()->OnCmdLineError();
+	//pThis->GetEntity()->OnCmdLineError(parser);
 	return Value::Nil;
 }
 
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnCmdLineHelp)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCmdLineParser& parser = arg.GetNumber(0)
-	//pThis->GetEntity()->OnCmdLineHelp();
+	//pThis->GetEntity()->OnCmdLineHelp(parser);
 	return Value::Nil;
 }
 
@@ -351,7 +351,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnCmdLineParsed)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCmdLineParser& parser = arg.GetNumber(0)
-	//pThis->GetEntity()->OnCmdLineParsed();
+	//pThis->GetEntity()->OnCmdLineParsed(parser);
 	return Value::Nil;
 }
 
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnEventLoopEnter)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventLoopBase* loop = arg.GetNumber(0)
-	//pThis->GetEntity()->OnEventLoopEnter();
+	//pThis->GetEntity()->OnEventLoopEnter(loop);
 	return Value::Nil;
 }
 
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnEventLoopExit)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxEventLoopBase* loop = arg.GetNumber(0)
-	//pThis->GetEntity()->OnEventLoopExit();
+	//pThis->GetEntity()->OnEventLoopExit(loop);
 	return Value::Nil;
 }
 
@@ -435,7 +435,7 @@ Gura_ImplementMethod(wx_AppConsole, __OnInitCmdLine)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxCmdLineParser& parser = arg.GetNumber(0)
-	//pThis->GetEntity()->OnInitCmdLine();
+	//pThis->GetEntity()->OnInitCmdLine(parser);
 	return Value::Nil;
 }
 
@@ -593,7 +593,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetAppDisplayName)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAppDisplayName();
+	//pThis->GetEntity()->SetAppDisplayName(name);
 	return Value::Nil;
 }
 
@@ -608,7 +608,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetAppName)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAppName();
+	//pThis->GetEntity()->SetAppName(name);
 	return Value::Nil;
 }
 
@@ -623,7 +623,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetClassName)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetClassName();
+	//pThis->GetEntity()->SetClassName(name);
 	return Value::Nil;
 }
 
@@ -638,7 +638,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetVendorDisplayName)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetVendorDisplayName();
+	//pThis->GetEntity()->SetVendorDisplayName(name);
 	return Value::Nil;
 }
 
@@ -653,7 +653,7 @@ Gura_ImplementMethod(wx_AppConsole, __SetVendorName)
 	Object_wx_AppConsole *pThis = Object_wx_AppConsole::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
-	//pThis->GetEntity()->SetVendorName();
+	//pThis->GetEntity()->SetVendorName(name);
 	return Value::Nil;
 }
 

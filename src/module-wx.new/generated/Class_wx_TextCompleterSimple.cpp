@@ -50,7 +50,7 @@ Gura_ImplementMethod(wx_TextCompleterSimple, __GetCompletions)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& prefix = arg.GetNumber(0)
 	//wxArrayString& res = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCompletions();
+	//pThis->GetEntity()->GetCompletions(prefix, res);
 	return Value::Nil;
 }
 

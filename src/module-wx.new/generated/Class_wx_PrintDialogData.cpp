@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__PrintDialogData_1, "PrintDialogData_1")
 Gura_ImplementFunction(__PrintDialogData_1)
 {
 	//const wxPrintDialogData& dialogData = arg.GetNumber(0)
-	//wxPrintDialogData();
+	//wxPrintDialogData(dialogData);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__PrintDialogData_2, "PrintDialogData_2")
 Gura_ImplementFunction(__PrintDialogData_2)
 {
 	//const wxPrintData& printData = arg.GetNumber(0)
-	//wxPrintDialogData();
+	//wxPrintDialogData(printData);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __EnableHelp)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableHelp();
+	//pThis->GetEntity()->EnableHelp(flag);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __EnablePageNumbers)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->EnablePageNumbers();
+	//pThis->GetEntity()->EnablePageNumbers(flag);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __EnablePrintToFile)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->EnablePrintToFile();
+	//pThis->GetEntity()->EnablePrintToFile(flag);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __EnableSelection)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableSelection();
+	//pThis->GetEntity()->EnableSelection(flag);
 	return Value::Nil;
 }
 
@@ -297,7 +297,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetCollate)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCollate();
+	//pThis->GetEntity()->SetCollate(flag);
 	return Value::Nil;
 }
 
@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetFromPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetFromPage();
+	//pThis->GetEntity()->SetFromPage(page);
 	return Value::Nil;
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetMaxPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMaxPage();
+	//pThis->GetEntity()->SetMaxPage(page);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetMinPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMinPage();
+	//pThis->GetEntity()->SetMinPage(page);
 	return Value::Nil;
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetNoCopies)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int n = arg.GetNumber(0)
-	//pThis->GetEntity()->SetNoCopies();
+	//pThis->GetEntity()->SetNoCopies(n);
 	return Value::Nil;
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetPrintData)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPrintData& printData = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrintData();
+	//pThis->GetEntity()->SetPrintData(printData);
 	return Value::Nil;
 }
 
@@ -387,7 +387,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetPrintToFile)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetPrintToFile();
+	//pThis->GetEntity()->SetPrintToFile(flag);
 	return Value::Nil;
 }
 
@@ -402,7 +402,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetSelection)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(flag);
 	return Value::Nil;
 }
 
@@ -417,7 +417,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetSetupDialog)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool flag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSetupDialog();
+	//pThis->GetEntity()->SetSetupDialog(flag);
 	return Value::Nil;
 }
 
@@ -432,7 +432,7 @@ Gura_ImplementMethod(wx_PrintDialogData, __SetToPage)
 	Object_wx_PrintDialogData *pThis = Object_wx_PrintDialogData::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int page = arg.GetNumber(0)
-	//pThis->GetEntity()->SetToPage();
+	//pThis->GetEntity()->SetToPage(page);
 	return Value::Nil;
 }
 

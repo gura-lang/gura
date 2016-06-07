@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__RegKey, "RegKey")
 Gura_ImplementFunction(__RegKey)
 {
 	//WOW64ViewMode viewMode = arg.GetNumber(0)
-	//wxRegKey();
+	//wxRegKey(viewMode);
 	return Value::Nil;
 }
 
@@ -65,7 +65,7 @@ Gura_ImplementFunction(__RegKey_1)
 {
 	//const wxString& strKey = arg.GetNumber(0)
 	//WOW64ViewMode viewMode = arg.GetNumber(1)
-	//wxRegKey();
+	//wxRegKey(strKey, viewMode);
 	return Value::Nil;
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__RegKey_2)
 	//StdKey keyParent = arg.GetNumber(0)
 	//const wxString& strKey = arg.GetNumber(1)
 	//WOW64ViewMode viewMode = arg.GetNumber(2)
-	//wxRegKey();
+	//wxRegKey(keyParent, strKey, viewMode);
 	return Value::Nil;
 }
 
@@ -101,7 +101,7 @@ Gura_ImplementFunction(__RegKey_3)
 {
 	//const wxRegKey& keyParent = arg.GetNumber(0)
 	//const wxString& strKey = arg.GetNumber(1)
-	//wxRegKey();
+	//wxRegKey(keyParent, strKey);
 	return Value::Nil;
 }
 

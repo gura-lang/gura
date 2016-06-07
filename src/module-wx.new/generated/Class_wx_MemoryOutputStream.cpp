@@ -50,7 +50,7 @@ Gura_ImplementFunction(__MemoryOutputStream)
 {
 	//void* data = arg.GetNumber(0)
 	//size_t length = arg.GetNumber(1)
-	//wxMemoryOutputStream();
+	//wxMemoryOutputStream(data, length);
 	return Value::Nil;
 }
 
@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_MemoryOutputStream, __CopyTo)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buffer = arg.GetNumber(0)
 	//size_t len = arg.GetNumber(1)
-	//pThis->GetEntity()->CopyTo();
+	//pThis->GetEntity()->CopyTo(buffer, len);
 	return Value::Nil;
 }
 

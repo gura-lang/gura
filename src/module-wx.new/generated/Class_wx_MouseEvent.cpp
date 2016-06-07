@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__MouseEvent, "MouseEvent")
 Gura_ImplementFunction(__MouseEvent)
 {
 	//wxEventType mouseEventType = arg.GetNumber(0)
-	//wxMouseEvent();
+	//wxMouseEvent(mouseEventType);
 	return Value::Nil;
 }
 
@@ -144,7 +144,7 @@ Gura_ImplementMethod(wx_MouseEvent, __Button)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->Button();
+	//pThis->GetEntity()->Button(but);
 	return Value::Nil;
 }
 
@@ -159,7 +159,7 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonDClick)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDClick();
+	//pThis->GetEntity()->ButtonDClick(but);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonDown)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonDown();
+	//pThis->GetEntity()->ButtonDown(but);
 	return Value::Nil;
 }
 
@@ -189,7 +189,7 @@ Gura_ImplementMethod(wx_MouseEvent, __ButtonUp)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxMouseButton but = arg.GetNumber(0)
-	//pThis->GetEntity()->ButtonUp();
+	//pThis->GetEntity()->ButtonUp(but);
 	return Value::Nil;
 }
 
@@ -282,7 +282,7 @@ Gura_ImplementMethod(wx_MouseEvent, __GetLogicalPosition)
 	Object_wx_MouseEvent *pThis = Object_wx_MouseEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDC& dc = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLogicalPosition();
+	//pThis->GetEntity()->GetLogicalPosition(dc);
 	return Value::Nil;
 }
 

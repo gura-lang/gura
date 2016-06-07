@@ -75,7 +75,7 @@ Gura_ImplementFunction(__ThumbBarButton_1)
 	//bool hasBackground = arg.GetNumber(5)
 	//bool shown = arg.GetNumber(6)
 	//bool interactive = arg.GetNumber(7)
-	//wxThumbBarButton();
+	//wxThumbBarButton(id, icon, tooltip, enable, dismissOnClick, hasBackground, shown, interactive);
 	return Value::Nil;
 }
 
@@ -107,7 +107,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Create)
 	//bool hasBackground = arg.GetNumber(5)
 	//bool shown = arg.GetNumber(6)
 	//bool interactive = arg.GetNumber(7)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(id, icon, tooltip, enable, dismissOnClick, hasBackground, shown, interactive);
 	return Value::Nil;
 }
 
@@ -174,7 +174,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Enable)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->Enable();
+	//pThis->GetEntity()->Enable(enable);
 	return Value::Nil;
 }
 
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __EnableDismissOnClick)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableDismissOnClick();
+	//pThis->GetEntity()->EnableDismissOnClick(enable);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __SetHasBackground)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool has = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHasBackground();
+	//pThis->GetEntity()->SetHasBackground(has);
 	return Value::Nil;
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __Show)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool shown = arg.GetNumber(0)
-	//pThis->GetEntity()->Show();
+	//pThis->GetEntity()->Show(shown);
 	return Value::Nil;
 }
 
@@ -325,7 +325,7 @@ Gura_ImplementMethod(wx_ThumbBarButton, __SetInteractive)
 	Object_wx_ThumbBarButton *pThis = Object_wx_ThumbBarButton::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool interactive = arg.GetNumber(0)
-	//pThis->GetEntity()->SetInteractive();
+	//pThis->GetEntity()->SetInteractive(interactive);
 	return Value::Nil;
 }
 

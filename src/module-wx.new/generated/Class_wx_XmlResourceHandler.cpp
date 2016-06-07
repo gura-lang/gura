@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateResource)
 	//wxXmlNode* node = arg.GetNumber(0)
 	//wxObject* parent = arg.GetNumber(1)
 	//wxObject* instance = arg.GetNumber(2)
-	//pThis->GetEntity()->CreateResource();
+	//pThis->GetEntity()->CreateResource(node, parent, instance);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CanHandle)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->CanHandle();
+	//pThis->GetEntity()->CanHandle(node);
 	return Value::Nil;
 }
 
@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __SetParentResource)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlResource* res = arg.GetNumber(0)
-	//pThis->GetEntity()->SetParentResource();
+	//pThis->GetEntity()->SetParentResource(res);
 	return Value::Nil;
 }
 
@@ -128,7 +128,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __AddStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& name = arg.GetNumber(0)
 	//int value = arg.GetNumber(1)
-	//pThis->GetEntity()->AddStyle();
+	//pThis->GetEntity()->AddStyle(name, value);
 	return Value::Nil;
 }
 
@@ -158,7 +158,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateChildren)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObject* parent = arg.GetNumber(0)
 	//bool this_hnd_only = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateChildren();
+	//pThis->GetEntity()->CreateChildren(parent, this_hnd_only);
 	return Value::Nil;
 }
 
@@ -175,7 +175,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateChildrenPrivately)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxObject* parent = arg.GetNumber(0)
 	//wxXmlNode* rootnode = arg.GetNumber(1)
-	//pThis->GetEntity()->CreateChildrenPrivately();
+	//pThis->GetEntity()->CreateChildrenPrivately(parent, rootnode);
 	return Value::Nil;
 }
 
@@ -194,7 +194,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __CreateResFromNode)
 	//wxXmlNode* node = arg.GetNumber(0)
 	//wxObject* parent = arg.GetNumber(1)
 	//wxObject* instance = arg.GetNumber(2)
-	//pThis->GetEntity()->CreateResFromNode();
+	//pThis->GetEntity()->CreateResFromNode(node, parent, instance);
 	return Value::Nil;
 }
 
@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetAnimation)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetAnimation();
+	//pThis->GetEntity()->GetAnimation(param);
 	return Value::Nil;
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBitmap)
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBitmap();
+	//pThis->GetEntity()->GetBitmap(param, defaultArtClient, size);
 	return Value::Nil;
 }
 
@@ -247,7 +247,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBitmap_1)
 	//const wxXmlNode* node = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetBitmap();
+	//pThis->GetEntity()->GetBitmap(node, defaultArtClient, size);
 	return Value::Nil;
 }
 
@@ -264,7 +264,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetBool)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//bool defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetBool();
+	//pThis->GetEntity()->GetBool(param, defaultv);
 	return Value::Nil;
 }
 
@@ -281,7 +281,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetColour)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//const wxColour& defaultColour = arg.GetNumber(1)
-	//pThis->GetEntity()->GetColour();
+	//pThis->GetEntity()->GetColour(param, defaultColour);
 	return Value::Nil;
 }
 
@@ -313,7 +313,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetDimension)
 	//const wxString& param = arg.GetNumber(0)
 	//wxCoord defaultv = arg.GetNumber(1)
 	//wxWindow* windowToUse = arg.GetNumber(2)
-	//pThis->GetEntity()->GetDimension();
+	//pThis->GetEntity()->GetDimension(param, defaultv, windowToUse);
 	return Value::Nil;
 }
 
@@ -330,7 +330,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetDirection)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//wxDirection dirDefault = arg.GetNumber(1)
-	//pThis->GetEntity()->GetDirection();
+	//pThis->GetEntity()->GetDirection(param, dirDefault);
 	return Value::Nil;
 }
 
@@ -345,7 +345,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetFont)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFont();
+	//pThis->GetEntity()->GetFont(param);
 	return Value::Nil;
 }
 
@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIcon)
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetIcon();
+	//pThis->GetEntity()->GetIcon(param, defaultArtClient, size);
 	return Value::Nil;
 }
 
@@ -396,7 +396,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIcon_1)
 	//const wxXmlNode* node = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
 	//wxSize size = arg.GetNumber(2)
-	//pThis->GetEntity()->GetIcon();
+	//pThis->GetEntity()->GetIcon(node, defaultArtClient, size);
 	return Value::Nil;
 }
 
@@ -413,7 +413,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetIconBundle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//const wxArtClient& defaultArtClient = arg.GetNumber(1)
-	//pThis->GetEntity()->GetIconBundle();
+	//pThis->GetEntity()->GetIconBundle(param, defaultArtClient);
 	return Value::Nil;
 }
 
@@ -428,7 +428,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetImageList)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetImageList();
+	//pThis->GetEntity()->GetImageList(param);
 	return Value::Nil;
 }
 
@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetLong)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//long defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetLong();
+	//pThis->GetEntity()->GetLong(param, defaultv);
 	return Value::Nil;
 }
 
@@ -462,7 +462,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetFloat)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//float defaultv = arg.GetNumber(1)
-	//pThis->GetEntity()->GetFloat();
+	//pThis->GetEntity()->GetFloat(param, defaultv);
 	return Value::Nil;
 }
 
@@ -490,7 +490,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __IsObjectNode)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->IsObjectNode();
+	//pThis->GetEntity()->IsObjectNode(node);
 	return Value::Nil;
 }
 
@@ -505,7 +505,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeContent)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeContent();
+	//pThis->GetEntity()->GetNodeContent(node);
 	return Value::Nil;
 }
 
@@ -520,7 +520,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeParent)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeParent();
+	//pThis->GetEntity()->GetNodeParent(node);
 	return Value::Nil;
 }
 
@@ -535,7 +535,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeNext)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeNext();
+	//pThis->GetEntity()->GetNodeNext(node);
 	return Value::Nil;
 }
 
@@ -550,7 +550,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetNodeChildren)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNodeChildren();
+	//pThis->GetEntity()->GetNodeChildren(node);
 	return Value::Nil;
 }
 
@@ -565,7 +565,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamNode)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamNode();
+	//pThis->GetEntity()->GetParamNode(param);
 	return Value::Nil;
 }
 
@@ -580,7 +580,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamValue)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamValue();
+	//pThis->GetEntity()->GetParamValue(param);
 	return Value::Nil;
 }
 
@@ -595,7 +595,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetParamValue_1)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxXmlNode* node = arg.GetNumber(0)
-	//pThis->GetEntity()->GetParamValue();
+	//pThis->GetEntity()->GetParamValue(node);
 	return Value::Nil;
 }
 
@@ -610,7 +610,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetPosition)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->GetPosition();
+	//pThis->GetEntity()->GetPosition(param);
 	return Value::Nil;
 }
 
@@ -627,7 +627,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//wxWindow* windowToUse = arg.GetNumber(1)
-	//pThis->GetEntity()->GetSize();
+	//pThis->GetEntity()->GetSize(param, windowToUse);
 	return Value::Nil;
 }
 
@@ -644,7 +644,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetStyle)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//int defaults = arg.GetNumber(1)
-	//pThis->GetEntity()->GetStyle();
+	//pThis->GetEntity()->GetStyle(param, defaults);
 	return Value::Nil;
 }
 
@@ -661,7 +661,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __GetText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//bool translate = arg.GetNumber(1)
-	//pThis->GetEntity()->GetText();
+	//pThis->GetEntity()->GetText(param, translate);
 	return Value::Nil;
 }
 
@@ -676,7 +676,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __HasParam)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
-	//pThis->GetEntity()->HasParam();
+	//pThis->GetEntity()->HasParam(param);
 	return Value::Nil;
 }
 
@@ -693,7 +693,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __IsOfClass)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* node = arg.GetNumber(0)
 	//const wxString& classname = arg.GetNumber(1)
-	//pThis->GetEntity()->IsOfClass();
+	//pThis->GetEntity()->IsOfClass(node, classname);
 	return Value::Nil;
 }
 
@@ -708,7 +708,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __SetupWindow)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* wnd = arg.GetNumber(0)
-	//pThis->GetEntity()->SetupWindow();
+	//pThis->GetEntity()->SetupWindow(wnd);
 	return Value::Nil;
 }
 
@@ -725,7 +725,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __ReportError)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxXmlNode* context = arg.GetNumber(0)
 	//const wxString& message = arg.GetNumber(1)
-	//pThis->GetEntity()->ReportError();
+	//pThis->GetEntity()->ReportError(context, message);
 	return Value::Nil;
 }
 
@@ -740,7 +740,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __ReportError_1)
 	Object_wx_XmlResourceHandler *pThis = Object_wx_XmlResourceHandler::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& message = arg.GetNumber(0)
-	//pThis->GetEntity()->ReportError();
+	//pThis->GetEntity()->ReportError(message);
 	return Value::Nil;
 }
 
@@ -757,7 +757,7 @@ Gura_ImplementMethod(wx_XmlResourceHandler, __ReportParamError)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& param = arg.GetNumber(0)
 	//const wxString& message = arg.GetNumber(1)
-	//pThis->GetEntity()->ReportParamError();
+	//pThis->GetEntity()->ReportParamError(param, message);
 	return Value::Nil;
 }
 

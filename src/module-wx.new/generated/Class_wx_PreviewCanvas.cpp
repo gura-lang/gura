@@ -58,7 +58,7 @@ Gura_ImplementFunction(__PreviewCanvas)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxPreviewCanvas();
+	//wxPreviewCanvas(preview, parent, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_ImplementMethod(wx_PreviewCanvas, __OnPaint)
 	Object_wx_PreviewCanvas *pThis = Object_wx_PreviewCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPaintEvent& event = arg.GetNumber(0)
-	//pThis->GetEntity()->OnPaint();
+	//pThis->GetEntity()->OnPaint(event);
 	return Value::Nil;
 }
 

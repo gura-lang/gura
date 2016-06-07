@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HtmlContainerCell, "HtmlContainerCell")
 Gura_ImplementFunction(__HtmlContainerCell)
 {
 	//wxHtmlContainerCell* parent = arg.GetNumber(0)
-	//wxHtmlContainerCell();
+	//wxHtmlContainerCell(parent);
 	return Value::Nil;
 }
 
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndent)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIndent();
+	//pThis->GetEntity()->GetIndent(ind);
 	return Value::Nil;
 }
 
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __GetIndentUnits)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int ind = arg.GetNumber(0)
-	//pThis->GetEntity()->GetIndentUnits();
+	//pThis->GetEntity()->GetIndentUnits(ind);
 	return Value::Nil;
 }
 
@@ -135,7 +135,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __InsertCell)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlCell* cell = arg.GetNumber(0)
-	//pThis->GetEntity()->InsertCell();
+	//pThis->GetEntity()->InsertCell(cell);
 	return Value::Nil;
 }
 
@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlign)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlTag& tag = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlign();
+	//pThis->GetEntity()->SetAlign(tag);
 	return Value::Nil;
 }
 
@@ -165,7 +165,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlignHor)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int al = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlignHor();
+	//pThis->GetEntity()->SetAlignHor(al);
 	return Value::Nil;
 }
 
@@ -180,7 +180,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetAlignVer)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int al = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAlignVer();
+	//pThis->GetEntity()->SetAlignVer(al);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetBackgroundColour)
 	Object_wx_HtmlContainerCell *pThis = Object_wx_HtmlContainerCell::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& clr = arg.GetNumber(0)
-	//pThis->GetEntity()->SetBackgroundColour();
+	//pThis->GetEntity()->SetBackgroundColour(clr);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetBorder)
 	//const wxColour& clr1 = arg.GetNumber(0)
 	//const wxColour& clr2 = arg.GetNumber(1)
 	//int border = arg.GetNumber(2)
-	//pThis->GetEntity()->SetBorder();
+	//pThis->GetEntity()->SetBorder(clr1, clr2, border);
 	return Value::Nil;
 }
 
@@ -233,7 +233,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetIndent)
 	//int i = arg.GetNumber(0)
 	//int what = arg.GetNumber(1)
 	//int units = arg.GetNumber(2)
-	//pThis->GetEntity()->SetIndent();
+	//pThis->GetEntity()->SetIndent(i, what, units);
 	return Value::Nil;
 }
 
@@ -250,7 +250,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetMinHeight)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int h = arg.GetNumber(0)
 	//int align = arg.GetNumber(1)
-	//pThis->GetEntity()->SetMinHeight();
+	//pThis->GetEntity()->SetMinHeight(h, align);
 	return Value::Nil;
 }
 
@@ -267,7 +267,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int w = arg.GetNumber(0)
 	//int units = arg.GetNumber(1)
-	//pThis->GetEntity()->SetWidthFloat();
+	//pThis->GetEntity()->SetWidthFloat(w, units);
 	return Value::Nil;
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_HtmlContainerCell, __SetWidthFloat_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxHtmlTag& tag = arg.GetNumber(0)
 	//double pixel_scale = arg.GetNumber(1)
-	//pThis->GetEntity()->SetWidthFloat();
+	//pThis->GetEntity()->SetWidthFloat(tag, pixel_scale);
 	return Value::Nil;
 }
 

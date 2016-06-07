@@ -58,7 +58,7 @@ Gura_ImplementFunction(__HtmlListBox)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxHtmlListBox();
+	//wxHtmlListBox(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -142,7 +142,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnLinkClicked)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
 	//const wxHtmlLinkInfo& link = arg.GetNumber(1)
-	//pThis->GetEntity()->OnLinkClicked();
+	//pThis->GetEntity()->OnLinkClicked(n, link);
 	return Value::Nil;
 }
 
@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextBgColour)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colBg = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextBgColour();
+	//pThis->GetEntity()->GetSelectedTextBgColour(colBg);
 	return Value::Nil;
 }
 
@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __GetSelectedTextColour)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& colFg = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSelectedTextColour();
+	//pThis->GetEntity()->GetSelectedTextColour(colFg);
 	return Value::Nil;
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItemMarkup)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItemMarkup();
+	//pThis->GetEntity()->OnGetItemMarkup(n);
 	return Value::Nil;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(wx_HtmlListBox, __OnGetItem)
 	Object_wx_HtmlListBox *pThis = Object_wx_HtmlListBox::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t n = arg.GetNumber(0)
-	//pThis->GetEntity()->OnGetItem();
+	//pThis->GetEntity()->OnGetItem(n);
 	return Value::Nil;
 }
 

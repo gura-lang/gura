@@ -64,7 +64,7 @@ Gura_ImplementFunction(__ToolBarToolBase)
 	//wxObject* clientData = arg.GetNumber(6)
 	//const wxString& shortHelpString = arg.GetNumber(7)
 	//const wxString& longHelpString = arg.GetNumber(8)
-	//wxToolBarToolBase();
+	//wxToolBarToolBase(tbar, toolid, label, bmpNormal, bmpDisabled, kind, clientData, shortHelpString, longHelpString);
 	return Value::Nil;
 }
 
@@ -83,7 +83,7 @@ Gura_ImplementFunction(__ToolBarToolBase_1)
 	//wxToolBarBase* tbar = arg.GetNumber(0)
 	//wxControl* control = arg.GetNumber(1)
 	//const wxString& label = arg.GetNumber(2)
-	//wxToolBarToolBase();
+	//wxToolBarToolBase(tbar, control, label);
 	return Value::Nil;
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_ToolBarToolBase, __Attach)
 	Object_wx_ToolBarToolBase *pThis = Object_wx_ToolBarToolBase::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxToolBarBase* tbar = arg.GetNumber(0)
-	//pThis->GetEntity()->Attach();
+	//pThis->GetEntity()->Attach(tbar);
 	return Value::Nil;
 }
 

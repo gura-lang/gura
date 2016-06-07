@@ -56,7 +56,7 @@ Gura_ImplementFunction(__ClassInfo)
 	//const wxClassInfo* baseClass2 = arg.GetNumber(2)
 	//int size = arg.GetNumber(3)
 	//wxObjectConstructorFn fn = arg.GetNumber(4)
-	//wxClassInfo();
+	//wxClassInfo(className, baseClass1, baseClass2, size, fn);
 	return Value::Nil;
 }
 
@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_ClassInfo, __FindClass)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& className = arg.GetNumber(0)
-	//pThis->GetEntity()->FindClass();
+	//pThis->GetEntity()->FindClass(className);
 	return Value::Nil;
 }
 
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_ClassInfo, __IsKindOf)
 	Object_wx_ClassInfo *pThis = Object_wx_ClassInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxClassInfo* info = arg.GetNumber(0)
-	//pThis->GetEntity()->IsKindOf();
+	//pThis->GetEntity()->IsKindOf(info);
 	return Value::Nil;
 }
 

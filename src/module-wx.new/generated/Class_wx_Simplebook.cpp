@@ -71,7 +71,7 @@ Gura_ImplementFunction(__Simplebook_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxSimplebook();
+	//wxSimplebook(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_Simplebook, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffects)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxShowEffect showEffect = arg.GetNumber(0)
 	//wxShowEffect hideEffect = arg.GetNumber(1)
-	//pThis->GetEntity()->SetEffects();
+	//pThis->GetEntity()->SetEffects(showEffect, hideEffect);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffect)
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxShowEffect effect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEffect();
+	//pThis->GetEntity()->SetEffect(effect);
 	return Value::Nil;
 }
 
@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffectsTimeouts)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned showTimeout = arg.GetNumber(0)
 	//unsigned hideTimeout = arg.GetNumber(1)
-	//pThis->GetEntity()->SetEffectsTimeouts();
+	//pThis->GetEntity()->SetEffectsTimeouts(showTimeout, hideTimeout);
 	return Value::Nil;
 }
 
@@ -163,7 +163,7 @@ Gura_ImplementMethod(wx_Simplebook, __SetEffectTimeout)
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned timeout = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEffectTimeout();
+	//pThis->GetEntity()->SetEffectTimeout(timeout);
 	return Value::Nil;
 }
 
@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_Simplebook, __ShowNewPage)
 	Object_wx_Simplebook *pThis = Object_wx_Simplebook::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* page = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowNewPage();
+	//pThis->GetEntity()->ShowNewPage(page);
 	return Value::Nil;
 }
 

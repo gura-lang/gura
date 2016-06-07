@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataObjectSimple* dataObject = arg.GetNumber(0)
 	//bool preferred = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(dataObject, preferred);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_DataObjectComposite, __GetObject)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& format = arg.GetNumber(0)
 	//wxDataObject::Direction dir = arg.GetNumber(1)
-	//pThis->GetEntity()->GetObject();
+	//pThis->GetEntity()->GetObject(format, dir);
 	return Value::Nil;
 }
 

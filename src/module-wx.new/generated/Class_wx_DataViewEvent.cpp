@@ -50,7 +50,7 @@ Gura_ImplementFunction(__DataViewEvent)
 {
 	//wxEventType commandType = arg.GetNumber(0)
 	//int winid = arg.GetNumber(1)
-	//wxDataViewEvent();
+	//wxDataViewEvent(commandType, winid);
 	return Value::Nil;
 }
 
@@ -146,7 +146,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetColumn)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumn();
+	//pThis->GetEntity()->SetColumn(col);
 	return Value::Nil;
 }
 
@@ -161,7 +161,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataViewColumn)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataViewColumn* col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataViewColumn();
+	//pThis->GetEntity()->SetDataViewColumn(col);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetModel)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataViewModel* model = arg.GetNumber(0)
-	//pThis->GetEntity()->SetModel();
+	//pThis->GetEntity()->SetModel(model);
 	return Value::Nil;
 }
 
@@ -191,7 +191,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetValue)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxVariant& value = arg.GetNumber(0)
-	//pThis->GetEntity()->SetValue();
+	//pThis->GetEntity()->SetValue(value);
 	return Value::Nil;
 }
 
@@ -206,7 +206,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataObject)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDataObject* obj = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataObject();
+	//pThis->GetEntity()->SetDataObject(obj);
 	return Value::Nil;
 }
 
@@ -260,7 +260,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDragFlags)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDragFlags();
+	//pThis->GetEntity()->SetDragFlags(flags);
 	return Value::Nil;
 }
 
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetItem)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataViewItem& item = arg.GetNumber(0)
-	//pThis->GetEntity()->SetItem();
+	//pThis->GetEntity()->SetItem(item);
 	return Value::Nil;
 }
 
@@ -342,7 +342,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetEditCanceled)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool editCancelled = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEditCanceled();
+	//pThis->GetEntity()->SetEditCanceled(editCancelled);
 	return Value::Nil;
 }
 
@@ -359,7 +359,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int x = arg.GetNumber(0)
 	//int y = arg.GetNumber(1)
-	//pThis->GetEntity()->SetPosition();
+	//pThis->GetEntity()->SetPosition(x, y);
 	return Value::Nil;
 }
 
@@ -376,7 +376,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetCache)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int from = arg.GetNumber(0)
 	//int to = arg.GetNumber(1)
-	//pThis->GetEntity()->SetCache();
+	//pThis->GetEntity()->SetCache(from, to);
 	return Value::Nil;
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataFormat)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxDataFormat& format = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataFormat();
+	//pThis->GetEntity()->SetDataFormat(format);
 	return Value::Nil;
 }
 
@@ -419,7 +419,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataSize)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//size_t size = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataSize();
+	//pThis->GetEntity()->SetDataSize(size);
 	return Value::Nil;
 }
 
@@ -434,7 +434,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDataBuffer)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//void* buf = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDataBuffer();
+	//pThis->GetEntity()->SetDataBuffer(buf);
 	return Value::Nil;
 }
 
@@ -462,7 +462,7 @@ Gura_ImplementMethod(wx_DataViewEvent, __SetDropEffect)
 	Object_wx_DataViewEvent *pThis = Object_wx_DataViewEvent::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxDragResult effect = arg.GetNumber(0)
-	//pThis->GetEntity()->SetDropEffect();
+	//pThis->GetEntity()->SetDropEffect(effect);
 	return Value::Nil;
 }
 

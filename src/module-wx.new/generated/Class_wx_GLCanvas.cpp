@@ -62,7 +62,7 @@ Gura_ImplementFunction(__GLCanvas)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
 	//const wxPalette& palette = arg.GetNumber(7)
-	//wxGLCanvas();
+	//wxGLCanvas(parent, dispAttrs, id, pos, size, style, name, palette);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementFunction(__GLCanvas_1)
 	//long style = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
 	//const wxPalette& palette = arg.GetNumber(7)
-	//wxGLCanvas();
+	//wxGLCanvas(parent, id, attribList, pos, size, style, name, palette);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGLAttributes& dispAttrs = arg.GetNumber(0)
-	//pThis->GetEntity()->IsDisplaySupported();
+	//pThis->GetEntity()->IsDisplaySupported(dispAttrs);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsDisplaySupported_1)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const int* attribList = arg.GetNumber(0)
-	//pThis->GetEntity()->IsDisplaySupported();
+	//pThis->GetEntity()->IsDisplaySupported(attribList);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_GLCanvas, __IsExtensionSupported)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const char* extension = arg.GetNumber(0)
-	//pThis->GetEntity()->IsExtensionSupported();
+	//pThis->GetEntity()->IsExtensionSupported(extension);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_GLCanvas, __SetColour)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& colour = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColour();
+	//pThis->GetEntity()->SetColour(colour);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_GLCanvas, __SetCurrent)
 	Object_wx_GLCanvas *pThis = Object_wx_GLCanvas::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxGLContext& context = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrent();
+	//pThis->GetEntity()->SetCurrent(context);
 	return Value::Nil;
 }
 

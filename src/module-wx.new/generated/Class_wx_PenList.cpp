@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_PenList, __FindOrCreatePen)
 	//const wxColour& colour = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
 	//wxPenStyle style = arg.GetNumber(2)
-	//pThis->GetEntity()->FindOrCreatePen();
+	//pThis->GetEntity()->FindOrCreatePen(colour, width, style);
 	return Value::Nil;
 }
 

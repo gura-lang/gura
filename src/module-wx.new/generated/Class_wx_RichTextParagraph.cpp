@@ -50,7 +50,7 @@ Gura_ImplementFunction(__RichTextParagraph)
 {
 	//wxRichTextObject* parent = arg.GetNumber(0)
 	//wxRichTextAttr* style = arg.GetNumber(1)
-	//wxRichTextParagraph();
+	//wxRichTextParagraph(parent, style);
 	return Value::Nil;
 }
 
@@ -71,7 +71,7 @@ Gura_ImplementFunction(__RichTextParagraph_1)
 	//wxRichTextObject* parent = arg.GetNumber(1)
 	//wxRichTextAttr* paraStyle = arg.GetNumber(2)
 	//wxRichTextAttr* charStyle = arg.GetNumber(3)
-	//wxRichTextParagraph();
+	//wxRichTextParagraph(text, parent, paraStyle, charStyle);
 	return Value::Nil;
 }
 
@@ -86,7 +86,7 @@ Gura_DeclareFunctionAlias(__RichTextParagraph_2, "RichTextParagraph_2")
 Gura_ImplementFunction(__RichTextParagraph_2)
 {
 	//const wxRichTextParagraph& obj = arg.GetNumber(0)
-	//wxRichTextParagraph();
+	//wxRichTextParagraph(obj);
 	return Value::Nil;
 }
 
@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __Draw)
 	//const wxRect& rect = arg.GetNumber(4)
 	//int descent = arg.GetNumber(5)
 	//int style = arg.GetNumber(6)
-	//pThis->GetEntity()->Draw();
+	//pThis->GetEntity()->Draw(dc, context, range, selection, rect, descent, style);
 	return Value::Nil;
 }
 
@@ -152,7 +152,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __Layout)
 	//const wxRect& rect = arg.GetNumber(2)
 	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
-	//pThis->GetEntity()->Layout();
+	//pThis->GetEntity()->Layout(dc, context, rect, parentRect, style);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __GetRangeSize)
 	//const wxPoint& position = arg.GetNumber(6)
 	//const wxSize& parentSize = arg.GetNumber(7)
 	//wxArrayInt* partialExtents = arg.GetNumber(8)
-	//pThis->GetEntity()->GetRangeSize();
+	//pThis->GetEntity()->GetRangeSize(range, size, descent, dc, context, flags, position, parentSize, partialExtents);
 	return Value::Nil;
 }
 
@@ -208,7 +208,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __FindPosition)
 	//wxPoint& pt = arg.GetNumber(3)
 	//int* height = arg.GetNumber(4)
 	//bool forceLineStart = arg.GetNumber(5)
-	//pThis->GetEntity()->FindPosition();
+	//pThis->GetEntity()->FindPosition(dc, context, index, pt, height, forceLineStart);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __HitTest)
 	//wxRichTextObject** obj = arg.GetNumber(4)
 	//wxRichTextObject** contextObj = arg.GetNumber(5)
 	//int flags = arg.GetNumber(6)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(dc, context, pt, textPosition, obj, contextObj, flags);
 	return Value::Nil;
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __CalculateRange)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long start = arg.GetNumber(0)
 	//long& end = arg.GetNumber(1)
-	//pThis->GetEntity()->CalculateRange();
+	//pThis->GetEntity()->CalculateRange(start, end);
 	return Value::Nil;
 }
 
@@ -293,7 +293,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __Copy)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextParagraph& obj = arg.GetNumber(0)
-	//pThis->GetEntity()->Copy();
+	//pThis->GetEntity()->Copy(obj);
 	return Value::Nil;
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __ApplyParagraphStyle)
 	//const wxRichTextAttr& attr = arg.GetNumber(1)
 	//const wxRect& rect = arg.GetNumber(2)
 	//wxDC& dc = arg.GetNumber(3)
-	//pThis->GetEntity()->ApplyParagraphStyle();
+	//pThis->GetEntity()->ApplyParagraphStyle(line, attr, rect, dc);
 	return Value::Nil;
 }
 
@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __InsertText)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//const wxString& text = arg.GetNumber(1)
-	//pThis->GetEntity()->InsertText();
+	//pThis->GetEntity()->InsertText(pos, text);
 	return Value::Nil;
 }
 
@@ -374,7 +374,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __SplitAt)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
 	//wxRichTextObject** previousObject = arg.GetNumber(1)
-	//pThis->GetEntity()->SplitAt();
+	//pThis->GetEntity()->SplitAt(pos, previousObject);
 	return Value::Nil;
 }
 
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __MoveToList)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextObject* obj = arg.GetNumber(0)
 	//wxList& list = arg.GetNumber(1)
-	//pThis->GetEntity()->MoveToList();
+	//pThis->GetEntity()->MoveToList(obj, list);
 	return Value::Nil;
 }
 
@@ -406,7 +406,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __MoveFromList)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxList& list = arg.GetNumber(0)
-	//pThis->GetEntity()->MoveFromList();
+	//pThis->GetEntity()->MoveFromList(list);
 	return Value::Nil;
 }
 
@@ -425,7 +425,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __GetContiguousPlainText)
 	//wxString& text = arg.GetNumber(0)
 	//const wxRichTextRange& range = arg.GetNumber(1)
 	//bool fromStart = arg.GetNumber(2)
-	//pThis->GetEntity()->GetContiguousPlainText();
+	//pThis->GetEntity()->GetContiguousPlainText(text, range, fromStart);
 	return Value::Nil;
 }
 
@@ -450,7 +450,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __FindWrapPosition)
 	//int availableSpace = arg.GetNumber(3)
 	//long& wrapPosition = arg.GetNumber(4)
 	//wxArrayInt* partialExtents = arg.GetNumber(5)
-	//pThis->GetEntity()->FindWrapPosition();
+	//pThis->GetEntity()->FindWrapPosition(range, dc, context, availableSpace, wrapPosition, partialExtents);
 	return Value::Nil;
 }
 
@@ -465,7 +465,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __FindObjectAtPosition)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long position = arg.GetNumber(0)
-	//pThis->GetEntity()->FindObjectAtPosition();
+	//pThis->GetEntity()->FindObjectAtPosition(position);
 	return Value::Nil;
 }
 
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __AllocateLine)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int pos = arg.GetNumber(0)
-	//pThis->GetEntity()->AllocateLine();
+	//pThis->GetEntity()->AllocateLine(pos);
 	return Value::Nil;
 }
 
@@ -508,7 +508,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __ClearUnusedLines)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lineCount = arg.GetNumber(0)
-	//pThis->GetEntity()->ClearUnusedLines();
+	//pThis->GetEntity()->ClearUnusedLines(lineCount);
 	return Value::Nil;
 }
 
@@ -525,7 +525,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __GetCombinedAttributes)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxRichTextAttr& contentStyle = arg.GetNumber(0)
 	//bool includingBoxAttr = arg.GetNumber(1)
-	//pThis->GetEntity()->GetCombinedAttributes();
+	//pThis->GetEntity()->GetCombinedAttributes(contentStyle, includingBoxAttr);
 	return Value::Nil;
 }
 
@@ -540,7 +540,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __GetCombinedAttributes_1)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool includingBoxAttr = arg.GetNumber(0)
-	//pThis->GetEntity()->GetCombinedAttributes();
+	//pThis->GetEntity()->GetCombinedAttributes(includingBoxAttr);
 	return Value::Nil;
 }
 
@@ -555,7 +555,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __GetFirstLineBreakPosition)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//long pos = arg.GetNumber(0)
-	//pThis->GetEntity()->GetFirstLineBreakPosition();
+	//pThis->GetEntity()->GetFirstLineBreakPosition(pos);
 	return Value::Nil;
 }
 
@@ -619,7 +619,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __LayoutFloat)
 	//const wxRect& parentRect = arg.GetNumber(3)
 	//int style = arg.GetNumber(4)
 	//wxRichTextFloatCollector* floatCollector = arg.GetNumber(5)
-	//pThis->GetEntity()->LayoutFloat();
+	//pThis->GetEntity()->LayoutFloat(dc, context, rect, parentRect, style, floatCollector);
 	return Value::Nil;
 }
 
@@ -647,7 +647,7 @@ Gura_ImplementMethod(wx_RichTextParagraph, __SetImpactedByFloatingObjects)
 	Object_wx_RichTextParagraph *pThis = Object_wx_RichTextParagraph::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int i = arg.GetNumber(0)
-	//pThis->GetEntity()->SetImpactedByFloatingObjects();
+	//pThis->GetEntity()->SetImpactedByFloatingObjects(i);
 	return Value::Nil;
 }
 

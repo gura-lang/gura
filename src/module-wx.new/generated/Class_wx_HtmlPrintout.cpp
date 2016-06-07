@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__HtmlPrintout, "HtmlPrintout")
 Gura_ImplementFunction(__HtmlPrintout)
 {
 	//const wxString& title = arg.GetNumber(0)
-	//wxHtmlPrintout();
+	//wxHtmlPrintout(title);
 	return Value::Nil;
 }
 
@@ -66,7 +66,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __AddFilter)
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxHtmlFilter* filter = arg.GetNumber(0)
-	//pThis->GetEntity()->AddFilter();
+	//pThis->GetEntity()->AddFilter(filter);
 	return Value::Nil;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetFonts)
 	//const wxString& normal_face = arg.GetNumber(0)
 	//const wxString& fixed_face = arg.GetNumber(1)
 	//const int* sizes = arg.GetNumber(2)
-	//pThis->GetEntity()->SetFonts();
+	//pThis->GetEntity()->SetFonts(normal_face, fixed_face, sizes);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetFooter)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& footer = arg.GetNumber(0)
 	//int pg = arg.GetNumber(1)
-	//pThis->GetEntity()->SetFooter();
+	//pThis->GetEntity()->SetFooter(footer, pg);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetHeader)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& header = arg.GetNumber(0)
 	//int pg = arg.GetNumber(1)
-	//pThis->GetEntity()->SetHeader();
+	//pThis->GetEntity()->SetHeader(header, pg);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetHtmlFile)
 	Object_wx_HtmlPrintout *pThis = Object_wx_HtmlPrintout::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& htmlfile = arg.GetNumber(0)
-	//pThis->GetEntity()->SetHtmlFile();
+	//pThis->GetEntity()->SetHtmlFile(htmlfile);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetHtmlText)
 	//const wxString& html = arg.GetNumber(0)
 	//const wxString& basepath = arg.GetNumber(1)
 	//bool isdir = arg.GetNumber(2)
-	//pThis->GetEntity()->SetHtmlText();
+	//pThis->GetEntity()->SetHtmlText(html, basepath, isdir);
 	return Value::Nil;
 }
 
@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_HtmlPrintout, __SetMargins)
 	//float left = arg.GetNumber(2)
 	//float right = arg.GetNumber(3)
 	//float spaces = arg.GetNumber(4)
-	//pThis->GetEntity()->SetMargins();
+	//pThis->GetEntity()->SetMargins(top, bottom, left, right, spaces);
 	return Value::Nil;
 }
 

@@ -68,7 +68,7 @@ Gura_ImplementMethod(wx_TCPClient, __MakeConnection)
 	//const wxString& host = arg.GetNumber(0)
 	//const wxString& service = arg.GetNumber(1)
 	//const wxString& topic = arg.GetNumber(2)
-	//pThis->GetEntity()->MakeConnection();
+	//pThis->GetEntity()->MakeConnection(host, service, topic);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_TCPClient, __ValidHost)
 	Object_wx_TCPClient *pThis = Object_wx_TCPClient::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& host = arg.GetNumber(0)
-	//pThis->GetEntity()->ValidHost();
+	//pThis->GetEntity()->ValidHost(host);
 	return Value::Nil;
 }
 

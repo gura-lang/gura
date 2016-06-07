@@ -52,7 +52,7 @@ Gura_ImplementFunction(__XmlDoctype)
 	//const wxString& rootName = arg.GetNumber(0)
 	//const wxString& systemId = arg.GetNumber(1)
 	//const wxString& publicId = arg.GetNumber(2)
-	//wxXmlDoctype();
+	//wxXmlDoctype(rootName, systemId, publicId);
 	return Value::Nil;
 }
 

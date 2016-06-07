@@ -50,7 +50,7 @@ Gura_ImplementFunction(__StatusBarPane)
 {
 	//int style = arg.GetNumber(0)
 	//int width = arg.GetNumber(1)
-	//wxStatusBarPane();
+	//wxStatusBarPane(style, width);
 	return Value::Nil;
 }
 

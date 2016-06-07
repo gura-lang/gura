@@ -63,7 +63,7 @@ Gura_ImplementFunction(__Locale_1)
 {
 	//int language = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//wxLocale();
+	//wxLocale(language, flags);
 	return Value::Nil;
 }
 
@@ -84,7 +84,7 @@ Gura_ImplementFunction(__Locale_2)
 	//const wxString& shortName = arg.GetNumber(1)
 	//const wxString& locale = arg.GetNumber(2)
 	//bool bLoadDefault = arg.GetNumber(3)
-	//wxLocale();
+	//wxLocale(name, shortName, locale, bLoadDefault);
 	return Value::Nil;
 }
 
@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_Locale, __AddCatalog)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
-	//pThis->GetEntity()->AddCatalog();
+	//pThis->GetEntity()->AddCatalog(domain);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_Locale, __AddCatalog_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
 	//wxLanguage msgIdLanguage = arg.GetNumber(1)
-	//pThis->GetEntity()->AddCatalog();
+	//pThis->GetEntity()->AddCatalog(domain, msgIdLanguage);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_Locale, __AddCatalog_2)
 	//const wxString& domain = arg.GetNumber(0)
 	//wxLanguage msgIdLanguage = arg.GetNumber(1)
 	//const wxString& msgIdCharset = arg.GetNumber(2)
-	//pThis->GetEntity()->AddCatalog();
+	//pThis->GetEntity()->AddCatalog(domain, msgIdLanguage, msgIdCharset);
 	return Value::Nil;
 }
 
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_Locale, __AddCatalogLookupPathPrefix)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& prefix = arg.GetNumber(0)
-	//pThis->GetEntity()->AddCatalogLookupPathPrefix();
+	//pThis->GetEntity()->AddCatalogLookupPathPrefix(prefix);
 	return Value::Nil;
 }
 
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_Locale, __AddLanguage)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxLanguageInfo& info = arg.GetNumber(0)
-	//pThis->GetEntity()->AddLanguage();
+	//pThis->GetEntity()->AddLanguage(info);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_Locale, __FindLanguageInfo)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& locale = arg.GetNumber(0)
-	//pThis->GetEntity()->FindLanguageInfo();
+	//pThis->GetEntity()->FindLanguageInfo(locale);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_Locale, __GetHeaderValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& header = arg.GetNumber(0)
 	//const wxString& domain = arg.GetNumber(1)
-	//pThis->GetEntity()->GetHeaderValue();
+	//pThis->GetEntity()->GetHeaderValue(header, domain);
 	return Value::Nil;
 }
 
@@ -241,7 +241,7 @@ Gura_ImplementMethod(wx_Locale, __GetLanguageInfo)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLanguageInfo();
+	//pThis->GetEntity()->GetLanguageInfo(lang);
 	return Value::Nil;
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_Locale, __GetLanguageName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLanguageName();
+	//pThis->GetEntity()->GetLanguageName(lang);
 	return Value::Nil;
 }
 
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_Locale, __GetLanguageCanonicalName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLanguageCanonicalName();
+	//pThis->GetEntity()->GetLanguageCanonicalName(lang);
 	return Value::Nil;
 }
 
@@ -314,7 +314,7 @@ Gura_ImplementMethod(wx_Locale, __GetString)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& origString = arg.GetNumber(0)
 	//const wxString& domain = arg.GetNumber(1)
-	//pThis->GetEntity()->GetString();
+	//pThis->GetEntity()->GetString(origString, domain);
 	return Value::Nil;
 }
 
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_Locale, __GetString_1)
 	//const wxString& origString2 = arg.GetNumber(1)
 	//unsigned n = arg.GetNumber(2)
 	//const wxString& domain = arg.GetNumber(3)
-	//pThis->GetEntity()->GetString();
+	//pThis->GetEntity()->GetString(origString, origString2, n, domain);
 	return Value::Nil;
 }
 
@@ -404,7 +404,7 @@ Gura_ImplementMethod(wx_Locale, __GetInfo)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLocaleInfo index = arg.GetNumber(0)
 	//wxLocaleCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->GetInfo();
+	//pThis->GetEntity()->GetInfo(index, cat);
 	return Value::Nil;
 }
 
@@ -421,7 +421,7 @@ Gura_ImplementMethod(wx_Locale, __GetOSInfo)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxLocaleInfo index = arg.GetNumber(0)
 	//wxLocaleCategory cat = arg.GetNumber(1)
-	//pThis->GetEntity()->GetOSInfo();
+	//pThis->GetEntity()->GetOSInfo(index, cat);
 	return Value::Nil;
 }
 
@@ -438,7 +438,7 @@ Gura_ImplementMethod(wx_Locale, __Init)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int language = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//pThis->GetEntity()->Init();
+	//pThis->GetEntity()->Init(language, flags);
 	return Value::Nil;
 }
 
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Locale, __Init_1)
 	//const wxString& shortName = arg.GetNumber(1)
 	//const wxString& locale = arg.GetNumber(2)
 	//bool bLoadDefault = arg.GetNumber(3)
-	//pThis->GetEntity()->Init();
+	//pThis->GetEntity()->Init(name, shortName, locale, bLoadDefault);
 	return Value::Nil;
 }
 
@@ -474,7 +474,7 @@ Gura_ImplementMethod(wx_Locale, __IsAvailable)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int lang = arg.GetNumber(0)
-	//pThis->GetEntity()->IsAvailable();
+	//pThis->GetEntity()->IsAvailable(lang);
 	return Value::Nil;
 }
 
@@ -489,7 +489,7 @@ Gura_ImplementMethod(wx_Locale, __IsLoaded)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& domain = arg.GetNumber(0)
-	//pThis->GetEntity()->IsLoaded();
+	//pThis->GetEntity()->IsLoaded(domain);
 	return Value::Nil;
 }
 

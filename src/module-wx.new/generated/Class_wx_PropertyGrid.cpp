@@ -71,7 +71,7 @@ Gura_ImplementFunction(__PropertyGrid_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxPropertyGrid();
+	//wxPropertyGrid(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __AddActionTrigger)
 	//int action = arg.GetNumber(0)
 	//int keycode = arg.GetNumber(1)
 	//int modifiers = arg.GetNumber(2)
-	//pThis->GetEntity()->AddActionTrigger();
+	//pThis->GetEntity()->AddActionTrigger(action, keycode, modifiers);
 	return Value::Nil;
 }
 
@@ -108,7 +108,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __AddToSelection)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
-	//pThis->GetEntity()->AddToSelection();
+	//pThis->GetEntity()->AddToSelection(id);
 	return Value::Nil;
 }
 
@@ -123,7 +123,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __AutoGetTranslation)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->AutoGetTranslation();
+	//pThis->GetEntity()->AutoGetTranslation(enable);
 	return Value::Nil;
 }
 
@@ -138,7 +138,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __BeginLabelEdit)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int colIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->BeginLabelEdit();
+	//pThis->GetEntity()->BeginLabelEdit(colIndex);
 	return Value::Nil;
 }
 
@@ -155,7 +155,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __ChangePropertyValue)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
 	//wxVariant newValue = arg.GetNumber(1)
-	//pThis->GetEntity()->ChangePropertyValue();
+	//pThis->GetEntity()->ChangePropertyValue(id, newValue);
 	return Value::Nil;
 }
 
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __CenterSplitter)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enableAutoResizing = arg.GetNumber(0)
-	//pThis->GetEntity()->CenterSplitter();
+	//pThis->GetEntity()->CenterSplitter(enableAutoResizing);
 	return Value::Nil;
 }
 
@@ -198,7 +198,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __ClearActionTriggers)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int action = arg.GetNumber(0)
-	//pThis->GetEntity()->ClearActionTriggers();
+	//pThis->GetEntity()->ClearActionTriggers(action);
 	return Value::Nil;
 }
 
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __CommitChangesFromEditor)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxUint32 flags = arg.GetNumber(0)
-	//pThis->GetEntity()->CommitChangesFromEditor();
+	//pThis->GetEntity()->CommitChangesFromEditor(flags);
 	return Value::Nil;
 }
 
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, id, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -253,7 +253,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __DedicateKey)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int keycode = arg.GetNumber(0)
-	//pThis->GetEntity()->DedicateKey();
+	//pThis->GetEntity()->DedicateKey(keycode);
 	return Value::Nil;
 }
 
@@ -268,7 +268,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __EnableCategories)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enable = arg.GetNumber(0)
-	//pThis->GetEntity()->EnableCategories();
+	//pThis->GetEntity()->EnableCategories(enable);
 	return Value::Nil;
 }
 
@@ -283,7 +283,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __EndLabelEdit)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool commit = arg.GetNumber(0)
-	//pThis->GetEntity()->EndLabelEdit();
+	//pThis->GetEntity()->EndLabelEdit(commit);
 	return Value::Nil;
 }
 
@@ -298,7 +298,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __EnsureVisible)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
-	//pThis->GetEntity()->EnsureVisible();
+	//pThis->GetEntity()->EnsureVisible(id);
 	return Value::Nil;
 }
 
@@ -484,7 +484,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __GetImageRect)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
-	//pThis->GetEntity()->GetImageRect();
+	//pThis->GetEntity()->GetImageRect(property, item);
 	return Value::Nil;
 }
 
@@ -501,7 +501,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __GetImageSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//int item = arg.GetNumber(1)
-	//pThis->GetEntity()->GetImageSize();
+	//pThis->GetEntity()->GetImageSize(property, item);
 	return Value::Nil;
 }
 
@@ -516,7 +516,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __GetLastItem)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->GetLastItem();
+	//pThis->GetEntity()->GetLastItem(flags);
 	return Value::Nil;
 }
 
@@ -648,7 +648,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __GetSplitterPosition)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int splitterIndex = arg.GetNumber(0)
-	//pThis->GetEntity()->GetSplitterPosition();
+	//pThis->GetEntity()->GetSplitterPosition(splitterIndex);
 	return Value::Nil;
 }
 
@@ -689,7 +689,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __GetUnspecifiedValueText)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int argFlags = arg.GetNumber(0)
-	//pThis->GetEntity()->GetUnspecifiedValueText();
+	//pThis->GetEntity()->GetUnspecifiedValueText(argFlags);
 	return Value::Nil;
 }
 
@@ -717,7 +717,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __HitTest)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPoint& pt = arg.GetNumber(0)
-	//pThis->GetEntity()->HitTest();
+	//pThis->GetEntity()->HitTest(pt);
 	return Value::Nil;
 }
 
@@ -773,7 +773,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __MakeColumnEditable)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//unsigned int column = arg.GetNumber(0)
 	//bool editable = arg.GetNumber(1)
-	//pThis->GetEntity()->MakeColumnEditable();
+	//pThis->GetEntity()->MakeColumnEditable(column, editable);
 	return Value::Nil;
 }
 
@@ -788,7 +788,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __OnTLPChanging)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxWindow* newTLP = arg.GetNumber(0)
-	//pThis->GetEntity()->OnTLPChanging();
+	//pThis->GetEntity()->OnTLPChanging(newTLP);
 	return Value::Nil;
 }
 
@@ -816,7 +816,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __RefreshProperty)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* p = arg.GetNumber(0)
-	//pThis->GetEntity()->RefreshProperty();
+	//pThis->GetEntity()->RefreshProperty(p);
 	return Value::Nil;
 }
 
@@ -833,7 +833,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __RegisterEditorClass)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGEditor* editor = arg.GetNumber(0)
 	//bool noDefCheck = arg.GetNumber(1)
-	//pThis->GetEntity()->RegisterEditorClass();
+	//pThis->GetEntity()->RegisterEditorClass(editor, noDefCheck);
 	return Value::Nil;
 }
 
@@ -852,7 +852,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __DoRegisterEditorClass)
 	//wxPGEditor* editor = arg.GetNumber(0)
 	//const wxString& name = arg.GetNumber(1)
 	//bool noDefCheck = arg.GetNumber(2)
-	//pThis->GetEntity()->DoRegisterEditorClass();
+	//pThis->GetEntity()->DoRegisterEditorClass(editor, name, noDefCheck);
 	return Value::Nil;
 }
 
@@ -880,7 +880,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __ResetColumnSizes)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool enableAutoResizing = arg.GetNumber(0)
-	//pThis->GetEntity()->ResetColumnSizes();
+	//pThis->GetEntity()->ResetColumnSizes(enableAutoResizing);
 	return Value::Nil;
 }
 
@@ -895,7 +895,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __RemoveFromSelection)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
-	//pThis->GetEntity()->RemoveFromSelection();
+	//pThis->GetEntity()->RemoveFromSelection(id);
 	return Value::Nil;
 }
 
@@ -912,7 +912,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SelectProperty)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
 	//bool focus = arg.GetNumber(1)
-	//pThis->GetEntity()->SelectProperty();
+	//pThis->GetEntity()->SelectProperty(id, focus);
 	return Value::Nil;
 }
 
@@ -927,7 +927,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCaptionBackgroundColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCaptionBackgroundColour();
+	//pThis->GetEntity()->SetCaptionBackgroundColour(col);
 	return Value::Nil;
 }
 
@@ -942,7 +942,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCaptionTextColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCaptionTextColour();
+	//pThis->GetEntity()->SetCaptionTextColour(col);
 	return Value::Nil;
 }
 
@@ -957,7 +957,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCellBackgroundColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCellBackgroundColour();
+	//pThis->GetEntity()->SetCellBackgroundColour(col);
 	return Value::Nil;
 }
 
@@ -972,7 +972,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCellDisabledTextColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCellDisabledTextColour();
+	//pThis->GetEntity()->SetCellDisabledTextColour(col);
 	return Value::Nil;
 }
 
@@ -987,7 +987,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCellTextColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCellTextColour();
+	//pThis->GetEntity()->SetCellTextColour(col);
 	return Value::Nil;
 }
 
@@ -1002,7 +1002,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetColumnCount)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int colCount = arg.GetNumber(0)
-	//pThis->GetEntity()->SetColumnCount();
+	//pThis->GetEntity()->SetColumnCount(colCount);
 	return Value::Nil;
 }
 
@@ -1017,7 +1017,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetCurrentCategory)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
-	//pThis->GetEntity()->SetCurrentCategory();
+	//pThis->GetEntity()->SetCurrentCategory(id);
 	return Value::Nil;
 }
 
@@ -1032,7 +1032,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetEmptySpaceColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetEmptySpaceColour();
+	//pThis->GetEntity()->SetEmptySpaceColour(col);
 	return Value::Nil;
 }
 
@@ -1047,7 +1047,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetLineColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetLineColour();
+	//pThis->GetEntity()->SetLineColour(col);
 	return Value::Nil;
 }
 
@@ -1062,7 +1062,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetMarginColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetMarginColour();
+	//pThis->GetEntity()->SetMarginColour(col);
 	return Value::Nil;
 }
 
@@ -1077,7 +1077,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSelection)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxArrayPGProperty& newSelection = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelection();
+	//pThis->GetEntity()->SetSelection(newSelection);
 	return Value::Nil;
 }
 
@@ -1092,7 +1092,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSelectionBackgroundColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectionBackgroundColour();
+	//pThis->GetEntity()->SetSelectionBackgroundColour(col);
 	return Value::Nil;
 }
 
@@ -1107,7 +1107,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSelectionTextColour)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxColour& col = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSelectionTextColour();
+	//pThis->GetEntity()->SetSelectionTextColour(col);
 	return Value::Nil;
 }
 
@@ -1122,7 +1122,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSortFunction)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGSortCallback sortFunction = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSortFunction();
+	//pThis->GetEntity()->SetSortFunction(sortFunction);
 	return Value::Nil;
 }
 
@@ -1139,7 +1139,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSplitterPosition)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int newxpos = arg.GetNumber(0)
 	//int col = arg.GetNumber(1)
-	//pThis->GetEntity()->SetSplitterPosition();
+	//pThis->GetEntity()->SetSplitterPosition(newxpos, col);
 	return Value::Nil;
 }
 
@@ -1154,7 +1154,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetSplitterLeft)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool privateChildrenToo = arg.GetNumber(0)
-	//pThis->GetEntity()->SetSplitterLeft();
+	//pThis->GetEntity()->SetSplitterLeft(privateChildrenToo);
 	return Value::Nil;
 }
 
@@ -1169,7 +1169,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetUnspecifiedValueAppearance)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxPGCell& cell = arg.GetNumber(0)
-	//pThis->GetEntity()->SetUnspecifiedValueAppearance();
+	//pThis->GetEntity()->SetUnspecifiedValueAppearance(cell);
 	return Value::Nil;
 }
 
@@ -1184,7 +1184,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __SetVerticalSpacing)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int vspacing = arg.GetNumber(0)
-	//pThis->GetEntity()->SetVerticalSpacing();
+	//pThis->GetEntity()->SetVerticalSpacing(vspacing);
 	return Value::Nil;
 }
 
@@ -1201,7 +1201,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __DoShowPropertyError)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
 	//const wxString& msg = arg.GetNumber(1)
-	//pThis->GetEntity()->DoShowPropertyError();
+	//pThis->GetEntity()->DoShowPropertyError(property, msg);
 	return Value::Nil;
 }
 
@@ -1216,7 +1216,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __DoHidePropertyError)
 	Object_wx_PropertyGrid *pThis = Object_wx_PropertyGrid::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGProperty* property = arg.GetNumber(0)
-	//pThis->GetEntity()->DoHidePropertyError();
+	//pThis->GetEntity()->DoHidePropertyError(property);
 	return Value::Nil;
 }
 
@@ -1298,7 +1298,7 @@ Gura_ImplementMethod(wx_PropertyGrid, __ShowPropertyError)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxPGPropArg id = arg.GetNumber(0)
 	//const wxString& msg = arg.GetNumber(1)
-	//pThis->GetEntity()->ShowPropertyError();
+	//pThis->GetEntity()->ShowPropertyError(id, msg);
 	return Value::Nil;
 }
 

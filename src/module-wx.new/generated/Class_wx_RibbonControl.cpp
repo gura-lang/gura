@@ -73,7 +73,7 @@ Gura_ImplementFunction(__RibbonControl_1)
 	//long style = arg.GetNumber(4)
 	//const wxValidator& validator = arg.GetNumber(5)
 	//const wxString& name = arg.GetNumber(6)
-	//wxRibbonControl();
+	//wxRibbonControl(parent, id, pos, size, style, validator, name);
 	return Value::Nil;
 }
 
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_RibbonControl, __SetArtProvider)
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRibbonArtProvider* art = arg.GetNumber(0)
-	//pThis->GetEntity()->SetArtProvider();
+	//pThis->GetEntity()->SetArtProvider(art);
 	return Value::Nil;
 }
 
@@ -132,7 +132,7 @@ Gura_ImplementMethod(wx_RibbonControl, __GetNextSmallerSize)
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextSmallerSize();
+	//pThis->GetEntity()->GetNextSmallerSize(direction);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_RibbonControl, __GetNextSmallerSize_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
 	//wxSize relative_to = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextSmallerSize();
+	//pThis->GetEntity()->GetNextSmallerSize(direction, relative_to);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_RibbonControl, __GetNextLargerSize)
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
-	//pThis->GetEntity()->GetNextLargerSize();
+	//pThis->GetEntity()->GetNextLargerSize(direction);
 	return Value::Nil;
 }
 
@@ -181,7 +181,7 @@ Gura_ImplementMethod(wx_RibbonControl, __GetNextLargerSize_1)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
 	//wxSize relative_to = arg.GetNumber(1)
-	//pThis->GetEntity()->GetNextLargerSize();
+	//pThis->GetEntity()->GetNextLargerSize(direction, relative_to);
 	return Value::Nil;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RibbonControl, __GetBestSizeForParentSize)
 	Object_wx_RibbonControl *pThis = Object_wx_RibbonControl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxSize& parentSize = arg.GetNumber(0)
-	//pThis->GetEntity()->GetBestSizeForParentSize();
+	//pThis->GetEntity()->GetBestSizeForParentSize(parentSize);
 	return Value::Nil;
 }
 
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_RibbonControl, __DoGetNextSmallerSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
 	//wxSize relative_to = arg.GetNumber(1)
-	//pThis->GetEntity()->DoGetNextSmallerSize();
+	//pThis->GetEntity()->DoGetNextSmallerSize(direction, relative_to);
 	return Value::Nil;
 }
 
@@ -269,7 +269,7 @@ Gura_ImplementMethod(wx_RibbonControl, __DoGetNextLargerSize)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxOrientation direction = arg.GetNumber(0)
 	//wxSize relative_to = arg.GetNumber(1)
-	//pThis->GetEntity()->DoGetNextLargerSize();
+	//pThis->GetEntity()->DoGetNextLargerSize(direction, relative_to);
 	return Value::Nil;
 }
 

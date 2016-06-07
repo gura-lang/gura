@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_AppTraits, __GetToolkitVersion)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int* major = arg.GetNumber(0)
 	//int* minor = arg.GetNumber(1)
-	//pThis->GetEntity()->GetToolkitVersion();
+	//pThis->GetEntity()->GetToolkitVersion(major, minor);
 	return Value::Nil;
 }
 
@@ -195,7 +195,7 @@ Gura_ImplementMethod(wx_AppTraits, __ShowAssertDialog)
 	Object_wx_AppTraits *pThis = Object_wx_AppTraits::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& msg = arg.GetNumber(0)
-	//pThis->GetEntity()->ShowAssertDialog();
+	//pThis->GetEntity()->ShowAssertDialog(msg);
 	return Value::Nil;
 }
 

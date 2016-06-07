@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__SortedArrayString_1, "SortedArrayString_1")
 Gura_ImplementFunction(__SortedArrayString_1)
 {
 	//CompareFunction compareFunction = arg.GetNumber(0)
-	//wxSortedArrayString();
+	//wxSortedArrayString(compareFunction);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__SortedArrayString_2, "SortedArrayString_2")
 Gura_ImplementFunction(__SortedArrayString_2)
 {
 	//const wxArrayString& array = arg.GetNumber(0)
-	//wxSortedArrayString();
+	//wxSortedArrayString(array);
 	return Value::Nil;
 }
 
@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Add)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& str = arg.GetNumber(0)
 	//size_t copies = arg.GetNumber(1)
-	//pThis->GetEntity()->Add();
+	//pThis->GetEntity()->Add(str, copies);
 	return Value::Nil;
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Index)
 	//const wxString& sz = arg.GetNumber(0)
 	//bool bCase = arg.GetNumber(1)
 	//bool bFromEnd = arg.GetNumber(2)
-	//pThis->GetEntity()->Index();
+	//pThis->GetEntity()->Index(sz, bCase, bFromEnd);
 	return Value::Nil;
 }
 
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Insert)
 	//const wxString& str = arg.GetNumber(0)
 	//size_t nIndex = arg.GetNumber(1)
 	//size_t copies = arg.GetNumber(2)
-	//pThis->GetEntity()->Insert();
+	//pThis->GetEntity()->Insert(str, nIndex, copies);
 	return Value::Nil;
 }
 
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Sort)
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool reverseOrder = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(reverseOrder);
 	return Value::Nil;
 }
 
@@ -164,7 +164,7 @@ Gura_ImplementMethod(wx_SortedArrayString, __Sort_1)
 	Object_wx_SortedArrayString *pThis = Object_wx_SortedArrayString::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//CompareFunction compareFunction = arg.GetNumber(0)
-	//pThis->GetEntity()->Sort();
+	//pThis->GetEntity()->Sort(compareFunction);
 	return Value::Nil;
 }
 

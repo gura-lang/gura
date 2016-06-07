@@ -61,7 +61,7 @@ Gura_DeclareFunctionAlias(__FontInfo_1, "FontInfo_1")
 Gura_ImplementFunction(__FontInfo_1)
 {
 	//int pointSize = arg.GetNumber(0)
-	//wxFontInfo();
+	//wxFontInfo(pointSize);
 	return Value::Nil;
 }
 
@@ -76,7 +76,7 @@ Gura_DeclareFunctionAlias(__FontInfo_2, "FontInfo_2")
 Gura_ImplementFunction(__FontInfo_2)
 {
 	//const wxSize& pixelSize = arg.GetNumber(0)
-	//wxFontInfo();
+	//wxFontInfo(pixelSize);
 	return Value::Nil;
 }
 
@@ -94,7 +94,7 @@ Gura_ImplementMethod(wx_FontInfo, __Family)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontFamily family = arg.GetNumber(0)
-	//pThis->GetEntity()->Family();
+	//pThis->GetEntity()->Family(family);
 	return Value::Nil;
 }
 
@@ -109,7 +109,7 @@ Gura_ImplementMethod(wx_FontInfo, __FaceName)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& faceName = arg.GetNumber(0)
-	//pThis->GetEntity()->FaceName();
+	//pThis->GetEntity()->FaceName(faceName);
 	return Value::Nil;
 }
 
@@ -124,7 +124,7 @@ Gura_ImplementMethod(wx_FontInfo, __Bold)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool bold = arg.GetNumber(0)
-	//pThis->GetEntity()->Bold();
+	//pThis->GetEntity()->Bold(bold);
 	return Value::Nil;
 }
 
@@ -139,7 +139,7 @@ Gura_ImplementMethod(wx_FontInfo, __Light)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool light = arg.GetNumber(0)
-	//pThis->GetEntity()->Light();
+	//pThis->GetEntity()->Light(light);
 	return Value::Nil;
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(wx_FontInfo, __Italic)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool italic = arg.GetNumber(0)
-	//pThis->GetEntity()->Italic();
+	//pThis->GetEntity()->Italic(italic);
 	return Value::Nil;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(wx_FontInfo, __Slant)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool slant = arg.GetNumber(0)
-	//pThis->GetEntity()->Slant();
+	//pThis->GetEntity()->Slant(slant);
 	return Value::Nil;
 }
 
@@ -184,7 +184,7 @@ Gura_ImplementMethod(wx_FontInfo, __AntiAliased)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool antiAliased = arg.GetNumber(0)
-	//pThis->GetEntity()->AntiAliased();
+	//pThis->GetEntity()->AntiAliased(antiAliased);
 	return Value::Nil;
 }
 
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_FontInfo, __Underlined)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool underlined = arg.GetNumber(0)
-	//pThis->GetEntity()->Underlined();
+	//pThis->GetEntity()->Underlined(underlined);
 	return Value::Nil;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_FontInfo, __Strikethrough)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//bool strikethrough = arg.GetNumber(0)
-	//pThis->GetEntity()->Strikethrough();
+	//pThis->GetEntity()->Strikethrough(strikethrough);
 	return Value::Nil;
 }
 
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_FontInfo, __Encoding)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxFontEncoding encoding = arg.GetNumber(0)
-	//pThis->GetEntity()->Encoding();
+	//pThis->GetEntity()->Encoding(encoding);
 	return Value::Nil;
 }
 
@@ -244,7 +244,7 @@ Gura_ImplementMethod(wx_FontInfo, __AllFlags)
 	Object_wx_FontInfo *pThis = Object_wx_FontInfo::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//int flags = arg.GetNumber(0)
-	//pThis->GetEntity()->AllFlags();
+	//pThis->GetEntity()->AllFlags(flags);
 	return Value::Nil;
 }
 

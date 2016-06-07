@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__LogStderr, "LogStderr")
 Gura_ImplementFunction(__LogStderr)
 {
 	//FILE* fp = arg.GetNumber(0)
-	//wxLogStderr();
+	//wxLogStderr(fp);
 	return Value::Nil;
 }
 

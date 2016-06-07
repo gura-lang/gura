@@ -50,7 +50,7 @@ Gura_ImplementFunction(__HtmlColourCell)
 {
 	//const wxColour& clr = arg.GetNumber(0)
 	//int flags = arg.GetNumber(1)
-	//wxHtmlColourCell();
+	//wxHtmlColourCell(clr, flags);
 	return Value::Nil;
 }
 

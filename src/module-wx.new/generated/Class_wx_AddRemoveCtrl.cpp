@@ -71,7 +71,7 @@ Gura_ImplementFunction(__AddRemoveCtrl_1)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//wxAddRemoveCtrl();
+	//wxAddRemoveCtrl(parent, winid, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, __Create)
 	//const wxSize& size = arg.GetNumber(3)
 	//long style = arg.GetNumber(4)
 	//const wxString& name = arg.GetNumber(5)
-	//pThis->GetEntity()->Create();
+	//pThis->GetEntity()->Create(parent, winid, pos, size, style, name);
 	return Value::Nil;
 }
 
@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, __SetAdaptor)
 	Object_wx_AddRemoveCtrl *pThis = Object_wx_AddRemoveCtrl::GetObjectThis(arg);
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxAddRemoveAdaptor* adaptor = arg.GetNumber(0)
-	//pThis->GetEntity()->SetAdaptor();
+	//pThis->GetEntity()->SetAdaptor(adaptor);
 	return Value::Nil;
 }
 
@@ -131,7 +131,7 @@ Gura_ImplementMethod(wx_AddRemoveCtrl, __SetButtonsToolTips)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& addtip = arg.GetNumber(0)
 	//const wxString& removetip = arg.GetNumber(1)
-	//pThis->GetEntity()->SetButtonsToolTips();
+	//pThis->GetEntity()->SetButtonsToolTips(addtip, removetip);
 	return Value::Nil;
 }
 

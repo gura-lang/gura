@@ -73,7 +73,7 @@ Gura_ImplementFunction(__GridSizeEvent_1)
 	//int x = arg.GetNumber(4)
 	//int y = arg.GetNumber(5)
 	//const wxKeyboardState& kbd = arg.GetNumber(6)
-	//wxGridSizeEvent();
+	//wxGridSizeEvent(id, type, obj, rowOrCol, x, y, kbd);
 	return Value::Nil;
 }
 

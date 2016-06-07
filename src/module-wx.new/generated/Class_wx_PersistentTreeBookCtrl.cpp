@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__PersistentTreeBookCtrl, "PersistentTreeBookCtrl")
 Gura_ImplementFunction(__PersistentTreeBookCtrl)
 {
 	//wxTreebook* book = arg.GetNumber(0)
-	//wxPersistentTreeBookCtrl();
+	//wxPersistentTreeBookCtrl(book);
 	return Value::Nil;
 }
 

@@ -48,7 +48,7 @@ Gura_DeclareFunctionAlias(__CriticalSection, "CriticalSection")
 Gura_ImplementFunction(__CriticalSection)
 {
 	//wxCriticalSectionType critSecType = arg.GetNumber(0)
-	//wxCriticalSection();
+	//wxCriticalSection(critSecType);
 	return Value::Nil;
 }
 

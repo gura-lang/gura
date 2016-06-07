@@ -52,7 +52,7 @@ Gura_ImplementFunction(__RichTextXMLHandler)
 	//const wxString& name = arg.GetNumber(0)
 	//const wxString& ext = arg.GetNumber(1)
 	//int type = arg.GetNumber(2)
-	//wxRichTextXMLHandler();
+	//wxRichTextXMLHandler(name, ext, type);
 	return Value::Nil;
 }
 
@@ -100,7 +100,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __ExportXML)
 	//wxOutputStream& stream = arg.GetNumber(0)
 	//wxRichTextObject& obj = arg.GetNumber(1)
 	//int level = arg.GetNumber(2)
-	//pThis->GetEntity()->ExportXML();
+	//pThis->GetEntity()->ExportXML(stream, obj, level);
 	return Value::Nil;
 }
 
@@ -119,7 +119,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __ImportXML)
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxRichTextObject* obj = arg.GetNumber(1)
 	//wxXmlNode* node = arg.GetNumber(2)
-	//pThis->GetEntity()->ImportXML();
+	//pThis->GetEntity()->ImportXML(buffer, obj, node);
 	return Value::Nil;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __RegisterNodeName)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//const wxString& nodeName = arg.GetNumber(0)
 	//const wxString& className = arg.GetNumber(1)
-	//pThis->GetEntity()->RegisterNodeName();
+	//pThis->GetEntity()->RegisterNodeName(nodeName, className);
 	return Value::Nil;
 }
 
@@ -166,7 +166,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoLoadFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxInputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoLoadFile();
+	//pThis->GetEntity()->DoLoadFile(buffer, stream);
 	return Value::Nil;
 }
 
@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, __DoSaveFile)
 	if (pThis->IsInvalid(env)) return Value::Nil;
 	//wxRichTextBuffer* buffer = arg.GetNumber(0)
 	//wxOutputStream& stream = arg.GetNumber(1)
-	//pThis->GetEntity()->DoSaveFile();
+	//pThis->GetEntity()->DoSaveFile(buffer, stream);
 	return Value::Nil;
 }
 

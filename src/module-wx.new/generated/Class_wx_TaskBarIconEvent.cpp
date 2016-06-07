@@ -50,7 +50,7 @@ Gura_ImplementFunction(__TaskBarIconEvent)
 {
 	//wxEventType evtType = arg.GetNumber(0)
 	//wxTaskBarIcon* tbIcon = arg.GetNumber(1)
-	//wxTaskBarIconEvent();
+	//wxTaskBarIconEvent(evtType, tbIcon);
 	return Value::Nil;
 }
 
