@@ -2742,6 +2742,35 @@ String Object_document::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Constructor for markdown.document
+//-----------------------------------------------------------------------------
+// markdown.document(stream?:stream:r) {block?}
+Gura_DeclareFunction(document)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
+	SetClassToConstruct(Gura_UserClass(document));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an instance of `markdown.document`.\n"
+		"If `stream` is specified, the content of the instance shall be initialized\n"
+		"with the result of parsing the stream.\n"
+	);
+}
+
+Gura_ImplementFunction(document)
+{
+	Signal &sig = env.GetSignal();
+	AutoPtr<Document> pDocument(new Document());
+	if (arg.Is_stream(0)) {
+		if (!pDocument->ParseStream(sig, arg.GetStream(0))) return Value::Nil;
+	}
+	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
+	return ReturnValue(env, arg, Value(pObj.release()));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for markdown.document
 //-----------------------------------------------------------------------------
 // markdown.document#parse(str:string):void
@@ -2785,6 +2814,7 @@ Gura_ImplementMethod(document, read)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(document)
 {
+	Gura_AssignFunction(document);
 	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
 }
@@ -2892,38 +2922,13 @@ Gura_ImplementMethod(item, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(item)
 {
+	Gura_AssignValue(item, Value(Reference()));
 	Gura_AssignMethod(item, print);
 }
 
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.document(stream?:stream:r) {block?}
-Gura_DeclareFunction(document)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
-	SetClassToConstruct(Gura_UserClass(document));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns an instance of `markdown.document`.\n"
-		"If `stream` is specified, the content of the instance shall be initialized\n"
-		"with the result of parsing the stream.\n"
-	);
-}
-
-Gura_ImplementFunction(document)
-{
-	Signal &sig = env.GetSignal();
-	AutoPtr<Document> pDocument(new Document());
-	if (arg.Is_stream(0)) {
-		if (!pDocument->ParseStream(sig, arg.GetStream(0))) return Value::Nil;
-	}
-	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
-	return ReturnValue(env, arg, Value(pObj.release()));
-}
-
 // markdown.setpresenter():void {block}
 Gura_DeclareFunction(setpresenter)
 {
@@ -3048,12 +3053,10 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(item, env.LookupClass(VTYPE_object));
+	// class preparation
 	Gura_PrepareUserClass(document);
 	Gura_PrepareUserClass(item);
-	// class reference assignment
-	Gura_AssignValue(item, Value(Gura_UserClass(item)->Reference()));
 	// function assignment
-	Gura_AssignFunction(document);
 	Gura_AssignFunction(setpresenter);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
