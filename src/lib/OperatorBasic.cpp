@@ -618,6 +618,10 @@ Gura_ImplementUnaryOperator(Inv, Class)
 	const Class *pClass = value.GetClassItself();
 	const Symbol *pSymbol = env.GetLangCode();
 	const Function *pFunc = pClass->GetConstructor();
+	if (pFunc == nullptr) {
+		env.SetError(ERR_ValueError, "the class does not have a constructor");
+		return Value::Nil;
+	}
 	HelpPresenter::Present(env, pFunc->ToString().c_str(),
 						   pFunc->GetHelp(pSymbol, true));
 	return Value::Nil;
