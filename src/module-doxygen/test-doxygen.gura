@@ -2,6 +2,12 @@
 import(helper.test) {*}
 import(doxygen)
 
-testcase {
-	println(doxygen.test(3, 4))
-}
+doxygen.test(
+		bR'''
+		/*!
+		  \param a an integer argument.
+		  \param s a constant character pointer.
+		  \return The test results
+		  \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
+		*/	
+		''')
