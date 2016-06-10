@@ -24,9 +24,12 @@ void ArgOwner::Clear()
 //-----------------------------------------------------------------------------
 // Command
 //-----------------------------------------------------------------------------
+std::unique_ptr<CommandDict> Command::_pCmdDict;
+
 void Command::Initialize()
 {
-	const bool Optional = true;
+	const Arg::Attr Optional = Arg::ATTR_Optional;
+	const Arg::Attr OptionalBracket = Arg::ATTR_OptionalBracket;
 	static const Command *cmds[] = {
 		// Structural indicators
 		Create("addtogroup",
@@ -131,7 +134,7 @@ void Command::Initialize()
 		Create("note"),
 		Create("par"),
 		Create("param",
-			   ArgWord("dir", Optional),
+			   ArgWord("dir", OptionalBracket),
 			   ArgWord("parameter_name"),
 			   ArgPara("parameter_description")),
 		Create("parblock"),
@@ -242,6 +245,11 @@ void Command::Initialize()
 		Create("--"),
 		Create("---"),
 	};
+	_pCmdDict.reset(new CommandDict());
+	for (size_t i = 0; i < ArraySizeOf(cmds); i++) {
+		const Command *pCmd = cmds[i];
+		(*_pCmdDict)[pCmd->GetName()] = pCmd;
+	}
 };
 	
 Gura_EndModuleScope(doxygen)

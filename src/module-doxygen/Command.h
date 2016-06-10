@@ -6,6 +6,8 @@
 
 Gura_BeginModuleScope(doxygen)
 
+class CommandDict;
+
 //-----------------------------------------------------------------------------
 // Arg
 //-----------------------------------------------------------------------------
@@ -14,13 +16,16 @@ public:
 	enum Type {
 		TYPE_Word, TYPE_Line, TYPE_Para,
 	};
+	enum Attr {
+		ATTR_None, ATTR_Optional, ATTR_OptionalBracket,
+	};
 protected:
 	Type _type;
 	String _name;
-	bool _optionalFlag;
+	Attr _attr;
 public:
-	inline Arg(Type type, const char *name, bool optionalFlag) :
-		_type(type), _name(name), _optionalFlag(optionalFlag) {}
+	inline Arg(Type type, const char *name, Attr attr) :
+		_type(type), _name(name), _attr(attr) {}
 	
 };
 
@@ -46,18 +51,20 @@ class Command {
 protected:
 	String _name;
 	ArgOwner _argOwner;
-protected:
-	inline static Arg *ArgWord(const char *name, bool optionalFlag = false) {
-		return new Arg(Arg::TYPE_Word, name, optionalFlag);
-	}
-	inline static Arg *ArgLine(const char *name, bool optionalFlag = false) {
-		return new Arg(Arg::TYPE_Line, name, optionalFlag);
-	}
-	inline static Arg *ArgPara(const char *name, bool optionalFlag = false) {
-		return new Arg(Arg::TYPE_Para, name, optionalFlag);
-	}
+	static std::unique_ptr<CommandDict> _pCmdDict;
 public:
 	inline Command(const char *name) : _name(name) {}
+	inline const char *GetName() const { return _name.c_str(); }
+protected:
+	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+		return new Arg(Arg::TYPE_Word, name, attr);
+	}
+	inline static Arg *ArgLine(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+		return new Arg(Arg::TYPE_Line, name, attr);
+	}
+	inline static Arg *ArgPara(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+		return new Arg(Arg::TYPE_Para, name, attr);
+	}
 	inline static Command *Create(const char *name) {
 		Command *pCmd = new Command(name);
 		return pCmd;
@@ -94,6 +101,12 @@ public:
 	}
 public:
 	static void Initialize();
+};
+
+//-----------------------------------------------------------------------------
+// CommandDict
+//-----------------------------------------------------------------------------
+class CommandDict : public std::map<const String, const Command *> {
 };
 
 Gura_EndModuleScope(doxygen)
