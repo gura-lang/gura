@@ -230,6 +230,7 @@ bool Extractor::FeedChar(char ch)
 
 bool ParseStream(Signal &sig, SimpleStream &stream)
 {
+	Command::Initialize();
 	Extractor extractor;
 	for (;;) {
 		int chRaw;
