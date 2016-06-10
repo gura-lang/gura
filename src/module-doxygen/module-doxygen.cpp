@@ -151,6 +151,7 @@ bool Extractor::FeedChar(char ch)
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
+			if (!_parser.FeedChar(ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
 			if (!_parser.FeedChar(ch)) return false;
@@ -171,7 +172,7 @@ bool Extractor::FeedChar(char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			// nothing to do
+			if (!_parser.FeedChar(ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
