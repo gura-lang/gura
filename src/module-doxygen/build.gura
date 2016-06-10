@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('doxygen', ['module-doxygen.cpp', 'Commands.cpp'])
+builder.build('doxygen', ['module-doxygen.cpp', 'DCommands.cpp'])
