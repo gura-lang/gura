@@ -58,7 +58,7 @@ public:
 
 bool Extractor::FeedChar(char ch)
 {
-	Gura_BeginPushbackRegionEx(char, 16, ch);
+	Gura_BeginPushbackRegion();
 	switch (_stat) {
 	case STAT_Indent: {
 		if (ch == '\0') {
@@ -69,7 +69,7 @@ bool Extractor::FeedChar(char ch)
 			// nothing to do
 		} else {
 			_stat = STAT_Source;
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 		}
 		break;
 	}
@@ -92,7 +92,7 @@ bool Extractor::FeedChar(char ch)
 			_stat = STAT_BlockCommentBgn;
 		} else {
 			_stat = STAT_Source;
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 		}
 		break;
 	}
@@ -140,7 +140,7 @@ bool Extractor::FeedChar(char ch)
 		if (ch == '/') {
 			_stat = STAT_Source;
 		} else {
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
@@ -178,7 +178,7 @@ bool Extractor::FeedChar(char ch)
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_IndentAsterisk;
 		} else {
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
@@ -187,7 +187,7 @@ bool Extractor::FeedChar(char ch)
 		if (ch == '/') {
 			_stat = STAT_Source;
 		} else {
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 			_stat = STAT_BlockDoxygen_IndentAfterAsterisk;
 		}
 		break;
@@ -200,7 +200,7 @@ bool Extractor::FeedChar(char ch)
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			Gura_PushbackEx(ch);
+			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
@@ -224,7 +224,7 @@ bool Extractor::FeedChar(char ch)
 		break;
 	}
 	}
-	Gura_EndPushbackRegionEx();
+	Gura_EndPushbackRegion();
 	return true;
 }
 
