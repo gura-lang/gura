@@ -5,126 +5,60 @@
 
 Gura_BeginModuleScope(doxygen)
 
-const bool Optional = true;
-
-class Argument {
-protected:
-	String _name;
-	bool _optionalFlag;
-public:
-	inline Argument(const char *name, bool optionalFlag) :
-		_name(name), _optionalFlag(optionalFlag) {}
-	
-};
-
-class ArgWord : public Argument {
-public:
-	inline ArgWord(const char *name, bool optionalFlag = false) : Argument(name, optionalFlag) {}
-};
-
-class ArgLine : public Argument {
-public:
-	inline ArgLine(const char *name, bool optionalFlag = false) : Argument(name, optionalFlag) {}
-};
-
-class ArgPara : public Argument {
-public:
-	inline ArgPara(const char *name, bool optionalFlag = false) : Argument(name, optionalFlag) {}
-};
-
-class ArgumentList : public std::vector<Argument *> {
-};
-
-class ArgumentOwner : public ArgumentList {
-public:
-	~ArgumentOwner();
-	void Clear();
-};
-
-class Command {
-protected:
-	ArgumentOwner _argOwner;
-public:
-	inline Command(const char *name) {}
-	inline Command(const char *name, Argument *pArg1) {
-		_argOwner.reserve(1);
-		_argOwner.push_back(pArg1);
-	}
-	inline Command(const char *name, Argument *pArg1, Argument *pArg2) {
-		_argOwner.reserve(2);
-		_argOwner.push_back(pArg1);
-		_argOwner.push_back(pArg2);
-	}
-	inline Command(const char *name, Argument *pArg1, Argument *pArg2, Argument *pArg3) {
-		_argOwner.reserve(3);
-		_argOwner.push_back(pArg1);
-		_argOwner.push_back(pArg2);
-		_argOwner.push_back(pArg3);
-	}
-	inline Command(const char *name, Argument *pArg1, Argument *pArg2, Argument *pArg3, Argument *pArg4) {
-		_argOwner.reserve(4);
-		_argOwner.push_back(pArg1);
-		_argOwner.push_back(pArg2);
-		_argOwner.push_back(pArg3);
-		_argOwner.push_back(pArg4);
-	}
-	inline Command(const char *name, Argument *pArg1, Argument *pArg2, Argument *pArg3, Argument *pArg4, Argument *pArg5) {
-		_argOwner.reserve(5);
-		_argOwner.push_back(pArg1);
-		_argOwner.push_back(pArg2);
-		_argOwner.push_back(pArg3);
-		_argOwner.push_back(pArg4);
-		_argOwner.push_back(pArg5);
-	}
-};
-
-ArgumentOwner::~ArgumentOwner()
+//-----------------------------------------------------------------------------
+// DArgOwner
+//-----------------------------------------------------------------------------
+DArgOwner::~DArgOwner()
 {
 	Clear();
 }
 
-void ArgumentOwner::Clear()
+void DArgOwner::Clear()
 {
-	foreach (ArgumentOwner, ppArg, *this) {
-		delete *ppArg;
+	foreach (DArgOwner, ppDArg, *this) {
+		delete *ppDArg;
 	}
 	clear();
 }
 
-void InitCommands()
+//-----------------------------------------------------------------------------
+// Command
+//-----------------------------------------------------------------------------
+void Command::Initialize()
 {
+	const bool Optional = true;
 	static const Command *commands[] = {
 		// Structural indicators
-		new Command("addtogroup", new ArgWord("name"), new ArgLine("title", Optional)),
+		new Command("addtogroup", new DArgWord("name"), new DArgLine("title", Optional)),
 		new Command("callgraph"),
 		new Command("hidecallgrph"),
 		new Command("callergraph"),
 		new Command("hidecallergraph"),
-		new Command("category", new ArgWord("name"), new ArgWord("header_file", Optional),
-					new ArgWord("header_name", Optional)),
-		new Command("class", new ArgWord("name"), new ArgWord("header_file", Optional),
-					new ArgWord("header_name", Optional)),
-		new Command("def", new ArgWord("name")),
-		new Command("defgroup", new ArgWord("name"), new ArgLine("group_title")),
-		new Command("dir", new ArgWord("path_fragment", Optional)),
-		new Command("enum", new ArgWord("name")),
-		new Command("example", new ArgWord("file_name")),
+		new Command("category", new DArgWord("name"), new DArgWord("header_file", Optional),
+					new DArgWord("header_name", Optional)),
+		new Command("class", new DArgWord("name"), new DArgWord("header_file", Optional),
+					new DArgWord("header_name", Optional)),
+		new Command("def", new DArgWord("name")),
+		new Command("defgroup", new DArgWord("name"), new DArgLine("group_title")),
+		new Command("dir", new DArgWord("path_fragment", Optional)),
+		new Command("enum", new DArgWord("name")),
+		new Command("example", new DArgWord("file_name")),
 		new Command("endinternal"),
-		new Command("extends", new ArgWord("name")),
-		new Command("file", new ArgWord("name", Optional)),
-		new Command("fn", new ArgLine("function_declaration")),
-		new Command("headerfile", new ArgWord("header_file"), new ArgWord("hewder_name", Optional)),
+		new Command("extends", new DArgWord("name")),
+		new Command("file", new DArgWord("name", Optional)),
+		new Command("fn", new DArgLine("function_declaration")),
+		new Command("headerfile", new DArgWord("header_file"), new DArgWord("hewder_name", Optional)),
 		new Command("hideinitializer"),
-		new Command("idlexcept", new ArgWord("name")),
-		new Command("implements", new ArgWord("name")),
-		new Command("ingroup", new ArgWord("groupname")),
-		new Command("interface", new ArgWord("name"), new ArgWord("header_file", Optional),
-					new ArgWord("header_name", Optional)),
+		new Command("idlexcept", new DArgWord("name")),
+		new Command("implements", new DArgWord("name")),
+		new Command("ingroup", new DArgWord("groupname")),
+		new Command("interface", new DArgWord("name"), new DArgWord("header_file", Optional),
+					new DArgWord("header_name", Optional)),
 		new Command("internal"),
-		new Command("mainpage", new ArgLine("title", Optional)),
-		new Command("memberof", new ArgWord("name")),
-		new Command("name", new ArgLine("header", Optional)),
-		new Command("namespace", new ArgWord("name")),
+		new Command("mainpage", new DArgLine("title", Optional)),
+		new Command("memberof", new DArgWord("name")),
+		new Command("name", new DArgLine("header", Optional)),
+		new Command("namespace", new DArgWord("name")),
 		new Command("nosubgrouping"),
 		new Command("overload"),
 		new Command("package"),
