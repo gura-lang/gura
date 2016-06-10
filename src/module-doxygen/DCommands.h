@@ -1,100 +1,100 @@
 //=============================================================================
-// DCommands.h
+// Commands.h
 //=============================================================================
-#ifndef __GURA_DOXYGEN_DCOMMANDS_H__
-#define __GURA_DOXYGEN_DCOMMANDS_H__
+#ifndef __GURA_DOXYGEN_COMMANDS_H__
+#define __GURA_DOXYGEN_COMMANDS_H__
 
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// DArg
+// Arg
 //-----------------------------------------------------------------------------
-class DArg {
+class Arg {
 protected:
 	String _name;
 	bool _optionalFlag;
 public:
-	inline DArg(const char *name, bool optionalFlag) :
+	inline Arg(const char *name, bool optionalFlag) :
 		_name(name), _optionalFlag(optionalFlag) {}
 	
 };
 
 //-----------------------------------------------------------------------------
-// DArgWord
+// ArgWord
 //-----------------------------------------------------------------------------
-class DArgWord : public DArg {
+class ArgWord : public Arg {
 public:
-	inline DArgWord(const char *name, bool optionalFlag = false) : DArg(name, optionalFlag) {}
+	inline ArgWord(const char *name, bool optionalFlag = false) : Arg(name, optionalFlag) {}
 };
 
 //-----------------------------------------------------------------------------
-// DArgLine
+// ArgLine
 //-----------------------------------------------------------------------------
-class DArgLine : public DArg {
+class ArgLine : public Arg {
 public:
-	inline DArgLine(const char *name, bool optionalFlag = false) : DArg(name, optionalFlag) {}
+	inline ArgLine(const char *name, bool optionalFlag = false) : Arg(name, optionalFlag) {}
 };
 
 //-----------------------------------------------------------------------------
-// DArgPara
+// ArgPara
 //-----------------------------------------------------------------------------
-class DArgPara : public DArg {
+class ArgPara : public Arg {
 public:
-	inline DArgPara(const char *name, bool optionalFlag = false) : DArg(name, optionalFlag) {}
+	inline ArgPara(const char *name, bool optionalFlag = false) : Arg(name, optionalFlag) {}
 };
 
 //-----------------------------------------------------------------------------
-// DArgList
+// ArgList
 //-----------------------------------------------------------------------------
-class DArgList : public std::vector<DArg *> {
+class ArgList : public std::vector<Arg *> {
 };
 
 //-----------------------------------------------------------------------------
-// DArgOwner
+// ArgOwner
 //-----------------------------------------------------------------------------
-class DArgOwner : public DArgList {
+class ArgOwner : public ArgList {
 public:
-	~DArgOwner();
+	~ArgOwner();
 	void Clear();
 };
 
 //-----------------------------------------------------------------------------
-// DCommand
+// Command
 //-----------------------------------------------------------------------------
-class DCommand {
+class Command {
 protected:
-	DArgOwner _dargOwner;
+	ArgOwner _dargOwner;
 public:
-	inline DCommand(const char *name) {}
-	inline DCommand(const char *name, DArg *pDArg1) {
+	inline Command(const char *name) {}
+	inline Command(const char *name, Arg *pArg1) {
 		_dargOwner.reserve(1);
-		_dargOwner.push_back(pDArg1);
+		_dargOwner.push_back(pArg1);
 	}
-	inline DCommand(const char *name, DArg *pDArg1, DArg *pDArg2) {
+	inline Command(const char *name, Arg *pArg1, Arg *pArg2) {
 		_dargOwner.reserve(2);
-		_dargOwner.push_back(pDArg1);
-		_dargOwner.push_back(pDArg2);
+		_dargOwner.push_back(pArg1);
+		_dargOwner.push_back(pArg2);
 	}
-	inline DCommand(const char *name, DArg *pDArg1, DArg *pDArg2, DArg *pDArg3) {
+	inline Command(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3) {
 		_dargOwner.reserve(3);
-		_dargOwner.push_back(pDArg1);
-		_dargOwner.push_back(pDArg2);
-		_dargOwner.push_back(pDArg3);
+		_dargOwner.push_back(pArg1);
+		_dargOwner.push_back(pArg2);
+		_dargOwner.push_back(pArg3);
 	}
-	inline DCommand(const char *name, DArg *pDArg1, DArg *pDArg2, DArg *pDArg3, DArg *pDArg4) {
+	inline Command(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
 		_dargOwner.reserve(4);
-		_dargOwner.push_back(pDArg1);
-		_dargOwner.push_back(pDArg2);
-		_dargOwner.push_back(pDArg3);
-		_dargOwner.push_back(pDArg4);
+		_dargOwner.push_back(pArg1);
+		_dargOwner.push_back(pArg2);
+		_dargOwner.push_back(pArg3);
+		_dargOwner.push_back(pArg4);
 	}
-	inline DCommand(const char *name, DArg *pDArg1, DArg *pDArg2, DArg *pDArg3, DArg *pDArg4, DArg *pDArg5) {
+	inline Command(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4, Arg *pArg5) {
 		_dargOwner.reserve(5);
-		_dargOwner.push_back(pDArg1);
-		_dargOwner.push_back(pDArg2);
-		_dargOwner.push_back(pDArg3);
-		_dargOwner.push_back(pDArg4);
-		_dargOwner.push_back(pDArg5);
+		_dargOwner.push_back(pArg1);
+		_dargOwner.push_back(pArg2);
+		_dargOwner.push_back(pArg3);
+		_dargOwner.push_back(pArg4);
+		_dargOwner.push_back(pArg5);
 	}
 public:
 	static void Initialize();
