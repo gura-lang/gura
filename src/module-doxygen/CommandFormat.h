@@ -6,48 +6,43 @@
 
 Gura_BeginModuleScope(doxygen)
 
-class CommandFormatDict;
+class CommandFormat;
 
 //-----------------------------------------------------------------------------
-// Arg
+// CommandFormatDict
 //-----------------------------------------------------------------------------
-class Arg {
-public:
-	enum Type {
-		TYPE_Word, TYPE_Line, TYPE_Para,
-	};
-	enum Attr {
-		ATTR_None, ATTR_Optional, ATTR_OptionalBracket,
-	};
-protected:
-	Type _type;
-	String _name;
-	Attr _attr;
-public:
-	inline Arg(Type type, const char *name, Attr attr) :
-		_type(type), _name(name), _attr(attr) {}
-	
-};
-
-//-----------------------------------------------------------------------------
-// ArgList
-//-----------------------------------------------------------------------------
-class ArgList : public std::vector<Arg *> {
-};
-
-//-----------------------------------------------------------------------------
-// ArgOwner
-//-----------------------------------------------------------------------------
-class ArgOwner : public ArgList {
-public:
-	~ArgOwner();
-	void Clear();
+class CommandFormatDict : public std::map<const String, const CommandFormat *> {
 };
 
 //-----------------------------------------------------------------------------
 // CommandFormat
 //-----------------------------------------------------------------------------
 class CommandFormat {
+public:
+	class Arg {
+	public:
+		enum Type {
+			TYPE_Word, TYPE_Line, TYPE_Para,
+		};
+		enum Attr {
+			ATTR_None, ATTR_Optional, ATTR_OptionalBracket,
+		};
+	protected:
+		Type _type;
+		String _name;
+		Attr _attr;
+	public:
+		inline Arg(Type type, const char *name, Attr attr) :
+		_type(type), _name(name), _attr(attr) {}
+		
+	};
+	class ArgList : public std::vector<Arg *> {
+	};
+	class ArgOwner : public ArgList {
+	public:
+		~ArgOwner();
+		void Clear();
+	};
 protected:
 	String _name;
 	ArgOwner _argOwner;
@@ -67,46 +62,40 @@ protected:
 	}
 	inline static CommandFormat *Create(const char *name) {
 		CommandFormat *pCmdFmt = new CommandFormat(name);
+		(*_pCmdFmtDict)[name] = pCmdFmt;
 		return pCmdFmt;
 	}
-	inline static CommandFormat *Create(const char *name, Arg *pArg1) {
-		CommandFormat *pCmdFmt = new CommandFormat(name);
+	inline static void Register(const char *name) {
+		Create(name);
+	}
+	inline static void Register(const char *name, Arg *pArg1) {
+		CommandFormat *pCmdFmt = Create(name);
 		pCmdFmt->_argOwner.reserve(1);
 		pCmdFmt->_argOwner.push_back(pArg1);
-		return pCmdFmt;
 	}
-	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2) {
-		CommandFormat *pCmdFmt = new CommandFormat(name);
+	inline static void Register(const char *name, Arg *pArg1, Arg *pArg2) {
+		CommandFormat *pCmdFmt = Create(name);
 		pCmdFmt->_argOwner.reserve(2);
 		pCmdFmt->_argOwner.push_back(pArg1);
 		pCmdFmt->_argOwner.push_back(pArg2);
-		return pCmdFmt;
 	}
-	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3) {
-		CommandFormat *pCmdFmt = new CommandFormat(name);
+	inline static void Register(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3) {
+		CommandFormat *pCmdFmt = Create(name);
 		pCmdFmt->_argOwner.reserve(3);
 		pCmdFmt->_argOwner.push_back(pArg1);
 		pCmdFmt->_argOwner.push_back(pArg2);
 		pCmdFmt->_argOwner.push_back(pArg3);
-		return pCmdFmt;
 	}
-	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
-		CommandFormat *pCmdFmt = new CommandFormat(name);
+	inline static void Register(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
+		CommandFormat *pCmdFmt = Create(name);
 		pCmdFmt->_argOwner.reserve(4);
 		pCmdFmt->_argOwner.push_back(pArg1);
 		pCmdFmt->_argOwner.push_back(pArg2);
 		pCmdFmt->_argOwner.push_back(pArg3);
 		pCmdFmt->_argOwner.push_back(pArg4);
-		return pCmdFmt;
 	}
 public:
 	static void Initialize();
-};
-
-//-----------------------------------------------------------------------------
-// CommandFormatDict
-//-----------------------------------------------------------------------------
-class CommandFormatDict : public std::map<const String, const CommandFormat *> {
 };
 
 Gura_EndModuleScope(doxygen)
