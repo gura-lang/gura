@@ -1,5 +1,5 @@
 //=============================================================================
-// Command.cpp
+// CommandFormat.cpp
 //=============================================================================
 #include "stdafx.h"
 
@@ -22,15 +22,15 @@ void ArgOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// Command
+// CommandFormat
 //-----------------------------------------------------------------------------
-std::unique_ptr<CommandDict> Command::_pCmdDict;
+std::unique_ptr<CommandFormatDict> CommandFormat::_pCmdFmtDict;
 
-void Command::Initialize()
+void CommandFormat::Initialize()
 {
 	const Arg::Attr Optional = Arg::ATTR_Optional;
 	const Arg::Attr OptionalBracket = Arg::ATTR_OptionalBracket;
-	static const Command *cmds[] = {
+	static const CommandFormat *cmds[] = {
 		// Structural indicators
 		Create("addtogroup",
 			   ArgWord("name"),
@@ -245,10 +245,10 @@ void Command::Initialize()
 		Create("--"),
 		Create("---"),
 	};
-	_pCmdDict.reset(new CommandDict());
+	_pCmdFmtDict.reset(new CommandFormatDict());
 	for (size_t i = 0; i < ArraySizeOf(cmds); i++) {
-		const Command *pCmd = cmds[i];
-		(*_pCmdDict)[pCmd->GetName()] = pCmd;
+		const CommandFormat *pCmd = cmds[i];
+		(*_pCmdFmtDict)[pCmd->GetName()] = pCmd;
 	}
 };
 	

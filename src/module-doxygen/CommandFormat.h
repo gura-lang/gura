@@ -1,12 +1,12 @@
 //=============================================================================
-// Commands.h
+// CommandFormat.h
 //=============================================================================
-#ifndef __GURA_DOXYGEN_COMMAND_H__
-#define __GURA_DOXYGEN_COMMAND_H__
+#ifndef __GURA_DOXYGEN_COMMANDFORMAT_H__
+#define __GURA_DOXYGEN_COMMANDFORMAT_H__
 
 Gura_BeginModuleScope(doxygen)
 
-class CommandDict;
+class CommandFormatDict;
 
 //-----------------------------------------------------------------------------
 // Arg
@@ -45,15 +45,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Command
+// CommandFormat
 //-----------------------------------------------------------------------------
-class Command {
+class CommandFormat {
 protected:
 	String _name;
 	ArgOwner _argOwner;
-	static std::unique_ptr<CommandDict> _pCmdDict;
+	static std::unique_ptr<CommandFormatDict> _pCmdFmtDict;
 public:
-	inline Command(const char *name) : _name(name) {}
+	inline CommandFormat(const char *name) : _name(name) {}
 	inline const char *GetName() const { return _name.c_str(); }
 protected:
 	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_None) {
@@ -65,48 +65,48 @@ protected:
 	inline static Arg *ArgPara(const char *name, Arg::Attr attr = Arg::ATTR_None) {
 		return new Arg(Arg::TYPE_Para, name, attr);
 	}
-	inline static Command *Create(const char *name) {
-		Command *pCmd = new Command(name);
-		return pCmd;
+	inline static CommandFormat *Create(const char *name) {
+		CommandFormat *pCmdFmt = new CommandFormat(name);
+		return pCmdFmt;
 	}
-	inline static Command *Create(const char *name, Arg *pArg1) {
-		Command *pCmd = new Command(name);
-		pCmd->_argOwner.reserve(1);
-		pCmd->_argOwner.push_back(pArg1);
-		return pCmd;
+	inline static CommandFormat *Create(const char *name, Arg *pArg1) {
+		CommandFormat *pCmdFmt = new CommandFormat(name);
+		pCmdFmt->_argOwner.reserve(1);
+		pCmdFmt->_argOwner.push_back(pArg1);
+		return pCmdFmt;
 	}
-	inline static Command *Create(const char *name, Arg *pArg1, Arg *pArg2) {
-		Command *pCmd = new Command(name);
-		pCmd->_argOwner.reserve(2);
-		pCmd->_argOwner.push_back(pArg1);
-		pCmd->_argOwner.push_back(pArg2);
-		return pCmd;
+	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2) {
+		CommandFormat *pCmdFmt = new CommandFormat(name);
+		pCmdFmt->_argOwner.reserve(2);
+		pCmdFmt->_argOwner.push_back(pArg1);
+		pCmdFmt->_argOwner.push_back(pArg2);
+		return pCmdFmt;
 	}
-	inline static Command *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3) {
-		Command *pCmd = new Command(name);
-		pCmd->_argOwner.reserve(3);
-		pCmd->_argOwner.push_back(pArg1);
-		pCmd->_argOwner.push_back(pArg2);
-		pCmd->_argOwner.push_back(pArg3);
-		return pCmd;
+	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3) {
+		CommandFormat *pCmdFmt = new CommandFormat(name);
+		pCmdFmt->_argOwner.reserve(3);
+		pCmdFmt->_argOwner.push_back(pArg1);
+		pCmdFmt->_argOwner.push_back(pArg2);
+		pCmdFmt->_argOwner.push_back(pArg3);
+		return pCmdFmt;
 	}
-	inline static Command *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
-		Command *pCmd = new Command(name);
-		pCmd->_argOwner.reserve(4);
-		pCmd->_argOwner.push_back(pArg1);
-		pCmd->_argOwner.push_back(pArg2);
-		pCmd->_argOwner.push_back(pArg3);
-		pCmd->_argOwner.push_back(pArg4);
-		return pCmd;
+	inline static CommandFormat *Create(const char *name, Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
+		CommandFormat *pCmdFmt = new CommandFormat(name);
+		pCmdFmt->_argOwner.reserve(4);
+		pCmdFmt->_argOwner.push_back(pArg1);
+		pCmdFmt->_argOwner.push_back(pArg2);
+		pCmdFmt->_argOwner.push_back(pArg3);
+		pCmdFmt->_argOwner.push_back(pArg4);
+		return pCmdFmt;
 	}
 public:
 	static void Initialize();
 };
 
 //-----------------------------------------------------------------------------
-// CommandDict
+// CommandFormatDict
 //-----------------------------------------------------------------------------
-class CommandDict : public std::map<const String, const Command *> {
+class CommandFormatDict : public std::map<const String, const CommandFormat *> {
 };
 
 Gura_EndModuleScope(doxygen)
