@@ -25,7 +25,7 @@ public:
 			TYPE_Word, TYPE_Line, TYPE_Para,
 		};
 		enum Attr {
-			ATTR_None, ATTR_Optional, ATTR_OptionalBracket,
+			ATTR_Mandatory, ATTR_Optional, ATTR_OptionalBracket,
 		};
 	protected:
 		Type _type;
@@ -33,8 +33,10 @@ public:
 		Attr _attr;
 	public:
 		inline Arg(Type type, const char *name, Attr attr) :
-		_type(type), _name(name), _attr(attr) {}
-		
+			_type(type), _name(name), _attr(attr) {}
+		inline bool IsMandatory() const { return _attr == ATTR_Mandatory; }
+		inline bool IsOptional() const { return _attr == ATTR_Optional; }
+		inline bool IsOptionalBracket() const { return _attr == ATTR_OptionalBracket; }
 	};
 	class ArgList : public std::vector<Arg *> {
 	};
@@ -51,13 +53,13 @@ public:
 	inline CommandFormat(const char *name) : _name(name) {}
 	inline const char *GetName() const { return _name.c_str(); }
 protected:
-	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
 		return new Arg(Arg::TYPE_Word, name, attr);
 	}
-	inline static Arg *ArgLine(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+	inline static Arg *ArgLine(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
 		return new Arg(Arg::TYPE_Line, name, attr);
 	}
-	inline static Arg *ArgPara(const char *name, Arg::Attr attr = Arg::ATTR_None) {
+	inline static Arg *ArgPara(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
 		return new Arg(Arg::TYPE_Para, name, attr);
 	}
 	inline static CommandFormat *Create(const char *name) {
