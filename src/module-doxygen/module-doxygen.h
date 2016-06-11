@@ -5,6 +5,7 @@
 #define __GURA_MODULE_DOXYGEN_H__
 #include <gura.h>
 #include "CommandFormat.h"
+#include "Elem.h"
 
 Gura_BeginModuleHeader(doxygen)
 Gura_EndModuleHeader(doxygen)
