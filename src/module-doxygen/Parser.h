@@ -47,14 +47,17 @@ public:
 	enum Stat {
 		STAT_Text,
 		STAT_Command,
-		STAT_Word,
-		STAT_Bracket,
-		STAT_Line,
-		STAT_Para,
+		STAT_NextArg,
+		STAT_ArgWord,
+		STAT_ArgBracket,
+		STAT_ArgLine,
+		STAT_ArgPara,
 	};
 private:
 	Stat _stat;
 	String _str;
+	const CommandFormat *_pCmdFmt;
+	CommandFormat::ArgOwner::const_iterator _ppArg;
 public:
 	Decomposer();
 	bool FeedChar(Environment &env, char ch);

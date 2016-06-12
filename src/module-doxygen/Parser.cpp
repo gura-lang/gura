@@ -187,7 +187,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer() : _stat(STAT_Text)
+Decomposer::Decomposer() : _stat(STAT_Text), _pCmdFmt(nullptr)
 {
 }
 
@@ -217,25 +217,41 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "empty name for command");
 				return false;
 			}
-			::printf("%s\n", _str.c_str());
-			//Elem_Command();
-			_str.clear();
-			_stat = STAT_Text;
+			_pCmdFmt = CommandFormat::Lookup(_str.c_str());
+			if (_pCmdFmt == nullptr) {
+				//_stat = STAT_SeekOpenBrace;
+			} else {
+				::printf("%s\n", _str.c_str());
+				_ppArg = _pCmdFmt->GetArgOwner().begin();
+				//Elem_Command();
+				_str.clear();
+				_stat = STAT_NextArg;
+			}
 		} else {
 			_str += ch;
 		}
 		break;
 	}
-	case STAT_Word: {
+	case STAT_NextArg: {
+		if (_ppArg == _pCmdFmt->GetArgOwner().end()) {
+			Gura_Pushback();
+			_stat = STAT_Text;
+		} else {
+			
+		}
+		_ppArg++;
 		break;
 	}
-	case STAT_Bracket: {
+	case STAT_ArgWord: {
 		break;
 	}
-	case STAT_Line: {
+	case STAT_ArgBracket: {
 		break;
 	}
-	case STAT_Para: {
+	case STAT_ArgLine: {
+		break;
+	}
+	case STAT_ArgPara: {
 		break;
 	}
 	}

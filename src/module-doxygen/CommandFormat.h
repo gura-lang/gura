@@ -52,6 +52,7 @@ protected:
 public:
 	inline CommandFormat(const char *name) : _name(name) {}
 	inline const char *GetName() const { return _name.c_str(); }
+	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
 public:
 	static void Initialize();
 	static const CommandFormat *Lookup(const char *name);
