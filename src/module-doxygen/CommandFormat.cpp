@@ -230,6 +230,12 @@ void CommandFormat::Initialize()
 	Register("---");
 };
 	
+const CommandFormat *CommandFormat::Lookup(const char *name)
+{
+	CommandFormatDict::iterator iter = _pCmdFmtDict->find(name);
+	return (iter == _pCmdFmtDict->end())? nullptr : iter->second;
+}
+
 //-----------------------------------------------------------------------------
 // CommandFormat::ArgOwner
 //-----------------------------------------------------------------------------

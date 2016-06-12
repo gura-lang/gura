@@ -52,6 +52,9 @@ protected:
 public:
 	inline CommandFormat(const char *name) : _name(name) {}
 	inline const char *GetName() const { return _name.c_str(); }
+public:
+	static void Initialize();
+	static const CommandFormat *Lookup(const char *name);
 protected:
 	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
 		return new Arg(Arg::TYPE_Word, name, attr);
@@ -96,8 +99,6 @@ protected:
 		pCmdFmt->_argOwner.push_back(pArg3);
 		pCmdFmt->_argOwner.push_back(pArg4);
 	}
-public:
-	static void Initialize();
 };
 
 Gura_EndModuleScope(doxygen)
