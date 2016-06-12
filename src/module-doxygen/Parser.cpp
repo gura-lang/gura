@@ -12,7 +12,7 @@ Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer())
 {
 }
 
-bool Parser::FeedChar(char ch)
+bool Parser::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegion();
 	switch (_stat) {
@@ -67,7 +67,7 @@ bool Parser::FeedChar(char ch)
 			// a line comment ends with newline.
 			_stat = STAT_Indent;
 		} else { // including '\0'
-			if (!_pDecomposer->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
@@ -107,10 +107,10 @@ bool Parser::FeedChar(char ch)
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
-			if (!_pDecomposer->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
@@ -118,8 +118,8 @@ bool Parser::FeedChar(char ch)
 		if (ch == '/') {
 			_stat = STAT_Source;
 		} else { // including '\0'
-			if (!_pDecomposer->FeedChar('*')) return false;
-			if (!_pDecomposer->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(env, '*')) return false;
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
@@ -128,7 +128,7 @@ bool Parser::FeedChar(char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
@@ -187,9 +187,59 @@ bool Parser::FeedChar(char ch)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-bool Decomposer::FeedChar(char ch)
+Decomposer::Decomposer() : _stat(STAT_Text)
 {
-	::printf("%c", ch);
+}
+
+bool Decomposer::FeedChar(Environment &env, char ch)
+{
+	Gura_BeginPushbackRegion();
+	switch (_stat) {
+	case STAT_Text: {
+		if (ch == '\0') {
+			if (_str.empty()) {
+				//new Elem_Text(_str);
+			}
+		} else if (ch == '@' || ch == '\\') {
+			if (_str.empty()) {
+				//new Elem_Text(_str);
+			}
+			_str.clear();
+			_stat = STAT_Command;
+		} else {
+			_str += ch;
+		}
+		break;
+	}
+	case STAT_Command: {
+		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n') {
+			if (_str.empty()) {
+				env.SetError(ERR_SyntaxError, "empty name for command");
+				return false;
+			}
+			::printf("%s\n", _str.c_str());
+			//Elem_Command();
+			_str.clear();
+			_stat = STAT_Text;
+		} else {
+			_str += ch;
+		}
+		break;
+	}
+	case STAT_Word: {
+		break;
+	}
+	case STAT_Bracket: {
+		break;
+	}
+	case STAT_Line: {
+		break;
+	}
+	case STAT_Para: {
+		break;
+	}
+	}
+	Gura_EndPushbackRegion();
 	return true;
 }
 

@@ -36,7 +36,7 @@ private:
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
 	Parser();
-	bool FeedChar(char ch);
+	bool FeedChar(Environment &env, char ch);
 };
 
 //-----------------------------------------------------------------------------
@@ -45,13 +45,19 @@ public:
 class Decomposer {
 public:
 	enum Stat {
-		STAT_Init,
+		STAT_Text,
+		STAT_Command,
+		STAT_Word,
+		STAT_Bracket,
+		STAT_Line,
+		STAT_Para,
 	};
 private:
 	Stat _stat;
+	String _str;
 public:
-	inline Decomposer() : _stat(STAT_Init) {}
-	bool FeedChar(char ch);
+	Decomposer();
+	bool FeedChar(Environment &env, char ch);
 };
 
 Gura_EndModuleScope(doxygen)
