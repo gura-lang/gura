@@ -7,12 +7,12 @@
 
 Gura_BeginModuleScope(doxygen)
 
-class Parser;
+class Decomposer;
 
 //-----------------------------------------------------------------------------
-// Extractor
+// Parser
 //-----------------------------------------------------------------------------
-class Extractor {
+class Parser {
 public:
 	enum Stat {
 		STAT_Indent,
@@ -33,16 +33,16 @@ public:
 	};
 private:
 	Stat _stat;
-	std::unique_ptr<Parser> _pParser;
+	std::unique_ptr<Decomposer> _pDecomposer;
 public:
-	Extractor();
+	Parser();
 	bool FeedChar(char ch);
 };
 
 //-----------------------------------------------------------------------------
-// Parser
+// Decomposer
 //-----------------------------------------------------------------------------
-class Parser {
+class Decomposer {
 public:
 	enum Stat {
 		STAT_Init,
@@ -50,7 +50,7 @@ public:
 private:
 	Stat _stat;
 public:
-	inline Parser() : _stat(STAT_Init) {}
+	inline Decomposer() : _stat(STAT_Init) {}
 	bool FeedChar(char ch);
 };
 

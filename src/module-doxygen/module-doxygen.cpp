@@ -8,12 +8,12 @@ Gura_BeginModuleBody(doxygen)
 bool ParseStream(Signal &sig, SimpleStream &stream)
 {
 	CommandFormat::Initialize();
-	Extractor extractor;
+	Parser parser;
 	for (;;) {
 		int chRaw;
 		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
 		char ch = static_cast<char>(static_cast<UChar>(chRaw));
-		extractor.FeedChar(ch);
+		parser.FeedChar(ch);
 		if (ch == '\0') break;
 	}
 	return true;

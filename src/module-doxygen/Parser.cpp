@@ -6,13 +6,13 @@
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// Extractor
+// Parser
 //-----------------------------------------------------------------------------
-Extractor::Extractor() : _stat(STAT_Indent), _pParser(new Parser())
+Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer())
 {
 }
 
-bool Extractor::FeedChar(char ch)
+bool Parser::FeedChar(char ch)
 {
 	Gura_BeginPushbackRegion();
 	switch (_stat) {
@@ -67,7 +67,7 @@ bool Extractor::FeedChar(char ch)
 			// a line comment ends with newline.
 			_stat = STAT_Indent;
 		} else { // including '\0'
-			if (!_pParser->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(ch)) return false;
 		}
 		break;
 	}
@@ -107,10 +107,10 @@ bool Extractor::FeedChar(char ch)
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
-			if (!_pParser->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
-			if (!_pParser->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(ch)) return false;
 		}
 		break;
 	}
@@ -118,8 +118,8 @@ bool Extractor::FeedChar(char ch)
 		if (ch == '/') {
 			_stat = STAT_Source;
 		} else { // including '\0'
-			if (!_pParser->FeedChar('*')) return false;
-			if (!_pParser->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar('*')) return false;
+			if (!_pDecomposer->FeedChar(ch)) return false;
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
@@ -128,7 +128,7 @@ bool Extractor::FeedChar(char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			if (!_pParser->FeedChar(ch)) return false;
+			if (!_pDecomposer->FeedChar(ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
@@ -185,9 +185,9 @@ bool Extractor::FeedChar(char ch)
 }
 
 //-----------------------------------------------------------------------------
-// Parser
+// Decomposer
 //-----------------------------------------------------------------------------
-bool Parser::FeedChar(char ch)
+bool Decomposer::FeedChar(char ch)
 {
 	::printf("%c", ch);
 	return true;
