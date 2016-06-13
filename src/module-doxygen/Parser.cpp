@@ -187,7 +187,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer() : _stat(STAT_Text), _pCmdFmt(nullptr)
+Decomposer::Decomposer() : _stat(STAT_Text), _pElemCmd(nullptr)
 {
 }
 
@@ -217,13 +217,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "empty name for command");
 				return false;
 			}
-			_pCmdFmt = CommandFormat::Lookup(_str.c_str());
-			if (_pCmdFmt == nullptr) {
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_str.c_str());
+			if (pCmdFmt == nullptr) {
 				//_stat = STAT_SeekOpenBrace;
 			} else {
 				::printf("%s\n", _str.c_str());
-				_ppArg = _pCmdFmt->GetArgOwner().begin();
-				//Elem_Command();
+				_pElemCmd = new Elem_Command(pCmdFmt);
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
@@ -233,62 +232,58 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		if (_ppArg == _pCmdFmt->GetArgOwner().end()) {
-			
+		const CommandFormat::Arg *pArg = _pElemCmd->NextArg();
+		if (pArg == nullptr) {
 			Gura_Pushback();
 			_stat = STAT_Text;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
-		} else {
-			const CommandFormat::Arg &arg = **_ppArg;
-			_ppArg++;
-			if (arg.IsWord()) {
-				if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", arg.GetName());
-					return false;
-				} else {
-					_str.clear();
-					Gura_Pushback();
-					_stat = STAT_ArgWord;
-				}
-			} else if (arg.IsWordOpt()) {
-				if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-					// omitted
-				} else {
-					_str.clear();
-					Gura_Pushback();
-					_stat = STAT_ArgWord;
-				}
-			} else if (arg.IsBracket()) {
-				if (ch == '[') {
-					_str.clear();
-					_stat = STAT_ArgBracket;
-				} else {
-					Gura_Pushback();
-				}
-			} else if (arg.IsLine() || arg.IsLineOpt()) {
-				Gura_Pushback();
+		} else if (pArg->IsWord()) {
+			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+				env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
+				return false;
+			} else {
 				_str.clear();
-				_stat = STAT_ArgLine;
-			} else if (arg.IsQuoted()) {
-				if (ch == '"') {
-					_str.clear();
-					_stat = STAT_ArgQuoted;
-				} else {
-					env.SetError(ERR_SyntaxError, "quoted string is expected");
-					return false;
-				}
-			} else if (arg.IsQuotedOpt()) {
-				if (ch == '"') {
-					_str.clear();
-					_stat = STAT_ArgQuoted;
-				} else {
-					// omitted
-				}
-			} else if (arg.IsPara() || arg.IsParaOpt()) {
-
-			
+				Gura_Pushback();
+				_stat = STAT_ArgWord;
 			}
+		} else if (pArg->IsWordOpt()) {
+			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+				// omitted
+			} else {
+				_str.clear();
+				Gura_Pushback();
+				_stat = STAT_ArgWord;
+			}
+		} else if (pArg->IsBracket()) {
+			if (ch == '[') {
+				_str.clear();
+				_stat = STAT_ArgBracket;
+			} else {
+				Gura_Pushback();
+			}
+		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
+			Gura_Pushback();
+			_str.clear();
+			_stat = STAT_ArgLine;
+		} else if (pArg->IsQuoted()) {
+			if (ch == '"') {
+				_str.clear();
+				_stat = STAT_ArgQuoted;
+			} else {
+				env.SetError(ERR_SyntaxError, "quoted string is expected");
+				return false;
+			}
+		} else if (pArg->IsQuotedOpt()) {
+			if (ch == '"') {
+				_str.clear();
+				_stat = STAT_ArgQuoted;
+			} else {
+				// omitted
+			}
+		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
+			
+			
 		}
 		break;
 	}

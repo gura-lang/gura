@@ -59,8 +59,7 @@ public:
 private:
 	Stat _stat;
 	String _str;
-	const CommandFormat *_pCmdFmt;
-	CommandFormat::ArgOwner::const_iterator _ppArg;
+	Elem_Command *_pElemCmd;
 public:
 	Decomposer();
 	bool FeedChar(Environment &env, char ch);

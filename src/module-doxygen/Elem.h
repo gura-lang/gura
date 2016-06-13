@@ -63,8 +63,14 @@ private:
 //-----------------------------------------------------------------------------
 class Elem_Command : public Elem {
 private:
-	CommandFormat *_pCmdFmt;
-	ElemDictOwner _elemDict;
+	const CommandFormat *_pCmdFmt;
+	ElemDictOwner _elemDictArg;
+	int _iArg;
+public:
+	Elem_Command(const CommandFormat *pCmdFmt);
+	void SetArgElem(Elem *pElem);
+	const CommandFormat::Arg *NextArg();
+	const CommandFormat::Arg *GetArgCur() const;
 };
 
 Gura_EndModuleScope(doxygen)

@@ -59,6 +59,25 @@ void ElemDictOwner::Clear()
 //-----------------------------------------------------------------------------
 // Elem_Command
 //-----------------------------------------------------------------------------
+Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt), _iArg(-1)
+{
+}
 
+void Elem_Command::SetArgElem(Elem *pElem)
+{
+	_elemDictArg[GetArgCur()->GetName()] = pElem;
+}
+
+const CommandFormat::Arg *Elem_Command::NextArg()
+{
+	_iArg++;
+	return GetArgCur();
+}
+
+const CommandFormat::Arg *Elem_Command::GetArgCur() const
+{
+	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+	return (_iArg < argOwner.size())? argOwner[_iArg] : nullptr;
+}
 
 Gura_EndModuleScope(doxygen)
