@@ -59,6 +59,7 @@ public:
 private:
 	Stat _stat;
 	String _str;
+	String _strAhead;
 	Elem_Command *_pElemCmd;
 public:
 	Decomposer();

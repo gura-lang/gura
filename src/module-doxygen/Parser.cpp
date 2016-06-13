@@ -198,11 +198,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_Text: {
 		if (ch == '\0') {
 			if (_str.empty()) {
-				//new Elem_Text(_str);
+				new Elem_Text(_str);
 			}
 		} else if (IsCommandMark(ch)) {
 			if (_str.empty()) {
-				//new Elem_Text(_str);
+				new Elem_Text(_str);
 			}
 			_str.clear();
 			_stat = STAT_Command;
@@ -332,6 +332,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgPara: {
 		if (ch == '\n') {
 			_str += ch;
+			_strAhead.clear();
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
 			
@@ -342,11 +343,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgParaNewline: {
 		if (ch == '\n') {
+			// detected a blank line
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
-			// nothing to do
+			_strAhead += ch;
 		} else {
+			_str += _strAhead;
 			Gura_Pushback();
 			_stat = STAT_ArgPara;
 		}
