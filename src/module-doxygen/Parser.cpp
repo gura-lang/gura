@@ -200,7 +200,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (_str.empty()) {
 				//new Elem_Text(_str);
 			}
-		} else if (ch == '@' || ch == '\\') {
+		} else if (IsCommandMark(ch)) {
 			if (_str.empty()) {
 				//new Elem_Text(_str);
 			}
@@ -234,24 +234,127 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_NextArg: {
 		if (_ppArg == _pCmdFmt->GetArgOwner().end()) {
+			
 			Gura_Pushback();
 			_stat = STAT_Text;
+		} else if (ch == ' ' || ch == '\t') {
+			// nothing to do
 		} else {
+			const CommandFormat::Arg &arg = **_ppArg;
+			_ppArg++;
+			if (arg.IsWord()) {
+				if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", arg.GetName());
+					return false;
+				} else {
+					_str.clear();
+					Gura_Pushback();
+					_stat = STAT_ArgWord;
+				}
+			} else if (arg.IsWordOpt()) {
+				if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+					// omitted
+				} else {
+					_str.clear();
+					Gura_Pushback();
+					_stat = STAT_ArgWord;
+				}
+			} else if (arg.IsBracket()) {
+				if (ch == '[') {
+					_str.clear();
+					_stat = STAT_ArgBracket;
+				} else {
+					Gura_Pushback();
+				}
+			} else if (arg.IsLine() || arg.IsLineOpt()) {
+				Gura_Pushback();
+				_str.clear();
+				_stat = STAT_ArgLine;
+			} else if (arg.IsQuoted()) {
+				if (ch == '"') {
+					_str.clear();
+					_stat = STAT_ArgQuoted;
+				} else {
+					env.SetError(ERR_SyntaxError, "quoted string is expected");
+					return false;
+				}
+			} else if (arg.IsQuotedOpt()) {
+				if (ch == '"') {
+					_str.clear();
+					_stat = STAT_ArgQuoted;
+				} else {
+					// omitted
+				}
+			} else if (arg.IsPara() || arg.IsParaOpt()) {
+
 			
+			}
 		}
-		_ppArg++;
 		break;
 	}
 	case STAT_ArgWord: {
 		break;
 	}
 	case STAT_ArgBracket: {
+		if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
+			return false;
+		} else if (ch == ']') {
+			
+		} else {
+			_str += ch;
+		}
 		break;
 	}
 	case STAT_ArgLine: {
+		if (ch == '\n' || ch == '\0') {
+			
+			_stat = STAT_NextArg;
+		} else {
+			_str += ch;
+		}
+		break;
+	}
+	case STAT_ArgQuoted: {
+		if (ch == '\n' || ch == '\0') {
+			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
+			return false;
+		} else if (ch == '"') {
+			
+			_stat = STAT_NextArg;
+		} else {
+			_str += ch;
+		}
 		break;
 	}
 	case STAT_ArgPara: {
+		if (ch == '\n') {
+			_str += ch;
+			_stat = STAT_ArgParaNewline;
+		} else if (ch == '\0') {
+			
+		} else {
+			_str += ch;
+		}
+		break;
+	}
+	case STAT_ArgParaNewline: {
+		if (ch == '\n') {
+			// end of paragraph
+		} else if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			Gura_Pushback();
+			_stat = STAT_ArgPara;
+		}
+		break;
+	}
+	case STAT_SeekOpenBrace: {
+		if (ch == '{') {
+			
+		} else {
+			
+		}
 		break;
 	}
 	}

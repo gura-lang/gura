@@ -22,21 +22,31 @@ public:
 	class Arg {
 	public:
 		enum Type {
-			TYPE_Word, TYPE_Line, TYPE_Para,
-		};
-		enum Attr {
-			ATTR_Mandatory, ATTR_Optional, ATTR_OptionalBracket,
+			TYPE_Word,
+			TYPE_WordOpt,
+			TYPE_Bracket,
+			TYPE_Line,
+			TYPE_LineOpt,
+			TYPE_Quoted,
+			TYPE_QuotedOpt,
+			TYPE_Para,
+			TYPE_ParaOpt,
 		};
 	protected:
 		Type _type;
 		String _name;
-		Attr _attr;
 	public:
-		inline Arg(Type type, const char *name, Attr attr) :
-			_type(type), _name(name), _attr(attr) {}
-		inline bool IsMandatory() const { return _attr == ATTR_Mandatory; }
-		inline bool IsOptional() const { return _attr == ATTR_Optional; }
-		inline bool IsOptionalBracket() const { return _attr == ATTR_OptionalBracket; }
+		inline Arg(Type type, const char *name) : _type(type), _name(name) {}
+		inline bool IsWord() const		{ return _type == TYPE_Word; }
+		inline bool IsWordOpt() const	{ return _type == TYPE_WordOpt; }
+		inline bool IsBracket() const	{ return _type == TYPE_Bracket; }
+		inline bool IsLine() const		{ return _type == TYPE_Line; }
+		inline bool IsLineOpt() const	{ return _type == TYPE_LineOpt; }
+		inline bool IsQuoted() const	{ return _type == TYPE_Quoted; }
+		inline bool IsQuotedOpt() const	{ return _type == TYPE_QuotedOpt; }
+		inline bool IsPara() const		{ return _type == TYPE_Para; }
+		inline bool IsParaOpt() const	{ return _type == TYPE_ParaOpt; }
+		const char *GetName() const { return _name.c_str(); }
 	};
 	class ArgList : public std::vector<Arg *> {
 	};
@@ -57,14 +67,32 @@ public:
 	static void Initialize();
 	static const CommandFormat *Lookup(const char *name);
 protected:
-	inline static Arg *ArgWord(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
-		return new Arg(Arg::TYPE_Word, name, attr);
+	inline static Arg *ArgWord(const char *name) {
+		return new Arg(Arg::TYPE_Word, name);
 	}
-	inline static Arg *ArgLine(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
-		return new Arg(Arg::TYPE_Line, name, attr);
+	inline static Arg *ArgWordOpt(const char *name) {
+		return new Arg(Arg::TYPE_WordOpt, name);
 	}
-	inline static Arg *ArgPara(const char *name, Arg::Attr attr = Arg::ATTR_Mandatory) {
-		return new Arg(Arg::TYPE_Para, name, attr);
+	inline static Arg *ArgBracket(const char *name) {
+		return new Arg(Arg::TYPE_Bracket, name);
+	}
+	inline static Arg *ArgLine(const char *name) {
+		return new Arg(Arg::TYPE_Line, name);
+	}
+	inline static Arg *ArgLineOpt(const char *name) {
+		return new Arg(Arg::TYPE_LineOpt, name);
+	}
+	inline static Arg *ArgQuoted(const char *name) {
+		return new Arg(Arg::TYPE_Quoted, name);
+	}
+	inline static Arg *ArgQuotedOpt(const char *name) {
+		return new Arg(Arg::TYPE_QuotedOpt, name);
+	}
+	inline static Arg *ArgPara(const char *name) {
+		return new Arg(Arg::TYPE_Para, name);
+	}
+	inline static Arg *ArgParaOpt(const char *name) {
+		return new Arg(Arg::TYPE_ParaOpt, name);
 	}
 	inline static CommandFormat *Create(const char *name) {
 		CommandFormat *pCmdFmt = new CommandFormat(name);

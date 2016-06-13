@@ -51,7 +51,10 @@ public:
 		STAT_ArgWord,
 		STAT_ArgBracket,
 		STAT_ArgLine,
+		STAT_ArgQuoted,
 		STAT_ArgPara,
+		STAT_ArgParaNewline,
+		STAT_SeekOpenBrace,
 	};
 private:
 	Stat _stat;
@@ -61,6 +64,8 @@ private:
 public:
 	Decomposer();
 	bool FeedChar(Environment &env, char ch);
+public:
+	inline static bool IsCommandMark(char ch) { return ch == '@' || ch == '\\'; }
 };
 
 Gura_EndModuleScope(doxygen)

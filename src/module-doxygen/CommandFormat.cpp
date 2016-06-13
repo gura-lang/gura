@@ -12,32 +12,30 @@ std::unique_ptr<CommandFormatDict> CommandFormat::_pCmdFmtDict;
 
 void CommandFormat::Initialize()
 {
-	const Arg::Attr Optional = Arg::ATTR_Optional;
-	const Arg::Attr OptionalBracket = Arg::ATTR_OptionalBracket;
 	_pCmdFmtDict.reset(new CommandFormatDict());
 	// Structural indicators
 	Register("addtogroup",
 			 ArgWord("name"),
-			 ArgLine("title", Optional));
+			 ArgLineOpt("title"));
 	Register("callgraph");
 	Register("hidecallgrph");
 	Register("callergraph");
 	Register("hidecallergraph");
 	Register("category",
 			 ArgWord("name"),
-			 ArgWord("header_file", Optional),
-			 ArgWord("header_name", Optional));
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
 	Register("class",
 			 ArgWord("name"),
-			 ArgWord("header_file", Optional),
-			 ArgWord("header_name", Optional));
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
 	Register("def",
 			 ArgWord("name"));
 	Register("defgroup",
 			 ArgWord("name"),
 			 ArgLine("group_title"));
 	Register("dir",
-			 ArgWord("path_fragment", Optional));
+			 ArgWordOpt("path_fragment"));
 	Register("enum",
 			 ArgWord("name"));
 	Register("example",
@@ -46,12 +44,12 @@ void CommandFormat::Initialize()
 	Register("extends",
 			 ArgWord("name"));
 	Register("file",
-			 ArgWord("name", Optional));
+			 ArgWordOpt("name"));
 	Register("fn",
 			 ArgLine("function_declaration"));
 	Register("headerfile",
 			 ArgWord("header_file"),
-			 ArgWord("header_name", Optional));
+			 ArgWordOpt("header_name"));
 	Register("hideinitializer");
 	Register("idlexcept",
 			 ArgWord("name"));
@@ -61,15 +59,15 @@ void CommandFormat::Initialize()
 			 ArgWord("groupname"));
 	Register("interface",
 			 ArgWord("name"),
-			 ArgWord("header_file", Optional),
-			 ArgWord("header_name", Optional));
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
 	Register("internal");
 	Register("mainpage",
-			 ArgLine("title", Optional));
+			 ArgLineOpt("title"));
 	Register("memberof",
 			 ArgWord("name"));
 	Register("name",
-			 ArgLine("header", Optional));
+			 ArgLineOpt("header"));
 	Register("namespace",
 			 ArgWord("name"));
 	Register("nosubgrouping");
@@ -118,7 +116,7 @@ void CommandFormat::Initialize()
 	Register("note");
 	Register("par");
 	Register("param",
-			 ArgWord("dir", OptionalBracket),
+			 ArgBracket("dir"),
 			 ArgWord("parameter_name"),
 			 ArgPara("parameter_description"));
 	Register("parblock");
