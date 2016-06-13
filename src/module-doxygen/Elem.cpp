@@ -88,7 +88,7 @@ Elem_Text::Elem_Text(const String &str) : _str(str)
 
 void Elem_Text::Print(int indentLevel) const
 {
-	::printf("%*sText\n", indentLevel * 2, "");
+	::printf("%*s\"%s\"\n", indentLevel * 2, "", _str.c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -117,7 +117,12 @@ const CommandFormat::Arg *Elem_Command::GetArgCur() const
 
 void Elem_Command::Print(int indentLevel) const
 {
+	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	::printf("%*s@%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
+	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
+		const char *name = (*ppArg)->GetName();
+		::printf("%*s%s:\n", (indentLevel + 1) * 2, "", name);
+	}
 }
 
 Gura_EndModuleScope(doxygen)

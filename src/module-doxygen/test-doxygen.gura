@@ -4,6 +4,14 @@ import(doxygen)
 
 testCases = [
 R'''
+/*!
+  \param a an integer argument.
+  \param s a constant character pointer.
+ */
+'''
+]
+testCases1 = [
+R'''
 /**/
 '''
 R'''
