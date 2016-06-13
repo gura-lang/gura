@@ -288,6 +288,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_ArgWord: {
+		if (ch == '\n' || ch == '\0' || IsCommandMark(ch) || ch == ' ' || ch == '\t') {
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_stat = STAT_NextArg;
+		} else {
+			_str += ch;
+		}
 		break;
 	}
 	case STAT_ArgBracket: {
@@ -295,7 +301,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
 			return false;
 		} else if (ch == ']') {
-			
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
 		}
@@ -303,7 +310,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgLine: {
 		if (ch == '\n' || ch == '\0') {
-			
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -315,7 +322,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
-			
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -335,7 +342,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgParaNewline: {
 		if (ch == '\n') {
-			// end of paragraph
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {

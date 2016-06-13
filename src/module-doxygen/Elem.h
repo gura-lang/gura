@@ -55,7 +55,9 @@ private:
 //-----------------------------------------------------------------------------
 class Elem_Text : public Elem {
 private:
-	String _text;
+	String _str;
+public:
+	Elem_Text(const String &str);
 };
 
 //-----------------------------------------------------------------------------
