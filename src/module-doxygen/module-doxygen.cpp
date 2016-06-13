@@ -5,21 +5,6 @@
 
 Gura_BeginModuleBody(doxygen)
 
-bool ParseStream(Environment &env, SimpleStream &stream)
-{
-	Signal &sig = env.GetSignal();
-	CommandFormat::Initialize();
-	Parser parser;
-	for (;;) {
-		int chRaw;
-		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
-		char ch = static_cast<char>(static_cast<UChar>(chRaw));
-		parser.FeedChar(env, ch);
-		if (ch == '\0') break;
-	}
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
@@ -35,7 +20,11 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	ParseStream(env, arg.GetStream(0));
+	Parser parser;
+	AutoPtr<Elem> pElem(parser.ParseStream(env, arg.GetStream(0)));
+	if (!pElem.IsNull()) {
+		pElem->Print();
+	}
 	return Value::Nil;
 }
 
@@ -49,6 +38,7 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	CommandFormat::Initialize();
 	// function assignment
 	Gura_AssignFunction(test);
 	return true;

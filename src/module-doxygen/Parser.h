@@ -37,6 +37,7 @@ private:
 public:
 	Parser();
 	bool FeedChar(Environment &env, char ch);
+	Elem *ParseStream(Environment &env, SimpleStream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -47,6 +48,7 @@ public:
 	enum Stat {
 		STAT_Text,
 		STAT_Command,
+		STAT_CommandInArgPara,
 		STAT_NextArg,
 		STAT_ArgWord,
 		STAT_ArgBracket,
@@ -60,10 +62,14 @@ private:
 	Stat _stat;
 	String _str;
 	String _strAhead;
-	Elem_Command *_pElemCmd;
+	String _name;
+	AutoPtr<Elem_Container> _pElemRoot;
+	AutoPtr<Elem_Command> _pElemCmd;
 public:
 	Decomposer();
 	bool FeedChar(Environment &env, char ch);
+	Elem *DecomposeString(Environment &env, const char *str);
+	const Elem *GetResult();
 public:
 	inline static bool IsCommandMark(char ch) { return ch == '@' || ch == '\\'; }
 };

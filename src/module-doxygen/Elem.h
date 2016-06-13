@@ -10,12 +10,24 @@ Gura_BeginModuleScope(doxygen)
 // Elem
 //-----------------------------------------------------------------------------
 class Elem {
+protected:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(Elem);
+public:
+	Elem();
+protected:
+	virtual ~Elem();
+public:
+	virtual void Print(int indentLevel = 0) const = 0;
 };
 
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
 class ElemList : public std::vector<Elem *> {
+public:
+	void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,6 +60,14 @@ public:
 class Elem_Container : public Elem {
 private:
 	ElemOwner _elemOwner;
+public:
+	Elem_Container();
+protected:
+	inline ~Elem_Container() {}
+public:
+	void AddElem(Elem *pElem);
+	ElemOwner &GetElemOwner() { return _elemOwner; }
+	virtual void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -58,6 +78,9 @@ private:
 	String _str;
 public:
 	Elem_Text(const String &str);
+protected:
+	inline ~Elem_Text() {}
+	virtual void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -70,9 +93,13 @@ private:
 	int _iArg;
 public:
 	Elem_Command(const CommandFormat *pCmdFmt);
+protected:
+	inline ~Elem_Command() {}
+public:
 	void SetArgElem(Elem *pElem);
 	const CommandFormat::Arg *NextArg();
 	const CommandFormat::Arg *GetArgCur() const;
+	virtual void Print(int indentLevel) const;
 };
 
 Gura_EndModuleScope(doxygen)

@@ -184,10 +184,23 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
+Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
+{
+	Signal &sig = env.GetSignal();
+	for (;;) {
+		int chRaw;
+		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
+		char ch = static_cast<char>(static_cast<UChar>(chRaw));
+		if (!FeedChar(env, ch)) return nullptr;
+		if (ch == '\0') break;
+	}
+	return _pDecomposer->GetResult()->Reference();
+}
+
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer() : _stat(STAT_Text), _pElemCmd(nullptr)
+Decomposer::Decomposer() : _stat(STAT_Text), _pElemRoot(new Elem_Container())
 {
 }
 
@@ -198,13 +211,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_Text: {
 		if (ch == '\0') {
 			if (_str.empty()) {
-				new Elem_Text(_str);
+				_pElemRoot->AddElem(new Elem_Text(_str));
 			}
 		} else if (IsCommandMark(ch)) {
 			if (_str.empty()) {
-				new Elem_Text(_str);
+				_pElemRoot->AddElem(new Elem_Text(_str));
 			}
-			_str.clear();
+			_name.clear();
 			_stat = STAT_Command;
 		} else {
 			_str += ch;
@@ -213,24 +226,42 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Command: {
 		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n') {
-			if (_str.empty()) {
+			if (_name.empty()) {
 				env.SetError(ERR_SyntaxError, "empty name for command");
 				return false;
 			}
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_str.c_str());
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
 			if (pCmdFmt == nullptr) {
 				//_stat = STAT_SeekOpenBrace;
 			} else {
-				::printf("%s\n", _str.c_str());
-				_pElemCmd = new Elem_Command(pCmdFmt);
+				_pElemCmd.reset(new Elem_Command(pCmdFmt));
+				_pElemRoot->AddElem(_pElemCmd->Reference());
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
 		} else {
-			_str += ch;
+			_name += ch;
 		}
 		break;
 	}
+	case STAT_CommandInArgPara: {
+		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n') {
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
+			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {
+				Gura_Pushback();
+				_str += _strAhead;
+				_stat = STAT_ArgPara;
+			} else {
+				_pElemCmd.reset(new Elem_Command(pCmdFmt));
+				_pElemRoot->AddElem(_pElemCmd->Reference());
+				_str.clear();
+				_stat = STAT_NextArg;
+			}
+		} else {
+			_strAhead += ch;
+			_name += ch;
+		}
+	};
 	case STAT_NextArg: {
 		const CommandFormat::Arg *pArg = _pElemCmd->NextArg();
 		if (pArg == nullptr) {
@@ -282,8 +313,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// omitted
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
-			
-			
+			Gura_Pushback();
+			_str.clear();
+			_stat = STAT_ArgPara;
 		}
 		break;
 	}
@@ -336,6 +368,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
 			
+		} else if (IsCommandMark(ch)) {
+			_strAhead.clear();
+			_name.clear();
+			_strAhead += ch;
+			_stat = STAT_CommandInArgPara;
 		} else {
 			_str += ch;
 		}
@@ -366,6 +403,20 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	Gura_EndPushbackRegion();
 	return true;
+}
+
+Elem *Decomposer::DecomposeString(Environment &env, const char *str)
+{
+	for (const char *p = str; *p != '\0'; p++) {
+		if (!FeedChar(env, *p)) return nullptr;
+	}
+	return GetResult()->Reference();
+}
+
+const Elem *Decomposer::GetResult()
+{
+	return (_pElemRoot->GetElemOwner().size() == 1)?
+		_pElemRoot->GetElemOwner().front() : _pElemRoot.get();
 }
 
 Gura_EndModuleScope(doxygen)

@@ -7,10 +7,23 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Elem
 //-----------------------------------------------------------------------------
+Elem::Elem() : _cntRef(1)
+{
+}
+
+Elem::~Elem()
+{
+}
 
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
+void ElemList::Print(int indentLevel) const
+{
+	foreach_const (ElemList, ppElem, *this) {
+		(*ppElem)->Print(indentLevel);
+	}
+}
 
 //-----------------------------------------------------------------------------
 // ElemDict
@@ -27,7 +40,7 @@ ElemOwner::~ElemOwner()
 void ElemOwner::Clear()
 {
 	foreach (ElemOwner, ppElem, *this) {
-		delete *ppElem;
+		Elem::Delete(*ppElem);
 	}
 	clear();
 }
@@ -43,7 +56,7 @@ ElemDictOwner::~ElemDictOwner()
 void ElemDictOwner::Clear()
 {
 	foreach (ElemDictOwner, iter, *this) {
-		delete iter->second;
+		Elem::Delete(iter->second);
 	}
 	clear();
 }
@@ -51,12 +64,31 @@ void ElemDictOwner::Clear()
 //-----------------------------------------------------------------------------
 // Elem_Container
 //-----------------------------------------------------------------------------
+Elem_Container::Elem_Container()
+{
+}
+
+void Elem_Container::AddElem(Elem *pElem)
+{
+	_elemOwner.push_back(pElem);
+}
+
+void Elem_Container::Print(int indentLevel) const
+{
+	::printf("%*sContainer\n", indentLevel * 2, "");
+	_elemOwner.Print(indentLevel + 1);
+}
 
 //-----------------------------------------------------------------------------
 // Elem_Text
 //-----------------------------------------------------------------------------
 Elem_Text::Elem_Text(const String &str) : _str(str)
 {
+}
+
+void Elem_Text::Print(int indentLevel) const
+{
+	::printf("%*sText\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -81,6 +113,11 @@ const CommandFormat::Arg *Elem_Command::GetArgCur() const
 {
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	return (_iArg < argOwner.size())? argOwner[_iArg] : nullptr;
+}
+
+void Elem_Command::Print(int indentLevel) const
+{
+	::printf("%*s@%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
 }
 
 Gura_EndModuleScope(doxygen)
