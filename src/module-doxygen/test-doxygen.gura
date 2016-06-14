@@ -5,8 +5,8 @@ import(doxygen)
 testCases = [
 R'''
 /*!
-  \param a an integer argument.
-  \param s a constant character pointer.
+  \param[in] a an integer argument.
+  \param[in,out] s a constant character pointer.
  */
 '''
 ]

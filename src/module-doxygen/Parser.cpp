@@ -226,11 +226,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_Command: {
-		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n') {
+		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n' ||
+			(_name != "f" && (ch == '[' || ch == '{'))) {
 			if (_name.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
+			if (ch == '[' || ch == '{') Gura_Pushback();
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
 			if (pCmdFmt == nullptr) {
 				//_stat = STAT_SeekOpenBrace;
@@ -246,7 +248,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_CommandInArgPara: {
-		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n') {
+		if (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n' ||
+			(_name != "f" && (ch == '[' || ch == '{'))) {
+			if (ch == '[' || ch == '{') Gura_Pushback();
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_strAhead.c_str() + 1);
 			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {
 				Gura_Pushback();
@@ -265,13 +269,15 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	};
 	case STAT_NextArg: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+			break;
+		}
 		const CommandFormat::Arg *pArg = _pElemCmd->NextArg();
 		if (pArg == nullptr) {
 			_str.clear();
 			Gura_Pushback();
 			_stat = STAT_Text;
-		} else if (ch == ' ' || ch == '\t') {
-			// nothing to do
 		} else if (pArg->IsWord()) {
 			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 				env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
