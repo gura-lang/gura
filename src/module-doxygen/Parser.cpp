@@ -102,14 +102,12 @@ bool Parser::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygen: {
-		if (ch == '\0') {
-			// nothing to do
-		} else if (ch == '*') {
+		if (ch == '*') {
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
-		} else {
+		} else { // including '\0'
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -126,7 +124,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_Indent: {
 		if (ch == '\0') {
-			// nothing to do
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
@@ -184,7 +182,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
+const Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
@@ -194,7 +192,7 @@ Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
 		if (!FeedChar(env, ch)) return nullptr;
 		if (ch == '\0') break;
 	}
-	return _pDecomposer->GetResult()->Reference();
+	return _pDecomposer->GetResult();
 }
 
 //-----------------------------------------------------------------------------
@@ -252,6 +250,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_str += _strAhead;
 				_stat = STAT_ArgPara;
 			} else {
+				_pElemCmd->SetArgElem(new Elem_Text(_str)); // last argument
 				_pElemCmd.reset(new Elem_Command(pCmdFmt));
 				_pElemRoot->AddElem(_pElemCmd->Reference());
 				_str.clear();
@@ -290,7 +289,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '[') {
 				_str.clear();
 				_stat = STAT_ArgBracket;
-			} else {
+			} else { // including '\0'
 				Gura_Pushback();
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
@@ -301,7 +300,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '"') {
 				_str.clear();
 				_stat = STAT_ArgQuoted;
-			} else {
+			} else { // including '\0'
 				env.SetError(ERR_SyntaxError, "quoted string is expected");
 				return false;
 			}
@@ -309,7 +308,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '"') {
 				_str.clear();
 				_stat = STAT_ArgQuoted;
-			} else {
+			} else { // including '\0'
 				// omitted
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
@@ -367,7 +366,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strAhead.clear();
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
-			
+			::printf("check\n");
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
+			Gura_Pushback();
+			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_strAhead.clear();
 			_strAhead += ch;
@@ -384,7 +386,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			_strAhead += ch;
-		} else {
+		} else { // including '\0'
 			_str += _strAhead;
 			Gura_Pushback();
 			_stat = STAT_ArgPara;
@@ -394,7 +396,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_SeekOpenBrace: {
 		if (ch == '{') {
 			
-		} else {
+		} else { // including '\0'
 			
 		}
 		break;
@@ -404,12 +406,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-Elem *Decomposer::DecomposeString(Environment &env, const char *str)
+const Elem *Decomposer::DecomposeString(Environment &env, const char *str)
 {
 	for (const char *p = str; *p != '\0'; p++) {
 		if (!FeedChar(env, *p)) return nullptr;
 	}
-	return GetResult()->Reference();
+	return GetResult();
 }
 
 const Elem *Decomposer::GetResult()

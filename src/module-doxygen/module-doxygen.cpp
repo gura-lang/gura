@@ -21,8 +21,8 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Parser parser;
-	AutoPtr<Elem> pElem(parser.ParseStream(env, arg.GetStream(0)));
-	if (!pElem.IsNull()) {
+	const Elem *pElem = parser.ParseStream(env, arg.GetStream(0));
+	if (pElem != nullptr) {
 		pElem->Print();
 	}
 	return Value::Nil;

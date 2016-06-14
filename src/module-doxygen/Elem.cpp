@@ -107,7 +107,7 @@ String Elem_Text::GetText() const
 
 void Elem_Text::Print(int indentLevel) const
 {
-	::printf("%*s\"%s\"\n", indentLevel * 2, "", _str.c_str());
+	::printf("%*s%s\n", indentLevel * 2, "", MakeQuotedString(_str.c_str()).c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -147,7 +147,8 @@ void Elem_Command::Print(int indentLevel) const
 		const char *name = (*ppArg)->GetName();
 		ElemDict::const_iterator iter = _elemDictArg.find(name);
 		::printf("%*s%s: %s\n", (indentLevel + 1) * 2, "", name,
-				 (iter == _elemDictArg.end())? "(none)" : iter->second->GetText().c_str());
+				 (iter == _elemDictArg.end())? "(none)" :
+					 MakeQuotedString(iter->second->GetText().c_str()).c_str());
 	}
 }
 

@@ -37,7 +37,7 @@ private:
 public:
 	Parser();
 	bool FeedChar(Environment &env, char ch);
-	Elem *ParseStream(Environment &env, SimpleStream &stream);
+	const Elem *ParseStream(Environment &env, SimpleStream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -68,7 +68,7 @@ private:
 public:
 	Decomposer();
 	bool FeedChar(Environment &env, char ch);
-	Elem *DecomposeString(Environment &env, const char *str);
+	const Elem *DecomposeString(Environment &env, const char *str);
 	const Elem *GetResult();
 public:
 	inline static bool IsCommandMark(char ch) { return ch == '@' || ch == '\\'; }
