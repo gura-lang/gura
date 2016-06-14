@@ -279,8 +279,10 @@ void CommandFormat::Initialize()
 			 ArgWord("word"));
 	Register("code",			CMDTYPE_Visual,
 			 ArgBraceOpt("word"));
-	Register("copydoc",			CMDTYPE_Visual);
-	Register("copybrief",		CMDTYPE_Visual);
+	Register("copydoc",			CMDTYPE_Visual,
+			 ArgWord("link_object"));
+	Register("copybrief",		CMDTYPE_Visual,
+			 ArgWord("link_object"));
 	Register("copydetails",		CMDTYPE_Visual);
 	Register("docbookonly",		CMDTYPE_Visual);
 	Register("dot",				CMDTYPE_Visual);
