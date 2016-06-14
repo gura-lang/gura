@@ -10,7 +10,7 @@ R'''
  */
 '''
 ]
-testCases1 = [
+testCases = [
 R'''
 /**/
 '''

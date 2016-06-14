@@ -46,7 +46,7 @@ void CommandFormat::Initialize()
 	Register("file",			CMDTYPE_Structure,
 			 ArgWordOpt("name"));
 	Register("fn",				CMDTYPE_Structure,
-			 ArgLine("function_declaration"));
+			 ArgLine("declaration"));
 	Register("headerfile",		CMDTYPE_Structure,
 			 ArgWord("header_file"),
 			 ArgWordOpt("header_name"));
@@ -71,94 +71,179 @@ void CommandFormat::Initialize()
 	Register("namespace",		CMDTYPE_Structure,
 			 ArgWord("name"));
 	Register("nosubgrouping",	CMDTYPE_Structure);
-	Register("overload",		CMDTYPE_Structure);
-	Register("package",			CMDTYPE_Structure);
-	Register("page",			CMDTYPE_Structure);
+	Register("overload",		CMDTYPE_Structure,
+			 ArgLineOpt("declaration"));
+	Register("package",			CMDTYPE_Structure,
+			 ArgWord("name"));
+	Register("page",			CMDTYPE_Structure,
+			 ArgWord("name"),
+			 ArgLine("title"));
 	Register("private",			CMDTYPE_Structure);
 	Register("privatesection",	CMDTYPE_Structure);
-	Register("property",		CMDTYPE_Structure);
+	Register("property",		CMDTYPE_Structure,
+			 ArgLine("name"));
 	Register("protected",		CMDTYPE_Structure);
 	Register("protectedsection",CMDTYPE_Structure);
-	Register("protocol",		CMDTYPE_Structure);
+	Register("protocol",		CMDTYPE_Structure,
+			 ArgWord("name"),
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
 	Register("public",			CMDTYPE_Structure);
 	Register("publicsection",	CMDTYPE_Structure);
 	Register("pure",			CMDTYPE_Structure);
-	Register("relates",			CMDTYPE_Structure);
-	Register("related",			CMDTYPE_Structure);
-	Register("relatedalso",		CMDTYPE_Structure);
+	Register("relates",			CMDTYPE_Structure,
+			 ArgWord("name"));
+	Register("related",			CMDTYPE_Structure,
+			 ArgWord("name"));
+	Register("relatesalso",		CMDTYPE_Structure,
+			 ArgWord("name"));
+	Register("relatedalso",		CMDTYPE_Structure,
+			 ArgWord("name"));
 	Register("showinitializer",	CMDTYPE_Structure);
 	Register("static",			CMDTYPE_Structure);
-	Register("struct",			CMDTYPE_Structure);
-	Register("typedef",			CMDTYPE_Structure);
-	Register("union",			CMDTYPE_Structure);
-	Register("var",				CMDTYPE_Structure);
-	Register("vhdlflow",		CMDTYPE_Structure);
-	Register("weakgroup",		CMDTYPE_Structure);
+	Register("struct",			CMDTYPE_Structure,
+			 ArgWord("name"),
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
+	Register("typedef",			CMDTYPE_Structure,
+			 ArgLine("declaration"));
+	Register("union",			CMDTYPE_Structure,
+			 ArgWord("name"),
+			 ArgWordOpt("header_file"),
+			 ArgWordOpt("header_name"));
+	Register("var",				CMDTYPE_Structure,
+			 ArgLine("declaration"));
+	Register("vhdlflow",		CMDTYPE_Structure,
+			 ArgLineOpt("title_for_the_flow_chart"));
+	Register("weakgroup",		CMDTYPE_Structure,
+			 ArgWord("name"),
+			 ArgLineOpt("title"));
 	// Section indicators
-	Register("attention",		CMDTYPE_Section);
-	Register("author",			CMDTYPE_Section);
-	Register("authors",			CMDTYPE_Section);
-	Register("brief",			CMDTYPE_Section);
-	Register("bug",				CMDTYPE_Section);
-	Register("cond",			CMDTYPE_Section);
-	Register("copyright",		CMDTYPE_Section);
-	Register("date",			CMDTYPE_Section);
-	Register("deprecated",		CMDTYPE_Section);
-	Register("details",			CMDTYPE_Section);
+	Register("attention",		CMDTYPE_Section,
+			 ArgPara("text"));
+	Register("author",			CMDTYPE_Section,
+			 ArgPara("list_of_authors"));
+	Register("authors",			CMDTYPE_Section,
+			 ArgPara("list_of_authors"));
+	Register("brief",			CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("bug",				CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("cond",			CMDTYPE_Section,
+			 ArgLineOpt("section_label"));
+	Register("copyright",		CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("date",			CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("deprecated",		CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("details",			CMDTYPE_Section,
+			 ArgPara("description"));
 	Register("else",			CMDTYPE_Section);
-	Register("elseif",			CMDTYPE_Section);
+	Register("elseif",			CMDTYPE_Section,
+			 ArgLine("section_label"));
 	Register("endcond",			CMDTYPE_Section);
 	Register("endif",			CMDTYPE_Section);
-	Register("exception",		CMDTYPE_Section);
-	Register("if",				CMDTYPE_Section);
-	Register("ifnot",			CMDTYPE_Section);
-	Register("invariant",		CMDTYPE_Section);
-	Register("note",			CMDTYPE_Section);
-	Register("par",				CMDTYPE_Section);
+	Register("exception",		CMDTYPE_Section,
+			 ArgWord("exception_object"),
+			 ArgPara("description"));
+	Register("if",				CMDTYPE_Section,
+			 ArgLine("section_label"));
+	Register("ifnot",			CMDTYPE_Section,
+			 ArgLine("section_label"));
+	Register("invariant",		CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("note",			CMDTYPE_Section,
+			 ArgPara("text"));
+	Register("par",				CMDTYPE_Section,
+			 ArgLineOpt("paragraph_title"),
+			 ArgPara("paragraph"));
 	Register("param",			CMDTYPE_Section,
 			 ArgBracket("dir"),
-			 ArgWord("parameter_name"),
-			 ArgPara("parameter_description"));
+			 ArgWord("name"),
+			 ArgPara("description"));
 	Register("parblock",		CMDTYPE_Section);
 	Register("endparblock",		CMDTYPE_Section);
-	Register("tparam",			CMDTYPE_Section);
-	Register("post",			CMDTYPE_Section);
-	Register("pre",				CMDTYPE_Section);
-	Register("remark",			CMDTYPE_Section);
-	Register("remarks",			CMDTYPE_Section);
-	Register("result",			CMDTYPE_Section);
+	Register("tparam",			CMDTYPE_Section,
+			 ArgWord("name"),
+			 ArgPara("description"));
+	Register("post",			CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("pre",				CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("remark",			CMDTYPE_Section,
+			 ArgPara("text"));
+	Register("remarks",			CMDTYPE_Section,
+			 ArgPara("text"));
+	Register("result",			CMDTYPE_Section,
+			 ArgPara("description"));
 	Register("return",			CMDTYPE_Section,
-			 ArgPara("description_of_the_return_value"));
-	Register("returns",			CMDTYPE_Section);
-	Register("retval",			CMDTYPE_Section);
+			 ArgPara("description"));
+	Register("returns",			CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("retval",			CMDTYPE_Section,
+			 ArgWord("return_value"),
+			 ArgPara("description"));
 	Register("sa",				CMDTYPE_Section,
 			 ArgPara("references"));
-	Register("see",				CMDTYPE_Section);
-	Register("short",			CMDTYPE_Section);
-	Register("since",			CMDTYPE_Section);
-	Register("test",			CMDTYPE_Section);
-	Register("throw",			CMDTYPE_Section);
-	Register("throws",			CMDTYPE_Section);
-	Register("todo",			CMDTYPE_Section);
-	Register("version",			CMDTYPE_Section);
-	Register("warning",			CMDTYPE_Section);
-	Register("xrefitem",		CMDTYPE_Section);
+	Register("see",				CMDTYPE_Section,
+			 ArgPara("references"));
+	Register("short",			CMDTYPE_Section,
+			 ArgPara("description"));
+	Register("since",			CMDTYPE_Section,
+			 ArgPara("text"));
+	Register("test",			CMDTYPE_Section,
+			 ArgPara("paragraph"));
+	Register("throw",			CMDTYPE_Section,
+			 ArgWord("exception_object"),
+			 ArgPara("description"));
+	Register("throws",			CMDTYPE_Section,
+			 ArgWord("exception_object"),
+			 ArgPara("description"));
+	Register("todo",			CMDTYPE_Section,
+			 ArgPara("paragraph"));
+	Register("version",			CMDTYPE_Section,
+			 ArgPara("version_number"));
+	Register("warning",			CMDTYPE_Section,
+			 ArgPara("message"));
+	Register("xrefitem",		CMDTYPE_Section,
+			 ArgWord("key"),
+			 ArgQuoted("heading"),
+			 ArgQuoted("list_title"),
+			 ArgPara("text"));
 	// Commands to create links
-	Register("addindex",		CMDTYPE_Link);
-	Register("anchor",			CMDTYPE_Link);
-	Register("cite",			CMDTYPE_Link);
+	Register("addindex",		CMDTYPE_Link,
+			 ArgLine("text"));
+	Register("anchor",			CMDTYPE_Link,
+			 ArgWord("word"));
+	Register("cite",			CMDTYPE_Link,
+			 ArgWord("label"));
 	Register("endlink",			CMDTYPE_Link);
-	Register("link",			CMDTYPE_Link);
-	Register("ref",				CMDTYPE_Link);
-	Register("refitem",			CMDTYPE_Link);
+	Register("link",			CMDTYPE_Link,
+			 ArgWord("line_object"));
+	Register("ref",				CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgQuotedOpt("text"));
+	Register("refitem",			CMDTYPE_Link,
+			 ArgWord("name"));
 	Register("secreflist",		CMDTYPE_Link);
 	Register("endsecreflist",	CMDTYPE_Link);
-	Register("subpage",			CMDTYPE_Link);
+	Register("subpage",			CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgQuotedOpt("text"));
 	Register("tableofcontents",	CMDTYPE_Link);
-	Register("section",			CMDTYPE_Link);
-	Register("subsection",		CMDTYPE_Link);
-	Register("subsubsection",	CMDTYPE_Link);
-	Register("paragrph",		CMDTYPE_Link);
+	Register("section",			CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgLine("title"));
+	Register("subsection",		CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgLine("title"));
+	Register("subsubsection",	CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgLine("title"));
+	Register("paragrph",		CMDTYPE_Link,
+			 ArgWord("name"),
+			 ArgLine("title"));
 	// Commands for displaying examples
 	Register("dontinclude",		CMDTYPE_Example);
 	Register("include",			CMDTYPE_Example);
