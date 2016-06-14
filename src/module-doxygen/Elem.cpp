@@ -18,6 +18,15 @@ Elem::~Elem()
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
+String ElemList::GetText() const
+{
+	String rtn;
+	foreach_const (ElemList, ppElem, *this) {
+		rtn += (*ppElem)->GetText();
+	}
+	return rtn;
+}
+
 void ElemList::Print(int indentLevel) const
 {
 	foreach_const (ElemList, ppElem, *this) {
@@ -73,6 +82,11 @@ void Elem_Container::AddElem(Elem *pElem)
 	_elemOwner.push_back(pElem);
 }
 
+String Elem_Container::GetText() const
+{
+	return _elemOwner.GetText();
+}
+
 void Elem_Container::Print(int indentLevel) const
 {
 	::printf("%*sContainer\n", indentLevel * 2, "");
@@ -84,6 +98,11 @@ void Elem_Container::Print(int indentLevel) const
 //-----------------------------------------------------------------------------
 Elem_Text::Elem_Text(const String &str) : _str(str)
 {
+}
+
+String Elem_Text::GetText() const
+{
+	return _str;
 }
 
 void Elem_Text::Print(int indentLevel) const
@@ -115,13 +134,20 @@ const CommandFormat::Arg *Elem_Command::GetArgCur() const
 	return (_iArg < argOwner.size())? argOwner[_iArg] : nullptr;
 }
 
+String Elem_Command::GetText() const
+{
+	return "";
+}
+
 void Elem_Command::Print(int indentLevel) const
 {
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	::printf("%*s@%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
 	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
 		const char *name = (*ppArg)->GetName();
-		::printf("%*s%s:\n", (indentLevel + 1) * 2, "", name);
+		ElemDict::const_iterator iter = _elemDictArg.find(name);
+		::printf("%*s%s: %s\n", (indentLevel + 1) * 2, "", name,
+				 (iter == _elemDictArg.end())? "(none)" : iter->second->GetText().c_str());
 	}
 }
 

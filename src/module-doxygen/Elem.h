@@ -19,6 +19,7 @@ public:
 protected:
 	virtual ~Elem();
 public:
+	virtual String GetText() const = 0;
 	virtual void Print(int indentLevel = 0) const = 0;
 };
 
@@ -27,6 +28,7 @@ public:
 //-----------------------------------------------------------------------------
 class ElemList : public std::vector<Elem *> {
 public:
+	String GetText() const;
 	void Print(int indentLevel) const;
 };
 
@@ -67,6 +69,7 @@ protected:
 public:
 	void AddElem(Elem *pElem);
 	ElemOwner &GetElemOwner() { return _elemOwner; }
+	virtual String GetText() const;
 	virtual void Print(int indentLevel) const;
 };
 
@@ -80,6 +83,7 @@ public:
 	Elem_Text(const String &str);
 protected:
 	inline ~Elem_Text() {}
+	virtual String GetText() const;
 	virtual void Print(int indentLevel) const;
 };
 
@@ -99,6 +103,7 @@ public:
 	void SetArgElem(Elem *pElem);
 	const CommandFormat::Arg *NextArg();
 	const CommandFormat::Arg *GetArgCur() const;
+	virtual String GetText() const;
 	virtual void Print(int indentLevel) const;
 };
 
