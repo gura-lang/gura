@@ -7,7 +7,6 @@ R'''
 /*!
   \param a an integer argument.
   \param s a constant character pointer.
-
  */
 '''
 ]
