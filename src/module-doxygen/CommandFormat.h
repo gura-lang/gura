@@ -32,8 +32,10 @@ public:
 		ARGTYPE_Bracket,
 		ARGTYPE_Line,
 		ARGTYPE_LineOpt,
-		ARGTYPE_Quoted,
-		ARGTYPE_QuotedOpt,
+		ARGTYPE_Quote,
+		ARGTYPE_QuoteOpt,
+		ARGTYPE_Brace,
+		ARGTYPE_BraceOpt,
 		ARGTYPE_Para,
 		ARGTYPE_ParaOpt,
 	};
@@ -48,8 +50,10 @@ public:
 		inline bool IsBracket() const	{ return _argType == ARGTYPE_Bracket; }
 		inline bool IsLine() const		{ return _argType == ARGTYPE_Line; }
 		inline bool IsLineOpt() const	{ return _argType == ARGTYPE_LineOpt; }
-		inline bool IsQuoted() const	{ return _argType == ARGTYPE_Quoted; }
-		inline bool IsQuotedOpt() const	{ return _argType == ARGTYPE_QuotedOpt; }
+		inline bool IsQuote() const		{ return _argType == ARGTYPE_Quote; }
+		inline bool IsQuoteOpt() const	{ return _argType == ARGTYPE_QuoteOpt; }
+		inline bool IsBrace() const		{ return _argType == ARGTYPE_Brace; }
+		inline bool IsBraceOpt() const	{ return _argType == ARGTYPE_BraceOpt; }
 		inline bool IsPara() const		{ return _argType == ARGTYPE_Para; }
 		inline bool IsParaOpt() const	{ return _argType == ARGTYPE_ParaOpt; }
 		const char *GetName() const { return _name.c_str(); }
@@ -94,11 +98,17 @@ protected:
 	inline static Arg *ArgLineOpt(const char *name) {
 		return new Arg(ARGTYPE_LineOpt, name);
 	}
-	inline static Arg *ArgQuoted(const char *name) {
-		return new Arg(ARGTYPE_Quoted, name);
+	inline static Arg *ArgQuote(const char *name) {
+		return new Arg(ARGTYPE_Quote, name);
 	}
-	inline static Arg *ArgQuotedOpt(const char *name) {
-		return new Arg(ARGTYPE_QuotedOpt, name);
+	inline static Arg *ArgQuoteOpt(const char *name) {
+		return new Arg(ARGTYPE_QuoteOpt, name);
+	}
+	inline static Arg *ArgBrace(const char *name) {
+		return new Arg(ARGTYPE_Brace, name);
+	}
+	inline static Arg *ArgBraceOpt(const char *name) {
+		return new Arg(ARGTYPE_BraceOpt, name);
 	}
 	inline static Arg *ArgPara(const char *name) {
 		return new Arg(ARGTYPE_Para, name);

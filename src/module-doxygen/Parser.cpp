@@ -278,18 +278,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_str.clear();
 			Gura_Pushback();
 			_stat = STAT_Text;
-		} else if (pArg->IsWord()) {
+		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
 			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-				env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
-				return false;
-			} else {
-				_str.clear();
-				Gura_Pushback();
-				_stat = STAT_ArgWord;
-			}
-		} else if (pArg->IsWordOpt()) {
-			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-				// omitted
+				if (pArg->IsWord()) {
+					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
+					return false;
+				}
 			} else {
 				_str.clear();
 				Gura_Pushback();
@@ -306,19 +300,26 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 			_str.clear();
 			_stat = STAT_ArgLine;
-		} else if (pArg->IsQuoted()) {
+		} else if (pArg->IsQuote() || pArg->IsQuoteOpt()) {
 			if (ch == '"') {
 				_str.clear();
-				_stat = STAT_ArgQuoted;
+				_stat = STAT_ArgQuote;
 			} else { // including '\0'
-				env.SetError(ERR_SyntaxError, "quoted string is expected");
-				return false;
+				if (pArg->IsQuote()) {
+					env.SetError(ERR_SyntaxError, "quoted string is expected");
+					return false;
+				}
+				Gura_Pushback();
 			}
-		} else if (pArg->IsQuotedOpt()) {
-			if (ch == '"') {
+		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
+			if (ch == '{') {
 				_str.clear();
-				_stat = STAT_ArgQuoted;
-			} else { // including '\0'
+				_stat = STAT_ArgBrace;
+			} else { // include '\0'
+				if (pArg->IsBrace()) {
+					env.SetError(ERR_SyntaxError, "braced string is expected");
+					return false;
+				}
 				Gura_Pushback();
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
@@ -358,11 +359,23 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_ArgQuoted: {
+	case STAT_ArgQuote: {
 		if (ch == '\n' || ch == '\0') {
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_stat = STAT_NextArg;
+		} else {
+			_str += ch;
+		}
+		break;
+	}
+	case STAT_ArgBrace: {
+		if (ch == '\n' || ch == '\0') {
+			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
+			return false;
+		} else if (ch == '}') {
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {

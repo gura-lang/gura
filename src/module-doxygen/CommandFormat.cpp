@@ -208,8 +208,8 @@ void CommandFormat::Initialize()
 			 ArgPara("message"));
 	Register("xrefitem",		CMDTYPE_Section,
 			 ArgWord("key"),
-			 ArgQuoted("heading"),
-			 ArgQuoted("list_title"),
+			 ArgQuote("heading"),
+			 ArgQuote("list_title"),
 			 ArgPara("text"));
 	// Commands to create links
 	Register("addindex",		CMDTYPE_Link,
@@ -223,14 +223,14 @@ void CommandFormat::Initialize()
 			 ArgWord("line_object"));
 	Register("ref",				CMDTYPE_Link,
 			 ArgWord("name"),
-			 ArgQuotedOpt("text"));
+			 ArgQuoteOpt("text"));
 	Register("refitem",			CMDTYPE_Link,
 			 ArgWord("name"));
 	Register("secreflist",		CMDTYPE_Link);
 	Register("endsecreflist",	CMDTYPE_Link);
 	Register("subpage",			CMDTYPE_Link,
 			 ArgWord("name"),
-			 ArgQuotedOpt("text"));
+			 ArgQuoteOpt("text"));
 	Register("tableofcontents",	CMDTYPE_Link);
 	Register("section",			CMDTYPE_Link,
 			 ArgWord("name"),
@@ -245,23 +245,40 @@ void CommandFormat::Initialize()
 			 ArgWord("name"),
 			 ArgLine("title"));
 	// Commands for displaying examples
-	Register("dontinclude",		CMDTYPE_Example);
-	Register("include",			CMDTYPE_Example);
-	Register("includelineno",	CMDTYPE_Example);
-	Register("line",			CMDTYPE_Example);
-	Register("skip",			CMDTYPE_Example);
-	Register("skipline",		CMDTYPE_Example);
-	Register("snippet",			CMDTYPE_Example);
-	Register("until",			CMDTYPE_Example);
-	Register("verbinclude",		CMDTYPE_Example);
-	Register("htmlinclude",		CMDTYPE_Example);
-	Register("latexinclude",	CMDTYPE_Example);
+	Register("dontinclude",		CMDTYPE_Example,
+			 ArgWord("file_name"));
+	Register("include",			CMDTYPE_Example,
+			 ArgWord("file_name"));
+	Register("includelineno",	CMDTYPE_Example,
+			 ArgWord("file_name"));
+	Register("line",			CMDTYPE_Example,
+			 ArgLine("pattern"));
+	Register("skip",			CMDTYPE_Example,
+			 ArgLine("pattern"));
+	Register("skipline",		CMDTYPE_Example,
+			 ArgLine("pattern"));
+	Register("snippet",			CMDTYPE_Example,
+			 ArgWord("file_name"),
+			 ArgLine("block_id"));
+	Register("until",			CMDTYPE_Example,
+			 ArgLine("pattern"));
+	Register("verbinclude",		CMDTYPE_Example,
+			 ArgWord("file_name"));
+	Register("htmlinclude",		CMDTYPE_Example,
+			 ArgWord("file_name"));
+	Register("latexinclude",	CMDTYPE_Example,
+			 ArgWord("file_name"));
 	// Commands for visual enhancements
-	Register("a",				CMDTYPE_Visual);
-	Register("arg",				CMDTYPE_Visual);
-	Register("b",				CMDTYPE_Visual);
-	Register("c",				CMDTYPE_Visual);
-	Register("code",			CMDTYPE_Visual);
+	Register("a",				CMDTYPE_Visual,
+			 ArgWord("word"));
+	Register("arg",				CMDTYPE_Visual,
+			 ArgPara("description"));
+	Register("b",				CMDTYPE_Visual,
+			 ArgWord("word"));
+	Register("c",				CMDTYPE_Visual,
+			 ArgWord("word"));
+	Register("code",			CMDTYPE_Visual,
+			 ArgBraceOpt("word"));
 	Register("copydoc",			CMDTYPE_Visual);
 	Register("copybrief",		CMDTYPE_Visual);
 	Register("copydetails",		CMDTYPE_Visual);
