@@ -65,6 +65,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygen: {
 		if (ch == '\n') {
 			// a line comment ends with newline.
+			if (!_pDecomposer->FeedChar(env, '\0')) return false;
 			_stat = STAT_Indent;
 		} else { // including '\0'
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
@@ -114,6 +115,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_Asterisk: {
 		if (ch == '/') {
+			if (!_pDecomposer->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else { // including '\0'
 			if (!_pDecomposer->FeedChar(env, '*')) return false;
@@ -139,6 +141,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_IndentAsterisk: {
 		if (ch == '/') {
+			if (!_pDecomposer->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else {
 			Gura_Pushback();
@@ -264,6 +267,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_NextArg: {
 		const CommandFormat::Arg *pArg = _pElemCmd->NextArg();
 		if (pArg == nullptr) {
+			_str.clear();
 			Gura_Pushback();
 			_stat = STAT_Text;
 		} else if (ch == ' ' || ch == '\t') {
@@ -309,7 +313,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_str.clear();
 				_stat = STAT_ArgQuoted;
 			} else { // including '\0'
-				// omitted
+				Gura_Pushback();
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
 			Gura_Pushback();
@@ -366,7 +370,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strAhead.clear();
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
-			::printf("check\n");
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			Gura_Pushback();
 			_stat = STAT_NextArg;
