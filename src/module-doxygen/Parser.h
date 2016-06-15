@@ -53,6 +53,7 @@ public:
 		STAT_NextArg,
 		STAT_BranchArg,
 		STAT_ArgWord,
+		STAT_ArgWord_Period,
 		STAT_ArgBracket,
 		STAT_ArgLine,
 		STAT_ArgQuote,
