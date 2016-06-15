@@ -347,12 +347,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_ArgWord: {
-		if (ch == '\n' || ch == '\0' || IsCommandMark(ch) || ch == ' ' || ch == '\t') {
+		if (IsWordChar(ch)) {
+			_str += ch;
+		} else {
 			Gura_Pushback();
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
-		} else {
-			_str += ch;
 		}
 		break;
 	}
