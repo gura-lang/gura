@@ -285,7 +285,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			_str.clear();
 			Gura_Pushback();
-			_stat = STAT_Init;
+			_stat = STAT_Text;
 		}
 		break;
 	}
