@@ -2945,8 +2945,7 @@ Gura_DeclareFunction(setpresenter)
 Gura_ImplementFunction(setpresenter)
 {
 	Signal &sig = env.GetSignal();
-	const Function *pFuncBlock =
-						arg.GetBlockFunc(env, GetSymbolForBlock());
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
 	g_pFunc_Presenter.reset(pFuncBlock->Reference());
 	return Value::Nil;
