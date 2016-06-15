@@ -201,7 +201,7 @@ const Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer() : _stat(STAT_Text), _pElemRoot(new Elem_Container())
+Decomposer::Decomposer() : _stat(STAT_Init), _pElemRoot(new Elem_Container())
 {
 }
 
@@ -209,11 +209,21 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegion();
 	switch (_stat) {
+	case STAT_Init: {
+		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
+			// nothing to do
+		} else {
+			Gura_Pushback();
+			_stat = STAT_Text;
+		}
+		break;
+	}
 	case STAT_Text: {
 		if (ch == '\0') {
 			if (!_str.empty()) {
 				_pElemRoot->AddElem(new Elem_Text(_str));
 			}
+			_str.clear();
 		} else if (IsCommandMark(ch)) {
 			if (!_str.empty()) {
 				_pElemRoot->AddElem(new Elem_Text(_str));
@@ -277,7 +287,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (pArg == nullptr) {
 			_str.clear();
 			Gura_Pushback();
-			_stat = STAT_Text;
+			_stat = STAT_Init;
 		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
 			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 				if (pArg->IsWord()) {
@@ -331,6 +341,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgWord: {
 		if (ch == '\n' || ch == '\0' || IsCommandMark(ch) || ch == ' ' || ch == '\t') {
+			Gura_Pushback();
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {
@@ -352,6 +363,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgLine: {
 		if (ch == '\n' || ch == '\0') {
+			Gura_Pushback();
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {
@@ -389,8 +401,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strAhead.clear();
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			Gura_Pushback();
+			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_strAhead.clear();

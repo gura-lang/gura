@@ -283,15 +283,35 @@ void CommandFormat::Initialize()
 			 ArgWord("link_object"));
 	Register("copybrief",		CMDTYPE_Visual,
 			 ArgWord("link_object"));
-	Register("copydetails",		CMDTYPE_Visual);
+	Register("copydetails",		CMDTYPE_Visual,
+			 ArgWord("link_object"));
 	Register("docbookonly",		CMDTYPE_Visual);
-	Register("dot",				CMDTYPE_Visual);
-	Register("msc",				CMDTYPE_Visual);
-	Register("startuml",		CMDTYPE_Visual);
-	Register("dotfile",			CMDTYPE_Visual);
-	Register("diafile",			CMDTYPE_Visual);
-	Register("e",				CMDTYPE_Visual);
-	Register("em",				CMDTYPE_Visual);
+	Register("dot",				CMDTYPE_Visual,
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("msc",				CMDTYPE_Visual,
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("startuml",		CMDTYPE_Visual,
+			 ArgBraceOpt("file"),
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("dotfile",			CMDTYPE_Visual,
+			 ArgWord("file"),
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("mscfile",			CMDTYPE_Visual,
+			 ArgWord("file"),
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("diafile",			CMDTYPE_Visual,
+			 ArgWord("file"),
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
+	Register("e",				CMDTYPE_Visual,
+			 ArgWord("word"));
+	Register("em",				CMDTYPE_Visual,
+			 ArgWord("word"));
 	Register("endcode",			CMDTYPE_Visual);
 	Register("endcodebookonly",	CMDTYPE_Visual);
 	Register("enddot",			CMDTYPE_Visual);
@@ -306,18 +326,27 @@ void CommandFormat::Initialize()
 	Register("f[",				CMDTYPE_Visual);
 	Register("f]",				CMDTYPE_Visual);
 	Register("f}",				CMDTYPE_Visual);
-	Register("htmlonly",		CMDTYPE_Visual);
-	Register("image",			CMDTYPE_Visual);
+	Register("htmlonly",		CMDTYPE_Visual,
+			 ArgQuoteOpt("block"));
+	Register("image",			CMDTYPE_Visual,
+			 ArgWord("format"),
+			 ArgWord("file"),
+			 ArgQuoteOpt("caption"),
+			 ArgLineOpt("size"));
 	Register("latexonly",		CMDTYPE_Visual);
 	Register("manonly",			CMDTYPE_Visual);
-	Register("li",				CMDTYPE_Visual);
+	Register("li",				CMDTYPE_Visual,
+			 ArgPara("description"));
 	Register("n",				CMDTYPE_Visual);
-	Register("p",				CMDTYPE_Visual);
+	Register("p",				CMDTYPE_Visual,
+			 ArgWord("word"));
 	Register("rtfonly",			CMDTYPE_Visual);
 	Register("verbatim",		CMDTYPE_Visual);
 	Register("xmlonly",			CMDTYPE_Visual);
 	Register("\\",				CMDTYPE_Visual);
-	Register("\\@",				CMDTYPE_Visual);
+	Register("@",				CMDTYPE_Visual);
+	Register("~",				CMDTYPE_Visual,
+			 ArgLine("language_id"));
 	Register("&",				CMDTYPE_Visual);
 	Register("$",				CMDTYPE_Visual);
 	Register("#",				CMDTYPE_Visual);

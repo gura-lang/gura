@@ -46,6 +46,7 @@ public:
 class Decomposer {
 public:
 	enum Stat {
+		STAT_Init,
 		STAT_Text,
 		STAT_Command,
 		STAT_CommandInArgPara,
