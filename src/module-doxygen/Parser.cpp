@@ -301,6 +301,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
 					return false;
 				}
+				_stat = STAT_NextArg;
 			} else {
 				_str.clear();
 				Gura_PushbackEx(ch);
@@ -312,6 +313,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgBracket;
 			} else { // including '\0'
 				Gura_PushbackEx(ch);
+				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
 			Gura_PushbackEx(ch);
@@ -327,6 +329,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Gura_PushbackEx(ch);
+				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
 			if (ch == '{') {
@@ -338,6 +341,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Gura_PushbackEx(ch);
+				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
 			Gura_PushbackEx(ch);
