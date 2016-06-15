@@ -367,6 +367,30 @@ const CommandFormat *CommandFormat::Lookup(const char *name)
 	return (iter == _pCmdFmtDict->end())? nullptr : iter->second;
 }
 
+const char *CommandFormat::ArgTypeToName(ArgType argType)
+{
+	static const struct {
+		ArgType argType;
+		const char *name;
+	} tbl[] = {
+		{ ARGTYPE_Word,		"word"		},
+		{ ARGTYPE_WordOpt,	"word?"		},
+		{ ARGTYPE_Bracket,	"bracket"	},
+		{ ARGTYPE_Line,		"line"		},
+		{ ARGTYPE_LineOpt,	"line?"		},
+		{ ARGTYPE_Quote,	"quote"		},
+		{ ARGTYPE_QuoteOpt,	"quote?"	},
+		{ ARGTYPE_Brace,	"brace"		},
+		{ ARGTYPE_BraceOpt,	"brace?"	},
+		{ ARGTYPE_Para,		"para"		},
+		{ ARGTYPE_ParaOpt,	"para?"		},
+	};
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		if (tbl[i].argType == argType) return tbl[i].name;
+	}
+	return "";
+}
+
 //-----------------------------------------------------------------------------
 // CommandFormat::ArgOwner
 //-----------------------------------------------------------------------------

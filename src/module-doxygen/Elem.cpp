@@ -145,9 +145,10 @@ void Elem_Command::Print(int indentLevel) const
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	::printf("%*s@%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
 	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
-		const char *name = (*ppArg)->GetName();
+		const CommandFormat::Arg *pArg = *ppArg;
+		const char *name = pArg->GetName();
 		ElemDict::const_iterator iter = _elemDictArg.find(name);
-		::printf("%*s%s: %s\n", (indentLevel + 1) * 2, "", name,
+		::printf("%*s%s<%s>: %s\n", (indentLevel + 1) * 2, "", name, pArg->GetArgTypeName(),
 				 (iter == _elemDictArg.end())? "(none)" :
 					 MakeQuotedString(iter->second->GetText().c_str()).c_str());
 	}

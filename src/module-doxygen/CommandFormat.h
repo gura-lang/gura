@@ -57,6 +57,8 @@ public:
 		inline bool IsPara() const		{ return _argType == ARGTYPE_Para; }
 		inline bool IsParaOpt() const	{ return _argType == ARGTYPE_ParaOpt; }
 		const char *GetName() const { return _name.c_str(); }
+		ArgType GetArgType() const { return _argType; }
+		const char *GetArgTypeName() const { return ArgTypeToName(_argType); }
 	};
 	class ArgList : public std::vector<Arg *> {
 	};
@@ -153,6 +155,7 @@ protected:
 		pCmdFmt->_argOwner.push_back(pArg3);
 		pCmdFmt->_argOwner.push_back(pArg4);
 	}
+	static const char *ArgTypeToName(ArgType argType);
 };
 
 Gura_EndModuleScope(doxygen)
