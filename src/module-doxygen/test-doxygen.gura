@@ -3,6 +3,14 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
+R'''	
+/**
+Computes the maximum of \a x and \a y.
+*/
+'''
+]
+
+testCases1 = [
 //-----------------------------------------------------------------------------
 R'''
 /*! \class Test class.h "inc/class.h"
@@ -119,12 +127,8 @@ R'''
 '''
 ]
 
-doxygen.test(testCases[1].reader())
-/*
 testCases.each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
 	doxygen.test(testCase.reader())
 	println()
 }
-*/
-

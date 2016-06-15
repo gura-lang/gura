@@ -122,10 +122,11 @@ void Elem_Command::SetArgElem(Elem *pElem)
 	_elemDictArg[GetArgCur()->GetName()] = pElem;
 }
 
-const CommandFormat::Arg *Elem_Command::NextArg()
+bool Elem_Command::NextArg()
 {
+	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	_iArg++;
-	return GetArgCur();
+	return _iArg < argOwner.size();
 }
 
 const CommandFormat::Arg *Elem_Command::GetArgCur() const

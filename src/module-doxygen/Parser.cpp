@@ -277,18 +277,25 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strAhead += ch;
 		}
 		break;
-	};
+	}
 	case STAT_NextArg: {
+		if (_pElemCmd->NextArg()) {
+			Gura_Pushback();
+			_stat = STAT_BranchArg;
+		} else {
+			_str.clear();
+			Gura_Pushback();
+			_stat = STAT_Init;
+		}
+		break;
+	}
+	case STAT_BranchArg: {
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 			break;
 		}
-		const CommandFormat::Arg *pArg = _pElemCmd->NextArg();
-		if (pArg == nullptr) {
-			_str.clear();
-			Gura_Pushback();
-			_stat = STAT_Init;
-		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
+		const CommandFormat::Arg *pArg = _pElemCmd->GetArgCur();
+		if (pArg->IsWord() || pArg->IsWordOpt()) {
 			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 				if (pArg->IsWord()) {
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());

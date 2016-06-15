@@ -101,7 +101,7 @@ protected:
 	inline ~Elem_Command() {}
 public:
 	void SetArgElem(Elem *pElem);
-	const CommandFormat::Arg *NextArg();
+	bool NextArg();
 	const CommandFormat::Arg *GetArgCur() const;
 	virtual String GetText() const;
 	virtual void Print(int indentLevel) const;

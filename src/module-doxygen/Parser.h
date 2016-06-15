@@ -51,6 +51,7 @@ public:
 		STAT_Command,
 		STAT_CommandInArgPara,
 		STAT_NextArg,
+		STAT_BranchArg,
 		STAT_ArgWord,
 		STAT_ArgBracket,
 		STAT_ArgLine,
