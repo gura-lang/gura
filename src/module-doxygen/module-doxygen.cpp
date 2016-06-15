@@ -29,6 +29,39 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
+// HelpPresenter_doxygen
+//-----------------------------------------------------------------------------
+bool HelpPresenter_doxygen::DoPresent(Environment &env,
+									  const char *title, const Help *pHelp) const
+{
+#if 0
+	Signal &sig = env.GetSignal();
+	if (g_pFunc_Presenter.IsNull()) {
+		sig.SetError(ERR_FormatError, "presenter function is not registered");
+		return false;
+	}
+	//ValueList valListArg;
+	AutoPtr<Argument> pArg(new Argument(g_pFunc_Presenter.get()));
+	if (title == nullptr) {
+		if (!pArg->StoreValue(env, Value::Nil)) return false;
+	} else {
+		if (!pArg->StoreValue(env, Value(title))) return false;
+	}
+	if (pHelp == nullptr) {
+		if (!pArg->StoreValue(env, Value::Nil)) return false;
+	} else {
+		AutoPtr<Document> pDocument(new Document());
+		SimpleStream_CStringReader streamSrc(pHelp->GetText());
+		if (!pDocument->ParseStream(sig, streamSrc)) return false;
+		if (!pArg->StoreValue(env, Value(new Object_document(pDocument->Reference())))) return false;
+	}
+	g_pFunc_Presenter->Eval(env, *pArg);
+	return !sig.IsSignalled();
+#endif
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
 Gura_ModuleValidate()
@@ -41,6 +74,8 @@ Gura_ModuleEntry()
 	CommandFormat::Initialize();
 	// function assignment
 	Gura_AssignFunction(test);
+	// registoration of HelpPresenter
+	HelpPresenter::Register(env, new HelpPresenter_doxygen());
 	return true;
 }
 
