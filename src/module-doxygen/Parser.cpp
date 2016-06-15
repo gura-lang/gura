@@ -237,7 +237,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Command: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(_name != "f" && (ch == '[' || ch == '{'))) {
+			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
 			if (_name.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
@@ -259,7 +259,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_CommandInArgPara: {
 		if ( ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(_name != "f" && (ch == '[' || ch == '{'))) {
+			 (!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
 			if (ch == '[' || ch == '{') Gura_PushbackEx(ch);
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_strAhead.c_str() + 1);
 			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {

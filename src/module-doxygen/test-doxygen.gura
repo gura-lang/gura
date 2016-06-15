@@ -5,6 +5,27 @@ import(doxygen)
 testCases = [
 //-----------------------------------------------------------------------------
 R'''
+/*! \addtogroup mygrp
+   *  Additional documentation for group 'mygrp'
+   *  @{
+   */
+
+  /*!
+   *  A function
+   */
+  void func1()
+  {
+  }
+
+  /*! Another function */
+  void func2()
+  {
+  }
+
+  /*! @} */
+'''
+//-----------------------------------------------------------------------------
+R'''
 /*! \class Test class.h "inc/class.h"
  *  \brief This is a test class.
  *
