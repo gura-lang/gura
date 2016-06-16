@@ -299,12 +299,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BranchArg: {
+		const CommandFormat::Arg *pArg = _pElemCmd->GetArgCur();
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
-			break;
-		}
-		const CommandFormat::Arg *pArg = _pElemCmd->GetArgCur();
-		if (pArg->IsWord() || pArg->IsWordOpt()) {
+		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
 			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 				if (pArg->IsWord()) {
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());

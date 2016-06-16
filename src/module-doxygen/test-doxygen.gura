@@ -3,11 +3,13 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
+/*
 //-----------------------------------------------------------------------------
 R'''
 /** See \l{SomeClass,Some Text} for more information. */
 '''
 //-----------------------------------------------------------------------------
+*/
 R'''
 /*! \addtogroup mygrp
    *  Additional documentation for group 'mygrp'
@@ -114,7 +116,7 @@ R'''
 '''
 ]
 
-testCases.head(1).each {|testCase, idx|
+testCases.each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
 	doxygen.test(testCase.reader())
 	println()
