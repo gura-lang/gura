@@ -61,6 +61,7 @@ public:
 		STAT_ArgPara,
 		STAT_ArgParaNewline,
 		STAT_ArgCustom,
+		STAT_ArgCustom_Backslash,
 	};
 private:
 	Stat _stat;

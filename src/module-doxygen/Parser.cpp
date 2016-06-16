@@ -246,6 +246,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (pCmdFmt == nullptr) {
 				// custom commands
 				if (ch == '{') {
+					_str.clear();
 					_stat = STAT_ArgCustom;
 				} else {
 					_str.clear();
@@ -463,14 +464,18 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgCustom: {
 		if (ch == '}') {
-			
+			_str.clear();
+			_stat = STAT_Text;
 		} else if (ch == ',') {
 			
 		} else if (ch == '\\') {
-			
+			_stat = STAT_ArgCustom_Backslash;
 		} else { // including '\0'
-			
+			_str += ch;
 		}
+		break;
+	}
+	case STAT_ArgCustom_Backslash: {
 		break;
 	}
 	}
