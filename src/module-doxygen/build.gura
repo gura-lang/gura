@@ -2,4 +2,6 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('doxygen', ['module-doxygen.cpp', 'CommandFormat.cpp', 'Elem.cpp', 'Parser.cpp'])
+builder.build('doxygen',
+			  ['module-doxygen.cpp', 'CommandFormat.cpp', 'Elem.cpp', 'Parser.cpp'],
+			  ['doxygen.gura'])
