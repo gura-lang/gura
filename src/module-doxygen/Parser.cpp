@@ -396,7 +396,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgLine: {
 		if (ch == '\n' || ch == '\0') {
-			Gura_PushbackEx(ch);
+			if (ch == '\0') Gura_PushbackEx(ch);
 			_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_stat = STAT_NextArg;
 		} else {
@@ -478,6 +478,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	}
 	Gura_EndPushbackRegionEx();
+	if (ch == '\0') _stat = STAT_Init;
 	return true;
 }
 

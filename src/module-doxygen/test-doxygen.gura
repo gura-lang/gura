@@ -116,7 +116,7 @@ R'''
 '''
 ]
 
-testCases.each {|testCase, idx|
+testCases.head(1).each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
 	doxygen.test(testCase.reader())
 	println()
