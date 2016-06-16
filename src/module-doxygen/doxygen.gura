@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(doxygen):binary:mixin_type {*}
+
+Renderer@html = class {
+	__init__() = {
+	}
+	@para(arg) = {
+		e.description
+	}
+}
