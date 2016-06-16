@@ -359,6 +359,9 @@ void CommandFormat::Initialize()
 	Register("|",				CMDTYPE_Visual);
 	Register("--",				CMDTYPE_Visual);
 	Register("---",				CMDTYPE_Visual);
+	// Grouping
+	Register("{",				CMDTYPE_Group);
+	Register("}",				CMDTYPE_Group);
 };
 	
 const CommandFormat *CommandFormat::Lookup(const char *name)

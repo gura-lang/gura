@@ -25,6 +25,7 @@ public:
 		CMDTYPE_Link,
 		CMDTYPE_Example,
 		CMDTYPE_Visual,
+		CMDTYPE_Group,
 	};
 	enum ArgType {
 		ARGTYPE_Word,
