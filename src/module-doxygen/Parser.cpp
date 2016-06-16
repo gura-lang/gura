@@ -242,11 +242,19 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
-			if (ch == '[' || ch == '{') Gura_PushbackEx(ch);
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
 			if (pCmdFmt == nullptr) {
-				//_stat = STAT_SeekOpenBrace;
+				// custom commands
+				if (ch == '{') {
+					_stat = STAT_ArgCustom;
+				} else {
+					_str.clear();
+					Gura_PushbackEx(ch);
+					_stat = STAT_Text;
+				}
 			} else {
+				// special commands
+				Gura_PushbackEx(ch);
 				_pElemCmd.reset(new Elem_Command(pCmdFmt));
 				_pElemRoot->AddElem(_pElemCmd->Reference());
 				_str.clear();
@@ -453,8 +461,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_SeekOpenBrace: {
-		if (ch == '{') {
+	case STAT_ArgCustom: {
+		if (ch == '}') {
+			
+		} else if (ch == ',') {
+			
+		} else if (ch == '\\') {
 			
 		} else { // including '\0'
 			

@@ -60,7 +60,7 @@ public:
 		STAT_ArgBrace,
 		STAT_ArgPara,
 		STAT_ArgParaNewline,
-		STAT_SeekOpenBrace,
+		STAT_ArgCustom,
 	};
 private:
 	Stat _stat;
