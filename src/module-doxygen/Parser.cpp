@@ -224,7 +224,8 @@ protected:
 	String _str;
 	String _strAhead;
 	String _name;
-	AutoPtr<Elem_Command> _pElemCmd;
+	const CommandFormat *_pCmdFmt;
+	int _iArg;
 public:
 	Command();
 	bool FeedChar(Environment &env, char ch);
@@ -235,7 +236,7 @@ public:
 	}
 };
 
-Command::Command() : _stat(STAT_Init)
+Command::Command() : _stat(STAT_Init), _pCmdFmt(nullptr), _iArg(-1)
 {
 }
 
@@ -291,7 +292,6 @@ bool Command::FeedChar(Environment &env, char ch)
 				// special commands
 				Gura_PushbackEx(ch);
 				//_pElemCmd.reset(new Elem_Command(pCmdFmt));
-				//_pElemRoot->AddElem(_pElemCmd->Reference());
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
@@ -313,7 +313,6 @@ bool Command::FeedChar(Environment &env, char ch)
 				// special commands
 				Gura_PushbackEx(ch);
 				//_pElemCmd.reset(new Elem_Command(pCmdFmt));
-				//_pElemRoot->AddElem(_pElemCmd->Reference());
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
@@ -327,7 +326,9 @@ bool Command::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		if (_pElemCmd->NextArg()) {
+		const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+		_iArg++;
+		if (_iArg < argOwner.size()) {
 			Gura_PushbackEx(ch);
 			_stat = STAT_BranchArg;
 		} else {
@@ -338,7 +339,8 @@ bool Command::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BranchArg: {
-		const CommandFormat::Arg *pArg = _pElemCmd->GetArgCur();
+		const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+		const CommandFormat::Arg *pArg = argOwner[_iArg];
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
