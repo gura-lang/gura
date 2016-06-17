@@ -77,11 +77,57 @@ public:
 	const Elem *DecomposeString(Environment &env, const char *str);
 	const Elem *GetResult();
 public:
-	inline static bool IsCommandMark(char ch) { return ch == '@' || ch == '\\'; }
-	inline static bool IsWordChar(char ch) {
-		return IsAlpha(ch) || IsDigit(ch) || ch == '_';
-	}
 };
+
+//-----------------------------------------------------------------------------
+// Command
+//-----------------------------------------------------------------------------
+class Command {
+public:
+	enum Stat {
+		STAT_Init,
+		STAT_Text,
+		STAT_Command,
+		STAT_CommandInArgPara,
+		STAT_CommandInArgCustom,
+		STAT_NextArg,
+		STAT_BranchArg,
+		STAT_ArgWord,
+		STAT_ArgWord_Period,
+		STAT_ArgBracket,
+		STAT_ArgLine,
+		STAT_ArgQuote,
+		STAT_ArgBrace,
+		STAT_ArgPara,
+		STAT_ArgParaNewline,
+		STAT_ArgCustom,
+		STAT_ArgCustom_Backslash,
+	};
+protected:
+	Stat _stat;
+	String _str;
+	String _strAhead;
+	String _name;
+	int _iArg;
+	StringList _args;
+	const CommandFormat *_pCmdFmt;
+public:
+	Command();
+	bool FeedChar(Environment &env, char ch);
+};
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+inline static bool IsCommandMark(char ch)
+{
+	return ch == '@' || ch == '\\';
+}
+
+inline static bool IsWordChar(char ch)
+{
+	return IsAlpha(ch) || IsDigit(ch) || ch == '_';
+}
 
 Gura_EndModuleScope(doxygen)
 
