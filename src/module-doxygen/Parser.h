@@ -50,6 +50,7 @@ public:
 		STAT_Text,
 		STAT_Command,
 		STAT_CommandInArgPara,
+		STAT_CommandInArgCustom,
 		STAT_NextArg,
 		STAT_BranchArg,
 		STAT_ArgWord,
