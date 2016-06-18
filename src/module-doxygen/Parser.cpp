@@ -512,6 +512,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 bool Decomposer::EvaluateCommand(Environment &env) const
 {
 	::printf("evaluate command: %s\n", _pCmdFmt->GetName());
+	CommandFormat::ArgOwner::const_iterator ppArg = _pCmdFmt->GetArgOwner().begin();
+	foreach_const (StringList, pStr, _args) {
+		::printf("  %s: %s\n", (*ppArg)->GetName(), MakeQuotedString(pStr->c_str()).c_str());
+		ppArg++;
+	}
 	return true;
 }
 
