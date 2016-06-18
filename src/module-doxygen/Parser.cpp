@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer())
+Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer(true))
 {
 }
 
@@ -185,7 +185,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-const Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
+const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
@@ -201,13 +201,15 @@ const Elem *Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer() : _stat(STAT_Init), _pElemRoot(new Elem_Container())
+Decomposer::Decomposer(bool toplevelFlag) :
+	_toplevelFlag(toplevelFlag), _stat(STAT_Init), _pCmdFmt(nullptr)
 {
 }
 
 bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegionEx(char, 16, ch);
+	//::printf("stat=%d\n", _stat);
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
@@ -220,18 +222,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Text: {
 		if (ch == '\0') {
-			if (!_str.empty()) {
-				_pElemRoot->AddElem(new Elem_Text(_str));
-			}
-			_str.clear();
+			// nothing to do
 		} else if (IsCommandMark(ch)) {
-			if (!_str.empty()) {
-				_pElemRoot->AddElem(new Elem_Text(_str));
-			}
 			_name.clear();
 			_stat = STAT_Command;
 		} else {
-			_str += ch;
+			_result += ch;
 		}
 		break;
 	}
@@ -242,8 +238,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
-			if (pCmdFmt == nullptr) {
+			_pCmdFmt = CommandFormat::Lookup(_name.c_str());
+			if (_pCmdFmt == nullptr) {
 				// custom commands
 				if (ch == '{') {
 					_str.clear();
@@ -256,314 +252,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else {
 				// special commands
 				Gura_PushbackEx(ch);
-				_pElemCmd.reset(new Elem_Command(pCmdFmt));
-				_pElemRoot->AddElem(_pElemCmd->Reference());
-				_str.clear();
-				_stat = STAT_NextArg;
-			}
-		} else {
-			_name += ch;
-		}
-		break;
-	}
-	case STAT_CommandInArgPara: {
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_strAhead.c_str() + 1);
-			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {
-				Gura_PushbackEx(ch);
-				_str += _strAhead;
-				_stat = STAT_ArgPara;
-			} else {
-				_pElemCmd->SetArgElem(new Elem_Text(_str)); // last argument
-				// special commands
-				Gura_PushbackEx(ch);
-				_pElemCmd.reset(new Elem_Command(pCmdFmt));
-				_pElemRoot->AddElem(_pElemCmd->Reference());
-				_str.clear();
-				_stat = STAT_NextArg;
-			}
-		} else {
-			_strAhead += ch;
-		}
-		break;
-	}
-	case STAT_CommandInArgCustom: {
-		
-		break;
-	}
-	case STAT_NextArg: {
-		if (_pElemCmd->NextArg()) {
-			Gura_PushbackEx(ch);
-			_stat = STAT_BranchArg;
-		} else {
-			_str.clear();
-			Gura_PushbackEx(ch);
-			_stat = STAT_Text;
-		}
-		break;
-	}
-	case STAT_BranchArg: {
-		const CommandFormat::Arg *pArg = _pElemCmd->GetArgCur();
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
-			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-				if (pArg->IsWord()) {
-					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
-					return false;
-				}
-				_stat = STAT_NextArg;
-			} else {
-				_str.clear();
-				Gura_PushbackEx(ch);
-				_stat = STAT_ArgWord;
-			}
-		} else if (pArg->IsBracket()) {
-			if (ch == '[') {
-				_str.clear();
-				_stat = STAT_ArgBracket;
-			} else { // including '\0'
-				Gura_PushbackEx(ch);
-				_stat = STAT_NextArg;
-			}
-		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
-			Gura_PushbackEx(ch);
-			_str.clear();
-			_stat = STAT_ArgLine;
-		} else if (pArg->IsQuote() || pArg->IsQuoteOpt()) {
-			if (ch == '"') {
-				_str.clear();
-				_stat = STAT_ArgQuote;
-			} else { // including '\0'
-				if (pArg->IsQuote()) {
-					env.SetError(ERR_SyntaxError, "quoted string is expected");
-					return false;
-				}
-				Gura_PushbackEx(ch);
-				_stat = STAT_NextArg;
-			}
-		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
-			if (ch == '{') {
-				_str.clear();
-				_stat = STAT_ArgBrace;
-			} else { // include '\0'
-				if (pArg->IsBrace()) {
-					env.SetError(ERR_SyntaxError, "braced string is expected");
-					return false;
-				}
-				Gura_PushbackEx(ch);
-				_stat = STAT_NextArg;
-			}
-		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
-			Gura_PushbackEx(ch);
-			_str.clear();
-			_stat = STAT_ArgPara;
-		}
-		break;
-	}
-	case STAT_ArgWord: {
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-			Gura_PushbackEx(ch);
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else if (ch == '.') {
-			_stat = STAT_ArgWord_Period;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgWord_Period: {
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-			Gura_PushbackEx(ch);
-			Gura_PushbackEx('.');
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else {
-			Gura_PushbackEx(ch);
-			_str += '.';
-			_stat = STAT_ArgWord;
-		}
-		break;
-	}
-	case STAT_ArgBracket: {
-		if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
-			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
-			return false;
-		} else if (ch == ']') {
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgLine: {
-		if (ch == '\n' || ch == '\0') {
-			if (ch == '\0') Gura_PushbackEx(ch);
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgQuote: {
-		if (ch == '\n' || ch == '\0') {
-			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
-			return false;
-		} else if (ch == '"') {
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgBrace: {
-		if (ch == '\n' || ch == '\0') {
-			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
-			return false;
-		} else if (ch == '}') {
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgPara: {
-		if (ch == '\n') {
-			_str += ch;
-			_strAhead.clear();
-			_stat = STAT_ArgParaNewline;
-		} else if (ch == '\0') {
-			Gura_PushbackEx(ch);
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else if (IsCommandMark(ch)) {
-			_strAhead.clear();
-			_strAhead += ch;
-			_stat = STAT_CommandInArgPara;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgParaNewline: {
-		if (ch == '\n') {
-			// detected a blank line
-			_pElemCmd->SetArgElem(new Elem_Text(_str));
-			_stat = STAT_NextArg;
-		} else if (ch == ' ' || ch == '\t') {
-			_strAhead += ch;
-		} else { // including '\0'
-			_str += _strAhead;
-			Gura_PushbackEx(ch);
-			_stat = STAT_ArgPara;
-		}
-		break;
-	}
-	case STAT_ArgCustom: {
-		if (ch == '}') {
-			_str.clear();
-			_stat = STAT_Text;
-		} else if (ch == ',') {
-			
-		} else if (ch == '\\') {
-			_stat = STAT_ArgCustom_Backslash;
-		} else if (IsCommandMark(ch)) {
-			_strAhead.clear();
-			_strAhead += ch;
-			_stat = STAT_CommandInArgCustom;
-		} else { // including '\0'
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_ArgCustom_Backslash: {
-		break;
-	}
-	}
-	Gura_EndPushbackRegionEx();
-	if (ch == '\0') _stat = STAT_Init;
-	return true;
-}
-
-const Elem *Decomposer::DecomposeString(Environment &env, const char *str)
-{
-	for (const char *p = str; *p != '\0'; p++) {
-		if (!FeedChar(env, *p)) return nullptr;
-	}
-	return GetResult();
-}
-
-const Elem *Decomposer::GetResult()
-{
-	return (_pElemRoot->GetElemOwner().size() == 1)?
-		_pElemRoot->GetElemOwner().front() : _pElemRoot.get();
-}
-
-//-----------------------------------------------------------------------------
-// Command
-//-----------------------------------------------------------------------------
-Command::Command() : _stat(STAT_Init), _pCmdFmt(nullptr)
-{
-}
-
-bool Command::FeedChar(Environment &env, char ch)
-{
-	Gura_BeginPushbackRegionEx(char, 16, ch);
-	switch (_stat) {
-	case STAT_Init: {
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
-			// nothing to do
-		} else {
-			Gura_PushbackEx(ch);
-			_stat = STAT_Text;
-		}
-		break;
-	}
-	case STAT_Text: {
-		if (ch == '\0') {
-			if (!_str.empty()) {
-				//_pElemRoot->AddElem(new Elem_Text(_str));
-			}
-			_str.clear();
-		} else if (IsCommandMark(ch)) {
-			if (!_str.empty()) {
-				//_pElemRoot->AddElem(new Elem_Text(_str));
-			}
-			_name.clear();
-			_stat = STAT_Command;
-		} else {
-			_str += ch;
-		}
-		break;
-	}
-	case STAT_Command: {
-		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
-			if (_name.empty()) {
-				env.SetError(ERR_SyntaxError, "command name is not specified");
-				return false;
-			}
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
-			if (pCmdFmt == nullptr) {
-				// custom commands
-				if (ch == '{') {
-					_str.clear();
-					_stat = STAT_ArgCustom;
-				} else {
-					_str.clear();
-					Gura_PushbackEx(ch);
-					_stat = STAT_Text;
-				}
-			} else {
-				// special commands
-				Gura_PushbackEx(ch);
-				//_pElemCmd.reset(new Elem_Command(pCmdFmt));
+				_args.clear();
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
@@ -582,9 +271,14 @@ bool Command::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgPara;
 			} else {
 				//_pElemCmd->SetArgElem(new Elem_Text(_str)); // last argument
+				_args.push_back(_str);
+				if (!EvaluateCommand(env)) return false;
 				// special commands
+				_pCmdFmt = pCmdFmt;
 				Gura_PushbackEx(ch);
 				//_pElemCmd.reset(new Elem_Command(pCmdFmt));
+				//_pElemRoot->AddElem(_pElemCmd->Reference());
+				_args.clear();
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
@@ -604,7 +298,7 @@ bool Command::FeedChar(Environment &env, char ch)
 			Gura_PushbackEx(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			_str.clear();
+			if (!EvaluateCommand(env)) return false;
 			Gura_PushbackEx(ch);
 			_stat = STAT_Text;
 		}
@@ -622,6 +316,7 @@ bool Command::FeedChar(Environment &env, char ch)
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
 					return false;
 				}
+				_args.push_back("");
 				_stat = STAT_NextArg;
 			} else {
 				_str.clear();
@@ -634,6 +329,7 @@ bool Command::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgBracket;
 			} else { // including '\0'
 				Gura_PushbackEx(ch);
+				_args.push_back("");
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
@@ -650,6 +346,7 @@ bool Command::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Gura_PushbackEx(ch);
+				_args.push_back("");
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
@@ -662,6 +359,7 @@ bool Command::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Gura_PushbackEx(ch);
+				_args.push_back("");
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
@@ -675,6 +373,7 @@ bool Command::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Gura_PushbackEx(ch);
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (ch == '.') {
 			_stat = STAT_ArgWord_Period;
@@ -688,6 +387,7 @@ bool Command::FeedChar(Environment &env, char ch)
 			Gura_PushbackEx(ch);
 			Gura_PushbackEx('.');
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
 			Gura_PushbackEx(ch);
@@ -702,6 +402,7 @@ bool Command::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == ']') {
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -712,6 +413,7 @@ bool Command::FeedChar(Environment &env, char ch)
 		if (ch == '\n' || ch == '\0') {
 			if (ch == '\0') Gura_PushbackEx(ch);
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -724,6 +426,7 @@ bool Command::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == '"') {
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -736,6 +439,7 @@ bool Command::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == '}') {
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
 			_str += ch;
@@ -750,6 +454,7 @@ bool Command::FeedChar(Environment &env, char ch)
 		} else if (ch == '\0') {
 			Gura_PushbackEx(ch);
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_strAhead.clear();
@@ -764,6 +469,7 @@ bool Command::FeedChar(Environment &env, char ch)
 		if (ch == '\n') {
 			// detected a blank line
 			//_pElemCmd->SetArgElem(new Elem_Text(_str));
+			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			_strAhead += ch;
@@ -794,10 +500,24 @@ bool Command::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom_Backslash: {
 		break;
 	}
+	case STAT_Complete: {
+		break;
+	}
 	}
 	Gura_EndPushbackRegionEx();
-	if (ch == '\0') _stat = STAT_Init;
+	if (ch == '\0') _stat = STAT_Complete;
 	return true;
+}
+
+bool Decomposer::EvaluateCommand(Environment &env) const
+{
+	::printf("evaluate command: %s\n", _pCmdFmt->GetName());
+	return true;
+}
+
+const char *Decomposer::GetResult() const
+{
+	return _result.c_str();
 }
 
 Gura_EndModuleScope(doxygen)

@@ -21,9 +21,9 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Parser parser;
-	const Elem *pElem = parser.ParseStream(env, arg.GetStream(0));
-	if (pElem != nullptr) {
-		pElem->Print();
+	const char *result = parser.ParseStream(env, arg.GetStream(0));
+	if (result != nullptr) {
+		::printf("%s\n", result);
 	}
 	return Value::Nil;
 }

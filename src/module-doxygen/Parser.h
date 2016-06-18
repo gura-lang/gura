@@ -37,7 +37,7 @@ private:
 public:
 	Parser();
 	bool FeedChar(Environment &env, char ch);
-	const Elem *ParseStream(Environment &env, SimpleStream &stream);
+	const char *ParseStream(Environment &env, SimpleStream &stream);
 };
 
 //-----------------------------------------------------------------------------
@@ -63,57 +63,23 @@ public:
 		STAT_ArgParaNewline,
 		STAT_ArgCustom,
 		STAT_ArgCustom_Backslash,
+		STAT_Complete,
 	};
 private:
+	bool _toplevelFlag;
 	Stat _stat;
+	String _result;
 	String _str;
 	String _strAhead;
 	String _name;
-	AutoPtr<Elem_Container> _pElemRoot;
-	AutoPtr<Elem_Command> _pElemCmd;
-public:
-	Decomposer();
-	bool FeedChar(Environment &env, char ch);
-	const Elem *DecomposeString(Environment &env, const char *str);
-	const Elem *GetResult();
-public:
-};
-
-//-----------------------------------------------------------------------------
-// Command
-//-----------------------------------------------------------------------------
-class Command {
-public:
-	enum Stat {
-		STAT_Init,
-		STAT_Text,
-		STAT_Command,
-		STAT_CommandInArgPara,
-		STAT_CommandInArgCustom,
-		STAT_NextArg,
-		STAT_BranchArg,
-		STAT_ArgWord,
-		STAT_ArgWord_Period,
-		STAT_ArgBracket,
-		STAT_ArgLine,
-		STAT_ArgQuote,
-		STAT_ArgBrace,
-		STAT_ArgPara,
-		STAT_ArgParaNewline,
-		STAT_ArgCustom,
-		STAT_ArgCustom_Backslash,
-	};
-protected:
-	Stat _stat;
-	String _str;
-	String _strAhead;
-	String _name;
-	int _iArg;
 	StringList _args;
 	const CommandFormat *_pCmdFmt;
 public:
-	Command();
+	Decomposer(bool toplevelFlag);
 	bool FeedChar(Environment &env, char ch);
+	bool EvaluateCommand(Environment &env) const;
+	const char *GetResult() const;
+public:
 };
 
 //-----------------------------------------------------------------------------
