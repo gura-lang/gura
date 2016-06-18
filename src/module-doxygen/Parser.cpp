@@ -264,26 +264,23 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_CommandInArgPara: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_strAhead.c_str() + 1);
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
 			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {
 				Gura_PushbackEx(ch);
-				_str += _strAhead;
+				//_str += _strAhead;
 				_stat = STAT_ArgPara;
 			} else {
-				//_pElemCmd->SetArgElem(new Elem_Text(_str)); // last argument
 				_args.push_back(_str);
 				if (!EvaluateCommand(env)) return false;
 				// special commands
 				_pCmdFmt = pCmdFmt;
 				Gura_PushbackEx(ch);
-				//_pElemCmd.reset(new Elem_Command(pCmdFmt));
-				//_pElemRoot->AddElem(_pElemCmd->Reference());
 				_args.clear();
 				_str.clear();
 				_stat = STAT_NextArg;
 			}
 		} else {
-			_strAhead += ch;
+			_name += ch;
 		}
 		break;
 	}
@@ -372,7 +369,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWord: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Gura_PushbackEx(ch);
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (ch == '.') {
@@ -386,7 +382,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Gura_PushbackEx(ch);
 			Gura_PushbackEx('.');
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
@@ -401,7 +396,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
 			return false;
 		} else if (ch == ']') {
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
@@ -412,7 +406,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgLine: {
 		if (ch == '\n' || ch == '\0') {
 			if (ch == '\0') Gura_PushbackEx(ch);
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
@@ -425,7 +418,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
@@ -438,7 +430,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
 			return false;
 		} else if (ch == '}') {
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else {
@@ -453,12 +444,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
 			Gura_PushbackEx(ch);
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
-			_strAhead.clear();
-			_strAhead += ch;
+			_name.clear();
 			_stat = STAT_CommandInArgPara;
 		} else {
 			_str += ch;
@@ -468,7 +457,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgParaNewline: {
 		if (ch == '\n') {
 			// detected a blank line
-			//_pElemCmd->SetArgElem(new Elem_Text(_str));
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
@@ -489,8 +477,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else if (ch == '\\') {
 			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
-			_strAhead.clear();
-			_strAhead += ch;
+			_name.clear();
 			_stat = STAT_CommandInArgCustom;
 		} else { // including '\0'
 			_str += ch;
