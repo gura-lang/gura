@@ -74,12 +74,14 @@ private:
 	String _name;
 	StringList _args;
 	const CommandFormat *_pCmdFmt;
+	std::unique_ptr<Decomposer> _pDecomposerSub;
 public:
 	Decomposer(int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
-	bool EvaluateCommand(Environment &env) const;
+	bool EvaluateSpecialCommand(Environment &env) const;
+	bool EvaluateCustomCommand(Environment &env, const char *name) const;
 	const char *GetResult() const;
-public:
+	inline bool IsComplete() const { return _stat == STAT_Complete; }
 };
 
 //-----------------------------------------------------------------------------

@@ -210,6 +210,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegionEx(char, 16, ch);
 	//::printf("stat=%d\n", _stat);
+	if (_pDecomposerSub.get() != nullptr) {
+	}
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
@@ -245,9 +247,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					_str.clear();
 					_stat = STAT_ArgCustom;
 				} else {
+					if (!EvaluateCustomCommand(env, _name.c_str())) return false;
 					_str.clear();
 					Gura_PushbackEx(ch);
-					_stat = STAT_Text;
+					_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 				}
 			} else {
 				// special commands
@@ -271,7 +274,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgPara;
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				_args.push_back(_str);
-				if (!EvaluateCommand(env)) return false;
+				if (!EvaluateSpecialCommand(env)) return false;
 				// special commands
 				_pCmdFmt = pCmdFmt;
 				Gura_PushbackEx(ch);
@@ -298,9 +301,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Gura_PushbackEx(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			if (!EvaluateCommand(env)) return false;
+			if (!EvaluateSpecialCommand(env)) return false;
 			Gura_PushbackEx(ch);
-			_stat = STAT_Text;
+			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		}
 		break;
 	}
@@ -473,21 +476,33 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgCustom: {
 		if (ch == '}') {
+			_args.push_back(_str);
+			if (!EvaluateCustomCommand(env, _name.c_str())) return false;
 			_str.clear();
-			_stat = STAT_Text;
+			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
-			
+			_args.push_back(_str);
+			_str.clear();
 		} else if (ch == '\\') {
 			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
 			_name.clear();
 			_stat = STAT_CommandInArgCustom;
-		} else { // including '\0'
+		} else if (ch == '\0') {
+			// nothing to do
+		} else {
 			_str += ch;
 		}
 		break;
 	}
 	case STAT_ArgCustom_Backslash: {
+		if (ch == '\0') {
+			// nothing to do
+			_stat = STAT_ArgCustom;
+		} else {
+			_str += ch;
+			_stat = STAT_ArgCustom;
+		}
 		break;
 	}
 	case STAT_Complete: {
@@ -499,13 +514,24 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Decomposer::EvaluateCommand(Environment &env) const
+bool Decomposer::EvaluateSpecialCommand(Environment &env) const
 {
-	::printf("evaluate command: %s\n", _pCmdFmt->GetName());
+	::printf("evaluate special command: %s\n", _pCmdFmt->GetName());
 	CommandFormat::ArgOwner::const_iterator ppArg = _pCmdFmt->GetArgOwner().begin();
 	foreach_const (StringList, pStr, _args) {
 		::printf("  %s: %s\n", (*ppArg)->GetName(), MakeQuotedString(pStr->c_str()).c_str());
 		ppArg++;
+	}
+	return true;
+}
+
+bool Decomposer::EvaluateCustomCommand(Environment &env, const char *name) const
+{
+	::printf("evaluate custom command: %s\n", name);
+	int iArg = 0;
+	foreach_const (StringList, pStr, _args) {
+		::printf("  \\%d: %s\n", iArg + 1, MakeQuotedString(pStr->c_str()).c_str());
+		iArg++;
 	}
 	return true;
 }

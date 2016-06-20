@@ -5,6 +5,7 @@ import(doxygen)
 testCases = [
 R'''
 /*!
+  \foo{arg1,arg2,arg3}
   \param a an integer argument.
   \param s a constant character pointer.
   \return The test results
