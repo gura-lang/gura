@@ -519,11 +519,29 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 bool Decomposer::EvaluateSpecialCommand(
 	Environment &env, const CommandFormat *pCmdFmt, const StringList &args) const
 {
+#if 0
 	::printf("evaluate special command: %s\n", pCmdFmt->GetName());
 	CommandFormat::ArgOwner::const_iterator ppArg = pCmdFmt->GetArgOwner().begin();
 	foreach_const (StringList, pStr, args) {
 		::printf("  %s: %s\n", (*ppArg)->GetName(), MakeQuotedString(pStr->c_str()).c_str());
 		ppArg++;
+	}
+#endif
+	String funcName = "On_";
+	funcName += pCmdFmt->GetName();
+	const Function *pFunc = _pObjParser->LookupFunction(Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	if (pFunc == nullptr) {
+		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
+		return false;
+	}
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	foreach_const (StringList, pStr, args) {
+		if (!pArg->StoreValue(env, Value(*pStr))) return false;
+	}
+	Value rtn = pFunc->Eval(env, *pArg);
+	if (!rtn.Is_string()) {
+		env.SetError(ERR_ValueError, "function must return a string value");
+		return false;
 	}
 	return true;
 }
@@ -531,12 +549,14 @@ bool Decomposer::EvaluateSpecialCommand(
 bool Decomposer::EvaluateCustomCommand(
 	Environment &env, const char *name, const StringList &args) const
 {
+#if 0
 	::printf("evaluate custom command: %s\n", name);
 	int iArg = 0;
 	foreach_const (StringList, pStr, args) {
 		::printf("  #%d: %s\n", iArg + 1, MakeQuotedString(pStr->c_str()).c_str());
 		iArg++;
 	}
+#endif
 	return true;
 }
 

@@ -126,6 +126,9 @@ R'''
 ]
 
 Parser = class(doxygen.parser) {
+	On_param(a, b, c, d) = {''}
+	On_return(a, b, c) = {''}
+	On_sa(a, b, c) = {''}
 }
 parser = Parser()
 
