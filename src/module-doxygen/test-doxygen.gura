@@ -126,9 +126,11 @@ R'''
 ]
 
 Parser = class(doxygen.parser) {
-	On_param(a, b, c, d) = {''}
-	On_return(a, b, c) = {''}
-	On_sa(a, b, c) = {''}
+	@param(dir, name, description) = {
+		'param ' + dir + ' ' + name + ' ' + description
+	}
+	@return(description) = {'return ' + description}
+	@sa(references) = {'sa ' + references}
 }
 parser = Parser()
 

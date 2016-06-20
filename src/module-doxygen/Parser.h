@@ -81,9 +81,9 @@ public:
 	Decomposer(Object_parser *pObjParser, int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
 	bool EvaluateSpecialCommand(
-		Environment &env, const CommandFormat *pCmdFmt, const StringList &args) const;
+		Environment &env, const CommandFormat *pCmdFmt, const StringList &args);
 	bool EvaluateCustomCommand(
-		Environment &env, const char *name, const StringList &args) const;
+		Environment &env, const char *name, const StringList &args);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 };
