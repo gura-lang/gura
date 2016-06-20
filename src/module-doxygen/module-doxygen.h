@@ -6,6 +6,7 @@
 #include <gura.h>
 #include "CommandFormat.h"
 #include "Parser.h"
+#include "Class_parser.h"
 
 Gura_BeginModuleHeader(doxygen)
 

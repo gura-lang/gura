@@ -8,6 +8,7 @@
 Gura_BeginModuleScope(doxygen)
 
 class Decomposer;
+class Object_parser;
 
 //-----------------------------------------------------------------------------
 // Parser
@@ -35,7 +36,7 @@ private:
 	Stat _stat;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
-	Parser();
+	Parser(Object_parser *pObjParser);
 	bool FeedChar(Environment &env, char ch);
 	const char *ParseStream(Environment &env, SimpleStream &stream);
 };
@@ -66,6 +67,7 @@ public:
 		STAT_Complete,
 	};
 private:
+	Object_parser *_pObjParser;
 	bool _depthLevel;
 	Stat _stat;
 	String _result;
@@ -76,7 +78,7 @@ private:
 	const CommandFormat *_pCmdFmtCur;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
 public:
-	Decomposer(int depthLevel = 0);
+	Decomposer(Object_parser *pObjParser, int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
 	bool EvaluateSpecialCommand(
 		Environment &env, const CommandFormat *pCmdFmt, const StringList &args) const;

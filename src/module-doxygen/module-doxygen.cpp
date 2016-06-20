@@ -20,7 +20,7 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	Parser parser;
+	Parser parser(nullptr);
 	const char *result = parser.ParseStream(env, arg.GetStream(0));
 	if (result != nullptr) {
 		::printf("%s\n", result);
@@ -71,6 +71,10 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	CommandFormat::Initialize();
+	// class realization
+	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
+	// class preparation
+	Gura_PrepareUserClass(parser);
 	// function assignment
 	Gura_AssignFunction(test);
 	// registoration of HelpPresenter

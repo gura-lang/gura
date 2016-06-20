@@ -8,7 +8,8 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer())
+Parser::Parser(Object_parser *pObjParser) :
+	_stat(STAT_Indent), _pDecomposer(new Decomposer(pObjParser))
 {
 }
 
@@ -201,8 +202,8 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer(int depthLevel) :
-	_depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmtCur(nullptr)
+Decomposer::Decomposer(Object_parser *pObjParser, int depthLevel) :
+	_pObjParser(pObjParser), _depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmtCur(nullptr)
 {
 }
 
