@@ -66,7 +66,7 @@ public:
 		STAT_Complete,
 	};
 private:
-	bool _toplevelFlag;
+	bool _depthLevel;
 	Stat _stat;
 	String _result;
 	String _str;
@@ -75,7 +75,7 @@ private:
 	StringList _args;
 	const CommandFormat *_pCmdFmt;
 public:
-	Decomposer(bool toplevelFlag);
+	Decomposer(int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
 	bool EvaluateCommand(Environment &env) const;
 	const char *GetResult() const;

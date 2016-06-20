@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer(true))
+Parser::Parser() : _stat(STAT_Indent), _pDecomposer(new Decomposer())
 {
 }
 
@@ -201,8 +201,8 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer(bool toplevelFlag) :
-	_toplevelFlag(toplevelFlag), _stat(STAT_Init), _pCmdFmt(nullptr)
+Decomposer::Decomposer(int depthLevel) :
+	_depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmt(nullptr)
 {
 }
 
@@ -265,11 +265,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
-			if (pCmdFmt == nullptr || !pCmdFmt->IsSection()) {
+			if (pCmdFmt == nullptr) {
+				// custom command
 				Gura_PushbackEx(ch);
-				//_str += _strAhead;
 				_stat = STAT_ArgPara;
-			} else {
+			} else if (pCmdFmt->IsSection()) {
 				_args.push_back(_str);
 				if (!EvaluateCommand(env)) return false;
 				// special commands
@@ -278,6 +278,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_args.clear();
 				_str.clear();
 				_stat = STAT_NextArg;
+			} else {
+				Gura_PushbackEx(ch);
+				_stat = STAT_ArgPara;
 			}
 		} else {
 			_name += ch;
