@@ -54,12 +54,38 @@ String Object_parser::ToString(bool exprFlag)
 	return rtn;
 }
 
+//----------------------------------------------------------------------------
+// Constructor
+//----------------------------------------------------------------------------
+Gura_DeclareFunction(parser)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetClassToConstruct(Gura_UserClass(parser));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(parser)
+{
+	Signal &sig = env.GetSignal();
+	Object_parser *pObj = Object_parser::GetObjectThis(arg);
+	if (pObj == nullptr) {
+		pObj = new Object_parser(Gura_UserClass(parser));
+		return ReturnValue(env, arg, Value(pObj));
+	}
+	return ReturnValue(env, arg, arg.GetValueThis());
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.parser
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(parser)
+Gura_ImplementUserInheritableClass(parser)
 {
-	Gura_AssignValue(parser, Reference());
+	Gura_AssignFunction(parser);
+}
+
+Gura_ImplementDescendantCreator(parser)
+{
+	return new Object_parser((pClass == nullptr)? this : pClass);
 }
 
 Gura_EndModuleScope(doxygen)
