@@ -75,12 +75,36 @@ Gura_ImplementFunction(parser)
 	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
+//----------------------------------------------------------------------------
+// Methods
+//----------------------------------------------------------------------------
+// doxygen.parser#parse(stream:stream):void:map
+Gura_DeclareMethod(parser, parse)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(parser, parse)
+{
+	Parser &parser = Object_parser::GetObjectThis(arg)->GetParser();
+	const char *result = parser.ParseStream(env, arg.GetStream(0));
+	if (result != nullptr) {
+		::printf("%s\n", result);
+	}
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.parser
 //-----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(parser)
 {
 	Gura_AssignFunction(parser);
+	Gura_AssignMethod(parser, parse);
 }
 
 Gura_ImplementDescendantCreator(parser)

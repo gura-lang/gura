@@ -125,8 +125,12 @@ R'''
 '''
 ]
 
+Parser = class(doxygen.parser) {
+}
+parser = Parser()
+
 testCases.head(1).each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
-	doxygen.test(testCase.reader())
+	parser.parse(testCase.reader())
 	println()
 }
