@@ -73,13 +73,15 @@ private:
 	String _strAhead;
 	String _name;
 	StringList _args;
-	const CommandFormat *_pCmdFmt;
+	const CommandFormat *_pCmdFmtCur;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
 public:
 	Decomposer(int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
-	bool EvaluateSpecialCommand(Environment &env) const;
-	bool EvaluateCustomCommand(Environment &env, const char *name) const;
+	bool EvaluateSpecialCommand(
+		Environment &env, const CommandFormat *pCmdFmt, const StringList &args) const;
+	bool EvaluateCustomCommand(
+		Environment &env, const char *name, const StringList &args) const;
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 };

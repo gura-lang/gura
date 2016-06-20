@@ -202,7 +202,7 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 // Decomposer
 //-----------------------------------------------------------------------------
 Decomposer::Decomposer(int depthLevel) :
-	_depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmt(nullptr)
+	_depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmtCur(nullptr)
 {
 }
 
@@ -240,20 +240,21 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
-			_pCmdFmt = CommandFormat::Lookup(_name.c_str());
-			if (_pCmdFmt == nullptr) {
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
+			if (pCmdFmt == nullptr) {
 				// custom commands
 				if (ch == '{') {
 					_str.clear();
 					_stat = STAT_ArgCustom;
 				} else {
-					if (!EvaluateCustomCommand(env, _name.c_str())) return false;
+					if (!EvaluateCustomCommand(env, _name.c_str(), _args)) return false;
 					_str.clear();
 					Gura_PushbackEx(ch);
 					_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 				}
 			} else {
 				// special commands
+				_pCmdFmtCur = pCmdFmt;
 				Gura_PushbackEx(ch);
 				_args.clear();
 				_str.clear();
@@ -274,9 +275,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgPara;
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				_args.push_back(_str);
-				if (!EvaluateSpecialCommand(env)) return false;
+				if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _args)) return false;
 				// special commands
-				_pCmdFmt = pCmdFmt;
+				_pCmdFmtCur = pCmdFmt;
 				Gura_PushbackEx(ch);
 				_args.clear();
 				_str.clear();
@@ -295,20 +296,20 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
 		size_t iArg = _args.size();
 		if (iArg < argOwner.size()) {
 			Gura_PushbackEx(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			if (!EvaluateSpecialCommand(env)) return false;
+			if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _args)) return false;
 			Gura_PushbackEx(ch);
 			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		}
 		break;
 	}
 	case STAT_BranchArg: {
-		const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
 		size_t iArg = _args.size();
 		const CommandFormat::Arg *pArg = argOwner[iArg];
 		if (ch == ' ' || ch == '\t') {
@@ -477,7 +478,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_args.push_back(_str);
-			if (!EvaluateCustomCommand(env, _name.c_str())) return false;
+			if (!EvaluateCustomCommand(env, _name.c_str(), _args)) return false;
 			_str.clear();
 			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
@@ -514,23 +515,25 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Decomposer::EvaluateSpecialCommand(Environment &env) const
+bool Decomposer::EvaluateSpecialCommand(
+	Environment &env, const CommandFormat *pCmdFmt, const StringList &args) const
 {
-	::printf("evaluate special command: %s\n", _pCmdFmt->GetName());
-	CommandFormat::ArgOwner::const_iterator ppArg = _pCmdFmt->GetArgOwner().begin();
-	foreach_const (StringList, pStr, _args) {
+	::printf("evaluate special command: %s\n", pCmdFmt->GetName());
+	CommandFormat::ArgOwner::const_iterator ppArg = pCmdFmt->GetArgOwner().begin();
+	foreach_const (StringList, pStr, args) {
 		::printf("  %s: %s\n", (*ppArg)->GetName(), MakeQuotedString(pStr->c_str()).c_str());
 		ppArg++;
 	}
 	return true;
 }
 
-bool Decomposer::EvaluateCustomCommand(Environment &env, const char *name) const
+bool Decomposer::EvaluateCustomCommand(
+	Environment &env, const char *name, const StringList &args) const
 {
 	::printf("evaluate custom command: %s\n", name);
 	int iArg = 0;
-	foreach_const (StringList, pStr, _args) {
-		::printf("  \\%d: %s\n", iArg + 1, MakeQuotedString(pStr->c_str()).c_str());
+	foreach_const (StringList, pStr, args) {
+		::printf("  #%d: %s\n", iArg + 1, MakeQuotedString(pStr->c_str()).c_str());
 		iArg++;
 	}
 	return true;
