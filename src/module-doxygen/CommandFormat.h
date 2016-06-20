@@ -38,7 +38,6 @@ public:
 		ARGTYPE_Brace,
 		ARGTYPE_BraceOpt,
 		ARGTYPE_Para,
-		ARGTYPE_ParaOpt,
 	};
 	class Arg {
 	protected:
@@ -56,7 +55,6 @@ public:
 		inline bool IsBrace() const		{ return _argType == ARGTYPE_Brace; }
 		inline bool IsBraceOpt() const	{ return _argType == ARGTYPE_BraceOpt; }
 		inline bool IsPara() const		{ return _argType == ARGTYPE_Para; }
-		inline bool IsParaOpt() const	{ return _argType == ARGTYPE_ParaOpt; }
 		const char *GetName() const { return _name.c_str(); }
 		ArgType GetArgType() const { return _argType; }
 		const char *GetArgTypeName() const { return ArgTypeToName(_argType); }
@@ -75,11 +73,9 @@ protected:
 	static std::unique_ptr<CommandFormatDict> _pCmdFmtDict;
 public:
 	inline CommandFormat(const char *name, CmdType cmdType) : _name(name), _cmdType(cmdType) {}
-	inline bool IsStructure() const	{ return _cmdType == CMDTYPE_Structure; }
-	inline bool IsSection() const	{ return _cmdType == CMDTYPE_Section; }
-	inline bool IsLink() const		{ return _cmdType == CMDTYPE_Link; }
-	inline bool IsExample() const	{ return _cmdType == CMDTYPE_Example; }
-	inline bool IsVisual() const	{ return _cmdType == CMDTYPE_Visual; }
+	inline bool IsSectionIndicator() const {
+		return _cmdType == CMDTYPE_Section || (!_argOwner.empty() && _argOwner.back()->IsPara());
+	}
 	inline const char *GetName() const { return _name.c_str(); }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
 public:
@@ -115,9 +111,6 @@ protected:
 	}
 	inline static Arg *ArgPara(const char *name) {
 		return new Arg(ARGTYPE_Para, name);
-	}
-	inline static Arg *ArgParaOpt(const char *name) {
-		return new Arg(ARGTYPE_ParaOpt, name);
 	}
 	inline static CommandFormat *Create(const char *name, CmdType cmdType) {
 		CommandFormat *pCmdFmt = new CommandFormat(name, cmdType);

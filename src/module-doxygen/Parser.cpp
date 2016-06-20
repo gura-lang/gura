@@ -269,7 +269,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// custom command
 				Gura_PushbackEx(ch);
 				_stat = STAT_ArgPara;
-			} else if (pCmdFmt->IsSection()) {
+			} else if (pCmdFmt->IsSectionIndicator()) {
 				_args.push_back(_str);
 				if (!EvaluateCommand(env)) return false;
 				// special commands
@@ -362,7 +362,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_args.push_back("");
 				_stat = STAT_NextArg;
 			}
-		} else if (pArg->IsPara() || pArg->IsParaOpt()) {
+		} else if (pArg->IsPara()) {
 			Gura_PushbackEx(ch);
 			_str.clear();
 			_stat = STAT_ArgPara;

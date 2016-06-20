@@ -386,7 +386,6 @@ const char *CommandFormat::ArgTypeToName(ArgType argType)
 		{ ARGTYPE_Brace,	"brace"		},
 		{ ARGTYPE_BraceOpt,	"brace?"	},
 		{ ARGTYPE_Para,		"para"		},
-		{ ARGTYPE_ParaOpt,	"para?"		},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].argType == argType) return tbl[i].name;
