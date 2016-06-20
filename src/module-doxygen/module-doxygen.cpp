@@ -8,25 +8,6 @@ Gura_BeginModuleBody(doxygen)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// doxygen.test(stream:stream):void:map
-Gura_DeclareFunction(test)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"");
-}
-
-Gura_ImplementFunction(test)
-{
-	Parser parser(nullptr);
-	const char *result = parser.ParseStream(env, arg.GetStream(0));
-	if (result != nullptr) {
-		::printf("%s\n", result);
-	}
-	return Value::Nil;
-}
 
 //-----------------------------------------------------------------------------
 // HelpPresenter_doxygen
@@ -76,7 +57,7 @@ Gura_ModuleEntry()
 	// class preparation
 	Gura_PrepareUserClass(parser);
 	// function assignment
-	Gura_AssignFunction(test);
+	//Gura_AssignFunction(test);
 	// registoration of HelpPresenter
 	HelpPresenter::Register(env, new HelpPresenter_doxygen());
 	return true;
