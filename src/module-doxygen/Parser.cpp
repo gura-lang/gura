@@ -203,7 +203,8 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 // Decomposer
 //-----------------------------------------------------------------------------
 Decomposer::Decomposer(Object_parser *pObjParser, int depthLevel) :
-	_pObjParser(pObjParser), _depthLevel(depthLevel), _stat(STAT_Init), _pCmdFmtCur(nullptr)
+	_pObjParser(pObjParser), _depthLevel(depthLevel), _stat(STAT_Init),
+	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom))
 {
 }
 
@@ -250,9 +251,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom commands
+				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				if (ch == '{') {
 					_str.clear();
-					_stat = STAT_ArgCustom;
+					_stat = STAT_NextArgCustom;
 				} else {
 					if (!EvaluateCustomCommand(env, _cmdName.c_str(), _args)) return false;
 					_str.clear();
@@ -265,7 +267,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				Gura_PushbackEx(ch);
 				_args.clear();
 				_str.clear();
-				_stat = STAT_NextArg;
+				_stat = STAT_NextArgSpecial;
 			}
 		} else {
 			_cmdName += ch;
@@ -304,19 +306,24 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
-		size_t iArg = _args.size();
-		if (iArg < argOwner.size()) {
+		if (_pCmdFmtCur->IsCustom()) {
 			Gura_PushbackEx(ch);
-			_stat = STAT_BranchArg;
+			_stat = STAT_NextArgCustom;
 		} else {
-			if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _args)) return false;
-			Gura_PushbackEx(ch);
-			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
+			const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
+			size_t iArg = _args.size();
+			if (iArg < argOwner.size()) {
+				Gura_PushbackEx(ch);
+				_stat = STAT_NextArgSpecial;
+			} else {
+				if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _args)) return false;
+				Gura_PushbackEx(ch);
+				_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
+			}
 		}
 		break;
 	}
-	case STAT_BranchArg: {
+	case STAT_NextArgSpecial: {
 		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
 		size_t iArg = _args.size();
 		const CommandFormat::Arg *pArg = argOwner[iArg];
@@ -483,7 +490,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_ArgCustom: {
+	case STAT_NextArgCustom: {
 		if (ch == '}') {
 			_args.push_back(_str);
 			if (!EvaluateCustomCommand(env, _cmdName.c_str(), _args)) return false;
@@ -493,7 +500,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_args.push_back(_str);
 			_str.clear();
 		} else if (ch == '\\') {
-			_stat = STAT_ArgCustom_Backslash;
+			_stat = STAT_NextArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
 			_stat = STAT_CommandInArgCustom;
@@ -504,13 +511,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_ArgCustom_Backslash: {
+	case STAT_NextArgCustom_Backslash: {
 		if (ch == '\0') {
 			// nothing to do
-			_stat = STAT_ArgCustom;
+			_stat = STAT_NextArgCustom;
 		} else {
 			_str += ch;
-			_stat = STAT_ArgCustom;
+			_stat = STAT_NextArgCustom;
 		}
 		break;
 	}

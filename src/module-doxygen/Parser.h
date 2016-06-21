@@ -53,7 +53,7 @@ public:
 		STAT_CommandInArgPara,
 		STAT_CommandInArgCustom,
 		STAT_NextArg,
-		STAT_BranchArg,
+		STAT_NextArgSpecial,
 		STAT_ArgWord,
 		STAT_ArgWord_Period,
 		STAT_ArgBracket,
@@ -62,8 +62,8 @@ public:
 		STAT_ArgBrace,
 		STAT_ArgPara,
 		STAT_ArgParaNewline,
-		STAT_ArgCustom,
-		STAT_ArgCustom_Backslash,
+		STAT_NextArgCustom,
+		STAT_NextArgCustom_Backslash,
 		STAT_Complete,
 	};
 private:
@@ -76,6 +76,7 @@ private:
 	String _cmdName;
 	StringList _args;
 	const CommandFormat *_pCmdFmtCur;
+	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
 public:
 	Decomposer(Object_parser *pObjParser, int depthLevel = 0);

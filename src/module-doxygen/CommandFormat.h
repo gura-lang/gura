@@ -32,6 +32,7 @@ public:
 		CMDTYPE_Example,
 		CMDTYPE_Visual,
 		CMDTYPE_Group,
+		CMDTYPE_Custom,
 	};
 	enum ArgType {
 		ARGTYPE_Word,
@@ -79,10 +80,13 @@ protected:
 	static CommandFormatList _cmdFmtList;
 	static CommandFormatDict _cmdFmtDict;
 public:
+	inline CommandFormat(CmdType cmdType) : _cmdType(cmdType) {}
 	inline CommandFormat(const char *name, CmdType cmdType) : _name(name), _cmdType(cmdType) {}
+	inline bool IsCustom() const { return _cmdType == CMDTYPE_Custom; }
 	inline bool IsSectionIndicator() const {
 		return _cmdType == CMDTYPE_Section || (!_argOwner.empty() && _argOwner.back()->IsPara());
 	}
+	inline void SetName(const char *name) { _name = name; }
 	inline const char *GetName() const { return _name.c_str(); }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
 	String MakeHandlerDeclaration() const;
