@@ -5,6 +5,7 @@ import(doxygen)
 testCases = [
 R'''
 /*!
+  \bar
   \foo{arg1,arg2,arg3}
   \param a an integer argument.
   \param s a constant character pointer.
@@ -305,6 +306,8 @@ Parser = class(doxygen.parser) {
 	// @---() = ''
 	// @{() = ''
 	// @}() = ''
+	@bar() = 'bar'
+	@foo_3(a, b, c) = 'foo' + a + b + c
 }
 parser = Parser()
 

@@ -73,7 +73,7 @@ private:
 	String _result;
 	String _str;
 	String _strAhead;
-	String _name;
+	String _cmdName;
 	StringList _args;
 	const CommandFormat *_pCmdFmtCur;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
@@ -83,7 +83,7 @@ public:
 	bool EvaluateSpecialCommand(
 		Environment &env, const CommandFormat *pCmdFmt, const StringList &args);
 	bool EvaluateCustomCommand(
-		Environment &env, const char *name, const StringList &args);
+		Environment &env, const char *cmdName, const StringList &args);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 };

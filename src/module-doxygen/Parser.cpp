@@ -227,7 +227,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (IsCommandMark(ch)) {
-			_name.clear();
+			_cmdName.clear();
 			_stat = STAT_Command;
 		} else {
 			_result += ch;
@@ -236,19 +236,19 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Command: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
-			if (_name.empty()) {
+			(!(_cmdName == "f" || _cmdName.empty()) && (ch == '[' || ch == '{'))) {
+			if (_cmdName.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom commands
 				if (ch == '{') {
 					_str.clear();
 					_stat = STAT_ArgCustom;
 				} else {
-					if (!EvaluateCustomCommand(env, _name.c_str(), _args)) return false;
+					if (!EvaluateCustomCommand(env, _cmdName.c_str(), _args)) return false;
 					_str.clear();
 					Gura_PushbackEx(ch);
 					_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
@@ -262,14 +262,14 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else {
-			_name += ch;
+			_cmdName += ch;
 		}
 		break;
 	}
 	case STAT_CommandInArgPara: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
-			(!(_name == "f" || _name.empty()) && (ch == '[' || ch == '{'))) {
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_name.c_str());
+			(!(_cmdName == "f" || _cmdName.empty()) && (ch == '[' || ch == '{'))) {
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
 				Gura_PushbackEx(ch);
@@ -288,7 +288,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgPara;
 			}
 		} else {
-			_name += ch;
+			_cmdName += ch;
 		}
 		break;
 	}
@@ -455,7 +455,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_args.push_back(_str);
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
-			_name.clear();
+			_cmdName.clear();
 			_stat = STAT_CommandInArgPara;
 		} else {
 			_str += ch;
@@ -479,7 +479,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_args.push_back(_str);
-			if (!EvaluateCustomCommand(env, _name.c_str(), _args)) return false;
+			if (!EvaluateCustomCommand(env, _cmdName.c_str(), _args)) return false;
 			_str.clear();
 			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
@@ -488,7 +488,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else if (ch == '\\') {
 			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
-			_name.clear();
+			_cmdName.clear();
 			_stat = STAT_CommandInArgCustom;
 		} else if (ch == '\0') {
 			// nothing to do
@@ -519,17 +519,44 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 bool Decomposer::EvaluateSpecialCommand(
 	Environment &env, const CommandFormat *pCmdFmt, const StringList &args)
 {
-#if 0
-	::printf("evaluate special command: %s\n", pCmdFmt->GetName());
-	CommandFormat::ArgOwner::const_iterator ppArg = pCmdFmt->GetArgOwner().begin();
-	foreach_const (StringList, pStr, args) {
-		::printf("  %s: %s\n", (*ppArg)->GetName(), MakeQuotedString(pStr->c_str()).c_str());
-		ppArg++;
-	}
-#endif
 	String funcName = "@";
 	funcName += pCmdFmt->GetName();
-	const Function *pFunc = _pObjParser->LookupFunction(Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	const Function *pFunc = _pObjParser->LookupFunction(
+		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	if (pFunc == nullptr) {
+		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
+		return false;
+	}
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	foreach_const (StringList, pStr, args) {
+		if (!pArg->StoreValue(env, Value(*pStr))) return false;
+	}
+	if (!pArg->Complete(env)) {
+		env.SetError(ERR_ArgumentError, "expected handler is %s",
+					 pCmdFmt->MakeHandlerDeclaration().c_str());
+		return false;
+	}
+	Value rtn = pFunc->Eval(env, *pArg);
+	if (!rtn.Is_string()) {
+		env.SetError(ERR_ValueError, "function must return a string value");
+		return false;
+	}
+	_result += rtn.GetStringSTL();
+	return true;
+}
+
+bool Decomposer::EvaluateCustomCommand(
+	Environment &env, const char *cmdName, const StringList &args)
+{
+	String funcName = "@";
+	funcName += cmdName;
+	if (!args.empty()) {
+		char buff[32];
+		::sprintf(buff, "_%d", args.size());
+		funcName += buff;
+	}
+	const Function *pFunc = _pObjParser->LookupFunction(
+		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
 	if (pFunc == nullptr) {
 		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
 		return false;
@@ -545,20 +572,6 @@ bool Decomposer::EvaluateSpecialCommand(
 		return false;
 	}
 	_result += rtn.GetStringSTL();
-	return true;
-}
-
-bool Decomposer::EvaluateCustomCommand(
-	Environment &env, const char *name, const StringList &args)
-{
-#if 0
-	::printf("evaluate custom command: %s\n", name);
-	int iArg = 0;
-	foreach_const (StringList, pStr, args) {
-		::printf("  #%d: %s\n", iArg + 1, MakeQuotedString(pStr->c_str()).c_str());
-		iArg++;
-	}
-#endif
 	return true;
 }
 
