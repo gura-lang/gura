@@ -212,6 +212,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	Gura_BeginPushbackRegionEx(char, 16, ch);
 	//::printf("stat=%d\n", _stat);
 	if (_pDecomposerSub.get() != nullptr) {
+		if (!_pDecomposerSub->FeedChar(env, ch)) return false;
+		if (_pDecomposerSub->IsComplete()) {
+			if (!FeedString(env, _pDecomposerSub->GetResult())) return false;
+			_pDecomposerSub.reset(nullptr);
+		}
+		continue;
 	}
 	switch (_stat) {
 	case STAT_Init: {
@@ -284,6 +290,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_str.clear();
 				_stat = STAT_NextArg;
 			} else {
+				_pDecomposerSub.reset(new Decomposer(_pObjParser, _depthLevel + 1));
 				Gura_PushbackEx(ch);
 				_stat = STAT_ArgPara;
 			}
@@ -513,6 +520,14 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	Gura_EndPushbackRegionEx();
 	if (ch == '\0') _stat = STAT_Complete;
+	return true;
+}
+
+bool Decomposer::FeedString(Environment &env, const char *str)
+{
+	for (const char *p = str; *p != '\0'; p++) {
+		if (!FeedChar(env, *p)) return false;
+	}
 	return true;
 }
 

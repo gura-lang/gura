@@ -80,6 +80,7 @@ private:
 public:
 	Decomposer(Object_parser *pObjParser, int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
+	bool FeedString(Environment &env, const char *str);
 	bool EvaluateSpecialCommand(
 		Environment &env, const CommandFormat *pCmdFmt, const StringList &args);
 	bool EvaluateCustomCommand(
