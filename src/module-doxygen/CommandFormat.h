@@ -9,6 +9,12 @@ Gura_BeginModuleScope(doxygen)
 class CommandFormat;
 
 //-----------------------------------------------------------------------------
+// CommandFormatList
+//-----------------------------------------------------------------------------
+class CommandFormatList : public std::vector<const CommandFormat *> {
+};
+
+//-----------------------------------------------------------------------------
 // CommandFormatDict
 //-----------------------------------------------------------------------------
 class CommandFormatDict : public std::map<const String, const CommandFormat *> {
@@ -70,7 +76,8 @@ protected:
 	String _name;
 	CmdType _cmdType;
 	ArgOwner _argOwner;
-	static std::unique_ptr<CommandFormatDict> _pCmdFmtDict;
+	static CommandFormatList _cmdFmtList;
+	static CommandFormatDict _cmdFmtDict;
 public:
 	inline CommandFormat(const char *name, CmdType cmdType) : _name(name), _cmdType(cmdType) {}
 	inline bool IsSectionIndicator() const {
@@ -78,9 +85,14 @@ public:
 	}
 	inline const char *GetName() const { return _name.c_str(); }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
+	String MakeHandlerDeclaration() const;
+	bool HasNormalCommandName() const;
 public:
 	static void Initialize();
 	static const CommandFormat *Lookup(const char *name);
+	inline static const CommandFormatList &GetCommandFormatList() {
+		return _cmdFmtList;
+	}
 protected:
 	inline static Arg *ArgWord(const char *name) {
 		return new Arg(ARGTYPE_Word, name);
@@ -114,7 +126,8 @@ protected:
 	}
 	inline static CommandFormat *Create(const char *name, CmdType cmdType) {
 		CommandFormat *pCmdFmt = new CommandFormat(name, cmdType);
-		(*_pCmdFmtDict)[name] = pCmdFmt;
+		_cmdFmtList.push_back(pCmdFmt);
+		_cmdFmtDict[name] = pCmdFmt;
 		return pCmdFmt;
 	}
 	inline static void Register(const char *name, CmdType cmdType) {

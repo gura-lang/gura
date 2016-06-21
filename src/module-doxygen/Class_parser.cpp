@@ -57,6 +57,7 @@ String Object_parser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
+// doxygen.parser() {block?}
 Gura_DeclareFunction(parser)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);

@@ -8,6 +8,32 @@ Gura_BeginModuleBody(doxygen)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
+// doxygen.makescript(stream?:stream):void
+Gura_DeclareFunction(makescript)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(makescript)
+{
+	Signal &sig = env.GetSignal();
+	Stream *pStream = arg.IsValid(0)? &arg.GetStream(0) : env.GetConsole();
+	const CommandFormatList &cmdFmtList = CommandFormat::GetCommandFormatList();
+	pStream->Printf(sig, "Parser = class(doxygen.parser) {\n");
+	if (sig.IsSignalled()) return Value::Nil;
+	foreach_const (CommandFormatList, ppCmdFmt, cmdFmtList) {
+		const CommandFormat *pCmdFmt = *ppCmdFmt;
+		if (pCmdFmt->HasNormalCommandName()) {
+			pStream->Printf(sig, "\t%s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
+		} else {
+			pStream->Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
+		}
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	pStream->Printf(sig, "}\n");
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // HelpPresenter_doxygen
@@ -57,7 +83,7 @@ Gura_ModuleEntry()
 	// class preparation
 	Gura_PrepareUserClass(parser);
 	// function assignment
-	//Gura_AssignFunction(test);
+	Gura_AssignFunction(makescript);
 	// registoration of HelpPresenter
 	HelpPresenter::Register(env, new HelpPresenter_doxygen());
 	return true;

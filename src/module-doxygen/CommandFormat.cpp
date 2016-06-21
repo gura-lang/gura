@@ -8,11 +8,37 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // CommandFormat
 //-----------------------------------------------------------------------------
-std::unique_ptr<CommandFormatDict> CommandFormat::_pCmdFmtDict;
+CommandFormatList CommandFormat::_cmdFmtList;
+CommandFormatDict CommandFormat::_cmdFmtDict;
+
+String CommandFormat::MakeHandlerDeclaration() const
+{
+	String str;
+	str += "@";
+	str += _name;
+	str += "(";
+	size_t iArg = 0;
+	foreach_const (ArgOwner, ppArg, _argOwner) {
+		const Arg *pArg = *ppArg;
+		if (iArg > 0) str += ", ";
+		str += pArg->GetName();
+		str += ":string";
+		iArg++;
+	}
+	str += ")";
+	return str;
+}
+
+bool CommandFormat::HasNormalCommandName() const
+{
+	foreach_const (String, p, _name) {
+		if (!(IsAlpha(*p) || *p == '_')) return false;
+	}
+	return true;
+}
 
 void CommandFormat::Initialize()
 {
-	_pCmdFmtDict.reset(new CommandFormatDict());
 	// Structural indicators
 	Register("addtogroup",		CMDTYPE_Structure,
 			 ArgWord("name"),
@@ -366,8 +392,8 @@ void CommandFormat::Initialize()
 	
 const CommandFormat *CommandFormat::Lookup(const char *name)
 {
-	CommandFormatDict::iterator iter = _pCmdFmtDict->find(name);
-	return (iter == _pCmdFmtDict->end())? nullptr : iter->second;
+	CommandFormatDict::iterator iter = _cmdFmtDict.find(name);
+	return (iter == _cmdFmtDict.end())? nullptr : iter->second;
 }
 
 const char *CommandFormat::ArgTypeToName(ArgType argType)
