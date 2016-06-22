@@ -244,11 +244,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (pCmdFmt == nullptr) {
 				// custom commands
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
+				_pCmdFmtCur = _pCmdFmtCustom.get();
 				if (ch == '{') {
 					_strArg.clear();
 					_stat = STAT_NextArgCustom;
 				} else {
-					if (!EvaluateCustomCommand(env, _cmdName.c_str(), _strArgs)) return false;
+					_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+					if (env.IsSignalled()) return false;
 					_strArg.clear();
 					Gura_PushbackEx(ch);
 					_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
@@ -276,7 +278,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgPara;
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				_strArgs.push_back(_strArg);
-				if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _strArgs)) return false;
+				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+				if (env.IsSignalled()) return false;
 				// special commands
 				_pCmdFmtCur = pCmdFmt;
 				Gura_PushbackEx(ch);
@@ -318,7 +321,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				Gura_PushbackEx(ch);
 				_stat = STAT_NextArgSpecial;
 			} else {
-				if (!EvaluateSpecialCommand(env, _pCmdFmtCur, _strArgs)) return false;
+				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+				if (env.IsSignalled()) return false;
 				Gura_PushbackEx(ch);
 				_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 			}
@@ -495,7 +499,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_NextArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
-			if (!EvaluateCustomCommand(env, _cmdName.c_str(), _strArgs)) return false;
+			_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+			if (env.IsSignalled()) return false;
 			_strArg.clear();
 			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
@@ -540,6 +545,7 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	return true;
 }
 
+#if 0
 bool Decomposer::EvaluateSpecialCommand(
 	Environment &env, const CommandFormat *pCmdFmt, const StringList &strArgs)
 {
@@ -598,6 +604,7 @@ bool Decomposer::EvaluateCustomCommand(
 	_result += rtn.GetStringSTL();
 	return true;
 }
+#endif
 
 const char *Decomposer::GetResult() const
 {

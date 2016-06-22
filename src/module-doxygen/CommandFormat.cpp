@@ -11,11 +11,16 @@ Gura_BeginModuleScope(doxygen)
 CommandFormatList CommandFormat::_cmdFmtList;
 CommandFormatDict CommandFormat::_cmdFmtDict;
 
-String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strArgs)
+String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strArgs) const
 {
 	Environment &env = *pObjParser;
 	String funcName = "@";
 	funcName += GetName();
+	if (IsCustom() && !strArgs.empty()) {
+		char buff[32];
+		::sprintf(buff, "_%lu", strArgs.size());
+		funcName += buff;
+	}
 	const Function *pFunc = pObjParser->LookupFunction(
 		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
 	if (pFunc == nullptr) {
@@ -26,13 +31,11 @@ String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strA
 	foreach_const (StringList, pStrArg, strArgs) {
 		if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
 	}
-	if (pArg->Complete(env)) {
-		// nothing to do
-	} else if (IsCustom()) {
-		return "";
-	} else {
-		env.SetError(ERR_ArgumentError, "expected handler is %s",
-					 MakeHandlerDeclaration().c_str());
+	if (!pArg->Complete(env)) {
+		if (IsSpecial()) {
+			env.SetError(ERR_ArgumentError, "expected handler is %s",
+						 MakeHandlerDeclaration().c_str());
+		}
 		return "";
 	}
 	Value rtn = pFunc->Eval(env, *pArg);
