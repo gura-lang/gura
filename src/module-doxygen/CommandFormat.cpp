@@ -11,6 +11,38 @@ Gura_BeginModuleScope(doxygen)
 CommandFormatList CommandFormat::_cmdFmtList;
 CommandFormatDict CommandFormat::_cmdFmtDict;
 
+String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strArgs)
+{
+	Environment &env = *pObjParser;
+	String funcName = "@";
+	funcName += GetName();
+	const Function *pFunc = pObjParser->LookupFunction(
+		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	if (pFunc == nullptr) {
+		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
+		return "";
+	}
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	foreach_const (StringList, pStrArg, strArgs) {
+		if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
+	}
+	if (pArg->Complete(env)) {
+		// nothing to do
+	} else if (IsCustom()) {
+		return "";
+	} else {
+		env.SetError(ERR_ArgumentError, "expected handler is %s",
+					 MakeHandlerDeclaration().c_str());
+		return "";
+	}
+	Value rtn = pFunc->Eval(env, *pArg);
+	if (!rtn.Is_string()) {
+		env.SetError(ERR_ValueError, "function must return a string value");
+		return "";
+	}
+	return rtn.GetStringSTL();
+}
+
 String CommandFormat::MakeHandlerDeclaration() const
 {
 	String str;
