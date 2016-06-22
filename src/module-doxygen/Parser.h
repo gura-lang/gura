@@ -3,7 +3,6 @@
 //=============================================================================
 #ifndef __GURA_DOXYGEN_PARSER_H__
 #define __GURA_DOXYGEN_PARSER_H__
-#include "Elem.h"
 
 Gura_BeginModuleScope(doxygen)
 
