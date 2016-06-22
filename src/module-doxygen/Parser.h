@@ -51,6 +51,7 @@ public:
 		STAT_Text,
 		STAT_Command,
 		STAT_CommandInArgPara,
+		STAT_DecomposeInArgPara,
 		STAT_CommandInArgCustom,
 		STAT_NextArg,
 		STAT_NextArgSpecial,
@@ -71,10 +72,10 @@ private:
 	bool _depthLevel;
 	Stat _stat;
 	String _result;
-	String _str;
+	String _strArg;
 	String _strAhead;
 	String _cmdName;
-	StringList _args;
+	StringList _strArgs;
 	const CommandFormat *_pCmdFmtCur;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
@@ -83,9 +84,9 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	bool EvaluateSpecialCommand(
-		Environment &env, const CommandFormat *pCmdFmt, const StringList &args);
+		Environment &env, const CommandFormat *pCmdFmt, const StringList &strArgs);
 	bool EvaluateCustomCommand(
-		Environment &env, const char *cmdName, const StringList &args);
+		Environment &env, const char *cmdName, const StringList &strArgs);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 };
