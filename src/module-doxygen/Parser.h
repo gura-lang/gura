@@ -6,7 +6,7 @@
 
 #define BeginPushbackRegion(var) \
 _pushbackBuff[0] = var; \
-for (int _pushbackLevel = 1; _pushbackLevel > 0; ) { \
+for (_pushbackLevel = 1; _pushbackLevel > 0; ) { \
 var = _pushbackBuff[--_pushbackLevel];
 
 #define EndPushbackRegion() \
@@ -92,10 +92,6 @@ public:
 	Decomposer(Object_parser *pObjParser, int depthLevel = 0);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
-	//bool EvaluateSpecialCommand(
-	//	Environment &env, const CommandFormat *pCmdFmt, const StringList &strArgs);
-	//bool EvaluateCustomCommand(
-	//	Environment &env, const char *cmdName, const StringList &strArgs);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline void Pushback(char ch) { _pushbackBuff[_pushbackLevel++] = ch; }
