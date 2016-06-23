@@ -252,6 +252,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				} else {
 					_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 					if (env.IsSignalled()) return false;
+					_pCmdFmtCur = nullptr;
 					_strArg.clear();
 					if (_pDecomposerParent == nullptr) {
 						Pushback(ch);
@@ -329,6 +330,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else {
 				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 				if (env.IsSignalled()) return false;
+				_pCmdFmtCur = nullptr;
 				if (_pDecomposerParent == nullptr) {
 					Pushback(ch);
 					_stat = STAT_Text;
@@ -512,6 +514,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArgs.push_back(_strArg);
 			_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 			if (env.IsSignalled()) return false;
+			_pCmdFmtCur = nullptr;
 			_strArg.clear();
 			_stat = (_pDecomposerParent == nullptr)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
