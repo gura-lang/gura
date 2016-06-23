@@ -76,7 +76,7 @@ public:
 	};
 private:
 	Object_parser *_pObjParser;
-	bool _depthLevel;
+	Decomposer *_pDecomposerParent;
 	Stat _stat;
 	String _result;
 	String _strArg;
@@ -87,9 +87,9 @@ private:
 	int _pushbackLevel;
 	char _pushbackBuff[16];
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
-	std::unique_ptr<Decomposer> _pDecomposerSub;
+	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
-	Decomposer(Object_parser *pObjParser, int depthLevel = 0);
+	Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent = nullptr);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const char *GetResult() const;

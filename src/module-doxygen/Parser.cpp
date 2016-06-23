@@ -202,8 +202,8 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer(Object_parser *pObjParser, int depthLevel) :
-	_pObjParser(pObjParser), _depthLevel(depthLevel), _stat(STAT_Init),
+Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
+	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
 	_pushbackLevel(0)
 {
@@ -253,8 +253,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 					if (env.IsSignalled()) return false;
 					_strArg.clear();
-					Pushback(ch);
-					_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
+					if (_pDecomposerParent == nullptr) {
+						Pushback(ch);
+						_stat = STAT_Text;
+					} else {
+						_pDecomposerParent->Pushback(ch);
+						_stat = STAT_Complete;
+					}
 				}
 			} else {
 				// special commands
@@ -288,7 +293,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_strArg.clear();
 				_stat = STAT_NextArg;
 			} else {
-				_pDecomposerSub.reset(new Decomposer(_pObjParser, _depthLevel + 1));
+				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
 				Pushback(ch);
 				_stat = STAT_DecomposeInArgPara;
 			}
@@ -298,11 +303,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_DecomposeInArgPara: {
-		if (!_pDecomposerSub->FeedChar(env, ch)) {
+		if (!_pDecomposerChild->FeedChar(env, ch)) {
 			return false;
-		} else if (_pDecomposerSub->IsComplete()) {
-			_pDecomposerSub->GetResult();
-			_pDecomposerSub.reset(nullptr);
+		} else if (_pDecomposerChild->IsComplete()) {
+			_pDecomposerChild->GetResult();
+			_pDecomposerChild.reset(nullptr);
 			_stat = STAT_ArgPara;
 		}
 		break;
@@ -324,8 +329,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else {
 				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 				if (env.IsSignalled()) return false;
-				Pushback(ch);
-				_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
+				if (_pDecomposerParent == nullptr) {
+					Pushback(ch);
+					_stat = STAT_Text;
+				} else {
+					_pDecomposerParent->Pushback(ch);
+					_stat = STAT_Complete;
+				}
 			}
 		}
 		break;
@@ -503,7 +513,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 			if (env.IsSignalled()) return false;
 			_strArg.clear();
-			_stat = (_depthLevel == 0)? STAT_Text : STAT_Complete;
+			_stat = (_pDecomposerParent == nullptr)? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
 			_strArgs.push_back(_strArg);
 			_strArg.clear();
