@@ -314,6 +314,7 @@ Parser = class(doxygen.parser) {
 	// @}() = ''
 	@bar() = 'bar'
 	@foo_3(a, b, c) = 'foo' + a + b + c
+	OnCommand(cmdName:string, args[]:string) = ''
 }
 //parser = Parser()
 

@@ -78,6 +78,8 @@ Gura_ModuleValidate()
 Gura_ModuleEntry()
 {
 	CommandFormat::Initialize();
+	// symbol realization
+	Gura_RealizeUserSymbol(OnCommand);
 	// class realization
 	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
 	// class preparation

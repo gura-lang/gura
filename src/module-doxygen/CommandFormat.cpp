@@ -23,20 +23,37 @@ String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strA
 	}
 	const Function *pFunc = pObjParser->LookupFunction(
 		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	AutoPtr<Argument> pArg;
 	if (pFunc == nullptr) {
-		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
-		return "";
-	}
-	AutoPtr<Argument> pArg(new Argument(pFunc));
-	foreach_const (StringList, pStrArg, strArgs) {
-		if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
-	}
-	if (!pArg->Complete(env)) {
-		if (IsSpecial()) {
-			env.SetError(ERR_ArgumentError, "expected handler is %s",
-						 MakeHandlerDeclaration().c_str());
+		pFunc = pObjParser->LookupFunction(Gura_UserSymbol(OnCommand), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "method not found: OnCommand");
+			return "";
 		}
-		return "";
+		pArg.reset(new Argument(pFunc));
+		if (!pArg->StoreValue(env, Value(GetName()))) return "";
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		if (!strArgs.empty()) {
+			pObjList->Reserve(strArgs.size());
+			foreach_const (StringList, pStrArg, strArgs) {
+				pObjList->Add(Value(*pStrArg));
+			}
+		}
+		if (!pArg->StoreValue(env, value)) return "";
+		if (!pArg->Complete(env)) return "";
+	} else {
+		pArg.reset(new Argument(pFunc));
+		foreach_const (StringList, pStrArg, strArgs) {
+			if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
+		}
+		if (!pArg->Complete(env)) {
+			if (IsSpecial()) {
+				env.SetError(ERR_ArgumentError, "expected handler is %s",
+							 MakeHandlerDeclaration().c_str());
+			}
+			return "";
+		}
 	}
 	Value rtn = pFunc->Eval(env, *pArg);
 	if (!rtn.Is_string()) {
