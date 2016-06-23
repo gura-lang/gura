@@ -241,6 +241,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
+			::printf("%s\n", _cmdName.c_str());
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom commands

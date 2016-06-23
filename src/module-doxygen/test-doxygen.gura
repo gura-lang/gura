@@ -4,22 +4,11 @@ import(doxygen)
 
 testCases = [
 R'''
-/*!
-  \bar
-  \foo{arg1,arg2,arg3}
-  \param a an integer argument.
-  \param s a constant character pointer.
-  \return The test results
-  \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
- */	
+/*! \addtogroup mygrp
+   *  Additional documentation for group 'mygrp'
+   *  @{
+   */
 '''
-/*
-//-----------------------------------------------------------------------------
-R'''
-/** See \l{SomeClass,Some Text} for more information. */
-'''
-//-----------------------------------------------------------------------------
-*/
 R'''
 /*! \addtogroup mygrp
    *  Additional documentation for group 'mygrp'
@@ -40,6 +29,23 @@ R'''
 
   /*! @} */
 '''
+R'''
+/*!
+  \bar
+  \foo{arg1,arg2,arg3}
+  \param a an integer argument.
+  \param s a constant character pointer.
+  \return The test results
+  \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
+ */	
+'''
+/*
+//-----------------------------------------------------------------------------
+R'''
+/** See \l{SomeClass,Some Text} for more information. */
+'''
+//-----------------------------------------------------------------------------
+*/
 //-----------------------------------------------------------------------------
 R'''
 /*! \class Test class.h "inc/class.h"
@@ -127,7 +133,7 @@ R'''
 ]
 
 Parser = class(doxygen.parser) {
-	@addtogroup(name:string, title:string) = ''
+	@addtogroup(name:string, title:string) = 'addtogroup' + name + ' ' + title
 	@callgraph() = ''
 	@hidecallgrph() = ''
 	@callergraph() = ''
@@ -309,10 +315,10 @@ Parser = class(doxygen.parser) {
 	@bar() = 'bar'
 	@foo_3(a, b, c) = 'foo' + a + b + c
 }
-parser = Parser()
+//parser = Parser()
 
 testCases.head(1).each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
-	parser.parse(testCase.reader())
+	Parser().parse(testCase.reader())
 	println()
 }
