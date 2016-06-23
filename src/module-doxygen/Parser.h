@@ -4,6 +4,14 @@
 #ifndef __GURA_DOXYGEN_PARSER_H__
 #define __GURA_DOXYGEN_PARSER_H__
 
+#define BeginPushbackRegion(var) \
+_pushbackBuff[0] = var; \
+for (int _pushbackLevel = 1; _pushbackLevel > 0; ) { \
+var = _pushbackBuff[--_pushbackLevel];
+
+#define EndPushbackRegion() \
+}
+
 Gura_BeginModuleScope(doxygen)
 
 class Decomposer;
@@ -76,6 +84,8 @@ private:
 	String _cmdName;
 	StringList _strArgs;
 	const CommandFormat *_pCmdFmtCur;
+	int _pushbackLevel;
+	char _pushbackBuff[16];
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerSub;
 public:
@@ -88,6 +98,8 @@ public:
 	//	Environment &env, const char *cmdName, const StringList &strArgs);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
+	inline void Pushback(char ch) { _pushbackBuff[_pushbackLevel++] = ch; }
+
 };
 
 //-----------------------------------------------------------------------------
