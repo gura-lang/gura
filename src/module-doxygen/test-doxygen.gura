@@ -4,32 +4,6 @@ import(doxygen)
 
 testCases = [
 R'''
-/*! \addtogroup mygrp
-   *  Additional documentation for group 'mygrp'
-   *  @{
-   */
-'''
-R'''
-/*! \addtogroup mygrp
-   *  Additional documentation for group 'mygrp'
-   *  @{
-   */
-
-  /*!
-   *  A function
-   */
-  void func1()
-  {
-  }
-
-  /*! Another function */
-  void func2()
-  {
-  }
-
-  /*! @} */
-'''
-R'''
 /*!
   \bar
   \foo{arg1,arg2,arg3}

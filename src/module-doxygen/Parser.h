@@ -5,8 +5,8 @@
 #define __GURA_DOXYGEN_PARSER_H__
 
 #define BeginPushbackRegion(var) \
-_pushbackBuff[0] = var; \
-for (_pushbackLevel = 1; _pushbackLevel > 0; ) { \
+_pushbackBuff[_pushbackLevel++] = var; \
+while (_pushbackLevel > 0) { \
 var = _pushbackBuff[--_pushbackLevel];
 
 #define EndPushbackRegion() \

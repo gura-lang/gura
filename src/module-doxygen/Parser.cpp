@@ -248,7 +248,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pCmdFmtCur = _pCmdFmtCustom.get();
 				if (ch == '{') {
 					_strArg.clear();
-					_stat = STAT_NextArgCustom;
+					_stat = STAT_NextArg;
 				} else {
 					_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 					if (env.IsSignalled()) return false;
