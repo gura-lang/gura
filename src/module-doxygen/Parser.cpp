@@ -212,7 +212,7 @@ Decomposer::Decomposer(Object_parser *pObjParser, int depthLevel) :
 bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	BeginPushbackRegion(ch);
-	//::printf("stat=%d\n", _stat);
+	//::printf("ch=%c, stat=%d\n", ch, _stat);
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
@@ -241,7 +241,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
 			}
-			::printf("%s\n", _cmdName.c_str());
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom commands
@@ -263,7 +262,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				Pushback(ch);
 				_strArgs.clear();
 				_strArg.clear();
-				_stat = STAT_NextArgSpecial;
+				_stat = STAT_NextArg;
 			}
 		} else {
 			_cmdName += ch;
@@ -546,67 +545,6 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	}
 	return true;
 }
-
-#if 0
-bool Decomposer::EvaluateSpecialCommand(
-	Environment &env, const CommandFormat *pCmdFmt, const StringList &strArgs)
-{
-	String funcName = "@";
-	funcName += pCmdFmt->GetName();
-	const Function *pFunc = _pObjParser->LookupFunction(
-		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
-	if (pFunc == nullptr) {
-		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
-		return false;
-	}
-	AutoPtr<Argument> pArg(new Argument(pFunc));
-	foreach_const (StringList, pStrArg, strArgs) {
-		if (!pArg->StoreValue(env, Value(*pStrArg))) return false;
-	}
-	if (!pArg->Complete(env)) {
-		env.SetError(ERR_ArgumentError, "expected handler is %s",
-					 pCmdFmt->MakeHandlerDeclaration().c_str());
-		return false;
-	}
-	Value rtn = pFunc->Eval(env, *pArg);
-	if (!rtn.Is_string()) {
-		env.SetError(ERR_ValueError, "function must return a string value");
-		return false;
-	}
-	_result += rtn.GetStringSTL();
-	return true;
-}
-
-bool Decomposer::EvaluateCustomCommand(
-	Environment &env, const char *cmdName, const StringList &strArgs)
-{
-	String funcName = "@";
-	funcName += cmdName;
-	if (!strArgs.empty()) {
-		char buff[32];
-		::sprintf(buff, "_%lu", strArgs.size());
-		funcName += buff;
-	}
-	const Function *pFunc = _pObjParser->LookupFunction(
-		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
-	if (pFunc == nullptr) {
-		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
-		return false;
-	}
-	AutoPtr<Argument> pArg(new Argument(pFunc));
-	foreach_const (StringList, pStrArg, strArgs) {
-		if (!pArg->StoreValue(env, Value(*pStrArg))) return false;
-	}
-	if (!pArg->Complete(env)) return false;
-	Value rtn = pFunc->Eval(env, *pArg);
-	if (!rtn.Is_string()) {
-		env.SetError(ERR_ValueError, "function must return a string value");
-		return false;
-	}
-	_result += rtn.GetStringSTL();
-	return true;
-}
-#endif
 
 const char *Decomposer::GetResult() const
 {
