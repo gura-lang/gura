@@ -90,6 +90,7 @@ private:
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
 	Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent = nullptr);
+	void SetCommandFormat(const CommandFormat *pCmdFmt);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const char *GetResult() const;

@@ -209,6 +209,12 @@ Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent)
 {
 }
 
+void Decomposer::SetCommandFormat(const CommandFormat *pCmdFmt)
+{
+	_pCmdFmtCur = pCmdFmt;
+	_stat = STAT_NextArg;
+}
+
 bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	BeginPushbackRegion(ch);
