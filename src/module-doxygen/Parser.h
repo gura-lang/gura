@@ -57,7 +57,6 @@ public:
 		STAT_Init,
 		STAT_Text,
 		STAT_Command,
-		STAT_CommandInArgPara,
 		STAT_DecomposeInArgPara,
 		STAT_CommandInArgCustom,
 		STAT_NextArg,
@@ -69,6 +68,7 @@ public:
 		STAT_ArgQuote,
 		STAT_ArgBrace,
 		STAT_ArgPara,
+		STAT_ArgPara_Command,
 		STAT_ArgParaNewline,
 		STAT_NextArgCustom,
 		STAT_NextArgCustom_Backslash,
@@ -96,7 +96,10 @@ public:
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline void Pushback(char ch) { _pushbackBuff[_pushbackLevel++] = ch; }
-
+	inline static bool IsCommandChar(const String &cmdName, char ch) {
+		return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
+			(!(cmdName == "f" || cmdName.empty()) && (ch == '[' || ch == '{'));
+	}
 };
 
 //-----------------------------------------------------------------------------
