@@ -241,7 +241,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_Command: {
-		if (IsCommandChar(_cmdName, ch)) {
+		if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
 				return false;
@@ -251,6 +251,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// custom commands
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				_pCmdFmtCur = _pCmdFmtCustom.get();
+			} else {
+				// special commands
+				_pCmdFmtCur = pCmdFmt;
+			}
+			
+			if (_pCmdFmtCur->IsCustom()) {
 				if (ch == '{') {
 					_strArg.clear();
 					_stat = STAT_NextArg;
@@ -268,8 +274,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					}
 				}
 			} else {
-				// special commands
-				_pCmdFmtCur = pCmdFmt;
 				Pushback(ch);
 				_strArgs.clear();
 				_strArg.clear();
@@ -280,14 +284,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_CommandInArgCustom: {
-		
-		break;
-	}
 	case STAT_NextArg: {
 		if (_pCmdFmtCur->IsCustom()) {
 			Pushback(ch);
-			_stat = STAT_NextArgCustom;
+			_stat = STAT_ArgCustom;
 		} else {
 			const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
 			size_t iArg = _strArgs.size();
@@ -463,7 +463,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_ArgPara_Command: {
-		if (IsCommandChar(_cmdName, ch)) {
+		if (IsCommandEnd(_cmdName, ch)) {
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
@@ -502,7 +502,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_NextArgCustom: {
+	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
 			_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
@@ -514,10 +514,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArgs.push_back(_strArg);
 			_strArg.clear();
 		} else if (ch == '\\') {
-			_stat = STAT_NextArgCustom_Backslash;
+			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-			_stat = STAT_CommandInArgCustom;
+			_stat = STAT_ArgCustom_Command;
 		} else if (ch == '\0') {
 			// nothing to do
 		} else {
@@ -525,14 +525,18 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_NextArgCustom_Backslash: {
+	case STAT_ArgCustom_Backslash: {
 		if (ch == '\0') {
 			// nothing to do
-			_stat = STAT_NextArgCustom;
+			_stat = STAT_ArgCustom;
 		} else {
 			_strArg += ch;
-			_stat = STAT_NextArgCustom;
+			_stat = STAT_ArgCustom;
 		}
+		break;
+	}
+	case STAT_ArgCustom_Command: {
+		
 		break;
 	}
 	case STAT_Complete: {
