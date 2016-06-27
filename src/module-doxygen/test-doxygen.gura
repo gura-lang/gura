@@ -5,9 +5,14 @@ import(doxygen)
 testCases = [
 R'''
 /*!
+  \b bold.
+ */	
+'''
+R'''
+/*!
   \bar
   \foo{arg1,arg2,arg3}
-  \param a an integer argument.
+  \param a an integer argument \b bold.
   \param s a constant character pointer.
   \return The test results
   \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
@@ -230,7 +235,7 @@ Parser = class(doxygen.parser) {
 	@latexinclude(file_name:string) = ''
 	@a(word:string) = ''
 	@arg(description:string) = ''
-	@b(word:string) = ''
+	@b(word:string) = '<b>' + word + '</b>'
 	@c(word:string) = ''
 	@code(word:string) = ''
 	@copydoc(link_object:string) = ''

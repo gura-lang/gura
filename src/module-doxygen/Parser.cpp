@@ -212,13 +212,13 @@ Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent)
 void Decomposer::SetCommandFormat(const CommandFormat *pCmdFmt)
 {
 	_pCmdFmtCur = pCmdFmt;
-	_stat = STAT_NextArg;
+	_stat = STAT_Command;
 }
 
 bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	BeginPushbackRegion(ch);
-	//::printf("ch=%c, stat=%d\n", ch, _stat);
+	::printf("%p ch=%c, stat=%d\n", this, ch, _stat);
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
@@ -234,13 +234,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-			_stat = STAT_Command;
+			_stat = STAT_AcceptCommandInText;
 		} else {
 			_result += ch;
 		}
 		break;
 	}
-	case STAT_Command: {
+	case STAT_AcceptCommandInText: {
 		if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
@@ -248,39 +248,91 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			}
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
-				// custom commands
+				// custom command
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				_pCmdFmtCur = _pCmdFmtCustom.get();
 			} else {
-				// special commands
+				// special command
 				_pCmdFmtCur = pCmdFmt;
 			}
-			
-			if (_pCmdFmtCur->IsCustom()) {
-				if (ch == '{') {
-					_strArg.clear();
-					_stat = STAT_NextArg;
-				} else {
-					_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-					if (env.IsSignalled()) return false;
-					_pCmdFmtCur = nullptr;
-					_strArg.clear();
-					if (_pDecomposerParent == nullptr) {
-						Pushback(ch);
-						_stat = STAT_Text;
-					} else {
-						_pDecomposerParent->Pushback(ch);
-						_stat = STAT_Complete;
-					}
-				}
-			} else {
+			Pushback(ch);
+			_stat = STAT_Command;
+		} else {
+			_cmdName += ch;
+		}
+		break;
+	}
+	case STAT_AcceptCommandInArgLine: {
+
+		break;
+	}
+	case STAT_AcceptCommandInArgPara: {
+		if (_pDecomposerChild.get() != nullptr) {
+			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
+			if (_pDecomposerChild->IsComplete()) {
+				::printf("%p complete\n", _pDecomposerChild.get());
+				_strArg += _pDecomposerChild->GetResult();
+				_pDecomposerChild.reset();
+			}
+		} else if (IsCommandEnd(_cmdName, ch)) {
+			if (_cmdName.empty()) {
+				env.SetError(ERR_SyntaxError, "command name is not specified");
+				return false;
+			}
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
+			if (pCmdFmt == nullptr) {
+				// custom command
+				_pCmdFmtCustom->SetName(_cmdName.c_str());
+				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild->SetCommandFormat(_pCmdFmtCustom.get());
+				_pDecomposerChild->Pushback(ch);
+			} else if (pCmdFmt->IsSectionIndicator()) {
+				// evaluate the previous command after storing the paragraph argument
+				_strArgs.push_back(_strArg);
+				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+				if (env.IsSignalled()) return false;
+				// special command (section indicator)
+				_pCmdFmtCur = pCmdFmt;
 				Pushback(ch);
-				_strArgs.clear();
-				_strArg.clear();
-				_stat = STAT_NextArg;
+				_stat = STAT_Command;
+			} else {
+				// special command (not section indicator)
+				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild->SetCommandFormat(pCmdFmt);
+				_pDecomposerChild->Pushback(ch);
 			}
 		} else {
 			_cmdName += ch;
+		}
+		break;
+	}
+	case STAT_AcceptCommandInArgCustom: {
+		
+		break;
+	}
+	case STAT_Command: {
+		if (_pCmdFmtCur->IsCustom()) {
+			if (ch == '{') {
+				_strArg.clear();
+				_stat = STAT_NextArg;
+			} else {
+				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+				if (env.IsSignalled()) return false;
+				_pCmdFmtCur = nullptr;
+				_strArg.clear();
+				if (_pDecomposerParent == nullptr) {
+					Pushback(ch);
+					_stat = STAT_Text;
+				} else {
+					_pDecomposerParent->Pushback(ch);
+					_stat = STAT_Complete;
+				}
+			}
+		} else {
+			Pushback(ch);
+			_strArgs.clear();
+			_strArg.clear();
+			_stat = STAT_NextArg;
 		}
 		break;
 	}
@@ -416,6 +468,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '\0') Pushback(ch);
 			_strArgs.push_back(_strArg);
 			_stat = STAT_NextArg;
+		} else if (IsCommandMark(ch)) {
+			_cmdName.clear();
+			_stat = STAT_AcceptCommandInArgLine;
 		} else {
 			_strArg += ch;
 		}
@@ -456,35 +511,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-			_stat = STAT_ArgPara_Command;
+			_stat = STAT_AcceptCommandInArgPara;
 		} else {
 			_strArg += ch;
-		}
-		break;
-	}
-	case STAT_ArgPara_Command: {
-		if (IsCommandEnd(_cmdName, ch)) {
-			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
-			if (pCmdFmt == nullptr) {
-				// custom command
-				Pushback(ch);
-				_stat = STAT_ArgPara;
-			} else if (pCmdFmt->IsSectionIndicator()) {
-				_strArgs.push_back(_strArg);
-				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-				if (env.IsSignalled()) return false;
-				// special commands
-				_pCmdFmtCur = pCmdFmt;
-				Pushback(ch);
-				_strArgs.clear();
-				_strArg.clear();
-				_stat = STAT_NextArg;
-			} else {
-				//_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
-				//Pushback(ch);
-			}
-		} else {
-			_cmdName += ch;
 		}
 		break;
 	}
@@ -517,7 +546,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-			_stat = STAT_ArgCustom_Command;
+			_stat = STAT_AcceptCommandInArgCustom;
 		} else if (ch == '\0') {
 			// nothing to do
 		} else {
@@ -533,10 +562,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArg += ch;
 			_stat = STAT_ArgCustom;
 		}
-		break;
-	}
-	case STAT_ArgCustom_Command: {
-		
 		break;
 	}
 	case STAT_Complete: {

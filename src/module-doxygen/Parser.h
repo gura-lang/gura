@@ -56,8 +56,11 @@ public:
 	enum Stat {
 		STAT_Init,
 		STAT_Text,
+		STAT_AcceptCommandInText,
+		STAT_AcceptCommandInArgLine,
+		STAT_AcceptCommandInArgPara,
+		STAT_AcceptCommandInArgCustom,
 		STAT_Command,
-		STAT_DecomposeInArgPara,
 		STAT_NextArg,
 		STAT_NextArgSpecial,
 		STAT_ArgWord,
@@ -67,11 +70,9 @@ public:
 		STAT_ArgQuote,
 		STAT_ArgBrace,
 		STAT_ArgPara,
-		STAT_ArgPara_Command,
 		STAT_ArgParaNewline,
 		STAT_ArgCustom,
 		STAT_ArgCustom_Backslash,
-		STAT_ArgCustom_Command,
 		STAT_Complete,
 	};
 private:
