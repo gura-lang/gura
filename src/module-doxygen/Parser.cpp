@@ -270,9 +270,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				::printf("%p complete\n", _pDecomposerChild.get());
+				//::printf("%p complete\n", _pDecomposerChild.get());
 				_strArg += _pDecomposerChild->GetResult();
 				_pDecomposerChild.reset();
+				_stat = STAT_ArgPara;
 			}
 		} else if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
@@ -299,7 +300,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// special command (not section indicator)
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
 				_pDecomposerChild->SetCommandFormat(pCmdFmt);
-				_pDecomposerChild->Pushback(ch);
+				//_pDecomposerChild->Pushback(ch);
 			}
 		} else {
 			_cmdName += ch;
