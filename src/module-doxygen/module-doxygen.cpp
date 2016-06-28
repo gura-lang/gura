@@ -25,7 +25,23 @@ Gura_ImplementFunction(makescript)
 	foreach_const (CommandFormatList, ppCmdFmt, cmdFmtList) {
 		const CommandFormat *pCmdFmt = *ppCmdFmt;
 		if (pCmdFmt->HasNormalCommandName()) {
-			pStream->Printf(sig, "\t%s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
+			String str;
+			str += "\t";
+			str += pCmdFmt->MakeHandlerDeclaration();
+			str += " = '@";
+			str += pCmdFmt->GetName();
+			str += "'";
+			foreach_const (CommandFormat::ArgOwner, ppArg, pCmdFmt->GetArgOwner()) {
+				const CommandFormat::Arg *pArg = *ppArg;
+				str += " + ";
+				str += "' ";
+				str += pArg->GetName();
+				str += ":' + ";
+				str += pArg->GetName();
+				str += ".escape():surround";
+			}
+			str += " + '\\n'";
+			pStream->Println(sig, str.c_str());
 		} else {
 			pStream->Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
 		}
