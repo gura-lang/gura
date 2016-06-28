@@ -286,7 +286,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
 				_pDecomposerChild->SetCommandFormat(_pCmdFmtCustom.get());
-				_pDecomposerChild->Pushback(ch);
+				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				// evaluate the previous command after storing the paragraph argument
 				_strArgs.push_back(_strArg);
@@ -300,7 +300,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// special command (not section indicator)
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
 				_pDecomposerChild->SetCommandFormat(pCmdFmt);
-				//_pDecomposerChild->Pushback(ch);
 			}
 		} else {
 			_cmdName += ch;
@@ -325,7 +324,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					Pushback(ch);
 					_stat = STAT_Text;
 				} else {
-					_pDecomposerParent->Pushback(ch);
+					Pushback(ch);
 					_stat = STAT_Complete;
 				}
 			}
@@ -355,7 +354,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					Pushback(ch);
 					_stat = STAT_Text;
 				} else {
-					_pDecomposerParent->Pushback(ch);
+					Pushback(ch);
 					_stat = STAT_Complete;
 				}
 			}

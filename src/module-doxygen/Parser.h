@@ -96,7 +96,13 @@ public:
 	bool FeedString(Environment &env, const char *str);
 	const char *GetResult() const;
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
-	inline void Pushback(char ch) { _pushbackBuff[_pushbackLevel++] = ch; }
+	inline void Pushback(char ch) {
+		if (_pDecomposerParent == nullptr) {
+			_pushbackBuff[_pushbackLevel++] = ch;
+		} else {
+			_pDecomposerParent->Pushback(ch);
+		}
+	}
 	inline static bool IsCommandEnd(const String &cmdName, char ch) {
 		return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(cmdName == "f" || cmdName.empty()) && (ch == '[' || ch == '{'));
