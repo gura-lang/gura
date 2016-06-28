@@ -112,6 +112,8 @@ R'''
 ]
 
 Parser = class(doxygen.parser) {
+	//-------------------------------------------------------------------------
+	// Structural indicators 
 	@addtogroup(name:string, title:string) = 'addtogroup' + name + ' ' + title
 	@callgraph() = ''
 	@hidecallgrph() = ''
@@ -164,10 +166,12 @@ Parser = class(doxygen.parser) {
 	@var(declaration:string) = ''
 	@vhdlflow(title_for_the_flow_chart:string) = ''
 	@weakgroup(name:string, title:string) = ''
+	//-------------------------------------------------------------------------
+	// Section indicators
 	@attention(text:string) = ''
 	@author(list_of_authors:string) = ''
 	@authors(list_of_authors:string) = ''
-	@brief(description:string) = '@brief ' + description
+	@brief(description:string) = '@brief(' + description + ')'
 	@bug(description:string) = ''
 	@cond(section_label:string) = ''
 	@copyright(description:string) = ''
@@ -207,6 +211,8 @@ Parser = class(doxygen.parser) {
 	@version(version_number:string) = ''
 	@warning(message:string) = ''
 	@xrefitem(key:string, heading:string, list_title:string, text:string) = ''
+	//-------------------------------------------------------------------------
+	// Commands to create links
 	@addindex(text:string) = ''
 	@anchor(word:string) = ''
 	@cite(label:string) = ''
@@ -222,6 +228,8 @@ Parser = class(doxygen.parser) {
 	@subsection(name:string, title:string) = ''
 	@subsubsection(name:string, title:string) = ''
 	@paragrph(name:string, title:string) = ''
+	//-------------------------------------------------------------------------
+	// Commands for displaying examples
 	@dontinclude(file_name:string) = ''
 	@include(file_name:string) = ''
 	@includelineno(file_name:string) = ''
@@ -233,9 +241,11 @@ Parser = class(doxygen.parser) {
 	@verbinclude(file_name:string) = ''
 	@htmlinclude(file_name:string) = ''
 	@latexinclude(file_name:string) = ''
+	//-------------------------------------------------------------------------
+	// Commands for visual enhancements
 	@a(word:string) = ''
 	@arg(description:string) = ''
-	@b(word:string) = '<b>' + word + '</b>'
+	@b(word:string) = '@b(' + word + ')'
 	@c(word:string) = ''
 	@code(word:string) = ''
 	@copydoc(link_object:string) = ''

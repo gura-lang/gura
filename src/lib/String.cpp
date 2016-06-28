@@ -240,14 +240,14 @@ char ZenToHanChar(const char *str, const char **next)
 	return '\0';
 }
 
-String MakeQuotedString(const char *str)
+String MakeQuotedString(const char *str, bool surroundFlag)
 {
 	String strDst;
 	char chQuote = '\'';
 	if (::strchr(str, '\'') != nullptr && ::strchr(str, '"') == nullptr) {
 		chQuote = '"';
 	}
-	strDst += chQuote;
+	if (surroundFlag) strDst += chQuote;
 	for (const char *p = str; *p != '\0'; p++) {
 		char ch = *p;
 		if (ch == '\a') {
@@ -279,7 +279,7 @@ String MakeQuotedString(const char *str)
 			strDst += ch;
 		}
 	}
-	strDst += chQuote;
+	if (surroundFlag) strDst += chQuote;
 	return strDst;
 }
 

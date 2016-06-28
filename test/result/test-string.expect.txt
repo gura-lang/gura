@@ -1425,3 +1425,10 @@ this is a test .. isalnum:false isalpha:false isdigit:false isspace:false
 ======== #32 Substitution cipher ========
 
 HELLO{GURA}WORLD
+
+======== #33 string#escape() ========
+
+'abcdef'.escape() .. abcdef
+'abcdef'.escape():surround .. 'abcdef'
+'\a\b\f\n\r\t\'"\\'.escape() .. \a\b\f\n\r\t\'"\\
+'\a\b\f\n\r\t\'"\\'.escape():surround .. '\a\b\f\n\r\t\'"\\'

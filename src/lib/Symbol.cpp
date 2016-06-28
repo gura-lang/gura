@@ -713,6 +713,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(suffixmgr);
 	Gura_RealizeSymbol(sunday);
 	Gura_RealizeSymbol(super);
+	Gura_RealizeSymbol(surround);
 	Gura_RealizeSymbol(sv);
 	Gura_RealizeSymbol(symbol);
 	Gura_RealizeSymbol(symbol_func);

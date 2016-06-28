@@ -554,6 +554,7 @@ public:
 	Gura_DeclareSymbol(suffixmgr);
 	Gura_DeclareSymbol(sunday);
 	Gura_DeclareSymbol(super);
+	Gura_DeclareSymbol(surround);
 	Gura_DeclareSymbol(sv);
 	Gura_DeclareSymbol(symbol);
 	Gura_DeclareSymbol(symbol_func);

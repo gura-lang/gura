@@ -295,8 +295,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				// evaluate the previous command after storing the paragraph argument
 				_strArgs.push_back(_strArg);
-				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-				if (env.IsSignalled()) return false;
+				if (!EvaluateCommand()) return false;
 				// special command (section indicator)
 				_pCmdFmtCur = pCmdFmt;
 				Pushback(ch);
@@ -317,8 +316,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_strArg.clear();
 				_stat = STAT_NextArg;
 			} else {
-				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-				if (env.IsSignalled()) return false;
+				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
 				_strArg.clear();
 				if (_pDecomposerParent == nullptr) {
@@ -348,8 +346,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				Pushback(ch);
 				_stat = STAT_NextArgSpecial;
 			} else {
-				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-				if (env.IsSignalled()) return false;
+				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
 				if (_pDecomposerParent == nullptr) {
 					Pushback(ch);
@@ -535,8 +532,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
-			_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-			if (env.IsSignalled()) return false;
+			if (!EvaluateCommand()) return false;
 			_pCmdFmtCur = nullptr;
 			_strArg.clear();
 			_stat = (_pDecomposerParent == nullptr)? STAT_Text : STAT_Complete;
@@ -585,6 +581,19 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 const char *Decomposer::GetResult() const
 {
 	return _result.c_str();
+}
+
+bool Decomposer::EvaluateCommand()
+{
+	Environment &env = *_pObjParser;
+	/*
+	::printf("%s\n", _pCmdFmtCur->GetName());
+	foreach (StringList, pStr, _strArgs) {
+		::printf("  %s\n", pStr->c_str());
+	}
+	*/
+	_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+	return env.IsNoSignalled();
 }
 
 Gura_EndModuleScope(doxygen)

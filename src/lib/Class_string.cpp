@@ -304,6 +304,25 @@ Gura_ImplementMethod(string, endswith)
 	return rtn != nullptr;
 }
 
+// string#escape():[surround] {block?}
+Gura_DeclareMethod(string, escape)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(surround));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Applies backslash escaping on characters in the string.\n"
+		"If attribute `:surround` is specified, the result contains a pair of single- or double-\n"
+		"quotation characters surrounding the string.\n");
+}
+
+Gura_ImplementMethod(string, escape)
+{
+	bool surroundFlag = arg.IsSet(Gura_Symbol(surround));
+	return ReturnValue(env, arg, Value(MakeQuotedString(arg.GetValueThis().GetString(), surroundFlag)));
+}
+
 // string#escapehtml():[quote] {block?}
 Gura_DeclareMethod(string, escapehtml)
 {
@@ -312,7 +331,9 @@ Gura_DeclareMethod(string, escapehtml)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, 
-		"Returns a string that converts characters into escape sequences.");
+		"Converts some characters into HTML entity symbols.\n"
+		"If attribute `:quote` is specified, a double-quotation character would be converted to\n"
+		"an entity symbol \"&quot;\".");
 }
 
 Gura_ImplementMethod(string, escapehtml)
@@ -975,6 +996,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, encode);
 	Gura_AssignMethod(string, encodeuri);
 	Gura_AssignMethod(string, endswith);
+	Gura_AssignMethod(string, escape);
 	Gura_AssignMethod(string, escapehtml);
 	Gura_AssignMethod(string, find);
 	Gura_AssignMethod(string, fold);

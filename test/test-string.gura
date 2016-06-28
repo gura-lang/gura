@@ -506,3 +506,9 @@ testcase('Substitution cipher') {
 	Q = 'V}ZZDEIJWPO{DWZR'
 	println(P[C.find(Q.each())].join())
 }
+testcase('string#escape()') {
+	tester(`'abcdef'.escape())
+	tester(`'abcdef'.escape():surround)
+	tester(`'\a\b\f\n\r\t\'\"\\'.escape())
+	tester(`'\a\b\f\n\r\t\'\"\\'.escape():surround)
+}

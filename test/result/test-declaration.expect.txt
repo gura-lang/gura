@@ -834,6 +834,7 @@ string
   string.encode(codec:codec) {block?}
   string#encodeuri() {block?}
   string#endswith(suffix:string, endpos?:number):map:[icase,rest]
+  string#escape():[surround] {block?}
   string#escapehtml():[quote] {block?}
   string#find(sub:string, pos:number => 0):map:[icase,rev]
   string#fold(len:number, step?:number):[neat] {block?}
