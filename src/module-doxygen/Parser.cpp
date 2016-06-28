@@ -218,7 +218,7 @@ void Decomposer::SetCommandFormat(const CommandFormat *pCmdFmt)
 bool Decomposer::FeedChar(Environment &env, char ch)
 {
 	BeginPushbackRegion(ch);
-	::printf("%p ch=%c, stat=%d\n", this, ch, _stat);
+	//::printf("%p ch=%c, stat=%d\n", this, ch, _stat);
 	switch (_stat) {
 	case STAT_Init: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0') {
@@ -262,18 +262,18 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_AcceptCommandInArgLine: {
-
-		break;
-	}
-	case STAT_AcceptCommandInArgPara: {
+	case STAT_AcceptCommandInArgLine:
+	case STAT_AcceptCommandInArgPara:
+	case STAT_AcceptCommandInArgCustom: {
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				//::printf("%p complete\n", _pDecomposerChild.get());
 				_strArg += _pDecomposerChild->GetResult();
 				_pDecomposerChild.reset();
-				_stat = STAT_ArgPara;
+				_stat =
+					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :
+					(_stat == STAT_AcceptCommandInArgPara)? STAT_ArgPara :
+					STAT_ArgCustom;
 			}
 		} else if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
@@ -288,6 +288,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pDecomposerChild->SetCommandFormat(_pCmdFmtCustom.get());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
+				if (_pCmdFmtCur->IsCustom()) {
+					env.SetError(ERR_SyntaxError,
+								 "section indicator can not appear in custom command arguments");
+					return false;
+				}
 				// evaluate the previous command after storing the paragraph argument
 				_strArgs.push_back(_strArg);
 				_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
@@ -304,10 +309,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			_cmdName += ch;
 		}
-		break;
-	}
-	case STAT_AcceptCommandInArgCustom: {
-		
 		break;
 	}
 	case STAT_Command: {
@@ -470,7 +471,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-			_stat = STAT_AcceptCommandInArgLine;
+				_stat = STAT_AcceptCommandInArgLine;
 		} else {
 			_strArg += ch;
 		}
