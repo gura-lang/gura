@@ -3,16 +3,18 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
+/*
 R'''
 /*!
   \brief \b BOLD.
  */	
 '''
+*/
 R'''
 /*!
   \bar
   \foo{arg1,arg2,arg3}
-  \param a an integer argument \b bold.
+  \param a an integer argument \b bold \b bold2.
   \param s a constant character pointer.
   \return The test results
   \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
@@ -291,6 +293,9 @@ Parser = class(doxygen.parser) {
 	// @---() = ''
 	// @{() = ''
 	// @}() = ''
+	@bar() = '@bar'
+	@foo_2(a, b, c) = '@foo: %s,%s,%s' % [a, b, c]
+	OnCommand(cmdName:string, args[]:string) = '(unknown @%s)' % cmdName
 }
 /*
 Parser = class(doxygen.parser) {
