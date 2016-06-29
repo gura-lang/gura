@@ -96,6 +96,7 @@ public:
 	bool FeedString(Environment &env, const char *str);
 	const char *GetResult() const;
 	bool EvaluateCommand();
+	static bool ContainsCommand(const char *str);
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline void Pushback(char ch) {
 		if (_pDecomposerParent == nullptr) {

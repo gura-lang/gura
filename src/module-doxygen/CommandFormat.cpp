@@ -57,7 +57,7 @@ String CommandFormat::Evaluate(Object_parser *pObjParser, const StringList &strA
 	}
 	Value rtn = pFunc->Eval(env, *pArg);
 	if (!rtn.Is_string()) {
-		env.SetError(ERR_ValueError, "function must return a string value");
+		env.SetError(ERR_ValueError, "doxygen handler must return a string value");
 		return "";
 	}
 	return rtn.GetStringSTL();

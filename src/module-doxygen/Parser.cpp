@@ -313,9 +313,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_Command: {
 		if (_pCmdFmtCur->IsCustom()) {
 			if (ch == '{') {
+				_strArgs.clear();
 				_strArg.clear();
 				_stat = STAT_NextArg;
 			} else {
+				_strArgs.clear();
 				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
 				_strArg.clear();
@@ -586,8 +588,26 @@ const char *Decomposer::GetResult() const
 bool Decomposer::EvaluateCommand()
 {
 	Environment &env = *_pObjParser;
-	_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
-	return env.IsNoSignalled();
+	String rtn = _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+	if (env.IsSignalled()) return false;
+	//if (_pCmdFmtCur->IsCustom() && ContainsCommand(rtn.c_str())) {
+	if (false) {
+		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
+		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
+		_result += pDecomposer->GetResult();
+	} else {
+		_result += rtn;
+	}
+	return true;
+}
+
+bool Decomposer::ContainsCommand(const char *str)
+{
+	for (const char *p = str; *p != '\0'; p++) {
+		char ch = *p;
+		if (IsCommandMark(ch)) return true;
+	}
+	return false;
 }
 
 Gura_EndModuleScope(doxygen)
