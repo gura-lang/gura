@@ -586,12 +586,6 @@ const char *Decomposer::GetResult() const
 bool Decomposer::EvaluateCommand()
 {
 	Environment &env = *_pObjParser;
-	/*
-	::printf("%s\n", _pCmdFmtCur->GetName());
-	foreach (StringList, pStr, _strArgs) {
-		::printf("  %s\n", pStr->c_str());
-	}
-	*/
 	_result += _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 	return env.IsNoSignalled();
 }
