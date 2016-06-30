@@ -556,10 +556,15 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom_Backslash: {
 		if (ch == '\0') {
 			// nothing to do
+			Pushback(ch);
 			_stat = STAT_ArgCustom;
-		} else {
+		} else if (ch == ',') {
 			_strArg += ch;
 			_stat = STAT_ArgCustom;
+		} else {
+			Pushback(ch);
+			_cmdName.clear();
+			_stat = STAT_AcceptCommandInArgCustom;
 		}
 		break;
 	}
@@ -574,8 +579,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 
 bool Decomposer::FeedString(Environment &env, const char *str)
 {
-	for (const char *p = str; *p != '\0'; p++) {
+	for (const char *p = str; ; p++) {
 		if (!FeedChar(env, *p)) return false;
+		if (*p == '\0') break;
 	}
 	return true;
 }
@@ -590,8 +596,7 @@ bool Decomposer::EvaluateCommand()
 	Environment &env = *_pObjParser;
 	String rtn = _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
 	if (env.IsSignalled()) return false;
-	//if (_pCmdFmtCur->IsCustom() && ContainsCommand(rtn.c_str())) {
-	if (false) {
+	if (_pCmdFmtCur->IsCustom() && ContainsCommand(rtn.c_str())) {
 		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
 		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
 		_result += pDecomposer->GetResult();

@@ -3,14 +3,11 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
-/*
 R'''
 /*!
-  \customA{hogeA}
-  \customB{hogeB}
+  \strong{@strong{hoge}}
  */	
 '''
-*/
 R'''
 /*!
   \strong{hoge}
@@ -296,7 +293,7 @@ Parser = class(doxygen.parser) {
 	// @{() = ''
 	// @}() = ''
 	@bar() = 'bar'
-	@strong_1(a) = 'strong ' + a
+	@strong_1(a) = '@b ' + a
 	@foo_3(a, b, c) = 'foo: %s,%s,%s' % [a, b, c]
 	@customA_1(a) = 'customA ' + a
 	@customB_1(a) = 'customB ' + a
