@@ -79,24 +79,23 @@ Gura_ImplementFunction(parser)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.parser#parse(stream:stream):void:map
+// doxygen.parser#parse(stream:stream):map
 Gura_DeclareMethod(parser, parse)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Reads doxygen document coming from the specified `stream`\n"
+		"and returns the parsed result in `string`.");
 }
 
 Gura_ImplementMethod(parser, parse)
 {
 	Parser &parser = Object_parser::GetObjectThis(arg)->GetParser();
 	const char *result = parser.ParseStream(env, arg.GetStream(0));
-	if (result != nullptr) {
-		::printf("%s", result);
-	}
-	return Value::Nil;
+	if (result == nullptr) return Value::Nil;
+	return Value(result);
 }
 
 //-----------------------------------------------------------------------------

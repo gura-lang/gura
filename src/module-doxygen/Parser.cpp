@@ -372,6 +372,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				_strArgs.push_back("");
 				_stat = STAT_NextArg;
+			} else if (ch == '"') {
+				_strArg.clear();
+				_stat = STAT_ArgWordQuote;
 			} else {
 				_strArg.clear();
 				Pushback(ch);
@@ -445,6 +448,19 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_strArg += '.';
 			_stat = STAT_ArgWord;
+		}
+		break;
+	}
+	case STAT_ArgWordQuote: {
+		if (ch == '\n' || ch == '\0') {
+			Pushback(ch);
+			_strArgs.push_back(_strArg);
+			_stat = STAT_NextArg;
+		} else if (ch == '"') {
+			_strArgs.push_back(_strArg);
+			_stat = STAT_NextArg;
+		} else {
+			_strArg += ch;
 		}
 		break;
 	}

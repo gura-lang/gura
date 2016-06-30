@@ -65,6 +65,7 @@ public:
 		STAT_NextArgSpecial,
 		STAT_ArgWord,
 		STAT_ArgWord_Period,
+		STAT_ArgWordQuote,
 		STAT_ArgBracket,
 		STAT_ArgLine,
 		STAT_ArgQuote,
