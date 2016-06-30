@@ -349,7 +349,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			size_t iArg = _strArgs.size();
 			if (iArg < argOwner.size()) {
 				Pushback(ch);
-				_stat = STAT_NextArgSpecial;
+				_stat = STAT_BranchArg;
 			} else {
 				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
@@ -359,7 +359,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_NextArgSpecial: {
+	case STAT_BranchArg: {
 		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
 		size_t iArg = _strArgs.size();
 		const CommandFormat::Arg *pArg = argOwner[iArg];

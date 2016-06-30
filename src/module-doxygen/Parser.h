@@ -62,7 +62,7 @@ public:
 		STAT_AcceptCommandInArgCustom,
 		STAT_Command,
 		STAT_NextArg,
-		STAT_NextArgSpecial,
+		STAT_BranchArg,
 		STAT_ArgWord,
 		STAT_ArgWord_Period,
 		STAT_ArgWordQuote,
