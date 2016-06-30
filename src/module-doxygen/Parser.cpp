@@ -16,6 +16,7 @@ Parser::Parser(Object_parser *pObjParser) :
 bool Parser::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegion();
+	//::printf("ch=%c, stat=%d\n", ch, _stat);
 	switch (_stat) {
 	case STAT_Indent: {
 		if (ch == '\0') {
@@ -579,7 +580,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	}
 	EndPushbackRegion();
-	if (ch == '\0') _stat = STAT_Complete;
 	return true;
 }
 

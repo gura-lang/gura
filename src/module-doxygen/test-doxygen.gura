@@ -4,9 +4,20 @@ import(doxygen)
 
 testCases = [
 R'''
-/** See \l{SomeClass,Some Text} for more information.
-  This is a \Bold{bold \Emph{and} Emphasized} text fragment. */
+/**
+ See \l{SomeClass,Some Text} for more information.
+ */
+
+/**
+ This is a \Bold{bold \Emph{and} Emphasized} text fragment.
+ */
 '''
+R'''
+/*!
+ abcdef
+ */
+'''
+
 /*
 R'''
 /*!
@@ -313,5 +324,5 @@ Parser = class(doxygen.parser) {
 testCases.head(1).each {|testCase, idx|
 	printf('case #%d\n', idx + 1)
 	Parser().parse(testCase.reader())
-	println()
+	println('--end--')
 }
