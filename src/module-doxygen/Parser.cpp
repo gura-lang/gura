@@ -552,7 +552,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgCustom_Backslash: {
 		if (ch == '\0') {
-			// nothing to do
 			Pushback(ch);
 			_stat = STAT_ArgCustom;
 		} else if (ch == ',') {
