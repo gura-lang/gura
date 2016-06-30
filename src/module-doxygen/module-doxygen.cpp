@@ -30,17 +30,19 @@ Gura_ImplementFunction(makescript)
 			str += pCmdFmt->MakeHandlerDeclaration();
 			str += " = '@";
 			str += pCmdFmt->GetName();
-			str += "'";
+			str += "{'";
+			size_t iArg = 0;
 			foreach_const (CommandFormat::ArgOwner, ppArg, pCmdFmt->GetArgOwner()) {
 				const CommandFormat::Arg *pArg = *ppArg;
 				str += " + ";
-				str += "' ";
+				str += (iArg == 0)? "'" : "',";
 				str += pArg->GetName();
 				str += ":' + ";
 				str += pArg->GetName();
 				str += ".escape():surround";
+				iArg++;
 			}
-			str += " + '\\n'";
+			str += " + '}'";
 			pStream->Println(sig, str.c_str());
 		} else {
 			pStream->Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
