@@ -5,7 +5,7 @@ import(doxygen)
 testCases = [
 R'''
 /*!
-  \strong{@strong{hoge}}
+  \strong{\strong{hoge}}
  */	
 '''
 R'''
@@ -236,7 +236,7 @@ Parser = class(doxygen.parser) {
 	@latexinclude(file_name:string) = '@latexinclude' + ' file_name:' + file_name.escape():surround + '\n'
 	@a(word:string) = '@a' + ' word:' + word.escape():surround + '\n'
 	@arg(description:string) = '@arg' + ' description:' + description.escape():surround + '\n'
-	@b(word:string) = '@b' + ' word:' + word.escape():surround + '\n'
+	@b(word:string) = 'b' + ' word:' + word.escape():surround + '\n'
 	@c(word:string) = '@c' + ' word:' + word.escape():surround + '\n'
 	@code(word:string) = '@code' + ' word:' + word.escape():surround + '\n'
 	@copydoc(link_object:string) = '@copydoc' + ' link_object:' + link_object.escape():surround + '\n'
