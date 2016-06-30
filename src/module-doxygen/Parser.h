@@ -98,6 +98,7 @@ public:
 	const char *GetResult() const;
 	bool EvaluateCommand();
 	static bool ContainsCommand(const char *str);
+	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline void Pushback(char ch) {
 		if (_pDecomposerParent == nullptr) {

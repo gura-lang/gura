@@ -328,13 +328,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
 				_strArg.clear();
-				if (_pDecomposerParent == nullptr) {
-					Pushback(ch);
-					_stat = STAT_Text;
-				} else {
-					Pushback(ch);
-					_stat = STAT_Complete;
-				}
+				Pushback(ch);
+				_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 			}
 		} else {
 			Pushback(ch);
@@ -357,13 +352,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else {
 				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
-				if (_pDecomposerParent == nullptr) {
-					Pushback(ch);
-					_stat = STAT_Text;
-				} else {
-					Pushback(ch);
-					_stat = STAT_Complete;
-				}
+				Pushback(ch);
+				_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 			}
 		}
 		break;
@@ -544,7 +534,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (!EvaluateCommand()) return false;
 			_pCmdFmtCur = nullptr;
 			_strArg.clear();
-			_stat = (_pDecomposerParent == nullptr)? STAT_Text : STAT_Complete;
+			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
 			_strArgs.push_back(_strArg);
 			_strArg.clear();
