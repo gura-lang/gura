@@ -209,9 +209,16 @@ Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent)
 {
 }
 
-void Decomposer::SetCommandFormat(const CommandFormat *pCmdFmt)
+void Decomposer::SetCommandSpecial(const CommandFormat *pCmdFmt)
 {
 	_pCmdFmtCur = pCmdFmt;
+	_stat = STAT_Command;
+}
+
+void Decomposer::SetCommandCustom(const char *cmdName)
+{
+	_pCmdFmtCustom->SetName(cmdName);
+	_pCmdFmtCur = _pCmdFmtCustom.get();
 	_stat = STAT_Command;
 }
 
@@ -283,9 +290,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
-				_pDecomposerChild->SetCommandFormat(_pCmdFmtCustom.get());
+				_pDecomposerChild->SetCommandCustom(_cmdName.c_str());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				if (_pCmdFmtCur->IsCustom()) {
@@ -303,7 +309,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else {
 				// special command (not section indicator)
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
-				_pDecomposerChild->SetCommandFormat(pCmdFmt);
+				_pDecomposerChild->SetCommandSpecial(pCmdFmt);
 			}
 		} else {
 			_cmdName += ch;

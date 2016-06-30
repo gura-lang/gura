@@ -3,11 +3,13 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
+/*
 R'''
 /*!
-  \strong{\strong{hoge}}
+  This is a \Bold{bold \Emph{and} Emphasized} text fragment.
  */	
 '''
+*/
 R'''
 /*!
   \strong{hoge}
@@ -292,6 +294,8 @@ Parser = class(doxygen.parser) {
 	// @---() = ''
 	// @{() = ''
 	// @}() = ''
+	@Bold_1(str) = '<b>' + str + '</b>'
+	@Emph_1(str) = '<em>' + str + '</em>'
 	@bar() = 'bar'
 	@strong_1(a) = '@b ' + a
 	@foo_3(a, b, c) = 'foo: %s,%s,%s' % [a, b, c]
