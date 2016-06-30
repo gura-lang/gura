@@ -4,12 +4,6 @@ import(doxygen)
 
 testCases = [
 R'''
-/*!
-  \ref section1 should be referenced.
-  \ref section1 "title" should be referenced.
- */
-'''
-R'''
 /*! \page page1 A documentation page
   \tableofcontents
   Leading text.
@@ -24,6 +18,13 @@ R'''
 /*! \page page2 Another page
   Even more info.
 */
+'''
+
+R'''
+/*!
+  \ref section1 should be referenced.
+  \ref section1 "title" should be referenced.
+ */
 '''
 
 R'''
