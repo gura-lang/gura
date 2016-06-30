@@ -155,7 +155,8 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			// nothing to do
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			_stat = STAT_BlockDoxygen_Indent;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {

@@ -3,6 +3,15 @@ import(helper.test) {*}
 import(doxygen)
 
 testCases = [
+// blank line test
+R'''
+/*!
+ * abcdefg
+ * hijklmn
+ *
+ * opqrstu
+ */
+'''
 R'''
 /*! \class Test class.h "inc/class.h"
  *  \brief This is a test class.
