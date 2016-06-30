@@ -207,7 +207,7 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
-	_pushbackLevel(0)
+	_pushbackLevel(0), _chPunctuation('\0')
 {
 }
 
@@ -405,6 +405,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Pushback(ch);
+				//Pushback(' ');
 				_strArgs.push_back("");
 				_stat = STAT_NextArg;
 			}
@@ -433,22 +434,23 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_strArgs.push_back(_strArg);
 			_stat = STAT_NextArg;
-		} else if (ch == '.') {
-			_stat = STAT_ArgWord_Period;
+		} else if (ch == '.' || ch == ',' || ch == ';' || ch == '?' || ch == '!') {
+			_chPunctuation = ch;
+			_stat = STAT_ArgWord_Punctuation;
 		} else {
 			_strArg += ch;
 		}
 		break;
 	}
-	case STAT_ArgWord_Period: {
+	case STAT_ArgWord_Punctuation: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
-			Pushback('.');
+			Pushback(_chPunctuation);
 			_strArgs.push_back(_strArg);
 			_stat = STAT_NextArg;
 		} else {
 			Pushback(ch);
-			_strArg += '.';
+			_strArg += _chPunctuation;
 			_stat = STAT_ArgWord;
 		}
 		break;
@@ -481,7 +483,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgLine: {
 		if (ch == '\n' || ch == '\0') {
 			if (ch == '\0') Pushback(ch);
-			_strArgs.push_back(_strArg);
+			_strArgs.push_back(Strip(_strArg.c_str()));
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();

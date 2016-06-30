@@ -4,6 +4,101 @@ import(doxygen)
 
 testCases = [
 R'''
+/*!
+  \ref section1 should be referenced.
+  \ref section1 "title" should be referenced.
+ */
+'''
+R'''
+/*! \page page1 A documentation page
+  \tableofcontents
+  Leading text.
+  \section sec An example section
+  This page contains the subsections \ref subsection1 and \ref subsection2.
+  For more info see page \ref page2.
+  \subsection subsection1 The first subsection
+  Text.
+  \subsection subsection2 The second subsection
+  More text.
+*/
+/*! \page page2 Another page
+  Even more info.
+*/
+'''
+
+R'''
+/*!
+\a 1st.2nd \a 1st. 2nd
+\a 1st,2nd \a 1st, 2nd
+\a 1st;2nd \a 1st; 2nd
+\a 1st?2nd \a 1st? 2nd
+\a 1st!2nd \a 1st! 2nd
+*/
+'''
+
+R'''
+/*! \class Overload_Test
+ *  \brief A short description.
+ *   
+ *  More text.
+ */
+/*! \fn void Overload_Test::drawRect(int x,int y,int w,int h)
+ * This command draws a rectangle with a left upper corner at ( \a x , \a y ),
+ * width \a w and height \a h. 
+ */
+/*!
+ * \overload void Overload_Test::drawRect(const Rect &r)
+ */
+'''
+
+
+R'''
+/*! \class Fn_Test
+ * \brief Fn_Test class.
+ *
+ * Details about Fn_Test.
+ */
+/*! \fn const char *Fn_Test::member(char c,int n) 
+ *  \brief A member function.
+ *  \param c a character.
+ *  \param n an integer.
+ *  \exception std::out_of_range parameter is out of range.
+ *  \return a character pointer.
+ */
+'''
+
+R'''
+/** \file file.h
+ * A brief file description.
+ * A more elaborated file description.
+ */
+/**
+ * A global integer value.
+ * More details about this value.
+ */
+extern int globalValue;
+'''
+
+R'''
+/** A Example_Test class.
+ *  More details about this class.
+ */
+class Example_Test
+{
+  public:
+    /** An example member function.
+     *  More details about this function.
+     */
+    void example();
+};
+void Example_Test::example() {}
+/** \example example_test.cpp
+ * This is an example of how to use the Example_Test class.
+ * More details about this example.
+ */
+'''
+
+R'''
 /*! \mainpage My Personal Index Page
  *
  * \section intro_sec Introduction
@@ -219,7 +314,7 @@ R'''
 ]
 
 Parser = class(doxygen.parser) {
-	@addtogroup(name:string, title:string) = '@addtogroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
+	@addtogroup(name:string, title:string) = '@addtogroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@callgraph() = '@callgraph{' + '}'
 	@hidecallgrph() = '@hidecallgrph{' + '}'
 	@callergraph() = '@callergraph{' + '}'
@@ -227,14 +322,14 @@ Parser = class(doxygen.parser) {
 	@category(name:string, header_file:string, header_name:string) = '@category{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
 	@class(name:string, header_file:string, header_name:string) = '@class{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
 	@def(name:string) = '@def{' + 'name:' + name.escape():surround + '}'
-	@defgroup(name:string, group_title:string) = '@defgroup{' + 'name:' + name.escape():surround + ',group_title:' + group_title.escape():surround + '}'
+	@defgroup(name:string, group_title:string) = '@defgroup{' + 'name:' + name.escape():surround + ',group_title:' + group_title.escape():surround + '}\n'
 	@dir(path_fragment:string) = '@dir{' + 'path_fragment:' + path_fragment.escape():surround + '}'
 	@enum(name:string) = '@enum{' + 'name:' + name.escape():surround + '}'
 	@example(file_name:string) = '@example{' + 'file_name:' + file_name.escape():surround + '}'
 	@endinternal() = '@endinternal{' + '}'
 	@extends(name:string) = '@extends{' + 'name:' + name.escape():surround + '}'
 	@file(name:string) = '@file{' + 'name:' + name.escape():surround + '}'
-	@fn(declaration:string) = '@fn{' + 'declaration:' + declaration.escape():surround + '}'
+	@fn(declaration:string) = '@fn{' + 'declaration:' + declaration.escape():surround + '}\n'
 	@headerfile(header_file:string, header_name:string) = '@headerfile{' + 'header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
 	@hideinitializer() = '@hideinitializer{' + '}'
 	@idlexcept(name:string) = '@idlexcept{' + 'name:' + name.escape():surround + '}'
@@ -242,17 +337,17 @@ Parser = class(doxygen.parser) {
 	@ingroup(groupname:string) = '@ingroup{' + 'groupname:' + groupname.escape():surround + '}'
 	@interface(name:string, header_file:string, header_name:string) = '@interface{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
 	@internal() = '@internal{' + '}'
-	@mainpage(title:string) = '@mainpage{' + 'title:' + title.escape():surround + '}'
+	@mainpage(title:string) = '@mainpage{' + 'title:' + title.escape():surround + '}\n'
 	@memberof(name:string) = '@memberof{' + 'name:' + name.escape():surround + '}'
-	@name(header:string) = '@name{' + 'header:' + header.escape():surround + '}'
+	@name(header:string) = '@name{' + 'header:' + header.escape():surround + '}\n'
 	@namespace(name:string) = '@namespace{' + 'name:' + name.escape():surround + '}'
 	@nosubgrouping() = '@nosubgrouping{' + '}'
-	@overload(declaration:string) = '@overload{' + 'declaration:' + declaration.escape():surround + '}'
+	@overload(declaration:string) = '@overload{' + 'declaration:' + declaration.escape():surround + '}\n'
 	@package(name:string) = '@package{' + 'name:' + name.escape():surround + '}'
-	@page(name:string, title:string) = '@page{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
+	@page(name:string, title:string) = '@page{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@private() = '@private{' + '}'
 	@privatesection() = '@privatesection{' + '}'
-	@property(name:string) = '@property{' + 'name:' + name.escape():surround + '}'
+	@property(name:string) = '@property{' + 'name:' + name.escape():surround + '}\n'
 	@protected() = '@protected{' + '}'
 	@protectedsection() = '@protectedsection{' + '}'
 	@protocol(name:string, header_file:string, header_name:string) = '@protocol{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
@@ -266,11 +361,11 @@ Parser = class(doxygen.parser) {
 	@showinitializer() = '@showinitializer{' + '}'
 	@static() = '@static{' + '}'
 	@struct(name:string, header_file:string, header_name:string) = '@struct{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
-	@typedef(declaration:string) = '@typedef{' + 'declaration:' + declaration.escape():surround + '}'
+	@typedef(declaration:string) = '@typedef{' + 'declaration:' + declaration.escape():surround + '}\n'
 	@union(name:string, header_file:string, header_name:string) = '@union{' + 'name:' + name.escape():surround + ',header_file:' + header_file.escape():surround + ',header_name:' + header_name.escape():surround + '}'
-	@var(declaration:string) = '@var{' + 'declaration:' + declaration.escape():surround + '}'
-	@vhdlflow(title_for_the_flow_chart:string) = '@vhdlflow{' + 'title_for_the_flow_chart:' + title_for_the_flow_chart.escape():surround + '}'
-	@weakgroup(name:string, title:string) = '@weakgroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
+	@var(declaration:string) = '@var{' + 'declaration:' + declaration.escape():surround + '}\n'
+	@vhdlflow(title_for_the_flow_chart:string) = '@vhdlflow{' + 'title_for_the_flow_chart:' + title_for_the_flow_chart.escape():surround + '}\n'
+	@weakgroup(name:string, title:string) = '@weakgroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@attention(text:string) = '@attention{' + 'text:' + text.escape():surround + '}\n'
 	@author(list_of_authors:string) = '@author{' + 'list_of_authors:' + list_of_authors.escape():surround + '}\n'
 	@authors(list_of_authors:string) = '@authors{' + 'list_of_authors:' + list_of_authors.escape():surround + '}\n'
@@ -314,7 +409,7 @@ Parser = class(doxygen.parser) {
 	@version(version_number:string) = '@version{' + 'version_number:' + version_number.escape():surround + '}\n'
 	@warning(message:string) = '@warning{' + 'message:' + message.escape():surround + '}\n'
 	@xrefitem(key:string, heading:string, list_title:string, text:string) = '@xrefitem{' + 'key:' + key.escape():surround + ',heading:' + heading.escape():surround + ',list_title:' + list_title.escape():surround + ',text:' + text.escape():surround + '}\n'
-	@addindex(text:string) = '@addindex{' + 'text:' + text.escape():surround + '}'
+	@addindex(text:string) = '@addindex{' + 'text:' + text.escape():surround + '}\n'
 	@anchor(word:string) = '@anchor{' + 'word:' + word.escape():surround + '}'
 	@cite(label:string) = '@cite{' + 'label:' + label.escape():surround + '}'
 	@endlink() = '@endlink{' + '}'
@@ -325,18 +420,18 @@ Parser = class(doxygen.parser) {
 	@endsecreflist() = '@endsecreflist{' + '}'
 	@subpage(name:string, text:string) = '@subpage{' + 'name:' + name.escape():surround + ',text:' + text.escape():surround + '}'
 	@tableofcontents() = '@tableofcontents{' + '}'
-	@section(name:string, title:string) = '@section{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
-	@subsection(name:string, title:string) = '@subsection{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
-	@subsubsection(name:string, title:string) = '@subsubsection{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
-	@paragrph(name:string, title:string) = '@paragrph{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}'
+	@section(name:string, title:string) = '@section{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
+	@subsection(name:string, title:string) = '@subsection{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
+	@subsubsection(name:string, title:string) = '@subsubsection{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
+	@paragrph(name:string, title:string) = '@paragrph{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@dontinclude(file_name:string) = '@dontinclude{' + 'file_name:' + file_name.escape():surround + '}'
 	@include(file_name:string) = '@include{' + 'file_name:' + file_name.escape():surround + '}'
 	@includelineno(file_name:string) = '@includelineno{' + 'file_name:' + file_name.escape():surround + '}'
-	@line(pattern:string) = '@line{' + 'pattern:' + pattern.escape():surround + '}'
-	@skip(pattern:string) = '@skip{' + 'pattern:' + pattern.escape():surround + '}'
-	@skipline(pattern:string) = '@skipline{' + 'pattern:' + pattern.escape():surround + '}'
-	@snippet(file_name:string, block_id:string) = '@snippet{' + 'file_name:' + file_name.escape():surround + ',block_id:' + block_id.escape():surround + '}'
-	@until(pattern:string) = '@until{' + 'pattern:' + pattern.escape():surround + '}'
+	@line(pattern:string) = '@line{' + 'pattern:' + pattern.escape():surround + '}\n'
+	@skip(pattern:string) = '@skip{' + 'pattern:' + pattern.escape():surround + '}\n'
+	@skipline(pattern:string) = '@skipline{' + 'pattern:' + pattern.escape():surround + '}\n'
+	@snippet(file_name:string, block_id:string) = '@snippet{' + 'file_name:' + file_name.escape():surround + ',block_id:' + block_id.escape():surround + '}\n'
+	@until(pattern:string) = '@until{' + 'pattern:' + pattern.escape():surround + '}\n'
 	@verbinclude(file_name:string) = '@verbinclude{' + 'file_name:' + file_name.escape():surround + '}'
 	@htmlinclude(file_name:string) = '@htmlinclude{' + 'file_name:' + file_name.escape():surround + '}'
 	@latexinclude(file_name:string) = '@latexinclude{' + 'file_name:' + file_name.escape():surround + '}'
@@ -349,12 +444,12 @@ Parser = class(doxygen.parser) {
 	@copybrief(link_object:string) = '@copybrief{' + 'link_object:' + link_object.escape():surround + '}'
 	@copydetails(link_object:string) = '@copydetails{' + 'link_object:' + link_object.escape():surround + '}'
 	@docbookonly() = '@docbookonly{' + '}'
-	@dot(caption:string, size:string) = '@dot{' + 'caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
-	@msc(caption:string, size:string) = '@msc{' + 'caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
-	@startuml(file:string, caption:string, size:string) = '@startuml{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
-	@dotfile(file:string, caption:string, size:string) = '@dotfile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
-	@mscfile(file:string, caption:string, size:string) = '@mscfile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
-	@diafile(file:string, caption:string, size:string) = '@diafile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
+	@dot(caption:string, size:string) = '@dot{' + 'caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
+	@msc(caption:string, size:string) = '@msc{' + 'caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
+	@startuml(file:string, caption:string, size:string) = '@startuml{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
+	@dotfile(file:string, caption:string, size:string) = '@dotfile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
+	@mscfile(file:string, caption:string, size:string) = '@mscfile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
+	@diafile(file:string, caption:string, size:string) = '@diafile{' + 'file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
 	@e(word:string) = '@e{' + 'word:' + word.escape():surround + '}'
 	@em(word:string) = '@em{' + 'word:' + word.escape():surround + '}'
 	@endcode() = '@endcode{' + '}'
@@ -372,7 +467,7 @@ Parser = class(doxygen.parser) {
 	// @f]() = ''
 	// @f}() = ''
 	@htmlonly(block:string) = '@htmlonly{' + 'block:' + block.escape():surround + '}'
-	@image(format:string, file:string, caption:string, size:string) = '@image{' + 'format:' + format.escape():surround + ',file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}'
+	@image(format:string, file:string, caption:string, size:string) = '@image{' + 'format:' + format.escape():surround + ',file:' + file.escape():surround + ',caption:' + caption.escape():surround + ',size:' + size.escape():surround + '}\n'
 	@latexonly() = '@latexonly{' + '}'
 	@manonly() = '@manonly{' + '}'
 	@li(description:string) = '@li{' + 'description:' + description.escape():surround + '}\n'

@@ -88,6 +88,9 @@ public:
 	inline bool IsSectionIndicator() const {
 		return _cmdType == CMDTYPE_Section || (!_argOwner.empty() && _argOwner.back()->IsPara());
 	}
+	inline bool IsLineIndicator() const {
+		return !_argOwner.empty() && (_argOwner.back()->IsLine() || _argOwner.back()->IsLineOpt());
+	}
 	inline void SetName(const char *name) { _name = name; }
 	inline const char *GetName() const { return _name.c_str(); }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }

@@ -64,7 +64,7 @@ public:
 		STAT_NextArg,
 		STAT_BranchArg,
 		STAT_ArgWord,
-		STAT_ArgWord_Period,
+		STAT_ArgWord_Punctuation,
 		STAT_ArgWordQuote,
 		STAT_ArgBracket,
 		STAT_ArgLine,
@@ -88,6 +88,7 @@ private:
 	const CommandFormat *_pCmdFmtCur;
 	int _pushbackLevel;
 	char _pushbackBuff[16];
+	char _chPunctuation;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
