@@ -42,7 +42,7 @@ Gura_ImplementFunction(makescript)
 				str += ".escape():surround";
 				iArg++;
 			}
-			str += " + '}'";
+			str += pCmdFmt->IsSectionIndicator()? " + '}\\n'" : " + '}'";
 			pStream->Println(sig, str.c_str());
 		} else {
 			pStream->Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
