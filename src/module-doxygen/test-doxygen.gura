@@ -4,7 +4,7 @@ import(doxygen)
 
 testCases = [
 R'''
-/** See \ref SomeClass "Some Text" for more information. */
+/** See \l{SomeClass,Some Text} for more information. */
 '''
 /*
 R'''
@@ -299,7 +299,7 @@ Parser = class(doxygen.parser) {
 	// @}() = ''
 	//--------------------------------------------------------------------------
 	@l_1(name) = '@ref ' + name
-	@l_2(name, text) = '@ref ' + name + '"' + text + '"'
+	@l_2(name, text) = '@ref ' + name + ' "' + text + '"'
 	@Bold_1(str) = '<b>' + str + '</b>'
 	@Emph_1(str) = '<em>' + str + '</em>'
 	@bar() = 'bar'
