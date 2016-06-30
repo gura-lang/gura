@@ -4,6 +4,21 @@ import(doxygen)
 
 testCases = [
 R'''
+/*!
+ abcdef
+ */
+/*!
+ ghijkl
+ */
+/*!
+ mnopqr
+ */
+/*!
+ stuvwxyz
+ */
+'''
+
+R'''
 /**
  See \l{SomeClass,Some Text} for more information.
  */
@@ -12,11 +27,7 @@ R'''
  This is a \Bold{bold \Emph{and} Emphasized} text fragment.
  */
 '''
-R'''
-/*!
- abcdef
- */
-'''
+
 
 /*
 R'''

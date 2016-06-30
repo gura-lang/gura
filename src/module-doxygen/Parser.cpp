@@ -569,6 +569,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	}
 	EndPushbackRegion();
+	if (IsTopLevel() && ch == '\0') _stat = STAT_Init;
 	return true;
 }
 

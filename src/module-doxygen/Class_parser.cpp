@@ -94,7 +94,7 @@ Gura_ImplementMethod(parser, parse)
 	Parser &parser = Object_parser::GetObjectThis(arg)->GetParser();
 	const char *result = parser.ParseStream(env, arg.GetStream(0));
 	if (result != nullptr) {
-		::printf("%s\n", result);
+		::printf("%s", result);
 	}
 	return Value::Nil;
 }
