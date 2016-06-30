@@ -4,6 +4,22 @@ import(doxygen)
 
 testCases = [
 R'''
+/*! \mainpage My Personal Index Page
+ *
+ * \section intro_sec Introduction
+ *
+ * This is the introduction.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */
+'''
+
+
+R'''
 /*! \fn const char *Fn_Test::member(char c,int n) 
  *  \brief A member function.
  *  \param c a character.
