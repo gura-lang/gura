@@ -7,6 +7,12 @@ R'''
 /*! \class Enum_Test
  * The class description.
  */
+'''
+
+R'''
+/*! \class Enum_Test
+ * The class description.
+ */
 /*! \enum Enum_Test::TEnum
  * A description of the enum type.
  */

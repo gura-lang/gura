@@ -371,6 +371,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
 					return false;
 				}
+				Pushback(ch);
 				_strArgs.push_back("");
 				_stat = STAT_NextArg;
 			} else if (ch == '"') {
