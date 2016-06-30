@@ -4,12 +4,12 @@ import(doxygen)
 
 testCases = [
 R'''
-/** See \l{SomeClass,Some Text} for more information. */
+/** See \l{SomeClass,Some Text} for more information.
+  This is a \Bold{bold \Emph{and} Emphasized} text fragment. */
 '''
 /*
 R'''
 /*!
-  This is a \Bold{bold \Emph{and} Emphasized} text fragment.
  */	
 '''
 */
@@ -298,10 +298,10 @@ Parser = class(doxygen.parser) {
 	// @{() = ''
 	// @}() = ''
 	//--------------------------------------------------------------------------
-	@l_1(name) = '@ref ' + name
-	@l_2(name, text) = '@ref ' + name + ' "' + text + '"'
-	@Bold_1(str) = '<b>' + str + '</b>'
-	@Emph_1(str) = '<em>' + str + '</em>'
+	@l_1(name) = '@ref ${name}'.embed()
+	@l_2(name, text) = '@ref ${name} "${text}"'.embed()
+	@Bold_1(str) = '<b>${str}</b>'.embed()
+	@Emph_1(str) = '<em>${str}</em>'.embed()
 	@bar() = 'bar'
 	@strong_1(a) = '@b ' + a
 	@foo_3(a, b, c) = 'foo: %s,%s,%s' % [a, b, c]
