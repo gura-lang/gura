@@ -155,6 +155,75 @@ testcase('test of @def', R'''
         /*!< Computes the minimum of \a x and \a y. */
 ''')
 
+testcase('test of @enum', R'''
+/*! \class Enum_Test
+ * The class description.
+ */
+/*! \enum Enum_Test::TEnum
+ * A description of the enum type.
+ */
+/*! \var Enum_Test::TEnum Enum_Test::Val1
+ * The description of the first enum value.
+ */
+ ''')
+
+testcase('test of @example', R'''
+/** A Example_Test class.
+ *  More details about this class.
+ */
+class Example_Test
+{
+  public:
+    /** An example member function.
+     *  More details about this function.
+     */
+    void example();
+};
+void Example_Test::example() {}
+/** \example example_test.cpp
+ * This is an example of how to use the Example_Test class.
+ * More details about this example.
+ */
+''')
+
+testcase('test of @file', R'''
+/** \file file.h
+ * A brief file description.
+ * A more elaborated file description.
+ */
+/**
+ * A global integer value.
+ * More details about this value.
+ */
+extern int globalValue;
+''')
+
+testcase('test of @fn', R'''
+/*! \class Fn_Test
+ * \brief Fn_Test class.
+ *
+ * Details about Fn_Test.
+ */
+/*! \fn const char *Fn_Test::member(char c,int n) 
+ *  \brief A member function.
+ *  \param c a character.
+ *  \param n an integer.
+ *  \exception std::out_of_range parameter is out of range.
+ *  \return a character pointer.
+ */
+''')
+
+testcase('', R'''
+E.g. if you have two event handlers @c A and @c B and a wxWindow instance
+@c W and you call:
+@code
+    W->PushEventHandler(A);
+    W->PushEventHandler(B);
+@endcode
+you will end up with the following situation:
+    @image html overview_events_winstack.png
+''')
+
 /*
 testcase('', R'''
 ''')
