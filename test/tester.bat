@@ -19,6 +19,7 @@ set cases=%cases% datetime
 set cases=%cases% declaration
 set cases=%cases% dict
 set cases=%cases% diff
+set cases=%cases% doxygen
 set cases=%cases% encoding-big5
 set cases=%cases% encoding-euc-kr
 set cases=%cases% encoding-gb2312
