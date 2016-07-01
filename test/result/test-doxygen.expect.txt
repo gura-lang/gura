@@ -67,3 +67,63 @@ Another function
 @brief{description:'This is a test class.\n'}
 Some details about the Test class.
 --end--
+
+======== #12 test of @def ========
+@file{name:'define.h'}
+@brief{description:'testing defines\n'}
+This is to test the documentation of defines.
+@def{name:'MAX(x,y)'}
+Computes the maximum of @a{word:'x'} and @a{word:'y'}.
+Computes the absolute value of its argument @a{word:'x'}.
+Computes the minimum of @a{word:'x'} and @a{word:'y'}. 
+--end--
+
+======== #13 test of @enum ========
+@class{name:'Enum_Test',header_file:'',header_name:''}
+The class description.
+@enum{name:'Enum_Test::TEnum'}
+A description of the enum type.
+@var{declaration:'Enum_Test::TEnum Enum_Test::Val1'}
+The description of the first enum value.
+--end--
+
+======== #14 test of @example ========
+A Example_Test class.
+More details about this class.
+An example member function.
+More details about this function.
+@example{file_name:'example_test.cpp'}
+This is an example of how to use the Example_Test class.
+More details about this example.
+--end--
+
+======== #15 test of @file ========
+@file{name:'file.h'}
+A brief file description.
+A more elaborated file description.
+A global integer value.
+More details about this value.
+--end--
+
+======== #16 test of @fn ========
+@class{name:'Fn_Test',header_file:'',header_name:''}
+@brief{description:'Fn_Test class.\n'}
+Details about Fn_Test.
+@fn{declaration:'const char *Fn_Test::member(char c,int n)'}
+@brief{description:'A member function.\n'}
+@param{dir:'',name:'c',description:'a character.\n'}
+@param{dir:'',name:'n',description:'an integer.\n'}
+@exception{exception_object:'std::out_of_range',description:'parameter is out of range.\n'}
+@return{description:'a character pointer.\n'}
+--end--
+
+======== #17 ========
+E.g. if you have two event handlers @c{word:'A'} and @c{word:'B'} and a wxWindow instance
+@c{word:'W'} and you call:
+@code{word:''}
+W->PushEventHandler(A);
+W->PushEventHandler(B);
+@endcode{}
+you will end up with the following situation:
+@image{format:'html',file:'overview_events_winstack.png',caption:'',size:''}
+--end--

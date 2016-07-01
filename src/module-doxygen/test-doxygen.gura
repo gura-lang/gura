@@ -423,7 +423,7 @@ Parser = class(doxygen.parser) {
 	OnCommand(cmdName:string, args[]:string) = '(unknown %s %s)' % [cmdName, args.join(',')]
 }
 
-testCaseInfos.tail(1).each {|testCaseInfo, idx|
+testCaseInfos.each {|testCaseInfo, idx|
 	(idx > 0) && println()
 	printf('======== #%d', idx + 1)
 	!testCaseInfo.title.isempty() && printf(' %s', testCaseInfo.title)
