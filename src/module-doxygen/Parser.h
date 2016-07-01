@@ -26,10 +26,12 @@ public:
 		STAT_Indent,
 		STAT_Source,
 		STAT_LineCommentBgn,
+		STAT_LineDoxygenFirst,
 		STAT_LineDoxygen,
 		STAT_LineComment,
 		STAT_BlockCommentBgn,
 		STAT_BlockCommentBgn_Asterisk,
+		STAT_BlockDoxygenFirst,
 		STAT_BlockDoxygen,
 		STAT_BlockDoxygen_Asterisk,
 		STAT_BlockDoxygen_Indent,
@@ -93,6 +95,7 @@ private:
 	char _pushbackBuff[16];
 	char _chPunctuation;
 	char _chPrev;
+	bool _aheadFlag;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
@@ -113,6 +116,7 @@ public:
 			_pDecomposerParent->Pushback(ch);
 		}
 	}
+	inline void SetAheadFlag(bool aheadFlag) { _aheadFlag = aheadFlag; }
 	inline static bool IsCommandEnd(const String &cmdName, char ch) {
 		return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(cmdName == "f" || cmdName.empty()) && (ch == '[' || ch == '{'));

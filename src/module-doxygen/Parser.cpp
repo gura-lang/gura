@@ -33,6 +33,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Source: {
 		if (ch == '/') {
+			// parsed "/"
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
 			_stat = STAT_Indent;
@@ -45,8 +46,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '/') {
+			// parsed "//"
 			_stat = STAT_LineCommentBgn;
 		} else if (ch == '*') {
+			// parsed "/*"
 			_stat = STAT_BlockCommentBgn;
 		} else {
 			_stat = STAT_Source;
@@ -58,10 +61,22 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '/' || ch == '!') {
-			_stat = STAT_LineDoxygen;
+			// parsed "///" or "//!"
+			_stat = STAT_LineDoxygenFirst;
 		} else {
+			// parsed "//."
 			_stat = STAT_LineComment;
 		}
+		break;
+	}
+	case STAT_LineDoxygenFirst: {
+		if (ch == '<') {
+			_pDecomposer->SetAheadFlag(true);
+		} else {
+			_pDecomposer->SetAheadFlag(false);
+			Gura_Pushback();
+		}
+		_stat = STAT_LineDoxygen;
 		break;
 	}
 	case STAT_LineDoxygen: {
@@ -88,21 +103,36 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '*') {
+			// parsed "/**"
 			_stat = STAT_BlockCommentBgn_Asterisk;
 		} else if (ch == '!') {
-			_stat = STAT_BlockDoxygen;
+			// parsed "/*!"
+			_stat = STAT_BlockDoxygenFirst;
 		} else {
+			// parsed "/*."
 			_stat = STAT_BlockComment;
 		}
 		break;
 	}
 	case STAT_BlockCommentBgn_Asterisk: {
 		if (ch == '/') {
+			// parsed "/**/"
 			_stat = STAT_Source;
 		} else {
+			// parsed "/**."
 			Gura_Pushback();
-			_stat = STAT_BlockDoxygen;
+			_stat = STAT_BlockDoxygenFirst;
 		}
+		break;
+	}
+	case STAT_BlockDoxygenFirst: {
+		if (ch == '<') {
+			_pDecomposer->SetAheadFlag(true);
+		} else {
+			_pDecomposer->SetAheadFlag(false);
+			Gura_Pushback();
+		}
+		_stat = STAT_BlockDoxygen;
 		break;
 	}
 	case STAT_BlockDoxygen: {
@@ -232,7 +262,7 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
-	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0')
+	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0'), _aheadFlag(false)
 {
 }
 
