@@ -67,6 +67,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygen: {
 		if (ch == '\n') {
 			// a line comment ends with newline.
+			if (!_pDecomposer->FeedChar(env, '\n')) return false;
 			if (!_pDecomposer->FeedChar(env, '\0')) return false;
 			_stat = STAT_Indent;
 		} else { // including '\0'
