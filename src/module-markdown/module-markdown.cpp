@@ -3010,7 +3010,6 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 		sig.SetError(ERR_FormatError, "presenter function is not registered");
 		return false;
 	}
-	//ValueList valListArg;
 	AutoPtr<Argument> pArg(new Argument(g_pFunc_Presenter.get()));
 	if (title == nullptr) {
 		if (!pArg->StoreValue(env, Value::Nil)) return false;
