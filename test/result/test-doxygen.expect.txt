@@ -1,0 +1,69 @@
+======== #1 blank block comment ========
+
+--end--
+
+======== #2 blank line comment ========
+
+--end--
+
+======== #3 simple doxygen block ========
+test1
+test1
+test2
+test2
+test3 test3 
+--end--
+
+======== #4 simple doxygen line ========
+test1
+test1
+--end--
+
+======== #5 multiline ========
+/**
+line.1
+line.2
+line.3
+*/
+--end--
+
+======== #6 blank line test ========
+abcdefg
+hijklmn
+
+opqrstu
+--end--
+
+======== #7 split comments ========
+abcdef
+ghijkl
+mnopqr
+stuvwxyz
+--end--
+
+======== #8 punctuation ========
+@a{word:'1st.2nd'} @a{word:'1st'}. 2nd
+@a{word:'1st,2nd'} @a{word:'1st'}, 2nd
+@a{word:'1st;2nd'} @a{word:'1st'}; 2nd
+@a{word:'1st?2nd'} @a{word:'1st'}? 2nd
+@a{word:'1st!2nd'} @a{word:'1st'}! 2nd
+--end--
+
+======== #9 quotation ========
+@a{word:'word'}
+@a{word:'word'}
+@a{word:'multi words'}
+--end--
+
+======== #10 test of @addtogroup ========
+@addtogroup{name:'mygrp',title:''}
+Additional documentation for group 'mygrp'
+A function
+Another function 
+--end--
+
+======== #11 test of @class ========
+@class{name:'Test',header_file:'class.h',header_name:'inc/class.h'}
+@brief{description:'This is a test class.\n'}
+Some details about the Test class.
+--end--
