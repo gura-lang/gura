@@ -56,6 +56,57 @@ testcase('simple doxygen line', R'''
 /// test1
 ''')
 
+testcase('multiline', R'''	
+/**
+line.1
+line.2
+line.3
+*/
+''')
+
+testcase('blank line test', R'''
+/*!
+ * abcdefg
+ * hijklmn
+ *
+ * opqrstu
+ */
+''')
+
+testcase('split comments', R'''
+/*!
+ abcdef
+ */
+/*!
+ ghijkl
+ */
+/*!
+ mnopqr
+ */
+/*!
+ stuvwxyz
+ */
+''')
+
+testcase('punctuation', R'''
+/*!
+\a 1st.2nd \a 1st. 2nd
+\a 1st,2nd \a 1st, 2nd
+\a 1st;2nd \a 1st; 2nd
+\a 1st?2nd \a 1st? 2nd
+\a 1st!2nd \a 1st! 2nd
+*/
+''')
+
+testcase('quotation', R'''
+/*!
+\a word
+\a "word"
+\a "multi words"
+*/
+''')
+/*
+
 testcase('extracted', R'''
 \page page1 A documentation page
 \tableofcontents
@@ -110,15 +161,6 @@ testcase('', R'''
  */
 ''')
 
-testcase('punctuation', R'''
-/*!
-\a 1st.2nd \a 1st. 2nd
-\a 1st,2nd \a 1st, 2nd
-\a 1st;2nd \a 1st; 2nd
-\a 1st?2nd \a 1st? 2nd
-\a 1st!2nd \a 1st! 2nd
-*/
-''')
 
 testcase('', R'''
 /*! \class Overload_Test
@@ -253,30 +295,6 @@ testcase('', R'''
  */
 ''')
 
-testcase('blank line test', R'''
-/*!
- * abcdefg
- * hijklmn
- *
- * opqrstu
- */
-''')
-
-testcase('split comments', R'''
-/*!
- abcdef
- */
-/*!
- ghijkl
- */
-/*!
- mnopqr
- */
-/*!
- stuvwxyz
- */
-''')
-
 testcase('', R'''
 /**
  See \l{SomeClass,Some Text} for more information.
@@ -324,16 +342,6 @@ testcase('', R'''
 */
 ''')
 
-testcase('', R'''	
-/**
-multi-line
-
-line.1
-line.2
-line.3
-*/
-''')
-
 testcase('', R'''
 /*! \page example
  *  \dontinclude include_test.cpp
@@ -367,6 +375,7 @@ testcase('', R'''
  */	
 ''')
 
+*/
 
 Parser = class(doxygen.parser) {
 	__init__(extractedFlag:boolean => false) = {|extractedFlag|}
