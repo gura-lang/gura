@@ -2,8 +2,15 @@
 import(helper.test) {*}
 import(doxygen)
 
-testCases = [
-R'''
+TestCaseInfo = struct(title:string, doc:string)
+
+testCaseInfos = []
+
+testcase(title:string, doc:string):void = {
+	testCaseInfos.add(TestCaseInfo(title, doc))
+}
+
+testcase('', R'''
 /*! \page page1 A documentation page
   \tableofcontents
   Leading text.
@@ -18,16 +25,33 @@ R'''
 /*! \page page2 Another page
   Even more info.
 */
-'''
+''')
 
-R'''
+testcase('', R'''
+/*! \page page1 A documentation page
+  \tableofcontents
+  Leading text.
+  \section sec An example section
+  This page contains the subsections \ref subsection1 and \ref subsection2.
+  For more info see page \ref page2.
+  \subsection subsection1 The first subsection
+  Text.
+  \subsection subsection2 The second subsection
+  More text.
+*/
+/*! \page page2 Another page
+  Even more info.
+*/
+''')
+
+testcase('', R'''
 /*!
   \ref section1 should be referenced.
   \ref section1 "title" should be referenced.
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /*!
 \a 1st.2nd \a 1st. 2nd
 \a 1st,2nd \a 1st, 2nd
@@ -35,9 +59,9 @@ R'''
 \a 1st?2nd \a 1st? 2nd
 \a 1st!2nd \a 1st! 2nd
 */
-'''
+''')
 
-R'''
+testcase('', R'''
 /*! \class Overload_Test
  *  \brief A short description.
  *   
@@ -50,10 +74,9 @@ R'''
 /*!
  * \overload void Overload_Test::drawRect(const Rect &r)
  */
-'''
+''')
 
-
-R'''
+testcase('', R'''
 /*! \class Fn_Test
  * \brief Fn_Test class.
  *
@@ -66,9 +89,9 @@ R'''
  *  \exception std::out_of_range parameter is out of range.
  *  \return a character pointer.
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /** \file file.h
  * A brief file description.
  * A more elaborated file description.
@@ -78,9 +101,9 @@ R'''
  * More details about this value.
  */
 extern int globalValue;
-'''
+''')
 
-R'''
+testcase('', R'''
 /** A Example_Test class.
  *  More details about this class.
  */
@@ -97,9 +120,9 @@ void Example_Test::example() {}
  * This is an example of how to use the Example_Test class.
  * More details about this example.
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /*! \mainpage My Personal Index Page
  *
  * \section intro_sec Introduction
@@ -112,10 +135,10 @@ R'''
  *
  * etc...
  */
-'''
+''')
 
 
-R'''
+testcase('', R'''
 /*! \fn const char *Fn_Test::member(char c,int n) 
  *  \brief A member function.
  *  \param c a character.
@@ -123,21 +146,22 @@ R'''
  *  \exception std::out_of_range parameter is out of range.
  *  \return a character pointer.
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /** \example example_test.cpp
  * This is an example of how to use the Example_Test class.
  * More details about this example.
  */
-'''
-R'''
+''')
+
+testcase('', R'''
 /*! \class Enum_Test
  * The class description.
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /*! \class Enum_Test
  * The class description.
  */
@@ -147,10 +171,9 @@ R'''
 /*! \var Enum_Test::TEnum Enum_Test::Val1
  * The description of the first enum value.
  */
-'''
+''')
 
-
-R'''
+testcase('', R'''
 /*! \file define.h
     \brief testing defines
     
@@ -161,24 +184,26 @@ R'''
   \def MAX(x,y)
   Computes the maximum of \a x and \a y.
 */
-'''
-R'''
+''')
+
+testcase('', R'''
 /*! \class Test class.h "inc/class.h"
  *  \brief This is a test class.
  *
  * Some details about the Test class.
  */
-'''
-// blank line test
-R'''
+''')
+
+testcase('blank line test', R'''
 /*!
  * abcdefg
  * hijklmn
  *
  * opqrstu
  */
-'''
-R'''
+''')
+
+testcase('split comments', R'''
 /*!
  abcdef
  */
@@ -191,9 +216,9 @@ R'''
 /*!
  stuvwxyz
  */
-'''
+''')
 
-R'''
+testcase('', R'''
 /**
  See \l{SomeClass,Some Text} for more information.
  */
@@ -201,16 +226,9 @@ R'''
 /**
  This is a \Bold{bold \Emph{and} Emphasized} text fragment.
  */
-'''
+''')
 
-
-/*
-R'''
-/*!
- */	
-'''
-*/
-R'''
+testcase('', R'''
 /*!
   \strong{hoge}
   \bar
@@ -220,24 +238,17 @@ R'''
   \return The test results
   \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
  */	
-'''
-/*
-//-----------------------------------------------------------------------------
-R'''
-/** See \l{SomeClass,Some Text} for more information. */
-'''
-//-----------------------------------------------------------------------------
-*/
-//-----------------------------------------------------------------------------
-R'''
+''')
+
+testcase('', R'''
 /*! \class Test class.h "inc/class.h"
  *  \brief This is a test class.
  *
  * Some details about the Test class.
  */
-'''
-//-----------------------------------------------------------------------------
-R'''
+''')
+
+testcase('', R'''
 /*! \file define.h
     \brief testing defines
     
@@ -252,9 +263,9 @@ R'''
 /*! 
    Computes the absolute value of its argument \a x.
 */
-'''
-//-----------------------------------------------------------------------------
-R'''	
+''')
+
+testcase('', R'''	
 /**
 multi-line
 
@@ -262,12 +273,9 @@ line.1
 line.2
 line.3
 */
-'''
-//-----------------------------------------------------------------------------
-R'''
-'''
-//-----------------------------------------------------------------------------
-R'''
+''')
+
+testcase('', R'''
 /*! \page example
  *  \dontinclude include_test.cpp
  *  Our main function starts like this:
@@ -280,39 +288,39 @@ R'''
  *  After that our little test routine ends.
  *  \line }
  */
-'''
-//-----------------------------------------------------------------------------
-R'''
+''')
+
+testcase('', R'''
 /*!
   \param a an integer argument.
   \param s a constant character pointer.
   \return The test results
   \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
  */	
-'''
-//-----------------------------------------------------------------------------
-R'''
+''')
+
+testcase('', R'''
 /*!
  * \param a an integer argument.
  * \param s a constant character pointer.
  * \return The test results
  * \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
  */	
-'''
-]
-testCases1 = [
-R'''
+''')
+
+testcase('', R'''
 /**/
-'''
-R'''
+''')
+
+testcase('', R'''
 /**
 */
-'''
-R'''
+''')
+
+testcase('', R'''
 /*!
 */
-'''
-]
+''')
 
 Parser = class(doxygen.parser) {
 	@addtogroup(name:string, title:string) = '@addtogroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
@@ -507,9 +515,12 @@ Parser = class(doxygen.parser) {
 	OnCommand(cmdName:string, args[]:string) = '(unknown %s %s)' % [cmdName, args.join(',')]
 }
 
-testCases.head(1).each {|testCase, idx|
-	printf('case #%d\n', idx + 1)
-	str = Parser().parse(testCase.reader())
+testCaseInfos.each {|testCaseInfo, idx|
+	(idx > 0) && println()
+	printf('======== #%d', idx + 1)
+	!testCaseInfo.title.isempty() && printf(' %s', testCaseInfo.title)
+	println(' ========')
+	str = Parser().parse(testCaseInfo.doc.reader())
 	print(str)
 	!str.endswith('\n') && println()
 	println('--end--')
