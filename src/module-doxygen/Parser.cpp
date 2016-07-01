@@ -183,6 +183,30 @@ bool Parser::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
+	case STAT_ExIndent: {
+		if (ch == '\0') {
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+		} else if (ch == '\n') {
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+		} else if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			_stat = STAT_ExDoxygen;
+			Gura_Pushback();
+		}
+		break;
+	}
+	case STAT_ExDoxygen: {
+		if (ch == '\0') {
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+		} else if (ch == '\n') {
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			_stat = STAT_ExIndent;
+		} else {
+			if (!_pDecomposer->FeedChar(env, ch)) return false;
+		}
+		break;
+	}
 	}
 	Gura_EndPushbackRegion();
 	return true;
@@ -207,7 +231,7 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
-	_pushbackLevel(0), _chPunctuation('\0')
+	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0')
 {
 }
 
@@ -405,7 +429,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Pushback(ch);
-				//Pushback(' ');
+				if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
 				_strArgs.push_back("");
 				_stat = STAT_NextArg;
 			}
@@ -590,6 +614,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	EndPushbackRegion();
 	if (IsTopLevel() && ch == '\0') _stat = STAT_Init;
+	_chPrev = ch;
 	return true;
 }
 

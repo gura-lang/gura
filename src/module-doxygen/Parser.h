@@ -38,6 +38,8 @@ public:
 		STAT_BlockComment,
 		STAT_BlockComment_Asterisk,
 		STAT_Slash,
+		STAT_ExIndent,
+		STAT_ExDoxygen,
 	};
 private:
 	Stat _stat;
@@ -46,6 +48,7 @@ public:
 	Parser(Object_parser *pObjParser);
 	bool FeedChar(Environment &env, char ch);
 	const char *ParseStream(Environment &env, SimpleStream &stream);
+	void SetExtractedMode() { _stat = STAT_ExIndent; }
 };
 
 //-----------------------------------------------------------------------------
@@ -89,6 +92,7 @@ private:
 	int _pushbackLevel;
 	char _pushbackBuff[16];
 	char _chPunctuation;
+	char _chPrev;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:

@@ -51,7 +51,7 @@ testcase('', R'''
  */
 ''')
 
-testcase('', R'''
+testcase('punctuation', R'''
 /*!
 \a 1st.2nd \a 1st. 2nd
 \a 1st,2nd \a 1st, 2nd
