@@ -323,6 +323,7 @@ testcase('', R'''
 ''')
 
 Parser = class(doxygen.parser) {
+	__init__(extractedFlag:boolean => false) = {|extractedFlag|}
 	@addtogroup(name:string, title:string) = '@addtogroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@callgraph() = '@callgraph{' + '}'
 	@hidecallgrph() = '@hidecallgrph{' + '}'

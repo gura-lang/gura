@@ -57,10 +57,11 @@ String Object_parser::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
-// doxygen.parser() {block?}
+// doxygen.parser(extracted?:boolean) {block?}
 Gura_DeclareFunction(parser)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "extractec", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(parser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -68,12 +69,16 @@ Gura_DeclareFunction(parser)
 Gura_ImplementFunction(parser)
 {
 	Signal &sig = env.GetSignal();
+	bool extractedFlag = arg.IsValid(0)? arg.GetBoolean(0) : false;
 	Object_parser *pObj = Object_parser::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_parser(Gura_UserClass(parser));
+		if (extractedFlag) pObj->GetParser().SetExtractedMode();
 		return ReturnValue(env, arg, Value(pObj));
+	} else {
+		if (extractedFlag) pObj->GetParser().SetExtractedMode();
+		return ReturnValue(env, arg, arg.GetValueThis());
 	}
-	return ReturnValue(env, arg, arg.GetValueThis());
 }
 
 //----------------------------------------------------------------------------
