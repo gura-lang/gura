@@ -85,6 +85,7 @@ private:
 	Object_parser *_pObjParser;
 	Decomposer *_pDecomposerParent;
 	Stat _stat;
+	String _text;
 	String _result;
 	String _strArg;
 	String _strAhead;
@@ -96,6 +97,7 @@ private:
 	char _chPunctuation;
 	char _chPrev;
 	bool _aheadFlag;
+	AutoPtr<Elem_Container> _pElemResult;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:

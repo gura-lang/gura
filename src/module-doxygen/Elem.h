@@ -44,6 +44,7 @@ protected:
 	ElemOwner _elemOwner;
 public:
 	Elem_Container();
+	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	virtual String ToString() const;
 };
 
@@ -67,6 +68,7 @@ protected:
 	ElemOwner _elemOwner;
 public:
 	Elem_Command(const CommandFormat *pCmdFmt);
+	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	virtual String ToString() const;
 };
 

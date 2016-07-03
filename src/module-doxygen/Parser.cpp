@@ -262,7 +262,8 @@ const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
-	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0'), _aheadFlag(false)
+	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0'), _aheadFlag(false),
+	_pElemResult(new Elem_Container())
 {
 }
 
@@ -289,17 +290,24 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else {
 			Pushback(ch);
+			_text.clear();
 			_stat = STAT_Text;
 		}
 		break;
 	}
 	case STAT_Text: {
 		if (ch == '\0') {
-			// nothing to do
+			if (!_text.empty()) {
+				_pElemResult->AddElem(new Elem_Text(_text));
+			}
 		} else if (IsCommandMark(ch)) {
+			if (!_text.empty()) {
+				_pElemResult->AddElem(new Elem_Text(_text));
+			}
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInText;
 		} else {
+			_text += ch;
 			_result += ch;
 		}
 		break;
@@ -378,13 +386,14 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '{') {
 				_strArgs.clear();
 				_strArg.clear();
-				_stat = STAT_NextArg;
+				_stat = STAT_ArgCustom;
 			} else {
 				_strArgs.clear();
 				if (!EvaluateCommand()) return false;
 				_pCmdFmtCur = nullptr;
 				_strArg.clear();
 				Pushback(ch);
+				_text.clear();
 				_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 			}
 		} else {
@@ -396,21 +405,17 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		if (_pCmdFmtCur->IsCustom()) {
+		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
+		size_t iArg = _strArgs.size();
+		if (iArg < argOwner.size()) {
 			Pushback(ch);
-			_stat = STAT_ArgCustom;
+			_stat = STAT_BranchArg;
 		} else {
-			const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
-			size_t iArg = _strArgs.size();
-			if (iArg < argOwner.size()) {
-				Pushback(ch);
-				_stat = STAT_BranchArg;
-			} else {
-				if (!EvaluateCommand()) return false;
-				_pCmdFmtCur = nullptr;
-				Pushback(ch);
-				_stat = IsTopLevel()? STAT_Text : STAT_Complete;
-			}
+			if (!EvaluateCommand()) return false;
+			_pCmdFmtCur = nullptr;
+			Pushback(ch);
+			_text.clear();
+			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		}
 		break;
 	}
@@ -609,6 +614,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (!EvaluateCommand()) return false;
 			_pCmdFmtCur = nullptr;
 			_strArg.clear();
+			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
 			_strArgs.push_back(_strArg);
