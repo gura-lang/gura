@@ -270,14 +270,14 @@ Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent)
 void Decomposer::SetCommandSpecial(const CommandFormat *pCmdFmt)
 {
 	_pCmdFmtCur = pCmdFmt;
-	_stat = STAT_Command;
+	_stat = STAT_CommandSpecial;
 }
 
 void Decomposer::SetCommandCustom(const char *cmdName)
 {
 	_pCmdFmtCustom->SetName(cmdName);
 	_pCmdFmtCur = _pCmdFmtCustom.get();
-	_stat = STAT_Command;
+	_stat = STAT_CommandCustom;
 }
 
 bool Decomposer::FeedChar(Environment &env, char ch)
@@ -323,12 +323,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// custom command
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
 				_pCmdFmtCur = _pCmdFmtCustom.get();
+				_stat = STAT_CommandCustom;
 			} else {
 				// special command
 				_pCmdFmtCur = pCmdFmt;
+				_stat = STAT_CommandSpecial;
 			}
 			Pushback(ch);
-			_stat = STAT_Command;
 		} else {
 			_cmdName += ch;
 		}
@@ -370,7 +371,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// special command (section indicator)
 				_pCmdFmtCur = pCmdFmt;
 				Pushback(ch);
-				_stat = STAT_Command;
+				_stat = STAT_CommandSpecial;
 			} else {
 				// special command (not section indicator)
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
@@ -381,27 +382,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_Command: {
-		if (_pCmdFmtCur->IsCustom()) {
-			if (ch == '{') {
-				_strArgs.clear();
-				_strArg.clear();
-				_stat = STAT_ArgCustom;
-			} else {
-				_strArgs.clear();
-				if (!EvaluateCommand()) return false;
-				_pCmdFmtCur = nullptr;
-				_strArg.clear();
-				Pushback(ch);
-				_text.clear();
-				_stat = IsTopLevel()? STAT_Text : STAT_Complete;
-			}
-		} else {
-			Pushback(ch);
-			_strArgs.clear();
-			_strArg.clear();
-			_stat = STAT_NextArg;
-		}
+	case STAT_CommandSpecial: {
+		Pushback(ch);
+		_strArgs.clear();
+		_strArg.clear();
+		_stat = STAT_NextArg;
 		break;
 	}
 	case STAT_NextArg: {
@@ -605,6 +590,22 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArg += _strAhead;
 			Pushback(ch);
 			_stat = STAT_ArgPara;
+		}
+		break;
+	}
+	case STAT_CommandCustom: {
+		if (ch == '{') {
+			_strArgs.clear();
+			_strArg.clear();
+			_stat = STAT_ArgCustom;
+		} else {
+			_strArgs.clear();
+			if (!EvaluateCommand()) return false;
+			_pCmdFmtCur = nullptr;
+			_strArg.clear();
+			Pushback(ch);
+			_text.clear();
+			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		}
 		break;
 	}
