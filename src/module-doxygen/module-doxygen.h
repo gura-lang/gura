@@ -5,6 +5,7 @@
 #define __GURA_MODULE_DOXYGEN_H__
 #include <gura.h>
 #include "CommandFormat.h"
+#include "Elem.h"
 #include "Parser.h"
 #include "Class_parser.h"
 
