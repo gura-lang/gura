@@ -69,6 +69,7 @@ protected:
 	ElemOwner _elemOwner;
 public:
 	Elem_Command(const CommandFormat *pCmdFmt);
+	inline const CommandFormat *GetCommandFormat() const { return _pCmdFmt; }
 	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
 	virtual String ToString() const;

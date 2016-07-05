@@ -55,13 +55,14 @@ private:
 	String _strAhead;
 	String _cmdName;
 	StringList _strArgs;
-	const CommandFormat *_pCmdFmtCur;
+	//const CommandFormat *_pCmdFmtCur;
 	int _pushbackLevel;
 	char _pushbackBuff[16];
 	char _chPunctuation;
 	char _chPrev;
 	bool _aheadFlag;
 	AutoPtr<Elem_Container> _pElemResult;
+	AutoPtr<Elem_Command> _pElemCmdCur;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:

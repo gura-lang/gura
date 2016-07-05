@@ -261,7 +261,7 @@ bool Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
-	_pCmdFmtCur(nullptr), _pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
+	_pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
 	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0'), _aheadFlag(false),
 	_pElemResult(new Elem_Container())
 {
@@ -269,14 +269,14 @@ Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent)
 
 void Decomposer::SetCommandSpecial(const CommandFormat *pCmdFmt)
 {
-	_pCmdFmtCur = pCmdFmt;
+	_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 	_stat = STAT_CommandSpecial;
 }
 
 void Decomposer::SetCommandCustom(const char *cmdName)
 {
 	_pCmdFmtCustom->SetName(cmdName);
-	_pCmdFmtCur = _pCmdFmtCustom.get();
+	_pElemCmdCur.reset(new Elem_Command(_pCmdFmtCustom.get()));
 	_stat = STAT_CommandCustom;
 }
 
@@ -322,13 +322,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (pCmdFmt == nullptr) {
 				// custom command
 				_pCmdFmtCustom->SetName(_cmdName.c_str());
-				_pCmdFmtCur = _pCmdFmtCustom.get();
+				pCmdFmt = _pCmdFmtCustom.get();
 				_stat = STAT_CommandCustom;
 			} else {
 				// special command
-				_pCmdFmtCur = pCmdFmt;
 				_stat = STAT_CommandSpecial;
 			}
+			_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 			Pushback(ch);
 		} else {
 			_cmdName += ch;
@@ -361,7 +361,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pDecomposerChild->SetCommandCustom(_cmdName.c_str());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
-				if (_pCmdFmtCur->IsCustom()) {
+				if (_pElemCmdCur->GetCommandFormat()->IsCustom()) {
 					env.SetError(ERR_SyntaxError,
 								 "section indicator can not appear in custom command arguments");
 					return false;
@@ -370,7 +370,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_strArgs.push_back(_strArg);
 				if (!EvaluateCommand()) return false;
 				// special command (section indicator)
-				_pCmdFmtCur = pCmdFmt;
+				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
 				_stat = STAT_CommandSpecial;
 			} else {
@@ -391,14 +391,14 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
+		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
 		size_t iArg = _strArgs.size();
 		if (iArg < argOwner.size()) {
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
 			if (!EvaluateCommand()) return false;
-			_pCmdFmtCur = nullptr;
+			_pElemResult->AddElem(_pElemCmdCur.release());
 			Pushback(ch);
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
@@ -406,7 +406,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BranchArg: {
-		const CommandFormat::ArgOwner &argOwner = _pCmdFmtCur->GetArgOwner();
+		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
 		size_t iArg = _strArgs.size();
 		const CommandFormat::Arg *pArg = argOwner[iArg];
 		if (ch == ' ' || ch == '\t') {
@@ -602,7 +602,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			_strArgs.clear();
 			if (!EvaluateCommand()) return false;
-			_pCmdFmtCur = nullptr;
+			_pElemCmdCur.release();
 			_strArg.clear();
 			Pushback(ch);
 			_text.clear();
@@ -614,7 +614,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
 			if (!EvaluateCommand()) return false;
-			_pCmdFmtCur = nullptr;
+			_pElemCmdCur.release();
 			_strArg.clear();
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
@@ -679,10 +679,11 @@ const Elem *Decomposer::GetResultElem() const
 
 bool Decomposer::EvaluateCommand()
 {
+	const CommandFormat *pCmdFmt = _pElemCmdCur->GetCommandFormat();
 	Environment &env = *_pObjParser;
-	String rtn = _pCmdFmtCur->Evaluate(_pObjParser, _strArgs);
+	String rtn = pCmdFmt->Evaluate(_pObjParser, _strArgs);
 	if (env.IsSignalled()) return false;
-	if (_pCmdFmtCur->IsCustom() && ContainsCommand(rtn.c_str())) {
+	if (pCmdFmt->IsCustom() && ContainsCommand(rtn.c_str())) {
 		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
 		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
 		_result += pDecomposer->GetResult();
