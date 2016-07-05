@@ -62,6 +62,7 @@ private:
 	bool _aheadFlag;
 	AutoPtr<Elem_Container> _pElemResult;
 	AutoPtr<Elem_Command> _pElemCmdCur;
+	AutoPtr<Elem_Container> _pElemArg;
 	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:

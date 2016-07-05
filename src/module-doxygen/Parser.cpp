@@ -342,9 +342,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
 				_strArg += _pDecomposerChild->GetResult();
-				
-				//_pElemResult->AddElem(_pDecomposerChild->GetResultElem()->Reference());
-				
+				_pElemArg->AddElem(_pDecomposerChild->GetResultElem()->Reference());
 				_pDecomposerChild.reset();
 				_stat =
 					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :
@@ -393,6 +391,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
+		const ElemOwner &elemArgs = _pElemCmdCur->GetElemArgs();
 		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
 		size_t iArg = _strArgs.size();
 		if (iArg < argOwner.size()) {
@@ -421,6 +420,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				Pushback(ch);
 				_strArgs.push_back("");
+				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			} else if (ch == '"') {
 				_strArg.clear();
@@ -437,9 +437,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			} else { // including '\0'
 				Pushback(ch);
 				_strArgs.push_back("");
+				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
+			_pElemArg.reset(new Elem_Container());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgLine;
@@ -455,6 +457,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				Pushback(ch);
 				if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
 				_strArgs.push_back("");
+				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
@@ -468,9 +471,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				Pushback(ch);
 				_strArgs.push_back("");
+				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara()) {
+			_pElemArg.reset(new Elem_Container());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgPara;
@@ -481,6 +486,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else if (ch == '.' || ch == ',' || ch == ';' || ch == '?' || ch == '!') {
 			_chPunctuation = ch;
@@ -495,6 +501,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			Pushback(_chPunctuation);
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else {
 			Pushback(ch);
@@ -507,9 +514,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\n' || ch == '\0') {
 			Pushback(ch);
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else if (ch == '"') {
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
@@ -522,6 +531,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == ']') {
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
@@ -532,10 +542,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\n' || ch == '\0') {
 			if (ch == '\0') Pushback(ch);
 			_strArgs.push_back(Strip(_strArg.c_str()));
+			_pElemArg->AddElem(new Elem_Text(Strip(_strArg.c_str())));
+			_pElemCmdCur->AddArg(_pElemArg.release());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
-				_stat = STAT_AcceptCommandInArgLine;
+			_stat = STAT_AcceptCommandInArgLine;
 		} else {
 			_strArg += ch;
 		}
@@ -547,6 +559,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == '"') {
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
@@ -559,6 +572,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			return false;
 		} else if (ch == '}') {
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
@@ -573,6 +587,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else if (ch == '\0') {
 			Pushback(ch);
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(_pElemArg.release());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
@@ -586,6 +601,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\n') {
 			// detected a blank line
 			_strArgs.push_back(_strArg);
+			_pElemCmdCur->AddArg(_pElemArg.release());
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			_strAhead += ch;
