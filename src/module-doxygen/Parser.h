@@ -14,44 +14,7 @@ var = _pushbackBuff[--_pushbackLevel];
 
 Gura_BeginModuleScope(doxygen)
 
-class Decomposer;
 class Object_parser;
-
-//-----------------------------------------------------------------------------
-// Parser
-//-----------------------------------------------------------------------------
-class Parser {
-public:
-	enum Stat {
-		STAT_Indent,
-		STAT_Source,
-		STAT_LineCommentBgn,
-		STAT_LineDoxygenFirst,
-		STAT_LineDoxygen,
-		STAT_LineComment,
-		STAT_BlockCommentBgn,
-		STAT_BlockCommentBgn_Asterisk,
-		STAT_BlockDoxygenFirst,
-		STAT_BlockDoxygen,
-		STAT_BlockDoxygen_Asterisk,
-		STAT_BlockDoxygen_Indent,
-		STAT_BlockDoxygen_IndentAsterisk,
-		STAT_BlockDoxygen_IndentAfterAsterisk,
-		STAT_BlockComment,
-		STAT_BlockComment_Asterisk,
-		STAT_Slash,
-		STAT_ExIndent,
-		STAT_ExDoxygen,
-	};
-private:
-	Stat _stat;
-	std::unique_ptr<Decomposer> _pDecomposer;
-public:
-	Parser(Object_parser *pObjParser);
-	bool FeedChar(Environment &env, char ch);
-	const char *ParseStream(Environment &env, SimpleStream &stream);
-	void SetExtractedMode() { _stat = STAT_ExIndent; }
-};
 
 //-----------------------------------------------------------------------------
 // Decomposer
@@ -125,6 +88,44 @@ public:
 		return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(cmdName == "f" || cmdName.empty()) && (ch == '[' || ch == '{'));
 	}
+};
+
+//-----------------------------------------------------------------------------
+// Parser
+//-----------------------------------------------------------------------------
+class Parser {
+public:
+	enum Stat {
+		STAT_Indent,
+		STAT_Source,
+		STAT_LineCommentBgn,
+		STAT_LineDoxygenFirst,
+		STAT_LineDoxygen,
+		STAT_LineComment,
+		STAT_BlockCommentBgn,
+		STAT_BlockCommentBgn_Asterisk,
+		STAT_BlockDoxygenFirst,
+		STAT_BlockDoxygen,
+		STAT_BlockDoxygen_Asterisk,
+		STAT_BlockDoxygen_Indent,
+		STAT_BlockDoxygen_IndentAsterisk,
+		STAT_BlockDoxygen_IndentAfterAsterisk,
+		STAT_BlockComment,
+		STAT_BlockComment_Asterisk,
+		STAT_Slash,
+		STAT_ExIndent,
+		STAT_ExDoxygen,
+	};
+private:
+	Stat _stat;
+	std::unique_ptr<Decomposer> _pDecomposer;
+public:
+	Parser(Object_parser *pObjParser);
+	bool FeedChar(Environment &env, char ch);
+	bool ParseStream(Environment &env, SimpleStream &stream);
+	void SetExtractedMode() { _stat = STAT_ExIndent; }
+	const char *GetResult() const { return _pDecomposer->GetResult(); }
+	const Elem *GetResultElem() const { return _pDecomposer->GetResultElem(); }
 };
 
 //-----------------------------------------------------------------------------

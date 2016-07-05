@@ -243,17 +243,17 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-const char *Parser::ParseStream(Environment &env, SimpleStream &stream)
+bool Parser::ParseStream(Environment &env, SimpleStream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
 		int chRaw;
 		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
 		char ch = static_cast<char>(static_cast<UChar>(chRaw));
-		if (!FeedChar(env, ch)) return nullptr;
+		if (!FeedChar(env, ch)) return false;
 		if (ch == '\0') break;
 	}
-	return _pDecomposer->GetResult();
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -342,6 +342,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
 				_strArg += _pDecomposerChild->GetResult();
+				_pElemResult->AddElem(_pDecomposerChild->GetResultElem()->Reference());
 				_pDecomposerChild.reset();
 				_stat =
 					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :
@@ -685,6 +686,7 @@ bool Decomposer::EvaluateCommand()
 		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
 		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
 		_result += pDecomposer->GetResult();
+		_pElemResult->AddElem(pDecomposer->GetResultElem()->Reference());
 	} else {
 		_result += rtn;
 	}
