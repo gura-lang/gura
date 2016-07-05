@@ -12,6 +12,10 @@ Elem::Elem() : _cntRef(1)
 {
 }
 
+Elem::~Elem()
+{
+}
+
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
@@ -41,6 +45,11 @@ Elem_Container::Elem_Container()
 
 String Elem_Container::ToString() const
 {
+	String rtn;
+	foreach_const (ElemOwner, ppElem, _elemOwner) {
+		const Elem *pElem = *ppElem;
+		rtn += pElem->ToString();
+	}
 	return "";
 }
 
@@ -65,7 +74,7 @@ Elem_Text::Elem_Text(const String &text) : _text(text)
 
 String Elem_Text::ToString() const
 {
-	return "";
+	return MakeQuotedString(_text.c_str(), false);
 }
 
 //-----------------------------------------------------------------------------
@@ -77,6 +86,23 @@ Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt)
 
 String Elem_Command::ToString() const
 {
+	String rtn;
+	rtn += "@";
+	rtn += _pCmdFmt->GetName();
+	rtn += "{";
+	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+	CommandFormat::ArgOwner::const_iterator ppArg = argOwner.begin();
+	foreach_const (ElemOwner, ppElemArg, _elemArgs) {
+		if (ppArg == argOwner.end()) break;
+		const Elem *pElemArg = *ppElemArg;
+		const CommandFormat::Arg *pArg = *ppArg;
+		rtn += pArg->GetName();
+		rtn += ":'";
+		rtn += pElemArg->ToString();
+		rtn += "'";
+		ppArg++;
+	}
+	rtn += "}";
 	return "";
 }
 

@@ -17,7 +17,8 @@ public:
 public:
 	Elem();
 protected:
-	inline ~Elem() {}
+	virtual ~Elem();
+public:
 	virtual String ToString() const = 0;
 };
 
