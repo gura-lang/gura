@@ -101,8 +101,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(OnCommand);
 	// class realization
 	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(parser);
+	Gura_PrepareUserClass(elem);
 	// function assignment
 	Gura_AssignFunction(makescript);
 	// registoration of HelpPresenter
