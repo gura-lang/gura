@@ -49,20 +49,37 @@ Value Object_elem::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Object_elem::ToString(bool exprFlag)
 {
 	String rtn;
-	rtn += "<doxygen.elem:";
-	rtn += ">";
+	//rtn += "<doxygen.elem:";
+	//rtn += ">";
+	rtn += _pElem->ToString();
 	return rtn;
 }
 
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.elem#print():void
+Gura_DeclareMethod(elem, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(elem, print)
+{
+	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
+	pElem->Print(0);
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.elem
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(elem)
 {
+	Gura_AssignMethod(elem, print);
 }
 
 Gura_EndModuleScope(doxygen)

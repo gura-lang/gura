@@ -19,6 +19,13 @@ Elem::~Elem()
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
+void ElemList::Print(int indentLevel) const
+{
+	foreach_const (ElemList, ppElem, *this) {
+		const Elem *pElem = *ppElem;
+		pElem->Print(indentLevel);
+	}
+}
 
 //-----------------------------------------------------------------------------
 // ElemOwner
@@ -53,6 +60,12 @@ String Elem_Container::ToString() const
 	return "";
 }
 
+void Elem_Container::Print(int indentLevel) const
+{
+	::printf("%*scontainer:\n", indentLevel * 2, "");
+	_elemOwner.Print(indentLevel);
+}
+
 //-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
@@ -65,6 +78,11 @@ String Elem_Empty::ToString() const
 	return "";
 }
 
+void Elem_Empty::Print(int indentLevel) const
+{
+	::printf("%*sempty\n", indentLevel * 2, "");
+}
+
 //-----------------------------------------------------------------------------
 // Elem_Text
 //-----------------------------------------------------------------------------
@@ -75,6 +93,11 @@ Elem_Text::Elem_Text(const String &text) : _text(text)
 String Elem_Text::ToString() const
 {
 	return MakeQuotedString(_text.c_str(), false);
+}
+
+void Elem_Text::Print(int indentLevel) const
+{
+	::printf("%*stext:%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -104,6 +127,12 @@ String Elem_Command::ToString() const
 	}
 	rtn += "}";
 	return "";
+}
+
+void Elem_Command::Print(int indentLevel) const
+{
+	::printf("%*scommand:%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
+	_elemArgs.Print(indentLevel + 1);
 }
 
 Gura_EndModuleScope(doxygen)

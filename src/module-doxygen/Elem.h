@@ -20,12 +20,15 @@ protected:
 	virtual ~Elem();
 public:
 	virtual String ToString() const = 0;
+	virtual void Print(int indentLevel) const = 0;
 };
 
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
 class ElemList : public std::vector<Elem *> {
+public:
+	void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -48,6 +51,7 @@ public:
 	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
 	virtual String ToString() const;
+	virtual void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -57,6 +61,7 @@ class Elem_Empty : public Elem {
 public:
 	Elem_Empty();
 	virtual String ToString() const;
+	virtual void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -68,6 +73,7 @@ protected:
 public:
 	Elem_Text(const String &text);
 	virtual String ToString() const;
+	virtual void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -83,6 +89,7 @@ public:
 	inline void AddArg(Elem *pElem) { _elemArgs.push_back(pElem); }
 	inline const ElemOwner &GetElemArgs() const { return _elemArgs; }
 	virtual String ToString() const;
+	virtual void Print(int indentLevel) const;
 };
 
 Gura_EndModuleScope(doxygen)
