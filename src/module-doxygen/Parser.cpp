@@ -342,7 +342,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
 				_strArg += _pDecomposerChild->GetResult();
-				_pElemResult->AddElem(_pDecomposerChild->GetResultElem()->Reference());
+				
+				//_pElemResult->AddElem(_pDecomposerChild->GetResultElem()->Reference());
+				
 				_pDecomposerChild.reset();
 				_stat =
 					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :

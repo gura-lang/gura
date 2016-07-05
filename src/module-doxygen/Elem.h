@@ -66,12 +66,12 @@ public:
 class Elem_Command : public Elem {
 protected:
 	const CommandFormat *_pCmdFmt;
-	ElemOwner _elemOwner;
+	ElemOwner _elemArgs;
 public:
 	Elem_Command(const CommandFormat *pCmdFmt);
 	inline const CommandFormat *GetCommandFormat() const { return _pCmdFmt; }
-	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
-	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
+	inline void AddArg(Elem *pElem) { _elemArgs.push_back(pElem); }
+	inline const ElemOwner &GetElemArgs() const { return _elemArgs; }
 	virtual String ToString() const;
 };
 

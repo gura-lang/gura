@@ -55,7 +55,6 @@ private:
 	String _strAhead;
 	String _cmdName;
 	StringList _strArgs;
-	//const CommandFormat *_pCmdFmtCur;
 	int _pushbackLevel;
 	char _pushbackBuff[16];
 	char _chPunctuation;
