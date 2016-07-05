@@ -670,6 +670,12 @@ const char *Decomposer::GetResult() const
 	return _result.c_str();
 }
 
+const Elem *Decomposer::GetResultElem() const
+{
+	const ElemOwner &elemOwner = _pElemResult->GetElemOwner();
+	return (elemOwner.size() == 1)? elemOwner.front() : _pElemResult.get();
+}
+
 bool Decomposer::EvaluateCommand()
 {
 	Environment &env = *_pObjParser;

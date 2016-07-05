@@ -108,6 +108,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const char *GetResult() const;
+	const Elem *GetResultElem() const;
 	bool EvaluateCommand();
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
