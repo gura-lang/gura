@@ -15,6 +15,7 @@ namespace Gura {
 class Expr;
 class ExprList;
 class Expr_Value;
+class Expr_EmbedString;
 class Expr_Identifier;
 class Expr_Suffixed;
 class Expr_Member;
@@ -28,6 +29,7 @@ class Expr_Lister;
 class Expr_Iterer;
 class Expr_Indexer;
 class Expr_Caller;
+class Template;
 
 typedef void (*BridgeFunctionT)(Environment &env, const Value &valueThis, Value &valueResult);
 
@@ -37,6 +39,7 @@ typedef void (*BridgeFunctionT)(Environment &env, const Value &valueThis, Value 
 enum ExprType {
 	EXPRTYPE_None,
 	EXPRTYPE_Value,
+	EXPRTYPE_EmbedString,
 	EXPRTYPE_Identifier,
 	EXPRTYPE_Suffixed,
 	EXPRTYPE_Member,
@@ -93,7 +96,8 @@ public:
 //-----------------------------------------------------------------------------
 class CodeGenerator {
 public:
-	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExprValue) = 0;
+	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExpr) = 0;
+	virtual bool GenCode_EmbedString(Environment &env, const Expr_EmbedString *pExpr) = 0;
 	virtual bool GenCode_Identifier(Environment &env, const Expr_Identifier *pExpr) = 0;
 	virtual bool GenCode_Suffixed(Environment &env, const Expr_Suffixed *pExpr) = 0;
 	virtual bool GenCode_Member(Environment &env, const Expr_Member *pExpr) = 0;
@@ -121,6 +125,7 @@ public:
 // Expr
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Value
+//        +- Expr_EmbedString
 //        +- Expr_Identifier
 //        +- Expr_Suffixed
 //        +- Expr_Member
@@ -467,6 +472,7 @@ protected:
 public:
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
 	inline Expr_Value(const Expr_Value &expr) : Expr(expr), _value(expr._value) {}
+	// ******** Is it necessary to copy pScript? ********
 	inline const Value &GetValue() const { return _value; }
 	inline void SetScript(const String &script) { _pScript.reset(new String(script)); }
 	inline const String *GetScript() const { return _pScript.get(); }
@@ -478,6 +484,29 @@ public:
 	virtual Value DoExec(Environment &env) const;
 	virtual Expr *MathDiff(Environment &env, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env) const;
+	virtual void Accept(ExprVisitor &visitor);
+	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
+	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_EmbedString
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_EmbedString : public Expr {
+protected:
+	AutoPtr<Template> _pTemplate;
+	String _str;
+public:
+	Expr_EmbedString(Template *pTemplate, const String &str);
+	Expr_EmbedString(const Expr_EmbedString &expr);
+	inline const Template *GetTemplate() const { return _pTemplate.get(); }
+	inline static Expr_EmbedString *Reference(const Expr_EmbedString *pExpr) {
+		return dynamic_cast<Expr_EmbedString *>(Expr::Reference(pExpr));
+	}
+	virtual bool IsEmbedString() const;
+	virtual Expr *Clone() const;
+	virtual Value DoExec(Environment &env) const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, CodeGenerator &codeGenerator) const;
 	virtual bool GenerateScript(Signal &sig, SimpleStream &stream,

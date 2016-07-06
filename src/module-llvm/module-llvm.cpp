@@ -410,7 +410,8 @@ private:
 	}
 	llvm::Function *CreateBridgeFunction(Environment &env, const Expr *pExpr, const char *name);
 private:
-	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExprValue);
+	virtual bool GenCode_Value(Environment &env, const Expr_Value *pExpr);
+	virtual bool GenCode_EmbedString(Environment &env, const Expr_Value *pExpr);
 	virtual bool GenCode_Identifier(Environment &env, const Expr_Identifier *pExpr);
 	virtual bool GenCode_Suffixed(Environment &env, const Expr_Suffixed *pExpr);
 	virtual bool GenCode_Root(Environment &env, const Expr_Root *pExpr);
@@ -1022,6 +1023,12 @@ bool CodeGeneratorLLVM::GenCode_Value(Environment &env, const Expr_Value *pExprV
 		sig.SetError(ERR_SyntaxError, "GetCode_Value()");
 		return false;
 	}
+	return true;
+}
+
+bool CodeGeneratorLLVM::GenCode_EmbedString(Environment &env, const Expr_EmbedString *pExpr)
+{
+	::printf("EmbedString\n");
 	return true;
 }
 

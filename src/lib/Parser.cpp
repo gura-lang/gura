@@ -103,6 +103,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.rawFlag = false;
 			_stringInfo.binaryFlag = false;
 			_stringInfo.wiseFlag = false;
+			_stringInfo.embedFlag = false;
 			_token.clear();
 			_stat = STAT_StringFirst;
 		} else if (ch == '\\') {
@@ -560,7 +561,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 		} else {
 			pExpr = FeedElement(env, Element(ETYPE_NumberSuffixed,
-												GetLineNo(), _token, _suffix));
+											 GetLineNo(), _token, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -571,8 +572,7 @@ Expr *Parser::ParseChar(Environment &env, char ch)
 			_token.push_back(ch);
 		} else if (ch == '!') {
 			_stat = STAT_SymbolExclamation;
-		} else if ((ch == '"' || ch == '\'') &&
-									CheckStringPrefix(_stringInfo, _token)) {
+		} else if ((ch == '"' || ch == '\'') && CheckStringPrefix(_stringInfo, _token)) {
 			_stringInfo.chBorder = ch;
 			_token.clear();
 			_stat = STAT_StringFirst;
@@ -952,7 +952,8 @@ bool Parser::CheckBlockParamEnd() const
 
 Parser::ElemType Parser::ElemTypeForString(const StringInfo &stringInfo)
 {
-	return stringInfo.binaryFlag? ETYPE_Binary : ETYPE_String;
+	return stringInfo.binaryFlag? ETYPE_Binary :
+		stringInfo.embedFlag? ETYPE_EmbedString : ETYPE_String;
 }
 
 bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
@@ -960,6 +961,7 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 	stringInfo.rawFlag = false;
 	stringInfo.binaryFlag = false;
 	stringInfo.wiseFlag = false;
+	stringInfo.embedFlag = false;
 	foreach_const (String, p, token) {
 		char ch = *p;
 		if (ch == 'r') {
@@ -976,6 +978,9 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 			if (stringInfo.binaryFlag) return false;
 			stringInfo.binaryFlag = true;
 			stringInfo.wiseFlag = true;
+		} else if (ch == 'e') {
+			if (stringInfo.embedFlag) return false;
+			stringInfo.embedFlag = true;
 		} else {
 			return false;
 		}
@@ -1172,6 +1177,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
 	{ ETYPE_StringSuffixed,		27, "StringSuffixed",	"[StS]",	OPTYPE_None		},
 	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
+	{ ETYPE_EmbedString,		27, "EmbedString",		"[EmS]",	OPTYPE_None		},
 	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
 	{ ETYPE_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
 	{ ETYPE_Expr,				-1, "Expr",				"[Exp]",	OPTYPE_None		},
@@ -1257,9 +1263,12 @@ Expr *Parser::FeedElement(Environment &env, const Element &elem)
 			break;
 		} else if (prec == PREC_LT || prec == PREC_EQ) {
 			Element &elemLast = _elemStack.back();
+			// concatenation of two sequences of string, binary and embed-string
 			if (elemLast.IsType(ETYPE_String) && elem.IsType(ETYPE_String)) {
 				elemLast.AddString(elem.GetStringSTL());
 			} else if (elemLast.IsType(ETYPE_Binary) && elem.IsType(ETYPE_Binary)) {
+				elemLast.AddString(elem.GetStringSTL());
+			} else if (elemLast.IsType(ETYPE_EmbedString) && elem.IsType(ETYPE_EmbedString)) {
 				elemLast.AddString(elem.GetStringSTL());
 			} else {
 				_elemStack.push_back(elem);
@@ -1327,6 +1336,14 @@ bool Parser::ReduceOneElem(Environment &env)
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
 		pExpr = new Expr_Value(Value(new Object_binary(env,
 						   Binary(elem1.GetString(), elem1.GetStringSize()), false)));
+	} else if (elem1.IsType(ETYPE_EmbedString)) {
+		DBGPARSER(::printf("Reduce: Expr -> EmbedString\n"));
+		AutoPtr<Template> pTemplate(new Template());
+		bool autoIndentFlag = true;
+		bool appendLastEOLFlag = false;
+		if (!pTemplate->Parse(env, elem1.GetString(), nullptr,
+							  autoIndentFlag, appendLastEOLFlag)) goto error_done;
+		pExpr = new Expr_EmbedString(pTemplate.release(), elem1.GetStringSTL());
 	} else if (elem1.IsType(ETYPE_Symbol)) {
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem1.GetString());

@@ -926,6 +926,60 @@ bool Expr_Value::GenerateScript(Signal &sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
+// Expr_EmbedString
+//-----------------------------------------------------------------------------
+bool Expr_EmbedString::IsEmbedString() const { return true; }
+
+Expr_EmbedString::Expr_EmbedString(Template *pTemplate, const String &str) :
+		Expr(EXPRTYPE_EmbedString), _pTemplate(pTemplate), _str(str)
+{
+}
+
+Expr_EmbedString::Expr_EmbedString(const Expr_EmbedString &expr) :
+		Expr(expr), _pTemplate(expr._pTemplate->Reference()), _str(expr._str)
+{
+}
+
+Expr *Expr_EmbedString::Clone() const
+{
+	return new Expr_EmbedString(*this);
+}
+
+Value Expr_EmbedString::DoExec(Environment &env) const
+{
+	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
+	String strDst;
+	SimpleStream_StringWriter streamDst(strDst);
+	if (!_pTemplate->Render(env, &streamDst)) return Value::Nil;
+	Value result(strDst);
+	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
+	return result;
+}
+
+void Expr_EmbedString::Accept(ExprVisitor &visitor)
+{
+	visitor.Visit(this);
+}
+
+bool Expr_EmbedString::GenerateCode(Environment &env, CodeGenerator &codeGenerator) const
+{
+	return codeGenerator.GenCode_EmbedString(env, this);
+}
+
+bool Expr_EmbedString::GenerateScript(Signal &sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
+{
+	const char *str = _str.c_str();
+	if (scriptStyle == SCRSTYLE_Brief && ::strlen(str) > MaxCharsForBriefStyle) {
+		stream.Print(sig, "' .. '");
+	} else {
+		stream.Print(sig, MakeQuotedString(str).c_str());
+	}
+	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Expr_Identifier
 //-----------------------------------------------------------------------------
 bool Expr_Identifier::IsIdentifier() const { return true; }

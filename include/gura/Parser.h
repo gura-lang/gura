@@ -125,6 +125,7 @@ public:
 		ETYPE_String,
 		ETYPE_StringSuffixed,
 		ETYPE_Binary,
+		ETYPE_EmbedString,
 		ETYPE_Symbol,
 		ETYPE_EOF,
 		ETYPE_Expr,
@@ -145,6 +146,7 @@ public:
 		bool rawFlag;		// prefixed by 'r' or 'R'
 		bool binaryFlag;	// prefixed by 'b' or 'B'
 		bool wiseFlag;		// prefixed by 'R'
+		bool embedFlag;		// prefixed by 'e'
 		Stat statRtn;
 		int cntRest;
 		ULong accum;
