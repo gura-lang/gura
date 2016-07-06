@@ -20,7 +20,7 @@ protected:
 	virtual ~Elem();
 public:
 	virtual String ToString() const = 0;
-	virtual void Print(Stream &stream, int indentLevel) const = 0;
+	virtual void Print(Environment &env, Stream &stream, int indentLevel) const = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ public:
 //-----------------------------------------------------------------------------
 class ElemList : public std::vector<Elem *> {
 public:
-	void Print(Stream &stream, int indentLevel) const;
+	void Print(Environment &env, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ public:
 	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
 	virtual String ToString() const;
-	virtual void Print(Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ class Elem_Empty : public Elem {
 public:
 	Elem_Empty();
 	virtual String ToString() const;
-	virtual void Print(Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ protected:
 public:
 	Elem_Text(const String &text);
 	virtual String ToString() const;
-	virtual void Print(Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -89,7 +89,7 @@ public:
 	inline void AddArg(Elem *pElem) { _elemArgs.push_back(pElem); }
 	inline const ElemOwner &GetElemArgs() const { return _elemArgs; }
 	virtual String ToString() const;
-	virtual void Print(Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
 };
 
 Gura_EndModuleScope(doxygen)

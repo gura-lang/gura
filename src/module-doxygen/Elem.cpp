@@ -19,11 +19,11 @@ Elem::~Elem()
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
-void ElemList::Print(Stream &stream, int indentLevel) const
+void ElemList::Print(Environment &env, Stream &stream, int indentLevel) const
 {
 	foreach_const (ElemList, ppElem, *this) {
 		const Elem *pElem = *ppElem;
-		pElem->Print(stream, indentLevel);
+		pElem->Print(env, stream, indentLevel);
 	}
 }
 
@@ -60,10 +60,12 @@ String Elem_Container::ToString() const
 	return "";
 }
 
-void Elem_Container::Print(Stream &stream, int indentLevel) const
+void Elem_Container::Print(Environment &env, Stream &stream, int indentLevel) const
 {
-	::printf("%*scontainer:\n", indentLevel * 2, "");
-	_elemOwner.Print(stream, indentLevel + 1);
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
+	_elemOwner.Print(env, stream, indentLevel + 1);
+	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -78,9 +80,10 @@ String Elem_Empty::ToString() const
 	return "";
 }
 
-void Elem_Empty::Print(Stream &stream, int indentLevel) const
+void Elem_Empty::Print(Environment &env, Stream &stream, int indentLevel) const
 {
-	::printf("%*sempty\n", indentLevel * 2, "");
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s[empty]\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------
@@ -95,9 +98,10 @@ String Elem_Text::ToString() const
 	return MakeQuotedString(_text.c_str(), false);
 }
 
-void Elem_Text::Print(Stream &stream, int indentLevel) const
+void Elem_Text::Print(Environment &env, Stream &stream, int indentLevel) const
 {
-	::printf("%*stext:%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -128,19 +132,20 @@ String Elem_Command::ToString() const
 	return "";
 }
 
-void Elem_Command::Print(Stream &stream, int indentLevel) const
+void Elem_Command::Print(Environment &env, Stream &stream, int indentLevel) const
 {
-	::printf("%*scommand{%s", indentLevel * 2, "", _pCmdFmt->GetName());
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s@%s{", indentLevel * 2, "", _pCmdFmt->GetName());
 	size_t iArg = 0;
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
 		const CommandFormat::Arg *pArg = *ppArg;
-		if (iArg > 0) ::printf(", ");
-		::printf("%s", pArg->GetName());
+		if (iArg > 0) stream.Printf(sig, ", ");
+		stream.Printf(sig, "%s", pArg->GetName());
 		iArg++;
 	}
-	::printf("}\n");
-	_elemArgs.Print(stream, indentLevel + 1);
+	stream.Printf(sig, "}\n");
+	_elemArgs.Print(env, stream, indentLevel + 1);
 }
 
 Gura_EndModuleScope(doxygen)

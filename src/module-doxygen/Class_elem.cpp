@@ -72,7 +72,7 @@ Gura_ImplementMethod(elem, print)
 {
 	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
-	pElem->Print(stream, 0);
+	pElem->Print(env, stream, 0);
 	return Value::Nil;
 }
 
