@@ -571,4 +571,7 @@ testcase('embedded string') {
 	tester(`e'${=extends(base)}${=block(`head)}replaced${end}')
 	tester(`e'${=extends(base)}${=block(`body)}replaced${end}')
 	tester(`e'${=extends(base)}${=block(`head)}replaced${end}${=block(`body)}replaced${end}')
+	f(a, b) = e'${a} + ${b} = ${a + b}'
+	tester(`f(3, 4))
+	tester(`f(10, 2))
 }
