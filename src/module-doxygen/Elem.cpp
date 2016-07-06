@@ -19,11 +19,11 @@ Elem::~Elem()
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
-void ElemList::Print(int indentLevel) const
+void ElemList::Print(Stream &stream, int indentLevel) const
 {
 	foreach_const (ElemList, ppElem, *this) {
 		const Elem *pElem = *ppElem;
-		pElem->Print(indentLevel);
+		pElem->Print(stream, indentLevel);
 	}
 }
 
@@ -60,10 +60,10 @@ String Elem_Container::ToString() const
 	return "";
 }
 
-void Elem_Container::Print(int indentLevel) const
+void Elem_Container::Print(Stream &stream, int indentLevel) const
 {
 	::printf("%*scontainer:\n", indentLevel * 2, "");
-	_elemOwner.Print(indentLevel);
+	_elemOwner.Print(stream, indentLevel + 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ String Elem_Empty::ToString() const
 	return "";
 }
 
-void Elem_Empty::Print(int indentLevel) const
+void Elem_Empty::Print(Stream &stream, int indentLevel) const
 {
 	::printf("%*sempty\n", indentLevel * 2, "");
 }
@@ -95,7 +95,7 @@ String Elem_Text::ToString() const
 	return MakeQuotedString(_text.c_str(), false);
 }
 
-void Elem_Text::Print(int indentLevel) const
+void Elem_Text::Print(Stream &stream, int indentLevel) const
 {
 	::printf("%*stext:%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
 }
@@ -114,25 +114,33 @@ String Elem_Command::ToString() const
 	rtn += _pCmdFmt->GetName();
 	rtn += "{";
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+	ElemOwner::const_iterator ppElemArg = _elemArgs.begin();
 	CommandFormat::ArgOwner::const_iterator ppArg = argOwner.begin();
-	foreach_const (ElemOwner, ppElemArg, _elemArgs) {
-		if (ppArg == argOwner.end()) break;
+	for ( ; ppElemArg != _elemArgs.end() && ppArg != argOwner.end(); ppElemArg++, ppArg++) {
 		const Elem *pElemArg = *ppElemArg;
 		const CommandFormat::Arg *pArg = *ppArg;
 		rtn += pArg->GetName();
 		rtn += ":'";
 		rtn += pElemArg->ToString();
 		rtn += "'";
-		ppArg++;
 	}
 	rtn += "}";
 	return "";
 }
 
-void Elem_Command::Print(int indentLevel) const
+void Elem_Command::Print(Stream &stream, int indentLevel) const
 {
-	::printf("%*scommand:%s\n", indentLevel * 2, "", _pCmdFmt->GetName());
-	_elemArgs.Print(indentLevel + 1);
+	::printf("%*scommand{%s", indentLevel * 2, "", _pCmdFmt->GetName());
+	size_t iArg = 0;
+	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
+	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
+		const CommandFormat::Arg *pArg = *ppArg;
+		if (iArg > 0) ::printf(", ");
+		::printf("%s", pArg->GetName());
+		iArg++;
+	}
+	::printf("}\n");
+	_elemArgs.Print(stream, indentLevel + 1);
 }
 
 Gura_EndModuleScope(doxygen)

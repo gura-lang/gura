@@ -58,10 +58,11 @@ String Object_elem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.elem#print():void
+// doxygen.elem#print(out?:stream):void
 Gura_DeclareMethod(elem, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"");
@@ -69,8 +70,9 @@ Gura_DeclareMethod(elem, print)
 
 Gura_ImplementMethod(elem, print)
 {
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
-	pElem->Print(0);
+	pElem->Print(stream, 0);
 	return Value::Nil;
 }
 
