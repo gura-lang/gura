@@ -208,6 +208,9 @@ without disarranging the appearance.
 A string literal prefixed by `b` would be treated
 as a sequence of binary data instead of character code.
 
+A string literal prefixed by `e` would be treated
+as a string that may contain embedded scripts written in a manner for the template engine.
+
 A string literal can also be appended by a suffix symbol
 that has been registered in Suffix Manager.
 There's no built-in suffix for string literals.
