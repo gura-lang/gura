@@ -524,3 +524,11 @@ gura
 world
 !!!
 ABCDEFG
+
+======== #28 embedded string ========
+
+e'' .. 
+e'simple string' .. simple string
+e'variable ${var} reference' .. variable hoge reference
+e'variable ${var} reference\n' .. variable hoge reference
+

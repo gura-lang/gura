@@ -969,11 +969,12 @@ bool Expr_EmbedString::GenerateCode(Environment &env, CodeGenerator &codeGenerat
 bool Expr_EmbedString::GenerateScript(Signal &sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	const char *str = _str.c_str();
-	if (scriptStyle == SCRSTYLE_Brief && ::strlen(str) > MaxCharsForBriefStyle) {
-		stream.Print(sig, "' .. '");
+	if (scriptStyle == SCRSTYLE_Brief && _str.size() > MaxCharsForBriefStyle) {
+		stream.Print(sig, "e' .. '");
 	} else {
-		stream.Print(sig, MakeQuotedString(str).c_str());
+		String str = "e";
+		str += MakeQuotedString(_str.c_str());
+		stream.Print(sig, str.c_str());
 	}
 	if (sig.IsSignalled()) return false;
 	return true;

@@ -555,3 +555,14 @@ testcase('empty iterator') {
 	ABCD${()}EFG
 	'''.template().render(sys.stdout)
 }
+
+//-----------------------------------------------------------------------------
+testcase('embedded string') {
+	var = 'hoge'
+	tester(`e'')
+	tester(`e'simple string')
+	tester(`e'variable ${var} reference')
+	tester(`eR'''
+	variable ${var} reference
+	''')
+}
