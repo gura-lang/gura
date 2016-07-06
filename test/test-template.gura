@@ -565,4 +565,10 @@ testcase('embedded string') {
 	tester(`eR'''
 	variable ${var} reference
 	''')
+	// inheritance
+	base = '[${=block(`head)}original${end}] ${=block(`body)}original${end}'.template()
+	tester(`e'${=extends(base)}')
+	tester(`e'${=extends(base)}${=block(`head)}replaced${end}')
+	tester(`e'${=extends(base)}${=block(`body)}replaced${end}')
+	tester(`e'${=extends(base)}${=block(`head)}replaced${end}${=block(`body)}replaced${end}')
 }
