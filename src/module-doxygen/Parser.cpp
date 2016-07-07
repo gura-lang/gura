@@ -384,7 +384,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				//_pElemArg->AddElem(_pDecomposerChild->GetResult()->Reference());
+				_strArg += _pDecomposerChild->GetText();
 				_pDecomposerChild.reset();
 				_stat = STAT_ArgCustom;
 			}
@@ -662,10 +662,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_strArgs.clear();
 			_text.clear();
-			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
+			_stat = STAT_Text;
 			foreach (String, p, rtn) {
 				if (!FeedChar(env, *p)) return false;
 			}
+			if (!IsTopLevel()) _stat = STAT_Complete;
 		}
 		break;
 	}
@@ -676,10 +677,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArgs.clear();
 			_strArg.clear();
 			_text.clear();
-			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
+			_stat = STAT_Text;
 			foreach (String, p, rtn) {
 				if (!FeedChar(env, *p)) return false;
 			}
+			if (!IsTopLevel()) _stat = STAT_Complete;
 		} else if (ch == ',') {
 			_strArgs.push_back(_strArg);
 			_strArg.clear();

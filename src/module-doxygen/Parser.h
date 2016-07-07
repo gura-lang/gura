@@ -74,6 +74,7 @@ public:
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
+	inline const char *GetText() const { return _text.c_str(); }
 	inline void Pushback(char ch) {
 		if (_pDecomposerParent == nullptr) {
 			_pushbackBuff[_pushbackLevel++] = ch;
