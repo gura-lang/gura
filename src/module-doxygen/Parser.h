@@ -70,6 +70,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const Elem *GetResult() const;
+	String EvaluateCustomCommand() const;
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }

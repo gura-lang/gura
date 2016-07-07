@@ -727,21 +727,51 @@ const Elem *Decomposer::GetResult() const
 	return _pElemResult->ReduceContent();
 }
 
-#if 0
-bool Decomposer::EvaluateCommand()
+String Decomposer::EvaluateCustomCommand() const
 {
-	const CommandFormat *pCmdFmt = _pElemCmdCur->GetCommandFormat();
 	Environment &env = *_pObjParser;
-	String rtn = pCmdFmt->Evaluate(_pObjParser, _strArgs);
-	if (env.IsSignalled()) return false;
-	if (pCmdFmt->IsCustom() && ContainsCommand(rtn.c_str())) {
-		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
-		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
-		_pElemResult->AddElem(pDecomposer->GetResult()->Reference());
+	String funcName = "@";
+	funcName += _cmdName;
+	if (!_strArgs.empty()) {
+		char buff[32];
+		::sprintf(buff, "_%lu", _strArgs.size());
+		funcName += buff;
 	}
-	return true;
+	const Function *pFunc = _pObjParser->LookupFunction(
+		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
+	AutoPtr<Argument> pArg;
+	if (pFunc == nullptr) {
+		pFunc = _pObjParser->LookupFunction(Gura_UserSymbol(OnCommand), ENVREF_Escalate);
+		if (pFunc == nullptr) {
+			env.SetError(ERR_ValueError, "method not found: OnCommand");
+			return "";
+		}
+		pArg.reset(new Argument(pFunc));
+		if (!pArg->StoreValue(env, Value(_cmdName))) return "";
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		if (!_strArgs.empty()) {
+			pObjList->Reserve(_strArgs.size());
+			foreach_const (StringList, pStrArg, _strArgs) {
+				pObjList->Add(Value(*pStrArg));
+			}
+		}
+		if (!pArg->StoreValue(env, value)) return "";
+		if (!pArg->Complete(env)) return "";
+	} else {
+		pArg.reset(new Argument(pFunc));
+		foreach_const (StringList, pStrArg, _strArgs) {
+			if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
+		}
+		if (!pArg->Complete(env)) return "";
+	}
+	Value rtn = pFunc->Eval(env, *pArg);
+	if (!rtn.Is_string()) {
+		env.SetError(ERR_ValueError, "doxygen handler must return a string value");
+		return "";
+	}
+	return rtn.GetStringSTL();
 }
-#endif
 
 bool Decomposer::ContainsCommand(const char *str)
 {

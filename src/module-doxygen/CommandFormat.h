@@ -94,7 +94,6 @@ public:
 	inline void SetName(const char *name) { _name = name; }
 	inline const char *GetName() const { return _name.c_str(); }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
-	String Evaluate(Object_parser *pObjParser, const StringList &strArgs) const;
 	String MakeHandlerDeclaration() const;
 	bool HasNormalCommandName() const;
 public:
