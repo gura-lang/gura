@@ -242,7 +242,6 @@ Parser = class(doxygen.parser) {
 	@foo_3(a, b, c) = 'foo: %s,%s,%s' % [a, b, c]
 	@customA_1(a) = 'customA ' + a
 	@customB_1(a) = 'customB ' + a
-	OnCommand(cmdName:string, args[]:string) = '(unknown %s %s)' % [cmdName, args.join(',')]
 }
 
 testCaseInfos.each {|testCaseInfo, idx|

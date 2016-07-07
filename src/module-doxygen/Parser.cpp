@@ -657,21 +657,29 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArg.clear();
 			_stat = STAT_ArgCustom;
 		} else {
-
 			_strArg.clear();
+			String rtn = EvaluateCustomCommand();
 			Pushback(ch);
+			_strArgs.clear();
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
+			foreach (String, p, rtn) {
+				if (!FeedChar(env, *p)) return false;
+			}
 		}
 		break;
 	}
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
-
+			String rtn = EvaluateCustomCommand();
+			_strArgs.clear();
 			_strArg.clear();
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
+			foreach (String, p, rtn) {
+				if (!FeedChar(env, *p)) return false;
+			}
 		} else if (ch == ',') {
 			_strArgs.push_back(_strArg);
 			_strArg.clear();
@@ -739,33 +747,17 @@ String Decomposer::EvaluateCustomCommand() const
 	}
 	const Function *pFunc = _pObjParser->LookupFunction(
 		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
-	AutoPtr<Argument> pArg;
 	if (pFunc == nullptr) {
-		pFunc = _pObjParser->LookupFunction(Gura_UserSymbol(OnCommand), ENVREF_Escalate);
-		if (pFunc == nullptr) {
-			env.SetError(ERR_ValueError, "method not found: OnCommand");
-			return "";
-		}
-		pArg.reset(new Argument(pFunc));
-		if (!pArg->StoreValue(env, Value(_cmdName))) return "";
-		Value value;
-		Object_list *pObjList = value.InitAsList(env);
-		if (!_strArgs.empty()) {
-			pObjList->Reserve(_strArgs.size());
-			foreach_const (StringList, pStrArg, _strArgs) {
-				pObjList->Add(Value(*pStrArg));
-			}
-		}
-		if (!pArg->StoreValue(env, value)) return "";
-		if (!pArg->Complete(env)) return "";
-	} else {
-		pArg.reset(new Argument(pFunc));
-		foreach_const (StringList, pStrArg, _strArgs) {
-			if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
-		}
-		if (!pArg->Complete(env)) return "";
+		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
+		return "";
 	}
+	AutoPtr<Argument> pArg(new Argument(pFunc));
+	foreach_const (StringList, pStrArg, _strArgs) {
+		if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
+	}
+	if (!pArg->Complete(env)) return "";
 	Value rtn = pFunc->Eval(env, *pArg);
+	if (env.IsSignalled()) return "";
 	if (!rtn.Is_string()) {
 		env.SetError(ERR_ValueError, "doxygen handler must return a string value");
 		return "";
