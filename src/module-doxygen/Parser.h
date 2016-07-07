@@ -50,7 +50,6 @@ private:
 	Decomposer *_pDecomposerParent;
 	Stat _stat;
 	String _text;
-	String _result;
 	String _strArg;
 	String _strAhead;
 	String _cmdName;
@@ -71,9 +70,7 @@ public:
 	void SetCommandCustom(const char *cmdName);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
-	const char *GetResult() const;
-	const Elem *GetResultElem() const;
-	bool EvaluateCommand();
+	const Elem *GetResult() const;
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
@@ -125,8 +122,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool ParseStream(Environment &env, SimpleStream &stream);
 	void SetExtractedMode() { _stat = STAT_ExIndent; }
-	const char *GetResult() const { return _pDecomposer->GetResult(); }
-	const Elem *GetResultElem() const { return _pDecomposer->GetResultElem(); }
+	const Elem *GetResult() const { return _pDecomposer->GetResult(); }
 };
 
 //-----------------------------------------------------------------------------

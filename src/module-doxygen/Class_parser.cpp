@@ -99,8 +99,7 @@ Gura_ImplementMethod(parser, parse)
 {
 	Parser &parser = Object_parser::GetObjectThis(arg)->GetParser();
 	if (!parser.ParseStream(env, arg.GetStream(0))) return Value::Nil;
-	//return Value(parser.GetResult());
-	return Value(new Object_elem(parser.GetResultElem()->Reference()));
+	return Value(new Object_elem(parser.GetResult()->Reference()));
 }
 
 //-----------------------------------------------------------------------------

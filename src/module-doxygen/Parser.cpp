@@ -310,7 +310,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_AcceptCommandInText;
 		} else {
 			_text += ch;
-			_result += ch;
 		}
 		break;
 	}
@@ -343,8 +342,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				_strArg += _pDecomposerChild->GetResult();
-				_pElemArg->AddElem(_pDecomposerChild->GetResultElem()->Reference());
+				_pElemArg->AddElem(_pDecomposerChild->GetResult()->Reference());
 				_pDecomposerChild.reset();
 				_stat =
 					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :
@@ -370,7 +368,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				// evaluate the previous command after storing the paragraph argument
 				_strArgs.push_back(_strArg);
-				if (!EvaluateCommand()) return false;
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -400,7 +397,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			if (!EvaluateCommand()) return false;
 			_pElemResult->AddElem(_pElemCmdCur.release());
 			Pushback(ch);
 			_text.clear();
@@ -649,7 +645,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgCustom;
 		} else {
 			_strArgs.clear();
-			if (!EvaluateCommand()) return false;
+
 			_pElemCmdCur.release();
 			_strArg.clear();
 			Pushback(ch);
@@ -661,7 +657,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
-			if (!EvaluateCommand()) return false;
+
 			_pElemCmdCur.release();
 			_strArg.clear();
 			_text.clear();
@@ -714,17 +710,13 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	return true;
 }
 
-const char *Decomposer::GetResult() const
-{
-	return _result.c_str();
-}
-
-const Elem *Decomposer::GetResultElem() const
+const Elem *Decomposer::GetResult() const
 {
 	const ElemOwner &elemOwner = _pElemResult->GetElemOwner();
 	return (elemOwner.size() == 1)? elemOwner.front() : _pElemResult.get();
 }
 
+#if 0
 bool Decomposer::EvaluateCommand()
 {
 	const CommandFormat *pCmdFmt = _pElemCmdCur->GetCommandFormat();
@@ -734,13 +726,11 @@ bool Decomposer::EvaluateCommand()
 	if (pCmdFmt->IsCustom() && ContainsCommand(rtn.c_str())) {
 		std::auto_ptr<Decomposer> pDecomposer(new Decomposer(_pObjParser, nullptr));
 		if (!pDecomposer->FeedString(env, rtn.c_str())) return false;
-		_result += pDecomposer->GetResult();
-		_pElemResult->AddElem(pDecomposer->GetResultElem()->Reference());
-	} else {
-		_result += rtn;
+		_pElemResult->AddElem(pDecomposer->GetResult()->Reference());
 	}
 	return true;
 }
+#endif
 
 bool Decomposer::ContainsCommand(const char *str)
 {
