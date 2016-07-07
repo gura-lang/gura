@@ -361,13 +361,19 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pDecomposerChild->SetCommandCustom(_cmdName.c_str());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
-				if (_pElemCmdCur->GetCommandFormat()->IsCustom()) {
+				if (_stat == STAT_AcceptCommandInArgLine ||
+					_stat == STAT_AcceptCommandInArgCustom) {
 					env.SetError(ERR_SyntaxError,
-								 "section indicator can not appear in custom command arguments");
+								 "section indicator can not appear in line argument");
 					return false;
 				}
-				// evaluate the previous command after storing the paragraph argument
-				_strArgs.push_back(_strArg);
+				// finish the previous command
+				if (!_strArg.empty()) {
+					_pElemArg->AddElem(new Elem_Text(_strArg));
+					_strArg.clear();
+				}
+				_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
+				_pElemResult->AddElem(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -392,7 +398,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_NextArg: {
 		const ElemOwner &elemArgs = _pElemCmdCur->GetElemArgs();
 		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
-		size_t iArg = _strArgs.size();
+		size_t iArg = elemArgs.size();
 		if (iArg < argOwner.size()) {
 			Pushback(ch);
 			_stat = STAT_BranchArg;
@@ -405,8 +411,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BranchArg: {
+		const ElemOwner &elemArgs = _pElemCmdCur->GetElemArgs();
 		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
-		size_t iArg = _strArgs.size();
+		size_t iArg = elemArgs.size();
 		const CommandFormat::Arg *pArg = argOwner[iArg];
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
