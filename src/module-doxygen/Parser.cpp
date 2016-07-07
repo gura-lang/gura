@@ -390,7 +390,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_CommandSpecial: {
 		Pushback(ch);
-		_strArgs.clear();
 		_strArg.clear();
 		_stat = STAT_NextArg;
 		break;
@@ -424,7 +423,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Pushback(ch);
-				_strArgs.push_back("");
 				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			} else if (ch == '"') {
@@ -441,7 +439,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgBracket;
 			} else { // including '\0'
 				Pushback(ch);
-				_strArgs.push_back("");
 				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
@@ -461,7 +458,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				Pushback(ch);
 				if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
-				_strArgs.push_back("");
 				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
@@ -475,7 +471,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					return false;
 				}
 				Pushback(ch);
-				_strArgs.push_back("");
 				_pElemCmdCur->AddArg(new Elem_Empty());
 				_stat = STAT_NextArg;
 			}
@@ -490,7 +485,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWord: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -506,7 +500,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
 			Pushback(_chPunctuation);
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -520,12 +513,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWordQuote: {
 		if (ch == '\n' || ch == '\0') {
 			Pushback(ch);
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '"') {
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -539,7 +530,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
 			return false;
 		} else if (ch == ']') {
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -552,7 +542,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\n' || ch == '\0') {
 			if (ch == '\0') Pushback(ch);
 			String str = Strip(_strArg.c_str());
-			_strArgs.push_back(str);
 			if (!str.empty()) {
 				_pElemArg->AddElem(new Elem_Text(str));
 			}
@@ -577,7 +566,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -591,7 +579,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
 			return false;
 		} else if (ch == '}') {
-			_strArgs.push_back(_strArg);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
@@ -607,7 +594,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgParaNewline;
 		} else if (ch == '\0') {
 			Pushback(ch);
-			_strArgs.push_back(_strArg);
 			if (!_strArg.empty()) {
 				_pElemArg->AddElem(new Elem_Text(_strArg));
 				_strArg.clear();
@@ -629,7 +615,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgParaNewline: {
 		if (ch == '\n') {
 			// detected a blank line
-			_strArgs.push_back(_strArg);
 			if (!_strArg.empty()) {
 				_pElemArg->AddElem(new Elem_Text(_strArg));
 				_strArg.clear();
@@ -647,11 +632,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_CommandCustom: {
 		if (ch == '{') {
-			_strArgs.clear();
 			_strArg.clear();
 			_stat = STAT_ArgCustom;
 		} else {
-			_strArgs.clear();
 
 			_pElemCmdCur.release();
 			_strArg.clear();
@@ -663,14 +646,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgCustom: {
 		if (ch == '}') {
-			_strArgs.push_back(_strArg);
 
 			_pElemCmdCur.release();
 			_strArg.clear();
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
-			_strArgs.push_back(_strArg);
 			_strArg.clear();
 		} else if (ch == '\\') {
 			_stat = STAT_ArgCustom_Backslash;
