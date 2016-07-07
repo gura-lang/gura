@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
+import(re)
 import(doxygen)
 
 TestCaseInfo = struct(title:string, doc:string)
@@ -56,7 +57,7 @@ testcase('simple doxygen line', R'''
 /// test1
 ''')
 
-testcase('multiline', R'''	
+testcase('multiline', R'''
 /**
 line.1
 line.2
@@ -428,9 +429,8 @@ testCaseInfos.each {|testCaseInfo, idx|
 	printf('======== #%d', idx + 1)
 	!testCaseInfo.title.isempty() && printf(' %s', testCaseInfo.title)
 	println(' ========')
-	extractedFlag = testCaseInfo.doc.isempty() || testCaseInfo.doc[0] != '/'
-	str = Parser(extractedFlag).parse(testCaseInfo.doc.reader())
-	print(str)
-	!str.endswith('\n') && println()
+	extractedFlag = testCaseInfo.doc.isempty() || !testCaseInfo.doc.match(r'\s*/')
+	elem = Parser(extractedFlag).parse(testCaseInfo.doc.reader())
+	elem.print()
 	println('--end--')
 }
