@@ -96,6 +96,7 @@ Gura_ModuleValidate()
 
 Gura_ModuleEntry()
 {
+	Elem::Initialize();
 	CommandFormat::Initialize();
 	// symbol realization
 	Gura_RealizeUserSymbol(OnCommand);

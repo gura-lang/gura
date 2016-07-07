@@ -550,7 +550,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pElemArg->AddElem(new Elem_Text(str));
 			}
 			_strArg.clear();
-			_pElemCmdCur->AddArg(_pElemArg.release());
+			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			String str = Strip(_strArg.c_str());
@@ -605,7 +605,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pElemArg->AddElem(new Elem_Text(_strArg));
 				_strArg.clear();
 			}
-			_pElemCmdCur->AddArg(_pElemArg.release());
+			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			if (!_strArg.empty()) {
@@ -627,7 +627,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_pElemArg->AddElem(new Elem_Text(_strArg));
 				_strArg.clear();
 			}
-			_pElemCmdCur->AddArg(_pElemArg.release());
+			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			_strAhead += ch;
@@ -712,8 +712,10 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 
 const Elem *Decomposer::GetResult() const
 {
-	const ElemOwner &elemOwner = _pElemResult->GetElemOwner();
-	return (elemOwner.size() == 1)? elemOwner.front() : _pElemResult.get();
+	return _pElemResult->ReduceContent();
+	//const ElemOwner &elemOwner = _pElemResult->GetElemOwner();
+	//return elemOwner.empty()? Elem::Empty :
+	//	(elemOwner.size() == 1)? elemOwner.front() : _pElemResult.get();
 }
 
 #if 0

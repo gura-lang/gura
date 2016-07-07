@@ -8,12 +8,19 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Elem
 //-----------------------------------------------------------------------------
+const Elem *Elem::Empty = nullptr;
+
 Elem::Elem() : _cntRef(1)
 {
 }
 
 Elem::~Elem()
 {
+}
+
+void Elem::Initialize()
+{
+	Empty = new Elem_Empty();
 }
 
 //-----------------------------------------------------------------------------
@@ -50,6 +57,12 @@ Elem_Container::Elem_Container()
 {
 }
 
+const Elem *Elem_Container::ReduceContent() const
+{
+	return _elemOwner.empty()? Elem::Empty :
+		(_elemOwner.size() == 1)? _elemOwner.front() : this;
+}
+
 String Elem_Container::ToString() const
 {
 	String rtn;
@@ -83,7 +96,7 @@ String Elem_Empty::ToString() const
 void Elem_Empty::Print(Environment &env, Stream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s[empty]\n", indentLevel * 2, "");
+	stream.Printf(sig, "%*s-\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------

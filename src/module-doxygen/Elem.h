@@ -13,6 +13,8 @@ class Elem {
 protected:
 	int _cntRef;
 public:
+	static const Elem *Empty;
+public:
 	Gura_DeclareReferenceAccessor(Elem);
 public:
 	Elem();
@@ -21,6 +23,7 @@ protected:
 public:
 	virtual String ToString() const = 0;
 	virtual void Print(Environment &env, Stream &stream, int indentLevel) const = 0;
+	static void Initialize();
 };
 
 //-----------------------------------------------------------------------------
@@ -48,6 +51,7 @@ protected:
 	ElemOwner _elemOwner;
 public:
 	Elem_Container();
+	const Elem *ReduceContent() const;
 	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
 	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
 	virtual String ToString() const;
