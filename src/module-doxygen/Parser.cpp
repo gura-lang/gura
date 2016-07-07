@@ -659,6 +659,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			_strArg.clear();
 			String rtn = EvaluateCustomCommand();
+			if (env.IsSignalled()) return false;
 			Pushback(ch);
 			_strArgs.clear();
 			_text.clear();
@@ -674,6 +675,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
 			String rtn = EvaluateCustomCommand();
+			if (env.IsSignalled()) return false;
 			_strArgs.clear();
 			_strArg.clear();
 			_text.clear();
