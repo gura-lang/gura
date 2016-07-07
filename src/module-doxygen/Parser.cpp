@@ -261,8 +261,7 @@ bool Parser::ParseStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
 	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
-	_pCmdFmtCustom(new CommandFormat(CommandFormat::CMDTYPE_Custom)),
-	_pushbackLevel(0), _chPunctuation('\0'), _chPrev('\0'), _aheadFlag(false),
+	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _aheadFlag(false),
 	_pElemResult(new Elem_Container())
 {
 }
@@ -273,10 +272,9 @@ void Decomposer::SetCommandSpecial(const CommandFormat *pCmdFmt)
 	_stat = STAT_CommandSpecial;
 }
 
-void Decomposer::SetCommandCustom(const char *cmdName)
+void Decomposer::SetCommandCustom(const String &cmdName)
 {
-	_pCmdFmtCustom->SetName(cmdName);
-	_pElemCmdCur.reset(new Elem_Command(_pCmdFmtCustom.get()));
+	_cmdName = cmdName;
 	_stat = STAT_CommandCustom;
 }
 
@@ -322,14 +320,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pCmdFmtCustom->SetName(_cmdName.c_str());
-				pCmdFmt = _pCmdFmtCustom.get();
 				_stat = STAT_CommandCustom;
 			} else {
 				// special command
 				_stat = STAT_CommandSpecial;
+				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 			}
-			_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 			Pushback(ch);
 		} else {
 			_cmdName += ch;
@@ -337,17 +333,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_AcceptCommandInArgLine:
-	case STAT_AcceptCommandInArgPara:
-	case STAT_AcceptCommandInArgCustom: {
+	case STAT_AcceptCommandInArgPara: {
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
 				_pElemArg->AddElem(_pDecomposerChild->GetResult()->Reference());
 				_pDecomposerChild.reset();
-				_stat =
-					(_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine :
-					(_stat == STAT_AcceptCommandInArgPara)? STAT_ArgPara :
-					STAT_ArgCustom;
+				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
 		} else if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
@@ -382,6 +374,36 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				// special command (not section indicator)
 				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
 				_pDecomposerChild->SetCommandSpecial(pCmdFmt);
+			}
+		} else {
+			_cmdName += ch;
+		}
+		break;
+	}
+	case STAT_AcceptCommandInArgCustom: {
+		if (_pDecomposerChild.get() != nullptr) {
+			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
+			if (_pDecomposerChild->IsComplete()) {
+				//_pElemArg->AddElem(_pDecomposerChild->GetResult()->Reference());
+				_pDecomposerChild.reset();
+				_stat = STAT_ArgCustom;
+			}
+		} else if (IsCommandEnd(_cmdName, ch)) {
+			if (_cmdName.empty()) {
+				env.SetError(ERR_SyntaxError, "command name is not specified");
+				return false;
+			}
+			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
+			if (pCmdFmt == nullptr) {
+				// custom command
+				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild->SetCommandCustom(_cmdName);
+				Pushback(ch);
+			} else {
+				// special command
+				_strArg += _chAhead;
+				_strArg += _cmdName;
+				_stat = STAT_ArgCustom;
 			}
 		} else {
 			_cmdName += ch;
@@ -489,7 +511,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '.' || ch == ',' || ch == ';' || ch == '?' || ch == '!') {
-			_chPunctuation = ch;
+			_chAhead = ch;
 			_stat = STAT_ArgWord_Punctuation;
 		} else {
 			_strArg += ch;
@@ -499,13 +521,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWord_Punctuation: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
-			Pushback(_chPunctuation);
+			Pushback(_chAhead);
 			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
 			Pushback(ch);
-			_strArg += _chPunctuation;
+			_strArg += _chAhead;
 			_stat = STAT_ArgWord;
 		}
 		break;
@@ -636,7 +658,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgCustom;
 		} else {
 
-			_pElemCmdCur.release();
 			_strArg.clear();
 			Pushback(ch);
 			_text.clear();
@@ -646,17 +667,19 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ArgCustom: {
 		if (ch == '}') {
+			_strArgs.push_back(_strArg);
 
-			_pElemCmdCur.release();
 			_strArg.clear();
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
 		} else if (ch == ',') {
+			_strArgs.push_back(_strArg);
 			_strArg.clear();
 		} else if (ch == '\\') {
 			_stat = STAT_ArgCustom_Backslash;
 		} else if (IsCommandMark(ch)) {
 			_cmdName.clear();
+			_chAhead = ch;
 			_stat = STAT_AcceptCommandInArgCustom;
 		} else if (ch == '\0') {
 			// nothing to do
@@ -675,6 +698,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			Pushback(ch);
 			_cmdName.clear();
+			_chAhead = '\\';
 			_stat = STAT_AcceptCommandInArgCustom;
 		}
 		break;

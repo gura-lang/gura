@@ -56,18 +56,17 @@ private:
 	StringList _strArgs;
 	int _pushbackLevel;
 	char _pushbackBuff[16];
-	char _chPunctuation;
+	char _chAhead;
 	char _chPrev;
 	bool _aheadFlag;
 	AutoPtr<Elem_Container> _pElemResult;
 	AutoPtr<Elem_Command> _pElemCmdCur;
 	AutoPtr<Elem_Container> _pElemArg;
-	std::unique_ptr<CommandFormat> _pCmdFmtCustom;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
 	Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent = nullptr);
 	void SetCommandSpecial(const CommandFormat *pCmdFmt);
-	void SetCommandCustom(const char *cmdName);
+	void SetCommandCustom(const String &cmdName);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const Elem *GetResult() const;
