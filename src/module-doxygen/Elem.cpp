@@ -154,7 +154,7 @@ void Elem_Command::Print(Environment &env, Stream &stream, int indentLevel) cons
 	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
 		const CommandFormat::Arg *pArg = *ppArg;
 		if (iArg > 0) stream.Printf(sig, ", ");
-		stream.Printf(sig, "%s", pArg->GetName());
+		stream.Printf(sig, "%s:%s", pArg->GetName(), pArg->GetArgTypeName());
 		iArg++;
 	}
 	stream.Printf(sig, "}\n");

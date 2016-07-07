@@ -713,9 +713,6 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 const Elem *Decomposer::GetResult() const
 {
 	return _pElemResult->ReduceContent();
-	//const ElemOwner &elemOwner = _pElemResult->GetElemOwner();
-	//return elemOwner.empty()? Elem::Empty :
-	//	(elemOwner.size() == 1)? elemOwner.front() : _pElemResult.get();
 }
 
 #if 0
