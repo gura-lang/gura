@@ -8,11 +8,11 @@ Gura_BeginModuleBody(doxygen)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// doxygen.makescript(stream?:stream):void
+// doxygen.makescript(stream?:stream:w):void
 Gura_DeclareFunction(makescript)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
 Gura_ImplementFunction(makescript)
@@ -51,6 +51,21 @@ Gura_ImplementFunction(makescript)
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	pStream->Printf(sig, "}\n");
+	return Value::Nil;
+}
+
+// doxygen.test(stream:stream):void
+Gura_DeclareFunction(test)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once);
+}
+
+Gura_ImplementFunction(test)
+{
+	Stream &stream = arg.GetStream(0);
+	Configuration cfg;
+	cfg.ReadStream(env, stream);
 	return Value::Nil;
 }
 
@@ -108,6 +123,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(elem);
 	// function assignment
 	Gura_AssignFunction(makescript);
+	Gura_AssignFunction(test);
 	// registoration of HelpPresenter
 	HelpPresenter::Register(env, new HelpPresenter_doxygen());
 	return true;

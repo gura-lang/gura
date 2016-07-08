@@ -121,7 +121,7 @@ private:
 public:
 	Parser(Object_parser *pObjParser);
 	bool FeedChar(Environment &env, char ch);
-	bool ParseStream(Environment &env, SimpleStream &stream);
+	bool ReadStream(Environment &env, SimpleStream &stream);
 	void SetExtractedMode() { _stat = STAT_ExIndent; }
 	const Elem *GetResult() const { return _pDecomposer->GetResult(); }
 };

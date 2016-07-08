@@ -84,11 +84,11 @@ Gura_ImplementFunction(parser)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.parser#parse(stream:stream):map
+// doxygen.parser#parse(stream:stream:w):map
 Gura_DeclareMethod(parser, parse)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Reads doxygen document coming from the specified `stream`\n"
@@ -98,7 +98,7 @@ Gura_DeclareMethod(parser, parse)
 Gura_ImplementMethod(parser, parse)
 {
 	Parser &parser = Object_parser::GetObjectThis(arg)->GetParser();
-	if (!parser.ParseStream(env, arg.GetStream(0))) return Value::Nil;
+	if (!parser.ReadStream(env, arg.GetStream(0))) return Value::Nil;
 	return Value(new Object_elem(parser.GetResult()->Reference()));
 }
 

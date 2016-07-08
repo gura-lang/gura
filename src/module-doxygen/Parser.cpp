@@ -243,7 +243,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Parser::ParseStream(Environment &env, SimpleStream &stream)
+bool Parser::ReadStream(Environment &env, SimpleStream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
