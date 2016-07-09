@@ -22,92 +22,92 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (IsAlpha(ch)) {
-			_varName.clear();
-			_varName += ch;
-			_stat = STAT_VarName;
+			_name.clear();
+			_name += ch;
+			_stat = STAT_Name;
 		} else {
 			env.SetError(ERR_SyntaxError, "invalid variable name");
 			return false;
 		}
 		break;
 	}
-	case STAT_VarName: {
+	case STAT_Name: {
 		if (IsAlpha(ch) || IsDigit(ch)) {
-			_varName += ch;
+			_name += ch;
 		} else {
-			_stat = STAT_AssignOp;
+			_stat = STAT_Assign;
 		}
 		break;
 	}
-	case STAT_AssignOp: {
+	case STAT_Assign: {
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '=') {
-			_varValue.clear();
-			_stat = STAT_VarValueBegin;
+			_value.clear();
+			_stat = STAT_ValueBegin;
 		} else if (ch == '+') {
-			_stat = STAT_Plus;
+			_stat = STAT_PlusAssign;
 		} else {
 			env.SetError(ERR_SyntaxError, "assign operator is expected");
 			return false;
 		}
 		break;
 	}
-	case STAT_Plus: {
+	case STAT_PlusAssign: {
 		if (ch == '=') {
-			_varValue.clear();
-			_stat = STAT_VarValueBegin;
+			_value.clear();
+			_stat = STAT_ValueBegin;
 		} else {
 			env.SetError(ERR_SyntaxError, "invalid assign operator");
 			return false;
 		}
 		break;
 	}
-	case STAT_VarValueBegin: {
+	case STAT_ValueBegin: {
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '\n') {
 			// no value is assigned
 			_stat = STAT_Init;
 		} else if (ch == '"') {
-			_stat = STAT_VarValueQuoted;
+			_stat = STAT_QuotedValue;
 		} else {
 			Gura_Pushback();
-			_stat = STAT_VarValue;
+			_stat = STAT_Value;
 		}
 		break;
 	}
-	case STAT_VarValue: {
+	case STAT_Value: {
 		if (ch == '\n') {
 			
 			_stat = STAT_Init;
 		} else if (ch == '\\') {
-			_stat = STAT_VarValue_Escape;
+			_stat = STAT_Value_Escape;
 		} else {
-			_varValue += ch;
+			_value += ch;
 		}
 		break;
 	}
-	case STAT_VarValue_Escape: {
-		_stat = STAT_VarValue;
+	case STAT_Value_Escape: {
+		_stat = STAT_Value;
 		break;
 	}
-	case STAT_VarValueQuoted: {
+	case STAT_QuotedValue: {
 		if (ch == '\n' || ch == '"') {
 			
 			_stat = STAT_Init;
 		} else if (ch == '\\') {
-			_stat = STAT_VarValueQuoted_Escape;
+			_stat = STAT_QuotedValue_Escape;
 		} else {
-			_varValue += ch;
+			_value += ch;
 		}
 		break;
 	}
-	case STAT_VarValueQuoted_Escape: {
+	case STAT_QuotedValue_Escape: {
 		if (ch == '\n') {
 			
 		}
-		_stat = STAT_VarValueQuoted;
+		_stat = STAT_QuotedValue;
 		break;
 	}
 	case STAT_SkipToLineEnd: {
