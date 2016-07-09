@@ -11,7 +11,27 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 class Configuration {
 public:
-	
+	class Entry {
+	private:
+		int _cntRef;
+		String _name;
+		StringList _values;
+	public:
+		Gura_DeclareReferenceAccessor(Entry);
+	public:
+		Entry(const String &name);
+	protected:
+		inline ~Entry() {}
+	public:
+		inline void AddValue(const String &value) { _values.push_back(value); }
+		inline const char *GetName() const { return _name.c_str(); }
+		inline const StringList &GetValues() const { return _values; }
+	};
+	class EntryDict : public std::map<String, Entry *> {
+	public:
+		~EntryDict();
+		void Clear();
+	};
 private:
 	enum Stat {
 		STAT_Init,
@@ -28,12 +48,15 @@ private:
 	};
 private:
 	Stat _stat;
-	String _name;
-	String _value;
+	bool _appendFlag;
+	String _field;
+	AutoPtr<Entry> _pEntry;
+	EntryDict _entryDict;
 public:
 	Configuration();
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, Stream &stream);
+	void Print() const;
 private:
 	static bool IsNameCharBegin(char ch) {
 		return IsAlpha(ch) || ch == '_';

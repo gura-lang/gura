@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Configuration
 //-----------------------------------------------------------------------------
-Configuration::Configuration() : _stat(STAT_Init)
+Configuration::Configuration() : _stat(STAT_Init), _appendFlag(false)
 {
 }
 
@@ -26,8 +26,8 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n') {
 			// nothing to do
 		} else if (IsNameCharBegin(ch)) {
-			_name.clear();
-			_name += ch;
+			_field.clear();
+			_field += ch;
 			_stat = STAT_Name;
 		} else {
 			env.SetError(ERR_SyntaxError, "invalid variable name");
@@ -37,8 +37,15 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Name: {
 		if (IsNameChar(ch)) {
-			_name += ch;
+			_field += ch;
 		} else { // including '\0'
+			EntryDict::iterator iter = _entryDict.find(_field);
+			if (iter == _entryDict.end()) {
+				_pEntry.reset(new Entry(_field));
+				_entryDict[_field] = _pEntry->Reference();
+			} else {
+				_pEntry.reset(iter->second->Reference());
+			}
 			Gura_Pushback();
 			_stat = STAT_Assign;
 		}
@@ -48,7 +55,8 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '=') {
-			_value.clear();
+			_appendFlag = false;
+			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else if (ch == '+') {
 			_stat = STAT_PlusAssign;
@@ -60,7 +68,8 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_PlusAssign: {
 		if (ch == '=') {
-			_value.clear();
+			_appendFlag = true;
+			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else { // including '\0'
 			env.SetError(ERR_SyntaxError, "invalid assign operator");
@@ -84,41 +93,42 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Value: {
 		if (ch == '\n' || ch == '\0' || ch == '#') {
-			String value = Strip(_value.c_str());
-			::printf("%s = '%s'\n", _name.c_str(), value.c_str());
+			_pEntry->AddValue(Strip(_field.c_str()));
 			_stat = (ch == '#')? STAT_SkipToLineEnd : STAT_Init;
 		} else if (ch == '\\') {
 			_stat = STAT_Value_Escape;
 		} else {
-			_value += ch;
+			_field += ch;
 		}
 		break;
 	}
 	case STAT_Value_Escape: {
 		if (ch == '\n' || ch == '\0') {
+			_pEntry->AddValue(Strip(_field.c_str()));
+			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else {
-			_value += ch;
+			_field += ch;
 			_stat = STAT_Value;
 		}
 		break;
 	}
 	case STAT_QuotedValue: {
 		if (ch == '\n' || ch == '\0') {
-			::printf("%s = %s\n", _name.c_str(), _value.c_str());
+			::printf("%s = %s\n", _field.c_str(), _field.c_str());
 			_stat = STAT_Init;
 		} else if (ch == '"') {
 			_stat = STAT_QuotedValueEnd;
 		} else if (ch == '\\') {
 			_stat = STAT_QuotedValue_Escape;
 		} else {
-			_value += ch;
+			_field += ch;
 		}
 		break;
 	}
 	case STAT_QuotedValueEnd: {
 		if (ch == '\n' || ch == '\0') {
-			::printf("%s = %s\n", _name.c_str(), _value.c_str());
+			_pEntry->AddValue(Strip(_field.c_str()));
 			_stat = STAT_Init;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
@@ -132,10 +142,11 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_QuotedValue_Escape: {
 		if (ch == '\n' || ch == '\0') {
-			
+			_pEntry->AddValue(Strip(_field.c_str()));
+			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else {
-			_value += ch;
+			_field += ch;
 			_stat = STAT_QuotedValue;
 		}
 		break;
@@ -164,6 +175,52 @@ bool Configuration::ReadStream(Environment &env, Stream &stream)
 		if (ch == '\0') break;
 	}
 	return true;
+}
+
+void Configuration::Print() const
+{
+	foreach_const (EntryDict, iter, _entryDict) {
+		const Entry *pEntry = iter->second;
+		const StringList &values = pEntry->GetValues();
+		if (values.empty()) {
+			::printf("%s = {}\n", pEntry->GetName());
+		} else if (values.size() == 1) {
+			::printf("%s = '%s'\n", pEntry->GetName(), values.front().c_str());
+		} else {
+			::printf("%s = {\n", pEntry->GetName());
+			foreach_const (StringList, pValue, values) {
+				::printf("  '%s'\n", pValue->c_str());
+			}
+			::printf("}\n");
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Configuration::Entry
+//-----------------------------------------------------------------------------
+Configuration::Entry::Entry(const String &name) : _cntRef(1), _name(name)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Configuration::EntryList
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Configuration::EntryDict
+//-----------------------------------------------------------------------------
+Configuration::EntryDict::~EntryDict()
+{
+	Clear();
+}
+
+void Configuration::EntryDict::Clear()
+{
+	foreach (EntryDict, iter, *this) {
+		Entry::Delete(iter->second);
+	}
+	clear();
 }
 
 Gura_EndModuleScope(doxygen)

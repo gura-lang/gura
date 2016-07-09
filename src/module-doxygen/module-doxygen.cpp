@@ -66,6 +66,7 @@ Gura_ImplementFunction(test)
 	Stream &stream = arg.GetStream(0);
 	Configuration cfg;
 	cfg.ReadStream(env, stream);
+	cfg.Print();
 	return Value::Nil;
 }
 
