@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Configuration
 //-----------------------------------------------------------------------------
-Configuration::Configuration() : _stat(STAT_Init), _appendFlag(false)
+Configuration::Configuration() : _stat(STAT_Init)
 {
 }
 
@@ -55,7 +55,7 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '=') {
-			_appendFlag = false;
+			_pEntry->ClearValues();
 			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else if (ch == '+') {
@@ -68,7 +68,6 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_PlusAssign: {
 		if (ch == '=') {
-			_appendFlag = true;
 			_field.clear();
 			_stat = STAT_ValueBegin;
 		} else { // including '\0'
@@ -83,6 +82,9 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n' || ch == '\0') {
 			// no value is assigned
 			_stat = STAT_Init;
+		} else if (ch == '#') {
+			// no value is assigned
+			_stat = STAT_SkipToLineEnd;
 		} else if (ch == '"') {
 			_stat = STAT_QuotedValue;
 		} else {
@@ -92,9 +94,12 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_Value: {
-		if (ch == '\n' || ch == '\0' || ch == '#') {
+		if (ch == '\n' || ch == '\0') {
 			_pEntry->AddValue(Strip(_field.c_str()));
-			_stat = (ch == '#')? STAT_SkipToLineEnd : STAT_Init;
+			_stat = STAT_Init;
+		} else if (ch == '#') {
+			_pEntry->AddValue(Strip(_field.c_str()));
+			_stat = STAT_SkipToLineEnd;
 		} else if (ch == '\\') {
 			_stat = STAT_Value_Escape;
 		} else {
@@ -103,11 +108,16 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_Value_Escape: {
-		if (ch == '\n' || ch == '\0') {
+		if (ch == '\n') {
 			_pEntry->AddValue(Strip(_field.c_str()));
 			_field.clear();
 			_stat = STAT_ValueBegin;
+		} else if (ch == '\0') {
+			_field += '\\';
+			_pEntry->AddValue(Strip(_field.c_str()));
+			_stat = STAT_Init;
 		} else {
+			_field += '\\';
 			_field += ch;
 			_stat = STAT_Value;
 		}
@@ -115,7 +125,7 @@ bool Configuration::FeedChar(Environment &env, char ch)
 	}
 	case STAT_QuotedValue: {
 		if (ch == '\n' || ch == '\0') {
-			::printf("%s = %s\n", _field.c_str(), _field.c_str());
+			_pEntry->AddValue(Strip(_field.c_str()));
 			_stat = STAT_Init;
 		} else if (ch == '"') {
 			_stat = STAT_QuotedValueEnd;
@@ -145,7 +155,15 @@ bool Configuration::FeedChar(Environment &env, char ch)
 			_pEntry->AddValue(Strip(_field.c_str()));
 			_field.clear();
 			_stat = STAT_ValueBegin;
+		} else if (ch == '\0') {
+			_field += '\\';
+			_pEntry->AddValue(Strip(_field.c_str()));
+			_stat = STAT_Init;
+		} else if (ch == '"') {
+			_field += ch;
+			_stat = STAT_QuotedValue;
 		} else {
+			_field += '\\';
 			_field += ch;
 			_stat = STAT_QuotedValue;
 		}

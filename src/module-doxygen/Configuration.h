@@ -24,6 +24,7 @@ public:
 		inline ~Entry() {}
 	public:
 		inline void AddValue(const String &value) { _values.push_back(value); }
+		inline void ClearValues() { _values.clear(); }
 		inline const char *GetName() const { return _name.c_str(); }
 		inline const StringList &GetValues() const { return _values; }
 	};
@@ -48,7 +49,6 @@ private:
 	};
 private:
 	Stat _stat;
-	bool _appendFlag;
 	String _field;
 	AutoPtr<Entry> _pEntry;
 	EntryDict _entryDict;
