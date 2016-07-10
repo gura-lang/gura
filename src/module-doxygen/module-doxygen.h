@@ -8,6 +8,7 @@
 #include "Elem.h"
 #include "Parser.h"
 #include "Configuration.h"
+#include "Alias.h"
 #include "Class_parser.h"
 #include "Class_elem.h"
 
