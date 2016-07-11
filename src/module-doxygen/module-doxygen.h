@@ -14,7 +14,7 @@
 
 Gura_BeginModuleHeader(doxygen)
 
-Gura_DeclareUserSymbol(OnCommand);
+Gura_DeclareUserSymbol(elem);
 
 //-----------------------------------------------------------------------------
 // HelpPresenter_doxygen
