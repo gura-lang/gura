@@ -19,24 +19,22 @@ Object *Object_configuration::Clone() const
 
 bool Object_configuration::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-#if 0
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(elem));
-#endif
+	symbols.insert(Gura_UserSymbol(aliases));
 	return true;
 }
 
 Value Object_configuration::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
-		return _pElem.IsNull()? Value::Nil : Value(new Object_elem(_pElem->Reference()));
+	if (pSymbol->IsIdentical(Gura_UserSymbol(aliases))) {
+		AutoPtr<Aliases> pAliases(_pCfg->MakeAliases(env));
+		if (pAliases.IsNull()) return Value::Nil;
+		return Value(new Object_aliases(pAliases.release()));
 	}
 	evaluatedFlag = false;
-#endif
 	return Value::Nil;
 }
 
@@ -71,6 +69,23 @@ Gura_ImplementFunction(configuration)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.configuration#print(out?:stream):void
+Gura_DeclareMethod(configuration, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(configuration, print)
+{
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
+	const Configuration *pCfg = Object_configuration::GetObjectThis(arg)->GetConfiguration();
+	pCfg->Print();
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.configuration
@@ -78,6 +93,7 @@ Gura_ImplementFunction(configuration)
 Gura_ImplementUserClassWithCast(configuration)
 {
 	Gura_AssignFunction(configuration);
+	Gura_AssignMethod(configuration, print);
 }
 
 Gura_ImplementCastFrom(configuration)

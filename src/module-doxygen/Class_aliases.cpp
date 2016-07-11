@@ -55,12 +55,30 @@ String Object_aliases::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.aliases#print(out?:stream):void
+Gura_DeclareMethod(aliases, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(aliases, print)
+{
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
+	const Aliases *pAliases = Object_aliases::GetObjectThis(arg)->GetAliases();
+	pAliases->Print();
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.aliases
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(aliases)
 {
+	Gura_AssignMethod(aliases, print);
 }
 
 Gura_ImplementCastFrom(aliases)
