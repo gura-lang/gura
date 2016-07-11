@@ -97,7 +97,7 @@ bool Configuration::FeedChar(Environment &env, char ch)
 		if (ch == '\n' || ch == '\0') {
 			_pEntry->AddValue(Strip(_field.c_str()));
 			_stat = STAT_Init;
-		} else if (ch == '#') {
+		} else if (ch == '#' && _pEntry->HashAsComment()) {
 			_pEntry->AddValue(Strip(_field.c_str()));
 			_stat = STAT_SkipToLineEnd;
 		} else if (ch == '\\') {
@@ -195,6 +195,24 @@ bool Configuration::ReadStream(Environment &env, Stream &stream)
 	return true;
 }
 
+const Configuration::Entry *Configuration::LookupEntry(const char *name) const
+{
+	EntryDict::const_iterator iter = _entryDict.find(name);
+	return (iter == _entryDict.end())? nullptr : iter->second;
+}
+
+Aliases *Configuration::MakeAliases(Environment &env)
+{
+	std::unique_ptr<Aliases> pAliases(new Aliases());
+	const Entry *pEntry = LookupEntry("ALIASES");
+	if (pEntry != nullptr) {
+		foreach_const (StringList, pStr, pEntry->GetValues()) {
+			pAliases->AddSource(env, pStr->c_str());
+		}
+	}
+	return pAliases.release();
+}
+
 void Configuration::Print() const
 {
 	foreach_const (EntryDict, iter, _entryDict) {
@@ -217,7 +235,8 @@ void Configuration::Print() const
 //-----------------------------------------------------------------------------
 // Configuration::Entry
 //-----------------------------------------------------------------------------
-Configuration::Entry::Entry(const String &name) : _cntRef(1), _name(name)
+Configuration::Entry::Entry(const String &name) :
+	_cntRef(1), _name(name), _hashAsCommentFlag(name != "ALIASES")
 {
 }
 

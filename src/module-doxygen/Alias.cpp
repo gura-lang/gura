@@ -8,20 +8,191 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Alias
 //-----------------------------------------------------------------------------
-Alias::Alias()
+Alias::Alias() : _cntRef(1)
 {
 }
 
-bool Alias::Parse(const char *str)
+bool Alias::Parse(Environment &env, const char *str)
 {
+	enum {
+		STAT_KeyPre,
+		STAT_Key,
+		STAT_KeyPost,
+		STAT_ArgNumPre,
+		STAT_ArgNum,
+		STAT_ArgNumPost,
+		STAT_Assign,
+		STAT_Quote,
+		STAT_Text,
+		STAT_BackSlash,
+		STAT_ArgRef,
+	} stat = STAT_KeyPre;
+	size_t num = 0;
+	String field;
+	for (const char *p = str; ; p++) {
+		char ch = *p;
+		Gura_BeginPushbackRegion();
+		switch (stat) {
+		case STAT_KeyPre: {
+			if (ch == ' ' || ch == '\t' || ch == '\n') {
+				// nothing to do
+			} else if (IsKeyCharBegin(ch)) {
+				field.clear();
+				Gura_Pushback();
+				stat = STAT_Key;
+			} else { // including '\0'
+				env.SetError(ERR_SyntaxError, "invalid character for alias key");
+				return false;
+			}
+			break;
+		}
+		case STAT_Key: {
+			if (IsKeyChar(ch)) {
+				field += ch;
+			} else { // including '\0'
+				Gura_Pushback(); 
+				stat = STAT_KeyPost;
+			}
+			break;
+		}
+		case STAT_KeyPost: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '{') {
+				field += ch;
+				stat = STAT_ArgNumPre;
+			} else if (ch == '=') {
+				_key = field;
+				stat = STAT_Quote;
+			} else {
+				env.SetError(ERR_SyntaxError, "invalid syntax for alias assignment");
+				return false;
+			}
+			break;
+		}
+		case STAT_ArgNumPre: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (IsDigit(ch)) {
+				Gura_Pushback();
+				stat = STAT_ArgNum;
+			} else {
+				env.SetError(ERR_SyntaxError, "invalid declaration of argument number");
+				return false;
+			}
+			break;
+		}
+		case STAT_ArgNum: {
+			if (IsDigit(ch)) {
+				field += ch;
+			} else {
+				Gura_Pushback();
+				stat = STAT_ArgNumPost;
+			}
+			break;
+		}
+		case STAT_ArgNumPost: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '}') {
+				field += ch;
+				stat = STAT_Assign;
+			} else {
+				env.SetError(ERR_SyntaxError, "invalid declaration of argument number");
+				return false;
+			}
+			break;
+		}
+		case STAT_Assign: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '=') {
+				_key = field;
+				stat = STAT_Quote;
+			} else {
+				env.SetError(ERR_SyntaxError, "assignment operator is expected");
+				return false;
+			}
+			break;
+		}
+		case STAT_Quote: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '"') {
+				field.clear();
+				stat = STAT_Text;
+			} else {
+				env.SetError(ERR_SyntaxError, "double-quotation is expected");
+				return false;
+			}
+			break;
+		}
+		case STAT_Text: {
+			if (ch == '\\') {
+				stat = STAT_BackSlash;
+			} else if (ch == '\0') {
+				if (!field.empty()) {
+					_elemOwner.push_back(new Elem_Text(field));
+				}
+			} else {
+				field += ch;
+			}
+			break;
+		}
+		case STAT_BackSlash: {
+			if (IsDigit(ch)) {
+				if (!field.empty()) {
+					_elemOwner.push_back(new Elem_Text(field));
+				}
+				num = 0;
+				Gura_Pushback();
+				stat = STAT_ArgRef;
+			} else if (ch == '"') {
+				Gura_Pushback();
+				stat = STAT_Text;
+			} else if (ch == 't') {
+				field += '\t';
+				stat = STAT_Text;
+			} else if (ch == 'n') {
+				field += '\n';
+				stat = STAT_Text;
+			} else {
+				Gura_Pushback();
+				field += '\\';
+				stat = STAT_Text;
+			}
+			break;
+		}
+		case STAT_ArgRef: {
+			if (IsDigit(ch)) {
+				num = num * 10 + (ch - '0');
+			} else {
+				if (num == 0) {
+					env.SetError(ERR_OutOfRangeError, "argument index is out of range");
+					return false;
+				}
+				_elemOwner.push_back(new Elem_ArgRef(num - 1));
+				Gura_Pushback();
+				field.clear();
+				stat = STAT_Text;
+			}
+			break;
+		}
+		}
+		Gura_EndPushbackRegion();
+		if (ch == '\0') break;
+	}
 	return true;
 }
 
-String Alias::Evaluate(Environment &env, const StringList &strArgs) const
+bool Alias::Evaluate(Environment &env, String &rtn, const StringList &strArgs) const
 {
-	String rtn;
-	if (!_elemOwner.Evaluate(env, rtn, strArgs)) return "";
-	return rtn;
+	return _elemOwner.Evaluate(env, rtn, strArgs);
+}
+
+void Alias::Print() const
+{
+	::printf("%s =\n  '%s'\n", _key.c_str(), _elemOwner.ToString().c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -36,7 +207,13 @@ Alias::Elem::~Elem()
 //-----------------------------------------------------------------------------
 bool Alias::Elem_Text::Evaluate(Environment &env, String &rtn, const StringList &strArgs) const
 {
+	rtn += _text;
 	return true;
+}
+
+String Alias::Elem_Text::ToString() const
+{
+	return _text;
 }
 
 //-----------------------------------------------------------------------------
@@ -44,7 +221,19 @@ bool Alias::Elem_Text::Evaluate(Environment &env, String &rtn, const StringList 
 //-----------------------------------------------------------------------------
 bool Alias::Elem_ArgRef::Evaluate(Environment &env, String &rtn, const StringList &strArgs) const
 {
+	if (_iArg >= strArgs.size()) {
+		env.SetError(ERR_OutOfRangeError, "argument index is out of range");
+		return false;
+	}
+	rtn += strArgs[_iArg];
 	return true;
+}
+
+String Alias::Elem_ArgRef::ToString() const
+{
+	char buff[32];
+	::sprintf(buff, "\\%ld", _iArg + 1);
+	return buff;
 }
 
 //-----------------------------------------------------------------------------
@@ -57,6 +246,16 @@ bool Alias::ElemList::Evaluate(Environment &env, String &rtn, const StringList &
 		if (!pElem->Evaluate(env, rtn, strArgs)) return false;
 	}
 	return true;
+}
+
+String Alias::ElemList::ToString() const
+{
+	String rtn;
+	foreach_const (ElemList, ppElem, *this) {
+		const Elem *pElem = *ppElem;
+		rtn += pElem->ToString();
+	}
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------
@@ -76,11 +275,54 @@ void Alias::ElemOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// AliasDict
+//-----------------------------------------------------------------------------
+AliasDict::~AliasDict()
+{
+	Clear();
+}
+
+void AliasDict::Clear()
+{
+	foreach (AliasDict, iter, *this) {
+		Alias::Delete(iter->second);
+	}
+	clear();
+}
+
+void AliasDict::Print() const
+{
+	foreach_const (AliasDict, iter, *this) {
+		iter->second->Print();
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Aliases
 //-----------------------------------------------------------------------------
-bool Aliases::Parse(const char *str)
+bool Aliases::AddSource(Environment &env, const char *str)
 {
+	AutoPtr<Alias> pAlias(new Alias());
+	if (!pAlias->Parse(env, str)) return false;
+	_aliasDict[pAlias->GetKey()] = pAlias->Reference();
 	return true;
+}
+
+const Alias *Aliases::Lookup(const char *cmdName, size_t nArgs) const
+{
+	String key = cmdName;
+	if (nArgs > 0) {
+		char buff[32];
+		::sprintf(buff, "{%ld}", nArgs);
+		key += buff;
+	}
+	AliasDict::const_iterator iter = _aliasDict.find(key);
+	return (iter == _aliasDict.end())? nullptr : iter->second;
+}
+
+void Aliases::Print() const
+{
+	_aliasDict.Print();
 }
 
 Gura_EndModuleScope(doxygen)

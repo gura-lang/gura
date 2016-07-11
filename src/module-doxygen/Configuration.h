@@ -16,6 +16,7 @@ public:
 		int _cntRef;
 		String _name;
 		StringList _values;
+		bool _hashAsCommentFlag;
 	public:
 		Gura_DeclareReferenceAccessor(Entry);
 	public:
@@ -26,6 +27,7 @@ public:
 		inline void AddValue(const String &value) { _values.push_back(value); }
 		inline void ClearValues() { _values.clear(); }
 		inline const char *GetName() const { return _name.c_str(); }
+		inline bool HashAsComment() const { return _hashAsCommentFlag; }
 		inline const StringList &GetValues() const { return _values; }
 	};
 	class EntryDict : public std::map<String, Entry *> {
@@ -56,6 +58,8 @@ public:
 	Configuration();
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, Stream &stream);
+	const Entry *LookupEntry(const char *name) const;
+	Aliases *MakeAliases(Environment &env);
 	void Print() const;
 private:
 	static bool IsNameCharBegin(char ch) {

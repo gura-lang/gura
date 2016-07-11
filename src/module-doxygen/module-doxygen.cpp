@@ -66,7 +66,9 @@ Gura_ImplementFunction(test)
 	Stream &stream = arg.GetStream(0);
 	Configuration cfg;
 	cfg.ReadStream(env, stream);
-	cfg.Print();
+	//cfg.Print();
+	std::unique_ptr<Aliases> pAliases(cfg.MakeAliases(env));
+	pAliases->Print();
 	return Value::Nil;
 }
 
