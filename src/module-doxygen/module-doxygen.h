@@ -11,6 +11,8 @@
 #include "Configuration.h"
 #include "Class_elem.h"
 #include "Class_document.h"
+#include "Class_configuration.h"
+#include "Class_aliases.h"
 
 Gura_BeginModuleHeader(doxygen)
 

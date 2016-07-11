@@ -300,6 +300,10 @@ void AliasDict::Print() const
 //-----------------------------------------------------------------------------
 // Aliases
 //-----------------------------------------------------------------------------
+Aliases::Aliases() : _cntRef(1)
+{
+}
+
 bool Aliases::AddSource(Environment &env, const char *str)
 {
 	AutoPtr<Alias> pAlias(new Alias());

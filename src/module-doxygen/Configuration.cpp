@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Configuration
 //-----------------------------------------------------------------------------
-Configuration::Configuration() : _stat(STAT_Init)
+Configuration::Configuration() : _cntRef(1), _stat(STAT_Init)
 {
 }
 
@@ -203,7 +203,7 @@ const Configuration::Entry *Configuration::LookupEntry(const char *name) const
 
 Aliases *Configuration::MakeAliases(Environment &env)
 {
-	std::unique_ptr<Aliases> pAliases(new Aliases());
+	AutoPtr<Aliases> pAliases(new Aliases());
 	const Entry *pEntry = LookupEntry("ALIASES");
 	if (pEntry != nullptr) {
 		foreach_const (StringList, pStr, pEntry->GetValues()) {

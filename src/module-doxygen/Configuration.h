@@ -50,12 +50,18 @@ private:
 		STAT_SkipToLineEnd,
 	};
 private:
+	int _cntRef;
 	Stat _stat;
 	String _field;
 	AutoPtr<Entry> _pEntry;
 	EntryDict _entryDict;
 public:
+	Gura_DeclareReferenceAccessor(Configuration);
+public:
 	Configuration();
+protected:
+	inline ~Configuration() {}
+public:
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, Stream &stream);
 	const Entry *LookupEntry(const char *name) const;

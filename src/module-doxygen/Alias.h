@@ -82,7 +82,14 @@ public:
 //-----------------------------------------------------------------------------
 class Aliases {
 private:
+	int _cntRef;
 	AliasDict _aliasDict;
+public:
+	Gura_DeclareReferenceAccessor(Aliases);
+public:
+	Aliases();
+protected:
+	inline ~Aliases() {}
 public:
 	bool AddSource(Environment &env, const char *str);
 	const Alias *Lookup(const char *cmdName, size_t nArgs) const;

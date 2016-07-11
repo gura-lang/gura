@@ -1,30 +1,31 @@
 //=============================================================================
-// Class_elem.h
+// Class_configuration.h
 //=============================================================================
-#ifndef __GURA_DOXYGEN_CLASS_ELEM_H__
-#define __GURA_DOXYGEN_CLASS_ELEM_H__
+#ifndef __GURA_DOXYGEN_CLASS_CONFIGURATION_H__
+#define __GURA_DOXYGEN_CLASS_CONFIGURATION_H__
 
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// doxygen.elem class
+// doxygen.configuration class
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(elem);
+Gura_DeclareUserClass(configuration);
 
-class Object_elem : public Object {
+class Object_configuration : public Object {
 public:
-	Gura_DeclareObjectAccessor(elem)
+	Gura_DeclareObjectAccessor(configuration)
 private:
-	AutoPtr<Elem> _pElem;
+	AutoPtr<Configuration> _pCfg;
 public:
-	inline Object_elem(Elem *pElem) : Object(Gura_UserClass(elem)), _pElem(pElem) {}
-	virtual ~Object_elem();
+	inline Object_configuration(Configuration *pCfg) :
+				Object(Gura_UserClass(configuration)), _pCfg(pCfg) {}
+	virtual ~Object_configuration();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline const Elem *GetElem() const { return _pElem.get(); }
+	inline const Configuration *GetConfiguration() const { return _pCfg.get(); }
 };
 
 Gura_EndModuleScope(doxygen)

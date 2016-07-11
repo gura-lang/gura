@@ -6,5 +6,5 @@ builder.build(
 		'doxygen',
 		['module-doxygen.cpp', 'CommandFormat.cpp',
 		 'Elem.cpp', 'Alias.cpp', 'Parser.cpp', 'Configuration.cpp',
-		 'Class_elem.cpp', 'Class_document.cpp'],
+		 'Class_elem.cpp', 'Class_document.cpp', 'Class_configuration.cpp', 'Class_aliases.cpp'],
 		['doxygen.gura'])

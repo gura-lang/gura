@@ -1,45 +1,49 @@
 //=============================================================================
-// Class_document.cpp
+// Class_configuration.cpp
 //=============================================================================
 #include "stdafx.h"
 
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// Object_document
+// Object_configuration
 //-----------------------------------------------------------------------------
-Object_document::~Object_document()
+Object_configuration::~Object_configuration()
 {
 }
 
-Object *Object_document::Clone() const
+Object *Object_configuration::Clone() const
 {
 	return nullptr;
 }
 
-bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
+bool Object_configuration::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+#if 0
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(elem));
+#endif
 	return true;
 }
 
-Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
+Value Object_configuration::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+#if 0
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
 		return _pElem.IsNull()? Value::Nil : Value(new Object_elem(_pElem->Reference()));
 	}
 	evaluatedFlag = false;
+#endif
 	return Value::Nil;
 }
 
-String Object_document::ToString(bool exprFlag)
+String Object_configuration::ToString(bool exprFlag)
 {
 	String rtn;
-	rtn += "<doxygen.document:";
+	rtn += "<doxygen.configuration:";
 	rtn += ">";
 	return rtn;
 }
@@ -47,32 +51,17 @@ String Object_document::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
-// doxygen.document(stream?:stream) {block?}
-Gura_DeclareFunction(document)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
-	SetClassToConstruct(Gura_UserClass(document));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(document)
-{
-	Parser parser(nullptr);
-	if (!parser.ReadStream(env, arg.GetStream(0))) return Value::Nil;
-	return Value(new Object_document(parser.GetResult()->Reference()));
-}
 
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Class implementation for doxygen.document
+// Class implementation for doxygen.configuration
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(document)
+Gura_ImplementUserClass(configuration)
 {
-	Gura_AssignFunction(document);
+	//Gura_AssignFunction(configuration);
 }
 
 Gura_EndModuleScope(doxygen)

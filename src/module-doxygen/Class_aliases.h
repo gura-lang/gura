@@ -1,30 +1,30 @@
 //=============================================================================
-// Class_elem.h
+// Class_aliases.h
 //=============================================================================
-#ifndef __GURA_DOXYGEN_CLASS_ELEM_H__
-#define __GURA_DOXYGEN_CLASS_ELEM_H__
+#ifndef __GURA_DOXYGEN_CLASS_ALIASES_H__
+#define __GURA_DOXYGEN_CLASS_ALIASES_H__
 
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// doxygen.elem class
+// doxygen.aliases class
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(elem);
+Gura_DeclareUserClass(aliases);
 
-class Object_elem : public Object {
+class Object_aliases : public Object {
 public:
-	Gura_DeclareObjectAccessor(elem)
+	Gura_DeclareObjectAccessor(aliases)
 private:
-	AutoPtr<Elem> _pElem;
+	AutoPtr<Aliases> _pAliases;
 public:
-	inline Object_elem(Elem *pElem) : Object(Gura_UserClass(elem)), _pElem(pElem) {}
-	virtual ~Object_elem();
+	inline Object_aliases(Aliases *pAliases) : Object(Gura_UserClass(aliases)), _pAliases(pAliases) {}
+	virtual ~Object_aliases();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline const Elem *GetElem() const { return _pElem.get(); }
+	inline const Aliases *GetAliases() const { return _pAliases.get(); }
 };
 
 Gura_EndModuleScope(doxygen)

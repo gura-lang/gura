@@ -64,10 +64,10 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Stream &stream = arg.GetStream(0);
-	Configuration cfg;
-	cfg.ReadStream(env, stream);
+	AutoPtr<Configuration> pCfg(new Configuration());
+	pCfg->ReadStream(env, stream);
 	//cfg.Print();
-	std::unique_ptr<Aliases> pAliases(cfg.MakeAliases(env));
+	AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));
 	pAliases->Print();
 	return Value::Nil;
 }
