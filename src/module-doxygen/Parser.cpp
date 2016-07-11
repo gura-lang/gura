@@ -8,8 +8,8 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser(Object_parser *pObjParser) :
-	_stat(STAT_Indent), _pDecomposer(new Decomposer(pObjParser))
+Parser::Parser(const Aliases *pAliases) :
+	_stat(STAT_Indent), _pDecomposer(new Decomposer(pAliases))
 {
 }
 
@@ -259,8 +259,8 @@ bool Parser::ReadStream(Environment &env, SimpleStream &stream)
 //-----------------------------------------------------------------------------
 // Decomposer
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent) :
-	_pObjParser(pObjParser), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
+Decomposer::Decomposer(const Aliases *pAliases, Decomposer *pDecomposerParent) :
+	_pAliases(pAliases), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _aheadFlag(false),
 	_pElemResult(new Elem_Container())
 {
@@ -349,7 +349,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
 				_pDecomposerChild->SetCommandCustom(_cmdName.c_str());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
@@ -372,7 +372,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_CommandSpecial;
 			} else {
 				// special command (not section indicator)
-				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
 				_pDecomposerChild->SetCommandSpecial(pCmdFmt);
 			}
 		} else {
@@ -396,7 +396,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pDecomposerChild.reset(new Decomposer(_pObjParser, this));
+				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
 				_pDecomposerChild->SetCommandCustom(_cmdName);
 				Pushback(ch);
 			} else {
@@ -658,7 +658,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgCustom;
 		} else {
 			_strArg.clear();
-			String rtn = EvaluateCustomCommand();
+			String rtn = EvaluateCustomCommand(env);
 			if (env.IsSignalled()) return false;
 			Pushback(ch);
 			_strArgs.clear();
@@ -674,7 +674,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgCustom: {
 		if (ch == '}') {
 			_strArgs.push_back(_strArg);
-			String rtn = EvaluateCustomCommand();
+			String rtn = EvaluateCustomCommand(env);
 			if (env.IsSignalled()) return false;
 			_strArgs.clear();
 			_strArg.clear();
@@ -739,34 +739,14 @@ const Elem *Decomposer::GetResult() const
 	return _pElemResult->ReduceContent();
 }
 
-String Decomposer::EvaluateCustomCommand() const
+String Decomposer::EvaluateCustomCommand(Environment &env) const
 {
-	Environment &env = *_pObjParser;
-	String funcName = "@";
-	funcName += _cmdName;
-	if (!_strArgs.empty()) {
-		char buff[32];
-		::sprintf(buff, "_%lu", _strArgs.size());
-		funcName += buff;
+	String rtn;
+	if (_pAliases != nullptr) {
+		const Alias *pAlias = _pAliases->Lookup(_cmdName.c_str(), _strArgs.size());
+		if (!pAlias->Evaluate(env, rtn, _strArgs)) return "";
 	}
-	const Function *pFunc = _pObjParser->LookupFunction(
-		Symbol::Add(funcName.c_str()), ENVREF_Escalate);
-	if (pFunc == nullptr) {
-		env.SetError(ERR_ValueError, "method not found: %s", funcName.c_str());
-		return "";
-	}
-	AutoPtr<Argument> pArg(new Argument(pFunc));
-	foreach_const (StringList, pStrArg, _strArgs) {
-		if (!pArg->StoreValue(env, Value(*pStrArg))) return "";
-	}
-	if (!pArg->Complete(env)) return "";
-	Value rtn = pFunc->Eval(env, *pArg);
-	if (env.IsSignalled()) return "";
-	if (!rtn.Is_string()) {
-		env.SetError(ERR_ValueError, "doxygen handler must return a string value");
-		return "";
-	}
-	return rtn.GetStringSTL();
+	return rtn;
 }
 
 bool Decomposer::ContainsCommand(const char *str)

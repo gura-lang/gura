@@ -46,7 +46,7 @@ public:
 		STAT_Complete,
 	};
 private:
-	Object_parser *_pObjParser;
+	const Aliases *_pAliases;
 	Decomposer *_pDecomposerParent;
 	Stat _stat;
 	String _text;
@@ -64,13 +64,13 @@ private:
 	AutoPtr<Elem_Container> _pElemArg;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
 public:
-	Decomposer(Object_parser *pObjParser, Decomposer *pDecomposerParent = nullptr);
+	Decomposer(const Aliases *pAliases, Decomposer *pDecomposerParent = nullptr);
 	void SetCommandSpecial(const CommandFormat *pCmdFmt);
 	void SetCommandCustom(const String &cmdName);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	const Elem *GetResult() const;
-	String EvaluateCustomCommand() const;
+	String EvaluateCustomCommand(Environment &env) const;
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
@@ -119,7 +119,7 @@ private:
 	Stat _stat;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
-	Parser(Object_parser *pObjParser);
+	Parser(const Aliases *pAliases);
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, SimpleStream &stream);
 	void SetExtractedMode() { _stat = STAT_ExIndent; }
