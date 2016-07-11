@@ -51,6 +51,22 @@ String Object_configuration::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
+// doxygen.configuration(stream?:stream) {block?}
+Gura_DeclareFunction(configuration)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(configuration));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(configuration)
+{
+	Stream &stream = arg.GetStream(0);
+	AutoPtr<Configuration> pCfg(new Configuration());
+	if (!pCfg->ReadStream(env, stream)) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_configuration(pCfg.release())));
+}
 
 //----------------------------------------------------------------------------
 // Methods
@@ -59,9 +75,27 @@ String Object_configuration::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.configuration
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(configuration)
+Gura_ImplementUserClassWithCast(configuration)
 {
-	//Gura_AssignFunction(configuration);
+	Gura_AssignFunction(configuration);
+}
+
+Gura_ImplementCastFrom(configuration)
+{
+	env.LookupClass(VTYPE_stream)->CastFrom(env, value, pDecl);
+	if (value.Is_stream()) {
+		Stream &stream = value.GetStream();
+		AutoPtr<Configuration> pCfg(new Configuration());
+		if (!pCfg->ReadStream(env, stream)) return false;
+		value = Value(new Object_configuration(pCfg.release()));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(configuration)
+{
+	return false;
 }
 
 Gura_EndModuleScope(doxygen)

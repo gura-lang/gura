@@ -65,7 +65,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, Stream &stream);
 	const Entry *LookupEntry(const char *name) const;
-	Aliases *MakeAliases(Environment &env);
+	Aliases *MakeAliases(Environment &env) const;
 	void Print() const;
 private:
 	static bool IsNameCharBegin(char ch) {

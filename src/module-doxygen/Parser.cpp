@@ -744,7 +744,7 @@ String Decomposer::EvaluateCustomCommand(Environment &env) const
 	String rtn;
 	if (_pAliases != nullptr) {
 		const Alias *pAlias = _pAliases->Lookup(_cmdName.c_str(), _strArgs.size());
-		if (!pAlias->Evaluate(env, rtn, _strArgs)) return "";
+		if (pAlias == nullptr || !pAlias->Evaluate(env, rtn, _strArgs)) return "";
 	}
 	return rtn;
 }

@@ -121,9 +121,13 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(configuration, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(aliases, env.LookupClass(VTYPE_object));
 	// class preparation
 	Gura_PrepareUserClass(document);
 	Gura_PrepareUserClass(elem);
+	Gura_PrepareUserClass(configuration);
+	Gura_PrepareUserClass(aliases);
 	// function assignment
 	Gura_AssignFunction(makescript);
 	Gura_AssignFunction(test);

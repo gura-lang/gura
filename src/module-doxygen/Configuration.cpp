@@ -201,7 +201,7 @@ const Configuration::Entry *Configuration::LookupEntry(const char *name) const
 	return (iter == _entryDict.end())? nullptr : iter->second;
 }
 
-Aliases *Configuration::MakeAliases(Environment &env)
+Aliases *Configuration::MakeAliases(Environment &env) const
 {
 	AutoPtr<Aliases> pAliases(new Aliases());
 	const Entry *pEntry = LookupEntry("ALIASES");

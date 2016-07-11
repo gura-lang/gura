@@ -59,8 +59,26 @@ String Object_aliases::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.aliases
 //-----------------------------------------------------------------------------
-Gura_ImplementUserClass(aliases)
+Gura_ImplementUserClassWithCast(aliases)
 {
+}
+
+Gura_ImplementCastFrom(aliases)
+{
+	Gura_UserClass(configuration)->CastFrom(env, value, pDecl);
+	if (value.IsType(VTYPE_configuration)) {
+		const Configuration *pCfg = Object_configuration::GetObject(value)->GetConfiguration();
+		AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));
+		if (pAliases.IsNull()) return false;
+		value = Value(new Object_aliases(pAliases.release()));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(aliases)
+{
+	return false;
 }
 
 Gura_EndModuleScope(doxygen)

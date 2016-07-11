@@ -47,20 +47,25 @@ String Object_document::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
-// doxygen.document(stream?:stream) {block?}
+// doxygen.document(stream?:stream, aliases?:doxygen.aliases) {block?}
 Gura_DeclareFunction(document)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "aliases", VTYPE_aliases, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(document)
 {
-	Parser parser(nullptr);
-	if (!parser.ReadStream(env, arg.GetStream(0))) return Value::Nil;
-	return Value(new Object_document(parser.GetResult()->Reference()));
+	Elem *pElem = nullptr;
+	if (arg.IsValid(0)) {
+		Parser parser(arg.IsValid(1)? Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr);
+		if (!parser.ReadStream(env, arg.GetStream(0))) return Value::Nil;
+		pElem = parser.GetResult()->Reference();
+	}
+	return ReturnValue(env, arg, Value(new Object_document(pElem)));
 }
 
 //----------------------------------------------------------------------------
