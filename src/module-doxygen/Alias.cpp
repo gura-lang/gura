@@ -24,11 +24,13 @@ bool Alias::Parse(Environment &env, const char *str)
 		STAT_Assign,
 		STAT_Quote,
 		STAT_Text,
+		STAT_QuoteLast,
 		STAT_BackSlash,
 		STAT_ArgRef,
 	} stat = STAT_KeyPre;
 	size_t num = 0;
 	String field;
+	String strAhead;
 	for (const char *p = str; ; p++) {
 		char ch = *p;
 		Gura_BeginPushbackRegion();
@@ -134,8 +136,26 @@ bool Alias::Parse(Environment &env, const char *str)
 				if (!field.empty()) {
 					_elemOwner.push_back(new Elem_Text(field));
 				}
+			} else if (ch == '"') {
+				strAhead.clear();
+				strAhead += ch;
+				stat = STAT_QuoteLast;
 			} else {
 				field += ch;
+			}
+			break;
+		}
+		case STAT_QuoteLast: {
+			if (ch == ' ' || ch == '\t') {
+				strAhead += ch;
+			} else if (ch == '\0') {
+				if (!field.empty()) {
+					_elemOwner.push_back(new Elem_Text(field));
+				}
+			} else {
+				field += strAhead;
+				Gura_Pushback();
+				stat = STAT_Text;
 			}
 			break;
 		}
