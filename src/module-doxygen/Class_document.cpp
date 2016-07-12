@@ -71,7 +71,8 @@ Gura_ImplementFunction(document)
 		if (arg.IsValid(2) && arg.GetBoolean(2)) parser.SetExtractedMode();
 		Stream &stream = arg.GetStream(0);
 		if (!parser.ReadStream(env, stream)) return Value::Nil;
-		//pObj->SetSourceName(stream.GetIdentifier());
+		const char *sourceName = stream.GetIdentifier();
+		if (sourceName != nullptr) pObj->SetSourceName(sourceName);
 		pObj->SetElem(parser.GetResult()->Reference());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));
