@@ -192,7 +192,7 @@ bool Configuration::ReadStream(Environment &env, Stream &stream)
 		if (!FeedChar(env, ch)) return false;
 		if (ch == '\0') break;
 	}
-	_sourceName = stream.GetIdentifier();
+	//_sourceName = stream.GetIdentifier();
 	return true;
 }
 

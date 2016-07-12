@@ -9,10 +9,12 @@
 #include "Alias.h"
 #include "Parser.h"
 #include "Configuration.h"
+#include "Renderer.h"
 #include "Class_elem.h"
 #include "Class_document.h"
 #include "Class_configuration.h"
 #include "Class_aliases.h"
+#include "Class_renderer.h"
 
 Gura_BeginModuleHeader(doxygen)
 
