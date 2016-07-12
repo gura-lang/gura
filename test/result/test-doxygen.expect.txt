@@ -1,129 +1,236 @@
 ======== #1 blank block comment ========
-
+-
 --end--
 
 ======== #2 blank line comment ========
-
+-
 --end--
 
 ======== #3 simple doxygen block ========
-test1
-test1
-test2
-test2
-test3 test3 
+{
+  'test1\n'
+  'test1\n'
+  'test2\n'
+  'test2\n'
+  'test3 '
+  'test3 '
+}
 --end--
 
 ======== #4 simple doxygen line ========
-test1
-test1
+{
+  'test1\n'
+  'test1\n'
+}
 --end--
 
 ======== #5 multiline ========
-/**
-line.1
-line.2
-line.3
-*/
+'line.1\nline.2\nline.3\n'
 --end--
 
 ======== #6 blank line test ========
-abcdefg
-hijklmn
-
-opqrstu
+'abcdefg\nhijklmn\n\nopqrstu\n'
 --end--
 
 ======== #7 split comments ========
-abcdef
-ghijkl
-mnopqr
-stuvwxyz
+{
+  'abcdef\n'
+  'ghijkl\n'
+  'mnopqr\n'
+  'stuvwxyz\n'
+}
 --end--
 
 ======== #8 punctuation ========
-@a{word:'1st.2nd'} @a{word:'1st'}. 2nd
-@a{word:'1st,2nd'} @a{word:'1st'}, 2nd
-@a{word:'1st;2nd'} @a{word:'1st'}; 2nd
-@a{word:'1st?2nd'} @a{word:'1st'}? 2nd
-@a{word:'1st!2nd'} @a{word:'1st'}! 2nd
+{
+  @a{word:word}
+    '1st.2nd'
+  ' '
+  @a{word:word}
+    '1st'
+  '. 2nd\n'
+  @a{word:word}
+    '1st,2nd'
+  ' '
+  @a{word:word}
+    '1st'
+  ', 2nd\n'
+  @a{word:word}
+    '1st;2nd'
+  ' '
+  @a{word:word}
+    '1st'
+  '; 2nd\n'
+  @a{word:word}
+    '1st?2nd'
+  ' '
+  @a{word:word}
+    '1st'
+  '? 2nd\n'
+  @a{word:word}
+    '1st!2nd'
+  ' '
+  @a{word:word}
+    '1st'
+  '! 2nd\n'
+}
 --end--
 
 ======== #9 quotation ========
-@a{word:'word'}
-@a{word:'word'}
-@a{word:'multi words'}
+{
+  @a{word:word}
+    'word'
+  '\n'
+  @a{word:word}
+    'word'
+  '\n'
+  @a{word:word}
+    'multi words'
+  '\n'
+}
 --end--
 
 ======== #10 test of @addtogroup ========
-@addtogroup{name:'mygrp',title:''}
-Additional documentation for group 'mygrp'
-A function
-Another function 
+{
+  @addtogroup{name:word, title:line?}
+    'mygrp'
+    -
+  "Additional documentation for group 'mygrp'\n"
+  'A function\n'
+  'Another function '
+}
 --end--
 
 ======== #11 test of @class ========
-@class{name:'Test',header_file:'class.h',header_name:'inc/class.h'}
-@brief{description:'This is a test class.\n'}
-Some details about the Test class.
+{
+  @class{name:word, header_file:word?, header_name:word?}
+    'Test'
+    'class.h'
+    'inc/class.h'
+  '\n'
+  @brief{description:para}
+    'This is a test class.\n'
+  'Some details about the Test class.\n'
+}
 --end--
 
 ======== #12 test of @def ========
-@file{name:'define.h'}
-@brief{description:'testing defines\n'}
-This is to test the documentation of defines.
-@def{name:'MAX(x,y)'}
-Computes the maximum of @a{word:'x'} and @a{word:'y'}.
-Computes the absolute value of its argument @a{word:'x'}.
-Computes the minimum of @a{word:'x'} and @a{word:'y'}. 
+{
+  @file{name:word?}
+    'define.h'
+  '\n'
+  @brief{description:para}
+    'testing defines\n'
+  'This is to test the documentation of defines.\n'
+  @def{name:word}
+    'MAX(x,y)'
+  '\nComputes the maximum of '
+  @a{word:word}
+    'x'
+  ' and '
+  @a{word:word}
+    'y'
+  '.\n'
+  'Computes the absolute value of its argument '
+  @a{word:word}
+    'x'
+  '.\n'
+  'Computes the minimum of '
+  @a{word:word}
+    'x'
+  ' and '
+  @a{word:word}
+    'y'
+  '. '
+}
 --end--
 
 ======== #13 test of @enum ========
-@class{name:'Enum_Test',header_file:'',header_name:''}
-The class description.
-@enum{name:'Enum_Test::TEnum'}
-A description of the enum type.
-@var{declaration:'Enum_Test::TEnum Enum_Test::Val1'}
-The description of the first enum value.
+{
+  @class{name:word, header_file:word?, header_name:word?}
+    'Enum_Test'
+    -
+    -
+  '\nThe class description.\n'
+  @enum{name:word}
+    'Enum_Test::TEnum'
+  '\nA description of the enum type.\n'
+  @var{declaration:line}
+    'Enum_Test::TEnum Enum_Test::Val1'
+  'The description of the first enum value.\n'
+}
 --end--
 
 ======== #14 test of @example ========
-A Example_Test class.
-More details about this class.
-An example member function.
-More details about this function.
-@example{file_name:'example_test.cpp'}
-This is an example of how to use the Example_Test class.
-More details about this example.
+{
+  'A Example_Test class.\nMore details about this class.\n'
+  'An example member function.\nMore details about this function.\n'
+  @example{file_name:word}
+    'example_test.cpp'
+  '\nThis is an example of how to use the Example_Test class.\nMore details about this example.\n'
+}
 --end--
 
 ======== #15 test of @file ========
-@file{name:'file.h'}
-A brief file description.
-A more elaborated file description.
-A global integer value.
-More details about this value.
+{
+  @file{name:word?}
+    'file.h'
+  '\nA brief file description.\nA more elaborated file description.\n'
+  'A global integer value.\nMore details about this value.\n'
+}
 --end--
 
 ======== #16 test of @fn ========
-@class{name:'Fn_Test',header_file:'',header_name:''}
-@brief{description:'Fn_Test class.\n'}
-Details about Fn_Test.
-@fn{declaration:'const char *Fn_Test::member(char c,int n)'}
-@brief{description:'A member function.\n'}
-@param{dir:'',name:'c',description:'a character.\n'}
-@param{dir:'',name:'n',description:'an integer.\n'}
-@exception{exception_object:'std::out_of_range',description:'parameter is out of range.\n'}
-@return{description:'a character pointer.\n'}
+{
+  @class{name:word, header_file:word?, header_name:word?}
+    'Fn_Test'
+    -
+    -
+  '\n'
+  @brief{description:para}
+    'Fn_Test class.\n'
+  'Details about Fn_Test.\n'
+  @fn{declaration:line}
+    'const char *Fn_Test::member(char c,int n)'
+  @brief{description:para}
+    'A member function.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'c'
+    'a character.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'n'
+    'an integer.\n'
+  @exception{exception_object:word, description:para}
+    'std::out_of_range'
+    'parameter is out of range.\n'
+  @return{description:para}
+    'a character pointer.\n'
+}
 --end--
 
 ======== #17 ========
-E.g. if you have two event handlers @c{word:'A'} and @c{word:'B'} and a wxWindow instance
-@c{word:'W'} and you call:
-@code{word:''}
-W->PushEventHandler(A);
-W->PushEventHandler(B);
-@endcode{}
-you will end up with the following situation:
-@image{format:'html',file:'overview_events_winstack.png',caption:'',size:''}
+{
+  'E.g. if you have two event handlers '
+  @c{word:word}
+    'A'
+  ' and '
+  @c{word:word}
+    'B'
+  ' and a wxWindow instance\n'
+  @c{word:word}
+    'W'
+  ' and you call:\n'
+  @code{word:brace?}
+    -
+  '\nW->PushEventHandler(A);\nW->PushEventHandler(B);\n'
+  @endcode{}
+  '\nyou will end up with the following situation:\n'
+  @image{format:word, file:word, caption:quote?, size:line?}
+    'html'
+    'overview_events_winstack.png'
+    -
+    -
+}
 --end--
