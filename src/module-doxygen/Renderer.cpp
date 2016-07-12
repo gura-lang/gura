@@ -8,8 +8,13 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Renderer
 //-----------------------------------------------------------------------------
-Renderer::Renderer() : _cntRef(1)
+Renderer::Renderer(Object *pObjAssoc) : _cntRef(1), _pObjAssoc(pObjAssoc)
 {
+}
+
+bool Renderer::Render(const Elem *pElem, Stream &stream)
+{
+	return true;
 }
 
 Gura_EndModuleScope(doxygen)

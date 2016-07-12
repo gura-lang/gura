@@ -65,7 +65,7 @@ Gura_ImplementFunction(renderer)
 	Object_renderer *pObj = Object_renderer::GetObjectThis(arg);
 	if (pObj == nullptr) {
 		pObj = new Object_renderer();
-		pObj->SetRenderer(new Renderer());
+		pObj->SetRenderer(new Renderer(pObj));
 		return ReturnValue(env, arg, Value(pObj));
 	}
 	return ReturnValue(env, arg, arg.GetValueThis());
@@ -74,18 +74,20 @@ Gura_ImplementFunction(renderer)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.renderer#render(doc:doxygen.document, out?:stream:w)
+// doxygen.renderer#render(doc:doxygen.document, out:stream:w)
 Gura_DeclareMethod(renderer, render)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "doc", VTYPE_document, OCCUR_Once);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_Once, FLAG_Write);
 }
 
 Gura_ImplementMethod(renderer, render)
 {
 	Renderer *pRenderer = Object_renderer::GetObjectThis(arg)->GetRenderer();
-	
+	const Elem *pElem = Object_document::GetObject(arg, 0)->GetElem();
+	Stream &stream = arg.GetStream(1);
+	pRenderer->Render(pElem, stream);
 	return Value::Nil;
 }
 
@@ -101,7 +103,7 @@ Gura_ImplementUserInheritableClass(renderer)
 Gura_ImplementDescendantCreator(renderer)
 {
 	Object_renderer *pObj = new Object_renderer((pClass == nullptr)? this : pClass);
-	pObj->SetRenderer(new Renderer());
+	pObj->SetRenderer(new Renderer(pObj));
 	return pObj;
 }
 

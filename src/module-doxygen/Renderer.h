@@ -12,13 +12,15 @@ Gura_BeginModuleScope(doxygen)
 class Renderer {
 protected:
 	int _cntRef;
+	Object *_pObjAssoc;
 public:
 	Gura_DeclareReferenceAccessor(Renderer);
 public:
-	Renderer();
+	Renderer(Object *pObjAssoc);
 protected:
 	inline ~Renderer() {}
 public:
+	bool Render(const Elem *pElem, Stream &stream);
 };
 
 Gura_EndModuleScope(doxygen)
