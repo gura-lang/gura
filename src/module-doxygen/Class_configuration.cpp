@@ -42,6 +42,7 @@ String Object_configuration::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<doxygen.configuration:";
+	rtn += _pCfg->GetSourceName();
 	rtn += ">";
 	return rtn;
 }

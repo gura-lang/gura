@@ -15,16 +15,21 @@ class Object_document : public Object {
 public:
 	Gura_DeclareObjectAccessor(document)
 private:
+	String _sourceName;
 	AutoPtr<Elem> _pElem;
 public:
-	inline Object_document(Elem *pElem) : Object(Gura_UserClass(document)), _pElem(pElem) {}
+	inline Object_document(Elem *pElem = nullptr) :
+					Object(Gura_UserClass(document)), _pElem(pElem) {}
 	virtual ~Object_document();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline Elem *GetElem() { return _pElem.get(); }
+	inline void SetSourceName(const String &sourceName) { _sourceName = sourceName; }
+	inline const char *GetSourceName() const { return _sourceName.c_str(); }
+	inline void SetElem(Elem *pElem) { _pElem.reset(pElem); }
+	inline const Elem *GetElem() const { return _pElem.get(); }
 };
 
 Gura_EndModuleScope(doxygen)

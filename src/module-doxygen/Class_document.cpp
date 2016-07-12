@@ -40,6 +40,11 @@ String Object_document::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<doxygen.document:";
+	if (_pElem.IsNull()) {
+		rtn += "invalid";
+	} else {
+		rtn += _sourceName;
+	}
 	rtn += ">";
 	return rtn;
 }
@@ -60,14 +65,16 @@ Gura_DeclareFunction(document)
 
 Gura_ImplementFunction(document)
 {
-	Elem *pElem = nullptr;
+	AutoPtr<Object_document> pObj(new Object_document());
 	if (arg.IsValid(0)) {
 		Parser parser(arg.IsValid(1)? Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr);
 		if (arg.IsValid(2) && arg.GetBoolean(2)) parser.SetExtractedMode();
-		if (!parser.ReadStream(env, arg.GetStream(0))) return Value::Nil;
-		pElem = parser.GetResult()->Reference();
+		Stream &stream = arg.GetStream(0);
+		if (!parser.ReadStream(env, stream)) return Value::Nil;
+		pObj->SetSourceName(stream.GetIdentifier());
+		pObj->SetElem(parser.GetResult()->Reference());
 	}
-	return ReturnValue(env, arg, Value(new Object_document(pElem)));
+	return ReturnValue(env, arg, Value(pObj.release()));
 }
 
 //----------------------------------------------------------------------------

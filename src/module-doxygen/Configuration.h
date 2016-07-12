@@ -55,6 +55,7 @@ private:
 	String _field;
 	AutoPtr<Entry> _pEntry;
 	EntryDict _entryDict;
+	String _sourceName;
 public:
 	Gura_DeclareReferenceAccessor(Configuration);
 public:
@@ -67,11 +68,12 @@ public:
 	const Entry *LookupEntry(const char *name) const;
 	Aliases *MakeAliases(Environment &env) const;
 	void Print() const;
+	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 private:
-	static bool IsNameCharBegin(char ch) {
+	inline static bool IsNameCharBegin(char ch) {
 		return IsAlpha(ch) || ch == '_';
 	}
-	static bool IsNameChar(char ch) {
+	inline static bool IsNameChar(char ch) {
 		return IsNameCharBegin(ch) || IsDigit(ch);
 	}
 };
