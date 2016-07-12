@@ -230,27 +230,14 @@ testcase('', R'''
 ''')
 */
 
-Parser = class(doxygen.parser) {
-	__init__(extractedFlag:boolean => false) = {|extractedFlag|}
-	//--------------------------------------------------------------------------
-	@l_1(name) = '@ref ${name}'.embed()
-	@l_2(name, text) = '@ref ${name} "${text}"'.embed()
-	@Bold_1(str) = '<b>${str}</b>'.embed()
-	@Emph_1(str) = '<em>${str}</em>'.embed()
-	@bar() = 'bar'
-	@strong_1(a) = '@b ' + a
-	@foo_3(a, b, c) = 'foo: %s,%s,%s' % [a, b, c]
-	@customA_1(a) = 'customA ' + a
-	@customB_1(a) = 'customB ' + a
-}
-
 testCaseInfos.each {|testCaseInfo, idx|
 	(idx > 0) && println()
 	printf('======== #%d', idx + 1)
 	!testCaseInfo.title.isempty() && printf(' %s', testCaseInfo.title)
 	println(' ========')
 	extractedFlag = testCaseInfo.doc.isempty() || !testCaseInfo.doc.match(r'\s*/')
-	elem = Parser(extractedFlag).parse(testCaseInfo.doc.reader())
-	elem.print()
+	doxygen.document(testCaseInfo.doc.reader(), extracted => extractedFlag) {|doc|
+		doc.elem.print()
+	}
 	println('--end--')
 }
