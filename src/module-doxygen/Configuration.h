@@ -29,6 +29,7 @@ public:
 		inline const char *GetName() const { return _name.c_str(); }
 		inline bool HashAsComment() const { return _hashAsCommentFlag; }
 		inline const StringList &GetValues() const { return _values; }
+		Value GetAsValue(Environment &env) const;
 	};
 	class EntryDict : public std::map<String, Entry *> {
 	public:
@@ -65,7 +66,7 @@ protected:
 public:
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, Stream &stream);
-	const Entry *LookupEntry(const char *name) const;
+	const Entry *Lookup(const char *name) const;
 	Aliases *MakeAliases(Environment &env) const;
 	void Print() const;
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }

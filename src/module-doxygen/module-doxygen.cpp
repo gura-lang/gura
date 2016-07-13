@@ -20,7 +20,7 @@ Gura_ImplementFunction(makescript)
 	Signal &sig = env.GetSignal();
 	Stream *pStream = arg.IsValid(0)? &arg.GetStream(0) : env.GetConsole();
 	const CommandFormatList &cmdFmtList = CommandFormat::GetCommandFormatList();
-	pStream->Printf(sig, "Parser = class(doxygen.parser) {\n");
+	pStream->Printf(sig, "Renderer = class(doxygen.renderer) {\n");
 	if (sig.IsSignalled()) return Value::Nil;
 	foreach_const (CommandFormatList, ppCmdFmt, cmdFmtList) {
 		const CommandFormat *pCmdFmt = *ppCmdFmt;

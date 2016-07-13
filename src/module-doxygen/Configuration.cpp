@@ -197,7 +197,7 @@ bool Configuration::ReadStream(Environment &env, Stream &stream)
 	return true;
 }
 
-const Configuration::Entry *Configuration::LookupEntry(const char *name) const
+const Configuration::Entry *Configuration::Lookup(const char *name) const
 {
 	EntryDict::const_iterator iter = _entryDict.find(name);
 	return (iter == _entryDict.end())? nullptr : iter->second;
@@ -206,7 +206,7 @@ const Configuration::Entry *Configuration::LookupEntry(const char *name) const
 Aliases *Configuration::MakeAliases(Environment &env) const
 {
 	AutoPtr<Aliases> pAliases(new Aliases());
-	const Entry *pEntry = LookupEntry("ALIASES");
+	const Entry *pEntry = Lookup("ALIASES");
 	if (pEntry != nullptr) {
 		foreach_const (StringList, pStr, pEntry->GetValues()) {
 			pAliases->AddSource(env, pStr->c_str());
@@ -240,6 +240,22 @@ void Configuration::Print() const
 Configuration::Entry::Entry(const String &name) :
 	_cntRef(1), _name(name), _hashAsCommentFlag(name != "ALIASES")
 {
+}
+
+Value Configuration::Entry::GetAsValue(Environment &env) const
+{
+	if (_values.empty()) {
+		return Value::Nil;
+	} else if (_values.size() == 1) {
+		return Value(_values.front());
+	}
+	Value rtn;
+	Object_list *pObjList = rtn.InitAsList(env);
+	pObjList->Reserve(_values.size());
+	foreach_const (StringList, pStr, _values) {
+		pObjList->Add(Value(*pStr));
+	}
+	return rtn;
 }
 
 //-----------------------------------------------------------------------------

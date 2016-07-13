@@ -12,7 +12,12 @@ Renderer::Renderer(Object *pObjAssoc) : _cntRef(1), _pObjAssoc(pObjAssoc)
 {
 }
 
-bool Renderer::Render(const Elem *pElem, Stream &stream)
+bool Renderer::Render(const Elem *pElem, const Configuration *pCfg, SimpleStream &stream)
+{
+	return pElem->Render(this, pCfg, stream);
+}
+
+bool Renderer::EvalSpecialCommand(const ElemList &elemArgs, const Configuration *pCfg, SimpleStream &stream)
 {
 	return true;
 }

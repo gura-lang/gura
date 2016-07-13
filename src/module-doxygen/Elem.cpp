@@ -26,6 +26,15 @@ void Elem::Initialize()
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
+bool ElemList::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	foreach_const (ElemList, ppElem, *this) {
+		const Elem *pElem = *ppElem;
+		if (!pElem->Render(pRenderer, pCfg, stream)) return false;
+	}
+	return true;
+}
+
 void ElemList::Print(Environment &env, Stream &stream, int indentLevel) const
 {
 	foreach_const (ElemList, ppElem, *this) {
@@ -63,6 +72,11 @@ const Elem *Elem_Container::ReduceContent() const
 		(_elemOwner.size() == 1)? _elemOwner.front() : this;
 }
 
+bool Elem_Container::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	return _elemOwner.Render(pRenderer, pCfg, stream);
+}
+
 String Elem_Container::ToString() const
 {
 	String rtn;
@@ -88,6 +102,12 @@ Elem_Empty::Elem_Empty()
 {
 }
 
+bool Elem_Empty::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	// nothing to do
+	return true;
+}
+
 String Elem_Empty::ToString() const
 {
 	return "";
@@ -106,6 +126,13 @@ Elem_Text::Elem_Text(const String &text) : _text(text)
 {
 }
 
+bool Elem_Text::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	Signal &sig = pRenderer->GetSignal();
+	stream.Print(sig, _text.c_str());
+	return sig.IsNoSignalled();
+}
+
 String Elem_Text::ToString() const
 {
 	return MakeQuotedString(_text.c_str(), false);
@@ -122,6 +149,11 @@ void Elem_Text::Print(Environment &env, Stream &stream, int indentLevel) const
 //-----------------------------------------------------------------------------
 Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt)
 {
+}
+
+bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	return pRenderer->EvalSpecialCommand(_elemArgs, pCfg, stream);
 }
 
 String Elem_Command::ToString() const

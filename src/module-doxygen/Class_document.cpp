@@ -81,6 +81,24 @@ Gura_ImplementFunction(document)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.document#render(renderer:doxygen.renderer, cfg:doxygen.configuration, out:stream:w)
+Gura_DeclareMethod(document, render)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
+	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_Once);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_Once, FLAG_Write);
+}
+
+Gura_ImplementMethod(document, render)
+{
+	const Elem *pElem = Object_document::GetObjectThis(arg)->GetElem();
+	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
+	const Configuration *pCfg = Object_configuration::GetObject(arg, 1)->GetConfiguration();
+	Stream &stream = arg.GetStream(2);
+	pRenderer->Render(pElem, pCfg, stream);
+	return Value::Nil;
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.document
@@ -88,6 +106,7 @@ Gura_ImplementFunction(document)
 Gura_ImplementUserClass(document)
 {
 	Gura_AssignFunction(document);
+	Gura_AssignMethod(document, render);
 }
 
 Gura_EndModuleScope(doxygen)

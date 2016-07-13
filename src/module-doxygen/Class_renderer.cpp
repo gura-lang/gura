@@ -74,22 +74,6 @@ Gura_ImplementFunction(renderer)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.renderer#render(doc:doxygen.document, out:stream:w)
-Gura_DeclareMethod(renderer, render)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "doc", VTYPE_document, OCCUR_Once);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_Once, FLAG_Write);
-}
-
-Gura_ImplementMethod(renderer, render)
-{
-	Renderer *pRenderer = Object_renderer::GetObjectThis(arg)->GetRenderer();
-	const Elem *pElem = Object_document::GetObject(arg, 0)->GetElem();
-	Stream &stream = arg.GetStream(1);
-	pRenderer->Render(pElem, stream);
-	return Value::Nil;
-}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.renderer
@@ -97,7 +81,6 @@ Gura_ImplementMethod(renderer, render)
 Gura_ImplementUserInheritableClass(renderer)
 {
 	Gura_AssignFunction(renderer);
-	Gura_AssignMethod(renderer, render);
 }
 
 Gura_ImplementDescendantCreator(renderer)

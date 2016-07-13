@@ -70,6 +70,31 @@ Gura_ImplementFunction(configuration)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.configuration#get(name:string):map:[raise]
+Gura_DeclareMethod(configuration, get)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
+	DeclareAttr(Gura_Symbol(raise));
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(configuration, get)
+{
+	const Configuration *pCfg = Object_configuration::GetObjectThis(arg)->GetConfiguration();
+	const char *name = arg.GetString(0);
+	const Configuration::Entry *pEntry = pCfg->Lookup(name);
+	if (pEntry == nullptr) {
+		if (arg.IsSet(Gura_Symbol(raise))) {
+			env.SetError(ERR_KeyError, "the configuration doesn't have an entry named '%s'", name);
+		}
+		return Value::Nil;
+	}
+	return pEntry->GetAsValue(env);
+}
+
 // doxygen.configuration#print(out?:stream):void
 Gura_DeclareMethod(configuration, print)
 {
@@ -82,8 +107,8 @@ Gura_DeclareMethod(configuration, print)
 
 Gura_ImplementMethod(configuration, print)
 {
-	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	const Configuration *pCfg = Object_configuration::GetObjectThis(arg)->GetConfiguration();
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	pCfg->Print();
 	return Value::Nil;
 }
@@ -94,6 +119,7 @@ Gura_ImplementMethod(configuration, print)
 Gura_ImplementUserClassWithCast(configuration)
 {
 	Gura_AssignFunction(configuration);
+	Gura_AssignMethod(configuration, get);
 	Gura_AssignMethod(configuration, print);
 }
 
