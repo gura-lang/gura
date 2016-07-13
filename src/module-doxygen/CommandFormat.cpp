@@ -15,7 +15,7 @@ String CommandFormat::MakeHandlerDeclaration() const
 {
 	String str;
 	str += "@";
-	str += _name;
+	str += GetName();
 	str += "(";
 	size_t iArg = 0;
 	foreach_const (ArgOwner, ppArg, _argOwner) {
@@ -31,7 +31,7 @@ String CommandFormat::MakeHandlerDeclaration() const
 
 bool CommandFormat::HasNormalCommandName() const
 {
-	foreach_const (String, p, _name) {
+	for (const char *p = GetName(); *p != '\0'; p++) {
 		if (!(IsAlpha(*p) || *p == '_')) return false;
 	}
 	return true;

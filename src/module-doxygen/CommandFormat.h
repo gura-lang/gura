@@ -75,14 +75,17 @@ public:
 		void Clear();
 	};
 protected:
-	String _name;
+	const Symbol *_pSymbol;
+	const Symbol *_pSymbolEx;
 	CmdType _cmdType;
 	ArgOwner _argOwner;
 	static CommandFormatList _cmdFmtList;
 	static CommandFormatDict _cmdFmtDict;
 public:
 	inline CommandFormat(CmdType cmdType) : _cmdType(cmdType) {}
-	inline CommandFormat(const char *name, CmdType cmdType) : _name(name), _cmdType(cmdType) {}
+	inline CommandFormat(const char *name, CmdType cmdType) :
+		_pSymbol(Symbol::Add(name)), _pSymbolEx(Symbol::Add((String("@") + name).c_str())),
+		_cmdType(cmdType) {}
 	inline bool IsSpecial() const { return _cmdType != CMDTYPE_Custom; }
 	inline bool IsCustom() const { return _cmdType == CMDTYPE_Custom; }
 	inline bool IsSectionIndicator() const {
@@ -91,8 +94,14 @@ public:
 	inline bool IsLineIndicator() const {
 		return !_argOwner.empty() && (_argOwner.back()->IsLine() || _argOwner.back()->IsLineOpt());
 	}
-	inline void SetName(const char *name) { _name = name; }
-	inline const char *GetName() const { return _name.c_str(); }
+	inline void SetName(const char *name) {
+		_pSymbol = Symbol::Add(name);
+		_pSymbolEx = Symbol::Add((String("@") + name).c_str());
+	}
+	inline const char *GetName() const { return _pSymbol->GetName(); }
+	inline const char *GetNameEx() const { return _pSymbolEx->GetName(); }
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline const Symbol *GetSymbolEx() const { return _pSymbolEx; }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
 	String MakeHandlerDeclaration() const;
 	bool HasNormalCommandName() const;

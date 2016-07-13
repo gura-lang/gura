@@ -153,7 +153,7 @@ Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt)
 
 bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
-	return pRenderer->EvalSpecialCommand(_elemArgs, pCfg, stream);
+	return pRenderer->EvalSpecialCommand(_pCmdFmt, _elemArgs, pCfg, stream);
 }
 
 String Elem_Command::ToString() const
