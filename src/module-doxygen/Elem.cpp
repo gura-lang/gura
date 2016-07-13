@@ -35,7 +35,7 @@ bool ElemList::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStre
 	return true;
 }
 
-void ElemList::Print(Environment &env, Stream &stream, int indentLevel) const
+void ElemList::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	foreach_const (ElemList, ppElem, *this) {
 		const Elem *pElem = *ppElem;
@@ -87,7 +87,7 @@ String Elem_Container::ToString() const
 	return "";
 }
 
-void Elem_Container::Print(Environment &env, Stream &stream, int indentLevel) const
+void Elem_Container::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
@@ -113,7 +113,7 @@ String Elem_Empty::ToString() const
 	return "";
 }
 
-void Elem_Empty::Print(Environment &env, Stream &stream, int indentLevel) const
+void Elem_Empty::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s-\n", indentLevel * 2, "");
@@ -138,7 +138,7 @@ String Elem_Text::ToString() const
 	return MakeQuotedString(_text.c_str(), false);
 }
 
-void Elem_Text::Print(Environment &env, Stream &stream, int indentLevel) const
+void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
@@ -177,7 +177,7 @@ String Elem_Command::ToString() const
 	return "";
 }
 
-void Elem_Command::Print(Environment &env, Stream &stream, int indentLevel) const
+void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s@%s{", indentLevel * 2, "", _pCmdFmt->GetName());

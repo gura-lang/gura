@@ -26,7 +26,7 @@ protected:
 public:
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const = 0;
 	virtual String ToString() const = 0;
-	virtual void Print(Environment &env, Stream &stream, int indentLevel) const = 0;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
 	static void Initialize();
 };
 
@@ -36,7 +36,7 @@ public:
 class ElemList : public std::vector<Elem *> {
 public:
 	bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
-	void Print(Environment &env, Stream &stream, int indentLevel) const;
+	void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ public:
 	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
-	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ public:
 	Elem_Empty();
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
-	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ public:
 	Elem_Text(const String &text);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
-	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ public:
 	inline const ElemOwner &GetElemArgs() const { return _elemArgs; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
-	virtual void Print(Environment &env, Stream &stream, int indentLevel) const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
 Gura_EndModuleScope(doxygen)
