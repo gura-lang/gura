@@ -20,9 +20,8 @@ public:
 protected:
 	inline ~Renderer() {}
 public:
-	bool EvalSpecialCommand(const CommandFormat *pCmdFmt, const ElemList &elemArgs,
-							const Configuration *pCfg, SimpleStream &stream);
 	inline Signal &GetSignal() { return _pObjAssoc->GetSignal(); }
+	inline Object *GetObjectAssoc() { return _pObjAssoc; }
 };
 
 Gura_EndModuleScope(doxygen)

@@ -153,7 +153,25 @@ Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt)
 
 bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
-	return pRenderer->EvalSpecialCommand(_pCmdFmt, _elemArgs, pCfg, stream);
+	Object *pObjAssoc = pRenderer->GetObjectAssoc();
+	Environment &env = *pObjAssoc;
+	Signal &sig = env.GetSignal();
+	const Function *pFunc = pObjAssoc->LookupFunction(_pCmdFmt->GetSymbolEx(), ENVREF_Escalate);
+	if (pFunc == nullptr) return true;
+	ValueList valListArg;
+	valListArg.reserve(_elemArgs.size());
+	foreach_const (ElemList, ppElemArg, _elemArgs) {
+		const Elem *pElemArg = *ppElemArg;
+		String strArg;
+		SimpleStream_StringWriter streamArg(strArg);
+		if (!pElemArg->Render(pRenderer, pCfg, streamArg)) return false;
+		valListArg.push_back(Value(strArg));
+	}
+	Value value = pObjAssoc->EvalMethod(env, pFunc, valListArg);
+	if (value.Is_string()) {
+		stream.Print(sig, value.GetString());
+	}
+	return env.IsNoSignalled();
 }
 
 String Elem_Command::ToString() const
