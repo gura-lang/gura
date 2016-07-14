@@ -31,7 +31,7 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
 		return _pDocument.IsNull()? Value::Nil :
-			Value(new Object_elem(_pDocument->GetElem()->Reference()));
+			Value(new Object_elem(_pDocument->GetElemTop()->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -69,11 +69,11 @@ Gura_ImplementFunction(document)
 	AutoPtr<Object_document> pObj(new Object_document());
 	if (arg.IsValid(0)) {
 		AutoPtr<Document> pDocument(new Document());
+		Stream &stream = arg.GetStream(0);
 		const Aliases *pAliases = arg.IsValid(1)?
 			Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr;
-		if (arg.IsValid(2) && arg.GetBoolean(2)) pDocument->SetExtractedMode();
-		Stream &stream = arg.GetStream(0);
-		if (!pDocument->ReadStream(env, stream, pAliases)) return Value::Nil;
+		bool extractedModeFlag = arg.IsValid(2) && arg.GetBoolean(2);
+		if (!pDocument->ReadStream(env, stream, pAliases, extractedModeFlag)) return Value::Nil;
 		pObj->SetDocument(pDocument.release());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));
@@ -93,11 +93,11 @@ Gura_DeclareMethod(document, render)
 
 Gura_ImplementMethod(document, render)
 {
-	Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
+	Document *pDoc = Object_document::GetObjectThis(arg)->GetDocument();
 	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
 	const Configuration *pCfg = Object_configuration::GetObject(arg, 1)->GetConfiguration();
 	Stream &stream = arg.GetStream(2);
-	pRenderer->Render(pDocument->GetElem(), pCfg, stream);
+	pDoc->GetElemTop()->Render(pRenderer, pCfg, stream);
 	return Value::Nil;
 }
 

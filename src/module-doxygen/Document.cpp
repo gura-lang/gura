@@ -8,8 +8,28 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_Indent)
+Document::Document() : _cntRef(1), _stat(STAT_Indent), _pElemTop(Elem::Empty->Reference())
 {
+}
+
+bool Document::ReadStream(Environment &env, Stream &stream,
+						  const Aliases *pAliases, bool extractedModeFlag)
+{
+	Signal &sig = env.GetSignal();
+	_stat = extractedModeFlag? STAT_ExIndent : STAT_Indent;
+	_pDecomposer.reset(new Decomposer(pAliases));
+	for (;;) {
+		int chRaw;
+		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
+		char ch = static_cast<char>(static_cast<UChar>(chRaw));
+		if (!FeedChar(env, ch)) return false;
+		if (ch == '\0') break;
+	}
+	const char *sourceName = stream.GetIdentifier();
+	if (sourceName != nullptr) _sourceName = sourceName;
+	_pElemTop.reset(_pDecomposer->GetElem()->Reference());
+	_pDecomposer.release();
+	return true;
 }
 
 bool Document::FeedChar(Environment &env, char ch)
@@ -239,24 +259,6 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	}
 	Gura_EndPushbackRegion();
-	return true;
-}
-
-bool Document::ReadStream(Environment &env, Stream &stream, const Aliases *pAliases)
-{
-	Signal &sig = env.GetSignal();
-	_pDecomposer.reset(new Decomposer(pAliases));
-	for (;;) {
-		int chRaw;
-		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
-		char ch = static_cast<char>(static_cast<UChar>(chRaw));
-		if (!FeedChar(env, ch)) return false;
-		if (ch == '\0') break;
-	}
-	const char *sourceName = stream.GetIdentifier();
-	if (sourceName != nullptr) _sourceName = sourceName;
-	_pElem.reset(_pDecomposer->GetElem()->Reference());
-	_pDecomposer.release();
 	return true;
 }
 

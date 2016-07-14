@@ -30,6 +30,19 @@ public:
 	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
 };
 
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+inline static bool IsCommandMark(char ch)
+{
+	return ch == '@' || ch == '\\';
+}
+
+inline static bool IsWordChar(char ch)
+{
+	return IsAlpha(ch) || IsDigit(ch) || ch == '_';
+}
+
 Gura_EndModuleHeader(doxygen)
 
 #endif

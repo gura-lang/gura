@@ -119,7 +119,7 @@ private:
 	int _cntRef;
 	Stat _stat;
 	String _sourceName;
-	AutoPtr<Elem> _pElem;
+	AutoPtr<Elem> _pElemTop;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
 	Gura_DeclareReferenceAccessor(Document);
@@ -127,27 +127,14 @@ public:
 	Document();
 protected:
 	inline ~Document() {}
+public:
+	bool ReadStream(Environment &env, Stream &stream,
+					const Aliases *pAliases, bool extractedModeFlag);
+	inline const char *GetSourceName() const { return _sourceName.c_str(); }
+	inline const Elem *GetElemTop() const { return _pElemTop.get(); }
 protected:
 	bool FeedChar(Environment &env, char ch);
-public:
-	bool ReadStream(Environment &env, Stream &stream, const Aliases *pAliases);
-	void SetExtractedMode() { _stat = STAT_ExIndent; }
-	inline const char *GetSourceName() const { return _sourceName.c_str(); }
-	inline const Elem *GetElem() const { return _pElem.get(); }
 };
-
-//-----------------------------------------------------------------------------
-// utilities
-//-----------------------------------------------------------------------------
-inline static bool IsCommandMark(char ch)
-{
-	return ch == '@' || ch == '\\';
-}
-
-inline static bool IsWordChar(char ch)
-{
-	return IsAlpha(ch) || IsDigit(ch) || ch == '_';
-}
 
 Gura_EndModuleScope(doxygen)
 
