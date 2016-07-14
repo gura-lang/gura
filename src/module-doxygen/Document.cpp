@@ -243,7 +243,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Document::ReadStream(Environment &env, SimpleStream &stream)
+bool Document::ReadStream(Environment &env, Stream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
@@ -253,6 +253,8 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream)
 		if (!FeedChar(env, ch)) return false;
 		if (ch == '\0') break;
 	}
+	const char *sourceName = stream.GetIdentifier();
+	if (sourceName != nullptr) _sourceName = sourceName;
 	return true;
 }
 

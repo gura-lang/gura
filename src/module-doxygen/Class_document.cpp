@@ -44,7 +44,7 @@ String Object_document::ToString(bool exprFlag)
 	if (_pDocument.IsNull()) {
 		rtn += "invalid";
 	} else {
-		rtn += _sourceName;
+		rtn += _pDocument->GetSourceName();
 	}
 	rtn += ">";
 	return rtn;
@@ -74,8 +74,6 @@ Gura_ImplementFunction(document)
 		if (arg.IsValid(2) && arg.GetBoolean(2)) pDocument->SetExtractedMode();
 		Stream &stream = arg.GetStream(0);
 		if (!pDocument->ReadStream(env, stream)) return Value::Nil;
-		const char *sourceName = stream.GetIdentifier();
-		if (sourceName != nullptr) pObj->SetSourceName(sourceName);
 		pObj->SetDocument(pDocument.release());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));

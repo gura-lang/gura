@@ -15,7 +15,6 @@ class Object_document : public Object {
 public:
 	Gura_DeclareObjectAccessor(document)
 private:
-	String _sourceName;
 	AutoPtr<Document> _pDocument;
 public:
 	inline Object_document(Document *pDocument = nullptr) :
@@ -26,8 +25,6 @@ public:
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
-	inline void SetSourceName(const String &sourceName) { _sourceName = sourceName; }
-	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline void SetDocument(Document *pDocument) { _pDocument.reset(pDocument); }
 	inline Document *GetDocument() { return _pDocument.get(); }
 };
