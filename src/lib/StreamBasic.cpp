@@ -13,6 +13,11 @@ const char *SimpleStream_CStringReader::GetName() const
 	return SRCNAME_string;
 }
 
+const char *SimpleStream_CStringReader::GetIdentifier() const
+{
+	return nullptr;
+}
+
 int SimpleStream_CStringReader::GetChar(Signal &sig)
 {
 	if (*_pStr == '\0' || _pStr == _pEnd) return -1;
@@ -45,6 +50,11 @@ size_t SimpleStream_CStringReader::Write(Signal &sig, const void *buff, size_t l
 const char *SimpleStream_StringReader::GetName() const
 {
 	return SRCNAME_string;
+}
+
+const char *SimpleStream_StringReader::GetIdentifier() const
+{
+	return nullptr;
 }
 
 int SimpleStream_StringReader::GetChar(Signal &sig)
@@ -80,6 +90,11 @@ size_t SimpleStream_StringReader::Write(Signal &sig, const void *buff, size_t le
 const char *SimpleStream_StringWriter::GetName() const
 {
 	return SRCNAME_string;
+}
+
+const char *SimpleStream_StringWriter::GetIdentifier() const
+{
+	return nullptr;
 }
 
 int SimpleStream_StringWriter::GetChar(Signal &sig)

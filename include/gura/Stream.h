@@ -28,6 +28,7 @@ public:
 	bool ReadLines(Signal &sig, StringList &strList, bool includeEOLFlag);
 	void Dump(Signal &sig, const void *buff, size_t bytes, bool upperFlag = false);
 	virtual const char *GetName() const = 0;
+	virtual const char *GetIdentifier() const = 0;
 	virtual int GetChar(Signal &sig) = 0;
 	virtual void PutChar(Signal &sig, char ch) = 0;
 	virtual size_t Read(Signal &sig, void *buff, size_t len) = 0;
@@ -96,7 +97,6 @@ public:
 	String ReadChar(Signal &sig);
 	virtual int GetChar(Signal &sig);
 	virtual void PutChar(Signal &sig, char ch);
-	virtual const char *GetIdentifier() const = 0;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
 	virtual void SetBlocking(bool blockingFlag);
