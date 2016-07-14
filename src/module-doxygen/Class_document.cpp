@@ -72,8 +72,8 @@ Gura_ImplementFunction(document)
 		Stream &stream = arg.GetStream(0);
 		const Aliases *pAliases = arg.IsValid(1)?
 			Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr;
-		bool extractedModeFlag = arg.IsValid(2) && arg.GetBoolean(2);
-		if (!pDocument->ReadStream(env, stream, pAliases, extractedModeFlag)) return Value::Nil;
+		bool extractedFlag = arg.IsValid(2) && arg.GetBoolean(2);
+		if (!pDocument->ReadStream(env, stream, pAliases, extractedFlag)) return Value::Nil;
 		pObj->SetDocument(pDocument.release());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));

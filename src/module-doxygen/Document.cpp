@@ -13,10 +13,10 @@ Document::Document() : _cntRef(1), _stat(STAT_Indent), _pElemTop(Elem::Empty->Re
 }
 
 bool Document::ReadStream(Environment &env, Stream &stream,
-						  const Aliases *pAliases, bool extractedModeFlag)
+						  const Aliases *pAliases, bool extractedFlag)
 {
 	Signal &sig = env.GetSignal();
-	_stat = extractedModeFlag? STAT_ExIndent : STAT_Indent;
+	_stat = extractedFlag? STAT_ExIndent : STAT_Indent;
 	_pDecomposer.reset(new Decomposer(pAliases));
 	for (;;) {
 		int chRaw;

@@ -129,7 +129,7 @@ protected:
 	inline ~Document() {}
 public:
 	bool ReadStream(Environment &env, Stream &stream,
-					const Aliases *pAliases, bool extractedModeFlag);
+					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const Elem *GetElemTop() const { return _pElemTop.get(); }
 protected:
