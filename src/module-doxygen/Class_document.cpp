@@ -30,7 +30,8 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
-		return _pElem.IsNull()? Value::Nil : Value(new Object_elem(_pElem->Reference()));
+		return _pDocument.IsNull()? Value::Nil :
+			Value(new Object_elem(_pDocument->GetElem()->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;
@@ -40,7 +41,7 @@ String Object_document::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<doxygen.document:";
-	if (_pElem.IsNull()) {
+	if (_pDocument.IsNull()) {
 		rtn += "invalid";
 	} else {
 		rtn += _sourceName;
@@ -67,13 +68,15 @@ Gura_ImplementFunction(document)
 {
 	AutoPtr<Object_document> pObj(new Object_document());
 	if (arg.IsValid(0)) {
-		Parser parser(arg.IsValid(1)? Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr);
-		if (arg.IsValid(2) && arg.GetBoolean(2)) parser.SetExtractedMode();
+		AutoPtr<Document> pDocument(
+			new Document(arg.IsValid(1)?
+						 Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr));
+		if (arg.IsValid(2) && arg.GetBoolean(2)) pDocument->SetExtractedMode();
 		Stream &stream = arg.GetStream(0);
-		if (!parser.ReadStream(env, stream)) return Value::Nil;
+		if (!pDocument->ReadStream(env, stream)) return Value::Nil;
 		const char *sourceName = stream.GetIdentifier();
 		if (sourceName != nullptr) pObj->SetSourceName(sourceName);
-		pObj->SetElem(parser.GetResult()->Reference());
+		pObj->SetDocument(pDocument.release());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));
 }
@@ -92,11 +95,11 @@ Gura_DeclareMethod(document, render)
 
 Gura_ImplementMethod(document, render)
 {
-	const Elem *pElem = Object_document::GetObjectThis(arg)->GetElem();
+	Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
 	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
 	const Configuration *pCfg = Object_configuration::GetObject(arg, 1)->GetConfiguration();
 	Stream &stream = arg.GetStream(2);
-	pRenderer->Render(pElem, pCfg, stream);
+	pRenderer->Render(pDocument->GetElem(), pCfg, stream);
 	return Value::Nil;
 }
 

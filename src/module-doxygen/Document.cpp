@@ -1,19 +1,19 @@
 //=============================================================================
-// Parser.cpp
+// Document.cpp
 //=============================================================================
 #include "stdafx.h"
 
 Gura_BeginModuleScope(doxygen)
 
 //-----------------------------------------------------------------------------
-// Parser
+// Document
 //-----------------------------------------------------------------------------
-Parser::Parser(const Aliases *pAliases) :
-	_stat(STAT_Indent), _pDecomposer(new Decomposer(pAliases))
+Document::Document(const Aliases *pAliases) :
+	_cntRef(1), _stat(STAT_Indent), _pDecomposer(new Decomposer(pAliases))
 {
 }
 
-bool Parser::FeedChar(Environment &env, char ch)
+bool Document::FeedChar(Environment &env, char ch)
 {
 	Gura_BeginPushbackRegion();
 	//::printf("ch=%c, stat=%d\n", ch, _stat);
@@ -243,7 +243,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Parser::ReadStream(Environment &env, SimpleStream &stream)
+bool Document::ReadStream(Environment &env, SimpleStream &stream)
 {
 	Signal &sig = env.GetSignal();
 	for (;;) {
@@ -337,7 +337,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				_pElemArg->AddElem(_pDecomposerChild->GetResult()->Reference());
+				_pElemArg->AddElem(_pDecomposerChild->GetElem()->Reference());
 				_pDecomposerChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
@@ -734,7 +734,7 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	return true;
 }
 
-const Elem *Decomposer::GetResult() const
+const Elem *Decomposer::GetElem() const
 {
 	return _pElemResult->ReduceContent();
 }

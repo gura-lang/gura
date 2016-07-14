@@ -16,10 +16,10 @@ public:
 	Gura_DeclareObjectAccessor(document)
 private:
 	String _sourceName;
-	AutoPtr<Elem> _pElem;
+	AutoPtr<Document> _pDocument;
 public:
-	inline Object_document(Elem *pElem = nullptr) :
-					Object(Gura_UserClass(document)), _pElem(pElem) {}
+	inline Object_document(Document *pDocument = nullptr) :
+					Object(Gura_UserClass(document)), _pDocument(pDocument) {}
 	virtual ~Object_document();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
@@ -28,8 +28,8 @@ public:
 	virtual String ToString(bool exprFlag);
 	inline void SetSourceName(const String &sourceName) { _sourceName = sourceName; }
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
-	inline void SetElem(Elem *pElem) { _pElem.reset(pElem); }
-	inline const Elem *GetElem() const { return _pElem.get(); }
+	inline void SetDocument(Document *pDocument) { _pDocument.reset(pDocument); }
+	inline Document *GetDocument() { return _pDocument.get(); }
 };
 
 Gura_EndModuleScope(doxygen)

@@ -7,7 +7,7 @@
 #include "CommandFormat.h"
 #include "Elem.h"
 #include "Alias.h"
-#include "Parser.h"
+#include "Document.h"
 #include "Configuration.h"
 #include "Renderer.h"
 #include "Class_elem.h"

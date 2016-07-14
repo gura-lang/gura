@@ -1,8 +1,8 @@
 //=============================================================================
-// Parser.h
+// Document.h
 //=============================================================================
-#ifndef __GURA_DOXYGEN_PARSER_H__
-#define __GURA_DOXYGEN_PARSER_H__
+#ifndef __GURA_DOXYGEN_DOCUMENT_H__
+#define __GURA_DOXYGEN_DOCUMENT_H__
 
 #define BeginPushbackRegion(var) \
 _pushbackBuff[_pushbackLevel++] = var; \
@@ -14,7 +14,7 @@ var = _pushbackBuff[--_pushbackLevel];
 
 Gura_BeginModuleScope(doxygen)
 
-class Object_parser;
+class Object_document;
 
 //-----------------------------------------------------------------------------
 // Decomposer
@@ -69,7 +69,7 @@ public:
 	void SetCommandCustom(const String &cmdName);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
-	const Elem *GetResult() const;
+	const Elem *GetElem() const;
 	String EvaluateCustomCommand(Environment &env) const;
 	static bool ContainsCommand(const char *str);
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
@@ -90,9 +90,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Parser
+// Document
 //-----------------------------------------------------------------------------
-class Parser {
+class Document {
 public:
 	enum Stat {
 		STAT_Indent,
@@ -116,14 +116,20 @@ public:
 		STAT_ExDoxygen,
 	};
 private:
+	int _cntRef;
 	Stat _stat;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
-	Parser(const Aliases *pAliases);
+	Gura_DeclareReferenceAccessor(Document);
+public:
+	Document(const Aliases *pAliases);
+protected:
+	inline ~Document() {}
+public:
 	bool FeedChar(Environment &env, char ch);
 	bool ReadStream(Environment &env, SimpleStream &stream);
 	void SetExtractedMode() { _stat = STAT_ExIndent; }
-	const Elem *GetResult() const { return _pDecomposer->GetResult(); }
+	const Elem *GetElem() const { return _pDecomposer->GetElem(); }
 };
 
 //-----------------------------------------------------------------------------
