@@ -82,23 +82,31 @@ Gura_ImplementFunction(document)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.document#render(renderer:doxygen.renderer, cfg:doxygen.configuration, out:stream:w)
+// doxygen.document#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
 Gura_DeclareMethod(document, render)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
-	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_Once);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
 Gura_ImplementMethod(document, render)
 {
 	Document *pDoc = Object_document::GetObjectThis(arg)->GetDocument();
 	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
-	const Configuration *pCfg = Object_configuration::GetObject(arg, 1)->GetConfiguration();
-	Stream &stream = arg.GetStream(2);
-	pDoc->GetElemTop()->Render(pRenderer, pCfg, stream);
-	return Value::Nil;
+	const Configuration *pCfg = arg.IsValid(1)?
+		Object_configuration::GetObject(arg, 1)->GetConfiguration() : nullptr;
+	if (arg.IsValid(2)) {
+		SimpleStream &stream = arg.GetStream(2);
+		pDoc->GetElemTop()->Render(pRenderer, pCfg, stream);
+		return Value::Nil;
+	} else {
+		String str;
+		SimpleStream_StringWriter stream(str);
+		if (!pDoc->GetElemTop()->Render(pRenderer, pCfg, stream)) return Value::Nil;
+		return Value(str);
+	}
 }
 
 //-----------------------------------------------------------------------------
