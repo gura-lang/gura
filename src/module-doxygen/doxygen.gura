@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(conio)
 import(doxygen):binary:mixin_type {*}
 
 Renderer@html = class {
@@ -189,7 +190,7 @@ Renderer@debug = class(renderer) {
 	// @}() = ''
 }
 
-Renderer@console = class(renderer) {
+Renderer@markdown = class(renderer) {
 	@addtogroup(name:string, title:string) = '@addtogroup{' + 'name:' + name.escape():surround + ',title:' + title.escape():surround + '}\n'
 	@callgraph() = '@callgraph{' + '}'
 	@hidecallgrph() = '@hidecallgrph{' + '}'
@@ -375,5 +376,5 @@ setpresenter {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}
-	doc && doc.render(Renderer@console(), nil, sys.stdout)
+	doc && doc.render(Renderer@markdown(), nil, sys.stdout)
 }

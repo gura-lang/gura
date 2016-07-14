@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+import(doxygen)
+
+f() = {
+} % {`en, 'doxygen', R'''
+@param x first parameter
+@param y second parameter
+@param z third parameter
+'''}
+
+~f

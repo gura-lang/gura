@@ -1,0 +1,37 @@
+#!/usr/bin/env gura
+import(doxygen)
+
+cfg:doxygen.configuration = bR'''
+ALIASES += l{1}="@ref \1"
+ALIASES += l{2}="@ref \1 "\2""
+ALIASES += Bold{1}="<b>\1</b>"
+ALIASES += Emph{1}="<em>\1</em>"
+ALIASES += bar="bar"
+ALIASES += strong{1}="@b \1"
+ALIASES += foo{3}="foo: \1 \2 \3"
+ALIASES += customA{1}="customA \1"
+ALIASES += customB{1}="customB \1"
+'''
+
+doc = R'''
+/*! 
+ *  @l{hoge}
+ *  @l{foo,bar}
+ *  @Bold{bold text}
+ *  @Emph{emphasized text}
+ *  @Bold{bold and @Emph{emphasized} text}
+ */
+'''
+
+cfg.print()
+cfg.aliases.print()
+doc = doxygen.document(doc.reader(), cfg)
+doc.elem.print()
+
+doc.render(doxygen.Renderer@debug(), cfg, sys.stdout)
+
+/*
+cfg = doxygen.configuration('sample/Doxyfile')
+//cfg.print()
+println(cfg.get('TAB_SIZE'):raise)
+*/

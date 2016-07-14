@@ -177,8 +177,7 @@ bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, Simple
 String Elem_Command::ToString() const
 {
 	String rtn;
-	rtn += "@";
-	rtn += _pCmdFmt->GetName();
+	rtn += _pCmdFmt->GetNameEx();
 	rtn += "{";
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	ElemOwner::const_iterator ppElemArg = _elemArgs.begin();
@@ -198,7 +197,7 @@ String Elem_Command::ToString() const
 void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s@%s{", indentLevel * 2, "", _pCmdFmt->GetName());
+	stream.Printf(sig, "%*s%s{", indentLevel * 2, "", _pCmdFmt->GetNameEx());
 	size_t iArg = 0;
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
 	foreach_const (CommandFormat::ArgOwner, ppArg, argOwner) {
