@@ -68,12 +68,12 @@ Gura_ImplementFunction(document)
 {
 	AutoPtr<Object_document> pObj(new Object_document());
 	if (arg.IsValid(0)) {
-		AutoPtr<Document> pDocument(
-			new Document(arg.IsValid(1)?
-						 Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr));
+		AutoPtr<Document> pDocument(new Document());
+		const Aliases *pAliases = arg.IsValid(1)?
+			Object_aliases::GetObject(arg, 1)->GetAliases() : nullptr;
 		if (arg.IsValid(2) && arg.GetBoolean(2)) pDocument->SetExtractedMode();
 		Stream &stream = arg.GetStream(0);
-		if (!pDocument->ReadStream(env, stream)) return Value::Nil;
+		if (!pDocument->ReadStream(env, stream, pAliases)) return Value::Nil;
 		pObj->SetDocument(pDocument.release());
 	}
 	return ReturnValue(env, arg, Value(pObj.release()));

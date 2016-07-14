@@ -8,8 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document(const Aliases *pAliases) :
-	_cntRef(1), _stat(STAT_Indent), _pDecomposer(new Decomposer(pAliases))
+Document::Document() : _cntRef(1), _stat(STAT_Indent)
 {
 }
 
@@ -243,9 +242,10 @@ bool Document::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Document::ReadStream(Environment &env, Stream &stream)
+bool Document::ReadStream(Environment &env, Stream &stream, const Aliases *pAliases)
 {
 	Signal &sig = env.GetSignal();
+	_pDecomposer.reset(new Decomposer(pAliases));
 	for (;;) {
 		int chRaw;
 		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
@@ -255,6 +255,8 @@ bool Document::ReadStream(Environment &env, Stream &stream)
 	}
 	const char *sourceName = stream.GetIdentifier();
 	if (sourceName != nullptr) _sourceName = sourceName;
+	_pElem.reset(_pDecomposer->GetElem()->Reference());
+	_pDecomposer.release();
 	return true;
 }
 

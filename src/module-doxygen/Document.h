@@ -119,19 +119,21 @@ private:
 	int _cntRef;
 	Stat _stat;
 	String _sourceName;
+	AutoPtr<Elem> _pElem;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
 	Gura_DeclareReferenceAccessor(Document);
 public:
-	Document(const Aliases *pAliases);
+	Document();
 protected:
 	inline ~Document() {}
-public:
+protected:
 	bool FeedChar(Environment &env, char ch);
-	bool ReadStream(Environment &env, Stream &stream);
+public:
+	bool ReadStream(Environment &env, Stream &stream, const Aliases *pAliases);
 	void SetExtractedMode() { _stat = STAT_ExIndent; }
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
-	inline const Elem *GetElem() const { return _pDecomposer->GetElem(); }
+	inline const Elem *GetElem() const { return _pElem.get(); }
 };
 
 //-----------------------------------------------------------------------------
