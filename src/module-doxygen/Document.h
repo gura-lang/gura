@@ -128,7 +128,7 @@ public:
 protected:
 	inline ~Document() {}
 public:
-	bool ReadStream(Environment &env, Stream &stream,
+	bool ReadStream(Environment &env, SimpleStream &stream,
 					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const Elem *GetElemTop() const { return _pElemTop.get(); }

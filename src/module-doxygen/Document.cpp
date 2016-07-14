@@ -12,7 +12,7 @@ Document::Document() : _cntRef(1), _stat(STAT_Indent), _pElemTop(Elem::Empty->Re
 {
 }
 
-bool Document::ReadStream(Environment &env, Stream &stream,
+bool Document::ReadStream(Environment &env, SimpleStream &stream,
 						  const Aliases *pAliases, bool extractedFlag)
 {
 	Signal &sig = env.GetSignal();
@@ -25,10 +25,9 @@ bool Document::ReadStream(Environment &env, Stream &stream,
 		if (!FeedChar(env, ch)) return false;
 		if (ch == '\0') break;
 	}
-	const char *sourceName = stream.GetIdentifier();
-	if (sourceName != nullptr) _sourceName = sourceName;
+	_sourceName = stream.GetName();
 	_pElemTop.reset(_pDecomposer->GetElem()->Reference());
-	_pDecomposer.release();
+	_pDecomposer.reset();
 	return true;
 }
 

@@ -176,7 +176,7 @@ public:
 	inline T &operator*() const { return *_p; }
 	inline T *operator->() { return _p; }
 	inline T *operator->() const { return _p; }
-	inline void reset(T *p) { T::Delete(_p); _p = p; }
+	inline void reset(T *p = nullptr) { T::Delete(_p); _p = p; }
 	inline T *get() { return _p; }
 	inline T *get() const { return _p; }
 	inline T *release() { T *p = _p; _p = nullptr; return p; }

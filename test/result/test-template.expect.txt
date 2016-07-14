@@ -536,3 +536,5 @@ e'${=extends(base)}' .. [original] original
 e'${=extends(base)}${=block(`head)}replaced${end}' .. [replaced] original
 e'${=extends(base)}${=block(`body)}replaced${end}' .. [original] replaced
 e'${=extends(base)}${=block(`head)}replaced${end}${=block(`body)}replaced${end}' .. [replaced] replaced
+f(3, 4) .. 3 + 4 = 7
+f(10, 2) .. 10 + 2 = 12

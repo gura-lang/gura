@@ -65,7 +65,7 @@ protected:
 	inline ~Configuration() {}
 public:
 	bool FeedChar(Environment &env, char ch);
-	bool ReadStream(Environment &env, Stream &stream);
+	bool ReadStream(Environment &env, SimpleStream &stream);
 	const Entry *Lookup(const char *name) const;
 	Aliases *MakeAliases(Environment &env) const;
 	void Print() const;
