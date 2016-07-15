@@ -41,40 +41,8 @@ Gura_DeclareFunction(makescript)
 
 Gura_ImplementFunction(makescript)
 {
-	Signal &sig = env.GetSignal();
-	Stream *pStream = arg.IsValid(0)? &arg.GetStream(0) : env.GetConsole();
-	const CommandFormatList &cmdFmtList = CommandFormat::GetCommandFormatList();
-	pStream->Printf(sig, "Renderer = class(doxygen.renderer) {\n");
-	if (sig.IsSignalled()) return Value::Nil;
-	foreach_const (CommandFormatList, ppCmdFmt, cmdFmtList) {
-		const CommandFormat *pCmdFmt = *ppCmdFmt;
-		if (pCmdFmt->HasNormalCommandName()) {
-			String str;
-			str += "\t";
-			str += pCmdFmt->MakeHandlerDeclaration();
-			str += " = '@";
-			str += pCmdFmt->GetName();
-			str += "{'";
-			size_t iArg = 0;
-			foreach_const (CommandFormat::ArgOwner, ppArg, pCmdFmt->GetArgOwner()) {
-				const CommandFormat::Arg *pArg = *ppArg;
-				str += " + ";
-				str += (iArg == 0)? "'" : "',";
-				str += pArg->GetName();
-				str += ":' + ";
-				str += pArg->GetName();
-				str += ".escape():surround";
-				iArg++;
-			}
-			str += (pCmdFmt->IsSectionIndicator() || pCmdFmt->IsLineIndicator())?
-				" + '}\\n'" : " + '}'";
-			pStream->Println(sig, str.c_str());
-		} else {
-			pStream->Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
-		}
-		if (sig.IsSignalled()) return Value::Nil;
-	}
-	pStream->Printf(sig, "}\n");
+	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
+	CommandFormat::MakeScript(env, stream);
 	return Value::Nil;
 }
 

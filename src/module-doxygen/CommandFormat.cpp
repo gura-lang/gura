@@ -396,6 +396,65 @@ const CommandFormat *CommandFormat::Lookup(const char *name)
 	return (iter == _cmdFmtDict.end())? nullptr : iter->second;
 }
 
+void CommandFormat::MakeScript(Environment &env, Stream &stream)
+{
+	Signal &sig = env.GetSignal();
+	const CommandFormatList &cmdFmtList = GetCommandFormatList();
+	stream.Printf(sig, "Renderer = class(doxygen.renderer) {\n");
+	if (sig.IsSignalled()) return;
+	CmdType cmdTypePrev = CMDTYPE_None;
+	foreach_const (CommandFormatList, ppCmdFmt, cmdFmtList) {
+		const CommandFormat *pCmdFmt = *ppCmdFmt;
+		CmdType cmdType = pCmdFmt->GetType();
+		if (cmdTypePrev != cmdType) {
+			cmdTypePrev = cmdType;
+			const char *label = "(unknown)";
+			if (cmdType == CMDTYPE_Structure) {
+				label = "Structural indicators";
+			} else if (cmdType == CMDTYPE_Section) {
+				label = "Section indicators";
+			} else if (cmdType == CMDTYPE_Link) {
+				label = "Commands to create links";
+			} else if (cmdType == CMDTYPE_Example) {
+				label = "Commands for displaying examples";
+			} else if (cmdType == CMDTYPE_Visual) {
+				label = "Commands for visual enhancements";
+			} else if (cmdType == CMDTYPE_Group) {
+				label = "Grouping";
+			}
+			stream.Println(sig, "\t//------------------------------------------------------------");
+			stream.Printf(sig, "\t// %s\n", label);
+			stream.Println(sig, "\t//------------------------------------------------------------");
+		}
+		if (pCmdFmt->HasNormalCommandName()) {
+			String str;
+			str += "\t";
+			str += pCmdFmt->MakeHandlerDeclaration();
+			str += " = '@";
+			str += pCmdFmt->GetName();
+			str += "{'";
+			size_t iArg = 0;
+			foreach_const (ArgOwner, ppArg, pCmdFmt->GetArgOwner()) {
+				const Arg *pArg = *ppArg;
+				str += " + ";
+				str += (iArg == 0)? "'" : "',";
+				str += pArg->GetName();
+				str += ":' + ";
+				str += pArg->GetName();
+				str += ".escape():surround";
+				iArg++;
+			}
+			str += (pCmdFmt->IsSectionIndicator() || pCmdFmt->IsLineIndicator())?
+				" + '}\\n'" : " + '}'";
+			stream.Println(sig, str.c_str());
+		} else {
+			stream.Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
+		}
+		if (sig.IsSignalled()) return;
+	}
+	stream.Printf(sig, "}\n");
+}
+
 const char *CommandFormat::ArgTypeToName(ArgType argType)
 {
 	static const struct {

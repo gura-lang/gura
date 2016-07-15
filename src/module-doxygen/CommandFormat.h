@@ -27,6 +27,7 @@ class CommandFormatDict : public std::map<const String, const CommandFormat *> {
 class CommandFormat {
 public:
 	enum CmdType {
+		CMDTYPE_None,
 		CMDTYPE_Structure,
 		CMDTYPE_Section,
 		CMDTYPE_Link,
@@ -86,6 +87,7 @@ public:
 	inline CommandFormat(const char *name, CmdType cmdType) :
 		_pSymbol(Symbol::Add(name)), _pSymbolEx(Symbol::Add((String("@") + name).c_str())),
 		_cmdType(cmdType) {}
+	inline CmdType GetType() const { return _cmdType; }
 	inline bool IsSpecial() const { return _cmdType != CMDTYPE_Custom; }
 	inline bool IsCustom() const { return _cmdType == CMDTYPE_Custom; }
 	inline bool IsSectionIndicator() const {
@@ -108,6 +110,7 @@ public:
 public:
 	static void Initialize();
 	static const CommandFormat *Lookup(const char *name);
+	static void MakeScript(Environment &env, Stream &stream);
 	inline static const CommandFormatList &GetCommandFormatList() {
 		return _cmdFmtList;
 	}
