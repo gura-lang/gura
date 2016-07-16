@@ -96,6 +96,36 @@ void Elem_Container::Print(Environment &env, SimpleStream &stream, int indentLev
 }
 
 //-----------------------------------------------------------------------------
+// Elem_Structure
+//-----------------------------------------------------------------------------
+Elem_Structure::Elem_Structure()
+{
+}
+
+bool Elem_Structure::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	return _elemOwner.Render(pRenderer, pCfg, stream);
+}
+
+String Elem_Structure::ToString() const
+{
+	String rtn;
+	foreach_const (ElemOwner, ppElem, _elemOwner) {
+		const Elem *pElem = *ppElem;
+		rtn += pElem->ToString();
+	}
+	return "";
+}
+
+void Elem_Structure::Print(Environment &env, SimpleStream &stream, int indentLevel) const
+{
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
+	_elemOwner.Print(env, stream, indentLevel + 1);
+	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
+}
+
+//-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
 Elem_Empty::Elem_Empty()

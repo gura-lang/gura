@@ -65,6 +65,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Elem_Structure
+//-----------------------------------------------------------------------------
+class Elem_Structure : public Elem_Container {
+public:
+	Elem_Structure();
+	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual String ToString() const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
+};
+
+//-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
 class Elem_Empty : public Elem {
