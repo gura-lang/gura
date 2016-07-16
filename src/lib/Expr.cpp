@@ -42,6 +42,7 @@ const char *GetExprTypeName(ExprType exprType)
 // Expr
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Value
+//        +- Expr_EmbedString
 //        +- Expr_Identifier
 //        +- Expr_Suffixed
 //        +- Expr_Member

@@ -227,7 +227,6 @@ public:
 	bool IsAtSameLine(const Expr *pExpr) const;
 	void GatherSymbol(SymbolSet &symbolSet) const;
 	void GatherSimpleLambdaArgs(ExprOwner &exprOwner) const;
-	//bool GetChainedSymbolList(SymbolList &symbolList) const;
 	void SetError(Signal &sig, ErrorType errType, const char *format, ...) const;
 	void SetError_NotAssignableSymbol(Signal &sig, const Symbol *pSymbol) const;
 	static bool NeedParenthesis(const Operator *pOperatorOuter,
