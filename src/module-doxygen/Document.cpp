@@ -8,7 +8,8 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_Indent), _pElemTop(Elem::Empty->Reference())
+Document::Document() : _cntRef(1), _stat(STAT_Indent),
+	_commentLineFlag(false), _consecutiveLineDoxygenFlag(false), _pElemTop(Elem::Empty->Reference())
 {
 }
 
@@ -40,9 +41,13 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			// nothing to do
+			_consecutiveLineDoxygenFlag = false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
+		} else if (ch == '/') {
+			// parsed "/" after indentation
+			_commentLineFlag = true;
+			_stat = STAT_Slash;
 		} else {
 			_stat = STAT_Source;
 			Gura_Pushback();
@@ -51,7 +56,8 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Source: {
 		if (ch == '/') {
-			// parsed "/"
+			// parsed "/" after some source code
+			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
 			_stat = STAT_Indent;
@@ -80,21 +86,24 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '/' || ch == '!') {
 			// parsed "///" or "//!"
-			_stat = STAT_LineDoxygenFirst;
+			_stat = STAT_LineDoxygenFirstChar;
 		} else {
 			// parsed "//."
 			_stat = STAT_LineComment;
 		}
 		break;
 	}
-	case STAT_LineDoxygenFirst: {
+	case STAT_LineDoxygenFirstChar: {
 		if (ch == '<') {
-			_pDecomposer->SetAheadFlag(true);
+			_pDecomposer->SetAheadFlag(!_commentLineFlag);
 		} else {
 			_pDecomposer->SetAheadFlag(false);
 			Gura_Pushback();
 		}
+		
 		_stat = STAT_LineDoxygen;
+
+
 		break;
 	}
 	case STAT_LineDoxygen: {
@@ -102,6 +111,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			// a line comment ends with newline.
 			if (!_pDecomposer->FeedChar(env, '\n')) return false;
 			if (!_pDecomposer->FeedChar(env, '\0')) return false;
+			_consecutiveLineDoxygenFlag = _commentLineFlag;
 			_stat = STAT_Indent;
 		} else { // including '\0'
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
@@ -125,7 +135,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_stat = STAT_BlockCommentBgn_Asterisk;
 		} else if (ch == '!') {
 			// parsed "/*!"
-			_stat = STAT_BlockDoxygenFirst;
+			_stat = STAT_BlockDoxygenFirstChar;
 		} else {
 			// parsed "/*."
 			_stat = STAT_BlockComment;
@@ -139,18 +149,22 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else {
 			// parsed "/**."
 			Gura_Pushback();
-			_stat = STAT_BlockDoxygenFirst;
+			_stat = STAT_BlockDoxygenFirstChar;
 		}
 		break;
 	}
-	case STAT_BlockDoxygenFirst: {
+	case STAT_BlockDoxygenFirstChar: {
 		if (ch == '<') {
-			_pDecomposer->SetAheadFlag(true);
+			_pDecomposer->SetAheadFlag(!_commentLineFlag);
 		} else {
 			_pDecomposer->SetAheadFlag(false);
 			Gura_Pushback();
 		}
+
+
 		_stat = STAT_BlockDoxygen;
+
+
 		break;
 	}
 	case STAT_BlockDoxygen: {

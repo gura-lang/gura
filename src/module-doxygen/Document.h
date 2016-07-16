@@ -98,12 +98,12 @@ public:
 		STAT_Indent,
 		STAT_Source,
 		STAT_LineCommentBgn,
-		STAT_LineDoxygenFirst,
+		STAT_LineDoxygenFirstChar,
 		STAT_LineDoxygen,
 		STAT_LineComment,
 		STAT_BlockCommentBgn,
 		STAT_BlockCommentBgn_Asterisk,
-		STAT_BlockDoxygenFirst,
+		STAT_BlockDoxygenFirstChar,
 		STAT_BlockDoxygen,
 		STAT_BlockDoxygen_Asterisk,
 		STAT_BlockDoxygen_Indent,
@@ -118,6 +118,8 @@ public:
 private:
 	int _cntRef;
 	Stat _stat;
+	bool _commentLineFlag;
+	bool _consecutiveLineDoxygenFlag;
 	String _sourceName;
 	AutoPtr<Elem> _pElemTop;
 	std::unique_ptr<Decomposer> _pDecomposer;
