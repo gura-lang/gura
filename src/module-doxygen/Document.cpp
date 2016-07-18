@@ -103,7 +103,9 @@ bool Document::FeedChar(Environment &env, char ch)
 			_pDecomposer->SetAheadFlag(false);
 			Gura_Pushback();
 		}
-		
+		if (_regionPrev != RGN_LineDoxygen) {
+			_pDecomposer->AddElemStructure();
+		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;
 		break;
@@ -162,7 +164,9 @@ bool Document::FeedChar(Environment &env, char ch)
 			_pDecomposer->SetAheadFlag(false);
 			Gura_Pushback();
 		}
-
+		if (_regionPrev != RGN_LineDoxygen) {
+			_pDecomposer->AddElemStructure();
+		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
 		_stat = STAT_BlockDoxygen;
 		break;
@@ -315,12 +319,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_Text: {
 		if (ch == '\0') {
 			if (!_text.empty()) {
-				_pElemResult->AddElem(new Elem_Text(_text));
+				AddElemToResult(new Elem_Text(_text));
 				_text.clear();
 			}
 		} else if (IsCommandMark(ch)) {
 			if (!_text.empty()) {
-				_pElemResult->AddElem(new Elem_Text(_text));
+				AddElemToResult(new Elem_Text(_text));
 				_text.clear();
 			}
 			_cmdName.clear();
@@ -384,7 +388,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					_strArg.clear();
 				}
 				_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
-				_pElemResult->AddElem(_pElemCmdCur.release());
+				AddElemToResult(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -443,7 +447,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			_pElemResult->AddElem(_pElemCmdCur.release());
+			AddElemToResult(_pElemCmdCur.release());
 			Pushback(ch);
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
@@ -751,6 +755,22 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 		if (*p == '\0') break;
 	}
 	return true;
+}
+
+void Decomposer::AddElemStructure()
+{
+	_pElemResult->AddElem(new Elem_Structure());
+}
+
+void Decomposer::AddElemToResult(Elem *pElem)
+{
+	ElemOwner &elemOwner = _pElemResult->GetElemOwner();
+	if (!elemOwner.empty()) {
+		Elem *pElemLast = elemOwner.back();
+		if (pElemLast->GetType() == Elem::TYPE_Structure) {
+			dynamic_cast<Elem_Structure *>(pElemLast)->AddElem(pElem);
+		}
+	}
 }
 
 const Elem *Decomposer::GetElem() const

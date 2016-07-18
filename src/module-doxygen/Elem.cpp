@@ -10,7 +10,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 const Elem *Elem::Empty = nullptr;
 
-Elem::Elem() : _cntRef(1)
+Elem::Elem(Type type) : _cntRef(1), _type(type)
 {
 }
 
@@ -62,7 +62,7 @@ void ElemOwner::Clear()
 //-----------------------------------------------------------------------------
 // Elem_Container
 //-----------------------------------------------------------------------------
-Elem_Container::Elem_Container()
+Elem_Container::Elem_Container(Type type) : Elem(type)
 {
 }
 
@@ -98,7 +98,7 @@ void Elem_Container::Print(Environment &env, SimpleStream &stream, int indentLev
 //-----------------------------------------------------------------------------
 // Elem_Structure
 //-----------------------------------------------------------------------------
-Elem_Structure::Elem_Structure()
+Elem_Structure::Elem_Structure(Type type) : Elem_Container(type)
 {
 }
 
@@ -120,7 +120,7 @@ String Elem_Structure::ToString() const
 void Elem_Structure::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
+	stream.Printf(sig, "%*sstructure {\n", indentLevel * 2, "");
 	_elemOwner.Print(env, stream, indentLevel + 1);
 	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
 }
@@ -128,7 +128,7 @@ void Elem_Structure::Print(Environment &env, SimpleStream &stream, int indentLev
 //-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
-Elem_Empty::Elem_Empty()
+Elem_Empty::Elem_Empty(Type type) : Elem(type)
 {
 }
 
@@ -152,7 +152,7 @@ void Elem_Empty::Print(Environment &env, SimpleStream &stream, int indentLevel) 
 //-----------------------------------------------------------------------------
 // Elem_Text
 //-----------------------------------------------------------------------------
-Elem_Text::Elem_Text(const String &text) : _text(text)
+Elem_Text::Elem_Text(const String &text, Type type) : Elem(type), _text(text)
 {
 }
 
@@ -177,7 +177,8 @@ void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) c
 //-----------------------------------------------------------------------------
 // Elem_Command
 //-----------------------------------------------------------------------------
-Elem_Command::Elem_Command(const CommandFormat *pCmdFmt) : _pCmdFmt(pCmdFmt)
+Elem_Command::Elem_Command(const CommandFormat *pCmdFmt, Type type) :
+	Elem(type), _pCmdFmt(pCmdFmt)
 {
 }
 

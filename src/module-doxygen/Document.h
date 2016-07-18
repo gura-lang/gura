@@ -69,6 +69,8 @@ public:
 	void SetCommandCustom(const String &cmdName);
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
+	void AddElemStructure();
+	void AddElemToResult(Elem *pElem);
 	const Elem *GetElem() const;
 	String EvaluateCustomCommand(Environment &env) const;
 	static bool ContainsCommand(const char *str);
