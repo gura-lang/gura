@@ -9,7 +9,7 @@ Gura_BeginModuleScope(doxygen)
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _stat(STAT_Indent),
-	_commentLineFlag(false), _consecutiveLineDoxygenFlag(false), _pElemTop(Elem::Empty->Reference())
+	_commentLineFlag(false), _regionPrev(RGN_Other), _pElemTop(Elem::Empty->Reference())
 {
 }
 
@@ -41,7 +41,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			_consecutiveLineDoxygenFlag = false;
+			_regionPrev = RGN_Other;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '/') {
@@ -60,6 +60,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
+			_regionPrev = RGN_Other;
 			_stat = STAT_Indent;
 		} else { // including '\0'
 			// nothing to do
@@ -76,19 +77,21 @@ bool Document::FeedChar(Environment &env, char ch)
 			// parsed "/*"
 			_stat = STAT_BlockCommentBgn;
 		} else {
-			_stat = STAT_Source;
+			// parsed "/."
+			_commentLineFlag = false;
 			Gura_Pushback();
+			_stat = STAT_Source;
 		}
 		break;
 	}
 	case STAT_LineCommentBgn: {
-		if (ch == '\0') {
-			// nothing to do
-		} else if (ch == '/' || ch == '!') {
+		if (ch == '/' || ch == '!') {
 			// parsed "///" or "//!"
 			_stat = STAT_LineDoxygenFirstChar;
-		} else {
+		} else { // including '\0'
 			// parsed "//."
+			_regionPrev = RGN_Other;
+			Gura_Pushback();
 			_stat = STAT_LineComment;
 		}
 		break;
@@ -101,9 +104,8 @@ bool Document::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 		}
 		
+		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;
-
-
 		break;
 	}
 	case STAT_LineDoxygen: {
@@ -111,7 +113,6 @@ bool Document::FeedChar(Environment &env, char ch)
 			// a line comment ends with newline.
 			if (!_pDecomposer->FeedChar(env, '\n')) return false;
 			if (!_pDecomposer->FeedChar(env, '\0')) return false;
-			_consecutiveLineDoxygenFlag = _commentLineFlag;
 			_stat = STAT_Indent;
 		} else { // including '\0'
 			if (!_pDecomposer->FeedChar(env, ch)) return false;
@@ -138,6 +139,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_stat = STAT_BlockDoxygenFirstChar;
 		} else {
 			// parsed "/*."
+			_regionPrev = RGN_Other;
 			_stat = STAT_BlockComment;
 		}
 		break;
@@ -161,10 +163,8 @@ bool Document::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 		}
 
-
+		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
 		_stat = STAT_BlockDoxygen;
-
-
 		break;
 	}
 	case STAT_BlockDoxygen: {

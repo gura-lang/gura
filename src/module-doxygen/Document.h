@@ -115,11 +115,18 @@ public:
 		STAT_ExIndent,
 		STAT_ExDoxygen,
 	};
+	enum Region {
+		RGN_Other,
+		RGN_LineDoxygen,
+		RGN_LineDoxygenMixed,
+		RGN_BlockDoxygen,
+		RGN_BlockDoxygenMixed,
+	};
 private:
 	int _cntRef;
 	Stat _stat;
 	bool _commentLineFlag;
-	bool _consecutiveLineDoxygenFlag;
+	Region _regionPrev;
 	String _sourceName;
 	AutoPtr<Elem> _pElemTop;
 	std::unique_ptr<Decomposer> _pDecomposer;
