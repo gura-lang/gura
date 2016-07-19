@@ -12,4 +12,28 @@ Structure::Structure() : _cntRef(1)
 {
 }
 
+//-----------------------------------------------------------------------------
+// StructureList
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// StructureOwner
+//-----------------------------------------------------------------------------
+StructureOwner::StructureOwner() : _cntRef(1)
+{
+}
+
+StructureOwner::~StructureOwner()
+{
+	Clear();
+}
+
+void StructureOwner::Clear()
+{
+	foreach (StructureOwner, ppStructure, *this) {
+		Structure::Delete(*ppStructure);
+	}
+	clear();
+}
+
 Gura_EndModuleScope(doxygen)
