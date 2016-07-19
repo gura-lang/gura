@@ -61,12 +61,10 @@ Iterator *Iterator_Structure::GetSource()
 
 bool Iterator_Structure::DoNext(Environment &env, Value &value)
 {
-	if (_idx < _pStructureOwner->size()) {
-		Structure *pStructure = (*_pStructureOwner)[_idx++];
-		value = Value(new Object_structure(pStructure->Reference()));
-		return true;
-	}
-	return false;
+	if (_idx >= _pStructureOwner->size()) return false;
+	Structure *pStructure = (*_pStructureOwner)[_idx++];
+	value = Value(new Object_structure(pStructure->Reference()));
+	return true;
 }
 
 String Iterator_Structure::ToString() const
