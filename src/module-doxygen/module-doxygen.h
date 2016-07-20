@@ -20,8 +20,9 @@
 
 Gura_BeginModuleHeader(doxygen)
 
-Gura_DeclareUserSymbol(elem);
 Gura_DeclareUserSymbol(aliases);
+Gura_DeclareUserSymbol(elem);
+Gura_DeclareUserSymbol(structures);
 
 //-----------------------------------------------------------------------------
 // HelpPresenter_doxygen

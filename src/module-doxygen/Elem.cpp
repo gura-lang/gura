@@ -250,4 +250,45 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 	_pElemArgs->Print(env, stream, indentLevel + 1);
 }
 
+//-----------------------------------------------------------------------------
+// Iterator_Elem
+//-----------------------------------------------------------------------------
+Iterator_Elem::Iterator_Elem(ElemOwner *pElemOwner) :
+	Iterator(false), _pElemOwner(pElemOwner), _idx(0)
+{
+}
+
+Iterator_Elem::Iterator_Elem(const Iterator_Elem &iter) :
+	Iterator(false), _pElemOwner(iter._pElemOwner->Reference()), _idx(iter._idx)
+{
+}
+
+Iterator *Iterator_Elem::Clone() const
+{
+	return new Iterator_Elem(*this);
+}
+
+Iterator *Iterator_Elem::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_Elem::DoNext(Environment &env, Value &value)
+{
+	if (_idx >= _pElemOwner->size()) return false;
+	Elem *pElem = (*_pElemOwner)[_idx++];
+	value = Value(new Object_elem(pElem->Reference()));
+	return true;
+}
+
+String Iterator_Elem::ToString() const
+{
+	String rtn = "doxygen.elem";
+	return rtn;
+}
+
+void Iterator_Elem::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
 Gura_EndModuleScope(doxygen)

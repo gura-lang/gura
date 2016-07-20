@@ -32,6 +32,10 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
 		return _pDocument.IsNull()? Value::Nil :
 			Value(new Object_elem(_pDocument->GetElemTop()->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(structures))) {
+		AutoPtr<Iterator> pIterator(
+			new Iterator_Structure(_pDocument->GetStructureOwner().Reference()));
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
 	return Value::Nil;

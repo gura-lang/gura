@@ -135,6 +135,23 @@ public:
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
+//-----------------------------------------------------------------------------
+// Iterator_Elem
+//-----------------------------------------------------------------------------
+class Iterator_Elem : public Iterator {
+protected:
+	AutoPtr<ElemOwner> _pElemOwner;
+	size_t _idx;
+public:
+	Iterator_Elem(ElemOwner *pElemOwner);
+	Iterator_Elem(const Iterator_Elem &iter);
+	virtual Iterator *Clone() const;
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
 Gura_EndModuleScope(doxygen)
 
 #endif

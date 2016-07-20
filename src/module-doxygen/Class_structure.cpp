@@ -56,6 +56,32 @@ String Object_structure::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.structure#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
+Gura_DeclareMethod(structure, render)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
+	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+}
+
+Gura_ImplementMethod(structure, render)
+{
+	Structure *pStruct = Object_structure::GetObjectThis(arg)->GetStructure();
+	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
+	const Configuration *pCfg = arg.IsValid(1)?
+		Object_configuration::GetObject(arg, 1)->GetConfiguration() : nullptr;
+	if (arg.IsValid(2)) {
+		SimpleStream &stream = arg.GetStream(2);
+		pStruct->GetElemOwner().Render(pRenderer, pCfg, stream);
+		return Value::Nil;
+	} else {
+		String str;
+		SimpleStream_StringWriter stream(str);
+		if (!pStruct->GetElemOwner().Render(pRenderer, pCfg, stream)) return Value::Nil;
+		return Value(str);
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.structure
@@ -63,8 +89,7 @@ String Object_structure::ToString(bool exprFlag)
 Gura_ImplementUserClass(structure)
 {
 	Gura_AssignValue(structure, Value(Reference()));
-	//Gura_AssignFunction(structure);
-	//Gura_AssignMethod(structure, render);
+	Gura_AssignMethod(structure, render);
 }
 
 Gura_EndModuleScope(doxygen)
