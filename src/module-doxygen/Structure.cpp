@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Structure
 //-----------------------------------------------------------------------------
-Structure::Structure() : _cntRef(1)
+Structure::Structure() : _cntRef(1), _pElemOwner(new ElemOwner())
 {
 }
 

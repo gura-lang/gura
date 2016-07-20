@@ -107,7 +107,6 @@ bool Document::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
-			_pDecomposer->AddElemStructure();
 			AddStructure();
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
@@ -169,7 +168,6 @@ bool Document::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
-			_pDecomposer->AddElemStructure();
 			AddStructure();
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
@@ -288,7 +286,7 @@ void Document::AddStructure()
 {
 	Structure *pStructure = new Structure();
 	_pStructureOwner->push_back(pStructure);
-	//_pDecomposer->SetElemOwner(pStructure->GetElemOwner().Reference());
+	_pDecomposer->SetElemOwner(pStructure->GetElemOwner().Reference());
 }
 
 //-----------------------------------------------------------------------------
@@ -372,7 +370,6 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				//_pElemArg->AddElem(_pDecomposerChild->GetElem()->Reference());
 				AutoPtr<Elem_Container> pElemResult(
 					new Elem_Container(_pDecomposerChild->GetElemOwner().Reference()));
 				_pElemArg->AddElem(pElemResult->ReduceContent()->Reference());
@@ -772,19 +769,17 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	return true;
 }
 
-void Decomposer::AddElemStructure()
-{
-	_pElemOwner->push_back(new Elem_Structure());
-}
-
 void Decomposer::AddElemToResult(Elem *pElem)
 {
+#if 0
 	if (!_pElemOwner->empty()) {
 		Elem *pElemLast = _pElemOwner->back();
 		if (pElemLast->GetType() == Elem::TYPE_Structure) {
 			dynamic_cast<Elem_Structure *>(pElemLast)->AddElem(pElem);
 		}
 	}
+#endif
+	_pElemOwner->push_back(pElem);
 }
 
 String Decomposer::EvaluateCustomCommand(Environment &env) const
