@@ -17,8 +17,13 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 						  const Aliases *pAliases, bool extractedFlag)
 {
 	Signal &sig = env.GetSignal();
-	_stat = extractedFlag? STAT_ExIndent : STAT_Indent;
 	_pDecomposer.reset(new Decomposer(pAliases));
+	if (extractedFlag) {
+		AddStructure();
+		_stat = STAT_ExIndent;
+	} else {
+		_stat = STAT_Indent;
+	}
 	for (;;) {
 		int chRaw;
 		if ((chRaw = stream.GetChar(sig)) < 0) chRaw = 0;
@@ -325,12 +330,12 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_Text: {
 		if (ch == '\0') {
 			if (!_text.empty()) {
-				AddElemToResult(new Elem_Text(_text));
+				_pElemOwner->push_back(new Elem_Text(_text));
 				_text.clear();
 			}
 		} else if (IsCommandMark(ch)) {
 			if (!_text.empty()) {
-				AddElemToResult(new Elem_Text(_text));
+				_pElemOwner->push_back(new Elem_Text(_text));
 				_text.clear();
 			}
 			_cmdName.clear();
@@ -396,7 +401,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					_strArg.clear();
 				}
 				_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
-				AddElemToResult(_pElemCmdCur.release());
+				_pElemOwner->push_back(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -455,7 +460,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			AddElemToResult(_pElemCmdCur.release());
+			_pElemOwner->push_back(_pElemCmdCur.release());
 			Pushback(ch);
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
@@ -763,19 +768,6 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 		if (*p == '\0') break;
 	}
 	return true;
-}
-
-void Decomposer::AddElemToResult(Elem *pElem)
-{
-#if 0
-	if (!_pElemOwner->empty()) {
-		Elem *pElemLast = _pElemOwner->back();
-		if (pElemLast->GetType() == Elem::TYPE_Structure) {
-			dynamic_cast<Elem_Structure *>(pElemLast)->AddElem(pElem);
-		}
-	}
-#endif
-	_pElemOwner->push_back(pElem);
 }
 
 String Decomposer::EvaluateCustomCommand(Environment &env) const
