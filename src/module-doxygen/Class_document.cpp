@@ -21,7 +21,7 @@ bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(elem));
+	symbols.insert(Gura_UserSymbol(structures));
 	return true;
 }
 
@@ -29,10 +29,7 @@ Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
-		return _pDocument.IsNull()? Value::Nil :
-			Value(new Object_elem(_pDocument->GetElemTop()->Reference()));
-	} else if (pSymbol->IsIdentical(Gura_UserSymbol(structures))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(structures))) {
 		AutoPtr<Iterator> pIterator(
 			new Iterator_Structure(_pDocument->GetStructureOwner().Reference()));
 		return Value(new Object_iterator(env, pIterator.release()));
@@ -48,7 +45,10 @@ String Object_document::ToString(bool exprFlag)
 	if (_pDocument.IsNull()) {
 		rtn += "invalid";
 	} else {
+		char buff[32];
 		rtn += _pDocument->GetSourceName();
+		::sprintf(buff, ":%ldstructures", _pDocument->GetStructureOwner().size());
+		rtn += buff;
 	}
 	rtn += ">";
 	return rtn;
@@ -86,32 +86,6 @@ Gura_ImplementFunction(document)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.document#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
-Gura_DeclareMethod(document, render)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
-	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-}
-
-Gura_ImplementMethod(document, render)
-{
-	Document *pDoc = Object_document::GetObjectThis(arg)->GetDocument();
-	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
-	const Configuration *pCfg = arg.IsValid(1)?
-		Object_configuration::GetObject(arg, 1)->GetConfiguration() : nullptr;
-	if (arg.IsValid(2)) {
-		SimpleStream &stream = arg.GetStream(2);
-		pDoc->GetElemTop()->Render(pRenderer, pCfg, stream);
-		return Value::Nil;
-	} else {
-		String str;
-		SimpleStream_StringWriter stream(str);
-		if (!pDoc->GetElemTop()->Render(pRenderer, pCfg, stream)) return Value::Nil;
-		return Value(str);
-	}
-}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.document
@@ -119,7 +93,6 @@ Gura_ImplementMethod(document, render)
 Gura_ImplementUserClass(document)
 {
 	Gura_AssignFunction(document);
-	Gura_AssignMethod(document, render);
 }
 
 Gura_EndModuleScope(doxygen)

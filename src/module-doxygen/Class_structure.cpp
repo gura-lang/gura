@@ -19,32 +19,34 @@ Object *Object_structure::Clone() const
 
 bool Object_structure::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-#if 0
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(elem));
-#endif
+	symbols.insert(Gura_UserSymbol(elems));
 	return true;
 }
 
 Value Object_structure::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
-		return _pStructure.IsNull()? Value::Nil :
-			Value(new Object_elem(_pStructure->GetElemTop()->Reference()));
+	if (pSymbol->IsIdentical(Gura_UserSymbol(elems))) {
+		AutoPtr<Iterator> pIterator(
+			new Iterator_Elem(_pStructure->GetElemOwner().Reference()));
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	evaluatedFlag = false;
-#endif
 	return Value::Nil;
 }
 
 String Object_structure::ToString(bool exprFlag)
 {
 	String rtn;
-	rtn += "<doxygen.structure:";
+	rtn += "<doxygen.structure";
+	do {
+		char buff[32];
+		::sprintf(buff, ":%ldelems", _pStructure->GetElemOwner().size());
+		rtn += buff;
+	} while (0);
 	rtn += ">";
 	return rtn;
 }
@@ -56,6 +58,26 @@ String Object_structure::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.structure#print(indent?:number, out?:stream):void
+Gura_DeclareMethod(structure, print)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(structure, print)
+{
+	int indentLevel = arg.IsValid(0)? arg.GetInt(0) : 0;
+	Stream &stream = arg.IsValid(1)? arg.GetStream(1) : *env.GetConsole();
+	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
+	pStructure->GetElemOwner().Print(env, stream, indentLevel);
+	return Value::Nil;
+}
+
 // doxygen.structure#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
 Gura_DeclareMethod(structure, render)
 {
@@ -89,6 +111,7 @@ Gura_ImplementMethod(structure, render)
 Gura_ImplementUserClass(structure)
 {
 	Gura_AssignValue(structure, Value(Reference()));
+	Gura_AssignMethod(structure, print);
 	Gura_AssignMethod(structure, render);
 }
 

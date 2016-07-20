@@ -132,7 +132,6 @@ private:
 	Region _regionPrev;
 	String _sourceName;
 	AutoPtr<StructureOwner> _pStructureOwner;
-	AutoPtr<Elem> _pElemTop;
 	std::unique_ptr<Decomposer> _pDecomposer;
 public:
 	Gura_DeclareReferenceAccessor(Document);
@@ -145,7 +144,6 @@ public:
 					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
-	inline const Elem *GetElemTop() const { return _pElemTop.get(); }
 protected:
 	bool FeedChar(Environment &env, char ch);
 	void AddStructure();

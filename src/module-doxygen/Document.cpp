@@ -9,8 +9,7 @@ Gura_BeginModuleScope(doxygen)
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _stat(STAT_Indent),
-	_commentLineFlag(false), _regionPrev(RGN_Other),
-	_pStructureOwner(new StructureOwner()), _pElemTop(Elem::Empty->Reference())
+	_commentLineFlag(false), _regionPrev(RGN_Other), _pStructureOwner(new StructureOwner())
 {
 }
 
@@ -28,9 +27,6 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 		if (ch == '\0') break;
 	}
 	_sourceName = stream.GetName();
-	AutoPtr<Elem_Container> pElemResult(
-		new Elem_Container(_pDecomposer->GetElemOwner().Reference()));
-	_pElemTop.reset(pElemResult->ReduceContent()->Reference());
 	_pDecomposer.reset();
 	return true;
 }

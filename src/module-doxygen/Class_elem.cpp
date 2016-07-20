@@ -40,10 +40,11 @@ String Object_elem::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.elem#print(out?:stream):void
+// doxygen.elem#print(indent?:number, out?:stream):void
 Gura_DeclareMethod(elem, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -52,9 +53,10 @@ Gura_DeclareMethod(elem, print)
 
 Gura_ImplementMethod(elem, print)
 {
-	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
+	int indentLevel = arg.IsValid(0)? arg.GetInt(0) : 0;
+	Stream &stream = arg.IsValid(1)? arg.GetStream(1) : *env.GetConsole();
 	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
-	pElem->Print(env, stream, 0);
+	pElem->Print(env, stream, indentLevel);
 	return Value::Nil;
 }
 

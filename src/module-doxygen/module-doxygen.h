@@ -22,6 +22,7 @@ Gura_BeginModuleHeader(doxygen)
 
 Gura_DeclareUserSymbol(aliases);
 Gura_DeclareUserSymbol(elem);
+Gura_DeclareUserSymbol(elems);
 Gura_DeclareUserSymbol(structures);
 
 //-----------------------------------------------------------------------------
