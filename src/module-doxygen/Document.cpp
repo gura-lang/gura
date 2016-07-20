@@ -108,6 +108,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
 			_pDecomposer->AddElemStructure();
+			AddStructure();
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;
@@ -169,6 +170,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
 			_pDecomposer->AddElemStructure();
+			AddStructure();
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
 		_stat = STAT_BlockDoxygen;
@@ -280,6 +282,13 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	Gura_EndPushbackRegion();
 	return true;
+}
+
+void Document::AddStructure()
+{
+	Structure *pStructure = new Structure();
+	_pStructureOwner->push_back(pStructure);
+	//_pDecomposer->SetElemOwner(pStructure->GetElemOwner().Reference());
 }
 
 //-----------------------------------------------------------------------------

@@ -73,6 +73,7 @@ public:
 	void AddElemToResult(Elem *pElem);
 	String EvaluateCustomCommand(Environment &env) const;
 	static bool ContainsCommand(const char *str);
+	inline void SetElemOwner(ElemOwner *pElemOwner) { _pElemOwner.reset(pElemOwner); }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
@@ -147,6 +148,7 @@ public:
 	inline const Elem *GetElemTop() const { return _pElemTop.get(); }
 protected:
 	bool FeedChar(Environment &env, char ch);
+	void AddStructure();
 };
 
 Gura_EndModuleScope(doxygen)
