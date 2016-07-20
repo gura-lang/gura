@@ -59,7 +59,7 @@ private:
 	char _chAhead;
 	char _chPrev;
 	bool _aheadFlag;
-	AutoPtr<Elem_Container> _pElemResult;
+	AutoPtr<ElemOwner> _pElemOwner;
 	AutoPtr<Elem_Command> _pElemCmdCur;
 	AutoPtr<Elem_Container> _pElemArg;
 	std::unique_ptr<Decomposer> _pDecomposerChild;
@@ -71,9 +71,9 @@ public:
 	bool FeedString(Environment &env, const char *str);
 	void AddElemStructure();
 	void AddElemToResult(Elem *pElem);
-	const Elem *GetElem() const;
 	String EvaluateCustomCommand(Environment &env) const;
 	static bool ContainsCommand(const char *str);
+	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline const char *GetText() const { return _text.c_str(); }

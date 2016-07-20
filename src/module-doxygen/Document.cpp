@@ -28,7 +28,9 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 		if (ch == '\0') break;
 	}
 	_sourceName = stream.GetName();
-	_pElemTop.reset(_pDecomposer->GetElem()->Reference());
+	AutoPtr<Elem_Container> pElemResult(
+		new Elem_Container(_pDecomposer->GetElemOwner().Reference()));
+	_pElemTop.reset(pElemResult->ReduceContent()->Reference());
 	_pDecomposer.reset();
 	return true;
 }
@@ -286,7 +288,7 @@ bool Document::FeedChar(Environment &env, char ch)
 Decomposer::Decomposer(const Aliases *pAliases, Decomposer *pDecomposerParent) :
 	_pAliases(pAliases), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
 	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _aheadFlag(false),
-	_pElemResult(new Elem_Container())
+	_pElemOwner(new ElemOwner())
 {
 }
 
@@ -361,7 +363,10 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				_pElemArg->AddElem(_pDecomposerChild->GetElem()->Reference());
+				//_pElemArg->AddElem(_pDecomposerChild->GetElem()->Reference());
+				AutoPtr<Elem_Container> pElemResult(
+					new Elem_Container(_pDecomposerChild->GetElemOwner().Reference()));
+				_pElemArg->AddElem(pElemResult->ReduceContent()->Reference());
 				_pDecomposerChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
@@ -760,23 +765,17 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 
 void Decomposer::AddElemStructure()
 {
-	_pElemResult->AddElem(new Elem_Structure());
+	_pElemOwner->push_back(new Elem_Structure());
 }
 
 void Decomposer::AddElemToResult(Elem *pElem)
 {
-	ElemOwner &elemOwner = _pElemResult->GetElemOwner();
-	if (!elemOwner.empty()) {
-		Elem *pElemLast = elemOwner.back();
+	if (!_pElemOwner->empty()) {
+		Elem *pElemLast = _pElemOwner->back();
 		if (pElemLast->GetType() == Elem::TYPE_Structure) {
 			dynamic_cast<Elem_Structure *>(pElemLast)->AddElem(pElem);
 		}
 	}
-}
-
-const Elem *Decomposer::GetElem() const
-{
-	return _pElemResult->ReduceContent();
 }
 
 String Decomposer::EvaluateCustomCommand(Environment &env) const
