@@ -53,8 +53,15 @@ public:
 // ElemOwner
 //-----------------------------------------------------------------------------
 class ElemOwner : public ElemList {
+protected:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(ElemOwner);
+public:
+	ElemOwner();
+protected:
 	~ElemOwner();
+public:
 	void Clear();
 };
 
@@ -63,13 +70,13 @@ public:
 //-----------------------------------------------------------------------------
 class Elem_Container : public Elem {
 protected:
-	ElemOwner _elemOwner;
+	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Elem_Container(Type type = TYPE_Container);
 	const Elem *ReduceContent() const;
-	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
-	inline ElemOwner &GetElemOwner() { return _elemOwner; }
-	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
+	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
+	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
+	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
@@ -116,12 +123,12 @@ public:
 class Elem_Command : public Elem {
 protected:
 	const CommandFormat *_pCmdFmt;
-	ElemOwner _elemArgs;
+	AutoPtr<ElemOwner> _pElemArgs;
 public:
 	Elem_Command(const CommandFormat *pCmdFmt, Type type = TYPE_Command);
 	inline const CommandFormat *GetCommandFormat() const { return _pCmdFmt; }
-	inline void AddArg(Elem *pElem) { _elemArgs.push_back(pElem); }
-	inline const ElemOwner &GetElemArgs() const { return _elemArgs; }
+	inline void AddArg(Elem *pElem) { _pElemArgs->push_back(pElem); }
+	inline const ElemOwner &GetElemArgs() const { return *_pElemArgs; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

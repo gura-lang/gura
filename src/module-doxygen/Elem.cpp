@@ -46,6 +46,10 @@ void ElemList::Print(Environment &env, SimpleStream &stream, int indentLevel) co
 //-----------------------------------------------------------------------------
 // ElemOwner
 //-----------------------------------------------------------------------------
+ElemOwner::ElemOwner() : _cntRef(1)
+{
+}
+
 ElemOwner::~ElemOwner()
 {
 	Clear();
@@ -62,25 +66,25 @@ void ElemOwner::Clear()
 //-----------------------------------------------------------------------------
 // Elem_Container
 //-----------------------------------------------------------------------------
-Elem_Container::Elem_Container(Type type) : Elem(type)
+Elem_Container::Elem_Container(Type type) : Elem(type), _pElemOwner(new ElemOwner())
 {
 }
 
 const Elem *Elem_Container::ReduceContent() const
 {
-	return _elemOwner.empty()? Elem::Empty :
-		(_elemOwner.size() == 1)? _elemOwner.front() : this;
+	return _pElemOwner->empty()? Elem::Empty :
+		(_pElemOwner->size() == 1)? _pElemOwner->front() : this;
 }
 
 bool Elem_Container::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
-	return _elemOwner.Render(pRenderer, pCfg, stream);
+	return _pElemOwner->Render(pRenderer, pCfg, stream);
 }
 
 String Elem_Container::ToString() const
 {
 	String rtn;
-	foreach_const (ElemOwner, ppElem, _elemOwner) {
+	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
 		const Elem *pElem = *ppElem;
 		rtn += pElem->ToString();
 	}
@@ -91,7 +95,7 @@ void Elem_Container::Print(Environment &env, SimpleStream &stream, int indentLev
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
-	_elemOwner.Print(env, stream, indentLevel + 1);
+	_pElemOwner->Print(env, stream, indentLevel + 1);
 	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
 }
 
@@ -104,13 +108,13 @@ Elem_Structure::Elem_Structure(Type type) : Elem_Container(type)
 
 bool Elem_Structure::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
-	return _elemOwner.Render(pRenderer, pCfg, stream);
+	return _pElemOwner->Render(pRenderer, pCfg, stream);
 }
 
 String Elem_Structure::ToString() const
 {
 	String rtn;
-	foreach_const (ElemOwner, ppElem, _elemOwner) {
+	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
 		const Elem *pElem = *ppElem;
 		rtn += pElem->ToString();
 	}
@@ -121,7 +125,7 @@ void Elem_Structure::Print(Environment &env, SimpleStream &stream, int indentLev
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*sstructure {\n", indentLevel * 2, "");
-	_elemOwner.Print(env, stream, indentLevel + 1);
+	_pElemOwner->Print(env, stream, indentLevel + 1);
 	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
 }
 
@@ -178,7 +182,7 @@ void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) c
 // Elem_Command
 //-----------------------------------------------------------------------------
 Elem_Command::Elem_Command(const CommandFormat *pCmdFmt, Type type) :
-	Elem(type), _pCmdFmt(pCmdFmt)
+	Elem(type), _pCmdFmt(pCmdFmt), _pElemArgs(new ElemOwner())
 {
 }
 
@@ -190,8 +194,8 @@ bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, Simple
 	const Function *pFunc = pObjAssoc->LookupFunction(_pCmdFmt->GetSymbolEx(), ENVREF_Escalate);
 	if (pFunc == nullptr) return true;
 	ValueList valListArg;
-	valListArg.reserve(_elemArgs.size());
-	foreach_const (ElemList, ppElemArg, _elemArgs) {
+	valListArg.reserve(_pElemArgs->size());
+	foreach_const (ElemList, ppElemArg, *_pElemArgs) {
 		const Elem *pElemArg = *ppElemArg;
 		String strArg;
 		SimpleStream_StringWriter streamArg(strArg);
@@ -211,9 +215,9 @@ String Elem_Command::ToString() const
 	rtn += _pCmdFmt->GetNameEx();
 	rtn += "{";
 	const CommandFormat::ArgOwner &argOwner = _pCmdFmt->GetArgOwner();
-	ElemOwner::const_iterator ppElemArg = _elemArgs.begin();
+	ElemOwner::const_iterator ppElemArg = _pElemArgs->begin();
 	CommandFormat::ArgOwner::const_iterator ppArg = argOwner.begin();
-	for ( ; ppElemArg != _elemArgs.end() && ppArg != argOwner.end(); ppElemArg++, ppArg++) {
+	for ( ; ppElemArg != _pElemArgs->end() && ppArg != argOwner.end(); ppElemArg++, ppArg++) {
 		const Elem *pElemArg = *ppElemArg;
 		const CommandFormat::Arg *pArg = *ppArg;
 		rtn += pArg->GetName();
@@ -238,7 +242,7 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 		iArg++;
 	}
 	stream.Printf(sig, "}\n");
-	_elemArgs.Print(env, stream, indentLevel + 1);
+	_pElemArgs->Print(env, stream, indentLevel + 1);
 }
 
 Gura_EndModuleScope(doxygen)

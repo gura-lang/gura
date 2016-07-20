@@ -12,7 +12,7 @@ Gura_BeginModuleScope(doxygen)
 class Structure {
 protected:
 	int _cntRef;
-	ElemOwner _elemOwner;
+	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Gura_DeclareReferenceAccessor(Structure);
 public:
@@ -20,8 +20,8 @@ public:
 protected:
 	inline ~Structure() {}
 public:
-	inline void AddElem(Elem *pElem) { _elemOwner.push_back(pElem); }
-	inline const ElemOwner &GetElemOwner() const { return _elemOwner; }
+	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
+	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 };
 
 //-----------------------------------------------------------------------------
