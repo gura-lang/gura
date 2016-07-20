@@ -70,6 +70,11 @@ Elem_Container::Elem_Container(Type type) : Elem(type), _pElemOwner(new ElemOwne
 {
 }
 
+Elem_Container::Elem_Container(ElemOwner *pElemOwner, Type type) :
+	Elem(type), _pElemOwner(pElemOwner)
+{
+}
+
 const Elem *Elem_Container::ReduceContent() const
 {
 	return _pElemOwner->empty()? Elem::Empty :

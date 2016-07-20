@@ -73,6 +73,7 @@ protected:
 	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Elem_Container(Type type = TYPE_Container);
+	Elem_Container(ElemOwner *pElemOwner, Type type = TYPE_Container);
 	const Elem *ReduceContent() const;
 	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
 	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
