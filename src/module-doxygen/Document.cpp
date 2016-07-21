@@ -329,13 +329,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Text: {
 		if (ch == '\0') {
-			if (!_text.empty()) {
-				_pElemOwner->push_back(new Elem_Text(_text));
+			if (!_text.empty() && _text != "\n") {
+				FlushElem(new Elem_Text(_text));
 				_text.clear();
 			}
 		} else if (IsCommandMark(ch)) {
-			if (!_text.empty()) {
-				_pElemOwner->push_back(new Elem_Text(_text));
+			if (!_text.empty() && _text != "\n") {
+				FlushElem(new Elem_Text(_text));
 				_text.clear();
 			}
 			_cmdName.clear();
@@ -401,7 +401,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 					_strArg.clear();
 				}
 				_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
-				_pElemOwner->push_back(_pElemCmdCur.release());
+				FlushElemCommand(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -460,7 +460,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			_pElemOwner->push_back(_pElemCmdCur.release());
+			FlushElemCommand(_pElemCmdCur.release());
 			Pushback(ch);
 			_text.clear();
 			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
@@ -787,6 +787,33 @@ bool Decomposer::ContainsCommand(const char *str)
 		if (IsCommandMark(ch)) return true;
 	}
 	return false;
+}
+
+void Decomposer::FlushElem(Elem *pElem)
+{
+	if (!IsTopLevel()) {
+		_pElemOwner->push_back(pElem);
+		return;
+	}
+	Elem_Container *pElemContainer = nullptr;
+	if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Container) {
+		pElemContainer = dynamic_cast<Elem_Container *>(_pElemOwner->back());
+	} else {
+		pElemContainer = new Elem_Container();
+		_pElemOwner->push_back(pElemContainer);
+	}
+	//_pElemOwner->push_back(pElem);
+	pElemContainer->AddElem(pElem);
+}
+
+void Decomposer::FlushElemCommand(Elem_Command *pElem)
+{
+	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
+	if (cmdType == CommandFormat::CMDTYPE_Visual) {
+		FlushElem(pElem);
+	} else {
+		_pElemOwner->push_back(pElem);
+	}
 }
 
 Gura_EndModuleScope(doxygen)
