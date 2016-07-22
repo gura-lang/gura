@@ -99,9 +99,9 @@ String Elem_Composite::ToString() const
 void Elem_Composite::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
+	stream.Printf(sig, "%*s[\n", indentLevel * 2, "");
 	_pElemOwner->Print(env, stream, indentLevel + 1);
-	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
+	stream.Printf(sig, "%*s]\n", indentLevel * 2, "");
 }
 
 //-----------------------------------------------------------------------------

@@ -791,7 +791,9 @@ void Parser::FlushElemString(const char *str)
 	ElemOwner &elemOwner = DetermineElemOwner();
 	if (elemOwner.empty()) {
 		String strMod = Strip(str, true, false);
+		//*******
 		if (strMod.empty()) return;
+		//*******
 		elemOwner.push_back(new Elem_String(strMod));
 	} else {
 		elemOwner.push_back(new Elem_String(str));
