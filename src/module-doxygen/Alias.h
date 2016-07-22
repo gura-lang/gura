@@ -17,11 +17,11 @@ public:
 		virtual bool Evaluate(Environment &env, String &rtn, const StringList &strArgs) const = 0;
 		virtual String ToString() const = 0;
 	};
-	class Elem_Text : public Elem {
+	class Elem_String : public Elem {
 	private:
-		String _text;
+		String _str;
 	public:
-		inline Elem_Text(const String &text) : _text(text) {}
+		inline Elem_String(const String &str) : _str(str) {}
 		virtual bool Evaluate(Environment &env, String &rtn, const StringList &strArgs) const;
 		virtual String ToString() const;
 	};

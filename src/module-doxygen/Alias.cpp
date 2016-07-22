@@ -23,7 +23,7 @@ bool Alias::Parse(Environment &env, const char *str)
 		STAT_ArgNumPost,
 		STAT_Assign,
 		STAT_Quote,
-		STAT_Text,
+		STAT_String,
 		STAT_QuoteLast,
 		STAT_BackSlash,
 		STAT_ArgRef,
@@ -122,19 +122,19 @@ bool Alias::Parse(Environment &env, const char *str)
 				// nothing to do
 			} else if (ch == '"') {
 				field.clear();
-				stat = STAT_Text;
+				stat = STAT_String;
 			} else {
 				env.SetError(ERR_SyntaxError, "double-quotation is expected");
 				return false;
 			}
 			break;
 		}
-		case STAT_Text: {
+		case STAT_String: {
 			if (ch == '\\') {
 				stat = STAT_BackSlash;
 			} else if (ch == '\0') {
 				if (!field.empty()) {
-					_elemOwner.push_back(new Elem_Text(field));
+					_elemOwner.push_back(new Elem_String(field));
 				}
 			} else if (ch == '"') {
 				strAhead.clear();
@@ -150,36 +150,36 @@ bool Alias::Parse(Environment &env, const char *str)
 				strAhead += ch;
 			} else if (ch == '\0') {
 				if (!field.empty()) {
-					_elemOwner.push_back(new Elem_Text(field));
+					_elemOwner.push_back(new Elem_String(field));
 				}
 			} else {
 				field += strAhead;
 				Gura_Pushback();
-				stat = STAT_Text;
+				stat = STAT_String;
 			}
 			break;
 		}
 		case STAT_BackSlash: {
 			if (IsDigit(ch)) {
 				if (!field.empty()) {
-					_elemOwner.push_back(new Elem_Text(field));
+					_elemOwner.push_back(new Elem_String(field));
 				}
 				num = 0;
 				Gura_Pushback();
 				stat = STAT_ArgRef;
 			} else if (ch == '"') {
 				Gura_Pushback();
-				stat = STAT_Text;
+				stat = STAT_String;
 			} else if (ch == 't') {
 				field += '\t';
-				stat = STAT_Text;
+				stat = STAT_String;
 			} else if (ch == 'n') {
 				field += '\n';
-				stat = STAT_Text;
+				stat = STAT_String;
 			} else {
 				Gura_Pushback();
 				field += '\\';
-				stat = STAT_Text;
+				stat = STAT_String;
 			}
 			break;
 		}
@@ -194,7 +194,7 @@ bool Alias::Parse(Environment &env, const char *str)
 				_elemOwner.push_back(new Elem_ArgRef(num - 1));
 				Gura_Pushback();
 				field.clear();
-				stat = STAT_Text;
+				stat = STAT_String;
 			}
 			break;
 		}
@@ -223,17 +223,17 @@ Alias::Elem::~Elem()
 }
 
 //-----------------------------------------------------------------------------
-// Alias::Elem_Text
+// Alias::Elem_String
 //-----------------------------------------------------------------------------
-bool Alias::Elem_Text::Evaluate(Environment &env, String &rtn, const StringList &strArgs) const
+bool Alias::Elem_String::Evaluate(Environment &env, String &rtn, const StringList &strArgs) const
 {
-	rtn += _text;
+	rtn += _str;
 	return true;
 }
 
-String Alias::Elem_Text::ToString() const
+String Alias::Elem_String::ToString() const
 {
-	return _text;
+	return _str;
 }
 
 //-----------------------------------------------------------------------------
