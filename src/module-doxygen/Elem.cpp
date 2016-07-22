@@ -64,29 +64,29 @@ void ElemOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// Elem_Container
+// Elem_Composite
 //-----------------------------------------------------------------------------
-Elem_Container::Elem_Container(Type type) : Elem(type), _pElemOwner(new ElemOwner())
+Elem_Composite::Elem_Composite(Type type) : Elem(type), _pElemOwner(new ElemOwner())
 {
 }
 
-Elem_Container::Elem_Container(ElemOwner *pElemOwner, Type type) :
+Elem_Composite::Elem_Composite(ElemOwner *pElemOwner, Type type) :
 	Elem(type), _pElemOwner(pElemOwner)
 {
 }
 
-const Elem *Elem_Container::ReduceContent() const
+const Elem *Elem_Composite::ReduceContent() const
 {
 	return _pElemOwner->empty()? Elem::Empty :
 		(_pElemOwner->size() == 1)? _pElemOwner->front() : this;
 }
 
-bool Elem_Container::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_Composite::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
 	return _pElemOwner->Render(pRenderer, pCfg, stream);
 }
 
-String Elem_Container::ToString() const
+String Elem_Composite::ToString() const
 {
 	String rtn;
 	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
@@ -96,40 +96,10 @@ String Elem_Container::ToString() const
 	return "";
 }
 
-void Elem_Container::Print(Environment &env, SimpleStream &stream, int indentLevel) const
+void Elem_Composite::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s{\n", indentLevel * 2, "");
-	_pElemOwner->Print(env, stream, indentLevel + 1);
-	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
-}
-
-//-----------------------------------------------------------------------------
-// Elem_Structure
-//-----------------------------------------------------------------------------
-Elem_Structure::Elem_Structure(Type type) : Elem_Container(type)
-{
-}
-
-bool Elem_Structure::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
-{
-	return _pElemOwner->Render(pRenderer, pCfg, stream);
-}
-
-String Elem_Structure::ToString() const
-{
-	String rtn;
-	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
-		const Elem *pElem = *ppElem;
-		rtn += pElem->ToString();
-	}
-	return "";
-}
-
-void Elem_Structure::Print(Environment &env, SimpleStream &stream, int indentLevel) const
-{
-	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*sstructure {\n", indentLevel * 2, "");
 	_pElemOwner->Print(env, stream, indentLevel + 1);
 	stream.Printf(sig, "%*s}\n", indentLevel * 2, "");
 }

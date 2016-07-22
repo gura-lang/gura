@@ -367,8 +367,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				AutoPtr<Elem_Container> pElemResult(
-					new Elem_Container(_pDecomposerChild->GetElemOwner().Reference()));
+				AutoPtr<Elem_Composite> pElemResult(
+					new Elem_Composite(_pDecomposerChild->GetElemOwner().Reference()));
 				_pElemArg->AddElem(pElemResult->ReduceContent()->Reference());
 				_pDecomposerChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
@@ -497,7 +497,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
-			_pElemArg.reset(new Elem_Container());
+			_pElemArg.reset(new Elem_Composite());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgLine;
@@ -529,7 +529,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara()) {
-			_pElemArg.reset(new Elem_Container());
+			_pElemArg.reset(new Elem_Composite());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgPara;
@@ -811,14 +811,14 @@ void Decomposer::FlushElemCommand(Elem_Command *pElem)
 ElemOwner &Decomposer::DetermineElemOwner()
 {
 	if (!IsTopLevel()) return *_pElemOwner;
-	Elem_Container *pElemContainer = nullptr;
-	if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Container) {
-		pElemContainer = dynamic_cast<Elem_Container *>(_pElemOwner->back());
+	Elem_Composite *pElemComposite = nullptr;
+	if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
+		pElemComposite = dynamic_cast<Elem_Composite *>(_pElemOwner->back());
 	} else {
-		pElemContainer = new Elem_Container();
-		_pElemOwner->push_back(pElemContainer);
+		pElemComposite = new Elem_Composite();
+		_pElemOwner->push_back(pElemComposite);
 	}
-	return pElemContainer->GetElemOwner();
+	return pElemComposite->GetElemOwner();
 }
 
 Gura_EndModuleScope(doxygen)

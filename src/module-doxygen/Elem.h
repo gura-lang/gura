@@ -15,8 +15,8 @@ class Configuration;
 class Elem {
 public:
 	enum Type {
-		TYPE_Container,
-		TYPE_Structure,
+		TYPE_None,
+		TYPE_Composite,
 		TYPE_Empty,
 		TYPE_String,
 		TYPE_Command,
@@ -66,29 +66,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Elem_Container
+// Elem_Composite
 //-----------------------------------------------------------------------------
-class Elem_Container : public Elem {
+class Elem_Composite : public Elem {
 protected:
 	AutoPtr<ElemOwner> _pElemOwner;
 public:
-	Elem_Container(Type type = TYPE_Container);
-	Elem_Container(ElemOwner *pElemOwner, Type type = TYPE_Container);
+	Elem_Composite(Type type = TYPE_Composite);
+	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
 	const Elem *ReduceContent() const;
 	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
 	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
-	virtual String ToString() const;
-	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Elem_Structure
-//-----------------------------------------------------------------------------
-class Elem_Structure : public Elem_Container {
-public:
-	Elem_Structure(Type type = TYPE_Structure);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
