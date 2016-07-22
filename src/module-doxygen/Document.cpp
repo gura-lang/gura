@@ -322,26 +322,26 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else {
 			Pushback(ch);
-			_text.clear();
-			_stat = STAT_Text;
+			_str.clear();
+			_stat = STAT_String;
 		}
 		break;
 	}
-	case STAT_Text: {
+	case STAT_String: {
 		if (ch == '\0') {
-			FlushElemText(_text.c_str());
-			_text.clear();
+			FlushElemString(_str.c_str());
+			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemText(_text.c_str());
-			_text.clear();
+			FlushElemString(_str.c_str());
+			_str.clear();
 			_cmdName.clear();
-			_stat = STAT_AcceptCommandInText;
+			_stat = STAT_AcceptCommandInString;
 		} else {
-			_text += ch;
+			_str += ch;
 		}
 		break;
 	}
-	case STAT_AcceptCommandInText: {
+	case STAT_AcceptCommandInString: {
 		if (IsCommandEnd(_cmdName, ch)) {
 			if (_cmdName.empty()) {
 				env.SetError(ERR_SyntaxError, "command name is not specified");
@@ -393,7 +393,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				}
 				// finish the previous command
 				if (!_strArg.empty()) {
-					_pElemArg->AddElem(new Elem_Text(_strArg));
+					_pElemArg->AddElem(new Elem_String(_strArg));
 					_strArg.clear();
 				}
 				_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
@@ -416,7 +416,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (_pDecomposerChild.get() != nullptr) {
 			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
 			if (_pDecomposerChild->IsComplete()) {
-				_strArg += _pDecomposerChild->GetText();
+				_strArg += _pDecomposerChild->GetString();
 				_pDecomposerChild.reset();
 				_stat = STAT_ArgCustom;
 			}
@@ -458,8 +458,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else {
 			FlushElemCommand(_pElemCmdCur.release());
 			Pushback(ch);
-			_text.clear();
-			_stat = IsTopLevel()? STAT_Text : STAT_Complete;
+			_str.clear();
+			_stat = IsTopLevel()? STAT_String : STAT_Complete;
 		}
 		break;
 	}
@@ -539,7 +539,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWord: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '.' || ch == ',' || ch == ';' || ch == '?' || ch == '!') {
@@ -554,7 +554,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
 			Pushback(_chAhead);
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -567,11 +567,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	case STAT_ArgWordQuote: {
 		if (ch == '\n' || ch == '\0') {
 			Pushback(ch);
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '"') {
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -584,7 +584,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
 			return false;
 		} else if (ch == ']') {
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -597,7 +597,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (ch == '\0') Pushback(ch);
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->AddElem(new Elem_Text(str));
+				_pElemArg->AddElem(new Elem_String(str));
 			}
 			_strArg.clear();
 			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
@@ -605,7 +605,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else if (IsCommandMark(ch)) {
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->AddElem(new Elem_Text(str));
+				_pElemArg->AddElem(new Elem_String(str));
 			}
 			_strArg.clear();
 			_cmdName.clear();
@@ -620,7 +620,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -633,7 +633,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
 			return false;
 		} else if (ch == '}') {
-			_pElemCmdCur->AddArg(new Elem_Text(_strArg));
+			_pElemCmdCur->AddArg(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -649,14 +649,14 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		} else if (ch == '\0') {
 			Pushback(ch);
 			if (!_strArg.empty()) {
-				_pElemArg->AddElem(new Elem_Text(_strArg));
+				_pElemArg->AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			if (!_strArg.empty()) {
-				_pElemArg->AddElem(new Elem_Text(_strArg));
+				_pElemArg->AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_cmdName.clear();
@@ -670,7 +670,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		if (ch == '\n') {
 			// detected a blank line
 			if (!_strArg.empty()) {
-				_pElemArg->AddElem(new Elem_Text(_strArg));
+				_pElemArg->AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_pElemCmdCur->AddArg(_pElemArg->ReduceContent()->Reference());
@@ -694,8 +694,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (env.IsSignalled()) return false;
 			Pushback(ch);
 			_strArgs.clear();
-			_text.clear();
-			_stat = STAT_Text;
+			_str.clear();
+			_stat = STAT_String;
 			foreach (String, p, rtn) {
 				if (!FeedChar(env, *p)) return false;
 			}
@@ -710,8 +710,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			if (env.IsSignalled()) return false;
 			_strArgs.clear();
 			_strArg.clear();
-			_text.clear();
-			_stat = STAT_Text;
+			_str.clear();
+			_stat = STAT_String;
 			foreach (String, p, rtn) {
 				if (!FeedChar(env, *p)) return false;
 			}
@@ -785,16 +785,16 @@ bool Decomposer::ContainsCommand(const char *str)
 	return false;
 }
 
-void Decomposer::FlushElemText(const char *text)
+void Decomposer::FlushElemString(const char *str)
 {
-	if (*text == '\0') return;
+	if (*str == '\0') return;
 	ElemOwner &elemOwner = DetermineElemOwner();
 	if (elemOwner.empty()) {
-		String textMod = Strip(text, true, false);
-		if (textMod.empty()) return;
-		elemOwner.push_back(new Elem_Text(textMod));
+		String strMod = Strip(str, true, false);
+		if (strMod.empty()) return;
+		elemOwner.push_back(new Elem_String(strMod));
 	} else {
-		elemOwner.push_back(new Elem_Text(text));
+		elemOwner.push_back(new Elem_String(str));
 	}
 }
 

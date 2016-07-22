@@ -159,28 +159,28 @@ void Elem_Empty::Print(Environment &env, SimpleStream &stream, int indentLevel) 
 }
 
 //-----------------------------------------------------------------------------
-// Elem_Text
+// Elem_String
 //-----------------------------------------------------------------------------
-Elem_Text::Elem_Text(const String &text, Type type) : Elem(type), _text(text)
+Elem_String::Elem_String(const String &str, Type type) : Elem(type), _str(str)
 {
 }
 
-bool Elem_Text::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_String::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
 	Signal &sig = pRenderer->GetSignal();
-	stream.Print(sig, _text.c_str());
+	stream.Print(sig, _str.c_str());
 	return sig.IsNoSignalled();
 }
 
-String Elem_Text::ToString() const
+String Elem_String::ToString() const
 {
-	return MakeQuotedString(_text.c_str(), false);
+	return MakeQuotedString(_str.c_str(), false);
 }
 
-void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) const
+void Elem_String::Print(Environment &env, SimpleStream &stream, int indentLevel) const
 {
 	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s%s\n", indentLevel * 2, "", MakeQuotedString(_text.c_str()).c_str());
+	stream.Printf(sig, "%*s%s\n", indentLevel * 2, "", MakeQuotedString(_str.c_str()).c_str());
 }
 
 //-----------------------------------------------------------------------------

@@ -18,7 +18,7 @@ public:
 		TYPE_Container,
 		TYPE_Structure,
 		TYPE_Empty,
-		TYPE_Text,
+		TYPE_String,
 		TYPE_Command,
 	};
 protected:
@@ -106,13 +106,13 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Elem_Text
+// Elem_String
 //-----------------------------------------------------------------------------
-class Elem_Text : public Elem {
+class Elem_String : public Elem {
 protected:
-	String _text;
+	String _str;
 public:
-	Elem_Text(const String &text, Type type = TYPE_Text);
+	Elem_String(const String &str, Type type = TYPE_String);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

@@ -23,8 +23,8 @@ class Decomposer {
 public:
 	enum Stat {
 		STAT_Init,
-		STAT_Text,
-		STAT_AcceptCommandInText,
+		STAT_String,
+		STAT_AcceptCommandInString,
 		STAT_AcceptCommandInArgLine,
 		STAT_AcceptCommandInArgPara,
 		STAT_AcceptCommandInArgCustom,
@@ -49,7 +49,7 @@ private:
 	const Aliases *_pAliases;
 	Decomposer *_pDecomposerParent;
 	Stat _stat;
-	String _text;
+	String _str;
 	String _strArg;
 	String _strAhead;
 	String _cmdName;
@@ -70,7 +70,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	String EvaluateCustomCommand(Environment &env) const;
-	void FlushElemText(const char *text);
+	void FlushElemString(const char *str);
 	void FlushElemCommand(Elem_Command *pElem);
 	ElemOwner &DetermineElemOwner();
 	static bool ContainsCommand(const char *str);
@@ -78,7 +78,7 @@ public:
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
-	inline const char *GetText() const { return _text.c_str(); }
+	inline const char *GetString() const { return _str.c_str(); }
 	inline void Pushback(char ch) {
 		if (_pDecomposerParent == nullptr) {
 			_pushbackBuff[_pushbackLevel++] = ch;
