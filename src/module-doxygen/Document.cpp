@@ -786,7 +786,12 @@ bool Decomposer::ContainsCommand(const char *str)
 void Decomposer::FlushElemText()
 {
 	if (!_text.empty() && _text != "\n") {
-		DetermineElemOwner().push_back(new Elem_Text(_text));
+		ElemOwner &elemOwner = DetermineElemOwner();
+		if (elemOwner.empty()) {
+			elemOwner.push_back(new Elem_Text(Strip(_text.c_str(), true, false)));
+		} else {
+			elemOwner.push_back(new Elem_Text(_text));
+		}
 	}
 	_text.clear();
 }
