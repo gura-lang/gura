@@ -8,6 +8,7 @@
 #include "Elem.h"
 #include "Alias.h"
 #include "Structure.h"
+#include "Parser.h"
 #include "Document.h"
 #include "Configuration.h"
 #include "Renderer.h"
@@ -17,6 +18,14 @@
 #include "Class_configuration.h"
 #include "Class_aliases.h"
 #include "Class_renderer.h"
+
+#define BeginPushbackRegion(var) \
+_pushbackBuff[_pushbackLevel++] = var; \
+while (_pushbackLevel > 0) { \
+var = _pushbackBuff[--_pushbackLevel];
+
+#define EndPushbackRegion() \
+}
 
 Gura_BeginModuleHeader(doxygen)
 
