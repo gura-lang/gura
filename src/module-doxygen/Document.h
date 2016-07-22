@@ -70,8 +70,9 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	String EvaluateCustomCommand(Environment &env) const;
-	void FlushElem(Elem *pElem);
+	void FlushElemText();
 	void FlushElemCommand(Elem_Command *pElem);
+	ElemOwner &DetermineElemOwner();
 	static bool ContainsCommand(const char *str);
 	inline void SetElemOwner(ElemOwner *pElemOwner) { _pElemOwner.reset(pElemOwner); }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }

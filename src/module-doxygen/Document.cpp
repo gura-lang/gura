@@ -329,15 +329,9 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Text: {
 		if (ch == '\0') {
-			if (!_text.empty() && _text != "\n") {
-				FlushElem(new Elem_Text(_text));
-				_text.clear();
-			}
+			FlushElemText();
 		} else if (IsCommandMark(ch)) {
-			if (!_text.empty() && _text != "\n") {
-				FlushElem(new Elem_Text(_text));
-				_text.clear();
-			}
+			FlushElemText();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInText;
 		} else {
@@ -789,12 +783,27 @@ bool Decomposer::ContainsCommand(const char *str)
 	return false;
 }
 
-void Decomposer::FlushElem(Elem *pElem)
+void Decomposer::FlushElemText()
 {
-	if (!IsTopLevel()) {
-		_pElemOwner->push_back(pElem);
-		return;
+	if (!_text.empty() && _text != "\n") {
+		DetermineElemOwner().push_back(new Elem_Text(_text));
 	}
+	_text.clear();
+}
+
+void Decomposer::FlushElemCommand(Elem_Command *pElem)
+{
+	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
+	if (cmdType == CommandFormat::CMDTYPE_Visual) {
+		DetermineElemOwner().push_back(pElem);
+	} else {
+		_pElemOwner->push_back(pElem);
+	}
+}
+
+ElemOwner &Decomposer::DetermineElemOwner()
+{
+	if (!IsTopLevel()) return *_pElemOwner;
 	Elem_Container *pElemContainer = nullptr;
 	if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Container) {
 		pElemContainer = dynamic_cast<Elem_Container *>(_pElemOwner->back());
@@ -802,18 +811,7 @@ void Decomposer::FlushElem(Elem *pElem)
 		pElemContainer = new Elem_Container();
 		_pElemOwner->push_back(pElemContainer);
 	}
-	//_pElemOwner->push_back(pElem);
-	pElemContainer->AddElem(pElem);
-}
-
-void Decomposer::FlushElemCommand(Elem_Command *pElem)
-{
-	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
-	if (cmdType == CommandFormat::CMDTYPE_Visual) {
-		FlushElem(pElem);
-	} else {
-		_pElemOwner->push_back(pElem);
-	}
+	return pElemContainer->GetElemOwner();
 }
 
 Gura_EndModuleScope(doxygen)
