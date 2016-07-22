@@ -17,9 +17,9 @@ Gura_BeginModuleScope(doxygen)
 class Object_document;
 
 //-----------------------------------------------------------------------------
-// Decomposer
+// Parser
 //-----------------------------------------------------------------------------
-class Decomposer {
+class Parser {
 public:
 	enum Stat {
 		STAT_Init,
@@ -47,7 +47,7 @@ public:
 	};
 private:
 	const Aliases *_pAliases;
-	Decomposer *_pDecomposerParent;
+	Parser *_pParserParent;
 	Stat _stat;
 	String _str;
 	String _strArg;
@@ -62,9 +62,9 @@ private:
 	AutoPtr<ElemOwner> _pElemOwner;
 	AutoPtr<Elem_Command> _pElemCmdCur;
 	AutoPtr<Elem_Composite> _pElemArg;
-	std::unique_ptr<Decomposer> _pDecomposerChild;
+	std::unique_ptr<Parser> _pParserChild;
 public:
-	Decomposer(const Aliases *pAliases, Decomposer *pDecomposerParent = nullptr);
+	Parser(const Aliases *pAliases, Parser *pParserParent = nullptr);
 	void SetCommandSpecial(const CommandFormat *pCmdFmt);
 	void SetCommandCustom(const String &cmdName);
 	bool FeedChar(Environment &env, char ch);
@@ -76,14 +76,14 @@ public:
 	static bool ContainsCommand(const char *str);
 	inline void SetElemOwner(ElemOwner *pElemOwner) { _pElemOwner.reset(pElemOwner); }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
-	inline bool IsTopLevel() const { return _pDecomposerParent == nullptr; }
+	inline bool IsTopLevel() const { return _pParserParent == nullptr; }
 	inline bool IsComplete() const { return _stat == STAT_Complete; }
 	inline const char *GetString() const { return _str.c_str(); }
 	inline void Pushback(char ch) {
-		if (_pDecomposerParent == nullptr) {
+		if (_pParserParent == nullptr) {
 			_pushbackBuff[_pushbackLevel++] = ch;
 		} else {
-			_pDecomposerParent->Pushback(ch);
+			_pParserParent->Pushback(ch);
 		}
 	}
 	inline void SetAheadFlag(bool aheadFlag) { _aheadFlag = aheadFlag; }
@@ -133,7 +133,7 @@ private:
 	Region _regionPrev;
 	String _sourceName;
 	AutoPtr<StructureOwner> _pStructureOwner;
-	std::unique_ptr<Decomposer> _pDecomposer;
+	std::unique_ptr<Parser> _pParser;
 public:
 	Gura_DeclareReferenceAccessor(Document);
 public:

@@ -17,7 +17,7 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 						  const Aliases *pAliases, bool extractedFlag)
 {
 	Signal &sig = env.GetSignal();
-	_pDecomposer.reset(new Decomposer(pAliases));
+	_pParser.reset(new Parser(pAliases));
 	if (extractedFlag) {
 		AddStructure();
 		_stat = STAT_ExIndent;
@@ -32,7 +32,7 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 		if (ch == '\0') break;
 	}
 	_sourceName = stream.GetName();
-	_pDecomposer.reset();
+	_pParser.reset();
 	return true;
 }
 
@@ -102,9 +102,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_LineDoxygenFirstChar: {
 		if (ch == '<') {
-			_pDecomposer->SetAheadFlag(!_commentLineFlag);
+			_pParser->SetAheadFlag(!_commentLineFlag);
 		} else {
-			_pDecomposer->SetAheadFlag(false);
+			_pParser->SetAheadFlag(false);
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
@@ -117,11 +117,11 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygen: {
 		if (ch == '\n') {
 			// a line comment ends with newline.
-			if (!_pDecomposer->FeedChar(env, '\n')) return false;
-			if (!_pDecomposer->FeedChar(env, '\0')) return false;
+			if (!_pParser->FeedChar(env, '\n')) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Indent;
 		} else { // including '\0'
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
@@ -163,9 +163,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygenFirstChar: {
 		if (ch == '<') {
-			_pDecomposer->SetAheadFlag(!_commentLineFlag);
+			_pParser->SetAheadFlag(!_commentLineFlag);
 		} else {
-			_pDecomposer->SetAheadFlag(false);
+			_pParser->SetAheadFlag(false);
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
@@ -179,29 +179,29 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '*') {
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else { // including '\0'
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
 	case STAT_BlockDoxygen_Asterisk: {
 		if (ch == '/') {
-			if (!_pDecomposer->FeedChar(env, '\0')) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else { // including '\0'
-			if (!_pDecomposer->FeedChar(env, '*')) return false;
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, '*')) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen;
 		}
 		break;
 	}
 	case STAT_BlockDoxygen_Indent: {
 		if (ch == '\0') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
@@ -214,7 +214,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_IndentAsterisk: {
 		if (ch == '/') {
-			if (!_pDecomposer->FeedChar(env, '\0')) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else {
 			Gura_Pushback();
@@ -226,7 +226,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
@@ -256,9 +256,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExIndent: {
 		if (ch == '\0') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
@@ -269,12 +269,12 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExDoxygen: {
 		if (ch == '\0') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 			_stat = STAT_ExIndent;
 		} else {
-			if (!_pDecomposer->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
@@ -287,32 +287,32 @@ void Document::AddStructure()
 {
 	Structure *pStructure = new Structure();
 	_pStructureOwner->push_back(pStructure);
-	_pDecomposer->SetElemOwner(pStructure->GetElemOwner().Reference());
+	_pParser->SetElemOwner(pStructure->GetElemOwner().Reference());
 }
 
 //-----------------------------------------------------------------------------
-// Decomposer
+// Parser
 //-----------------------------------------------------------------------------
-Decomposer::Decomposer(const Aliases *pAliases, Decomposer *pDecomposerParent) :
-	_pAliases(pAliases), _pDecomposerParent(pDecomposerParent), _stat(STAT_Init),
+Parser::Parser(const Aliases *pAliases, Parser *pParserParent) :
+	_pAliases(pAliases), _pParserParent(pParserParent), _stat(STAT_Init),
 	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _aheadFlag(false),
 	_pElemOwner(new ElemOwner())
 {
 }
 
-void Decomposer::SetCommandSpecial(const CommandFormat *pCmdFmt)
+void Parser::SetCommandSpecial(const CommandFormat *pCmdFmt)
 {
 	_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 	_stat = STAT_CommandSpecial;
 }
 
-void Decomposer::SetCommandCustom(const String &cmdName)
+void Parser::SetCommandCustom(const String &cmdName)
 {
 	_cmdName = cmdName;
 	_stat = STAT_CommandCustom;
 }
 
-bool Decomposer::FeedChar(Environment &env, char ch)
+bool Parser::FeedChar(Environment &env, char ch)
 {
 	BeginPushbackRegion(ch);
 	//::printf("%p ch=%c, stat=%d\n", this, ch, _stat);
@@ -364,13 +364,13 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_AcceptCommandInArgLine:
 	case STAT_AcceptCommandInArgPara: {
-		if (_pDecomposerChild.get() != nullptr) {
-			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
-			if (_pDecomposerChild->IsComplete()) {
+		if (_pParserChild.get() != nullptr) {
+			if (!_pParserChild->FeedChar(env, ch)) return false;
+			if (_pParserChild->IsComplete()) {
 				AutoPtr<Elem_Composite> pElemResult(
-					new Elem_Composite(_pDecomposerChild->GetElemOwner().Reference()));
+					new Elem_Composite(_pParserChild->GetElemOwner().Reference()));
 				_pElemArg->AddElem(pElemResult->ReduceContent()->Reference());
-				_pDecomposerChild.reset();
+				_pParserChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
 		} else if (IsCommandEnd(_cmdName, ch)) {
@@ -381,8 +381,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
-				_pDecomposerChild->SetCommandCustom(_cmdName.c_str());
+				_pParserChild.reset(new Parser(_pAliases, this));
+				_pParserChild->SetCommandCustom(_cmdName.c_str());
 				Pushback(ch);
 			} else if (pCmdFmt->IsSectionIndicator()) {
 				if (_stat == STAT_AcceptCommandInArgLine ||
@@ -404,8 +404,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 				_stat = STAT_CommandSpecial;
 			} else {
 				// special command (not section indicator)
-				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
-				_pDecomposerChild->SetCommandSpecial(pCmdFmt);
+				_pParserChild.reset(new Parser(_pAliases, this));
+				_pParserChild->SetCommandSpecial(pCmdFmt);
 			}
 		} else {
 			_cmdName += ch;
@@ -413,11 +413,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_AcceptCommandInArgCustom: {
-		if (_pDecomposerChild.get() != nullptr) {
-			if (!_pDecomposerChild->FeedChar(env, ch)) return false;
-			if (_pDecomposerChild->IsComplete()) {
-				_strArg += _pDecomposerChild->GetString();
-				_pDecomposerChild.reset();
+		if (_pParserChild.get() != nullptr) {
+			if (!_pParserChild->FeedChar(env, ch)) return false;
+			if (_pParserChild->IsComplete()) {
+				_strArg += _pParserChild->GetString();
+				_pParserChild.reset();
 				_stat = STAT_ArgCustom;
 			}
 		} else if (IsCommandEnd(_cmdName, ch)) {
@@ -428,8 +428,8 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
-				_pDecomposerChild.reset(new Decomposer(_pAliases, this));
-				_pDecomposerChild->SetCommandCustom(_cmdName);
+				_pParserChild.reset(new Parser(_pAliases, this));
+				_pParserChild->SetCommandCustom(_cmdName);
 				Pushback(ch);
 			} else {
 				// special command
@@ -757,7 +757,7 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-bool Decomposer::FeedString(Environment &env, const char *str)
+bool Parser::FeedString(Environment &env, const char *str)
 {
 	for (const char *p = str; ; p++) {
 		if (!FeedChar(env, *p)) return false;
@@ -766,7 +766,7 @@ bool Decomposer::FeedString(Environment &env, const char *str)
 	return true;
 }
 
-String Decomposer::EvaluateCustomCommand(Environment &env) const
+String Parser::EvaluateCustomCommand(Environment &env) const
 {
 	String rtn;
 	if (_pAliases != nullptr) {
@@ -776,7 +776,7 @@ String Decomposer::EvaluateCustomCommand(Environment &env) const
 	return rtn;
 }
 
-bool Decomposer::ContainsCommand(const char *str)
+bool Parser::ContainsCommand(const char *str)
 {
 	for (const char *p = str; *p != '\0'; p++) {
 		char ch = *p;
@@ -785,7 +785,7 @@ bool Decomposer::ContainsCommand(const char *str)
 	return false;
 }
 
-void Decomposer::FlushElemString(const char *str)
+void Parser::FlushElemString(const char *str)
 {
 	if (*str == '\0') return;
 	ElemOwner &elemOwner = DetermineElemOwner();
@@ -798,7 +798,7 @@ void Decomposer::FlushElemString(const char *str)
 	}
 }
 
-void Decomposer::FlushElemCommand(Elem_Command *pElem)
+void Parser::FlushElemCommand(Elem_Command *pElem)
 {
 	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
 	if (cmdType == CommandFormat::CMDTYPE_Visual) {
@@ -808,7 +808,7 @@ void Decomposer::FlushElemCommand(Elem_Command *pElem)
 	}
 }
 
-ElemOwner &Decomposer::DetermineElemOwner()
+ElemOwner &Parser::DetermineElemOwner()
 {
 	if (!IsTopLevel()) return *_pElemOwner;
 	Elem_Composite *pElemComposite = nullptr;
