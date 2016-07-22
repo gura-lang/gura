@@ -62,7 +62,6 @@ public:
 	String EvaluateCustomCommand(Environment &env) const;
 	void FlushElemString(const char *str);
 	void FlushElemCommand(Elem_Command *pElem);
-	ElemOwner &DetermineElemOwner();
 	static bool ContainsCommand(const char *str);
 	inline void SetElemOwner(ElemOwner *pElemOwner) { _pElemOwner.reset(pElemOwner); }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
