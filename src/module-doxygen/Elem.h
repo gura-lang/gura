@@ -75,7 +75,6 @@ public:
 	Elem_Composite(Type type = TYPE_Composite);
 	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
 	const Elem *ReduceContent() const;
-	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
 	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
@@ -117,7 +116,7 @@ protected:
 public:
 	Elem_Command(const CommandFormat *pCmdFmt, Type type = TYPE_Command);
 	inline const CommandFormat *GetCommandFormat() const { return _pCmdFmt; }
-	inline void AddArg(Elem *pElem) { _pElemArgs->push_back(pElem); }
+	inline ElemOwner &GetElemArgs() { return *_pElemArgs; }
 	inline const ElemOwner &GetElemArgs() const { return *_pElemArgs; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
