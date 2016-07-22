@@ -527,15 +527,17 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 
 ElemOwner &Parser::DetermineElemOwner()
 {
-	if (!IsTopLevel()) return *_pElemOwner;
-	Elem_Composite *pElemComposite = nullptr;
-	if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
-		pElemComposite = dynamic_cast<Elem_Composite *>(_pElemOwner->back());
+	ElemOwner *pElemOwner = nullptr;
+	if (!IsTopLevel()) {
+		pElemOwner = _pElemOwner.get();
+	} else if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
+		pElemOwner = &dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemOwner();
 	} else {
-		pElemComposite = new Elem_Composite();
+		Elem_Composite *pElemComposite = new Elem_Composite();
 		_pElemOwner->push_back(pElemComposite);
+		pElemOwner = &pElemComposite->GetElemOwner();
 	}
-	return pElemComposite->GetElemOwner();
+	return *pElemOwner;
 }
 
 Gura_EndModuleScope(doxygen)
