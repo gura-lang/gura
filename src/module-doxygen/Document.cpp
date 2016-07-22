@@ -329,9 +329,11 @@ bool Decomposer::FeedChar(Environment &env, char ch)
 	}
 	case STAT_Text: {
 		if (ch == '\0') {
-			FlushElemText();
+			FlushElemText(_text.c_str());
+			_text.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemText();
+			FlushElemText(_text.c_str());
+			_text.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInText;
 		} else {
@@ -783,17 +785,17 @@ bool Decomposer::ContainsCommand(const char *str)
 	return false;
 }
 
-void Decomposer::FlushElemText()
+void Decomposer::FlushElemText(const char *text)
 {
-	if (!_text.empty() && _text != "\n") {
-		ElemOwner &elemOwner = DetermineElemOwner();
-		if (elemOwner.empty()) {
-			elemOwner.push_back(new Elem_Text(Strip(_text.c_str(), true, false)));
-		} else {
-			elemOwner.push_back(new Elem_Text(_text));
-		}
+	if (*text == '\0') return;
+	ElemOwner &elemOwner = DetermineElemOwner();
+	if (elemOwner.empty()) {
+		String textMod = Strip(text, true, false);
+		if (textMod.empty()) return;
+		elemOwner.push_back(new Elem_Text(textMod));
+	} else {
+		elemOwner.push_back(new Elem_Text(text));
 	}
-	_text.clear();
 }
 
 void Decomposer::FlushElemCommand(Elem_Command *pElem)

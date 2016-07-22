@@ -70,7 +70,7 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	String EvaluateCustomCommand(Environment &env) const;
-	void FlushElemText();
+	void FlushElemText(const char *text);
 	void FlushElemCommand(Elem_Command *pElem);
 	ElemOwner &DetermineElemOwner();
 	static bool ContainsCommand(const char *str);
