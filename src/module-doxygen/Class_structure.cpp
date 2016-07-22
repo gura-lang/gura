@@ -58,6 +58,62 @@ String Object_structure::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.structure#each() {block?}
+Gura_DeclareMethod(structure, each)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(structure, each)
+{
+	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
+	AutoPtr<Iterator> pIterator(
+		new Iterator_Elem(pStructure->GetElemOwner().Reference()));
+	return ReturnIterator(env, arg, pIterator.release());
+}
+
+// doxygen.structure#each@command(name?:string) {block?}
+Gura_DeclareMethodAlias(structure, each_at_command, "each@command")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(structure, each_at_command)
+{
+	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
+	const char *name = arg.IsValid(0)? arg.GetString(0) : "";
+	AutoPtr<Iterator> pIterator(
+		new Iterator_Elem_Command(pStructure->GetElemOwner().Reference(), name));
+	return ReturnIterator(env, arg, pIterator.release());
+}
+
+// doxygen.structure#each@composite() {block?}
+Gura_DeclareMethodAlias(structure, each_at_composite, "each@composite")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(structure, each_at_composite)
+{
+	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
+	AutoPtr<Iterator> pIterator(
+		new Iterator_Elem_Composite(pStructure->GetElemOwner().Reference()));
+	return ReturnIterator(env, arg, pIterator.release());
+}
+
 // doxygen.structure#print(indent?:number, out?:stream):void
 Gura_DeclareMethod(structure, print)
 {
@@ -111,6 +167,9 @@ Gura_ImplementMethod(structure, render)
 Gura_ImplementUserClass(structure)
 {
 	Gura_AssignValue(structure, Value(Reference()));
+	Gura_AssignMethod(structure, each);
+	Gura_AssignMethod(structure, each_at_command);
+	Gura_AssignMethod(structure, each_at_composite);
 	Gura_AssignMethod(structure, print);
 	Gura_AssignMethod(structure, render);
 }

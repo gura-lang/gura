@@ -64,47 +64,6 @@ void ElemOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// Elem_Composite
-//-----------------------------------------------------------------------------
-Elem_Composite::Elem_Composite(Type type) : Elem(type), _pElemOwner(new ElemOwner())
-{
-}
-
-Elem_Composite::Elem_Composite(ElemOwner *pElemOwner, Type type) :
-	Elem(type), _pElemOwner(pElemOwner)
-{
-}
-
-const Elem *Elem_Composite::ReduceContent() const
-{
-	return _pElemOwner->empty()? Elem::Empty :
-		(_pElemOwner->size() == 1)? _pElemOwner->front() : this;
-}
-
-bool Elem_Composite::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
-{
-	return _pElemOwner->Render(pRenderer, pCfg, stream);
-}
-
-String Elem_Composite::ToString() const
-{
-	String rtn;
-	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
-		const Elem *pElem = *ppElem;
-		rtn += pElem->ToString();
-	}
-	return "";
-}
-
-void Elem_Composite::Print(Environment &env, SimpleStream &stream, int indentLevel) const
-{
-	Signal &sig = env.GetSignal();
-	stream.Printf(sig, "%*s[\n", indentLevel * 2, "");
-	_pElemOwner->Print(env, stream, indentLevel + 1);
-	stream.Printf(sig, "%*s]\n", indentLevel * 2, "");
-}
-
-//-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
 Elem_Empty::Elem_Empty(Type type) : Elem(type)
@@ -221,6 +180,47 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 }
 
 //-----------------------------------------------------------------------------
+// Elem_Composite
+//-----------------------------------------------------------------------------
+Elem_Composite::Elem_Composite(Type type) : Elem(type), _pElemOwner(new ElemOwner())
+{
+}
+
+Elem_Composite::Elem_Composite(ElemOwner *pElemOwner, Type type) :
+	Elem(type), _pElemOwner(pElemOwner)
+{
+}
+
+const Elem *Elem_Composite::ReduceContent() const
+{
+	return _pElemOwner->empty()? Elem::Empty :
+		(_pElemOwner->size() == 1)? _pElemOwner->front() : this;
+}
+
+bool Elem_Composite::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+{
+	return _pElemOwner->Render(pRenderer, pCfg, stream);
+}
+
+String Elem_Composite::ToString() const
+{
+	String rtn;
+	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
+		const Elem *pElem = *ppElem;
+		rtn += pElem->ToString();
+	}
+	return "";
+}
+
+void Elem_Composite::Print(Environment &env, SimpleStream &stream, int indentLevel) const
+{
+	Signal &sig = env.GetSignal();
+	stream.Printf(sig, "%*s[\n", indentLevel * 2, "");
+	_pElemOwner->Print(env, stream, indentLevel + 1);
+	stream.Printf(sig, "%*s]\n", indentLevel * 2, "");
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_Elem
 //-----------------------------------------------------------------------------
 Iterator_Elem::Iterator_Elem(ElemOwner *pElemOwner) :
@@ -258,6 +258,88 @@ String Iterator_Elem::ToString() const
 }
 
 void Iterator_Elem::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_Elem_Command
+//-----------------------------------------------------------------------------
+Iterator_Elem_Command::Iterator_Elem_Command(ElemOwner *pElemOwner, const String &name) :
+	Iterator(false), _pElemOwner(pElemOwner), _idx(0), _name(name)
+{
+}
+
+Iterator_Elem_Command::Iterator_Elem_Command(const Iterator_Elem_Command &iter) :
+	Iterator(false), _pElemOwner(iter._pElemOwner->Reference()), _idx(iter._idx), _name(iter._name)
+{
+}
+
+Iterator *Iterator_Elem_Command::Clone() const
+{
+	return new Iterator_Elem_Command(*this);
+}
+
+Iterator *Iterator_Elem_Command::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_Elem_Command::DoNext(Environment &env, Value &value)
+{
+	if (_idx >= _pElemOwner->size()) return false;
+	Elem *pElem = (*_pElemOwner)[_idx++];
+	value = Value(new Object_elem(pElem->Reference()));
+	return true;
+}
+
+String Iterator_Elem_Command::ToString() const
+{
+	String rtn = "doxygen.elem@command";
+	return rtn;
+}
+
+void Iterator_Elem_Command::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_Elem_Composite
+//-----------------------------------------------------------------------------
+Iterator_Elem_Composite::Iterator_Elem_Composite(ElemOwner *pElemOwner) :
+	Iterator(false), _pElemOwner(pElemOwner), _idx(0)
+{
+}
+
+Iterator_Elem_Composite::Iterator_Elem_Composite(const Iterator_Elem_Composite &iter) :
+	Iterator(false), _pElemOwner(iter._pElemOwner->Reference()), _idx(iter._idx)
+{
+}
+
+Iterator *Iterator_Elem_Composite::Clone() const
+{
+	return new Iterator_Elem_Composite(*this);
+}
+
+Iterator *Iterator_Elem_Composite::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_Elem_Composite::DoNext(Environment &env, Value &value)
+{
+	if (_idx >= _pElemOwner->size()) return false;
+	Elem *pElem = (*_pElemOwner)[_idx++];
+	value = Value(new Object_elem(pElem->Reference()));
+	return true;
+}
+
+String Iterator_Elem_Composite::ToString() const
+{
+	String rtn = "doxygen.elem@composite";
+	return rtn;
+}
+
+void Iterator_Elem_Composite::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

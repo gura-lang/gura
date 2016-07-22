@@ -16,10 +16,10 @@ class Elem {
 public:
 	enum Type {
 		TYPE_None,
-		TYPE_Composite,
 		TYPE_Empty,
 		TYPE_String,
 		TYPE_Command,
+		TYPE_Composite,
 	};
 protected:
 	int _cntRef;
@@ -66,23 +66,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Elem_Composite
-//-----------------------------------------------------------------------------
-class Elem_Composite : public Elem {
-protected:
-	AutoPtr<ElemOwner> _pElemOwner;
-public:
-	Elem_Composite(Type type = TYPE_Composite);
-	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
-	const Elem *ReduceContent() const;
-	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
-	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
-	virtual String ToString() const;
-	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
-};
-
-//-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
 class Elem_Empty : public Elem {
@@ -124,6 +107,23 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Elem_Composite
+//-----------------------------------------------------------------------------
+class Elem_Composite : public Elem {
+protected:
+	AutoPtr<ElemOwner> _pElemOwner;
+public:
+	Elem_Composite(Type type = TYPE_Composite);
+	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
+	const Elem *ReduceContent() const;
+	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
+	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
+	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual String ToString() const;
+	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_Elem
 //-----------------------------------------------------------------------------
 class Iterator_Elem : public Iterator {
@@ -133,6 +133,41 @@ protected:
 public:
 	Iterator_Elem(ElemOwner *pElemOwner);
 	Iterator_Elem(const Iterator_Elem &iter);
+	virtual Iterator *Clone() const;
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_Elem_Command
+//-----------------------------------------------------------------------------
+class Iterator_Elem_Command : public Iterator {
+protected:
+	AutoPtr<ElemOwner> _pElemOwner;
+	size_t _idx;
+	String _name;
+public:
+	Iterator_Elem_Command(ElemOwner *pElemOwner, const String &name);
+	Iterator_Elem_Command(const Iterator_Elem_Command &iter);
+	virtual Iterator *Clone() const;
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_Elem_Composite
+//-----------------------------------------------------------------------------
+class Iterator_Elem_Composite : public Iterator {
+protected:
+	AutoPtr<ElemOwner> _pElemOwner;
+	size_t _idx;
+public:
+	Iterator_Elem_Composite(ElemOwner *pElemOwner);
+	Iterator_Elem_Composite(const Iterator_Elem_Composite &iter);
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
