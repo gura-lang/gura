@@ -237,10 +237,9 @@ testCaseInfos.each {|testCaseInfo, idx|
 	println(' ========')
 	extractedFlag = testCaseInfo.doc.isempty() || !testCaseInfo.doc.match(r'\s*/')
 	doxygen.document(testCaseInfo.doc.reader(), extracted => extractedFlag) {|doc|
-		//doc.elem.print()
-		doc.structures.each {|structure|
+		doc.structures {|structure|
 			println('----')
-			structure.print(1)
+			structure.elems::print(1)
 		}
 	}
 	println('--end--')

@@ -376,5 +376,5 @@ setpresenter {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}
-	doc && doc.structures::render(Renderer@markdown(), nil, sys.stdout)
+	doc && doc.structures()::render(Renderer@markdown(), nil, sys.stdout)
 }

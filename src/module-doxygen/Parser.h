@@ -48,7 +48,6 @@ private:
 	char _pushbackBuff[16];
 	char _chAhead;
 	char _chPrev;
-	bool _aheadFlag;
 	AutoPtr<ElemOwner> _pElemOwner;
 	AutoPtr<Elem_Command> _pElemCmdCur;
 	AutoPtr<Elem_Composite> _pElemArg;
@@ -75,7 +74,6 @@ public:
 			_pParserParent->Pushback(ch);
 		}
 	}
-	inline void SetAheadFlag(bool aheadFlag) { _aheadFlag = aheadFlag; }
 	inline static bool IsCommandEnd(const String &cmdName, char ch) {
 		return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' ||
 			(!(cmdName == "f" || cmdName.empty()) && (ch == '[' || ch == '{'));

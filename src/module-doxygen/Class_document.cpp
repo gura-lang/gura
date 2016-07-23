@@ -21,19 +21,21 @@ bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(structures));
+	//symbols.insert(Gura_UserSymbol(structures));
 	return true;
 }
 
 Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+#if 0
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(structures))) {
 		AutoPtr<Iterator> pIterator(
 			new Iterator_Structure(_pDocument->GetStructureOwner().Reference()));
 		return Value(new Object_iterator(env, pIterator.release()));
 	}
+#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }
@@ -86,6 +88,23 @@ Gura_ImplementFunction(document)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.document#structures() {block?}
+Gura_DeclareMethod(document, structures)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(document, structures)
+{
+	const Document *pDocument = Object_document::GetObjectThis(arg)->GetDocument();
+	AutoPtr<Iterator> pIterator(
+		new Iterator_Structure(pDocument->GetStructureOwner().Reference()));
+	return ReturnIterator(env, arg, pIterator.release());
+}
 
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.document
@@ -93,6 +112,7 @@ Gura_ImplementFunction(document)
 Gura_ImplementUserClass(document)
 {
 	Gura_AssignFunction(document);
+	Gura_AssignMethod(document, structures);
 }
 
 Gura_EndModuleScope(doxygen)

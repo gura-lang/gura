@@ -12,15 +12,16 @@ Gura_BeginModuleScope(doxygen)
 class Structure {
 protected:
 	int _cntRef;
+	bool _refAheadFlag;
 	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Gura_DeclareReferenceAccessor(Structure);
 public:
-	Structure();
+	Structure(bool refAheadFlag);
 protected:
 	inline ~Structure() {}
 public:
-	inline void AddElem(Elem *pElem) { _pElemOwner->push_back(pElem); }
+	inline bool GetRefAheadFlag() const { return _refAheadFlag; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 };
 

@@ -245,10 +245,12 @@ Iterator *Iterator_Elem::GetSource()
 
 bool Iterator_Elem::DoNext(Environment &env, Value &value)
 {
-	if (_idx >= _pElemOwner->size()) return false;
-	Elem *pElem = (*_pElemOwner)[_idx++];
-	value = Value(new Object_elem(pElem->Reference()));
-	return true;
+	if (_idx < _pElemOwner->size()) {
+		Elem *pElem = (*_pElemOwner)[_idx++];
+		value = Value(new Object_elem(pElem->Reference()));
+		return true;
+	}
+	return false;
 }
 
 String Iterator_Elem::ToString() const
@@ -286,10 +288,15 @@ Iterator *Iterator_Elem_Command::GetSource()
 
 bool Iterator_Elem_Command::DoNext(Environment &env, Value &value)
 {
-	if (_idx >= _pElemOwner->size()) return false;
-	Elem *pElem = (*_pElemOwner)[_idx++];
-	value = Value(new Object_elem(pElem->Reference()));
-	return true;
+	while (_idx < _pElemOwner->size()) {
+		Elem *pElem = (*_pElemOwner)[_idx++];
+		if (pElem->GetType() != Elem::TYPE_Command) continue;
+		Elem_Command *pElemEx = dynamic_cast<Elem_Command *>(pElem);
+		if (::strcmp(pElemEx->GetCommandFormat()->GetName(), _name.c_str()) != 0) continue;
+		value = Value(new Object_elem(pElem->Reference()));
+		return true;
+	}
+	return false;
 }
 
 String Iterator_Elem_Command::ToString() const
@@ -327,10 +334,13 @@ Iterator *Iterator_Elem_Composite::GetSource()
 
 bool Iterator_Elem_Composite::DoNext(Environment &env, Value &value)
 {
-	if (_idx >= _pElemOwner->size()) return false;
-	Elem *pElem = (*_pElemOwner)[_idx++];
-	value = Value(new Object_elem(pElem->Reference()));
-	return true;
+	while (_idx < _pElemOwner->size()) {
+		Elem *pElem = (*_pElemOwner)[_idx++];
+		if (pElem->GetType() != Elem::TYPE_Composite) continue;
+		value = Value(new Object_elem(pElem->Reference()));
+		return true;
+	}
+	return false;
 }
 
 String Iterator_Elem_Composite::ToString() const

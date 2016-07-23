@@ -53,11 +53,38 @@ Gura_DeclareMethod(elem, print)
 
 Gura_ImplementMethod(elem, print)
 {
+	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
 	int indentLevel = arg.IsValid(0)? arg.GetInt(0) : 0;
 	Stream &stream = arg.IsValid(1)? arg.GetStream(1) : *env.GetConsole();
-	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
 	pElem->Print(env, stream, indentLevel);
 	return Value::Nil;
+}
+
+// doxygen.elem#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
+Gura_DeclareMethod(elem, render)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
+	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+}
+
+Gura_ImplementMethod(elem, render)
+{
+	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
+	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
+	const Configuration *pCfg = arg.IsValid(1)?
+		Object_configuration::GetObject(arg, 1)->GetConfiguration() : nullptr;
+	if (arg.IsValid(2)) {
+		SimpleStream &stream = arg.GetStream(2);
+		pElem->Render(pRenderer, pCfg, stream);
+		return Value::Nil;
+	} else {
+		String str;
+		SimpleStream_StringWriter stream(str);
+		if (!pElem->Render(pRenderer, pCfg, stream)) return Value::Nil;
+		return Value(str);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -66,6 +93,7 @@ Gura_ImplementMethod(elem, print)
 Gura_ImplementUserClass(elem)
 {
 	Gura_AssignMethod(elem, print);
+	Gura_AssignMethod(elem, render);
 }
 
 Gura_EndModuleScope(doxygen)

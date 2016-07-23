@@ -19,7 +19,7 @@ bool Document::ReadStream(Environment &env, SimpleStream &stream,
 	Signal &sig = env.GetSignal();
 	_pParser.reset(new Parser(pAliases));
 	if (extractedFlag) {
-		AddStructure();
+		AddStructure(false);
 		_stat = STAT_ExIndent;
 	} else {
 		_stat = STAT_Indent;
@@ -101,14 +101,14 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_LineDoxygenFirstChar: {
+		bool refAheadFlag = false;
 		if (ch == '<') {
-			_pParser->SetAheadFlag(!_commentLineFlag);
+			refAheadFlag = !_commentLineFlag;
 		} else {
-			_pParser->SetAheadFlag(false);
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
-			AddStructure();
+			AddStructure(refAheadFlag);
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;
@@ -162,14 +162,14 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygenFirstChar: {
+		bool refAheadFlag = false;
 		if (ch == '<') {
-			_pParser->SetAheadFlag(!_commentLineFlag);
+			refAheadFlag = !_commentLineFlag;
 		} else {
-			_pParser->SetAheadFlag(false);
 			Gura_Pushback();
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
-			AddStructure();
+			AddStructure(refAheadFlag);
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
 		_stat = STAT_BlockDoxygen;
@@ -283,9 +283,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-void Document::AddStructure()
+void Document::AddStructure(bool refAheadFlag)
 {
-	Structure *pStructure = new Structure();
+	Structure *pStructure = new Structure(refAheadFlag);
 	_pStructureOwner->push_back(pStructure);
 	_pParser->SetElemOwner(pStructure->GetElemOwner().Reference());
 }

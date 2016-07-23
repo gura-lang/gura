@@ -26,9 +26,13 @@ doc = R'''
 cfg.print()
 cfg.aliases.print()
 doc = doxygen.document(doc.reader(), cfg)
-doc.structures::print()
+doc.structures {|structure|
+	structure.elems()::print()
+}
 
-doc.structures::render(doxygen.Renderer@debug(), cfg, sys.stdout)
+doc.structures {|structure|
+	structure.elems()::render(doxygen.Renderer@debug(), cfg, sys.stdout)
+}
 
 /*
 cfg = doxygen.configuration('sample/Doxyfile')

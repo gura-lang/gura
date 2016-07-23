@@ -10,8 +10,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 Parser::Parser(const Aliases *pAliases, Parser *pParserParent) :
 	_pAliases(pAliases), _pParserParent(pParserParent), _stat(STAT_Init),
-	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _aheadFlag(false),
-	_pElemOwner(new ElemOwner())
+	_pushbackLevel(0), _chAhead('\0'), _chPrev('\0'), _pElemOwner(new ElemOwner())
 {
 }
 
