@@ -1166,6 +1166,23 @@ void StringList::operator=(const StringList &stringList)
 }
 
 //-----------------------------------------------------------------------------
+// StringSet
+//-----------------------------------------------------------------------------
+StringSet::StringSet(const StringSet &stringSet)
+{
+	foreach_const (StringSet, pStr, stringSet) {
+		insert(*pStr);
+	}
+}
+
+void StringSet::operator=(const StringSet &stringSet)
+{
+	foreach_const (StringSet, pStr, stringSet) {
+		insert(*pStr);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // CharConverter
 //-----------------------------------------------------------------------------
 CharConverter::CharConverter() :

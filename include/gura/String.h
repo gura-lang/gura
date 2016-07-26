@@ -16,6 +16,7 @@ class Value;
 class ValueList;
 class Environment;
 class StringList;
+class StringSet;
 
 //-----------------------------------------------------------------------------
 // String operations
@@ -165,6 +166,17 @@ public:
 	inline StringList() {}
 	StringList(const StringList &stringList);
 	void operator=(const StringList &stringList);
+};
+
+//-----------------------------------------------------------------------------
+// StringSet
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE StringSet : public std::set<String> {
+public:
+	static const StringSet Empty;
+	inline StringSet() {}
+	StringSet(const StringSet &stringSet);
+	void operator=(const StringSet &stringSet);
 };
 
 //-----------------------------------------------------------------------------
