@@ -2,6 +2,14 @@
 import(doxygen)
 
 doc = R'''
+/**
+@code
+Hello
+@endcode
+*/
+'''
+R'''
+
 /** Example of a param command with a description consisting of two paragraphs
  *  \param p 
  *  \parblock

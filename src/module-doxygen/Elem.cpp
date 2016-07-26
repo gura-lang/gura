@@ -185,6 +185,10 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 	}
 	stream.Printf(sig, "}\n");
 	_pElemArgs->Print(env, stream, indentLevel + 1);
+	if (IsParent()) {
+		stream.Printf(sig, "%*s----\n", (indentLevel + 1) * 2, "");
+		_pElemChildren->Print(env, stream, indentLevel + 1);
+	}
 }
 
 //-----------------------------------------------------------------------------

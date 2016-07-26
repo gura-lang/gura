@@ -546,11 +546,14 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 			elemChildren.push_back(pElem);
 		}
 	} else {
-		if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Command &&
-											_pElemOwner->back()->IsParent()) {
-			ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
-			elemChildren.push_back(pElem);
-			return;
+		if (!_pElemOwner->empty()) {
+			Elem *pElemPrev = _pElemOwner->back();
+			if (pElemPrev->IsParent() && pElemPrev->GetType() == Elem::TYPE_Command &&
+						!dynamic_cast<Elem_Command *>(pElemPrev)->IsEndCommand(pElem)) {
+				ElemOwner &elemChildren = pElemPrev->GetElemChildren();
+				elemChildren.push_back(pElem);
+				return;
+			}
 		}
 		_pElemOwner->push_back(pElem);
 	}
