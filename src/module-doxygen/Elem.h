@@ -108,6 +108,9 @@ public:
 	inline const CommandFormat *GetCommandFormat() const { return _pCmdFmt; }
 	inline ElemOwner &GetElemArgs() { return *_pElemArgs; }
 	inline const ElemOwner &GetElemArgs() const { return *_pElemArgs; }
+	inline bool IsEndCommand(const Elem_Command *pElem) {
+		return _pCmdFmt->IsEndCommand(pElem->GetCommandFormat()->GetName());
+	}
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

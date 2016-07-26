@@ -77,11 +77,11 @@ public:
 	};
 	class EndDetector {
 	protected:
-		StringList _cmdNamesEnd;
+		StringSet _namesEnd;
 	public:
-		bool IsEndCommand();
-		StringList &GetCmdNamesEnd() { return _cmdNamesEnd; }
-		const StringList &GetCmdNamesEnd() const { return _cmdNamesEnd; }
+		bool IsEndCommand(const char *name) const;
+		inline StringSet &GetNamesEnd() { return _namesEnd; }
+		inline const StringSet &GetNamesEnd() const { return _namesEnd; }
 	};
 protected:
 	const Symbol *_pSymbol;
@@ -105,7 +105,10 @@ public:
 	inline bool IsLineIndicator() const {
 		return !_argOwner.empty() && (_argOwner.back()->IsLine() || _argOwner.back()->IsLineOpt());
 	}
-	inline const EndDetector *GetEndDtector() const { return _pEndDetector.get(); }
+	inline const EndDetector *GetEndDetector() const { return _pEndDetector.get(); }
+	inline bool IsEndCommand(const char *name) const {
+		return _pEndDetector.get() != nullptr && _pEndDetector->IsEndCommand(name);
+	}
 	inline void SetName(const char *name) {
 		_pSymbol = Symbol::Add(name);
 		_pSymbolEx = Symbol::Add((String("@") + name).c_str());
@@ -155,28 +158,25 @@ protected:
 	inline static Arg *ArgPara(const char *name) {
 		return new Arg(ARGTYPE_Para, name);
 	}
-	inline static EndDetector *End(const String &cmdName) {
+	inline static EndDetector *End(const String &name) {
 		std::unique_ptr<EndDetector> pEndDetector(new EndDetector());
-		StringList &cmdNamesEnd = pEndDetector->GetCmdNamesEnd();
-		cmdNamesEnd.reserve(1);
-		cmdNamesEnd.push_back(cmdName);
+		StringSet &namesEnd = pEndDetector->GetNamesEnd();
+		namesEnd.insert(name);
 		return pEndDetector.release();
 	}
-	inline static EndDetector *End(const String &cmdName1, const String &cmdName2) {
+	inline static EndDetector *End(const String &name1, const String &name2) {
 		std::unique_ptr<EndDetector> pEndDetector(new EndDetector());
-		StringList &cmdNamesEnd = pEndDetector->GetCmdNamesEnd();
-		cmdNamesEnd.reserve(2);
-		cmdNamesEnd.push_back(cmdName1);
-		cmdNamesEnd.push_back(cmdName2);
+		StringSet &namesEnd = pEndDetector->GetNamesEnd();
+		namesEnd.insert(name1);
+		namesEnd.insert(name2);
 		return pEndDetector.release();
 	}
-	inline static EndDetector *End(const String &cmdName1, const String &cmdName2, const String &cmdName3) {
+	inline static EndDetector *End(const String &name1, const String &name2, const String &name3) {
 		std::unique_ptr<EndDetector> pEndDetector(new EndDetector());
-		StringList &cmdNamesEnd = pEndDetector->GetCmdNamesEnd();
-		cmdNamesEnd.reserve(3);
-		cmdNamesEnd.push_back(cmdName1);
-		cmdNamesEnd.push_back(cmdName2);
-		cmdNamesEnd.push_back(cmdName3);
+		StringSet &namesEnd = pEndDetector->GetNamesEnd();
+		namesEnd.insert(name1);
+		namesEnd.insert(name2);
+		namesEnd.insert(name3);
 		return pEndDetector.release();
 	}
 	inline static CommandFormat *Create(const char *name, CmdType cmdType, EndDetector *pEndDetector) {

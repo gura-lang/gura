@@ -494,4 +494,12 @@ void CommandFormat::ArgOwner::Clear()
 	clear();
 }
 
+//-----------------------------------------------------------------------------
+// CommandFormat::EndDetector
+//-----------------------------------------------------------------------------
+bool CommandFormat::EndDetector::IsEndCommand(const char *name) const
+{
+	return _namesEnd.find(name) != _namesEnd.end();
+}
+
 Gura_EndModuleScope(doxygen)

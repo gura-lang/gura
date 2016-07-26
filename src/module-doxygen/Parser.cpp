@@ -501,8 +501,9 @@ bool Parser::ContainsCommand(const char *str)
 
 void Parser::FlushElemString(const char *str)
 {
-	if (*str == '\0') return;
-	if (!IsTopLevel()) {
+	if (*str == '\0') {
+		// nothing to do
+	} else if (!IsTopLevel()) {
 		if (_pElemOwner->empty()) {
 			String strMod = Strip(str, true, false);
 			if (strMod.empty()) return;
@@ -510,8 +511,8 @@ void Parser::FlushElemString(const char *str)
 		} else {
 			_pElemOwner->push_back(new Elem_String(str));
 		}
-	} else if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
-		ElemOwner &elemChildren = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemChildren();
+	} else if (!_pElemOwner->empty() && _pElemOwner->back()->IsParent()) {
+		ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
 		if (elemChildren.empty()) {
 			String strMod = Strip(str, true, false);
 			if (strMod.empty()) return;
@@ -532,20 +533,26 @@ void Parser::FlushElemString(const char *str)
 void Parser::FlushElemCommand(Elem_Command *pElem)
 {
 	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
-	if (cmdType != CommandFormat::CMDTYPE_Visual) {
-		_pElemOwner->push_back(pElem);
-		return;
-	}
-	if (!IsTopLevel()) {
-		_pElemOwner->push_back(pElem);
-	} else if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
-		ElemOwner &elemChildren = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemChildren();
-		elemChildren.push_back(pElem);
+	if (cmdType == CommandFormat::CMDTYPE_Visual) {
+		if (!IsTopLevel()) {
+			_pElemOwner->push_back(pElem);
+		} else if (!_pElemOwner->empty() && _pElemOwner->back()->IsParent()) {
+			ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
+			elemChildren.push_back(pElem);
+		} else {
+			Elem_Composite *pElemComposite = new Elem_Composite();
+			_pElemOwner->push_back(pElemComposite);
+			ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+			elemChildren.push_back(pElem);
+		}
 	} else {
-		Elem_Composite *pElemComposite = new Elem_Composite();
-		_pElemOwner->push_back(pElemComposite);
-		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
-		elemChildren.push_back(pElem);
+		if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Command &&
+											_pElemOwner->back()->IsParent()) {
+			ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
+			elemChildren.push_back(pElem);
+			return;
+		}
+		_pElemOwner->push_back(pElem);
 	}
 }
 

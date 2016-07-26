@@ -123,6 +123,9 @@ void Elem_String::Print(Environment &env, SimpleStream &stream, int indentLevel)
 Elem_Command::Elem_Command(const CommandFormat *pCmdFmt, Type type) :
 	Elem(type), _pCmdFmt(pCmdFmt), _pElemArgs(new ElemOwner())
 {
+	if (pCmdFmt->GetEndDetector() != nullptr) {
+		_pElemChildren.reset(new ElemOwner());
+	}
 }
 
 bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
