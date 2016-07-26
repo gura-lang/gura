@@ -239,7 +239,7 @@ testCaseInfos.each {|testCaseInfo, idx|
 	doxygen.document(testCaseInfo.doc.reader(), extracted => extractedFlag) {|doc|
 		doc.structures {|structure|
 			println('----')
-			structure.elems::print(1)
+			structure.elems()::print(1)
 		}
 	}
 	println('--end--')

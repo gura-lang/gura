@@ -25,13 +25,13 @@ doc = R'''
 
 cfg.print()
 cfg.aliases.print()
-doc = doxygen.document(doc.reader(), cfg)
-doc.structures {|structure|
-	structure.elems()::print()
-}
-
-doc.structures {|structure|
-	structure.elems()::render(doxygen.Renderer@debug(), cfg, sys.stdout)
+doxygen.document(doc.reader(), cfg) {|doc|
+	doc.structures {|structure|
+		structure.elems()::print()
+	}
+	doc.structures {|structure|
+		structure.elems()::render(doxygen.Renderer@debug(), cfg, sys.stdout)
+	}
 }
 
 /*

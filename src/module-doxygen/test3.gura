@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(doxygen)
+
+doc = R'''
+/** Example of a param command with a description consisting of two paragraphs
+ *  \param p 
+ *  \parblock
+ *  First paragraph of the param description.
+ *
+ *  Second paragraph of the param description.
+ *  \endparblock
+ *  Rest of the comment block continues.
+ */
+'''
+
+doxygen.document(doc.reader()) {|doc|
+	doc.structures {|structure|
+		structure.elems()::print()
+	}
+}

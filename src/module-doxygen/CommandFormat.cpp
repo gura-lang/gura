@@ -40,354 +40,354 @@ bool CommandFormat::HasNormalCommandName() const
 void CommandFormat::Initialize()
 {
 	// Structural indicators
-	Register("addtogroup",		CMDTYPE_Structure,
+	Register("addtogroup",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgLineOpt("title"));
-	Register("callgraph",		CMDTYPE_Structure);
-	Register("hidecallgrph",	CMDTYPE_Structure);
-	Register("callergraph",		CMDTYPE_Structure);
-	Register("hidecallergraph",	CMDTYPE_Structure);
-	Register("category",		CMDTYPE_Structure,
+	Register("callgraph",		CMDTYPE_Structure, nullptr);
+	Register("hidecallgrph",	CMDTYPE_Structure, nullptr);
+	Register("callergraph",		CMDTYPE_Structure, nullptr);
+	Register("hidecallergraph",	CMDTYPE_Structure, nullptr);
+	Register("category",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("class",			CMDTYPE_Structure,
+	Register("class",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("def",				CMDTYPE_Structure,
+	Register("def",				CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("defgroup",		CMDTYPE_Structure,
+	Register("defgroup",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgLine("group_title"));
-	Register("dir",				CMDTYPE_Structure,
+	Register("dir",				CMDTYPE_Structure, nullptr,
 			 ArgWordOpt("path_fragment"));
-	Register("enum",			CMDTYPE_Structure,
+	Register("enum",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("example",			CMDTYPE_Structure,
+	Register("example",			CMDTYPE_Structure, nullptr,
 			 ArgWord("file_name"));
-	Register("endinternal",		CMDTYPE_Structure);
-	Register("extends",			CMDTYPE_Structure,
+	Register("endinternal",		CMDTYPE_Structure, nullptr);
+	Register("extends",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("file",			CMDTYPE_Structure,
+	Register("file",			CMDTYPE_Structure, nullptr,
 			 ArgWordOpt("name"));
-	Register("fn",				CMDTYPE_Structure,
+	Register("fn",				CMDTYPE_Structure, nullptr,
 			 ArgLine("declaration"));
-	Register("headerfile",		CMDTYPE_Structure,
+	Register("headerfile",		CMDTYPE_Structure, nullptr,
 			 ArgWord("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("hideinitializer",	CMDTYPE_Structure);
-	Register("idlexcept",		CMDTYPE_Structure,
+	Register("hideinitializer",	CMDTYPE_Structure, nullptr);
+	Register("idlexcept",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("implements",		CMDTYPE_Structure,
+	Register("implements",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("ingroup",			CMDTYPE_Structure,
+	Register("ingroup",			CMDTYPE_Structure, nullptr,
 			 ArgWord("groupname"));
-	Register("interface",		CMDTYPE_Structure,
+	Register("interface",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("internal",		CMDTYPE_Structure);
-	Register("mainpage",		CMDTYPE_Structure,
+	Register("internal",		CMDTYPE_Structure, End("endinternal"));
+	Register("mainpage",		CMDTYPE_Structure, nullptr,
 			 ArgLineOpt("title"));
-	Register("memberof",		CMDTYPE_Structure,
+	Register("memberof",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("name",			CMDTYPE_Structure,
+	Register("name",			CMDTYPE_Structure, nullptr,
 			 ArgLineOpt("header"));
-	Register("namespace",		CMDTYPE_Structure,
+	Register("namespace",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("nosubgrouping",	CMDTYPE_Structure);
-	Register("overload",		CMDTYPE_Structure,
+	Register("nosubgrouping",	CMDTYPE_Structure, nullptr);
+	Register("overload",		CMDTYPE_Structure, nullptr,
 			 ArgLineOpt("declaration"));
-	Register("package",			CMDTYPE_Structure,
+	Register("package",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("page",			CMDTYPE_Structure,
+	Register("page",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgLine("title"));
-	Register("private",			CMDTYPE_Structure);
-	Register("privatesection",	CMDTYPE_Structure);
-	Register("property",		CMDTYPE_Structure,
+	Register("private",			CMDTYPE_Structure, nullptr);
+	Register("privatesection",	CMDTYPE_Structure, nullptr);
+	Register("property",		CMDTYPE_Structure, nullptr,
 			 ArgLine("name"));
-	Register("protected",		CMDTYPE_Structure);
-	Register("protectedsection",CMDTYPE_Structure);
-	Register("protocol",		CMDTYPE_Structure,
+	Register("protected",		CMDTYPE_Structure, nullptr);
+	Register("protectedsection",CMDTYPE_Structure, nullptr);
+	Register("protocol",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("public",			CMDTYPE_Structure);
-	Register("publicsection",	CMDTYPE_Structure);
-	Register("pure",			CMDTYPE_Structure);
-	Register("relates",			CMDTYPE_Structure,
+	Register("public",			CMDTYPE_Structure, nullptr);
+	Register("publicsection",	CMDTYPE_Structure, nullptr);
+	Register("pure",			CMDTYPE_Structure, nullptr);
+	Register("relates",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("related",			CMDTYPE_Structure,
+	Register("related",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("relatesalso",		CMDTYPE_Structure,
+	Register("relatesalso",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("relatedalso",		CMDTYPE_Structure,
+	Register("relatedalso",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"));
-	Register("showinitializer",	CMDTYPE_Structure);
-	Register("static",			CMDTYPE_Structure);
-	Register("struct",			CMDTYPE_Structure,
+	Register("showinitializer",	CMDTYPE_Structure, nullptr);
+	Register("static",			CMDTYPE_Structure, nullptr);
+	Register("struct",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("typedef",			CMDTYPE_Structure,
+	Register("typedef",			CMDTYPE_Structure, nullptr,
 			 ArgLine("declaration"));
-	Register("union",			CMDTYPE_Structure,
+	Register("union",			CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgWordOpt("header_file"),
 			 ArgWordOpt("header_name"));
-	Register("var",				CMDTYPE_Structure,
+	Register("var",				CMDTYPE_Structure, nullptr,
 			 ArgLine("declaration"));
-	Register("vhdlflow",		CMDTYPE_Structure,
+	Register("vhdlflow",		CMDTYPE_Structure, nullptr,
 			 ArgLineOpt("title_for_the_flow_chart"));
-	Register("weakgroup",		CMDTYPE_Structure,
+	Register("weakgroup",		CMDTYPE_Structure, nullptr,
 			 ArgWord("name"),
 			 ArgLineOpt("title"));
 	// Section indicators
-	Register("attention",		CMDTYPE_Section,
+	Register("attention",		CMDTYPE_Section, nullptr,
 			 ArgPara("text"));
-	Register("author",			CMDTYPE_Section,
+	Register("author",			CMDTYPE_Section, nullptr,
 			 ArgPara("list_of_authors"));
-	Register("authors",			CMDTYPE_Section,
+	Register("authors",			CMDTYPE_Section, nullptr,
 			 ArgPara("list_of_authors"));
-	Register("brief",			CMDTYPE_Section,
+	Register("brief",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("bug",				CMDTYPE_Section,
+	Register("bug",				CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("cond",			CMDTYPE_Section,
+	Register("cond",			CMDTYPE_Section, End("endcode"),
 			 ArgLineOpt("section_label"));
-	Register("copyright",		CMDTYPE_Section,
+	Register("copyright",		CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("date",			CMDTYPE_Section,
+	Register("date",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("deprecated",		CMDTYPE_Section,
+	Register("deprecated",		CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("details",			CMDTYPE_Section,
+	Register("details",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("else",			CMDTYPE_Section);
-	Register("elseif",			CMDTYPE_Section,
+	Register("else",			CMDTYPE_Section, nullptr);
+	Register("elseif",			CMDTYPE_Section, nullptr,
 			 ArgLine("section_label"));
-	Register("endcond",			CMDTYPE_Section);
-	Register("endif",			CMDTYPE_Section);
-	Register("exception",		CMDTYPE_Section,
+	Register("endcond",			CMDTYPE_Section, nullptr);
+	Register("endif",			CMDTYPE_Section, nullptr);
+	Register("exception",		CMDTYPE_Section, nullptr,
 			 ArgWord("exception_object"),
 			 ArgPara("description"));
-	Register("if",				CMDTYPE_Section,
+	Register("if",				CMDTYPE_Section, End("endif"),
 			 ArgLine("section_label"));
-	Register("ifnot",			CMDTYPE_Section,
+	Register("ifnot",			CMDTYPE_Section, nullptr,
 			 ArgLine("section_label"));
-	Register("invariant",		CMDTYPE_Section,
+	Register("invariant",		CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("note",			CMDTYPE_Section,
+	Register("note",			CMDTYPE_Section, nullptr,
 			 ArgPara("text"));
-	Register("par",				CMDTYPE_Section,
+	Register("par",				CMDTYPE_Section, nullptr,
 			 ArgLineOpt("paragraph_title"),
 			 ArgPara("paragraph"));
-	Register("param",			CMDTYPE_Section,
+	Register("param",			CMDTYPE_Section, nullptr,
 			 ArgBracket("dir"),
 			 ArgWord("name"),
 			 ArgPara("description"));
-	Register("parblock",		CMDTYPE_Section);
-	Register("endparblock",		CMDTYPE_Section);
-	Register("tparam",			CMDTYPE_Section,
+	Register("parblock",		CMDTYPE_Section, End("endparblock"));
+	Register("endparblock",		CMDTYPE_Section, nullptr);
+	Register("tparam",			CMDTYPE_Section, nullptr,
 			 ArgWord("name"),
 			 ArgPara("description"));
-	Register("post",			CMDTYPE_Section,
+	Register("post",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("pre",				CMDTYPE_Section,
+	Register("pre",				CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("remark",			CMDTYPE_Section,
+	Register("remark",			CMDTYPE_Section, nullptr,
 			 ArgPara("text"));
-	Register("remarks",			CMDTYPE_Section,
+	Register("remarks",			CMDTYPE_Section, nullptr,
 			 ArgPara("text"));
-	Register("result",			CMDTYPE_Section,
+	Register("result",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("return",			CMDTYPE_Section,
+	Register("return",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("returns",			CMDTYPE_Section,
+	Register("returns",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("retval",			CMDTYPE_Section,
+	Register("retval",			CMDTYPE_Section, nullptr,
 			 ArgWord("return_value"),
 			 ArgPara("description"));
-	Register("sa",				CMDTYPE_Section,
+	Register("sa",				CMDTYPE_Section, nullptr,
 			 ArgPara("references"));
-	Register("see",				CMDTYPE_Section,
+	Register("see",				CMDTYPE_Section, nullptr,
 			 ArgPara("references"));
-	Register("short",			CMDTYPE_Section,
+	Register("short",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("since",			CMDTYPE_Section,
+	Register("since",			CMDTYPE_Section, nullptr,
 			 ArgPara("text"));
-	Register("test",			CMDTYPE_Section,
+	Register("test",			CMDTYPE_Section, nullptr,
 			 ArgPara("paragraph"));
-	Register("throw",			CMDTYPE_Section,
+	Register("throw",			CMDTYPE_Section, nullptr,
 			 ArgWord("exception_object"),
 			 ArgPara("description"));
-	Register("throws",			CMDTYPE_Section,
+	Register("throws",			CMDTYPE_Section, nullptr,
 			 ArgWord("exception_object"),
 			 ArgPara("description"));
-	Register("todo",			CMDTYPE_Section,
+	Register("todo",			CMDTYPE_Section, nullptr,
 			 ArgPara("paragraph"));
-	Register("version",			CMDTYPE_Section,
+	Register("version",			CMDTYPE_Section, nullptr,
 			 ArgPara("version_number"));
-	Register("warning",			CMDTYPE_Section,
+	Register("warning",			CMDTYPE_Section, nullptr,
 			 ArgPara("message"));
-	Register("xrefitem",		CMDTYPE_Section,
+	Register("xrefitem",		CMDTYPE_Section, nullptr,
 			 ArgWord("key"),
 			 ArgQuote("heading"),
 			 ArgQuote("list_title"),
 			 ArgPara("text"));
 	// Commands to create links
-	Register("addindex",		CMDTYPE_Link,
+	Register("addindex",		CMDTYPE_Link, nullptr,
 			 ArgLine("text"));
-	Register("anchor",			CMDTYPE_Link,
+	Register("anchor",			CMDTYPE_Link, nullptr,
 			 ArgWord("word"));
-	Register("cite",			CMDTYPE_Link,
+	Register("cite",			CMDTYPE_Link, nullptr,
 			 ArgWord("label"));
-	Register("endlink",			CMDTYPE_Link);
-	Register("link",			CMDTYPE_Link,
+	Register("endlink",			CMDTYPE_Link, nullptr);
+	Register("link",			CMDTYPE_Link, End("endlink"),
 			 ArgWord("line_object"));
-	Register("ref",				CMDTYPE_Link,
+	Register("ref",				CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgQuoteOpt("text"));
-	Register("refitem",			CMDTYPE_Link,
+	Register("refitem",			CMDTYPE_Link, nullptr,
 			 ArgWord("name"));
-	Register("secreflist",		CMDTYPE_Link);
-	Register("endsecreflist",	CMDTYPE_Link);
-	Register("subpage",			CMDTYPE_Link,
+	Register("secreflist",		CMDTYPE_Link, End("endsecreflist"));
+	Register("endsecreflist",	CMDTYPE_Link, nullptr);
+	Register("subpage",			CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgQuoteOpt("text"));
-	Register("tableofcontents",	CMDTYPE_Link);
-	Register("section",			CMDTYPE_Link,
+	Register("tableofcontents",	CMDTYPE_Link, nullptr);
+	Register("section",			CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgLine("title"));
-	Register("subsection",		CMDTYPE_Link,
+	Register("subsection",		CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgLine("title"));
-	Register("subsubsection",	CMDTYPE_Link,
+	Register("subsubsection",	CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgLine("title"));
-	Register("paragrph",		CMDTYPE_Link,
+	Register("paragrph",		CMDTYPE_Link, nullptr,
 			 ArgWord("name"),
 			 ArgLine("title"));
 	// Commands for displaying examples
-	Register("dontinclude",		CMDTYPE_Example,
+	Register("dontinclude",		CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
-	Register("include",			CMDTYPE_Example,
+	Register("include",			CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
-	Register("includelineno",	CMDTYPE_Example,
+	Register("includelineno",	CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
-	Register("line",			CMDTYPE_Example,
+	Register("line",			CMDTYPE_Example, nullptr,
 			 ArgLine("pattern"));
-	Register("skip",			CMDTYPE_Example,
+	Register("skip",			CMDTYPE_Example, nullptr,
 			 ArgLine("pattern"));
-	Register("skipline",		CMDTYPE_Example,
+	Register("skipline",		CMDTYPE_Example, nullptr,
 			 ArgLine("pattern"));
-	Register("snippet",			CMDTYPE_Example,
+	Register("snippet",			CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"),
 			 ArgLine("block_id"));
-	Register("until",			CMDTYPE_Example,
+	Register("until",			CMDTYPE_Example, nullptr,
 			 ArgLine("pattern"));
-	Register("verbinclude",		CMDTYPE_Example,
+	Register("verbinclude",		CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
-	Register("htmlinclude",		CMDTYPE_Example,
+	Register("htmlinclude",		CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
-	Register("latexinclude",	CMDTYPE_Example,
+	Register("latexinclude",	CMDTYPE_Example, nullptr,
 			 ArgWord("file_name"));
 	// Commands for visual enhancements
-	Register("a",				CMDTYPE_Visual,
+	Register("a",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("arg",				CMDTYPE_Visual,
+	Register("arg",				CMDTYPE_Visual, nullptr,
 			 ArgPara("description"));
-	Register("b",				CMDTYPE_Visual,
+	Register("b",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("c",				CMDTYPE_Visual,
+	Register("c",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("code",			CMDTYPE_Visual,
+	Register("code",			CMDTYPE_Visual, End("endcode"),
 			 ArgBraceOpt("word"));
-	Register("copydoc",			CMDTYPE_Visual,
+	Register("copydoc",			CMDTYPE_Visual, nullptr,
 			 ArgWord("link_object"));
-	Register("copybrief",		CMDTYPE_Visual,
+	Register("copybrief",		CMDTYPE_Visual, nullptr,
 			 ArgWord("link_object"));
-	Register("copydetails",		CMDTYPE_Visual,
+	Register("copydetails",		CMDTYPE_Visual, nullptr,
 			 ArgWord("link_object"));
-	Register("docbookonly",		CMDTYPE_Visual);
-	Register("dot",				CMDTYPE_Visual,
+	Register("docbookonly",		CMDTYPE_Visual, nullptr);
+	Register("dot",				CMDTYPE_Visual, End("enddot"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("msc",				CMDTYPE_Visual,
+	Register("msc",				CMDTYPE_Visual, nullptr,
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("startuml",		CMDTYPE_Visual,
+	Register("startuml",		CMDTYPE_Visual, nullptr,
 			 ArgBraceOpt("file"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("dotfile",			CMDTYPE_Visual,
+	Register("dotfile",			CMDTYPE_Visual, nullptr,
 			 ArgWord("file"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("mscfile",			CMDTYPE_Visual,
+	Register("mscfile",			CMDTYPE_Visual, nullptr,
 			 ArgWord("file"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("diafile",			CMDTYPE_Visual,
+	Register("diafile",			CMDTYPE_Visual, nullptr,
 			 ArgWord("file"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("e",				CMDTYPE_Visual,
+	Register("e",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("em",				CMDTYPE_Visual,
+	Register("em",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("endcode",			CMDTYPE_Visual);
-	Register("endcodebookonly",	CMDTYPE_Visual);
-	Register("enddot",			CMDTYPE_Visual);
-	Register("enduml",			CMDTYPE_Visual);
-	Register("endhtmlonly",		CMDTYPE_Visual);
-	Register("endlatexonly",	CMDTYPE_Visual);
-	Register("endmanonly",		CMDTYPE_Visual);
-	Register("endrtfonly",		CMDTYPE_Visual);
-	Register("endverbatim",		CMDTYPE_Visual);
-	Register("endxmlonly",		CMDTYPE_Visual);
-	Register("f$",				CMDTYPE_Visual);
-	Register("f[",				CMDTYPE_Visual);
-	Register("f]",				CMDTYPE_Visual);
-	Register("f}",				CMDTYPE_Visual);
-	Register("htmlonly",		CMDTYPE_Visual,
+	Register("endcode",			CMDTYPE_Visual, nullptr);
+	Register("endcodebookonly",	CMDTYPE_Visual, nullptr);
+	Register("enddot",			CMDTYPE_Visual, nullptr);
+	Register("enduml",			CMDTYPE_Visual, nullptr);
+	Register("endhtmlonly",		CMDTYPE_Visual, nullptr);
+	Register("endlatexonly",	CMDTYPE_Visual, nullptr);
+	Register("endmanonly",		CMDTYPE_Visual, nullptr);
+	Register("endrtfonly",		CMDTYPE_Visual, nullptr);
+	Register("endverbatim",		CMDTYPE_Visual, nullptr);
+	Register("endxmlonly",		CMDTYPE_Visual, nullptr);
+	Register("f$",				CMDTYPE_Visual, nullptr);
+	Register("f[",				CMDTYPE_Visual, nullptr);
+	Register("f]",				CMDTYPE_Visual, nullptr);
+	Register("f}",				CMDTYPE_Visual, nullptr);
+	Register("htmlonly",		CMDTYPE_Visual, End("endhtmlonly"),
 			 ArgQuoteOpt("block"));
-	Register("image",			CMDTYPE_Visual,
+	Register("image",			CMDTYPE_Visual, nullptr,
 			 ArgWord("format"),
 			 ArgWord("file"),
 			 ArgQuoteOpt("caption"),
 			 ArgLineOpt("size"));
-	Register("latexonly",		CMDTYPE_Visual);
-	Register("manonly",			CMDTYPE_Visual);
-	Register("li",				CMDTYPE_Visual,
+	Register("latexonly",		CMDTYPE_Visual, End("endlatexonly"));
+	Register("manonly",			CMDTYPE_Visual, End("endmanonly"));
+	Register("li",				CMDTYPE_Visual, nullptr,
 			 ArgPara("description"));
-	Register("n",				CMDTYPE_Visual);
-	Register("p",				CMDTYPE_Visual,
+	Register("n",				CMDTYPE_Visual, nullptr);
+	Register("p",				CMDTYPE_Visual, nullptr,
 			 ArgWord("word"));
-	Register("rtfonly",			CMDTYPE_Visual);
-	Register("verbatim",		CMDTYPE_Visual);
-	Register("xmlonly",			CMDTYPE_Visual);
-	Register("\\",				CMDTYPE_Visual);
-	Register("@",				CMDTYPE_Visual);
-	Register("~",				CMDTYPE_Visual,
+	Register("rtfonly",			CMDTYPE_Visual, End("endrtfonly"));
+	Register("verbatim",		CMDTYPE_Visual, End("endverbatime"));
+	Register("xmlonly",			CMDTYPE_Visual, End("endxmlonly"));
+	Register("\\",				CMDTYPE_Visual, nullptr);
+	Register("@",				CMDTYPE_Visual, nullptr);
+	Register("~",				CMDTYPE_Visual, nullptr,
 			 ArgLine("language_id"));
-	Register("&",				CMDTYPE_Visual);
-	Register("$",				CMDTYPE_Visual);
-	Register("#",				CMDTYPE_Visual);
-	Register("<",				CMDTYPE_Visual);
-	Register(">",				CMDTYPE_Visual);
-	Register("%",				CMDTYPE_Visual);
-	Register("\"",				CMDTYPE_Visual);
-	Register(".",				CMDTYPE_Visual);
-	Register("::",				CMDTYPE_Visual);
-	Register("|",				CMDTYPE_Visual);
-	Register("--",				CMDTYPE_Visual);
-	Register("---",				CMDTYPE_Visual);
+	Register("&",				CMDTYPE_Visual, nullptr);
+	Register("$",				CMDTYPE_Visual, nullptr);
+	Register("#",				CMDTYPE_Visual, nullptr);
+	Register("<",				CMDTYPE_Visual, nullptr);
+	Register(">",				CMDTYPE_Visual, nullptr);
+	Register("%",				CMDTYPE_Visual, nullptr);
+	Register("\"",				CMDTYPE_Visual, nullptr);
+	Register(".",				CMDTYPE_Visual, nullptr);
+	Register("::",				CMDTYPE_Visual, nullptr);
+	Register("|",				CMDTYPE_Visual, nullptr);
+	Register("--",				CMDTYPE_Visual, nullptr);
+	Register("---",				CMDTYPE_Visual, nullptr);
 	// Grouping
-	Register("{",				CMDTYPE_Group);
-	Register("}",				CMDTYPE_Group);
+	Register("{",				CMDTYPE_Group, nullptr);
+	Register("}",				CMDTYPE_Group, nullptr);
 };
 	
 const CommandFormat *CommandFormat::Lookup(const char *name)
