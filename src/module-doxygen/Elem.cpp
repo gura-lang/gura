@@ -14,6 +14,11 @@ Elem::Elem(Type type) : _cntRef(1), _type(type)
 {
 }
 
+Elem::Elem(ElemOwner *pElemChildren, Type type) :
+	_cntRef(1), _type(type), _pElemChildren(pElemChildren)
+{
+}
+
 Elem::~Elem()
 {
 }
@@ -182,30 +187,30 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 //-----------------------------------------------------------------------------
 // Elem_Composite
 //-----------------------------------------------------------------------------
-Elem_Composite::Elem_Composite(Type type) : Elem(type), _pElemOwner(new ElemOwner())
+Elem_Composite::Elem_Composite(Type type) : Elem(new ElemOwner(), type)
 {
 }
 
-Elem_Composite::Elem_Composite(ElemOwner *pElemOwner, Type type) :
-	Elem(type), _pElemOwner(pElemOwner)
+Elem_Composite::Elem_Composite(ElemOwner *pElemChildren, Type type) :
+	Elem(pElemChildren, type)
 {
 }
 
 const Elem *Elem_Composite::ReduceContent() const
 {
-	return _pElemOwner->empty()? Elem::Empty :
-		(_pElemOwner->size() == 1)? _pElemOwner->front() : this;
+	return _pElemChildren->empty()? Elem::Empty :
+		(_pElemChildren->size() == 1)? _pElemChildren->front() : this;
 }
 
 bool Elem_Composite::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
 {
-	return _pElemOwner->Render(pRenderer, pCfg, stream);
+	return _pElemChildren->Render(pRenderer, pCfg, stream);
 }
 
 String Elem_Composite::ToString() const
 {
 	String rtn;
-	foreach_const (ElemOwner, ppElem, *_pElemOwner) {
+	foreach_const (ElemOwner, ppElem, *_pElemChildren) {
 		const Elem *pElem = *ppElem;
 		rtn += pElem->ToString();
 	}
@@ -216,7 +221,7 @@ void Elem_Composite::Print(Environment &env, SimpleStream &stream, int indentLev
 {
 	Signal &sig = env.GetSignal();
 	stream.Printf(sig, "%*s[\n", indentLevel * 2, "");
-	_pElemOwner->Print(env, stream, indentLevel + 1);
+	_pElemChildren->Print(env, stream, indentLevel + 1);
 	stream.Printf(sig, "%*s]\n", indentLevel * 2, "");
 }
 

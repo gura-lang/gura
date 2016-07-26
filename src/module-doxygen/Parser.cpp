@@ -83,7 +83,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			if (_pParserChild->IsComplete()) {
 				AutoPtr<Elem_Composite> pElemResult(
 					new Elem_Composite(_pParserChild->GetElemOwner().Reference()));
-				_pElemArg->GetElemOwner().push_back(pElemResult->ReduceContent()->Reference());
+				_pElemArg->GetElemChildren().push_back(pElemResult->ReduceContent()->Reference());
 				_pParserChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
@@ -107,7 +107,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 				}
 				// finish the previous command
 				if (!_strArg.empty()) {
-					_pElemArg->GetElemOwner().push_back(new Elem_String(_strArg));
+					_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
 					_strArg.clear();
 				}
 				_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
@@ -311,7 +311,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			if (ch == '\0') Pushback(ch);
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->GetElemOwner().push_back(new Elem_String(str));
+				_pElemArg->GetElemChildren().push_back(new Elem_String(str));
 			}
 			_strArg.clear();
 			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
@@ -319,7 +319,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 		} else if (IsCommandMark(ch)) {
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->GetElemOwner().push_back(new Elem_String(str));
+				_pElemArg->GetElemChildren().push_back(new Elem_String(str));
 			}
 			_strArg.clear();
 			_cmdName.clear();
@@ -363,14 +363,14 @@ bool Parser::FeedChar(Environment &env, char ch)
 		} else if (ch == '\0') {
 			Pushback(ch);
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemOwner().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemOwner().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_cmdName.clear();
@@ -384,7 +384,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\n') {
 			// detected a blank line
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemOwner().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
@@ -511,21 +511,21 @@ void Parser::FlushElemString(const char *str)
 			_pElemOwner->push_back(new Elem_String(str));
 		}
 	} else if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
-		ElemOwner &elemOwner = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemOwner();
-		if (elemOwner.empty()) {
+		ElemOwner &elemChildren = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemChildren();
+		if (elemChildren.empty()) {
 			String strMod = Strip(str, true, false);
 			if (strMod.empty()) return;
-			elemOwner.push_back(new Elem_String(strMod));
+			elemChildren.push_back(new Elem_String(strMod));
 		} else {
-			elemOwner.push_back(new Elem_String(str));
+			elemChildren.push_back(new Elem_String(str));
 		}
 	} else {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
 		Elem_Composite *pElemComposite = new Elem_Composite();
 		_pElemOwner->push_back(pElemComposite);
-		ElemOwner &elemOwner = pElemComposite->GetElemOwner();
-		elemOwner.push_back(new Elem_String(strMod));
+		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		elemChildren.push_back(new Elem_String(strMod));
 	}
 }
 
@@ -539,13 +539,13 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 	if (!IsTopLevel()) {
 		_pElemOwner->push_back(pElem);
 	} else if (!_pElemOwner->empty() && _pElemOwner->back()->GetType() == Elem::TYPE_Composite) {
-		ElemOwner &elemOwner = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemOwner();
-		elemOwner.push_back(pElem);
+		ElemOwner &elemChildren = dynamic_cast<Elem_Composite *>(_pElemOwner->back())->GetElemChildren();
+		elemChildren.push_back(pElem);
 	} else {
 		Elem_Composite *pElemComposite = new Elem_Composite();
 		_pElemOwner->push_back(pElemComposite);
-		ElemOwner &elemOwner = pElemComposite->GetElemOwner();
-		elemOwner.push_back(pElem);
+		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		elemChildren.push_back(pElem);
 	}
 }
 

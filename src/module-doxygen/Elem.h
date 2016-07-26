@@ -9,6 +9,8 @@ Gura_BeginModuleScope(doxygen)
 class Renderer;
 class Configuration;
 
+class ElemOwner;
+
 //-----------------------------------------------------------------------------
 // Elem
 //-----------------------------------------------------------------------------
@@ -24,16 +26,21 @@ public:
 protected:
 	int _cntRef;
 	Type _type;
+	AutoPtr<ElemOwner> _pElemChildren;
 public:
 	static const Elem *Empty;
 public:
 	Gura_DeclareReferenceAccessor(Elem);
 public:
 	Elem(Type type);
+	Elem(ElemOwner *pElemChildren, Type type);
 protected:
 	virtual ~Elem();
 public:
 	inline Type GetType() const { return _type; }
+	inline bool IsParent() const { return !_pElemChildren.IsNull(); }
+	inline ElemOwner &GetElemChildren() { return *_pElemChildren; }
+	inline void SetElemChildren(ElemOwner *pElemChildren) { _pElemChildren.reset(pElemChildren); }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const = 0;
 	virtual String ToString() const = 0;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
@@ -110,14 +117,10 @@ public:
 // Elem_Composite
 //-----------------------------------------------------------------------------
 class Elem_Composite : public Elem {
-protected:
-	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Elem_Composite(Type type = TYPE_Composite);
 	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
 	const Elem *ReduceContent() const;
-	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
-	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

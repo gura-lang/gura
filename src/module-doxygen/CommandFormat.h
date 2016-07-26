@@ -105,6 +105,7 @@ public:
 	inline bool IsLineIndicator() const {
 		return !_argOwner.empty() && (_argOwner.back()->IsLine() || _argOwner.back()->IsLineOpt());
 	}
+	inline const EndDetector *GetEndDtector() const { return _pEndDetector.get(); }
 	inline void SetName(const char *name) {
 		_pSymbol = Symbol::Add(name);
 		_pSymbolEx = Symbol::Add((String("@") + name).c_str());
