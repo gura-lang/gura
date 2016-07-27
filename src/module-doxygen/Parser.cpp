@@ -555,6 +555,24 @@ void Parser::FlushElemString(ElemOwner &elemOwner, const char *str, bool topleve
 void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool toplevelFlag)
 {
 	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
+	if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
+		Elem *pElemPrev = elemOwner.back();
+		if (pElemPrev->GetType() == Elem::TYPE_Command &&
+						dynamic_cast<Elem_Command *>(pElemPrev)->IsEndCommand(pElem)) {
+			elemOwner.push_back(pElem);
+		} else {
+			FlushElemCommand(pElemPrev->GetElemChildren(), pElem, false);
+		}
+	} else if (toplevelFlag && cmdType == CommandFormat::CMDTYPE_Visual) {
+		Elem_Composite *pElemComposite = new Elem_Composite();
+		elemOwner.push_back(pElemComposite);
+		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		elemChildren.push_back(pElem);
+	} else {
+		elemOwner.push_back(pElem);
+	}
+#if 0
+	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
 	if (cmdType == CommandFormat::CMDTYPE_Visual) {
 		if (!toplevelFlag) {
 			elemOwner.push_back(pElem);
@@ -579,6 +597,7 @@ void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool to
 		}
 		elemOwner.push_back(pElem);
 	}
+#endif
 }
 
 Gura_EndModuleScope(doxygen)
