@@ -111,7 +111,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 					_strArg.clear();
 				}
 				_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
-				FlushElemCommand(_pElemCmdCur.release());
+				FlushElemCommand(*_pElemOwner, _pElemCmdCur.release(), IsTopLevel());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -170,7 +170,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			FlushElemCommand(_pElemCmdCur.release());
+			FlushElemCommand(*_pElemOwner, _pElemCmdCur.release(), IsTopLevel());
 			Pushback(ch);
 			_str.clear();
 			_stat = IsTopLevel()? STAT_String : STAT_Complete;
@@ -552,24 +552,24 @@ void Parser::FlushElemString(ElemOwner &elemOwner, const char *str, bool topleve
 #endif
 }
 
-void Parser::FlushElemCommand(Elem_Command *pElem)
+void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool toplevelFlag)
 {
 	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
 	if (cmdType == CommandFormat::CMDTYPE_Visual) {
-		if (!IsTopLevel()) {
-			_pElemOwner->push_back(pElem);
-		} else if (!_pElemOwner->empty() && _pElemOwner->back()->IsParent()) {
-			ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
+		if (!toplevelFlag) {
+			elemOwner.push_back(pElem);
+		} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
+			ElemOwner &elemChildren = elemOwner.back()->GetElemChildren();
 			elemChildren.push_back(pElem);
 		} else {
 			Elem_Composite *pElemComposite = new Elem_Composite();
-			_pElemOwner->push_back(pElemComposite);
+			elemOwner.push_back(pElemComposite);
 			ElemOwner &elemChildren = pElemComposite->GetElemChildren();
 			elemChildren.push_back(pElem);
 		}
 	} else {
-		if (!_pElemOwner->empty()) {
-			Elem *pElemPrev = _pElemOwner->back();
+		if (!elemOwner.empty()) {
+			Elem *pElemPrev = elemOwner.back();
 			if (pElemPrev->IsParent() && pElemPrev->GetType() == Elem::TYPE_Command &&
 						!dynamic_cast<Elem_Command *>(pElemPrev)->IsEndCommand(pElem)) {
 				ElemOwner &elemChildren = pElemPrev->GetElemChildren();
@@ -577,7 +577,7 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 				return;
 			}
 		}
-		_pElemOwner->push_back(pElem);
+		elemOwner.push_back(pElem);
 	}
 }
 
