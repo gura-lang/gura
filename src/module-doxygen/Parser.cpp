@@ -43,10 +43,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_String: {
 		if (ch == '\0') {
-			FlushElemString(_str.c_str());
+			FlushElemString(*_pElemOwner, _str.c_str());
 			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemString(_str.c_str());
+			FlushElemString(*_pElemOwner, _str.c_str());
 			_str.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInString;
@@ -499,24 +499,26 @@ bool Parser::ContainsCommand(const char *str)
 	return false;
 }
 
-void Parser::FlushElemString(const char *str)
+void Parser::FlushElemString(ElemOwner &elemOwner, const char *str)
 {
 	if (*str == '\0') {
 		// nothing to do
 	} else if (!IsTopLevel()) {
-		if (_pElemOwner->empty()) {
+		if (elemOwner.empty()) {
 			String strMod = Strip(str, true, false);
 			if (strMod.empty()) return;
-			_pElemOwner->push_back(new Elem_String(strMod));
+			elemOwner.push_back(new Elem_String(strMod));
 		} else {
-			_pElemOwner->push_back(new Elem_String(str));
+			elemOwner.push_back(new Elem_String(str));
 		}
-	} else if (!_pElemOwner->empty() && _pElemOwner->back()->IsParent()) {
-		ElemOwner &elemChildren = _pElemOwner->back()->GetElemChildren();
+	} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
+		ElemOwner &elemChildren = elemOwner.back()->GetElemChildren();
 		if (elemChildren.empty()) {
 			String strMod = Strip(str, true, false);
 			if (strMod.empty()) return;
 			elemChildren.push_back(new Elem_String(strMod));
+		} else if (!elemChildren.empty() && elemChildren.back()->IsParent()) {
+			FlushElemString(elemChildren.back()->GetElemChildren(), str);
 		} else {
 			elemChildren.push_back(new Elem_String(str));
 		}
@@ -524,7 +526,7 @@ void Parser::FlushElemString(const char *str)
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
 		Elem_Composite *pElemComposite = new Elem_Composite();
-		_pElemOwner->push_back(pElemComposite);
+		elemOwner.push_back(pElemComposite);
 		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
 		elemChildren.push_back(new Elem_String(strMod));
 	}
