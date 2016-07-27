@@ -43,10 +43,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_String: {
 		if (ch == '\0') {
-			FlushElemString(*_pElemOwner, _str.c_str());
+			FlushElemString(*_pElemOwner, _str.c_str(), IsTopLevel());
 			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemString(*_pElemOwner, _str.c_str());
+			FlushElemString(*_pElemOwner, _str.c_str(), IsTopLevel());
 			_str.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInString;
@@ -499,8 +499,27 @@ bool Parser::ContainsCommand(const char *str)
 	return false;
 }
 
-void Parser::FlushElemString(ElemOwner &elemOwner, const char *str)
+void Parser::FlushElemString(ElemOwner &elemOwner, const char *str, bool toplevelFlag)
 {
+	if (*str == '\0') {
+		// nothing to do
+	} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
+		FlushElemString(elemOwner.back()->GetElemChildren(), str, false);
+	} else if (toplevelFlag) {
+		String strMod = Strip(str, true, false);
+		if (strMod.empty()) return;
+		Elem_Composite *pElemComposite = new Elem_Composite();
+		elemOwner.push_back(pElemComposite);
+		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		elemChildren.push_back(new Elem_String(strMod));
+	} else if (elemOwner.empty()) {
+		String strMod = Strip(str, true, false);
+		if (strMod.empty()) return;
+		elemOwner.push_back(new Elem_String(strMod));
+	} else {
+		elemOwner.push_back(new Elem_String(str));
+	}
+#if 0
 	if (*str == '\0') {
 		// nothing to do
 	} else if (!IsTopLevel()) {
@@ -530,6 +549,7 @@ void Parser::FlushElemString(ElemOwner &elemOwner, const char *str)
 		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
 		elemChildren.push_back(new Elem_String(strMod));
 	}
+#endif
 }
 
 void Parser::FlushElemCommand(Elem_Command *pElem)
