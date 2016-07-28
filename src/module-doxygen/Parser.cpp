@@ -519,37 +519,6 @@ void Parser::FlushElemString(ElemOwner &elemOwner, const char *str, bool topleve
 	} else {
 		elemOwner.push_back(new Elem_String(str));
 	}
-#if 0
-	if (*str == '\0') {
-		// nothing to do
-	} else if (!IsTopLevel()) {
-		if (elemOwner.empty()) {
-			String strMod = Strip(str, true, false);
-			if (strMod.empty()) return;
-			elemOwner.push_back(new Elem_String(strMod));
-		} else {
-			elemOwner.push_back(new Elem_String(str));
-		}
-	} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
-		ElemOwner &elemChildren = elemOwner.back()->GetElemChildren();
-		if (elemChildren.empty()) {
-			String strMod = Strip(str, true, false);
-			if (strMod.empty()) return;
-			elemChildren.push_back(new Elem_String(strMod));
-		} else if (!elemChildren.empty() && elemChildren.back()->IsParent()) {
-			FlushElemString(elemChildren.back()->GetElemChildren(), str);
-		} else {
-			elemChildren.push_back(new Elem_String(str));
-		}
-	} else {
-		String strMod = Strip(str, true, false);
-		if (strMod.empty()) return;
-		Elem_Composite *pElemComposite = new Elem_Composite();
-		elemOwner.push_back(pElemComposite);
-		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
-		elemChildren.push_back(new Elem_String(strMod));
-	}
-#endif
 }
 
 void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool toplevelFlag)
@@ -571,33 +540,6 @@ void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool to
 	} else {
 		elemOwner.push_back(pElem);
 	}
-#if 0
-	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
-	if (cmdType == CommandFormat::CMDTYPE_Visual) {
-		if (!toplevelFlag) {
-			elemOwner.push_back(pElem);
-		} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
-			ElemOwner &elemChildren = elemOwner.back()->GetElemChildren();
-			elemChildren.push_back(pElem);
-		} else {
-			Elem_Composite *pElemComposite = new Elem_Composite();
-			elemOwner.push_back(pElemComposite);
-			ElemOwner &elemChildren = pElemComposite->GetElemChildren();
-			elemChildren.push_back(pElem);
-		}
-	} else {
-		if (!elemOwner.empty()) {
-			Elem *pElemPrev = elemOwner.back();
-			if (pElemPrev->IsParent() && pElemPrev->GetType() == Elem::TYPE_Command &&
-						!dynamic_cast<Elem_Command *>(pElemPrev)->IsEndCommand(pElem)) {
-				ElemOwner &elemChildren = pElemPrev->GetElemChildren();
-				elemChildren.push_back(pElem);
-				return;
-			}
-		}
-		elemOwner.push_back(pElem);
-	}
-#endif
 }
 
 Gura_EndModuleScope(doxygen)
