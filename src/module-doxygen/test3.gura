@@ -17,7 +17,47 @@ doc = R'''
  */
 '''
 
-doxygen.document(doc.reader()) {|doc|
+cfg:doxygen.configuration = bR'''
+ALIASES  = english="\if english" \
+           endenglish="\endif" \
+           dutch="\if dutch" \
+           enddutch="\endif"
+'''
+
+cfg.aliases.print()
+
+doc = R'''
+/*! \english
+ *  This is English.
+ *  \endif
+ *  \if dutch
+ *  Dit is Nederlands.
+ *  \endif
+ */
+'''
+
+doc = R'''
+/*! \class Par_Test
+ * Normal text.
+ *
+ * \par User defined paragraph:
+ * Contents of the paragraph.
+ *
+ * \par
+ * New paragraph under the same heading.
+ *
+ * \note
+ * This note consists of two paragraphs.
+ * This is the first paragraph.
+ *
+ * \par
+ * And this is the second paragraph.
+ *
+ * More normal text. 
+ */
+'''
+
+doxygen.document(doc.reader(), cfg) {|doc|
 	doc.structures {|structure|
 		structure.elems()::print()
 	}

@@ -165,17 +165,17 @@ void CommandFormat::Initialize()
 			 ArgPara("description"));
 	Register("details",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
-	Register("else",			CMDTYPE_Section, nullptr);
-	Register("elseif",			CMDTYPE_Section, nullptr,
+	Register("else",			CMDTYPE_Section, End("endif"));
+	Register("elseif",			CMDTYPE_Section, End("else", "elseif", "endif"),
 			 ArgLine("section_label"));
 	Register("endcond",			CMDTYPE_Section, nullptr);
 	Register("endif",			CMDTYPE_Section, nullptr);
 	Register("exception",		CMDTYPE_Section, nullptr,
 			 ArgWord("exception_object"),
 			 ArgPara("description"));
-	Register("if",				CMDTYPE_Section, End("endif"),
+	Register("if",				CMDTYPE_Section, End("else", "elseif", "endif"),
 			 ArgLine("section_label"));
-	Register("ifnot",			CMDTYPE_Section, nullptr,
+	Register("ifnot",			CMDTYPE_Section, End("else", "elseif", "endif"),
 			 ArgLine("section_label"));
 	Register("invariant",		CMDTYPE_Section, nullptr,
 			 ArgPara("description"));

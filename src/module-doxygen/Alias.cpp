@@ -31,6 +31,7 @@ bool Alias::Parse(Environment &env, const char *str)
 	size_t num = 0;
 	String field;
 	String strAhead;
+	bool quotedFlag = false;
 	for (const char *p = str; ; p++) {
 		char ch = *p;
 		Gura_BeginPushbackRegion();
@@ -121,11 +122,13 @@ bool Alias::Parse(Environment &env, const char *str)
 			if (ch == ' ' || ch == '\t') {
 				// nothing to do
 			} else if (ch == '"') {
+				quotedFlag = true;
 				field.clear();
 				stat = STAT_String;
 			} else {
-				env.SetError(ERR_SyntaxError, "double-quotation is expected");
-				return false;
+				quotedFlag = false;
+				field.clear();
+				stat = STAT_String;
 			}
 			break;
 		}
@@ -136,7 +139,7 @@ bool Alias::Parse(Environment &env, const char *str)
 				if (!field.empty()) {
 					_elemOwner.push_back(new Elem_String(field));
 				}
-			} else if (ch == '"') {
+			} else if (quotedFlag && ch == '"') {
 				strAhead.clear();
 				strAhead += ch;
 				stat = STAT_QuoteLast;
