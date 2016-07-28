@@ -30,14 +30,14 @@ cfg.aliases.print()
 doc = R'''
 /*! \english
  *  This is English.
- *  \endif
- *  \if dutch
+ *  \endenglish
+ *  \dutch
  *  Dit is Nederlands.
- *  \endif
+ *  \enddutch
  */
 '''
 
-doc = R'''
+doc1 = R'''
 /*! \class Par_Test
  * Normal text.
  *

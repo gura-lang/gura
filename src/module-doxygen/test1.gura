@@ -15,6 +15,7 @@ ALIASES += customB{1}="customB \1"
 
 doc = R'''
 /*! 
+ *  @bar
  *  @l{hoge}
  *  @l{foo,bar}
  *  @Bold{bold text}

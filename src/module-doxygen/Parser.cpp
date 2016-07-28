@@ -406,14 +406,15 @@ bool Parser::FeedChar(Environment &env, char ch)
 			_strArg.clear();
 			String rtn = EvaluateCustomCommand(env);
 			if (env.IsSignalled()) return false;
-			Pushback(ch);
 			_strArgs.clear();
+			_strArg.clear();
 			_str.clear();
 			_stat = STAT_String;
 			foreach (String, p, rtn) {
 				if (!FeedChar(env, *p)) return false;
 			}
 			if (!IsTopLevel()) _stat = STAT_Complete;
+			Pushback(ch);
 		}
 		break;
 	}
