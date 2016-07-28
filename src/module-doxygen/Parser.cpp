@@ -43,10 +43,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 	}
 	case STAT_String: {
 		if (ch == '\0') {
-			FlushElemString(*_pElemOwner, _str.c_str(), IsTopLevel());
+			FlushElemString(_str.c_str());
 			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemString(*_pElemOwner, _str.c_str(), IsTopLevel());
+			FlushElemString(_str.c_str());
 			_str.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInString;
@@ -111,7 +111,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 					_strArg.clear();
 				}
 				_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
-				FlushElemCommand(*_pElemOwner, _pElemCmdCur.release(), IsTopLevel());
+				FlushElemCommand(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				Pushback(ch);
@@ -170,7 +170,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_stat = STAT_BranchArg;
 		} else {
-			FlushElemCommand(*_pElemOwner, _pElemCmdCur.release(), IsTopLevel());
+			FlushElemCommand(_pElemCmdCur.release());
 			Pushback(ch);
 			_str.clear();
 			_stat = IsTopLevel()? STAT_String : STAT_Complete;
@@ -499,46 +499,55 @@ bool Parser::ContainsCommand(const char *str)
 	return false;
 }
 
-void Parser::FlushElemString(ElemOwner &elemOwner, const char *str, bool toplevelFlag)
+void Parser::FlushElemString(const char *str)
 {
-	if (*str == '\0') {
-		// nothing to do
-	} else if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
-		FlushElemString(elemOwner.back()->GetElemChildren(), str, false);
-	} else if (toplevelFlag) {
+	if (*str == '\0') return;
+	ElemOwner *pElemOwner = _pElemOwner.get();
+	while (!pElemOwner->empty() && pElemOwner->back()->IsParent()) {
+		pElemOwner = &pElemOwner->back()->GetElemChildren();
+	}
+	if (pElemOwner == _pElemOwner.get()) {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
 		Elem_Composite *pElemComposite = new Elem_Composite();
-		elemOwner.push_back(pElemComposite);
+		pElemOwner->push_back(pElemComposite);
 		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
 		elemChildren.push_back(new Elem_String(strMod));
-	} else if (elemOwner.empty()) {
+	} else if (pElemOwner->empty()) {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
-		elemOwner.push_back(new Elem_String(strMod));
+		pElemOwner->push_back(new Elem_String(strMod));
 	} else {
-		elemOwner.push_back(new Elem_String(str));
+		pElemOwner->push_back(new Elem_String(str));
 	}
 }
 
-void Parser::FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool toplevelFlag)
+void Parser::FlushElemCommand(Elem_Command *pElem)
 {
-	CommandFormat::CmdType cmdType = pElem->GetCommandFormat()->GetType();
-	if (!elemOwner.empty() && elemOwner.back()->IsParent()) {
-		Elem *pElemPrev = elemOwner.back();
-		if (pElemPrev->GetType() == Elem::TYPE_Command &&
-						dynamic_cast<Elem_Command *>(pElemPrev)->IsEndCommand(pElem)) {
-			elemOwner.push_back(pElem);
-		} else {
-			FlushElemCommand(pElemPrev->GetElemChildren(), pElem, false);
+	ElemOwner *pElemOwner = _pElemOwner.get();
+	if (!pElemOwner->empty() && pElemOwner->back()->IsParent()) {
+		Elem *pElemParent = pElemOwner->back();
+		for (;;) {
+			ElemOwner *pElemChildren = &pElemParent->GetElemChildren();
+			if (pElemChildren->empty() || !pElemChildren->back()->IsParent()) break;
+			pElemParent = pElemOwner->back();
+			pElemOwner = pElemChildren;
 		}
-	} else if (toplevelFlag && cmdType == CommandFormat::CMDTYPE_Visual) {
+		if (pElemParent->GetType() == Elem::TYPE_Command &&
+						dynamic_cast<Elem_Command *>(pElemParent)->IsEndCommand(pElem)) {
+			pElemOwner->push_back(pElem);
+			return;
+		}
+		pElemOwner = &pElemParent->GetElemChildren();
+	}
+	if (pElem->GetCommandFormat()->GetType() == CommandFormat::CMDTYPE_Visual &&
+										pElemOwner == _pElemOwner.get()) {
 		Elem_Composite *pElemComposite = new Elem_Composite();
-		elemOwner.push_back(pElemComposite);
+		pElemOwner->push_back(pElemComposite);
 		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
 		elemChildren.push_back(pElem);
 	} else {
-		elemOwner.push_back(pElem);
+		pElemOwner->push_back(pElem);
 	}
 }
 

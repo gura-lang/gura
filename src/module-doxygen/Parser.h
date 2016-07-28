@@ -59,8 +59,8 @@ public:
 	bool FeedChar(Environment &env, char ch);
 	bool FeedString(Environment &env, const char *str);
 	String EvaluateCustomCommand(Environment &env) const;
-	static void FlushElemString(ElemOwner &elemOwner, const char *str, bool toplevelFlag);
-	static void FlushElemCommand(ElemOwner &elemOwner, Elem_Command *pElem, bool toplevelFlag);
+	void FlushElemString(const char *str);
+	void FlushElemCommand(Elem_Command *pElem);
 	static bool ContainsCommand(const char *str);
 	inline void SetElemOwner(ElemOwner *pElemOwner) { _pElemOwner.reset(pElemOwner); }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
