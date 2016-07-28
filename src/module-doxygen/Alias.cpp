@@ -26,11 +26,13 @@ bool Alias::Parse(Environment &env, const char *str)
 		STAT_String,
 		STAT_QuoteLast,
 		STAT_BackSlash,
+		STAT_BackSlashAlpha,
 		STAT_ArgRef,
 	} stat = STAT_KeyPre;
 	size_t num = 0;
 	String field;
 	String strAhead;
+	char chSlashed = '\0';
 	bool quotedFlag = false;
 	for (const char *p = str; ; p++) {
 		char ch = *p;
@@ -126,6 +128,7 @@ bool Alias::Parse(Environment &env, const char *str)
 				field.clear();
 				stat = STAT_String;
 			} else {
+				Gura_Pushback();
 				quotedFlag = false;
 				field.clear();
 				stat = STAT_String;
@@ -174,14 +177,27 @@ bool Alias::Parse(Environment &env, const char *str)
 				Gura_Pushback();
 				stat = STAT_String;
 			} else if (ch == 't') {
-				field += '\t';
-				stat = STAT_String;
+				chSlashed = ch;
+				stat = STAT_BackSlashAlpha;
 			} else if (ch == 'n') {
-				field += '\n';
-				stat = STAT_String;
+				chSlashed = ch;
+				stat = STAT_BackSlashAlpha;
 			} else {
 				Gura_Pushback();
 				field += '\\';
+				stat = STAT_String;
+			}
+			break;
+		}
+		case STAT_BackSlashAlpha: {
+			if (IsAlpha(ch)) {
+				field += '\\';
+				field += chSlashed;
+				Gura_Pushback();
+				stat = STAT_String;
+			} else {
+				field += (chSlashed == 't')? '\t' : (chSlashed == 'n')? '\n' : '?';
+				Gura_Pushback();
 				stat = STAT_String;
 			}
 			break;

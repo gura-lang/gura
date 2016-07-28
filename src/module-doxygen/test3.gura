@@ -18,12 +18,13 @@ doc = R'''
 '''
 
 cfg:doxygen.configuration = bR'''
-ALIASES  = english="\if english" \
-           endenglish="\endif" \
-           dutch="\if dutch" \
-           enddutch="\endif"
+ALIASES  = "english=\if english" \
+           "endenglish=\endif" \
+           "dutch=\if dutch" \
+           "enddutch=\endif"
 '''
 
+cfg.print()
 cfg.aliases.print()
 
 doc = R'''
