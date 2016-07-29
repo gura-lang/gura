@@ -81,8 +81,8 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (_pParserChild.get() != nullptr) {
 			if (!_pParserChild->FeedChar(env, ch)) return false;
 			if (_pParserChild->IsComplete()) {
-				AutoPtr<Elem_Composite> pElemResult(
-					new Elem_Composite(_pParserChild->GetElemOwner().Reference()));
+				AutoPtr<Elem_Text> pElemResult(
+					new Elem_Text(_pParserChild->GetElemOwner().Reference()));
 				_pElemArg->GetElemChildren().push_back(pElemResult->ReduceContent()->Reference());
 				_pParserChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
@@ -211,7 +211,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
-			_pElemArg.reset(new Elem_Composite());
+			_pElemArg.reset(new Elem_Text());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgLine;
@@ -243,7 +243,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara()) {
-			_pElemArg.reset(new Elem_Composite());
+			_pElemArg.reset(new Elem_Text());
 			Pushback(ch);
 			_strArg.clear();
 			_stat = STAT_ArgPara;
@@ -510,9 +510,9 @@ void Parser::FlushElemString(const char *str)
 	if (IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
-		Elem_Composite *pElemComposite = new Elem_Composite();
-		pElemOwner->push_back(pElemComposite);
-		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		Elem_Text *pElemText = new Elem_Text();
+		pElemOwner->push_back(pElemText);
+		ElemOwner &elemChildren = pElemText->GetElemChildren();
 		elemChildren.push_back(new Elem_String(strMod));
 	} else if (pElemOwner->empty()) {
 		String strMod = Strip(str, true, false);
@@ -543,9 +543,9 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 	}
 	if (pElem->GetCommandFormat()->GetType() == CommandFormat::CMDTYPE_Visual &&
 							IsTopLevel() && pElemOwner == _pElemOwner.get()) {
-		Elem_Composite *pElemComposite = new Elem_Composite();
-		pElemOwner->push_back(pElemComposite);
-		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
+		Elem_Text *pElemText = new Elem_Text();
+		pElemOwner->push_back(pElemText);
+		ElemOwner &elemChildren = pElemText->GetElemChildren();
 		elemChildren.push_back(pElem);
 	} else {
 		pElemOwner->push_back(pElem);

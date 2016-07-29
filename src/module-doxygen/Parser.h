@@ -50,7 +50,7 @@ private:
 	char _chPrev;
 	AutoPtr<ElemOwner> _pElemOwner;
 	AutoPtr<Elem_Command> _pElemCmdCur;
-	AutoPtr<Elem_Composite> _pElemArg;
+	AutoPtr<Elem_Text> _pElemArg;
 	std::unique_ptr<Parser> _pParserChild;
 public:
 	Parser(const Aliases *pAliases, Parser *pParserParent = nullptr);

@@ -21,7 +21,7 @@ public:
 		TYPE_Empty,
 		TYPE_String,
 		TYPE_Command,
-		TYPE_Composite,
+		TYPE_Text,
 	};
 protected:
 	int _cntRef;
@@ -117,12 +117,12 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Elem_Composite
+// Elem_Text
 //-----------------------------------------------------------------------------
-class Elem_Composite : public Elem {
+class Elem_Text : public Elem {
 public:
-	Elem_Composite(Type type = TYPE_Composite);
-	Elem_Composite(ElemOwner *pElemOwner, Type type = TYPE_Composite);
+	Elem_Text(Type type = TYPE_Text);
+	Elem_Text(ElemOwner *pElemOwner, Type type = TYPE_Text);
 	const Elem *ReduceContent() const;
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
@@ -165,15 +165,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_Elem_Composite
+// Iterator_Elem_Text
 //-----------------------------------------------------------------------------
-class Iterator_Elem_Composite : public Iterator {
+class Iterator_Elem_Text : public Iterator {
 protected:
 	AutoPtr<ElemOwner> _pElemOwner;
 	size_t _idx;
 public:
-	Iterator_Elem_Composite(ElemOwner *pElemOwner);
-	Iterator_Elem_Composite(const Iterator_Elem_Composite &iter);
+	Iterator_Elem_Text(ElemOwner *pElemOwner);
+	Iterator_Elem_Text(const Iterator_Elem_Text &iter);
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

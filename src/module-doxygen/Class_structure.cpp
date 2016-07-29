@@ -89,8 +89,8 @@ Gura_ImplementMethod(structure, elems_at_command)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// doxygen.structure#elems@composite() {block?}
-Gura_DeclareMethodAlias(structure, elems_at_composite, "elems@composite")
+// doxygen.structure#elems@text() {block?}
+Gura_DeclareMethodAlias(structure, elems_at_text, "elems@text")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -99,11 +99,11 @@ Gura_DeclareMethodAlias(structure, elems_at_composite, "elems@composite")
 		"");
 }
 
-Gura_ImplementMethod(structure, elems_at_composite)
+Gura_ImplementMethod(structure, elems_at_text)
 {
 	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
 	AutoPtr<Iterator> pIterator(
-		new Iterator_Elem_Composite(pStructure->GetElemOwner().Reference()));
+		new Iterator_Elem_Text(pStructure->GetElemOwner().Reference()));
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -115,7 +115,7 @@ Gura_ImplementUserClass(structure)
 	Gura_AssignValue(structure, Value(Reference()));
 	Gura_AssignMethod(structure, elems);
 	Gura_AssignMethod(structure, elems_at_command);
-	Gura_AssignMethod(structure, elems_at_composite);
+	Gura_AssignMethod(structure, elems_at_text);
 }
 
 Gura_EndModuleScope(doxygen)
