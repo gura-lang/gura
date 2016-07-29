@@ -21,21 +21,12 @@ bool Object_document::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
-	//symbols.insert(Gura_UserSymbol(structures));
 	return true;
 }
 
 Value Object_document::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(structures))) {
-		AutoPtr<Iterator> pIterator(
-			new Iterator_Structure(_pDocument->GetStructureOwner().Reference()));
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }

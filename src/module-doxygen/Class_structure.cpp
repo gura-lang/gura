@@ -27,14 +27,6 @@ bool Object_structure::DoDirProp(Environment &env, SymbolSet &symbols)
 Value Object_structure::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(elems))) {
-		AutoPtr<Iterator> pIterator(
-			new Iterator_Elem(_pStructure->GetElemOwner().Reference()));
-		return Value(new Object_iterator(env, pIterator.release()));
-	}
-#endif
 	evaluatedFlag = false;
 	return Value::Nil;
 }

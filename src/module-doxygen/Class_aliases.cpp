@@ -19,24 +19,12 @@ Object *Object_aliases::Clone() const
 
 bool Object_aliases::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-#if 0
-	Signal &sig = GetSignal();
-	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_UserSymbol(elem));
-#endif
 	return true;
 }
 
 Value Object_aliases::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(elem))) {
-		return _pElem.IsNull()? Value::Nil : Value(new Object_elem(_pElem->Reference()));
-	}
-	evaluatedFlag = false;
-#endif
 	return Value::Nil;
 }
 
