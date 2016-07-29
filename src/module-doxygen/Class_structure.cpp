@@ -21,12 +21,17 @@ bool Object_structure::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	Signal &sig = GetSignal();
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(refahead));
 	return true;
 }
 
 Value Object_structure::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(refahead))) {
+		return Value(_pStructure->GetRefAheadFlag());
+	}
 	evaluatedFlag = false;
 	return Value::Nil;
 }

@@ -102,23 +102,63 @@ doc = R'''
 '''
 
 doc = R'''
+/*! \brief Brief description.
+ *         Brief description continued.
+ *
+ *  Detailed description starts here.
+ */
+
 /// Brief description.
 /** Detailed description. */
 
 /// Brief description.
 /** Detailed description. */
-'''
 
-doc1 = R'''
 //! Brief description.
 
 //! Detailed description 
 //! starts here.
+
+//! Brief description, which is
+//! really a detailed description since it spans multiple lines.
+/*! Another detailed description!
+ */
+'''
+
+doc = R'''
+int var; /*!< Detailed description after the member */
+'''
+
+doc1 = R'''
+/**
+ * ... text ...
+ */
+
+/*!
+ * ... text ...
+ */
+
+/*!
+ ... text ...
+*/
+
+///
+/// ... text ...
+///
+
+//!
+//!... text ...
+//!
+
+/********************************************//**
+ *  ... text
+ ***********************************************/
+
 '''
 
 doxygen.document(doc.reader(), cfg) {|doc|
 	doc.structures {|structure|
-		println('----')
+		println(cond(structure.refahead, '<<<<', '----'))
 		structure.elems()::print(1)
 	}
 }

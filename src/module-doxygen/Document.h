@@ -17,6 +17,7 @@ public:
 		STAT_LineCommentBgn,
 		STAT_LineDoxygenFirstChar,
 		STAT_LineDoxygen,
+		STAT_LineDoxygenPost,
 		STAT_LineComment,
 		STAT_BlockCommentBgn,
 		STAT_BlockCommentBgn_Asterisk,
@@ -35,12 +36,14 @@ public:
 	enum Region {
 		RGN_Other,
 		RGN_LineDoxygen,
-		RGN_LineDoxygenMixed,
+		RGN_LineDoxygenTrail,
+		RGN_LineDoxygenAndBlankLine,
 		RGN_BlockDoxygen,
-		RGN_BlockDoxygenMixed,
+		RGN_BlockDoxygenTrail,
 	};
 private:
 	int _cntRef;
+	int _cntContLineDoxygen;
 	Stat _stat;
 	bool _commentLineFlag;
 	Region _regionPrev;

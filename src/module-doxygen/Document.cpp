@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_Indent),
+Document::Document() : _cntRef(1), _stat(STAT_Indent), _cntContLineDoxygen(0),
 	_commentLineFlag(false), _regionPrev(RGN_Other), _pStructureOwner(new StructureOwner())
 {
 }
@@ -107,10 +107,16 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else {
 			Gura_Pushback();
 		}
-		if (_regionPrev != RGN_LineDoxygen) {
+		if (_regionPrev == RGN_LineDoxygen) {
+			_cntContLineDoxygen++;
+		} else if (_regionPrev == RGN_LineDoxygenAndBlankLine) {
+			ConvertToBrief();
+			_cntContLineDoxygen++;
+		} else {
 			AddStructure(refAheadFlag);
+			_cntContLineDoxygen = 0;
 		}
-		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
+		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenTrail;
 		_stat = STAT_LineDoxygen;
 		break;
 	}
@@ -119,9 +125,23 @@ bool Document::FeedChar(Environment &env, char ch)
 			// a line comment ends with newline.
 			if (!_pParser->FeedChar(env, '\n')) return false;
 			if (!_pParser->FeedChar(env, '\0')) return false;
-			_stat = STAT_Indent;
+			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
+				STAT_LineDoxygenPost : STAT_Indent;
 		} else { // including '\0'
 			if (!_pParser->FeedChar(env, ch)) return false;
+		}
+		break;
+	}
+	case STAT_LineDoxygenPost: {
+		if (ch == '\n') {
+			// blank line is detected
+			_regionPrev = RGN_LineDoxygenAndBlankLine;
+			_stat = STAT_Indent;
+		} else if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			Gura_Pushback();
+			_stat = STAT_Indent;
 		}
 		break;
 	}
@@ -169,11 +189,11 @@ bool Document::FeedChar(Environment &env, char ch)
 			Gura_Pushback();
 		}
 		if (_regionPrev == RGN_LineDoxygen) {
-			ConvertToBrief();
+			if (_cntContLineDoxygen == 0) ConvertToBrief();
 		} else {
 			AddStructure(refAheadFlag);
 		}
-		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
+		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenTrail;
 		_stat = STAT_BlockDoxygen;
 		break;
 	}
