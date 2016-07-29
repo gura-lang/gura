@@ -10,6 +10,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 CommandFormatList CommandFormat::_cmdFmtList;
 CommandFormatDict CommandFormat::_cmdFmtDict;
+const CommandFormat *CommandFormat::Brief = nullptr;
 
 String CommandFormat::MakeHandlerDeclaration() const
 {
@@ -151,6 +152,7 @@ void CommandFormat::Initialize()
 			 ArgPara("list_of_authors"));
 	Register("authors",			CMDTYPE_Section, nullptr,
 			 ArgPara("list_of_authors"));
+	Brief =
 	Register("brief",			CMDTYPE_Section, nullptr,
 			 ArgPara("description"));
 	Register("bug",				CMDTYPE_Section, nullptr,

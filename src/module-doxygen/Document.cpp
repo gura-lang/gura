@@ -109,6 +109,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
 			AddStructure(refAheadFlag);
+			
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;

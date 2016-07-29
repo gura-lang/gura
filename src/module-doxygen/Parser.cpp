@@ -67,8 +67,8 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_CommandCustom;
 			} else {
 				// special command
-				_stat = STAT_CommandSpecial;
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
+				_stat = STAT_CommandSpecial;
 			}
 			Pushback(ch);
 		} else {
