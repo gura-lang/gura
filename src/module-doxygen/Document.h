@@ -61,6 +61,7 @@ public:
 protected:
 	bool FeedChar(Environment &env, char ch);
 	void AddStructure(bool refAheadFlag);
+	void ConvertToBrief();
 };
 
 Gura_EndModuleScope(doxygen)

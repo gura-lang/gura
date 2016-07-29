@@ -109,6 +109,13 @@ doc = R'''
 /** Detailed description. */
 '''
 
+doc1 = R'''
+//! Brief description.
+
+//! Detailed description 
+//! starts here.
+'''
+
 doxygen.document(doc.reader(), cfg) {|doc|
 	doc.structures {|structure|
 		println('----')

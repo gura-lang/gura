@@ -22,6 +22,7 @@ protected:
 	inline ~Structure() {}
 public:
 	inline bool GetRefAheadFlag() const { return _refAheadFlag; }
+	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 };
 

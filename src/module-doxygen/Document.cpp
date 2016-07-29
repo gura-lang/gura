@@ -109,7 +109,6 @@ bool Document::FeedChar(Environment &env, char ch)
 		}
 		if (_regionPrev != RGN_LineDoxygen) {
 			AddStructure(refAheadFlag);
-			
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenMixed;
 		_stat = STAT_LineDoxygen;
@@ -169,7 +168,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else {
 			Gura_Pushback();
 		}
-		if (_regionPrev != RGN_LineDoxygen) {
+		if (_regionPrev == RGN_LineDoxygen) {
+			ConvertToBrief();
+		} else {
 			AddStructure(refAheadFlag);
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenMixed;
@@ -289,6 +290,17 @@ void Document::AddStructure(bool refAheadFlag)
 	Structure *pStructure = new Structure(refAheadFlag);
 	_pStructureOwner->push_back(pStructure);
 	_pParser->SetElemOwner(pStructure->GetElemOwner().Reference());
+}
+
+void Document::ConvertToBrief()
+{
+	ElemOwner &elemOwner = _pStructureOwner->back()->GetElemOwner();
+	if (elemOwner.size() != 1) return;
+	Elem *pElemOrg = elemOwner.front();
+	if (pElemOrg->GetType() != Elem::TYPE_Text) return;
+	Elem_Command *pElemNew = new Elem_Command(CommandFormat::Brief);
+	pElemNew->GetElemArgs().push_back(pElemOrg);
+	elemOwner[0] = pElemNew;
 }
 
 Gura_EndModuleScope(doxygen)
