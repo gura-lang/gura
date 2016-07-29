@@ -507,7 +507,7 @@ void Parser::FlushElemString(const char *str)
 	while (!pElemOwner->empty() && pElemOwner->back()->IsParent()) {
 		pElemOwner = &pElemOwner->back()->GetElemChildren();
 	}
-	if (pElemOwner == _pElemOwner.get()) {
+	if (IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
 		Elem_Composite *pElemComposite = new Elem_Composite();
@@ -542,7 +542,7 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 		pElemOwner = &pElemParent->GetElemChildren();
 	}
 	if (pElem->GetCommandFormat()->GetType() == CommandFormat::CMDTYPE_Visual &&
-										pElemOwner == _pElemOwner.get()) {
+							IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		Elem_Composite *pElemComposite = new Elem_Composite();
 		pElemOwner->push_back(pElemComposite);
 		ElemOwner &elemChildren = pElemComposite->GetElemChildren();
