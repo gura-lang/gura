@@ -474,9 +474,8 @@ bool Parser::FeedChar(Environment &env, char ch)
 
 bool Parser::FeedString(Environment &env, const char *str)
 {
-	for (const char *p = str; ; p++) {
+	for (const char *p = str; *p != '\0'; p++) {
 		if (!FeedChar(env, *p)) return false;
-		if (*p == '\0') break;
 	}
 	return true;
 }

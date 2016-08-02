@@ -159,6 +159,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '*') {
 			// parsed "/**"
+			_strAhead.clear();
 			_stat = STAT_BlockCommentBgn_Asterisk;
 		} else if (ch == '!') {
 			// parsed "/*!"
@@ -172,10 +173,13 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockCommentBgn_Asterisk: {
 		if (ch == '/') {
-			// parsed "/**/"
+			// parsed "/***...**/"
 			_stat = STAT_Source;
+		} else if (ch == '*') {
+			_strAhead += ch;
 		} else {
 			// parsed "/**."
+			if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
 			Gura_Pushback();
 			_stat = STAT_BlockDoxygenFirstChar;
 		}
@@ -199,6 +203,8 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen: {
 		if (ch == '*') {
+			_strAhead.clear();
+			_strAhead += ch;
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
@@ -210,11 +216,16 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_Asterisk: {
 		if (ch == '/') {
+			// parsed "***.../"
 			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
+		} else if (ch == '*') {
+			// parsed "***..."
+			_strAhead += ch;
 		} else { // including '\0'
-			if (!_pParser->FeedChar(env, '*')) return false;
-			if (!_pParser->FeedChar(env, ch)) return false;
+			// parsed "***...?"
+			if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
+			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
 		break;

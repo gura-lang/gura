@@ -48,6 +48,7 @@ private:
 	bool _commentLineFlag;
 	Region _regionPrev;
 	String _sourceName;
+	String _strAhead;
 	AutoPtr<StructureOwner> _pStructureOwner;
 	std::unique_ptr<Parser> _pParser;
 public:

@@ -17,16 +17,6 @@ doc = R'''
  */
 '''
 
-cfg:doxygen.configuration = bR'''
-ALIASES  = "english=\if english" \
-           "endenglish=\endif" \
-           "dutch=\if dutch" \
-           "enddutch=\endif"
-'''
-
-//cfg.print()
-//cfg.aliases.print()
-
 doc = R'''
 /*! \english
  *  This is English.
@@ -125,11 +115,11 @@ doc = R'''
  */
 '''
 
-doc = R'''
+doc1 = R'''
 int var; /*!< Detailed description after the member */
 '''
 
-doc1 = R'''
+doc = R'''
 /**
  * ... text ...
  */
@@ -156,7 +146,7 @@ doc1 = R'''
 
 '''
 
-doxygen.document(doc.reader(), cfg) {|doc|
+doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.refahead, '<<<<', '----'))
 		structure.elems()::print(1)
