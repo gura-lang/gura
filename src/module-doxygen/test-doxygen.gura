@@ -1,25 +1,49 @@
 #!/usr/bin/env gura
-import(helper.test) {*}
+import(helper.test)
 import(re)
 import(doxygen)
 
-TestCaseInfo = struct(title:string, doc:string)
+testcase = helper.test.testcase
 
-testCaseInfos = []
+TestdocInfo = struct(title:string, doc:string)
 
-testcase(title:string, doc:string):void = {
-	testCaseInfos.add(TestCaseInfo(title, doc))
+testdocInfos = []
+
+testcase('configuration test - 1') {
+	cfg:doxygen.configuration = bR'''
+	ALIASES  = "english=\if english" \
+           "endenglish=\endif" \
+           "dutch=\if dutch" \
+           "enddutch=\endif"
+	'''
+ 	cfg.print()
+	cfg.aliases.print()
 }
 
-testcase('blank block comment', R'''
+testcase('configuration test - 2') {
+	cfg:doxygen.configuration = bR'''
+	ALIASES  = english="\if english" \
+           endenglish="\endif" \
+           dutch="\if dutch" \
+           enddutch="\endif"
+	'''
+ 	cfg.print()
+	cfg.aliases.print()
+}
+
+testdoc(title:string, doc:string):void = {
+	testdocInfos.add(TestdocInfo(title, doc))
+}
+
+testdoc('blank block comment', R'''
 /**/
 ''')
 
-testcase('blank line comment', R'''
+testdoc('blank line comment', R'''
 //
 ''')
 
-testcase('simple doxygen block', R'''
+testdoc('simple doxygen block', R'''
 /**
 */
 
@@ -47,7 +71,7 @@ test3 */
 test3 */
 ''')
 
-testcase('simple doxygen line', R'''
+testdoc('simple doxygen line', R'''
 //!
 
 ///
@@ -57,7 +81,7 @@ testcase('simple doxygen line', R'''
 /// test1
 ''')
 
-testcase('multiline', R'''
+testdoc('multiline', R'''
 /**
 line.1
 line.2
@@ -65,7 +89,7 @@ line.3
 */
 ''')
 
-testcase('blank line test', R'''
+testdoc('blank line test', R'''
 /*!
  * abcdefg
  * hijklmn
@@ -74,7 +98,7 @@ testcase('blank line test', R'''
  */
 ''')
 
-testcase('split comments', R'''
+testdoc('split comments', R'''
 /*!
  abcdef
  */
@@ -89,7 +113,7 @@ testcase('split comments', R'''
  */
 ''')
 
-testcase('punctuation', R'''
+testdoc('punctuation', R'''
 /*!
 \a 1st.2nd \a 1st. 2nd
 \a 1st,2nd \a 1st, 2nd
@@ -99,7 +123,7 @@ testcase('punctuation', R'''
 */
 ''')
 
-testcase('quotation', R'''
+testdoc('quotation', R'''
 /*!
 \a word
 \a "word"
@@ -107,7 +131,7 @@ testcase('quotation', R'''
 */
 ''')
 
-testcase('test of @addtogroup', R'''
+testdoc('test of @addtogroup', R'''
 /*! \addtogroup mygrp
  *  Additional documentation for group 'mygrp'
  */
@@ -125,7 +149,7 @@ void func2()
 }
 ''')
 
-testcase('test of @class', R'''
+testdoc('test of @class', R'''
 /* A dummy class */
 class Test
 {
@@ -137,7 +161,7 @@ class Test
  */
 ''')
 
-testcase('test of @def', R'''
+testdoc('test of @def', R'''
 /*! \file define.h
     \brief testing defines
     
@@ -156,7 +180,7 @@ testcase('test of @def', R'''
         /*!< Computes the minimum of \a x and \a y. */
 ''')
 
-testcase('test of @enum', R'''
+testdoc('test of @enum', R'''
 /*! \class Enum_Test
  * The class description.
  */
@@ -168,7 +192,7 @@ testcase('test of @enum', R'''
  */
  ''')
 
-testcase('test of @example', R'''
+testdoc('test of @example', R'''
 /** A Example_Test class.
  *  More details about this class.
  */
@@ -187,7 +211,7 @@ void Example_Test::example() {}
  */
 ''')
 
-testcase('test of @file', R'''
+testdoc('test of @file', R'''
 /** \file file.h
  * A brief file description.
  * A more elaborated file description.
@@ -199,7 +223,7 @@ testcase('test of @file', R'''
 extern int globalValue;
 ''')
 
-testcase('test of @fn', R'''
+testdoc('test of @fn', R'''
 /*! \class Fn_Test
  * \brief Fn_Test class.
  *
@@ -214,7 +238,7 @@ testcase('test of @fn', R'''
  */
 ''')
 
-testcase('', R'''
+testdoc('', R'''
 E.g. if you have two event handlers @c A and @c B and a wxWindow instance
 @c W and you call:
 @code
@@ -226,17 +250,15 @@ you will end up with the following situation:
 ''')
 
 /*
-testcase('', R'''
+testdoc('', R'''
 ''')
 */
 
-testCaseInfos.each {|testCaseInfo, idx|
-	(idx > 0) && println()
-	printf('======== #%d', idx + 1)
-	!testCaseInfo.title.isempty() && printf(' %s', testCaseInfo.title)
-	println(' ========')
-	extractedFlag = testCaseInfo.doc.isempty() || !testCaseInfo.doc.match(r'\s*/')
-	doxygen.document(testCaseInfo.doc.reader(), extracted => extractedFlag) {|doc|
+println()
+testdocInfos.each {|testdocInfo, idx|
+	helper.test.printtitle(idx, testdocInfo.title)
+	extractedFlag = testdocInfo.doc.isempty() || !testdocInfo.doc.match(r'\s*/')
+	doxygen.document(testdocInfo.doc.reader(), extracted => extractedFlag) {|doc|
 		doc.structures {|structure|
 			println(cond(structure.refahead, '<<<<', '----'))
 			structure.elems()::print(1)

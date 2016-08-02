@@ -1,195 +1,304 @@
+======== #1 configuration test - 1 ========
+
+ALIASES = {
+  'english=\if english'
+  'endenglish=\endif'
+  'dutch=\if dutch'
+  'enddutch=\endif'
+}
+dutch =
+  '\if dutch'
+enddutch =
+  '\endif'
+endenglish =
+  '\endif'
+english =
+  '\if english'
+
+======== #2 configuration test - 2 ========
+
+ALIASES = {
+  'english="\if english"'
+  'endenglish="\endif"'
+  'dutch="\if dutch"'
+  'enddutch="\endif"'
+}
+dutch =
+  '\if dutch'
+enddutch =
+  '\endif'
+endenglish =
+  '\endif'
+english =
+  '\if english'
+
 ======== #1 blank block comment ========
--
 --end--
 
 ======== #2 blank line comment ========
--
 --end--
 
 ======== #3 simple doxygen block ========
-{
-  'test1\n'
-  'test1\n'
-  'test2\n'
-  'test2\n'
-  'test3 '
-  'test3 '
-}
+----
+----
+----
+  [
+    'test1\n'
+  ]
+----
+  [
+    'test1\n'
+  ]
+----
+  [
+    'test2\n'
+  ]
+----
+  [
+    'test2\n'
+  ]
+----
+  [
+    'test3 '
+  ]
+----
+  [
+    'test3 '
+  ]
 --end--
 
 ======== #4 simple doxygen line ========
-{
-  'test1\n'
-  'test1\n'
-}
+----
+----
+  @brief{description:para}
+    [
+      'test1\n'
+    ]
+  [
+    'test1\n'
+  ]
 --end--
 
 ======== #5 multiline ========
-'line.1\nline.2\nline.3\n'
+----
+  [
+    'line.1\nline.2\nline.3\n'
+  ]
 --end--
 
 ======== #6 blank line test ========
-'abcdefg\nhijklmn\n\nopqrstu\n'
+----
+  [
+    'abcdefg\nhijklmn\n\nopqrstu\n'
+  ]
 --end--
 
 ======== #7 split comments ========
-{
-  'abcdef\n'
-  'ghijkl\n'
-  'mnopqr\n'
-  'stuvwxyz\n'
-}
+----
+  [
+    'abcdef\n'
+  ]
+----
+  [
+    'ghijkl\n'
+  ]
+----
+  [
+    'mnopqr\n'
+  ]
+----
+  [
+    'stuvwxyz\n'
+  ]
 --end--
 
 ======== #8 punctuation ========
-{
-  @a{word:word}
-    '1st.2nd'
-  ' '
-  @a{word:word}
-    '1st'
-  '. 2nd\n'
-  @a{word:word}
-    '1st,2nd'
-  ' '
-  @a{word:word}
-    '1st'
-  ', 2nd\n'
-  @a{word:word}
-    '1st;2nd'
-  ' '
-  @a{word:word}
-    '1st'
-  '; 2nd\n'
-  @a{word:word}
-    '1st?2nd'
-  ' '
-  @a{word:word}
-    '1st'
-  '? 2nd\n'
-  @a{word:word}
-    '1st!2nd'
-  ' '
-  @a{word:word}
-    '1st'
-  '! 2nd\n'
-}
+----
+  [
+    @a{word:word}
+      '1st.2nd'
+    ' '
+    @a{word:word}
+      '1st'
+    '. 2nd\n'
+    @a{word:word}
+      '1st,2nd'
+    ' '
+    @a{word:word}
+      '1st'
+    ', 2nd\n'
+    @a{word:word}
+      '1st;2nd'
+    ' '
+    @a{word:word}
+      '1st'
+    '; 2nd\n'
+    @a{word:word}
+      '1st?2nd'
+    ' '
+    @a{word:word}
+      '1st'
+    '? 2nd\n'
+    @a{word:word}
+      '1st!2nd'
+    ' '
+    @a{word:word}
+      '1st'
+    '! 2nd\n'
+  ]
 --end--
 
 ======== #9 quotation ========
-{
-  @a{word:word}
-    'word'
-  '\n'
-  @a{word:word}
-    'word'
-  '\n'
-  @a{word:word}
-    'multi words'
-  '\n'
-}
+----
+  [
+    @a{word:word}
+      'word'
+    '\n'
+    @a{word:word}
+      'word'
+    '\n'
+    @a{word:word}
+      'multi words'
+    '\n'
+  ]
 --end--
 
 ======== #10 test of @addtogroup ========
-{
+----
   @addtogroup{name:word, title:line?}
     'mygrp'
     -
-  "Additional documentation for group 'mygrp'\n"
-  'A function\n'
-  'Another function '
-}
+  [
+    "Additional documentation for group 'mygrp'\n"
+  ]
+----
+  [
+    'A function\n'
+  ]
+----
+  [
+    'Another function '
+  ]
 --end--
 
 ======== #11 test of @class ========
-{
+----
   @class{name:word, header_file:word?, header_name:word?}
     'Test'
     'class.h'
     'inc/class.h'
-  '\n'
   @brief{description:para}
     'This is a test class.\n'
-  'Some details about the Test class.\n'
-}
+  [
+    'Some details about the Test class.\n'
+  ]
 --end--
 
 ======== #12 test of @def ========
-{
+----
   @file{name:word?}
     'define.h'
-  '\n'
   @brief{description:para}
     'testing defines\n'
-  'This is to test the documentation of defines.\n'
+  [
+    'This is to test the documentation of defines.\n'
+  ]
+----
   @def{name:word}
     'MAX(x,y)'
-  '\nComputes the maximum of '
-  @a{word:word}
-    'x'
-  ' and '
-  @a{word:word}
-    'y'
-  '.\n'
-  'Computes the absolute value of its argument '
-  @a{word:word}
-    'x'
-  '.\n'
-  'Computes the minimum of '
-  @a{word:word}
-    'x'
-  ' and '
-  @a{word:word}
-    'y'
-  '. '
-}
+  [
+    'Computes the maximum of '
+    @a{word:word}
+      'x'
+    ' and '
+    @a{word:word}
+      'y'
+    '.\n'
+  ]
+----
+  [
+    'Computes the absolute value of its argument '
+    @a{word:word}
+      'x'
+    '.\n'
+  ]
+----
+  [
+    'Computes the minimum of '
+    @a{word:word}
+      'x'
+    ' and '
+    @a{word:word}
+      'y'
+    '. '
+  ]
 --end--
 
 ======== #13 test of @enum ========
-{
+----
   @class{name:word, header_file:word?, header_name:word?}
     'Enum_Test'
     -
     -
-  '\nThe class description.\n'
+  [
+    'The class description.\n'
+  ]
+----
   @enum{name:word}
     'Enum_Test::TEnum'
-  '\nA description of the enum type.\n'
+  [
+    'A description of the enum type.\n'
+  ]
+----
   @var{declaration:line}
     'Enum_Test::TEnum Enum_Test::Val1'
-  'The description of the first enum value.\n'
-}
+  [
+    'The description of the first enum value.\n'
+  ]
 --end--
 
 ======== #14 test of @example ========
-{
-  'A Example_Test class.\nMore details about this class.\n'
-  'An example member function.\nMore details about this function.\n'
+----
+  [
+    'A Example_Test class.\nMore details about this class.\n'
+  ]
+----
+  [
+    'An example member function.\nMore details about this function.\n'
+  ]
+----
   @example{file_name:word}
     'example_test.cpp'
-  '\nThis is an example of how to use the Example_Test class.\nMore details about this example.\n'
-}
+  [
+    'This is an example of how to use the Example_Test class.\nMore details about this example.\n'
+  ]
 --end--
 
 ======== #15 test of @file ========
-{
+----
   @file{name:word?}
     'file.h'
-  '\nA brief file description.\nA more elaborated file description.\n'
-  'A global integer value.\nMore details about this value.\n'
-}
+  [
+    'A brief file description.\nA more elaborated file description.\n'
+  ]
+----
+  [
+    'A global integer value.\nMore details about this value.\n'
+  ]
 --end--
 
 ======== #16 test of @fn ========
-{
+----
   @class{name:word, header_file:word?, header_name:word?}
     'Fn_Test'
     -
     -
-  '\n'
   @brief{description:para}
     'Fn_Test class.\n'
-  'Details about Fn_Test.\n'
+  [
+    'Details about Fn_Test.\n'
+  ]
+----
   @fn{declaration:line}
     'const char *Fn_Test::member(char c,int n)'
   @brief{description:para}
@@ -207,30 +316,31 @@
     'parameter is out of range.\n'
   @return{description:para}
     'a character pointer.\n'
-}
 --end--
 
 ======== #17 ========
-{
-  'E.g. if you have two event handlers '
-  @c{word:word}
-    'A'
-  ' and '
-  @c{word:word}
-    'B'
-  ' and a wxWindow instance\n'
-  @c{word:word}
-    'W'
-  ' and you call:\n'
-  @code{word:brace?}
-    -
-  '\nW->PushEventHandler(A);\nW->PushEventHandler(B);\n'
-  @endcode{}
-  '\nyou will end up with the following situation:\n'
-  @image{format:word, file:word, caption:quote?, size:line?}
-    'html'
-    'overview_events_winstack.png'
-    -
-    -
-}
+----
+  [
+    'E.g. if you have two event handlers '
+    @c{word:word}
+      'A'
+    ' and '
+    @c{word:word}
+      'B'
+    ' and a wxWindow instance\n'
+    @c{word:word}
+      'W'
+    ' and you call:\n'
+    @code{word:brace?}
+      -
+      ----
+      'W->PushEventHandler(A);\nW->PushEventHandler(B);\n'
+    @endcode{}
+    '\nyou will end up with the following situation:\n'
+    @image{format:word, file:word, caption:quote?, size:line?}
+      'html'
+      'overview_events_winstack.png'
+      -
+      -
+  ]
 --end--
