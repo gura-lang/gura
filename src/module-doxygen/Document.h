@@ -15,6 +15,7 @@ public:
 		STAT_Indent,
 		STAT_Source,
 		STAT_LineCommentBgn,
+		STAT_LineCommentBgn_Slash,
 		STAT_LineDoxygenFirstChar,
 		STAT_LineDoxygen,
 		STAT_LineDoxygenPost,

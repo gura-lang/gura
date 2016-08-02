@@ -91,6 +91,7 @@ protected:
 	String _str;
 public:
 	Elem_String(const String &str, Type type = TYPE_String);
+	inline void Append(const char *str) { _str += str; }
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

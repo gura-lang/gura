@@ -89,14 +89,26 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_LineCommentBgn: {
-		if (ch == '/' || ch == '!') {
-			// parsed "///" or "//!"
+		if (ch == '/') {
+			// parsed "///"
+			_stat = STAT_LineCommentBgn_Slash;
+		} else if (ch == '!') {
+			// parsed "//!"
 			_stat = STAT_LineDoxygenFirstChar;
 		} else { // including '\0'
 			// parsed "//."
 			_regionPrev = RGN_Other;
 			Gura_Pushback();
 			_stat = STAT_LineComment;
+		}
+		break;
+	}
+	case STAT_LineCommentBgn_Slash: {
+		if (ch == '/') {
+			// nothing to do
+		} else {
+			Gura_Pushback();
+			_stat = STAT_LineDoxygenFirstChar;
 		}
 		break;
 	}

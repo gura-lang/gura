@@ -512,11 +512,19 @@ void Parser::FlushElemString(const char *str)
 		Elem_Text *pElemText = new Elem_Text();
 		pElemOwner->push_back(pElemText);
 		ElemOwner &elemChildren = pElemText->GetElemChildren();
-		elemChildren.push_back(new Elem_String(strMod));
+		if (!elemChildren.empty() && elemChildren.back()->GetType() == Elem::TYPE_String) {
+			Elem_String *pElem = dynamic_cast<Elem_String *>(elemChildren.back());
+			pElem->Append(strMod.c_str());
+		} else {
+			elemChildren.push_back(new Elem_String(strMod));
+		}
 	} else if (pElemOwner->empty()) {
 		String strMod = Strip(str, true, false);
 		if (strMod.empty()) return;
 		pElemOwner->push_back(new Elem_String(strMod));
+	} else if (pElemOwner->back()->GetType() == Elem::TYPE_String) {
+		Elem_String *pElem = dynamic_cast<Elem_String *>(pElemOwner->back());
+		pElem->Append(str);
 	} else {
 		pElemOwner->push_back(new Elem_String(str));
 	}
