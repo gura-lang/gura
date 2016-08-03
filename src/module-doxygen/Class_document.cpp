@@ -82,7 +82,7 @@ Gura_ImplementFunction(document)
 // doxygen.document#structures() {block?}
 Gura_DeclareMethod(document, structures)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,

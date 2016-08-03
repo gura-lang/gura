@@ -6,6 +6,8 @@
 
 Gura_BeginModuleScope(doxygen)
 
+class StructureOwner;
+
 //-----------------------------------------------------------------------------
 // Structure
 //-----------------------------------------------------------------------------
@@ -13,6 +15,7 @@ class Structure {
 protected:
 	int _cntRef;
 	bool _afterMemberFlag;
+	AutoPtr<StructureOwner> _pStructureOwner;
 	AutoPtr<ElemOwner> _pElemOwner;
 public:
 	Gura_DeclareReferenceAccessor(Structure);
@@ -22,6 +25,8 @@ protected:
 	inline ~Structure() {}
 public:
 	inline bool GetAfterMemberFlag() const { return _afterMemberFlag; }
+	inline StructureOwner &GetStructureOwner() { return *_pStructureOwner; }
+	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
 	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
 };

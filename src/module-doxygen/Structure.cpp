@@ -9,7 +9,8 @@ Gura_BeginModuleScope(doxygen)
 // Structure
 //-----------------------------------------------------------------------------
 Structure::Structure(bool afterMemberFlag) :
-	_cntRef(1), _afterMemberFlag(afterMemberFlag), _pElemOwner(new ElemOwner())
+	_cntRef(1), _afterMemberFlag(afterMemberFlag),
+	_pStructureOwner(new StructureOwner()), _pElemOwner(new ElemOwner())
 {
 }
 

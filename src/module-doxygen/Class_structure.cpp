@@ -112,6 +112,24 @@ Gura_ImplementMethod(structure, elems_at_text)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
+// doxygen.structure#substructures() {block?}
+Gura_DeclareMethod(structure, substructures)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
+}
+
+Gura_ImplementMethod(structure, substructures)
+{
+	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
+	AutoPtr<Iterator> pIterator(
+		new Iterator_Structure(pStructure->GetStructureOwner().Reference()));
+	return ReturnIterator(env, arg, pIterator.release());
+}
+
 //-----------------------------------------------------------------------------
 // Class implementation for doxygen.structure
 //-----------------------------------------------------------------------------
@@ -121,6 +139,7 @@ Gura_ImplementUserClass(structure)
 	Gura_AssignMethod(structure, elems);
 	Gura_AssignMethod(structure, elems_at_command);
 	Gura_AssignMethod(structure, elems_at_text);
+	Gura_AssignMethod(structure, substructures);
 }
 
 Gura_EndModuleScope(doxygen)
