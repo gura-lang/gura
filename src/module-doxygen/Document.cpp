@@ -342,8 +342,9 @@ void Document::ConvertToBrief()
 	Elem *pElemOrg = elemOwner.front();
 	if (pElemOrg->GetType() != Elem::TYPE_Text) return;
 	Elem_Command *pElemNew = new Elem_Command(CommandFormat::Brief);
-	pElemNew->GetElemArgs().push_back(pElemOrg);
+	pElemNew->GetElemArgs().push_back(pElemOrg->ReduceContent()->Reference());
 	elemOwner[0] = pElemNew;
+	Elem::Delete(pElemOrg);
 }
 
 Gura_EndModuleScope(doxygen)

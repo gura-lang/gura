@@ -41,6 +41,7 @@ public:
 	inline bool IsParent() const { return !_pElemChildren.IsNull(); }
 	inline ElemOwner &GetElemChildren() { return *_pElemChildren; }
 	inline void SetElemChildren(ElemOwner *pElemChildren) { _pElemChildren.reset(pElemChildren); }
+	virtual const Elem *ReduceContent() const;
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const = 0;
 	virtual String ToString() const = 0;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
@@ -124,7 +125,7 @@ class Elem_Text : public Elem {
 public:
 	Elem_Text(Type type = TYPE_Text);
 	Elem_Text(ElemOwner *pElemOwner, Type type = TYPE_Text);
-	const Elem *ReduceContent() const;
+	virtual const Elem *ReduceContent() const;
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
