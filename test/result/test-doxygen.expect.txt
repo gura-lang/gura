@@ -163,7 +163,46 @@ english =
   ]
 --end--
 
-======== #10 test of @addtogroup ========
+======== #10 various styles of comment block ========
+----
+  [
+    '... /** style, asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+  ]
+----
+  [
+    '... /*! style, asterisk at each line  ...\nline1\nline2\nline3\nline4\n'
+  ]
+----
+  [
+    '... /** style, no asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+  ]
+----
+  [
+    '... /*! style, no asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+  ]
+----
+  [
+    '... /// style ...\n'
+    'line1\n'
+    'line2\n'
+    'line3\n'
+    'line4\n'
+  ]
+----
+  [
+    '... //! style ...\n'
+    'line1\n'
+    'line2\n'
+    'line3\n'
+    'line4\n'
+  ]
+----
+  [
+    '******************************************//**\n... /** style, surrounded by a series of asterisks ...\nline1\nline2\nline3\nline4\n**********************************************/\n\n/////////////////////////////////////////////////\n/// ... /// style, surrounded by a series of slashes ...\n/// line1\n/// line2\n///   line3\n/// line4\n/////////////////////////////////////////////////\n'
+  ]
+--end--
+
+======== #11 test of @addtogroup ========
 ----
   @addtogroup{name:word, title:line?}
     'mygrp'
@@ -181,7 +220,7 @@ english =
   ]
 --end--
 
-======== #11 test of @class ========
+======== #12 test of @class ========
 ----
   @class{name:word, header_file:word?, header_name:word?}
     'Test'
@@ -194,7 +233,7 @@ english =
   ]
 --end--
 
-======== #12 test of @def ========
+======== #13 test of @def ========
 ----
   @file{name:word?}
     'define.h'
@@ -234,7 +273,7 @@ english =
   ]
 --end--
 
-======== #13 test of @enum ========
+======== #14 test of @enum ========
 ----
   @class{name:word, header_file:word?, header_name:word?}
     'Enum_Test'
@@ -257,7 +296,7 @@ english =
   ]
 --end--
 
-======== #14 test of @example ========
+======== #15 test of @example ========
 ----
   [
     'A Example_Test class.\nMore details about this class.\n'
@@ -274,7 +313,7 @@ english =
   ]
 --end--
 
-======== #15 test of @file ========
+======== #16 test of @file ========
 ----
   @file{name:word?}
     'file.h'
@@ -287,7 +326,7 @@ english =
   ]
 --end--
 
-======== #16 test of @fn ========
+======== #17 test of @fn ========
 ----
   @class{name:word, header_file:word?, header_name:word?}
     'Fn_Test'
@@ -318,7 +357,7 @@ english =
     'a character pointer.\n'
 --end--
 
-======== #17 ========
+======== #18 ========
 ----
   [
     'E.g. if you have two event handlers '

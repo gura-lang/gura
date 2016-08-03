@@ -119,64 +119,6 @@ doc1 = R'''
 int var; /*!< Detailed description after the member */
 '''
 
-doc = R'''
-/**
- * ... /** style, asterisk at each line ...
- * line1
- * line2
- *   line3
- * line4
- */
-
-/*!
- * ... /*! style, asterisk at each line  ...
- * line1
- * line2
- *   line3
- * line4
- */
-
-/**
- ... /** style, no asterisk at each line ...
- line1
- line2
-   line3
- line4
-*/
-
-/*!
- ... /*! style, no asterisk at each line ...
- line1
- line2
-   line3
- line4
-*/
-
-///
-/// ... /// style ...
-/// line1
-/// line2
-///   line3
-/// line4
-///
-
-//!
-//! ... //! style ...
-//! line1
-//! line2
-//!   line3
-//! line4
-//!
-
-/********************************************//**
- *  ... text ...
- ***********************************************/
-
-/////////////////////////////////////////////////
-/// ... text ...
-/////////////////////////////////////////////////
-'''
-
 doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.refahead, '<<<<', '----'))
