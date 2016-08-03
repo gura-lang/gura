@@ -70,12 +70,13 @@ english =
 ======== #4 simple doxygen line ========
 ----
 ----
-  @brief{description:para}
-    [
-      'test1\n'
-    ]
+----
   [
     'test1\n'
+  ]
+----
+  [
+    'test2\n'
   ]
 --end--
 
@@ -182,23 +183,19 @@ english =
   ]
 ----
   [
-    '... /// style ...\n'
-    'line1\n'
-    'line2\n'
-    'line3\n'
-    'line4\n'
+    '... /// style ...\nline1\nline2\nline3\nline4\n'
   ]
 ----
   [
-    '... //! style ...\n'
-    'line1\n'
-    'line2\n'
-    'line3\n'
-    'line4\n'
+    '... //! style ...\nline1\nline2\nline3\nline4\n'
   ]
 ----
   [
-    '******************************************//**\n... /** style, surrounded by a series of asterisks ...\nline1\nline2\nline3\nline4\n**********************************************/\n\n/////////////////////////////////////////////////\n/// ... /// style, surrounded by a series of slashes ...\n/// line1\n/// line2\n///   line3\n/// line4\n/////////////////////////////////////////////////\n'
+    '... /** style, surrounded by a series of asterisks ...\nline1\nline2\nline3\nline4\n'
+  ]
+----
+  [
+    '... /// style, surrounded by a series of slashes ...\nline1\nline2\nline3\nline4\n'
   ]
 --end--
 
