@@ -113,9 +113,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_LineDoxygenFirstChar: {
-		bool refAheadFlag = false;
+		bool afterMemberFlag = false;
 		if (ch == '<') {
-			refAheadFlag = !_commentLineFlag;
+			afterMemberFlag = !_commentLineFlag;
 		} else {
 			Gura_Pushback();
 		}
@@ -125,7 +125,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			ConvertToBrief();
 			_cntContLineDoxygen++;
 		} else {
-			AddStructure(refAheadFlag);
+			AddStructure(afterMemberFlag);
 			_cntContLineDoxygen = 0;
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenTrail;
@@ -198,16 +198,16 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygenFirstChar: {
-		bool refAheadFlag = false;
+		bool afterMemberFlag = false;
 		if (ch == '<') {
-			refAheadFlag = !_commentLineFlag;
+			afterMemberFlag = !_commentLineFlag;
 		} else {
 			Gura_Pushback();
 		}
 		if (_regionPrev == RGN_LineDoxygen) {
 			if (_cntContLineDoxygen == 0) ConvertToBrief();
 		} else {
-			AddStructure(refAheadFlag);
+			AddStructure(afterMemberFlag);
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenTrail;
 		_stat = STAT_BlockDoxygen;
@@ -328,9 +328,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	return true;
 }
 
-void Document::AddStructure(bool refAheadFlag)
+void Document::AddStructure(bool afterMemberFlag)
 {
-	Structure *pStructure = new Structure(refAheadFlag);
+	Structure *pStructure = new Structure(afterMemberFlag);
 	_pStructureOwner->push_back(pStructure);
 	_pParser->SetElemOwner(pStructure->GetElemOwner().Reference());
 }

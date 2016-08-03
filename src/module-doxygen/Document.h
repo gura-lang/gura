@@ -65,7 +65,7 @@ public:
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
 protected:
 	bool FeedChar(Environment &env, char ch);
-	void AddStructure(bool refAheadFlag);
+	void AddStructure(bool afterMemberFlag);
 	void ConvertToBrief();
 };
 

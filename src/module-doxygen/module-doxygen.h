@@ -31,7 +31,7 @@ Gura_BeginModuleHeader(doxygen)
 
 Gura_DeclareUserSymbol(aliases);
 Gura_DeclareUserSymbol(elem);
-Gura_DeclareUserSymbol(refahead);
+Gura_DeclareUserSymbol(aftermember);
 
 //-----------------------------------------------------------------------------
 // HelpPresenter_doxygen

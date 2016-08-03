@@ -110,7 +110,7 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(aliases);
 	Gura_RealizeUserSymbol(elem);
-	Gura_RealizeUserSymbol(refahead);
+	Gura_RealizeUserSymbol(aftermember);
 	// class realization
 	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(structure, env.LookupClass(VTYPE_object));
