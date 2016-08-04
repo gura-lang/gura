@@ -347,4 +347,41 @@ void Document::ConvertToBrief()
 	Elem::Delete(pElemOrg);
 }
 
+//-----------------------------------------------------------------------------
+// Document::Line
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Document::LineList
+//-----------------------------------------------------------------------------
+void Document::LineList::AdjustIndent()
+{
+	int indentMin = 0;
+	foreach (LineList, ppLine, *this) {
+		Line *pLine = *ppLine;
+		int indent = pLine->GetIndent();
+		if (ppLine == begin() || indentMin < indent) indentMin = indent;
+	}
+	foreach (LineList, ppLine, *this) {
+		Line *pLine = *ppLine;
+		pLine->SetIndent(pLine->GetIndent() - indentMin);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Document::LineOwner
+//-----------------------------------------------------------------------------
+Document::LineOwner::~LineOwner()
+{
+	Clear();
+}
+
+void Document::LineOwner::Clear()
+{
+	foreach (LineOwner, ppLine, *this) {
+		delete *ppLine;
+	}
+	clear();
+}
+
 Gura_EndModuleScope(doxygen)

@@ -42,6 +42,25 @@ public:
 		RGN_BlockDoxygen,
 		RGN_BlockDoxygenTrail,
 	};
+	class Line {
+	private:
+		int _indent;
+		String _str;
+	public:
+		inline Line(int indent, const String &str) : _indent(indent), _str(str) {}
+		inline void SetIndent(int indent) { _indent = indent; }
+		inline int GetIndent() const { return _indent; }
+		inline const char *GetString() const { return _str.c_str(); }
+	};
+	class LineList : public std::vector<Line *> {
+	public:
+		void AdjustIndent();
+	};
+	class LineOwner : public LineList {
+	public:
+		~LineOwner();
+		void Clear();
+	};
 private:
 	int _cntRef;
 	int _cntContLineDoxygen;
