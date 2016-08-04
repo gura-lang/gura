@@ -8,7 +8,7 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_Indent), _cntContLineDoxygen(0),
+Document::Document() : _cntRef(1), _cntContLineDoxygen(0), _indent(0), _stat(STAT_Indent),
 	_commentLineFlag(false), _regionPrev(RGN_Other), _pStructureOwner(new StructureOwner())
 {
 }
@@ -45,6 +45,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
+			_indent = 0;
 			_regionPrev = RGN_Other;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
@@ -64,6 +65,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
+			_indent = 0;
 			_regionPrev = RGN_Other;
 			_stat = STAT_Indent;
 		} else { // including '\0'
@@ -137,6 +139,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			// a line comment ends with newline.
 			if (!_pParser->FeedChar(env, '\n')) return false;
 			if (!_pParser->FeedChar(env, '\0')) return false;
+			_indent = 0;
 			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
 				STAT_LineDoxygenPost : STAT_Indent;
 		} else { // including '\0'
@@ -147,6 +150,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygenPost: {
 		if (ch == '\n') {
 			// blank line is detected
+			_indent = 0;
 			_regionPrev = RGN_LineDoxygenAndBlankLine;
 			_stat = STAT_Indent;
 		} else if (ch == ' ' || ch == '\t') {
@@ -160,6 +164,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineComment: {
 		if (ch == '\n') {
 			// a line comment ends with newline.
+			_indent = 0;
 			_stat = STAT_Indent;
 		} else { // including '\0'
 			// nothing to do
@@ -220,6 +225,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
+			_indent = 0;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else { // including '\0'
 			if (!_pParser->FeedChar(env, ch)) return false;
@@ -247,6 +253,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
+			_indent = 0;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
@@ -272,6 +279,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
+			_indent = 0;
 			_stat = STAT_BlockDoxygen_Indent;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
@@ -304,6 +312,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
+			_indent = 0;
 		} else if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
@@ -317,6 +326,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			if (!_pParser->FeedChar(env, ch)) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
+			_indent = 0;
 			_stat = STAT_ExIndent;
 		} else {
 			if (!_pParser->FeedChar(env, ch)) return false;

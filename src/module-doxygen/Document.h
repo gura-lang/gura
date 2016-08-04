@@ -64,6 +64,7 @@ public:
 private:
 	int _cntRef;
 	int _cntContLineDoxygen;
+	int _indent;
 	Stat _stat;
 	bool _commentLineFlag;
 	Region _regionPrev;
