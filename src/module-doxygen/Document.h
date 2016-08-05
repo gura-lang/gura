@@ -51,10 +51,12 @@ public:
 		inline void SetIndent(int indent) { _indent = indent; }
 		inline int GetIndent() const { return _indent; }
 		inline const char *GetString() const { return _str.c_str(); }
+		bool FeedToParser(Environment &env, Parser *pParser) const;
 	};
 	class LineList : public std::vector<Line *> {
 	public:
 		void AdjustIndent();
+		bool FeedToParser(Environment &env, Parser *pParser) const;
 	};
 	class LineOwner : public LineList {
 	public:

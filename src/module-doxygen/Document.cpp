@@ -47,7 +47,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n') {
 			_indent = 0;
 			_regionPrev = RGN_Other;
-		} else if (ch == ' ' || ch == '\t') {
+		} else if (ch == ' ') {
+			// nothing to do
+		} else if (ch == '\t') {
 			// nothing to do
 		} else if (ch == '/') {
 			// parsed "/" after indentation
@@ -153,7 +155,9 @@ bool Document::FeedChar(Environment &env, char ch)
 			_indent = 0;
 			_regionPrev = RGN_LineDoxygenAndBlankLine;
 			_stat = STAT_Indent;
-		} else if (ch == ' ' || ch == '\t') {
+		} else if (ch == ' ') {
+			// nothing to do
+		} else if (ch == '\t') {
 			// nothing to do
 		} else {
 			Gura_Pushback();
@@ -254,7 +258,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
-		} else if (ch == ' ' || ch == '\t') {
+		} else if (ch == ' ') {
+			// nothing to do
+		} else if (ch == '\t') {
 			// nothing to do
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_IndentAsterisk;
@@ -281,7 +287,9 @@ bool Document::FeedChar(Environment &env, char ch)
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
 			_stat = STAT_BlockDoxygen_Indent;
-		} else if (ch == ' ' || ch == '\t') {
+		} else if (ch == ' ') {
+			// nothing to do
+		} else if (ch == '\t') {
 			// nothing to do
 		} else {
 			Gura_Pushback();
@@ -313,7 +321,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
-		} else if (ch == ' ' || ch == '\t') {
+		} else if (ch == ' ') {
+			// nothing to do
+		} else if (ch == '\t') {
 			// nothing to do
 		} else {
 			_stat = STAT_ExDoxygen;
@@ -360,6 +370,13 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 // Document::Line
 //-----------------------------------------------------------------------------
+bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
+{
+	for (int i = 0; i < _indent; i++) {
+		if (!pParser->FeedChar(env, ' ')) return false;
+	}
+	return pParser->FeedString(env, _str.c_str());
+}
 
 //-----------------------------------------------------------------------------
 // Document::LineList
@@ -376,6 +393,15 @@ void Document::LineList::AdjustIndent()
 		Line *pLine = *ppLine;
 		pLine->SetIndent(pLine->GetIndent() - indentMin);
 	}
+}
+
+bool Document::LineList::FeedToParser(Environment &env, Parser *pParser) const
+{
+	foreach_const (LineList, ppLine, *this) {
+		const Line *pLine = *ppLine;
+		if (!pLine->FeedToParser(env, pParser)) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
