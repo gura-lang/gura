@@ -139,7 +139,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_LineDoxygen: {
-		if (ch == '\n') {
+		if (ch == '\0') {
+			if (!_pParser->FeedChar(env, '\0')) return false;
+		} else if (ch == '\n') {
 			// a line comment ends with newline.
 			if (!_pParser->FeedChar(env, '\n')) return false;
 			if (!_pParser->FeedChar(env, '\0')) return false;
@@ -147,7 +149,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strLine.clear();
 			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
 				STAT_LineDoxygenPost : STAT_Indent;
-		} else { // including '\0'
+		} else {
 			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -228,7 +230,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygen: {
-		if (ch == '*') {
+		if (ch == '\0') {
+			if (!_pParser->FeedChar(env, '\0')) return false;
+		} else if (ch == '*') {
 			_strLine.clear();
 			_strLine += ch;
 			_stat = STAT_BlockDoxygen_Asterisk;
@@ -237,7 +241,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_indent = 0;
 			_strLine.clear();
 			_stat = STAT_BlockDoxygen_Indent;
-		} else { // including '\0'
+		} else {
 			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -260,7 +264,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_Indent: {
 		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
@@ -325,7 +329,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExIndent: {
 		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
@@ -342,7 +346,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExDoxygen: {
 		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, ch)) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			if (!_pParser->FeedChar(env, ch)) return false;
 			_indent = 0;
