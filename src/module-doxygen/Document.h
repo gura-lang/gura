@@ -72,6 +72,7 @@ private:
 	Region _regionPrev;
 	String _sourceName;
 	String _strLine;
+	String _strAhead;
 	AutoPtr<StructureOwner> _pStructureOwner;
 	std::unique_ptr<Parser> _pParser;
 public:
