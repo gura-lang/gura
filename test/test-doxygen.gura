@@ -329,7 +329,7 @@ testdocInfos.each {|testdocInfo, idx|
 	extractedFlag = testdocInfo.doc.isempty() || !testdocInfo.doc.match(r'\s*/')
 	doxygen.document(testdocInfo.doc.reader(), extracted => extractedFlag) {|doc|
 		doc.structures {|structure|
-			println(cond(structure.refahead, '<<<<', '----'))
+			println(cond(structure.aftermember, '----[after member]', '----'))
 			structure.elems()::print(1)
 		}
 	}
