@@ -44,18 +44,18 @@ public:
 	};
 	class Line {
 	private:
-		int _indent;
+		int _col;
 		String _str;
 	public:
-		inline Line(int indent, const String &str) : _indent(indent), _str(str) {}
-		inline void SetIndent(int indent) { _indent = indent; }
-		inline int GetIndent() const { return _indent; }
+		inline Line(int col, const String &str) : _col(col), _str(str) {}
+		inline void SetCol(int col) { _col = col; }
+		inline int GetCol() const { return _col; }
 		inline const char *GetString() const { return _str.c_str(); }
 		bool FeedToParser(Environment &env, Parser *pParser) const;
 	};
 	class LineList : public std::vector<Line *> {
 	public:
-		void AdjustIndent();
+		void AdjustCol();
 		bool FeedToParser(Environment &env, Parser *pParser) const;
 	};
 	class LineOwner : public LineList {
@@ -66,7 +66,8 @@ public:
 private:
 	int _cntRef;
 	int _cntContLineDoxygen;
-	int _indent;
+	int _col;
+	int _tabSize;
 	Stat _stat;
 	bool _commentLineFlag;
 	Region _regionPrev;
@@ -86,6 +87,7 @@ public:
 					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
+	inline int AdvanceColTab(int col) const { return (col / _tabSize + 1) * _tabSize; }
 protected:
 	bool FeedChar(Environment &env, char ch);
 	void AddStructure(bool afterMemberFlag);

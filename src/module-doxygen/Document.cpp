@@ -8,8 +8,9 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _cntContLineDoxygen(0), _indent(0), _stat(STAT_Indent),
-	_commentLineFlag(false), _regionPrev(RGN_Other), _pStructureOwner(new StructureOwner())
+Document::Document() : _cntRef(1), _cntContLineDoxygen(0), _col(0), _stat(STAT_Indent),
+	_tabSize(4), _commentLineFlag(false), _regionPrev(RGN_Other),
+	_pStructureOwner(new StructureOwner())
 {
 }
 
@@ -45,15 +46,16 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_regionPrev = RGN_Other;
 		} else if (ch == ' ') {
-			// nothing to do
+			_col += 1;
 		} else if (ch == '\t') {
-			// nothing to do
+			_col = AdvanceColTab(_col);
 		} else if (ch == '/') {
 			// parsed "/" after indentation
+			_col += 1;
 			_commentLineFlag = true;
 			_stat = STAT_Slash;
 		} else {
@@ -65,15 +67,16 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_Source: {
 		if (ch == '/') {
 			// parsed "/" after some source code
+			_col += 1;
 			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_regionPrev = RGN_Other;
 			_stat = STAT_Indent;
 		} else { // including '\0'
-			// nothing to do
+			_col += 1;
 		}
 		break;
 	}
@@ -143,13 +146,15 @@ bool Document::FeedChar(Environment &env, char ch)
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			// a line comment ends with newline.
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, '\n')) return false;
 			if (!_pParser->FeedChar(env, '\0')) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
 				STAT_LineDoxygenPost : STAT_Indent;
 		} else {
+			_strLine += ch;
 			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -157,12 +162,12 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygenPost: {
 		if (ch == '\n') {
 			// blank line is detected
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_regionPrev = RGN_LineDoxygenAndBlankLine;
 			_stat = STAT_Indent;
 		} else if (ch == ' ') {
-			// nothing to do
+			_col++;
 		} else if (ch == '\t') {
 			// nothing to do
 		} else {
@@ -174,7 +179,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineComment: {
 		if (ch == '\n') {
 			// a line comment ends with newline.
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_stat = STAT_Indent;
 		} else { // including '\0'
@@ -235,11 +240,13 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strAhead += ch;
 			_stat = STAT_BlockDoxygen_Asterisk;
 		} else if (ch == '\n') {
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, ch)) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
+			_strLine += ch;
 			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -264,8 +271,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, ch)) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 		} else if (ch == ' ') {
 			// nothing to do
@@ -293,8 +301,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, ch)) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_stat = STAT_BlockDoxygen_Indent;
 		} else if (ch == ' ') {
@@ -329,8 +338,9 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, ch)) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 		} else if (ch == ' ') {
 			// nothing to do
@@ -346,11 +356,13 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
+			_strLine += '\n';
 			if (!_pParser->FeedChar(env, ch)) return false;
-			_indent = 0;
+			_col = 0;
 			_strLine.clear();
 			_stat = STAT_ExIndent;
 		} else {
+			_strLine += ch;
 			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
@@ -384,7 +396,7 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
 {
-	for (int i = 0; i < _indent; i++) {
+	for (int i = 0; i < _col; i++) {
 		if (!pParser->FeedChar(env, ' ')) return false;
 	}
 	return pParser->FeedString(env, _str.c_str());
@@ -393,17 +405,17 @@ bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
 //-----------------------------------------------------------------------------
 // Document::LineList
 //-----------------------------------------------------------------------------
-void Document::LineList::AdjustIndent()
+void Document::LineList::AdjustCol()
 {
-	int indentMin = 0;
+	int colMin = 0;
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
-		int indent = pLine->GetIndent();
-		if (ppLine == begin() || indentMin < indent) indentMin = indent;
+		int col = pLine->GetCol();
+		if (ppLine == begin() || colMin < col) colMin = col;
 	}
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
-		pLine->SetIndent(pLine->GetIndent() - indentMin);
+		pLine->SetCol(pLine->GetCol() - colMin);
 	}
 }
 
