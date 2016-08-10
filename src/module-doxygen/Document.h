@@ -56,7 +56,7 @@ public:
 	class LineList : public std::vector<Line *> {
 	public:
 		void AdjustCol();
-		bool FeedToParser(Environment &env, Parser *pParser) const;
+		bool FeedToParser(Environment &env, Parser *pParser, bool flushFlag) const;
 	};
 	class LineOwner : public LineList {
 	public:
@@ -74,6 +74,7 @@ private:
 	String _sourceName;
 	String _strLine;
 	String _strAhead;
+	LineOwner _lineOwner;
 	AutoPtr<StructureOwner> _pStructureOwner;
 	std::unique_ptr<Parser> _pParser;
 public:
@@ -87,7 +88,12 @@ public:
 					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
-	inline int AdvanceColTab(int col) const { return (col / _tabSize + 1) * _tabSize; }
+	inline void ClearCol() { _col = 0; }
+	inline void AdvanceCol() { _col++; }
+	inline void AdvanceColTab() { _col = (_col / _tabSize + 1) * _tabSize; }
+	inline void AdvanceCol(char ch) {
+		_col = (ch == '\t')? (_col / _tabSize + 1) * _tabSize : _col + 1;
+	}
 protected:
 	bool FeedChar(Environment &env, char ch);
 	void AddStructure(bool afterMemberFlag);
