@@ -49,11 +49,13 @@ bool Document::FeedChar(Environment &env, char ch)
 			ClearCol();
 			_strLine.clear();
 			_regionPrev = RGN_Other;
-		} else if (ch == ' ' || ch == '\t') {
-			AdvanceCol(ch);
+		} else if (ch == ' ') {
+			AdvanceColChar();
+		} else if (ch == '\t') {
+			AdvanceColTab();
 		} else if (ch == '/') {
 			// parsed "/" after indentation
-			AdvanceCol();
+			AdvanceColChar();
 			_commentLineFlag = true;
 			_stat = STAT_Slash;
 		} else {
@@ -63,9 +65,11 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_Source: {
-		if (ch == '/') {
+		if (ch == '\0') {
+			// nothing to do
+		} else if (ch == '/') {
 			// parsed "/" after some source code
-			AdvanceCol();
+			AdvanceColChar();
 			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
@@ -73,8 +77,10 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strLine.clear();
 			_regionPrev = RGN_Other;
 			_stat = STAT_Indent;
-		} else { // including '\0'
-			AdvanceCol();
+		} else if (ch == '\t') {
+			AdvanceColTab();
+		} else {
+			AdvanceColChar();
 		}
 		break;
 	}
@@ -83,11 +89,11 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '/') {
 			// parsed "//"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_LineCommentBgn;
 		} else if (ch == '*') {
 			// parsed "/*"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_BlockCommentBgn;
 		} else {
 			// parsed "/."
@@ -100,11 +106,11 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineCommentBgn: {
 		if (ch == '/') {
 			// parsed "///"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_LineCommentBgn_Slash;
 		} else if (ch == '!') {
 			// parsed "//!"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_LineDoxygenFirstChar;
 		} else { // including '\0'
 			// parsed "//."
@@ -116,7 +122,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_LineCommentBgn_Slash: {
 		if (ch == '/') {
-			AdvanceCol();
+			AdvanceColChar();
 		} else {
 			Gura_Pushback();
 			_stat = STAT_LineDoxygenFirstChar;
@@ -126,7 +132,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_LineDoxygenFirstChar: {
 		bool afterMemberFlag = false;
 		if (ch == '<') {
-			AdvanceCol();
+			AdvanceColChar();
 			afterMemberFlag = !_commentLineFlag;
 		} else {
 			Gura_Pushback();
@@ -141,7 +147,18 @@ bool Document::FeedChar(Environment &env, char ch)
 			_cntContLineDoxygen = 0;
 		}
 		_regionPrev = _commentLineFlag? RGN_LineDoxygen : RGN_LineDoxygenTrail;
-		_stat = STAT_LineDoxygen;
+		_stat = STAT_LineDoxygen_Indent;
+		break;
+	}
+	case STAT_LineDoxygen_Indent: {
+		if (ch == ' ') {
+			AdvanceColChar();
+		} else if (ch == '\t') {
+			AdvanceColTab();
+		} else {
+			Gura_Pushback();
+			_stat = STAT_LineDoxygen;
+		}
 		break;
 	}
 	case STAT_LineDoxygen: {
@@ -189,7 +206,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strLine.clear();
 			_stat = STAT_Indent;
 		} else {
-			AdvanceCol(ch);
+			// nothing to do
 		}
 		break;
 	}
@@ -198,11 +215,11 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '*') {
 			// parsed "/**"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_BlockCommentBgn_Asterisk;
 		} else if (ch == '!') {
 			// parsed "/*!"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_BlockDoxygenFirstChar;
 		} else {
 			// parsed "/*."
@@ -215,10 +232,10 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_BlockCommentBgn_Asterisk: {
 		if (ch == '/') {
 			// parsed "/***...**/"
-			AdvanceCol();
+			AdvanceColChar();
 			_stat = STAT_Source;
 		} else if (ch == '*') {
-			AdvanceCol();
+			AdvanceColChar();
 		} else {
 			// parsed "/**."
 			Gura_Pushback();
@@ -229,7 +246,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_BlockDoxygenFirstChar: {
 		bool afterMemberFlag = false;
 		if (ch == '<') {
-			AdvanceCol();
+			AdvanceColChar();
 			afterMemberFlag = !_commentLineFlag;
 		} else {
 			Gura_Pushback();
@@ -280,18 +297,10 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygen_Indent: {
-		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, '\0')) return false;
-		} else if (ch == '\n') {
-			_strLine += '\n';
-			_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, ch)) return false;
-			ClearCol();
-			_strLine.clear();
-		} else if (ch == ' ') {
-			// nothing to do
+		if (ch == ' ') {
+			AdvanceColChar();
 		} else if (ch == '\t') {
-			// nothing to do
+			AdvanceColTab();
 		} else if (ch == '*') {
 			_stat = STAT_BlockDoxygen_IndentAsterisk;
 		} else {
@@ -311,16 +320,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_BlockDoxygen_IndentAfterAsterisk: {
-		if (ch == '\0') {
-			// nothing to do
-		} else if (ch == '\n') {
-			_strLine += '\n';
-			_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, ch)) return false;
-			ClearCol();
-			_strLine.clear();
-			_stat = STAT_BlockDoxygen_Indent;
-		} else if (ch == ' ') {
+		if (ch == ' ') {
 			// nothing to do
 		} else if (ch == '\t') {
 			// nothing to do
@@ -349,18 +349,10 @@ bool Document::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_ExIndent: {
-		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, '\0')) return false;
-		} else if (ch == '\n') {
-			_strLine += '\n';
-			_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, ch)) return false;
-			ClearCol();
-			_strLine.clear();
-		} else if (ch == ' ') {
-			// nothing to do
+		if (ch == ' ') {
+			AdvanceColChar();
 		} else if (ch == '\t') {
-			// nothing to do
+			AdvanceColTab();
 		} else {
 			_stat = STAT_ExDoxygen;
 			Gura_Pushback();

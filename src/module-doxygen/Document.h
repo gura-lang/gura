@@ -17,6 +17,7 @@ public:
 		STAT_LineCommentBgn,
 		STAT_LineCommentBgn_Slash,
 		STAT_LineDoxygenFirstChar,
+		STAT_LineDoxygen_Indent,
 		STAT_LineDoxygen,
 		STAT_LineDoxygenPost,
 		STAT_LineComment,
@@ -89,11 +90,8 @@ public:
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
 	inline void ClearCol() { _col = 0; }
-	inline void AdvanceCol() { _col++; }
+	inline void AdvanceColChar() { _col++; }
 	inline void AdvanceColTab() { _col = (_col / _tabSize + 1) * _tabSize; }
-	inline void AdvanceCol(char ch) {
-		_col = (ch == '\t')? (_col / _tabSize + 1) * _tabSize : _col + 1;
-	}
 protected:
 	bool FeedChar(Environment &env, char ch);
 	void AddStructure(bool afterMemberFlag);
