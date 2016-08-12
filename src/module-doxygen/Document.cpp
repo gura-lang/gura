@@ -154,6 +154,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_LineDoxygen: {
 		if (ch == '\0') {
+			if (_col > 0 || !_strLine.empty()) {
+				_lineOwner.push_back(new Line(_col, _strLine));
+			}
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			// a line comment ends with newline.
@@ -261,6 +264,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen: {
 		if (ch == '\0') {
+			if (_col > 0 || !_strLine.empty()) {
+				_lineOwner.push_back(new Line(_col, _strLine));
+			}
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '*') {
 			_strAhead.clear();
@@ -281,6 +287,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	case STAT_BlockDoxygen_Asterisk: {
 		if (ch == '/') {
 			// parsed "***.../"
+			if (_col > 0 || !_strLine.empty()) {
+				_lineOwner.push_back(new Line(_col, _strLine));
+			}
 			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else if (ch == '*') {
@@ -288,6 +297,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strAhead += ch;
 		} else { // including '\0'
 			// parsed "***...?"
+			_strLine += _strAhead;
 			if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
 			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
@@ -310,6 +320,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_IndentAsterisk: {
 		if (ch == '/') {
+			if (_col > 0 || !_strLine.empty()) {
+				_lineOwner.push_back(new Line(_col, _strLine));
+			}
 			if (!_pParser->FeedChar(env, '\0')) return false;
 			_stat = STAT_Source;
 		} else {
@@ -349,6 +362,9 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExDoxygen: {
 		if (ch == '\0') {
+			if (_col > 0 || !_strLine.empty()) {
+				_lineOwner.push_back(new Line(_col, _strLine));
+			}
 			if (!_pParser->FeedChar(env, '\0')) return false;
 		} else if (ch == '\n') {
 			_strLine += '\n';
