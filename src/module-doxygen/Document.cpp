@@ -8,8 +8,8 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _cntContLineDoxygen(0), _col(0), _stat(STAT_Indent),
-	_tabSize(4), _commentLineFlag(false), _regionPrev(RGN_Other),
+Document::Document() : _cntRef(1), _cntContLineDoxygen(0), _col(0), _colAsterisk(-1),
+	_stat(STAT_Indent), _tabSize(4), _commentLineFlag(false), _regionPrev(RGN_Other),
 	_pStructureOwner(new StructureOwner())
 {
 }
@@ -46,8 +46,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		if (ch == '\0') {
 			// nothing to do
 		} else if (ch == '\n') {
-			ClearCol();
-			_strLine.clear();
+			NewLine();
 			_regionPrev = RGN_Other;
 		} else if (ch == ' ') {
 			AdvanceColChar();
@@ -73,8 +72,8 @@ bool Document::FeedChar(Environment &env, char ch)
 			_commentLineFlag = false;
 			_stat = STAT_Slash;
 		} else if (ch == '\n') {
-			ClearCol();
-			_strLine.clear();
+			_colAsterisk = -1;
+			NewLine();
 			_regionPrev = RGN_Other;
 			_stat = STAT_Indent;
 		} else if (ch == '\t') {
@@ -93,6 +92,9 @@ bool Document::FeedChar(Environment &env, char ch)
 			_stat = STAT_LineCommentBgn;
 		} else if (ch == '*') {
 			// parsed "/*"
+			if (_colAsterisk < 0) {
+				_colAsterisk = _col;
+			}
 			AdvanceColChar();
 			_stat = STAT_BlockCommentBgn;
 		} else {
@@ -150,6 +152,24 @@ bool Document::FeedChar(Environment &env, char ch)
 		_stat = STAT_LineDoxygen_Indent;
 		break;
 	}
+	case STAT_LineDoxygen: {
+		if (ch == '\0') {
+			if (!_pParser->FeedChar(env, '\0')) return false;
+		} else if (ch == '\n') {
+			// a line comment ends with newline.
+			_strLine += '\n';
+			//_lineOwner.push_back(new Line(_col, _strLine));
+			if (!_pParser->FeedChar(env, '\n')) return false;
+			if (!_pParser->FeedChar(env, '\0')) return false;
+			NewLine();
+			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
+				STAT_LineDoxygenPost : STAT_Indent;
+		} else {
+			_strLine += ch;
+			if (!_pParser->FeedChar(env, ch)) return false;
+		}
+		break;
+	}
 	case STAT_LineDoxygen_Indent: {
 		if (ch == ' ') {
 			AdvanceColChar();
@@ -161,30 +181,10 @@ bool Document::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_LineDoxygen: {
-		if (ch == '\0') {
-			if (!_pParser->FeedChar(env, '\0')) return false;
-		} else if (ch == '\n') {
-			// a line comment ends with newline.
-			_strLine += '\n';
-			//_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, '\n')) return false;
-			if (!_pParser->FeedChar(env, '\0')) return false;
-			ClearCol();
-			_strLine.clear();
-			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
-				STAT_LineDoxygenPost : STAT_Indent;
-		} else {
-			_strLine += ch;
-			if (!_pParser->FeedChar(env, ch)) return false;
-		}
-		break;
-	}
 	case STAT_LineDoxygenPost: {
 		if (ch == '\n') {
 			// blank line is detected
-			ClearCol();
-			_strLine.clear();
+			NewLine();
 			_regionPrev = RGN_LineDoxygenAndBlankLine;
 			_stat = STAT_Indent;
 		} else if (ch == ' ') {
@@ -202,8 +202,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			// nothing to do
 		} else if (ch == '\n') {
 			// a line comment ends with newline.
-			ClearCol();
-			_strLine.clear();
+			NewLine();
 			_stat = STAT_Indent;
 		} else {
 			// nothing to do
@@ -212,7 +211,7 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockCommentBgn: {
 		if (ch == '\0') {
-			// nothing to do
+			_colAsterisk = -1;
 		} else if (ch == '*') {
 			// parsed "/**"
 			AdvanceColChar();
@@ -257,7 +256,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			AddStructure(afterMemberFlag);
 		}
 		_regionPrev = _commentLineFlag? RGN_BlockDoxygen : RGN_BlockDoxygenTrail;
-		_stat = STAT_BlockDoxygen;
+		_stat = STAT_BlockDoxygen_Indent;
 		break;
 	}
 	case STAT_BlockDoxygen: {
@@ -271,8 +270,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strLine += '\n';
 			_lineOwner.push_back(new Line(_col, _strLine));
 			if (!_pParser->FeedChar(env, ch)) return false;
-			ClearCol();
-			_strLine.clear();
+			NewLine();
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
 			_strLine += ch;
@@ -301,7 +299,8 @@ bool Document::FeedChar(Environment &env, char ch)
 			AdvanceColChar();
 		} else if (ch == '\t') {
 			AdvanceColTab();
-		} else if (ch == '*') {
+		} else if (ch == '*' && _col == _colAsterisk) {
+			AdvanceColChar();
 			_stat = STAT_BlockDoxygen_IndentAsterisk;
 		} else {
 			Gura_Pushback();
@@ -315,18 +314,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_stat = STAT_Source;
 		} else {
 			Gura_Pushback();
-			_stat = STAT_BlockDoxygen_IndentAfterAsterisk;
-		}
-		break;
-	}
-	case STAT_BlockDoxygen_IndentAfterAsterisk: {
-		if (ch == ' ') {
-			// nothing to do
-		} else if (ch == '\t') {
-			// nothing to do
-		} else {
-			Gura_Pushback();
-			_stat = STAT_BlockDoxygen;
+			_stat = STAT_BlockDoxygen_Indent;
 		}
 		break;
 	}
@@ -366,8 +354,7 @@ bool Document::FeedChar(Environment &env, char ch)
 			_strLine += '\n';
 			_lineOwner.push_back(new Line(_col, _strLine));
 			if (!_pParser->FeedChar(env, ch)) return false;
-			ClearCol();
-			_strLine.clear();
+			NewLine();
 			_stat = STAT_ExIndent;
 		} else {
 			_strLine += ch;

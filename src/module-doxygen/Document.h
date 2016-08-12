@@ -17,8 +17,8 @@ public:
 		STAT_LineCommentBgn,
 		STAT_LineCommentBgn_Slash,
 		STAT_LineDoxygenFirstChar,
-		STAT_LineDoxygen_Indent,
 		STAT_LineDoxygen,
+		STAT_LineDoxygen_Indent,
 		STAT_LineDoxygenPost,
 		STAT_LineComment,
 		STAT_BlockCommentBgn,
@@ -28,7 +28,6 @@ public:
 		STAT_BlockDoxygen_Asterisk,
 		STAT_BlockDoxygen_Indent,
 		STAT_BlockDoxygen_IndentAsterisk,
-		STAT_BlockDoxygen_IndentAfterAsterisk,
 		STAT_BlockComment,
 		STAT_BlockComment_Asterisk,
 		STAT_Slash,
@@ -68,6 +67,7 @@ private:
 	int _cntRef;
 	int _cntContLineDoxygen;
 	int _col;
+	int _colAsterisk;
 	int _tabSize;
 	Stat _stat;
 	bool _commentLineFlag;
@@ -89,7 +89,7 @@ public:
 					const Aliases *pAliases, bool extractedFlag);
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
-	inline void ClearCol() { _col = 0; }
+	inline void NewLine() { _col = 0; _strLine.clear(); }
 	inline void AdvanceColChar() { _col++; }
 	inline void AdvanceColTab() { _col = (_col / _tabSize + 1) * _tabSize; }
 protected:
