@@ -154,22 +154,17 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_LineDoxygen: {
 		if (ch == '\0') {
-			if (_col > 0 || !_strLine.empty()) {
-				_lineOwner.push_back(new Line(_col, _strLine));
-			}
-			if (!_pParser->FeedChar(env, '\0')) return false;
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 		} else if (ch == '\n') {
 			// a line comment ends with newline.
 			_strLine += '\n';
-			//_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, '\n')) return false;
-			if (!_pParser->FeedChar(env, '\0')) return false;
-			NewLine();
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 			_stat = (_regionPrev == RGN_LineDoxygen && _cntContLineDoxygen == 0)?
 				STAT_LineDoxygenPost : STAT_Indent;
 		} else {
 			_strLine += ch;
-			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
@@ -264,10 +259,8 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen: {
 		if (ch == '\0') {
-			if (_col > 0 || !_strLine.empty()) {
-				_lineOwner.push_back(new Line(_col, _strLine));
-			}
-			if (!_pParser->FeedChar(env, '\0')) return false;
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 		} else if (ch == '*') {
 			_strAhead.clear();
 			_strAhead += ch;
@@ -275,22 +268,18 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else if (ch == '\n') {
 			_strLine += '\n';
 			_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, ch)) return false;
 			NewLine();
 			_stat = STAT_BlockDoxygen_Indent;
 		} else {
 			_strLine += ch;
-			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
 	case STAT_BlockDoxygen_Asterisk: {
 		if (ch == '/') {
 			// parsed "***.../"
-			if (_col > 0 || !_strLine.empty()) {
-				_lineOwner.push_back(new Line(_col, _strLine));
-			}
-			if (!_pParser->FeedChar(env, '\0')) return false;
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 			_stat = STAT_Source;
 		} else if (ch == '*') {
 			// parsed "***..."
@@ -298,7 +287,7 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else { // including '\0'
 			// parsed "***...?"
 			_strLine += _strAhead;
-			if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
+			//if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
 			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
@@ -320,10 +309,8 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_BlockDoxygen_IndentAsterisk: {
 		if (ch == '/') {
-			if (_col > 0 || !_strLine.empty()) {
-				_lineOwner.push_back(new Line(_col, _strLine));
-			}
-			if (!_pParser->FeedChar(env, '\0')) return false;
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 			_stat = STAT_Source;
 		} else {
 			Gura_Pushback();
@@ -362,25 +349,37 @@ bool Document::FeedChar(Environment &env, char ch)
 	}
 	case STAT_ExDoxygen: {
 		if (ch == '\0') {
-			if (_col > 0 || !_strLine.empty()) {
-				_lineOwner.push_back(new Line(_col, _strLine));
-			}
-			if (!_pParser->FeedChar(env, '\0')) return false;
+			_lineOwner.push_back(new Line(_col, _strLine));
+			if (!FlushLines(env)) return false;
 		} else if (ch == '\n') {
 			_strLine += '\n';
 			_lineOwner.push_back(new Line(_col, _strLine));
-			if (!_pParser->FeedChar(env, ch)) return false;
 			NewLine();
 			_stat = STAT_ExIndent;
 		} else {
 			_strLine += ch;
-			if (!_pParser->FeedChar(env, ch)) return false;
 		}
 		break;
 	}
 	}
 	Gura_EndPushbackRegion();
 	return true;
+}
+
+bool Document::FlushLines(Environment &env)
+{
+	_lineOwner.AlignCol();
+	if (!_lineOwner.FeedToParser(env, _pParser.get())) return false;
+	//_lineOwner.Print();
+	_lineOwner.Clear();
+	NewLine();
+	return true;
+}
+
+void Document::NewLine()
+{
+	_col = 0;
+	_strLine.clear();
 }
 
 void Document::AddStructure(bool afterMemberFlag)
@@ -407,16 +406,23 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
 {
+#if 0
 	for (int i = 0; i < _col; i++) {
 		if (!pParser->FeedChar(env, ' ')) return false;
 	}
+#endif
 	return pParser->FeedString(env, _str.c_str());
+}
+
+void Document::Line::Print() const
+{
+	::printf("%*s%s", _col, "", _str.c_str());
 }
 
 //-----------------------------------------------------------------------------
 // Document::LineList
 //-----------------------------------------------------------------------------
-void Document::LineList::AdjustCol()
+void Document::LineList::AlignCol()
 {
 	int colMin = 0;
 	foreach (LineList, ppLine, *this) {
@@ -438,6 +444,14 @@ bool Document::LineList::FeedToParser(Environment &env, Parser *pParser, bool fl
 	}
 	if (flushFlag && !pParser->FeedChar(env, '\0')) return false;
 	return true;
+}
+
+void Document::LineList::Print() const
+{
+	foreach_const (LineList, ppLine, *this) {
+		const Line *pLine = *ppLine;
+		pLine->Print();
+	}
 }
 
 //-----------------------------------------------------------------------------

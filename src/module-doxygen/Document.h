@@ -52,11 +52,13 @@ public:
 		inline int GetCol() const { return _col; }
 		inline const char *GetString() const { return _str.c_str(); }
 		bool FeedToParser(Environment &env, Parser *pParser) const;
+		void Print() const;
 	};
 	class LineList : public std::vector<Line *> {
 	public:
-		void AdjustCol();
-		bool FeedToParser(Environment &env, Parser *pParser, bool flushFlag) const;
+		void AlignCol();
+		bool FeedToParser(Environment &env, Parser *pParser, bool flushFlag = true) const;
+		void Print() const;
 	};
 	class LineOwner : public LineList {
 	public:
@@ -87,9 +89,10 @@ protected:
 public:
 	bool ReadStream(Environment &env, SimpleStream &stream,
 					const Aliases *pAliases, bool extractedFlag);
+	bool FlushLines(Environment &env);
+	void NewLine();
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
-	inline void NewLine() { _col = 0; _strLine.clear(); }
 	inline void AdvanceColChar() { _col++; }
 	inline void AdvanceColTab() { _col = (_col / _tabSize + 1) * _tabSize; }
 protected:
