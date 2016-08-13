@@ -183,6 +183,13 @@ class QTstyle_Test
 }
 '''
 
+doc = R'''
+/**
+ * A global integer value.
+ * More details about this value.
+ */
+'''
+
 doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.aftermember, '----[after member]', '----'))

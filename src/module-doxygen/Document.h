@@ -51,6 +51,7 @@ public:
 		inline void SetCol(int col) { _col = col; }
 		inline int GetCol() const { return _col; }
 		inline const char *GetString() const { return _str.c_str(); }
+		inline bool IsBlank() const { return _str.empty() || _str[0] == '\n'; }
 		bool FeedToParser(Environment &env, Parser *pParser) const;
 		void Print() const;
 	};

@@ -427,8 +427,10 @@ void Document::LineList::AlignCol()
 	int colMin = 0;
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
-		int col = pLine->GetCol();
-		if (ppLine == begin() || colMin < col) colMin = col;
+		if (!pLine->IsBlank()) {
+			int col = pLine->GetCol();
+			if (ppLine == begin() || colMin > col) colMin = col;
+		}
 	}
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
