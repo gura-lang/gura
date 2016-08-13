@@ -368,6 +368,12 @@ bool Document::FeedChar(Environment &env, char ch)
 
 bool Document::FlushLines(Environment &env)
 {
+#if 0
+	foreach_const (LineOwner, ppLine, _lineOwner) {
+		const Line *pLine = *ppLine;
+		::printf("%d: %s", pLine->GetCol(), pLine->GetString());
+	}
+#endif
 	_lineOwner.AlignCol();
 	if (!_lineOwner.FeedToParser(env, _pParser.get())) return false;
 	//_lineOwner.Print();
@@ -425,16 +431,18 @@ void Document::Line::Print() const
 void Document::LineList::AlignCol()
 {
 	int colMin = 0;
+	bool firstFlag = true;
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
 		if (!pLine->IsBlank()) {
 			int col = pLine->GetCol();
-			if (ppLine == begin() || colMin > col) colMin = col;
+			if (firstFlag || colMin > col) colMin = col;
+			firstFlag = false;
 		}
 	}
 	foreach (LineList, ppLine, *this) {
 		Line *pLine = *ppLine;
-		pLine->SetCol(pLine->GetCol() - colMin);
+		pLine->SetCol(ChooseMax(pLine->GetCol() - colMin, 0));
 	}
 }
 
