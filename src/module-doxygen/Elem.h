@@ -116,6 +116,12 @@ public:
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
+	inline bool HasCompletedArg() const {
+		return _pElemArgs->size() >= _pCmdFmt->GetArgOwner().size();
+	}
+	inline CommandFormat::Arg *GetCurrentArg() const {
+		return _pCmdFmt->GetArgOwner()[_pElemArgs->size()];
+	}
 };
 
 //-----------------------------------------------------------------------------

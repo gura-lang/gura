@@ -163,29 +163,23 @@ bool Parser::FeedChar(Environment &env, char ch)
 		break;
 	}
 	case STAT_NextArg: {
-		const ElemOwner &elemArgs = _pElemCmdCur->GetElemArgs();
-		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
-		size_t iArg = elemArgs.size();
-		if (iArg < argOwner.size()) {
-			Pushback(ch);
-			_stat = STAT_BranchArg;
-		} else {
+		if (_pElemCmdCur->HasCompletedArg()) {
 			FlushElemCommand(_pElemCmdCur.release());
 			Pushback(ch);
 			_str.clear();
 			_stat = IsTopLevel()? STAT_String : STAT_Complete;
+		} else {
+			Pushback(ch);
+			_stat = STAT_BranchArg;
 		}
 		break;
 	}
 	case STAT_BranchArg: {
-		const ElemOwner &elemArgs = _pElemCmdCur->GetElemArgs();
-		const CommandFormat::ArgOwner &argOwner = _pElemCmdCur->GetCommandFormat()->GetArgOwner();
-		size_t iArg = elemArgs.size();
-		const CommandFormat::Arg *pArg = argOwner[iArg];
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else if (pArg->IsWord() || pArg->IsWordOpt()) {
-			if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
+		const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
+		if (pArg->IsWord() || pArg->IsWordOpt()) {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 				if (pArg->IsWord()) {
 					env.SetError(ERR_SyntaxError, "argument %s doesn't exist", pArg->GetName());
 					return false;
@@ -202,7 +196,9 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_ArgWord;
 			}
 		} else if (pArg->IsBracket()) {
-			if (ch == '[') {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '[') {
 				_strArg.clear();
 				_stat = STAT_ArgBracket;
 			} else { // including '\0'
@@ -211,12 +207,18 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsLine() || pArg->IsLineOpt()) {
-			_pElemArg.reset(new Elem_Text());
-			Pushback(ch);
-			_strArg.clear();
-			_stat = STAT_ArgLine;
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else {
+				_pElemArg.reset(new Elem_Text());
+				Pushback(ch);
+				_strArg.clear();
+				_stat = STAT_ArgLine;
+			}
 		} else if (pArg->IsQuote() || pArg->IsQuoteOpt()) {
-			if (ch == '"') {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '"') {
 				_strArg.clear();
 				_stat = STAT_ArgQuote;
 			} else { // including '\0'
@@ -230,7 +232,9 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
-			if (ch == '{') {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (ch == '{') {
 				_strArg.clear();
 				_stat = STAT_ArgBrace;
 			} else { // include '\0'
@@ -243,10 +247,14 @@ bool Parser::FeedChar(Environment &env, char ch)
 				_stat = STAT_NextArg;
 			}
 		} else if (pArg->IsPara()) {
-			_pElemArg.reset(new Elem_Text());
-			Pushback(ch);
-			_strArg.clear();
-			_stat = STAT_ArgPara;
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else {
+				_pElemArg.reset(new Elem_Text());
+				Pushback(ch);
+				_strArg.clear();
+				_stat = STAT_ArgPara;
+			}
 		}
 		break;
 	}
