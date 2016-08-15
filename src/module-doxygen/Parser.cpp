@@ -211,78 +211,6 @@ bool Parser::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
-	case STAT_ArgBracketPre: {
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else if (ch == '[') {
-			_strArg.clear();
-			_stat = STAT_ArgBracket;
-		} else { // including '\0'
-			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
-			_stat = STAT_NextArg;
-		}
-		break;
-	}
-	case STAT_ArgLinePre: {
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else {
-			_pElemArg.reset(new Elem_Text());
-			Pushback(ch);
-			_strArg.clear();
-			_stat = STAT_ArgLine;
-		}
-		break;
-	}
-	case STAT_ArgQuotePre: {
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else if (ch == '"') {
-			_strArg.clear();
-			_stat = STAT_ArgQuote;
-		} else { // including '\0'
-			const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
-			if (pArg->IsQuote()) {
-				env.SetError(ERR_SyntaxError, "quoted string is expected");
-				return false;
-			}
-			Pushback(ch);
-			if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
-			_stat = STAT_NextArg;
-		}
-		break;
-	}
-	case STAT_ArgBracePre: {
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else if (ch == '{') {
-			_strArg.clear();
-			_stat = STAT_ArgBrace;
-		} else { // include '\0'
-			const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
-			if (pArg->IsBrace()) {
-				env.SetError(ERR_SyntaxError, "braced string is expected");
-				return false;
-			}
-			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
-			_stat = STAT_NextArg;
-		}
-		break;
-	}
-	case STAT_ArgParaPre: {
-		if (ch == ' ' || ch == '\t') {
-			// nothing to do
-		} else {
-			_pElemArg.reset(new Elem_Text());
-			Pushback(ch);
-			_strArg.clear();
-			_stat = STAT_ArgPara;
-		}
-		break;
-	}
 	case STAT_ArgWord: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
@@ -326,6 +254,19 @@ bool Parser::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
+	case STAT_ArgBracketPre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else if (ch == '[') {
+			_strArg.clear();
+			_stat = STAT_ArgBracket;
+		} else { // including '\0'
+			Pushback(ch);
+			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_stat = STAT_NextArg;
+		}
+		break;
+	}
 	case STAT_ArgBracket: {
 		if (ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
@@ -336,6 +277,17 @@ bool Parser::FeedChar(Environment &env, char ch)
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
+		}
+		break;
+	}
+	case STAT_ArgLinePre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			_pElemArg.reset(new Elem_Text());
+			Pushback(ch);
+			_strArg.clear();
+			_stat = STAT_ArgLine;
 		}
 		break;
 	}
@@ -362,6 +314,25 @@ bool Parser::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
+	case STAT_ArgQuotePre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else if (ch == '"') {
+			_strArg.clear();
+			_stat = STAT_ArgQuote;
+		} else { // including '\0'
+			const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
+			if (pArg->IsQuote()) {
+				env.SetError(ERR_SyntaxError, "quoted string is expected");
+				return false;
+			}
+			Pushback(ch);
+			if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
+			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_stat = STAT_NextArg;
+		}
+		break;
+	}
 	case STAT_ArgQuote: {
 		if (ch == '\n' || ch == '\0') {
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
@@ -375,6 +346,24 @@ bool Parser::FeedChar(Environment &env, char ch)
 		}
 		break;
 	}
+	case STAT_ArgBracePre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else if (ch == '{') {
+			_strArg.clear();
+			_stat = STAT_ArgBrace;
+		} else { // include '\0'
+			const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
+			if (pArg->IsBrace()) {
+				env.SetError(ERR_SyntaxError, "braced string is expected");
+				return false;
+			}
+			Pushback(ch);
+			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_stat = STAT_NextArg;
+		}
+		break;
+	}
 	case STAT_ArgBrace: {
 		if (ch == '\n' || ch == '\0') {
 			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
@@ -385,6 +374,17 @@ bool Parser::FeedChar(Environment &env, char ch)
 			_stat = STAT_NextArg;
 		} else {
 			_strArg += ch;
+		}
+		break;
+	}
+	case STAT_ArgParaPre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			_pElemArg.reset(new Elem_Text());
+			Pushback(ch);
+			_strArg.clear();
+			_stat = STAT_ArgPara;
 		}
 		break;
 	}
