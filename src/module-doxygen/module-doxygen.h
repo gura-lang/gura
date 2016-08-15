@@ -45,15 +45,17 @@ public:
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-inline static bool IsCommandMark(char ch)
+inline bool IsCommandMark(char ch)
 {
 	return ch == '@' || ch == '\\';
 }
 
-inline static bool IsWordChar(char ch)
+inline bool IsWordChar(char ch)
 {
 	return IsAlpha(ch) || IsDigit(ch) || ch == '_';
 }
+
+bool IsBlank(const char *str);
 
 Gura_EndModuleHeader(doxygen)
 

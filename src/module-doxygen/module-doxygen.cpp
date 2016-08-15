@@ -139,6 +139,17 @@ Gura_ModuleTerminate()
 	g_pFunc_Presenter.reset(nullptr);
 }
 
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+bool IsBlank(const char *str)
+{
+	for (const char *p = str; *p != '\0'; p++) {
+		if (!(*p == ' ' || *p == '\t' || *p == '\n')) return false;
+	}
+	return true;
+}
+
 Gura_EndModuleBody(doxygen, doxygen)
 
 Gura_RegisterModule(doxygen)
