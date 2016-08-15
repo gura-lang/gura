@@ -168,25 +168,18 @@ bool Parser::FeedChar(Environment &env, char ch)
 			Pushback(ch);
 			_str.clear();
 			_stat = IsTopLevel()? STAT_String : STAT_Complete;
-		} else {
-			const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
-			Pushback(ch);
-			if (pArg->IsWord() || pArg->IsWordOpt()) {
-				_stat = STAT_ArgWordPre;
-			} else if (pArg->IsBracket()) {
-				_stat = STAT_ArgBracketPre;
-			} else if (pArg->IsLine() || pArg->IsLineOpt()) {
-				_stat = STAT_ArgLinePre;
-			} else if (pArg->IsQuote() || pArg->IsQuoteOpt()) {
-				_stat = STAT_ArgQuotePre;
-			} else if (pArg->IsBrace() || pArg->IsBraceOpt()) {
-				_stat = STAT_ArgBracePre;
-			} else if (pArg->IsPara()) {
-				_stat = STAT_ArgParaPre;
-			} else {
-				_stat = STAT_Complete;	// this must not happen
-			}
+			break;
 		}
+		const CommandFormat::Arg *pArg = _pElemCmdCur->GetCurrentArg();
+		Pushback(ch);
+		_stat =
+			(pArg->IsWord() || pArg->IsWordOpt())?		STAT_ArgWordPre :
+			pArg->IsBracket()?							STAT_ArgBracketPre :
+			(pArg->IsLine() || pArg->IsLineOpt())?		STAT_ArgLinePre :
+			(pArg->IsQuote() || pArg->IsQuoteOpt())?	STAT_ArgQuotePre :
+			(pArg->IsBrace() || pArg->IsBraceOpt())?	STAT_ArgBracePre :
+			pArg->IsPara()?								STAT_ArgParaPre :
+			STAT_Complete;	// this must not happen
 		break;
 	}
 	case STAT_ArgWordPre: {
