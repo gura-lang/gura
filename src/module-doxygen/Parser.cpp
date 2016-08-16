@@ -533,21 +533,21 @@ void Parser::FlushElemString(const char *str)
 		pElemOwner = &pElemOwner->back()->GetElemChildren();
 	}
 	if (IsTopLevel() && pElemOwner == _pElemOwner.get()) {
-		String strMod = Strip(str, true, false);
-		if (strMod.empty()) return;
+		const char *strSkip = SkipBlankLine(str);
+		if (*strSkip == '\0') return;
 		Elem_Text *pElemText = new Elem_Text();
 		pElemOwner->push_back(pElemText);
 		ElemOwner &elemChildren = pElemText->GetElemChildren();
 		if (!elemChildren.empty() && elemChildren.back()->GetType() == Elem::TYPE_String) {
 			Elem_String *pElem = dynamic_cast<Elem_String *>(elemChildren.back());
-			pElem->Append(strMod.c_str());
+			pElem->Append(strSkip);
 		} else {
-			elemChildren.push_back(new Elem_String(strMod));
+			elemChildren.push_back(new Elem_String(strSkip));
 		}
 	} else if (pElemOwner->empty()) {
-		String strMod = Strip(str, true, false);
-		if (strMod.empty()) return;
-		pElemOwner->push_back(new Elem_String(strMod));
+		const char *strSkip = SkipBlankLine(str);
+		if (*strSkip == '\0') return;
+		pElemOwner->push_back(new Elem_String(strSkip));
 	} else if (pElemOwner->back()->GetType() == Elem::TYPE_String) {
 		Elem_String *pElem = dynamic_cast<Elem_String *>(pElemOwner->back());
 		pElem->Append(str);

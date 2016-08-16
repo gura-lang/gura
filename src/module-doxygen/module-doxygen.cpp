@@ -145,9 +145,21 @@ Gura_ModuleTerminate()
 bool IsBlank(const char *str)
 {
 	for (const char *p = str; *p != '\0'; p++) {
-		if (!(*p == ' ' || *p == '\t' || *p == '\n')) return false;
+		char ch = *p;
+		if (ch != ' ' && ch != '\t' && ch != '\n') return false;
 	}
 	return true;
+}
+
+const char *SkipBlankLine(const char *str)
+{
+	const char *p = str;
+	for ( ; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '\n') return p + 1;
+		if (ch != ' ' && ch != '\t') return str;
+	}
+	return p;
 }
 
 Gura_EndModuleBody(doxygen, doxygen)

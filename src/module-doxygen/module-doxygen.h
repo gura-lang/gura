@@ -56,6 +56,7 @@ inline bool IsWordChar(char ch)
 }
 
 bool IsBlank(const char *str);
+const char *SkipBlankLine(const char *str);
 
 Gura_EndModuleHeader(doxygen)
 
