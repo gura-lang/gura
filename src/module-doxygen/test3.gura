@@ -190,6 +190,14 @@ doc = R'''
  */
 '''
 
+doc = R'''
+/*! \class Test class.h "inc/class.h"
+ *  \brief This is a test class.
+ *
+ * Some details about the Test class.
+ */
+ '''
+
 doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.aftermember, '----[after member]', '----'))

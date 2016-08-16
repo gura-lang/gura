@@ -99,8 +99,14 @@ public:
 		_pSymbol(Symbol::Add(name)), _pSymbolEx(Symbol::Add((String("@") + name).c_str())),
 		_cmdType(cmdType), _pEndDetector(pEndDetector) {}
 	inline CmdType GetType() const { return _cmdType; }
-	inline bool IsSpecial() const { return _cmdType != CMDTYPE_Custom; }
-	inline bool IsCustom() const { return _cmdType == CMDTYPE_Custom; }
+	inline bool IsStructure() const		{ return _cmdType == CMDTYPE_Structure; }
+	inline bool IsSection() const		{ return _cmdType == CMDTYPE_Section; }
+	inline bool IsLink() const			{ return _cmdType == CMDTYPE_Link; }
+	inline bool IsExample() const		{ return _cmdType == CMDTYPE_Example; }
+	inline bool IsVisual() const		{ return _cmdType == CMDTYPE_Visual; }
+	inline bool IsGroup() const			{ return _cmdType == CMDTYPE_Group; }
+	inline bool IsCustom() const		{ return _cmdType == CMDTYPE_Custom; }
+	inline bool IsSpecial() const		{ return _cmdType != CMDTYPE_Custom; }
 	inline bool IsSectionIndicator() const {
 		return _cmdType == CMDTYPE_Section || (!_argOwner.empty() && _argOwner.back()->IsPara());
 	}

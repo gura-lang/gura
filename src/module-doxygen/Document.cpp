@@ -412,7 +412,7 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
 {
-#if 0
+#if 1
 	if (!IsBlank()) {
 		for (int i = 0; i < _col; i++) {
 			if (!pParser->FeedChar(env, ' ')) return false;

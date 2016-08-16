@@ -46,8 +46,8 @@ bool Parser::FeedChar(Environment &env, char ch)
 			FlushElemString(_str.c_str());
 			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			FlushElemString(_str.c_str());
-			_str.clear();
+			//FlushElemString(_str.c_str());
+			//_str.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInString;
 		} else {
@@ -64,12 +64,17 @@ bool Parser::FeedChar(Environment &env, char ch)
 			const CommandFormat *pCmdFmt = CommandFormat::Lookup(_cmdName.c_str());
 			if (pCmdFmt == nullptr) {
 				// custom command
+				FlushElemString(_str.c_str());
 				_stat = STAT_CommandCustom;
 			} else {
 				// special command
+				if (pCmdFmt->IsVisual() || !IsBlank(_str.c_str())) {
+					FlushElemString(_str.c_str());
+				}
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
 				_stat = STAT_CommandSpecial;
 			}
+			_str.clear();
 			Pushback(ch);
 		} else {
 			_cmdName += ch;
@@ -574,7 +579,7 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 		}
 		pElemOwner = &pElemParent->GetElemChildren();
 	}
-	if (pElem->GetCommandFormat()->GetType() == CommandFormat::CMDTYPE_Visual &&
+	if (pElem->GetCommandFormat()->IsVisual() &&
 							IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		Elem_Text *pElemText = new Elem_Text();
 		pElemOwner->push_back(pElemText);
