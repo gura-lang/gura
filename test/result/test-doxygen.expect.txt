@@ -167,19 +167,19 @@ english =
 ======== #10 various styles of comment block ========
 ----
   [
-    '... /** style, asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+    '... /** style, asterisk at each line ...\nline1\nline2\n  line3\nline4\n'
   ]
 ----
   [
-    '... /*! style, asterisk at each line  ...\nline1\nline2\nline3\nline4\n'
+    '... /*! style, asterisk at each line  ...\nline1\nline2\n  line3\nline4\n'
   ]
 ----
   [
-    '... /** style, no asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+    '... /** style, no asterisk at each line ...\nline1\nline2\n  line3\nline4\n'
   ]
 ----
   [
-    '... /*! style, no asterisk at each line ...\nline1\nline2\nline3\nline4\n'
+    '... /*! style, no asterisk at each line ...\nline1\nline2\n  line3\nline4\n'
   ]
 ----
   [
@@ -191,7 +191,7 @@ english =
   ]
 ----
   [
-    '... /** style, surrounded by a series of asterisks ...\nline1\nline2\nline3\nline4\n'
+    '... /** style, surrounded by a series of asterisks ...\nline1\nline2\n  line3\nline4\n'
   ]
 ----
   [
@@ -370,9 +370,9 @@ english =
     @code{word:brace?}
       -
       ----
-      'W->PushEventHandler(A);\nW->PushEventHandler(B);\n'
+      '    W->PushEventHandler(A);\n    W->PushEventHandler(B);\n'
     @endcode{}
-    '\nyou will end up with the following situation:\n'
+    '\nyou will end up with the following situation:\n    '
     @image{format:word, file:word, caption:quote?, size:line?}
       'html'
       'overview_events_winstack.png'
