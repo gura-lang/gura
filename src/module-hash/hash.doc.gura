@@ -8,6 +8,15 @@ text@en = R'''
 The `hash` module provides measures to calculate hash values of a data sequence in a stream.
 To utilize it, import the `hash` module using `import` function.
 
+Below is an example to calculate MD5, SHA-1 and CRC32 hash values of a file named `foo.txt`.
+
+    import(hash)
+
+    fileName = 'foo.txt'
+    println('MD5: ', hash.md5(fileName).hexdigest)
+    println('SHA-1: ', hash.sha1(fileName).hexdigest)
+    println('CRC32: ', hash.crc32(fileName).hexdigest)
+
 ## hash.accumulator Class
 
 The `hash.accumulator` class provides measures to calculate hashed numbers
