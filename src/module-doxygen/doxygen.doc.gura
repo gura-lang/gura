@@ -8,14 +8,64 @@ text@en = R'''
 The `doxygen` module provides measures to parse a document written in Doxygen syntax.
 To utilize it, import the `doxygen` module using `import` function.
 
+    +----------+  1.. +-----------+  1.. +------+
+    | document *------| structure *------| elem |
+	+----------+      +-----------+      +------+
+	
+    +---------------+  1 +---------+
+    | configuration *----| aliases |
+    +---------------+    +---------+
 
-## doxygen.aliases Class
+    +----------+     +-------------------+
+    | renderer |<----| specific_renderer |
+    +----------+     +-------------------+
+
+## doxygen.document Class
+
+### Constructor
+
+${moddoc.reference(`en
+doxygen.document
+)}
 
 ### Method
 
 ${moddoc.reference(`en
-doxygen.aliases.print
+doxygen.document.structures
 )}
+
+
+## doxygen.structure Class
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>aftermember</code></td><td><code>boolean</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+### Method
+
+${moddoc.reference(`en
+doxygen.structure.elems
+doxygen.structure.elems@command
+doxygen.structure.elems@text
+doxygen.structure.substructures
+)}
+
+
+## doxygen.elem Class
+
+### Method
+
+${moddoc.reference(`en
+doxygen.elem.print
+doxygen.elem.render
+)}
+
 
 ## doxygen.configuration Class
 
@@ -44,29 +94,14 @@ doxygen.configuration.get
 doxygen.configuration.print
 )}
 
-## doxygen.document Class
-
-### Constructor
-
-${moddoc.reference(`en
-doxygen.document
-)}
+## doxygen.aliases Class
 
 ### Method
 
 ${moddoc.reference(`en
-doxygen.document.structures
+doxygen.aliases.print
 )}
 
-
-## doxygen.elem Class
-
-### Method
-
-${moddoc.reference(`en
-doxygen.elem.print
-doxygen.elem.render
-)}
 
 ## doxygen.renderer Class
 
@@ -77,26 +112,6 @@ doxygen.renderer
 )}
 
 
-## doxygen.structure Class
-
-### Property
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>aftermember</code></td><td><code>boolean</code></td><td>R</td>
-<td></td></tr>
-
-</table>
-
-### Method
-
-${moddoc.reference(`en
-doxygen.structure.elems
-doxygen.structure.elems@command
-doxygen.structure.elems@text
-doxygen.structure.substructures
-)}
 
 '''.embed()
 
