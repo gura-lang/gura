@@ -307,6 +307,29 @@ testdoc('test of @fn', R'''
  */
 ''')
 
+testdoc('test of @headerfile', R'''
+/*!
+  \headerfile test.h "test.h"
+  \headerfile test.h ""
+  \headerfile ""
+*/
+''')
+
+testdoc('test of @mainpage', R'''
+/*! \mainpage My Personal Index Page
+ *
+ * \section intro_sec Introduction
+ *
+ * This is the introduction.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */
+''')
+
 testdoc('', R'''
 E.g. if you have two event handlers @c A and @c B and a wxWindow instance
 @c W and you call:
