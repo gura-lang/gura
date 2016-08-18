@@ -66,6 +66,7 @@ Gura_ImplementMethod(aliases, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(aliases)
 {
+	Gura_AssignValue(aliases, Value(Reference()));
 	Gura_AssignMethod(aliases, print);
 }
 

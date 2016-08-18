@@ -92,6 +92,7 @@ Gura_ImplementMethod(elem, render)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(elem)
 {
+	Gura_AssignValue(elem, Value(Reference()));
 	Gura_AssignMethod(elem, print);
 	Gura_AssignMethod(elem, render);
 }

@@ -1,0 +1,103 @@
+#!/usr/bin/env gura
+import(moddoc)
+import(doxygen)
+
+text@en = R'''
+# doxygen Module
+
+The `doxygen` module provides measures to parse a document written in Doxygen syntax.
+To utilize it, import the `doxygen` module using `import` function.
+
+
+## doxygen.aliases Class
+
+### Method
+
+${moddoc.reference(`en
+doxygen.aliases.print
+)}
+
+## doxygen.configuration Class
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>aliases</code></td><td><code>doxygen.aliases</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+
+### Constructor
+
+${moddoc.reference(`en
+doxygen.configuration
+)}
+
+
+### Method
+
+${moddoc.reference(`en
+doxygen.configuration.get
+doxygen.configuration.print
+)}
+
+## doxygen.document Class
+
+### Constructor
+
+${moddoc.reference(`en
+doxygen.document
+)}
+
+### Method
+
+${moddoc.reference(`en
+doxygen.document.structures
+)}
+
+
+## doxygen.elem Class
+
+### Method
+
+${moddoc.reference(`en
+doxygen.elem.print
+doxygen.elem.render
+)}
+
+## doxygen.renderer Class
+
+### Constructor
+
+${moddoc.reference(`en
+doxygen.renderer
+)}
+
+
+## doxygen.structure Class
+
+### Property
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>aftermember</code></td><td><code>boolean</code></td><td>R</td>
+<td></td></tr>
+
+</table>
+
+### Method
+
+${moddoc.reference(`en
+doxygen.structure.elems
+doxygen.structure.elems@command
+doxygen.structure.elems@text
+doxygen.structure.substructures
+)}
+
+'''.embed()
+
+moddoc.register(locals(), %{`en => text@en})
