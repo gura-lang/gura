@@ -46,8 +46,6 @@ bool Parser::FeedChar(Environment &env, char ch)
 			FlushElemString(_str.c_str());
 			_str.clear();
 		} else if (IsCommandMark(ch)) {
-			//FlushElemString(_str.c_str());
-			//_str.clear();
 			_cmdName.clear();
 			_stat = STAT_AcceptCommandInString;
 		} else {
