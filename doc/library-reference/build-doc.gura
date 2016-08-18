@@ -24,6 +24,7 @@ baseNames = [
 	'csv'
 	'curl'
 	'diff'
+	'doxygen'
 	//'emf'
 	'example'
 	'freetype'

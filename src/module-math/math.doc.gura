@@ -38,8 +38,8 @@ math.bezier
 math.diff
 math.optimize
 math.fft
-math.dot_product
-math.cross_product
+math.inner
+math.cross
 math.covariance
 math.integral
 math.gcd
