@@ -903,7 +903,7 @@ classref(`document).render@toc() {block} = {
 	Renderer@toc(block).Render(this)
 }
 
-setpresenter {|title:string:nil, doc:document:nil|
+register_helppresenter('markdown') {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}

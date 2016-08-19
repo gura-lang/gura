@@ -69,7 +69,7 @@ bool HelpPresenter::Present(Environment &env,
 	if (pHelpPresenter != nullptr) {
 		return pHelpPresenter->DoPresent(env, title, pHelp);
 	}
-	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
+	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
 	return false;
 }
 

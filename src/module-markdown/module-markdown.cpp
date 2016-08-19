@@ -5,8 +5,6 @@
 
 Gura_BeginModuleBody(markdown)
 
-AutoPtr<Function> g_pFunc_Presenter;
-
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
@@ -2929,25 +2927,30 @@ Gura_ImplementUserClass(item)
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.setpresenter():void {block}
-Gura_DeclareFunction(setpresenter)
+// markdown.register_helppresenter(name:string):void {block}
+Gura_DeclareFunction(register_helppresenter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Sets a presentation procedure that shows helps written in Markdown format.\n"
-		"The procedure is written in the function's block that takes block parameters:\n"
+		"Registers a presentation procedure with the specified `name`\n"
+		"that is responsible of presenting help documents written in Markdown format\n"
+		"onto the console.\n"
+		"\n"
+		"The procedure is written in the block that takes block parameters:\n"
 		"`|title:string:nil, doc:markdown.document:nil|`.\n"
 	);
 }
 
-Gura_ImplementFunction(setpresenter)
+Gura_ImplementFunction(register_helppresenter)
 {
 	Signal &sig = env.GetSignal();
+	const char *formatName = arg.GetString(0);
 	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
-	g_pFunc_Presenter.reset(pFuncBlock->Reference());
+	HelpPresenter::Register(env, new HelpPresenterEx(formatName, pFuncBlock->Reference()));
 	return Value::Nil;
 }
 
@@ -3000,17 +3003,13 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 }
 
 //-----------------------------------------------------------------------------
-// HelpPresenter_markdown
+// HelpPresenterEx
 //-----------------------------------------------------------------------------
-bool HelpPresenter_markdown::DoPresent(Environment &env,
+bool HelpPresenterEx::DoPresent(Environment &env,
 									const char *title, const Help *pHelp) const
 {
 	Signal &sig = env.GetSignal();
-	if (g_pFunc_Presenter.IsNull()) {
-		sig.SetError(ERR_FormatError, "presenter function is not registered");
-		return false;
-	}
-	AutoPtr<Argument> pArg(new Argument(g_pFunc_Presenter.get()));
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 	if (title == nullptr) {
 		if (!pArg->StoreValue(env, Value::Nil)) return false;
 	} else {
@@ -3024,7 +3023,7 @@ bool HelpPresenter_markdown::DoPresent(Environment &env,
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
 		if (!pArg->StoreValue(env, Value(new Object_document(pDocument->Reference())))) return false;
 	}
-	g_pFunc_Presenter->Eval(env, *pArg);
+	_pFunc->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }
 
@@ -3055,17 +3054,14 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(document);
 	Gura_PrepareUserClass(item);
 	// function assignment
-	Gura_AssignFunction(setpresenter);
+	Gura_AssignFunction(register_helppresenter);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
-	// registoration of HelpPresenter
-	HelpPresenter::Register(env, new HelpPresenter_markdown());
 	return true;
 }
 
 Gura_ModuleTerminate()
 {
-	g_pFunc_Presenter.reset(nullptr);
 }
 
 Gura_EndModuleBody(markdown, markdown)

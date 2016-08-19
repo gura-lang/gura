@@ -463,11 +463,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// HelpPresenter_markdown
+// HelpPresenterEx
 //-----------------------------------------------------------------------------
-class HelpPresenter_markdown : public HelpPresenter {
+class HelpPresenterEx : public HelpPresenter {
+private:
+	AutoPtr<Function> _pFunc;
 public:
-	inline HelpPresenter_markdown() : HelpPresenter("markdown") {}
+	inline HelpPresenterEx(const String &formatName, Function *pFunc) :
+								HelpPresenter(formatName), _pFunc(pFunc) {}
 	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
 };
 
