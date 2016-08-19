@@ -23,12 +23,6 @@ and then render its HTML text into a file.
 `markdown.document << function`
 
 
-## Module Function
-
-${moddoc.reference(`en
-markdown.setpresenter
-)}
-
 ## markdown.document Class
 
 The `markdown.document` class provides measures to parse a document written in Markdown format.
