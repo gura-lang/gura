@@ -92,6 +92,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// HelpPresenterCustom
+//-----------------------------------------------------------------------------
+class HelpPresenterCustom : public HelpPresenter {
+private:
+	AutoPtr<Function> _pFunc;
+public:
+	inline HelpPresenterCustom(const String &formatName, Function *pFunc) :
+								HelpPresenter(formatName), _pFunc(pFunc) {}
+	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
+};
+
+//-----------------------------------------------------------------------------
 // HelpPresenterList
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE HelpPresenterList : public std::vector<HelpPresenter *> {

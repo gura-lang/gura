@@ -52,8 +52,7 @@ void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);
 }
 
-bool HelpPresenter::Present(Environment &env,
-										const char *title, const Help *pHelp)
+bool HelpPresenter::Present(Environment &env, const char *title, const Help *pHelp)
 {
 	Signal &sig = env.GetSignal();
 	const char *formatName = (pHelp == nullptr)?
@@ -71,6 +70,23 @@ bool HelpPresenter::Present(Environment &env,
 	}
 	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
 	return false;
+}
+
+//-----------------------------------------------------------------------------
+// HelpPresenterCustom
+//-----------------------------------------------------------------------------
+bool HelpPresenterCustom::DoPresent(Environment &env,
+									const char *title, const Help *pHelp) const
+{
+	Signal &sig = env.GetSignal();
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+	if (!pArg->StoreValue(
+			env, (title == nullptr)? Value::Nil : Value(title))) return false;
+	if (!pArg->StoreValue(
+			env, (pHelp == nullptr)? Value::Nil :
+			Value(new Object_help(env, pHelp->Reference())))) return false;
+	_pFunc->Eval(env, *pArg);
+	return !sig.IsSignalled();
 }
 
 //-----------------------------------------------------------------------------

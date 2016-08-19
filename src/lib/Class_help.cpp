@@ -109,6 +109,31 @@ Gura_ImplementClassMethod(help, gettext_block_en)
 	return ReturnValue(env, arg, Value(buff));
 }
 
+// help.presenter(name:string):void {block}
+Gura_DeclareClassMethod(help, presenter)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Registers a presentation procedure with the specified `name`.\n"
+		"\n"
+		"The procedure is written in the block that takes block parameters:\n"
+		"`|title:string:nil, help:help:nil|`.\n"
+	);
+}
+
+Gura_ImplementClassMethod(help, presenter)
+{
+	Signal &sig = env.GetSignal();
+	const char *formatName = arg.GetString(0);
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Nil;
+	HelpPresenter::Register(env, new HelpPresenterCustom(formatName, pFuncBlock->Reference()));
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -123,6 +148,7 @@ void Class_help::Prepare(Environment &env)
 	// methods assignment
 	Gura_AssignMethod(help, gettext_iterator_en);
 	Gura_AssignMethod(help, gettext_block_en);
+	Gura_AssignMethod(help, presenter);
 }
 
 }
