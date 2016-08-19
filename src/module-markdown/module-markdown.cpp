@@ -2925,38 +2925,6 @@ Gura_ImplementUserClass(item)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: markdown
-//-----------------------------------------------------------------------------
-#if 0
-// markdown.register_helppresenter(name:string):void {block}
-Gura_DeclareFunction(register_helppresenter)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Registers a presentation procedure with the specified `name`\n"
-		"that is responsible of presenting help documents written in Markdown format\n"
-		"onto the console.\n"
-		"\n"
-		"The procedure is written in the block that takes block parameters:\n"
-		"`|title:string:nil, doc:markdown.document:nil|`.\n"
-	);
-}
-
-Gura_ImplementFunction(register_helppresenter)
-{
-	Signal &sig = env.GetSignal();
-	const char *formatName = arg.GetString(0);
-	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Nil;
-	HelpPresenter::Register(env, new HelpPresenterEx(formatName, pFuncBlock->Reference()));
-	return Value::Nil;
-}
-#endif
-
-//-----------------------------------------------------------------------------
 // Implementation of operators
 //-----------------------------------------------------------------------------
 // operator <<
@@ -3057,8 +3025,6 @@ Gura_ModuleEntry()
 	// class preparation
 	Gura_PrepareUserClass(document);
 	Gura_PrepareUserClass(item);
-	// function assignment
-	//Gura_AssignFunction(register_helppresenter);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
 	return true;

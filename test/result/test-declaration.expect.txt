@@ -513,6 +513,7 @@ function
 help
   help.gettext_block_en(varname:string, typename:string):static {block?}
   help.gettext_iterator_en():static {block?}
+  help.presenter(name:string):static:void {block}
 image
   image#allocbuff(width:number, height:number, color?:color):reduce
   image#blur(radius:number, sigma?:number) {block?}
