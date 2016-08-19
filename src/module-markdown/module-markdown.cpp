@@ -2927,6 +2927,7 @@ Gura_ImplementUserClass(item)
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
+#if 0
 // markdown.register_helppresenter(name:string):void {block}
 Gura_DeclareFunction(register_helppresenter)
 {
@@ -2953,6 +2954,7 @@ Gura_ImplementFunction(register_helppresenter)
 	HelpPresenter::Register(env, new HelpPresenterEx(formatName, pFuncBlock->Reference()));
 	return Value::Nil;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of operators
@@ -3002,6 +3004,7 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 {
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // HelpPresenterEx
 //-----------------------------------------------------------------------------
@@ -3026,6 +3029,7 @@ bool HelpPresenterEx::DoPresent(Environment &env,
 	_pFunc->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Module Entries
@@ -3054,7 +3058,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(document);
 	Gura_PrepareUserClass(item);
 	// function assignment
-	Gura_AssignFunction(register_helppresenter);
+	//Gura_AssignFunction(register_helppresenter);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
 	return true;

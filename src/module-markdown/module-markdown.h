@@ -462,6 +462,7 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
+#if 0
 //-----------------------------------------------------------------------------
 // HelpPresenterEx
 //-----------------------------------------------------------------------------
@@ -473,6 +474,7 @@ public:
 								HelpPresenter(formatName), _pFunc(pFunc) {}
 	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
 };
+#endif
 
 Gura_EndModuleHeader(markdown)
 

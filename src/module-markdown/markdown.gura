@@ -903,9 +903,18 @@ classref(`document).render@toc() {block} = {
 	Renderer@toc(block).Render(this)
 }
 
+/*
 register_helppresenter('markdown') {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}
 	doc && Renderer@console().Render(doc)
+}
+*/
+
+help.presenter('markdown') {|title:string:nil, help:help:nil|
+	title && conio.setcolor(`green) {
+		println(title)
+	}
+	help && document(help.text.reader()).render@console()
 }
