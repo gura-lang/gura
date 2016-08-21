@@ -372,11 +372,11 @@ Renderer@markdown = class(renderer) {
 	// @}() = ''
 }
 
-setpresenter {|title:string:nil, doc:document:nil|
-	title && conio.setcolor(`green) {
-		println(title)
+help.presenter('doxygen') {|help:help|
+	conio.setcolor(`green) {
+		println(help.title)
 	}
-	doc && doc.structures {|structure|
-		structure.elems()::render(Renderer@markdown(), nil, sys.stdout)
+	!help.text.isempty() && document(help.text.reader(), nil, true).structures {|structure|
+		structure.elems()::print(1)
 	}
 }
