@@ -566,6 +566,7 @@ public:
 	Gura_DeclareSymbol(thursday);
 	Gura_DeclareSymbol(timedelta);
 	Gura_DeclareSymbol(timid);
+	Gura_DeclareSymbol(title);
 	Gura_DeclareSymbol(top);
 	Gura_DeclareSymbol(trace);
 	Gura_DeclareSymbol(trailer);

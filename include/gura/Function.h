@@ -306,7 +306,7 @@ public:
 	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
 	void LinkHelp(const Function *pFunc);
 	bool LinkHelp(const Environment *pEnv, const Symbol *pSymbol);
-	const Help *GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const;
+	const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const;
 	String MakeFullName() const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal &sig) const;

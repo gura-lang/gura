@@ -2669,7 +2669,9 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pFunc->GetFlag(FLAG_SymbolFunc)) return Value::Nil;
 	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
-		pFunc->AddHelp((*ppHelp)->Reference());
+		Help *pHelp = (*ppHelp)->Reference();
+		pHelp->SetTitle(pFunc->ToString());
+		pFunc->AddHelp(pHelp);
 	}
 	return valueFunc;
 }

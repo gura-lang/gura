@@ -725,6 +725,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(thursday);
 	Gura_RealizeSymbol(timid);
 	Gura_RealizeSymbol(timedelta);
+	Gura_RealizeSymbol(title);
 	Gura_RealizeSymbol(top);
 	Gura_RealizeSymbol(trace);
 	Gura_RealizeSymbol(trailer);

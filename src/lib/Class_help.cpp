@@ -26,6 +26,7 @@ Object *Object_help::Clone() const
 bool Object_help::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(title));
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(lang));
 	symbols.insert(Gura_Symbol(text));
@@ -36,10 +37,12 @@ Value Object_help::DoGetProp(Environment &env, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(title))) {
+		return Value(_pHelp->GetTitleSTL());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(_pHelp->GetFormatNameSTL());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
-		return Value(_pHelp->GetSymbol());
+		return Value(_pHelp->GetLangCode());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
 		return Value(_pHelp->GetTextSTL());
 	}
@@ -57,7 +60,7 @@ String Object_help::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<help:";
-	rtn += _pHelp->GetSymbol()->GetName();
+	rtn += _pHelp->GetLangCode()->GetName();
 	rtn += ":";
 	rtn += _pHelp->GetFormatName();
 	rtn += ">";
@@ -120,7 +123,7 @@ Gura_DeclareClassMethod(help, presenter)
 		"Registers a presentation procedure with the specified `name`.\n"
 		"\n"
 		"The procedure is written in the block that takes block parameters:\n"
-		"`|title:string:nil, help:help:nil|`.\n"
+		"`|help:help|`.\n"
 	);
 }
 

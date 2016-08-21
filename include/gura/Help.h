@@ -41,7 +41,8 @@ namespace Gura {
 class GURA_DLLDECLARE Help {
 private:
 	int _cntRef;
-	const Symbol *_pSymbol;
+	String _title;
+	const Symbol *_pSymbolLangCode;
 	String _formatName;
 	String _text;
 public:
@@ -49,15 +50,22 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const Symbol *pSymbol, const String &formatName, const String &text);
+	Help(const String &title);
+	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text);
+	Help(const String &title, const Symbol *pSymbolLangCode,
+		 const String &formatName, const String &text);
 private:
 	inline ~Help() {}
 public:
-	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline void SetTitle(const String &title) { _title = title; }
+	inline const char *GetTitle() const { return _title.c_str(); }
+	inline const String &GetTitleSTL() const { return _title; }
+	inline const Symbol *GetLangCode() const { return _pSymbolLangCode; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
 	inline const String &GetFormatNameSTL() const { return _formatName; }
 	inline const char *GetText() const { return _text.c_str(); }
 	inline const String &GetTextSTL() const { return _text; }
+	bool Present(Environment &env) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -85,10 +93,9 @@ public:
 	HelpPresenter(const String &formatName);
 	virtual ~HelpPresenter();
 	const char *GetFormatName() const { return _formatName.c_str(); }
-	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const = 0;
+	virtual bool DoPresent(Environment &env, const Help *pHelp) const = 0;
 public:
 	static void Register(Environment &env, HelpPresenter *pHelpPresenter);
-	static bool Present(Environment &env, const char *title, const Help *pHelp);
 };
 
 //-----------------------------------------------------------------------------
@@ -100,7 +107,7 @@ private:
 public:
 	inline HelpPresenterCustom(const String &formatName, Function *pFunc) :
 								HelpPresenter(formatName), _pFunc(pFunc) {}
-	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
+	virtual bool DoPresent(Environment &env, const Help *pHelp) const;
 };
 
 //-----------------------------------------------------------------------------

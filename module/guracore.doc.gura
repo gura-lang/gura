@@ -1151,6 +1151,9 @@ A `help` instance has the following properties:
 <table>
 <tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
 
+<tr><td><code>title</code></td><td><code>string</code></td><td>R</td>
+<td>The title of the help.</td></tr>
+
 <tr><td><code>format</code></td><td><code>string</code></td><td>R</td>
 <td>A name of the syntax format in which the help text is described such as <code>'markdown'</code>.</td></tr>
 

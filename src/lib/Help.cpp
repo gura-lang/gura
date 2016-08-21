@@ -10,9 +10,39 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const Symbol *pSymbol, const String &formatName, const String &text) :
-		_cntRef(1), _pSymbol(pSymbol), _formatName(formatName), _text(text)
+Help::Help(const String &title) : _cntRef(1), _pSymbolLangCode(Gura_Symbol(en))
 {
+}
+
+Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text) :
+	_cntRef(1), _pSymbolLangCode(pSymbolLangCode), _formatName(formatName), _text(text)
+{
+}
+
+Help::Help(const String &title, const Symbol *pSymbolLangCode,
+		   const String &formatName, const String &text) :
+	_cntRef(1), _title(title), _pSymbolLangCode(pSymbolLangCode),
+	_formatName(formatName), _text(text)
+{
+}
+
+bool Help::Present(Environment &env) const
+{
+	Signal &sig = env.GetSignal();
+	const char *formatName = GetFormatName();
+	const HelpPresenter *pHelpPresenter = env.GetGlobal()->
+						GetHelpPresenterOwner().FindByFormatName(formatName);
+	if (pHelpPresenter != nullptr) {
+		return pHelpPresenter->DoPresent(env, this);
+	}
+	if (!env.ImportModules(sig, formatName, false, false)) return false;
+	pHelpPresenter = env.GetGlobal()->
+						GetHelpPresenterOwner().FindByFormatName(formatName);
+	if (pHelpPresenter != nullptr) {
+		return pHelpPresenter->DoPresent(env, this);
+	}
+	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -52,39 +82,15 @@ void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);
 }
 
-bool HelpPresenter::Present(Environment &env, const char *title, const Help *pHelp)
-{
-	Signal &sig = env.GetSignal();
-	const char *formatName = (pHelp == nullptr)?
-						Help::FMT_markdown.c_str() : pHelp->GetFormatName();
-	const HelpPresenter *pHelpPresenter = env.GetGlobal()->
-						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != nullptr) {
-		return pHelpPresenter->DoPresent(env, title, pHelp);
-	}
-	if (!env.ImportModules(sig, formatName, false, false)) return false;
-	pHelpPresenter = env.GetGlobal()->
-						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != nullptr) {
-		return pHelpPresenter->DoPresent(env, title, pHelp);
-	}
-	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
-	return false;
-}
-
 //-----------------------------------------------------------------------------
 // HelpPresenterCustom
 //-----------------------------------------------------------------------------
-bool HelpPresenterCustom::DoPresent(Environment &env,
-									const char *title, const Help *pHelp) const
+bool HelpPresenterCustom::DoPresent(Environment &env, const Help *pHelp) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 	if (!pArg->StoreValue(
-			env, (title == nullptr)? Value::Nil : Value(title))) return false;
-	if (!pArg->StoreValue(
-			env, (pHelp == nullptr)? Value::Nil :
-			Value(new Object_help(env, pHelp->Reference())))) return false;
+			env, Value(new Object_help(env, pHelp->Reference())))) return false;
 	_pFunc->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }

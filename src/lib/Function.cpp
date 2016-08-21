@@ -244,7 +244,7 @@ void Function::AddHelp(Help *pHelp)
 
 void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	AddHelp(new Help(pSymbol, formatName, text));
+	AddHelp(new Help(ToString(), pSymbol, formatName, text));
 }
 
 void Function::LinkHelp(const Function *pFunc)
@@ -261,16 +261,16 @@ bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 	return true;
 }
 
-const Help *Function::GetHelp(const Symbol *pSymbol, bool defaultFirstFlag) const
+const Help *Function::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const
 {
 	const Help *pHelp = _pFuncHelpLink.IsNull()?
-		nullptr : _pFuncHelpLink->GetHelp(pSymbol, defaultFirstFlag);
+		nullptr : _pFuncHelpLink->GetHelp(pSymbolLangCode, defaultFirstFlag);
 	if (pHelp != nullptr) return pHelp;
 	if (_helpOwner.empty()) return nullptr;
-	if (pSymbol == nullptr) return _helpOwner.front();
+	if (pSymbolLangCode == nullptr) return _helpOwner.front();
 	foreach_const (HelpOwner, ppHelp, _helpOwner) {
 		Help *pHelp = *ppHelp;
-		if (pHelp->GetSymbol() == pSymbol) return pHelp;
+		if (pHelp->GetLangCode() == pSymbolLangCode) return pHelp;
 	}
 	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }

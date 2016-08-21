@@ -607,23 +607,33 @@ Gura_ImplementUnaryOperator(Inv, number)
 Gura_ImplementUnaryOperator(Inv, function)
 {
 	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
-	const Symbol *pSymbol = env.GetLangCode();
-	HelpPresenter::Present(env, pFunc->ToString().c_str(),
-						   pFunc->GetHelp(pSymbol, true));
+	const Symbol *pSymbolLangCode = env.GetLangCode();
+	const Help *pHelp = pFunc->GetHelp(pSymbolLangCode, true);
+	if (pHelp == nullptr) {
+		AutoPtr<Help> pHelp(new Help(pFunc->ToString()));
+		pHelp->Present(env);
+	} else {
+		pHelp->Present(env);
+	}
 	return Value::Nil;
 }
 
 Gura_ImplementUnaryOperator(Inv, Class)
 {
 	const Class *pClass = value.GetClassItself();
-	const Symbol *pSymbol = env.GetLangCode();
+	const Symbol *pSymbolLangCode = env.GetLangCode();
 	const Function *pFunc = pClass->GetConstructor();
 	if (pFunc == nullptr) {
 		env.SetError(ERR_ValueError, "the class does not have a constructor");
 		return Value::Nil;
 	}
-	HelpPresenter::Present(env, pFunc->ToString().c_str(),
-						   pFunc->GetHelp(pSymbol, true));
+	const Help *pHelp = pFunc->GetHelp(pSymbolLangCode, true);
+	if (pHelp == nullptr) {
+		AutoPtr<Help> pHelp(new Help(pFunc->ToString()));
+		pHelp->Present(env);
+	} else {
+		pHelp->Present(env);
+	}
 	return Value::Nil;
 }
 

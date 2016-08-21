@@ -34,15 +34,6 @@ Gura_DeclareUserSymbol(elem);
 Gura_DeclareUserSymbol(aftermember);
 
 //-----------------------------------------------------------------------------
-// HelpPresenter_doxygen
-//-----------------------------------------------------------------------------
-class HelpPresenter_doxygen : public HelpPresenter {
-public:
-	inline HelpPresenter_doxygen() : HelpPresenter("doxygen") {}
-	virtual bool DoPresent(Environment &env, const char *title, const Help *pHelp) const;
-};
-
-//-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
 inline bool IsCommandMark(char ch)
