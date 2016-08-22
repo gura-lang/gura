@@ -84,46 +84,38 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// HelpPresenter
+// HelpRenderer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpPresenter {
+class GURA_DLLDECLARE HelpRenderer {
 private:
 	String _formatName;
-public:
-	HelpPresenter(const String &formatName);
-	virtual ~HelpPresenter();
-	const char *GetFormatName() const { return _formatName.c_str(); }
-	virtual bool DoPresent(Environment &env, const Help *pHelp) const = 0;
-public:
-	static void Register(Environment &env, HelpPresenter *pHelpPresenter);
-};
-
-//-----------------------------------------------------------------------------
-// HelpPresenterCustom
-//-----------------------------------------------------------------------------
-class HelpPresenterCustom : public HelpPresenter {
-private:
+	String _formatNameOut;
 	AutoPtr<Function> _pFunc;
 public:
-	inline HelpPresenterCustom(const String &formatName, Function *pFunc) :
-								HelpPresenter(formatName), _pFunc(pFunc) {}
-	virtual bool DoPresent(Environment &env, const Help *pHelp) const;
+	HelpRenderer(const String &formatName, const String &formatNameOut, Function *pFunc);
+	virtual ~HelpRenderer();
+	const char *GetFormatName() const { return _formatName.c_str(); }
+	const char *GetFormatNameOut() const { return _formatNameOut.c_str(); }
+	bool Render(Environment &env, const Help *pHelp, Stream &stream) const;
+	bool Present(Environment &env, const Help *pHelp) const;
+public:
+	static void Register(Environment &env, HelpRenderer *pHelpRenderer);
 };
 
 //-----------------------------------------------------------------------------
-// HelpPresenterList
+// HelpRendererList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpPresenterList : public std::vector<HelpPresenter *> {
+class GURA_DLLDECLARE HelpRendererList : public std::vector<HelpRenderer *> {
 public:
-	const HelpPresenter *FindByFormatName(const char *formatName) const;
+	const HelpRenderer *Find(const char *formatName, const char *formatNameOut) const;
 };
 
 //-----------------------------------------------------------------------------
-// HelpPresenterOwner
+// HelpRendererOwner
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpPresenterOwner : public HelpPresenterList {
+class GURA_DLLDECLARE HelpRendererOwner : public HelpRendererList {
 public:
-	~HelpPresenterOwner();
+	~HelpRendererOwner();
 	void Clear();
 };
 

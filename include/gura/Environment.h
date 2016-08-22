@@ -129,7 +129,7 @@ public:
 		SuffixMgr			_suffixMgrForString;
 		SuffixMgr			_suffixMgrForNumber;
 		PathMgrOwner		_pathMgrOwner;
-		HelpPresenterOwner	_helpPresenterOwner;
+		HelpRendererOwner	_helpRendererOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -157,8 +157,8 @@ public:
 		inline const SuffixMgr &GetSuffixMgrForNumber() const { return _suffixMgrForNumber; }
 		inline PathMgrOwner &GetPathMgrOwner() { return _pathMgrOwner; }
 		inline const PathMgrOwner &GetPathMgrOwner() const { return _pathMgrOwner; }
-		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }
-		inline const HelpPresenterOwner &GetHelpPresenterOwner() const { return _helpPresenterOwner; }
+		inline HelpRendererOwner &GetHelpRendererOwner() { return _helpRendererOwner; }
+		inline const HelpRendererOwner &GetHelpRendererOwner() const { return _helpRendererOwner; }
 		inline void SetOperator(OpType opType, Operator *pOperator) { _operatorTbl[opType] = pOperator; }
 		inline Operator *GetOperator(OpType opType) { return _operatorTbl[opType]; }
 		inline const Operator *GetOperator(OpType opType) const { return _operatorTbl[opType]; }

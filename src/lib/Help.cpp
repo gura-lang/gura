@@ -30,17 +30,12 @@ bool Help::Present(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	const char *formatName = GetFormatName();
-	const HelpPresenter *pHelpPresenter = env.GetGlobal()->
-						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != nullptr) {
-		return pHelpPresenter->DoPresent(env, this);
-	}
+	const HelpRenderer *pHelpRenderer =
+		env.GetGlobal()->GetHelpRendererOwner().Find(formatName, "");
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
 	if (!env.ImportModules(sig, formatName, false, false)) return false;
-	pHelpPresenter = env.GetGlobal()->
-						GetHelpPresenterOwner().FindByFormatName(formatName);
-	if (pHelpPresenter != nullptr) {
-		return pHelpPresenter->DoPresent(env, this);
-	}
+	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(formatName, "");
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
 	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
 	return false;
 }
@@ -67,25 +62,33 @@ void HelpOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// HelpPresenter
+// HelpRenderer
 //-----------------------------------------------------------------------------
-HelpPresenter::HelpPresenter(const String &formatName) : _formatName(formatName)
+HelpRenderer::HelpRenderer(const String &formatName, const String &formatNameOut, Function *pFunc) :
+	_formatName(formatName), _formatNameOut(formatNameOut), _pFunc(pFunc)
 {
 }
 
-HelpPresenter::~HelpPresenter()
+HelpRenderer::~HelpRenderer()
 {
 }
 
-void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
+void HelpRenderer::Register(Environment &env, HelpRenderer *pHelpRenderer)
 {
-	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);
+	env.GetGlobal()->GetHelpRendererOwner().push_back(pHelpRenderer);
 }
 
-//-----------------------------------------------------------------------------
-// HelpPresenterCustom
-//-----------------------------------------------------------------------------
-bool HelpPresenterCustom::DoPresent(Environment &env, const Help *pHelp) const
+bool HelpRenderer::Render(Environment &env, const Help *pHelp, Stream &stream) const
+{
+	Signal &sig = env.GetSignal();
+	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
+	if (!pArg->StoreValue(
+			env, Value(new Object_help(env, pHelp->Reference())))) return false;
+	_pFunc->Eval(env, *pArg);
+	return !sig.IsSignalled();
+}
+
+bool HelpRenderer::Present(Environment &env, const Help *pHelp) const
 {
 	Signal &sig = env.GetSignal();
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
@@ -96,31 +99,32 @@ bool HelpPresenterCustom::DoPresent(Environment &env, const Help *pHelp) const
 }
 
 //-----------------------------------------------------------------------------
-// HelpPresenterList
+// HelpRendererList
 //-----------------------------------------------------------------------------
-const HelpPresenter *HelpPresenterList::FindByFormatName(const char *formatName) const
+const HelpRenderer *HelpRendererList::Find(const char *formatName, const char *formatNameOut) const
 {
-	foreach_const (HelpPresenterList, ppHelpPresenter, *this) {
-		const HelpPresenter *pHelpPresenter = *ppHelpPresenter;
-		if (::strcmp(pHelpPresenter->GetFormatName(), formatName) == 0) {
-			return pHelpPresenter;
+	foreach_const (HelpRendererList, ppHelpRenderer, *this) {
+		const HelpRenderer *pHelpRenderer = *ppHelpRenderer;
+		if (::strcmp(pHelpRenderer->GetFormatName(), formatName) == 0 &&
+			::strcmp(pHelpRenderer->GetFormatNameOut(), formatNameOut) == 0) {
+			return pHelpRenderer;
 		}
 	}
 	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
-// HelpPresenterOwner
+// HelpRendererOwner
 //-----------------------------------------------------------------------------
-HelpPresenterOwner::~HelpPresenterOwner()
+HelpRendererOwner::~HelpRendererOwner()
 {
 	Clear();
 }
 
-void HelpPresenterOwner::Clear()
+void HelpRendererOwner::Clear()
 {
-	foreach (HelpPresenterOwner, ppHelpPresenter, *this) {
-		delete *ppHelpPresenter;
+	foreach (HelpRendererOwner, ppHelpRenderer, *this) {
+		delete *ppHelpRenderer;
 	}
 	clear();
 }

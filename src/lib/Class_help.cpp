@@ -129,15 +129,15 @@ Gura_ImplementClassMethod(help, text_at_block)
 	return ReturnValue(env, arg, Value(buff));
 }
 
-// help.presenter(name:string):static:void {block}
+// help.presenter(format:string):static:void {block}
 Gura_DeclareClassMethod(help, presenter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Registers a presentation procedure with the specified `name`.\n"
+		"Registers a presentation procedure with a name specified by the argument `format`.\n"
 		"\n"
 		"The procedure is written in the block that takes block parameters:\n"
 		"`|help:help|`.\n"
@@ -150,7 +150,28 @@ Gura_ImplementClassMethod(help, presenter)
 	const char *formatName = arg.GetString(0);
 	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Nil;
-	HelpPresenter::Register(env, new HelpPresenterCustom(formatName, pFuncBlock->Reference()));
+	HelpRenderer::Register(env, new HelpRenderer(formatName, "", pFuncBlock->Reference()));
+	return Value::Nil;
+}
+
+// help.render(format:string, out?:stream) {block?}
+Gura_DeclareMethod(help, render)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		""
+	);
+}
+
+Gura_ImplementMethod(help, render)
+{
+	//Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
+	//const char *format = arg.GetString(0);
+	//Stream &stream = arg.GetStream(1);
 	return Value::Nil;
 }
 
