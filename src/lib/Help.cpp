@@ -26,17 +26,29 @@ Help::Help(const String &title, const Symbol *pSymbolLangCode,
 {
 }
 
+bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) const
+{
+	Signal &sig = env.GetSignal();
+	const HelpRenderer *pHelpRenderer =
+		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
+	if (!env.ImportModules(sig, _formatName.c_str(), false, false)) return false;
+	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
+	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
+	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", _formatName.c_str());
+	return false;
+}
+
 bool Help::Present(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
-	const char *formatName = GetFormatName();
 	const HelpRenderer *pHelpRenderer =
-		env.GetGlobal()->GetHelpRendererOwner().Find(formatName, "");
+		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
-	if (!env.ImportModules(sig, formatName, false, false)) return false;
-	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(formatName, "");
+	if (!env.ImportModules(sig, _formatName.c_str(), false, false)) return false;
+	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
-	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", formatName);
+	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", _formatName.c_str());
 	return false;
 }
 
@@ -84,6 +96,8 @@ bool HelpRenderer::Render(Environment &env, const Help *pHelp, Stream &stream) c
 	AutoPtr<Argument> pArg(new Argument(_pFunc.get()));
 	if (!pArg->StoreValue(
 			env, Value(new Object_help(env, pHelp->Reference())))) return false;
+	if (!pArg->StoreValue(
+			env, Value(new Object_stream(env, stream.Reference())))) return false;
 	_pFunc->Eval(env, *pArg);
 	return !sig.IsSignalled();
 }

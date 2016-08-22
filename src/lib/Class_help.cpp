@@ -169,9 +169,10 @@ Gura_DeclareMethod(help, render)
 
 Gura_ImplementMethod(help, render)
 {
-	//Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
-	//const char *format = arg.GetString(0);
-	//Stream &stream = arg.GetStream(1);
+	Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
+	const char *formatNameOut = arg.GetString(0);
+	Stream &stream = arg.GetStream(1);
+	pHelp->Render(env, formatNameOut, stream);
 	return Value::Nil;
 }
 
@@ -190,6 +191,7 @@ void Class_help::Prepare(Environment &env)
 	Gura_AssignMethod(help, text_at_iterator);
 	Gura_AssignMethod(help, text_at_block);
 	Gura_AssignMethod(help, presenter);
+	Gura_AssignMethod(help, render);
 }
 
 }

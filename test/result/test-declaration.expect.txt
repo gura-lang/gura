@@ -511,7 +511,8 @@ function
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 help
-  help.presenter(name:string):static:void {block}
+  help.presenter(format:string):static:void {block}
+  help#render(format:string, out?:stream):void {block?}
   help.text@block(lang:symbol, varname:string, typename:string):static {block?}
   help.text@iterator(lang:symbol):static {block?}
 image

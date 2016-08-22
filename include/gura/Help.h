@@ -65,6 +65,7 @@ public:
 	inline const String &GetFormatNameSTL() const { return _formatName; }
 	inline const char *GetText() const { return _text.c_str(); }
 	inline const String &GetTextSTL() const { return _text; }
+	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
 	bool Present(Environment &env) const;
 };
 
