@@ -17,7 +17,7 @@
 "- `:set` ..  A list that eliminates duplicated values from its elements.\n" \
 "- `:xset` .. A list that eliminates duplicated values and `nil` from its elements.\n" \
 "\n" \
-"See Chapter 11 Mapping Process in Gura Language Manual for the detail.\n" \
+"See the chapter of Mapping Process in Gura Language Manual for the detail.\n" \
 "\n" \
 "If a block is specified, it would be evaluated repeatingly\n" \
 "with block parameters `|value, idx:number|` where `value` is the iterated value\n" \

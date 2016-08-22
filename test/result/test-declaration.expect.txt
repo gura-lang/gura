@@ -511,9 +511,9 @@ function
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 help
-  help.gettext_block_en(varname:string, typename:string):static {block?}
-  help.gettext_iterator_en():static {block?}
   help.presenter(name:string):static:void {block}
+  help.text@block(lang:symbol, varname:string, typename:string):static {block?}
+  help.text@iterator(lang:symbol):static {block?}
 image
   image#allocbuff(width:number, height:number, color?:color):reduce
   image#blur(radius:number, sigma?:number) {block?}

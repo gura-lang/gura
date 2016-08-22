@@ -70,10 +70,11 @@ String Object_help::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// help.gettext_iterator_en() {block?}
-Gura_DeclareClassMethod(help, gettext_iterator_en)
+// help.text@iterator(lang:symbol):static {block?}
+Gura_DeclareClassMethodAlias(help, text_at_iterator, "text@iterator")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
@@ -82,15 +83,20 @@ Gura_DeclareClassMethod(help, gettext_iterator_en)
 		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
-Gura_ImplementClassMethod(help, gettext_iterator_en)
+Gura_ImplementClassMethod(help, text_at_iterator)
 {
-	return ReturnValue(env, arg, Value(GURA_HELPTEXT_ITERATOR_en()));
+	const Symbol *pSymbolLangCode = arg.GetSymbol(0);
+	const char *str =
+		pSymbolLangCode->IsIdentical(Gura_Symbol(en))? GURA_HELPTEXT_ITERATOR_en() :
+		GURA_HELPTEXT_ITERATOR_en();
+	return ReturnValue(env, arg, Value(str));
 }
 
-// help.gettext_block_en(varname:string, typename:string) {block?}
-Gura_DeclareClassMethod(help, gettext_block_en)
+// help.text@block(lang:symbol, varname:string, typename:string):static {block?}
+Gura_DeclareClassMethodAlias(help, text_at_block, "text@block")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareArg(env, "varname", VTYPE_string);
 	DeclareArg(env, "typename", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -101,18 +107,21 @@ Gura_DeclareClassMethod(help, gettext_block_en)
 		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
-Gura_ImplementClassMethod(help, gettext_block_en)
+Gura_ImplementClassMethod(help, text_at_block)
 {
 	Signal &sig = env.GetSignal();
-	const char *varName = arg.GetString(0);
-	const char *typeName = arg.GetString(1);
-	String buff = Formatter::Format(
-		sig, GURA_HELPTEXT_BLOCK_en("%s", "%s"), varName, typeName, varName);
+	const Symbol *pSymbolLangCode = arg.GetSymbol(0);
+	const char *varName = arg.GetString(1);
+	const char *typeName = arg.GetString(2);
+	const char *str =
+		pSymbolLangCode->IsIdentical(Gura_Symbol(en))? GURA_HELPTEXT_BLOCK_en("%s", "%s") :
+		GURA_HELPTEXT_BLOCK_en("%s", "%s");
+	String buff = Formatter::Format(sig, str, varName, typeName, varName);
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(buff));
 }
 
-// help.presenter(name:string):void {block}
+// help.presenter(name:string):static:void {block}
 Gura_DeclareClassMethod(help, presenter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -149,8 +158,8 @@ void Class_help::Prepare(Environment &env)
 	// class assignment
 	Gura_AssignValue(help, Value(Reference()));
 	// methods assignment
-	Gura_AssignMethod(help, gettext_iterator_en);
-	Gura_AssignMethod(help, gettext_block_en);
+	Gura_AssignMethod(help, text_at_iterator);
+	Gura_AssignMethod(help, text_at_block);
 	Gura_AssignMethod(help, presenter);
 }
 
