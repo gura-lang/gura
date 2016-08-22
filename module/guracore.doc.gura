@@ -1169,8 +1169,8 @@ For example, <code>`en</code> for English and <code>`ja</code> for Japanese.</td
 ### Method
 
 ${moddoc.reference(`en
-help.gettext_iterator_en
-help.gettext_block_en
+help.text@iterator
+help.text@block
 help.presenter
 )}
 

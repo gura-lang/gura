@@ -80,6 +80,9 @@ Gura_DeclareClassMethodAlias(help, text_at_iterator, "text@iterator")
 		Gura_Symbol(en), Help::FMT_markdown,
 		"Returns a help text for functions that return an iterator.\n"
 		"\n"
+		"The argument `lang` is a symbol that specifies the language in which the text is written,\n"
+		"e.g. `` `en`` for English and `` `ja`` for Japanese.\n"
+		"\n"
 		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
 
@@ -102,7 +105,12 @@ Gura_DeclareClassMethodAlias(help, text_at_block, "text@block")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Returns a help text for functions that take a block.\n"
+		"Returns a help text that for functions that take a block .\n"
+		"\n"
+		"The argument `lang` is a symbol that specifies the language in which the text is written,\n"
+		"e.g. `` `en`` for English and `` `ja`` for Japanese.\n"
+		"\n"
+		"In the text, variable names would be replaced by `varname` and type names by `typename`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("str", "string"));
 }
