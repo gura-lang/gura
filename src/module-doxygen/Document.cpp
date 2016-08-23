@@ -368,15 +368,8 @@ bool Document::FeedChar(Environment &env, char ch)
 
 bool Document::FlushLines(Environment &env)
 {
-#if 0
-	foreach_const (LineOwner, ppLine, _lineOwner) {
-		const Line *pLine = *ppLine;
-		::printf("%d: %s", pLine->GetCol(), pLine->GetString());
-	}
-#endif
 	_lineOwner.AlignCol();
 	if (!_lineOwner.FeedToParser(env, _pParser.get())) return false;
-	//_lineOwner.Print();
 	_lineOwner.Clear();
 	NewLine();
 	return true;
