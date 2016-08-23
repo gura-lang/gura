@@ -57,6 +57,12 @@ Gura_DeclareFunction(configuration)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(configuration));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a configuration file, which is usually dubbed \"Doxyfile\",\n"
+		"from `stream` and creates a `doxygen.configuration` instance.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("cfg", "doxygen.configuration"));
 }
 
 Gura_ImplementFunction(configuration)
@@ -70,15 +76,18 @@ Gura_ImplementFunction(configuration)
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
-// doxygen.configuration#get(name:string):map:[raise]
+// doxygen.configuration#get(tagname:string):map:[raise]
 Gura_DeclareMethod(configuration, get)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "name", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "tagname", VTYPE_string, OCCUR_Once);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Returns a value associated with the tag specified by the argument `tagname`.\n"
+		"\n"
+		"If the specified tag is not found, the method would return `nil`\n"
+		"while it would cause an error in the case the attribute `:raise` is specified.\n");
 }
 
 Gura_ImplementMethod(configuration, get)
@@ -102,7 +111,8 @@ Gura_DeclareMethod(configuration, print)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out the content of the configuration to `out`.\n"
+		"If omitted, the result would be put out to standard output.\n");
 }
 
 Gura_ImplementMethod(configuration, print)

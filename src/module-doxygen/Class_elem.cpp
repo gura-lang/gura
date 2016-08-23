@@ -48,7 +48,9 @@ Gura_DeclareMethod(elem, print)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out the content of the element to `out` with an indentation level\n"
+		"specified by `indent` that starts from zero.\n"
+		"If `out` is omitted, the result would be put out to standard output.\n");
 }
 
 Gura_ImplementMethod(elem, print)
@@ -67,6 +69,12 @@ Gura_DeclareMethod(elem, render)
 	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
 	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Renders the element content using `doxygen.renderer` with configuration information from\n"
+		"`doxygen.configuration` instance.\n"
+		"The result would be put out to the stream specified by the argument `out`\n"
+		"or standard output when omitted.\n");
 }
 
 Gura_ImplementMethod(elem, render)

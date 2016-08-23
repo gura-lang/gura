@@ -63,7 +63,9 @@ Gura_DeclareMethod(structure, elems)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `doxygen.elem` instances of all the elements contained in the structure.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(structure, elems)
@@ -82,7 +84,9 @@ Gura_DeclareMethodAlias(structure, elems_at_command, "elems@command")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `doxygen.elem` instances of command elements contained in the structure.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(structure, elems_at_command)
@@ -101,7 +105,9 @@ Gura_DeclareMethodAlias(structure, elems_at_text, "elems@text")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `doxygen.elem` instances of text elements contained in the structure.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(structure, elems_at_text)
@@ -119,7 +125,9 @@ Gura_DeclareMethod(structure, substructures)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns `doxygen.structure` instances of sub structures contained in the structure.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(structure, substructures)

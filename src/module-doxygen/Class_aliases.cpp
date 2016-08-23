@@ -50,7 +50,8 @@ Gura_DeclareMethod(aliases, print)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Prints out definitions of aliases to the stream `out`.\n"
+		"If the argument is omitted, the result would be put out to the standard output.\n");
 }
 
 Gura_ImplementMethod(aliases, print)

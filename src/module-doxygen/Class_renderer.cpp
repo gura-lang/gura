@@ -46,6 +46,11 @@ Gura_DeclareFunction(renderer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(renderer));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a `doxygen.renderer` instance.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("renderer", "doxygen.renderer"));
 }
 
 Gura_ImplementFunction(renderer)

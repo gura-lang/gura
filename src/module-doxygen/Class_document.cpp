@@ -50,7 +50,7 @@ String Object_document::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 // Constructor
 //----------------------------------------------------------------------------
-// doxygen.document(stream?:stream, aliases?:doxygen.aliases, extracted?:boolean):[] {block?}
+// doxygen.document(stream?:stream, aliases?:doxygen.aliases, extracted?:boolean) {block?}
 Gura_DeclareFunction(document)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -59,6 +59,19 @@ Gura_DeclareFunction(document)
 	DeclareArg(env, "extracted", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Reads a Doxygen document from `stream` and creates an instance of `doxygen.document` class.\n"
+		"\n"
+		"The argument `aliases` is an instance that is available as a member of `doxygen.configuration` instance\n"
+		"and contains information about command aliases, or custom commands in the other word.\n"
+		"\n"
+		"In default, the parser expects the Doxygen document is written within C-style comments\n"
+		"and extracts the document body from them before parsing.\n"
+		"If the argument `extracted` is set to `true`,\n"
+		"it exepcts the document already have been extracted from the comments.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("doc", "doxygen.document"));
 }
 
 Gura_ImplementFunction(document)
@@ -86,7 +99,10 @@ Gura_DeclareMethod(document, structures)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"");
+		"Creates an iterator that returns instances of `doxygen.structure`\n"
+		"contained in the `doxygen.document`.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en());
 }
 
 Gura_ImplementMethod(document, structures)
