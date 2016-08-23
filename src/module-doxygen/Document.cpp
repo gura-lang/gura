@@ -287,7 +287,6 @@ bool Document::FeedChar(Environment &env, char ch)
 		} else { // including '\0'
 			// parsed "***...?"
 			_strLine += _strAhead;
-			//if (!_pParser->FeedString(env, _strAhead.c_str())) return false;
 			Gura_Pushback();
 			_stat = STAT_BlockDoxygen;
 		}
@@ -405,13 +404,11 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
 {
-#if 1
 	if (!IsBlank()) {
 		for (int i = 0; i < _col; i++) {
 			if (!pParser->FeedChar(env, ' ')) return false;
 		}
 	}
-#endif
 	return pParser->FeedString(env, _str.c_str());
 }
 
