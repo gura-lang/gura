@@ -104,6 +104,11 @@ bool Module::ImportBuiltIns(Environment &env)
 	if (Gura_Module(path)::Import(env) == nullptr) return false;
 	// import(math)
 	if (Gura_Module(math)::Import(env) == nullptr) return false;
+	// import(config)
+	env.ImportSeparatedModule_Script(
+		&env,
+		OAL::JoinPathName(OAL::GetModuleDir().c_str(), "config.gura").c_str(),
+		Symbol::Add("config"));
 	return true;
 }
 

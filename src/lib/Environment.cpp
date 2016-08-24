@@ -519,9 +519,9 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 		if (pModule != nullptr) {
 			// nothing to do
 		} else if (IsBinaryModule(pathName.c_str())) {
-			pModule = ImportSeparatedModule_Binary(sig, this, pathName.c_str(), pSymbolOfModule);
+			pModule = ImportSeparatedModule_Binary(this, pathName.c_str(), pSymbolOfModule);
 		} else {
-			pModule = ImportSeparatedModule_Script(sig, this, pathName.c_str(), pSymbolOfModule);
+			pModule = ImportSeparatedModule_Script(this, pathName.c_str(), pSymbolOfModule);
 		}
 		if (pModule == nullptr) return nullptr;
 	}
@@ -654,14 +654,14 @@ bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 	return false;
 }
 
-Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnvOuter,
+Module *Environment::ImportSeparatedModule_Script(Environment *pEnvOuter,
 									const char *pathName, const Symbol *pSymbol)
 {
 	Environment &env = *this;
 	AutoPtr<Stream> pStream(Stream::Open(env, pathName, Stream::ATTR_Readable));
-	if (sig.IsError()) return nullptr;
-	AutoPtr<Expr_Root> pExprRoot(Parser(sig, pStream->GetName()).ParseStream(*pEnvOuter, *pStream));
-	if (sig.IsSignalled()) return nullptr;
+	if (_sig.IsError()) return nullptr;
+	AutoPtr<Expr_Root> pExprRoot(Parser(_sig, pStream->GetName()).ParseStream(*pEnvOuter, *pStream));
+	if (_sig.IsSignalled()) return nullptr;
 	Module *pModule = new Module(pEnvOuter, pSymbol,
 							pathName, Expr::Reference(pExprRoot.get()), nullptr);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
@@ -669,7 +669,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnv
 	pModule->GetGlobal()->SetEchoFlag(false);
 	pExprRoot->Exec(*pModule);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
-	if (sig.IsSignalled()) {
+	if (_sig.IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return nullptr;
@@ -677,25 +677,25 @@ Module *Environment::ImportSeparatedModule_Script(Signal &sig, Environment *pEnv
 	return pModule;
 }
 
-Module *Environment::ImportSeparatedModule_Binary(Signal &sig, Environment *pEnvOuter,
+Module *Environment::ImportSeparatedModule_Binary(Environment *pEnvOuter,
 									const char *pathName, const Symbol *pSymbol)
 {
 	OAL::DynamicLibrary dynamicLibrary;
-	if (!dynamicLibrary.Open(sig, pathName)) return nullptr;
+	if (!dynamicLibrary.Open(_sig, pathName)) return nullptr;
 	// gcc of a certain version such as 3.4.6 may cause an error when trying to
 	// cast between pointer-to-function and pointer-to-using with reinterpret_cast.
 	ModuleValidateType moduleValidate =
-		(ModuleValidateType)dynamicLibrary.GetEntry(sig, "GuraModuleValidate");
+		(ModuleValidateType)dynamicLibrary.GetEntry(_sig, "GuraModuleValidate");
 	ModuleEntryType moduleEntry =
-		(ModuleEntryType)dynamicLibrary.GetEntry(sig, "GuraModuleEntry");
+		(ModuleEntryType)dynamicLibrary.GetEntry(_sig, "GuraModuleEntry");
 	ModuleTerminateType moduleTerminate =
-		(ModuleTerminateType)dynamicLibrary.GetEntry(sig, "GuraModuleTerminate");
+		(ModuleTerminateType)dynamicLibrary.GetEntry(_sig, "GuraModuleTerminate");
 	if (moduleValidate == nullptr || moduleEntry == nullptr || moduleTerminate == nullptr) {
-		sig.SetError(ERR_ImportError, "can't find necessary entry functions");
+		_sig.SetError(ERR_ImportError, "can't find necessary entry functions");
 		return nullptr;
 	}
 	if (!(*moduleValidate)()) {
-		sig.SetError(ERR_VersionError, "unacceptable version of module");
+		_sig.SetError(ERR_VersionError, "unacceptable version of module");
 		return nullptr;
 	}
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, nullptr, moduleTerminate);

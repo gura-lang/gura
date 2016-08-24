@@ -384,13 +384,13 @@ public:
 	}
 	void SetError_AccessViolation(const Symbol *pSymbol) const;
 	void SetError_PropertyNotFound(const Symbol *pSymbol) const;
-private:
+public:
 	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
-	Module *ImportSeparatedModule_Script(Signal &sig, Environment *pEnvOuter,
+	Module *ImportSeparatedModule_Script(Environment *pEnvOuter,
 							const char *pathName, const Symbol *pSymbol);
-	Module *ImportSeparatedModule_Binary(Signal &sig, Environment *pEnvOuter,
+	Module *ImportSeparatedModule_Binary(Environment *pEnvOuter,
 							const char *pathName, const Symbol *pSymbol);
 };
 

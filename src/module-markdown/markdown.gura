@@ -903,6 +903,10 @@ classref(`document).render@toc() {block} = {
 	Renderer@toc(block).Render(this)
 }
 
+help.renderer('markdown', 'markdown') {|help:help, stream:stream|
+	stream.print(help.text)
+}
+
 help.presenter('markdown') {|help:help|
 	conio.setcolor(`green) {
 		println(help.title)
