@@ -176,6 +176,34 @@ Gura_ImplementMethod(help, render)
 	return Value::Nil;
 }
 
+// help.renderer(format:string, format_out:string):static:void {block}
+Gura_DeclareClassMethod(help, renderer)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "format_out", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Registers a procedure with a name specified by the argument `format`\n"
+		"that renders the help text in a format of `format_out`.\n"
+		"\n"
+		"The procedure is written in the block that takes block parameters:\n"
+		"`|help:help, out:stream|`.\n"
+	);
+}
+
+Gura_ImplementClassMethod(help, renderer)
+{
+	Signal &sig = env.GetSignal();
+	const char *formatName = arg.GetString(0);
+	const char *formatNameOut = arg.GetString(1);
+	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Nil;
+	HelpRenderer::Register(env, new HelpRenderer(formatName, formatNameOut, pFuncBlock->Reference()));
+	return Value::Nil;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -192,6 +220,7 @@ void Class_help::Prepare(Environment &env)
 	Gura_AssignMethod(help, text_at_block);
 	Gura_AssignMethod(help, presenter);
 	Gura_AssignMethod(help, render);
+	Gura_AssignMethod(help, renderer);
 }
 
 }

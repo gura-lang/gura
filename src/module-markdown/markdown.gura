@@ -560,53 +560,54 @@ Renderer@console = class {
 		}
 	}
 	Render(doc:document):void = {
+		this.firstFlag = true
 		this.RenderItem(doc.root)
 	}
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
 			this.RenderItem(item.children)
 		} elsif (item.type == `h1) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h2) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h3) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h4) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h5) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `h6) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`green) {
 				this.RenderItem(item.children)
 			}
 			println()
 		} elsif (item.type == `p) {
-			println()
+			this.PrintlnConditional()
 			this.RenderItem(item.children)
 			println()
 		} elsif (item.type == `blockquote) {
-			println()
+			this.PrintlnConditional()
 			this.RenderItem(item.children)
 			println()
 		} elsif (item.type == `em) {
@@ -622,17 +623,17 @@ Renderer@console = class {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `codeblock) {
-			println()
+			this.PrintlnConditional()
 			this.setcolor(`blue) {
 				this.RenderItem(item.children)
 			}
 		} elsif (item.type == `ol) {
-			println()
+			this.PrintlnConditional()
 			this.indexStack.add(0)
 			this.RenderItem(item.children)
 			this.indexStack.erase(-1)
 		} elsif (item.type == `ul) {
-			println()
+			this.PrintlnConditional()
 			this.indexStack.add(nil)
 			this.RenderItem(item.children)
 			this.indexStack.erase(-1)
@@ -676,6 +677,13 @@ Renderer@console = class {
 		} elsif (item.type == `hr) {
 			println('--------')
 		} elsif (item.type == `br) {
+			println()
+		}
+	}
+	PrintlnConditional() = {
+		if (this.firstFlag) {
+			this.firstFlag = false
+		} else {
 			println()
 		}
 	}
@@ -749,7 +757,6 @@ Renderer@console = class {
 		}
 	}
 }
-
 
 TableCol = struct(text:string, align:symbol)
 TableRow = struct(headerFlag:boolean, cols[]:TableCol)
@@ -904,12 +911,9 @@ classref(`document).render@toc() {block} = {
 }
 
 help.renderer('markdown', 'markdown') {|help:help, stream:stream|
-	stream.print(help.text)
+	!help.text.isempty() && stream.print(help.text)
 }
 
 help.presenter('markdown') {|help:help|
-	conio.setcolor(`green) {
-		println(help.title)
-	}
 	!help.text.isempty() && document(help.text.reader()).render@console()
 }
