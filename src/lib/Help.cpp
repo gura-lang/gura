@@ -46,6 +46,10 @@ bool Help::Present(Environment &env) const
 	for (size_t i = 0; i < _title.size(); i++) strSep += '-';
 	env.GetConsole()->Printf(sig, "%s\n%s\n", _title.c_str(), strSep.c_str());
 	if (sig.IsSignalled()) return false;
+	if (_text.empty()) {
+		env.GetConsole()->Println(sig, "(no help)");
+		return sig.IsNoSignalled();
+	}
 	const HelpRenderer *pHelpRenderer =
 		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);

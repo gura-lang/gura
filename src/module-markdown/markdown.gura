@@ -911,9 +911,9 @@ classref(`document).render@toc() {block} = {
 }
 
 help.renderer('markdown', 'markdown') {|help:help, stream:stream|
-	!help.text.isempty() && stream.print(help.text)
+	stream.print(help.text)
 }
 
 help.presenter('markdown') {|help:help|
-	!help.text.isempty() && document(help.text.reader()).render@console()
+	document(help.text.reader()).render@console()
 }
