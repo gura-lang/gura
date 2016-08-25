@@ -527,7 +527,7 @@ Gura_DeclareFunction_CustomEnd(list_xlist)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
-	if (::strcmp(GetName(), "list") == 0) {
+	if (GetSymbol()->IsIdentical(Gura_Symbol(list))) {
 		_acceptInvalidFlag = true;
 		SetClassToConstruct(env.LookupClass(VTYPE_list));
 	} else {
@@ -537,7 +537,7 @@ Gura_DeclareFunction_CustomEnd(list_xlist)
 		"Creates a new list from given values in its argument list.\n" :
 		"Creates a new list from given values except for `nil` in its argument list.\n";
 	text +=
-		"If the value is a list or an iteartor, its elements are added to the created list.\n";
+		"If a given value is a list or an iteartor, elements it contains are added to the created list.\n";
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown, text.c_str());
 }
@@ -577,7 +577,7 @@ Gura_DeclareFunction_CustomBegin(set_xset)
 	bool _acceptInvalidFlag;
 Gura_DeclareFunction_CustomEnd(set_xset)
 {
-	_acceptInvalidFlag = (::strcmp(GetName(), "set") == 0);
+	_acceptInvalidFlag = GetSymbol()->IsIdentical(Gura_Symbol(set));
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "iter", VTYPE_iterator, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(or));
