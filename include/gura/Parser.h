@@ -246,7 +246,7 @@ public:
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
 	void InitStack();
-	Expr *ParseChar(Environment &env, char ch);
+	Expr *ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const Expr *pExprParent);
 	Expr_Root *ParseStream(Environment &env, Stream &stream);
 	Expr_Root *ParseStream(Environment &env, const char *pathName, const char *encoding);
 	bool ParseString(Environment &env, ExprOwner &exprOwner,

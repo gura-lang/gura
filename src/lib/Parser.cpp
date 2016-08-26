@@ -33,7 +33,7 @@ void Parser::InitStack()
 	_elemStack.push_back(Element(ETYPE_Begin, 0));
 }
 
-Expr *Parser::ParseChar(Environment &env, char ch)
+Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const Expr *pExprParent)
 {
 	Signal &sig = env.GetSignal();
 	if (ch == '\r') return nullptr;
@@ -1001,7 +1001,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Stream &stream)
 			return nullptr;
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		Expr *pExpr = ParseChar(env, ch);
+		Expr *pExpr = ParseChar(env, ch, pExprRoot->GetExprOwner(), pExprRoot.get());
 		if (sig.IsSignalled()) {
 			if (!sig.IsDetectEncoding()) return nullptr;
 			sig.ClearSignal();
@@ -1059,7 +1059,7 @@ bool Parser::ParseString(Environment &env, ExprOwner &exprOwner,
 	for ( ; ; str++, len--) {
 		if (!parseNullFlag && len == 0) break;
 		char ch = (len == 0)? '\0' : *str;
-		Expr *pExpr = ParseChar(env, ch);
+		Expr *pExpr = ParseChar(env, ch, exprOwner, nullptr);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
@@ -1083,7 +1083,7 @@ void Parser::EvalConsoleChar(Environment &env,
 	Codec::Result rtn = pDecoder->FeedChar(ch, chConv);
 	if (rtn != Codec::RESULT_Complete) return;
 	do {
-		Expr *pExpr = ParseChar(env, chConv);
+		Expr *pExpr = ParseChar(env, chConv, pExprRoot->GetExprOwner(), pExprRoot);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
