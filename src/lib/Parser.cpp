@@ -33,10 +33,10 @@ void Parser::InitStack()
 	_elemStack.push_back(Element(ETYPE_Begin, 0));
 }
 
-Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const Expr *pExprParent)
+bool Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const Expr *pExprParent)
 {
 	Signal &sig = env.GetSignal();
-	if (ch == '\r') return nullptr;
+	if (ch == '\r') return false;
 	Expr *pExpr = nullptr;
 	if (_lineHeadFlag) {
 		if (IsWhite(ch)) {
@@ -109,10 +109,10 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 		} else if (ch == '\\') {
 			_stat = STAT_Escape;
 		} else if (ch == '\n') {
-			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '#') {
-			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else if (_cntLine == 0) {
@@ -123,20 +123,20 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 				_stat = STAT_CommentLine;
 			}
 		} else if (ch == '{') {
-			pExpr = FeedElement(env, Element(ETYPE_LBrace, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBrace, GetLineNo()), exprOwner, pExprParent);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_AfterLBrace;
 		} else if (ch == '(') {
-			pExpr = FeedElement(env, Element(ETYPE_LParenthesis, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LParenthesis, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '[') {
-			pExpr = FeedElement(env, Element(ETYPE_LBracket, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBracket, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '|' && _blockParamFlag && CheckBlockParamEnd()) {
 			_blockParamFlag = false;
-			pExpr = FeedElement(env, Element(ETYPE_RBlockParam, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_RBlockParam, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '`') {
-			pExpr = FeedElement(env, Element(ETYPE_Quote, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_Quote, GetLineNo()), exprOwner, pExprParent);
 			_stat = STAT_Start;
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
@@ -180,10 +180,10 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			} else if (_elemStack.back().IsType(ETYPE_Quote)) {
 				_token.clear();
 				_token.push_back(ch);
-				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				pExpr = FeedElement(env, Element(tbl[i].elemType, GetLineNo()));
+				pExpr = FeedElement(env, Element(tbl[i].elemType, GetLineNo()), exprOwner, pExprParent);
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 		}
@@ -248,7 +248,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
 		} else if (chFirst == '/' && ch == '/') {
-			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_EOL, GetLineNo()), exprOwner, pExprParent);
 			if (_cntLine == 0 || (_cntLine == 1 && _appearShebangFlag)) {
 				_stat = STAT_MagicCommentLine;
 			} else {
@@ -274,10 +274,10 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 				if (elemType == ETYPE_TripleChars) {
 					_stat = STAT_TripleChars;
 				} else if (_elemStack.back().IsType(ETYPE_Quote)) {
-					pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+					pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
-					pExpr = FeedElement(env, Element(elemType, GetLineNo()));
+					pExpr = FeedElement(env, Element(elemType, GetLineNo()), exprOwner, pExprParent);
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				}
 				break;
@@ -322,10 +322,10 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 				break;
 			}
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
-				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				pExpr = FeedElement(env, Element(elemType, GetLineNo()));
+				pExpr = FeedElement(env, Element(elemType, GetLineNo()), exprOwner, pExprParent);
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 			break;
@@ -350,20 +350,20 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 	case STAT_Colon: {
 		if (ch == ':') {
 			pExpr = FeedElement(env,
-								Element(ETYPE_ColonColon, GetLineNo()));
+								Element(ETYPE_ColonColon, GetLineNo()), exprOwner, pExprParent);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '*') {
 			pExpr = FeedElement(env,
-								Element(ETYPE_ColonAsterisk, GetLineNo()));
+								Element(ETYPE_ColonAsterisk, GetLineNo()), exprOwner, pExprParent);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '&') {
 			pExpr = FeedElement(env,
-								Element(ETYPE_ColonAnd, GetLineNo()));
+								Element(ETYPE_ColonAnd, GetLineNo()), exprOwner, pExprParent);
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else {
 			ElemType elemType = _elemStack.back().IsSuffixElement()?
 									ETYPE_ColonAfterSuffix : ETYPE_Colon;
-			pExpr = FeedElement(env, Element(elemType, GetLineNo()));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo()), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -387,7 +387,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 	}
 	case STAT_AfterLBrace: {
 		if (ch == '|') {
-			pExpr = FeedElement(env, Element(ETYPE_LBlockParam, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_LBlockParam, GetLineNo()), exprOwner, pExprParent);
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -430,7 +430,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -444,7 +444,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -462,7 +462,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -472,16 +472,16 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 		if (ch == '.') {
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
 				_token.push_back(ch);
-				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 			} else {
-				pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
+				pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()), exprOwner, pExprParent);
 			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
 			_token.push_back(ch);
 			_stat = STAT_Number;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Dot, GetLineNo()));
+			pExpr = FeedElement(env, Element(ETYPE_Dot, GetLineNo()), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -494,9 +494,9 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			size_t pos = _token.find('.');
 			if (pos == _token.length() - 1) {
 				_token.resize(pos);
-				pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 				if (!sig.IsSignalled()) {
-					pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
+					pExpr = FeedElement(env, Element(ETYPE_Seq, GetLineNo()), exprOwner, pExprParent);
 				}
 				_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			} else if (pos == String::npos) {
@@ -513,7 +513,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -550,7 +550,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -561,7 +561,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 		} else {
 			pExpr = FeedElement(env, Element(ETYPE_NumberSuffixed,
-											 GetLineNo(), _token, _suffix));
+											 GetLineNo(), _token, _suffix), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -578,9 +578,9 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_stat = STAT_StringFirst;
 		} else {
 			if (_token == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
-				pExpr = FeedElement(env, Element(ETYPE_Contains, GetLineNo()));
+				pExpr = FeedElement(env, Element(ETYPE_Contains, GetLineNo()), exprOwner, pExprParent);
 			} else {
-				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 			}
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -589,7 +589,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 	}
 	case STAT_SymbolExclamation: {
 		if (ch == '=' || ch == '!') {
-			pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token), exprOwner, pExprParent);
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -701,7 +701,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -877,7 +877,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token));
+			pExpr = FeedElement(env, Element(elemType, GetLineNo(), _token), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -888,7 +888,7 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 			_suffix.push_back(ch);
 		} else {
 			pExpr = FeedElement(env, Element(ETYPE_StringSuffixed,
-												GetLineNo(), _token, _suffix));
+												GetLineNo(), _token, _suffix), exprOwner, pExprParent);
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -912,9 +912,14 @@ Expr *Parser::ParseChar(Environment &env, char ch, ExprOwner &exprOwner, const E
 	} else {
 		_cntCol++;
 	}
-	if (pExpr == nullptr || !_enablePreparatorFlag || pExpr->Prepare(env)) return pExpr;
-	Expr::Delete(pExpr);
-	return nullptr;
+	if (pExpr == nullptr) return false;
+	if (_enablePreparatorFlag && !pExpr->Prepare(env)) {
+		Expr::Delete(pExpr);
+		return false;
+	}
+	pExpr->SetParent(pExprParent);
+	exprOwner.push_back(pExpr);
+	return true;
 }
 
 Expr_Caller *Parser::CreateCaller(
@@ -1001,7 +1006,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Stream &stream)
 			return nullptr;
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		Expr *pExpr = ParseChar(env, ch, pExprRoot->GetExprOwner(), pExprRoot.get());
+		ParseChar(env, ch, pExprRoot->GetExprOwner(), pExprRoot.get());
 		if (sig.IsSignalled()) {
 			if (!sig.IsDetectEncoding()) return nullptr;
 			sig.ClearSignal();
@@ -1012,8 +1017,6 @@ Expr_Root *Parser::ParseStream(Environment &env, Stream &stream)
 				if (sig.IsSignalled()) return nullptr;
 				stream.SetCodec(pCodec.release());
 			}
-		} else if (pExpr != nullptr) {
-			pExprRoot->AddExpr(pExpr);
 		}
 		if (chRaw < 0) break;
 	}
@@ -1059,15 +1062,13 @@ bool Parser::ParseString(Environment &env, ExprOwner &exprOwner,
 	for ( ; ; str++, len--) {
 		if (!parseNullFlag && len == 0) break;
 		char ch = (len == 0)? '\0' : *str;
-		Expr *pExpr = ParseChar(env, ch, exprOwner, nullptr);
+		ParseChar(env, ch, exprOwner, nullptr);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
 			} else {
 				return false;
 			}
-		} else if (pExpr != nullptr) {
-			exprOwner.push_back(pExpr);
 		}
 		if (len == 0) break;
 	}
@@ -1083,7 +1084,7 @@ void Parser::EvalConsoleChar(Environment &env,
 	Codec::Result rtn = pDecoder->FeedChar(ch, chConv);
 	if (rtn != Codec::RESULT_Complete) return;
 	do {
-		Expr *pExpr = ParseChar(env, chConv, pExprRoot->GetExprOwner(), pExprRoot);
+		bool exprAddedFlag = ParseChar(env, chConv, pExprRoot->GetExprOwner(), pExprRoot);
 		if (sig.IsSignalled()) {
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
@@ -1092,8 +1093,8 @@ void Parser::EvalConsoleChar(Environment &env,
 				sig.ClearSignal();
 				_stat = STAT_RecoverConsole;
 			}
-		} else if (pExpr != nullptr) {
-			pExprRoot->AddExpr(pExpr);
+		} else if (exprAddedFlag) {
+			const Expr *pExpr = pExprRoot->GetExprOwner().back();
 			bool evalSymFuncFlag = true;
 			Value result = pExpr->Exec(env, evalSymFuncFlag);
 			if (sig.IsSignalled()) {
@@ -1103,7 +1104,7 @@ void Parser::EvalConsoleChar(Environment &env,
 					sig.PrintSignal(*pConsole);
 				}
 				sig.ClearSignal();
-				Expr::Delete(pExpr);
+				//Expr::Delete(pExpr);
 			} else {
 				if (env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
 					pConsole->Println(sig, result.ToString().c_str());
@@ -1238,7 +1239,7 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 	return precTbl[indexLeft][indexRight - 1];
 }
 
-Expr *Parser::FeedElement(Environment &env, const Element &elem)
+Expr *Parser::FeedElement(Environment &env, const Element &elem, ExprOwner &exprOwner, const Expr *pExprParent)
 {
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
 	Expr *pExpr = nullptr;
