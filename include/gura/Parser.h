@@ -248,7 +248,7 @@ public:
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
 	void InitStack();
-	size_t ParseChar(Environment &env, char ch);
+	bool ParseChar(Environment &env, char ch);
 	Expr_Root *ParseStream(Environment &env, Stream &stream);
 	Expr_Root *ParseStream(Environment &env, const char *pathName, const char *encoding);
 	bool ParseString(Environment &env, ExprOwner &exprOwner,
@@ -283,7 +283,7 @@ private:
 	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
 		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
 	}
-	virtual size_t FeedElement(Environment &env, const Element &elem);
+	virtual bool FeedElement(Environment &env, const Element &elem);
 	bool ReduceOneElem(Environment &env);
 	bool ReduceTwoElems(Environment &env);
 	bool ReduceThreeElems(Environment &env);
