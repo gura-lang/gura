@@ -1238,6 +1238,14 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 
 bool Parser::FeedElement(Environment &env, const Element &elem)
 {
+	//if (elem.IsType(ETYPE_EOL)) {
+	//	_elemEOLPending.push_back(elem);
+	//}
+	return _FeedElement(env, elem);
+}
+
+bool Parser::_FeedElement(Environment &env, const Element &elem)
+{
 	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
 	for (;;) {
 		ElementStack::reverse_iterator pElemTop =
@@ -2431,6 +2439,8 @@ String Parser::ElementStack::ToString() const
 //-----------------------------------------------------------------------------
 // Parser::Element
 //-----------------------------------------------------------------------------
+const Parser::Element Parser::Element::Unknown;
+
 Parser::Element::~Element()
 {
 }

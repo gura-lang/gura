@@ -166,6 +166,8 @@ public:
 		// ETYPE_LBlockParam   (Expr_BlockParam)
 		Expr *_pExpr;
 	public:
+		static const Element Unknown;
+	public:
 		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(nullptr) {}
 		inline Element(const Element &elem) :
 					_elemType(elem._elemType), _lineNo(elem._lineNo), _str(elem._str),
@@ -236,6 +238,7 @@ private:
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
+	Element _elemEOLPending;
 	ElementStack _elemStack;
 	StringInfo _stringInfo;
 	ElemTypeToIndexMap _elemTypeToIndexMap;
@@ -283,7 +286,8 @@ private:
 	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
 		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
 	}
-	virtual bool FeedElement(Environment &env, const Element &elem);
+	bool FeedElement(Environment &env, const Element &elem);
+	bool _FeedElement(Environment &env, const Element &elem);
 	bool ReduceOneElem(Environment &env);
 	bool ReduceTwoElems(Environment &env);
 	bool ReduceThreeElems(Environment &env);
