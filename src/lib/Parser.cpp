@@ -15,7 +15,8 @@ Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool ena
 	_appearShebangFlag(false), _blockParamFlag(false),
 	_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
 	_pSourceName(new StringShared(sourceName)),
-	_pExprOwner(nullptr), _pExprParent(nullptr), _enablePreparatorFlag(enablePreparatorFlag)
+	_pExprOwner(nullptr), _pExprParent(nullptr),
+	_enablePreparatorFlag(enablePreparatorFlag), _interactiveFlag(false)
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -1077,6 +1078,7 @@ void Parser::EvalConsoleChar(Environment &env,
 	if (rtn != Codec::RESULT_Complete) return;
 	_pExprOwner = &pExprRoot->GetExprOwner();
 	_pExprParent = pExprRoot;
+	_interactiveFlag = true;
 	do {
 		size_t cntExprPrev = _pExprOwner->size();
 		if (!ParseChar(env, chConv)) {
@@ -1109,6 +1111,7 @@ void Parser::EvalConsoleChar(Environment &env,
 			}
 		}
 	} while (pDecoder->FollowChar(chConv));
+	_interactiveFlag = false;
 }
 
 const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
@@ -1238,10 +1241,17 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 
 bool Parser::FeedElement(Environment &env, const Element &elem)
 {
-	//if (elem.IsType(ETYPE_EOL)) {
-	//	_elemEOLPending.push_back(elem);
-	//}
-	return _FeedElement(env, elem);
+	if (_interactiveFlag) return _FeedElement(env, elem);
+	if (_elemEOLPending.IsType(ETYPE_EOL)) {
+		if (!elem.IsType(ETYPE_LBrace) && !_FeedElement(env, _elemEOLPending)) return false;
+	}
+	if (elem.IsType(ETYPE_EOL)) {
+		_elemEOLPending = elem;
+		return true;
+	} else {
+		_elemEOLPending = Element::Unknown;
+		return _FeedElement(env, elem);
+	}
 }
 
 bool Parser::_FeedElement(Environment &env, const Element &elem)
@@ -1335,6 +1345,7 @@ bool Parser::ReduceOneElem(Environment &env)
 	Expr *pExpr;
 	Element &elem1 = _elemStack.Peek(0);
 	int lineNoTop = elem1.GetLineNo();
+	int lineNoBtm = elem1.GetLineNo();
 	if (elem1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
 		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(elem1.GetString())));
@@ -1382,7 +1393,7 @@ bool Parser::ReduceOneElem(Environment &env)
 		goto error_done;
 	}
 	_elemStack.pop_back();
-	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 error_done:
@@ -1396,6 +1407,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 	Element &elem1 = _elemStack.Peek(1);
 	Element &elem2 = _elemStack.Peek(0);
 	int lineNoTop = elem1.GetLineNo();
+	int lineNoBtm = elem2.GetLineNo();
 	if (elem1.IsType(ETYPE_LParenthesis)) {
 		if (elem2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
@@ -1493,7 +1505,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 		pExpr = new Expr_Identifier(pSymbol);
 		int lineNoTop = _elemStack.Peek(0).GetLineNo();
 		_elemStack.pop_back();
-		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 		_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 		return true;
 	} else if (elem2.IsType(ETYPE_Expr)) {
@@ -1579,7 +1591,7 @@ bool Parser::ReduceTwoElems(Environment &env)
 	}
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 error_done:
@@ -1596,6 +1608,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 	Element &elem2 = _elemStack.Peek(1);
 	Element &elem3 = _elemStack.Peek(0);
 	int lineNoTop = elem1.GetLineNo();
+	int lineNoBtm = elem3.GetLineNo();
 	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
 		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
@@ -2026,7 +2039,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 error_done:
@@ -2044,6 +2057,7 @@ bool Parser::ReduceFourElems(Environment &env)
 	Element &elem3 = _elemStack.Peek(1);
 	Element &elem4 = _elemStack.Peek(0);
 	int lineNoTop = elem1.GetLineNo();
+	int lineNoBtm = elem4.GetLineNo();
 	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 											elem3.IsType(ETYPE_LParenthesis)) {
 		if (elem4.IsType(ETYPE_RParenthesis)) {
@@ -2201,7 +2215,7 @@ bool Parser::ReduceFourElems(Environment &env)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 error_done:
@@ -2221,6 +2235,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 	Element &elem4 = _elemStack.Peek(1);
 	Element &elem5 = _elemStack.Peek(0);
 	int lineNoTop = elem1.GetLineNo();
+	int lineNoBtm = elem5.GetLineNo();
 	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
 				elem3.IsType(ETYPE_LParenthesis) && elem4.IsType(ETYPE_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
@@ -2304,7 +2319,7 @@ bool Parser::ReduceFiveElems(Environment &env)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 error_done:

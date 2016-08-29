@@ -245,6 +245,7 @@ private:
 	CharConverter _charConverter;
 	String _strIndent;
 	bool _enablePreparatorFlag;
+	bool _interactiveFlag;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
 	Parser(Signal &sig, const String &sourceName,
