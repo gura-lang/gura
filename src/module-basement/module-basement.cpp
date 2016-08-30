@@ -662,7 +662,7 @@ Gura_DeclareStatementAlias_CustomBegin(if_, "if")
 	ExprPairList _exprPairsIf;
 	const Expr *_pExprElse;
 	inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
-		Expr_Caller(pExprCar, pExprLister, pExprBlock), _pExprElse(nullptr) {}
+		Expr_Caller(pExprCar, pExprLister, pExprBlock, FLAG_Leader), _pExprElse(nullptr) {}
 	inline Expr_Statement(const Expr_Statement &expr) :
 		Expr_Caller(expr), _exprPairsIf(expr._exprPairsIf), _pExprElse(expr._pExprElse) {}
 Gura_DeclareStatementAlias_CustomEnd(if_, "if")
@@ -745,7 +745,7 @@ Gura_ImplementStatementPreparator(if_)
 }
 
 // elsif (`cond):leader:trailer {block}
-Gura_DeclareStatementAlias(elsif_, "elsif")
+Gura_DeclareStatementAlias(elsif_, "elsif", FLAG_Leader | FLAG_Trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -785,7 +785,7 @@ Gura_ImplementStatementPreparator(elsif_)
 }
 
 // else ():trailer {block}
-Gura_DeclareStatementAlias(else_, "else")
+Gura_DeclareStatementAlias(else_, "else", FLAG_Trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -814,7 +814,7 @@ Gura_ImplementStatementPreparator(else_)
 }
 
 // end (dummy*):void:symbol_func:trailer:end_marker
-Gura_DeclareStatement(end)
+Gura_DeclareStatement(end, FLAG_Trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
@@ -919,7 +919,7 @@ Gura_ImplementFunction(default_)
 // Exception Handling
 //-----------------------------------------------------------------------------
 // try ():leader {block}
-Gura_DeclareStatementAlias(try_, "try")
+Gura_DeclareStatementAlias(try_, "try", FLAG_Leader)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -1033,7 +1033,7 @@ Gura_ImplementStatementPreparator(try_)
 }
 
 // catch (errors*:error):leader:trailer {block}
-Gura_DeclareStatementAlias(catch_, "catch")
+Gura_DeclareStatementAlias(catch_, "catch", FLAG_Leader | FLAG_Trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -1064,7 +1064,7 @@ Gura_ImplementStatementPreparator(catch_)
 }
 
 // finally ():trailer:finalizer {block}
-Gura_DeclareStatementAlias(finally_, "finally")
+Gura_DeclareStatementAlias(finally_, "finally", FLAG_Trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);

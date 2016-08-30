@@ -846,10 +846,11 @@ protected:
 	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be nullptr
 	AutoPtr<SymbolSetShared> _pAttrsShrd;
 	AutoPtr<SymbolSetShared> _pAttrsOptShrd;
+	ULong _flags;							// FLAG_None, FLAG_Leader, FLAG_Trailer
 	SymbolList _attrFront;
 	std::unique_ptr<CallerInfo> _pCallerInfo;
 public:
-	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock);
+	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock, ULong flags);
 	Expr_Caller(const Expr_Caller &expr);
 	inline static Expr_Caller *Reference(const Expr_Caller *pExpr) {
 		return dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
@@ -871,6 +872,8 @@ public:
 	void UpdateCallerInfo();
 	bool AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);
+	inline bool IsLeader() const { return (_flags & FLAG_Leader) != 0; }
+	inline bool IsTrailer() const { return (_flags & FLAG_Trailer) != 0; }
 	inline void AddAttrOpt(const Symbol *pSymbol) {
 		_pAttrsOptShrd->GetSymbolSet().Insert(pSymbol);
 	}

@@ -443,7 +443,8 @@ bool Template::Parser::CreateTmplScript(Environment &env,
 					if (pExpr->IsCaller()) {
 						pExprCaller = dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
 					} else {
-						pExprCaller = new Expr_Caller(Expr::Reference(pExpr), nullptr, nullptr);
+						pExprCaller = new Expr_Caller(
+							Expr::Reference(pExpr), nullptr, nullptr, FLAG_None);
 						pExprCaller->SetSourceInfo(pSourceName->Reference(),
 										pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
 					}

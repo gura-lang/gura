@@ -373,7 +373,7 @@ Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pF
 									   dynamic_cast<Expr_Identifier *>(pExprCar.release())));
 	}
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
-	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr, FLAG_None);
 }
 
 Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
@@ -387,7 +387,7 @@ Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pF
 	AutoPtr<Expr_Lister> pExprLister(new Expr_Lister());
 	pExprLister->Reserve(1);
 	pExprLister->AddExpr(pExprArg1);
-	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr, FLAG_None);
 }
 
 Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
@@ -402,7 +402,7 @@ Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pF
 	pExprLister->Reserve(2);
 	pExprLister->AddExpr(pExprArg1);
 	pExprLister->AddExpr(pExprArg2);
-	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr, FLAG_None);
 }
 
 Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
@@ -418,7 +418,7 @@ Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pF
 	pExprLister->AddExpr(pExprArg1);
 	pExprLister->AddExpr(pExprArg2);
 	pExprLister->AddExpr(pExprArg3);
-	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr, FLAG_None);
 }
 
 Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
@@ -435,7 +435,7 @@ Expr_Caller *Expr::CreateCaller(const Symbol *pContainerSymbol, const Symbol *pF
 	pExprLister->AddExpr(pExprArg2);
 	pExprLister->AddExpr(pExprArg3);
 	pExprLister->AddExpr(pExprArg4);
-	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr);
+	return new Expr_Caller(pExprCar.release(), pExprLister.release(), nullptr, FLAG_None);
 }
 
 //-----------------------------------------------------------------------------
@@ -2456,12 +2456,13 @@ bool Expr_Indexer::GenerateScript(Signal &sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Caller::IsCaller() const { return true; }
 
-Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) :
+Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock, ULong flags) :
 	Expr_Compound(EXPRTYPE_Caller,
 				  pExprCar, (pExprLister == nullptr)? new Expr_Lister() : pExprLister),
 	_pExprBlock(pExprBlock), _pExprTrailer(nullptr),
 	_pAttrsShrd(new SymbolSetShared()),
-	_pAttrsOptShrd(new SymbolSetShared())
+	_pAttrsOptShrd(new SymbolSetShared()),
+	_flags(flags)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	_pCallerInfo.reset(new CallerInfo(
@@ -2475,7 +2476,8 @@ Expr_Caller::Expr_Caller(const Expr_Caller &expr) :
 	_pExprTrailer(expr._pExprTrailer.IsNull()? nullptr :
 				  dynamic_cast<Expr_Caller *>(expr._pExprTrailer->Clone())),
 	_pAttrsShrd(new SymbolSetShared(*expr._pAttrsShrd)),
-	_pAttrsOptShrd(new SymbolSetShared(*expr._pAttrsOptShrd))
+	_pAttrsOptShrd(new SymbolSetShared(*expr._pAttrsOptShrd)),
+	_flags(expr._flags)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	_pCallerInfo.reset(new CallerInfo(

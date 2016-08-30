@@ -61,10 +61,10 @@ Expr_Caller *Func_##name::GenerateStatement(Parser *pParser, Expr *pExprCar, \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareStatementAlias(name, nameAlias) \
+#define Gura_DeclareStatementAlias(name, nameAlias, flags)	\
 Gura_DeclareStatementAlias_CustomBegin(name, nameAlias)	\
 	inline Expr_Statement(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock) : \
-		Expr_Caller(pExprCar, pExprLister, pExprBlock) {} \
+			Expr_Caller(pExprCar, pExprLister, pExprBlock, flags) {}					\
 	inline Expr_Statement(const Expr_Statement &expr) : Expr_Caller(expr) {} \
 Gura_DeclareStatementAlias_CustomEnd(name, nameAlias)
 
@@ -74,8 +74,8 @@ Gura_DeclareStatementAlias_CustomBegin(name, #name)
 #define Gura_DeclareStatement_CustomEnd(name) \
 Gura_DeclareStatementAlias_CustomEnd(name, #name)
 
-#define Gura_DeclareStatement(name) \
-Gura_DeclareStatementAlias(name, #name)
+#define Gura_DeclareStatement(name, flags) \
+Gura_DeclareStatementAlias(name, #name, flags)
 
 // DeclareFunctionWithMathDiff
 #define Gura_DeclareFunctionWithMathDiffAlias(name, nameAlias) \

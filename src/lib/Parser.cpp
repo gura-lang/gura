@@ -917,6 +917,7 @@ Expr_Caller *Parser::CreateCaller(
 	Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
 	Expr_Block *pExprBlock, const Expr_Caller *pExprLeader)
 {
+	ULong flags = FLAG_None;
 	if (pExprCar->IsIdentifier()) {
 		const Symbol *pSymbol = dynamic_cast<Expr_Identifier *>(pExprCar)->GetSymbol();
 		const Function *pFunc = env.LookupFunction(pSymbol, ENVREF_Escalate);
@@ -928,7 +929,7 @@ Expr_Caller *Parser::CreateCaller(
 			if (!pExpr.IsNull()) return pExpr.release();
 		}
 	}
-	return new Expr_Caller(pExprCar, pExprLister, pExprBlock);
+	return new Expr_Caller(pExprCar, pExprLister, pExprBlock, flags);
 }
 
 bool Parser::CheckBlockParamEnd() const
