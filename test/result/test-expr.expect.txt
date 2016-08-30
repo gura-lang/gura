@@ -1,4 +1,4 @@
-======== #1 ========
+======== #1 expr#is*() ========
 
 -x       y n n n n n n n n n n
 `x       n y n n n n n n n n n
@@ -13,7 +13,7 @@ x::y     n n n n y n n n n n n
 x[y]     n n n n n n n n n y n
 x(y, z)  n n n n n n n n n n y
 
-======== #2 ========
+======== #2 expr#textize() ========
 
 unaryop          -3
 binaryop         3 + 4
@@ -23,7 +23,7 @@ assign           f(x) = {|a, b| c }
 indexer          (f(x):attr)[0]
 assign           f(x) = {|(a | b | c), (d | e | f)| g | h }
 
-======== #3 ========
+======== #3 expr#textize() with string and binary ========
 
 '0123456789012345678901234567890123456789'
 b'\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39'
@@ -74,3 +74,20 @@ f():xreduce
   xreduce
 f():xset
   xset
+
+======== #5 various positioning of brace bracket ========
+
+f(a, b, c) = {}
+f(a, b, c) = {}
+f(a, b, c) = {}
+f(a, b, c) = {}
+f(a, b, c) = {}
+f(a, b, c) = {|p1, p2, p3|}
+f(a, b, c) = {|p1, p2, p3|}
+f(a, b, c) = {|p1, p2, p3|}
+f(a, b, c) = {|p1, p2, p3|}
+if (cond) {}
+if (cond) {}
+if (cond) {}
+if (cond) {}
+if (cond) {}

@@ -1,10 +1,24 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('expr#is*()') {
 	shortBool(flag:boolean) = cond(flag, 'y', 'n')
-	for (test in [`(-x), `(`x), `(x*), `(x + y), `(x = y),
-	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
+	tests = `{
+		-x
+		`x
+		x*
+		x + y
+		x = y
+	    x => y
+		x::y
+		// blank line to separate brace bracket and its previous line
+		{}
+		3
+		[]
+		x[y]
+		x(y, z)
+	}
+	for (test in tests.children) {
 		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s\n', test.tostring(),
 				shortBool(test.isunaryop()),
 				shortBool(test.isquote()),
@@ -19,7 +33,7 @@ testcase {
 				shortBool(test.iscaller()))
 	}
 }
-testcase {
+testcase('expr#textize()') {
 	x = [
 		`(-3)
 		`(3 + 4)
@@ -31,7 +45,7 @@ testcase {
 	]
 	printf('%-16s %s\n', x:*typename, x:*textize(`oneline))
 }
-testcase {
+testcase('expr#textize() with string and binary') {
 	x = [
 		`'0123456789012345678901234567890123456789'
 		`b'0123456789012345678901234567890123456789'
@@ -70,4 +84,44 @@ testcase('attribute') {
 	x = `f():xset
 	println(x)
 	println('  ', x.attrs)
+}
+testcase('various positioning of brace bracket') {
+	x = `{
+		f(a, b, c) = {}
+		f(a, b, c) = {
+		}
+		f(a, b, c) =
+		{
+		}
+		f(a, b, c) = // comment
+		{
+		}
+		f(a, b, c) = /* comment */
+		{
+		}
+		f(a, b, c) = {|p1, p2, p3|}
+		f(a, b, c) = {
+			|p1, p2, p3|
+		}
+		f(a, b, c) =
+		{|p1, p2, p3|
+		}
+		f(a, b, c) =
+		{
+			|p1, p2, p3|
+		}
+		if (cond) {}
+		if (cond) {
+		}
+		if (cond)
+		{
+		}
+		if (cond) // comment
+		{
+		}
+		if (cond) /* comment */
+		{
+		}
+	}
+	println(x.children)
 }
