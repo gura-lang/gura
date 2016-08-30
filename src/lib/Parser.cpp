@@ -927,6 +927,7 @@ Expr_Caller *Parser::CreateCaller(
 					this, pExprCar, pExprLister, pExprBlock, pExprLeader));
 			if (env.IsSignalled()) return nullptr;
 			if (!pExpr.IsNull()) return pExpr.release();
+			flags = pFunc->GetFlags() & (FLAG_Leader | FLAG_Trailer);
 		}
 	}
 	return new Expr_Caller(pExprCar, pExprLister, pExprBlock, flags);
@@ -1274,8 +1275,10 @@ bool Parser::_FeedElement(Environment &env, const Element &elem)
 					InitStack();
 				} else {
 					_elemStack.pop_back();
+					
 					pExpr->SetParent(_pExprParent);
 					_pExprOwner->push_back(pExpr);
+					
 				}
 			} else {
 				// something's wrong
