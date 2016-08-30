@@ -1275,10 +1275,7 @@ bool Parser::_FeedElement(Environment &env, const Element &elem)
 					InitStack();
 				} else {
 					_elemStack.pop_back();
-					
-					pExpr->SetParent(_pExprParent);
-					_pExprOwner->push_back(pExpr);
-					
+					if (!EmitExpr(*_pExprOwner, _pExprParent, pExpr)) InitStack();
 				}
 			} else {
 				// something's wrong
@@ -1342,6 +1339,28 @@ bool Parser::_FeedElement(Environment &env, const Element &elem)
 		}
 	}
 	return env.IsNoSignalled();
+}
+
+bool Parser::EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr)
+{
+	if (pExpr->IsCaller()) {
+		Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(pExpr);
+		if (!pExprCaller->IsTrailer()) {
+			// nothing to do
+		} else if (exprOwner.empty()) {
+			// nothing to do
+		} else if (exprOwner.back()->IsCaller()) {
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(exprOwner.back());
+			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			return true;
+		} else {
+			SetError(ERR_SyntaxError, "trailer must be placed after a caller expression");
+			return false;
+		}
+	}
+	pExpr->SetParent(pExprParent);
+	exprOwner.push_back(pExpr);
+	return true;
 }
 
 bool Parser::ReduceOneElem(Environment &env)
@@ -1620,7 +1639,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 			if (pExprIterer == nullptr) {
 				pExpr = elem2.GetExpr();	// treat expr as non-list
 			} else {
-				pExprIterer->AddExpr(elem2.GetExpr());
+				//pExprIterer->AddExpr(elem2.GetExpr());
+				if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, elem2.GetExpr())) return false;
 				pExpr = pExprIterer;
 			}
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
@@ -1630,7 +1650,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprIterer = new Expr_Iterer();
 				elem1.SetExpr(pExprIterer);
 			}
-			pExprIterer->AddExpr(elem2.GetExpr());
+			//pExprIterer->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, elem2.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -1645,7 +1666,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			pExprLister->AddExpr(elem2.GetExpr());
+			//pExprLister->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem2.GetExpr())) return false;
 			pExpr = pExprLister;
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -1654,7 +1676,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprLister = new Expr_Lister();
 				elem1.SetExpr(pExprLister);
 			}
-			pExprLister->AddExpr(elem2.GetExpr());
+			//pExprLister->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem2.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -1737,7 +1760,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			pExprBlock->AddExpr(elem2.GetExpr());
+			//pExprBlock->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem2.GetExpr())) return false;
 			pExpr = pExprBlock;
 		} else if (elem3.IsType(ETYPE_Comma) ||
 					elem3.IsType(ETYPE_Semicolon) || elem3.IsType(ETYPE_EOL)) {
@@ -1747,7 +1771,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprBlock = new Expr_Block();
 				elem1.SetExpr(pExprBlock);
 			}
-			pExprBlock->AddExpr(elem2.GetExpr());
+			//pExprBlock->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem2.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -1764,7 +1789,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 			}
-			pExprBlockParam->AddExpr(elem2.GetExpr());
+			//pExprBlockParam->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, elem2.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			_elemStack.pop_back();
@@ -1792,7 +1818,8 @@ bool Parser::ReduceThreeElems(Environment &env)
 				pExprBlockParam = new Expr_Lister();
 				elem1.SetExpr(pExprBlockParam);
 			}
-			pExprBlockParam->AddExpr(elem2.GetExpr());
+			//pExprBlockParam->AddExpr(elem2.GetExpr());
+			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, elem2.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -2129,7 +2156,8 @@ bool Parser::ReduceFourElems(Environment &env)
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			pExprLister->AddExpr(elem3.GetExpr());
+			//pExprLister->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) goto error_done;
@@ -2141,7 +2169,8 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprLister = new Expr_Lister();
 				elem2.SetExpr(pExprLister);
 			}
-			pExprLister->AddExpr(elem3.GetExpr());
+			//pExprLister->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -2157,7 +2186,8 @@ bool Parser::ReduceFourElems(Environment &env)
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			pExprBlock->AddExpr(elem3.GetExpr());
+			//pExprBlock->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem3.GetExpr())) return false;
 			if (elem1.GetExpr()->IsCaller()) {
 				Expr_Caller *pExprCaller =
 								dynamic_cast<Expr_Caller *>(elem1.GetExpr());
@@ -2177,7 +2207,8 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprBlock = new Expr_Block();
 				elem2.SetExpr(pExprBlock);
 			}
-			pExprBlock->AddExpr(elem3.GetExpr());
+			//pExprBlock->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem3.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -2194,7 +2225,8 @@ bool Parser::ReduceFourElems(Environment &env)
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			pExprLister->AddExpr(elem3.GetExpr());
+			//pExprLister->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
 		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2203,7 +2235,8 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprLister = new Expr_Lister();
 				elem2.SetExpr(pExprLister);
 			}
-			pExprLister->AddExpr(elem3.GetExpr());
+			//pExprLister->AddExpr(elem3.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -2248,7 +2281,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			pExprLister->AddExpr(elem4.GetExpr());
+			//pExprLister->AddExpr(elem4.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem4.GetExpr())) return false;
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
 				goto error_done;
@@ -2266,7 +2300,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprLister = new Expr_Lister();
 				elem3.SetExpr(pExprLister);
 			}
-			pExprLister->AddExpr(elem4.GetExpr());
+			//pExprLister->AddExpr(elem4.GetExpr());
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem4.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
@@ -2282,7 +2317,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			pExprBlock->AddExpr(elem4.GetExpr());
+			//pExprBlock->AddExpr(elem4.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem4.GetExpr())) return false;
 			if (!elem1.GetExpr()->IsCaller()) {
 				SetError_InvalidElement(__LINE__);
 				goto error_done;
@@ -2306,7 +2342,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprBlock = new Expr_Block();
 				elem3.SetExpr(pExprBlock);
 			}
-			pExprBlock->AddExpr(elem4.GetExpr());
+			//pExprBlock->AddExpr(elem4.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem4.GetExpr())) return false;
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;

@@ -91,3 +91,11 @@ if (cond) {}
 if (cond) {}
 if (cond) {}
 if (cond) {}
+
+======== #6 if-elsif-else ========
+
+{ if (cond1) {} elsif (cond2) {} elsif (cond3) {} elsif (cond4) {} else {} }
+
+======== #7 try-catch-else-finally ========
+
+{ try {} catch(error.IndexError) {} catch(error.ValueError) {} catch(error.IOError) {} catch(error.SystemError) {} catch {} else {} finally {} }

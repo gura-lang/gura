@@ -125,3 +125,54 @@ testcase('various positioning of brace bracket') {
 	}
 	println(x.children)
 }
+testcase('if-elsif-else') {
+	x = `{
+		if (cond1)
+		{
+		}
+		elsif (cond2)
+		{
+		}
+		// comment line
+		elsif (cond3)
+		{
+		}
+		elsif (cond4)
+		{
+		}
+		else
+		{
+		}
+	}
+	println(x)
+}
+testcase('try-catch-else-finally') {
+	x = `{
+		try
+		{
+		}
+		catch (error.IndexError)
+		{
+		}
+		catch (error.ValueError)
+		{
+		}
+		// comment line
+		catch (error.IOError)
+		{
+		}
+		catch (error.SystemError)
+		{
+		}
+		catch
+		{
+		}
+		else
+		{
+		}
+		finally
+		{
+		}
+	}
+	println(x)
+}

@@ -289,6 +289,7 @@ private:
 	}
 	bool FeedElement(Environment &env, const Element &elem);
 	bool _FeedElement(Environment &env, const Element &elem);
+	bool EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr);
 	bool ReduceOneElem(Environment &env);
 	bool ReduceTwoElems(Environment &env);
 	bool ReduceThreeElems(Environment &env);
