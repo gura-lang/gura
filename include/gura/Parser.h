@@ -238,7 +238,7 @@ private:
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
-	Element _elemEOLPending;
+	Element _elemPrev;
 	ElementStack _elemStack;
 	StringInfo _stringInfo;
 	ElemTypeToIndexMap _elemTypeToIndexMap;

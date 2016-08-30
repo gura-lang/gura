@@ -566,6 +566,15 @@ testcase {
 	people.sort(&{$person1.name <=> $person2.name})::Print()
 	println('sort by age')
 	people.sort(&{$person1.age <=> $person2.age})::Print()
+	// each element surrounded by brace brackets
+	people = @(Person) {
+		{'hoge',	15}		# comma at each end of line can be omitted
+		{'aaaa',	18}
+		{'saito',	19}
+		{'tanaka',	20}
+		{'sato',	17}
+	}
+	people::Print()
 }
 testcase {
 	Object = class {

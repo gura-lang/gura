@@ -258,6 +258,11 @@ sato is 17 years old.
 aaaa is 18 years old.
 saito is 19 years old.
 tanaka is 20 years old.
+hoge is 15 years old.
+aaaa is 18 years old.
+saito is 19 years old.
+tanaka is 20 years old.
+sato is 17 years old.
 
 ======== #26 ========
 
