@@ -48,7 +48,7 @@ Here are some valid symbols:
 Special symbols:
 
     %
-    
+
     +  *  ?  -
 
 
@@ -148,7 +148,7 @@ by surrounding it with a triple sequence of single or double quotations.
     EFGH
     IJKL
     '''
-    
+
     """
     ABCD
     EFGH
@@ -166,7 +166,7 @@ since a back slash placed at end of a line results in an elimination of the tail
     EFGH
     IJKL
     '''
-    
+
     '''\
     ABCD
     EFGH
@@ -249,7 +249,7 @@ Multiple expressions can be grouped by surronding them with a pair of brackets.
 There are three types of brackets as listed below.
 
 * __Square bracket__: `[A, B, C]`
-  
+
   When it appears right after an expression that has a value as a result of evaluation,
   it works as an indexer that allows indexing access in the preceding value.
 
@@ -273,7 +273,7 @@ There are three types of brackets as listed below.
       (1, 2, 3, 4)
 
 * __Curly bracket__: `{A, B, C}`
-  
+
   It forms a list of expressions called Block.
   In general, a Block is used as a body for function assignment
   or provides a procedual part in calling a function.
@@ -283,7 +283,7 @@ There are three types of brackets as listed below.
 * __Vertical Bar__: `|A, B, C|`
 
   This only appears right after opening bracket of Block and is called Block Parameter.
-  
+
       repeat (3) {|i| println(i)}
 
   If an element contains an operator "`|`" in it,
@@ -296,7 +296,7 @@ Expressions within brackets can be separated by a comma character or a line feed
 The following two codes have the same result.
 
     [1, 2, 3, 4]
-    
+
     [1
     2
     3
@@ -328,9 +328,9 @@ There are two types of comments: line comment and block comment.
 A line comment begins with a marker `#` or `//` and lasts until end of the line.
 
     # this is a comment
-    
+
     // and this is too
-    
+
     x = 10 // comment after code
 
 A block comment begins with a marker `/*` and ends with `*/`.
@@ -340,11 +340,11 @@ as long as pairs of the comment markers are matched.
 Following are valid examples of block comment.
 
     /* block comment */
-    
+
     /*
     block comment
     */
-    
+
     /* /* /* nested comment */ */ */
 
 
@@ -380,7 +380,7 @@ but just provide common functions for their derivations.
 ### Value
 
 A `Value` expression holds a value of `number`, `string`, `binary` type.
-  
+
 Class diagram is:
 
     +----------------------------------+
@@ -682,6 +682,16 @@ Consider the following expression:
   It contains three Identifier expressions `x`, `y` and `z` as its elements.
   It also owns Identifier expressions `a`, `b` and `c` as its block-parameters.
 
+If a opening curly bracket appears at the top of a line, the preceding line break would be omitted.
+This means that the following two examples are identical:
+
+    foo {
+    }
+
+    foo
+    {
+    }
+
 
 ### Root
 
@@ -763,13 +773,13 @@ Class diagram is:
 Consider the following expressions:
 
 * `a(x, y, z)`
-  
+
   It owns an Identifier expression `a` as its car element
   and three Identifier expressions `x`, `y` and `z` as its arguments.
   Its block and trailer elements are both invalid.
 
 * `a()`
-  
+
   It owns an Identifier expression `a` as its car element.
   Its arguments is blank.
 
@@ -779,25 +789,26 @@ Consider the following expressions:
   and three Identifier expressions `x`, `y` and `z` as its arguments.
   It also owns a Block expression as its block element.
 
-If two or more callers are described in the same line,
+If two or more `Caller`s are described in the same line,
 they have a leader-trailer relationship each other,
-in which the preceding caller is dubbed a leader and following one a trailer.
-A caller that acts as a leader is the owner of its trailing caller.
+in which the preceding `Caller` is dubbed a leader and following one a trailer.
+A `Caller` that acts as a leader is the owner of its trailing `Caller`.
 
 Consider the following expressions:
 
 * `a() b()`
 
-  The Caller expression `a()` owns a Caller expression of `b()` as its trailer.
+  The `Caller` expression `a()` owns a `Caller` expression of `b()` as its trailer.
 
 * `a() b() c()`
 
-  The Caller expression `a()` owns a Caller expression of `b()` as its trailer,
+  The `Caller` expression `a()` owns a Caller expression of `b()` as its trailer,
   and the Caller expression `b()` owns the Caller expression `c()` as well.
 
-The parser determines whether a following Caller is a trailer
-by checking if top of the following Caller is described in the same line
-as a closing parenthesis of the preceding one.
+The parser uses two rules to determine whether a following Caller is a trailer.
+
+The first is, as you've already read above, to check if the top of the following Caller
+is described in the same line of a closing parenthesis of the preceding one.
 It means that the example below is a valid leader-trailer form.
 
     a(
@@ -810,3 +821,53 @@ as top of the following one like below.
     a() {
     } b(
     )
+
+Another rule is to determine if the caller is associated with a function
+that has a trailer attribute such as `elsif`, `else`, `catch` and `finally`.
+Those callers don't need to be at the same line of
+a closing parenthesis or curly bracket that precedes to act as a trailer.
+This feature enables you to write `if-elsif-else` sequence in the following style:
+
+    if (cond)
+    {
+        // ...
+    }
+    elsif (cond)
+    {
+        // ...
+    }
+    elsif (cond)
+    {
+        // ...
+    }
+    else
+    {
+        // ...
+    }
+
+Also, you can write `try-catch-else-finally` sequence like followed:
+
+    try
+    {
+        // ...
+    }
+    catch (error1)
+    {
+        // ...
+    }
+    catch (error2)
+    {
+        // ...
+    }
+    catch
+    {
+        // ...
+    }
+    else
+    {
+        // ...
+    }
+    finally
+    {
+        // ...
+    }
