@@ -356,13 +356,14 @@ Following are valid examples of block comment.
 The following figure shows a hierarchy of expressions.
 
     Expr <-+- Value
+           +- EmbedString
            +- Identifier
            +- Suffixed
+           +- Member
            +- Unary <-----+- UnaryOp
            |              `- Quote
            +- Binary <----+- BinaryOp
-           |              +- Assign
-           |              `- Member
+           |              `- Assign
            +- Collector <-+- Lister
            |              +- Iterer
            |              +- Block
@@ -381,7 +382,7 @@ but just provide common functions for their derivations.
 
 A `Value` expression holds a value of `number`, `string`, `binary` type.
 
-Class diagram is:
+The class diagram is:
 
     +----------------------------------+
     |              Value               |
@@ -407,6 +408,24 @@ Consider the following expressions:
   It has a value of `binary` type.
 
 
+### EmbedString
+
+A `EmbedString` expression is created when a string literal is prefixed by a character `e`
+and contains a `template` instance as a result of parsing the string.
+
+The class diagram is:
+
+    +---------------------+
+    |    EmbedString      |
+    |---------------------|
+    |- template: template |
+    |- str: string        |
+    +---------------------+
+
+When this expression is evaluated, the template is invoked with the current environment
+to comes up with a string result.
+
+
 ### Identifier
 
 An `Identifier` expression consists of a symbol and zero or more attributes trailing after it.
@@ -415,7 +434,7 @@ An `Identifer` expression can also contain attributes,
 where an attribute is a symbol preceded by a colon character.
 One or more attributes can be described after a symbol of the `Identifier`.
 
-Class diagram is:
+The class diagram is:
 
     +----------------------------+
     |          Identifier        |
@@ -441,7 +460,7 @@ Consider the following expressions:
 
 A `Suffixed` expression has a suffix symbol and a preceding literal of string or number.
 
-Class diagram is:
+The class diagram is:
 
     +---------------------+
     |      Suffixed       |
@@ -463,119 +482,13 @@ Consider the following expressions:
   It has a string `'hello world'` as its body and a symbol `bar` as its suffix.
 
 
-### UnaryOp
-
-A `UnaryOp` expression consists of a unary operator
-and a child expression on which the operator is applied.
-
-Class diagram is:
-
-    +---------------------+         +----------------+
-    |       UnaryOp       |   child |      Expr      |
-    |---------------------*---------+----------------|
-    |- operator: operator |         |                |
-    +---------------------+         +----------------+
-
-Consider the following expression:
-
-* `-foo`
-
-  It has an operator "`-`" and owns an Identifer expression as its child.
-
-
-### Quote
-
-A `Quote` expression consists of a back quotation
-and a child expression that is to be quoted by it.
-
-Class diagram is:
-
-    +---------------------+         +----------------+
-    |        Quote        |   child |      Expr      |
-    |---------------------*---------+----------------|
-    |                     |         |                |
-    +---------------------+         +----------------+
-
-Consider the following expression:
-
-* `` `12345``
-
-  It owns an Value expression with a number value as its child.
-
-
-### BinaryOp
-
-A `BinaryOp` expression consists of a binary operator
-and two child expressions on which the operator is applied.
-
-Class diagram is:
-
-                                        +----------------+
-                                  left  |      Expr      |
-                               +--------+----------------|
-    +---------------------+    |        |                |
-    |       BinaryOp      *----+        +----------------+
-    |---------------------|
-    |- operator: operator *----+        +----------------+
-    +---------------------+    |  right |      Expr      |
-                               +--------+----------------|
-                                        |                |
-                                        +----------------+
-
-Consider the following expression:
-
-* `x + y`
-
-  It has an operator "`+`" and owns an Identifer expression `x` as its left
-  and also an Identifier expression `y` as its right.
-
-
-### Assign
-
-An `Assign` expression consists of an equal symbol,
-an expression on the left side that is a target of the assignment
-and an expression on the right side that is an assignment source.
-An expresion that can be specified on the left is one of
-`Identifer`, `Lister`, `Indexer`, `Caller` and `Member`.
-
-Class diagram is:
-
-                                        +----------------+
-                                  left  |      Expr      |
-                               +--------+----------------|
-    +---------------------+    |        |                |
-    |       Assign        *----+        +----------------+
-    |---------------------|
-    |- operator: operator *----+        +----------------+
-    +---------------------+    |  right |      Expr      |
-                               +--------+----------------|
-                                        |                |
-                                        +----------------+
-
-The `Assign` expression also has an operator that is to be applied before assignment.
-For a normal assignment, that is set to invalid operator.
-
-Consider the following expressions:
-
-* `x = y`
-
-  It owns an Identifer expression `x` as its left
-  and also an Identifier expression `y` as its right.
-  The operator is set to invalid.
-
-* `x += y`
-
-  It owns an Identifer expression `x` as its left
-  and also an Identifier expression `y` as its right.
-  It also has an operator "`+`".
-
 ### Member
 
 A `Member` expression is responsible for accessing variables
 in a property owner like instance, class and module.
 Below are available Member accessors.
 
-Class diagram is:
+The class diagram is:
 
                                         +----------------+
                                   left  |      Expr      |
@@ -612,11 +525,118 @@ and take a list or an iterator as its left's result value,
 each of which expressions is a reference to a property owner.
 
 
+### UnaryOp
+
+A `UnaryOp` expression consists of a unary operator
+and a child expression on which the operator is applied.
+
+The class diagram is:
+
+    +---------------------+         +----------------+
+    |       UnaryOp       |   child |      Expr      |
+    |---------------------*---------+----------------|
+    |- operator: operator |         |                |
+    +---------------------+         +----------------+
+
+Consider the following expression:
+
+* `-foo`
+
+  It has an operator "`-`" and owns an Identifer expression as its child.
+
+
+### Quote
+
+A `Quote` expression consists of a back quotation
+and a child expression that is to be quoted by it.
+
+The class diagram is:
+
+    +---------------------+         +----------------+
+    |        Quote        |   child |      Expr      |
+    |---------------------*---------+----------------|
+    |                     |         |                |
+    +---------------------+         +----------------+
+
+Consider the following expression:
+
+* `` `12345``
+
+  It owns an Value expression with a number value as its child.
+
+
+### BinaryOp
+
+A `BinaryOp` expression consists of a binary operator
+and two child expressions on which the operator is applied.
+
+The class diagram is:
+
+                                        +----------------+
+                                  left  |      Expr      |
+                               +--------+----------------|
+    +---------------------+    |        |                |
+    |       BinaryOp      *----+        +----------------+
+    |---------------------|
+    |- operator: operator *----+        +----------------+
+    +---------------------+    |  right |      Expr      |
+                               +--------+----------------|
+                                        |                |
+                                        +----------------+
+
+Consider the following expression:
+
+* `x + y`
+
+  It has an operator "`+`" and owns an Identifer expression `x` as its left
+  and also an Identifier expression `y` as its right.
+
+
+### Assign
+
+An `Assign` expression consists of an equal symbol,
+an expression on the left side that is a target of the assignment
+and an expression on the right side that is an assignment source.
+An expresion that can be specified on the left is one of
+`Identifer`, `Lister`, `Indexer`, `Caller` and `Member`.
+
+The class diagram is:
+
+                                        +----------------+
+                                  left  |      Expr      |
+                               +--------+----------------|
+    +---------------------+    |        |                |
+    |       Assign        *----+        +----------------+
+    |---------------------|
+    |- operator: operator *----+        +----------------+
+    +---------------------+    |  right |      Expr      |
+                               +--------+----------------|
+                                        |                |
+                                        +----------------+
+
+The `Assign` expression also has an operator that is to be applied before assignment.
+For a normal assignment, that is set to invalid operator.
+
+Consider the following expressions:
+
+* `x = y`
+
+  It owns an Identifer expression `x` as its left
+  and also an Identifier expression `y` as its right.
+  The operator is set to invalid.
+
+* `x += y`
+
+  It owns an Identifer expression `x` as its left
+  and also an Identifier expression `y` as its right.
+  It also has an operator "`+`".
+
+
 ### Lister
 
 A `Lister` expression is a series of element expressions embraced by a pair of square brackets.
 
-Class diagram is:
+The class diagram is:
 
     +---------------------+           +----------------+
     |        Lister       |  elements |      Expr      |
@@ -635,7 +655,7 @@ Consider the following expression:
 
 An `Iterer` expression is a series of element expressions embraced by a pair of parentheses.
 
-Class diagram is:
+The class diagram is:
 
     +---------------------+           +----------------+
     |        Iterer       |  elements |      Expr      |
@@ -654,7 +674,7 @@ Consider the following expression:
 
 A `Block` expression is a series of element expressions embraced by a pair of curly brackets.
 
-Class diagram is:
+The class diagram is:
 
     +---------------------+            +----------------+
     |        Block        |   elements |      Expr      |
@@ -697,7 +717,7 @@ This means that the following two examples are identical:
 
 A `Root` expression represents a series of element expressions that appear in the top sequence.
 
-Class diagram is:
+The class diagram is:
 
     +---------------------+           +----------------+
     |        Root         |  elements |      Expr      |
@@ -717,7 +737,7 @@ Consider the following expression:
 An `Indexer` expression consists of a car element
 and a series of expressions that represent indices.
 
-Class diagram is:
+The class diagram is:
 
                                            +----------------+
                                        car |      Expr      |
@@ -750,7 +770,7 @@ if that is described in a leader-trailer syntax.
 As with an `Identifier` expression, a `Caller` expression can also have attributes.
 They can be described just after a closing parenthesis of an argument list.
 
-Class diagram is:
+The class diagram is:
 
                                                   +----------------+
     +----------------------------+            car |      Expr      |
