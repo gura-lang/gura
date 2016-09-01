@@ -367,8 +367,20 @@ bool Document::FeedChar(Environment &env, char ch)
 
 bool Document::FlushLines(Environment &env)
 {
+	Structure *pStructure = _pStructureOwner->back();
 	_lineOwner.AlignCol();
-	if (!_lineOwner.FeedToParser(env, _pParser.get())) return false;
+	foreach_const (LineOwner, ppLine, _lineOwner) {
+		const Line *pLine = *ppLine;
+		if (!pLine->IsBlank()) {
+			for (int i = 0; i < pLine->GetCol(); i++) {
+				if (!_pParser->FeedChar(env, ' ')) return false;
+				pStructure->AddSourceChar(' ');
+			}
+		}
+		if (!_pParser->FeedString(env, pLine->GetString())) return false;
+		pStructure->AddSourceString(pLine->GetString());
+	}
+	if (!_pParser->FeedChar(env, '\0')) return false;
 	_lineOwner.Clear();
 	NewLine();
 	return true;
@@ -402,16 +414,6 @@ void Document::ConvertToBrief()
 //-----------------------------------------------------------------------------
 // Document::Line
 //-----------------------------------------------------------------------------
-bool Document::Line::FeedToParser(Environment &env, Parser *pParser) const
-{
-	if (!IsBlank()) {
-		for (int i = 0; i < _col; i++) {
-			if (!pParser->FeedChar(env, ' ')) return false;
-		}
-	}
-	return pParser->FeedString(env, _str.c_str());
-}
-
 void Document::Line::Print() const
 {
 	::printf("%*s%s", _col, "", _str.c_str());
@@ -436,16 +438,6 @@ void Document::LineList::AlignCol()
 		Line *pLine = *ppLine;
 		pLine->SetCol(ChooseMax(pLine->GetCol() - colMin, 0));
 	}
-}
-
-bool Document::LineList::FeedToParser(Environment &env, Parser *pParser, bool flushFlag) const
-{
-	foreach_const (LineList, ppLine, *this) {
-		const Line *pLine = *ppLine;
-		if (!pLine->FeedToParser(env, pParser)) return false;
-	}
-	if (flushFlag && !pParser->FeedChar(env, '\0')) return false;
-	return true;
 }
 
 void Document::LineList::Print() const

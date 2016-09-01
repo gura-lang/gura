@@ -53,9 +53,10 @@ Gura_ModuleEntry()
 	Elem::Initialize();
 	CommandFormat::Initialize();
 	// symbol realization
+	Gura_RealizeUserSymbol(aftermember);
 	Gura_RealizeUserSymbol(aliases);
 	Gura_RealizeUserSymbol(elem);
-	Gura_RealizeUserSymbol(aftermember);
+	Gura_RealizeUserSymbol(source);
 	// class realization
 	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(structure, env.LookupClass(VTYPE_object));

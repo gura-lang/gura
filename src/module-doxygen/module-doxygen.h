@@ -29,9 +29,10 @@ var = _pushbackBuff[--_pushbackLevel];
 
 Gura_BeginModuleHeader(doxygen)
 
+Gura_DeclareUserSymbol(aftermember);
 Gura_DeclareUserSymbol(aliases);
 Gura_DeclareUserSymbol(elem);
-Gura_DeclareUserSymbol(aftermember);
+Gura_DeclareUserSymbol(source);
 
 //-----------------------------------------------------------------------------
 // utilities

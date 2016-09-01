@@ -52,13 +52,11 @@ public:
 		inline int GetCol() const { return _col; }
 		inline const char *GetString() const { return _str.c_str(); }
 		inline bool IsBlank() const { return _str.empty() || _str[0] == '\n'; }
-		bool FeedToParser(Environment &env, Parser *pParser) const;
 		void Print() const;
 	};
 	class LineList : public std::vector<Line *> {
 	public:
 		void AlignCol();
-		bool FeedToParser(Environment &env, Parser *pParser, bool flushFlag = true) const;
 		void Print() const;
 	};
 	class LineOwner : public LineList {

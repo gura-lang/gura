@@ -201,6 +201,7 @@ doc = R'''
 doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.aftermember, '----[after member]', '----'))
+		println(structure.source)
 		structure.elems()::print(1)
 	}
 }

@@ -15,6 +15,7 @@ class Structure {
 protected:
 	int _cntRef;
 	bool _afterMemberFlag;
+	String _strSrc;
 	AutoPtr<StructureOwner> _pStructureOwner;
 	AutoPtr<ElemOwner> _pElemOwner;
 public:
@@ -29,6 +30,9 @@ public:
 	inline const StructureOwner &GetStructureOwner() const { return *_pStructureOwner; }
 	inline ElemOwner &GetElemOwner() { return *_pElemOwner; }
 	inline const ElemOwner &GetElemOwner() const { return *_pElemOwner; }
+	inline void AddSourceChar(char ch) { _strSrc += ch; }
+	inline void AddSourceString(const char *str) { _strSrc += str; }
+	inline const char *GetSource() const { return _strSrc.c_str(); }
 };
 
 //-----------------------------------------------------------------------------
