@@ -412,16 +412,16 @@ testcase {
 	f(1, 2, 3, [4, 5, 6])
 }
 testcase {
-	f(x:number) = {
+	f(x:number) {block} = {
 		if (x % 2 == 0) {
 			println('x is an even number, quit trailer')
 			__arg__.quit_trailer()
 		}
 	}
-	f(0) println('trailer')
-	f(1) println('trailer')
-	f(2) println('trailer')
-	f(3) println('trailer')
+	f(0) {} println('trailer')
+	f(1) {} println('trailer')
+	f(2) {} println('trailer')
+	f(3) {} println('trailer')
 }
 testcase('nomap() test') {
 	f(x):map = println(x):nomap

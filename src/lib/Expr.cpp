@@ -2525,7 +2525,15 @@ void Expr_Caller::AddAttrs(const SymbolSet &symbolSet)
 
 void Expr_Caller::AddTrailingExpr(Expr_Caller *pExprCaller)
 {
-	GetLastTrailer()->SetTrailer(pExprCaller);
+	if (_pExprBlock.IsNull()) {
+		SetBlock(new Expr_Block());
+		_implicitBlockFlag = true;
+	}
+	if (_implicitBlockFlag) {
+		_pExprBlock->AddExpr(pExprCaller);
+	} else {
+		GetLastTrailer()->SetTrailer(pExprCaller);
+	}
 }
 
 Callable *Expr_Caller::LookupCallable(Environment &env) const
