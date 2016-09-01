@@ -2104,7 +2104,6 @@ bool Parser::ReduceFourElems(Environment &env)
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
-			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
@@ -2137,7 +2136,6 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
-			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
@@ -2284,7 +2282,6 @@ bool Parser::ReduceFiveElems(Environment &env)
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
-			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
@@ -2324,7 +2321,6 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
-			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) ||
