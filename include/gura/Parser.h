@@ -238,7 +238,8 @@ private:
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
-	Element _elemPrev;
+	ElemType _elemTypePrev;
+	int _lineNoOfElemPrev;
 	ElementStack _elemStack;
 	StringInfo _stringInfo;
 	ElemTypeToIndexMap _elemTypeToIndexMap;

@@ -1243,19 +1243,23 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 
 bool Parser::FeedElement(Environment &env, const Element &elem)
 {
-	if (_interactiveFlag || _elemPrev.IsType(ETYPE_RBrace)) {
-		_elemPrev = elem;
+	if (_interactiveFlag || _elemTypePrev == ETYPE_RBrace) {
+		_elemTypePrev = elem.GetType();
+		_lineNoOfElemPrev = elem.GetLineNo();
 		return _FeedElement(env, elem);
 	}
 	// Ignores EOL before a left brace-bracket so the bracket character appears to
 	// be joined with the content in the previous line without a line break.
-	if (_elemPrev.IsType(ETYPE_EOL)) {
-		if (!elem.IsType(ETYPE_LBrace) && !_FeedElement(env, _elemPrev)) {
-			_elemPrev = elem;
+	if (_elemTypePrev == ETYPE_EOL) {
+		if (!elem.IsType(ETYPE_LBrace) &&
+			!_FeedElement(env, Element(_elemTypePrev, _lineNoOfElemPrev))) {
+			_elemTypePrev = elem.GetType();
+			_lineNoOfElemPrev = elem.GetLineNo();
 			return false;
 		}
 	}
-	_elemPrev = elem;
+	_elemTypePrev = elem.GetType();
+	_lineNoOfElemPrev = elem.GetLineNo();
 	return elem.IsType(ETYPE_EOL) || _FeedElement(env, elem);
 }
 
