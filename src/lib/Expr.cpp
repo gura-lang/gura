@@ -2523,6 +2523,11 @@ void Expr_Caller::AddAttrs(const SymbolSet &symbolSet)
 	}
 }
 
+void Expr_Caller::AddTrailingExpr(Expr_Caller *pExprCaller)
+{
+	GetLastTrailer()->SetTrailer(pExprCaller);
+}
+
 Callable *Expr_Caller::LookupCallable(Environment &env) const
 {
 	Signal &sig = env.GetSignal();

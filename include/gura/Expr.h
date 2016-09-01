@@ -872,6 +872,7 @@ public:
 	void UpdateCallerInfo();
 	bool AddAttr(const Symbol *pSymbol);
 	void AddAttrs(const SymbolSet &symbolSet);
+	void AddTrailingExpr(Expr_Caller *pExprCaller);
 	inline bool IsLeader() const { return (_flags & FLAG_Leader) != 0; }
 	inline bool IsTrailer() const { return (_flags & FLAG_Trailer) != 0; }
 	inline void AddAttrOpt(const Symbol *pSymbol) {
@@ -891,8 +892,8 @@ public:
 		if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 		UpdateCallerInfo();
 	}
-	inline void SetTrailer(Expr_Caller *pExprCaller) {
-		_pExprTrailer.reset(pExprCaller);
+	inline void SetTrailer(Expr_Caller *pExprTrailer) {
+		_pExprTrailer.reset(pExprTrailer);
 		if (!_pExprTrailer.IsNull()) _pExprTrailer->SetParent(this);
 	}
 	inline Expr_Block *GetBlock() { return _pExprBlock.get(); }

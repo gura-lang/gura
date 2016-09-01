@@ -1355,6 +1355,7 @@ bool Parser::EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr
 		} else if (exprOwner.back()->IsCaller()) {
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(exprOwner.back());
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			//pExprLeader->AddTrailingExpr(pExprCaller);
 			return true;
 		} else {
 			SetError(ERR_SyntaxError, "trailer must be placed after a caller expression");
@@ -2100,7 +2101,8 @@ bool Parser::ReduceFourElems(Environment &env)
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
-			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2132,7 +2134,8 @@ bool Parser::ReduceFourElems(Environment &env)
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
-			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2279,7 +2282,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 			Expr_Caller *pExprCaller =
 				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
-			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
@@ -2318,7 +2322,8 @@ bool Parser::ReduceFiveElems(Environment &env)
 				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
-			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			//pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
+			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
 		} else if (elem5.IsType(ETYPE_Comma) ||
 					elem5.IsType(ETYPE_Semicolon) || elem5.IsType(ETYPE_EOL)) {
