@@ -849,6 +849,7 @@ protected:
 	ULong _flags;							// FLAG_None, FLAG_Leader, FLAG_Trailer
 	SymbolList _attrFront;
 	std::unique_ptr<CallerInfo> _pCallerInfo;
+	bool _implicitBlockFlag;
 public:
 	Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *pExprBlock, ULong flags);
 	Expr_Caller(const Expr_Caller &expr);

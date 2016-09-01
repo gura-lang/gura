@@ -1710,8 +1710,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' '}'\n"));
 			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 			if (elem1.GetExpr()->IsCaller()) {
-				Expr_Caller *pExprCaller =
-								dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 				}
@@ -2184,8 +2183,7 @@ bool Parser::ReduceFourElems(Environment &env)
 			}
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem3.GetExpr())) return false;
 			if (elem1.GetExpr()->IsCaller()) {
-				Expr_Caller *pExprCaller =
-								dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 				pExpr = pExprCaller;
 			} else {

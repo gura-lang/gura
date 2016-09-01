@@ -2462,7 +2462,7 @@ Expr_Caller::Expr_Caller(Expr *pExprCar, Expr_Lister *pExprLister, Expr_Block *p
 	_pExprBlock(pExprBlock), _pExprTrailer(nullptr),
 	_pAttrsShrd(new SymbolSetShared()),
 	_pAttrsOptShrd(new SymbolSetShared()),
-	_flags(flags)
+	_flags(flags), _implicitBlockFlag(false)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	_pCallerInfo.reset(new CallerInfo(
@@ -2477,7 +2477,7 @@ Expr_Caller::Expr_Caller(const Expr_Caller &expr) :
 				  dynamic_cast<Expr_Caller *>(expr._pExprTrailer->Clone())),
 	_pAttrsShrd(new SymbolSetShared(*expr._pAttrsShrd)),
 	_pAttrsOptShrd(new SymbolSetShared(*expr._pAttrsOptShrd)),
-	_flags(expr._flags)
+	_flags(expr._flags), _implicitBlockFlag(expr._implicitBlockFlag)
 {
 	if (!_pExprBlock.IsNull()) _pExprBlock->SetParent(this);
 	_pCallerInfo.reset(new CallerInfo(
