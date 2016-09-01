@@ -99,3 +99,10 @@ if (cond) {}
 ======== #7 try-catch-else-finally ========
 
 { try {} catch(error.IndexError) {} catch(error.ValueError) {} catch(error.IOError) {} catch(error.SystemError) {} catch {} else {} finally {} }
+
+======== #8 implicit block ========
+
+if (cond) { println('hello') }
+if (cond) { println('hello') }
+if (cond) { println('hello') }
+repeat (10) { println('hello') }

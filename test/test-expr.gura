@@ -176,3 +176,14 @@ testcase('try-catch-else-finally') {
 	}
 	println(x)
 }
+testcase('implicit block') {
+	x = `{
+		if (cond) {
+			println('hello')
+		}
+		if (cond) { println('hello') }
+		if (cond) println('hello')
+		repeat (10) println('hello')
+	}
+	println(x.children)
+}
