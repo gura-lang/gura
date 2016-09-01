@@ -809,43 +809,30 @@ Consider the following expressions:
   and three Identifier expressions `x`, `y` and `z` as its arguments.
   It also owns a Block expression as its block element.
 
-If two or more `Caller`s are described in the same line,
+If two or more `Caller`s are described in the same line and the preceding one has a block,
 they have a leader-trailer relationship each other,
 in which the preceding `Caller` is dubbed a leader and following one a trailer.
 A `Caller` that acts as a leader is the owner of its trailing `Caller`.
 
 Consider the following expressions:
 
-* `a() b()`
+* `a() {} b()`
 
   The `Caller` expression `a()` owns a `Caller` expression of `b()` as its trailer.
 
-* `a() b() c()`
+* `a() {} b() {} c()`
 
   The `Caller` expression `a()` owns a Caller expression of `b()` as its trailer,
   and the Caller expression `b()` owns the Caller expression `c()` as well.
 
-The parser uses two rules to determine whether a following Caller is a trailer.
-
-The first is, as you've already read above, to check if the top of the following Caller
-is described in the same line of a closing parenthesis of the preceding one.
-It means that the example below is a valid leader-trailer form.
-
-    a(
-    ) b(
-    )
-
-If the preceding Caller has a block, the closing curly bracket must be in the same line
-as top of the following one like below.
+You only have to put the closing curly bracket at the same line of the trailer,
+which means that the example below is a valid leader-trailer form.
 
     a() {
-    } b(
-    )
+    } b()
 
-Another rule is to determine if the caller is associated with a function
-that has a trailer attribute such as `elsif`, `else`, `catch` and `finally`.
-Those callers don't need to be at the same line of
-a closing parenthesis or curly bracket that precedes to act as a trailer.
+If a trailing caller is associated with a trailer function such as `elsif`, `else`, `catch` and `finally`,
+it doesn't need to be at the same line of a closing curly bracket to be treated as a trailer.
 This feature enables you to write `if-elsif-else` sequence in the following style:
 
     if (cond)
