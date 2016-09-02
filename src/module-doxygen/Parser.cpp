@@ -563,13 +563,15 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 {
 	bool visualFlag = pElem->GetCommandFormat()->IsVisual();
 	ElemOwner *pElemOwner = _pElemOwner.get();
-	// Visual commands can become an element within a Text.
+	// If the previous element is a parent, the appended element is stored under it as a child.
 	if (!pElemOwner->empty() && pElemOwner->back()->IsParent() &&
 			(visualFlag || pElemOwner->back()->GetType() == Elem::TYPE_Command)) {
 		Elem *pElemParent = pElemOwner->back();
+		// Steps down in a hierarchical structure.
 		for (;;) {
 			ElemOwner *pElemChildren = &pElemParent->GetElemChildren();
-			if (pElemChildren->empty() || !pElemChildren->back()->IsParent()) break;
+			if (pElemChildren->empty() || !pElemChildren->back()->IsParent() ||
+				!(visualFlag || pElemChildren->back()->GetType() == Elem::TYPE_Command)) break;
 			pElemParent = pElemOwner->back();
 			pElemOwner = pElemChildren;
 		}
