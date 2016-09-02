@@ -10,7 +10,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const String &title) : _cntRef(1), _pSymbolLangCode(Gura_Symbol(en))
+Help::Help(const HelpHolder *pHelpHolder) :
+	_cntRef(1), _pHelpHolder(pHelpHolder), _pSymbolLangCode(Gura_Symbol(en))
 {
 }
 
@@ -19,9 +20,9 @@ Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String
 {
 }
 
-Help::Help(const String &title, const Symbol *pSymbolLangCode,
+Help::Help(const HelpHolder *pHelpHolder, const Symbol *pSymbolLangCode,
 		   const String &formatName, const String &text) :
-	_cntRef(1), _title(title), _pSymbolLangCode(pSymbolLangCode),
+	_cntRef(1), _pHelpHolder(pHelpHolder), _pSymbolLangCode(pSymbolLangCode),
 	_formatName(formatName), _text(text)
 {
 }
@@ -43,8 +44,9 @@ bool Help::Present(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
 	String strSep;
-	for (size_t i = 0; i < _title.size(); i++) strSep += '-';
-	env.GetConsole()->Printf(sig, "%s\n%s\n", _title.c_str(), strSep.c_str());
+	String title = MakeTitle();
+	for (size_t i = 0; i < title.size(); i++) strSep += '-';
+	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
 	if (sig.IsSignalled()) return false;
 	if (_text.empty()) {
 		env.GetConsole()->Println(sig, "(no help)");

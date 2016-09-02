@@ -2685,7 +2685,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	if (pFunc->GetFlag(FLAG_SymbolFunc)) return Value::Nil;
 	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
 		Help *pHelp = (*ppHelp)->Reference();
-		pHelp->SetTitle(pFunc->ToString());
+		pHelp->SetHolder(pFunc);
 		pFunc->AddHelp(pHelp);
 	}
 	return valueFunc;

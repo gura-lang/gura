@@ -38,10 +38,18 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Help
 //-----------------------------------------------------------------------------
+class GURA_DLLDECLARE HelpHolder {
+public:
+	virtual String MakeHelpTitle() const = 0;
+};
+
+//-----------------------------------------------------------------------------
+// Help
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Help {
 private:
 	int _cntRef;
-	String _title;
+	const HelpHolder *_pHelpHolder;
 	const Symbol *_pSymbolLangCode;
 	String _formatName;
 	String _text;
@@ -50,16 +58,19 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const String &title);
+	Help(const HelpHolder *pHelpHolder);
 	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text);
-	Help(const String &title, const Symbol *pSymbolLangCode,
+	Help(const HelpHolder *pHelpHolder, const Symbol *pSymbolLangCode,
 		 const String &formatName, const String &text);
 private:
 	inline ~Help() {}
 public:
-	inline void SetTitle(const String &title) { _title = title; }
-	inline const char *GetTitle() const { return _title.c_str(); }
-	inline const String &GetTitleSTL() const { return _title; }
+	inline void SetHolder(const HelpHolder *pHelpHolder) { _pHelpHolder = pHelpHolder; }
+	inline String MakeTitle() const {
+		return (_pHelpHolder == nullptr)? "" : _pHelpHolder->MakeHelpTitle();
+	}
+	//inline const char *GetTitle() const { return _title.c_str(); }
+	//inline const String &GetTitleSTL() const { return _title; }
 	inline const Symbol *GetLangCode() const { return _pSymbolLangCode; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
 	inline const String &GetFormatNameSTL() const { return _formatName; }

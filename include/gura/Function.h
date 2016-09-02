@@ -179,7 +179,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Function {
+class GURA_DLLDECLARE Function : public HelpHolder {
 public:
 	enum BlockScope {
 		BLKSCOPE_Through,
@@ -334,6 +334,9 @@ protected:
 	Environment *PrepareEnvironment(Environment &env, Argument &arg, bool thisAssignFlag) const;
 private:
 	virtual Value DoEval(Environment &env, Argument &arg) const;
+public:
+	// inherited from HelpHolder
+	virtual String MakeHelpTitle() const;
 };
 
 //----------------------------------------------------------------------------

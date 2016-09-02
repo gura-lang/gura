@@ -70,6 +70,10 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 
 Function::~Function()
 {
+	foreach (HelpOwner, ppHelp, _helpOwner) {
+		Help *pHelp = *ppHelp;
+		pHelp->SetHolder(nullptr);
+	}
 }
 
 void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags)
@@ -244,7 +248,7 @@ void Function::AddHelp(Help *pHelp)
 
 void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	AddHelp(new Help(ToString(), pSymbol, formatName, text));
+	AddHelp(new Help(this, pSymbol, formatName, text));
 }
 
 void Function::LinkHelp(const Function *pFunc)
@@ -562,6 +566,11 @@ void Function::SetError_MathDiffError(Signal &sig) const
 void Function::SetError_MathOptimizeError(Signal &sig) const
 {
 	sig.SetError(ERR_ValueError, "mathematical optimization is not supported");
+}
+
+String Function::MakeHelpTitle() const
+{
+	return ToString();
 }
 
 //-----------------------------------------------------------------------------
