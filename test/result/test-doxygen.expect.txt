@@ -354,7 +354,41 @@ english =
     'a character pointer.\n'
 --end--
 
-======== #18 ========
+======== #18 test of @headerfile ========
+----
+  @headerfile{header_file:word, header_name:word?}
+    'test.h'
+    'test.h'
+  @headerfile{header_file:word, header_name:word?}
+    'test.h'
+    ''
+  @headerfile{header_file:word, header_name:word?}
+    ''
+    -
+--end--
+
+======== #19 test of @mainpage ========
+----
+  @mainpage{title:line?}
+    'My Personal Index Page'
+  @section{name:word, title:line}
+    'intro_sec'
+    'Introduction'
+  [
+    'This is the introduction.\n\n'
+  ]
+  @section{name:word, title:line}
+    'install_sec'
+    'Installation'
+  @subsection{name:word, title:line}
+    'step1'
+    'Step 1: Opening the box'
+  [
+    'etc...\n'
+  ]
+--end--
+
+======== #20 ========
 ----
   [
     'E.g. if you have two event handlers '
