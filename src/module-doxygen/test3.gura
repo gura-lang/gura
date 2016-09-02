@@ -11,27 +11,6 @@ doc = R'''
  */
 '''
 
-doc1 = R'''
-/*! \class Par_Test
- * Normal text.
- *
- * \par User defined paragraph:
- * Contents of the paragraph.
- *
- * \par
- * New paragraph under the same heading.
- *
- * \note
- * This note consists of two paragraphs.
- * This is the first paragraph.
- *
- * \par
- * And this is the second paragraph.
- *
- * More normal text. 
- */
-'''
-
 doc = R'''
 /*! \file structcmd.h
     \brief A Documented file.
@@ -198,10 +177,45 @@ doc = R'''
  */
 '''
 
+doc = R'''
+/*!
+ * \section intro_sec Introduction
+ *
+ * This is the introduction.
+ *
+ * \section install_sec Installation
+ *
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */
+ '''
+
+doc = R'''
+/*! \class Par_Test
+ * Normal text.
+ *
+ * \par User defined paragraph:
+ * Contents of the paragraph.
+ *
+ * \par
+ * New paragraph under the same heading.
+ *
+ * \note
+ * This note consists of two paragraphs.
+ * This is the first paragraph.
+ *
+ * \par
+ * And this is the second paragraph.
+ *
+ * More normal text. 
+ */
+'''
+
 doxygen.document(doc.reader()) {|doc|
 	doc.structures {|structure|
 		println(cond(structure.aftermember, '----[after member]', '----'))
-		println(structure.source)
+		//println(structure.source)
 		structure.elems()::print(1)
 	}
 }

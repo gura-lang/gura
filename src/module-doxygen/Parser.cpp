@@ -561,8 +561,11 @@ void Parser::FlushElemString(const char *str)
 
 void Parser::FlushElemCommand(Elem_Command *pElem)
 {
+	bool visualFlag = pElem->GetCommandFormat()->IsVisual();
 	ElemOwner *pElemOwner = _pElemOwner.get();
-	if (!pElemOwner->empty() && pElemOwner->back()->IsParent()) {
+	// Visual commands can become an element within a Text.
+	if (!pElemOwner->empty() && pElemOwner->back()->IsParent() &&
+			(visualFlag || pElemOwner->back()->GetType() == Elem::TYPE_Command)) {
 		Elem *pElemParent = pElemOwner->back();
 		for (;;) {
 			ElemOwner *pElemChildren = &pElemParent->GetElemChildren();
@@ -577,8 +580,7 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 		}
 		pElemOwner = &pElemParent->GetElemChildren();
 	}
-	if (pElem->GetCommandFormat()->IsVisual() &&
-							IsTopLevel() && pElemOwner == _pElemOwner.get()) {
+	if (visualFlag && IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		Elem_Text *pElemText = new Elem_Text();
 		pElemOwner->push_back(pElemText);
 		ElemOwner &elemChildren = pElemText->GetElemChildren();
