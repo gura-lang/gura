@@ -214,21 +214,22 @@ Aliases *Configuration::MakeAliases(Environment &env) const
 	return pAliases.release();
 }
 
-void Configuration::Print() const
+void Configuration::Print(Environment &env, SimpleStream &stream) const
 {
+	Signal &sig = env.GetSignal();
 	foreach_const (EntryDict, iter, _entryDict) {
 		const Entry *pEntry = iter->second;
 		const StringList &values = pEntry->GetValues();
 		if (values.empty()) {
-			::printf("%s = {}\n", pEntry->GetName());
+			stream.Printf(sig, "%s = {}\n", pEntry->GetName());
 		} else if (values.size() == 1) {
-			::printf("%s = '%s'\n", pEntry->GetName(), values.front().c_str());
+			stream.Printf(sig, "%s = '%s'\n", pEntry->GetName(), values.front().c_str());
 		} else {
-			::printf("%s = {\n", pEntry->GetName());
+			stream.Printf(sig, "%s = {\n", pEntry->GetName());
 			foreach_const (StringList, pValue, values) {
-				::printf("  '%s'\n", pValue->c_str());
+				stream.Printf(sig, "  '%s'\n", pValue->c_str());
 			}
-			::printf("}\n");
+			stream.Printf(sig, "}\n");
 		}
 	}
 }

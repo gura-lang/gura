@@ -119,7 +119,7 @@ Gura_ImplementMethod(configuration, print)
 {
 	const Configuration *pCfg = Object_configuration::GetObjectThis(arg)->GetConfiguration();
 	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
-	pCfg->Print();
+	pCfg->Print(env, stream);
 	return Value::Nil;
 }
 

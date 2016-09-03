@@ -58,7 +58,7 @@ Gura_ImplementMethod(aliases, print)
 {
 	Stream &stream = arg.IsValid(0)? arg.GetStream(0) : *env.GetConsole();
 	const Aliases *pAliases = Object_aliases::GetObjectThis(arg)->GetAliases();
-	pAliases->Print();
+	pAliases->Print(env, stream);
 	return Value::Nil;
 }
 

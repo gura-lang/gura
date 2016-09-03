@@ -22,6 +22,7 @@ Gura_ImplementFunction(makescript)
 	return Value::Nil;
 }
 
+#if 0
 // doxygen.test(stream:stream):void
 Gura_DeclareFunction(test)
 {
@@ -35,10 +36,11 @@ Gura_ImplementFunction(test)
 	AutoPtr<Configuration> pCfg(new Configuration());
 	pCfg->ReadStream(env, stream);
 	//cfg.Print();
-	AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));
-	pAliases->Print();
+	//AutoPtr<Aliases> pAliases(pCfg->MakeAliases(env));
+	//pAliases->Print(env, stream);
 	return Value::Nil;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Module Entries
@@ -73,7 +75,7 @@ Gura_ModuleEntry()
 	Gura_PrepareUserClass(renderer);
 	// function assignment
 	Gura_AssignFunction(makescript);
-	Gura_AssignFunction(test);
+	//Gura_AssignFunction(test);
 	return true;
 }
 

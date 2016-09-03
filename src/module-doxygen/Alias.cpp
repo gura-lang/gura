@@ -229,9 +229,9 @@ bool Alias::Evaluate(Environment &env, String &rtn, const StringList &strArgs) c
 	return _elemOwner.Evaluate(env, rtn, strArgs);
 }
 
-void Alias::Print() const
+void Alias::Print(Environment &env, SimpleStream &stream) const
 {
-	::printf("%s =\n  '%s'\n", _key.c_str(), _elemOwner.ToString().c_str());
+	stream.Printf(env.GetSignal(), "%s =\n  '%s'\n", _key.c_str(), _elemOwner.ToString().c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -329,10 +329,10 @@ void AliasDict::Clear()
 	clear();
 }
 
-void AliasDict::Print() const
+void AliasDict::Print(Environment &env, SimpleStream &stream) const
 {
 	foreach_const (AliasDict, iter, *this) {
-		iter->second->Print();
+		iter->second->Print(env, stream);
 	}
 }
 
@@ -363,9 +363,9 @@ const Alias *Aliases::Lookup(const char *cmdName, size_t nArgs) const
 	return (iter == _aliasDict.end())? nullptr : iter->second;
 }
 
-void Aliases::Print() const
+void Aliases::Print(Environment &env, SimpleStream &stream) const
 {
-	_aliasDict.Print();
+	_aliasDict.Print(env, stream);
 }
 
 Gura_EndModuleScope(doxygen)

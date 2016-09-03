@@ -68,7 +68,7 @@ public:
 	bool ReadStream(Environment &env, SimpleStream &stream);
 	const Entry *Lookup(const char *name) const;
 	Aliases *MakeAliases(Environment &env) const;
-	void Print() const;
+	void Print(Environment &env, SimpleStream &stream) const;
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }
 private:
 	inline static bool IsNameCharBegin(char ch) {

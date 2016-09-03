@@ -56,7 +56,7 @@ protected:
 public:
 	bool Parse(Environment &env, const char *str);
 	bool Evaluate(Environment &env, String &rtn, const StringList &strArgs) const;
-	void Print() const;
+	void Print(Environment &env, SimpleStream &stream) const;
 	inline const char *GetKey() const { return _key.c_str(); }
 private:
 	static bool IsKeyCharBegin(char ch) {
@@ -74,7 +74,7 @@ class AliasDict : public std::map<String, Alias *> {
 public:
 	~AliasDict();
 	void Clear();
-	void Print() const;
+	void Print(Environment &env, SimpleStream &stream) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ protected:
 public:
 	bool AddSource(Environment &env, const char *str);
 	const Alias *Lookup(const char *cmdName, size_t nArgs) const;
-	void Print() const;
+	void Print(Environment &env, SimpleStream &stream) const;
 };
 
 Gura_EndModuleScope(doxygen)
