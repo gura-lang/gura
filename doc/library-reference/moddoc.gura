@@ -10,7 +10,7 @@ suffixmgr(`string).assign(`moddoc) {|str| str.template().render()}
 _reference(lang:symbol, func:function, fullname:string, fmt:string):map = {
 	str = format('<funcentry fullname="%s" format="%s" />\n', fullname, fmt.escapehtml())
 	if (help = function.gethelp(func, lang)) {
-		str +=  help.text
+		str += help.render('markdown')
 		if (!str.endswith('\n')) { str += '\n' }
 		str += '\n'
 	}
