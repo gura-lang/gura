@@ -157,7 +157,7 @@ Gura_ImplementClassMethod(help, presenter)
 // help.render(format:string, out?:stream) {block?}
 Gura_DeclareMethod(help, render)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -171,9 +171,15 @@ Gura_ImplementMethod(help, render)
 {
 	Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
 	const char *formatNameOut = arg.GetString(0);
-	Stream &stream = arg.GetStream(1);
-	pHelp->Render(env, formatNameOut, stream);
-	return Value::Nil;
+	if (arg.IsValid(1)) {
+		Stream &stream = arg.GetStream(1);
+		pHelp->Render(env, formatNameOut, stream);
+		return Value::Nil;
+	} else {
+		AutoPtr<StreamMemory> pStream(new StreamMemory(env));
+		pHelp->Render(env, formatNameOut, *pStream);
+		return Value(String(pStream->GetPointer(), pStream->GetSize()));
+	}
 }
 
 // help.renderer(format:string, format_out:string):static:void {block}
