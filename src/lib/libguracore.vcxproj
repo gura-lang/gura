@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -257,6 +257,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="IteratorBasic.cpp" />
+    <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
@@ -384,6 +385,7 @@
     <ClInclude Include="..\..\include\gura\Image.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />
     <ClInclude Include="..\..\include\gura\IteratorBasic.h" />
+    <ClInclude Include="..\..\include\gura\Lexer.h" />
     <ClInclude Include="..\..\include\gura\Matrix.h" />
     <ClInclude Include="..\..\include\gura\Memory.h" />
     <ClInclude Include="..\..\include\gura\MemoryPool.h" />

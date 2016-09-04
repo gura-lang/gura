@@ -1,18 +1,36 @@
 //=============================================================================
-// Parser
+// Lexer
 //=============================================================================
-#ifndef __GURA_PARSER_H__
-#define __GURA_PARSER_H__
+#ifndef __GURA_LEXER_H__
+#define __GURA_LEXER_H__
 
-#include "Lexer.h"
+#include "Expr.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Parser
+// MagicCommentParser
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Parser {
+class GURA_DLLDECLARE MagicCommentParser {
 private:
+	enum Stat {
+		STAT_Idle, STAT_Start, STAT_SkipSpace, STAT_CodingName,
+	};
+private:
+	Stat _stat;
+	String _field;
+public:
+	MagicCommentParser();
+	~MagicCommentParser();
+	bool ParseChar(char ch);
+	inline const char *GetEncoding() const { return _field.c_str(); }
+};
+
+//-----------------------------------------------------------------------------
+// Lexer
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Lexer {
+public:
 	enum Stat {
 		STAT_BOF, STAT_BOF_2nd, STAT_BOF_3rd,
 		STAT_Start,
@@ -35,13 +53,6 @@ private:
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
 		STAT_StringPost, STAT_StringSuffixed,
 		STAT_RecoverConsole,
-	};
-public:
-	enum Precedence {
-		PREC_LT,
-		PREC_EQ,
-		PREC_GT,
-		PREC_Error,
 	};
 	enum ElemType {
 		ETYPE_Begin,
@@ -122,7 +133,6 @@ public:
 		const char *symbol;
 		OpType opType;
 	};
-	typedef std::map<ElemType, int> ElemTypeToIndexMap;
 	struct StringInfo {
 		char chBorder;
 		bool rawFlag;		// prefixed by 'r' or 'R'
@@ -206,80 +216,35 @@ public:
 		String ToString() const;
 	};
 private:
-	Signal &_sig;
 	Stat _stat;
 	bool _lineHeadFlag;
-	MagicCommentParser _magicCommentParser;
 	bool _appearShebangFlag;
 	bool _blockParamFlag;
 	int _cntLine;
 	int _cntCol;
 	int _commentNestLevel;
-	AutoPtr<StringShared> _pSourceName;
-	String _token;
 	String _suffix;
-	ExprOwner *_pExprOwner;
-	const Expr *_pExprParent;
-	ElemType _elemTypePrev;
-	int _lineNoOfElemPrev;
-	ElementStack _elemStack;
-	StringInfo _stringInfo;
-	ElemTypeToIndexMap _elemTypeToIndexMap;
-	CharConverter _charConverter;
 	String _strIndent;
-	bool _enablePreparatorFlag;
-	bool _interactiveFlag;
+	String _token;
+	StringInfo _stringInfo;
+	MagicCommentParser _magicCommentParser;
+	ElementStack _elemStack;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
-	Parser(Signal &sig, const String &sourceName,
-		   int cntLineStart = 0, bool enablePreparatorFlag = true);
-	~Parser();
+	Lexer(int cntLineStart);
 	void InitStack();
 	bool ParseChar(Environment &env, char ch);
-	Expr_Root *ParseStream(Environment &env, Stream &stream);
-	Expr_Root *ParseStream(Environment &env, const char *pathName, const char *encoding);
-	bool ParseString(Environment &env, ExprOwner &exprOwner,
-							const char *str, size_t len, bool parseNullFlag);
-	inline bool ParseString(Environment &env, ExprOwner &exprOwner,
-							const char *str, bool parseNullFlag) {
-		return ParseString(env, exprOwner, str, ::strlen(str), parseNullFlag);
-	}
-	void EvalConsoleChar(Environment &env, Expr_Root *pExprRoot, Stream *pConsole, char ch);
-	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
-	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
-	inline int GetLineNo() const { return _cntLine + 1; }
-	inline int GetColPos() const { return _cntCol; }
-	inline int ElemTypeToIndex(ElemType elemType) { return _elemTypeToIndexMap[elemType]; }
-	static const ElemTypeInfo *LookupElemTypeInfo(ElemType elemType);
-	static const ElemTypeInfo *LookupElemTypeInfoByOpType(OpType opType);
-	static Precedence LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight);
-	static int CompareOpTypePrec(OpType opType1, OpType opType2);
-	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
-	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
-	void SetError(ErrorType errType, const char *format, ...);
-private:
-	Expr_Caller *CreateCaller(
-		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
-		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
+	bool FeedElement(Environment &env, const Element &elem);
 	bool CheckBlockParamEnd() const;
+	void SetError(ErrorType errType, const char *format, ...);
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &token);
-	void SetError_InvalidElement();
-	void SetError_InvalidElement(int lineno);
-	static Precedence _LookupPrec(int indexLeft, int indexRight);
-	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
-		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
-	}
-	bool FeedElement(Environment &env, const Element &elem);
-	bool _FeedElement(Environment &env, const Element &elem);
-	bool EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr);
-	bool ReduceOneElem(Environment &env);
-	bool ReduceTwoElems(Environment &env);
-	bool ReduceThreeElems(Environment &env);
-	bool ReduceFourElems(Environment &env);
-	bool ReduceFiveElems(Environment &env);
+	static const ElemTypeInfo *LookupElemTypeInfo(ElemType elemType);
+	inline int GetLineNo() const { return _cntLine + 1; }
+	inline int GetColPos() const { return _cntCol; }
 };
 
 }
 
 #endif
+

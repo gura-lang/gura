@@ -45,6 +45,7 @@
 #include "gura/Image.h"
 #include "gura/Iterator.h"
 #include "gura/IteratorBasic.h"
+#include "gura/Lexer.h"
 #include "gura/Matrix.h"
 #include "gura/Memory.h"
 #include "gura/MemoryPool.h"
