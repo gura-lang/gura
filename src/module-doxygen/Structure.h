@@ -33,6 +33,7 @@ public:
 	inline void AddSourceChar(char ch) { _strSrc += ch; }
 	inline void AddSourceString(const char *str) { _strSrc += str; }
 	inline const char *GetSource() const { return _strSrc.c_str(); }
+	inline void SetSource(const String &strSrc) { _strSrc = strSrc; }
 };
 
 //-----------------------------------------------------------------------------

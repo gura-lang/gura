@@ -401,10 +401,16 @@ void Document::AddStructure(bool afterMemberFlag)
 
 void Document::ConvertToBrief()
 {
-	ElemOwner &elemOwner = _pStructureOwner->back()->GetElemOwner();
+	Structure *pStructure = _pStructureOwner->back();
+	ElemOwner &elemOwner = pStructure->GetElemOwner();
 	if (elemOwner.size() != 1) return;
 	Elem *pElemOrg = elemOwner.front();
 	if (pElemOrg->GetType() != Elem::TYPE_Text) return;
+	String strSrc = "\\brief ";
+	strSrc += pStructure->GetSource();
+	if (!EndsWith(strSrc.c_str(), "\n", false)) strSrc += '\n';
+	strSrc += '\n';
+	pStructure->SetSource(strSrc);
 	Elem_Command *pElemNew = new Elem_Command(CommandFormat::Brief);
 	pElemNew->GetElemArgs().push_back(pElemOrg->ReduceContent()->Reference());
 	elemOwner[0] = pElemNew;
