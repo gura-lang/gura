@@ -31,6 +31,20 @@ endenglish =
   '\endif'
 english =
   '\if english'
+----
+  @if{section_label:line}
+    'english'
+    ----
+    '*  This is English.\n*  '
+  @endif{}
+  [
+    '*  '
+  ]
+  @if{section_label:line}
+    'dutch'
+    ----
+    '*  Dit is Nederlands.\n*  '
+  @endif{}
 
 ======== #1 blank block comment ========
 --end--
@@ -412,5 +426,150 @@ english =
       'overview_events_winstack.png'
       -
       -
+  ]
+--end--
+
+======== #21 multi structures ========
+----
+  @file{name:word?}
+    'structcmd.h'
+  @brief{description:para}
+    'A Documented file.\n'
+  [
+    'Details.\n'
+  ]
+----
+  @def{name:word}
+    'MAX(a,b)'
+  @brief{description:para}
+    [
+      'A macro that returns the maximum of '
+      @a{word:word}
+        'a'
+      ' and '
+      @a{word:word}
+        'b'
+      '.\n'
+    ]
+  [
+    'Details.\n'
+  ]
+----
+  @var{declaration:line}
+    'typedef unsigned int UINT32'
+  @brief{description:para}
+    'A type definition for a .\n'
+  [
+    'Details.\n'
+  ]
+----
+  @var{declaration:line}
+    'int errno'
+  @brief{description:para}
+    'Contains the last error code.\n'
+  @warning{message:para}
+    'Not thread safe!\n'
+----
+  @fn{declaration:line}
+    'int open(const char *pathname,int flags)'
+  @brief{description:para}
+    'Opens a file descriptor.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'pathname'
+    'The name of the descriptor.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'flags'
+    'Opening flags.\n'
+----
+  @fn{declaration:line}
+    'int close(int fd)'
+  @brief{description:para}
+    [
+      'Closes the file descriptor '
+      @a{word:word}
+        'fd'
+      '.\n'
+    ]
+  @param{dir:bracket, name:word, description:para}
+    -
+    'fd'
+    'The descriptor to close.\n'
+----
+  @fn{declaration:line}
+    'size_t write(int fd,const char *buf, size_t count)'
+  @brief{description:para}
+    [
+      'Writes '
+      @a{word:word}
+        'count'
+      ' bytes from '
+      @a{word:word}
+        'buf'
+      ' to the filedescriptor '
+      @a{word:word}
+        'fd'
+      '.\n'
+    ]
+  @param{dir:bracket, name:word, description:para}
+    -
+    'fd'
+    'The descriptor to write to.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'buf'
+    'The data buffer to write.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'count'
+    'The number of bytes to write.\n'
+----
+  @fn{declaration:line}
+    'int read(int fd,char *buf,size_t count)'
+  @brief{description:para}
+    'Read bytes from a file descriptor.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'fd'
+    'The descriptor to read from.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'buf'
+    'The buffer to read into.\n'
+  @param{dir:bracket, name:word, description:para}
+    -
+    'count'
+    'The number of bytes to read.\n'
+--end--
+
+======== #22 various ways to describe brief ========
+----
+  @brief{description:para}
+    'Brief description.\n       Brief description continued.\n'
+  [
+    'Detailed description starts here.\n'
+  ]
+----
+  @brief{description:para}
+    'Brief description.\n'
+  [
+    'Detailed description. '
+  ]
+----
+  @brief{description:para}
+    'Brief description.\n'
+  [
+    'Detailed description. '
+  ]
+----
+  @brief{description:para}
+    'Brief description.\n'
+  [
+    'Detailed description \nstarts here.\n'
+  ]
+----
+  [
+    'Brief description, which is\nreally a detailed description since it spans multiple lines.\nAnother detailed description!\n'
   ]
 --end--
