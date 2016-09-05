@@ -72,7 +72,6 @@ Help.cpp
 Image.cpp
 Iterator.cpp
 IteratorBasic.cpp
-Lexer.cpp
 Matrix.cpp
 Memory.cpp
 MemoryPool.cpp

@@ -9,24 +9,6 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// MagicCommentParser
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE MagicCommentParser {
-private:
-	enum Stat {
-		STAT_Idle, STAT_Start, STAT_SkipSpace, STAT_CodingName,
-	};
-private:
-	Stat _stat;
-	String _field;
-public:
-	MagicCommentParser();
-	~MagicCommentParser();
-	bool ParseChar(char ch);
-	inline const char *GetEncoding() const { return _field.c_str(); }
-};
-
-//-----------------------------------------------------------------------------
 // Lexer
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Lexer {
