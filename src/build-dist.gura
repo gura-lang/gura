@@ -29,7 +29,6 @@ argopt.Parser {|p|
 //[langId, codePage] = ['1041', '932']	// jp-JP
 [langId, codePage] = ['1033', '1252']	// en-US
 prefix = 'gura-' + sys.version
-prefixDoc = 'gura-doc-' + sys.version
 
 dirNameScript = path.dirname(sys.argv[0])
 dirNameDst = fs.getcwd()
@@ -38,14 +37,13 @@ if (cfg['outdir']) {
 	fs.mkdir(dirNameDst):tree
 }
 
-makeFileNames(prefix:string, prefixDoc:string) = [
+makeFileNames(prefix:string) = [
 	path.join(dirNameDst, prefix + '-src.tar.gz')
 	path.join(dirNameDst, prefix + '-win32.zip')
 	path.join(dirNameDst, prefix + '-win32-list.txt')
 	path.join(dirNameDst, prefix + '-win32.wxs')
 	path.join(dirNameDst, prefix + '-win32.wixobj')
 	path.join(dirNameDst, prefix + '-win32.msi')
-	path.join(dirNameDst, prefixDoc + '-src.zip')
 ]
 
 [
@@ -55,8 +53,7 @@ makeFileNames(prefix:string, prefixDoc:string) = [
 	fileNameWxs
 	fileNameWixobj
 	fileNameMsi
-	fileNameDocSrcZip
-] = makeFileNames(prefix, prefixDoc)
+] = makeFileNames(prefix)
 
 gatherFiles() = {
 	fileNames = [
@@ -117,7 +114,7 @@ if (sys.platform == `mswin) {
 }
 
 clean() = {
-	fileNamesToDelete = path.glob(makeFileNames('gura-*', 'gura-doc-*')):flat:list
+	fileNamesToDelete = path.glob(makeFileNames('gura-*')):flat:list
 	fileNamesToDelete.each {|fileName|
 		try {
 			fs.remove(fileName)
@@ -418,7 +415,6 @@ createSrcPackage() = {
 				 '--output=' + fileNameSrcTar, 'HEAD') != 0)
 	} && sys.exit(1)
 	printf('generated: %s\n', path.filename(fileNameSrcTar))
-	printf('generated: %s\n', path.filename(fileNameDocSrcZip))
 }
 
 main()
