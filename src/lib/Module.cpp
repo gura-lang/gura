@@ -104,8 +104,10 @@ bool Module::ImportBuiltIns(Environment &env)
 	if (Gura_Module(path)::Import(env) == nullptr) return false;
 	// import(math)
 	if (Gura_Module(math)::Import(env) == nullptr) return false;
-	// import(config)
+	// import(lexer)
+	if (Gura_Module(lexer)::Import(env) == nullptr) return false;
 #if 0
+	// import(config)
 	env.ImportSeparatedModule_Script(
 		&env,
 		OAL::JoinPathName(OAL::GetModuleDir().c_str(), "config.gura").c_str(),

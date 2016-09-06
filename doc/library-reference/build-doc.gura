@@ -39,6 +39,7 @@ baseNames = [
 	'hash'
 	'http'
 	'jpeg'
+	'lexer'
 	//'llvm'
 	'markdown'
 	'math'

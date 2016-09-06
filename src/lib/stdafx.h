@@ -12,6 +12,7 @@
 #include "../module-codecs_japanese/stdafx.h"
 #include "../module-codecs_korean/stdafx.h"
 #include "../module-fs/stdafx.h"
+#include "../module-lexer/stdafx.h"
 #include "../module-math/stdafx.h"
 #include "../module-os/stdafx.h"
 #include "../module-path/stdafx.h"

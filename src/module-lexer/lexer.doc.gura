@@ -1,0 +1,16 @@
+#!/usr/bin/env gura
+import(moddoc)
+
+text@en = R'''
+# lexer Module
+
+The `lexer` module provices functions that parse souces to generate tokens.
+This is a built-in module, so you can use it without being imported.
+
+## Module Function
+
+${moddoc.reference(`en
+)}
+'''.embed()
+
+moddoc.register(locals(), %{`en => text@en})

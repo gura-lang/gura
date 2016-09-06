@@ -559,6 +559,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(left_top_horz);
 	Gura_RealizeSymbol(left_top_vert);
 	Gura_RealizeSymbol(len);
+	Gura_RealizeSymbol(lexer);
 	Gura_RealizeSymbolAlias(line_,			"line");
 	Gura_RealizeSymbol(lineno);
 	Gura_RealizeSymbol(linenobtm);

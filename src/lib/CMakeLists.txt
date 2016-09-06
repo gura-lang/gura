@@ -116,6 +116,7 @@ Vertex.cpp
 ../module-codecs_japanese/module-codecs_japanese.cpp
 ../module-codecs_korean/module-codecs_korean.cpp
 ../module-fs/module-fs.cpp
+../module-lexer/module-lexer.cpp
 ../module-math/module-math.cpp
 ../module-os/module-os.cpp
 ../module-path/module-path.cpp

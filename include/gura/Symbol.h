@@ -400,6 +400,7 @@ public:
 	Gura_DeclareSymbol(left_top_horz);
 	Gura_DeclareSymbol(left_top_vert);
 	Gura_DeclareSymbol(len);
+	Gura_DeclareSymbol(lexer);
 	Gura_DeclareSymbol(line_);
 	Gura_DeclareSymbol(lineno);
 	Gura_DeclareSymbol(linenobtm);
