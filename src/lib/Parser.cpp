@@ -19,9 +19,9 @@ Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool ena
 	_enablePreparatorFlag(enablePreparatorFlag), _interactiveFlag(false)
 {
 	InitStack();
-	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
-										p->elemType != ETYPE_Unknown; p++) {
-		_elemTypeToIndexMap[p->elemType] = p->index;
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
+										p->tokenType != ETYPE_Unknown; p++) {
+		_tokenTypeToIndexMap[p->tokenType] = p->index;
 	}
 }
 
@@ -31,8 +31,8 @@ Parser::~Parser()
 
 void Parser::InitStack()
 {
-	_elemStack.Clear();
-	_elemStack.push_back(Element(ETYPE_Begin, 0));
+	_tokenStack.Clear();
+	_tokenStack.push_back(Token(ETYPE_Begin, 0));
 }
 
 bool Parser::ParseChar(Environment &env, char ch)
@@ -110,10 +110,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else if (ch == '\\') {
 			_stat = STAT_Escape;
 		} else if (ch == '\n') {
-			FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			FeedToken(env, Token(ETYPE_EOL, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '#') {
-			FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			FeedToken(env, Token(ETYPE_EOL, GetLineNo()));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else if (_cntLine == 0) {
@@ -124,20 +124,20 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_CommentLine;
 			}
 		} else if (ch == '{') {
-			FeedElement(env, Element(ETYPE_LBrace, GetLineNo()));
+			FeedToken(env, Token(ETYPE_LBrace, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_AfterLBrace;
 		} else if (ch == '(') {
-			FeedElement(env, Element(ETYPE_LParenthesis, GetLineNo()));
+			FeedToken(env, Token(ETYPE_LParenthesis, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '[') {
-			FeedElement(env, Element(ETYPE_LBracket, GetLineNo()));
+			FeedToken(env, Token(ETYPE_LBracket, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '|' && _blockParamFlag && CheckBlockParamEnd()) {
 			_blockParamFlag = false;
-			FeedElement(env, Element(ETYPE_RBlockParam, GetLineNo()));
+			FeedToken(env, Token(ETYPE_RBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '`') {
-			FeedElement(env, Element(ETYPE_Quote, GetLineNo()));
+			FeedToken(env, Token(ETYPE_Quote, GetLineNo()));
 			_stat = STAT_Start;
 		} else if (ch == ':') {
 			_stat = STAT_Colon;
@@ -145,7 +145,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			size_t i = 0;
 			static const struct {
 				int ch;
-				ElemType elemType;
+				TokenType tokenType;
 			} tbl[] = {
 				{ '?',	ETYPE_Question,		},
 				{ '+',	ETYPE_DoubleChars,	},
@@ -174,17 +174,17 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (i >= ArraySizeOf(tbl)) {
 				SetError(ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
 				_stat = STAT_Error;
-			} else if (tbl[i].elemType == ETYPE_DoubleChars) {
+			} else if (tbl[i].tokenType == ETYPE_DoubleChars) {
 				_field.clear();
 				_field.push_back(ch);
 				_stat = STAT_DoubleChars;
-			} else if (_elemStack.back().IsType(ETYPE_Quote)) {
+			} else if (_tokenStack.back().IsType(ETYPE_Quote)) {
 				_field.clear();
 				_field.push_back(ch);
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+				FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				FeedElement(env, Element(tbl[i].elemType, GetLineNo()));
+				FeedToken(env, Token(tbl[i].tokenType, GetLineNo()));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 		}
@@ -194,10 +194,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 		// this state comes from STAT_Start and STAT_Symbol
 		static const struct {
 			int chFirst;
-			ElemType elemType;
+			TokenType tokenType;
 			struct {
 				int chSecond;
-				ElemType elemType;
+				TokenType tokenType;
 			} tblCand[5];
 		} tbl[] = {
 			{ '+', ETYPE_Add, {
@@ -249,7 +249,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
 		} else if (chFirst == '/' && ch == '/') {
-			FeedElement(env, Element(ETYPE_EOL, GetLineNo()));
+			FeedToken(env, Token(ETYPE_EOL, GetLineNo()));
 			if (_cntLine == 0 || (_cntLine == 1 && _appearShebangFlag)) {
 				_stat = STAT_MagicCommentLine;
 			} else {
@@ -263,22 +263,22 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_Start;
 			for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
-				ElemType elemType = tbl[i].elemType;
+				TokenType tokenType = tbl[i].tokenType;
 				for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
 					_field.push_back(ch);
-					elemType = tbl[i].tblCand[j].elemType;
+					tokenType = tbl[i].tblCand[j].tokenType;
 					Gura_PushbackCond(false);
 					break;
 				}
-				if (elemType == ETYPE_TripleChars) {
+				if (tokenType == ETYPE_TripleChars) {
 					_stat = STAT_TripleChars;
-				} else if (_elemStack.back().IsType(ETYPE_Quote)) {
-					FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+				} else if (_tokenStack.back().IsType(ETYPE_Quote)) {
+					FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
-					FeedElement(env, Element(elemType, GetLineNo()));
+					FeedToken(env, Token(tokenType, GetLineNo()));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				}
 				break;
@@ -290,10 +290,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 	case STAT_TripleChars: {
 		static const struct {
 			const char *strFirst;
-			ElemType elemType;
+			TokenType tokenType;
 			struct {
 				int chThird;
-				ElemType elemType;
+				TokenType tokenType;
 			} tblCand[5];
 		} tbl[] = {
 			{ "**", ETYPE_Pow, {
@@ -313,20 +313,20 @@ bool Parser::ParseChar(Environment &env, char ch)
 		_stat = STAT_Start;
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_field.compare(tbl[i].strFirst) != 0) continue;
-			ElemType elemType = tbl[i].elemType;
+			TokenType tokenType = tbl[i].tokenType;
 			for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
 				if (tbl[i].tblCand[j].chThird != ch) continue;
 				_field.push_back(ch);
-				elemType = tbl[i].tblCand[j].elemType;
+				tokenType = tbl[i].tblCand[j].tokenType;
 				Gura_PushbackCond(false);
 				break;
 			}
-			if (_elemStack.back().IsType(ETYPE_Quote)) {
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+			if (_tokenStack.back().IsType(ETYPE_Quote)) {
+				FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
-				FeedElement(env, Element(elemType, GetLineNo()));
+				FeedToken(env, Token(tokenType, GetLineNo()));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			}
 			break;
@@ -350,18 +350,18 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_Colon: {
 		if (ch == ':') {
-			FeedElement(env, Element(ETYPE_ColonColon, GetLineNo()));
+			FeedToken(env, Token(ETYPE_ColonColon, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '*') {
-			FeedElement(env, Element(ETYPE_ColonAsterisk, GetLineNo()));
+			FeedToken(env, Token(ETYPE_ColonAsterisk, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (ch == '&') {
-			FeedElement(env, Element(ETYPE_ColonAnd, GetLineNo()));
+			FeedToken(env, Token(ETYPE_ColonAnd, GetLineNo()));
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else {
-			ElemType elemType = _elemStack.back().IsSuffixElement()?
+			TokenType tokenType = _tokenStack.back().IsSuffixToken()?
 									ETYPE_ColonAfterSuffix : ETYPE_Colon;
-			FeedElement(env, Element(elemType, GetLineNo()));
+			FeedToken(env, Token(tokenType, GetLineNo()));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -385,7 +385,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_AfterLBrace: {
 		if (ch == '|') {
-			FeedElement(env, Element(ETYPE_LBlockParam, GetLineNo()));
+			FeedToken(env, Token(ETYPE_LBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -428,7 +428,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -442,7 +442,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -460,7 +460,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -468,18 +468,18 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberAfterDot: {
 		if (ch == '.') {
-			if (_elemStack.back().IsType(ETYPE_Quote)) {
+			if (_tokenStack.back().IsType(ETYPE_Quote)) {
 				_field.push_back(ch);
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+				FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 			} else {
-				FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
+				FeedToken(env, Token(ETYPE_Seq, GetLineNo()));
 			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
 			_field.push_back(ch);
 			_stat = STAT_Number;
 		} else {
-			FeedElement(env, Element(ETYPE_Dot, GetLineNo()));
+			FeedToken(env, Token(ETYPE_Dot, GetLineNo()));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -492,9 +492,9 @@ bool Parser::ParseChar(Environment &env, char ch)
 			size_t pos = _field.find('.');
 			if (pos == _field.length() - 1) {
 				_field.resize(pos);
-				FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+				FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 				if (!sig.IsSignalled()) {
-					FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
+					FeedToken(env, Token(ETYPE_Seq, GetLineNo()));
 				}
 				_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			} else if (pos == String::npos) {
@@ -511,7 +511,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -548,7 +548,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -558,7 +558,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			FeedElement(env, Element(ETYPE_NumberSuffixed,
+			FeedToken(env, Token(ETYPE_NumberSuffixed,
 											 GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -575,10 +575,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.clear();
 			_stat = STAT_StringFirst;
 		} else {
-			if (_field == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
-				FeedElement(env, Element(ETYPE_Contains, GetLineNo()));
+			if (_field == "in" && !_tokenStack.back().IsType(ETYPE_Quote)) {
+				FeedToken(env, Token(ETYPE_Contains, GetLineNo()));
 			} else {
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+				FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 			}
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -587,7 +587,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_SymbolExclamation: {
 		if (ch == '=' || ch == '!') {
-			FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
+			FeedToken(env, Token(ETYPE_Symbol, GetLineNo(), _field));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
@@ -698,8 +698,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
-			ElemType elemType = ElemTypeForString(_stringInfo);
-			FeedElement(env, Element(elemType, GetLineNo(), _field));
+			TokenType tokenType = TokenTypeForString(_stringInfo);
+			FeedToken(env, Token(tokenType, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -874,8 +874,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
-			ElemType elemType = ElemTypeForString(_stringInfo);
-			FeedElement(env, Element(elemType, GetLineNo(), _field));
+			TokenType tokenType = TokenTypeForString(_stringInfo);
+			FeedToken(env, Token(tokenType, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -885,7 +885,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			FeedElement(env, Element(ETYPE_StringSuffixed,
+			FeedToken(env, Token(ETYPE_StringSuffixed,
 												GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -936,11 +936,11 @@ Expr_Caller *Parser::CreateCaller(
 bool Parser::CheckBlockParamEnd() const
 {
 	int parLevel = 0;
-	foreach_const_reverse (ElementStack, pElem, _elemStack) {
-		const Element &elem = *pElem;
-		if (elem.IsType(ETYPE_LBlockParam)) break;
-		if (elem.IsCloseElement()) parLevel++;
-		if (elem.IsOpenElement()) {
+	foreach_const_reverse (TokenStack, pToken, _tokenStack) {
+		const Token &token = *pToken;
+		if (token.IsType(ETYPE_LBlockParam)) break;
+		if (token.IsCloseToken()) parLevel++;
+		if (token.IsOpenToken()) {
 			parLevel--;
 			if (parLevel < 0) return false;
 		}
@@ -948,7 +948,7 @@ bool Parser::CheckBlockParamEnd() const
 	return true;
 }
 
-Parser::ElemType Parser::ElemTypeForString(const StringInfo &stringInfo)
+Parser::TokenType Parser::TokenTypeForString(const StringInfo &stringInfo)
 {
 	return stringInfo.binaryFlag? ETYPE_Binary :
 		stringInfo.embedFlag? ETYPE_EmbedString : ETYPE_String;
@@ -1116,7 +1116,7 @@ void Parser::EvalConsoleChar(Environment &env,
 	_interactiveFlag = false;
 }
 
-const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
+const Parser::TokenTypeInfo Parser::_tokenTypeInfoTbl[] = {
 	{ ETYPE_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
 	{ ETYPE_Assign,				 2, "Assign",			"=",		OPTYPE_None		},	// =
 	{ ETYPE_AssignAdd,			 2, "AssignAdd",		"+=",		OPTYPE_None		},
@@ -1187,18 +1187,18 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
 };
 
-Parser::Precedence Parser::LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight)
+Parser::Precedence Parser::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
 {
-	const ElemTypeInfo *pInfoLeft = LookupElemTypeInfo(elemTypeLeft);
-	const ElemTypeInfo *pInfoRight = LookupElemTypeInfo(elemTypeRight);
+	const TokenTypeInfo *pInfoLeft = LookupTokenTypeInfo(tokenTypeLeft);
+	const TokenTypeInfo *pInfoRight = LookupTokenTypeInfo(tokenTypeRight);
 	if (pInfoLeft == nullptr || pInfoRight == nullptr) return PREC_Error;
 	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
 }
 
 int Parser::CompareOpTypePrec(OpType opType1, OpType opType2)
 {
-	const ElemTypeInfo *pInfo1 = LookupElemTypeInfoByOpType(opType1);
-	const ElemTypeInfo *pInfo2 = LookupElemTypeInfoByOpType(opType2);
+	const TokenTypeInfo *pInfo1 = LookupTokenTypeInfoByOpType(opType1);
+	const TokenTypeInfo *pInfo2 = LookupTokenTypeInfoByOpType(opType2);
 	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
 	return pInfo1->index - pInfo2->index;
 }
@@ -1241,106 +1241,106 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 	return precTbl[indexLeft][indexRight - 1];
 }
 
-bool Parser::FeedElement(Environment &env, const Element &elem)
+bool Parser::FeedToken(Environment &env, const Token &token)
 {
-	if (_interactiveFlag || _elemTypePrev == ETYPE_RBrace) {
-		_elemTypePrev = elem.GetType();
-		_lineNoOfElemPrev = elem.GetLineNo();
-		return _FeedElement(env, elem);
+	if (_interactiveFlag || _tokenTypePrev == ETYPE_RBrace) {
+		_tokenTypePrev = token.GetType();
+		_lineNoOfTokenPrev = token.GetLineNo();
+		return _FeedToken(env, token);
 	}
 	// Ignores EOL before a left brace-bracket so the bracket character appears to
 	// be joined with the content in the previous line without a line break.
-	if (_elemTypePrev == ETYPE_EOL) {
-		if (!elem.IsType(ETYPE_LBrace) &&
-			!_FeedElement(env, Element(_elemTypePrev, _lineNoOfElemPrev))) {
-			_elemTypePrev = elem.GetType();
-			_lineNoOfElemPrev = elem.GetLineNo();
+	if (_tokenTypePrev == ETYPE_EOL) {
+		if (!token.IsType(ETYPE_LBrace) &&
+			!_FeedToken(env, Token(_tokenTypePrev, _lineNoOfTokenPrev))) {
+			_tokenTypePrev = token.GetType();
+			_lineNoOfTokenPrev = token.GetLineNo();
 			return false;
 		}
 	}
-	_elemTypePrev = elem.GetType();
-	_lineNoOfElemPrev = elem.GetLineNo();
-	return elem.IsType(ETYPE_EOL) || _FeedElement(env, elem);
+	_tokenTypePrev = token.GetType();
+	_lineNoOfTokenPrev = token.GetLineNo();
+	return token.IsType(ETYPE_EOL) || _FeedToken(env, token);
 }
 
-bool Parser::_FeedElement(Environment &env, const Element &elem)
+bool Parser::_FeedToken(Environment &env, const Token &token)
 {
-	//::printf("FeedElement(%s)\n", elem.GetTypeSymbol());
+	//::printf("FeedToken(%s)\n", token.GetTypeSymbol());
 	for (;;) {
-		ElementStack::reverse_iterator pElemTop =
-								_elemStack.SeekTerminal(_elemStack.rbegin());
+		TokenStack::reverse_iterator pTokenTop =
+								_tokenStack.SeekTerminal(_tokenStack.rbegin());
 		//::printf("%s  << %s\n",
-		//				_elemStack.ToString().c_str(), elem.GetTypeSymbol());
-		Precedence prec = LookupPrecFast(pElemTop->GetType(), elem.GetType());
-		if (pElemTop->IsType(ETYPE_Begin) && elem.IsSeparatorElement()) {
-			size_t cntElem = _elemStack.size();
-			if (cntElem == 1) {
+		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
+		Precedence prec = LookupPrecFast(pTokenTop->GetType(), token.GetType());
+		if (pTokenTop->IsType(ETYPE_Begin) && token.IsSeparatorToken()) {
+			size_t cntToken = _tokenStack.size();
+			if (cntToken == 1) {
 				// nothing to do
-			} else if (cntElem == 2 && _elemStack[1].IsType(ETYPE_Expr)) {
-				Expr *pExpr = _elemStack[1].GetExpr();
+			} else if (cntToken == 2 && _tokenStack[1].IsType(ETYPE_Expr)) {
+				Expr *pExpr = _tokenStack[1].GetExpr();
 				if (_enablePreparatorFlag && !pExpr->Prepare(env)) {
 					InitStack();
 				} else {
-					_elemStack.pop_back();
+					_tokenStack.pop_back();
 					if (!EmitExpr(*_pExprOwner, _pExprParent, pExpr)) InitStack();
 				}
 			} else {
 				// something's wrong
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				InitStack();
 			}
 			break;
 		} else if (prec == PREC_LT || prec == PREC_EQ) {
-			Element &elemLast = _elemStack.back();
+			Token &tokenLast = _tokenStack.back();
 			// concatenation of two sequences of string, binary and embed-string
-			if (elemLast.IsType(ETYPE_String) && elem.IsType(ETYPE_String)) {
-				elemLast.AddString(elem.GetStringSTL());
-			} else if (elemLast.IsType(ETYPE_Binary) && elem.IsType(ETYPE_Binary)) {
-				elemLast.AddString(elem.GetStringSTL());
-			} else if (elemLast.IsType(ETYPE_EmbedString) && elem.IsType(ETYPE_EmbedString)) {
-				elemLast.AddString(elem.GetStringSTL());
+			if (tokenLast.IsType(ETYPE_String) && token.IsType(ETYPE_String)) {
+				tokenLast.AddString(token.GetStringSTL());
+			} else if (tokenLast.IsType(ETYPE_Binary) && token.IsType(ETYPE_Binary)) {
+				tokenLast.AddString(token.GetStringSTL());
+			} else if (tokenLast.IsType(ETYPE_EmbedString) && token.IsType(ETYPE_EmbedString)) {
+				tokenLast.AddString(token.GetStringSTL());
 			} else {
-				_elemStack.push_back(elem);
+				_tokenStack.push_back(token);
 			}
 			break;
 		} else if (prec == PREC_GT) {
-			ElementStack::reverse_iterator pElemLeft;
-			ElementStack::reverse_iterator pElemRight = pElemTop;
+			TokenStack::reverse_iterator pTokenLeft;
+			TokenStack::reverse_iterator pTokenRight = pTokenTop;
 			while (1) {
-				pElemLeft = _elemStack.SeekTerminal(pElemRight + 1);
-				if (LookupPrecFast(pElemLeft->GetType(), pElemRight->GetType())
+				pTokenLeft = _tokenStack.SeekTerminal(pTokenRight + 1);
+				if (LookupPrecFast(pTokenLeft->GetType(), pTokenRight->GetType())
 																	== PREC_LT) {
-					pElemLeft--;
+					pTokenLeft--;
 					break;
 				}
-				pElemRight = pElemLeft;
+				pTokenRight = pTokenLeft;
 			}
-			size_t cntElem = std::distance(_elemStack.rbegin(), pElemLeft) + 1;
+			size_t cntToken = std::distance(_tokenStack.rbegin(), pTokenLeft) + 1;
 			bool rtn;
-			if (cntElem == 1) {
-				rtn = ReduceOneElem(env);
-			} else if (cntElem == 2) {
-				rtn = ReduceTwoElems(env);
-			} else if (cntElem == 3) {
-				rtn = ReduceThreeElems(env);
-			} else if (cntElem == 4) {
-				rtn = ReduceFourElems(env);
-			} else if (cntElem == 5) {
-				rtn = ReduceFiveElems(env);
+			if (cntToken == 1) {
+				rtn = ReduceOneToken(env);
+			} else if (cntToken == 2) {
+				rtn = ReduceTwoTokens(env);
+			} else if (cntToken == 3) {
+				rtn = ReduceThreeTokens(env);
+			} else if (cntToken == 4) {
+				rtn = ReduceFourTokens(env);
+			} else if (cntToken == 5) {
+				rtn = ReduceFiveTokens(env);
 			} else {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				rtn = false;
 			}
 			if (!rtn) {
 				InitStack();
 				break;
 			}
-		} else if (elem.IsCloseElement()) {
+		} else if (token.IsCloseToken()) {
 			SetError(ERR_SyntaxError, "unmatched closing character");
 			InitStack();
 			break;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			InitStack();
 			break;
 		}
@@ -1371,146 +1371,146 @@ bool Parser::EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr
 	return true;
 }
 
-bool Parser::ReduceOneElem(Environment &env)
+bool Parser::ReduceOneToken(Environment &env)
 {
 	Expr *pExpr;
-	Element &elem1 = _elemStack.Peek(0);
-	int lineNoTop = elem1.GetLineNo();
-	int lineNoBtm = elem1.GetLineNo();
-	if (elem1.IsType(ETYPE_Number)) {
+	Token &token1 = _tokenStack.Peek(0);
+	int lineNoTop = token1.GetLineNo();
+	int lineNoBtm = token1.GetLineNo();
+	if (token1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
-		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(elem1.GetString())));
-		pExprEx->SetScript(elem1.GetStringSTL());
+		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(token1.GetString())));
+		pExprEx->SetScript(token1.GetStringSTL());
 		pExpr = pExprEx;
-	} else if (elem1.IsType(ETYPE_String)) {
+	} else if (token1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
-		pExpr = new Expr_Value(Value(elem1.GetStringSTL()));
-	} else if (elem1.IsType(ETYPE_Binary)) {
+		pExpr = new Expr_Value(Value(token1.GetStringSTL()));
+	} else if (token1.IsType(ETYPE_Binary)) {
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
 		pExpr = new Expr_Value(Value(new Object_binary(env,
-						   Binary(elem1.GetString(), elem1.GetStringSize()), false)));
-	} else if (elem1.IsType(ETYPE_EmbedString)) {
+						   Binary(token1.GetString(), token1.GetStringSize()), false)));
+	} else if (token1.IsType(ETYPE_EmbedString)) {
 		DBGPARSER(::printf("Reduce: Expr -> EmbedString\n"));
 		AutoPtr<Template> pTemplate(new Template());
 		bool autoIndentFlag = true;
 		bool appendLastEOLFlag = false;
-		if (!pTemplate->Parse(env, elem1.GetString(), nullptr,
+		if (!pTemplate->Parse(env, token1.GetString(), nullptr,
 							  autoIndentFlag, appendLastEOLFlag)) goto error_done;
-		pExpr = new Expr_EmbedString(pTemplate.release(), elem1.GetStringSTL());
-	} else if (elem1.IsType(ETYPE_Symbol)) {
+		pExpr = new Expr_EmbedString(pTemplate.release(), token1.GetStringSTL());
+	} else if (token1.IsType(ETYPE_Symbol)) {
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
-		const Symbol *pSymbol = Symbol::Add(elem1.GetString());
+		const Symbol *pSymbol = Symbol::Add(token1.GetString());
 		pExpr = new Expr_Identifier(pSymbol);
-	} else if (elem1.IsType(ETYPE_NumberSuffixed)) {
+	} else if (token1.IsType(ETYPE_NumberSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
-		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), true, Symbol::Add(elem1.GetSuffix()));
-	} else if (elem1.IsType(ETYPE_StringSuffixed)) {
+		pExpr = new Expr_Suffixed(token1.GetStringSTL(), true, Symbol::Add(token1.GetSuffix()));
+	} else if (token1.IsType(ETYPE_StringSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
-		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), false, Symbol::Add(elem1.GetSuffix()));
-	} else if (elem1.IsType(ETYPE_Add)) {
+		pExpr = new Expr_Suffixed(token1.GetStringSTL(), false, Symbol::Add(token1.GetSuffix()));
+	} else if (token1.IsType(ETYPE_Add)) {
 		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
 		pExpr = new Expr_Identifier(Symbol::Plus);
-	} else if (elem1.IsType(ETYPE_Mul)) {
+	} else if (token1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
 		pExpr = new Expr_Identifier(Symbol::Ast);
-	} else if (elem1.IsType(ETYPE_Question)) {
+	} else if (token1.IsType(ETYPE_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
 		pExpr = new Expr_Identifier(Symbol::Quest);
-	} else if (elem1.IsType(ETYPE_Sub)) {
+	} else if (token1.IsType(ETYPE_Sub)) {
 		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
 		pExpr = new Expr_Identifier(Symbol::Hyphen);
 	} else {
-		SetError_InvalidElement(__LINE__);
+		SetError_InvalidToken(__LINE__);
 		goto error_done;
 	}
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 	return true;
 error_done:
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
 	return false;
 }
 
-bool Parser::ReduceTwoElems(Environment &env)
+bool Parser::ReduceTwoTokens(Environment &env)
 {
 	Expr *pExpr;
-	Element &elem1 = _elemStack.Peek(1);
-	Element &elem2 = _elemStack.Peek(0);
-	int lineNoTop = elem1.GetLineNo();
-	int lineNoBtm = elem2.GetLineNo();
-	if (elem1.IsType(ETYPE_LParenthesis)) {
-		if (elem2.IsType(ETYPE_RParenthesis)) {
+	Token &token1 = _tokenStack.Peek(1);
+	Token &token2 = _tokenStack.Peek(0);
+	int lineNoTop = token1.GetLineNo();
+	int lineNoBtm = token2.GetLineNo();
+	if (token1.IsType(ETYPE_LParenthesis)) {
+		if (token2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
 			Expr_Iterer *pExprIterer =
-						dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
+						dynamic_cast<Expr_Iterer *>(token1.GetExpr());
 			if (pExprIterer == nullptr) {
 				pExprIterer = new Expr_Iterer();
 			}
 			pExpr = pExprIterer;
-		} else if (elem2.IsType(ETYPE_EOL)) {
+		} else if (token2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBracket)) {
-		if (elem2.IsType(ETYPE_RBracket)) {
+	} else if (token1.IsType(ETYPE_LBracket)) {
+		if (token2.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> '[' ']'\n"));
 			Expr_Lister *pExprLister =
-						dynamic_cast<Expr_Lister *>(elem1.GetExpr());
+						dynamic_cast<Expr_Lister *>(token1.GetExpr());
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = pExprLister;
-		} else if (elem2.IsType(ETYPE_EOL)) {
+		} else if (token2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '[' -> '[' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBrace)) {
-		if (elem2.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_LBrace)) {
+		if (token2.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> '{' '}'\n"));
 			Expr_Block *pExprBlock =
-						dynamic_cast<Expr_Block *>(elem1.GetExpr());
+						dynamic_cast<Expr_Block *>(token1.GetExpr());
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			pExpr = pExprBlock;
-		} else if (elem2.IsType(ETYPE_EOL)) {
+		} else if (token2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '{' -> '{' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBlockParam)) {
-		if (elem2.IsType(ETYPE_RBlockParam)) {
+	} else if (token1.IsType(ETYPE_LBlockParam)) {
+		if (token2.IsType(ETYPE_RBlockParam)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
-			Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
+			Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(token1.GetExpr());
 			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 			}
-			_elemStack.pop_back();
-			_elemStack.pop_back();
-			Element &elemPrev = _elemStack.Peek(0);
-			if (elemPrev.IsType(ETYPE_LBrace)) {
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
+			Token &tokenPrev = _tokenStack.Peek(0);
+			if (tokenPrev.IsType(ETYPE_LBrace)) {
 				Expr_Block *pExprBlock =
-							dynamic_cast<Expr_Block *>(elemPrev.GetExpr());
+							dynamic_cast<Expr_Block *>(tokenPrev.GetExpr());
 				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
-					elemPrev.SetExpr(pExprBlock);
+					tokenPrev.SetExpr(pExprBlock);
 				}
 				pExprBlock->SetExprOwnerParam(pExprBlockParam->GetExprOwner().Reference());
 				Expr::Delete(pExprBlockParam);
@@ -1520,201 +1520,201 @@ bool Parser::ReduceTwoElems(Environment &env)
 				goto error_done;
 			}
 			return true;
-		} else if (elem2.IsType(ETYPE_EOL)) {
+		} else if (token2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Symbol)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_Symbol)) {
 		// this is a special case of reducing
 		DBGPARSER(::printf("Reduce: Expr Expr -> Expr Symbol\n"));
-		const Symbol *pSymbol = Symbol::Add(elem2.GetString());
+		const Symbol *pSymbol = Symbol::Add(token2.GetString());
 		pExpr = new Expr_Identifier(pSymbol);
-		int lineNoTop = _elemStack.Peek(0).GetLineNo();
-		_elemStack.pop_back();
+		int lineNoTop = _tokenStack.Peek(0).GetLineNo();
+		_tokenStack.pop_back();
 		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-		_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+		_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 		return true;
-	} else if (elem2.IsType(ETYPE_Expr)) {
-		if (elem1.IsType(ETYPE_Quote)) {
+	} else if (token2.IsType(ETYPE_Expr)) {
+		if (token1.IsType(ETYPE_Quote)) {
 			DBGPARSER(::printf("Reduce: Expr -> '`' Expr\n"));
-			pExpr = new Expr_Quote(elem2.GetExpr());
-		} else if (elem1.IsType(ETYPE_Add)) {
+			pExpr = new Expr_Quote(token2.GetExpr());
+		} else if (token1.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> '+' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Pos), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Sub)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Pos), token2.GetExpr(), false);
+		} else if (token1.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> '-' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Inv)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), token2.GetExpr(), false);
+		} else if (token1.IsType(ETYPE_Inv)) {
 			DBGPARSER(::printf("Reduce: Expr -> '~' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Inv), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Not)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Inv), token2.GetExpr(), false);
+		} else if (token1.IsType(ETYPE_Not)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Not), elem2.GetExpr(), false);
-		} else if (elem1.IsType(ETYPE_Mod)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Not), token2.GetExpr(), false);
+		} else if (token1.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
-			if (elem2.GetExpr()->IsBlock()) {
+			if (token2.GetExpr()->IsBlock()) {
 				// %{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::Percnt);
-				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
+				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) goto error_done;
 			} else {
-				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
+				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token2.GetExpr(), false);
 			}
-		} else if (elem1.IsType(ETYPE_ModMod)) {
+		} else if (token1.IsType(ETYPE_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
-			if (elem2.GetExpr()->IsBlock()) {
+			if (token2.GetExpr()->IsBlock()) {
 				// %%{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::PercntPercnt);
-				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
+				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) goto error_done;
 			} else {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-		} else if (elem1.IsType(ETYPE_And)) {
+		} else if (token1.IsType(ETYPE_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
-			if (elem2.GetExpr()->IsBlock()) {
+			if (token2.GetExpr()->IsBlock()) {
 				// &{..}
 				Expr *pExprCar = new Expr_Identifier(Symbol::Amp);
-				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
+				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
 				pExpr = CreateCaller(env, pExprCar, nullptr, pExprBlock, nullptr);
 				if (pExpr == nullptr) goto error_done;
 			} else {
-				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), elem2.GetExpr(), false);
+				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), token2.GetExpr(), false);
 			}
-		} else if (elem1.IsType(ETYPE_Mul)) {
+		} else if (token1.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem2.GetExpr(), false);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), token2.GetExpr(), false);
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr)) {
-		if (elem2.IsType(ETYPE_Add)) {
+	} else if (token1.IsType(ETYPE_Expr)) {
+		if (token2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), elem1.GetExpr(), true);
-		} else if (elem2.IsType(ETYPE_Mul)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), token1.GetExpr(), true);
+		} else if (token2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Each), elem1.GetExpr(), true);
-		} else if (elem2.IsType(ETYPE_Question)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Each), token1.GetExpr(), true);
+		} else if (token2.IsType(ETYPE_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), elem1.GetExpr(), true);
-		} else if (elem2.IsType(ETYPE_Mod)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), token1.GetExpr(), true);
+		} else if (token2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem1.GetExpr(), true);
-		} else if (elem2.IsType(ETYPE_Seq)) {
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token1.GetExpr(), true);
+		} else if (token2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), elem1.GetExpr(), true);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), token1.GetExpr(), true);
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
 	} else {
-		SetError_InvalidElement(__LINE__);
+		SetError_InvalidToken(__LINE__);
 		goto error_done;
 	}
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 	return true;
 error_done:
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	return false;
 }
 
-bool Parser::ReduceThreeElems(Environment &env)
+bool Parser::ReduceThreeTokens(Environment &env)
 {
 	Signal &sig = env.GetSignal();
 	Expr *pExpr;
-	Element &elem1 = _elemStack.Peek(2);
-	Element &elem2 = _elemStack.Peek(1);
-	Element &elem3 = _elemStack.Peek(0);
-	int lineNoTop = elem1.GetLineNo();
-	int lineNoBtm = elem3.GetLineNo();
-	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
-		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
-		if (elem3.IsType(ETYPE_RParenthesis)) {
+	Token &token1 = _tokenStack.Peek(2);
+	Token &token2 = _tokenStack.Peek(1);
+	Token &token3 = _tokenStack.Peek(0);
+	int lineNoTop = token1.GetLineNo();
+	int lineNoBtm = token3.GetLineNo();
+	if (token1.IsType(ETYPE_LParenthesis) && token2.IsType(ETYPE_Expr)) {
+		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(token1.GetExpr());
+		if (token3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
 			if (pExprIterer == nullptr) {
-				pExpr = elem2.GetExpr();	// treat expr as non-list
+				pExpr = token2.GetExpr();	// treat expr as non-list
 			} else {
-				if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, elem2.GetExpr())) return false;
+				if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, token2.GetExpr())) return false;
 				pExpr = pExprIterer;
 			}
-		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_Comma) || token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
 			if (pExprIterer == nullptr) {
 				pExprIterer = new Expr_Iterer();
-				elem1.SetExpr(pExprIterer);
+				token1.SetExpr(pExprIterer);
 			}
-			if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, elem2.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, token2.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBracket) && elem2.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
-		if (elem3.IsType(ETYPE_RBracket)) {
+	} else if (token1.IsType(ETYPE_LBracket) && token2.IsType(ETYPE_Expr)) {
+		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token1.GetExpr());
+		if (token3.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> '[' Expr ']'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem2.GetExpr())) return false;
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token2.GetExpr())) return false;
 			pExpr = pExprLister;
-		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_Comma) || token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '[' -> '[' Expr ','\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
-				elem1.SetExpr(pExprLister);
+				token1.SetExpr(pExprLister);
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem2.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token2.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LParenthesis)) {
-		if (elem3.IsType(ETYPE_RParenthesis)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_LParenthesis)) {
+		if (token3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' ')'\n"));
-			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
+			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
+				CreateCaller(env, token1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
-		} else if (elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '(' -> Expr '(' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBrace)) {
-		if (elem3.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_LBrace)) {
+		if (token3.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' '}'\n"));
-			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-			if (elem1.GetExpr()->IsCaller()) {
-				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
+			if (token1.GetExpr()->IsCaller()) {
+				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
 				}
@@ -1725,82 +1725,82 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprBlock = new Expr_Block();
 				}
 				Expr_Caller *pExprCaller =
-					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
+					CreateCaller(env, token1.GetExpr(), nullptr, pExprBlock, nullptr);
 				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
-		} else if (elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '{' -> Expr '{' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_LBracket)) {
-		if (elem3.IsType(ETYPE_RBracket)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_LBracket)) {
+		if (token3.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' ']'\n"));
-			Expr *pExprTgt = elem1.GetExpr();
-			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
+			Expr *pExprTgt = token1.GetExpr();
+			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
-		} else if (elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '[' -> Expr '[' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBrace) && elem2.IsType(ETYPE_Expr)) {
-		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem1.GetExpr());
-		if (elem3.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_LBrace) && token2.IsType(ETYPE_Expr)) {
+		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token1.GetExpr());
+		if (token3.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem2.GetExpr())) return false;
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token2.GetExpr())) return false;
 			pExpr = pExprBlock;
-		} else if (elem3.IsType(ETYPE_Comma) ||
-					elem3.IsType(ETYPE_Semicolon) || elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_Comma) ||
+					token3.IsType(ETYPE_Semicolon) || token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '{' -> '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
-				elem1.SetExpr(pExprBlock);
+				token1.SetExpr(pExprBlock);
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem2.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token2.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_LBlockParam) && elem2.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
-		if (elem3.IsType(ETYPE_RBlockParam)) {
+	} else if (token1.IsType(ETYPE_LBlockParam) && token2.IsType(ETYPE_Expr)) {
+		Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(token1.GetExpr());
+		if (token3.IsType(ETYPE_RBlockParam)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' Expr '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
 			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
 			}
-			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, elem2.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
-			_elemStack.pop_back();
-			Element &elemPrev = _elemStack.Peek(0);
-			if (elemPrev.IsType(ETYPE_LBrace)) {
+			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, token2.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
+			Token &tokenPrev = _tokenStack.Peek(0);
+			if (tokenPrev.IsType(ETYPE_LBrace)) {
 				Expr_Block *pExprBlock =
-							dynamic_cast<Expr_Block *>(elemPrev.GetExpr());
+							dynamic_cast<Expr_Block *>(tokenPrev.GetExpr());
 				if (pExprBlock == nullptr) {
 					pExprBlock = new Expr_Block();
-					elemPrev.SetExpr(pExprBlock);
+					tokenPrev.SetExpr(pExprBlock);
 				}
 				pExprBlock->SetExprOwnerParam(pExprBlockParam->GetExprOwner().Reference());
 				Expr::Delete(pExprBlockParam);
@@ -1810,107 +1810,107 @@ bool Parser::ReduceThreeElems(Environment &env)
 				goto error_done;
 			}
 			return true;
-		} else if (elem3.IsType(ETYPE_Comma) ||
-					elem3.IsType(ETYPE_Semicolon) || elem3.IsType(ETYPE_EOL)) {
+		} else if (token3.IsType(ETYPE_Comma) ||
+					token3.IsType(ETYPE_Semicolon) || token3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' Expr ','\n"));
 			if (pExprBlockParam == nullptr) {
 				pExprBlockParam = new Expr_Lister();
-				elem1.SetExpr(pExprBlockParam);
+				token1.SetExpr(pExprBlockParam);
 			}
-			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, elem2.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprBlockParam->GetExprOwner(), pExprBlockParam, token2.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem3.IsType(ETYPE_Expr)) {
-		Expr *pExprLeft = elem1.GetExpr();
-		Expr *pExprRight = elem3.GetExpr();
-		if (elem2.IsType(ETYPE_Add)) {
+	} else if (token1.IsType(ETYPE_Expr) && token3.IsType(ETYPE_Expr)) {
+		Expr *pExprLeft = token1.GetExpr();
+		Expr *pExprRight = token3.GetExpr();
+		if (token2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr + Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Sub)) {
+		} else if (token2.IsType(ETYPE_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr - Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Mul)) {
+		} else if (token2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr * Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Div)) {
+		} else if (token2.IsType(ETYPE_Div)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr / Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Mod)) {
+		} else if (token2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mod), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Pow)) {
+		} else if (token2.IsType(ETYPE_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Eq)) {
+		} else if (token2.IsType(ETYPE_Eq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr == Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Eq), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Ne)) {
+		} else if (token2.IsType(ETYPE_Ne)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr != Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ne), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Lt)) {
+		} else if (token2.IsType(ETYPE_Lt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr < Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Lt), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Gt)) {
+		} else if (token2.IsType(ETYPE_Gt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr > Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Gt), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Le)) {
+		} else if (token2.IsType(ETYPE_Le)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Le), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Ge)) {
+		} else if (token2.IsType(ETYPE_Ge)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ge), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Cmp)) {
+		} else if (token2.IsType(ETYPE_Cmp)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <=> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Cmp), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Contains)) {
+		} else if (token2.IsType(ETYPE_Contains)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr in Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Contains), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Assign)) {
+		} else if (token2.IsType(ETYPE_Assign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr = Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, nullptr);
-		} else if (elem2.IsType(ETYPE_AssignAdd)) {
+		} else if (token2.IsType(ETYPE_AssignAdd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr += Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Add));
-		} else if (elem2.IsType(ETYPE_AssignSub)) {
+		} else if (token2.IsType(ETYPE_AssignSub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr -= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Sub));
-		} else if (elem2.IsType(ETYPE_AssignMul)) {
+		} else if (token2.IsType(ETYPE_AssignMul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr *= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mul));
-		} else if (elem2.IsType(ETYPE_AssignDiv)) {
+		} else if (token2.IsType(ETYPE_AssignDiv)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr /= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Div));
-		} else if (elem2.IsType(ETYPE_AssignMod)) {
+		} else if (token2.IsType(ETYPE_AssignMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mod));
-		} else if (elem2.IsType(ETYPE_AssignPow)) {
+		} else if (token2.IsType(ETYPE_AssignPow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr **= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Pow));
-		} else if (elem2.IsType(ETYPE_AssignOr)) {
+		} else if (token2.IsType(ETYPE_AssignOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Or));
-		} else if (elem2.IsType(ETYPE_AssignAnd)) {
+		} else if (token2.IsType(ETYPE_AssignAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr &= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_And));
-		} else if (elem2.IsType(ETYPE_AssignXor)) {
+		} else if (token2.IsType(ETYPE_AssignXor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Xor));
-		} else if (elem2.IsType(ETYPE_AssignShl)) {
+		} else if (token2.IsType(ETYPE_AssignShl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <<= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shl));
-		} else if (elem2.IsType(ETYPE_AssignShr)) {
+		} else if (token2.IsType(ETYPE_AssignShr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >>= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shr));
-		} else if (elem2.IsType(ETYPE_Pair)) {
+		} else if (token2.IsType(ETYPE_Pair)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr => Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pair), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Colon) || elem2.IsType(ETYPE_ColonAfterSuffix)) {
+		} else if (token2.IsType(ETYPE_Colon) || token2.IsType(ETYPE_ColonAfterSuffix)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr : Expr\n"));
 			Expr *pExprDst = pExprLeft;
 			if (pExprDst->IsUnaryOpSuffix()) {
@@ -1934,7 +1934,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					optAttrFlag = pExprTrailer->AddAttr(pSymbol);
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
-					SetError_InvalidElement(__LINE__);
+					SetError_InvalidToken(__LINE__);
 					goto error_done;
 				}
 				if (optAttrFlag && pAttrFront->empty()) pAttrFront->push_back(pSymbol);
@@ -1958,7 +1958,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					pExprTrailer->AddAttrs(pExprIdentifier->GetAttrs());
 					pExprTrailer->AddAttrsOpt(pExprIdentifier->GetAttrsOpt());
 				} else {
-					SetError_InvalidElement(__LINE__);
+					SetError_InvalidToken(__LINE__);
 					goto error_done;
 				}
 				if (!pAttrFront->empty()) {
@@ -1985,7 +1985,7 @@ bool Parser::ReduceThreeElems(Environment &env)
 					foreach (ExprList, ppExpr, exprList) {
 						Expr *pExpr = *ppExpr;
 						if (!pExpr->IsIdentifier()) {
-							SetError_InvalidElement(__LINE__);
+							SetError_InvalidToken(__LINE__);
 							goto error_done;
 						}
 						const Symbol *pSymbol =
@@ -1993,370 +1993,370 @@ bool Parser::ReduceThreeElems(Environment &env)
 						pExprCaller->AddAttrOpt(pSymbol);
 					}
 				} else {
-					SetError_InvalidElement(__LINE__);
+					SetError_InvalidToken(__LINE__);
 					goto error_done;
 				}
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
 			} else {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-		} else if (elem2.IsType(ETYPE_Dot)) {
+		} else if (token2.IsType(ETYPE_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_Normal);
-		} else if (elem2.IsType(ETYPE_ColonColon)) {
+		} else if (token2.IsType(ETYPE_ColonColon)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToList);
-		} else if (elem2.IsType(ETYPE_ColonAsterisk)) {
+		} else if (token2.IsType(ETYPE_ColonAsterisk)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToIter);
-		} else if (elem2.IsType(ETYPE_ColonAnd)) {
+		} else if (token2.IsType(ETYPE_ColonAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
-				SetError_InvalidElement(__LINE__);
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapAlong);
-		} else if (elem2.IsType(ETYPE_OrOr)) {
+		} else if (token2.IsType(ETYPE_OrOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr || Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_OrOr), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_AndAnd)) {
+		} else if (token2.IsType(ETYPE_AndAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr && Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_AndAnd), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Or)) {
+		} else if (token2.IsType(ETYPE_Or)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr | Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Or), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_And)) {
+		} else if (token2.IsType(ETYPE_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr & Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_And), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Xor)) {
+		} else if (token2.IsType(ETYPE_Xor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^ Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Xor), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Shl)) {
+		} else if (token2.IsType(ETYPE_Shl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr << Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shl), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Shr)) {
+		} else if (token2.IsType(ETYPE_Shr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shr), pExprLeft, pExprRight);
-		} else if (elem2.IsType(ETYPE_Seq)) {
+		} else if (token2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr .. Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
 	} else {
-		SetError_InvalidElement(__LINE__);
+		SetError_InvalidToken(__LINE__);
 		goto error_done;
 	}
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 	return true;
 error_done:
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	return false;
 }
 
-bool Parser::ReduceFourElems(Environment &env)
+bool Parser::ReduceFourTokens(Environment &env)
 {
 	Expr *pExpr;
-	Element &elem1 = _elemStack.Peek(3);
-	Element &elem2 = _elemStack.Peek(2);
-	Element &elem3 = _elemStack.Peek(1);
-	Element &elem4 = _elemStack.Peek(0);
-	int lineNoTop = elem1.GetLineNo();
-	int lineNoBtm = elem4.GetLineNo();
-	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
-											elem3.IsType(ETYPE_LParenthesis)) {
-		if (elem4.IsType(ETYPE_RParenthesis)) {
+	Token &token1 = _tokenStack.Peek(3);
+	Token &token2 = _tokenStack.Peek(2);
+	Token &token3 = _tokenStack.Peek(1);
+	Token &token4 = _tokenStack.Peek(0);
+	int lineNoTop = token1.GetLineNo();
+	int lineNoBtm = token4.GetLineNo();
+	if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_Expr) &&
+											token3.IsType(ETYPE_LParenthesis)) {
+		if (token4.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' ')'\n"));
-			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
+			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token3.GetExpr());
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(__LINE__);
+			if (!token1.GetExpr()->IsCaller()) {
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
+				CreateCaller(env, token2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (elem4.IsType(ETYPE_EOL)) {
+		} else if (token4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
-												elem3.IsType(ETYPE_LBrace)) {
-		if (elem4.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_Expr) &&
+												token3.IsType(ETYPE_LBrace)) {
+		if (token4.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' '}'\n"));
-			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem3.GetExpr());
+			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token3.GetExpr());
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(__LINE__);
+			if (!token1.GetExpr()->IsCaller()) {
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 			Expr_Caller *pExprCaller = nullptr;
-			if (elem2.GetExpr()->IsCaller()) {
-				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
+			if (token2.GetExpr()->IsCaller()) {
+				pExprCaller = dynamic_cast<Expr_Caller *>(token2.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
-				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
+				pExprCaller = CreateCaller(env, token2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (elem4.IsType(ETYPE_EOL)) {
+		} else if (token4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' EOL\n"));
-			_elemStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) &&
-				elem2.IsType(ETYPE_LParenthesis) && elem3.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
-		if (elem4.IsType(ETYPE_RParenthesis)) {
+	} else if (token1.IsType(ETYPE_Expr) &&
+				token2.IsType(ETYPE_LParenthesis) && token3.IsType(ETYPE_Expr)) {
+		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
+		if (token4.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' Expr ')'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token3.GetExpr())) return false;
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem1.GetExpr(), pExprLister, nullptr, nullptr);
+				CreateCaller(env, token1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
-		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
+		} else if (token4.IsType(ETYPE_Comma) || token4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '(' -> Expr '(' Expr ','\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
-				elem2.SetExpr(pExprLister);
+				token2.SetExpr(pExprLister);
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token3.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) &&
-				elem2.IsType(ETYPE_LBrace) && elem3.IsType(ETYPE_Expr)) {
-		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-		if (elem4.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_Expr) &&
+				token2.IsType(ETYPE_LBrace) && token3.IsType(ETYPE_Expr)) {
+		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
+		if (token4.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem3.GetExpr())) return false;
-			if (elem1.GetExpr()->IsCaller()) {
-				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token3.GetExpr())) return false;
+			if (token1.GetExpr()->IsCaller()) {
+				Expr_Caller *pExprCaller = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 				pExpr = pExprCaller;
 			} else {
 				Expr_Caller *pExprCaller =
-					CreateCaller(env, elem1.GetExpr(), nullptr, pExprBlock, nullptr);
+					CreateCaller(env, token1.GetExpr(), nullptr, pExprBlock, nullptr);
 				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
-		} else if (elem4.IsType(ETYPE_Comma) ||
-					elem4.IsType(ETYPE_Semicolon) || elem4.IsType(ETYPE_EOL)) {
+		} else if (token4.IsType(ETYPE_Comma) ||
+					token4.IsType(ETYPE_Semicolon) || token4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '{' -> Expr '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
-				elem2.SetExpr(pExprBlock);
+				token2.SetExpr(pExprBlock);
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem3.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token3.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) &&
-				elem2.IsType(ETYPE_LBracket) && elem3.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem2.GetExpr());
-		if (elem4.IsType(ETYPE_RBracket)) {
+	} else if (token1.IsType(ETYPE_Expr) &&
+				token2.IsType(ETYPE_LBracket) && token3.IsType(ETYPE_Expr)) {
+		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
+		if (token4.IsType(ETYPE_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' Expr ']'\n"));
-			Expr *pExprTgt = elem1.GetExpr();
+			Expr *pExprTgt = token1.GetExpr();
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token3.GetExpr())) return false;
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
-		} else if (elem4.IsType(ETYPE_Comma) || elem4.IsType(ETYPE_EOL)) {
+		} else if (token4.IsType(ETYPE_Comma) || token4.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '[' -> Expr '[' Expr ','\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
-				elem2.SetExpr(pExprLister);
+				token2.SetExpr(pExprLister);
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem3.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token3.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
 	} else {
-		SetError_InvalidElement(__LINE__);
+		SetError_InvalidToken(__LINE__);
 		goto error_done;
 	}
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 	return true;
 error_done:
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	return false;
 }
 
-bool Parser::ReduceFiveElems(Environment &env)
+bool Parser::ReduceFiveTokens(Environment &env)
 {
 	Expr *pExpr;
-	Element &elem1 = _elemStack.Peek(4);
-	Element &elem2 = _elemStack.Peek(3);
-	Element &elem3 = _elemStack.Peek(2);
-	Element &elem4 = _elemStack.Peek(1);
-	Element &elem5 = _elemStack.Peek(0);
-	int lineNoTop = elem1.GetLineNo();
-	int lineNoBtm = elem5.GetLineNo();
-	if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
-				elem3.IsType(ETYPE_LParenthesis) && elem4.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem3.GetExpr());
-		if (elem5.IsType(ETYPE_RParenthesis)) {
+	Token &token1 = _tokenStack.Peek(4);
+	Token &token2 = _tokenStack.Peek(3);
+	Token &token3 = _tokenStack.Peek(2);
+	Token &token4 = _tokenStack.Peek(1);
+	Token &token5 = _tokenStack.Peek(0);
+	int lineNoTop = token1.GetLineNo();
+	int lineNoBtm = token5.GetLineNo();
+	if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_Expr) &&
+				token3.IsType(ETYPE_LParenthesis) && token4.IsType(ETYPE_Expr)) {
+		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token3.GetExpr());
+		if (token5.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' Expr ')'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem4.GetExpr())) return false;
-			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(__LINE__);
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token4.GetExpr())) return false;
+			if (!token1.GetExpr()->IsCaller()) {
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 			Expr_Caller *pExprCaller =
-				CreateCaller(env, elem2.GetExpr(), pExprLister, nullptr, pExprLeader);
+				CreateCaller(env, token2.GetExpr(), pExprLister, nullptr, pExprLeader);
 			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (elem5.IsType(ETYPE_Comma) || elem5.IsType(ETYPE_EOL)) {
+		} else if (token5.IsType(ETYPE_Comma) || token5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' Expr ','\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
-				elem3.SetExpr(pExprLister);
+				token3.SetExpr(pExprLister);
 			}
-			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, elem4.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token4.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (elem1.IsType(ETYPE_Expr) && elem2.IsType(ETYPE_Expr) &&
-				elem3.IsType(ETYPE_LBrace) && elem4.IsType(ETYPE_Expr)) {
-		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem3.GetExpr());
-		if (elem5.IsType(ETYPE_RBrace)) {
+	} else if (token1.IsType(ETYPE_Expr) && token2.IsType(ETYPE_Expr) &&
+				token3.IsType(ETYPE_LBrace) && token4.IsType(ETYPE_Expr)) {
+		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token3.GetExpr());
+		if (token5.IsType(ETYPE_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem4.GetExpr())) return false;
-			if (!elem1.GetExpr()->IsCaller()) {
-				SetError_InvalidElement(__LINE__);
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token4.GetExpr())) return false;
+			if (!token1.GetExpr()->IsCaller()) {
+				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(elem1.GetExpr());
+			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(token1.GetExpr());
 			Expr_Caller *pExprCaller = nullptr;
-			if (elem2.GetExpr()->IsCaller()) {
-				pExprCaller = dynamic_cast<Expr_Caller *>(elem2.GetExpr());
+			if (token2.GetExpr()->IsCaller()) {
+				pExprCaller = dynamic_cast<Expr_Caller *>(token2.GetExpr());
 				pExprCaller->GetLastTrailer()->SetBlock(pExprBlock);
 			} else {
-				pExprCaller = CreateCaller(env, elem2.GetExpr(), nullptr, pExprBlock, pExprLeader);
+				pExprCaller = CreateCaller(env, token2.GetExpr(), nullptr, pExprBlock, pExprLeader);
 				if (pExprCaller == nullptr) goto error_done;
 			}
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (elem5.IsType(ETYPE_Comma) ||
-					elem5.IsType(ETYPE_Semicolon) || elem5.IsType(ETYPE_EOL)) {
+		} else if (token5.IsType(ETYPE_Comma) ||
+					token5.IsType(ETYPE_Semicolon) || token5.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
-				elem3.SetExpr(pExprBlock);
+				token3.SetExpr(pExprBlock);
 			}
-			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, elem4.GetExpr())) return false;
-			_elemStack.pop_back();
-			_elemStack.pop_back();
+			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token4.GetExpr())) return false;
+			_tokenStack.pop_back();
+			_tokenStack.pop_back();
 			return true;
 		} else {
-			SetError_InvalidElement(__LINE__);
+			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
 	} else {
-		SetError_InvalidElement(__LINE__);
+		SetError_InvalidToken(__LINE__);
 		goto error_done;
 	}
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
-	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
+	_tokenStack.push_back(Token(ETYPE_Expr, pExpr));
 	return true;
 error_done:
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
-	_elemStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
+	_tokenStack.pop_back();
 	return false;
 }
 
@@ -2419,79 +2419,79 @@ void Parser::SetError(ErrorType errType, const char *format, ...)
 	va_end(ap);
 }
 
-void Parser::SetError_InvalidElement()
+void Parser::SetError_InvalidToken()
 {
-	SetError(ERR_SyntaxError, "invalid element");
+	SetError(ERR_SyntaxError, "invalid token");
 }
 
-void Parser::SetError_InvalidElement(int lineno)
+void Parser::SetError_InvalidToken(int lineno)
 {
-	SetError(ERR_SyntaxError, "invalid element (%d) .. %s", lineno,
-										_elemStack.ToString().c_str());
+	SetError(ERR_SyntaxError, "invalid token (%d) .. %s", lineno,
+										_tokenStack.ToString().c_str());
 }
 
-const Parser::ElemTypeInfo *Parser::LookupElemTypeInfo(ElemType elemType)
+const Parser::TokenTypeInfo *Parser::LookupTokenTypeInfo(TokenType tokenType)
 {
-	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
-										p->elemType != ETYPE_Unknown; p++) {
-		if (p->elemType == elemType) return p;
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
+										p->tokenType != ETYPE_Unknown; p++) {
+		if (p->tokenType == tokenType) return p;
 	}
 	return nullptr;
 }
 
-const Parser::ElemTypeInfo *Parser::LookupElemTypeInfoByOpType(OpType opType)
+const Parser::TokenTypeInfo *Parser::LookupTokenTypeInfoByOpType(OpType opType)
 {
-	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
-										p->elemType != ETYPE_Unknown; p++) {
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
+										p->tokenType != ETYPE_Unknown; p++) {
 		if (p->opType == opType) return p;
 	}
 	return nullptr;
 }
 
 //-----------------------------------------------------------------------------
-// Parser::ElementStack
+// Parser::TokenStack
 //-----------------------------------------------------------------------------
-Parser::ElementStack::~ElementStack()
+Parser::TokenStack::~TokenStack()
 {
 }
 
-Parser::ElementStack::reverse_iterator
-					Parser::ElementStack::SeekTerminal(reverse_iterator p)
+Parser::TokenStack::reverse_iterator
+					Parser::TokenStack::SeekTerminal(reverse_iterator p)
 {
 	for ( ; p->IsType(ETYPE_Expr); p++) ;
 	return p;
 }
 
-void Parser::ElementStack::Clear()
+void Parser::TokenStack::Clear()
 {
-	foreach (ElementStack, pElem, *this) {
-		Expr::Delete(pElem->GetExpr());
+	foreach (TokenStack, pToken, *this) {
+		Expr::Delete(pToken->GetExpr());
 	}
 	clear();
 }
 
-String Parser::ElementStack::ToString() const
+String Parser::TokenStack::ToString() const
 {
 	String rtn;
-	foreach_const (ElementStack, pElement, *this) {
-		if (pElement != begin()) rtn.append(" ");
-		rtn.append(pElement->GetTypeSymbol());
+	foreach_const (TokenStack, pToken, *this) {
+		if (pToken != begin()) rtn.append(" ");
+		rtn.append(pToken->GetTypeSymbol());
 	}
 	return rtn;
 }
 
 //-----------------------------------------------------------------------------
-// Parser::Element
+// Parser::Token
 //-----------------------------------------------------------------------------
-const Parser::Element Parser::Element::Unknown;
+const Parser::Token Parser::Token::Unknown;
 
-Parser::Element::~Element()
+Parser::Token::~Token()
 {
 }
 
-const char *Parser::Element::GetTypeSymbol() const
+const char *Parser::Token::GetTypeSymbol() const
 {
-	const ElemTypeInfo *p = LookupElemTypeInfo(_elemType);
+	const TokenTypeInfo *p = LookupTokenTypeInfo(_tokenType);
 	return (p == nullptr)? "[unk]" : p->symbol;
 }
 

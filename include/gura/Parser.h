@@ -61,7 +61,7 @@ public:
 		PREC_GT,
 		PREC_Error,
 	};
-	enum ElemType {
+	enum TokenType {
 		ETYPE_Begin,
 		ETYPE_Assign,
 		ETYPE_AssignAdd,
@@ -109,14 +109,14 @@ public:
 		ETYPE_ColonColon,
 		ETYPE_ColonAsterisk,
 		ETYPE_ColonAnd,
-		ETYPE_LParenthesis,		// open element
-		ETYPE_RParenthesis,		// close element
-		ETYPE_LBrace,			// open element
-		ETYPE_RBrace,			// close element
-		ETYPE_LBracket,			// open element
-		ETYPE_RBracket,			// close element
-		ETYPE_LBlockParam,		// open element
-		ETYPE_RBlockParam,		// close element
+		ETYPE_LParenthesis,		// open token
+		ETYPE_RParenthesis,		// close token
+		ETYPE_LBrace,			// open token
+		ETYPE_RBrace,			// close token
+		ETYPE_LBracket,			// open token
+		ETYPE_RBracket,			// close token
+		ETYPE_LBlockParam,		// open token
+		ETYPE_RBlockParam,		// close token
 		ETYPE_Comma,
 		ETYPE_Semicolon,
 		ETYPE_EOL,
@@ -133,14 +133,14 @@ public:
 		ETYPE_DoubleChars,		// only used in tokenizing process
 		ETYPE_TripleChars,		// only used in tokenizing process
 	};
-	struct ElemTypeInfo {
-		ElemType elemType;
+	struct TokenTypeInfo {
+		TokenType tokenType;
 		int index;
 		const char *name;
 		const char *symbol;
 		OpType opType;
 	};
-	typedef std::map<ElemType, int> ElemTypeToIndexMap;
+	typedef std::map<TokenType, int> TokenTypeToIndexMap;
 	struct StringInfo {
 		char chBorder;
 		bool rawFlag;		// prefixed by 'r' or 'R'
@@ -152,13 +152,13 @@ public:
 		ULong accum;
 		String strIndentRef;
 	};
-	class GURA_DLLDECLARE Element {
+	class GURA_DLLDECLARE Token {
 	private:
-		ElemType _elemType;
+		TokenType _tokenType;
 		int _lineNo;
 		String _str;
 		String _suffix;
-		// _pExpr is only available for the following element types.
+		// _pExpr is only available for the following token types.
 		// ETYPE_Expr          (Expr)
 		// ETYPE_LParenthesis  (Expr_Lister)
 		// ETYPE_LBrace        (Expr_Block)
@@ -166,42 +166,42 @@ public:
 		// ETYPE_LBlockParam   (Expr_BlockParam)
 		Expr *_pExpr;
 	public:
-		static const Element Unknown;
+		static const Token Unknown;
 	public:
-		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(nullptr) {}
-		inline Element(const Element &elem) :
-					_elemType(elem._elemType), _lineNo(elem._lineNo), _str(elem._str),
-					_suffix(elem._suffix), _pExpr(elem._pExpr) {}
-		inline Element(ElemType elemType, int lineNo) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(nullptr) {}
-		inline Element(ElemType elemType, int lineNo, const String &str) :
-					_elemType(elemType), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
-		inline Element(ElemType elemType, int lineNo, const String &str, const String &suffix) :
-					_elemType(elemType), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
-		inline Element(ElemType elemType, Expr *pExpr) :
-					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
-		inline Element &operator=(const Element &elem) {
-			_elemType = elem._elemType, _lineNo = elem._lineNo, _pExpr = elem._pExpr;
-			_str = elem._str, _suffix = elem._suffix;
+		inline Token() : _tokenType(ETYPE_Unknown), _lineNo(0), _pExpr(nullptr) {}
+		inline Token(const Token &token) :
+					_tokenType(token._tokenType), _lineNo(token._lineNo), _str(token._str),
+					_suffix(token._suffix), _pExpr(token._pExpr) {}
+		inline Token(TokenType tokenType, int lineNo) :
+					_tokenType(tokenType), _lineNo(lineNo), _pExpr(nullptr) {}
+		inline Token(TokenType tokenType, int lineNo, const String &str) :
+					_tokenType(tokenType), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
+		inline Token(TokenType tokenType, int lineNo, const String &str, const String &suffix) :
+					_tokenType(tokenType), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
+		inline Token(TokenType tokenType, Expr *pExpr) :
+					_tokenType(tokenType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
+		inline Token &operator=(const Token &token) {
+			_tokenType = token._tokenType, _lineNo = token._lineNo, _pExpr = token._pExpr;
+			_str = token._str, _suffix = token._suffix;
 			return *this;
 		}
-		~Element();
-		inline ElemType GetType() const { return _elemType; }
+		~Token();
+		inline TokenType GetType() const { return _tokenType; }
 		inline int GetLineNo() const { return _lineNo; }
-		inline bool IsType(ElemType elemType) const { return _elemType == elemType; }
-		inline bool IsOpenElement() const {
+		inline bool IsType(TokenType tokenType) const { return _tokenType == tokenType; }
+		inline bool IsOpenToken() const {
 			return IsType(ETYPE_LParenthesis) || IsType(ETYPE_LBrace) ||
 					IsType(ETYPE_LBracket) || IsType(ETYPE_LBlockParam);
 		}
-		inline bool IsCloseElement() const {
+		inline bool IsCloseToken() const {
 			return IsType(ETYPE_RParenthesis) || IsType(ETYPE_RBrace) ||
 					IsType(ETYPE_RBracket) || IsType(ETYPE_RBlockParam);
 		}
-		inline bool IsSeparatorElement() const {
+		inline bool IsSeparatorToken() const {
 			return IsType(ETYPE_EOL) || IsType(ETYPE_EOF) ||
 								IsType(ETYPE_Comma) || IsType(ETYPE_Semicolon);
 		}
-		inline bool IsSuffixElement() const {
+		inline bool IsSuffixToken() const {
 			return IsType(ETYPE_Add) ||
 						IsType(ETYPE_Mul) || IsType(ETYPE_Question);
 		}
@@ -215,11 +215,11 @@ public:
 		inline void AddString(const String &str) { _str.append(str); }
 		const char *GetTypeSymbol() const;
 	};
-	class GURA_DLLDECLARE ElementStack : public std::vector<Element> {
+	class GURA_DLLDECLARE TokenStack : public std::vector<Token> {
 	public:
-		~ElementStack();
+		~TokenStack();
 		reverse_iterator SeekTerminal(reverse_iterator p);
-		Element &Peek(int offset) { return *(rbegin() + offset); }
+		Token &Peek(int offset) { return *(rbegin() + offset); }
 		void Clear();
 		String ToString() const;
 	};
@@ -238,16 +238,16 @@ private:
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
-	ElemType _elemTypePrev;
-	int _lineNoOfElemPrev;
-	ElementStack _elemStack;
+	TokenType _tokenTypePrev;
+	int _lineNoOfTokenPrev;
+	TokenStack _tokenStack;
 	StringInfo _stringInfo;
-	ElemTypeToIndexMap _elemTypeToIndexMap;
+	TokenTypeToIndexMap _tokenTypeToIndexMap;
 	CharConverter _charConverter;
 	String _strIndent;
 	bool _enablePreparatorFlag;
 	bool _interactiveFlag;
-	static const ElemTypeInfo _elemTypeInfoTbl[];
+	static const TokenTypeInfo _tokenTypeInfoTbl[];
 public:
 	Parser(Signal &sig, const String &sourceName,
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
@@ -263,14 +263,14 @@ public:
 		return ParseString(env, exprOwner, str, ::strlen(str), parseNullFlag);
 	}
 	void EvalConsoleChar(Environment &env, Expr_Root *pExprRoot, Stream *pConsole, char ch);
-	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
+	inline bool IsStackEmpty() const { return _tokenStack.size() <= 1; }
 	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
 	inline int GetLineNo() const { return _cntLine + 1; }
 	inline int GetColPos() const { return _cntCol; }
-	inline int ElemTypeToIndex(ElemType elemType) { return _elemTypeToIndexMap[elemType]; }
-	static const ElemTypeInfo *LookupElemTypeInfo(ElemType elemType);
-	static const ElemTypeInfo *LookupElemTypeInfoByOpType(OpType opType);
-	static Precedence LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight);
+	inline int TokenTypeToIndex(TokenType tokenType) { return _tokenTypeToIndexMap[tokenType]; }
+	static const TokenTypeInfo *LookupTokenTypeInfo(TokenType tokenType);
+	static const TokenTypeInfo *LookupTokenTypeInfoByOpType(OpType opType);
+	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
 	static int CompareOpTypePrec(OpType opType1, OpType opType2);
 	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
 	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
@@ -280,22 +280,22 @@ private:
 		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
 		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
 	bool CheckBlockParamEnd() const;
-	static ElemType ElemTypeForString(const StringInfo &stringInfo);
+	static TokenType TokenTypeForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &field);
-	void SetError_InvalidElement();
-	void SetError_InvalidElement(int lineno);
+	void SetError_InvalidToken();
+	void SetError_InvalidToken(int lineno);
 	static Precedence _LookupPrec(int indexLeft, int indexRight);
-	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
-		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
+	inline  Precedence LookupPrecFast(TokenType tokenTypeLeft, TokenType tokenTypeRight) {
+		return _LookupPrec(TokenTypeToIndex(tokenTypeLeft), TokenTypeToIndex(tokenTypeRight));
 	}
-	bool FeedElement(Environment &env, const Element &elem);
-	bool _FeedElement(Environment &env, const Element &elem);
+	bool FeedToken(Environment &env, const Token &token);
+	bool _FeedToken(Environment &env, const Token &token);
 	bool EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr);
-	bool ReduceOneElem(Environment &env);
-	bool ReduceTwoElems(Environment &env);
-	bool ReduceThreeElems(Environment &env);
-	bool ReduceFourElems(Environment &env);
-	bool ReduceFiveElems(Environment &env);
+	bool ReduceOneToken(Environment &env);
+	bool ReduceTwoTokens(Environment &env);
+	bool ReduceThreeTokens(Environment &env);
+	bool ReduceFourTokens(Environment &env);
+	bool ReduceFiveTokens(Environment &env);
 };
 
 }
