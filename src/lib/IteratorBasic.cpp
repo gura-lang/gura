@@ -8,7 +8,7 @@ namespace Gura {
 static bool PrepareRepeaterIterators(Environment &env,
 	const ValueList &valListArg, ExprList &exprLeftList, IteratorOwner &iteratorOwner);
 
-//-----------------------------------------------------------------------------
+///-----------------------------------------------------------------------------
 // Iterator_GenericClone
 //-----------------------------------------------------------------------------
 Iterator *Iterator_GenericClone::GetSource()
