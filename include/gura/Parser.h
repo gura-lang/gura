@@ -62,76 +62,76 @@ public:
 		PREC_Error,
 	};
 	enum TokenType {
-		ETYPE_Begin,
-		ETYPE_Assign,
-		ETYPE_AssignAdd,
-		ETYPE_AssignSub,
-		ETYPE_AssignMul,
-		ETYPE_AssignDiv,
-		ETYPE_AssignMod,
-		ETYPE_AssignPow,
-		ETYPE_AssignOr,
-		ETYPE_AssignAnd,
-		ETYPE_AssignXor,
-		ETYPE_AssignShl,
-		ETYPE_AssignShr,
-		ETYPE_Pair,
-		ETYPE_OrOr,
-		ETYPE_AndAnd,
-		ETYPE_Not,
-		ETYPE_Contains,
-		ETYPE_Lt,
-		ETYPE_Gt,
-		ETYPE_Le,
-		ETYPE_Ge,
-		ETYPE_Cmp,
-		ETYPE_Eq,
-		ETYPE_Ne,
-		ETYPE_Seq,
-		ETYPE_Or,
-		ETYPE_Xor,
-		ETYPE_And,
-		ETYPE_Shl,
-		ETYPE_Shr,
-		ETYPE_Add,
-		ETYPE_Sub,
-		ETYPE_Mul,
-		ETYPE_Div,
-		ETYPE_Mod,
-		ETYPE_ModMod,
-		ETYPE_Question,
-		ETYPE_Inv,
-		ETYPE_Pow,
-		ETYPE_Quote,
-		ETYPE_Colon,
-		ETYPE_ColonAfterSuffix,
-		ETYPE_Dot,
-		ETYPE_ColonColon,
-		ETYPE_ColonAsterisk,
-		ETYPE_ColonAnd,
-		ETYPE_LParenthesis,		// open token
-		ETYPE_RParenthesis,		// close token
-		ETYPE_LBrace,			// open token
-		ETYPE_RBrace,			// close token
-		ETYPE_LBracket,			// open token
-		ETYPE_RBracket,			// close token
-		ETYPE_LBlockParam,		// open token
-		ETYPE_RBlockParam,		// close token
-		ETYPE_Comma,
-		ETYPE_Semicolon,
-		ETYPE_EOL,
-		ETYPE_Number,
-		ETYPE_NumberSuffixed,
-		ETYPE_String,
-		ETYPE_StringSuffixed,
-		ETYPE_Binary,
-		ETYPE_EmbedString,
-		ETYPE_Symbol,
-		ETYPE_EOF,
-		ETYPE_Expr,
-		ETYPE_Unknown,
-		ETYPE_DoubleChars,		// only used in tokenizing process
-		ETYPE_TripleChars,		// only used in tokenizing process
+		TOKEN_Begin,
+		TOKEN_Assign,
+		TOKEN_AssignAdd,
+		TOKEN_AssignSub,
+		TOKEN_AssignMul,
+		TOKEN_AssignDiv,
+		TOKEN_AssignMod,
+		TOKEN_AssignPow,
+		TOKEN_AssignOr,
+		TOKEN_AssignAnd,
+		TOKEN_AssignXor,
+		TOKEN_AssignShl,
+		TOKEN_AssignShr,
+		TOKEN_Pair,
+		TOKEN_OrOr,
+		TOKEN_AndAnd,
+		TOKEN_Not,
+		TOKEN_Contains,
+		TOKEN_Lt,
+		TOKEN_Gt,
+		TOKEN_Le,
+		TOKEN_Ge,
+		TOKEN_Cmp,
+		TOKEN_Eq,
+		TOKEN_Ne,
+		TOKEN_Seq,
+		TOKEN_Or,
+		TOKEN_Xor,
+		TOKEN_And,
+		TOKEN_Shl,
+		TOKEN_Shr,
+		TOKEN_Add,
+		TOKEN_Sub,
+		TOKEN_Mul,
+		TOKEN_Div,
+		TOKEN_Mod,
+		TOKEN_ModMod,
+		TOKEN_Question,
+		TOKEN_Inv,
+		TOKEN_Pow,
+		TOKEN_Quote,
+		TOKEN_Colon,
+		TOKEN_ColonAfterSuffix,
+		TOKEN_Dot,
+		TOKEN_ColonColon,
+		TOKEN_ColonAsterisk,
+		TOKEN_ColonAnd,
+		TOKEN_LParenthesis,		// open token
+		TOKEN_RParenthesis,		// close token
+		TOKEN_LBrace,			// open token
+		TOKEN_RBrace,			// close token
+		TOKEN_LBracket,			// open token
+		TOKEN_RBracket,			// close token
+		TOKEN_LBlockParam,		// open token
+		TOKEN_RBlockParam,		// close token
+		TOKEN_Comma,
+		TOKEN_Semicolon,
+		TOKEN_EOL,
+		TOKEN_Number,
+		TOKEN_NumberSuffixed,
+		TOKEN_String,
+		TOKEN_StringSuffixed,
+		TOKEN_Binary,
+		TOKEN_EmbedString,
+		TOKEN_Symbol,
+		TOKEN_EOF,
+		TOKEN_Expr,
+		TOKEN_Unknown,
+		TOKEN_DoubleChars,		// only used in tokenizing process
+		TOKEN_TripleChars,		// only used in tokenizing process
 	};
 	struct TokenTypeInfo {
 		TokenType tokenType;
@@ -159,16 +159,16 @@ public:
 		String _str;
 		String _suffix;
 		// _pExpr is only available for the following token types.
-		// ETYPE_Expr          (Expr)
-		// ETYPE_LParenthesis  (Expr_Lister)
-		// ETYPE_LBrace        (Expr_Block)
-		// ETYPE_LBracket      (Expr_Lister)
-		// ETYPE_LBlockParam   (Expr_BlockParam)
+		// TOKEN_Expr          (Expr)
+		// TOKEN_LParenthesis  (Expr_Lister)
+		// TOKEN_LBrace        (Expr_Block)
+		// TOKEN_LBracket      (Expr_Lister)
+		// TOKEN_LBlockParam   (Expr_BlockParam)
 		Expr *_pExpr;
 	public:
 		static const Token Unknown;
 	public:
-		inline Token() : _tokenType(ETYPE_Unknown), _lineNo(0), _pExpr(nullptr) {}
+		inline Token() : _tokenType(TOKEN_Unknown), _lineNo(0), _pExpr(nullptr) {}
 		inline Token(const Token &token) :
 					_tokenType(token._tokenType), _lineNo(token._lineNo), _str(token._str),
 					_suffix(token._suffix), _pExpr(token._pExpr) {}
@@ -190,20 +190,20 @@ public:
 		inline int GetLineNo() const { return _lineNo; }
 		inline bool IsType(TokenType tokenType) const { return _tokenType == tokenType; }
 		inline bool IsOpenToken() const {
-			return IsType(ETYPE_LParenthesis) || IsType(ETYPE_LBrace) ||
-					IsType(ETYPE_LBracket) || IsType(ETYPE_LBlockParam);
+			return IsType(TOKEN_LParenthesis) || IsType(TOKEN_LBrace) ||
+					IsType(TOKEN_LBracket) || IsType(TOKEN_LBlockParam);
 		}
 		inline bool IsCloseToken() const {
-			return IsType(ETYPE_RParenthesis) || IsType(ETYPE_RBrace) ||
-					IsType(ETYPE_RBracket) || IsType(ETYPE_RBlockParam);
+			return IsType(TOKEN_RParenthesis) || IsType(TOKEN_RBrace) ||
+					IsType(TOKEN_RBracket) || IsType(TOKEN_RBlockParam);
 		}
 		inline bool IsSeparatorToken() const {
-			return IsType(ETYPE_EOL) || IsType(ETYPE_EOF) ||
-								IsType(ETYPE_Comma) || IsType(ETYPE_Semicolon);
+			return IsType(TOKEN_EOL) || IsType(TOKEN_EOF) ||
+								IsType(TOKEN_Comma) || IsType(TOKEN_Semicolon);
 		}
 		inline bool IsSuffixToken() const {
-			return IsType(ETYPE_Add) ||
-						IsType(ETYPE_Mul) || IsType(ETYPE_Question);
+			return IsType(TOKEN_Add) ||
+						IsType(TOKEN_Mul) || IsType(TOKEN_Question);
 		}
 		inline Expr *GetExpr() const { return _pExpr; }
 		inline void SetExpr(Expr *pExpr) { _pExpr = pExpr; }
