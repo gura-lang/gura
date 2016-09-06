@@ -234,7 +234,7 @@ private:
 	int _cntCol;
 	int _commentNestLevel;
 	AutoPtr<StringShared> _pSourceName;
-	String _token;
+	String _field;
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
@@ -281,7 +281,7 @@ private:
 		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
 	bool CheckBlockParamEnd() const;
 	static ElemType ElemTypeForString(const StringInfo &stringInfo);
-	static bool CheckStringPrefix(StringInfo &stringInfo, const String &token);
+	static bool CheckStringPrefix(StringInfo &stringInfo, const String &field);
 	void SetError_InvalidElement();
 	void SetError_InvalidElement(int lineno);
 	static Precedence _LookupPrec(int indexLeft, int indexRight);

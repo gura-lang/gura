@@ -50,8 +50,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 	switch (_stat) {
 	case STAT_BOF: {
 		if (ch == '\xef') {
-			_token.clear();
-			_token.push_back(ch);
+			_field.clear();
+			_field.push_back(ch);
 			_stat = STAT_BOF_2nd;
 		} else {
 			Gura_Pushback();
@@ -61,7 +61,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_BOF_2nd: {
 		if (ch == '\xbb') {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_BOF_3rd;
 		} else {
 			Gura_Pushback();
@@ -80,24 +80,24 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_Start: {
 		if (ch == '0') {
-			_token.clear();
-			_token.push_back(ch);
+			_field.clear();
+			_field.push_back(ch);
 			_stat = STAT_NumberPre;
 		} else if (IsDigit(ch)) {
-			_token.clear();
-			_token.push_back(ch);
+			_field.clear();
+			_field.push_back(ch);
 			_stat = STAT_Number;
 		} else if (ch == '.') {
-			_token.clear();
-			_token.push_back(ch);
+			_field.clear();
+			_field.push_back(ch);
 			_stat = STAT_NumberAfterDot;
 		} else if (IsWhite(ch)) {
 			// nothing to do
 		} else if (ch == '\x0c') { // page-break
 			// nothing to do
 		} else if (IsSymbolFirstChar(ch)) {
-			_token.clear();
-			_token.push_back(ch);
+			_field.clear();
+			_field.push_back(ch);
 			_stat = STAT_Symbol;
 		} else if (ch == '"' || ch == '\'') {
 			_stringInfo.chBorder = ch;
@@ -105,7 +105,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.binaryFlag = false;
 			_stringInfo.wiseFlag = false;
 			_stringInfo.embedFlag = false;
-			_token.clear();
+			_field.clear();
 			_stat = STAT_StringFirst;
 		} else if (ch == '\\') {
 			_stat = STAT_Escape;
@@ -175,13 +175,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 				SetError(ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
 				_stat = STAT_Error;
 			} else if (tbl[i].elemType == ETYPE_DoubleChars) {
-				_token.clear();
-				_token.push_back(ch);
+				_field.clear();
+				_field.push_back(ch);
 				_stat = STAT_DoubleChars;
 			} else if (_elemStack.back().IsType(ETYPE_Quote)) {
-				_token.clear();
-				_token.push_back(ch);
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				_field.clear();
+				_field.push_back(ch);
+				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
 				FeedElement(env, Element(tbl[i].elemType, GetLineNo()));
@@ -244,7 +244,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				{ '=', ETYPE_AssignXor		},
 				{ '\0', ETYPE_Unknown		}, } },
 		};
-		int chFirst = _token[0];
+		int chFirst = _field[0];
 		if (chFirst == '/' && ch == '*') {
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
@@ -267,7 +267,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 					if (tbl[i].tblCand[j].chSecond == '\0') break;
 					if (tbl[i].tblCand[j].chSecond != ch) continue;
-					_token.push_back(ch);
+					_field.push_back(ch);
 					elemType = tbl[i].tblCand[j].elemType;
 					Gura_PushbackCond(false);
 					break;
@@ -275,7 +275,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				if (elemType == ETYPE_TripleChars) {
 					_stat = STAT_TripleChars;
 				} else if (_elemStack.back().IsType(ETYPE_Quote)) {
-					FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+					FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
 					FeedElement(env, Element(elemType, GetLineNo()));
@@ -312,18 +312,18 @@ bool Parser::ParseChar(Environment &env, char ch)
 		Gura_Pushback();
 		_stat = STAT_Start;
 		for (size_t i = 0; i < ArraySizeOf(tbl); i++) {
-			if (_token.compare(tbl[i].strFirst) != 0) continue;
+			if (_field.compare(tbl[i].strFirst) != 0) continue;
 			ElemType elemType = tbl[i].elemType;
 			for (size_t j = 0; j < ArraySizeOf(tbl[i].tblCand); j++) {
 				if (tbl[i].tblCand[j].chThird == '\0') break;
 				if (tbl[i].tblCand[j].chThird != ch) continue;
-				_token.push_back(ch);
+				_field.push_back(ch);
 				elemType = tbl[i].tblCand[j].elemType;
 				Gura_PushbackCond(false);
 				break;
 			}
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
 				FeedElement(env, Element(elemType, GetLineNo()));
@@ -402,13 +402,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberPre: {
 		if (ch == 'x' || ch == 'X') {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberHex;
 		} else if (ch == 'b' || ch == 'B') {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberBin;
 		} else if(IsOctDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberOct;
 		} else {
 			Gura_Pushback();
@@ -418,8 +418,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberHex: {
 		if (IsHexDigit(ch)) {
-			_token.push_back(ch);
-		} else if (_token.size() <= 2) {
+			_field.push_back(ch);
+		} else if (_field.size() <= 2) {
 			SetError(ERR_SyntaxError, "wrong format of hexadecimal number");
 			Gura_Pushback();
 			_stat = STAT_Error;
@@ -428,7 +428,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -436,13 +436,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberOct: {
 		if (IsOctDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -450,8 +450,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberBin: {
 		if (IsBinDigit(ch)) {
-			_token.push_back(ch);
-		} else if (_token.size() <= 2) {
+			_field.push_back(ch);
+		} else if (_field.size() <= 2) {
 			SetError(ERR_SyntaxError, "wrong format of binary number");
 			Gura_Pushback();
 			_stat = STAT_Error;
@@ -460,7 +460,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -469,14 +469,14 @@ bool Parser::ParseChar(Environment &env, char ch)
 	case STAT_NumberAfterDot: {
 		if (ch == '.') {
 			if (_elemStack.back().IsType(ETYPE_Quote)) {
-				_token.push_back(ch);
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				_field.push_back(ch);
+				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 			} else {
 				FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
 			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		} else if (IsDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_Number;
 		} else {
 			FeedElement(env, Element(ETYPE_Dot, GetLineNo()));
@@ -487,31 +487,31 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_Number: {
 		if (IsDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		} else if (ch == '.') {
-			size_t pos = _token.find('.');
-			if (pos == _token.length() - 1) {
-				_token.resize(pos);
-				FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			size_t pos = _field.find('.');
+			if (pos == _field.length() - 1) {
+				_field.resize(pos);
+				FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 				if (!sig.IsSignalled()) {
 					FeedElement(env, Element(ETYPE_Seq, GetLineNo()));
 				}
 				_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 			} else if (pos == String::npos) {
-				_token.push_back(ch);
+				_field.push_back(ch);
 			} else {
 				SetError(ERR_SyntaxError, "dot has already been scanned");
 				_stat = STAT_Error;
 			}
 		} else if (ch == 'e' || ch == 'E') {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberExpAfterE;
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -519,10 +519,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberExpAfterE: {
 		if (IsDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberExp;
 		} else if (ch == '+' || ch == '-') {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberExpAfterSign;
 		} else {
 			SetError(ERR_SyntaxError, "wrong exponential expression");
@@ -532,7 +532,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberExpAfterSign: {
 		if (IsDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_NumberExp;
 		} else {
 			SetError(ERR_SyntaxError, "wrong exponential expression");
@@ -542,13 +542,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberExp: {
 		if (IsDigit(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		} else if (IsSymbolFirstChar(ch)) {
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_NumberSuffixed;
 		} else {
-			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Number, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -559,7 +559,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 		} else {
 			FeedElement(env, Element(ETYPE_NumberSuffixed,
-											 GetLineNo(), _token, _suffix));
+											 GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -567,18 +567,18 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_Symbol: {
 		if (IsSymbolChar(ch)) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		} else if (ch == '!') {
 			_stat = STAT_SymbolExclamation;
-		} else if ((ch == '"' || ch == '\'') && CheckStringPrefix(_stringInfo, _token)) {
+		} else if ((ch == '"' || ch == '\'') && CheckStringPrefix(_stringInfo, _field)) {
 			_stringInfo.chBorder = ch;
-			_token.clear();
+			_field.clear();
 			_stat = STAT_StringFirst;
 		} else {
-			if (_token == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
+			if (_field == "in" && !_elemStack.back().IsType(ETYPE_Quote)) {
 				FeedElement(env, Element(ETYPE_Contains, GetLineNo()));
 			} else {
-				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+				FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 			}
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -587,16 +587,16 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_SymbolExclamation: {
 		if (ch == '=' || ch == '!') {
-			FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _token));
+			FeedElement(env, Element(ETYPE_Symbol, GetLineNo(), _field));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else {
-				_token.clear();
-				_token.push_back('!');
+				_field.clear();
+				_field.push_back('!');
 				_stat = STAT_DoubleChars;
 			}
 		} else {
-			_token.push_back('!');
+			_field.push_back('!');
 			Gura_Pushback();
 			_stat = STAT_Symbol;
 		}
@@ -699,7 +699,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			FeedElement(env, Element(elemType, GetLineNo(), _token));
+			FeedElement(env, Element(elemType, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -715,7 +715,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		}
 		break;
 	}
@@ -738,10 +738,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else if (ch == '\n' && _stringInfo.wiseFlag) {
-			_token.push_back(ch);
+			_field.push_back(ch);
 			_stat = STAT_MStringLineHead;
 		} else {
-			_token.push_back(ch);
+			_field.push_back(ch);
 		}
 		break;
 	}
@@ -749,12 +749,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsWhite(ch)) {
 			if (_strIndent.size() == _stringInfo.strIndentRef.size()) {
 				if (_strIndent != _stringInfo.strIndentRef) {
-					_token += _strIndent;
+					_field += _strIndent;
 				}
 				_stat = STAT_MString;
 			}
 		} else {
-			_token += _strIndent;
+			_field += _strIndent;
 			Gura_Pushback();
 			_stat = STAT_MString;
 		}
@@ -762,8 +762,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringEsc: {
 		if (_stringInfo.rawFlag) {
-			_token.push_back('\\');
-			_token.push_back(ch);
+			_field.push_back('\\');
+			_field.push_back(ch);
 			_stat = _stringInfo.statRtn;
 		} else {
 			if (ch == '\n') {
@@ -785,7 +785,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stringInfo.cntRest = 8;
 				_stat = STAT_StringEscUnicode;
 			} else {
-				_token.push_back(GetEscaped(ch));
+				_field.push_back(GetEscaped(ch));
 				_stat = _stringInfo.statRtn;
 			}
 		}
@@ -796,7 +796,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
-				_token.push_back(static_cast<char>(_stringInfo.accum));
+				_field.push_back(static_cast<char>(_stringInfo.accum));
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
@@ -810,7 +810,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.accum = (_stringInfo.accum << 3) + ConvOctDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
-				_token.push_back(static_cast<char>(_stringInfo.accum));
+				_field.push_back(static_cast<char>(_stringInfo.accum));
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
@@ -824,7 +824,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
-				AppendUTF32(_token, _stringInfo.accum);
+				AppendUTF32(_field, _stringInfo.accum);
 				_stat = _stringInfo.statRtn;
 			}
 		} else {
@@ -851,7 +851,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (ch == _stringInfo.chBorder) {
 			_stat = STAT_MStringEndSecond;
 		} else {
-			_token.push_back(_stringInfo.chBorder);
+			_field.push_back(_stringInfo.chBorder);
 			Gura_Pushback();
 			_stat = STAT_MString;
 		}
@@ -861,8 +861,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (ch == _stringInfo.chBorder) {
 			_stat = STAT_StringPost;
 		} else {
-			_token.push_back(_stringInfo.chBorder);
-			_token.push_back(_stringInfo.chBorder);
+			_field.push_back(_stringInfo.chBorder);
+			_field.push_back(_stringInfo.chBorder);
 			Gura_Pushback();
 			_stat = STAT_MString;
 		}
@@ -875,7 +875,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
-			FeedElement(env, Element(elemType, GetLineNo(), _token));
+			FeedElement(env, Element(elemType, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -886,7 +886,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 		} else {
 			FeedElement(env, Element(ETYPE_StringSuffixed,
-												GetLineNo(), _token, _suffix));
+												GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -954,13 +954,13 @@ Parser::ElemType Parser::ElemTypeForString(const StringInfo &stringInfo)
 		stringInfo.embedFlag? ETYPE_EmbedString : ETYPE_String;
 }
 
-bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
+bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &field)
 {
 	stringInfo.rawFlag = false;
 	stringInfo.binaryFlag = false;
 	stringInfo.wiseFlag = false;
 	stringInfo.embedFlag = false;
-	foreach_const (String, p, token) {
+	foreach_const (String, p, field) {
 		char ch = *p;
 		if (ch == 'r') {
 			if (stringInfo.rawFlag) return false;
