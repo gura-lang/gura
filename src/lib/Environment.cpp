@@ -69,6 +69,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	OAL::Initialize();
 	Symbol::Initialize();
 	Codec::Initialize();
+	Parser::Initialize();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
 	Random::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);

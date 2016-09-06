@@ -10,6 +10,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
+Parser::TokenTypeToIndexMap *Parser::_pTokenTypeToIndexMap = nullptr;
+
 Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool enablePreparatorFlag) :
 	_sig(sig), _stat(STAT_BOF), _lineHeadFlag(true),
 	_appearShebangFlag(false), _blockParamFlag(false),
@@ -19,14 +21,19 @@ Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool ena
 	_enablePreparatorFlag(enablePreparatorFlag), _interactiveFlag(false)
 {
 	InitStack();
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
-										p->tokenType != TOKEN_Unknown; p++) {
-		_tokenTypeToIndexMap[p->tokenType] = p->index;
-	}
 }
 
 Parser::~Parser()
 {
+}
+
+void Parser::Initialize()
+{
+	if (_pTokenTypeToIndexMap != nullptr) return;
+	_pTokenTypeToIndexMap = new TokenTypeToIndexMap();
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
+		(*_pTokenTypeToIndexMap)[p->tokenType] = p->index;
+	}
 }
 
 void Parser::InitStack()
@@ -558,8 +565,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			FeedToken(env, Token(TOKEN_NumberSuffixed,
-											 GetLineNo(), _field, _suffix));
+			FeedToken(env, Token(TOKEN_NumberSuffixed, GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -885,8 +891,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			FeedToken(env, Token(TOKEN_StringSuffixed,
-												GetLineNo(), _field, _suffix));
+			FeedToken(env, Token(TOKEN_StringSuffixed, GetLineNo(), _field, _suffix));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -1246,7 +1251,6 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 	if (_interactiveFlag || _tokenTypePrev == TOKEN_RBrace) {
 		_tokenTypePrev = token.GetType();
 		_lineNoOfTokenPrev = token.GetLineNo();
-		return _FeedToken(env, token);
 	} else {
 		// Ignores EOL before a left brace-bracket so the bracket character appears to
 		// be joined with the content in the previous line without a line break.
@@ -1261,8 +1265,8 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 		_tokenTypePrev = token.GetType();
 		_lineNoOfTokenPrev = token.GetLineNo();
 		if (token.IsType(TOKEN_EOL)) return true;
-		return _FeedToken(env, token);
 	}
+	return _FeedToken(env, token);
 }
 
 bool Parser::_FeedToken(Environment &env, const Token &token)

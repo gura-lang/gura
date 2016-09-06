@@ -130,6 +130,9 @@ public:
 		TOKEN_EOF,
 		TOKEN_Expr,
 		TOKEN_Unknown,
+		TOKEN_Space,			// for external use
+		TOKEN_BlockComment,		// for external use
+		TOKEN_LineComment,		// for external use
 		TOKEN_DoubleChars,		// only used in tokenizing process
 		TOKEN_TripleChars,		// only used in tokenizing process
 	};
@@ -242,16 +245,17 @@ private:
 	int _lineNoOfTokenPrev;
 	TokenStack _tokenStack;
 	StringInfo _stringInfo;
-	TokenTypeToIndexMap _tokenTypeToIndexMap;
 	CharConverter _charConverter;
 	String _strIndent;
 	bool _enablePreparatorFlag;
 	bool _interactiveFlag;
+	static TokenTypeToIndexMap *_pTokenTypeToIndexMap;
 	static const TokenTypeInfo _tokenTypeInfoTbl[];
 public:
 	Parser(Signal &sig, const String &sourceName,
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
 	~Parser();
+	static void Initialize();
 	void InitStack();
 	bool ParseChar(Environment &env, char ch);
 	Expr_Root *ParseStream(Environment &env, Stream &stream);
@@ -267,7 +271,9 @@ public:
 	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
 	inline int GetLineNo() const { return _cntLine + 1; }
 	inline int GetColPos() const { return _cntCol; }
-	inline int TokenTypeToIndex(TokenType tokenType) { return _tokenTypeToIndexMap[tokenType]; }
+	static inline int TokenTypeToIndex(TokenType tokenType) {
+		return (*_pTokenTypeToIndexMap)[tokenType];
+	}
 	static const TokenTypeInfo *LookupTokenTypeInfo(TokenType tokenType);
 	static const TokenTypeInfo *LookupTokenTypeInfoByOpType(OpType opType);
 	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
