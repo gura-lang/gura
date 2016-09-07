@@ -34,6 +34,7 @@ private:
 	enum Stat {
 		STAT_BOF, STAT_BOF_2nd, STAT_BOF_3rd,
 		STAT_Start,
+		STAT_White,
 		STAT_DoubleChars, STAT_TripleChars, STAT_Escape,
 		STAT_Colon,
 		STAT_Error, STAT_ErrorRecovery,
@@ -130,9 +131,9 @@ public:
 		TOKEN_EOF,
 		TOKEN_Expr,
 		TOKEN_Unknown,
-		TOKEN_Space,			// for external use
-		TOKEN_BlockComment,		// for external use
-		TOKEN_LineComment,		// for external use
+		TOKEN_White,			// for watcher
+		TOKEN_CommentLine,		// for watcher
+		TOKEN_CommentBlock,		// for watcher
 		TOKEN_DoubleChars,		// only used in tokenizing process
 		TOKEN_TripleChars,		// only used in tokenizing process
 	};
@@ -226,6 +227,10 @@ public:
 		void Clear();
 		String ToString() const;
 	};
+	class GURA_DLLDECLARE TokenWatcher {
+	public:
+		virtual void FeedToken(Environment &env, const Token &token) = 0;
+	};
 private:
 	Signal &_sig;
 	Stat _stat;
@@ -242,6 +247,7 @@ private:
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
 	TokenType _tokenTypePrev;
+	int _lineNoTop;
 	int _lineNoOfTokenPrev;
 	TokenStack _tokenStack;
 	StringInfo _stringInfo;
@@ -249,6 +255,7 @@ private:
 	String _strIndent;
 	bool _enablePreparatorFlag;
 	bool _interactiveFlag;
+	TokenWatcher *_pTokenWatcher;
 	static TokenTypeToIndexMap *_pTokenTypeToIndexMap;
 	static const TokenTypeInfo _tokenTypeInfoTbl[];
 public:
@@ -271,6 +278,8 @@ public:
 	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
 	inline int GetLineNo() const { return _cntLine + 1; }
 	inline int GetColPos() const { return _cntCol; }
+	inline void SetTokenWatcher(TokenWatcher *pTokenWatcher) { _pTokenWatcher = pTokenWatcher; }
+	inline bool IsTokenWatched() const { return _pTokenWatcher != nullptr; }
 	static inline int TokenTypeToIndex(TokenType tokenType) {
 		return (*_pTokenTypeToIndexMap)[tokenType];
 	}

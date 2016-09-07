@@ -18,7 +18,9 @@ Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool ena
 	_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0),
 	_pSourceName(new StringShared(sourceName)),
 	_pExprOwner(nullptr), _pExprParent(nullptr),
-	_enablePreparatorFlag(enablePreparatorFlag), _interactiveFlag(false)
+	_tokenTypePrev(TOKEN_Unknown), _lineNoTop(0), _lineNoOfTokenPrev(0),
+	_enablePreparatorFlag(enablePreparatorFlag), _interactiveFlag(false),
+	_pTokenWatcher(nullptr)
 {
 	InitStack();
 }
@@ -98,10 +100,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.clear();
 			_field.push_back(ch);
 			_stat = STAT_NumberAfterDot;
-		} else if (IsWhite(ch)) {
-			// nothing to do
-		} else if (ch == '\x0c') { // page-break
-			// nothing to do
+		} else if (IsWhite(ch) || ch == '\x0c') { // code 0x0c is page-break
+			if (IsTokenWatched()) {
+				_field.clear();
+				_field.push_back(ch);
+				_stat = STAT_White;
+			}
 		} else if (IsSymbolFirstChar(ch)) {
 			_field.clear();
 			_field.push_back(ch);
@@ -120,7 +124,11 @@ bool Parser::ParseChar(Environment &env, char ch)
 			FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '#') {
-			FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
+			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
+			if (IsTokenWatched()) {
+				_field.clear();
+				_field += ch;
+			}
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
 			} else if (_cntLine == 0) {
@@ -197,6 +205,16 @@ bool Parser::ParseChar(Environment &env, char ch)
 		}
 		break;
 	}
+	case STAT_White: {
+		if (IsWhite(ch) || ch == '\x0c') { // code 0x0c is page-break
+			_field.push_back(ch);
+		} else {
+			_pTokenWatcher->FeedToken(env, Token(TOKEN_White, GetLineNo(), _field));
+			Gura_Pushback();
+			_stat = STAT_Start;
+		}
+		break;
+	}
 	case STAT_DoubleChars: {
 		// this state comes from STAT_Start and STAT_Symbol
 		static const struct {
@@ -253,10 +271,21 @@ bool Parser::ParseChar(Environment &env, char ch)
 		};
 		int chFirst = _field[0];
 		if (chFirst == '/' && ch == '*') {
+			if (IsTokenWatched()) {
+				_field.clear();
+				_field += chFirst;
+				_field += ch;
+				_lineNoTop = GetLineNo();
+			}
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
 		} else if (chFirst == '/' && ch == '/') {
-			FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
+			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
+			if (IsTokenWatched()) {
+				_field.clear();
+				_field += chFirst;
+				_field += ch;
+			}
 			if (_cntLine == 0 || (_cntLine == 1 && _appearShebangFlag)) {
 				_stat = STAT_MagicCommentLine;
 			} else {
@@ -610,6 +639,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_CommentLineTop: {
 		if (ch == '!') {
+			if (IsTokenWatched()) _field += ch;
 			_appearShebangFlag = true;
 			_stat = STAT_ShebangLine;
 		} else {
@@ -623,17 +653,25 @@ bool Parser::ParseChar(Environment &env, char ch)
 			const char *encoding = _magicCommentParser.GetEncoding();
 			sig.SetSignal(SIGTYPE_DetectEncoding, Value(encoding));
 		}
-		if (ch == '\n') {
-			_stat = STAT_Start;
-		} else if (ch == '\0') {
+		if (ch == '\n' || ch == '\0') {
+			if (IsTokenWatched()) {
+				_pTokenWatcher->FeedToken(
+					env, Token(TOKEN_CommentLine, GetLineNo(), _field));
+			}
+			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			// nothing to do
+			if (IsTokenWatched()) _field += ch;
 		}
 		break;
 	}
 	case STAT_ShebangLine: {
 		if (ch == '\n' || ch == '\0') {
+			if (IsTokenWatched()) {
+				_pTokenWatcher->FeedToken(
+					env, Token(TOKEN_CommentLine, GetLineNo(), _field));
+			}
+			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
 			// nothing to do
@@ -642,28 +680,40 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_CommentLine: {
 		if (ch == '\n' || ch == '\0') {
+			if (IsTokenWatched()) {
+				_pTokenWatcher->FeedToken(
+					env, Token(TOKEN_CommentLine, GetLineNo(), _field));
+			}
+			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			// nothing to do
+			if (IsTokenWatched()) _field += ch;
 		}
 		break;
 	}
 	case STAT_CommentBlock: {
 		if (ch == '*') {
+			if (IsTokenWatched()) _field += ch;
 			_stat = STAT_CommentBlockEnd;
 		} else if (ch == '/') {
+			if (IsTokenWatched()) _field += ch;
 			_stat = STAT_CommentBlockNest;
 		} else {
-			// nothing to do
+			if (IsTokenWatched()) _field += ch;
 		}
 		break;
 	}
 	case STAT_CommentBlockEnd: {
 		if (ch == '/') {
+			if (IsTokenWatched()) _field += ch;
 			_commentNestLevel--;
 			if (_commentNestLevel > 0) {
 				_stat = STAT_CommentBlock;
 			} else {
+				if (IsTokenWatched()) {
+					_pTokenWatcher->FeedToken(
+						env, Token(TOKEN_CommentBlock, _lineNoTop, _field));
+				}
 				_stat = STAT_Start;
 			}
 		} else {
@@ -674,6 +724,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_CommentBlockNest: {
 		if (ch == '*') {
+			if (IsTokenWatched()) _field += ch;
 			_commentNestLevel++;
 			_stat = STAT_CommentBlock;
 		} else {
@@ -1248,6 +1299,9 @@ Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 
 bool Parser::FeedToken(Environment &env, const Token &token)
 {
+	if (IsTokenWatched()) {
+		_pTokenWatcher->FeedToken(env, token);
+	}
 	if (_interactiveFlag || _tokenTypePrev == TOKEN_RBrace) {
 		_tokenTypePrev = token.GetType();
 		_lineNoOfTokenPrev = token.GetLineNo();

@@ -146,6 +146,11 @@ istimedelta(value)
 istype(value, type+:expr):map
 isuri(value)
 iterator:class = <class:iterator(value+) {block?}>
+lexer:module = <module:lexer:<integrated>>
+  __name__:string = lexer
+  __source__:string = <integrated>
+  __symbol__:symbol = lexer
+  lexer.tokens(stream:stream):map
 list:class = <class:list(value+)>
 local(`syms+)
 locals(module?:module) {block?}
