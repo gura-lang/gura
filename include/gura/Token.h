@@ -92,7 +92,7 @@ enum TokenType {
 //-----------------------------------------------------------------------------
 struct TokenInfo {
 	TokenType tokenType;
-	int index;
+	int category;
 	const char *name;
 	const char *symbol;
 	OpType opType;
@@ -120,7 +120,7 @@ public:
 		PREC_Error,
 	};
 private:
-	TokenType _tokenType;
+	const TokenInfo *_pTokenInfo;
 	int _lineNo;
 	String _str;
 	String _suffix;
@@ -135,30 +135,31 @@ private:
 	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
-	static const Token Unknown;
-public:
-	inline Token() : _tokenType(TOKEN_Unknown), _lineNo(0), _pExpr(nullptr) {}
 	inline Token(const Token &token) :
-		_tokenType(token._tokenType), _lineNo(token._lineNo), _str(token._str),
+		_pTokenInfo(token._pTokenInfo), _lineNo(token._lineNo), _str(token._str),
 		_suffix(token._suffix), _pExpr(token._pExpr) {}
 	inline Token(TokenType tokenType, int lineNo) :
-		_tokenType(tokenType), _lineNo(lineNo), _pExpr(nullptr) {}
+		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _pExpr(nullptr) {}
 	inline Token(TokenType tokenType, int lineNo, const String &str) :
-		_tokenType(tokenType), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
+		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
 	inline Token(TokenType tokenType, int lineNo, const String &str, const String &suffix) :
-		_tokenType(tokenType), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
+		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
 	inline Token(TokenType tokenType, Expr *pExpr) :
-		_tokenType(tokenType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
+		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 	inline Token &operator=(const Token &token) {
-		_tokenType = token._tokenType, _lineNo = token._lineNo, _pExpr = token._pExpr;
+		_pTokenInfo = token._pTokenInfo, _lineNo = token._lineNo, _pExpr = token._pExpr;
 		_str = token._str, _suffix = token._suffix;
 		return *this;
 	}
 	~Token();
 	static void Initialize();
-	inline TokenType GetType() const { return _tokenType; }
+	inline TokenType GetType() const { return _pTokenInfo->tokenType; }
+	inline int GetCategory() const { return _pTokenInfo->category; }
+	inline const char *GetName() const { return _pTokenInfo->name; }
+	inline const char *GetSymbol() const { return _pTokenInfo->symbol; }
+	inline OpType GetOpType() const { return _pTokenInfo->opType; }
 	inline int GetLineNo() const { return _lineNo; }
-	inline bool IsType(TokenType tokenType) const { return _tokenType == tokenType; }
+	inline bool IsType(TokenType tokenType) const { return GetType() == tokenType; }
 	inline bool IsOpenToken() const {
 		return IsType(TOKEN_LParenthesis) || IsType(TOKEN_LBrace) ||
 			IsType(TOKEN_LBracket) || IsType(TOKEN_LBlockParam);
@@ -192,9 +193,11 @@ public:
 		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);
 		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
 	}
-	static Precedence LookupPrec(const Token &tokenLeft, const Token &tokenRight);
+	inline static Precedence LookupPrec(const Token &tokenLeft, const Token &tokenRight) {
+		return _LookupPrec(tokenLeft.GetCategory(), tokenRight.GetCategory());
+	}
 	static int CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight);
-	static Precedence _LookupPrec(int indexLeft, int indexRight);
+	static Precedence _LookupPrec(int categoryLeft, int categoryRight);
 };
 
 //-----------------------------------------------------------------------------

@@ -8,7 +8,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Token
 //-----------------------------------------------------------------------------
-const Token Token::Unknown;
 TokenTypeToTokenInfoMap *Token::_pTokenTypeToTokenInfoMap = nullptr;
 OpTypeToTokenInfoMap *Token::_pOpTypeToTokenInfoMap = nullptr;
 
@@ -92,17 +91,10 @@ Token::~Token()
 {
 }
 
-const char *Token::GetTypeSymbol() const
-{
-	const TokenInfo *p = LookupTokenInfo(GetType());
-	return (p == nullptr)? "[unk]" : p->symbol;
-}
-
 void Token::Initialize()
 {
 	_pTokenTypeToTokenInfoMap = new TokenTypeToTokenInfoMap();
 	_pOpTypeToTokenInfoMap = new OpTypeToTokenInfoMap();
-	//for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
 	for (size_t i = 0; i < ArraySizeOf(_tokenInfoTbl); i++) {
 		const TokenInfo *pTokenInfo = &_tokenInfoTbl[i];
 		(*_pTokenTypeToTokenInfoMap)[pTokenInfo->tokenType] = pTokenInfo;
@@ -112,22 +104,15 @@ void Token::Initialize()
 	}
 }
 
-Token::Precedence Token::LookupPrec(const Token &tokenLeft, const Token &tokenRight)
-{
-	const TokenInfo *pTokenInfoLeft = LookupTokenInfo(tokenLeft.GetType());
-	const TokenInfo *pTokenInfoRight = LookupTokenInfo(tokenRight.GetType());
-	return _LookupPrec(pTokenInfoLeft->index, pTokenInfoRight->index);
-}
-
 int Token::CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight)
 {
 	const TokenInfo *pTokenInfoLeft = LookupTokenInfoByOpType(opTypeLeft);
 	const TokenInfo *pTokenInfoRight = LookupTokenInfoByOpType(opTypeRight);
 	if (pTokenInfoLeft == nullptr || pTokenInfoRight == nullptr) return 0;
-	return pTokenInfoLeft->index - pTokenInfoRight->index;
+	return pTokenInfoLeft->category - pTokenInfoRight->category;
 }
 
-Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
+Token::Precedence Token::_LookupPrec(int categoryLeft, int categoryRight)
 {
 	const Precedence LT = PREC_LT, EQ = PREC_EQ, GT = PREC_GT, xx = PREC_Error;
 	const static Precedence precTbl[][29] = {
@@ -162,7 +147,7 @@ Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
 		/* V */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, xx, GT },
 		/* S */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
 	};                                  
-	return precTbl[indexLeft][indexRight - 1];
+	return precTbl[categoryLeft][categoryRight - 1];
 }
 
 //-----------------------------------------------------------------------------
@@ -206,7 +191,7 @@ String TokenStack::ToString() const
 	String rtn;
 	foreach_const (TokenStack, pToken, *this) {
 		if (pToken != begin()) rtn.append(" ");
-		rtn.append(pToken->GetTypeSymbol());
+		rtn.append(pToken->GetSymbol());
 	}
 	return rtn;
 }
