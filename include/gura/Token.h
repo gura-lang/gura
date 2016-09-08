@@ -79,12 +79,12 @@ enum TokenType {
 	TOKEN_Symbol,
 	TOKEN_EOF,
 	TOKEN_Expr,
-	TOKEN_Unknown,
 	TOKEN_White,			// for watcher
 	TOKEN_CommentLine,		// for watcher
 	TOKEN_CommentBlock,		// for watcher
 	TOKEN_DoubleChars,		// only used in tokenizing process
 	TOKEN_TripleChars,		// only used in tokenizing process
+	TOKEN_Unknown,
 };
 
 //-----------------------------------------------------------------------------
@@ -192,7 +192,7 @@ public:
 		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);
 		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
 	}
-	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
+	static Precedence LookupPrec(const Token &tokenLeft, const Token &tokenRight);
 	static int CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight);
 	static Precedence _LookupPrec(int indexLeft, int indexRight);
 };

@@ -79,8 +79,13 @@ const TokenInfo Token::_tokenInfoTbl[] = {
 	{ TOKEN_EmbedString,		27, "EmbedString",		"[EmS]",	OPTYPE_None		},
 	{ TOKEN_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
 	{ TOKEN_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
-	{ TOKEN_Expr,				-1, "Expr",				"[Exp]",	OPTYPE_None		},
-	{ TOKEN_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
+	{ TOKEN_Expr,				 1, "Expr",				"[Exp]",	OPTYPE_None		},
+	{ TOKEN_White,				 1, "White",			"[Wht]",	OPTYPE_None		},
+	{ TOKEN_CommentLine,		 1, "CommentLine",		"[CmL]",	OPTYPE_None		},
+	{ TOKEN_CommentBlock,		 1, "CommentBlock",		"[CmB]",	OPTYPE_None		},
+	{ TOKEN_DoubleChars,		 1, "DoubleChars",		"[DbC]",	OPTYPE_None		},
+	{ TOKEN_TripleChars,		 1, "TripleChars",		"[TrC]",	OPTYPE_None		},
+	{ TOKEN_Unknown,			 1, "Unknown",			"[unk]",	OPTYPE_None		},
 };
 
 Token::~Token()
@@ -97,18 +102,20 @@ void Token::Initialize()
 {
 	_pTokenTypeToTokenInfoMap = new TokenTypeToTokenInfoMap();
 	_pOpTypeToTokenInfoMap = new OpTypeToTokenInfoMap();
-	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
-		(*_pTokenTypeToTokenInfoMap)[p->tokenType] = p;
-		if (p->opType != OPTYPE_None) {
-			(*_pOpTypeToTokenInfoMap)[p->opType] = p;
+	//for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
+	for (size_t i = 0; i < ArraySizeOf(_tokenInfoTbl); i++) {
+		const TokenInfo *pTokenInfo = &_tokenInfoTbl[i];
+		(*_pTokenTypeToTokenInfoMap)[pTokenInfo->tokenType] = pTokenInfo;
+		if (pTokenInfo->opType != OPTYPE_None) {
+			(*_pOpTypeToTokenInfoMap)[pTokenInfo->opType] = pTokenInfo;
 		}
 	}
 }
 
-Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
+Token::Precedence Token::LookupPrec(const Token &tokenLeft, const Token &tokenRight)
 {
-	const TokenInfo *pTokenInfoLeft = LookupTokenInfo(tokenTypeLeft);
-	const TokenInfo *pTokenInfoRight = LookupTokenInfo(tokenTypeRight);
+	const TokenInfo *pTokenInfoLeft = LookupTokenInfo(tokenLeft.GetType());
+	const TokenInfo *pTokenInfoRight = LookupTokenInfo(tokenRight.GetType());
 	return _LookupPrec(pTokenInfoLeft->index, pTokenInfoRight->index);
 }
 

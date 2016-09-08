@@ -1185,7 +1185,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 								_tokenStack.SeekTerminal(_tokenStack.rbegin());
 		//::printf("%s  << %s\n",
 		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
-		Token::Precedence prec = Token::LookupPrec(pTokenTop->GetType(), token.GetType());
+		Token::Precedence prec = Token::LookupPrec(*pTokenTop, token);
 		if (pTokenTop->IsType(TOKEN_Begin) && token.IsSeparatorToken()) {
 			size_t cntToken = _tokenStack.size();
 			if (cntToken == 1) {
@@ -1222,8 +1222,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 			TokenStack::reverse_iterator pTokenRight = pTokenTop;
 			while (1) {
 				pTokenLeft = _tokenStack.SeekTerminal(pTokenRight + 1);
-				if (Token::LookupPrec(pTokenLeft->GetType(), pTokenRight->GetType())
-																	== Token::PREC_LT) {
+				if (Token::LookupPrec(*pTokenLeft, *pTokenRight) == Token::PREC_LT) {
 					pTokenLeft--;
 					break;
 				}
