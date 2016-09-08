@@ -122,6 +122,11 @@ struct TokenInfo {
 typedef std::map<TokenType, const TokenInfo *> TokenTypeToTokenInfoMap;
 
 //-----------------------------------------------------------------------------
+// OpTypeToTokenInfoMap
+//-----------------------------------------------------------------------------
+typedef std::map<OpType, const TokenInfo *> OpTypeToTokenInfoMap;
+
+//-----------------------------------------------------------------------------
 // Token
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Token {
@@ -144,8 +149,9 @@ private:
 	// TOKEN_LBracket      (Expr_Lister)
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
-	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
 	static const TokenInfo _tokenInfoTbl[];
+	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
+	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
 	static const Token Unknown;
 public:
@@ -200,10 +206,13 @@ public:
 	inline static const TokenInfo *LookupTokenInfo(TokenType tokenType) {
 		return (*_pTokenTypeToTokenInfoMap)[tokenType];
 	}
-	static int CompareOpTypePrec(OpType opType1, OpType opType2);
-	//static const TokenInfo *LookupTokenInfo(TokenType tokenType);
-	static const TokenInfo *LookupTokenInfoByOpType(OpType opType);
+	inline static const TokenInfo *LookupTokenInfoByOpType(OpType opType) {
+		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);
+		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
+	}
 	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
+	static int CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight);
+	static Precedence _LookupPrec(int indexLeft, int indexRight);
 };
 
 //-----------------------------------------------------------------------------

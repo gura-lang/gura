@@ -2444,6 +2444,7 @@ bool MagicCommentParser::ParseChar(char ch)
 //-----------------------------------------------------------------------------
 const Token Token::Unknown;
 TokenTypeToTokenInfoMap *Token::_pTokenTypeToTokenInfoMap = nullptr;
+OpTypeToTokenInfoMap *Token::_pOpTypeToTokenInfoMap = nullptr;
 
 const TokenInfo Token::_tokenInfoTbl[] = {
 	{ TOKEN_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
@@ -2528,22 +2529,32 @@ const char *Token::GetTypeSymbol() const
 
 void Token::Initialize()
 {
-	if (_pTokenTypeToTokenInfoMap != nullptr) return;
 	_pTokenTypeToTokenInfoMap = new TokenTypeToTokenInfoMap();
+	_pOpTypeToTokenInfoMap = new OpTypeToTokenInfoMap();
 	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
 		(*_pTokenTypeToTokenInfoMap)[p->tokenType] = p;
+		if (p->opType != OPTYPE_None) {
+			(*_pOpTypeToTokenInfoMap)[p->opType] = p;
+		}
 	}
 }
 
-int Token::CompareOpTypePrec(OpType opType1, OpType opType2)
+Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
 {
-	const TokenInfo *pInfo1 = LookupTokenInfoByOpType(opType1);
-	const TokenInfo *pInfo2 = LookupTokenInfoByOpType(opType2);
-	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
-	return pInfo1->index - pInfo2->index;
+	const TokenInfo *pTokenInfoLeft = LookupTokenInfo(tokenTypeLeft);
+	const TokenInfo *pTokenInfoRight = LookupTokenInfo(tokenTypeRight);
+	return _LookupPrec(pTokenInfoLeft->index, pTokenInfoRight->index);
 }
 
-Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
+int Token::CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight)
+{
+	const TokenInfo *pTokenInfoLeft = LookupTokenInfoByOpType(opTypeLeft);
+	const TokenInfo *pTokenInfoRight = LookupTokenInfoByOpType(opTypeRight);
+	if (pTokenInfoLeft == nullptr || pTokenInfoRight == nullptr) return 0;
+	return pTokenInfoLeft->index - pTokenInfoRight->index;
+}
+
+Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
 {
 	const Precedence LT = PREC_LT, EQ = PREC_EQ, GT = PREC_GT, xx = PREC_Error;
 	const static Precedence precTbl[][29] = {
@@ -2578,27 +2589,7 @@ Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenType
 		/* V */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, xx, GT },
 		/* S */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
 	};                                  
-	int indexLeft = LookupTokenInfo(tokenTypeLeft)->index;
-	int indexRight = LookupTokenInfo(tokenTypeRight)->index;
 	return precTbl[indexLeft][indexRight - 1];
-}
-
-#if 0
-const TokenInfo *Token::LookupTokenInfo(TokenType tokenType)
-{
-	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
-		if (p->tokenType == tokenType) return p;
-	}
-	return nullptr;
-}
-#endif
-
-const TokenInfo *Token::LookupTokenInfoByOpType(OpType opType)
-{
-	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
-		if (p->opType == opType) return p;
-	}
-	return nullptr;
 }
 
 }
