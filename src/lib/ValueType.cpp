@@ -68,6 +68,7 @@ ValueType VTYPE_stream			= static_cast<ValueType>(0);
 ValueType VTYPE_suffixmgr		= static_cast<ValueType>(0);
 ValueType VTYPE_template		= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
+ValueType VTYPE_token			= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
 ValueType VTYPE_vertex			= static_cast<ValueType>(0);
 
@@ -198,6 +199,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(suffixmgr);
 	Gura_RealizeVTYPE(template);
 	Gura_RealizeVTYPE(timedelta);
+	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPE(vertex);
 	Class *pClass = new Class(&env, VTYPE_object);
@@ -275,6 +277,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(suffixmgr	)->SetClass(new Class_suffixmgr(pClass));
 	Gura_VTYPEInfo(template		)->SetClass(new Class_template(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
+	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(vertex		)->SetClass(new Class_vertex(pClass));
 	pClass->Prepare(env); // methods of Object can only be initialized here
@@ -341,6 +344,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_suffixmgr		)->Prepare(env);
 	env.LookupClass(VTYPE_template		)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta		)->Prepare(env);
+	env.LookupClass(VTYPE_token			)->Prepare(env);
 	env.LookupClass(VTYPE_uri			)->Prepare(env);
 	env.LookupClass(VTYPE_vertex		)->Prepare(env);
 }

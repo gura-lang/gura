@@ -234,6 +234,7 @@
     <ClCompile Include="Class_symbol.cpp" />
     <ClCompile Include="Class_template.cpp" />
     <ClCompile Include="Class_timedelta.cpp" />
+    <ClCompile Include="Class_token.cpp" />
     <ClCompile Include="Class_undefined.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_vertex.cpp" />
@@ -365,6 +366,7 @@
     <ClInclude Include="..\..\include\gura\Class_symbol.h" />
     <ClInclude Include="..\..\include\gura\Class_template.h" />
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
+    <ClInclude Include="..\..\include\gura\Class_token.h" />
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\Class_vertex.h" />

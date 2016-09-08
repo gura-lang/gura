@@ -278,6 +278,7 @@ sys:module = <module:sys:<integrated>>
   sys.required_version(major:number, minor:number, patch:number)
 template:class = <class:template(src?:stream:r):map:[lasteol,noindent] {block?}>
 timedelta:class = <class:timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}>
+token:class = <class:token>
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map
@@ -896,6 +897,7 @@ template
   template#render(dst?:stream:w)
   template#super(symbol:symbol):void
 timedelta
+token
 undefined
 uri
   uri#getfragment()

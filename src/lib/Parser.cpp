@@ -1004,7 +1004,7 @@ bool Parser::CheckBlockParamEnd() const
 	return true;
 }
 
-Parser::TokenType Parser::TokenTypeForString(const StringInfo &stringInfo)
+TokenType Parser::TokenTypeForString(const StringInfo &stringInfo)
 {
 	return stringInfo.binaryFlag? TOKEN_Binary :
 		stringInfo.embedFlag? TOKEN_EmbedString : TOKEN_String;
@@ -1243,11 +1243,11 @@ const Parser::TokenTypeInfo Parser::_tokenTypeInfoTbl[] = {
 	{ TOKEN_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
 };
 
-Parser::Precedence Parser::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
+Token::Precedence Parser::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
 {
 	const TokenTypeInfo *pInfoLeft = LookupTokenTypeInfo(tokenTypeLeft);
 	const TokenTypeInfo *pInfoRight = LookupTokenTypeInfo(tokenTypeRight);
-	if (pInfoLeft == nullptr || pInfoRight == nullptr) return PREC_Error;
+	if (pInfoLeft == nullptr || pInfoRight == nullptr) return Token::PREC_Error;
 	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
 }
 
@@ -1259,10 +1259,14 @@ int Parser::CompareOpTypePrec(OpType opType1, OpType opType2)
 	return pInfo1->index - pInfo2->index;
 }
 
-Parser::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
+Token::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
 {
-	const Precedence LT = PREC_LT, EQ = PREC_EQ, GT = PREC_GT, xx = PREC_Error;
-	const static Precedence precTbl[][29] = {
+	const Token::Precedence
+		LT = Token::PREC_LT,
+		EQ = Token::PREC_EQ,
+		GT = Token::PREC_GT,
+		xx = Token::PREC_Error;
+	const static Token::Precedence precTbl[][29] = {
 		/*         B   =  ||  &&   !  in   <  ..   |   ^   &  <<   +   *   ~  **   `   :  *:   .   (   )   [   ]   ,  \n   V   S   E */
 		/* e */ { xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx },
 		/* B */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, xx, LT, xx, EQ, EQ, LT, LT, EQ },
@@ -1325,13 +1329,13 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 
 bool Parser::_FeedToken(Environment &env, const Token &token)
 {
-	//::printf("FeedToken(%s)\n", token.GetTypeSymbol());
+	//::printf("FeedToken(%s)\n", GetTokenTypeSymbol(token));
 	for (;;) {
 		TokenStack::reverse_iterator pTokenTop =
 								_tokenStack.SeekTerminal(_tokenStack.rbegin());
 		//::printf("%s  << %s\n",
-		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
-		Precedence prec = LookupPrecFast(pTokenTop->GetType(), token.GetType());
+		//				_tokenStack.ToString().c_str(), GetTokenTypeSymbol(token));
+		Token::Precedence prec = LookupPrecFast(pTokenTop->GetType(), token.GetType());
 		if (pTokenTop->IsType(TOKEN_Begin) && token.IsSeparatorToken()) {
 			size_t cntToken = _tokenStack.size();
 			if (cntToken == 1) {
@@ -1350,7 +1354,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 				InitStack();
 			}
 			break;
-		} else if (prec == PREC_LT || prec == PREC_EQ) {
+		} else if (prec == Token::PREC_LT || prec == Token::PREC_EQ) {
 			Token &tokenLast = _tokenStack.back();
 			// concatenation of two sequences of string, binary and embed-string
 			if (tokenLast.IsType(TOKEN_String) && token.IsType(TOKEN_String)) {
@@ -1363,13 +1367,13 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 				_tokenStack.push_back(token);
 			}
 			break;
-		} else if (prec == PREC_GT) {
+		} else if (prec == Token::PREC_GT) {
 			TokenStack::reverse_iterator pTokenLeft;
 			TokenStack::reverse_iterator pTokenRight = pTokenTop;
 			while (1) {
 				pTokenLeft = _tokenStack.SeekTerminal(pTokenRight + 1);
 				if (LookupPrecFast(pTokenLeft->GetType(), pTokenRight->GetType())
-																	== PREC_LT) {
+																	== Token::PREC_LT) {
 					pTokenLeft--;
 					break;
 				}
@@ -2508,6 +2512,12 @@ const Parser::TokenTypeInfo *Parser::LookupTokenTypeInfoByOpType(OpType opType)
 	return nullptr;
 }
 
+const char *Parser::GetTokenTypeSymbol(const Token &token)
+{
+	const TokenTypeInfo *p = LookupTokenTypeInfo(token.GetType());
+	return (p == nullptr)? "[unk]" : p->symbol;
+}
+
 //-----------------------------------------------------------------------------
 // Parser::TokenStack
 //-----------------------------------------------------------------------------
@@ -2535,24 +2545,9 @@ String Parser::TokenStack::ToString() const
 	String rtn;
 	foreach_const (TokenStack, pToken, *this) {
 		if (pToken != begin()) rtn.append(" ");
-		rtn.append(pToken->GetTypeSymbol());
+		rtn.append(GetTokenTypeSymbol(*pToken));
 	}
 	return rtn;
-}
-
-//-----------------------------------------------------------------------------
-// Parser::Token
-//-----------------------------------------------------------------------------
-const Parser::Token Parser::Token::Unknown;
-
-Parser::Token::~Token()
-{
-}
-
-const char *Parser::Token::GetTypeSymbol() const
-{
-	const TokenTypeInfo *p = LookupTokenTypeInfo(_tokenType);
-	return (p == nullptr)? "[unk]" : p->symbol;
 }
 
 //-----------------------------------------------------------------------------
@@ -2602,6 +2597,15 @@ bool MagicCommentParser::ParseChar(char ch)
 		}
 	}
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Token
+//-----------------------------------------------------------------------------
+const Token Token::Unknown;
+
+Token::~Token()
+{
 }
 
 }

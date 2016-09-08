@@ -96,6 +96,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_stream;
 GURA_DLLDECLARE extern ValueType VTYPE_suffixmgr;
 GURA_DLLDECLARE extern ValueType VTYPE_template;
 GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
+GURA_DLLDECLARE extern ValueType VTYPE_token;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 GURA_DLLDECLARE extern ValueType VTYPE_vertex;
 
@@ -203,6 +204,7 @@ public:
 	Gura_DeclareVTYPE(suffixmgr);
 	Gura_DeclareVTYPE(template);
 	Gura_DeclareVTYPE(timedelta);
+	Gura_DeclareVTYPE(token);
 	Gura_DeclareVTYPE(uri);
 	Gura_DeclareVTYPE(vertex);
 private:

@@ -50,6 +50,7 @@ Class_suffixmgr.cpp
 Class_symbol.cpp
 Class_template.cpp
 Class_timedelta.cpp
+Class_token.cpp
 Class_undefined.cpp
 Class_uri.cpp
 Class_vertex.cpp

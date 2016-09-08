@@ -256,6 +256,7 @@ public:
 	inline bool Is_suffixmgr(size_t idxArg) const		{ return GetValue(idxArg).Is_suffixmgr();		}
 	inline bool Is_template(size_t idxArg) const		{ return GetValue(idxArg).Is_template();		}
 	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
+	inline bool Is_token(size_t idxArg) const			{ return GetValue(idxArg).Is_token();			}
 	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
 	inline bool Is_vertex(size_t idxArg) const			{ return GetValue(idxArg).Is_vertex();			}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }

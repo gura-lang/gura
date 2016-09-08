@@ -246,6 +246,7 @@ public:
 	inline bool Is_suffixmgr() const		{ return IsType(VTYPE_suffixmgr);				}
 	inline bool Is_template() const			{ return IsType(VTYPE_template);				}
 	inline bool Is_timedelta() const		{ return IsType(VTYPE_timedelta);				}
+	inline bool Is_token() const			{ return IsType(VTYPE_token);					}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);						}
 	inline bool Is_vertex() const			{ return IsType(VTYPE_vertex);					}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();			}
@@ -364,6 +365,8 @@ public:
 								{ return MustBe(sig, Is_template(), 	"template");		}
 	inline bool MustBe_timedelta(Signal &sig) const
 								{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
+	inline bool MustBe_token(Signal &sig) const
+								{ return MustBe(sig, Is_token(),	 	"token");			}
 	inline bool MustBe_uri(Signal &sig) const
 								{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline bool MustBe_vertex(Signal &sig) const
