@@ -10,8 +10,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::TokenTypeToIndexMap *Parser::_pTokenTypeToIndexMap = nullptr;
-
 Parser::Parser(Signal &sig, const String &sourceName, int cntLineStart, bool enablePreparatorFlag) :
 	_sig(sig), _stat(STAT_BOF), _lineHeadFlag(true),
 	_appearShebangFlag(false), _blockParamFlag(false),
@@ -31,11 +29,6 @@ Parser::~Parser()
 
 void Parser::Initialize()
 {
-	if (_pTokenTypeToIndexMap != nullptr) return;
-	_pTokenTypeToIndexMap = new TokenTypeToIndexMap();
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
-		(*_pTokenTypeToIndexMap)[p->tokenType] = p->index;
-	}
 }
 
 void Parser::InitStack()
@@ -1172,135 +1165,6 @@ void Parser::EvalConsoleChar(Environment &env,
 	_interactiveFlag = false;
 }
 
-const Parser::TokenTypeInfo Parser::_tokenTypeInfoTbl[] = {
-	{ TOKEN_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
-	{ TOKEN_Assign,				 2, "Assign",			"=",		OPTYPE_None		},	// =
-	{ TOKEN_AssignAdd,			 2, "AssignAdd",		"+=",		OPTYPE_None		},
-	{ TOKEN_AssignSub,			 2, "AssignSub",		"-=",		OPTYPE_None		},
-	{ TOKEN_AssignMul,			 2, "AssignMul",		"*=",		OPTYPE_None		},
-	{ TOKEN_AssignDiv,			 2, "AssignDiv",		"/=",		OPTYPE_None		},
-	{ TOKEN_AssignMod,			 2, "AssignMod",		"%=",		OPTYPE_None		},
-	{ TOKEN_AssignPow,			 2, "AssignPow",		"**=",		OPTYPE_None		},
-	{ TOKEN_AssignOr,			 2, "AssignOr",			"|=",		OPTYPE_None		},
-	{ TOKEN_AssignAnd,			 2, "AssignAnd",		"&=",		OPTYPE_None		},
-	{ TOKEN_AssignXor,			 2, "AssignXor",		"^=",		OPTYPE_None		},
-	{ TOKEN_AssignShl,			 2, "AssignShl",		"<<=",		OPTYPE_None		},
-	{ TOKEN_AssignShr,			 2, "AssignShr",		">>=",		OPTYPE_None		},
-	{ TOKEN_Pair,				 2, "Pair",				"=>",		OPTYPE_Pair		},
-	{ TOKEN_OrOr,				 3, "OrOr",				"||",		OPTYPE_OrOr		},	// ||
-	{ TOKEN_AndAnd,				 4, "AndAnd",			"&&",		OPTYPE_AndAnd	},	// &&
-	{ TOKEN_Not,				 5, "Not",				"!",		OPTYPE_Not		},	// !
-	{ TOKEN_Contains,			 6, "Contains",			"in",		OPTYPE_Contains	},	// in
-	{ TOKEN_Lt,					 7, "Lt",				"<",		OPTYPE_Lt		},	// <
-	{ TOKEN_Gt,					 7, "Gt",				">",		OPTYPE_Gt		},
-	{ TOKEN_Le,	 				 7, "Le",				"<=",		OPTYPE_Le		},
-	{ TOKEN_Ge,					 7, "Ge",				">=",		OPTYPE_Ge		},
-	{ TOKEN_Cmp,				 7, "Cmp",				"<=>",		OPTYPE_Cmp		},
-	{ TOKEN_Eq,					 7, "Eq",				"==",		OPTYPE_Eq		},
-	{ TOKEN_Ne,					 7, "Ne",				"!=",		OPTYPE_Ne		},
-	{ TOKEN_Seq,			 	 8, "Seq",				"..",		OPTYPE_Seq		},	// ..
-	{ TOKEN_Or,					 9, "Or",				"|",		OPTYPE_Or		},	// |
-	{ TOKEN_Xor,				10, "Xor",				"^",		OPTYPE_Xor		},	// ^
-	{ TOKEN_And,				11, "And",				"&",		OPTYPE_And		},	// &
-	{ TOKEN_Shl,				12, "Shl",				"<<",		OPTYPE_Shl		},	// <<
-	{ TOKEN_Shr,				12, "Shr",				">>",		OPTYPE_Shr		},
-	{ TOKEN_Add,				13, "Add",				"+",		OPTYPE_Add		},	// +
-	{ TOKEN_Sub,				13, "Sub",				"-",		OPTYPE_Sub		},
-	{ TOKEN_Mul,				14, "Mul",				"*",		OPTYPE_Mul		},	// *
-	{ TOKEN_Div,				14, "Div",				"/",		OPTYPE_Div		},
-	{ TOKEN_Mod,				14, "Mod",				"%",		OPTYPE_Mod		},
-	{ TOKEN_ModMod,				14, "ModMod",			"%%",		OPTYPE_None		},
-	{ TOKEN_Question,			14, "Question",			"?",		OPTYPE_None		},
-	{ TOKEN_Inv,				15, "Inv",				"~",		OPTYPE_Inv		},	// ~
-	{ TOKEN_Pow,				16, "Pow",				"**",		OPTYPE_Pow		},	// **
-	{ TOKEN_Quote,				17, "Quote",			"`",		OPTYPE_None		},	// `
-	{ TOKEN_Colon,				18, "Colon",			":",		OPTYPE_None		},	// :
-	{ TOKEN_ColonAfterSuffix,	19, "ColonAfterSuffix",	":",		OPTYPE_None		},	// *:
-	{ TOKEN_Dot,				20, "Dot",				".",		OPTYPE_None		},	// .
-	{ TOKEN_ColonColon,			20, "ColonColon",		"::",		OPTYPE_None		},
-	{ TOKEN_ColonAsterisk,		20, "ColonAsterisk",	":*",		OPTYPE_None		},
-	{ TOKEN_ColonAnd,			20, "ColonAnd",			":&",		OPTYPE_None		},
-	{ TOKEN_LParenthesis,		21, "LParenthesis",		"(",		OPTYPE_None		},	// (
-	{ TOKEN_RParenthesis,		22, "RParenthesis",		")",		OPTYPE_None		},	// )
-	{ TOKEN_LBrace,				21, "LBrace",			"{",		OPTYPE_None		},
-	{ TOKEN_RBrace,				22, "RBrace",			"}",		OPTYPE_None		},
-	{ TOKEN_LBlockParam,		21, "LBlockParam",		"|",		OPTYPE_None		},
-	{ TOKEN_RBlockParam,		22, "RBlockParam",		"|",		OPTYPE_None		},
-	{ TOKEN_LBracket,			23, "LBracket",			"[",		OPTYPE_None		},	// [
-	{ TOKEN_RBracket,			24, "RBracket",			"]",		OPTYPE_None		},	// ]
-	{ TOKEN_Comma,				25, "Comma",			",",		OPTYPE_None		},	// ,
-	{ TOKEN_Semicolon,			25, "Semicolon",		";",		OPTYPE_None		},
-	{ TOKEN_EOL,				26, "EOL",				"[EOL]",	OPTYPE_None		},	// \n
-	{ TOKEN_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
-	{ TOKEN_NumberSuffixed,		27, "NumberSuffixed",	"[NmS]",	OPTYPE_None		},
-	{ TOKEN_String,				27, "String",			"[Str]",	OPTYPE_None		},
-	{ TOKEN_StringSuffixed,		27, "StringSuffixed",	"[StS]",	OPTYPE_None		},
-	{ TOKEN_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
-	{ TOKEN_EmbedString,		27, "EmbedString",		"[EmS]",	OPTYPE_None		},
-	{ TOKEN_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
-	{ TOKEN_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
-	{ TOKEN_Expr,				-1, "Expr",				"[Exp]",	OPTYPE_None		},
-	{ TOKEN_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
-};
-
-Token::Precedence Parser::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
-{
-	const TokenTypeInfo *pInfoLeft = LookupTokenTypeInfo(tokenTypeLeft);
-	const TokenTypeInfo *pInfoRight = LookupTokenTypeInfo(tokenTypeRight);
-	if (pInfoLeft == nullptr || pInfoRight == nullptr) return Token::PREC_Error;
-	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
-}
-
-int Parser::CompareOpTypePrec(OpType opType1, OpType opType2)
-{
-	const TokenTypeInfo *pInfo1 = LookupTokenTypeInfoByOpType(opType1);
-	const TokenTypeInfo *pInfo2 = LookupTokenTypeInfoByOpType(opType2);
-	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
-	return pInfo1->index - pInfo2->index;
-}
-
-Token::Precedence Parser::_LookupPrec(int indexLeft, int indexRight)
-{
-	const Token::Precedence
-		LT = Token::PREC_LT,
-		EQ = Token::PREC_EQ,
-		GT = Token::PREC_GT,
-		xx = Token::PREC_Error;
-	const static Token::Precedence precTbl[][29] = {
-		/*         B   =  ||  &&   !  in   <  ..   |   ^   &  <<   +   *   ~  **   `   :  *:   .   (   )   [   ]   ,  \n   V   S   E */
-		/* e */ { xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx },
-		/* B */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, xx, LT, xx, EQ, EQ, LT, LT, EQ },
-		/* = */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ||*/ { xx, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* &&*/ { xx, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ! */ { xx, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* in*/ { xx, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* < */ { xx, LT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ..*/ { xx, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* | */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ^ */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* & */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* <<*/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* + */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, GT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* * */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, GT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ~ */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ***/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* ` */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* : */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* *:*/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, LT, GT, GT, GT, LT, LT, GT },
-		/* . */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, GT },
-		/* ( */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, EQ, LT, EQ, EQ, EQ, LT, LT, xx },
-		/* ) */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
-		/* [ */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, EQ, LT, EQ, EQ, EQ, LT, LT, xx },
-		/* ] */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
-		/* , */ { xx, LT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, GT, GT, GT, GT },
-		/* \n*/ { xx, LT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
-		/* V */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, xx, GT },
-		/* S */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
-	};                                  
-	return precTbl[indexLeft][indexRight - 1];
-}
-
 bool Parser::FeedToken(Environment &env, const Token &token)
 {
 	if (IsTokenWatched()) {
@@ -1329,13 +1193,13 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 
 bool Parser::_FeedToken(Environment &env, const Token &token)
 {
-	//::printf("FeedToken(%s)\n", GetTokenTypeSymbol(token));
+	//::printf("FeedToken(%s)\n", token.GetTypeSymbol());
 	for (;;) {
 		TokenStack::reverse_iterator pTokenTop =
 								_tokenStack.SeekTerminal(_tokenStack.rbegin());
 		//::printf("%s  << %s\n",
-		//				_tokenStack.ToString().c_str(), GetTokenTypeSymbol(token));
-		Token::Precedence prec = LookupPrecFast(pTokenTop->GetType(), token.GetType());
+		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
+		Token::Precedence prec = Token::LookupPrecFast(pTokenTop->GetType(), token.GetType());
 		if (pTokenTop->IsType(TOKEN_Begin) && token.IsSeparatorToken()) {
 			size_t cntToken = _tokenStack.size();
 			if (cntToken == 1) {
@@ -1372,7 +1236,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 			TokenStack::reverse_iterator pTokenRight = pTokenTop;
 			while (1) {
 				pTokenLeft = _tokenStack.SeekTerminal(pTokenRight + 1);
-				if (LookupPrecFast(pTokenLeft->GetType(), pTokenRight->GetType())
+				if (Token::LookupPrecFast(pTokenLeft->GetType(), pTokenRight->GetType())
 																	== Token::PREC_LT) {
 					pTokenLeft--;
 					break;
@@ -2494,30 +2358,6 @@ void Parser::SetError_InvalidToken(int lineno)
 										_tokenStack.ToString().c_str());
 }
 
-const Parser::TokenTypeInfo *Parser::LookupTokenTypeInfo(TokenType tokenType)
-{
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
-										p->tokenType != TOKEN_Unknown; p++) {
-		if (p->tokenType == tokenType) return p;
-	}
-	return nullptr;
-}
-
-const Parser::TokenTypeInfo *Parser::LookupTokenTypeInfoByOpType(OpType opType)
-{
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
-										p->tokenType != TOKEN_Unknown; p++) {
-		if (p->opType == opType) return p;
-	}
-	return nullptr;
-}
-
-const char *Parser::GetTokenTypeSymbol(const Token &token)
-{
-	const TokenTypeInfo *p = LookupTokenTypeInfo(token.GetType());
-	return (p == nullptr)? "[unk]" : p->symbol;
-}
-
 //-----------------------------------------------------------------------------
 // Parser::TokenStack
 //-----------------------------------------------------------------------------
@@ -2545,7 +2385,7 @@ String Parser::TokenStack::ToString() const
 	String rtn;
 	foreach_const (TokenStack, pToken, *this) {
 		if (pToken != begin()) rtn.append(" ");
-		rtn.append(GetTokenTypeSymbol(*pToken));
+		rtn.append(pToken->GetTypeSymbol());
 	}
 	return rtn;
 }
@@ -2603,9 +2443,168 @@ bool MagicCommentParser::ParseChar(char ch)
 // Token
 //-----------------------------------------------------------------------------
 const Token Token::Unknown;
+TokenTypeToIndexMap *Token::_pTokenTypeToIndexMap = nullptr;
+
+const TokenTypeInfo Token::_tokenTypeInfoTbl[] = {
+	{ TOKEN_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
+	{ TOKEN_Assign,				 2, "Assign",			"=",		OPTYPE_None		},	// =
+	{ TOKEN_AssignAdd,			 2, "AssignAdd",		"+=",		OPTYPE_None		},
+	{ TOKEN_AssignSub,			 2, "AssignSub",		"-=",		OPTYPE_None		},
+	{ TOKEN_AssignMul,			 2, "AssignMul",		"*=",		OPTYPE_None		},
+	{ TOKEN_AssignDiv,			 2, "AssignDiv",		"/=",		OPTYPE_None		},
+	{ TOKEN_AssignMod,			 2, "AssignMod",		"%=",		OPTYPE_None		},
+	{ TOKEN_AssignPow,			 2, "AssignPow",		"**=",		OPTYPE_None		},
+	{ TOKEN_AssignOr,			 2, "AssignOr",			"|=",		OPTYPE_None		},
+	{ TOKEN_AssignAnd,			 2, "AssignAnd",		"&=",		OPTYPE_None		},
+	{ TOKEN_AssignXor,			 2, "AssignXor",		"^=",		OPTYPE_None		},
+	{ TOKEN_AssignShl,			 2, "AssignShl",		"<<=",		OPTYPE_None		},
+	{ TOKEN_AssignShr,			 2, "AssignShr",		">>=",		OPTYPE_None		},
+	{ TOKEN_Pair,				 2, "Pair",				"=>",		OPTYPE_Pair		},
+	{ TOKEN_OrOr,				 3, "OrOr",				"||",		OPTYPE_OrOr		},	// ||
+	{ TOKEN_AndAnd,				 4, "AndAnd",			"&&",		OPTYPE_AndAnd	},	// &&
+	{ TOKEN_Not,				 5, "Not",				"!",		OPTYPE_Not		},	// !
+	{ TOKEN_Contains,			 6, "Contains",			"in",		OPTYPE_Contains	},	// in
+	{ TOKEN_Lt,					 7, "Lt",				"<",		OPTYPE_Lt		},	// <
+	{ TOKEN_Gt,					 7, "Gt",				">",		OPTYPE_Gt		},
+	{ TOKEN_Le,	 				 7, "Le",				"<=",		OPTYPE_Le		},
+	{ TOKEN_Ge,					 7, "Ge",				">=",		OPTYPE_Ge		},
+	{ TOKEN_Cmp,				 7, "Cmp",				"<=>",		OPTYPE_Cmp		},
+	{ TOKEN_Eq,					 7, "Eq",				"==",		OPTYPE_Eq		},
+	{ TOKEN_Ne,					 7, "Ne",				"!=",		OPTYPE_Ne		},
+	{ TOKEN_Seq,			 	 8, "Seq",				"..",		OPTYPE_Seq		},	// ..
+	{ TOKEN_Or,					 9, "Or",				"|",		OPTYPE_Or		},	// |
+	{ TOKEN_Xor,				10, "Xor",				"^",		OPTYPE_Xor		},	// ^
+	{ TOKEN_And,				11, "And",				"&",		OPTYPE_And		},	// &
+	{ TOKEN_Shl,				12, "Shl",				"<<",		OPTYPE_Shl		},	// <<
+	{ TOKEN_Shr,				12, "Shr",				">>",		OPTYPE_Shr		},
+	{ TOKEN_Add,				13, "Add",				"+",		OPTYPE_Add		},	// +
+	{ TOKEN_Sub,				13, "Sub",				"-",		OPTYPE_Sub		},
+	{ TOKEN_Mul,				14, "Mul",				"*",		OPTYPE_Mul		},	// *
+	{ TOKEN_Div,				14, "Div",				"/",		OPTYPE_Div		},
+	{ TOKEN_Mod,				14, "Mod",				"%",		OPTYPE_Mod		},
+	{ TOKEN_ModMod,				14, "ModMod",			"%%",		OPTYPE_None		},
+	{ TOKEN_Question,			14, "Question",			"?",		OPTYPE_None		},
+	{ TOKEN_Inv,				15, "Inv",				"~",		OPTYPE_Inv		},	// ~
+	{ TOKEN_Pow,				16, "Pow",				"**",		OPTYPE_Pow		},	// **
+	{ TOKEN_Quote,				17, "Quote",			"`",		OPTYPE_None		},	// `
+	{ TOKEN_Colon,				18, "Colon",			":",		OPTYPE_None		},	// :
+	{ TOKEN_ColonAfterSuffix,	19, "ColonAfterSuffix",	":",		OPTYPE_None		},	// *:
+	{ TOKEN_Dot,				20, "Dot",				".",		OPTYPE_None		},	// .
+	{ TOKEN_ColonColon,			20, "ColonColon",		"::",		OPTYPE_None		},
+	{ TOKEN_ColonAsterisk,		20, "ColonAsterisk",	":*",		OPTYPE_None		},
+	{ TOKEN_ColonAnd,			20, "ColonAnd",			":&",		OPTYPE_None		},
+	{ TOKEN_LParenthesis,		21, "LParenthesis",		"(",		OPTYPE_None		},	// (
+	{ TOKEN_RParenthesis,		22, "RParenthesis",		")",		OPTYPE_None		},	// )
+	{ TOKEN_LBrace,				21, "LBrace",			"{",		OPTYPE_None		},
+	{ TOKEN_RBrace,				22, "RBrace",			"}",		OPTYPE_None		},
+	{ TOKEN_LBlockParam,		21, "LBlockParam",		"|",		OPTYPE_None		},
+	{ TOKEN_RBlockParam,		22, "RBlockParam",		"|",		OPTYPE_None		},
+	{ TOKEN_LBracket,			23, "LBracket",			"[",		OPTYPE_None		},	// [
+	{ TOKEN_RBracket,			24, "RBracket",			"]",		OPTYPE_None		},	// ]
+	{ TOKEN_Comma,				25, "Comma",			",",		OPTYPE_None		},	// ,
+	{ TOKEN_Semicolon,			25, "Semicolon",		";",		OPTYPE_None		},
+	{ TOKEN_EOL,				26, "EOL",				"[EOL]",	OPTYPE_None		},	// \n
+	{ TOKEN_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
+	{ TOKEN_NumberSuffixed,		27, "NumberSuffixed",	"[NmS]",	OPTYPE_None		},
+	{ TOKEN_String,				27, "String",			"[Str]",	OPTYPE_None		},
+	{ TOKEN_StringSuffixed,		27, "StringSuffixed",	"[StS]",	OPTYPE_None		},
+	{ TOKEN_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
+	{ TOKEN_EmbedString,		27, "EmbedString",		"[EmS]",	OPTYPE_None		},
+	{ TOKEN_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
+	{ TOKEN_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
+	{ TOKEN_Expr,				-1, "Expr",				"[Exp]",	OPTYPE_None		},
+	{ TOKEN_Unknown,			-1, "Unknown",			"[unk]",	OPTYPE_None		},
+};
 
 Token::~Token()
 {
+}
+
+const char *Token::GetTypeSymbol() const
+{
+	const TokenTypeInfo *p = LookupTokenTypeInfo(GetType());
+	return (p == nullptr)? "[unk]" : p->symbol;
+}
+
+void Token::Initialize()
+{
+	if (_pTokenTypeToIndexMap != nullptr) return;
+	_pTokenTypeToIndexMap = new TokenTypeToIndexMap();
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
+		(*_pTokenTypeToIndexMap)[p->tokenType] = p->index;
+	}
+}
+
+Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
+{
+	const TokenTypeInfo *pInfoLeft = LookupTokenTypeInfo(tokenTypeLeft);
+	const TokenTypeInfo *pInfoRight = LookupTokenTypeInfo(tokenTypeRight);
+	if (pInfoLeft == nullptr || pInfoRight == nullptr) return Token::PREC_Error;
+	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
+}
+
+int Token::CompareOpTypePrec(OpType opType1, OpType opType2)
+{
+	const TokenTypeInfo *pInfo1 = LookupTokenTypeInfoByOpType(opType1);
+	const TokenTypeInfo *pInfo2 = LookupTokenTypeInfoByOpType(opType2);
+	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
+	return pInfo1->index - pInfo2->index;
+}
+
+Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
+{
+	const Precedence LT = PREC_LT, EQ = PREC_EQ, GT = PREC_GT, xx = PREC_Error;
+	const static Precedence precTbl[][29] = {
+		/*         B   =  ||  &&   !  in   <  ..   |   ^   &  <<   +   *   ~  **   `   :  *:   .   (   )   [   ]   ,  \n   V   S   E */
+		/* e */ { xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx, xx },
+		/* B */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, xx, LT, xx, EQ, EQ, LT, LT, EQ },
+		/* = */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ||*/ { xx, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* &&*/ { xx, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ! */ { xx, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* in*/ { xx, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* < */ { xx, LT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ..*/ { xx, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* | */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ^ */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* & */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* <<*/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* + */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, GT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* * */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, GT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ~ */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ***/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* ` */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, LT, LT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* : */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* *:*/ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, LT, GT, GT, GT, LT, LT, GT },
+		/* . */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, GT, GT, GT, GT, GT, GT, GT, GT, LT, LT, GT },
+		/* ( */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, EQ, LT, EQ, EQ, EQ, LT, LT, xx },
+		/* ) */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
+		/* [ */ { xx, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, LT, EQ, LT, EQ, EQ, EQ, LT, LT, xx },
+		/* ] */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
+		/* , */ { xx, LT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, GT, GT, GT, GT },
+		/* \n*/ { xx, LT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT },
+		/* V */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, xx, GT },
+		/* S */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
+	};                                  
+	return precTbl[indexLeft][indexRight - 1];
+}
+
+const TokenTypeInfo *Token::LookupTokenTypeInfo(TokenType tokenType)
+{
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
+										p->tokenType != TOKEN_Unknown; p++) {
+		if (p->tokenType == tokenType) return p;
+	}
+	return nullptr;
+}
+
+const TokenTypeInfo *Token::LookupTokenTypeInfoByOpType(OpType opType)
+{
+	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
+										p->tokenType != TOKEN_Unknown; p++) {
+		if (p->opType == opType) return p;
+	}
+	return nullptr;
 }
 
 }

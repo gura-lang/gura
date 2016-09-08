@@ -106,6 +106,22 @@ enum TokenType {
 };
 
 //-----------------------------------------------------------------------------
+// TokenTypeInfo
+//-----------------------------------------------------------------------------
+struct TokenTypeInfo {
+	TokenType tokenType;
+	int index;
+	const char *name;
+	const char *symbol;
+	OpType opType;
+};
+
+//-----------------------------------------------------------------------------
+// TokenTypeToIndexMap
+//-----------------------------------------------------------------------------
+typedef std::map<TokenType, int> TokenTypeToIndexMap;
+
+//-----------------------------------------------------------------------------
 // Token
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Token {
@@ -128,6 +144,8 @@ private:
 	// TOKEN_LBracket      (Expr_Lister)
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
+	static TokenTypeToIndexMap *_pTokenTypeToIndexMap;
+	static const TokenTypeInfo _tokenTypeInfoTbl[];
 public:
 	static const Token Unknown;
 public:
@@ -149,6 +167,7 @@ public:
 		return *this;
 	}
 	~Token();
+	static void Initialize();
 	inline TokenType GetType() const { return _tokenType; }
 	inline int GetLineNo() const { return _lineNo; }
 	inline bool IsType(TokenType tokenType) const { return _tokenType == tokenType; }
@@ -176,6 +195,19 @@ public:
 	inline const char *GetSuffix() const { return _suffix.c_str(); }
 	inline size_t GetStringSize() const { return _str.size(); }
 	inline void AddString(const String &str) { _str.append(str); }
+	const char *GetTypeSymbol() const;
+public:
+	inline static int TokenTypeToIndex(TokenType tokenType) {
+		return (*_pTokenTypeToIndexMap)[tokenType];
+	}
+	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
+	static int CompareOpTypePrec(OpType opType1, OpType opType2);
+	static const TokenTypeInfo *LookupTokenTypeInfo(TokenType tokenType);
+	static const TokenTypeInfo *LookupTokenTypeInfoByOpType(OpType opType);
+	static Precedence _LookupPrec(int indexLeft, int indexRight);
+	inline static Precedence LookupPrecFast(TokenType tokenTypeLeft, TokenType tokenTypeRight) {
+		return _LookupPrec(TokenTypeToIndex(tokenTypeLeft), TokenTypeToIndex(tokenTypeRight));
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -208,14 +240,6 @@ private:
 		STAT_RecoverConsole,
 	};
 public:
-	struct TokenTypeInfo {
-		TokenType tokenType;
-		int index;
-		const char *name;
-		const char *symbol;
-		OpType opType;
-	};
-	typedef std::map<TokenType, int> TokenTypeToIndexMap;
 	struct StringInfo {
 		char chBorder;
 		bool rawFlag;		// prefixed by 'r' or 'R'
@@ -264,8 +288,6 @@ private:
 	bool _enablePreparatorFlag;
 	bool _interactiveFlag;
 	TokenWatcher *_pTokenWatcher;
-	static TokenTypeToIndexMap *_pTokenTypeToIndexMap;
-	static const TokenTypeInfo _tokenTypeInfoTbl[];
 public:
 	Parser(Signal &sig, const String &sourceName,
 		   int cntLineStart = 0, bool enablePreparatorFlag = true);
@@ -288,14 +310,6 @@ public:
 	inline int GetColPos() const { return _cntCol; }
 	inline void SetTokenWatcher(TokenWatcher *pTokenWatcher) { _pTokenWatcher = pTokenWatcher; }
 	inline bool IsTokenWatched() const { return _pTokenWatcher != nullptr; }
-	static inline int TokenTypeToIndex(TokenType tokenType) {
-		return (*_pTokenTypeToIndexMap)[tokenType];
-	}
-	static const TokenTypeInfo *LookupTokenTypeInfo(TokenType tokenType);
-	static const TokenTypeInfo *LookupTokenTypeInfoByOpType(OpType opType);
-	static const char *GetTokenTypeSymbol(const Token &token);
-	static Token::Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
-	static int CompareOpTypePrec(OpType opType1, OpType opType2);
 	static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
 	static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
 	void SetError(ErrorType errType, const char *format, ...);
@@ -308,10 +322,6 @@ private:
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &field);
 	void SetError_InvalidToken();
 	void SetError_InvalidToken(int lineno);
-	static Token::Precedence _LookupPrec(int indexLeft, int indexRight);
-	inline Token::Precedence LookupPrecFast(TokenType tokenTypeLeft, TokenType tokenTypeRight) {
-		return _LookupPrec(TokenTypeToIndex(tokenTypeLeft), TokenTypeToIndex(tokenTypeRight));
-	}
 	bool FeedToken(Environment &env, const Token &token);
 	bool _FeedToken(Environment &env, const Token &token);
 	bool EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr);

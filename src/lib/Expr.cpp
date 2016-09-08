@@ -186,7 +186,7 @@ const Expr *Expr::Unquote() const
 bool Expr::NeedParenthesis(const Operator *pOperatorOuter,
 									const Operator *pOperator, bool rightFlag)
 {
-	int rtn = Parser::CompareOpTypePrec(pOperatorOuter->GetOpType(), pOperator->GetOpType());
+	int rtn = Token::CompareOpTypePrec(pOperatorOuter->GetOpType(), pOperator->GetOpType());
 	if (rtn == 0) return rightFlag;
 	return rtn > 0;
 }
