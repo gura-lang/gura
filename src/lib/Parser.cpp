@@ -1199,7 +1199,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 								_tokenStack.SeekTerminal(_tokenStack.rbegin());
 		//::printf("%s  << %s\n",
 		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
-		Token::Precedence prec = Token::LookupPrecFast(pTokenTop->GetType(), token.GetType());
+		Token::Precedence prec = Token::LookupPrec(pTokenTop->GetType(), token.GetType());
 		if (pTokenTop->IsType(TOKEN_Begin) && token.IsSeparatorToken()) {
 			size_t cntToken = _tokenStack.size();
 			if (cntToken == 1) {
@@ -1236,7 +1236,7 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 			TokenStack::reverse_iterator pTokenRight = pTokenTop;
 			while (1) {
 				pTokenLeft = _tokenStack.SeekTerminal(pTokenRight + 1);
-				if (Token::LookupPrecFast(pTokenLeft->GetType(), pTokenRight->GetType())
+				if (Token::LookupPrec(pTokenLeft->GetType(), pTokenRight->GetType())
 																	== Token::PREC_LT) {
 					pTokenLeft--;
 					break;
@@ -2443,9 +2443,9 @@ bool MagicCommentParser::ParseChar(char ch)
 // Token
 //-----------------------------------------------------------------------------
 const Token Token::Unknown;
-TokenTypeToIndexMap *Token::_pTokenTypeToIndexMap = nullptr;
+TokenTypeToTokenInfoMap *Token::_pTokenTypeToTokenInfoMap = nullptr;
 
-const TokenTypeInfo Token::_tokenTypeInfoTbl[] = {
+const TokenInfo Token::_tokenInfoTbl[] = {
 	{ TOKEN_Begin,				 1, "Begin",			"[Bgn]",	OPTYPE_None		},	// B
 	{ TOKEN_Assign,				 2, "Assign",			"=",		OPTYPE_None		},	// =
 	{ TOKEN_AssignAdd,			 2, "AssignAdd",		"+=",		OPTYPE_None		},
@@ -2522,36 +2522,28 @@ Token::~Token()
 
 const char *Token::GetTypeSymbol() const
 {
-	const TokenTypeInfo *p = LookupTokenTypeInfo(GetType());
+	const TokenInfo *p = LookupTokenInfo(GetType());
 	return (p == nullptr)? "[unk]" : p->symbol;
 }
 
 void Token::Initialize()
 {
-	if (_pTokenTypeToIndexMap != nullptr) return;
-	_pTokenTypeToIndexMap = new TokenTypeToIndexMap();
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
-		(*_pTokenTypeToIndexMap)[p->tokenType] = p->index;
+	if (_pTokenTypeToTokenInfoMap != nullptr) return;
+	_pTokenTypeToTokenInfoMap = new TokenTypeToTokenInfoMap();
+	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
+		(*_pTokenTypeToTokenInfoMap)[p->tokenType] = p;
 	}
-}
-
-Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
-{
-	const TokenTypeInfo *pInfoLeft = LookupTokenTypeInfo(tokenTypeLeft);
-	const TokenTypeInfo *pInfoRight = LookupTokenTypeInfo(tokenTypeRight);
-	if (pInfoLeft == nullptr || pInfoRight == nullptr) return Token::PREC_Error;
-	return _LookupPrec(pInfoLeft->index, pInfoRight->index);
 }
 
 int Token::CompareOpTypePrec(OpType opType1, OpType opType2)
 {
-	const TokenTypeInfo *pInfo1 = LookupTokenTypeInfoByOpType(opType1);
-	const TokenTypeInfo *pInfo2 = LookupTokenTypeInfoByOpType(opType2);
+	const TokenInfo *pInfo1 = LookupTokenInfoByOpType(opType1);
+	const TokenInfo *pInfo2 = LookupTokenInfoByOpType(opType2);
 	if (pInfo1 == nullptr || pInfo2 == nullptr) return 0;
 	return pInfo1->index - pInfo2->index;
 }
 
-Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
+Token::Precedence Token::LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight)
 {
 	const Precedence LT = PREC_LT, EQ = PREC_EQ, GT = PREC_GT, xx = PREC_Error;
 	const static Precedence precTbl[][29] = {
@@ -2586,22 +2578,24 @@ Token::Precedence Token::_LookupPrec(int indexLeft, int indexRight)
 		/* V */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, LT, xx, GT },
 		/* S */ { xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
 	};                                  
+	int indexLeft = LookupTokenInfo(tokenTypeLeft)->index;
+	int indexRight = LookupTokenInfo(tokenTypeRight)->index;
 	return precTbl[indexLeft][indexRight - 1];
 }
 
-const TokenTypeInfo *Token::LookupTokenTypeInfo(TokenType tokenType)
+#if 0
+const TokenInfo *Token::LookupTokenInfo(TokenType tokenType)
 {
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
-										p->tokenType != TOKEN_Unknown; p++) {
+	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
 		if (p->tokenType == tokenType) return p;
 	}
 	return nullptr;
 }
+#endif
 
-const TokenTypeInfo *Token::LookupTokenTypeInfoByOpType(OpType opType)
+const TokenInfo *Token::LookupTokenInfoByOpType(OpType opType)
 {
-	for (const TokenTypeInfo *p = _tokenTypeInfoTbl;
-										p->tokenType != TOKEN_Unknown; p++) {
+	for (const TokenInfo *p = _tokenInfoTbl; p->tokenType != TOKEN_Unknown; p++) {
 		if (p->opType == opType) return p;
 	}
 	return nullptr;

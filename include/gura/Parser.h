@@ -106,9 +106,9 @@ enum TokenType {
 };
 
 //-----------------------------------------------------------------------------
-// TokenTypeInfo
+// TokenInfo
 //-----------------------------------------------------------------------------
-struct TokenTypeInfo {
+struct TokenInfo {
 	TokenType tokenType;
 	int index;
 	const char *name;
@@ -117,9 +117,9 @@ struct TokenTypeInfo {
 };
 
 //-----------------------------------------------------------------------------
-// TokenTypeToIndexMap
+// TokenTypeToTokenInfoMap
 //-----------------------------------------------------------------------------
-typedef std::map<TokenType, int> TokenTypeToIndexMap;
+typedef std::map<TokenType, const TokenInfo *> TokenTypeToTokenInfoMap;
 
 //-----------------------------------------------------------------------------
 // Token
@@ -144,8 +144,8 @@ private:
 	// TOKEN_LBracket      (Expr_Lister)
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
-	static TokenTypeToIndexMap *_pTokenTypeToIndexMap;
-	static const TokenTypeInfo _tokenTypeInfoTbl[];
+	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
+	static const TokenInfo _tokenInfoTbl[];
 public:
 	static const Token Unknown;
 public:
@@ -197,17 +197,13 @@ public:
 	inline void AddString(const String &str) { _str.append(str); }
 	const char *GetTypeSymbol() const;
 public:
-	inline static int TokenTypeToIndex(TokenType tokenType) {
-		return (*_pTokenTypeToIndexMap)[tokenType];
+	inline static const TokenInfo *LookupTokenInfo(TokenType tokenType) {
+		return (*_pTokenTypeToTokenInfoMap)[tokenType];
 	}
-	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
 	static int CompareOpTypePrec(OpType opType1, OpType opType2);
-	static const TokenTypeInfo *LookupTokenTypeInfo(TokenType tokenType);
-	static const TokenTypeInfo *LookupTokenTypeInfoByOpType(OpType opType);
-	static Precedence _LookupPrec(int indexLeft, int indexRight);
-	inline static Precedence LookupPrecFast(TokenType tokenTypeLeft, TokenType tokenTypeRight) {
-		return _LookupPrec(TokenTypeToIndex(tokenTypeLeft), TokenTypeToIndex(tokenTypeRight));
-	}
+	//static const TokenInfo *LookupTokenInfo(TokenType tokenType);
+	static const TokenInfo *LookupTokenInfoByOpType(OpType opType);
+	static Precedence LookupPrec(TokenType tokenTypeLeft, TokenType tokenTypeRight);
 };
 
 //-----------------------------------------------------------------------------
