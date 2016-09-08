@@ -206,6 +206,7 @@ public:
 	reverse_iterator SeekTerminal(reverse_iterator p);
 	Token &Peek(int offset) { return *(rbegin() + offset); }
 	void Clear();
+	bool CheckBlockParamEnd() const;
 	String ToString() const;
 	inline bool IsEmpty() const { return size() <= 1; }
 };

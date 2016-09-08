@@ -140,7 +140,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else if (ch == '[') {
 			FeedToken(env, Token(TOKEN_LBracket, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
-		} else if (ch == '|' && _blockParamFlag && CheckBlockParamEnd()) {
+		} else if (ch == '|' && _blockParamFlag && _tokenStack.CheckBlockParamEnd()) {
 			_blockParamFlag = false;
 			FeedToken(env, Token(TOKEN_RBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
@@ -982,20 +982,6 @@ Expr_Caller *Parser::CreateCaller(
 	return new Expr_Caller(pExprCar, pExprLister, pExprBlock, flags);
 }
 
-bool Parser::CheckBlockParamEnd() const
-{
-	int parLevel = 0;
-	foreach_const_reverse (TokenStack, pToken, _tokenStack) {
-		const Token &token = *pToken;
-		if (token.IsType(TOKEN_LBlockParam)) break;
-		if (token.IsCloseToken()) parLevel++;
-		if (token.IsOpenToken()) {
-			parLevel--;
-			if (parLevel < 0) return false;
-		}
-	}
-	return true;
-}
 
 TokenType Parser::TokenTypeForString(const StringInfo &stringInfo)
 {

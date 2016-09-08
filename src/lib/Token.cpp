@@ -179,6 +179,21 @@ void TokenStack::Clear()
 	clear();
 }
 
+bool TokenStack::CheckBlockParamEnd() const
+{
+	int parLevel = 0;
+	foreach_const_reverse (TokenStack, pToken, *this) {
+		const Token &token = *pToken;
+		if (token.IsType(TOKEN_LBlockParam)) break;
+		if (token.IsCloseToken()) parLevel++;
+		if (token.IsOpenToken()) {
+			parLevel--;
+			if (parLevel < 0) return false;
+		}
+	}
+	return true;
+}
+
 String TokenStack::ToString() const
 {
 	String rtn;
