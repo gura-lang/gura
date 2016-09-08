@@ -97,6 +97,7 @@ String.cpp
 SuffixMgr.cpp
 Symbol.cpp
 Template.cpp
+Token.cpp
 Unicode-CP932.cpp
 Unicode-CP936.cpp
 Unicode-CP949.cpp

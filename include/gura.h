@@ -66,6 +66,7 @@
 #include "gura/String.h"
 #include "gura/SuffixMgr.h"
 #include "gura/Template.h"
+#include "gura/Token.h"
 #include "gura/Unicode-CP932.h"
 #include "gura/Unicode-CP936.h"
 #include "gura/Unicode-CP949.h"

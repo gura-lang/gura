@@ -282,6 +282,7 @@
     <ClCompile Include="SuffixMgr.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="Template.cpp" />
+    <ClCompile Include="Token.cpp" />
     <ClCompile Include="Unicode-CP932.cpp" />
     <ClCompile Include="Unicode-CP936.cpp" />
     <ClCompile Include="Unicode-CP949.cpp" />
@@ -411,6 +412,7 @@
     <ClInclude Include="..\..\include\gura\SuffixMgr.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
     <ClInclude Include="..\..\include\gura\Template.h" />
+    <ClInclude Include="..\..\include\gura\Token.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP932.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP936.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP949.h" />
