@@ -383,7 +383,8 @@ ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valLis
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return nullptr;
 		}
-		if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
+		//if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
+		if (!symbolList.AddFromExpr(pValue->GetExpr())) {
 			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
 					pValue->GetExpr()->ToString(Expr::SCRSTYLE_OneLine).c_str());
 			return nullptr;
@@ -401,7 +402,8 @@ ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valLis
 ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
 {
 	SymbolList symbolList;
-	if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+	//if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+	if (!symbolList.AddFromExpr(pExpr)) {
 		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
 						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		return nullptr;
@@ -445,7 +447,8 @@ bool Environment::ImportModules(Signal &sig, const char *moduleNames,
 		}
 		moduleName = Strip(moduleName.c_str());
 		SymbolList symbolList;
-		if (!Parser::ParseDottedIdentifier(moduleName.c_str(), symbolList)) {
+		//if (!Parser::ParseDottedIdentifier(moduleName.c_str(), symbolList)) {
+		if (!symbolList.AddFromString(moduleName.c_str())) {
 			sig.SetError(ERR_ImportError, "wrong format of module name");
 			return false;
 		}
@@ -470,19 +473,21 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
 		if (pSymbol->IsIdentical(Symbol::Hyphen)) {
 			// import(-foo)
-			successFlag = Parser::ParseDottedIdentifier(pExprEx->GetChild(), symbolList);
+			//successFlag = Parser::ParseDottedIdentifier(pExprEx->GetChild(), symbolList);
+			successFlag = symbolList.AddFromExpr(pExprEx->GetChild());
 			assignModuleNameFlag = false;
 		} else if (pSymbol->IsIdentical(Symbol::Amp)) {
 			// import(&foo)
 			Value rtn = pExprEx->GetChild()->Exec(*this);
 			if (sig.IsSignalled()) return nullptr;
 			if (rtn.Is_string()) {
-				const char *p = rtn.GetString();
-				if (*p == '-') {
+				const char *str = rtn.GetString();
+				if (*str == '-') {
 					assignModuleNameFlag = false;
-					p++;
+					str++;
 				}
-				successFlag = Parser::ParseDottedIdentifier(p, symbolList);
+				//successFlag = Parser::ParseDottedIdentifier(str, symbolList);
+				successFlag = symbolList.AddFromString(str);
 			} else {
 				sig.SetError(ERR_ImportError, "module name must be a string");
 				return nullptr;
@@ -491,7 +496,8 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 			// nothing to do
 		}
 	} else {
-		successFlag = Parser::ParseDottedIdentifier(pExpr, symbolList);
+		//successFlag = Parser::ParseDottedIdentifier(pExpr, symbolList);
+		successFlag = symbolList.AddFromExpr(pExpr);
 	}
 	if (!successFlag) {
 		sig.SetError(ERR_ImportError, "wrong format of module name");

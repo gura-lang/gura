@@ -1880,7 +1880,8 @@ bool Parser::ReduceThreeTokens(Environment &env)
 							"value type must be specified as a first attribute");
 					goto error_done;
 				}
-				if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
+				//if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
+				if (!pAttrFront->AddFromExpr(pExprRight)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");
 					goto error_done;
 				}
@@ -2274,6 +2275,7 @@ error_done:
 	return false;
 }
 
+#if 0
 bool Parser::ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList)
 {
 	String field;
@@ -2313,6 +2315,7 @@ bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
 	}
 	return true;
 }
+#endif
 
 void Parser::SetError(ErrorType errType, const char *format, ...)
 {

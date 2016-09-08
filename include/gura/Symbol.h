@@ -38,6 +38,7 @@ _pUserSymbol_##name = Symbol::Add(str);
 
 namespace Gura {
 
+class Expr;
 class SymbolSet;
 
 //-----------------------------------------------------------------------------
@@ -138,6 +139,8 @@ public:
 	static String Join(SymbolList::const_iterator ppSymbol,
 				SymbolList::const_iterator ppSymbolEnd, const char sepChar);
 	void SortByName();
+	bool AddFromString(const char *str);
+	bool AddFromExpr(const Expr *pExpr);
 };
 
 //-----------------------------------------------------------------------------

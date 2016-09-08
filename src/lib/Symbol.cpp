@@ -273,7 +273,7 @@ String SymbolList::Join(const char sepChar) const
 }
 
 String SymbolList::Join(SymbolList::const_iterator ppSymbol,
-					SymbolList::const_iterator ppSymbolEnd, const char *sep)
+						SymbolList::const_iterator ppSymbolEnd, const char *sep)
 {
 	String rtn;
 	if (ppSymbol == ppSymbolEnd) return rtn;
@@ -287,7 +287,7 @@ String SymbolList::Join(SymbolList::const_iterator ppSymbol,
 }
 
 String SymbolList::Join(SymbolList::const_iterator ppSymbol,
-					SymbolList::const_iterator ppSymbolEnd, const char sepChar)
+						SymbolList::const_iterator ppSymbolEnd, const char sepChar)
 {
 	char sep[2];
 	sep[0] = sepChar;
@@ -298,6 +298,47 @@ String SymbolList::Join(SymbolList::const_iterator ppSymbol,
 void SymbolList::SortByName()
 {
 	std::stable_sort(begin(), end(), Symbol::LessThan_Name());
+}
+
+// this function extracts symbols described in a string.
+bool SymbolList::AddFromString(const char *str)
+{
+	String field;
+	for (const char *p = str; *p != '\0'; p++) {
+		char ch = *p;
+		if (ch == '.') {
+			push_back(Symbol::Add(field.c_str()));
+			field.clear();
+		} else if (ch == '\0') {
+			// nothing to do
+		} else {
+			field += ch;
+		}
+	}
+	if (!field.empty()) {
+		push_back(Symbol::Add(field.c_str()));
+	}
+	return true;
+}
+
+// this function extracts symbols chained by member operator ".".
+bool SymbolList::AddFromExpr(const Expr *pExpr)
+{
+	for (;;) {
+		if (pExpr->IsMember()) {
+			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
+			const Expr_Identifier *pExprIdentifier = pExprMember->GetSelector();
+			insert(begin(), pExprIdentifier->GetSymbol());
+			pExpr = pExprMember->GetTarget();
+		} else if (pExpr->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+			insert(begin(), pExprIdentifier->GetSymbol());
+			break;
+		} else {
+			return false;
+		}
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

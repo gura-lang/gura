@@ -1927,7 +1927,8 @@ Gura_ImplementFunction(undef_)
 			pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		} else {
 			SymbolList symbolList;
-			if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+			//if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
+			if (!symbolList.AddFromExpr(pExpr)) {
 				sig.SetError(ERR_ValueError, "invalid identifier name");
 				return Value::Nil;
 			}
