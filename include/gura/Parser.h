@@ -87,7 +87,7 @@ private:
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
-	TokenType _tokenTypePrev;
+	const TokenInfo *_pTokenInfoPrev;
 	int _lineNoTop;
 	int _lineNoOfTokenPrev;
 	TokenStack _tokenStack;
@@ -128,7 +128,7 @@ private:
 		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
 		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
 	bool CheckBlockParamEnd() const;
-	static TokenType TokenTypeForString(const StringInfo &stringInfo);
+	static const TokenInfo *TokenInfoForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &field);
 	void SetError_InvalidToken();
 	void SetError_InvalidToken(int lineno);

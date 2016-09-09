@@ -96,12 +96,87 @@ struct TokenInfo {
 	const char *name;
 	const char *symbol;
 	OpType opType;
+	bool IsIdentical(const TokenInfo &tokenInfo) const { return this == &tokenInfo; }
 };
+
+extern const TokenInfo TOKENI_Begin;
+extern const TokenInfo TOKENI_Assign;
+extern const TokenInfo TOKENI_AssignAdd;
+extern const TokenInfo TOKENI_AssignSub;
+extern const TokenInfo TOKENI_AssignMul;
+extern const TokenInfo TOKENI_AssignDiv;
+extern const TokenInfo TOKENI_AssignMod;
+extern const TokenInfo TOKENI_AssignPow;
+extern const TokenInfo TOKENI_AssignOr;
+extern const TokenInfo TOKENI_AssignAnd;
+extern const TokenInfo TOKENI_AssignXor;
+extern const TokenInfo TOKENI_AssignShl;
+extern const TokenInfo TOKENI_AssignShr;
+extern const TokenInfo TOKENI_Pair;
+extern const TokenInfo TOKENI_OrOr;
+extern const TokenInfo TOKENI_AndAnd;
+extern const TokenInfo TOKENI_Not;
+extern const TokenInfo TOKENI_Contains;
+extern const TokenInfo TOKENI_Lt;
+extern const TokenInfo TOKENI_Gt;
+extern const TokenInfo TOKENI_Le;
+extern const TokenInfo TOKENI_Ge;
+extern const TokenInfo TOKENI_Cmp;
+extern const TokenInfo TOKENI_Eq;
+extern const TokenInfo TOKENI_Ne;
+extern const TokenInfo TOKENI_Seq;
+extern const TokenInfo TOKENI_Or;
+extern const TokenInfo TOKENI_Xor;
+extern const TokenInfo TOKENI_And;
+extern const TokenInfo TOKENI_Shl;
+extern const TokenInfo TOKENI_Shr;
+extern const TokenInfo TOKENI_Add;
+extern const TokenInfo TOKENI_Sub;
+extern const TokenInfo TOKENI_Mul;
+extern const TokenInfo TOKENI_Div;
+extern const TokenInfo TOKENI_Mod;
+extern const TokenInfo TOKENI_ModMod;
+extern const TokenInfo TOKENI_Question;
+extern const TokenInfo TOKENI_Inv;
+extern const TokenInfo TOKENI_Pow;
+extern const TokenInfo TOKENI_Quote;
+extern const TokenInfo TOKENI_Colon;
+extern const TokenInfo TOKENI_ColonAfterSuffix;
+extern const TokenInfo TOKENI_Dot;
+extern const TokenInfo TOKENI_ColonColon;
+extern const TokenInfo TOKENI_ColonAsterisk;
+extern const TokenInfo TOKENI_ColonAnd;
+extern const TokenInfo TOKENI_LParenthesis;		// open toke
+extern const TokenInfo TOKENI_RParenthesis;		// close toke
+extern const TokenInfo TOKENI_LBrace;				// open toke
+extern const TokenInfo TOKENI_RBrace;				// close toke
+extern const TokenInfo TOKENI_LBracket;			// open toke
+extern const TokenInfo TOKENI_RBracket;			// close toke
+extern const TokenInfo TOKENI_LBlockParam;			// open toke
+extern const TokenInfo TOKENI_RBlockParam;			// close toke
+extern const TokenInfo TOKENI_Comma;
+extern const TokenInfo TOKENI_Semicolon;
+extern const TokenInfo TOKENI_EOL;
+extern const TokenInfo TOKENI_Number;
+extern const TokenInfo TOKENI_NumberSuffixed;
+extern const TokenInfo TOKENI_String;
+extern const TokenInfo TOKENI_StringSuffixed;
+extern const TokenInfo TOKENI_Binary;
+extern const TokenInfo TOKENI_EmbedString;
+extern const TokenInfo TOKENI_Symbol;
+extern const TokenInfo TOKENI_EOF;
+extern const TokenInfo TOKENI_Expr;
+extern const TokenInfo TOKENI_White;				// for watcher
+extern const TokenInfo TOKENI_CommentLine;			// for watcher
+extern const TokenInfo TOKENI_CommentBlock;		// for watcher
+extern const TokenInfo TOKENI_DoubleChars;			// only used in tokenizing process
+extern const TokenInfo TOKENI_TripleChars;			// only used in tokenizing process
+extern const TokenInfo TOKENI_Unknown;
 
 //-----------------------------------------------------------------------------
 // TokenTypeToTokenInfoMap
 //-----------------------------------------------------------------------------
-typedef std::map<TokenType, const TokenInfo *> TokenTypeToTokenInfoMap;
+//typedef std::map<TokenType, const TokenInfo *> TokenTypeToTokenInfoMap;
 
 //-----------------------------------------------------------------------------
 // OpTypeToTokenInfoMap
@@ -132,96 +207,22 @@ private:
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
 public:
-	static const TokenInfo TOKENI_Begin;
-	static const TokenInfo TOKENI_Assign;
-	static const TokenInfo TOKENI_AssignAdd;
-	static const TokenInfo TOKENI_AssignSub;
-	static const TokenInfo TOKENI_AssignMul;
-	static const TokenInfo TOKENI_AssignDiv;
-	static const TokenInfo TOKENI_AssignMod;
-	static const TokenInfo TOKENI_AssignPow;
-	static const TokenInfo TOKENI_AssignOr;
-	static const TokenInfo TOKENI_AssignAnd;
-	static const TokenInfo TOKENI_AssignXor;
-	static const TokenInfo TOKENI_AssignShl;
-	static const TokenInfo TOKENI_AssignShr;
-	static const TokenInfo TOKENI_Pair;
-	static const TokenInfo TOKENI_OrOr;
-	static const TokenInfo TOKENI_AndAnd;
-	static const TokenInfo TOKENI_Not;
-	static const TokenInfo TOKENI_Contains;
-	static const TokenInfo TOKENI_Lt;
-	static const TokenInfo TOKENI_Gt;
-	static const TokenInfo TOKENI_Le;
-	static const TokenInfo TOKENI_Ge;
-	static const TokenInfo TOKENI_Cmp;
-	static const TokenInfo TOKENI_Eq;
-	static const TokenInfo TOKENI_Ne;
-	static const TokenInfo TOKENI_Seq;
-	static const TokenInfo TOKENI_Or;
-	static const TokenInfo TOKENI_Xor;
-	static const TokenInfo TOKENI_And;
-	static const TokenInfo TOKENI_Shl;
-	static const TokenInfo TOKENI_Shr;
-	static const TokenInfo TOKENI_Add;
-	static const TokenInfo TOKENI_Sub;
-	static const TokenInfo TOKENI_Mul;
-	static const TokenInfo TOKENI_Div;
-	static const TokenInfo TOKENI_Mod;
-	static const TokenInfo TOKENI_ModMod;
-	static const TokenInfo TOKENI_Question;
-	static const TokenInfo TOKENI_Inv;
-	static const TokenInfo TOKENI_Pow;
-	static const TokenInfo TOKENI_Quote;
-	static const TokenInfo TOKENI_Colon;
-	static const TokenInfo TOKENI_ColonAfterSuffix;
-	static const TokenInfo TOKENI_Dot;
-	static const TokenInfo TOKENI_ColonColon;
-	static const TokenInfo TOKENI_ColonAsterisk;
-	static const TokenInfo TOKENI_ColonAnd;
-	static const TokenInfo TOKENI_LParenthesis;		// open toke
-	static const TokenInfo TOKENI_RParenthesis;		// close toke
-	static const TokenInfo TOKENI_LBrace;			// open toke
-	static const TokenInfo TOKENI_RBrace;			// close toke
-	static const TokenInfo TOKENI_LBracket;			// open toke
-	static const TokenInfo TOKENI_RBracket;			// close toke
-	static const TokenInfo TOKENI_LBlockParam;		// open toke
-	static const TokenInfo TOKENI_RBlockParam;		// close toke
-	static const TokenInfo TOKENI_Comma;
-	static const TokenInfo TOKENI_Semicolon;
-	static const TokenInfo TOKENI_EOL;
-	static const TokenInfo TOKENI_Number;
-	static const TokenInfo TOKENI_NumberSuffixed;
-	static const TokenInfo TOKENI_String;
-	static const TokenInfo TOKENI_StringSuffixed;
-	static const TokenInfo TOKENI_Binary;
-	static const TokenInfo TOKENI_EmbedString;
-	static const TokenInfo TOKENI_Symbol;
-	static const TokenInfo TOKENI_EOF;
-	static const TokenInfo TOKENI_Expr;
-	static const TokenInfo TOKENI_White;			// for watcher
-	static const TokenInfo TOKENI_CommentLine;		// for watcher
-	static const TokenInfo TOKENI_CommentBlock;		// for watcher
-	static const TokenInfo TOKENI_DoubleChars;		// only used in tokenizing process
-	static const TokenInfo TOKENI_TripleChars;		// only used in tokenizing process
-	static const TokenInfo TOKENI_Unknown;
-public:
 	//static const TokenInfo _tokenInfoTbl[];
 	static const TokenInfo *const _tokenInfoTbl[];
-	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
+	//static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
 	inline Token(const Token &token) :
 		_pTokenInfo(token._pTokenInfo), _lineNo(token._lineNo), _str(token._str),
 		_suffix(token._suffix), _pExpr(token._pExpr) {}
-	inline Token(TokenType tokenType, int lineNo) :
-		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _pExpr(nullptr) {}
-	inline Token(TokenType tokenType, int lineNo, const String &str) :
-		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
-	inline Token(TokenType tokenType, int lineNo, const String &str, const String &suffix) :
-		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
-	inline Token(TokenType tokenType, Expr *pExpr) :
-		_pTokenInfo(LookupTokenInfo(tokenType)), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
+	inline Token(const TokenInfo &tokenInfo, int lineNo) :
+		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _pExpr(nullptr) {}
+	inline Token(const TokenInfo &tokenInfo, int lineNo, const String &str) :
+		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
+	inline Token(const TokenInfo &tokenInfo, int lineNo, const String &str, const String &suffix) :
+		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
+	inline Token(const TokenInfo &tokenInfo, Expr *pExpr) :
+		_pTokenInfo(&tokenInfo), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 	inline Token &operator=(const Token &token) {
 		_pTokenInfo = token._pTokenInfo, _lineNo = token._lineNo, _pExpr = token._pExpr;
 		_str = token._str, _suffix = token._suffix;
@@ -229,6 +230,7 @@ public:
 	}
 	~Token();
 	static void Initialize();
+	inline const TokenInfo &GetTokenInfo() const { return *_pTokenInfo; }
 	inline TokenType GetType() const { return _pTokenInfo->tokenType; }
 	inline int GetCategory() const { return _pTokenInfo->category; }
 	inline const char *GetName() const { return _pTokenInfo->name; }
@@ -236,6 +238,9 @@ public:
 	inline OpType GetOpType() const { return _pTokenInfo->opType; }
 	inline int GetLineNo() const { return _lineNo; }
 	inline bool IsType(TokenType tokenType) const { return GetType() == tokenType; }
+	inline bool IsType(const TokenInfo &tokenInfo) const {
+		return _pTokenInfo->IsIdentical(tokenInfo);
+	}
 	inline bool IsOpenToken() const {
 		return IsType(TOKEN_LParenthesis) || IsType(TOKEN_LBrace) ||
 			IsType(TOKEN_LBracket) || IsType(TOKEN_LBlockParam);
@@ -262,9 +267,9 @@ public:
 	inline void AddString(const String &str) { _str.append(str); }
 	const char *GetTypeSymbol() const;
 public:
-	inline static const TokenInfo *LookupTokenInfo(TokenType tokenType) {
-		return (*_pTokenTypeToTokenInfoMap)[tokenType];
-	}
+	//inline static const TokenInfo *LookupTokenInfo(TokenType tokenType) {
+	//	return (*_pTokenTypeToTokenInfoMap)[tokenType];
+	//}
 	inline static const TokenInfo *LookupTokenInfoByOpType(OpType opType) {
 		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);
 		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
