@@ -186,7 +186,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_field.clear();
 				_field.push_back(ch);
 				_stat = STAT_DoubleChars;
-			} else if (_tokenStack.back().IsType(TOKEN_Quote)) {
+			} else if (_tokenStack.back().IsType(TOKENI_Quote)) {
 				_field.clear();
 				_field.push_back(ch);
 				FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
@@ -303,7 +303,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				}
 				if (pTokenInfo->tokenType == TOKEN_TripleChars) {
 					_stat = STAT_TripleChars;
-				} else if (_tokenStack.back().IsType(TOKEN_Quote)) {
+				} else if (_tokenStack.back().IsType(TOKENI_Quote)) {
 					FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
 					if (sig.IsSignalled()) _stat = STAT_Error;
 				} else {
@@ -351,7 +351,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				Gura_PushbackCond(false);
 				break;
 			}
-			if (_tokenStack.back().IsType(TOKEN_Quote)) {
+			if (_tokenStack.back().IsType(TOKENI_Quote)) {
 				FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
 				if (sig.IsSignalled()) _stat = STAT_Error;
 			} else {
@@ -497,7 +497,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_NumberAfterDot: {
 		if (ch == '.') {
-			if (_tokenStack.back().IsType(TOKEN_Quote)) {
+			if (_tokenStack.back().IsType(TOKENI_Quote)) {
 				_field.push_back(ch);
 				FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
 			} else {
@@ -603,7 +603,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_field.clear();
 			_stat = STAT_StringFirst;
 		} else {
-			if (_field == "in" && !_tokenStack.back().IsType(TOKEN_Quote)) {
+			if (_field == "in" && !_tokenStack.back().IsType(TOKENI_Quote)) {
 				FeedToken(env, Token(TOKENI_Contains, GetLineNo()));
 			} else {
 				FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
@@ -1163,7 +1163,7 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 		// Ignores EOL before a left brace-bracket so the bracket character appears to
 		// be joined with the content in the previous line without a line break.
 		if (_pTokenInfoPrev->tokenType == TOKEN_EOL) {
-			if (!token.IsType(TOKEN_LBrace) &&
+			if (!token.IsType(TOKENI_LBrace) &&
 				!_FeedToken(env, Token(*_pTokenInfoPrev, _lineNoOfTokenPrev))) {
 				_pTokenInfoPrev = &token.GetTokenInfo();
 				_lineNoOfTokenPrev = token.GetLineNo();
@@ -1172,7 +1172,7 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 		}
 		_pTokenInfoPrev = &token.GetTokenInfo();
 		_lineNoOfTokenPrev = token.GetLineNo();
-		if (token.IsType(TOKEN_EOL)) return true;
+		if (token.IsType(TOKENI_EOL)) return true;
 	}
 	return _FeedToken(env, token);
 }
@@ -1186,11 +1186,11 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 		//::printf("%s  << %s\n",
 		//				_tokenStack.ToString().c_str(), token.GetTypeSymbol());
 		Token::Precedence prec = Token::LookupPrec(*pTokenTop, token);
-		if (pTokenTop->IsType(TOKEN_Begin) && token.IsSeparatorToken()) {
+		if (pTokenTop->IsType(TOKENI_Begin) && token.IsSeparatorToken()) {
 			size_t cntToken = _tokenStack.size();
 			if (cntToken == 1) {
 				// nothing to do
-			} else if (cntToken == 2 && _tokenStack[1].IsType(TOKEN_Expr)) {
+			} else if (cntToken == 2 && _tokenStack[1].IsType(TOKENI_Expr)) {
 				Expr *pExpr = _tokenStack[1].GetExpr();
 				if (_enablePreparatorFlag && !pExpr->Prepare(env)) {
 					InitStack();
@@ -1207,11 +1207,11 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 		} else if (prec == Token::PREC_LT || prec == Token::PREC_EQ) {
 			Token &tokenLast = _tokenStack.back();
 			// concatenation of two sequences of string, binary and embed-string
-			if (tokenLast.IsType(TOKEN_String) && token.IsType(TOKEN_String)) {
+			if (tokenLast.IsType(TOKENI_String) && token.IsType(TOKENI_String)) {
 				tokenLast.AddString(token.GetStringSTL());
-			} else if (tokenLast.IsType(TOKEN_Binary) && token.IsType(TOKEN_Binary)) {
+			} else if (tokenLast.IsType(TOKENI_Binary) && token.IsType(TOKENI_Binary)) {
 				tokenLast.AddString(token.GetStringSTL());
-			} else if (tokenLast.IsType(TOKEN_EmbedString) && token.IsType(TOKEN_EmbedString)) {
+			} else if (tokenLast.IsType(TOKENI_EmbedString) && token.IsType(TOKENI_EmbedString)) {
 				tokenLast.AddString(token.GetStringSTL());
 			} else {
 				_tokenStack.push_back(token);
@@ -1290,19 +1290,19 @@ bool Parser::ReduceOneToken(Environment &env)
 	Token &token1 = _tokenStack.Peek(0);
 	int lineNoTop = token1.GetLineNo();
 	int lineNoBtm = token1.GetLineNo();
-	if (token1.IsType(TOKEN_Number)) {
+	if (token1.IsType(TOKENI_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
 		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(token1.GetString())));
 		pExprEx->SetScript(token1.GetStringSTL());
 		pExpr = pExprEx;
-	} else if (token1.IsType(TOKEN_String)) {
+	} else if (token1.IsType(TOKENI_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
 		pExpr = new Expr_Value(Value(token1.GetStringSTL()));
-	} else if (token1.IsType(TOKEN_Binary)) {
+	} else if (token1.IsType(TOKENI_Binary)) {
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
 		pExpr = new Expr_Value(Value(new Object_binary(env,
 						   Binary(token1.GetString(), token1.GetStringSize()), false)));
-	} else if (token1.IsType(TOKEN_EmbedString)) {
+	} else if (token1.IsType(TOKENI_EmbedString)) {
 		DBGPARSER(::printf("Reduce: Expr -> EmbedString\n"));
 		AutoPtr<Template> pTemplate(new Template());
 		bool autoIndentFlag = true;
@@ -1310,26 +1310,26 @@ bool Parser::ReduceOneToken(Environment &env)
 		if (!pTemplate->Parse(env, token1.GetString(), nullptr,
 							  autoIndentFlag, appendLastEOLFlag)) goto error_done;
 		pExpr = new Expr_EmbedString(pTemplate.release(), token1.GetStringSTL());
-	} else if (token1.IsType(TOKEN_Symbol)) {
+	} else if (token1.IsType(TOKENI_Symbol)) {
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(token1.GetString());
 		pExpr = new Expr_Identifier(pSymbol);
-	} else if (token1.IsType(TOKEN_NumberSuffixed)) {
+	} else if (token1.IsType(TOKENI_NumberSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
 		pExpr = new Expr_Suffixed(token1.GetStringSTL(), true, Symbol::Add(token1.GetSuffix()));
-	} else if (token1.IsType(TOKEN_StringSuffixed)) {
+	} else if (token1.IsType(TOKENI_StringSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
 		pExpr = new Expr_Suffixed(token1.GetStringSTL(), false, Symbol::Add(token1.GetSuffix()));
-	} else if (token1.IsType(TOKEN_Add)) {
+	} else if (token1.IsType(TOKENI_Add)) {
 		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
 		pExpr = new Expr_Identifier(Symbol::Plus);
-	} else if (token1.IsType(TOKEN_Mul)) {
+	} else if (token1.IsType(TOKENI_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
 		pExpr = new Expr_Identifier(Symbol::Ast);
-	} else if (token1.IsType(TOKEN_Question)) {
+	} else if (token1.IsType(TOKENI_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
 		pExpr = new Expr_Identifier(Symbol::Quest);
-	} else if (token1.IsType(TOKEN_Sub)) {
+	} else if (token1.IsType(TOKENI_Sub)) {
 		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
 		pExpr = new Expr_Identifier(Symbol::Hyphen);
 	} else {
@@ -1352,8 +1352,8 @@ bool Parser::ReduceTwoTokens(Environment &env)
 	Token &token2 = _tokenStack.Peek(0);
 	int lineNoTop = token1.GetLineNo();
 	int lineNoBtm = token2.GetLineNo();
-	if (token1.IsType(TOKEN_LParenthesis)) {
-		if (token2.IsType(TOKEN_RParenthesis)) {
+	if (token1.IsType(TOKENI_LParenthesis)) {
+		if (token2.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
 			Expr_Iterer *pExprIterer =
 						dynamic_cast<Expr_Iterer *>(token1.GetExpr());
@@ -1361,7 +1361,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				pExprIterer = new Expr_Iterer();
 			}
 			pExpr = pExprIterer;
-		} else if (token2.IsType(TOKEN_EOL)) {
+		} else if (token2.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' EOL\n"));
 			_tokenStack.pop_back();
@@ -1370,8 +1370,8 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBracket)) {
-		if (token2.IsType(TOKEN_RBracket)) {
+	} else if (token1.IsType(TOKENI_LBracket)) {
+		if (token2.IsType(TOKENI_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> '[' ']'\n"));
 			Expr_Lister *pExprLister =
 						dynamic_cast<Expr_Lister *>(token1.GetExpr());
@@ -1379,7 +1379,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = pExprLister;
-		} else if (token2.IsType(TOKEN_EOL)) {
+		} else if (token2.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '[' -> '[' EOL\n"));
 			_tokenStack.pop_back();
@@ -1388,8 +1388,8 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBrace)) {
-		if (token2.IsType(TOKEN_RBrace)) {
+	} else if (token1.IsType(TOKENI_LBrace)) {
+		if (token2.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> '{' '}'\n"));
 			Expr_Block *pExprBlock =
 						dynamic_cast<Expr_Block *>(token1.GetExpr());
@@ -1397,7 +1397,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				pExprBlock = new Expr_Block();
 			}
 			pExpr = pExprBlock;
-		} else if (token2.IsType(TOKEN_EOL)) {
+		} else if (token2.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '{' -> '{' EOL\n"));
 			_tokenStack.pop_back();
@@ -1406,8 +1406,8 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBlockParam)) {
-		if (token2.IsType(TOKEN_RBlockParam)) {
+	} else if (token1.IsType(TOKENI_LBlockParam)) {
+		if (token2.IsType(TOKENI_RBlockParam)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
@@ -1418,7 +1418,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
 			Token &tokenPrev = _tokenStack.Peek(0);
-			if (tokenPrev.IsType(TOKEN_LBrace)) {
+			if (tokenPrev.IsType(TOKENI_LBrace)) {
 				Expr_Block *pExprBlock =
 							dynamic_cast<Expr_Block *>(tokenPrev.GetExpr());
 				if (pExprBlock == nullptr) {
@@ -1433,7 +1433,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				goto error_done;
 			}
 			return true;
-		} else if (token2.IsType(TOKEN_EOL)) {
+		} else if (token2.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' EOL\n"));
 			_tokenStack.pop_back();
@@ -1442,7 +1442,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_Symbol)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_Symbol)) {
 		// this is a special case of reducing
 		DBGPARSER(::printf("Reduce: Expr Expr -> Expr Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(token2.GetString());
@@ -1452,23 +1452,23 @@ bool Parser::ReduceTwoTokens(Environment &env)
 		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, lineNoBtm);
 		_tokenStack.push_back(Token(TOKENI_Expr, pExpr));
 		return true;
-	} else if (token2.IsType(TOKEN_Expr)) {
-		if (token1.IsType(TOKEN_Quote)) {
+	} else if (token2.IsType(TOKENI_Expr)) {
+		if (token1.IsType(TOKENI_Quote)) {
 			DBGPARSER(::printf("Reduce: Expr -> '`' Expr\n"));
 			pExpr = new Expr_Quote(token2.GetExpr());
-		} else if (token1.IsType(TOKEN_Add)) {
+		} else if (token1.IsType(TOKENI_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> '+' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Pos), token2.GetExpr(), false);
-		} else if (token1.IsType(TOKEN_Sub)) {
+		} else if (token1.IsType(TOKENI_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> '-' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg), token2.GetExpr(), false);
-		} else if (token1.IsType(TOKEN_Inv)) {
+		} else if (token1.IsType(TOKENI_Inv)) {
 			DBGPARSER(::printf("Reduce: Expr -> '~' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Inv), token2.GetExpr(), false);
-		} else if (token1.IsType(TOKEN_Not)) {
+		} else if (token1.IsType(TOKENI_Not)) {
 			DBGPARSER(::printf("Reduce: Expr -> '!' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Not), token2.GetExpr(), false);
-		} else if (token1.IsType(TOKEN_Mod)) {
+		} else if (token1.IsType(TOKENI_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (token2.GetExpr()->IsBlock()) {
 				// %{..}
@@ -1479,7 +1479,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token2.GetExpr(), false);
 			}
-		} else if (token1.IsType(TOKEN_ModMod)) {
+		} else if (token1.IsType(TOKENI_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (token2.GetExpr()->IsBlock()) {
 				// %%{..}
@@ -1491,7 +1491,7 @@ bool Parser::ReduceTwoTokens(Environment &env)
 				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-		} else if (token1.IsType(TOKEN_And)) {
+		} else if (token1.IsType(TOKENI_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
 			if (token2.GetExpr()->IsBlock()) {
 				// &{..}
@@ -1502,27 +1502,27 @@ bool Parser::ReduceTwoTokens(Environment &env)
 			} else {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), token2.GetExpr(), false);
 			}
-		} else if (token1.IsType(TOKEN_Mul)) {
+		} else if (token1.IsType(TOKENI_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), token2.GetExpr(), false);
 		} else {
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr)) {
-		if (token2.IsType(TOKEN_Add)) {
+	} else if (token1.IsType(TOKENI_Expr)) {
+		if (token2.IsType(TOKENI_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), token1.GetExpr(), true);
-		} else if (token2.IsType(TOKEN_Mul)) {
+		} else if (token2.IsType(TOKENI_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Each), token1.GetExpr(), true);
-		} else if (token2.IsType(TOKEN_Question)) {
+		} else if (token2.IsType(TOKENI_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), token1.GetExpr(), true);
-		} else if (token2.IsType(TOKEN_Mod)) {
+		} else if (token2.IsType(TOKENI_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), token1.GetExpr(), true);
-		} else if (token2.IsType(TOKEN_Seq)) {
+		} else if (token2.IsType(TOKENI_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_SeqInf), token1.GetExpr(), true);
 		} else {
@@ -1553,9 +1553,9 @@ bool Parser::ReduceThreeTokens(Environment &env)
 	Token &token3 = _tokenStack.Peek(0);
 	int lineNoTop = token1.GetLineNo();
 	int lineNoBtm = token3.GetLineNo();
-	if (token1.IsType(TOKEN_LParenthesis) && token2.IsType(TOKEN_Expr)) {
+	if (token1.IsType(TOKENI_LParenthesis) && token2.IsType(TOKENI_Expr)) {
 		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(token1.GetExpr());
-		if (token3.IsType(TOKEN_RParenthesis)) {
+		if (token3.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
 			if (pExprIterer == nullptr) {
 				pExpr = token2.GetExpr();	// treat expr as non-list
@@ -1563,7 +1563,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				if (!EmitExpr(pExprIterer->GetExprOwner(), pExprIterer, token2.GetExpr())) return false;
 				pExpr = pExprIterer;
 			}
-		} else if (token3.IsType(TOKEN_Comma) || token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_Comma) || token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
 			if (pExprIterer == nullptr) {
@@ -1578,16 +1578,16 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBracket) && token2.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_LBracket) && token2.IsType(TOKENI_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token1.GetExpr());
-		if (token3.IsType(TOKEN_RBracket)) {
+		if (token3.IsType(TOKENI_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> '[' Expr ']'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
 			}
 			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token2.GetExpr())) return false;
 			pExpr = pExprLister;
-		} else if (token3.IsType(TOKEN_Comma) || token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_Comma) || token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '[' -> '[' Expr ','\n"));
 			if (pExprLister == nullptr) {
@@ -1602,8 +1602,8 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_LParenthesis)) {
-		if (token3.IsType(TOKEN_RParenthesis)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_LParenthesis)) {
+		if (token3.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' ')'\n"));
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
 			if (pExprLister == nullptr) {
@@ -1613,7 +1613,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				CreateCaller(env, token1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
-		} else if (token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '(' -> Expr '(' EOL\n"));
 			_tokenStack.pop_back();
@@ -1622,8 +1622,8 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_LBrace)) {
-		if (token3.IsType(TOKEN_RBrace)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_LBrace)) {
+		if (token3.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' '}'\n"));
 			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
 			if (token1.GetExpr()->IsCaller()) {
@@ -1642,7 +1642,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
-		} else if (token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '{' -> Expr '{' EOL\n"));
 			_tokenStack.pop_back();
@@ -1651,8 +1651,8 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_LBracket)) {
-		if (token3.IsType(TOKEN_RBracket)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_LBracket)) {
+		if (token3.IsType(TOKENI_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' ']'\n"));
 			Expr *pExprTgt = token1.GetExpr();
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
@@ -1660,7 +1660,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				pExprLister = new Expr_Lister();
 			}
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
-		} else if (token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '[' -> Expr '[' EOL\n"));
 			_tokenStack.pop_back();
@@ -1669,17 +1669,17 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBrace) && token2.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_LBrace) && token2.IsType(TOKENI_Expr)) {
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token1.GetExpr());
-		if (token3.IsType(TOKEN_RBrace)) {
+		if (token3.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
 			}
 			if (!EmitExpr(pExprBlock->GetExprOwner(), pExprBlock, token2.GetExpr())) return false;
 			pExpr = pExprBlock;
-		} else if (token3.IsType(TOKEN_Comma) ||
-					token3.IsType(TOKEN_Semicolon) || token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_Comma) ||
+					token3.IsType(TOKENI_Semicolon) || token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '{' -> '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
@@ -1694,9 +1694,9 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_LBlockParam) && token2.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_LBlockParam) && token2.IsType(TOKENI_Expr)) {
 		Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(token1.GetExpr());
-		if (token3.IsType(TOKEN_RBlockParam)) {
+		if (token3.IsType(TOKENI_RBlockParam)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' Expr '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
@@ -1708,7 +1708,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			_tokenStack.pop_back();
 			_tokenStack.pop_back();
 			Token &tokenPrev = _tokenStack.Peek(0);
-			if (tokenPrev.IsType(TOKEN_LBrace)) {
+			if (tokenPrev.IsType(TOKENI_LBrace)) {
 				Expr_Block *pExprBlock =
 							dynamic_cast<Expr_Block *>(tokenPrev.GetExpr());
 				if (pExprBlock == nullptr) {
@@ -1723,8 +1723,8 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				goto error_done;
 			}
 			return true;
-		} else if (token3.IsType(TOKEN_Comma) ||
-					token3.IsType(TOKEN_Semicolon) || token3.IsType(TOKEN_EOL)) {
+		} else if (token3.IsType(TOKENI_Comma) ||
+					token3.IsType(TOKENI_Semicolon) || token3.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' Expr ','\n"));
 			if (pExprBlockParam == nullptr) {
@@ -1739,91 +1739,91 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token3.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_Expr) && token3.IsType(TOKENI_Expr)) {
 		Expr *pExprLeft = token1.GetExpr();
 		Expr *pExprRight = token3.GetExpr();
-		if (token2.IsType(TOKEN_Add)) {
+		if (token2.IsType(TOKENI_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr + Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Sub)) {
+		} else if (token2.IsType(TOKENI_Sub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr - Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Mul)) {
+		} else if (token2.IsType(TOKENI_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr * Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Div)) {
+		} else if (token2.IsType(TOKENI_Div)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr / Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Mod)) {
+		} else if (token2.IsType(TOKENI_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mod), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Pow)) {
+		} else if (token2.IsType(TOKENI_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Eq)) {
+		} else if (token2.IsType(TOKENI_Eq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr == Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Eq), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Ne)) {
+		} else if (token2.IsType(TOKENI_Ne)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr != Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ne), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Lt)) {
+		} else if (token2.IsType(TOKENI_Lt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr < Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Lt), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Gt)) {
+		} else if (token2.IsType(TOKENI_Gt)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr > Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Gt), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Le)) {
+		} else if (token2.IsType(TOKENI_Le)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Le), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Ge)) {
+		} else if (token2.IsType(TOKENI_Ge)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >= Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Ge), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Cmp)) {
+		} else if (token2.IsType(TOKENI_Cmp)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <=> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Cmp), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Contains)) {
+		} else if (token2.IsType(TOKENI_Contains)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr in Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Contains), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Assign)) {
+		} else if (token2.IsType(TOKENI_Assign)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr = Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, nullptr);
-		} else if (token2.IsType(TOKEN_AssignAdd)) {
+		} else if (token2.IsType(TOKENI_AssignAdd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr += Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Add));
-		} else if (token2.IsType(TOKEN_AssignSub)) {
+		} else if (token2.IsType(TOKENI_AssignSub)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr -= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Sub));
-		} else if (token2.IsType(TOKEN_AssignMul)) {
+		} else if (token2.IsType(TOKENI_AssignMul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr *= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mul));
-		} else if (token2.IsType(TOKEN_AssignDiv)) {
+		} else if (token2.IsType(TOKENI_AssignDiv)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr /= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Div));
-		} else if (token2.IsType(TOKEN_AssignMod)) {
+		} else if (token2.IsType(TOKENI_AssignMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr %= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Mod));
-		} else if (token2.IsType(TOKEN_AssignPow)) {
+		} else if (token2.IsType(TOKENI_AssignPow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr **= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Pow));
-		} else if (token2.IsType(TOKEN_AssignOr)) {
+		} else if (token2.IsType(TOKENI_AssignOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr |= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Or));
-		} else if (token2.IsType(TOKEN_AssignAnd)) {
+		} else if (token2.IsType(TOKENI_AssignAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr &= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_And));
-		} else if (token2.IsType(TOKEN_AssignXor)) {
+		} else if (token2.IsType(TOKENI_AssignXor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Xor));
-		} else if (token2.IsType(TOKEN_AssignShl)) {
+		} else if (token2.IsType(TOKENI_AssignShl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr <<= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shl));
-		} else if (token2.IsType(TOKEN_AssignShr)) {
+		} else if (token2.IsType(TOKENI_AssignShr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >>= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shr));
-		} else if (token2.IsType(TOKEN_Pair)) {
+		} else if (token2.IsType(TOKENI_Pair)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr => Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pair), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Colon) || token2.IsType(TOKEN_ColonAfterSuffix)) {
+		} else if (token2.IsType(TOKENI_Colon) || token2.IsType(TOKENI_ColonAfterSuffix)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr : Expr\n"));
 			Expr *pExprDst = pExprLeft;
 			if (pExprDst->IsUnaryOpSuffix()) {
@@ -1916,7 +1916,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 				SetError_InvalidToken(__LINE__);
 				goto error_done;
 			}
-		} else if (token2.IsType(TOKEN_Dot)) {
+		} else if (token2.IsType(TOKENI_Dot)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr . Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidToken(__LINE__);
@@ -1924,7 +1924,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_Normal);
-		} else if (token2.IsType(TOKEN_ColonColon)) {
+		} else if (token2.IsType(TOKENI_ColonColon)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :: Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidToken(__LINE__);
@@ -1932,7 +1932,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToList);
-		} else if (token2.IsType(TOKEN_ColonAsterisk)) {
+		} else if (token2.IsType(TOKENI_ColonAsterisk)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :* Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidToken(__LINE__);
@@ -1940,7 +1940,7 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapToIter);
-		} else if (token2.IsType(TOKEN_ColonAnd)) {
+		} else if (token2.IsType(TOKENI_ColonAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr :& Expr\n"));
 			if (!pExprRight->IsIdentifier()) {
 				SetError_InvalidToken(__LINE__);
@@ -1948,28 +1948,28 @@ bool Parser::ReduceThreeTokens(Environment &env)
 			}
 			pExpr = new Expr_Member(pExprLeft, dynamic_cast<Expr_Identifier *>(pExprRight),
 									Expr_Member::MODE_MapAlong);
-		} else if (token2.IsType(TOKEN_OrOr)) {
+		} else if (token2.IsType(TOKENI_OrOr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr || Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_OrOr), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_AndAnd)) {
+		} else if (token2.IsType(TOKENI_AndAnd)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr && Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_AndAnd), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Or)) {
+		} else if (token2.IsType(TOKENI_Or)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr | Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Or), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_And)) {
+		} else if (token2.IsType(TOKENI_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr & Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_And), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Xor)) {
+		} else if (token2.IsType(TOKENI_Xor)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ^ Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Xor), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Shl)) {
+		} else if (token2.IsType(TOKENI_Shl)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr << Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shl), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Shr)) {
+		} else if (token2.IsType(TOKENI_Shr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >> Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Shr), pExprLeft, pExprRight);
-		} else if (token2.IsType(TOKEN_Seq)) {
+		} else if (token2.IsType(TOKENI_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr .. Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Seq), pExprLeft, pExprRight);
 		} else {
@@ -2002,9 +2002,9 @@ bool Parser::ReduceFourTokens(Environment &env)
 	Token &token4 = _tokenStack.Peek(0);
 	int lineNoTop = token1.GetLineNo();
 	int lineNoBtm = token4.GetLineNo();
-	if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_Expr) &&
-											token3.IsType(TOKEN_LParenthesis)) {
-		if (token4.IsType(TOKEN_RParenthesis)) {
+	if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_Expr) &&
+											token3.IsType(TOKENI_LParenthesis)) {
+		if (token4.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' ')'\n"));
 			Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token3.GetExpr());
 			if (pExprLister == nullptr) {
@@ -2020,7 +2020,7 @@ bool Parser::ReduceFourTokens(Environment &env)
 			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (token4.IsType(TOKEN_EOL)) {
+		} else if (token4.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' EOL\n"));
 			_tokenStack.pop_back();
@@ -2029,9 +2029,9 @@ bool Parser::ReduceFourTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_Expr) &&
-												token3.IsType(TOKEN_LBrace)) {
-		if (token4.IsType(TOKEN_RBrace)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_Expr) &&
+												token3.IsType(TOKENI_LBrace)) {
+		if (token4.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' '}'\n"));
 			Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token3.GetExpr());
 			if (pExprBlock == nullptr) {
@@ -2052,7 +2052,7 @@ bool Parser::ReduceFourTokens(Environment &env)
 			}
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (token4.IsType(TOKEN_EOL)) {
+		} else if (token4.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' EOL\n"));
 			_tokenStack.pop_back();
@@ -2061,10 +2061,10 @@ bool Parser::ReduceFourTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) &&
-				token2.IsType(TOKEN_LParenthesis) && token3.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_Expr) &&
+				token2.IsType(TOKENI_LParenthesis) && token3.IsType(TOKENI_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
-		if (token4.IsType(TOKEN_RParenthesis)) {
+		if (token4.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '(' Expr ')'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
@@ -2074,7 +2074,7 @@ bool Parser::ReduceFourTokens(Environment &env)
 				CreateCaller(env, token1.GetExpr(), pExprLister, nullptr, nullptr);
 			if (pExprCaller == nullptr) goto error_done;
 			pExpr = pExprCaller;
-		} else if (token4.IsType(TOKEN_Comma) || token4.IsType(TOKEN_EOL)) {
+		} else if (token4.IsType(TOKENI_Comma) || token4.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '(' -> Expr '(' Expr ','\n"));
 			if (pExprLister == nullptr) {
@@ -2089,10 +2089,10 @@ bool Parser::ReduceFourTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) &&
-				token2.IsType(TOKEN_LBrace) && token3.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_Expr) &&
+				token2.IsType(TOKENI_LBrace) && token3.IsType(TOKENI_Expr)) {
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token2.GetExpr());
-		if (token4.IsType(TOKEN_RBrace)) {
+		if (token4.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
@@ -2108,8 +2108,8 @@ bool Parser::ReduceFourTokens(Environment &env)
 				if (pExprCaller == nullptr) goto error_done;
 				pExpr = pExprCaller;
 			}
-		} else if (token4.IsType(TOKEN_Comma) ||
-					token4.IsType(TOKEN_Semicolon) || token4.IsType(TOKEN_EOL)) {
+		} else if (token4.IsType(TOKENI_Comma) ||
+					token4.IsType(TOKENI_Semicolon) || token4.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '{' -> Expr '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
@@ -2124,10 +2124,10 @@ bool Parser::ReduceFourTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) &&
-				token2.IsType(TOKEN_LBracket) && token3.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_Expr) &&
+				token2.IsType(TOKENI_LBracket) && token3.IsType(TOKENI_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token2.GetExpr());
-		if (token4.IsType(TOKEN_RBracket)) {
+		if (token4.IsType(TOKENI_RBracket)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '[' Expr ']'\n"));
 			Expr *pExprTgt = token1.GetExpr();
 			if (pExprLister == nullptr) {
@@ -2135,7 +2135,7 @@ bool Parser::ReduceFourTokens(Environment &env)
 			}
 			if (!EmitExpr(pExprLister->GetExprOwner(), pExprLister, token3.GetExpr())) return false;
 			pExpr = new Expr_Indexer(pExprTgt, pExprLister);
-		} else if (token4.IsType(TOKEN_Comma) || token4.IsType(TOKEN_EOL)) {
+		} else if (token4.IsType(TOKENI_Comma) || token4.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr '[' -> Expr '[' Expr ','\n"));
 			if (pExprLister == nullptr) {
@@ -2179,10 +2179,10 @@ bool Parser::ReduceFiveTokens(Environment &env)
 	Token &token5 = _tokenStack.Peek(0);
 	int lineNoTop = token1.GetLineNo();
 	int lineNoBtm = token5.GetLineNo();
-	if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_Expr) &&
-				token3.IsType(TOKEN_LParenthesis) && token4.IsType(TOKEN_Expr)) {
+	if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_Expr) &&
+				token3.IsType(TOKENI_LParenthesis) && token4.IsType(TOKENI_Expr)) {
 		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(token3.GetExpr());
-		if (token5.IsType(TOKEN_RParenthesis)) {
+		if (token5.IsType(TOKENI_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '(' Expr ')'\n"));
 			if (pExprLister == nullptr) {
 				pExprLister = new Expr_Lister();
@@ -2198,7 +2198,7 @@ bool Parser::ReduceFiveTokens(Environment &env)
 			if (pExprCaller == nullptr) goto error_done;
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (token5.IsType(TOKEN_Comma) || token5.IsType(TOKEN_EOL)) {
+		} else if (token5.IsType(TOKENI_Comma) || token5.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '(' -> Expr Expr '(' Expr ','\n"));
 			if (pExprLister == nullptr) {
@@ -2213,10 +2213,10 @@ bool Parser::ReduceFiveTokens(Environment &env)
 			SetError_InvalidToken(__LINE__);
 			goto error_done;
 		}
-	} else if (token1.IsType(TOKEN_Expr) && token2.IsType(TOKEN_Expr) &&
-				token3.IsType(TOKEN_LBrace) && token4.IsType(TOKEN_Expr)) {
+	} else if (token1.IsType(TOKENI_Expr) && token2.IsType(TOKENI_Expr) &&
+				token3.IsType(TOKENI_LBrace) && token4.IsType(TOKENI_Expr)) {
 		Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(token3.GetExpr());
-		if (token5.IsType(TOKEN_RBrace)) {
+		if (token5.IsType(TOKENI_RBrace)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr Expr '{' Expr '}'\n"));
 			if (pExprBlock == nullptr) {
 				pExprBlock = new Expr_Block();
@@ -2237,8 +2237,8 @@ bool Parser::ReduceFiveTokens(Environment &env)
 			}
 			pExprLeader->AddTrailingExpr(pExprCaller);
 			pExpr = pExprLeader;
-		} else if (token5.IsType(TOKEN_Comma) ||
-					token5.IsType(TOKEN_Semicolon) || token5.IsType(TOKEN_EOL)) {
+		} else if (token5.IsType(TOKENI_Comma) ||
+					token5.IsType(TOKENI_Semicolon) || token5.IsType(TOKENI_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: Expr Expr '{' -> Expr Expr '{' Expr ','\n"));
 			if (pExprBlock == nullptr) {
