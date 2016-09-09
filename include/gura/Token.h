@@ -8,6 +8,7 @@
 
 namespace Gura {
 
+#if 0
 //-----------------------------------------------------------------------------
 // TokenType
 //-----------------------------------------------------------------------------
@@ -86,12 +87,13 @@ enum TokenType {
 	TOKEN_TripleChars,		// only used in tokenizing process
 	TOKEN_Unknown,
 };
+#endif
 
 //-----------------------------------------------------------------------------
 // TokenInfo
 //-----------------------------------------------------------------------------
 struct TokenInfo {
-	TokenType tokenType;
+	//TokenType tokenType;
 	int category;
 	const char *name;
 	const char *symbol;
@@ -231,31 +233,31 @@ public:
 	~Token();
 	static void Initialize();
 	inline const TokenInfo &GetTokenInfo() const { return *_pTokenInfo; }
-	inline TokenType GetType() const { return _pTokenInfo->tokenType; }
+	//inline TokenType GetType() const { return _pTokenInfo->tokenType; }
 	inline int GetCategory() const { return _pTokenInfo->category; }
 	inline const char *GetName() const { return _pTokenInfo->name; }
 	inline const char *GetSymbol() const { return _pTokenInfo->symbol; }
 	inline OpType GetOpType() const { return _pTokenInfo->opType; }
 	inline int GetLineNo() const { return _lineNo; }
-	inline bool IsType(TokenType tokenType) const { return GetType() == tokenType; }
+	//inline bool IsType(TokenType tokenType) const { return GetType() == tokenType; }
 	inline bool IsType(const TokenInfo &tokenInfo) const {
 		return _pTokenInfo->IsIdentical(tokenInfo);
 	}
 	inline bool IsOpenToken() const {
-		return IsType(TOKEN_LParenthesis) || IsType(TOKEN_LBrace) ||
-			IsType(TOKEN_LBracket) || IsType(TOKEN_LBlockParam);
+		return IsType(TOKENI_LParenthesis) || IsType(TOKENI_LBrace) ||
+			IsType(TOKENI_LBracket) || IsType(TOKENI_LBlockParam);
 	}
 	inline bool IsCloseToken() const {
-		return IsType(TOKEN_RParenthesis) || IsType(TOKEN_RBrace) ||
-			IsType(TOKEN_RBracket) || IsType(TOKEN_RBlockParam);
+		return IsType(TOKENI_RParenthesis) || IsType(TOKENI_RBrace) ||
+			IsType(TOKENI_RBracket) || IsType(TOKENI_RBlockParam);
 	}
 	inline bool IsSeparatorToken() const {
-		return IsType(TOKEN_EOL) || IsType(TOKEN_EOF) ||
-			IsType(TOKEN_Comma) || IsType(TOKEN_Semicolon);
+		return IsType(TOKENI_EOL) || IsType(TOKENI_EOF) ||
+			IsType(TOKENI_Comma) || IsType(TOKENI_Semicolon);
 	}
 	inline bool IsSuffixToken() const {
-		return IsType(TOKEN_Add) ||
-			IsType(TOKEN_Mul) || IsType(TOKEN_Question);
+		return IsType(TOKENI_Add) ||
+			IsType(TOKENI_Mul) || IsType(TOKENI_Question);
 	}
 	inline Expr *GetExpr() const { return _pExpr; }
 	inline void SetExpr(Expr *pExpr) { _pExpr = pExpr; }
