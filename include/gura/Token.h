@@ -8,92 +8,10 @@
 
 namespace Gura {
 
-#if 0
-//-----------------------------------------------------------------------------
-// TokenType
-//-----------------------------------------------------------------------------
-enum TokenType {
-	TOKEN_Begin,
-	TOKEN_Assign,
-	TOKEN_AssignAdd,
-	TOKEN_AssignSub,
-	TOKEN_AssignMul,
-	TOKEN_AssignDiv,
-	TOKEN_AssignMod,
-	TOKEN_AssignPow,
-	TOKEN_AssignOr,
-	TOKEN_AssignAnd,
-	TOKEN_AssignXor,
-	TOKEN_AssignShl,
-	TOKEN_AssignShr,
-	TOKEN_Pair,
-	TOKEN_OrOr,
-	TOKEN_AndAnd,
-	TOKEN_Not,
-	TOKEN_Contains,
-	TOKEN_Lt,
-	TOKEN_Gt,
-	TOKEN_Le,
-	TOKEN_Ge,
-	TOKEN_Cmp,
-	TOKEN_Eq,
-	TOKEN_Ne,
-	TOKEN_Seq,
-	TOKEN_Or,
-	TOKEN_Xor,
-	TOKEN_And,
-	TOKEN_Shl,
-	TOKEN_Shr,
-	TOKEN_Add,
-	TOKEN_Sub,
-	TOKEN_Mul,
-	TOKEN_Div,
-	TOKEN_Mod,
-	TOKEN_ModMod,
-	TOKEN_Question,
-	TOKEN_Inv,
-	TOKEN_Pow,
-	TOKEN_Quote,
-	TOKEN_Colon,
-	TOKEN_ColonAfterSuffix,
-	TOKEN_Dot,
-	TOKEN_ColonColon,
-	TOKEN_ColonAsterisk,
-	TOKEN_ColonAnd,
-	TOKEN_LParenthesis,		// open token
-	TOKEN_RParenthesis,		// close token
-	TOKEN_LBrace,			// open token
-	TOKEN_RBrace,			// close token
-	TOKEN_LBracket,			// open token
-	TOKEN_RBracket,			// close token
-	TOKEN_LBlockParam,		// open token
-	TOKEN_RBlockParam,		// close token
-	TOKEN_Comma,
-	TOKEN_Semicolon,
-	TOKEN_EOL,
-	TOKEN_Number,
-	TOKEN_NumberSuffixed,
-	TOKEN_String,
-	TOKEN_StringSuffixed,
-	TOKEN_Binary,
-	TOKEN_EmbedString,
-	TOKEN_Symbol,
-	TOKEN_EOF,
-	TOKEN_Expr,
-	TOKEN_White,			// for watcher
-	TOKEN_CommentLine,		// for watcher
-	TOKEN_CommentBlock,		// for watcher
-	TOKEN_DoubleChars,		// only used in tokenizing process
-	TOKEN_TripleChars,		// only used in tokenizing process
-	TOKEN_Unknown,
-};
-#endif
-
 //-----------------------------------------------------------------------------
 // TokenInfo
 //-----------------------------------------------------------------------------
 struct TokenInfo {
-	//TokenType tokenType;
 	int category;
 	const char *name;
 	const char *symbol;
@@ -101,84 +19,79 @@ struct TokenInfo {
 	bool IsIdentical(const TokenInfo &tokenInfo) const { return this == &tokenInfo; }
 };
 
-extern const TokenInfo TOKENI_Begin;
-extern const TokenInfo TOKENI_Assign;
-extern const TokenInfo TOKENI_AssignAdd;
-extern const TokenInfo TOKENI_AssignSub;
-extern const TokenInfo TOKENI_AssignMul;
-extern const TokenInfo TOKENI_AssignDiv;
-extern const TokenInfo TOKENI_AssignMod;
-extern const TokenInfo TOKENI_AssignPow;
-extern const TokenInfo TOKENI_AssignOr;
-extern const TokenInfo TOKENI_AssignAnd;
-extern const TokenInfo TOKENI_AssignXor;
-extern const TokenInfo TOKENI_AssignShl;
-extern const TokenInfo TOKENI_AssignShr;
-extern const TokenInfo TOKENI_Pair;
-extern const TokenInfo TOKENI_OrOr;
-extern const TokenInfo TOKENI_AndAnd;
-extern const TokenInfo TOKENI_Not;
-extern const TokenInfo TOKENI_Contains;
-extern const TokenInfo TOKENI_Lt;
-extern const TokenInfo TOKENI_Gt;
-extern const TokenInfo TOKENI_Le;
-extern const TokenInfo TOKENI_Ge;
-extern const TokenInfo TOKENI_Cmp;
-extern const TokenInfo TOKENI_Eq;
-extern const TokenInfo TOKENI_Ne;
-extern const TokenInfo TOKENI_Seq;
-extern const TokenInfo TOKENI_Or;
-extern const TokenInfo TOKENI_Xor;
-extern const TokenInfo TOKENI_And;
-extern const TokenInfo TOKENI_Shl;
-extern const TokenInfo TOKENI_Shr;
-extern const TokenInfo TOKENI_Add;
-extern const TokenInfo TOKENI_Sub;
-extern const TokenInfo TOKENI_Mul;
-extern const TokenInfo TOKENI_Div;
-extern const TokenInfo TOKENI_Mod;
-extern const TokenInfo TOKENI_ModMod;
-extern const TokenInfo TOKENI_Question;
-extern const TokenInfo TOKENI_Inv;
-extern const TokenInfo TOKENI_Pow;
-extern const TokenInfo TOKENI_Quote;
-extern const TokenInfo TOKENI_Colon;
-extern const TokenInfo TOKENI_ColonAfterSuffix;
-extern const TokenInfo TOKENI_Dot;
-extern const TokenInfo TOKENI_ColonColon;
-extern const TokenInfo TOKENI_ColonAsterisk;
-extern const TokenInfo TOKENI_ColonAnd;
-extern const TokenInfo TOKENI_LParenthesis;		// open toke
-extern const TokenInfo TOKENI_RParenthesis;		// close toke
-extern const TokenInfo TOKENI_LBrace;				// open toke
-extern const TokenInfo TOKENI_RBrace;				// close toke
-extern const TokenInfo TOKENI_LBracket;			// open toke
-extern const TokenInfo TOKENI_RBracket;			// close toke
-extern const TokenInfo TOKENI_LBlockParam;			// open toke
-extern const TokenInfo TOKENI_RBlockParam;			// close toke
-extern const TokenInfo TOKENI_Comma;
-extern const TokenInfo TOKENI_Semicolon;
-extern const TokenInfo TOKENI_EOL;
-extern const TokenInfo TOKENI_Number;
-extern const TokenInfo TOKENI_NumberSuffixed;
-extern const TokenInfo TOKENI_String;
-extern const TokenInfo TOKENI_StringSuffixed;
-extern const TokenInfo TOKENI_Binary;
-extern const TokenInfo TOKENI_EmbedString;
-extern const TokenInfo TOKENI_Symbol;
-extern const TokenInfo TOKENI_EOF;
-extern const TokenInfo TOKENI_Expr;
-extern const TokenInfo TOKENI_White;				// for watcher
-extern const TokenInfo TOKENI_CommentLine;			// for watcher
-extern const TokenInfo TOKENI_CommentBlock;		// for watcher
-extern const TokenInfo TOKENI_DoubleChars;			// only used in tokenizing process
-extern const TokenInfo TOKENI_TripleChars;			// only used in tokenizing process
-extern const TokenInfo TOKENI_Unknown;
-
-//-----------------------------------------------------------------------------
-// TokenTypeToTokenInfoMap
-//-----------------------------------------------------------------------------
-//typedef std::map<TokenType, const TokenInfo *> TokenTypeToTokenInfoMap;
+extern const TokenInfo TOKEN_Begin;
+extern const TokenInfo TOKEN_Assign;
+extern const TokenInfo TOKEN_AssignAdd;
+extern const TokenInfo TOKEN_AssignSub;
+extern const TokenInfo TOKEN_AssignMul;
+extern const TokenInfo TOKEN_AssignDiv;
+extern const TokenInfo TOKEN_AssignMod;
+extern const TokenInfo TOKEN_AssignPow;
+extern const TokenInfo TOKEN_AssignOr;
+extern const TokenInfo TOKEN_AssignAnd;
+extern const TokenInfo TOKEN_AssignXor;
+extern const TokenInfo TOKEN_AssignShl;
+extern const TokenInfo TOKEN_AssignShr;
+extern const TokenInfo TOKEN_Pair;
+extern const TokenInfo TOKEN_OrOr;
+extern const TokenInfo TOKEN_AndAnd;
+extern const TokenInfo TOKEN_Not;
+extern const TokenInfo TOKEN_Contains;
+extern const TokenInfo TOKEN_Lt;
+extern const TokenInfo TOKEN_Gt;
+extern const TokenInfo TOKEN_Le;
+extern const TokenInfo TOKEN_Ge;
+extern const TokenInfo TOKEN_Cmp;
+extern const TokenInfo TOKEN_Eq;
+extern const TokenInfo TOKEN_Ne;
+extern const TokenInfo TOKEN_Seq;
+extern const TokenInfo TOKEN_Or;
+extern const TokenInfo TOKEN_Xor;
+extern const TokenInfo TOKEN_And;
+extern const TokenInfo TOKEN_Shl;
+extern const TokenInfo TOKEN_Shr;
+extern const TokenInfo TOKEN_Add;
+extern const TokenInfo TOKEN_Sub;
+extern const TokenInfo TOKEN_Mul;
+extern const TokenInfo TOKEN_Div;
+extern const TokenInfo TOKEN_Mod;
+extern const TokenInfo TOKEN_ModMod;
+extern const TokenInfo TOKEN_Question;
+extern const TokenInfo TOKEN_Inv;
+extern const TokenInfo TOKEN_Pow;
+extern const TokenInfo TOKEN_Quote;
+extern const TokenInfo TOKEN_Colon;
+extern const TokenInfo TOKEN_ColonAfterSuffix;
+extern const TokenInfo TOKEN_Dot;
+extern const TokenInfo TOKEN_ColonColon;
+extern const TokenInfo TOKEN_ColonAsterisk;
+extern const TokenInfo TOKEN_ColonAnd;
+extern const TokenInfo TOKEN_LParenthesis;		// open toke
+extern const TokenInfo TOKEN_RParenthesis;		// close toke
+extern const TokenInfo TOKEN_LBrace;				// open toke
+extern const TokenInfo TOKEN_RBrace;				// close toke
+extern const TokenInfo TOKEN_LBracket;			// open toke
+extern const TokenInfo TOKEN_RBracket;			// close toke
+extern const TokenInfo TOKEN_LBlockParam;			// open toke
+extern const TokenInfo TOKEN_RBlockParam;			// close toke
+extern const TokenInfo TOKEN_Comma;
+extern const TokenInfo TOKEN_Semicolon;
+extern const TokenInfo TOKEN_EOL;
+extern const TokenInfo TOKEN_Number;
+extern const TokenInfo TOKEN_NumberSuffixed;
+extern const TokenInfo TOKEN_String;
+extern const TokenInfo TOKEN_StringSuffixed;
+extern const TokenInfo TOKEN_Binary;
+extern const TokenInfo TOKEN_EmbedString;
+extern const TokenInfo TOKEN_Symbol;
+extern const TokenInfo TOKEN_EOF;
+extern const TokenInfo TOKEN_Expr;
+extern const TokenInfo TOKEN_White;				// for watcher
+extern const TokenInfo TOKEN_CommentLine;			// for watcher
+extern const TokenInfo TOKEN_CommentBlock;		// for watcher
+extern const TokenInfo TOKEN_DoubleChars;			// only used in tokenizing process
+extern const TokenInfo TOKEN_TripleChars;			// only used in tokenizing process
+extern const TokenInfo TOKEN_Unknown;
 
 //-----------------------------------------------------------------------------
 // OpTypeToTokenInfoMap
@@ -209,9 +122,7 @@ private:
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
 public:
-	//static const TokenInfo _tokenInfoTbl[];
 	static const TokenInfo *const _tokenInfoTbl[];
-	//static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
 	inline Token(const Token &token) :
@@ -233,31 +144,29 @@ public:
 	~Token();
 	static void Initialize();
 	inline const TokenInfo &GetTokenInfo() const { return *_pTokenInfo; }
-	//inline TokenType GetType() const { return _pTokenInfo->tokenType; }
 	inline int GetCategory() const { return _pTokenInfo->category; }
 	inline const char *GetName() const { return _pTokenInfo->name; }
 	inline const char *GetSymbol() const { return _pTokenInfo->symbol; }
 	inline OpType GetOpType() const { return _pTokenInfo->opType; }
 	inline int GetLineNo() const { return _lineNo; }
-	//inline bool IsType(TokenType tokenType) const { return GetType() == tokenType; }
 	inline bool IsType(const TokenInfo &tokenInfo) const {
 		return _pTokenInfo->IsIdentical(tokenInfo);
 	}
 	inline bool IsOpenToken() const {
-		return IsType(TOKENI_LParenthesis) || IsType(TOKENI_LBrace) ||
-			IsType(TOKENI_LBracket) || IsType(TOKENI_LBlockParam);
+		return IsType(TOKEN_LParenthesis) || IsType(TOKEN_LBrace) ||
+			IsType(TOKEN_LBracket) || IsType(TOKEN_LBlockParam);
 	}
 	inline bool IsCloseToken() const {
-		return IsType(TOKENI_RParenthesis) || IsType(TOKENI_RBrace) ||
-			IsType(TOKENI_RBracket) || IsType(TOKENI_RBlockParam);
+		return IsType(TOKEN_RParenthesis) || IsType(TOKEN_RBrace) ||
+			IsType(TOKEN_RBracket) || IsType(TOKEN_RBlockParam);
 	}
 	inline bool IsSeparatorToken() const {
-		return IsType(TOKENI_EOL) || IsType(TOKENI_EOF) ||
-			IsType(TOKENI_Comma) || IsType(TOKENI_Semicolon);
+		return IsType(TOKEN_EOL) || IsType(TOKEN_EOF) ||
+			IsType(TOKEN_Comma) || IsType(TOKEN_Semicolon);
 	}
 	inline bool IsSuffixToken() const {
-		return IsType(TOKENI_Add) ||
-			IsType(TOKENI_Mul) || IsType(TOKENI_Question);
+		return IsType(TOKEN_Add) ||
+			IsType(TOKEN_Mul) || IsType(TOKEN_Question);
 	}
 	inline Expr *GetExpr() const { return _pExpr; }
 	inline void SetExpr(Expr *pExpr) { _pExpr = pExpr; }
@@ -269,9 +178,6 @@ public:
 	inline void AddString(const String &str) { _str.append(str); }
 	const char *GetTypeSymbol() const;
 public:
-	//inline static const TokenInfo *LookupTokenInfo(TokenType tokenType) {
-	//	return (*_pTokenTypeToTokenInfoMap)[tokenType];
-	//}
 	inline static const TokenInfo *LookupTokenInfoByOpType(OpType opType) {
 		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);
 		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
