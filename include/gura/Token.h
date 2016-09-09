@@ -68,12 +68,12 @@ extern const TokenInfo TOKEN_ColonAsterisk;
 extern const TokenInfo TOKEN_ColonAnd;
 extern const TokenInfo TOKEN_LParenthesis;		// open toke
 extern const TokenInfo TOKEN_RParenthesis;		// close toke
-extern const TokenInfo TOKEN_LBrace;				// open toke
-extern const TokenInfo TOKEN_RBrace;				// close toke
+extern const TokenInfo TOKEN_LBrace;			// open toke
+extern const TokenInfo TOKEN_RBrace;			// close toke
 extern const TokenInfo TOKEN_LBracket;			// open toke
 extern const TokenInfo TOKEN_RBracket;			// close toke
-extern const TokenInfo TOKEN_LBlockParam;			// open toke
-extern const TokenInfo TOKEN_RBlockParam;			// close toke
+extern const TokenInfo TOKEN_LBlockParam;		// open toke
+extern const TokenInfo TOKEN_RBlockParam;		// close toke
 extern const TokenInfo TOKEN_Comma;
 extern const TokenInfo TOKEN_Semicolon;
 extern const TokenInfo TOKEN_EOL;
@@ -87,10 +87,10 @@ extern const TokenInfo TOKEN_Symbol;
 extern const TokenInfo TOKEN_EOF;
 extern const TokenInfo TOKEN_Expr;
 extern const TokenInfo TOKEN_White;				// for watcher
-extern const TokenInfo TOKEN_CommentLine;			// for watcher
+extern const TokenInfo TOKEN_CommentLine;		// for watcher
 extern const TokenInfo TOKEN_CommentBlock;		// for watcher
-extern const TokenInfo TOKEN_DoubleChars;			// only used in tokenizing process
-extern const TokenInfo TOKEN_TripleChars;			// only used in tokenizing process
+extern const TokenInfo TOKEN_DoubleChars;		// only used in tokenizing process
+extern const TokenInfo TOKEN_TripleChars;		// only used in tokenizing process
 extern const TokenInfo TOKEN_Unknown;
 
 //-----------------------------------------------------------------------------
@@ -125,6 +125,8 @@ public:
 	static const TokenInfo *const _tokenInfoTbl[];
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
+	inline Token() :
+		_pTokenInfo(&TOKEN_Unknown), _lineNo(0) {}
 	inline Token(const Token &token) :
 		_pTokenInfo(token._pTokenInfo), _lineNo(token._lineNo), _str(token._str),
 		_suffix(token._suffix), _pExpr(token._pExpr) {}
