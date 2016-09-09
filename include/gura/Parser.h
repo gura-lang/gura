@@ -120,8 +120,6 @@ public:
 	inline int GetColPos() const { return _cntCol; }
 	inline void SetTokenWatcher(TokenWatcher *pTokenWatcher) { _pTokenWatcher = pTokenWatcher; }
 	inline bool IsTokenWatched() const { return _pTokenWatcher != nullptr; }
-	//static bool ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList);
-	//static bool ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList);
 	void SetError(ErrorType errType, const char *format, ...);
 private:
 	Expr_Caller *CreateCaller(
