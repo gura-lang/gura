@@ -131,7 +131,83 @@ private:
 	// TOKEN_LBracket      (Expr_Lister)
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
-	static const TokenInfo _tokenInfoTbl[];
+public:
+	static const TokenInfo TOKENI_Begin;
+	static const TokenInfo TOKENI_Assign;
+	static const TokenInfo TOKENI_AssignAdd;
+	static const TokenInfo TOKENI_AssignSub;
+	static const TokenInfo TOKENI_AssignMul;
+	static const TokenInfo TOKENI_AssignDiv;
+	static const TokenInfo TOKENI_AssignMod;
+	static const TokenInfo TOKENI_AssignPow;
+	static const TokenInfo TOKENI_AssignOr;
+	static const TokenInfo TOKENI_AssignAnd;
+	static const TokenInfo TOKENI_AssignXor;
+	static const TokenInfo TOKENI_AssignShl;
+	static const TokenInfo TOKENI_AssignShr;
+	static const TokenInfo TOKENI_Pair;
+	static const TokenInfo TOKENI_OrOr;
+	static const TokenInfo TOKENI_AndAnd;
+	static const TokenInfo TOKENI_Not;
+	static const TokenInfo TOKENI_Contains;
+	static const TokenInfo TOKENI_Lt;
+	static const TokenInfo TOKENI_Gt;
+	static const TokenInfo TOKENI_Le;
+	static const TokenInfo TOKENI_Ge;
+	static const TokenInfo TOKENI_Cmp;
+	static const TokenInfo TOKENI_Eq;
+	static const TokenInfo TOKENI_Ne;
+	static const TokenInfo TOKENI_Seq;
+	static const TokenInfo TOKENI_Or;
+	static const TokenInfo TOKENI_Xor;
+	static const TokenInfo TOKENI_And;
+	static const TokenInfo TOKENI_Shl;
+	static const TokenInfo TOKENI_Shr;
+	static const TokenInfo TOKENI_Add;
+	static const TokenInfo TOKENI_Sub;
+	static const TokenInfo TOKENI_Mul;
+	static const TokenInfo TOKENI_Div;
+	static const TokenInfo TOKENI_Mod;
+	static const TokenInfo TOKENI_ModMod;
+	static const TokenInfo TOKENI_Question;
+	static const TokenInfo TOKENI_Inv;
+	static const TokenInfo TOKENI_Pow;
+	static const TokenInfo TOKENI_Quote;
+	static const TokenInfo TOKENI_Colon;
+	static const TokenInfo TOKENI_ColonAfterSuffix;
+	static const TokenInfo TOKENI_Dot;
+	static const TokenInfo TOKENI_ColonColon;
+	static const TokenInfo TOKENI_ColonAsterisk;
+	static const TokenInfo TOKENI_ColonAnd;
+	static const TokenInfo TOKENI_LParenthesis;		// open toke
+	static const TokenInfo TOKENI_RParenthesis;		// close toke
+	static const TokenInfo TOKENI_LBrace;			// open toke
+	static const TokenInfo TOKENI_RBrace;			// close toke
+	static const TokenInfo TOKENI_LBracket;			// open toke
+	static const TokenInfo TOKENI_RBracket;			// close toke
+	static const TokenInfo TOKENI_LBlockParam;		// open toke
+	static const TokenInfo TOKENI_RBlockParam;		// close toke
+	static const TokenInfo TOKENI_Comma;
+	static const TokenInfo TOKENI_Semicolon;
+	static const TokenInfo TOKENI_EOL;
+	static const TokenInfo TOKENI_Number;
+	static const TokenInfo TOKENI_NumberSuffixed;
+	static const TokenInfo TOKENI_String;
+	static const TokenInfo TOKENI_StringSuffixed;
+	static const TokenInfo TOKENI_Binary;
+	static const TokenInfo TOKENI_EmbedString;
+	static const TokenInfo TOKENI_Symbol;
+	static const TokenInfo TOKENI_EOF;
+	static const TokenInfo TOKENI_Expr;
+	static const TokenInfo TOKENI_White;			// for watcher
+	static const TokenInfo TOKENI_CommentLine;		// for watcher
+	static const TokenInfo TOKENI_CommentBlock;		// for watcher
+	static const TokenInfo TOKENI_DoubleChars;		// only used in tokenizing process
+	static const TokenInfo TOKENI_TripleChars;		// only used in tokenizing process
+	static const TokenInfo TOKENI_Unknown;
+public:
+	//static const TokenInfo _tokenInfoTbl[];
+	static const TokenInfo *const _tokenInfoTbl[];
 	static TokenTypeToTokenInfoMap *_pTokenTypeToTokenInfoMap;
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
