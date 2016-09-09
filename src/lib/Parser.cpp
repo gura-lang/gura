@@ -182,7 +182,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (i >= ArraySizeOf(tbl)) {
 				SetError(ERR_SyntaxError, "unexpected character '%c' (%d)", ch, ch);
 				_stat = STAT_Error;
-			} else if (tbl[i].pTokenInfo->tokenType == TOKEN_DoubleChars) {
+			} else if (tbl[i].pTokenInfo->IsIdentical(TOKENI_DoubleChars)) {
 				_field.clear();
 				_field.push_back(ch);
 				_stat = STAT_DoubleChars;
@@ -301,7 +301,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 					Gura_PushbackCond(false);
 					break;
 				}
-				if (pTokenInfo->tokenType == TOKEN_TripleChars) {
+				if (pTokenInfo->IsIdentical(TOKENI_TripleChars)) {
 					_stat = STAT_TripleChars;
 				} else if (_tokenStack.back().IsType(TOKENI_Quote)) {
 					FeedToken(env, Token(TOKENI_Symbol, GetLineNo(), _field));
@@ -1156,13 +1156,13 @@ bool Parser::FeedToken(Environment &env, const Token &token)
 	if (IsTokenWatched()) {
 		_pTokenWatcher->FeedToken(env, token);
 	}
-	if (_interactiveFlag || _pTokenInfoPrev->tokenType == TOKEN_RBrace) {
+	if (_interactiveFlag || _pTokenInfoPrev->IsIdentical(TOKENI_RBrace)) {
 		_pTokenInfoPrev = &token.GetTokenInfo();
 		_lineNoOfTokenPrev = token.GetLineNo();
 	} else {
 		// Ignores EOL before a left brace-bracket so the bracket character appears to
 		// be joined with the content in the previous line without a line break.
-		if (_pTokenInfoPrev->tokenType == TOKEN_EOL) {
+		if (_pTokenInfoPrev->IsIdentical(TOKENI_EOL)) {
 			if (!token.IsType(TOKENI_LBrace) &&
 				!_FeedToken(env, Token(*_pTokenInfoPrev, _lineNoOfTokenPrev))) {
 				_pTokenInfoPrev = &token.GetTokenInfo();
