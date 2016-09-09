@@ -123,91 +123,90 @@ const Token::Precedence Token::_precMatrix[][30] = {
 	/* S */ { xx, xx, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, GT, xx, xx, GT },
 };
 
-const TokenInfo *const Token::_tokenInfoTbl[] = {
-	&TOKEN_Begin,
-	&TOKEN_Assign,
-	&TOKEN_AssignAdd,
-	&TOKEN_AssignSub,
-	&TOKEN_AssignMul,
-	&TOKEN_AssignDiv,
-	&TOKEN_AssignMod,
-	&TOKEN_AssignPow,
-	&TOKEN_AssignOr,
-	&TOKEN_AssignAnd,
-	&TOKEN_AssignXor,
-	&TOKEN_AssignShl,
-	&TOKEN_AssignShr,
-	&TOKEN_Pair,
-	&TOKEN_OrOr,
-	&TOKEN_AndAnd,
-	&TOKEN_Not,
-	&TOKEN_Contains,
-	&TOKEN_Lt,
-	&TOKEN_Gt,
-	&TOKEN_Le,
-	&TOKEN_Ge,
-	&TOKEN_Cmp,
-	&TOKEN_Eq,
-	&TOKEN_Ne,
-	&TOKEN_Seq,
-	&TOKEN_Or,
-	&TOKEN_Xor,
-	&TOKEN_And,
-	&TOKEN_Shl,
-	&TOKEN_Shr,
-	&TOKEN_Add,
-	&TOKEN_Sub,
-	&TOKEN_Mul,
-	&TOKEN_Div,
-	&TOKEN_Mod,
-	&TOKEN_ModMod,
-	&TOKEN_Question,
-	&TOKEN_Inv,
-	&TOKEN_Pow,
-	&TOKEN_Quote,
-	&TOKEN_Colon,
-	&TOKEN_ColonAfterSuffix,
-	&TOKEN_Dot,
-	&TOKEN_ColonColon,
-	&TOKEN_ColonAsterisk,
-	&TOKEN_ColonAnd,
-	&TOKEN_LParenthesis,	// open token
-	&TOKEN_RParenthesis,	// close token
-	&TOKEN_LBrace,			// open token
-	&TOKEN_RBrace,			// close token
-	&TOKEN_LBracket,		// open token
-	&TOKEN_RBracket,		// close token
-	&TOKEN_LBlockParam,		// open token
-	&TOKEN_RBlockParam,		// close token
-	&TOKEN_Comma,
-	&TOKEN_Semicolon,
-	&TOKEN_EOL,
-	&TOKEN_Number,
-	&TOKEN_NumberSuffixed,
-	&TOKEN_String,
-	&TOKEN_StringSuffixed,
-	&TOKEN_Binary,
-	&TOKEN_EmbedString,
-	&TOKEN_Symbol,
-	&TOKEN_EOF,
-	&TOKEN_Expr,
-	&TOKEN_White,			// for watcher
-	&TOKEN_CommentLine,		// for watcher
-	&TOKEN_CommentBlock,	// for watcher
-	&TOKEN_DoubleChars,		// only used in tokenizing process
-	&TOKEN_TripleChars,		// only used in tokenizing process
-	&TOKEN_Unknown,
-};
-
 Token::~Token()
 {
 }
 
 void Token::Initialize()
 {
+	static const TokenInfo *const tokenInfoTbl[] = {
+		&TOKEN_Begin,
+		&TOKEN_Assign,
+		&TOKEN_AssignAdd,
+		&TOKEN_AssignSub,
+		&TOKEN_AssignMul,
+		&TOKEN_AssignDiv,
+		&TOKEN_AssignMod,
+		&TOKEN_AssignPow,
+		&TOKEN_AssignOr,
+		&TOKEN_AssignAnd,
+		&TOKEN_AssignXor,
+		&TOKEN_AssignShl,
+		&TOKEN_AssignShr,
+		&TOKEN_Pair,
+		&TOKEN_OrOr,
+		&TOKEN_AndAnd,
+		&TOKEN_Not,
+		&TOKEN_Contains,
+		&TOKEN_Lt,
+		&TOKEN_Gt,
+		&TOKEN_Le,
+		&TOKEN_Ge,
+		&TOKEN_Cmp,
+		&TOKEN_Eq,
+		&TOKEN_Ne,
+		&TOKEN_Seq,
+		&TOKEN_Or,
+		&TOKEN_Xor,
+		&TOKEN_And,
+		&TOKEN_Shl,
+		&TOKEN_Shr,
+		&TOKEN_Add,
+		&TOKEN_Sub,
+		&TOKEN_Mul,
+		&TOKEN_Div,
+		&TOKEN_Mod,
+		&TOKEN_ModMod,
+		&TOKEN_Question,
+		&TOKEN_Inv,
+		&TOKEN_Pow,
+		&TOKEN_Quote,
+		&TOKEN_Colon,
+		&TOKEN_ColonAfterSuffix,
+		&TOKEN_Dot,
+		&TOKEN_ColonColon,
+		&TOKEN_ColonAsterisk,
+		&TOKEN_ColonAnd,
+		&TOKEN_LParenthesis,	// open token
+		&TOKEN_RParenthesis,	// close token
+		&TOKEN_LBrace,			// open token
+		&TOKEN_RBrace,			// close token
+		&TOKEN_LBracket,		// open token
+		&TOKEN_RBracket,		// close token
+		&TOKEN_LBlockParam,		// open token
+		&TOKEN_RBlockParam,		// close token
+		&TOKEN_Comma,
+		&TOKEN_Semicolon,
+		&TOKEN_EOL,
+		&TOKEN_Number,
+		&TOKEN_NumberSuffixed,
+		&TOKEN_String,
+		&TOKEN_StringSuffixed,
+		&TOKEN_Binary,
+		&TOKEN_EmbedString,
+		&TOKEN_Symbol,
+		&TOKEN_EOF,
+		&TOKEN_Expr,
+		&TOKEN_White,			// for watcher
+		&TOKEN_CommentLine,		// for watcher
+		&TOKEN_CommentBlock,	// for watcher
+		&TOKEN_DoubleChars,		// only used in tokenizing process
+		&TOKEN_TripleChars,		// only used in tokenizing process
+		&TOKEN_Unknown,
+	};
 	_pOpTypeToTokenInfoMap = new OpTypeToTokenInfoMap();
-	for (size_t i = 0; i < ArraySizeOf(_tokenInfoTbl); i++) {
-		const TokenInfo *pTokenInfo = _tokenInfoTbl[i];
+	for (size_t i = 0; i < ArraySizeOf(tokenInfoTbl); i++) {
+		const TokenInfo *pTokenInfo = tokenInfoTbl[i];
 		if (pTokenInfo->opType != OPTYPE_None) {
 			(*_pOpTypeToTokenInfoMap)[pTokenInfo->opType] = pTokenInfo;
 		}

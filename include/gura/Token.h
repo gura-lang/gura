@@ -122,7 +122,6 @@ private:
 	// TOKEN_LBlockParam   (Expr_BlockParam)
 	Expr *_pExpr;
 public:
-	static const TokenInfo *const _tokenInfoTbl[];
 	static const Precedence _precMatrix[][30];
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
