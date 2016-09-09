@@ -123,6 +123,7 @@ private:
 	Expr *_pExpr;
 public:
 	static const TokenInfo *const _tokenInfoTbl[];
+	static const Precedence _precMatrix[][30];
 	static OpTypeToTokenInfoMap *_pOpTypeToTokenInfoMap;
 public:
 	inline Token() :
@@ -185,10 +186,9 @@ public:
 		return (iter == _pOpTypeToTokenInfoMap->end())? nullptr : iter->second;
 	}
 	inline static Precedence LookupPrec(const Token &tokenLeft, const Token &tokenRight) {
-		return _LookupPrec(tokenLeft.GetCategory(), tokenRight.GetCategory());
+		return _precMatrix[tokenLeft.GetCategory()][tokenRight.GetCategory()];
 	}
 	static int CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight);
-	static Precedence _LookupPrec(int categoryLeft, int categoryRight);
 };
 
 //-----------------------------------------------------------------------------
