@@ -110,6 +110,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stringInfo.wiseFlag = false;
 			_stringInfo.embedFlag = false;
 			_field.clear();
+			if (IsTokenWatched()) {
+				_strSource.clear();
+				_strSource.push_back(ch);
+			}
 			_stat = STAT_StringFirst;
 		} else if (ch == '\\') {
 			_stat = STAT_Escape;
@@ -608,6 +612,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 		} else if ((ch == '"' || ch == '\'') && CheckStringPrefix(_stringInfo, _field)) {
 			_stringInfo.chBorder = ch;
 			_field.clear();
+			if (IsTokenWatched()) {
+				_strSource.clear();
+				_strSource.push_back(ch);
+			}
 			_stat = STAT_StringFirst;
 		} else {
 			if (_field == "in" && !_tokenStack.back().IsType(TOKEN_Quote)) {
@@ -735,6 +743,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringFirst: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource += ch;
 			_stat = STAT_StringSecond;
 		} else {
 			Gura_Pushback();
@@ -744,6 +753,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringSecond: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource += ch;
 			if (_stringInfo.wiseFlag) {
 				_stringInfo.strIndentRef = _strIndent;
 				_stat = STAT_MStringWise;
@@ -755,7 +765,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
-			const TokenInfo *pTokenInfo = TokenInfoForString(_stringInfo);
+			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
 			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -772,6 +782,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else {
+			if (IsTokenWatched()) _strSource += ch;
 			_field.push_back(ch);
 		}
 		break;
@@ -931,7 +942,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
-			const TokenInfo *pTokenInfo = TokenInfoForString(_stringInfo);
+			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
 			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
@@ -990,7 +1001,7 @@ Expr_Caller *Parser::CreateCaller(
 }
 
 
-const TokenInfo *Parser::TokenInfoForString(const StringInfo &stringInfo)
+const TokenInfo *Parser::GetTokenInfoForString(const StringInfo &stringInfo)
 {
 	return stringInfo.binaryFlag? &TOKEN_Binary :
 		stringInfo.embedFlag? &TOKEN_EmbedString : &TOKEN_String;

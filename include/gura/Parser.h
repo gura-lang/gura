@@ -84,6 +84,7 @@ private:
 	int _commentNestLevel;
 	AutoPtr<StringShared> _pSourceName;
 	String _field;
+	String _strSource;
 	String _suffix;
 	ExprOwner *_pExprOwner;
 	const Expr *_pExprParent;
@@ -126,7 +127,7 @@ private:
 		Environment &env, Expr *pExprCar, Expr_Lister *pExprLister,
 		Expr_Block *pExprBlock, const Expr_Caller *pExprLeader);
 	bool CheckBlockParamEnd() const;
-	static const TokenInfo *TokenInfoForString(const StringInfo &stringInfo);
+	static const TokenInfo *GetTokenInfoForString(const StringInfo &stringInfo);
 	static bool CheckStringPrefix(StringInfo &stringInfo, const String &field);
 	void SetError_InvalidToken();
 	void SetError_InvalidToken(int lineno);

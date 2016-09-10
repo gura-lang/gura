@@ -113,6 +113,7 @@ private:
 	const TokenInfo *_pTokenInfo;
 	int _lineNo;
 	String _str;
+	String _strSource;
 	String _suffix;
 	// _pExpr is only available for the following token types.
 	// TOKEN_Expr          (Expr)
