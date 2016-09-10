@@ -18,6 +18,7 @@ OpTypeToTokenInfoMap *Token::_pOpTypeToTokenInfoMap = nullptr;
 
 const TokenInfo TOKEN_Begin =			{  1, "Begin",			"[Bgn]",OPTYPE_None	};	// B
 const TokenInfo TOKEN_Assign =			{  2, "Assign",			"=",	OPTYPE_None	};	// =
+const TokenInfo &TOKEN_SourceSymbolMin = TOKEN_Assign;
 const TokenInfo TOKEN_AssignAdd =		{  2, "AssignAdd",		"+=",	OPTYPE_None	};
 const TokenInfo TOKEN_AssignSub =		{  2, "AssignSub",		"-=",	OPTYPE_None	};
 const TokenInfo TOKEN_AssignMul =		{  2, "AssignMul",		"*=",	OPTYPE_None	};
@@ -65,7 +66,7 @@ const TokenInfo TOKEN_ColonAsterisk =	{ 20, "ColonAsterisk",	":*",	OPTYPE_None	}
 const TokenInfo TOKEN_ColonAnd =		{ 20, "ColonAnd",		":&",	OPTYPE_None	};
 const TokenInfo TOKEN_LParenthesis =	{ 21, "LParenthesis",	"(",	OPTYPE_None	};	// (
 const TokenInfo TOKEN_RParenthesis =	{ 22, "RParenthesis",	")",	OPTYPE_None	};	// )
-const TokenInfo TOKEN_LBrace =			{ 21, "LBrace",			"{ ",	OPTYPE_None	};
+const TokenInfo TOKEN_LBrace =			{ 21, "LBrace",			"{",	OPTYPE_None	};
 const TokenInfo TOKEN_RBrace =			{ 22, "RBrace",			"}",	OPTYPE_None	};
 const TokenInfo TOKEN_LBlockParam =		{ 21, "LBlockParam",	"|",	OPTYPE_None	};
 const TokenInfo TOKEN_RBlockParam =		{ 22, "RBlockParam",	"|",	OPTYPE_None	};
@@ -73,6 +74,7 @@ const TokenInfo TOKEN_LBracket =		{ 23, "LBracket",		"[",	OPTYPE_None	};	// [
 const TokenInfo TOKEN_RBracket =		{ 24, "RBracket",		"]",	OPTYPE_None	};	// ]
 const TokenInfo TOKEN_Comma =			{ 25, "Comma",			",",	OPTYPE_None	};	// ,
 const TokenInfo TOKEN_Semicolon =		{ 25, "Semicolon",		";",	OPTYPE_None	};
+const TokenInfo &TOKEN_SourceSymbolMax = TOKEN_Semicolon;
 const TokenInfo TOKEN_EOL =				{ 26, "EOL",			"[EOL]",OPTYPE_None	};	// \n
 const TokenInfo TOKEN_Number =			{ 27, "Number",			"[Num]",OPTYPE_None	};	// V
 const TokenInfo TOKEN_NumberSuffixed =	{ 27, "NumberSuffixed",	"[NmS]",OPTYPE_None	};
@@ -219,6 +221,18 @@ int Token::CompareOpTypePrec(OpType opTypeLeft, OpType opTypeRight)
 	const TokenInfo *pTokenInfoRight = LookupTokenInfoByOpType(opTypeRight);
 	if (pTokenInfoLeft == nullptr || pTokenInfoRight == nullptr) return 0;
 	return pTokenInfoLeft->category - pTokenInfoRight->category;
+}
+
+const char *Token::GetSource() const
+{
+	int category = GetCategory();
+	if (TOKEN_SourceSymbolMin.category <= category && category <= TOKEN_SourceSymbolMax.category) {
+		return GetSymbol();
+	} else if (IsType(TOKEN_EOL)) {
+		return "\n";
+	} else {
+		return _str.c_str();
+	}
 }
 
 //-----------------------------------------------------------------------------

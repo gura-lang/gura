@@ -178,7 +178,7 @@ public:
 	inline const char *GetSuffix() const { return _suffix.c_str(); }
 	inline size_t GetStringSize() const { return _str.size(); }
 	inline void AddString(const String &str) { _str.append(str); }
-	const char *GetTypeSymbol() const;
+	const char *GetSource() const;
 public:
 	inline static const TokenInfo *LookupTokenInfoByOpType(OpType opType) {
 		OpTypeToTokenInfoMap::iterator iter = _pOpTypeToTokenInfoMap->find(opType);

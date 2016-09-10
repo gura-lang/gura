@@ -133,6 +133,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 			}
 		} else if (ch == '{') {
 			FeedToken(env, Token(TOKEN_LBrace, GetLineNo()));
+			if (IsTokenWatched()) {
+				_field.clear();
+				_lineNoTop = GetLineNo();
+			}
 			_stat = sig.IsSignalled()? STAT_Error : STAT_AfterLBrace;
 		} else if (ch == '(') {
 			FeedToken(env, Token(TOKEN_LParenthesis, GetLineNo()));
@@ -414,6 +418,9 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_AfterLBrace: {
 		if (ch == '|') {
+			if (IsTokenWatched() && !_field.empty()) {
+				_pTokenWatcher->FeedToken(env, Token(TOKEN_White, _lineNoTop, _field));
+			}
 			FeedToken(env, Token(TOKEN_LBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
@@ -422,7 +429,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_Start;
 			}
 		} else if (ch == '\n' || IsWhite(ch)) {
-			// nothing to do
+			_field += ch;
 		} else {
 			Gura_Pushback();
 			_stat = STAT_Start;
@@ -667,7 +674,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			// nothing to do
+			if (IsTokenWatched()) _field += ch;
 		}
 		break;
 	}
