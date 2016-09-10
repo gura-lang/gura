@@ -77,7 +77,7 @@ Iterator_Token::Iterator_Token(Stream *pStream) :
 	Iterator(false), _continueFlag(true), _pStream(pStream),
 	_parser(pStream->GetSignal(), pStream->GetName())
 {
-	//_parser.SetTokenWatcher(&_tokenWatcher);
+	_parser.SetTokenWatcher(&_tokenWatcher);
 }
 
 Iterator *Iterator_Token::GetSource()
@@ -89,30 +89,22 @@ bool Iterator_Token::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
 	while (_continueFlag) {
-		::printf("%d\n", _continueFlag);
 		int chRaw = _pStream->GetChar(sig);
-		::printf("check %d\n", __LINE__);
 		if (sig.IsSignalled()) {
 			sig.SetError(ERR_CodecError, "stream can not be recognized as %s encoded string",
-										_pStream->GetCodec()->GetEncoding());
+						 _pStream->GetCodec()->GetEncoding());
 			return false;
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		::printf("check %d  %d\n", __LINE__, ch);
 		if (!_parser.ParseChar(env, ch)) {
 			//if (!sig.IsDetectEncoding()) return false;
 			
 		}
-		::printf("check %d\n", __LINE__);
 		if (chRaw < 0) _continueFlag = false;
-#if 0
 		if (_tokenWatcher.IsObjectReady()) {
-			::printf("check\n");
 			value = Value(_tokenWatcher.ReleaseObject());
 			return true;
 		}
-#endif
-		::printf("%d\n", _continueFlag);
 	}
 	return false;
 }
@@ -134,7 +126,7 @@ void Iterator_Token::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 void Iterator_Token::TokenWatcherEx::FeedToken(Environment &env, const Token &token)
 {
 	::printf("%s\n", token.GetString());
-	//_pObjToken.reset(new Object_token(env, token));
+	_pObjToken.reset(new Object_token(env, token));
 }
 
 Gura_EndModuleBody(lexer, lexer)

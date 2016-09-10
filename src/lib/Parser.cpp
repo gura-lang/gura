@@ -1196,7 +1196,11 @@ bool Parser::_FeedToken(Environment &env, const Token &token)
 					InitStack();
 				} else {
 					_tokenStack.pop_back();
-					if (!EmitExpr(*_pExprOwner, _pExprParent, pExpr)) InitStack();
+					if (_pExprOwner == nullptr) {
+						Expr::Delete(pExpr);
+					} else if (!EmitExpr(*_pExprOwner, _pExprParent, pExpr)) {
+						InitStack();
+					}
 				}
 			} else {
 				// something's wrong
