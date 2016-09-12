@@ -1,5 +1,5 @@
 #!../../build/program-gura/gura
-lexer.tokens('test.gura') {|token|
+tokens('test.gura') {|token|
 	//println(token, ' ', token.source)
 	println(token.type, ': ', token.source)
 }
