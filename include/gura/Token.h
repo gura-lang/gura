@@ -13,7 +13,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 struct TokenInfo {
 	int category;
-	const char *name;
+	const char *typeName;
 	const char *symbol;
 	OpType opType;
 	bool IsIdentical(const TokenInfo &tokenInfo) const { return this == &tokenInfo; }
@@ -154,7 +154,7 @@ public:
 	static void Initialize();
 	inline const TokenInfo &GetTokenInfo() const { return *_pTokenInfo; }
 	inline int GetCategory() const { return _pTokenInfo->category; }
-	inline const char *GetName() const { return _pTokenInfo->name; }
+	inline const char *GetTypeName() const { return _pTokenInfo->typeName; }
 	inline const char *GetSymbol() const { return _pTokenInfo->symbol; }
 	inline OpType GetOpType() const { return _pTokenInfo->opType; }
 	inline int GetLineNo() const { return _lineNo; }

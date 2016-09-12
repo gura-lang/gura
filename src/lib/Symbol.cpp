@@ -674,7 +674,9 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(plus);
 	Gura_RealizeSymbol(pointer);
 	Gura_RealizeSymbol(port);
+	Gura_RealizeSymbol(post);
 	Gura_RealizeSymbol(postext);
+	Gura_RealizeSymbol(pre);
 	Gura_RealizeSymbol(prec);
 	Gura_RealizeSymbol(prefix);
 	Gura_RealizeSymbol(prev);
@@ -692,6 +694,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(raise);
 	Gura_RealizeSymbol(ratio);
 	Gura_RealizeSymbol(raw);
+	Gura_RealizeSymbol(read);
 	Gura_RealizeSymbol(readable);
 	Gura_RealizeSymbol(real);
 	Gura_RealizeSymbol(red);
@@ -775,6 +778,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(true_,			"true");
 	Gura_RealizeSymbolAlias(try_,			"try");
 	Gura_RealizeSymbol(tuesday);
+	Gura_RealizeSymbol(type);
 	Gura_RealizeSymbolAlias(typename_,		"typename");
 	Gura_RealizeSymbol(typesym);
 	Gura_RealizeSymbol(u);
@@ -787,11 +791,13 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(u8);
 	Gura_RealizeSymbol(unary);
 	Gura_RealizeSymbol(unit);
+	Gura_RealizeSymbol(unix);
 	Gura_RealizeSymbol(unixtime);
 	Gura_RealizeSymbol(unknown);
 	Gura_RealizeSymbol(up);
 	Gura_RealizeSymbol(upper);
 	Gura_RealizeSymbol(uri);
+	Gura_RealizeSymbol(url);
 	Gura_RealizeSymbol(urlpath);
 	Gura_RealizeSymbol(usec);
 	Gura_RealizeSymbol(usecs);
@@ -809,13 +815,18 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(w);
 	Gura_RealizeSymbol(w3c);
 	Gura_RealizeSymbol(wday);
+	Gura_RealizeSymbol(web);
 	Gura_RealizeSymbol(websafe);
 	Gura_RealizeSymbol(wednesday);
 	Gura_RealizeSymbol(week);
 	Gura_RealizeSymbolAlias(while_,			"while");
 	Gura_RealizeSymbol(white);
 	Gura_RealizeSymbol(width);
+	Gura_RealizeSymbol(win);
 	Gura_RealizeSymbol(win256);
+	Gura_RealizeSymbol(window);
+	Gura_RealizeSymbol(windows);
+	Gura_RealizeSymbol(write);
 	Gura_RealizeSymbol(writable);
 	Gura_RealizeSymbol(x);
 	Gura_RealizeSymbol(xiter);

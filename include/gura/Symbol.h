@@ -477,7 +477,9 @@ public:
 	Gura_DeclareSymbol(plus);
 	Gura_DeclareSymbol(pointer);
 	Gura_DeclareSymbol(port);
+	Gura_DeclareSymbol(post);
 	Gura_DeclareSymbol(postext);
+	Gura_DeclareSymbol(pre);
 	Gura_DeclareSymbol(prec);
 	Gura_DeclareSymbol(prefix);
 	Gura_DeclareSymbol(prev);
@@ -495,6 +497,7 @@ public:
 	Gura_DeclareSymbol(raise);
 	Gura_DeclareSymbol(ratio);
 	Gura_DeclareSymbol(raw);
+	Gura_DeclareSymbol(read);
 	Gura_DeclareSymbol(readable);
 	Gura_DeclareSymbol(real);
 	Gura_DeclareSymbol(red);
@@ -578,6 +581,7 @@ public:
 	Gura_DeclareSymbol(true_);
 	Gura_DeclareSymbol(try_);
 	Gura_DeclareSymbol(tuesday);
+	Gura_DeclareSymbol(type);
 	Gura_DeclareSymbol(typename_);
 	Gura_DeclareSymbol(typesym);
 	Gura_DeclareSymbol(u);
@@ -590,11 +594,13 @@ public:
 	Gura_DeclareSymbol(u8);
 	Gura_DeclareSymbol(unary);
 	Gura_DeclareSymbol(unit);
+	Gura_DeclareSymbol(unix);
 	Gura_DeclareSymbol(unixtime);
 	Gura_DeclareSymbol(unknown);
 	Gura_DeclareSymbol(up);
 	Gura_DeclareSymbol(upper);
 	Gura_DeclareSymbol(uri);
+	Gura_DeclareSymbol(url);
 	Gura_DeclareSymbol(urlpath);
 	Gura_DeclareSymbol(usec);
 	Gura_DeclareSymbol(usecs);
@@ -612,13 +618,18 @@ public:
 	Gura_DeclareSymbol(w);
 	Gura_DeclareSymbol(w3c);
 	Gura_DeclareSymbol(wday);
+	Gura_DeclareSymbol(web);
 	Gura_DeclareSymbol(websafe);
 	Gura_DeclareSymbol(wednesday);
 	Gura_DeclareSymbol(week);
 	Gura_DeclareSymbol(while_);
 	Gura_DeclareSymbol(white);
 	Gura_DeclareSymbol(width);
+	Gura_DeclareSymbol(win);
 	Gura_DeclareSymbol(win256);
+	Gura_DeclareSymbol(window);
+	Gura_DeclareSymbol(windows);
+	Gura_DeclareSymbol(write);
 	Gura_DeclareSymbol(writable);
 	Gura_DeclareSymbol(x);
 	Gura_DeclareSymbol(xiter);

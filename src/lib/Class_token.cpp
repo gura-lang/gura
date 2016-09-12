@@ -20,6 +20,7 @@ Object *Object_token::Clone() const
 bool Object_token::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(type));
 	symbols.insert(Gura_Symbol(source));
 	return true;
 }
@@ -28,7 +29,9 @@ Value Object_token::DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(type))) {
+		return Value(Symbol::Add(_token.GetTypeName()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		return Value(_token.GetSource());
 	}
 	evaluatedFlag = false;
@@ -39,7 +42,7 @@ String Object_token::ToString(bool exprFlag)
 {
 	String str;
 	str += "<token:";
-	str += _token.GetName();
+	str += _token.GetTypeName();
 	str += ">";
 	return str;
 }
