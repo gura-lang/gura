@@ -62,7 +62,7 @@ Iterator *Iterator_Token::GetSource()
 bool Iterator_Token::DoNext(Environment &env, Value &value)
 {
 	Signal &sig = env.GetSignal();
-	while (_continueFlag) {
+	while (_continueFlag && !_tokenWatcher.IsTokenReady()) {
 		int chRaw = _pStream->GetChar(sig);
 		if (sig.IsSignalled()) {
 			sig.SetError(ERR_CodecError, "stream can not be recognized as %s encoded string",
@@ -75,10 +75,11 @@ bool Iterator_Token::DoNext(Environment &env, Value &value)
 			
 		}
 		if (chRaw < 0) _continueFlag = false;
-		if (_tokenWatcher.IsObjectReady()) {
-			value = Value(_tokenWatcher.ReleaseObject());
-			return true;
-		}
+	}
+	if (_tokenWatcher.IsTokenReady()) {
+		value = Value(new Object_token(env, _tokenWatcher.PickToken()));
+		if (!_tokenWatcher.IsTokenReady()) _tokenWatcher.ClearTokens();
+		return true;
 	}
 	return false;
 }
@@ -99,8 +100,9 @@ void Iterator_Token::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 void Iterator_Token::TokenWatcherEx::FeedToken(Environment &env, const Token &token)
 {
-	::printf("%s", token.GetSource());
-	_pObjToken.reset(new Object_token(env, token));
+	//::printf("%s", token.GetSource());
+	//_pObjToken.reset(new Object_token(env, token));
+	_tokenList.push_back(token);
 }
 
 Gura_EndModuleBody(lexer, lexer)

@@ -14,11 +14,14 @@ class GURA_DLLDECLARE Iterator_Token : public Iterator {
 public:
 	class TokenWatcherEx : public Parser::TokenWatcher {
 	private:
-		AutoPtr<Object_token> _pObjToken;
+		int _iToken;
+		TokenList _tokenList;
 	public:
+		inline TokenWatcherEx() : _iToken(0) {}
 		virtual void FeedToken(Environment &env, const Token &token);
-		inline bool IsObjectReady() const { return !_pObjToken.IsNull(); }
-		inline Object_token *ReleaseObject() { return _pObjToken.release(); }
+		inline bool IsTokenReady() const { return _iToken < _tokenList.size(); }
+		inline Token &PickToken() { return _tokenList[_iToken++]; }
+		inline void ClearTokens() { _iToken = 0, _tokenList.clear(); }
 	};
 private:
 	bool _continueFlag;
