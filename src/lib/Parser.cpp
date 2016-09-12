@@ -124,7 +124,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (IsTokenWatched()) {
 				_field.clear();
-				_field += ch;
+				_field.push_back(ch);
 			}
 			if (sig.IsSignalled()) {
 				_stat = STAT_Error;
@@ -274,8 +274,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (chFirst == '/' && ch == '*') {
 			if (IsTokenWatched()) {
 				_field.clear();
-				_field += chFirst;
-				_field += ch;
+				_field.push_back(chFirst);
+				_field.push_back(ch);
 				_lineNoTop = GetLineNo();
 			}
 			_commentNestLevel = 1;
@@ -284,8 +284,8 @@ bool Parser::ParseChar(Environment &env, char ch)
 			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (IsTokenWatched()) {
 				_field.clear();
-				_field += chFirst;
-				_field += ch;
+				_field.push_back(chFirst);
+				_field.push_back(ch);
 			}
 			if (_cntLine == 0 || (_cntLine == 1 && _appearShebangFlag)) {
 				_stat = STAT_MagicCommentLine;
@@ -433,7 +433,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_Start;
 			}
 		} else if (ch == '\n' || IsWhite(ch)) {
-			_field += ch;
+			_field.push_back(ch);
 		} else {
 			Gura_Pushback();
 			_stat = STAT_Start;
@@ -647,7 +647,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_CommentLineTop: {
 		if (ch == '!') {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 			_appearShebangFlag = true;
 			_stat = STAT_ShebangLine;
 		} else {
@@ -669,7 +669,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 		}
 		break;
 	}
@@ -682,7 +682,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 		}
 		break;
 	}
@@ -695,25 +695,25 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (ch == '\n') FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			_stat = STAT_Start;
 		} else {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 		}
 		break;
 	}
 	case STAT_CommentBlock: {
 		if (ch == '*') {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 			_stat = STAT_CommentBlockEnd;
 		} else if (ch == '/') {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 			_stat = STAT_CommentBlockNest;
 		} else {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 		}
 		break;
 	}
 	case STAT_CommentBlockEnd: {
 		if (ch == '/') {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 			_commentNestLevel--;
 			if (_commentNestLevel > 0) {
 				_stat = STAT_CommentBlock;
@@ -732,7 +732,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_CommentBlockNest: {
 		if (ch == '*') {
-			if (IsTokenWatched()) _field += ch;
+			if (IsTokenWatched()) _field.push_back(ch);
 			_commentNestLevel++;
 			_stat = STAT_CommentBlock;
 		} else {
@@ -743,7 +743,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringFirst: {
 		if (ch == _stringInfo.chBorder) {
-			if (IsTokenWatched()) _strSource += ch;
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_StringSecond;
 		} else {
 			Gura_Pushback();
@@ -753,7 +753,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringSecond: {
 		if (ch == _stringInfo.chBorder) {
-			if (IsTokenWatched()) _strSource += ch;
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			if (_stringInfo.wiseFlag) {
 				_stringInfo.strIndentRef = _strIndent;
 				_stat = STAT_MStringWise;
@@ -782,7 +782,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else {
-			if (IsTokenWatched()) _strSource += ch;
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_field.push_back(ch);
 		}
 		break;
@@ -2295,48 +2295,6 @@ error_done:
 	_tokenStack.pop_back();
 	return false;
 }
-
-#if 0
-bool Parser::ParseDottedIdentifier(const char *moduleName, SymbolList &symbolList)
-{
-	String field;
-	for (const char *p = moduleName; *p != '\0'; p++) {
-		char ch = *p;
-		if (ch == '.') {
-			symbolList.push_back(Symbol::Add(field.c_str()));
-			field.clear();
-		} else if (ch == '\0') {
-			// nothing to do
-		} else {
-			field += ch;
-		}
-	}
-	if (!field.empty()) {
-		symbolList.push_back(Symbol::Add(field.c_str()));
-	}
-	return true;
-}
-
-// this function makes a list of symbols chained by member operator "."
-bool Parser::ParseDottedIdentifier(const Expr *pExpr, SymbolList &symbolList)
-{
-	for (;;) {
-		if (pExpr->IsMember()) {
-			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
-			const Expr_Identifier *pExprIdentifier = pExprMember->GetSelector();
-			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
-			pExpr = pExprMember->GetTarget();
-		} else if (pExpr->IsIdentifier()) {
-			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
-			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
-			break;
-		} else {
-			return false;
-		}
-	}
-	return true;
-}
-#endif
 
 void Parser::SetError(ErrorType errType, const char *format, ...)
 {
