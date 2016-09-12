@@ -113,8 +113,8 @@ private:
 	const TokenInfo *_pTokenInfo;
 	int _lineNo;
 	String _str;
-	String _strSource;
 	String _suffix;
+	String _strSource;
 	// _pExpr is only available for the following token types.
 	// TOKEN_Expr          (Expr)
 	// TOKEN_LParenthesis  (Expr_Lister)
@@ -130,18 +130,24 @@ public:
 		_pTokenInfo(&TOKEN_Unknown), _lineNo(0) {}
 	inline Token(const Token &token) :
 		_pTokenInfo(token._pTokenInfo), _lineNo(token._lineNo), _str(token._str),
-		_suffix(token._suffix), _pExpr(token._pExpr) {}
+		_suffix(token._suffix), _strSource(token._strSource), _pExpr(token._pExpr) {}
 	inline Token(const TokenInfo &tokenInfo, int lineNo) :
 		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _pExpr(nullptr) {}
 	inline Token(const TokenInfo &tokenInfo, int lineNo, const String &str) :
 		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _pExpr(nullptr) {}
 	inline Token(const TokenInfo &tokenInfo, int lineNo, const String &str, const String &suffix) :
-		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _suffix(suffix), _pExpr(nullptr) {}
+		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _suffix(suffix),
+		_pExpr(nullptr) {}
+	inline Token(const TokenInfo &tokenInfo, int lineNo,
+				 const String &str, const String &suffix, const String &strSource) :
+		_pTokenInfo(&tokenInfo), _lineNo(lineNo), _str(str), _suffix(suffix),
+		_strSource(strSource), _pExpr(nullptr) {}
 	inline Token(const TokenInfo &tokenInfo, Expr *pExpr) :
 		_pTokenInfo(&tokenInfo), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 	inline Token &operator=(const Token &token) {
-		_pTokenInfo = token._pTokenInfo, _lineNo = token._lineNo, _pExpr = token._pExpr;
-		_str = token._str, _suffix = token._suffix;
+		_pTokenInfo = token._pTokenInfo, _lineNo = token._lineNo;
+		_str = token._str, _suffix = token._suffix, _strSource = token._strSource;
+		_pExpr = token._pExpr;
 		return *this;
 	}
 	~Token();

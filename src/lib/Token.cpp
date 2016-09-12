@@ -230,8 +230,10 @@ const char *Token::GetSource() const
 		return GetSymbol();
 	} else if (IsType(TOKEN_EOL)) {
 		return "\n";
-	} else {
+	} else if (_strSource.empty()) {
 		return _str.c_str();
+	} else {
+		return _strSource.c_str();
 	}
 }
 

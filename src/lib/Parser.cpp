@@ -611,11 +611,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_stat = STAT_SymbolExclamation;
 		} else if ((ch == '"' || ch == '\'') && CheckStringPrefix(_stringInfo, _field)) {
 			_stringInfo.chBorder = ch;
-			_field.clear();
 			if (IsTokenWatched()) {
 				_strSource.clear();
+				_strSource += _field;
 				_strSource.push_back(ch);
 			}
+			_field.clear();
 			_stat = STAT_StringFirst;
 		} else {
 			if (_field == "in" && !_tokenStack.back().IsType(TOKEN_Quote)) {
@@ -761,12 +762,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_MString;
 			}
 		} else if (IsSymbolFirstChar(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
 			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
-			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field));
+			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field, "", _strSource));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -774,8 +776,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_String: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_StringPost;
 		} else if (ch == '\\') {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stringInfo.statRtn = STAT_String;
 			_stat = STAT_StringEsc;
 		} else if (ch == '\0' || ch == '\n') {
@@ -789,8 +793,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_MStringWise: {
 		if (ch == '\n') {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_MStringLineHead;
 		} else {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			Gura_Pushback();
 			_stat = STAT_MString;
 		}
@@ -798,17 +804,21 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_MString: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_MStringEndFirst;
 		} else if (ch == '\\') {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stringInfo.statRtn = STAT_MString;
 			_stat = STAT_StringEsc;
 		} else if (ch == '\0') {
 			SetError(ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
 		} else if (ch == '\n' && _stringInfo.wiseFlag) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_field.push_back(ch);
 			_stat = STAT_MStringLineHead;
 		} else {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_field.push_back(ch);
 		}
 		break;
@@ -817,11 +827,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsWhite(ch)) {
 			if (_strIndent.size() == _stringInfo.strIndentRef.size()) {
 				if (_strIndent != _stringInfo.strIndentRef) {
+					if (IsTokenWatched()) _strSource += _strIndent;
 					_field += _strIndent;
 				}
 				_stat = STAT_MString;
 			}
 		} else {
+			if (IsTokenWatched()) _strSource += _strIndent;
 			_field += _strIndent;
 			Gura_Pushback();
 			_stat = STAT_MString;
@@ -830,10 +842,15 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringEsc: {
 		if (_stringInfo.rawFlag) {
+			if (IsTokenWatched()) {
+				_strSource.push_back('\\');
+				_strSource.push_back(ch);
+			}
 			_field.push_back('\\');
 			_field.push_back(ch);
 			_stat = _stringInfo.statRtn;
 		} else {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			if (ch == '\n') {
 				_stat = _stringInfo.statRtn;
 			} else if (ch == 'x') {
@@ -861,6 +878,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringEscHex: {
 		if (IsHexDigit(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
@@ -875,6 +893,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringEscOct: {
 		if (IsOctDigit(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stringInfo.accum = (_stringInfo.accum << 3) + ConvOctDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
@@ -889,6 +908,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringEscUnicode: {
 		if (IsHexDigit(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stringInfo.accum = (_stringInfo.accum << 4) + ConvHexDigit(ch);
 			_stringInfo.cntRest--;
 			if (_stringInfo.cntRest <= 0) {
@@ -903,22 +923,27 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringInCommentBlock: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_CommentBlock;
 		} else if (ch == '\\') {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_StringEscInCommentBlock;
 		} else {
-			// nothing to do
+			if (IsTokenWatched()) _strSource.push_back(ch);
 		}
 		break;
 	}
 	case STAT_StringEscInCommentBlock: {
+		if (IsTokenWatched()) _strSource.push_back(ch);
 		_stat = STAT_StringInCommentBlock;
 		break;
 	}
 	case STAT_MStringEndFirst: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_MStringEndSecond;
 		} else {
+			if (IsTokenWatched()) _strSource.push_back(_stringInfo.chBorder);
 			_field.push_back(_stringInfo.chBorder);
 			Gura_Pushback();
 			_stat = STAT_MString;
@@ -927,8 +952,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_MStringEndSecond: {
 		if (ch == _stringInfo.chBorder) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_StringPost;
 		} else {
+			if (IsTokenWatched()) {
+				_strSource.push_back(_stringInfo.chBorder);
+				_strSource.push_back(_stringInfo.chBorder);
+			}
 			_field.push_back(_stringInfo.chBorder);
 			_field.push_back(_stringInfo.chBorder);
 			Gura_Pushback();
@@ -938,12 +968,13 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringPost: {
 		if (IsSymbolFirstChar(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_StringSuffixed;
 		} else {
 			const TokenInfo *pTokenInfo = GetTokenInfoForString(_stringInfo);
-			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field));
+			FeedToken(env, Token(*pTokenInfo, GetLineNo(), _field, "", _strSource));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
@@ -951,9 +982,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_StringSuffixed: {
 		if (IsSymbolChar(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			_suffix.push_back(ch);
 		} else {
-			FeedToken(env, Token(TOKEN_StringSuffixed, GetLineNo(), _field, _suffix));
+			FeedToken(env, Token(TOKEN_StringSuffixed, GetLineNo(), _field, _suffix, _strSource));
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
