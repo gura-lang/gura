@@ -614,7 +614,12 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsSymbolChar(ch)) {
 			_suffix.push_back(ch);
 		} else {
-			FeedToken(env, Token(TOKEN_NumberSuffixed, GetLineNo(), _field, _suffix));
+			if (IsTokenWatched()) {
+				FeedToken(env, Token(TOKEN_NumberSuffixed, GetLineNo(),
+									 _field, _suffix, _field + _suffix));
+			} else {
+				FeedToken(env, Token(TOKEN_NumberSuffixed, GetLineNo(), _field, _suffix));
+			}
 			Gura_Pushback();
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
