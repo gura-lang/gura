@@ -3,7 +3,7 @@ import(diff)
 import(conio)
 import(argopt)
 
-PrintEdits(edits[]:diff.edit) = {
+PrintEdits(edits[]:diff.edit@line) = {
 	edits.each {|edit|
 		if (edit.type == `copy) {
 			println(' ', edit.source)

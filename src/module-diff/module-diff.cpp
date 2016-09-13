@@ -1142,6 +1142,7 @@ String Object_sync::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(sync)
 {
+	Gura_AssignValue(sync, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
@@ -1186,6 +1187,7 @@ String Object_syncline::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(syncline)
 {
+	Gura_AssignValue(syncline, Value(Reference()));
 }
 
 //-----------------------------------------------------------------------------
