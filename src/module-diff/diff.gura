@@ -1,0 +1,3 @@
+#!/usr/bin/env gura
+import(conio)
+import(diff):binary:mixin_type {*}

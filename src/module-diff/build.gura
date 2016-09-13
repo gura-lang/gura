@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('diff', ['module-diff.cpp'])
+builder.build('diff', ['module-diff.cpp'], ['diff.gura'])
