@@ -812,7 +812,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 			if (IsTokenWatched()) _strSource.push_back(ch);
 			_stat = STAT_MStringLineHead;
 		} else {
-			if (IsTokenWatched()) _strSource.push_back(ch);
 			Gura_Pushback();
 			_stat = STAT_MString;
 		}
@@ -859,7 +858,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 	case STAT_StringEsc: {
 		if (_stringInfo.rawFlag) {
 			if (IsTokenWatched()) {
-				_strSource.push_back('\\');
 				_strSource.push_back(ch);
 			}
 			_field.push_back('\\');
