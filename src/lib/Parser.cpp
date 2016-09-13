@@ -116,6 +116,10 @@ bool Parser::ParseChar(Environment &env, char ch)
 			}
 			_stat = STAT_StringFirst;
 		} else if (ch == '\\') {
+			if (IsTokenWatched()) {
+				_field.clear();
+				_field.push_back(ch);
+			}
 			_stat = STAT_Escape;
 		} else if (ch == '\n') {
 			FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
@@ -210,7 +214,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 		if (IsWhite(ch) || ch == '\x0c') { // code 0x0c is page-break
 			_field.push_back(ch);
 		} else {
-			_pTokenWatcher->FeedToken(env, Token(TOKEN_White, GetLineNo(), _field));
+			_pTokenWatcher->FeedToken(env, Token(TOKEN_Space, GetLineNo(), _field));
 			Gura_Pushback();
 			_stat = STAT_Start;
 		}
@@ -373,12 +377,21 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_Escape: {
 		if (ch == '\0') {
+			if (IsTokenWatched()) {
+				_pTokenWatcher->FeedToken(env, Token(TOKEN_Escape, GetLineNo(), _field));
+			}
 			Gura_Pushback();
 			_stat = STAT_Start;
 		} else if (ch == '\n') {
+			if (IsTokenWatched()) {
+				_field.push_back(ch);
+				_pTokenWatcher->FeedToken(env, Token(TOKEN_Escape, GetLineNo(), _field));
+			}
 			_stat = STAT_Start;
 		} else if (IsWhite(ch)) {
-			// nothing to do
+			if (IsTokenWatched()) {
+				_field.push_back(ch);
+			}
 		} else {
 			SetError(ERR_SyntaxError, "invalid escape character");
 			_stat = STAT_Error;
@@ -423,7 +436,7 @@ bool Parser::ParseChar(Environment &env, char ch)
 	case STAT_AfterLBrace: {
 		if (ch == '|') {
 			if (IsTokenWatched() && !_field.empty()) {
-				_pTokenWatcher->FeedToken(env, Token(TOKEN_White, _lineNoTop, _field));
+				_pTokenWatcher->FeedToken(env, Token(TOKEN_Space, _lineNoTop, _field));
 			}
 			FeedToken(env, Token(TOKEN_LBlockParam, GetLineNo()));
 			if (sig.IsSignalled()) {
@@ -433,8 +446,11 @@ bool Parser::ParseChar(Environment &env, char ch)
 				_stat = STAT_Start;
 			}
 		} else if (ch == '\n' || IsWhite(ch)) {
-			_field.push_back(ch);
+			if (IsTokenWatched()) _field.push_back(ch);
 		} else {
+			if (IsTokenWatched() && !_field.empty()) {
+				_pTokenWatcher->FeedToken(env, Token(TOKEN_Space, _lineNoTop, _field));
+			}
 			Gura_Pushback();
 			_stat = STAT_Start;
 		}

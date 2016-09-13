@@ -150,7 +150,6 @@ lexer:module = <module:lexer:<integrated>>
   __name__:string = lexer
   __source__:string = <integrated>
   __symbol__:symbol = lexer
-  lexer.tokens(stream:stream):map {block?}
 list:class = <class:list(value+)>
 local(`syms+)
 locals(module?:module) {block?}
@@ -279,6 +278,7 @@ sys:module = <module:sys:<integrated>>
 template:class = <class:template(src?:stream:r):map:[lasteol,noindent] {block?}>
 timedelta:class = <class:timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}>
 token:class = <class:token>
+tokens(stream:stream):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]
 tostring(value):map
 tosymbol(str:string):map

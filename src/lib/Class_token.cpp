@@ -118,8 +118,15 @@ bool Iterator_Token::DoNext(Environment &env, Value &value)
 		}
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
 		if (!_parser.ParseChar(env, ch)) {
-			//if (!sig.IsDetectEncoding()) return false;
-			
+			if (!sig.IsDetectEncoding()) return false;
+			sig.ClearSignal();
+			Value value = sig.GetValue();
+			if (value.Is_string()) {
+				const char *encoding = value.GetString();
+				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
+				if (sig.IsSignalled()) return nullptr;
+				_pStream->SetCodec(pCodec.release());
+			}
 		}
 		if (chRaw < 0) _continueFlag = false;
 	}

@@ -86,7 +86,8 @@ extern const TokenInfo TOKEN_EmbedString;
 extern const TokenInfo TOKEN_Symbol;
 extern const TokenInfo TOKEN_EOF;
 extern const TokenInfo TOKEN_Expr;
-extern const TokenInfo TOKEN_White;				// for watcher
+extern const TokenInfo TOKEN_Space;				// for watcher
+extern const TokenInfo TOKEN_Escape;			// for watcher
 extern const TokenInfo TOKEN_CommentLine;		// for watcher
 extern const TokenInfo TOKEN_CommentBlock;		// for watcher
 extern const TokenInfo TOKEN_DoubleChars;		// only used in tokenizing process

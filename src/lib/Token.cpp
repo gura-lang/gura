@@ -85,7 +85,8 @@ const TokenInfo TOKEN_EmbedString =		{ 27, "EmbedString",	"[EmS]",OPTYPE_None	};
 const TokenInfo TOKEN_Symbol =			{ 28, "Symbol",			"[Sym]",OPTYPE_None	};	// S
 const TokenInfo TOKEN_EOF =				{ 29, "EOF",			"[EOF]",OPTYPE_None	};	// E
 const TokenInfo TOKEN_Expr =			{  0, "Expr",			"[Exp]",OPTYPE_None	};
-const TokenInfo TOKEN_White =			{  0, "White",			"[Wht]",OPTYPE_None	};
+const TokenInfo TOKEN_Space =			{  0, "Space",			"[Spc]",OPTYPE_None	};
+const TokenInfo TOKEN_Escape =			{  0, "Escape",			"[Esc]",OPTYPE_None	};
 const TokenInfo TOKEN_CommentLine =		{  0, "CommentLine",	"[CmL]",OPTYPE_None	};
 const TokenInfo TOKEN_CommentBlock =	{  0, "CommentBlock",	"[CmB]",OPTYPE_None	};
 const TokenInfo TOKEN_DoubleChars =		{  0, "DoubleChars",	"[DbC]",OPTYPE_None	};
@@ -199,7 +200,8 @@ void Token::Initialize()
 		&TOKEN_Symbol,
 		&TOKEN_EOF,
 		&TOKEN_Expr,
-		&TOKEN_White,			// for watcher
+		&TOKEN_Space,			// for watcher
+		&TOKEN_Escape,			// for watcher
 		&TOKEN_CommentLine,		// for watcher
 		&TOKEN_CommentBlock,	// for watcher
 		&TOKEN_DoubleChars,		// only used in tokenizing process
