@@ -840,15 +840,14 @@ bool Parser::ParseChar(Environment &env, char ch)
 	}
 	case STAT_MStringLineHead: {
 		if (IsWhite(ch)) {
+			if (IsTokenWatched()) _strSource.push_back(ch);
 			if (_strIndent.size() == _stringInfo.strIndentRef.size()) {
 				if (_strIndent != _stringInfo.strIndentRef) {
-					if (IsTokenWatched()) _strSource += _strIndent;
 					_field += _strIndent;
 				}
 				_stat = STAT_MString;
 			}
 		} else {
-			if (IsTokenWatched()) _strSource += _strIndent;
 			_field += _strIndent;
 			Gura_Pushback();
 			_stat = STAT_MString;
