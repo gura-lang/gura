@@ -106,9 +106,11 @@ Declaration *Declaration::CreateFromExpr(Environment &env, const Expr *pExpr)
 		if (pValueTypeInfo != nullptr) {
 			pSymbolForType = attrFront.front();
 			valType = pValueTypeInfo->GetValueType();
+#if 0
 		} else if (attrFront.size() > 1) {
 			env.SetError(ERR_TypeError, "invalid type declaration");
 			return nullptr;
+#endif
 		}
 	}
 	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {

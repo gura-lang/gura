@@ -241,9 +241,10 @@ bool Environment::ImportValue(const Symbol *pSymbol, const Value &value,
 	return true;
 }
 
-ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip)
+ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvType envType,
+								  EnvRefMode envRefMode, int cntSuperSkip)
 {
-	EnvType envType = GetEnvType();
+	//EnvType envType = GetEnvType();
 	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = GetTopFrame();
 		ValueEx *pValue = pFrame->LookupValue(*this, pSymbol);
@@ -358,6 +359,7 @@ ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
 	int cntSuperSkip = 0;
 	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
 		Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
+		//::printf("check %d %s %p\n", __LINE__, (*ppSymbol)->GetName(), pValue);
 		if (pValue == nullptr || !pValue->IsModule()) return nullptr;
 		pEnv = pValue->GetModule();
 		envRefMode = ENVREF_NoEscalate;

@@ -324,12 +324,17 @@ public:
 	bool ImportValue(const Symbol *pSymbol, const Value &value,
 										ULong extra, bool overwriteFlag);
 public:
-	ValueEx *LookupValue(const Symbol *pSymbol,
-						EnvRefMode envRefMode, int cntSuperSkip = 0);
+	ValueEx *LookupValue(const Symbol *pSymbol, EnvType envType,
+						 EnvRefMode envRefMode, int cntSuperSkip = 0);
+	inline ValueEx *LookupValue(const Symbol *pSymbol,
+								EnvRefMode envRefMode, int cntSuperSkip = 0) {
+		return LookupValue(pSymbol, GetEnvType(), envRefMode, cntSuperSkip);
+	}
 	inline const ValueEx *LookupValue(const Symbol *pSymbol,
-						EnvRefMode envRefMode, int cntSuperSkip = 0) const {
-		return const_cast<const ValueEx *>(const_cast<Environment *>(this)->
-						LookupValue(pSymbol, envRefMode, cntSuperSkip));
+									  EnvRefMode envRefMode, int cntSuperSkip = 0) const {
+		return const_cast<const ValueEx *>(
+			const_cast<Environment *>(this)->
+			LookupValue(pSymbol, GetEnvType(), envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 public:
