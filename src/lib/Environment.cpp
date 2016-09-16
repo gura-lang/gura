@@ -358,8 +358,9 @@ ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList)
 	EnvRefMode envRefMode = ENVREF_Escalate;
 	int cntSuperSkip = 0;
 	for ( ; ppSymbol + 1 != symbolList.end(); ppSymbol++) {
-		Value *pValue = pEnv->LookupValue(*ppSymbol, envRefMode, cntSuperSkip);
-		//::printf("check %d %s %p\n", __LINE__, (*ppSymbol)->GetName(), pValue);
+		EnvType envType = pEnv->GetEnvType();
+		if (envType == ENVTYPE_class) envType = ENVTYPE_local;
+		Value *pValue = pEnv->LookupValue(*ppSymbol, envType, envRefMode, cntSuperSkip);
 		if (pValue == nullptr || !pValue->IsModule()) return nullptr;
 		pEnv = pValue->GetModule();
 		envRefMode = ENVREF_NoEscalate;

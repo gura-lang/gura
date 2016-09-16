@@ -106,9 +106,10 @@ Declaration *Declaration::CreateFromExpr(Environment &env, const Expr *pExpr)
 		if (pValueTypeInfo != nullptr) {
 			pSymbolForType = attrFront.front();
 			valType = pValueTypeInfo->GetValueType();
-#if 0
+#if 1
 		} else if (attrFront.size() > 1) {
-			env.SetError(ERR_TypeError, "invalid type declaration");
+			env.SetError(ERR_TypeError, "invalid type declaration: %s",
+						 attrFront.Join('.').c_str());
 			return nullptr;
 #endif
 		}
