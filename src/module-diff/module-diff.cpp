@@ -729,7 +729,7 @@ Gura_DeclareMethodAlias(diff_at_line, render, "render")
 		"- `` `unified`` .. Unified format. This is the default.\n"
 		"\n"
 		"The argument `lines` specifies a number of common lines appended before and after\n"
-		"different lines\n");
+		"different lines.\n");
 }
 
 Gura_ImplementMethod(diff_at_line, render)

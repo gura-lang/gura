@@ -1,0 +1,19 @@
+#!/usr/bin/env gura
+import(diff)
+import(argopt)
+
+usage() = {
+	sys.stderr.println('usage: diff.gura file1 file2')
+	sys.exit(1)
+}
+
+argopt.Parser {|p|
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} catch {|e|
+		sys.stderr.println(e.text)
+		sys.exit(1)
+	}
+}
+(argv.len() < 2) && usage()
+diff.compose(stream(argv[0]), stream(argv[1])).render(sys.stdout)
