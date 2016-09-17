@@ -17,29 +17,29 @@ execute(launcherName:string, version:string, shortName:string,
 		fileNamesExtra[]:string, fileNamesClean[]:string,
 		versionGura:string => '0.0.0', fileNameMacIcon?:string) = {
 	caption:extern = 'Gura Application Setup'$
-	Dialog.launcherName		= launcherName
-	Dialog.version			= version
-	Dialog.versionGura		= versionGura
-	Dialog.shortName		= shortName
-	Dialog.dirNameDst		= path.join(sys.appdir, shortName)
-	Dialog.fileNameScript	= fileNameScript
-	Dialog.fileNameIcon		= fileNameIcon
-	Dialog.fileNameMacIcon	= fileNameMacIcon
-	Dialog.fileNamesExtra	= fileNamesExtra
-	Dialog.fileNamesClean	= fileNamesClean
-	Dialog.errorMsg = nil
+	Panel.launcherName		= launcherName
+	Panel.version			= version
+	Panel.versionGura		= versionGura
+	Panel.shortName		= shortName
+	Panel.dirNameDst		= path.join(sys.appdir, shortName)
+	Panel.fileNameScript	= fileNameScript
+	Panel.fileNameIcon		= fileNameIcon
+	Panel.fileNameMacIcon	= fileNameMacIcon
+	Panel.fileNamesExtra	= fileNamesExtra
+	Panel.fileNamesClean	= fileNamesClean
+	Panel.errorMsg = nil
 	wx.IMPLEMENT_APP(App)
 }
 
 //-----------------------------------------------------------------------------
-// Dialog
+// Panel
 //-----------------------------------------------------------------------------
-Dialog = class(wx.Dialog) {
+Panel = class(wx.Panel) {
 	public {
 		versionGura
 	}
 	[ID_CreateZIP, ID_CreateDMG] = wx.ID_HIGHEST..
-	__init__(title:string => caption) = {|nil, wx.ID_ANY, title|
+	__init__(parent:wx.Frame) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.SetMinSize(480, -1)
 		vbox = wx.BoxSizer(wx.VERTICAL)
@@ -139,7 +139,8 @@ Dialog = class(wx.Dialog) {
 		vbox.AddSpacer(12)
 		this.SetSizerAndFit(outerBox)
 		this.UpdateStatus()
-		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_Setup(event)}
+		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
+		this.Bind(wx.EVT_BUTTON, wx.ID_CANCEL) {|event| this.OnButton_Cancel(event)}
 		this.Bind(wx.EVT_MENU, ID_CreateZIP) {|event| this.OnMenu_CreateZIP(event)}
 		this.Bind(wx.EVT_MENU, ID_CreateDMG) {|event| this.OnMenu_CreateDMG(event)}
 	}
@@ -169,7 +170,7 @@ Dialog = class(wx.Dialog) {
 			this.PopupMenu(m)
 		}
 	}
-	OnButton_Setup(event:wx.CommandEvent) = {
+	OnButton_OK(event:wx.CommandEvent) = {
 		dlg = nil
 		try {
 			fs.mkdir(dirNameDst):tree
@@ -199,7 +200,10 @@ Dialog = class(wx.Dialog) {
 							wx.OK | wx.CENTRE | wx.ICON_ERROR)
 		}
 		dlg.ShowModal()
-		this.Close()
+		this.GetParent().Close()
+	}
+	OnButton_Cancel(event:wx.CommandEvent) = {
+		this.GetParent().Close()
 	}
 	OnMenu_CreateZIP(event:wx.CommandEvent) = {
 		baseName = format('%s-%s', shortName, version)
@@ -300,12 +304,22 @@ Dialog = class(wx.Dialog) {
 }
 
 //-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
+Frame = class(wx.Frame) {
+	__init__(title:string => caption) = {|nil, wx.ID_ANY, title|
+		Panel(this)
+		this.Fit()
+	}
+}
+
+//-----------------------------------------------------------------------------
 // App
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
 		parent = nil
-		[major, minor, patch] = Dialog.versionGura.split('.')::tonumber()
+		[major, minor, patch] = Panel.versionGura.split('.')::tonumber()
 		try {
 			sys.required_version(major, minor, patch)
 		} catch {
@@ -315,14 +329,14 @@ App = class(wx.App) {
 			'''$ % [major, minor, patch]
 			wx.MessageDialog(parent, msg
 							 'Error', wx.OK | wx.ICON_ERROR | wx.CENTRE) {|dlg|
-							 dlg.ShowModal()
+				dlg.ShowModal()
 			}
 			return(false)
 		}
-		dlg = Dialog()
-		dlg.CentreOnScreen()
-		dlg.ShowModal()
-		false
+		frame = Frame()
+		frame.CentreOnScreen()
+		frame.Show()
+		true
 	}
 }
 
