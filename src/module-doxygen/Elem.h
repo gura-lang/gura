@@ -154,41 +154,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-//-----------------------------------------------------------------------------
-// Iterator_Elem_Command
-//-----------------------------------------------------------------------------
-class Iterator_Elem_Command : public Iterator {
-protected:
-	AutoPtr<ElemOwner> _pElemOwner;
-	size_t _idx;
-	String _name;
-public:
-	Iterator_Elem_Command(ElemOwner *pElemOwner, const String &name);
-	Iterator_Elem_Command(const Iterator_Elem_Command &iter);
-	virtual Iterator *Clone() const;
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// Iterator_Elem_Text
-//-----------------------------------------------------------------------------
-class Iterator_Elem_Text : public Iterator {
-protected:
-	AutoPtr<ElemOwner> _pElemOwner;
-	size_t _idx;
-public:
-	Iterator_Elem_Text(ElemOwner *pElemOwner);
-	Iterator_Elem_Text(const Iterator_Elem_Text &iter);
-	virtual Iterator *Clone() const;
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Value &value);
-	virtual String ToString() const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
 Gura_EndModuleScope(doxygen)
 
 #endif

@@ -79,48 +79,6 @@ Gura_ImplementMethod(structure, elems)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// doxygen.structure#elems@command(name?:string) {block?}
-Gura_DeclareMethodAlias(structure, elems_at_command, "elems@command")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `doxygen.elem` instances of command elements contained in the structure.\n"
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en());
-}
-
-Gura_ImplementMethod(structure, elems_at_command)
-{
-	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
-	const char *name = arg.IsValid(0)? arg.GetString(0) : "";
-	AutoPtr<Iterator> pIterator(
-		new Iterator_Elem_Command(pStructure->GetElemOwner().Reference(), name));
-	return ReturnIterator(env, arg, pIterator.release());
-}
-
-// doxygen.structure#elems@text() {block?}
-Gura_DeclareMethodAlias(structure, elems_at_text, "elems@text")
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
-		"Creates an iterator that returns `doxygen.elem` instances of text elements contained in the structure.\n"
-		"\n"
-		GURA_HELPTEXT_ITERATOR_en());
-}
-
-Gura_ImplementMethod(structure, elems_at_text)
-{
-	const Structure *pStructure = Object_structure::GetObjectThis(arg)->GetStructure();
-	AutoPtr<Iterator> pIterator(
-		new Iterator_Elem_Text(pStructure->GetElemOwner().Reference()));
-	return ReturnIterator(env, arg, pIterator.release());
-}
-
 // doxygen.structure#substructures() {block?}
 Gura_DeclareMethod(structure, substructures)
 {
@@ -148,8 +106,6 @@ Gura_ImplementUserClass(structure)
 {
 	Gura_AssignValue(structure, Value(Reference()));
 	Gura_AssignMethod(structure, elems);
-	Gura_AssignMethod(structure, elems_at_command);
-	Gura_AssignMethod(structure, elems_at_text);
 	Gura_AssignMethod(structure, substructures);
 }
 
