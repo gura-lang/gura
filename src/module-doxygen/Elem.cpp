@@ -216,14 +216,8 @@ bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, Simple
 	const Function *pFunc = pObjAssoc->LookupFunction(_pCmdFmt->GetSymbolEx(), ENVREF_Escalate);
 	if (pFunc == nullptr) return true;
 	ValueList valListArg;
-	valListArg.reserve(_pElemArgs->size());
-	foreach_const (ElemList, ppElemArg, *_pElemArgs) {
-		const Elem *pElemArg = *ppElemArg;
-		String strArg;
-		SimpleStream_StringWriter streamArg(strArg);
-		if (!pElemArg->Render(pRenderer, pCfg, streamArg)) return false;
-		valListArg.push_back(Value(strArg));
-	}
+	valListArg.reserve(1);
+	valListArg.push_back(Value(new Object_elem(Reference())));
 	Value value = pObjAssoc->EvalMethod(env, pFunc, valListArg);
 	if (value.Is_string()) {
 		stream.Print(sig, value.GetString());
