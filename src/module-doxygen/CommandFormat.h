@@ -129,6 +129,7 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Symbol *GetSymbolEx() const { return _pSymbolEx; }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
+	inline const ArgIndexMap &GetArgIndexMap() const { return _argIndexMap; }
 	inline int GetArgIndex(const Symbol *pSymbol) const {
 		ArgIndexMap::const_iterator iter = _argIndexMap.find(pSymbol);
 		return (iter == _argIndexMap.end())? -1 : iter->second;

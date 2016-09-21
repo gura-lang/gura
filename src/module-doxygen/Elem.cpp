@@ -189,12 +189,22 @@ Elem_Command::Elem_Command(const CommandFormat *pCmdFmt, Type type) :
 
 bool Elem_Command::DoDirProp(Environment &env, SymbolSet &symbols)
 {
+	const CommandFormat::ArgIndexMap &argIndexMap = _pCmdFmt->GetArgIndexMap();
+	foreach_const (CommandFormat::ArgIndexMap, iter, argIndexMap) {
+		symbols.insert(iter->first);
+	}
 	return true;
 }
 
 Value Elem_Command::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	int idx = _pCmdFmt->GetArgIndex(pSymbol);
+	if (idx < 0) return Value::Nil;
+	evaluatedFlag = true;
+	if (idx < static_cast<int>(_pElemArgs->size())) {
+		return Value(new Object_elem(_pElemArgs->At(idx)->Reference()));
+	}
 	return Value::Nil;
 }
 
