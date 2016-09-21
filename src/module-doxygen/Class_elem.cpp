@@ -19,13 +19,29 @@ Object *Object_elem::Clone() const
 
 bool Object_elem::DoDirProp(Environment &env, SymbolSet &symbols)
 {
-	return true;
+	Signal &sig = GetSignal();
+	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(index));
+	symbols.insert(Gura_UserSymbol(prev));
+	symbols.insert(Gura_UserSymbol(next));
+	return _pElem->DoDirProp(env, symbols);
 }
 
 Value Object_elem::DoGetProp(Environment &env, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
+							 const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	return Value::Nil;
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(index))) {
+		return Value(_pElem->GetIndex());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(prev))) {
+		Elem *pElem = _pElem->GetElemPrev();
+		return (pElem == nullptr)? Value::Nil : Value(new Object_elem(pElem->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(next))) {
+		Elem *pElem = _pElem->GetElemNext();
+		return (pElem == nullptr)? Value::Nil : Value(new Object_elem(pElem->Reference()));
+	}
+	evaluatedFlag = false;
+	return _pElem->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
 }
 
 String Object_elem::ToString(bool exprFlag)

@@ -57,8 +57,13 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(aftermember);
 	Gura_RealizeUserSymbol(aliases);
+	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(elem);
+	Gura_RealizeUserSymbol(index);
+	Gura_RealizeUserSymbol(next);
+	Gura_RealizeUserSymbol(prev);
 	Gura_RealizeUserSymbol(source);
+	Gura_RealizeUserSymbol(string);
 	// class realization
 	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(structure, env.LookupClass(VTYPE_object));

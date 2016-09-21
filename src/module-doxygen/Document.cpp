@@ -412,9 +412,9 @@ void Document::ConvertToBrief()
 	strSrc += '\n';
 	pStructure->SetSource(strSrc);
 	Elem_Command *pElemNew = new Elem_Command(CommandFormat::Brief);
-	pElemNew->GetElemArgs().push_back(pElemOrg->ReduceContent()->Reference());
-	elemOwner[0] = pElemNew;
-	Elem::Delete(pElemOrg);
+	pElemNew->GetElemArgs().AddElem(pElemOrg->ReduceContent()->Reference());
+	elemOwner.Clear();
+	elemOwner.AddElem(pElemNew);
 }
 
 //-----------------------------------------------------------------------------

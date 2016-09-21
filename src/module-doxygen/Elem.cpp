@@ -10,12 +10,13 @@ Gura_BeginModuleScope(doxygen)
 //-----------------------------------------------------------------------------
 const Elem *Elem::Empty = nullptr;
 
-Elem::Elem(Type type) : _cntRef(1), _type(type)
+Elem::Elem(Type type) : _cntRef(1), _type(type), _pElemPrev(nullptr), _pElemNext(nullptr)
 {
 }
 
 Elem::Elem(ElemOwner *pElemChildren, Type type) :
-	_cntRef(1), _type(type), _pElemChildren(pElemChildren)
+	_cntRef(1), _type(type), _pElemChildren(pElemChildren),
+	_pElemPrev(nullptr), _pElemNext(nullptr)
 {
 }
 
@@ -28,9 +29,22 @@ void Elem::Initialize()
 	Empty = new Elem_Empty();
 }
 
+size_t Elem::GetIndex() const
+{
+	size_t idx = 0;
+	for (const Elem *pElem = GetElemPrev(); pElem != nullptr;
+		 pElem = pElem->GetElemPrev()) idx++;
+	return idx;
+}
+
 const Elem *Elem::ReduceContent() const
 {
 	return this;
+}
+
+bool Elem::IsSameType(const Elem *pElem) const
+{
+	return pElem->GetType() == GetType();
 }
 
 //-----------------------------------------------------------------------------
@@ -73,11 +87,34 @@ void ElemOwner::Clear()
 	clear();
 }
 
+void ElemOwner::AddElem(Elem *pElem)
+{
+	if (!empty()) {
+		Elem *pElemPrev = back();
+		if (pElemPrev->IsSameType(pElem)) {
+			pElemPrev->SetElemNext(pElem);
+			pElem->SetElemPrev(pElemPrev);
+		}
+	}
+	ElemList::push_back(pElem);
+}
+
 //-----------------------------------------------------------------------------
 // Elem_Empty
 //-----------------------------------------------------------------------------
 Elem_Empty::Elem_Empty(Type type) : Elem(type)
 {
+}
+
+bool Elem_Empty::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Elem_Empty::DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
 }
 
 bool Elem_Empty::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
@@ -102,6 +139,23 @@ void Elem_Empty::Print(Environment &env, SimpleStream &stream, int indentLevel) 
 //-----------------------------------------------------------------------------
 Elem_String::Elem_String(const String &str, Type type) : Elem(type), _str(str)
 {
+}
+
+bool Elem_String::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(string));
+	return true;
+}
+
+Value Elem_String::DoGetProp(Environment &env, const Symbol *pSymbol,
+							 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(string))) {
+		return Value(_str);
+	}	
+	evaluatedFlag = false;
+	return Value::Nil;
 }
 
 bool Elem_String::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
@@ -131,6 +185,17 @@ Elem_Command::Elem_Command(const CommandFormat *pCmdFmt, Type type) :
 	if (pCmdFmt->GetEndDetector() != nullptr) {
 		_pElemChildren.reset(new ElemOwner());
 	}
+}
+
+bool Elem_Command::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Elem_Command::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Nil;
 }
 
 bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
@@ -196,6 +261,15 @@ void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel
 	}
 }
 
+bool Elem_Command::IsSameType(const Elem *pElem) const
+{
+	if (pElem->GetType() == GetType()) {
+		const Elem_Command *pElemEx = dynamic_cast<const Elem_Command *>(pElem);
+		return pElemEx->GetCommandFormat() == GetCommandFormat();
+	}
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Elem_Text
 //-----------------------------------------------------------------------------
@@ -212,6 +286,24 @@ const Elem *Elem_Text::ReduceContent() const
 {
 	return _pElemChildren->empty()? Elem::Empty :
 		(_pElemChildren->size() == 1)? _pElemChildren->front() : this;
+}
+
+bool Elem_Text::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	symbols.insert(Gura_UserSymbol(children));
+	return true;
+}
+
+Value Elem_Text::DoGetProp(Environment &env, const Symbol *pSymbol,
+						   const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
+		AutoPtr<Iterator> pIterator(new Iterator_Elem(_pElemChildren->Reference()));
+		return Value(new Object_iterator(env, pIterator.release()));
+	}	
+	evaluatedFlag = false;
+	return Value::Nil;
 }
 
 bool Elem_Text::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
@@ -263,7 +355,8 @@ Iterator *Iterator_Elem::GetSource()
 bool Iterator_Elem::DoNext(Environment &env, Value &value)
 {
 	if (_idx < _pElemOwner->size()) {
-		Elem *pElem = (*_pElemOwner)[_idx++];
+		Elem *pElem = _pElemOwner->At(_idx);
+		_idx++;
 		value = Value(new Object_elem(pElem->Reference()));
 		return true;
 	}

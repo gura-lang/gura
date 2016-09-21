@@ -27,6 +27,8 @@ protected:
 	int _cntRef;
 	Type _type;
 	AutoPtr<ElemOwner> _pElemChildren;
+	Elem *_pElemPrev;
+	Elem *_pElemNext;
 public:
 	static const Elem *Empty;
 public:
@@ -41,10 +43,21 @@ public:
 	inline bool IsParent() const { return !_pElemChildren.IsNull(); }
 	inline ElemOwner &GetElemChildren() { return *_pElemChildren; }
 	inline void SetElemChildren(ElemOwner *pElemChildren) { _pElemChildren.reset(pElemChildren); }
+	inline void SetElemPrev(Elem *pElemPrev) { _pElemPrev = pElemPrev; }
+	inline void SetElemNext(Elem *pElemNext) { _pElemNext = pElemNext; }
+	inline Elem *GetElemPrev() { return _pElemPrev; }
+	inline Elem *GetElemNext() { return _pElemNext; }
+	inline const Elem *GetElemPrev() const { return _pElemPrev; }
+	inline const Elem *GetElemNext() const { return _pElemNext; }
+	size_t GetIndex() const;
 	virtual const Elem *ReduceContent() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols) = 0;
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag) = 0;
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const = 0;
 	virtual String ToString() const = 0;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
+	virtual bool IsSameType(const Elem *pElem) const;
 	static void Initialize();
 };
 
@@ -71,6 +84,12 @@ protected:
 	~ElemOwner();
 public:
 	void Clear();
+	void AddElem(Elem *pElem);
+	inline value_type At(size_t idx) { return ElemList::operator[](idx); }
+private:
+	void push_back(Elem *pElem) {}
+	void insert(Elem *pElem) {}
+	value_type operator[](size_t idx) { return ElemList::operator[](idx); }
 };
 
 //-----------------------------------------------------------------------------
@@ -79,6 +98,9 @@ public:
 class Elem_Empty : public Elem {
 public:
 	Elem_Empty(Type type = TYPE_Empty);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
@@ -93,6 +115,9 @@ protected:
 public:
 	Elem_String(const String &str, Type type = TYPE_String);
 	inline void Append(const char *str) { _str += str; }
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
@@ -113,9 +138,13 @@ public:
 	inline bool IsEndCommand(const Elem_Command *pElem) {
 		return _pCmdFmt->IsEndCommand(pElem->GetCommandFormat()->GetName());
 	}
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
+	virtual bool IsSameType(const Elem *pElem) const;
 	inline bool HasCompletedArg() const {
 		return _pElemArgs->size() >= _pCmdFmt->GetArgOwner().size();
 	}
@@ -132,6 +161,9 @@ public:
 	Elem_Text(Type type = TYPE_Text);
 	Elem_Text(ElemOwner *pElemOwner, Type type = TYPE_Text);
 	virtual const Elem *ReduceContent() const;
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;

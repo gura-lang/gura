@@ -86,7 +86,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			if (_pParserChild->IsComplete()) {
 				AutoPtr<Elem_Text> pElemResult(
 					new Elem_Text(_pParserChild->GetElemOwner().Reference()));
-				_pElemArg->GetElemChildren().push_back(pElemResult->ReduceContent()->Reference());
+				_pElemArg->GetElemChildren().AddElem(pElemResult->ReduceContent()->Reference());
 				_pParserChild.reset();
 				_stat = (_stat == STAT_AcceptCommandInArgLine)? STAT_ArgLine : STAT_ArgPara;
 			}
@@ -110,10 +110,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 				}
 				// finish the previous command
 				if (!_strArg.empty()) {
-					_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
+					_pElemArg->GetElemChildren().AddElem(new Elem_String(_strArg));
 					_strArg.clear();
 				}
-				_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
+				_pElemCmdCur->GetElemArgs().AddElem(_pElemArg->ReduceContent()->Reference());
 				FlushElemCommand(_pElemCmdCur.release());
 				// special command (section indicator)
 				_pElemCmdCur.reset(new Elem_Command(pCmdFmt));
@@ -195,7 +195,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 				return false;
 			}
 			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_Empty());
 			_stat = STAT_NextArg;
 		} else if (ch == '"') {
 			_strArg.clear();
@@ -210,7 +210,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 	case STAT_ArgWord: {
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '.' || ch == ',' || ch == ';' || ch == '?' || ch == '!') {
@@ -225,7 +225,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0' || IsCommandMark(ch)) {
 			Pushback(ch);
 			Pushback(_chAhead);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -238,11 +238,11 @@ bool Parser::FeedChar(Environment &env, char ch)
 	case STAT_ArgWordQuote: {
 		if (ch == '\n' || ch == '\0') {
 			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else if (ch == '"') {
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -258,7 +258,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			_stat = STAT_ArgBracket;
 		} else { // including '\0'
 			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_Empty());
 			_stat = STAT_NextArg;
 		}
 		break;
@@ -268,7 +268,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "unmatched brakcet mark");
 			return false;
 		} else if (ch == ']') {
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -292,15 +292,15 @@ bool Parser::FeedChar(Environment &env, char ch)
 			if (ch == '\0') Pushback(ch);
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->GetElemChildren().push_back(new Elem_String(str));
+				_pElemArg->GetElemChildren().AddElem(new Elem_String(str));
 			}
 			_strArg.clear();
-			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
+			_pElemCmdCur->GetElemArgs().AddElem(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			String str = Strip(_strArg.c_str());
 			if (!str.empty()) {
-				_pElemArg->GetElemChildren().push_back(new Elem_String(str));
+				_pElemArg->GetElemChildren().AddElem(new Elem_String(str));
 			}
 			_strArg.clear();
 			_cmdName.clear();
@@ -324,7 +324,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			}
 			Pushback(ch);
 			if (_chPrev == ' ' || _chPrev == '\t') Pushback(_chPrev);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_Empty());
 			_stat = STAT_NextArg;
 		}
 		break;
@@ -334,7 +334,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "quoted string doesn't end correctly");
 			return false;
 		} else if (ch == '"') {
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -355,7 +355,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 				return false;
 			}
 			Pushback(ch);
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_Empty());
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_Empty());
 			_stat = STAT_NextArg;
 		}
 		break;
@@ -365,7 +365,7 @@ bool Parser::FeedChar(Environment &env, char ch)
 			env.SetError(ERR_SyntaxError, "braced string doesn't end correctly");
 			return false;
 		} else if (ch == '}') {
-			_pElemCmdCur->GetElemArgs().push_back(new Elem_String(_strArg));
+			_pElemCmdCur->GetElemArgs().AddElem(new Elem_String(_strArg));
 			_strArg.clear();
 			_stat = STAT_NextArg;
 		} else {
@@ -392,14 +392,14 @@ bool Parser::FeedChar(Environment &env, char ch)
 		} else if (ch == '\0') {
 			Pushback(ch);
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
-			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
+			_pElemCmdCur->GetElemArgs().AddElem(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (IsCommandMark(ch)) {
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
 			_cmdName.clear();
@@ -413,10 +413,10 @@ bool Parser::FeedChar(Environment &env, char ch)
 		if (ch == '\n') {
 			// detected a blank line
 			if (!_strArg.empty()) {
-				_pElemArg->GetElemChildren().push_back(new Elem_String(_strArg));
+				_pElemArg->GetElemChildren().AddElem(new Elem_String(_strArg));
 				_strArg.clear();
 			}
-			_pElemCmdCur->GetElemArgs().push_back(_pElemArg->ReduceContent()->Reference());
+			_pElemCmdCur->GetElemArgs().AddElem(_pElemArg->ReduceContent()->Reference());
 			_stat = STAT_NextArg;
 		} else if (ch == ' ' || ch == '\t') {
 			_strAhead += ch;
@@ -539,23 +539,23 @@ void Parser::FlushElemString(const char *str)
 		const char *strSkip = SkipBlankLine(str);
 		if (*strSkip == '\0') return;
 		Elem_Text *pElemText = new Elem_Text();
-		pElemOwner->push_back(pElemText);
+		pElemOwner->AddElem(pElemText);
 		ElemOwner &elemChildren = pElemText->GetElemChildren();
 		if (!elemChildren.empty() && elemChildren.back()->GetType() == Elem::TYPE_String) {
 			Elem_String *pElem = dynamic_cast<Elem_String *>(elemChildren.back());
 			pElem->Append(strSkip);
 		} else {
-			elemChildren.push_back(new Elem_String(strSkip));
+			elemChildren.AddElem(new Elem_String(strSkip));
 		}
 	} else if (pElemOwner->empty()) {
 		const char *strSkip = SkipBlankLine(str);
 		if (*strSkip == '\0') return;
-		pElemOwner->push_back(new Elem_String(strSkip));
+		pElemOwner->AddElem(new Elem_String(strSkip));
 	} else if (pElemOwner->back()->GetType() == Elem::TYPE_String) {
 		Elem_String *pElem = dynamic_cast<Elem_String *>(pElemOwner->back());
 		pElem->Append(str);
 	} else {
-		pElemOwner->push_back(new Elem_String(str));
+		pElemOwner->AddElem(new Elem_String(str));
 	}
 }
 
@@ -577,18 +577,18 @@ void Parser::FlushElemCommand(Elem_Command *pElem)
 		}
 		if (pElemParent->GetType() == Elem::TYPE_Command &&
 						dynamic_cast<Elem_Command *>(pElemParent)->IsEndCommand(pElem)) {
-			pElemOwner->push_back(pElem);
+			pElemOwner->AddElem(pElem);
 			return;
 		}
 		pElemOwner = &pElemParent->GetElemChildren();
 	}
 	if (visualFlag && IsTopLevel() && pElemOwner == _pElemOwner.get()) {
 		Elem_Text *pElemText = new Elem_Text();
-		pElemOwner->push_back(pElemText);
+		pElemOwner->AddElem(pElemText);
 		ElemOwner &elemChildren = pElemText->GetElemChildren();
-		elemChildren.push_back(pElem);
+		elemChildren.AddElem(pElem);
 	} else {
-		pElemOwner->push_back(pElem);
+		pElemOwner->AddElem(pElem);
 	}
 }
 
