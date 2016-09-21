@@ -75,6 +75,8 @@ public:
 		~ArgOwner();
 		void Clear();
 	};
+	class ArgIndexMap : public std::map<const Symbol *, int> {
+	};
 	class EndDetector {
 	protected:
 		StringSet _namesEnd;
@@ -89,6 +91,7 @@ protected:
 	CmdType _cmdType;
 	std::unique_ptr<EndDetector> _pEndDetector;
 	ArgOwner _argOwner;
+	ArgIndexMap _argIndexMap;
 	static CommandFormatList _cmdFmtList;
 	static CommandFormatDict _cmdFmtDict;
 public:
@@ -126,6 +129,10 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Symbol *GetSymbolEx() const { return _pSymbolEx; }
 	inline const ArgOwner &GetArgOwner() const { return _argOwner; }
+	inline int GetArgIndex(const Symbol *pSymbol) const {
+		ArgIndexMap::const_iterator iter = _argIndexMap.find(pSymbol);
+		return (iter == _argIndexMap.end())? -1 : iter->second;
+	}
 	String MakeHandlerDeclaration() const;
 	bool HasNormalCommandName() const;
 public:
@@ -136,6 +143,13 @@ public:
 		return _cmdFmtList;
 	}
 protected:
+	void ReserveArgOwner(size_t nArgs) {
+		_argOwner.reserve(nArgs);
+	}
+	void AddArg(Arg *pArg) {
+		_argIndexMap[Symbol::Add(pArg->GetName())] = static_cast<int>(_argOwner.size());
+		_argOwner.push_back(pArg);
+	}
 	inline static Arg *ArgWord(const char *name) {
 		return new Arg(ARGTYPE_Word, name);
 	}
@@ -199,35 +213,35 @@ protected:
 	}
 	inline static CommandFormat *Register(const char *name, CmdType cmdType, EndDetector *pEndDetector, Arg *pArg1) {
 		CommandFormat *pCmdFmt = Create(name, cmdType, pEndDetector);
-		pCmdFmt->_argOwner.reserve(1);
-		pCmdFmt->_argOwner.push_back(pArg1);
+		pCmdFmt->ReserveArgOwner(1);
+		pCmdFmt->AddArg(pArg1);
 		return pCmdFmt;
 	}
 	inline static CommandFormat *Register(const char *name, CmdType cmdType, EndDetector *pEndDetector,
 								Arg *pArg1, Arg *pArg2) {
 		CommandFormat *pCmdFmt = Create(name, cmdType, pEndDetector);
-		pCmdFmt->_argOwner.reserve(2);
-		pCmdFmt->_argOwner.push_back(pArg1);
-		pCmdFmt->_argOwner.push_back(pArg2);
+		pCmdFmt->ReserveArgOwner(2);
+		pCmdFmt->AddArg(pArg1);
+		pCmdFmt->AddArg(pArg2);
 		return pCmdFmt;
 	}
 	inline static CommandFormat *Register(const char *name, CmdType cmdType, EndDetector *pEndDetector,
 								Arg *pArg1, Arg *pArg2, Arg *pArg3) {
 		CommandFormat *pCmdFmt = Create(name, cmdType, pEndDetector);
-		pCmdFmt->_argOwner.reserve(3);
-		pCmdFmt->_argOwner.push_back(pArg1);
-		pCmdFmt->_argOwner.push_back(pArg2);
-		pCmdFmt->_argOwner.push_back(pArg3);
+		pCmdFmt->ReserveArgOwner(3);
+		pCmdFmt->AddArg(pArg1);
+		pCmdFmt->AddArg(pArg2);
+		pCmdFmt->AddArg(pArg3);
 		return pCmdFmt;
 	}
 	inline static CommandFormat *Register(const char *name, CmdType cmdType, EndDetector *pEndDetector,
 								Arg *pArg1, Arg *pArg2, Arg *pArg3, Arg *pArg4) {
 		CommandFormat *pCmdFmt = Create(name, cmdType, pEndDetector);
-		pCmdFmt->_argOwner.reserve(4);
-		pCmdFmt->_argOwner.push_back(pArg1);
-		pCmdFmt->_argOwner.push_back(pArg2);
-		pCmdFmt->_argOwner.push_back(pArg3);
-		pCmdFmt->_argOwner.push_back(pArg4);
+		pCmdFmt->ReserveArgOwner(4);
+		pCmdFmt->AddArg(pArg1);
+		pCmdFmt->AddArg(pArg2);
+		pCmdFmt->AddArg(pArg3);
+		pCmdFmt->AddArg(pArg4);
 		return pCmdFmt;
 	}
 	static const char *ArgTypeToName(ArgType argType);
