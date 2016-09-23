@@ -50,11 +50,11 @@ bool Elem::IsSameType(const Elem *pElem) const
 //-----------------------------------------------------------------------------
 // ElemList
 //-----------------------------------------------------------------------------
-bool ElemList::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool ElemList::Render(Renderer *pRenderer) const
 {
 	foreach_const (ElemList, ppElem, *this) {
 		const Elem *pElem = *ppElem;
-		if (!pElem->Render(pRenderer, pCfg, stream)) return false;
+		if (!pElem->Render(pRenderer)) return false;
 	}
 	return true;
 }
@@ -117,7 +117,7 @@ Value Elem_Empty::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
-bool Elem_Empty::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_Empty::Render(Renderer *pRenderer) const
 {
 	// nothing to do
 	return true;
@@ -158,10 +158,10 @@ Value Elem_String::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
-bool Elem_String::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_String::Render(Renderer *pRenderer) const
 {
 	Signal &sig = pRenderer->GetSignal();
-	stream.Print(sig, _str.c_str());
+	pRenderer->GetStream()->Print(sig, _str.c_str());
 	return sig.IsNoSignalled();
 }
 
@@ -208,7 +208,7 @@ Value Elem_Command::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
-bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_Command::Render(Renderer *pRenderer) const
 {
 	Object *pObjAssoc = pRenderer->GetObjectAssoc();
 	Environment &env = *pObjAssoc;
@@ -218,10 +218,7 @@ bool Elem_Command::Render(Renderer *pRenderer, const Configuration *pCfg, Simple
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(new Object_elem(Reference())));
-	Value value = pObjAssoc->EvalMethod(env, pFunc, valListArg);
-	if (value.Is_string()) {
-		stream.Print(sig, value.GetString());
-	}
+	pObjAssoc->EvalMethod(env, pFunc, valListArg);
 	return env.IsNoSignalled();
 }
 
@@ -310,9 +307,9 @@ Value Elem_Text::DoGetProp(Environment &env, const Symbol *pSymbol,
 	return Value::Nil;
 }
 
-bool Elem_Text::Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const
+bool Elem_Text::Render(Renderer *pRenderer) const
 {
-	return _pElemChildren->Render(pRenderer, pCfg, stream);
+	return _pElemChildren->Render(pRenderer);
 }
 
 String Elem_Text::ToString() const

@@ -54,7 +54,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols) = 0;
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag) = 0;
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const = 0;
+	virtual bool Render(Renderer *pRenderer) const = 0;
 	virtual String ToString() const = 0;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
 	virtual bool IsSameType(const Elem *pElem) const;
@@ -66,7 +66,7 @@ public:
 //-----------------------------------------------------------------------------
 class ElemList : public std::vector<Elem *> {
 public:
-	bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	bool Render(Renderer *pRenderer) const;
 	void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
@@ -101,7 +101,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
@@ -118,7 +118,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
@@ -141,7 +141,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 	virtual bool IsSameType(const Elem *pElem) const;
@@ -164,7 +164,7 @@ public:
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual bool Render(Renderer *pRenderer, const Configuration *pCfg, SimpleStream &stream) const;
+	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };

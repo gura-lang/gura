@@ -31,10 +31,12 @@ Gura_BeginModuleHeader(doxygen)
 
 Gura_DeclareUserSymbol(aftermember);
 Gura_DeclareUserSymbol(aliases);
+Gura_DeclareUserSymbol(cfg);
 Gura_DeclareUserSymbol(children);
 Gura_DeclareUserSymbol(elem);
 Gura_DeclareUserSymbol(index);
 Gura_DeclareUserSymbol(next);
+Gura_DeclareUserSymbol(out);
 Gura_DeclareUserSymbol(prev);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(string);

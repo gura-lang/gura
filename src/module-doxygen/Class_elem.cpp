@@ -78,37 +78,22 @@ Gura_ImplementMethod(elem, print)
 	return Value::Nil;
 }
 
-// doxygen.elem#render(renderer:doxygen.renderer, cfg?:doxygen.configuration, out?:stream:w)
+// doxygen.elem#render(renderer:doxygen.renderer):void
 Gura_DeclareMethod(elem, render)
 {
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
-	DeclareArg(env, "cfg", VTYPE_configuration, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
 		Gura_Symbol(en), Help::FMT_markdown,
-		"Renders the element content using `doxygen.renderer` with configuration information from\n"
-		"`doxygen.configuration` instance.\n"
-		"The result would be put out to the stream specified by the argument `out`\n"
-		"or standard output when omitted.\n");
+		"Renders the element content using `doxygen.renderer`.\n");
 }
 
 Gura_ImplementMethod(elem, render)
 {
 	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
 	Renderer *pRenderer = Object_renderer::GetObject(arg, 0)->GetRenderer();
-	const Configuration *pCfg = arg.IsValid(1)?
-		Object_configuration::GetObject(arg, 1)->GetConfiguration() : nullptr;
-	if (arg.IsValid(2)) {
-		SimpleStream &stream = arg.GetStream(2);
-		pElem->Render(pRenderer, pCfg, stream);
-		return Value::Nil;
-	} else {
-		String str;
-		SimpleStream_StringWriter stream(str);
-		if (!pElem->Render(pRenderer, pCfg, stream)) return Value::Nil;
-		return Value(str);
-	}
+	pElem->Render(pRenderer);
+	return Value::Nil;
 }
 
 //-----------------------------------------------------------------------------
