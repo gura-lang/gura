@@ -67,9 +67,11 @@ Gura_DeclareFunction(configuration)
 
 Gura_ImplementFunction(configuration)
 {
-	Stream &stream = arg.GetStream(0);
 	AutoPtr<Configuration> pCfg(new Configuration());
-	if (!pCfg->ReadStream(env, stream)) return Value::Nil;
+	if (arg.IsValid(0)) {
+		Stream &stream = arg.GetStream(0);
+		if (!pCfg->ReadStream(env, stream)) return Value::Nil;
+	}
 	return ReturnValue(env, arg, Value(new Object_configuration(pCfg.release())));
 }
 

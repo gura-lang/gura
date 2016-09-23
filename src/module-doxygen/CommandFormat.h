@@ -134,7 +134,6 @@ public:
 		ArgIndexMap::const_iterator iter = _argIndexMap.find(pSymbol);
 		return (iter == _argIndexMap.end())? -1 : iter->second;
 	}
-	String MakeHandlerDeclaration() const;
 	bool HasNormalCommandName() const;
 public:
 	static void Initialize();

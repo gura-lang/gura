@@ -12,24 +12,6 @@ CommandFormatList CommandFormat::_cmdFmtList;
 CommandFormatDict CommandFormat::_cmdFmtDict;
 const CommandFormat *CommandFormat::Brief = nullptr;
 
-String CommandFormat::MakeHandlerDeclaration() const
-{
-	String str;
-	str += "@";
-	str += GetName();
-	str += "(";
-	size_t iArg = 0;
-	foreach_const (ArgOwner, ppArg, _argOwner) {
-		const Arg *pArg = *ppArg;
-		if (iArg > 0) str += ", ";
-		str += pArg->GetName();
-		str += ":string";
-		iArg++;
-	}
-	str += ")";
-	return str;
-}
-
 bool CommandFormat::HasNormalCommandName() const
 {
 	for (const char *p = GetName(); *p != '\0'; p++) {
@@ -431,26 +413,23 @@ void CommandFormat::MakeScript(Environment &env, Stream &stream)
 		if (pCmdFmt->HasNormalCommandName()) {
 			String str;
 			str += "\t";
-			str += pCmdFmt->MakeHandlerDeclaration();
-			str += " = '@";
+			str += "@";
 			str += pCmdFmt->GetName();
-			str += "{'";
-			size_t iArg = 0;
+			str += "(elem:doxygen.elem)";
+			str += " = {\n";
+			str += "\t\tthis.out.println('@";
+			str += pCmdFmt->GetName();
+			str += "')\n";
 			foreach_const (ArgOwner, ppArg, pCmdFmt->GetArgOwner()) {
 				const Arg *pArg = *ppArg;
-				str += " + ";
-				str += (iArg == 0)? "'" : "',";
+				str += "\t\telem.";
 				str += pArg->GetName();
-				str += ":' + ";
-				str += pArg->GetName();
-				str += ".escape():surround";
-				iArg++;
+				str += ".render(this);\n";
 			}
-			str += (pCmdFmt->IsSectionIndicator() || pCmdFmt->IsLineIndicator())?
-				" + '}\\n'" : " + '}'";
+			str += "\t}";
 			stream.Println(sig, str.c_str());
 		} else {
-			stream.Printf(sig, "\t// %s = ''\n", pCmdFmt->MakeHandlerDeclaration().c_str());
+			stream.Printf(sig, "\t// @%s(elem:doxygen.elem) = nil\n", pCmdFmt->GetName());
 		}
 		if (sig.IsSignalled()) return;
 	}
