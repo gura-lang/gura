@@ -1,0 +1,711 @@
+#!/usr/bin/env gura
+import(doxygen)
+
+Renderer = class(doxygen.renderer) {
+	//------------------------------------------------------------
+	// Structural indicators
+	//------------------------------------------------------------
+	@addtogroup(elem:doxygen.elem) = {
+		this.out.println('@addtogroup')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	@callgraph(elem:doxygen.elem) = {
+		this.out.println('@callgraph')
+	}
+	@hidecallgrph(elem:doxygen.elem) = {
+		this.out.println('@hidecallgrph')
+	}
+	@callergraph(elem:doxygen.elem) = {
+		this.out.println('@callergraph')
+	}
+	@hidecallergraph(elem:doxygen.elem) = {
+		this.out.println('@hidecallergraph')
+	}
+	@category(elem:doxygen.elem) = {
+		this.out.println('@category')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@class(elem:doxygen.elem) = {
+		this.out.println('@class')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@def(elem:doxygen.elem) = {
+		this.out.println('@def')
+		elem.name.render(this);
+	}
+	@defgroup(elem:doxygen.elem) = {
+		this.out.println('@defgroup')
+		elem.name.render(this);
+		elem.group_title.render(this);
+	}
+	@dir(elem:doxygen.elem) = {
+		this.out.println('@dir')
+		elem.path_fragment.render(this);
+	}
+	@enum(elem:doxygen.elem) = {
+		this.out.println('@enum')
+		elem.name.render(this);
+	}
+	@example(elem:doxygen.elem) = {
+		this.out.println('@example')
+		elem.file_name.render(this);
+	}
+	@endinternal(elem:doxygen.elem) = {
+		this.out.println('@endinternal')
+	}
+	@extends(elem:doxygen.elem) = {
+		this.out.println('@extends')
+		elem.name.render(this);
+	}
+	@file(elem:doxygen.elem) = {
+		this.out.println('@file')
+		elem.name.render(this);
+	}
+	@fn(elem:doxygen.elem) = {
+		this.out.println('@fn')
+		elem.declaration.render(this);
+	}
+	@headerfile(elem:doxygen.elem) = {
+		this.out.println('@headerfile')
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@hideinitializer(elem:doxygen.elem) = {
+		this.out.println('@hideinitializer')
+	}
+	@idlexcept(elem:doxygen.elem) = {
+		this.out.println('@idlexcept')
+		elem.name.render(this);
+	}
+	@implements(elem:doxygen.elem) = {
+		this.out.println('@implements')
+		elem.name.render(this);
+	}
+	@ingroup(elem:doxygen.elem) = {
+		this.out.println('@ingroup')
+		elem.groupname.render(this);
+	}
+	@interface(elem:doxygen.elem) = {
+		this.out.println('@interface')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@internal(elem:doxygen.elem) = {
+		this.out.println('@internal')
+	}
+	@mainpage(elem:doxygen.elem) = {
+		this.out.println('@mainpage')
+		elem.title.render(this);
+	}
+	@memberof(elem:doxygen.elem) = {
+		this.out.println('@memberof')
+		elem.name.render(this);
+	}
+	@name(elem:doxygen.elem) = {
+		this.out.println('@name')
+		elem.header.render(this);
+	}
+	@namespace(elem:doxygen.elem) = {
+		this.out.println('@namespace')
+		elem.name.render(this);
+	}
+	@nosubgrouping(elem:doxygen.elem) = {
+		this.out.println('@nosubgrouping')
+	}
+	@overload(elem:doxygen.elem) = {
+		this.out.println('@overload')
+		elem.declaration.render(this);
+	}
+	@package(elem:doxygen.elem) = {
+		this.out.println('@package')
+		elem.name.render(this);
+	}
+	@page(elem:doxygen.elem) = {
+		this.out.println('@page')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	@private(elem:doxygen.elem) = {
+		this.out.println('@private')
+	}
+	@privatesection(elem:doxygen.elem) = {
+		this.out.println('@privatesection')
+	}
+	@property(elem:doxygen.elem) = {
+		this.out.println('@property')
+		elem.name.render(this);
+	}
+	@protected(elem:doxygen.elem) = {
+		this.out.println('@protected')
+	}
+	@protectedsection(elem:doxygen.elem) = {
+		this.out.println('@protectedsection')
+	}
+	@protocol(elem:doxygen.elem) = {
+		this.out.println('@protocol')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@public(elem:doxygen.elem) = {
+		this.out.println('@public')
+	}
+	@publicsection(elem:doxygen.elem) = {
+		this.out.println('@publicsection')
+	}
+	@pure(elem:doxygen.elem) = {
+		this.out.println('@pure')
+	}
+	@relates(elem:doxygen.elem) = {
+		this.out.println('@relates')
+		elem.name.render(this);
+	}
+	@related(elem:doxygen.elem) = {
+		this.out.println('@related')
+		elem.name.render(this);
+	}
+	@relatesalso(elem:doxygen.elem) = {
+		this.out.println('@relatesalso')
+		elem.name.render(this);
+	}
+	@relatedalso(elem:doxygen.elem) = {
+		this.out.println('@relatedalso')
+		elem.name.render(this);
+	}
+	@showinitializer(elem:doxygen.elem) = {
+		this.out.println('@showinitializer')
+	}
+	@static(elem:doxygen.elem) = {
+		this.out.println('@static')
+	}
+	@struct(elem:doxygen.elem) = {
+		this.out.println('@struct')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@typedef(elem:doxygen.elem) = {
+		this.out.println('@typedef')
+		elem.declaration.render(this);
+	}
+	@union(elem:doxygen.elem) = {
+		this.out.println('@union')
+		elem.name.render(this);
+		elem.header_file.render(this);
+		elem.header_name.render(this);
+	}
+	@var(elem:doxygen.elem) = {
+		this.out.println('@var')
+		elem.declaration.render(this);
+	}
+	@vhdlflow(elem:doxygen.elem) = {
+		this.out.println('@vhdlflow')
+		elem.title_for_the_flow_chart.render(this);
+	}
+	@weakgroup(elem:doxygen.elem) = {
+		this.out.println('@weakgroup')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	//------------------------------------------------------------
+	// Section indicators
+	//------------------------------------------------------------
+	@attention(elem:doxygen.elem) = {
+		this.out.println('@attention')
+		elem.text.render(this);
+	}
+	@author(elem:doxygen.elem) = {
+		this.out.println('@author')
+		elem.list_of_authors.render(this);
+	}
+	@authors(elem:doxygen.elem) = {
+		this.out.println('@authors')
+		elem.list_of_authors.render(this);
+	}
+	@brief(elem:doxygen.elem) = {
+		this.out.println('@brief')
+		elem.description.render(this);
+	}
+	@bug(elem:doxygen.elem) = {
+		this.out.println('@bug')
+		elem.description.render(this);
+	}
+	@cond(elem:doxygen.elem) = {
+		this.out.println('@cond')
+		elem.section_label.render(this);
+	}
+	@copyright(elem:doxygen.elem) = {
+		this.out.println('@copyright')
+		elem.description.render(this);
+	}
+	@date(elem:doxygen.elem) = {
+		this.out.println('@date')
+		elem.description.render(this);
+	}
+	@deprecated(elem:doxygen.elem) = {
+		this.out.println('@deprecated')
+		elem.description.render(this);
+	}
+	@details(elem:doxygen.elem) = {
+		this.out.println('@details')
+		elem.description.render(this);
+	}
+	@else(elem:doxygen.elem) = {
+		this.out.println('@else')
+	}
+	@elseif(elem:doxygen.elem) = {
+		this.out.println('@elseif')
+		elem.section_label.render(this);
+	}
+	@endcond(elem:doxygen.elem) = {
+		this.out.println('@endcond')
+	}
+	@endif(elem:doxygen.elem) = {
+		this.out.println('@endif')
+	}
+	@exception(elem:doxygen.elem) = {
+		this.out.println('@exception')
+		elem.exception_object.render(this);
+		elem.description.render(this);
+	}
+	@if(elem:doxygen.elem) = {
+		this.out.println('@if')
+		elem.section_label.render(this);
+	}
+	@ifnot(elem:doxygen.elem) = {
+		this.out.println('@ifnot')
+		elem.section_label.render(this);
+	}
+	@invariant(elem:doxygen.elem) = {
+		this.out.println('@invariant')
+		elem.description.render(this);
+	}
+	@note(elem:doxygen.elem) = {
+		this.out.println('@note')
+		elem.text.render(this);
+	}
+	@par(elem:doxygen.elem) = {
+		this.out.println('@par')
+		elem.paragraph_title.render(this);
+		elem.paragraph.render(this);
+	}
+	@param(elem:doxygen.elem) = {
+		this.out.println('@param')
+		elem.dir.render(this);
+		elem.name.render(this);
+		elem.description.render(this);
+	}
+	@parblock(elem:doxygen.elem) = {
+		this.out.println('@parblock')
+	}
+	@endparblock(elem:doxygen.elem) = {
+		this.out.println('@endparblock')
+	}
+	@tparam(elem:doxygen.elem) = {
+		this.out.println('@tparam')
+		elem.name.render(this);
+		elem.description.render(this);
+	}
+	@post(elem:doxygen.elem) = {
+		this.out.println('@post')
+		elem.description.render(this);
+	}
+	@pre(elem:doxygen.elem) = {
+		this.out.println('@pre')
+		elem.description.render(this);
+	}
+	@remark(elem:doxygen.elem) = {
+		this.out.println('@remark')
+		elem.text.render(this);
+	}
+	@remarks(elem:doxygen.elem) = {
+		this.out.println('@remarks')
+		elem.text.render(this);
+	}
+	@result(elem:doxygen.elem) = {
+		this.out.println('@result')
+		elem.description.render(this);
+	}
+	@return(elem:doxygen.elem) = {
+		this.out.println('@return')
+		elem.description.render(this);
+	}
+	@returns(elem:doxygen.elem) = {
+		this.out.println('@returns')
+		elem.description.render(this);
+	}
+	@retval(elem:doxygen.elem) = {
+		this.out.println('@retval')
+		elem.return_value.render(this);
+		elem.description.render(this);
+	}
+	@sa(elem:doxygen.elem) = {
+		this.out.println('@sa')
+		elem.references.render(this);
+	}
+	@see(elem:doxygen.elem) = {
+		this.out.println('@see')
+		elem.references.render(this);
+	}
+	@short(elem:doxygen.elem) = {
+		this.out.println('@short')
+		elem.description.render(this);
+	}
+	@since(elem:doxygen.elem) = {
+		this.out.println('@since')
+		elem.text.render(this);
+	}
+	@test(elem:doxygen.elem) = {
+		this.out.println('@test')
+		elem.paragraph.render(this);
+	}
+	@throw(elem:doxygen.elem) = {
+		this.out.println('@throw')
+		elem.exception_object.render(this);
+		elem.description.render(this);
+	}
+	@throws(elem:doxygen.elem) = {
+		this.out.println('@throws')
+		elem.exception_object.render(this);
+		elem.description.render(this);
+	}
+	@todo(elem:doxygen.elem) = {
+		this.out.println('@todo')
+		elem.paragraph.render(this);
+	}
+	@version(elem:doxygen.elem) = {
+		this.out.println('@version')
+		elem.version_number.render(this);
+	}
+	@warning(elem:doxygen.elem) = {
+		this.out.println('@warning')
+		elem.message.render(this);
+	}
+	@xrefitem(elem:doxygen.elem) = {
+		this.out.println('@xrefitem')
+		elem.key.render(this);
+		elem.heading.render(this);
+		elem.list_title.render(this);
+		elem.text.render(this);
+	}
+	//------------------------------------------------------------
+	// Commands to create links
+	//------------------------------------------------------------
+	@addindex(elem:doxygen.elem) = {
+		this.out.println('@addindex')
+		elem.text.render(this);
+	}
+	@anchor(elem:doxygen.elem) = {
+		this.out.println('@anchor')
+		elem.word.render(this);
+	}
+	@cite(elem:doxygen.elem) = {
+		this.out.println('@cite')
+		elem.label.render(this);
+	}
+	@endlink(elem:doxygen.elem) = {
+		this.out.println('@endlink')
+	}
+	@link(elem:doxygen.elem) = {
+		this.out.println('@link')
+		elem.line_object.render(this);
+	}
+	@ref(elem:doxygen.elem) = {
+		this.out.println('@ref')
+		elem.name.render(this);
+		elem.text.render(this);
+	}
+	@refitem(elem:doxygen.elem) = {
+		this.out.println('@refitem')
+		elem.name.render(this);
+	}
+	@secreflist(elem:doxygen.elem) = {
+		this.out.println('@secreflist')
+	}
+	@endsecreflist(elem:doxygen.elem) = {
+		this.out.println('@endsecreflist')
+	}
+	@subpage(elem:doxygen.elem) = {
+		this.out.println('@subpage')
+		elem.name.render(this);
+		elem.text.render(this);
+	}
+	@tableofcontents(elem:doxygen.elem) = {
+		this.out.println('@tableofcontents')
+	}
+	@section(elem:doxygen.elem) = {
+		this.out.println('@section')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	@subsection(elem:doxygen.elem) = {
+		this.out.println('@subsection')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	@subsubsection(elem:doxygen.elem) = {
+		this.out.println('@subsubsection')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	@paragrph(elem:doxygen.elem) = {
+		this.out.println('@paragrph')
+		elem.name.render(this);
+		elem.title.render(this);
+	}
+	//------------------------------------------------------------
+	// Commands for displaying examples
+	//------------------------------------------------------------
+	@dontinclude(elem:doxygen.elem) = {
+		this.out.println('@dontinclude')
+		elem.file_name.render(this);
+	}
+	@include(elem:doxygen.elem) = {
+		this.out.println('@include')
+		elem.file_name.render(this);
+	}
+	@includelineno(elem:doxygen.elem) = {
+		this.out.println('@includelineno')
+		elem.file_name.render(this);
+	}
+	@line(elem:doxygen.elem) = {
+		this.out.println('@line')
+		elem.pattern.render(this);
+	}
+	@skip(elem:doxygen.elem) = {
+		this.out.println('@skip')
+		elem.pattern.render(this);
+	}
+	@skipline(elem:doxygen.elem) = {
+		this.out.println('@skipline')
+		elem.pattern.render(this);
+	}
+	@snippet(elem:doxygen.elem) = {
+		this.out.println('@snippet')
+		elem.file_name.render(this);
+		elem.block_id.render(this);
+	}
+	@until(elem:doxygen.elem) = {
+		this.out.println('@until')
+		elem.pattern.render(this);
+	}
+	@verbinclude(elem:doxygen.elem) = {
+		this.out.println('@verbinclude')
+		elem.file_name.render(this);
+	}
+	@htmlinclude(elem:doxygen.elem) = {
+		this.out.println('@htmlinclude')
+		elem.file_name.render(this);
+	}
+	@latexinclude(elem:doxygen.elem) = {
+		this.out.println('@latexinclude')
+		elem.file_name.render(this);
+	}
+	//------------------------------------------------------------
+	// Commands for visual enhancements
+	//------------------------------------------------------------
+	@a(elem:doxygen.elem) = {
+		this.out.println('@a')
+		elem.word.render(this);
+	}
+	@arg(elem:doxygen.elem) = {
+		this.out.println('@arg')
+		elem.description.render(this);
+	}
+	@b(elem:doxygen.elem) = {
+		this.out.println('@b')
+		elem.word.render(this);
+	}
+	@c(elem:doxygen.elem) = {
+		this.out.println('@c')
+		elem.word.render(this);
+	}
+	@code(elem:doxygen.elem) = {
+		this.out.println('@code')
+		elem.word.render(this);
+	}
+	@copydoc(elem:doxygen.elem) = {
+		this.out.println('@copydoc')
+		elem.link_object.render(this);
+	}
+	@copybrief(elem:doxygen.elem) = {
+		this.out.println('@copybrief')
+		elem.link_object.render(this);
+	}
+	@copydetails(elem:doxygen.elem) = {
+		this.out.println('@copydetails')
+		elem.link_object.render(this);
+	}
+	@docbookonly(elem:doxygen.elem) = {
+		this.out.println('@docbookonly')
+	}
+	@dot(elem:doxygen.elem) = {
+		this.out.println('@dot')
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@msc(elem:doxygen.elem) = {
+		this.out.println('@msc')
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@startuml(elem:doxygen.elem) = {
+		this.out.println('@startuml')
+		elem.file.render(this);
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@dotfile(elem:doxygen.elem) = {
+		this.out.println('@dotfile')
+		elem.file.render(this);
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@mscfile(elem:doxygen.elem) = {
+		this.out.println('@mscfile')
+		elem.file.render(this);
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@diafile(elem:doxygen.elem) = {
+		this.out.println('@diafile')
+		elem.file.render(this);
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@e(elem:doxygen.elem) = {
+		this.out.println('@e')
+		elem.word.render(this);
+	}
+	@em(elem:doxygen.elem) = {
+		this.out.println('@em')
+		elem.word.render(this);
+	}
+	@endcode(elem:doxygen.elem) = {
+		this.out.println('@endcode')
+	}
+	@endcodebookonly(elem:doxygen.elem) = {
+		this.out.println('@endcodebookonly')
+	}
+	@enddot(elem:doxygen.elem) = {
+		this.out.println('@enddot')
+	}
+	@enduml(elem:doxygen.elem) = {
+		this.out.println('@enduml')
+	}
+	@endhtmlonly(elem:doxygen.elem) = {
+		this.out.println('@endhtmlonly')
+	}
+	@endlatexonly(elem:doxygen.elem) = {
+		this.out.println('@endlatexonly')
+	}
+	@endmanonly(elem:doxygen.elem) = {
+		this.out.println('@endmanonly')
+	}
+	@endrtfonly(elem:doxygen.elem) = {
+		this.out.println('@endrtfonly')
+	}
+	@endverbatim(elem:doxygen.elem) = {
+		this.out.println('@endverbatim')
+	}
+	@endxmlonly(elem:doxygen.elem) = {
+		this.out.println('@endxmlonly')
+	}
+	// @f$(elem:doxygen.elem) = nil
+	// @f[(elem:doxygen.elem) = nil
+	// @f](elem:doxygen.elem) = nil
+	// @f}(elem:doxygen.elem) = nil
+	@htmlonly(elem:doxygen.elem) = {
+		this.out.println('@htmlonly')
+		elem.block.render(this);
+	}
+	@image(elem:doxygen.elem) = {
+		this.out.println('@image')
+		elem.format.render(this);
+		elem.file.render(this);
+		elem.caption.render(this);
+		elem.size.render(this);
+	}
+	@latexonly(elem:doxygen.elem) = {
+		this.out.println('@latexonly')
+	}
+	@manonly(elem:doxygen.elem) = {
+		this.out.println('@manonly')
+	}
+	@li(elem:doxygen.elem) = {
+		this.out.println('@li')
+		elem.description.render(this);
+	}
+	@n(elem:doxygen.elem) = {
+		this.out.println('@n')
+	}
+	@p(elem:doxygen.elem) = {
+		this.out.println('@p')
+		elem.word.render(this);
+	}
+	@rtfonly(elem:doxygen.elem) = {
+		this.out.println('@rtfonly')
+	}
+	@verbatim(elem:doxygen.elem) = {
+		this.out.println('@verbatim')
+	}
+	@xmlonly(elem:doxygen.elem) = {
+		this.out.println('@xmlonly')
+	}
+	// @\(elem:doxygen.elem) = nil
+	// @@(elem:doxygen.elem) = nil
+	// @~(elem:doxygen.elem) = nil
+	// @&(elem:doxygen.elem) = nil
+	// @$(elem:doxygen.elem) = nil
+	// @#(elem:doxygen.elem) = nil
+	// @<(elem:doxygen.elem) = nil
+	// @>(elem:doxygen.elem) = nil
+	// @%(elem:doxygen.elem) = nil
+	// @"(elem:doxygen.elem) = nil
+	// @.(elem:doxygen.elem) = nil
+	// @::(elem:doxygen.elem) = nil
+	// @|(elem:doxygen.elem) = nil
+	// @--(elem:doxygen.elem) = nil
+	// @---(elem:doxygen.elem) = nil
+	//------------------------------------------------------------
+	// Grouping
+	//------------------------------------------------------------
+	// @{(elem:doxygen.elem) = nil
+	// @}(elem:doxygen.elem) = nil
+}
+
+cfg = doxygen.configuration()
+doc = R'''
+/*! \class Par_Test
+ * Normal text.
+ *
+ * \par User defined paragraph:
+ * Contents of the paragraph.
+ *
+ * \par
+ * New paragraph under the same heading.
+ *
+ * \note
+ * This note consists of two paragraphs.
+ * This is the first paragraph.
+ *
+ * \par
+ * And this is the second paragraph.
+ *
+ * More normal text. 
+ */
+'''
+
+doxygen.document(doc.reader()) {|doc|
+	doc.structures {|structure|
+		println(cond(structure.aftermember, '----[after member]', '----'))
+		//println(structure.source)
+		structure.elems()::render(Renderer(sys.stdout, cfg))
+	}
+}
