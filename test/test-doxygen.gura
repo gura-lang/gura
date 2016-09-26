@@ -58,6 +58,35 @@ testcase('configuration test - 2')
 	parsedoc(doc, cfg)
 }
 
+testcase('elem properties')
+{
+	doc = R'''
+	/**
+	\param arg1 first
+	\param arg2 second
+	\param arg3 third
+	\param arg4 fourth
+	\param arg5 fifth
+	
+	other text
+	
+	\param arg1 first
+	\param arg2 second
+	\param arg3 third
+	\param arg4 fourth
+	*/
+	'''
+	doxygen.document(doc.reader()) {|doc|
+		doc.structures {|structure|
+			structure.elems {|elem|
+				printf('%-18s #%-2d%s%s\n', elem.typename, elem.index,
+					   cond(elem.isstreakfirst(), ' first', ''),
+					   cond(elem.isstreaklast(), ' last', ''))
+			}
+		}
+	}
+}
+
 testdoc('blank block comment', R'''
 /**/
 ''')

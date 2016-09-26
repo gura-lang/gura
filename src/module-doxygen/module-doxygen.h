@@ -40,6 +40,7 @@ Gura_DeclareUserSymbol(out);
 Gura_DeclareUserSymbol(prev);
 Gura_DeclareUserSymbol(source);
 Gura_DeclareUserSymbol(string);
+Gura_DeclareUserSymbol(typename_);
 
 //-----------------------------------------------------------------------------
 // utilities

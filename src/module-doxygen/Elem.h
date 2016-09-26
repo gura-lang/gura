@@ -49,6 +49,8 @@ public:
 	inline Elem *GetElemNext() { return _pElemNext; }
 	inline const Elem *GetElemPrev() const { return _pElemPrev; }
 	inline const Elem *GetElemNext() const { return _pElemNext; }
+	inline bool IsStreakFirst() const { return _pElemPrev == nullptr || !IsSameType(_pElemPrev); }
+	inline bool IsStreakLast() const { return _pElemNext == nullptr || !IsSameType(_pElemNext); }
 	size_t GetIndex() const;
 	virtual const Elem *ReduceContent() const;
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols) = 0;
@@ -56,6 +58,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag) = 0;
 	virtual bool Render(Renderer *pRenderer) const = 0;
 	virtual String ToString() const = 0;
+	virtual String MakeTypeName() const = 0;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const = 0;
 	virtual bool IsSameType(const Elem *pElem) const;
 	static void Initialize();
@@ -103,6 +106,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
+	virtual String MakeTypeName() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
@@ -120,6 +124,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
+	virtual String MakeTypeName() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 
@@ -143,6 +148,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
+	virtual String MakeTypeName() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 	virtual bool IsSameType(const Elem *pElem) const;
 	inline bool HasCompletedArg() const {
@@ -166,6 +172,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool Render(Renderer *pRenderer) const;
 	virtual String ToString() const;
+	virtual String MakeTypeName() const;
 	virtual void Print(Environment &env, SimpleStream &stream, int indentLevel) const;
 };
 

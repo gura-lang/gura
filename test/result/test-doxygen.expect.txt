@@ -46,6 +46,19 @@ english =
     '*  Dit is Nederlands.\n*  '
   @endif{}
 
+======== #3 elem properties ========
+
+command:@param     #0  first
+command:@param     #1 
+command:@param     #2 
+command:@param     #3 
+command:@param     #4  last
+text               #0  first last
+command:@param     #0  first
+command:@param     #1 
+command:@param     #2 
+command:@param     #3  last
+
 ======== #1 blank block comment ========
 --end--
 

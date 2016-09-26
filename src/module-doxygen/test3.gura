@@ -1,7 +1,6 @@
 #!/usr/bin/env gura
 import(doxygen)
 
-
 doc1 = R'''
 int var; /*!< Detailed description after the member */
 '''

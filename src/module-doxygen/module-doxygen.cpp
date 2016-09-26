@@ -66,6 +66,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(prev);
 	Gura_RealizeUserSymbol(source);
 	Gura_RealizeUserSymbol(string);
+	Gura_RealizeUserSymbolAlias(typename_, "typename");
 	// class realization
 	Gura_RealizeUserClass(elem, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(structure, env.LookupClass(VTYPE_object));

@@ -24,6 +24,7 @@ bool Object_elem::DoDirProp(Environment &env, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(index));
 	symbols.insert(Gura_UserSymbol(prev));
 	symbols.insert(Gura_UserSymbol(next));
+	symbols.insert(Gura_UserSymbol(typename_));
 	return _pElem->DoDirProp(env, symbols);
 }
 
@@ -39,6 +40,8 @@ Value Object_elem::DoGetProp(Environment &env, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(next))) {
 		Elem *pElem = _pElem->GetElemNext();
 		return (pElem == nullptr)? Value::Nil : Value(new Object_elem(pElem->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typename_))) {
+		return Value(_pElem->MakeTypeName());
 	}
 	evaluatedFlag = false;
 	return _pElem->DoGetProp(env, pSymbol, attrs, evaluatedFlag);
@@ -47,15 +50,47 @@ Value Object_elem::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Object_elem::ToString(bool exprFlag)
 {
 	String rtn;
-	//rtn += "<doxygen.elem:";
-	//rtn += ">";
-	rtn += _pElem->ToString();
+	rtn += "<doxygen.elem:";
+	rtn += _pElem->MakeTypeName();
+	rtn += ">";
 	return rtn;
 }
 
 //----------------------------------------------------------------------------
 // Methods
 //----------------------------------------------------------------------------
+// doxygen.elem#isstreakfirst()
+Gura_DeclareMethod(elem, isstreakfirst)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if the target element is at the first in a streak of\n"
+		"elements of the same type.\n");
+}
+
+Gura_ImplementMethod(elem, isstreakfirst)
+{
+	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
+	return Value(pElem->IsStreakFirst());
+}
+
+// doxygen.elem#isstreaklast()
+Gura_DeclareMethod(elem, isstreaklast)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns `true` if the target element is at the last in a streak of\n"
+		"elements of the same type.\n");
+}
+
+Gura_ImplementMethod(elem, isstreaklast)
+{
+	const Elem *pElem = Object_elem::GetObjectThis(arg)->GetElem();
+	return Value(pElem->IsStreakLast());
+}
+
 // doxygen.elem#print(indent?:number, out?:stream):void
 Gura_DeclareMethod(elem, print)
 {
@@ -102,6 +137,8 @@ Gura_ImplementMethod(elem, render)
 Gura_ImplementUserClass(elem)
 {
 	Gura_AssignValue(elem, Value(Reference()));
+	Gura_AssignMethod(elem, isstreakfirst);
+	Gura_AssignMethod(elem, isstreaklast);
 	Gura_AssignMethod(elem, print);
 	Gura_AssignMethod(elem, render);
 }

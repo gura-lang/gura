@@ -32,7 +32,7 @@ void Elem::Initialize()
 size_t Elem::GetIndex() const
 {
 	size_t idx = 0;
-	for (const Elem *pElem = GetElemPrev(); pElem != nullptr;
+	for (const Elem *pElem = GetElemPrev(); pElem != nullptr && pElem->IsSameType(this);
 		 pElem = pElem->GetElemPrev()) idx++;
 	return idx;
 }
@@ -91,10 +91,8 @@ void ElemOwner::AddElem(Elem *pElem)
 {
 	if (!empty()) {
 		Elem *pElemPrev = back();
-		if (pElemPrev->IsSameType(pElem)) {
-			pElemPrev->SetElemNext(pElem);
-			pElem->SetElemPrev(pElemPrev);
-		}
+		pElemPrev->SetElemNext(pElem);
+		pElem->SetElemPrev(pElemPrev);
 	}
 	ElemList::push_back(pElem);
 }
@@ -126,6 +124,11 @@ bool Elem_Empty::Render(Renderer *pRenderer) const
 String Elem_Empty::ToString() const
 {
 	return "";
+}
+
+String Elem_Empty::MakeTypeName() const
+{
+	return "empty";
 }
 
 void Elem_Empty::Print(Environment &env, SimpleStream &stream, int indentLevel) const
@@ -168,6 +171,11 @@ bool Elem_String::Render(Renderer *pRenderer) const
 String Elem_String::ToString() const
 {
 	return MakeQuotedString(_str.c_str(), false);
+}
+
+String Elem_String::MakeTypeName() const
+{
+	return "string";
 }
 
 void Elem_String::Print(Environment &env, SimpleStream &stream, int indentLevel) const
@@ -240,6 +248,14 @@ String Elem_Command::ToString() const
 	}
 	rtn += "}";
 	return "";
+}
+
+String Elem_Command::MakeTypeName() const
+{
+	String rtn;
+	rtn += "command:";
+	rtn += _pCmdFmt->GetNameEx();
+	return rtn;
 }
 
 void Elem_Command::Print(Environment &env, SimpleStream &stream, int indentLevel) const
@@ -320,6 +336,11 @@ String Elem_Text::ToString() const
 		rtn += pElem->ToString();
 	}
 	return "";
+}
+
+String Elem_Text::MakeTypeName() const
+{
+	return "text";
 }
 
 void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) const
