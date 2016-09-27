@@ -108,4 +108,8 @@ return value: return by else
 catch: IndexError: index is out of range
 finally
 return value: return by catch
+
+======== #11 type error while operator is applied with mapping ========
+
+TypeError: can't evaluate (symbol + number)
 ValueError detected: ValueError: unhandled error

@@ -567,6 +567,11 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Value &value)
 		_valTypeLeftPrev = valueLeft.GetValueType();
 		_valTypeRightPrev = valueRight.GetValueType();
 		_pOperatorEntry = _pOperator->Lookup(_valTypeLeftPrev, _valTypeRightPrev);
+		if (_pOperatorEntry == nullptr) {
+			Operator::SetError_InvalidValueType(
+				sig, _pOperator->GetOpType(), valueLeft, valueRight);
+			return false;
+		}
 	}
 	value = _pOperatorEntry->DoEval(env, valueLeft, valueRight);
 	if (sig.IsSignalled()) return false;

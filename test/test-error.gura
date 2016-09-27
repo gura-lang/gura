@@ -239,6 +239,13 @@ testcase('try-catch-else-finally') {
 	println('return value: ', f(2))
 	println('return value: ', f(3))
 }
+testcase('type error while operator is applied with mapping') {
+	try {
+		[`a, `b, `c] + 1
+	} catch {|e|
+		println(e.text)
+	}
+}
 try {
 	raise(error.ValueError, 'unhandled error')
 } catch (error.ValueError) {|e|
