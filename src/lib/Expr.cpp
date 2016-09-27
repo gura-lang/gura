@@ -1615,8 +1615,16 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 	} else {
 		valueLeft = pExprLeft->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		valueRight = pExprRight->Exec(env);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (opType == OPTYPE_Mod && pExprRight->IsBlock()) {
+			const ExprList &exprList =
+				dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
+			Help *pHelp = Help::CreateFromExprList(env, exprList);
+			if (pHelp == nullptr) return Value::Nil;
+			valueRight = Value(new Object_help(env, pHelp));
+		} else {
+			valueRight = pExprRight->Exec(env);
+			if (sig.IsSignalled()) return Value::Nil;
+		}
 		result = _pOperator->EvalMapBinary(env, valueLeft, valueRight);
 		if (sig.IsSignalled()) return Value::Nil;
 	}
@@ -2637,8 +2645,8 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExprBody);
 		if (!pExprEx->GetRight()->IsBlock()) break;
 		pExprBody = pExprEx->GetLeft();
-		const ExprList &exprList = dynamic_cast<const Expr_Block *>
-			(pExprEx->GetRight())->GetExprOwner();
+		const ExprList &exprList =
+			dynamic_cast<const Expr_Block *>(pExprEx->GetRight())->GetExprOwner();
 		Help *pHelp = Help::CreateFromExprList(env, exprList);
 		if (pHelp == nullptr) return Value::Nil;
 		helpOwner.push_back(pHelp);
