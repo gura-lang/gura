@@ -2172,61 +2172,6 @@ Value Expr_Indexer::DoExec(Environment &env) const
 	if (sig.IsSignalled()) return Value::Nil;
 	const ExprList &exprList = GetExprOwner();
 	Value result;
-#if 0
-	if (exprList.empty()) {
-		result = valueCar.EmptyIndexGet(env);
-		if (sig.IsSignalled()) return Value::Nil;
-	} else {
-		ValueList valIdxList;
-		valIdxList.reserve(exprList.size());
-		foreach_const (ExprList, ppExpr, exprList) {
-			Value value = (*ppExpr)->Exec(env);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Nil;
-			}
-			if (value.Is_list()) {
-				ValueVisitor_Flatten visitor(valIdxList);
-				value.Accept(visitor);
-			} else {
-				valIdxList.push_back(value);
-			}
-		}
-		if (valIdxList.size() == 0) {
-			// obj[] .. nothing to do
-		} else if (valIdxList.size() == 1 && !valIdxList.front().IsListOrIterator()) {
-			// obj[idx]
-			result = valueCar.IndexGet(env, valIdxList.front());
-			if (sig.IsSignalled()) return Value::Nil;
-		} else {
-			// obj[idx, idx, ..]
-			Object_list *pObjListDst = result.InitAsList(env);
-			foreach_const (ValueList, pValueIdx, valIdxList) {
-				if (pValueIdx->Is_list() || pValueIdx->Is_iterator()) {
-					AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
-					if (sig.IsSignalled()) break;
-					Value valueIdxEach;
-					while (pIteratorIdx->Next(env, valueIdxEach)) {
-						Value value = valueCar.IndexGet(env, valueIdxEach);
-						if (sig.IsSignalled()) {
-							if (sig.GetError().GetType() == ERR_IndexError &&
-								pIteratorIdx->IsInfinite()) {
-								sig.ClearSignal();
-							}
-							break;
-						}
-						pObjListDst->Add(value);
-					}
-					if (sig.IsSignalled()) return Value::Nil;
-				} else {
-					Value value = valueCar.IndexGet(env, *pValueIdx);
-					if (sig.IsSignalled()) break;
-					pObjListDst->Add(value);
-				}
-			}
-		}
-	}
-#else
 	if (exprList.empty()) {
 		// obj[]
 		result = valueCar.EmptyIndexGet(env);
@@ -2303,7 +2248,6 @@ Value Expr_Indexer::DoExec(Environment &env) const
 			}
 		}
 	}
-#endif
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
 }
@@ -2650,24 +2594,6 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		Help *pHelp = Help::CreateFromExprList(env, exprList);
 		if (pHelp == nullptr) return Value::Nil;
 		helpOwner.push_back(pHelp);
-#if 0
-		const ExprList &exprArgs = dynamic_cast<const Expr_Block *>
-									(pExprEx->GetRight())->GetExprOwner();
-		ValueList valListArg;
-		foreach_const (ExprList, ppExprArg, exprArgs) {
-			const Expr *pExprArg = *ppExprArg;
-			Value result = pExprArg->Exec(env);
-			if (sig.IsSignalled()) return Value::Nil;
-			valListArg.push_back(result);
-		}
-		if (!(valListArg.size() == 3 && valListArg[0].Is_symbol() &&
-			  valListArg[1].Is_string() && valListArg[2].Is_string())) {
-			sig.SetError(ERR_ValueError, "invalid format for help");
-			return Value::Nil;
-		}
-		helpOwner.push_back(new Help(valListArg[0].GetSymbol(),
-									 valListArg[1].GetString(), valListArg[2].GetString()));
-#endif
 	}
 	// get symbol part of function's declaration
 	const Symbol *pSymbol;
