@@ -2637,6 +2637,12 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExprBody);
 		if (!pExprEx->GetRight()->IsBlock()) break;
 		pExprBody = pExprEx->GetLeft();
+		const ExprList &exprList = dynamic_cast<const Expr_Block *>
+			(pExprEx->GetRight())->GetExprOwner();
+		Help *pHelp = Help::CreateFromExprList(env, exprList);
+		if (pHelp == nullptr) return Value::Nil;
+		helpOwner.push_back(pHelp);
+#if 0
 		const ExprList &exprArgs = dynamic_cast<const Expr_Block *>
 									(pExprEx->GetRight())->GetExprOwner();
 		ValueList valListArg;
@@ -2653,6 +2659,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 		}
 		helpOwner.push_back(new Help(valListArg[0].GetSymbol(),
 									 valListArg[1].GetString(), valListArg[2].GetString()));
+#endif
 	}
 	// get symbol part of function's declaration
 	const Symbol *pSymbol;

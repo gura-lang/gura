@@ -63,6 +63,27 @@ bool Help::Present(Environment &env) const
 	return false;
 }
 
+Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
+{
+	if (exprList.size() != 3) {
+		env.SetError(ERR_ValueError, "invalid format for help");
+		return nullptr;
+	}
+	ValueList valList;
+	valList.reserve(exprList.size());
+	foreach_const (ExprList, ppExprArg, exprList) {
+		const Expr *pExprArg = *ppExprArg;
+		Value result = pExprArg->Exec(env);
+		if (env.IsSignalled()) return nullptr;
+		valList.push_back(result);
+	}
+	if (!(valList[0].Is_symbol() && valList[1].Is_string() && valList[2].Is_string())) {
+		env.SetError(ERR_ValueError, "invalid format for help");
+		return nullptr;
+	}
+	return new Help(valList[0].GetSymbol(), valList[1].GetString(), valList[2].GetString());
+}
+
 //-----------------------------------------------------------------------------
 // HelpList
 //-----------------------------------------------------------------------------

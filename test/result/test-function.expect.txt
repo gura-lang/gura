@@ -294,36 +294,31 @@ trailer
 
 f(x:m.A:nil)
 
-======== #41 help ========
-
-`en ..foo
-`ja ..hoge
-
-======== #42 :nonamed attribute ========
+======== #41 :nonamed attribute ========
 
 a => 3
 a => 3
 b => 2
 c => 1
 
-======== #43 :cut_extra_args attribute ========
+======== #42 :cut_extra_args attribute ========
 
 f() a=1, b=2, c=3
 g() a=1, b=2, c=3
 expected error occurs: TypeError: too many arguments
 g() a=1, b=2, c=3
 
-======== #44 if items are lists, they would not be mapped implicitly ========
+======== #43 if items are lists, they would not be mapped implicitly ========
 
 expected error occurs: TypeError: variable 'x' cannot take list value in 'x[]:number'
 
-======== #45 type-cast while implicit map ========
+======== #44 type-cast while implicit map ========
 
 <color:#ff0000,a:ff>
 <color:#0000ff,a:ff>
 <color:#008000,a:ff>
 
-======== #46 default value and named argument ========
+======== #45 default value and named argument ========
 
 a = A, b = B
 a = AA, b = B
@@ -332,23 +327,23 @@ a = AA, b = B
 a = A, b = BB
 a = AA, b = BB
 
-======== #47 declaration of constructor ========
+======== #46 declaration of constructor ========
 
 <class:A(a:number, b:string, c[]:boolean, d => 'hoge', dict%):map:[att1,att2,att3] {block?}>
 
-======== #48 type check for list elements (casting) ========
+======== #47 type check for list elements (casting) ========
 
 ABCDEFG .. OK
 A1CD4FG .. OK
 1234567 .. OK
 
-======== #49 type check for list elements (inherited values) ========
+======== #48 type check for list elements (inherited values) ========
 
 <A><A><A><A><A><A><A> .. OK
 <A><B><A><A><A><A><A> .. OK
 <B><B><B><B><B><B><B> .. OK
 
-======== #50 check of element size ========
+======== #49 check of element size ========
 
 f([1]) .. TypeError: unmatched element size
 f([1, 2]) .. TypeError: unmatched element size
@@ -358,6 +353,6 @@ f([1, 2, 3, 4, 5]) .. OK
 f([1, 2, 3, 4, 5, 6]) .. TypeError: unmatched element size
 f([1, 2, 3, 4, 5, 6, 7]) .. TypeError: unmatched element size
 
-======== #51 lack of closure attribute ========
+======== #50 lack of closure attribute ========
 
 f() .. ValueError: function f must have :closure attribute to return a function object

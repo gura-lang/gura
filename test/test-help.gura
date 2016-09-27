@@ -1,0 +1,13 @@
+#!/usr/bin/env gura
+import(helper.test) {*}
+
+testcase('simple') {
+	f() = {} % {`ja, 'markdown', ''}
+	println(function.gethelp(f))
+}
+
+testcase('multi-language') {
+	f() = {} % {`en, 'markdown', 'foo'} % {`ja, 'markdown', 'hoge'}
+	println('`en ..', function.gethelp(f, `en).text)
+	println('`ja ..', function.gethelp(f, `ja).text)
+}

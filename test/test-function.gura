@@ -433,11 +433,6 @@ testcase('attribute after membered type') {
 	f(x:m.A:nil) = {}
 	println(f)
 }
-testcase('help') {
-	f() = {} % {`en, 'markdown', 'foo'} % {`ja, 'markdown', 'hoge'}
-	println('`en ..', function.gethelp(f, `en).text)
-	println('`ja ..', function.gethelp(f, `ja).text)
-}
 testcase(':nonamed attribute') {
 	f(`x):nonamed = {println(x)}
 	g(`x+):nonamed = {println(x)}

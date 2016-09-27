@@ -1,0 +1,8 @@
+======== #1 simple ========
+
+<help:ja:markdown>
+
+======== #2 multi-language ========
+
+`en ..foo
+`ja ..hoge

@@ -69,8 +69,6 @@ public:
 	inline String MakeTitle() const {
 		return (_pHelpHolder == nullptr)? "" : _pHelpHolder->MakeHelpTitle();
 	}
-	//inline const char *GetTitle() const { return _title.c_str(); }
-	//inline const String &GetTitleSTL() const { return _title; }
 	inline const Symbol *GetLangCode() const { return _pSymbolLangCode; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
 	inline const String &GetFormatNameSTL() const { return _formatName; }
@@ -78,6 +76,7 @@ public:
 	inline const String &GetTextSTL() const { return _text; }
 	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
 	bool Present(Environment &env) const;
+	static Help *CreateFromExprList(Environment &env, const ExprList &exprList);
 };
 
 //-----------------------------------------------------------------------------
