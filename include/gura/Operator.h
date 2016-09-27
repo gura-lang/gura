@@ -65,6 +65,7 @@ enum OpType {
 	OPTYPE_Mul,
 	OPTYPE_Div,
 	OPTYPE_Mod,
+	OPTYPE_ModMod,
 	OPTYPE_Pow,
 	OPTYPE_Eq,
 	OPTYPE_Ne,
@@ -122,6 +123,7 @@ public:
 	static Operator *Mul;
 	static Operator *Div;
 	static Operator *Mod;
+	static Operator *ModMod;
 	static Operator *Pow;
 	static Operator *Eq;
 	static Operator *Ne;
@@ -333,6 +335,14 @@ public:
 	inline Operator_Mod() : Operator(OPTYPE_Mod) {}
 	virtual Value EvalMapBinary(Environment &env,
 					const Value &valueLeft, const Value &valueRight) const;
+};
+
+//-----------------------------------------------------------------------------
+// Operator_ModMod
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_ModMod : public Operator {
+public:
+	inline Operator_ModMod() : Operator(OPTYPE_ModMod) {}
 };
 
 //-----------------------------------------------------------------------------

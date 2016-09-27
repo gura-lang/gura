@@ -1829,6 +1829,9 @@ bool Parser::ReduceThreeTokens(Environment &env)
 		} else if (token2.IsType(TOKEN_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr % Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mod), pExprLeft, pExprRight);
+		} else if (token2.IsType(TOKEN_ModMod)) {
+			DBGPARSER(::printf("Reduce: Expr -> Expr %% Expr\n"));
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_ModMod), pExprLeft, pExprRight);
 		} else if (token2.IsType(TOKEN_Pow)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ** Expr\n"));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
