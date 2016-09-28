@@ -610,8 +610,7 @@ Gura_ImplementUnaryOperator(Inv, function)
 	const Symbol *pSymbolLangCode = env.GetLangCode();
 	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
-		AutoPtr<Help> pHelp(new Help(&pFunc->GetHelpProvider()));
-		pHelp->Present(env);
+		HelpProvider::PresentTitle(env, pFunc);
 	} else {
 		pHelp->Present(env);
 	}
@@ -629,8 +628,7 @@ Gura_ImplementUnaryOperator(Inv, Class)
 	}
 	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
-		AutoPtr<Help> pHelp(new Help(&pFunc->GetHelpProvider()));
-		pHelp->Present(env);
+		HelpProvider::PresentTitle(env, pFunc);
 	} else {
 		pHelp->Present(env);
 	}
