@@ -1494,6 +1494,25 @@ Value Mod_NumberAndArray(Environment &env,
 ImplementArrayOperators(Mod)
 
 //-----------------------------------------------------------------------------
+// BinaryOperator(ModMod, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(ModMod, function, help)
+{
+	Function *pFunc = Object_function::GetObject(valueLeft)->GetFunction();
+	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
+	pFunc->AddHelp(pHelp->Reference());
+	return valueLeft;
+}
+
+Gura_ImplementBinaryOperator(ModMod, Class, help)
+{
+	//const Class *pClass = valueLeft.GetClassItself();
+	//Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
+	//pFunc->AddHelp(pHelp->Reference());
+	return valueLeft;
+}
+
+//-----------------------------------------------------------------------------
 // BinaryOperator(Pow, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pow, number, number)
@@ -2217,6 +2236,8 @@ void Operator::AssignBasicOperators(Environment &env)
 	AssignArrayOperators(Div);
 	Gura_AssignBinaryOperator(Mod, number, number);
 	AssignArrayOperators(Mod);
+	Gura_AssignBinaryOperator(ModMod, function, help);
+	Gura_AssignBinaryOperator(ModMod, Class, help);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);
