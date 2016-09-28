@@ -2624,10 +2624,11 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	GetCar()->Assign(env, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Nil;
 	if (pFunc->GetFlag(FLAG_SymbolFunc)) return Value::Nil;
+	HelpProvider &helpProvider = pFunc->GetHelpProvider();
 	foreach_reverse (HelpOwner, ppHelp, helpOwner) {
 		Help *pHelp = (*ppHelp)->Reference();
-		pHelp->SetHelpProvider(pFunc);
-		pFunc->AddHelp(pHelp);
+		pHelp->SetHelpProvider(&helpProvider);
+		helpProvider.AddHelp(pHelp);
 	}
 	return valueFunc;
 }

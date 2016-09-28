@@ -179,7 +179,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Function : public HelpProvider {
+class GURA_DLLDECLARE Function : public HelpProvider::Handler {
 public:
 	enum BlockScope {
 		BLKSCOPE_Through,
@@ -193,11 +193,12 @@ public:
 		const Symbol *pSymbol;
 	};
 protected:
-	//int _cntRef;
+	int _cntRef;
 	const Symbol *_pSymbol;
 	Class *_pClassContainer;
 	AutoPtr<Environment> _pEnvScope;
 	FunctionType _funcType;
+	AutoPtr<HelpProvider> _pHelpProvider;
 protected:
 	// declaration information
 	AutoPtr<DeclarationOwner> _pDeclOwner;
@@ -232,6 +233,11 @@ public:
 	inline void SetType(FunctionType funcType) { _funcType = funcType; }
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
+	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
+	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
+	inline void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text) {
+		_pHelpProvider->AddHelp(pSymbol, formatName, text);
+	}
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline bool IsResultNormal() const { return _resultMode == RSLTMODE_Normal; }

@@ -32,10 +32,12 @@ bool Function::IsCustom() const { return false; }
 bool Function::IsConstructorOfStruct() const { return false; }
 
 Function::Function(const Function &func) :
+	_cntRef(1),
 	_pSymbol(func._pSymbol),
 	_pClassContainer(func._pClassContainer),
 	_pEnvScope(func.GetEnvScope().Clone()),
 	_funcType(func._funcType),
+	_pHelpProvider(new HelpProvider(this)),
 	_pDeclOwner(func.GetDeclOwner().Clone()),
 	_valTypeResult(func._valTypeResult),
 	_resultMode(func._resultMode),
@@ -49,10 +51,12 @@ Function::Function(const Function &func) :
 
 Function::Function(Environment &envScope, const Symbol *pSymbol,
 				   FunctionType funcType, ULong flags) :
+	_cntRef(1),
 	_pSymbol(pSymbol),
 	_pClassContainer(nullptr),
 	_pEnvScope(Environment::Reference(&envScope)),
 	_funcType(funcType),
+	_pHelpProvider(new HelpProvider(this)),
 	_pDeclOwner(new DeclarationOwner()),
 	_valTypeResult(VTYPE_any),
 	_resultMode(RSLTMODE_Normal),
@@ -68,6 +72,7 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 
 Function::~Function()
 {
+	_pHelpProvider->SetHandler(nullptr);
 }
 
 void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags)
@@ -233,7 +238,7 @@ bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 	if (pEnv == nullptr) return false;
 	const Function *pFunc = pEnv->LookupFunction(pSymbol, ENVREF_NoEscalate);
 	if (pFunc == nullptr) return false;
-	HelpProvider::LinkHelp(pFunc);
+	_pHelpProvider->LinkHelp(pFunc->GetHelpProvider().Reference());
 	return true;
 }
 

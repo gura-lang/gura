@@ -27,7 +27,7 @@ Help::Help(const HelpProvider *pHelpProvider, const Symbol *pSymbolLangCode,
 {
 }
 
-String Help::MakeTitle() const
+String Help::MakeHelpTitle() const
 {
 	return (_pHelpProvider == nullptr)? "" : _pHelpProvider->MakeHelpTitle();
 }
@@ -49,11 +49,16 @@ bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) c
 bool Help::Present(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
+#if 0
 	String strSep;
-	String title = MakeTitle();
+	String title = MakeHelpTitle();
 	for (size_t i = 0; i < title.size(); i++) strSep += '-';
 	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
 	if (sig.IsSignalled()) return false;
+#endif
+	if (_pHelpProvider != nullptr && _pHelpProvider->GetHandler() != nullptr) {
+		if (!HelpProvider::PresentTitle(env, _pHelpProvider->GetHandler())) return false;
+	}
 	if (_text.empty()) {
 		env.GetConsole()->Println(sig, "(no help)");
 		return sig.IsNoSignalled();
@@ -131,9 +136,9 @@ void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, cons
 	AddHelp(new Help(this, pSymbol, formatName, text));
 }
 
-void HelpProvider::LinkHelp(const HelpProvider *pHelpProvider)
+void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)
 {
-	_pHelpProviderLink.reset(HelpProvider::Reference(pHelpProvider));
+	_pHelpProviderLink.reset(pHelpProvider);
 }
 
 const Help *HelpProvider::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const
@@ -156,6 +161,16 @@ void HelpProvider::CopyHelp(const HelpProvider &helpProvider)
 		Help *pHelp = *ppHelp;
 		_helpOwner.push_back(pHelp->Reference());
 	}
+}
+
+bool HelpProvider::PresentTitle(Environment &env, const Handler *pHandler)
+{
+	Signal &sig = env.GetSignal();
+	String strSep;
+	String title = pHandler->MakeHelpTitle();
+	for (size_t i = 0; i < title.size(); i++) strSep += '-';
+	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
+	return env.IsNoSignalled();
 }
 
 //-----------------------------------------------------------------------------

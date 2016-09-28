@@ -66,7 +66,7 @@ bool ClassCustom::PrepareConstructor(Environment &env)
 		pFunc.reset(new Constructor(pFuncInit->GetEnvScope(), Gura_Symbol(_anonymous_),
 						Expr::Reference(pFuncInit->GetExprBody()), FUNCTYPE_Function));
 		pFunc->CopyDeclarationInfo(*pFuncInit);
-		pFunc->CopyHelp(*pFuncInit);
+		pFunc->GetHelpProvider().CopyHelp(pFuncInit->GetHelpProvider());
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != nullptr) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();
 		Expr_Block *pExprBlock = new Expr_Block();
@@ -80,7 +80,7 @@ bool ClassCustom::PrepareConstructor(Environment &env)
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												pExprBlock, FUNCTYPE_Function));
 		pFunc->CopyDeclarationInfo(*pConstructorSuper);
-		pFunc->CopyHelp(*pConstructorSuper);
+		pFunc->GetHelpProvider().CopyHelp(pConstructorSuper->GetHelpProvider());
 	} else {
 		pFunc.reset(new Constructor(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));

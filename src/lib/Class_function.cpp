@@ -407,7 +407,7 @@ Gura_ImplementClassMethod(function, gethelp)
 {
 	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
-	const Help *pHelp = pFunc->GetHelp(pSymbol, true);
+	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbol, true);
 	if (pHelp == nullptr) return Value::Nil;
 	return Value(new Object_help(env, pHelp->Reference()));
 }

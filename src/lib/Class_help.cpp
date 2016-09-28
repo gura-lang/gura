@@ -38,7 +38,7 @@ Value Object_help::DoGetProp(Environment &env, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(title))) {
-		return Value(_pHelp->MakeTitle());
+		return Value(_pHelp->MakeHelpTitle());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(_pHelp->GetFormatNameSTL());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {

@@ -608,9 +608,9 @@ Gura_ImplementUnaryOperator(Inv, function)
 {
 	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
 	const Symbol *pSymbolLangCode = env.GetLangCode();
-	const Help *pHelp = pFunc->GetHelp(pSymbolLangCode, true);
+	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
-		AutoPtr<Help> pHelp(new Help(pFunc));
+		AutoPtr<Help> pHelp(new Help(&pFunc->GetHelpProvider()));
 		pHelp->Present(env);
 	} else {
 		pHelp->Present(env);
@@ -627,9 +627,9 @@ Gura_ImplementUnaryOperator(Inv, Class)
 		env.SetError(ERR_ValueError, "the class does not have a constructor");
 		return Value::Nil;
 	}
-	const Help *pHelp = pFunc->GetHelp(pSymbolLangCode, true);
+	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
-		AutoPtr<Help> pHelp(new Help(pFunc));
+		AutoPtr<Help> pHelp(new Help(&pFunc->GetHelpProvider()));
 		pHelp->Present(env);
 	} else {
 		pHelp->Present(env);
@@ -1500,7 +1500,7 @@ Gura_ImplementBinaryOperator(ModMod, function, help)
 {
 	Function *pFunc = Object_function::GetObject(valueLeft)->GetFunction();
 	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
-	pFunc->AddHelp(pHelp->Reference());
+	pFunc->GetHelpProvider().AddHelp(pHelp->Reference());
 	return valueLeft;
 }
 

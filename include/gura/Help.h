@@ -67,7 +67,7 @@ public:
 	inline const String &GetFormatNameSTL() const { return _formatName; }
 	inline const char *GetText() const { return _text.c_str(); }
 	inline const String &GetTextSTL() const { return _text; }
-	String MakeTitle() const;
+	String MakeHelpTitle() const;
 	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
 	bool Present(Environment &env) const;
 	static Help *CreateFromExprList(Environment &env, const ExprList &exprList);
@@ -92,25 +92,36 @@ public:
 // HelpProvider
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE HelpProvider {
+public:
+	class GURA_DLLDECLARE Handler {
+	public:
+		virtual String MakeHelpTitle() const = 0;
+	};
 protected:
 	int _cntRef;
 	AutoPtr<HelpProvider> _pHelpProviderLink;
 	HelpOwner _helpOwner;
+	Handler *_pHandler;
 public:
 	Gura_DeclareReferenceAccessor(HelpProvider);
 public:
-	inline HelpProvider() : _cntRef(1) {}
+	inline HelpProvider(Handler *pHandler) : _cntRef(1), _pHandler(pHandler) {}
 protected:
 	virtual ~HelpProvider();
 public:
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
+	inline void SetHandler(Handler *pHandler) { _pHandler = pHandler; }
+	inline String MakeHelpTitle() const {
+		return (_pHandler == nullptr)? "" : _pHandler->MakeHelpTitle();
+	};
+	inline const Handler *GetHandler() const { return _pHandler; }
 	void AddHelp(Help *pHelp);
 	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
-	void LinkHelp(const HelpProvider *pHelpProvider);
+	void LinkHelp(HelpProvider *pHelpProvider);
 	const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const;
 	void CopyHelp(const HelpProvider &helpProvider);
-	virtual String MakeHelpTitle() const = 0;
+	static bool PresentTitle(Environment &env, const Handler *pHandler);
 };
 
 //-----------------------------------------------------------------------------
