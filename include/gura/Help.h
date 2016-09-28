@@ -52,10 +52,7 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const HelpProvider *pHelpProvider);
 	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text);
-	Help(const HelpProvider *pHelpProvider, const Symbol *pSymbolLangCode,
-		 const String &formatName, const String &text);
 private:
 	inline ~Help() {}
 public:

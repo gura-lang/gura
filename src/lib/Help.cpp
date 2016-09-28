@@ -10,19 +10,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const HelpProvider *pHelpProvider) :
-	_cntRef(1), _pHelpProvider(pHelpProvider), _pSymbolLangCode(Gura_Symbol(en))
-{
-}
-
 Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text) :
-	_cntRef(1), _pSymbolLangCode(pSymbolLangCode), _formatName(formatName), _text(text)
-{
-}
-
-Help::Help(const HelpProvider *pHelpProvider, const Symbol *pSymbolLangCode,
-		   const String &formatName, const String &text) :
-	_cntRef(1), _pHelpProvider(pHelpProvider), _pSymbolLangCode(pSymbolLangCode),
+	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
 	_formatName(formatName), _text(text)
 {
 }
@@ -128,12 +117,13 @@ HelpProvider::~HelpProvider()
 
 void HelpProvider::AddHelp(Help *pHelp)
 {
+	pHelp->SetHelpProvider(this);
 	_helpOwner.push_back(pHelp);
 }
 
 void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	AddHelp(new Help(this, pSymbol, formatName, text));
+	AddHelp(new Help(pSymbol, formatName, text));
 }
 
 void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)
