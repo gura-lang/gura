@@ -68,10 +68,6 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 
 Function::~Function()
 {
-	foreach (HelpOwner, ppHelp, _helpOwner) {
-		Help *pHelp = *ppHelp;
-		pHelp->SetHolder(nullptr);
-	}
 }
 
 void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags)
@@ -208,13 +204,6 @@ void Function::CopyDeclarationInfo(const Function &func)
 	_pSymbolDict = func._pSymbolDict;
 }
 
-void Function::CopyHelp(const Function &func)
-{
-	foreach_const (HelpOwner, ppHelp, func.GetHelpOwner()) {
-		_helpOwner.push_back((*ppHelp)->Reference());
-	}
-}
-
 Declaration *Function::DeclareArg(
 	Environment &env, const Symbol *pSymbol, ValueType valType,
 	OccurPattern occurPattern, ULong flags, size_t nListElems, Expr *pExprDefault)
@@ -239,42 +228,13 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
-void Function::AddHelp(Help *pHelp)
-{
-	_helpOwner.push_back(pHelp);
-}
-
-void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
-{
-	AddHelp(new Help(this, pSymbol, formatName, text));
-}
-
-void Function::LinkHelp(const Function *pFunc)
-{
-	_pFuncHelpLink.reset(Function::Reference(pFunc));
-}
-
 bool Function::LinkHelp(const Environment *pEnv, const Symbol *pSymbol)
 {
 	if (pEnv == nullptr) return false;
 	const Function *pFunc = pEnv->LookupFunction(pSymbol, ENVREF_NoEscalate);
 	if (pFunc == nullptr) return false;
-	LinkHelp(pFunc);
+	HelpProvider::LinkHelp(pFunc);
 	return true;
-}
-
-const Help *Function::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const
-{
-	const Help *pHelp = _pFuncHelpLink.IsNull()?
-		nullptr : _pFuncHelpLink->GetHelp(pSymbolLangCode, defaultFirstFlag);
-	if (pHelp != nullptr) return pHelp;
-	if (_helpOwner.empty()) return nullptr;
-	if (pSymbolLangCode == nullptr) return _helpOwner.front();
-	foreach_const (HelpOwner, ppHelp, _helpOwner) {
-		Help *pHelp = *ppHelp;
-		if (pHelp->GetLangCode() == pSymbolLangCode) return pHelp;
-	}
-	return defaultFirstFlag? _helpOwner.front() : nullptr;
 }
 
 Value Function::DoEval(Environment &env, Argument &arg) const

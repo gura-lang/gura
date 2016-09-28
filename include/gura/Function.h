@@ -179,7 +179,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Function : public HelpHolder {
+class GURA_DLLDECLARE Function : public HelpProvider {
 public:
 	enum BlockScope {
 		BLKSCOPE_Through,
@@ -197,9 +197,7 @@ protected:
 	const Symbol *_pSymbol;
 	Class *_pClassContainer;
 	AutoPtr<Environment> _pEnvScope;
-	AutoPtr<Function> _pFuncHelpLink;
 	FunctionType _funcType;
-	HelpOwner _helpOwner;
 protected:
 	// declaration information
 	AutoPtr<DeclarationOwner> _pDeclOwner;
@@ -255,7 +253,6 @@ public:
 	inline const SymbolSetShared *GetAttrsOptShared() const {
 		return _pAttrsOptShared.get();
 	}
-	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
 	inline OccurPattern GetBlockOccurPattern() const { return _blockInfo.occurPattern; }
 	inline BlockScope GetBlockScope() const { return _blockInfo.blockScope; }
@@ -276,7 +273,6 @@ public:
 	bool CustomDeclare(Environment &env,
 					   const CallerInfo &callerInfo, const SymbolSet &attrsAcceptable);
 	void CopyDeclarationInfo(const Function &func);
-	void CopyHelp(const Function &func);
 	Declaration *DeclareArg(
 		Environment &env, const Symbol *pSymbol, ValueType valType,
 		OccurPattern occurPattern = OCCUR_Once, ULong flags = FLAG_None,
@@ -299,14 +295,9 @@ public:
 		return GetDeclOwner().size() == 1 && !GetDeclOwner().front()->IsVariableLength();
 	}
 	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
-	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = nullptr,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
-	void AddHelp(Help *pHelp);
-	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
-	void LinkHelp(const Function *pFunc);
 	bool LinkHelp(const Environment *pEnv, const Symbol *pSymbol);
-	const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const;
 	String MakeFullName() const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal &sig) const;
@@ -335,7 +326,7 @@ protected:
 private:
 	virtual Value DoEval(Environment &env, Argument &arg) const;
 public:
-	// inherited from HelpHolder
+	// inherited from HelpProvider
 	virtual String MakeHelpTitle() const;
 };
 

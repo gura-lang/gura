@@ -35,21 +35,7 @@
 
 namespace Gura {
 
-//-----------------------------------------------------------------------------
-// HelpHolder
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpHolder {
-protected:
-	int _cntRef;
-public:
-	Gura_DeclareReferenceAccessor(HelpHolder);
-public:
-	inline HelpHolder() : _cntRef(1) {}
-protected:
-	virtual ~HelpHolder();
-public:
-	virtual String MakeHelpTitle() const = 0;
-};
+class HelpProvider;
 
 //-----------------------------------------------------------------------------
 // Help
@@ -57,7 +43,7 @@ public:
 class GURA_DLLDECLARE Help {
 private:
 	int _cntRef;
-	const HelpHolder *_pHelpHolder;
+	const HelpProvider *_pHelpProvider;
 	const Symbol *_pSymbolLangCode;
 	String _formatName;
 	String _text;
@@ -66,22 +52,22 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const HelpHolder *pHelpHolder);
+	Help(const HelpProvider *pHelpProvider);
 	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text);
-	Help(const HelpHolder *pHelpHolder, const Symbol *pSymbolLangCode,
+	Help(const HelpProvider *pHelpProvider, const Symbol *pSymbolLangCode,
 		 const String &formatName, const String &text);
 private:
 	inline ~Help() {}
 public:
-	inline void SetHolder(const HelpHolder *pHelpHolder) { _pHelpHolder = pHelpHolder; }
-	inline String MakeTitle() const {
-		return (_pHelpHolder == nullptr)? "" : _pHelpHolder->MakeHelpTitle();
+	inline void SetHelpProvider(const HelpProvider *pHelpProvider) {
+		_pHelpProvider = pHelpProvider;
 	}
 	inline const Symbol *GetLangCode() const { return _pSymbolLangCode; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
 	inline const String &GetFormatNameSTL() const { return _formatName; }
 	inline const char *GetText() const { return _text.c_str(); }
 	inline const String &GetTextSTL() const { return _text; }
+	String MakeTitle() const;
 	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
 	bool Present(Environment &env) const;
 	static Help *CreateFromExprList(Environment &env, const ExprList &exprList);
@@ -100,6 +86,31 @@ class GURA_DLLDECLARE HelpOwner : public HelpList {
 public:
 	~HelpOwner();
 	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// HelpProvider
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE HelpProvider {
+protected:
+	int _cntRef;
+	AutoPtr<HelpProvider> _pHelpProviderLink;
+	HelpOwner _helpOwner;
+public:
+	Gura_DeclareReferenceAccessor(HelpProvider);
+public:
+	inline HelpProvider() : _cntRef(1) {}
+protected:
+	virtual ~HelpProvider();
+public:
+	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
+	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
+	void AddHelp(Help *pHelp);
+	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
+	void LinkHelp(const HelpProvider *pHelpProvider);
+	const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const;
+	void CopyHelp(const HelpProvider &helpProvider);
+	virtual String MakeHelpTitle() const = 0;
 };
 
 //-----------------------------------------------------------------------------

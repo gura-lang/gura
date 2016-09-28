@@ -6,19 +6,12 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// HelpHolder
-//-----------------------------------------------------------------------------
-HelpHolder::~HelpHolder()
-{
-}
-
-//-----------------------------------------------------------------------------
 // Help
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const HelpHolder *pHelpHolder) :
-	_cntRef(1), _pHelpHolder(pHelpHolder), _pSymbolLangCode(Gura_Symbol(en))
+Help::Help(const HelpProvider *pHelpProvider) :
+	_cntRef(1), _pHelpProvider(pHelpProvider), _pSymbolLangCode(Gura_Symbol(en))
 {
 }
 
@@ -27,11 +20,16 @@ Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String
 {
 }
 
-Help::Help(const HelpHolder *pHelpHolder, const Symbol *pSymbolLangCode,
+Help::Help(const HelpProvider *pHelpProvider, const Symbol *pSymbolLangCode,
 		   const String &formatName, const String &text) :
-	_cntRef(1), _pHelpHolder(pHelpHolder), _pSymbolLangCode(pSymbolLangCode),
+	_cntRef(1), _pHelpProvider(pHelpProvider), _pSymbolLangCode(pSymbolLangCode),
 	_formatName(formatName), _text(text)
 {
+}
+
+String Help::MakeTitle() const
+{
+	return (_pHelpProvider == nullptr)? "" : _pHelpProvider->MakeHelpTitle();
 }
 
 bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) const
@@ -110,6 +108,54 @@ void HelpOwner::Clear()
 		Help::Delete(pHelp);
 	}
 	clear();
+}
+
+//-----------------------------------------------------------------------------
+// HelpProvider
+//-----------------------------------------------------------------------------
+HelpProvider::~HelpProvider()
+{
+	foreach (HelpOwner, ppHelp, _helpOwner) {
+		Help *pHelp = *ppHelp;
+		pHelp->SetHelpProvider(nullptr);
+	}
+}
+
+void HelpProvider::AddHelp(Help *pHelp)
+{
+	_helpOwner.push_back(pHelp);
+}
+
+void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
+{
+	AddHelp(new Help(this, pSymbol, formatName, text));
+}
+
+void HelpProvider::LinkHelp(const HelpProvider *pHelpProvider)
+{
+	_pHelpProviderLink.reset(HelpProvider::Reference(pHelpProvider));
+}
+
+const Help *HelpProvider::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const
+{
+	const Help *pHelp = _pHelpProviderLink.IsNull()?
+		nullptr : _pHelpProviderLink->GetHelp(pSymbolLangCode, defaultFirstFlag);
+	if (pHelp != nullptr) return pHelp;
+	if (_helpOwner.empty()) return nullptr;
+	if (pSymbolLangCode == nullptr) return _helpOwner.front();
+	foreach_const (HelpOwner, ppHelp, _helpOwner) {
+		Help *pHelp = *ppHelp;
+		if (pHelp->GetLangCode() == pSymbolLangCode) return pHelp;
+	}
+	return defaultFirstFlag? _helpOwner.front() : nullptr;
+}
+
+void HelpProvider::CopyHelp(const HelpProvider &helpProvider)
+{
+	foreach_const (HelpOwner, ppHelp, helpProvider.GetHelpOwner()) {
+		Help *pHelp = *ppHelp;
+		_helpOwner.push_back(pHelp->Reference());
+	}
 }
 
 //-----------------------------------------------------------------------------
