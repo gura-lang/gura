@@ -32,7 +32,6 @@ bool Function::IsCustom() const { return false; }
 bool Function::IsConstructorOfStruct() const { return false; }
 
 Function::Function(const Function &func) :
-	_cntRef(1),
 	_pSymbol(func._pSymbol),
 	_pClassContainer(func._pClassContainer),
 	_pEnvScope(func.GetEnvScope().Clone()),
@@ -50,7 +49,6 @@ Function::Function(const Function &func) :
 
 Function::Function(Environment &envScope, const Symbol *pSymbol,
 				   FunctionType funcType, ULong flags) :
-	_cntRef(1),
 	_pSymbol(pSymbol),
 	_pClassContainer(nullptr),
 	_pEnvScope(Environment::Reference(&envScope)),

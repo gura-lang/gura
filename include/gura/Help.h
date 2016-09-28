@@ -36,9 +36,17 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Help
+// HelpHolder
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE HelpHolder {
+protected:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(HelpHolder);
+public:
+	inline HelpHolder() : _cntRef(1) {}
+protected:
+	virtual ~HelpHolder();
 public:
 	virtual String MakeHelpTitle() const = 0;
 };

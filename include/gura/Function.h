@@ -193,7 +193,7 @@ public:
 		const Symbol *pSymbol;
 	};
 protected:
-	int _cntRef;
+	//int _cntRef;
 	const Symbol *_pSymbol;
 	Class *_pClassContainer;
 	AutoPtr<Environment> _pEnvScope;
