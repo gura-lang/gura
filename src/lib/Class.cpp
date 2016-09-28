@@ -440,8 +440,14 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 	Fundamental(*pEnvOuter, ENVTYPE_class),
 	_pClassSuper(pEnvOuter->IsClass()?
 			Class::Reference(dynamic_cast<Class *>(pEnvOuter)) : nullptr),
-	_valType(valType), _pSymbol(Gura_Symbol(_anonymous_)), _pConstructor(nullptr)
+	_valType(valType), _pSymbol(Gura_Symbol(_anonymous_)), _pConstructor(nullptr),
+	_pHelpProvider(new HelpProvider(this))
 {
+}
+
+Class::~Class()
+{
+	_pHelpProvider->SetHandler(nullptr);
 }
 
 Object *Class::CreateDescendant(Environment &env, Class *pClass)
@@ -734,6 +740,11 @@ bool Class::BuildContent(Environment &env, const Value &valueThis,
 void Class::SetError_NoConstructor() const
 {
 	SetError(ERR_ValueError, "class %s doesn't have a constructor", GetName());
+}
+
+String Class::MakeHelpTitle() const
+{
+	return MakeValueTypeName();
 }
 
 }

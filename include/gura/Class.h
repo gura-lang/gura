@@ -178,13 +178,14 @@ public:
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class : public Fundamental {
+class GURA_DLLDECLARE Class : public Fundamental, public HelpProvider::Handler {
 protected:
 	AutoPtr<Class> _pClassSuper;
 	ValueType _valType;
 	const Symbol *_pSymbol;
 	AutoPtr<Function> _pConstructor;
 	Operator::EntryList _operatorEntryList;
+	AutoPtr<HelpProvider> _pHelpProvider;
 public:
 	Gura_DeclareReferenceAccessor(Class);
 public:
@@ -200,6 +201,7 @@ protected:
 		_pSymbol(cls._pSymbol), _pConstructor(nullptr) {}
 public:
 	Class(Environment *pEnvOuter, ValueType valType);
+	virtual ~Class();
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Class *pClass);
@@ -225,6 +227,8 @@ public:
 	inline Function *GetConstructor() { return _pConstructor.get(); }
 	inline const Function *GetConstructor() const { return _pConstructor.get(); }
 	inline const Operator::EntryList &GetOperatorEntryList() const { return _operatorEntryList; }
+	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
+	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value GetPropPrimitive(const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
@@ -255,6 +259,9 @@ public:
 	bool BuildContent(Environment &env, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = nullptr);
 	void SetError_NoConstructor() const;
+public:
+	// inherited from HelpProvider
+	virtual String MakeHelpTitle() const;
 };
 
 }

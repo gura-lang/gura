@@ -1504,9 +1504,9 @@ Gura_ImplementBinaryOperator(ModMod, function, help)
 
 Gura_ImplementBinaryOperator(ModMod, Class, help)
 {
-	//const Class *pClass = valueLeft.GetClassItself();
-	//Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
-	//pFunc->AddHelp(pHelp->Reference());
+	Class *pClass = valueLeft.GetClassItself();
+	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
+	pClass->GetHelpProvider().AddHelp(pHelp->Reference());
 	return valueLeft;
 }
 
