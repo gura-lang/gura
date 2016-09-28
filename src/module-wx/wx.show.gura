@@ -116,6 +116,6 @@ classref(`root.image).show(width => 640, height => 480) = {
 	[App.width:public, App.height:public] = [width, height]
 	Panel.img = this
 	wx.IMPLEMENT_APP(App)
-} % {`en, 'markdown', R'''
+} %% {`en, 'markdown', R'''
 Displays the content of `image` instance in a window.
 '''}

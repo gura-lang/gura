@@ -897,7 +897,7 @@ classref(`document).render@rtf(out?:stream:w) = {
 
 classref(`document).render@console(colorFlag:boolean => true) = {
 	Renderer@console(colorFlag).Render(this)
-} % { `en, 'markdown',
+} %% { `en, 'markdown',
 R'''
 Renders the content of markdown document to the console.
 

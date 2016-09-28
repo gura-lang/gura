@@ -1,23 +1,25 @@
+#!/usr/bin/env gura
+
 inch$mm(inch:number):map = {
 	inch * 25.4
-} % {`en, 'markdown', R'''
+} %% {`en, 'markdown', R'''
 Converts **inch** to **mm**.
 '''}
 
 mm$inch(mm:number):map = {
 	mm / 25.4
-} % {`en, 'markdown', R'''
+} %% {`en, 'markdown', R'''
 Converts **mm** to **inch**.
 '''}
 
 mm$pt(mm:number):map = {
 	mm * 72 / 25.4
-} % {`en, 'markdown', R'''
+} %% {`en, 'markdown', R'''
 Converts **mm** to **pt**.
 '''}
 
 pt$mm(pt:number):map = {
 	pt * 25.4 / 72
-} % {`en, 'markdown', R'''
+} %% {`en, 'markdown', R'''
 Converts **pt** to **mm**.
 '''}

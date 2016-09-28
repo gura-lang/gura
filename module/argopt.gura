@@ -45,7 +45,7 @@ Entry = struct(type:symbol, longName:string, shortName:string:nil,
 Parser = class {
 	__init__() = {
 		this.entries = []
-	} % {`en, 'markdown', R'''
+	} %% {`en, 'markdown', R'''
 	Create an `argopt.Parser` instance.
 	'''}
 	parse(argv[]:string) = {
@@ -107,7 +107,7 @@ Parser = class {
 			}
 		}
 		[cfg, argvRest]
-	} % {`en, 'markdown', R'''
+	} %% {`en, 'markdown', R'''
 	Parses an argument list which is usually the value of `sys.argv` given by `sys` module.
 
 	It returns the result in a format `[cfg, argv]` where `cfg` is a `dict` instance
@@ -116,7 +116,7 @@ Parser = class {
 	'''}
 	addParam(longName:string, shortName?:string, help?:string, helpValue?:string, defValue?:string) = {
 		this.entries.add(Entry(`param, longName, shortName, help, helpValue, defValue))
-	} % {`en, 'markdown', R'''
+	} %% {`en, 'markdown', R'''
 	Adds an option that comes with a value like `--foo=value`
 	where `foo` is a long name for the option.
 
@@ -140,7 +140,7 @@ Parser = class {
 	'''}
 	addFlag(longName:string, shortName?:string, help?:string) = {
 		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
-	} % {`en, 'markdown', R'''
+	} %% {`en, 'markdown', R'''
 	Adds an option that represents a boolean state.
 	It comes like `--foo` where `foo` is a long name for the option.
 
@@ -161,7 +161,7 @@ Parser = class {
 		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
 		str = format('%-*s  %s%s', helpIndices:*len().max(), helpIndices,
 					this.entries:*help, cond(__arg__.isset(`linefeed), '\n', ''))
-	} % {`en, 'markdown', R'''
+	} %% {`en, 'markdown', R'''
 	Creates an iterator of strings that contain help text for each option.
 
 	If the argument `longNameFlag` is `true`, the help text would contain long names.

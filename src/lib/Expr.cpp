@@ -1615,7 +1615,7 @@ Value Expr_BinaryOp::DoExec(Environment &env) const
 	} else {
 		valueLeft = pExprLeft->Exec(env);
 		if (sig.IsSignalled()) return Value::Nil;
-		if (opType == OPTYPE_Mod && pExprRight->IsBlock()) {
+		if (opType == OPTYPE_ModMod && pExprRight->IsBlock()) {
 			const ExprList &exprList =
 				dynamic_cast<const Expr_Block *>(pExprRight)->GetExprOwner();
 			Help *pHelp = Help::CreateFromExprList(env, exprList);
@@ -2585,7 +2585,7 @@ Value Expr_Caller::DoAssign(Environment &env, Value &valueAssigned,
 	}
 	const Expr *pExprBody = valueAssigned.GetExpr();
 	HelpOwner helpOwner;
-	while (pExprBody->IsBinaryOp(OPTYPE_Mod)) {
+	while (pExprBody->IsBinaryOp(OPTYPE_ModMod)) {
 		const Expr_BinaryOp *pExprEx = dynamic_cast<const Expr_BinaryOp *>(pExprBody);
 		if (!pExprEx->GetRight()->IsBlock()) break;
 		pExprBody = pExprEx->GetLeft();

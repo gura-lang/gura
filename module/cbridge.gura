@@ -74,7 +74,7 @@ Help = struct(lang:symbol, format:string, help:string) {
 			str += ('\t"' + text.eachline():chop + '\\n"').join('\n')
 		}
 		str += ');\n'
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Render C code that adds help information.
 		'''
@@ -249,7 +249,7 @@ FuncInfo = class {
 	RenderImplementation() = {
 		fi = this
 		tmplImplementation.render()
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Renders C code that implements a Gura function.
 		'''
@@ -257,7 +257,7 @@ FuncInfo = class {
 	RenderAssignment() = {
 		fi = this
 		tmplAssignment.render()
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Renders C code that assigns a Gura function.
 		'''
@@ -280,7 +280,7 @@ Renderer = class {
 			tmplSource.render(fileNameOut)
 			sys.stderr.println(fileNameOut, ' was created')
 		}
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Renders C code using a template `tmplSource` and that output the result to
 		a file specified by `fileNameOut`.
@@ -288,14 +288,14 @@ Renderer = class {
 	}
 	RenderImplementation() = {
 		this.funcInfos:*RenderImplementation() + '\n'
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Renders C code that implements Gura functions.
 		'''
 	}
 	RenderAssignment() = {
 		this.funcInfos:*RenderAssignment()
-	} % {`en, 'markdown',
+	} %% {`en, 'markdown',
 		R'''
 		Renders C code that assigns Gura functions.
 		'''
@@ -650,7 +650,7 @@ decls = []
 //------------------------------------------------------------------------------
 Implement() {`block} = {
 	decls:extern = block.children
-} % {`en, 'markdown',
+} %% {`en, 'markdown',
 	R'''
 	Describes function implementations in the `block`.
 	'''
@@ -658,7 +658,7 @@ Implement() {`block} = {
 
 AddTypeConv(typeName:string, typeConv:TypeConv) = {
 	typeConvDict.put(typeName, typeConv)
-} % {`en, 'markdown',
+} %% {`en, 'markdown',
 	R'''
 	Adds a type converter information.
 	'''
@@ -666,7 +666,7 @@ AddTypeConv(typeName:string, typeConv:TypeConv) = {
 
 AddTypeConvs() {`block} = {
 	typeConvDict.append {|block|}
-} % {`en, 'markdown',
+} %% {`en, 'markdown',
 	R'''
 	Adds multiple entries of type converter information by specifying them in `block`.
 	'''
