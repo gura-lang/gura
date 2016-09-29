@@ -16,6 +16,12 @@ Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String
 {
 }
 
+Help::Help(const Symbol *pSymbolLangCode, const String &formatName, Template *pTemplateDoc) :
+	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
+	_formatName(formatName), _pTemplateDoc(pTemplateDoc)
+{
+}
+
 String Help::MakeHelpTitle() const
 {
 	return (_pHelpProvider == nullptr)? "" : _pHelpProvider->MakeHelpTitle();
@@ -57,7 +63,8 @@ bool Help::Present(Environment &env)
 
 bool Help::UpdateDocument(Environment &env)
 {
-	return !_doc.empty() || _pTemplateDoc.IsNull() || _pTemplateDoc->Render(env, _doc);
+	//return !_doc.empty() || _pTemplateDoc.IsNull() || _pTemplateDoc->Render(env, _doc);
+	return true;
 }
 
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
@@ -74,11 +81,23 @@ Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 		if (env.IsSignalled()) return nullptr;
 		valList.push_back(result);
 	}
-	if (!(valList[0].Is_symbol() && valList[1].Is_string() && valList[2].Is_string())) {
+	if (!(valList[0].Is_symbol() && valList[1].Is_string())) {
 		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
 	}
-	return new Help(valList[0].GetSymbol(), valList[1].GetString(), valList[2].GetString());
+	const Symbol *pSymbolLangCode = valList[0].GetSymbol();
+	const char *formatName = valList[1].GetString();
+	Help *pHelp = nullptr;
+	if (valList[2].Is_string()) {
+		pHelp = new Help(pSymbolLangCode, formatName, valList[2].GetString());
+	} else if (valList[2].Is_template()) {
+		pHelp = new Help(pSymbolLangCode, formatName,
+						 Object_template::GetObject(valList[2])->GetTemplate()->Reference());
+	} else {
+		env.SetError(ERR_ValueError, "invalid format of help");
+		return nullptr;
+	}
+	return pHelp;
 }
 
 //-----------------------------------------------------------------------------
