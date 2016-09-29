@@ -518,6 +518,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(dict);
 	Gura_RealizeSymbol(dir);
 	Gura_RealizeSymbol(directory);
+	Gura_RealizeSymbol(doc);
+	Gura_RealizeSymbol(document);
 	Gura_RealizeSymbol(down);
 	Gura_RealizeSymbol(dynamic_scope);
 	Gura_RealizeSymbol(e);

@@ -54,6 +54,7 @@ public:
 			   const char *strSrc, const char *strSrcEnd,
 			   bool autoIndentFlag, bool appendLastEOLFlag);
 	bool Render(Environment &env, SimpleStream *pStreamDst);
+	bool Render(Environment &env, String &strDst);
 	bool Prepare(Environment &env);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
 	void PutChar(Signal &sig, char ch);

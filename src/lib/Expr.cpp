@@ -950,8 +950,8 @@ Value Expr_EmbedString::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	String strDst;
-	SimpleStream_StringWriter streamDst(strDst);
-	if (!_pTemplate->Render(env, &streamDst)) return Value::Nil;
+	//SimpleStream_StringWriter streamDst(strDst);
+	if (!_pTemplate->Render(env, strDst)) return Value::Nil;
 	Value result(strDst);
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;

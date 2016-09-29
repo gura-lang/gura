@@ -373,11 +373,11 @@ Renderer@markdown = class(renderer) {
 }
 
 help.renderer('doxygen', 'markdown') {|help:help, stream:stream|
-	//stream.print(help.text)
+	//stream.print(help.doc)
 }
 
 help.presenter('doxygen') {|help:help|
-	doc = document(help.text.reader(), nil, true)
+	doc = document(help.doc.reader(), nil, true)
 	doc.structures {|structure|
 		structure.elems()::print(1)
 	}

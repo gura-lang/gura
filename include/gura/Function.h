@@ -235,8 +235,8 @@ public:
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
 	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
-	inline void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text) {
-		_pHelpProvider->AddHelp(pSymbol, formatName, text);
+	inline void AddHelp(const Symbol *pSymbol, const String &formatName, const String &doc) {
+		_pHelpProvider->AddHelp(pSymbol, formatName, doc);
 	}
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }

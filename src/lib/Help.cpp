@@ -10,9 +10,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text) :
+Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &doc) :
 	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
-	_formatName(formatName), _text(text)
+	_formatName(formatName), _doc(doc)
 {
 }
 
@@ -35,21 +35,15 @@ bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) c
 	return false;
 }
 
-bool Help::Present(Environment &env) const
+bool Help::Present(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-#if 0
-	String strSep;
-	String title = MakeHelpTitle();
-	for (size_t i = 0; i < title.size(); i++) strSep += '-';
-	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
-	if (sig.IsSignalled()) return false;
-#endif
 	if (_pHelpProvider != nullptr && _pHelpProvider->GetHandler() != nullptr) {
 		if (!HelpProvider::PresentTitle(env, _pHelpProvider->GetHandler())) return false;
 	}
-	if (_text.empty()) {
-		env.GetConsole()->Println(sig, "(no help)");
+	if (!UpdateDocument(env)) return false;
+	if (!HasDocument()) {
+		env.GetConsole()->Println(sig, "(no help document)");
 		return sig.IsNoSignalled();
 	}
 	const HelpRenderer *pHelpRenderer =
@@ -60,6 +54,11 @@ bool Help::Present(Environment &env) const
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
 	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", _formatName.c_str());
 	return false;
+}
+
+bool Help::UpdateDocument(Environment &env)
+{
+	return !_doc.empty() || _pTemplateDoc.IsNull() || _pTemplateDoc->Render(env, _doc);
 }
 
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
@@ -121,9 +120,9 @@ void HelpProvider::AddHelp(Help *pHelp)
 	_helpOwner.push_back(pHelp);
 }
 
-void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
+void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, const String &doc)
 {
-	AddHelp(new Help(pSymbol, formatName, text));
+	AddHelp(new Help(pSymbol, formatName, doc));
 }
 
 void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)
@@ -131,9 +130,9 @@ void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)
 	_pHelpProviderLink.reset(pHelpProvider);
 }
 
-const Help *HelpProvider::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const
+Help *HelpProvider::GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag)
 {
-	const Help *pHelp = _pHelpProviderLink.IsNull()?
+	Help *pHelp = _pHelpProviderLink.IsNull()?
 		nullptr : _pHelpProviderLink->GetHelp(pSymbolLangCode, defaultFirstFlag);
 	if (pHelp != nullptr) return pHelp;
 	if (_helpOwner.empty()) return nullptr;

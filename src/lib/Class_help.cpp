@@ -27,9 +27,9 @@ bool Object_help::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(title));
-	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(lang));
-	symbols.insert(Gura_Symbol(text));
+	symbols.insert(Gura_Symbol(format));
+	symbols.insert(Gura_Symbol(doc));
 	return true;
 }
 
@@ -39,12 +39,13 @@ Value Object_help::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(title))) {
 		return Value(_pHelp->MakeHelpTitle());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(_pHelp->GetFormatNameSTL());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
 		return Value(_pHelp->GetLangCode());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
-		return Value(_pHelp->GetTextSTL());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
+		return Value(_pHelp->GetFormatNameSTL());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(doc))) {
+		if (!_pHelp->UpdateDocument(env)) return Value::Nil;
+		return Value(_pHelp->GetDocumentSTL());
 	}
 	evaluatedFlag = false;
 	return Value::Nil;

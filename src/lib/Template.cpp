@@ -57,6 +57,12 @@ bool Template::Render(Environment &env, SimpleStream *pStreamDst)
 	return !sig.IsSignalled();
 }
 
+bool Template::Render(Environment &env, String &strDst)
+{
+	SimpleStream_StringWriter streamDst(strDst);
+	return Render(env, &streamDst);
+}
+
 bool Template::Prepare(Environment &env)
 {
 	Signal &sig = env.GetSignal();

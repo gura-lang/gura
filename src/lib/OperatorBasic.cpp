@@ -606,9 +606,9 @@ Gura_ImplementUnaryOperator(Inv, number)
 
 Gura_ImplementUnaryOperator(Inv, function)
 {
-	const Function *pFunc = Object_function::GetObject(value)->GetFunction();
+	Function *pFunc = Object_function::GetObject(value)->GetFunction();
 	const Symbol *pSymbolLangCode = env.GetLangCode();
-	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
+	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
 		HelpProvider::PresentTitle(env, pFunc);
 	} else {
@@ -619,14 +619,14 @@ Gura_ImplementUnaryOperator(Inv, function)
 
 Gura_ImplementUnaryOperator(Inv, Class)
 {
-	const Class *pClass = value.GetClassItself();
+	Class *pClass = value.GetClassItself();
 	const Symbol *pSymbolLangCode = env.GetLangCode();
-	const Function *pFunc = pClass->GetConstructor();
+	Function *pFunc = pClass->GetConstructor();
 	if (pFunc == nullptr) {
 		env.SetError(ERR_ValueError, "the class does not have a constructor");
 		return Value::Nil;
 	}
-	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
+	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
 		HelpProvider::PresentTitle(env, pFunc);
 	} else {

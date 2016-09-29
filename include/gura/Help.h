@@ -36,6 +36,7 @@
 namespace Gura {
 
 class HelpProvider;
+class Template;
 
 //-----------------------------------------------------------------------------
 // Help
@@ -46,13 +47,15 @@ private:
 	const HelpProvider *_pHelpProvider;
 	const Symbol *_pSymbolLangCode;
 	String _formatName;
-	String _text;
+	String _doc;
+	AutoPtr<Template> _pTemplateDoc;
 public:
 	static const String FMT_markdown;
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &text);
+	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &doc);
+	Help(const Symbol *pSymbolLangCode, const String &formatName, Template *pTemplateDoc);
 private:
 	inline ~Help() {}
 public:
@@ -62,11 +65,13 @@ public:
 	inline const Symbol *GetLangCode() const { return _pSymbolLangCode; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
 	inline const String &GetFormatNameSTL() const { return _formatName; }
-	inline const char *GetText() const { return _text.c_str(); }
-	inline const String &GetTextSTL() const { return _text; }
+	inline const char *GetDocument() const { return _doc.c_str(); }
+	inline const String &GetDocumentSTL() const { return _doc; }
+	inline bool HasDocument() const { return !_doc.empty(); }
 	String MakeHelpTitle() const;
 	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
-	bool Present(Environment &env) const;
+	bool Present(Environment &env);
+	bool UpdateDocument(Environment &env);
 	static Help *CreateFromExprList(Environment &env, const ExprList &exprList);
 };
 
@@ -114,9 +119,12 @@ public:
 	};
 	inline const Handler *GetHandler() const { return _pHandler; }
 	void AddHelp(Help *pHelp);
-	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
+	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &doc);
 	void LinkHelp(HelpProvider *pHelpProvider);
-	const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const;
+	Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag);
+	inline const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const {
+		return const_cast<HelpProvider *>(this)->GetHelp(pSymbolLangCode, defaultFirstFlag);
+	}
 	void CopyHelp(const HelpProvider &helpProvider);
 	static bool PresentTitle(Environment &env, const Handler *pHandler);
 };

@@ -8,6 +8,6 @@ testcase('simple') {
 
 testcase('multi-language') {
 	f() = {} %% {`en, 'markdown', 'foo'} %% {`ja, 'markdown', 'hoge'}
-	println('`en ..', function.gethelp(f, `en).text)
-	println('`ja ..', function.gethelp(f, `ja).text)
+	println('`en ..', function.gethelp(f, `en).doc)
+	println('`ja ..', function.gethelp(f, `ja).doc)
 }

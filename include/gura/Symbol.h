@@ -321,6 +321,8 @@ public:
 	Gura_DeclareSymbol(dict);
 	Gura_DeclareSymbol(dir);
 	Gura_DeclareSymbol(directory);
+	Gura_DeclareSymbol(doc);
+	Gura_DeclareSymbol(document);
 	Gura_DeclareSymbol(down);
 	Gura_DeclareSymbol(dynamic_scope);
 	Gura_DeclareSymbol(e);
