@@ -125,7 +125,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 			FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (sig.IsSignalled()) _stat = STAT_Error;
 		} else if (ch == '#') {
-			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (IsTokenWatched()) {
 				_field.clear();
 				_field.push_back(ch);
@@ -285,7 +284,6 @@ bool Parser::ParseChar(Environment &env, char ch)
 			_commentNestLevel = 1;
 			_stat = STAT_CommentBlock;
 		} else if (chFirst == '/' && ch == '/') {
-			//FeedToken(env, Token(TOKEN_EOL, GetLineNo()));
 			if (IsTokenWatched()) {
 				_field.clear();
 				_field.push_back(chFirst);
@@ -1344,7 +1342,6 @@ bool Parser::EmitExpr(ExprOwner &exprOwner, const Expr *pExprParent, Expr *pExpr
 		} else if (exprOwner.back()->IsCaller()) {
 			Expr_Caller *pExprLeader = dynamic_cast<Expr_Caller *>(exprOwner.back());
 			pExprLeader->GetLastTrailer()->SetTrailer(pExprCaller);
-			//pExprLeader->AddTrailingExpr(pExprCaller);
 			return true;
 		} else {
 			SetError(ERR_SyntaxError, "trailer must be placed after a caller expression");
@@ -1954,7 +1951,6 @@ bool Parser::ReduceThreeTokens(Environment &env)
 							"value type must be specified as a first attribute");
 					goto error_done;
 				}
-				//if (!ParseDottedIdentifier(pExprRight, *pAttrFront)) {
 				if (!pAttrFront->AddFromExpr(pExprRight)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");
 					goto error_done;
