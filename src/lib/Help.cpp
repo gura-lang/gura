@@ -63,8 +63,8 @@ bool Help::Present(Environment &env)
 
 bool Help::UpdateDocument(Environment &env)
 {
-	//return !_doc.empty() || _pTemplateDoc.IsNull() || _pTemplateDoc->Render(env, _doc);
-	return true;
+	if (!_doc.empty() || _pTemplateDoc.IsNull()) return true;
+	return _pTemplateDoc->Render(env, _doc);
 }
 
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
@@ -91,8 +91,8 @@ Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 	if (valList[2].Is_string()) {
 		pHelp = new Help(pSymbolLangCode, formatName, valList[2].GetString());
 	} else if (valList[2].Is_template()) {
-		pHelp = new Help(pSymbolLangCode, formatName,
-						 Object_template::GetObject(valList[2])->GetTemplate()->Reference());
+		Template *pTemplate = Object_template::GetObject(valList[2])->GetTemplate();
+		pHelp = new Help(pSymbolLangCode, formatName, pTemplate->Reference());
 	} else {
 		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;

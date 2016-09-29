@@ -575,3 +575,9 @@ testcase('embedded string') {
 	tester(`f(3, 4))
 	tester(`f(10, 2))
 }
+
+//-----------------------------------------------------------------------------
+testcase('suffix T') {
+	tester(`''T)
+	tester(`'${hoge}'T)
+}

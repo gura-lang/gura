@@ -538,3 +538,8 @@ e'${=extends(base)}${=block(`body)}replaced${end}' .. [original] replaced
 e'${=extends(base)}${=block(`head)}replaced${end}${=block(`body)}replaced${end}' .. [replaced] replaced
 f(3, 4) .. 3 + 4 = 7
 f(10, 2) .. 10 + 2 = 12
+
+======== #29 suffix T ========
+
+''T .. <template>
+'${hoge}'T .. <template>

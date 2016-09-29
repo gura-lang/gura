@@ -39,8 +39,7 @@ Value Object_template::DoGetProp(Environment &env, const Symbol *pSymbol,
 String Object_template::ToString(bool exprFlag)
 {
 	String str;
-	str += "<template:";
-	str += ">";
+	str += "<template>";
 	return str;
 }
 
@@ -552,6 +551,18 @@ Gura_ImplementMethod(template_, init_super)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of suffix manager
+//-----------------------------------------------------------------------------
+Gura_ImplementSuffixMgrForString(T)
+{
+	bool autoIndentFlag = true;
+	bool appendLastEOLFlag = false;
+	AutoPtr<Template> pTemplate(new Template());
+	if (!pTemplate->Parse(env, body, nullptr, autoIndentFlag, appendLastEOLFlag)) return Value::Nil;
+	return Value(new Object_template(env, pTemplate.release()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_template)
@@ -578,6 +589,8 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, init_embed);
 	Gura_AssignMethod(template_, init_extends);
 	Gura_AssignMethod(template_, init_super);
+	// assignment of suffix manager
+	Gura_AssignSuffixMgrForString(T);
 }
 
 bool Class_template::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

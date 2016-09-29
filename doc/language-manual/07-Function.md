@@ -610,12 +610,12 @@ and you can use `args#isset()` method to check if an attribute is set.
 
 ## Help Block
 
-You can add a help block to a function by appending `%` and a block containing help information
+You can add a help block to a function by appending `%%` and a block containing help information
 to a function declaration.
 
     add(x, y) = {
         x + y
-    } % {
+    } %% {
         `en, 'markdown', 'Takes two numbers and returns an added result.'
     }
 
@@ -640,17 +640,17 @@ Below is a function example that has helps written in English and Japanese:
 
     add(x, y) = {
         x + y
-    } % {`en, 'markdown', R'''
+    } %% {`en, 'markdown', R'''
 
     (.. help document in English ..)
 
     '''
-    } % {`ja, 'markdown', R'''
+    } %% {`ja, 'markdown', R'''
 
     (.. help document in Japanese ..)
 
     '''
-    } % {`de, 'markdown', R'''
+    } %% {`de, 'markdown', R'''
 
     (.. help document in German ..)
 
