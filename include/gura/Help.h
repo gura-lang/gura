@@ -107,7 +107,7 @@ protected:
 	virtual ~HelpProvider();
 public:
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
-	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
+	inline bool HasHelp() const { return !_helpOwner.empty(); }
 	inline void SetHandler(Handler *pHandler) { _pHandler = pHandler; }
 	inline String MakeHelpTitle() const {
 		return (_pHandler == nullptr)? "" : _pHandler->MakeHelpTitle();

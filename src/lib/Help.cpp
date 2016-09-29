@@ -65,7 +65,7 @@ bool Help::Present(Environment &env) const
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 {
 	if (exprList.size() != 3) {
-		env.SetError(ERR_ValueError, "invalid format for help");
+		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
 	}
 	ValueList valList;
@@ -77,7 +77,7 @@ Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 		valList.push_back(result);
 	}
 	if (!(valList[0].Is_symbol() && valList[1].Is_string() && valList[2].Is_string())) {
-		env.SetError(ERR_ValueError, "invalid format for help");
+		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
 	}
 	return new Help(valList[0].GetSymbol(), valList[1].GetString(), valList[2].GetString());
