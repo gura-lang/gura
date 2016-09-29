@@ -611,6 +611,7 @@ Gura_ImplementUnaryOperator(Inv, function)
 	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
 		HelpProvider::PresentTitle(env, pFunc);
+		HelpProvider::PresentNoHelpDocument(env);
 	} else {
 		pHelp->Present(env);
 	}
@@ -629,6 +630,7 @@ Gura_ImplementUnaryOperator(Inv, Class)
 	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
 	if (pHelp == nullptr) {
 		HelpProvider::PresentTitle(env, pFunc);
+		HelpProvider::PresentNoHelpDocument(env);
 	} else {
 		pHelp->Present(env);
 	}

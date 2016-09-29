@@ -127,6 +127,7 @@ public:
 	}
 	void CopyHelp(const HelpProvider &helpProvider);
 	static bool PresentTitle(Environment &env, const Handler *pHandler);
+	static bool PresentNoHelpDocument(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

@@ -43,8 +43,7 @@ bool Help::Present(Environment &env)
 	}
 	if (!UpdateDocument(env)) return false;
 	if (!HasDocument()) {
-		env.GetConsole()->Println(sig, "(no help document)");
-		return sig.IsNoSignalled();
+		return HelpProvider::PresentNoHelpDocument(env);
 	}
 	const HelpRenderer *pHelpRenderer =
 		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
@@ -159,6 +158,13 @@ bool HelpProvider::PresentTitle(Environment &env, const Handler *pHandler)
 	String title = pHandler->MakeHelpTitle();
 	for (size_t i = 0; i < title.size(); i++) strSep += '-';
 	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
+	return env.IsNoSignalled();
+}
+
+bool HelpProvider::PresentNoHelpDocument(Environment &env)
+{
+	Signal &sig = env.GetSignal();
+	env.GetConsole()->Println(sig, "(no help document)");
 	return env.IsNoSignalled();
 }
 
