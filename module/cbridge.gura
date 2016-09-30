@@ -63,10 +63,10 @@ TypeConv = struct(
 //------------------------------------------------------------------------------
 // Help
 //------------------------------------------------------------------------------
-Help = struct(lang:symbol, format:string, help:string) {
+Help = struct(lang:symbol, help:string) {
 	Render() = {
 		str = 'AddHelp(\n'
-		str += format('\tGura_Symbol(%s),\n', this.lang, this.format)
+		str += format('\tGura_Symbol(%s),\n', this.lang)
 		text = this.help.replace('"', '\\"')
 		if (text.isempty()) {
 			str += '\t""'
@@ -106,8 +106,7 @@ FuncInfo = class {
 		while (exprAssigned.isbinaryop() && exprAssigned.operator.symbol == `%% && \
 												exprAssigned.right.isblock()) {
 			args = exprAssigned.right.children::eval()
-			if (!(args.len() == 3 && args[0].istype(`symbol) && \
-						  args[1].istype(`string) && args[2].istype(`string))) {
+			if (!(args.len() == 2 && args[0].istype(`symbol) && args[1].istype(`string))) {
 				this.PrintError(decl, 'invalid format for help')
 				sys.exit(1)
 			}
