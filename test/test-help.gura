@@ -1,9 +1,18 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
+PrintHelpInfo(f:function) = {
+	h = function.gethelp(f)
+	printf('"%s", "%s"\n', h.format, h.doc)
+}
+
 testcase('simple') {
 	f() = {} %% {`ja, 'markdown', ''}
-	println(function.gethelp(f))
+	PrintHelpInfo(f)
+	f() = {} %% {`ja, 'markdown', 'doc-body'}
+	PrintHelpInfo(f)
+	f() = {} %% {`ja, 'markdown', '#hoge-format\ndoc-body'}
+	PrintHelpInfo(f)
 }
 
 testcase('multi-language') {

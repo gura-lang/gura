@@ -68,6 +68,7 @@ public:
 	inline const char *GetDocument() const { return _doc.c_str(); }
 	inline const String &GetDocumentSTL() const { return _doc; }
 	inline bool HasDocument() const { return !_doc.empty(); }
+	void ExtractFormatNameAndDoc(const String &doc);
 	String MakeHelpTitle() const;
 	bool Render(Environment &env, const char *formatNameOut, Stream &stream) const;
 	bool Present(Environment &env);

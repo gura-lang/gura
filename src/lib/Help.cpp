@@ -12,14 +12,31 @@ const String Help::FMT_markdown("markdown");
 
 Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &doc) :
 	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
-	_formatName(formatName), _doc(doc)
+	_formatName(formatName)
 {
+	ExtractFormatNameAndDoc(doc);
 }
 
 Help::Help(const Symbol *pSymbolLangCode, const String &formatName, Template *pTemplateDoc) :
 	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
 	_formatName(formatName), _pTemplateDoc(pTemplateDoc)
 {
+}
+
+void Help::ExtractFormatNameAndDoc(const String &doc)
+{
+	if (doc[0] != '#') {
+		_formatName = FMT_markdown;
+		_doc = doc;
+		return;
+	}
+	String::const_iterator p = doc.begin();
+	p++;
+	String::const_iterator pMark = p;
+	for ( ; p != doc.end() && *p != '\n'; p++) ;
+	_formatName = String(pMark, p);
+	if (p != doc.end()) p++;
+	_doc = String(p, doc.end());
 }
 
 String Help::MakeHelpTitle() const
@@ -64,7 +81,10 @@ bool Help::Present(Environment &env)
 bool Help::UpdateDocument(Environment &env)
 {
 	if (!_doc.empty() || _pTemplateDoc.IsNull()) return true;
-	return _pTemplateDoc->Render(env, _doc);
+	String doc;
+	if (!_pTemplateDoc->Render(env, doc)) return false;
+	ExtractFormatNameAndDoc(doc);
+	return true;
 }
 
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
