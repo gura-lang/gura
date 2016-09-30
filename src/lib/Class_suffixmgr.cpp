@@ -60,7 +60,7 @@ Gura_DeclareFunction(suffixmgr)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_suffixmgr));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a reference to one of two suffix managers, number and string.\n"
 		"\n"
 		"- The number suffix manager works with number literals.\n"
@@ -99,7 +99,7 @@ Gura_DeclareMethod(suffixmgr, assign)
 	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Assigns a procedure to a specified symbol in the suffix manager.\n"
 		"The procedure is provided by the `block` that takes a block parameter `|value|`\n"
 		"where `value` comes from the preceded literal.\n"

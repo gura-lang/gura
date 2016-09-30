@@ -13,7 +13,7 @@ Gura_DeclareFunction(dir)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a list of registered encoding names.");
 }
 

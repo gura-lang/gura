@@ -41,153 +41,153 @@ glutInit(argv[]:string) {block?} = R'''
 		delete[] _argv;
 	}
 	return ReturnValue(env, arg, _rtnVal);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	`glutInit` is used to initialize the GLUT library.
 	'''
 }
 
-glutInitDisplayMode(mode:unsigned_int):void:map = `auto % {`en, 'markdown',
+glutInitDisplayMode(mode:unsigned_int):void:map = `auto %% {`en,
 	R'''
 	`glutInitDisplayMode` sets the *initial display mode*.
 	'''
 }
 
-glutInitDisplayString(string:char@:const):void:map = `auto % {`en, 'markdown',
+glutInitDisplayString(string:char@:const):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutInitWindowPosition(x:int, y:int):void:map = `auto % {`en, 'markdown',
+glutInitWindowPosition(x:int, y:int):void:map = `auto %% {`en,
 	R'''
 	`glutInitWindowPosition` sets the initial window position.	
 	'''
 }
 
-glutInitWindowSize(width:int, height:int):void:map = `auto % {`en, 'markdown',
+glutInitWindowSize(width:int, height:int):void:map = `auto %% {`en,
 	R'''
 	`glutInitWindowSize` sets the initial window size.	
 	'''
 }
 
-glutMainLoop():void = `auto % {`en, 'markdown',
+glutMainLoop():void = `auto %% {`en,
 	R'''
 	`glutMainLoop` enters the GLUT event processing loop.
 	'''
 }
 
-glutCreateWindow(title:char@:const):int:map {block?} = `auto % {`en, 'markdown',
+glutCreateWindow(title:char@:const):int:map {block?} = `auto %% {`en,
 	R'''
 	`glutCreateWindow` creates a top-level window.
 	'''
 }
 
-glutCreateSubWindow(win:int, x:int, y:int, width:int, height:int):int:map {block?} = `auto % {`en, 'markdown',
+glutCreateSubWindow(win:int, x:int, y:int, width:int, height:int):int:map {block?} = `auto %% {`en,
 	R'''
 	`glutCreateSubWindow` creates a subwindow.
 	'''
 }
 
-glutDestroyWindow(win:int):void:map = `auto % {`en, 'markdown',
+glutDestroyWindow(win:int):void:map = `auto %% {`en,
 	R'''
 	`glutDestroyWindow` destroys the specified window.
 	'''
 }
 
-glutPostRedisplay():void = `auto % {`en, 'markdown',
+glutPostRedisplay():void = `auto %% {`en,
 	R'''
 	`glutPostRedisplay marks the *current window* as needing to be redisplayed.
 	'''
 }
 
-glutPostWindowRedisplay(win:int):void:map = `auto % {`en, 'markdown',
+glutPostWindowRedisplay(win:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSwapBuffers():void = `auto % {`en, 'markdown',
+glutSwapBuffers():void = `auto %% {`en,
 	R'''
 	`glutSwapBuffers` swaps the buffers of the *current window* if double buffered.
 	'''
 }
 
-glutGetWindow():int {block?} = `auto % {`en, 'markdown',
+glutGetWindow():int {block?} = `auto %% {`en,
 	R'''
 	`glutGetWindow` returns the identifier of the *current window*.
 	'''
 }
 
-glutSetWindow(win:int):void:map = `auto % {`en, 'markdown',
+glutSetWindow(win:int):void:map = `auto %% {`en,
 	R'''
 	`glutSetWindow` sets the *current window*.
 	'''
 }
 
-glutSetWindowTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
+glutSetWindowTitle(title:char@:const):void:map = `auto %% {`en,
 	R'''
 	`glutSetWindowTitle` changes the window title of the current top-level window.
 	'''
 }
 
-glutSetIconTitle(title:char@:const):void:map = `auto % {`en, 'markdown',
+glutSetIconTitle(title:char@:const):void:map = `auto %% {`en,
 	R'''
 	`glutSetIconTitle` changes the icon title of the current top-level window.
 	'''
 }
 
-glutPositionWindow(x:int, y:int):void:map = `auto % {`en, 'markdown',
+glutPositionWindow(x:int, y:int):void:map = `auto %% {`en,
 	R'''
 	`glutPositionWindow` requests a change to the position of the *current window*.
 	'''
 }
 
-glutReshapeWindow(width:int, height:int):void:map = `auto % {`en, 'markdown',
+glutReshapeWindow(width:int, height:int):void:map = `auto %% {`en,
 	R'''
 	`glutReshapeWindow` requests a change to the size of the *current window*.
 	'''
 }
 
-glutPopWindow():void = `auto % {`en, 'markdown',
+glutPopWindow():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutPushWindow():void = `auto % {`en, 'markdown',
+glutPushWindow():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutIconifyWindow():void = `auto % {`en, 'markdown',
+glutIconifyWindow():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutShowWindow():void = `auto % {`en, 'markdown',
+glutShowWindow():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutHideWindow():void = `auto % {`en, 'markdown',
+glutHideWindow():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutFullScreen():void = `auto % {`en, 'markdown',
+glutFullScreen():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSetCursor(cursor:int):void:map = `auto % {`en, 'markdown',
+glutSetCursor(cursor:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWarpPointer(x:int, y:int):void:map = `auto % {`en, 'markdown',
+glutWarpPointer(x:int, y:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-//glutSurfaceTexture(target:GLenum, internalformat:GLenum, surfacewin:int):void:map = `auto % {`en, 'markdown',
+//glutSurfaceTexture(target:GLenum, internalformat:GLenum, surfacewin:int):void:map = `auto %% {`en,
 //	R'''
 //	'''
 //}
@@ -196,47 +196,47 @@ glutWarpPointer(x:int, y:int):void:map = `auto % {`en, 'markdown',
 //	g_pContext->funcPackOnWMClose.SetFunc(env, func->Reference());
 //	glutWMCloseFunc(OnWMClose);
 //	return Value::Nil;
-//''' % {`en, 'markdown',
+//''' %% {`en,
 //	R'''
 //	'''
 //}
 
-//glutCheckLoop():void = `auto % {`en, 'markdown',
+//glutCheckLoop():void = `auto %% {`en,
 //	R'''
 //	'''
 //}
 
-glutEstablishOverlay():void = `auto % {`en, 'markdown',
+glutEstablishOverlay():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutRemoveOverlay():void = `auto % {`en, 'markdown',
+glutRemoveOverlay():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutUseLayer(layer:GLenum):void:map = `auto % {`en, 'markdown',
+glutUseLayer(layer:GLenum):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutPostOverlayRedisplay():void = `auto % {`en, 'markdown',
+glutPostOverlayRedisplay():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutPostWindowOverlayRedisplay(win:int):void:map = `auto % {`en, 'markdown',
+glutPostWindowOverlayRedisplay(win:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutShowOverlay():void = `auto % {`en, 'markdown',
+glutShowOverlay():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutHideOverlay():void = `auto % {`en, 'markdown',
+glutHideOverlay():void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -250,102 +250,102 @@ glutCreateMenu(func:function):int {block?} = R'''
 	g_pContext->funcPackOnMenuTbl[idxMenu].SetFunc(env, func->Reference());
 	int _rtn = glutCreateMenu(g_OnMenus[idxMenu]);
 	return ReturnValue(env, arg, Value(_rtn));
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-glutDestroyMenu(menu:int):void:map = `auto % {`en, 'markdown',
+glutDestroyMenu(menu:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGetMenu():int {block?} = `auto % {`en, 'markdown',
+glutGetMenu():int {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSetMenu(menu:int):void:map = `auto % {`en, 'markdown',
+glutSetMenu(menu:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutAddMenuEntry(label:char@:const, value:int):void:map = `auto % {`en, 'markdown',
+glutAddMenuEntry(label:char@:const, value:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutAddSubMenu(label:char@:const, submenu:int):void:map = `auto % {`en, 'markdown',
+glutAddSubMenu(label:char@:const, submenu:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutChangeToMenuEntry(item:int, label:char@:const, value:int):void:map = `auto % {`en, 'markdown',
+glutChangeToMenuEntry(item:int, label:char@:const, value:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutChangeToSubMenu(item:int, label:char@:const, submenu:int):void:map = `auto % {`en, 'markdown',
+glutChangeToSubMenu(item:int, label:char@:const, submenu:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutRemoveMenuItem(item:int):void:map = `auto % {`en, 'markdown',
+glutRemoveMenuItem(item:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutAttachMenu(button:int):void:map = `auto % {`en, 'markdown',
+glutAttachMenu(button:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutDetachMenu(button:int):void:map = `auto % {`en, 'markdown',
+glutDetachMenu(button:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutDisplayFunc(func:function:nil):void = RenderCallbackHandler('Display') % {`en, 'markdown',
+glutDisplayFunc(func:function:nil):void = RenderCallbackHandler('Display') %% {`en,
 	R'''
 	'''
 }
 
-glutReshapeFunc(func:function:nil):void = RenderCallbackHandler('Reshape') % {`en, 'markdown',
+glutReshapeFunc(func:function:nil):void = RenderCallbackHandler('Reshape') %% {`en,
 	R'''
 	'''
 }
 
-glutKeyboardFunc(func:function:nil):void = RenderCallbackHandler('Keyboard') % {`en, 'markdown',
+glutKeyboardFunc(func:function:nil):void = RenderCallbackHandler('Keyboard') %% {`en,
 	R'''
 	'''
 }
 
-glutMouseFunc(func:function:nil):void = RenderCallbackHandler('Mouse') % {`en, 'markdown',
+glutMouseFunc(func:function:nil):void = RenderCallbackHandler('Mouse') %% {`en,
 	R'''
 	'''
 }
 
-glutMotionFunc(func:function:nil):void = RenderCallbackHandler('Motion') % {`en, 'markdown',
+glutMotionFunc(func:function:nil):void = RenderCallbackHandler('Motion') %% {`en,
 	R'''
 	'''
 }
 
-glutPassiveMotionFunc(func:function:nil):void = RenderCallbackHandler('PassiveMotion') % {`en, 'markdown',
+glutPassiveMotionFunc(func:function:nil):void = RenderCallbackHandler('PassiveMotion') %% {`en,
 	R'''
 	'''
 }
 
-glutEntryFunc(func:function:nil):void = RenderCallbackHandler('Entry') % {`en, 'markdown',
+glutEntryFunc(func:function:nil):void = RenderCallbackHandler('Entry') %% {`en,
 	R'''
 	'''
 }
 
-glutVisibilityFunc(func:function:nil):void = RenderCallbackHandler('Visibility') % {`en, 'markdown',
+glutVisibilityFunc(func:function:nil):void = RenderCallbackHandler('Visibility') %% {`en,
 	R'''
 	'''
 }
 
-glutIdleFunc(func:function:nil):void = RenderCallbackHandler('Idle') % {`en, 'markdown',
+glutIdleFunc(func:function:nil):void = RenderCallbackHandler('Idle') %% {`en,
 	R'''
 	'''
 }
@@ -359,77 +359,77 @@ glutTimerFunc(millis:unsigned_int, func:function:nil, value:int):void = R'''
 		glutTimerFunc(millis, OnTimer, value);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-glutMenuStateFunc(func:function:nil):void = RenderCallbackHandler('MenuState') % {`en, 'markdown',
+glutMenuStateFunc(func:function:nil):void = RenderCallbackHandler('MenuState') %% {`en,
 	R'''
 	'''
 }
 
-glutSpecialFunc(func:function:nil):void = RenderCallbackHandler('Special') % {`en, 'markdown',
+glutSpecialFunc(func:function:nil):void = RenderCallbackHandler('Special') %% {`en,
 	R'''
 	'''
 }
 
-glutSpaceballMotionFunc(func:function:nil):void = RenderCallbackHandler('SpaceballMotion') % {`en, 'markdown',
+glutSpaceballMotionFunc(func:function:nil):void = RenderCallbackHandler('SpaceballMotion') %% {`en,
 	R'''
 	'''
 }
 
-glutSpaceballRotateFunc(func:function:nil):void = RenderCallbackHandler('SpaceballRotate') % {`en, 'markdown',
+glutSpaceballRotateFunc(func:function:nil):void = RenderCallbackHandler('SpaceballRotate') %% {`en,
 	R'''
 	'''
 }
 
-glutSpaceballButtonFunc(func:function:nil):void = RenderCallbackHandler('SpaceballButton') % {`en, 'markdown',
+glutSpaceballButtonFunc(func:function:nil):void = RenderCallbackHandler('SpaceballButton') %% {`en,
 	R'''
 	'''
 }
 
-glutButtonBoxFunc(func:function:nil):void = RenderCallbackHandler('ButtonBox') % {`en, 'markdown',
+glutButtonBoxFunc(func:function:nil):void = RenderCallbackHandler('ButtonBox') %% {`en,
 	R'''
 	'''
 }
 
-glutDialsFunc(func:function:nil):void = RenderCallbackHandler('Dials') % {`en, 'markdown',
+glutDialsFunc(func:function:nil):void = RenderCallbackHandler('Dials') %% {`en,
 	R'''
 	'''
 }
 
-glutTabletMotionFunc(func:function:nil):void = RenderCallbackHandler('TabletMotion') % {`en, 'markdown',
+glutTabletMotionFunc(func:function:nil):void = RenderCallbackHandler('TabletMotion') %% {`en,
 	R'''
 	'''
 }
 
-glutTabletButtonFunc(func:function:nil):void = RenderCallbackHandler('TabletButton') % {`en, 'markdown',
+glutTabletButtonFunc(func:function:nil):void = RenderCallbackHandler('TabletButton') %% {`en,
 	R'''
 	'''
 }
 
-glutMenuStatusFunc(func:function:nil):void = RenderCallbackHandler('MenuStatus') % {`en, 'markdown',
+glutMenuStatusFunc(func:function:nil):void = RenderCallbackHandler('MenuStatus') %% {`en,
 	R'''
 	'''
 }
 
-glutOverlayDisplayFunc(func:function:nil):void = RenderCallbackHandler('OverlayDisplay') % {`en, 'markdown',
+glutOverlayDisplayFunc(func:function:nil):void = RenderCallbackHandler('OverlayDisplay') %% {`en,
 	R'''
 	'''
 }
 
-glutWindowStatusFunc(func:function:nil):void = RenderCallbackHandler('WindowStatus') % {`en, 'markdown',
+glutWindowStatusFunc(func:function:nil):void = RenderCallbackHandler('WindowStatus') %% {`en,
 	R'''
 	'''
 }
 
-glutKeyboardUpFunc(func:function:nil):void = RenderCallbackHandler('KeyboardUp') % {`en, 'markdown',
+glutKeyboardUpFunc(func:function:nil):void = RenderCallbackHandler('KeyboardUp') %% {`en,
 	R'''
 	'''
 }
 
-glutSpecialUpFunc(func:function:nil):void = RenderCallbackHandler('SpecialUp') % {`en, 'markdown',
+glutSpecialUpFunc(func:function:nil):void = RenderCallbackHandler('SpecialUp') %% {`en,
 	R'''
 	'''
 }
@@ -443,237 +443,237 @@ glutJoystickFunc(func:function:nil, pollInterval:int):void = R'''
 		glutJoystickFunc(OnJoystick, pollInterval);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 			
-glutSetColor(ndx:int, red:GLfloat, green:GLfloat, blue:GLfloat):void = `auto % {`en, 'markdown',
+glutSetColor(ndx:int, red:GLfloat, green:GLfloat, blue:GLfloat):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGetColor(ndx:int, component:int):GLfloat:map {block?} = `auto % {`en, 'markdown',
+glutGetColor(ndx:int, component:int):GLfloat:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutCopyColormap(win:int):void:map = `auto % {`en, 'markdown',
+glutCopyColormap(win:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGet(type:GLenum):int:map {block?} = `auto % {`en, 'markdown',
+glutGet(type:GLenum):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutDeviceGet(type:GLenum):int:map {block?} = `auto % {`en, 'markdown',
+glutDeviceGet(type:GLenum):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutExtensionSupported(name:char@:const):int:map {block?} = `auto % {`en, 'markdown',
+glutExtensionSupported(name:char@:const):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGetModifiers():int {block?} = `auto % {`en, 'markdown',
+glutGetModifiers():int {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutLayerGet(type:GLenum):int:map {block?} = `auto % {`en, 'markdown',
+glutLayerGet(type:GLenum):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGetProcAddress(procName:char@:const):void:map {block?} = `unsupport % {`en, 'markdown',
+glutGetProcAddress(procName:char@:const):void:map {block?} = `unsupport %% {`en,
 	R'''
 	'''
 }
 
-glutBitmapCharacter(font:Font, character:int):void:map = `auto % {`en, 'markdown',
+glutBitmapCharacter(font:Font, character:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutBitmapWidth(font:Font, character:int):int:map {block?} = `auto % {`en, 'markdown',
+glutBitmapWidth(font:Font, character:int):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutStrokeCharacter(font:Font, character:int):void:map = `auto % {`en, 'markdown',
+glutStrokeCharacter(font:Font, character:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutStrokeWidth(font:Font, character:int):int:map {block?} = `auto % {`en, 'markdown',
+glutStrokeWidth(font:Font, character:int):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutBitmapLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto % {`en, 'markdown',
+glutBitmapLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutStrokeLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto % {`en, 'markdown',
+glutStrokeLength(font:Font, string:unsigned_char@:const):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireSphere(radius:GLdouble, slices:GLint, stacks:GLint):void:map = `auto % {`en, 'markdown',
+glutWireSphere(radius:GLdouble, slices:GLint, stacks:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidSphere(radius:GLdouble, slices:GLint, stacks:GLint):void:map = `auto % {`en, 'markdown',
+glutSolidSphere(radius:GLdouble, slices:GLint, stacks:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireCone(base:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void:map = `auto % {`en, 'markdown',
+glutWireCone(base:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidCone(base:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void:map = `auto % {`en, 'markdown',
+glutSolidCone(base:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireCube(size:GLdouble):void:map = `auto % {`en, 'markdown',
+glutWireCube(size:GLdouble):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidCube(size:GLdouble):void:map = `auto % {`en, 'markdown',
+glutSolidCube(size:GLdouble):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireTorus(innerRadius:GLdouble, outerRadius:GLdouble, sides:GLint, rings:GLint):void:map = `auto % {`en, 'markdown',
+glutWireTorus(innerRadius:GLdouble, outerRadius:GLdouble, sides:GLint, rings:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidTorus(innerRadius:GLdouble, outerRadius:GLdouble, sides:GLint, rings:GLint):void:map = `auto % {`en, 'markdown',
+glutSolidTorus(innerRadius:GLdouble, outerRadius:GLdouble, sides:GLint, rings:GLint):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireDodecahedron():void = `auto % {`en, 'markdown',
+glutWireDodecahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidDodecahedron():void = `auto % {`en, 'markdown',
+glutSolidDodecahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireTeapot(size:GLdouble):void:map = `auto % {`en, 'markdown',
+glutWireTeapot(size:GLdouble):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidTeapot(size:GLdouble):void:map = `auto % {`en, 'markdown',
+glutSolidTeapot(size:GLdouble):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireOctahedron():void = `auto % {`en, 'markdown',
+glutWireOctahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidOctahedron():void = `auto % {`en, 'markdown',
+glutSolidOctahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireTetrahedron():void = `auto % {`en, 'markdown',
+glutWireTetrahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidTetrahedron():void = `auto % {`en, 'markdown',
+glutSolidTetrahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutWireIcosahedron():void = `auto % {`en, 'markdown',
+glutWireIcosahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSolidIcosahedron():void = `auto % {`en, 'markdown',
+glutSolidIcosahedron():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutVideoResizeGet(param:GLenum):int:map {block?} = `auto % {`en, 'markdown',
+glutVideoResizeGet(param:GLenum):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSetupVideoResizing():void = `auto % {`en, 'markdown',
+glutSetupVideoResizing():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutStopVideoResizing():void = `auto % {`en, 'markdown',
+glutStopVideoResizing():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutVideoResize(x:int, y:int, width:int, height:int):void:map = `auto % {`en, 'markdown',
+glutVideoResize(x:int, y:int, width:int, height:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutVideoPan(x:int, y:int, width:int, height:int):void:map = `auto % {`en, 'markdown',
+glutVideoPan(x:int, y:int, width:int, height:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutReportErrors():void = `auto % {`en, 'markdown',
+glutReportErrors():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutIgnoreKeyRepeat(ignore:int):void:map = `auto % {`en, 'markdown',
+glutIgnoreKeyRepeat(ignore:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutSetKeyRepeat(repeatMode:int):void:map = `auto % {`en, 'markdown',
+glutSetKeyRepeat(repeatMode:int):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutForceJoystickFunc():void = `auto % {`en, 'markdown',
+glutForceJoystickFunc():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGameModeString(string:char@:const):void:map = `auto % {`en, 'markdown',
+glutGameModeString(string:char@:const):void:map = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutEnterGameMode():int {block?} = `auto % {`en, 'markdown',
+glutEnterGameMode():int {block?} = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutLeaveGameMode():void = `auto % {`en, 'markdown',
+glutLeaveGameMode():void = `auto %% {`en,
 	R'''
 	'''
 }
 
-glutGameModeGet(mode:GLenum):int:map {block?} = `auto % {`en, 'markdown',
+glutGameModeGet(mode:GLenum):int:map {block?} = `auto %% {`en,
 	R'''
 	'''
 }

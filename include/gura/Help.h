@@ -54,8 +54,8 @@ public:
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
-	Help(const Symbol *pSymbolLangCode, const String &formatName, const String &doc);
-	Help(const Symbol *pSymbolLangCode, const String &formatName, Template *pTemplateDoc);
+	Help(const Symbol *pSymbolLangCode, const String &doc);
+	Help(const Symbol *pSymbolLangCode, Template *pTemplateDoc);
 private:
 	inline ~Help() {}
 public:
@@ -120,7 +120,6 @@ public:
 	};
 	inline const Handler *GetHandler() const { return _pHandler; }
 	void AddHelp(Help *pHelp);
-	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &doc);
 	void LinkHelp(HelpProvider *pHelpProvider);
 	Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag);
 	inline const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const {

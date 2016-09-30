@@ -255,7 +255,7 @@ Gura_DeclareFunction(exif)
 	DeclareAttr(Gura_Symbol(raise));
 	SetClassToConstruct(Gura_UserClass(exif));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads EXIF data from `stream` and creates a `jpeg.exif` instance.\n"
 		"\n"
 		"If no EXIF information exists in the stream, this function returns `nil`.\n"
@@ -289,7 +289,7 @@ Gura_DeclareMethod(exif, each)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `jpeg.tag` values as elements\n"
 		"that are stored in the property `jpeg.exif#ifd0`.\n"
 		"\n"

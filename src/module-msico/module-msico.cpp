@@ -188,7 +188,7 @@ Gura_DeclareMethod(content, write)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes an ICO image to a stream.");
 }
 
@@ -207,7 +207,7 @@ Gura_DeclareMethod(content, addimage)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "image", VTYPE_image);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -237,7 +237,7 @@ Gura_DeclareMethodAlias(image, read_at_msico, "read@msico")
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once,
 			   FLAG_None, 0, new Expr_Value(Value(0)));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads an ICO image from a stream.");
 }
 
@@ -263,7 +263,7 @@ Gura_DeclareFunction(content)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(content));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -77,7 +77,7 @@ draw(c:canvas.canvas, items+:item) {block?:inside_scope} = {
 	c.setfont(c.height() / 30, family => `swiss)
 	if (block != nil) { block(c) }
 	c.close()
-} %% {`en, 'markdown'
+} %% {`en,
 	R'''
 	Draw dots or lines on a canvas for specified items. Each item contains
 	x and y coordinates, style and color. style takes one of: `circle`, `box`,
@@ -87,7 +87,7 @@ draw(c:canvas.canvas, items+:item) {block?:inside_scope} = {
 	`yellow`, `white` and `grey`.
 
 	**Example**
-	    graph.draw(c, item(x, y, `solid, `black))
+    	graph.draw(c, item(x, y, `solid, `black))
 	'''
 }
 

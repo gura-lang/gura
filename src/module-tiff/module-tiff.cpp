@@ -67,7 +67,7 @@ Gura_DeclareMethodAlias(image, read_at_tiff, "read@tiff")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a TIFF image from a stream.");
 }
 
@@ -90,7 +90,7 @@ Gura_DeclareFunction(test)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 

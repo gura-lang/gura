@@ -677,7 +677,7 @@ Gura_DeclareMethod(diff_at_line, eachhunk)
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `diff.hunk@line` instance stored in the result.\n"
 		"\n"
 		"The argument `format` takes one of the symbols that specifies the hunk format:\n"
@@ -716,7 +716,7 @@ Gura_DeclareMethodAlias(diff_at_line, render, "render")
 	DeclareArg(env, "lines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Renders diff result to the specified stream.\n"
 		"\n"
 		"If the argument `out` is omitted, this method returns a string of the rendered text.\n"
@@ -842,7 +842,7 @@ Gura_DeclareMethod(hunk_at_line, print)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints the content of the `diff.hunk` instance to the specified stream.\n");
 }
 
@@ -945,7 +945,7 @@ Gura_DeclareMethod(edit_at_line, print)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints the content of the `diff.edit` instance to the specified stream.\n");
 }
 
@@ -1203,7 +1203,7 @@ Gura_DeclareFunction(compose)
 	DeclareAttr(Gura_UserSymbol(sync));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Extracts differences between two sets of line sequence and returns `diff.diff@line` instance\n"
 		"that contains the difference information.\n"
 		"\n"
@@ -1288,7 +1288,7 @@ Gura_DeclareFunctionAlias(compose_at_char, "compose@char")
 	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Extracts differences between two strings and returns `diff.diff@line` instance\n"
 		"that contains the difference information.\n"
 		"\n"

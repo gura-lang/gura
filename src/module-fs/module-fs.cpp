@@ -116,7 +116,7 @@ Gura_DeclareFunction(stat)
 	SetClassToConstruct(Gura_UserClass(Stat));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -697,7 +697,7 @@ Gura_DeclareFunction(chdir)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Changes the current working directory to `pathname`.\n"
 		"\n"
 		"The block would be evaluated if specified, and the working directory would be changed\n"
@@ -734,7 +734,7 @@ Gura_DeclareFunction(chmod)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(follow_link));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Changes the access mode of a file specified by `pathname`.\n"
 		"\n"
 		"There are two formats to specify the mode: one is by a number, and another in a string.\n"
@@ -804,7 +804,7 @@ Gura_DeclareFunction(copy)
 	DeclareAttr(Gura_Symbol(overwrite));
 	//DeclareAttr(Gura_Symbol(follow_link));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies a file.\n"
 		"\n"
 		"An argument `src` needs to specify a path name of a file that is to be copied\n"
@@ -835,7 +835,7 @@ Gura_DeclareFunction(cpdir)
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies a directory.\n"
 		"\n"
 		"Arguments `src` and `dst` specify source directory and destination directory respectively.\n"
@@ -863,7 +863,7 @@ Gura_DeclareFunction(getcwd)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the current working directory.");
 }
 
@@ -880,7 +880,7 @@ Gura_DeclareFunction(mkdir)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a directory.\n"
 		"\n"
 		"If `pathname` consists of multiple sub directories and some of them still doesn't exist,\n"
@@ -906,7 +906,7 @@ Gura_DeclareFunction(remove)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Removes a file from the file system.");
 }
 
@@ -926,7 +926,7 @@ Gura_DeclareFunction(rename)
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Renames a file or directory.");
 }
 
@@ -946,7 +946,7 @@ Gura_DeclareFunction(rmdir)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Removes a directory.\n"
 		"\n"
 		"If the directory contains sub directories, an error occurs.\n"

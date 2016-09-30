@@ -42,7 +42,7 @@ Gura_DeclareFunction(directory)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_directory));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `directory` instance from the specified path name.\n");
 }
 

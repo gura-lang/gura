@@ -15,7 +15,7 @@ Gura_DeclareFunction(gcd)
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates the greatest common divisor, GCD, between `num1` and `num2`\n"
 		"and returns the result as `gmp.mpz`.");
 }
@@ -37,7 +37,7 @@ Gura_DeclareFunction(lcm)
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates the least common multiple, LCM, between `num1` and `num2`\n"
 		"and returns the result as `gmp.mpz`.");
 }
@@ -58,7 +58,7 @@ Gura_DeclareFunction(sqrt)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates the square root of `num`.\n"
 		"\n"
 		"The type of the argument `num` must be `gmp.mpz`, `gmp.mpq`, `gmp.mpf` or `number`.\n");

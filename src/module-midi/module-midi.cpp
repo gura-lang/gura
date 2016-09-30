@@ -428,7 +428,7 @@ Gura_DeclareMethod(track, seek)
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Moves the insertion point in the track at which the next event is inserted.\n"
 		"If `origin` is omitted or set to `` `set``, the insertion point will be set to absolute offset from the beginning.\n"
 		"If `origin` is set to `` `cur``, the insertion point will be moved by offset from the current position.\n");
@@ -456,7 +456,7 @@ Gura_DeclareMethod(track, tell)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the current insertion point in the track.\n");
 }
 
@@ -472,7 +472,7 @@ Gura_DeclareMethod(track, erase)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Deletes an event at the current insertion point in the track.\n"
 		"The argument `n` specifies the number of events to be deleted.\n"
 		"If `n` is omitted, one event will be deleted.\n");
@@ -494,7 +494,7 @@ Gura_DeclareMethod(track, mml)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses MML in the string `str` and inserts resulted MIDI events at the current insertion point in the track.\n"
 		"\n"
 		"The argument `max_velocity` specifies the maximum number of velocity in the MML.\n"
@@ -522,7 +522,7 @@ Gura_DeclareMethod(track, note_off)
 	DeclareArg(env, "velocity", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -547,7 +547,7 @@ Gura_DeclareMethod(track, note_on)
 	DeclareArg(env, "velocity", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -572,7 +572,7 @@ Gura_DeclareMethod(track, poly_pressure)
 	DeclareArg(env, "value", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -597,7 +597,7 @@ Gura_DeclareMethod(track, control_change)
 	DeclareArg(env, "value", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -636,7 +636,7 @@ Gura_DeclareMethod(track, program_change)
 	DeclareArg(env, "program", VTYPE_any);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -674,7 +674,7 @@ Gura_DeclareMethod(track, channel_pressure)
 	DeclareArg(env, "pressure", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -697,7 +697,7 @@ Gura_DeclareMethod(track, pitch_bend)
 	DeclareArg(env, "value", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -719,7 +719,7 @@ Gura_DeclareMethod(track, sequence_number)
 	DeclareArg(env, "number", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -739,7 +739,7 @@ Gura_DeclareMethod(track, text_event)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -759,7 +759,7 @@ Gura_DeclareMethod(track, copyright_notice)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -779,7 +779,7 @@ Gura_DeclareMethod(track, sequence_or_track_name)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -799,7 +799,7 @@ Gura_DeclareMethod(track, instrument_name)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -819,7 +819,7 @@ Gura_DeclareMethod(track, lyric_text)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -839,7 +839,7 @@ Gura_DeclareMethod(track, marker_text)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -859,7 +859,7 @@ Gura_DeclareMethod(track, cue_point)
 	DeclareArg(env, "text", VTYPE_string);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -879,7 +879,7 @@ Gura_DeclareMethod(track, midi_channel_prefix_assignment)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -899,7 +899,7 @@ Gura_DeclareMethod(track, end_of_track)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -919,7 +919,7 @@ Gura_DeclareMethod(track, tempo_setting)
 	DeclareArg(env, "mpqn", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -944,7 +944,7 @@ Gura_DeclareMethod(track, smpte_offset)
 	DeclareArg(env, "subFrame", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -972,7 +972,7 @@ Gura_DeclareMethod(track, time_signature)
 	DeclareArg(env, "cnt32nd", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -997,7 +997,7 @@ Gura_DeclareMethod(track, key_signature)
 	DeclareArg(env, "scale", VTYPE_number);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1019,7 +1019,7 @@ Gura_DeclareMethod(track, sequencer_specific_event)
 	DeclareArg(env, "binary", VTYPE_binary);
 	DeclareArg(env, "deltaTime", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1153,7 +1153,7 @@ Gura_DeclareMethod(sequence, read)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1171,7 +1171,7 @@ Gura_DeclareMethod(sequence, write)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1194,7 +1194,7 @@ Gura_DeclareMethod(sequence, play)
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1215,7 +1215,7 @@ Gura_DeclareMethod(sequence, track)
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1243,7 +1243,7 @@ Gura_DeclareMethod(sequence, mml)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1264,7 +1264,7 @@ Gura_DeclareMethod(sequence, readmml)
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1406,7 +1406,7 @@ Gura_DeclareMethod(port, send)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "msg", VTYPE_number, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1444,7 +1444,7 @@ Gura_DeclareMethod(port, play)
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1467,7 +1467,7 @@ Gura_DeclareMethod(port, mml)
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1493,7 +1493,7 @@ Gura_DeclareMethod(port, readmml)
 	DeclareAttr(Gura_UserSymbol(background));
 	DeclareAttr(Gura_UserSymbol(player));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1518,7 +1518,7 @@ Gura_DeclareMethod(port, note_off)
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1540,7 +1540,7 @@ Gura_DeclareMethod(port, note_on)
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "velocity", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1562,7 +1562,7 @@ Gura_DeclareMethod(port, poly_pressure)
 	DeclareArg(env, "note", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1584,7 +1584,7 @@ Gura_DeclareMethod(port, control_change)
 	DeclareArg(env, "controller", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1605,7 +1605,7 @@ Gura_DeclareMethod(port, program_change)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "program", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1625,7 +1625,7 @@ Gura_DeclareMethod(port, channel_pressure)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "pressure", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1645,7 +1645,7 @@ Gura_DeclareMethod(port, pitch_bend)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1934,7 +1934,7 @@ Gura_DeclareMethod(soundfont, synthesizer)
 	DeclareArg(env, "velocity", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1957,7 +1957,7 @@ Gura_DeclareMethod(soundfont, print)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2144,7 +2144,7 @@ Gura_DeclareFunction(sequence)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(sequence));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It creates an instance that contains SMF information.\n");
 }
 
@@ -2167,7 +2167,7 @@ Gura_DeclareFunction(port)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(port));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It opens a MIDI port and returns a handle to it.\n");
 }
 
@@ -2191,7 +2191,7 @@ Gura_DeclareFunction(controller)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(controller));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It creates a MIDI controller instance.\n");
 }
 
@@ -2215,7 +2215,7 @@ Gura_DeclareFunction(program)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(program));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It creates a MIDI program instance.\n");
 }
 
@@ -2239,7 +2239,7 @@ Gura_DeclareFunction(soundfont)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(soundfont));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It creates an instance to access data in SoundFont file.\n");
 }
 

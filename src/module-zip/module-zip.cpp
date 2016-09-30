@@ -104,7 +104,7 @@ Gura_DeclareMethod(reader, entry)
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Seeks entry in the zip file that matches the specified name\n"
 		"and returns a `stream` instance associated with the entry.\n"
 		"\n"
@@ -146,7 +146,7 @@ Gura_DeclareMethod(reader, entries)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an `iterator` instance that returns `stream` instances\n"
 		"associated with each entry in the ZIP file.\n"
 		"\n"
@@ -389,7 +389,7 @@ Gura_DeclareMethod(writer, add)
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "compression", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads data from `stream` and adds it to the zip file.\n"
 		"Entry name is decided by the file name associated with the stream\n"
 		"unless it's specified by argument `filename`.\n"
@@ -433,7 +433,7 @@ Gura_DeclareMethod(writer, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Closes the zip file after flushing cached data.");
 }
 
@@ -508,7 +508,7 @@ Gura_DeclareFunction(reader)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(reader));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates `zip.reader` instance from the specified stream.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("reader", "zip.reader"));
@@ -533,7 +533,7 @@ Gura_DeclareFunction(writer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(writer));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates `zip.writer` instance from the stream.\n"
 		"\n"
 		"Argument `compression` specifies the compression method and takes one of the following symbol.\n"
@@ -566,7 +566,7 @@ Gura_DeclareFunction(test)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

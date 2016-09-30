@@ -36,7 +36,7 @@ Gura_DeclareMethod(regkey, createkey)
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -69,7 +69,7 @@ Gura_DeclareMethod(regkey, openkey)
 	DeclareArg(env, "samDesired", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -98,7 +98,7 @@ Gura_DeclareMethod(regkey, deletekey)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "subkey", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -124,7 +124,7 @@ Gura_DeclareMethod(regkey, enumkey)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(openkey));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -149,7 +149,7 @@ Gura_DeclareMethod(regkey, setvalue)
 	DeclareArg(env, "valueName", VTYPE_string);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -181,7 +181,7 @@ Gura_DeclareMethod(regkey, deletevalue)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -205,7 +205,7 @@ Gura_DeclareMethod(regkey, queryvalue)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "valueName", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -244,7 +244,7 @@ Gura_DeclareMethod(regkey, enumvalue)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1013,7 +1013,7 @@ Gura_DeclareFunction(ole)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(ole));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1037,7 +1037,7 @@ Gura_DeclareFunction(GetACP)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

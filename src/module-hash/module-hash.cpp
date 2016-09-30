@@ -75,7 +75,7 @@ Gura_DeclareMethod(accumulator, init)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Initializes the state of the accumulator.");
 }
 
@@ -92,7 +92,7 @@ Gura_DeclareMethod(accumulator, update)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Updates the accumulator with the content of `stream`.");
 }
 
@@ -272,7 +272,7 @@ Gura_DeclareFunction(md5)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an `hash.accumulator` instance\n"
 		"that calculates MD5 hashed value from the content of `stream`.\n");
 }
@@ -293,7 +293,7 @@ Gura_DeclareFunction(sha1)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an `hash.accumulator` instance\n"
 		"that calculates SHA1 hashed value from the content of `stream`.\n");
 }
@@ -314,7 +314,7 @@ Gura_DeclareFunction(crc32)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an `hash.accumulator` instance\n"
 		"that calculates CRC32 hashed value from the content of `stream`.\n");
 }

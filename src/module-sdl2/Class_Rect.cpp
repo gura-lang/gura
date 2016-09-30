@@ -90,7 +90,7 @@ Gura_DeclareFunction(Rect)
 	DeclareArg(env, "h", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(Rect));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

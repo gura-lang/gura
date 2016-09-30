@@ -210,7 +210,7 @@ Gura_DeclareMethod(reader, entries)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that returns stream instances for each entry in the tar file.");
 }
 
@@ -341,7 +341,7 @@ Gura_DeclareMethod(writer, add)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Adds an entry to the tar archive with a content from `stream` and a name of `filename`.\n"
 		"\n"
 		"If the argument `filename` is omitted, an identifier associated with the `stream`\n"
@@ -372,7 +372,7 @@ Gura_DeclareMethod(writer, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Flushes all the unfinished writing processes and invalidates the `tar.writer` instance.");
 }
 
@@ -737,7 +737,7 @@ Gura_DeclareFunction(reader)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(reader));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Reads a tar file from `stream` and returns a `tar.reader` instance\n"
 		"that is to be used to read contents from the archive.\n"
 		"\n"
@@ -775,7 +775,7 @@ Gura_DeclareFunction(writer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(writer));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates a tar file on `stream` and returns a `tar.writer` instance\n"
 		"that is to be used to write contents to the archive.\n"
 		"\n"
@@ -810,7 +810,7 @@ Gura_DeclareFunction(test)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 

@@ -217,7 +217,7 @@ Gura_DeclareFunction(dict)
 		SetClassToConstruct(env.LookupClass(VTYPE_dict));
 	}
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `dict` instance.\n"
 		"\n"
 		"It takes a list of key-value pairs in an argument as shown below:\n"
@@ -301,7 +301,7 @@ Gura_DeclareMethod(dict, append)
 	DeclareAttr(Gura_Symbol(timid));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Adds multiple key-value pairs.\n"
 		"It takes a list of key-value pairs in an argument or in a block\n"
 		"that has the same format with one for the function `dict()`.\n"
@@ -363,7 +363,7 @@ Gura_DeclareMethod(dict, clear)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Clears all the key-value pairs in the dictionary.");
 }
 
@@ -387,7 +387,7 @@ Gura_DeclareMethod(dict, erase)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Erases a key-value pair that mathces the provided `key`.\n"
 		"\n"
 		"The `key` is either `number`, `string` or `symbol`.\n");
@@ -415,7 +415,7 @@ Gura_DeclareMethod(dict, get)
 	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Seeks a value that is associated with the specified `key`.\n"
 		"\n"
 		"The method would return `nil` as its default value\n"
@@ -460,7 +460,7 @@ Gura_DeclareMethod(dict, haskey)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the specified `key` exists in the dictionary.\n");
 }
 
@@ -479,7 +479,7 @@ Gura_DeclareMethod(dict, items)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an iterator of key-value pairs in the dictionary.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -499,7 +499,7 @@ Gura_DeclareMethod(dict, keys)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an iterator of keys in the dictionary.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -518,7 +518,7 @@ Gura_DeclareMethod(dict, len)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the number of key-value pairs in the dictionary.");
 }
 
@@ -538,7 +538,7 @@ Gura_DeclareMethod(dict, put)
 	DeclareAttr(Gura_Symbol(strict));
 	DeclareAttr(Gura_Symbol(timid));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Adds a new key-value pair.\n"
 		"\n"
 		"If the specified key already exists in the dictionary, it would be overwritten.\n"
@@ -581,7 +581,7 @@ Gura_DeclareMethod(dict, values)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an iterator of values in the dictionary.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());

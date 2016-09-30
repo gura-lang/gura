@@ -2750,7 +2750,7 @@ Gura_DeclareFunction(document)
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an instance of `markdown.document`.\n"
 		"If `stream` is specified, the content of the instance shall be initialized\n"
 		"with the result of parsing the stream.\n"
@@ -2777,7 +2777,7 @@ Gura_DeclareMethod(document, parse)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses a Markdown text in a string.");
 }
 
@@ -2795,7 +2795,7 @@ Gura_DeclareMethod(document, read)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses a Markdown text from a stream.");
 }
 
@@ -2901,7 +2901,7 @@ Gura_DeclareMethod(item, print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints structured content of the item.\n"
 		"Argument `indent` specifies an indentation level and is set to zero when omitted.\n");
 }

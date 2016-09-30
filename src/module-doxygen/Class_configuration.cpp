@@ -58,7 +58,7 @@ Gura_DeclareFunction(configuration)
 	SetClassToConstruct(Gura_UserClass(configuration));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a configuration file, which is usually dubbed \"Doxyfile\",\n"
 		"from `stream` and creates a `doxygen.configuration` instance.\n"
 		"\n"
@@ -85,7 +85,7 @@ Gura_DeclareMethod(configuration, get)
 	DeclareArg(env, "tagname", VTYPE_string, OCCUR_Once);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a value associated with the tag specified by the argument `tagname`.\n"
 		"\n"
 		"If the specified tag is not found, the method would return `nil`\n"
@@ -112,7 +112,7 @@ Gura_DeclareMethod(configuration, print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out the content of the configuration to `out`.\n"
 		"If omitted, the result would be put out to standard output.\n");
 }

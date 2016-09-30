@@ -105,7 +105,7 @@ Gura_DeclareFunction(image)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_image));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns an image instance with specified characteristics.\n"
 		"There are three forms to call the function as below:\n"
 		"\n"
@@ -202,7 +202,7 @@ Gura_DeclareMethod(image, allocbuff)
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Allocates a specified size of buffer in the `image` instance\n"
 		"that is supposed to has no buffer allocated.\n"
 		"\n"
@@ -233,7 +233,7 @@ Gura_DeclareMethod(image, blur)
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a new image that blurs the original image with the given parameters.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("img", "image"));
@@ -255,7 +255,7 @@ Gura_DeclareMethod(image, clear)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Fills the buffer in the `image` instance with zero value.\n"
 		"\n"
 		"This has the same effect with calling `image#fill()` with `color.zero`.\n"
@@ -282,7 +282,7 @@ Gura_DeclareMethod(image, crop)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a new image instance of the extracted area of the source image.\n"
 		"\n"
 		"The extracted area is specified by the following arguments:\n"
@@ -318,7 +318,7 @@ Gura_DeclareMethod(image, delpalette)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Deletes a `palette` instance that belongs to the `image`.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -342,7 +342,7 @@ Gura_DeclareMethod(image, expand)
 	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -381,7 +381,7 @@ Gura_DeclareMethod(image, extract)
 	DeclareArg(env, "element", VTYPE_symbol);
 	DeclareArg(env, "dst", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Extracts the element values within the specified area of the image,\n"
 		"and store them into a list or matrix.\n"
 		"The argument `x` and `y` specifies the left-top position,\n"
@@ -432,7 +432,7 @@ Gura_DeclareMethod(image, fill)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Fills the whole image with the specified color.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -457,7 +457,7 @@ Gura_DeclareMethod(image, fillrect)
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Fills the specified area with the specified color."
 		"\n"
 		"The argument `x` and `y` specifies the left-top position,\n"
@@ -485,7 +485,7 @@ Gura_DeclareMethod(image, flip)
 	DeclareArg(env, "orient", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a new `image` instance that flips the source image horizontally or vertically.\n"
 		"You can specify the following symbol to the `orient` argument.\n"
 		"\n"
@@ -527,7 +527,7 @@ Gura_DeclareMethod(image, getpixel)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a color of a pixel data at the specified position.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("c", "color"));
@@ -552,7 +552,7 @@ Gura_DeclareMethod(image, grayscale)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a new image instance that converts the source image into gray scale.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("img", "image"));
@@ -576,7 +576,7 @@ Gura_DeclareMethod(image, mapcolorlevel)
 	DeclareArg(env, "map@b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a new image that converts color levels according to the given table.\n"
 		"\n"
 		"Each of the arguments `map@r`, `map@g` and `map@b` is a list\n"
@@ -656,7 +656,7 @@ Gura_DeclareMethod(image, paste)
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(255));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Pastes the source image `src` onto the target image instance at the specified position.\n"
 		"\n"
 		"The argument `width`, `height`, `xoffset` and `yoffset` specify\n"
@@ -705,7 +705,7 @@ Gura_DeclareMethod(image, putpixel)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Puts a color on the specified position.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -730,7 +730,7 @@ Gura_DeclareMethod(image, read)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads image data from a stream.\n"
 		"\n"
 		"The format of the image data is determined\n"
@@ -756,7 +756,7 @@ Gura_DeclareMethod(image, reducecolor)
 	DeclareArg(env, "palette", VTYPE_palette, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an image that reduces colors in the original image\n"
 		"with a set of colors in the given palette.\n"
 		"The specified palette would be associated with the created image.\n"
@@ -791,7 +791,7 @@ Gura_DeclareMethod(image, replacecolor)
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Replaces pixels that have a color matching `colorOrg` with the `color`.\n"
 		"\n"
 		"The argument `tolerance` specifies an acceptable distance for the matching.\n"
@@ -821,7 +821,7 @@ Gura_DeclareMethod(image, resize)
 	DeclareAttr(Gura_Symbol(ratio));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Resizes the image to the size specified by `width` and `height` and returns the result.\n"
 		"\n"
 		"- When both `width` and `height` are specified, the image would be resized to the size.\n"
@@ -896,7 +896,7 @@ Gura_DeclareMethod(image, rotate)
 	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an image that rotates the original image by the specified angle.\n"
 		"\n"
 		"The argument `angle` specifies the rotation angle in degree unit,\n"
@@ -936,7 +936,7 @@ Gura_DeclareMethod(image, scan)
 	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an iterator that scans pixels in the image.\n"
 		"\n"
 		"The arguments `x`, `y`, `width` and `height` specify the image area to scan.\n"
@@ -987,7 +987,7 @@ Gura_DeclareMethod(image, setalpha)
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Replaces the alpha element of all the pixels in the image with the value specified by `a`.\n"
 		"\n"
 		"If the argument `color` is specified, alpha element of pixels\n"
@@ -1022,7 +1022,7 @@ Gura_DeclareMethod(image, size)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the image size as a list `[width, height]`.");
 }
 
@@ -1048,7 +1048,7 @@ Gura_DeclareMethod(image, store)
 	DeclareArg(env, "element", VTYPE_symbol);
 	DeclareArg(env, "src", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1084,7 +1084,7 @@ Gura_DeclareMethod(image, thumbnail)
 	DeclareAttr(Gura_Symbol(box));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Resizes the image so that it fits within a rectangular area\n"
 		"specified by `width` and `height` and returns the result.\n"
 		"\n"
@@ -1160,7 +1160,7 @@ Gura_DeclareMethod(image, write)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes image data to a stream.\n"
 		"\n"
 		"The format of the image data is determined by the stream's file name.\n"

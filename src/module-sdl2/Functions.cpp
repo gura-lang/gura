@@ -12,7 +12,7 @@ Gura_DeclareFunctionAlias(__Init, "Init")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(ja), Help::FMT_markdown,
+		Gura_Symbol(ja),
 		"この関数で SDL ライブラリを初期化します。\n"
 		"他の SDL 関数を使う前に呼び出す必要があります。\n"
 		"\n"
@@ -32,7 +32,7 @@ Gura_DeclareFunctionAlias(__Init, "Init")
 		"- `sdl2.INIT_NOPARACHUTE` .. compatibility; this flag is ignored\n"
 		"\n");
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to initialize the SDL library.\n"
 		"This must be called before using any other SDL function.\n"
 		"\n"
@@ -72,7 +72,7 @@ Gura_DeclareFunctionAlias(__InitSubSystem, "InitSubSystem")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to initialize specific SDL subsystems.\n"
 		"\n"
 		"After SDL has been initialized with `SDL_Init()`\n"
@@ -111,7 +111,7 @@ Gura_DeclareFunctionAlias(__Quit, "Quit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to clean up all initialized subsystems.\n"
 		"You should call it upon all exit conditions.\n"
 		"\n"
@@ -140,7 +140,7 @@ Gura_DeclareFunctionAlias(__QuitSubSystem, "QuitSubSystem")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to shut down specific SDL subsystems.\n"
 		"\n"
 		"These are the flags which may be passed to `SDL_QuitSubSystem()`\n"
@@ -172,7 +172,7 @@ Gura_DeclareFunctionAlias(__SetMainReady, "SetMainReady")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to circumvent failure of `SDL_Init()`\n"
 		"when not using `SDL_main()` as an entry point.\n"
 		"\n"
@@ -195,7 +195,7 @@ Gura_DeclareFunctionAlias(__WasInit, "WasInit")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to return a mask of the specified subsystems\n"
 		"which have previously been initialized.\n"
 		"\n"
@@ -228,7 +228,7 @@ Gura_DeclareFunctionAlias(__AddHintCallback, "AddHintCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -247,7 +247,7 @@ Gura_DeclareFunctionAlias(__ClearHints, "ClearHints")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -266,7 +266,7 @@ Gura_DeclareFunctionAlias(__DelhintCallback, "DelhintCallback")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -285,7 +285,7 @@ Gura_DeclareFunctionAlias(__GetHint, "GetHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -304,7 +304,7 @@ Gura_DeclareFunctionAlias(__SetHint, "SetHint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -323,7 +323,7 @@ Gura_DeclareFunctionAlias(__SetHintWithPriority, "SetHintWithPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -342,7 +342,7 @@ Gura_DeclareFunctionAlias(__ClearError, "ClearError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to clear any previous error message.\n");
 }
 
@@ -358,7 +358,7 @@ Gura_DeclareFunctionAlias(__GetError, "GetError")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Use this function to retrieve a message about the last error that occurred.\n"
 		"\n"
 		"Returns a message with information about the specific error that occurred, or an empty string if there hasn\'t been an error since the last call to `SDL_ClearError()`. Without calling `SDL_ClearError()`, the message is only applicable when an SDL function has signaled an error. You must check the return values of SDL function calls to determine when to appropriately call `SDL_GetError()`.\n"
@@ -386,7 +386,7 @@ Gura_DeclareFunctionAlias(__SetError, "SetError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -405,7 +405,7 @@ Gura_DeclareFunctionAlias(__Log, "Log")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -424,7 +424,7 @@ Gura_DeclareFunctionAlias(__LogCritical, "LogCritical")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -443,7 +443,7 @@ Gura_DeclareFunctionAlias(__LogDebug, "LogDebug")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -462,7 +462,7 @@ Gura_DeclareFunctionAlias(__LogError, "LogError")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -481,7 +481,7 @@ Gura_DeclareFunctionAlias(__LogGetOutputFunction, "LogGetOutputFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -500,7 +500,7 @@ Gura_DeclareFunctionAlias(__LogGetPriority, "LogGetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -519,7 +519,7 @@ Gura_DeclareFunctionAlias(__LogInfo, "LogInfo")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -538,7 +538,7 @@ Gura_DeclareFunctionAlias(__LogMessage, "LogMessage")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -557,7 +557,7 @@ Gura_DeclareFunctionAlias(__LogMessageV, "LogMessageV")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -576,7 +576,7 @@ Gura_DeclareFunctionAlias(__LogResetPriorities, "LogResetPriorities")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -595,7 +595,7 @@ Gura_DeclareFunctionAlias(__LogSetAllPriority, "LogSetAllPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -614,7 +614,7 @@ Gura_DeclareFunctionAlias(__LogSetOutputFunction, "LogSetOutputFunction")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -633,7 +633,7 @@ Gura_DeclareFunctionAlias(__LogSetPriority, "LogSetPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -652,7 +652,7 @@ Gura_DeclareFunctionAlias(__LogVerbose, "LogVerbose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -671,7 +671,7 @@ Gura_DeclareFunctionAlias(__LogWarn, "LogWarn")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -690,7 +690,7 @@ Gura_DeclareFunctionAlias(__GetAssertionHandler, "GetAssertionHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -709,7 +709,7 @@ Gura_DeclareFunctionAlias(__GetAssertionReport, "GetAssertionReport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -728,7 +728,7 @@ Gura_DeclareFunctionAlias(__GetDefaultAssertionHandler, "GetDefaultAssertionHand
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -747,7 +747,7 @@ Gura_DeclareFunctionAlias(__ResetAssertionReport, "ResetAssertionReport")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -766,7 +766,7 @@ Gura_DeclareFunctionAlias(__SetAssertionHandler, "SetAssertionHandler")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -785,7 +785,7 @@ Gura_DeclareFunctionAlias(__TriggerBreakpoint, "TriggerBreakpoint")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -804,7 +804,7 @@ Gura_DeclareFunctionAlias(__assert, "assert")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -823,7 +823,7 @@ Gura_DeclareFunctionAlias(__assert_paranoid, "assert_paranoid")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -842,7 +842,7 @@ Gura_DeclareFunctionAlias(__assert_release, "assert_release")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -862,7 +862,7 @@ Gura_DeclareFunctionAlias(__GetRevision, "GetRevision")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -885,7 +885,7 @@ Gura_DeclareFunctionAlias(__GetRevisionNumber, "GetRevisionNumber")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -901,7 +901,7 @@ Gura_DeclareFunctionAlias(__GetVersion, "GetVersion")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -919,7 +919,7 @@ Gura_DeclareFunctionAlias(__VERSION, "VERSION")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -940,7 +940,7 @@ Gura_DeclareFunctionAlias(__VERSION_ATLEAST, "VERSION_ATLEAST")
 	DeclareArg(env, "Y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Z", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -965,7 +965,7 @@ Gura_DeclareFunctionAlias(__CreateWindow, "CreateWindow")
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -997,7 +997,7 @@ Gura_DeclareFunctionAlias(__CreateWindowAndRenderer, "CreateWindowAndRenderer")
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "window_flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1022,7 +1022,7 @@ Gura_DeclareFunctionAlias(__CreateWindowFrom, "CreateWindowFrom")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1042,7 +1042,7 @@ Gura_DeclareFunctionAlias(__DestroyWindow, "DestroyWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1058,7 +1058,7 @@ Gura_DeclareFunctionAlias(__DisableScreenSaver, "DisableScreenSaver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1073,7 +1073,7 @@ Gura_DeclareFunctionAlias(__EnableScreenSaver, "EnableScreenSaver")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1090,7 +1090,7 @@ Gura_DeclareFunctionAlias(__GL_CreateContext, "GL_CreateContext")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1111,7 +1111,7 @@ Gura_DeclareFunctionAlias(__GL_DeleteContext, "GL_DeleteContext")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "context", VTYPE_GLContext, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1129,7 +1129,7 @@ Gura_DeclareFunctionAlias(__GL_ExtensionSupported, "GL_ExtensionSupported")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "extension", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1147,7 +1147,7 @@ Gura_DeclareFunctionAlias(__GL_GetAttribute, "GL_GetAttribute")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1169,7 +1169,7 @@ Gura_DeclareFunctionAlias(__GL_GetCurrentContext, "GL_GetCurrentContext")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1189,7 +1189,7 @@ Gura_DeclareFunctionAlias(__GL_GetCurrentWindow, "GL_GetCurrentWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1213,7 +1213,7 @@ Gura_DeclareFunctionAlias(__GL_GetDrawableSize, "GL_GetDrawableSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1231,7 +1231,7 @@ Gura_DeclareFunctionAlias(__GL_GetProcAddress, "GL_GetProcAddress")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1251,7 +1251,7 @@ Gura_DeclareFunctionAlias(__GL_GetSwapInterval, "GL_GetSwapInterval")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1271,7 +1271,7 @@ Gura_DeclareFunctionAlias(__GL_LoadLibrary, "GL_LoadLibrary")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "path", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1293,7 +1293,7 @@ Gura_DeclareFunctionAlias(__GL_MakeCurrent, "GL_MakeCurrent")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "context", VTYPE_GLContext, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1314,7 +1314,7 @@ Gura_DeclareFunctionAlias(__GL_ResetAttributes, "GL_ResetAttributes")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1331,7 +1331,7 @@ Gura_DeclareFunctionAlias(__GL_SetAttribute, "GL_SetAttribute")
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1353,7 +1353,7 @@ Gura_DeclareFunctionAlias(__GL_SetSwapInterval, "GL_SetSwapInterval")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1374,7 +1374,7 @@ Gura_DeclareFunctionAlias(__GL_SwapWindow, "GL_SwapWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1390,7 +1390,7 @@ Gura_DeclareFunctionAlias(__GL_UnloadLibrary, "GL_UnloadLibrary")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1408,7 +1408,7 @@ Gura_DeclareFunctionAlias(__GetClosestDisplayMode, "GetClosestDisplayMode")
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_DisplayMode, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1432,7 +1432,7 @@ Gura_DeclareFunctionAlias(__GetCurrentDisplayMode, "GetCurrentDisplayMode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1454,7 +1454,7 @@ Gura_DeclareFunctionAlias(__GetCurrentVideoDriver, "GetCurrentVideoDriver")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1478,7 +1478,7 @@ Gura_DeclareFunctionAlias(__GetDesktopDisplayMode, "GetDesktopDisplayMode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1501,7 +1501,7 @@ Gura_DeclareFunctionAlias(__GetDisplayBounds, "GetDisplayBounds")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1525,7 +1525,7 @@ Gura_DeclareFunctionAlias(__GetDisplayMode, "GetDisplayMode")
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "modeIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1549,7 +1549,7 @@ Gura_DeclareFunctionAlias(__GetDisplayName, "GetDisplayName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dipslayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1574,7 +1574,7 @@ Gura_DeclareFunctionAlias(__GetNumDisplayModes, "GetNumDisplayModes")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1595,7 +1595,7 @@ Gura_DeclareFunctionAlias(__GetNumVideoDisplays, "GetNumVideoDisplays")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1615,7 +1615,7 @@ Gura_DeclareFunctionAlias(__GetNumVideoDrivers, "GetNumVideoDrivers")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1636,7 +1636,7 @@ Gura_DeclareFunctionAlias(__GetVideoDriver, "GetVideoDriver")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1661,7 +1661,7 @@ Gura_DeclareFunctionAlias(__GetWindowBrightness, "GetWindowBrightness")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1679,7 +1679,7 @@ Gura_DeclareFunctionAlias(__GetWindowData, "GetWindowData")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1702,7 +1702,7 @@ Gura_DeclareFunctionAlias(__GetWindowDisplayIndex, "GetWindowDisplayIndex")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1724,7 +1724,7 @@ Gura_DeclareFunctionAlias(__GetWindowDisplayMode, "GetWindowDisplayMode")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_DisplayMode, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1747,7 +1747,7 @@ Gura_DeclareFunctionAlias(__GetWindowFlags, "GetWindowFlags")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1765,7 +1765,7 @@ Gura_DeclareFunctionAlias(__GetWindowFromID, "GetWindowFromID")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1790,7 +1790,7 @@ Gura_DeclareFunctionAlias(__GetWindowGammaRamp, "GetWindowGammaRamp")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1816,7 +1816,7 @@ Gura_DeclareFunctionAlias(__GetWindowGrab, "GetWindowGrab")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1834,7 +1834,7 @@ Gura_DeclareFunctionAlias(__GetWindowID, "GetWindowID")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1852,7 +1852,7 @@ Gura_DeclareFunctionAlias(__GetWindowMaximumSize, "GetWindowMaximumSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1872,7 +1872,7 @@ Gura_DeclareFunctionAlias(__GetWindowMinimumSize, "GetWindowMinimumSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1892,7 +1892,7 @@ Gura_DeclareFunctionAlias(__GetWindowPixelFormat, "GetWindowPixelFormat")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1914,7 +1914,7 @@ Gura_DeclareFunctionAlias(__GetWindowPosition, "GetWindowPosition")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1934,7 +1934,7 @@ Gura_DeclareFunctionAlias(__GetWindowSize, "GetWindowSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1954,7 +1954,7 @@ Gura_DeclareFunctionAlias(__GetWindowSurface, "GetWindowSurface")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1979,7 +1979,7 @@ Gura_DeclareFunctionAlias(__GetWindowTitle, "GetWindowTitle")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2003,7 +2003,7 @@ Gura_DeclareFunctionAlias(__GetWindowWMInfo, "GetWindowWMInfo")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2024,7 +2024,7 @@ Gura_DeclareFunctionAlias(__HideWindow, "HideWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2041,7 +2041,7 @@ Gura_DeclareFunctionAlias(__IsScreenSaverEnabled, "IsScreenSaverEnabled")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2057,7 +2057,7 @@ Gura_DeclareFunctionAlias(__MaximizeWindow, "MaximizeWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2074,7 +2074,7 @@ Gura_DeclareFunctionAlias(__MinimizeWindow, "MinimizeWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2091,7 +2091,7 @@ Gura_DeclareFunctionAlias(__RaiseWindow, "RaiseWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2108,7 +2108,7 @@ Gura_DeclareFunctionAlias(__RestoreWindow, "RestoreWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2126,7 +2126,7 @@ Gura_DeclareFunctionAlias(__SetWindowBordered, "SetWindowBordered")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "bordered", VTYPE_boolean, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2145,7 +2145,7 @@ Gura_DeclareFunctionAlias(__SetWindowBrightness, "SetWindowBrightness")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "brightness", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2168,7 +2168,7 @@ Gura_DeclareFunctionAlias(__SetWindowData, "SetWindowData")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2191,7 +2191,7 @@ Gura_DeclareFunctionAlias(__SetWindowDisplayMode, "SetWindowDisplayMode")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_DisplayMode, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2214,7 +2214,7 @@ Gura_DeclareFunctionAlias(__SetWindowFullscreen, "SetWindowFullscreen")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2239,7 +2239,7 @@ Gura_DeclareFunctionAlias(__SetWindowGammaRamp, "SetWindowGammaRamp")
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2272,7 +2272,7 @@ Gura_DeclareFunctionAlias(__SetWindowGrab, "SetWindowGrab")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "grabbed", VTYPE_boolean, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2290,7 +2290,7 @@ Gura_DeclareFunctionAlias(__SetWindowHitTest, "SetWindowHitTest")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2312,7 +2312,7 @@ Gura_DeclareFunctionAlias(__SetWindowIcon, "SetWindowIcon")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "icon", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2332,7 +2332,7 @@ Gura_DeclareFunctionAlias(__SetWindowMaximumSize, "SetWindowMaximumSize")
 	DeclareArg(env, "max_w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "max_h", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2353,7 +2353,7 @@ Gura_DeclareFunctionAlias(__SetWindowMinimumSize, "SetWindowMinimumSize")
 	DeclareArg(env, "min_w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "min_h", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2374,7 +2374,7 @@ Gura_DeclareFunctionAlias(__SetWindowPosition, "SetWindowPosition")
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2395,7 +2395,7 @@ Gura_DeclareFunctionAlias(__SetWindowSize, "SetWindowSize")
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2415,7 +2415,7 @@ Gura_DeclareFunctionAlias(__SetWindowTitle, "SetWindowTitle")
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "title", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2432,7 +2432,7 @@ Gura_DeclareFunctionAlias(__ShowMessageBox, "ShowMessageBox")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2455,7 +2455,7 @@ Gura_DeclareFunctionAlias(__ShowSimpleMessageBox, "ShowSimpleMessageBox")
 	DeclareArg(env, "message", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2479,7 +2479,7 @@ Gura_DeclareFunctionAlias(__ShowWindow, "ShowWindow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2496,7 +2496,7 @@ Gura_DeclareFunctionAlias(__UpdateWindowSurface, "UpdateWindowSurface")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2518,7 +2518,7 @@ Gura_DeclareFunctionAlias(__UpdateWindowSurfaceRects, "UpdateWindowSurfaceRects"
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2542,7 +2542,7 @@ Gura_DeclareFunctionAlias(__VideoInit, "VideoInit")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "driver_name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2562,7 +2562,7 @@ Gura_DeclareFunctionAlias(__VideoQuit, "VideoQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2581,7 +2581,7 @@ Gura_DeclareFunctionAlias(__CreateRenderer, "CreateRenderer")
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2608,7 +2608,7 @@ Gura_DeclareFunctionAlias(__CreateSoftwareRenderer, "CreateSoftwareRenderer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2637,7 +2637,7 @@ Gura_DeclareFunctionAlias(__CreateTexture, "CreateTexture")
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2667,7 +2667,7 @@ Gura_DeclareFunctionAlias(__CreateTextureFromSurface, "CreateTextureFromSurface"
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2692,7 +2692,7 @@ Gura_DeclareFunctionAlias(__DestroyRenderer, "DestroyRenderer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2709,7 +2709,7 @@ Gura_DeclareFunctionAlias(__DestroyTexture, "DestroyTexture")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2727,7 +2727,7 @@ Gura_DeclareFunctionAlias(__GL_BindTexture, "GL_BindTexture")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2746,7 +2746,7 @@ Gura_DeclareFunctionAlias(__GL_UnbindTexture, "GL_UnbindTexture")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2767,7 +2767,7 @@ Gura_DeclareFunctionAlias(__GetNumRenderDrivers, "GetNumRenderDrivers")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2788,7 +2788,7 @@ Gura_DeclareFunctionAlias(__GetRenderDrawBlendMode, "GetRenderDrawBlendMode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2811,7 +2811,7 @@ Gura_DeclareFunctionAlias(__GetRenderDrawColor, "GetRenderDrawColor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2838,7 +2838,7 @@ Gura_DeclareFunctionAlias(__GetRenderDriverInfo, "GetRenderDriverInfo")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2861,7 +2861,7 @@ Gura_DeclareFunctionAlias(__GetRenderTarget, "GetRenderTarget")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2883,7 +2883,7 @@ Gura_DeclareFunctionAlias(__GetRenderer, "GetRenderer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2908,7 +2908,7 @@ Gura_DeclareFunctionAlias(__GetRendererInfo, "GetRendererInfo")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2931,7 +2931,7 @@ Gura_DeclareFunctionAlias(__GetRenderOutputSize, "GetRenderOutputSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2955,7 +2955,7 @@ Gura_DeclareFunctionAlias(__GetTextureAlphaMod, "GetTextureAlphaMod")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2978,7 +2978,7 @@ Gura_DeclareFunctionAlias(__GetTextureBlendMode, "GetTextureBlendMode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3001,7 +3001,7 @@ Gura_DeclareFunctionAlias(__GetTextureColorMod, "GetTextureColorMod")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3027,7 +3027,7 @@ Gura_DeclareFunctionAlias(__LockTexture, "LockTexture")
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3050,7 +3050,7 @@ Gura_DeclareFunctionAlias(__QueryTexture, "QueryTexture")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3076,7 +3076,7 @@ Gura_DeclareFunctionAlias(__RenderClear, "RenderClear")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3100,7 +3100,7 @@ Gura_DeclareFunctionAlias(__RenderCopy, "RenderCopy")
 	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3130,7 +3130,7 @@ Gura_DeclareFunctionAlias(__RenderCopyEx, "RenderCopyEx")
 	DeclareArg(env, "center", VTYPE_Point, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "flip", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3161,7 +3161,7 @@ Gura_DeclareFunctionAlias(__RenderDrawLine, "RenderDrawLine")
 	DeclareArg(env, "x2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y2", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3187,7 +3187,7 @@ Gura_DeclareFunctionAlias(__RenderDrawLines, "RenderDrawLines")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3213,7 +3213,7 @@ Gura_DeclareFunctionAlias(__RenderDrawPoint, "RenderDrawPoint")
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3237,7 +3237,7 @@ Gura_DeclareFunctionAlias(__RenderDrawPoints, "RenderDrawPoints")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3262,7 +3262,7 @@ Gura_DeclareFunctionAlias(__RenderDrawRect, "RenderDrawRect")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3285,7 +3285,7 @@ Gura_DeclareFunctionAlias(__RenderDrawRects, "RenderDrawRects")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3310,7 +3310,7 @@ Gura_DeclareFunctionAlias(__RenderFillRect, "RenderFillRect")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3333,7 +3333,7 @@ Gura_DeclareFunctionAlias(__RenderFillRects, "RenderFillRects")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3358,7 +3358,7 @@ Gura_DeclareFunctionAlias(__RenderGetClipRect, "RenderGetClipRect")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3377,7 +3377,7 @@ Gura_DeclareFunctionAlias(__RenderGetLogicalSize, "RenderGetLogicalSize")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3397,7 +3397,7 @@ Gura_DeclareFunctionAlias(__RenderGetScale, "RenderGetScale")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3417,7 +3417,7 @@ Gura_DeclareFunctionAlias(__RenderGetViewport, "RenderGetViewport")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3435,7 +3435,7 @@ Gura_DeclareFunctionAlias(__RenderIsClipEnabled, "RenderIsClipEnabled")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3456,7 +3456,7 @@ Gura_DeclareFunctionAlias(__RenderPresent, "RenderPresent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3476,7 +3476,7 @@ Gura_DeclareFunctionAlias(__RenderReadPixels, "RenderReadPixels")
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3517,7 +3517,7 @@ Gura_DeclareFunctionAlias(__RenderSetClipRect, "RenderSetClipRect")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3541,7 +3541,7 @@ Gura_DeclareFunctionAlias(__RenderSetLogicalSize, "RenderSetLogicalSize")
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3566,7 +3566,7 @@ Gura_DeclareFunctionAlias(__RenderSetScale, "RenderSetScale")
 	DeclareArg(env, "scaleX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "scaleY", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3590,7 +3590,7 @@ Gura_DeclareFunctionAlias(__RenderSetViewport, "RenderSetViewport")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3613,7 +3613,7 @@ Gura_DeclareFunctionAlias(__RenderTargetSupported, "RenderTargetSupported")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3631,7 +3631,7 @@ Gura_DeclareFunctionAlias(__SetRenderDrawBlendMode, "SetRenderDrawBlendMode")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "blendMode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3653,7 +3653,7 @@ Gura_DeclareFunctionAlias(__SetRenderDrawColor, "SetRenderDrawColor")
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3679,7 +3679,7 @@ Gura_DeclareFunctionAlias(__SetRenderTarget, "SetRenderTarget")
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3702,7 +3702,7 @@ Gura_DeclareFunctionAlias(__SetTextureAlphaMod, "SetTextureAlphaMod")
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3725,7 +3725,7 @@ Gura_DeclareFunctionAlias(__SetTextureBlendMode, "SetTextureBlendMode")
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "blendMode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3750,7 +3750,7 @@ Gura_DeclareFunctionAlias(__SetTextureColorMod, "SetTextureColorMod")
 	DeclareArg(env, "g", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3774,7 +3774,7 @@ Gura_DeclareFunctionAlias(__UnlockTexture, "UnlockTexture")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3793,7 +3793,7 @@ Gura_DeclareFunctionAlias(__UpdateTexture, "UpdateTexture")
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "pitch", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3815,7 +3815,7 @@ Gura_DeclareFunctionAlias(__UpdateYUVTexture, "UpdateYUVTexture")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3836,7 +3836,7 @@ Gura_DeclareFunctionAlias(__AllocFormat, "AllocFormat")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel_format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3861,7 +3861,7 @@ Gura_DeclareFunctionAlias(__AllocPalette, "AllocPalette")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "ncolors", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3886,7 +3886,7 @@ Gura_DeclareFunctionAlias(__CalculateGammaRamp, "CalculateGammaRamp")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamma", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3904,7 +3904,7 @@ Gura_DeclareFunctionAlias(__FreeFormat, "FreeFormat")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3921,7 +3921,7 @@ Gura_DeclareFunctionAlias(__FreePalette, "FreePalette")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3939,7 +3939,7 @@ Gura_DeclareFunctionAlias(__GetPixelFormatName, "GetPixelFormatName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3965,7 +3965,7 @@ Gura_DeclareFunctionAlias(__GetRGB, "GetRGB")
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3988,7 +3988,7 @@ Gura_DeclareFunctionAlias(__GetRGBA, "GetRGBA")
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4015,7 +4015,7 @@ Gura_DeclareFunctionAlias(__MapRGB, "MapRGB")
 	DeclareArg(env, "g", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4040,7 +4040,7 @@ Gura_DeclareFunctionAlias(__MapRGBA, "MapRGBA")
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4066,7 +4066,7 @@ Gura_DeclareFunctionAlias(__MasksToPixelFormatEnum, "MasksToPixelFormatEnum")
 	DeclareArg(env, "Bmask", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Amask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4088,7 +4088,7 @@ Gura_DeclareFunctionAlias(__PixelFormatEnumToMasks, "PixelFormatEnumToMasks")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4118,7 +4118,7 @@ Gura_DeclareFunctionAlias(__SetPaletteColors, "SetPaletteColors")
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ncolors", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4150,7 +4150,7 @@ Gura_DeclareFunctionAlias(__SetPixelFormatPalette, "SetPixelFormatPalette")
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4174,7 +4174,7 @@ Gura_DeclareFunctionAlias(__EnclosePoints, "EnclosePoints")
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "clip", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4201,7 +4201,7 @@ Gura_DeclareFunctionAlias(__HasIntersection, "HasIntersection")
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4221,7 +4221,7 @@ Gura_DeclareFunctionAlias(__IntersectRect, "IntersectRect")
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4248,7 +4248,7 @@ Gura_DeclareFunctionAlias(__IntersectRectAndLine, "IntersectRectAndLine")
 	DeclareArg(env, "X2", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Y2", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4274,7 +4274,7 @@ Gura_DeclareFunctionAlias(__PointInRect, "PointInRect")
 	DeclareArg(env, "p", VTYPE_Point, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4297,7 +4297,7 @@ Gura_DeclareFunctionAlias(__RectEmpty, "RectEmpty")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4316,7 +4316,7 @@ Gura_DeclareFunctionAlias(__RectEquals, "RectEquals")
 	DeclareArg(env, "a", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "b", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4336,7 +4336,7 @@ Gura_DeclareFunctionAlias(__UnionRect, "UnionRect")
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4359,7 +4359,7 @@ Gura_DeclareFunctionAlias(__BlitScaled, "BlitScaled")
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4386,7 +4386,7 @@ Gura_DeclareFunctionAlias(__BlitSurface, "BlitSurface")
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4413,7 +4413,7 @@ Gura_DeclareFunctionAlias(__ConvertPixels, "ConvertPixels")
 	DeclareArg(env, "src_format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst_format", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4440,7 +4440,7 @@ Gura_DeclareFunctionAlias(__ConvertSurface, "ConvertSurface")
 	DeclareArg(env, "fmt", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4469,7 +4469,7 @@ Gura_DeclareFunctionAlias(__ConvertSurfaceFormat, "ConvertSurfaceFormat")
 	DeclareArg(env, "pixel_format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4503,7 +4503,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurface, "CreateRGBSurface")
 	DeclareArg(env, "Bmask", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Amask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4543,7 +4543,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFrom, "CreateRGBSurfaceFrom")
 	DeclareArg(env, "Bmask", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Amask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4585,7 +4585,7 @@ Gura_DeclareFunctionAlias(__CreateRGBSurfaceFromImage, "CreateRGBSurfaceFromImag
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4606,7 +4606,7 @@ Gura_DeclareFunctionAlias(__FillRect, "FillRect")
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4631,7 +4631,7 @@ Gura_DeclareFunctionAlias(__FillRects, "FillRects")
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4656,7 +4656,7 @@ Gura_DeclareFunctionAlias(__FreeSurface, "FreeSurface")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4674,7 +4674,7 @@ Gura_DeclareFunctionAlias(__GetClipRect, "GetClipRect")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4693,7 +4693,7 @@ Gura_DeclareFunctionAlias(__GetColorKey, "GetColorKey")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4719,7 +4719,7 @@ Gura_DeclareFunctionAlias(__GetSurfaceAlphaMod, "GetSurfaceAlphaMod")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4742,7 +4742,7 @@ Gura_DeclareFunctionAlias(__GetSurfaceBlendMode, "GetSurfaceBlendMode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4765,7 +4765,7 @@ Gura_DeclareFunctionAlias(__GetSurfaceColorMod, "GetSurfaceColorMod")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4787,7 +4787,7 @@ Gura_DeclareFunctionAlias(__LoadBMP, "LoadBMP")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4809,7 +4809,7 @@ Gura_DeclareFunctionAlias(__LoadBMP_RW, "LoadBMP_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4829,7 +4829,7 @@ Gura_DeclareFunctionAlias(__LockSurface, "LockSurface")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4853,7 +4853,7 @@ Gura_DeclareFunctionAlias(__LowerBlit, "LowerBlit")
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4880,7 +4880,7 @@ Gura_DeclareFunctionAlias(__LowerBlitScaled, "LowerBlitScaled")
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4905,7 +4905,7 @@ Gura_DeclareFunctionAlias(__MUSTLOCK, "MUSTLOCK")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4924,7 +4924,7 @@ Gura_DeclareFunctionAlias(__SaveBMP, "SaveBMP")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4947,7 +4947,7 @@ Gura_DeclareFunctionAlias(__SaveBMP_RW, "SaveBMP_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4969,7 +4969,7 @@ Gura_DeclareFunctionAlias(__SetClipRect, "SetClipRect")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4989,7 +4989,7 @@ Gura_DeclareFunctionAlias(__SetColorKey, "SetColorKey")
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5013,7 +5013,7 @@ Gura_DeclareFunctionAlias(__SetSurfaceAlphaMod, "SetSurfaceAlphaMod")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5036,7 +5036,7 @@ Gura_DeclareFunctionAlias(__SetSurfaceBlendMode, "SetSurfaceBlendMode")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "blendMode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5061,7 +5061,7 @@ Gura_DeclareFunctionAlias(__SetSurfaceColorMod, "SetSurfaceColorMod")
 	DeclareArg(env, "g", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "b", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5086,7 +5086,7 @@ Gura_DeclareFunctionAlias(__SetSurfacePalette, "SetSurfacePalette")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5109,7 +5109,7 @@ Gura_DeclareFunctionAlias(__SetSurfaceRLE, "SetSurfaceRLE")
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5131,7 +5131,7 @@ Gura_DeclareFunctionAlias(__UnlockSurface, "UnlockSurface")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5148,7 +5148,7 @@ Gura_DeclareFunctionAlias(__GetClipboardText, "GetClipboardText")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5166,7 +5166,7 @@ Gura_DeclareFunctionAlias(__HasClipboardText, "HasClipboardText")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5182,7 +5182,7 @@ Gura_DeclareFunctionAlias(__SetClipboardText, "SetClipboardText")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "text", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5202,7 +5202,7 @@ Gura_DeclareFunctionAlias(__AddEventWatch, "AddEventWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5221,7 +5221,7 @@ Gura_DeclareFunctionAlias(__DelEventWatch, "DelEventWatch")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5243,7 +5243,7 @@ Gura_DeclareFunctionAlias(__EventState, "EventState")
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5260,7 +5260,7 @@ Gura_DeclareFunctionAlias(__FilterEvents, "FilterEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5280,7 +5280,7 @@ Gura_DeclareFunctionAlias(__FlushEvent, "FlushEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5298,7 +5298,7 @@ Gura_DeclareFunctionAlias(__FlushEvents, "FlushEvents")
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5315,7 +5315,7 @@ Gura_DeclareFunctionAlias(__GetEventFilter, "GetEventFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5335,7 +5335,7 @@ Gura_DeclareFunctionAlias(__GetNumTouchDevices, "GetNumTouchDevices")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5352,7 +5352,7 @@ Gura_DeclareFunctionAlias(__GetNumTouchFingers, "GetNumTouchFingers")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5374,7 +5374,7 @@ Gura_DeclareFunctionAlias(__GetTouchDevice, "GetTouchDevice")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5397,7 +5397,7 @@ Gura_DeclareFunctionAlias(__GetTouchFinger, "GetTouchFinger")
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5423,7 +5423,7 @@ Gura_DeclareFunctionAlias(__HasEvent, "HasEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5442,7 +5442,7 @@ Gura_DeclareFunctionAlias(__HasEvents, "HasEvents")
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5462,7 +5462,7 @@ Gura_DeclareFunctionAlias(__LoadDollarTemplates, "LoadDollarTemplates")
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5487,7 +5487,7 @@ Gura_DeclareFunctionAlias(__AddEvents, "AddEvents")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5513,7 +5513,7 @@ Gura_DeclareFunctionAlias(__PeekEvents, "PeekEvents")
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5547,7 +5547,7 @@ Gura_DeclareFunctionAlias(__GetEvents, "GetEvents")
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5578,7 +5578,7 @@ Gura_DeclareFunctionAlias(__PollEvent, "PollEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5595,7 +5595,7 @@ Gura_DeclareFunctionAlias(__PumpEvents, "PumpEvents")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5612,7 +5612,7 @@ Gura_DeclareFunctionAlias(__PushEvent, "PushEvent")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "event", VTYPE_Event, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5633,7 +5633,7 @@ Gura_DeclareFunctionAlias(__QuitRequested, "QuitRequested")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5650,7 +5650,7 @@ Gura_DeclareFunctionAlias(__RecordGesture, "RecordGesture")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5672,7 +5672,7 @@ Gura_DeclareFunctionAlias(__RegisterEvents, "RegisterEvents")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5694,7 +5694,7 @@ Gura_DeclareFunctionAlias(__SaveAllDollarTemplates, "SaveAllDollarTemplates")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5718,7 +5718,7 @@ Gura_DeclareFunctionAlias(__SaveDollarTemplate, "SaveDollarTemplate")
 	DeclareArg(env, "gestureId", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5741,7 +5741,7 @@ Gura_DeclareFunctionAlias(__SetEventFilter, "SetEventFilter")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5761,7 +5761,7 @@ Gura_DeclareFunctionAlias(__WaitEvent, "WaitEvent")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5783,7 +5783,7 @@ Gura_DeclareFunctionAlias(__WaitEventTimeout, "WaitEventTimeout")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5809,7 +5809,7 @@ Gura_DeclareFunctionAlias(__CheckKeyboardState, "CheckKeyboardState")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5829,7 +5829,7 @@ Gura_DeclareFunctionAlias(__GetKeyFromName, "GetKeyFromName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5851,7 +5851,7 @@ Gura_DeclareFunctionAlias(__GetKeyFromScancode, "GetKeyFromScancode")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5869,7 +5869,7 @@ Gura_DeclareFunctionAlias(__GetKeyName, "GetKeyName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5893,7 +5893,7 @@ Gura_DeclareFunctionAlias(__GetKeyboardFocus, "GetKeyboardFocus")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5916,7 +5916,7 @@ Gura_DeclareFunctionAlias(__GetKeyboardState, "GetKeyboardState")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5939,7 +5939,7 @@ Gura_DeclareFunctionAlias(__GetModState, "GetModState")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5956,7 +5956,7 @@ Gura_DeclareFunctionAlias(__GetScancodeFromKey, "GetScancodeFromKey")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "key", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5974,7 +5974,7 @@ Gura_DeclareFunctionAlias(__GetScancodeFromName, "GetScancodeFromName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -5996,7 +5996,7 @@ Gura_DeclareFunctionAlias(__GetScancodeName, "GetScancodeName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6020,7 +6020,7 @@ Gura_DeclareFunctionAlias(__HasScreenKeyboardSupport, "HasScreenKeyboardSupport"
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6037,7 +6037,7 @@ Gura_DeclareFunctionAlias(__IsScreenKeyboardShown, "IsScreenKeyboardShown")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6054,7 +6054,7 @@ Gura_DeclareFunctionAlias(__IsTextInputActive, "IsTextInputActive")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6070,7 +6070,7 @@ Gura_DeclareFunctionAlias(__SetModState, "SetModState")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "modstate", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6087,7 +6087,7 @@ Gura_DeclareFunctionAlias(__SetTextInputRect, "SetTextInputRect")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6103,7 +6103,7 @@ Gura_DeclareFunctionAlias(__StartTextInput, "StartTextInput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6118,7 +6118,7 @@ Gura_DeclareFunctionAlias(__StopTextInput, "StopTextInput")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6134,7 +6134,7 @@ Gura_DeclareFunctionAlias(__CaptureMouse, "CaptureMouse")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "enalbed", VTYPE_boolean, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6158,7 +6158,7 @@ Gura_DeclareFunctionAlias(__CreateColorCursor, "CreateColorCursor")
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6190,7 +6190,7 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6229,7 +6229,7 @@ Gura_DeclareFunctionAlias(__CreateSystemCursor, "CreateSystemCursor")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6253,7 +6253,7 @@ Gura_DeclareFunctionAlias(__FreeCursor, "FreeCursor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6270,7 +6270,7 @@ Gura_DeclareFunctionAlias(__GetCursor, "GetCursor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6290,7 +6290,7 @@ Gura_DeclareFunctionAlias(__GetDefaultCursor, "GetDefaultCursor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6312,7 +6312,7 @@ Gura_DeclareFunctionAlias(__GetGlobalMouseState, "GetGlobalMouseState")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6332,7 +6332,7 @@ Gura_DeclareFunctionAlias(__GetMouseFocus, "GetMouseFocus")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6355,7 +6355,7 @@ Gura_DeclareFunctionAlias(__GetMouseState, "GetMouseState")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6374,7 +6374,7 @@ Gura_DeclareFunctionAlias(__GetRelativeMouseMode, "GetRelativeMouseMode")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6390,7 +6390,7 @@ Gura_DeclareFunctionAlias(__GetRelativeMouseState, "GetRelativeMouseState")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6409,7 +6409,7 @@ Gura_DeclareFunctionAlias(__SetCursor, "SetCursor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6426,7 +6426,7 @@ Gura_DeclareFunctionAlias(__SetRelativeMouseMode, "SetRelativeMouseMode")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "enabled", VTYPE_boolean, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6447,7 +6447,7 @@ Gura_DeclareFunctionAlias(__ShowCursor, "ShowCursor")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "toggle", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6469,7 +6469,7 @@ Gura_DeclareFunctionAlias(__WarpMouseGlobal, "WarpMouseGlobal")
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6493,7 +6493,7 @@ Gura_DeclareFunctionAlias(__WarpMouseInWindow, "WarpMouseInWindow")
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6512,7 +6512,7 @@ Gura_DeclareFunctionAlias(__JoystickClose, "JoystickClose")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6530,7 +6530,7 @@ Gura_DeclareFunctionAlias(__JoystickEventState, "JoystickEventState")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6552,7 +6552,7 @@ Gura_DeclareFunctionAlias(__JoystickGetAttached, "JoystickGetAttached")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6571,7 +6571,7 @@ Gura_DeclareFunctionAlias(__JoystickGetAxis, "JoystickGetAxis")
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6591,7 +6591,7 @@ Gura_DeclareFunctionAlias(__JoystickGetBall, "JoystickGetBall")
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6617,7 +6617,7 @@ Gura_DeclareFunctionAlias(__JoystickGetButton, "JoystickGetButton")
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6636,7 +6636,7 @@ Gura_DeclareFunctionAlias(__JoystickGetDeviceGUID, "JoystickGetDeviceGUID")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6655,7 +6655,7 @@ Gura_DeclareFunctionAlias(__JoystickGetGUID, "JoystickGetGUID")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6674,7 +6674,7 @@ Gura_DeclareFunctionAlias(__JoystickGetGUIDFromString, "JoystickGetGUIDFromStrin
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchGUID", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6693,7 +6693,7 @@ Gura_DeclareFunctionAlias(__JoystickGetGUIDString, "JoystickGetGUIDString")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "guid", VTYPE_JoystickGUID, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6714,7 +6714,7 @@ Gura_DeclareFunctionAlias(__JoystickGetHat, "JoystickGetHat")
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6733,7 +6733,7 @@ Gura_DeclareFunctionAlias(__JoystickInstanceID, "JoystickInstanceID")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6755,7 +6755,7 @@ Gura_DeclareFunctionAlias(__JoystickName, "JoystickName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6780,7 +6780,7 @@ Gura_DeclareFunctionAlias(__JoystickNameForIndex, "JoystickNameForIndex")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6805,7 +6805,7 @@ Gura_DeclareFunctionAlias(__JoystickNumAxes, "JoystickNumAxes")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6827,7 +6827,7 @@ Gura_DeclareFunctionAlias(__JoystickNumBalls, "JoystickNumBalls")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6849,7 +6849,7 @@ Gura_DeclareFunctionAlias(__JoystickNumButtons, "JoystickNumButtons")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6871,7 +6871,7 @@ Gura_DeclareFunctionAlias(__JoystickNumHats, "JoystickNumHats")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6893,7 +6893,7 @@ Gura_DeclareFunctionAlias(__JoystickOpen, "JoystickOpen")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6916,7 +6916,7 @@ Gura_DeclareFunctionAlias(__JoystickUpdate, "JoystickUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6932,7 +6932,7 @@ Gura_DeclareFunctionAlias(__NumJoysticks, "NumJoysticks")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6953,7 +6953,7 @@ Gura_DeclareFunctionAlias(__GameControllerAddMapping, "GameControllerAddMapping"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "mappingString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6975,7 +6975,7 @@ Gura_DeclareFunctionAlias(__GameControllerAddMappingsFromFile, "GameControllerAd
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -6997,7 +6997,7 @@ Gura_DeclareFunctionAlias(__GameControllerAddMappingsFromRW, "GameControllerAddM
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7017,7 +7017,7 @@ Gura_DeclareFunctionAlias(__GameControllerClose, "GameControllerClose")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7035,7 +7035,7 @@ Gura_DeclareFunctionAlias(__GameControllerEventState, "GameControllerEventState"
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "state", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7053,7 +7053,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetAttached, "GameControllerGetAttache
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7072,7 +7072,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetAxis, "GameControllerGetAxis")
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7091,7 +7091,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetAxisFromString, "GameControllerGetA
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7110,7 +7110,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetBindForAxis, "GameControllerGetBind
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7131,7 +7131,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetBindForButton, "GameControllerGetBi
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7152,7 +7152,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetButton, "GameControllerGetButton")
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7175,7 +7175,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetButtonFromString, "GameControllerGe
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pchString", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7193,7 +7193,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetJoystick, "GameControllerGetJoystic
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7218,7 +7218,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetStringForAxis, "GameControllerGetSt
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "axis", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7243,7 +7243,7 @@ Gura_DeclareFunctionAlias(__GameControllerGetStringForButton, "GameControllerGet
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "button", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7268,7 +7268,7 @@ Gura_DeclareFunctionAlias(__GameControllerMapping, "GameControllerMapping")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7293,7 +7293,7 @@ Gura_DeclareFunctionAlias(__GameControllerMappingForGUID, "GameControllerMapping
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "guid", VTYPE_JoystickGUID, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7318,7 +7318,7 @@ Gura_DeclareFunctionAlias(__GameControllerName, "GameControllerName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "gamecontroller", VTYPE_GameController, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7343,7 +7343,7 @@ Gura_DeclareFunctionAlias(__GameControllerNameForIndex, "GameControllerNameForIn
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7368,7 +7368,7 @@ Gura_DeclareFunctionAlias(__GameControllerOpen, "GameControllerOpen")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7391,7 +7391,7 @@ Gura_DeclareFunctionAlias(__GameControllerUpdate, "GameControllerUpdate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7408,7 +7408,7 @@ Gura_DeclareFunctionAlias(__IsGameController, "IsGameController")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7425,7 +7425,7 @@ Gura_DeclareFunctionAlias(__HapticClose, "HapticClose")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7443,7 +7443,7 @@ Gura_DeclareFunctionAlias(__HapticDestroyEffect, "HapticDestroyEffect")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7463,7 +7463,7 @@ Gura_DeclareFunctionAlias(__HapticEffectSupported, "HapticEffectSupported")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_HapticEffect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7487,7 +7487,7 @@ Gura_DeclareFunctionAlias(__HapticGetEffectStatus, "HapticGetEffectStatus")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7510,7 +7510,7 @@ Gura_DeclareFunctionAlias(__HapticIndex, "HapticIndex")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7532,7 +7532,7 @@ Gura_DeclareFunctionAlias(__HapticName, "HapticName")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7558,7 +7558,7 @@ Gura_DeclareFunctionAlias(__HapticNewEffect, "HapticNewEffect")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_HapticEffect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7581,7 +7581,7 @@ Gura_DeclareFunctionAlias(__HapticNumAxes, "HapticNumAxes")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7603,7 +7603,7 @@ Gura_DeclareFunctionAlias(__HapticNumEffects, "HapticNumEffects")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7625,7 +7625,7 @@ Gura_DeclareFunctionAlias(__HapticNumEffectsPlaying, "HapticNumEffectsPlaying")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7647,7 +7647,7 @@ Gura_DeclareFunctionAlias(__HapticOpen, "HapticOpen")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7672,7 +7672,7 @@ Gura_DeclareFunctionAlias(__HapticOpenFromJoystick, "HapticOpenFromJoystick")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7696,7 +7696,7 @@ Gura_DeclareFunctionAlias(__HapticOpenFromMouse, "HapticOpenFromMouse")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7720,7 +7720,7 @@ Gura_DeclareFunctionAlias(__HapticOpened, "HapticOpened")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7741,7 +7741,7 @@ Gura_DeclareFunctionAlias(__HapticPause, "HapticPause")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7763,7 +7763,7 @@ Gura_DeclareFunctionAlias(__HapticQuery, "HapticQuery")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7780,7 +7780,7 @@ Gura_DeclareFunctionAlias(__HapticRumbleInit, "HapticRumbleInit")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7803,7 +7803,7 @@ Gura_DeclareFunctionAlias(__HapticRumblePlay, "HapticRumblePlay")
 	DeclareArg(env, "strength", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "length", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7826,7 +7826,7 @@ Gura_DeclareFunctionAlias(__HapticRumbleStop, "HapticRumbleStop")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7848,7 +7848,7 @@ Gura_DeclareFunctionAlias(__HapticRumbleSupported, "HapticRumbleSupported")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7871,7 +7871,7 @@ Gura_DeclareFunctionAlias(__HapticRunEffect, "HapticRunEffect")
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iterations", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7895,7 +7895,7 @@ Gura_DeclareFunctionAlias(__HapticSetAutocenter, "HapticSetAutocenter")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "autocenter", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7918,7 +7918,7 @@ Gura_DeclareFunctionAlias(__HapticSetGain, "HapticSetGain")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "gain", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7940,7 +7940,7 @@ Gura_DeclareFunctionAlias(__HapticStopAll, "HapticStopAll")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7962,7 +7962,7 @@ Gura_DeclareFunctionAlias(__HapticStopEffect, "HapticStopEffect")
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -7984,7 +7984,7 @@ Gura_DeclareFunctionAlias(__HapticUnpause, "HapticUnpause")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "haptic", VTYPE_Haptic, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8007,7 +8007,7 @@ Gura_DeclareFunctionAlias(__HapticUpdateEffect, "HapticUpdateEffect")
 	DeclareArg(env, "effect", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_HapticEffect, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8031,7 +8031,7 @@ Gura_DeclareFunctionAlias(__JoystickIsHaptic, "JoystickIsHaptic")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8052,7 +8052,7 @@ Gura_DeclareFunctionAlias(__MouseIsHaptic, "MouseIsHaptic")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8072,7 +8072,7 @@ Gura_DeclareFunctionAlias(__NumHaptics, "NumHaptics")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8092,7 +8092,7 @@ Gura_DeclareFunctionAlias(__AudioInit, "AudioInit")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "driver_name", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8112,7 +8112,7 @@ Gura_DeclareFunctionAlias(__AudioQuit, "AudioQuit")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8135,7 +8135,7 @@ Gura_DeclareFunctionAlias(__BuildAudioCVT, "BuildAudioCVT")
 	DeclareArg(env, "dst_channels", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dst_rate", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8162,7 +8162,7 @@ Gura_DeclareFunctionAlias(__ClearQueuedAudio, "ClearQueuedAudio")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8182,7 +8182,7 @@ Gura_DeclareFunctionAlias(__CloseAudio, "CloseAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8198,7 +8198,7 @@ Gura_DeclareFunctionAlias(__CloseAudioDevice, "CloseAudioDevice")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8215,7 +8215,7 @@ Gura_DeclareFunctionAlias(__ConvertAudio, "ConvertAudio")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cvt", VTYPE_AudioCVT, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8236,7 +8236,7 @@ Gura_DeclareFunctionAlias(__FreeWAV, "FreeWAV")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "wav", VTYPE_Wav, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8257,7 +8257,7 @@ Gura_DeclareFunctionAlias(__GetAudioDeviceName, "GetAudioDeviceName")
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8283,7 +8283,7 @@ Gura_DeclareFunctionAlias(__GetAudioDeviceStatus, "GetAudioDeviceStatus")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8301,7 +8301,7 @@ Gura_DeclareFunctionAlias(__GetAudioDriver, "GetAudioDriver")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8325,7 +8325,7 @@ Gura_DeclareFunctionAlias(__GetAudioStatus, "GetAudioStatus")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8341,7 +8341,7 @@ Gura_DeclareFunctionAlias(__GetCurrentAudioDriver, "GetCurrentAudioDriver")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8365,7 +8365,7 @@ Gura_DeclareFunctionAlias(__GetNumAudioDevices, "GetNumAudioDevices")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8386,7 +8386,7 @@ Gura_DeclareFunctionAlias(__GetNumAudioDrivers, "GetNumAudioDrivers")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8402,7 +8402,7 @@ Gura_DeclareFunctionAlias(__GetQueuedAudioSize, "GetQueuedAudioSize")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8424,7 +8424,7 @@ Gura_DeclareFunctionAlias(__LoadWAV, "LoadWAV")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8449,7 +8449,7 @@ Gura_DeclareFunctionAlias(__LoadWAV_RW, "LoadWAV_RW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8468,7 +8468,7 @@ Gura_DeclareFunctionAlias(__LockAudio, "LockAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8484,7 +8484,7 @@ Gura_DeclareFunctionAlias(__LockAudioDevice, "LockAudioDevice")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8501,7 +8501,7 @@ Gura_DeclareFunctionAlias(__MixAudio, "MixAudio")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "volume", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8523,7 +8523,7 @@ Gura_DeclareFunctionAlias(__MixAudioFormat, "MixAudioFormat")
 	DeclareArg(env, "format", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "volume", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8546,7 +8546,7 @@ Gura_DeclareFunctionAlias(__OpenAudio, "OpenAudio")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8571,7 +8571,7 @@ Gura_DeclareFunctionAlias(__OpenAudioDevice, "OpenAudioDevice")
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "allowed_changes", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8595,7 +8595,7 @@ Gura_DeclareFunctionAlias(__PauseAudio, "PauseAudio")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "pause_on", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8613,7 +8613,7 @@ Gura_DeclareFunctionAlias(__PauseAudioDevice, "PauseAudioDevice")
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "pause_on", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8631,7 +8631,7 @@ Gura_DeclareFunctionAlias(__QueueAudio, "QueueAudio")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8651,7 +8651,7 @@ Gura_DeclareFunctionAlias(__UnlockAudio, "UnlockAudio")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8667,7 +8667,7 @@ Gura_DeclareFunctionAlias(__UnlockAudioDevice, "UnlockAudioDevice")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8685,7 +8685,7 @@ Gura_DeclareFunctionAlias(__AUDIO_BITSIZE, "AUDIO_BITSIZE")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8703,7 +8703,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISFLOAT, "AUDIO_ISFLOAT")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8721,7 +8721,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISBIGENDIAN, "AUDIO_ISBIGENDIAN")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8739,7 +8739,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISSIGNED, "AUDIO_ISSIGNED")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8757,7 +8757,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISINT, "AUDIO_ISINT")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8775,7 +8775,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISLITTLEENDIAN, "AUDIO_ISLITTLEENDIAN")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8793,7 +8793,7 @@ Gura_DeclareFunctionAlias(__AUDIO_ISUNSIGNED, "AUDIO_ISUNSIGNED")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8809,7 +8809,7 @@ Gura_DeclareFunctionAlias(__CreateThread, "CreateThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8828,7 +8828,7 @@ Gura_DeclareFunctionAlias(__DetachThread, "DetachThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8847,7 +8847,7 @@ Gura_DeclareFunctionAlias(__GetThreadID, "GetThreadID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8866,7 +8866,7 @@ Gura_DeclareFunctionAlias(__GetThreadName, "GetThreadName")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8885,7 +8885,7 @@ Gura_DeclareFunctionAlias(__GetThreadPriority, "GetThreadPriority")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8904,7 +8904,7 @@ Gura_DeclareFunctionAlias(__TLSCreate, "TLSCreate")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8923,7 +8923,7 @@ Gura_DeclareFunctionAlias(__TLSGet, "TLSGet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8942,7 +8942,7 @@ Gura_DeclareFunctionAlias(__TLSSet, "TLSSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8961,7 +8961,7 @@ Gura_DeclareFunctionAlias(__ThreadID, "ThreadID")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8980,7 +8980,7 @@ Gura_DeclareFunctionAlias(__WaitThread, "WaitThread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -8999,7 +8999,7 @@ Gura_DeclareFunctionAlias(__CondBroadcast, "CondBroadcast")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9018,7 +9018,7 @@ Gura_DeclareFunctionAlias(__CondSignal, "CondSignal")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9037,7 +9037,7 @@ Gura_DeclareFunctionAlias(__CondWait, "CondWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9056,7 +9056,7 @@ Gura_DeclareFunctionAlias(__CondWaitTimeout, "CondWaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9075,7 +9075,7 @@ Gura_DeclareFunctionAlias(__CreateCond, "CreateCond")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9094,7 +9094,7 @@ Gura_DeclareFunctionAlias(__CreateMutex, "CreateMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9113,7 +9113,7 @@ Gura_DeclareFunctionAlias(__CreateSemaphore, "CreateSemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9132,7 +9132,7 @@ Gura_DeclareFunctionAlias(__DestroyCond, "DestroyCond")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9151,7 +9151,7 @@ Gura_DeclareFunctionAlias(__DestroyMutex, "DestroyMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9170,7 +9170,7 @@ Gura_DeclareFunctionAlias(__DestroySemaphore, "DestroySemaphore")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9189,7 +9189,7 @@ Gura_DeclareFunctionAlias(__LockMutex, "LockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9208,7 +9208,7 @@ Gura_DeclareFunctionAlias(__SemPost, "SemPost")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9227,7 +9227,7 @@ Gura_DeclareFunctionAlias(__SemTryWait, "SemTryWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9246,7 +9246,7 @@ Gura_DeclareFunctionAlias(__SemValue, "SemValue")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9265,7 +9265,7 @@ Gura_DeclareFunctionAlias(__SemWait, "SemWait")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9284,7 +9284,7 @@ Gura_DeclareFunctionAlias(__SemWaitTimeout, "SemWaitTimeout")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9303,7 +9303,7 @@ Gura_DeclareFunctionAlias(__TryLockMutex, "TryLockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9322,7 +9322,7 @@ Gura_DeclareFunctionAlias(__UnlockMutex, "UnlockMutex")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9341,7 +9341,7 @@ Gura_DeclareFunctionAlias(__AtomicAdd, "AtomicAdd")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9360,7 +9360,7 @@ Gura_DeclareFunctionAlias(__AtomicCAS, "AtomicCAS")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9379,7 +9379,7 @@ Gura_DeclareFunctionAlias(__AtomicCASPtr, "AtomicCASPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9398,7 +9398,7 @@ Gura_DeclareFunctionAlias(__AtomicDecRef, "AtomicDecRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9417,7 +9417,7 @@ Gura_DeclareFunctionAlias(__AtomicGet, "AtomicGet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9436,7 +9436,7 @@ Gura_DeclareFunctionAlias(__AtomicGetPtr, "AtomicGetPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9455,7 +9455,7 @@ Gura_DeclareFunctionAlias(__AtomicIncRef, "AtomicIncRef")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9474,7 +9474,7 @@ Gura_DeclareFunctionAlias(__AtomicLock, "AtomicLock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9493,7 +9493,7 @@ Gura_DeclareFunctionAlias(__AtomicSet, "AtomicSet")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9512,7 +9512,7 @@ Gura_DeclareFunctionAlias(__AtomicSetPtr, "AtomicSetPtr")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9531,7 +9531,7 @@ Gura_DeclareFunctionAlias(__AtomicTryLock, "AtomicTryLock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9550,7 +9550,7 @@ Gura_DeclareFunctionAlias(__AtomicUnlock, "AtomicUnlock")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9569,7 +9569,7 @@ Gura_DeclareFunctionAlias(__CompilerBarrier, "CompilerBarrier")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9589,7 +9589,7 @@ Gura_DeclareFunctionAlias(__AddTimer, "AddTimer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9610,7 +9610,7 @@ Gura_DeclareFunctionAlias(__Delay, "Delay")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "ms", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9627,7 +9627,7 @@ Gura_DeclareFunctionAlias(__GetPerformanceCounter, "GetPerformanceCounter")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9643,7 +9643,7 @@ Gura_DeclareFunctionAlias(__GetPerformanceFrequency, "GetPerformanceFrequency")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9659,7 +9659,7 @@ Gura_DeclareFunctionAlias(__GetTicks, "GetTicks")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9676,7 +9676,7 @@ Gura_DeclareFunctionAlias(__RemoveTimer, "RemoveTimer")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "id", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9695,7 +9695,7 @@ Gura_DeclareFunctionAlias(__TICKS_PASSED, "TICKS_PASSED")
 	DeclareArg(env, "A", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9712,7 +9712,7 @@ Gura_DeclareFunctionAlias(__GetBasePath, "GetBasePath")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9733,7 +9733,7 @@ Gura_DeclareFunctionAlias(__GetPrefPath, "GetPrefPath")
 	DeclareArg(env, "org", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "app", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9754,7 +9754,7 @@ Gura_DeclareFunctionAlias(__AllocRW, "AllocRW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9773,7 +9773,7 @@ Gura_DeclareFunctionAlias(__FreeRW, "FreeRW")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9792,7 +9792,7 @@ Gura_DeclareFunctionAlias(__RWFromConstMem, "RWFromConstMem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9811,7 +9811,7 @@ Gura_DeclareFunctionAlias(__RWFromFP, "RWFromFP")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9830,7 +9830,7 @@ Gura_DeclareFunctionAlias(__RWFromFile, "RWFromFile")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9849,7 +9849,7 @@ Gura_DeclareFunctionAlias(__RWFromMem, "RWFromMem")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9868,7 +9868,7 @@ Gura_DeclareFunctionAlias(__RWclose, "RWclose")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9887,7 +9887,7 @@ Gura_DeclareFunctionAlias(__RWread, "RWread")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9906,7 +9906,7 @@ Gura_DeclareFunctionAlias(__RWseek, "RWseek")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9925,7 +9925,7 @@ Gura_DeclareFunctionAlias(__RWtell, "RWtell")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9944,7 +9944,7 @@ Gura_DeclareFunctionAlias(__RWwrite, "RWwrite")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9963,7 +9963,7 @@ Gura_DeclareFunctionAlias(__ReadBE16, "ReadBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -9982,7 +9982,7 @@ Gura_DeclareFunctionAlias(__ReadBE32, "ReadBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10001,7 +10001,7 @@ Gura_DeclareFunctionAlias(__ReadBE64, "ReadBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10020,7 +10020,7 @@ Gura_DeclareFunctionAlias(__ReadLE16, "ReadLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10039,7 +10039,7 @@ Gura_DeclareFunctionAlias(__ReadLE32, "ReadLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10058,7 +10058,7 @@ Gura_DeclareFunctionAlias(__ReadLE64, "ReadLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10077,7 +10077,7 @@ Gura_DeclareFunctionAlias(__WriteBE16, "WriteBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10096,7 +10096,7 @@ Gura_DeclareFunctionAlias(__WriteBE32, "WriteBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10115,7 +10115,7 @@ Gura_DeclareFunctionAlias(__WriteBE64, "WriteBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10134,7 +10134,7 @@ Gura_DeclareFunctionAlias(__WriteLE16, "WriteLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10153,7 +10153,7 @@ Gura_DeclareFunctionAlias(__WriteLE32, "WriteLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10172,7 +10172,7 @@ Gura_DeclareFunctionAlias(__WriteLE64, "WriteLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10192,7 +10192,7 @@ Gura_DeclareFunctionAlias(__GetPlatform, "GetPlatform")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10215,7 +10215,7 @@ Gura_DeclareFunctionAlias(__GetCPUCacheLineSize, "GetCPUCacheLineSize")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10231,7 +10231,7 @@ Gura_DeclareFunctionAlias(__GetCPUCount, "GetCPUCount")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10247,7 +10247,7 @@ Gura_DeclareFunctionAlias(__GetSystemRAM, "GetSystemRAM")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10263,7 +10263,7 @@ Gura_DeclareFunctionAlias(__Has3DNow, "Has3DNow")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10279,7 +10279,7 @@ Gura_DeclareFunctionAlias(__HasAVX, "HasAVX")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10294,7 +10294,7 @@ Gura_DeclareFunctionAlias(__HasAVX2, "HasAVX2")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10314,7 +10314,7 @@ Gura_DeclareFunctionAlias(__HasAltiVec, "HasAltiVec")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10330,7 +10330,7 @@ Gura_DeclareFunctionAlias(__HasMMX, "HasMMX")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10346,7 +10346,7 @@ Gura_DeclareFunctionAlias(__HasRDTSC, "HasRDTSC")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10362,7 +10362,7 @@ Gura_DeclareFunctionAlias(__HasSSE, "HasSSE")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10378,7 +10378,7 @@ Gura_DeclareFunctionAlias(__HasSSE2, "HasSSE2")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10394,7 +10394,7 @@ Gura_DeclareFunctionAlias(__HasSSE3, "HasSSE3")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10410,7 +10410,7 @@ Gura_DeclareFunctionAlias(__HasSSE41, "HasSSE41")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10426,7 +10426,7 @@ Gura_DeclareFunctionAlias(__HasSSE42, "HasSSE42")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10441,7 +10441,7 @@ Gura_DeclareFunctionAlias(__Swap16, "Swap16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10460,7 +10460,7 @@ Gura_DeclareFunctionAlias(__Swap32, "Swap32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10479,7 +10479,7 @@ Gura_DeclareFunctionAlias(__Swap64, "Swap64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10498,7 +10498,7 @@ Gura_DeclareFunctionAlias(__SwapBE16, "SwapBE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10517,7 +10517,7 @@ Gura_DeclareFunctionAlias(__SwapBE32, "SwapBE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10536,7 +10536,7 @@ Gura_DeclareFunctionAlias(__SwapBE64, "SwapBE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10555,7 +10555,7 @@ Gura_DeclareFunctionAlias(__SwapFloat, "SwapFloat")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10574,7 +10574,7 @@ Gura_DeclareFunctionAlias(__SwapFloatBE, "SwapFloatBE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10593,7 +10593,7 @@ Gura_DeclareFunctionAlias(__SwapFloatLE, "SwapFloatLE")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10612,7 +10612,7 @@ Gura_DeclareFunctionAlias(__SwapLE16, "SwapLE16")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10631,7 +10631,7 @@ Gura_DeclareFunctionAlias(__SwapLE32, "SwapLE32")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10650,7 +10650,7 @@ Gura_DeclareFunctionAlias(__SwapLE64, "SwapLE64")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10670,7 +10670,7 @@ Gura_DeclareFunctionAlias(__MostSignificantBitIndex32, "MostSignificantBitIndex3
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10691,7 +10691,7 @@ Gura_DeclareFunctionAlias(__GetPowerInfo, "GetPowerInfo")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10709,7 +10709,7 @@ Gura_DeclareFunctionAlias(__AndroidGetActivity, "AndroidGetActivity")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10728,7 +10728,7 @@ Gura_DeclareFunctionAlias(__AndroidGetExternalStoragePath, "AndroidGetExternalSt
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10747,7 +10747,7 @@ Gura_DeclareFunctionAlias(__AndroidGetExternalStorageState, "AndroidGetExternalS
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10766,7 +10766,7 @@ Gura_DeclareFunctionAlias(__AndroidGetInternalStoragePath, "AndroidGetInternalSt
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10785,7 +10785,7 @@ Gura_DeclareFunctionAlias(__AndroidGetJNIEnv, "AndroidGetJNIEnv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -10806,7 +10806,7 @@ Gura_DeclareFunctionAlias(__acos, "acos")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -56,7 +56,7 @@ Gura_DeclareFunctionAlias(template_, "template")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_template));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `template` instance.\n"
 		"\n"
 		"If the stream `src` is specified, the instance would be initialized\n"
@@ -92,7 +92,7 @@ Gura_DeclareMethod(template_, parse)
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `template` instance by parsing a script-embedded text in a string.\n"
 		"\n"
 		"Following attributes would customize the parser's behavior:\n"
@@ -120,7 +120,7 @@ Gura_DeclareMethod(template_, read)
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `template` instance by parsing a script-embedded text from a stream.\n"
 		"\n"
 		"Following attributes would customize the parser's behavior:\n"
@@ -144,7 +144,7 @@ Gura_DeclareMethod(template_, render)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Renders stored content to the specified stream.\n"
 		"\n"
 		"If the stream is omitted, the function returns the rendered result as a string.\n");
@@ -174,7 +174,7 @@ Gura_DeclareMethod(template_, block)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a template block which content is supposed to be replaced by a derived template.\n"
 		"\n"
 		"This method is called by template directive `${=block()}`\n"
@@ -241,7 +241,7 @@ Gura_DeclareMethod(template_, call)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calls a template macro that has been created by directive `${=define}`.\n"
 		"\n"
 		"This method is called by template directive `${=call()}`\n"
@@ -279,7 +279,7 @@ Gura_DeclareMethod(template_, define)
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a template macro from the specified block,\n"
 		"which is supposed to be called by `${=call}` directive,\n"
 		"and associates it with the specified symbol.\n"
@@ -306,7 +306,7 @@ Gura_DeclareMethod(template_, embed)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Renders the specified template at the current position.\n"
 		"\n"
 		"This method is called by template directive `${=embed()}`\n"
@@ -340,7 +340,7 @@ Gura_DeclareMethod(template_, extends)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Declares the current template as a derived one from the specified template.\n"
 		"\n"
 		"This method is called by template directive `${=extends()}`\n"
@@ -366,7 +366,7 @@ Gura_DeclareMethod(template_, super)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Evaluates a template block registered with the specified symbol in a template\n"
 		"from which the current template has derived.\n"
 		"\n"

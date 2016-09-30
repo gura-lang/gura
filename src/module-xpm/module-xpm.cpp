@@ -17,7 +17,7 @@ Gura_DeclareMethodAlias(image, read_xpm, "read@xpm")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads an xpm image from a stream.");
 }
 
@@ -36,7 +36,7 @@ Gura_DeclareMethodAlias(image, write_xpm, "write@xpm")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a xpm image to a stream.");
 }
 
@@ -54,7 +54,7 @@ Gura_DeclareMethod(image, xpmdata)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "xpm", VTYPE_string, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Read xpm data from a string list.");
 }
 

@@ -199,7 +199,7 @@ Gura_DeclareMethod(db, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Shuts down the connection with an sqlite3 server.");
 }
 
@@ -216,7 +216,7 @@ Gura_DeclareMethod(db, exec)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Executes an SQL statement and creates an `list` that has\n"
 		"`list` instances containing queried result as its elements.\n");
 }
@@ -235,7 +235,7 @@ Gura_DeclareMethod(db, getcolnames)
 	DeclareArg(env, "sql", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -253,7 +253,7 @@ Gura_DeclareMethod(db, query)
 	DeclareArg(env, "sql", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Executes an SQL statement and creates an `iterator` that returns\n"
 		"`list` instances containing queried result as its elements.\n"
 		"\n"
@@ -276,7 +276,7 @@ Gura_DeclareMethod(db, transaction)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Executes the block within a transaction. The process is like following:\n"
 		"\n"
 		"1. Executes a sqlit3 command 'BEGIN TRANSACTION'.\n"
@@ -321,7 +321,7 @@ Gura_DeclareFunction(db)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(db));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Opens an sqlite3 database file and returns a connection handle with the database.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("db", "sqlite3")

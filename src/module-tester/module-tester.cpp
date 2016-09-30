@@ -45,7 +45,7 @@ void Thread1::Run()
 Gura_DeclareFunction(test_thread)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
+	AddHelp(Gura_Symbol(en), "run tester.");
 }
 
 Gura_ImplementFunction(test_thread)
@@ -83,7 +83,7 @@ Gura_ImplementFunction(test_thread)
 Gura_DeclareFunction(test_allocator)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "run tester.");
+	AddHelp(Gura_Symbol(en), "run tester.");
 }
 
 typedef std::vector<Value, Allocator<Value> > ValueList2;

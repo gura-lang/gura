@@ -14,7 +14,7 @@ Gura_DeclareFunctionAlias(__gluBeginCurve, "gluBeginCurve")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -38,7 +38,7 @@ Gura_DeclareFunctionAlias(__gluBeginPolygon, "gluBeginPolygon")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -64,7 +64,7 @@ Gura_DeclareFunctionAlias(__gluBeginSurface, "gluBeginSurface")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -88,7 +88,7 @@ Gura_DeclareFunctionAlias(__gluBeginTrim, "gluBeginTrim")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -116,7 +116,7 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmaps, "gluBuild1DMipmaps")
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -143,7 +143,7 @@ Gura_DeclareFunctionAlias(__gluBuild1DMipmapsFromImage, "gluBuild1DMipmapsFromIm
 	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -174,7 +174,7 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmaps, "gluBuild2DMipmaps")
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -202,7 +202,7 @@ Gura_DeclareFunctionAlias(__gluBuild2DMipmapsFromImage, "gluBuild2DMipmapsFromIm
 	DeclareArg(env, "internalFormat", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -233,7 +233,7 @@ Gura_DeclareFunctionAlias(__gluCylinder, "gluCylinder")
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stacks", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -255,7 +255,7 @@ Gura_DeclareFunctionAlias(__gluDeleteNurbsRenderer, "gluDeleteNurbsRenderer")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -272,7 +272,7 @@ Gura_DeclareFunctionAlias(__gluDeleteQuadric, "gluDeleteQuadric")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -289,7 +289,7 @@ Gura_DeclareFunctionAlias(__gluDeleteTess, "gluDeleteTess")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -310,7 +310,7 @@ Gura_DeclareFunctionAlias(__gluDisk, "gluDisk")
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "loops", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -331,7 +331,7 @@ Gura_DeclareFunctionAlias(__gluEndCurve, "gluEndCurve")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -348,7 +348,7 @@ Gura_DeclareFunctionAlias(__gluEndPolygon, "gluEndPolygon")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -366,7 +366,7 @@ Gura_DeclareFunctionAlias(__gluEndSurface, "gluEndSurface")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -383,7 +383,7 @@ Gura_DeclareFunctionAlias(__gluEndTrim, "gluEndTrim")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -400,7 +400,7 @@ Gura_DeclareFunctionAlias(__gluErrorString, "gluErrorString")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "error", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -419,7 +419,7 @@ Gura_DeclareFunctionAlias(__gluGetNurbsProperty, "gluGetNurbsProperty")
 	DeclareArg(env, "property", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -439,7 +439,7 @@ Gura_DeclareFunctionAlias(__gluGetString, "gluGetString")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "name", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -458,7 +458,7 @@ Gura_DeclareFunctionAlias(__gluGetTessProperty, "gluGetTessProperty")
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -481,7 +481,7 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 	DeclareArg(env, "perspective", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -512,7 +512,7 @@ Gura_DeclareFunctionAlias(__gluLookAt, "gluLookAt")
 	DeclareArg(env, "upY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "upZ", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -536,7 +536,7 @@ Gura_DeclareFunctionAlias(__gluNewNurbsRenderer, "gluNewNurbsRenderer")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -551,7 +551,7 @@ Gura_DeclareFunctionAlias(__gluNewQuadric, "gluNewQuadric")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -566,7 +566,7 @@ Gura_DeclareFunctionAlias(__gluNewTess, "gluNewTess")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -583,7 +583,7 @@ Gura_DeclareFunctionAlias(__gluNextContour, "gluNextContour")
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -603,7 +603,7 @@ Gura_DeclareFunctionAlias(__gluNurbsCallback, "gluNurbsCallback")
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -623,7 +623,7 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackData, "gluNurbsCallbackData")
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "userData", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -649,7 +649,7 @@ Gura_DeclareFunctionAlias(__gluNurbsCallbackDataEXT, "gluNurbsCallbackDataEXT")
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "userData", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -679,7 +679,7 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 	DeclareArg(env, "order", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -706,7 +706,7 @@ Gura_DeclareFunctionAlias(__gluNurbsProperty, "gluNurbsProperty")
 	DeclareArg(env, "property", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -733,7 +733,7 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 	DeclareArg(env, "tOrder", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -767,7 +767,7 @@ Gura_DeclareFunctionAlias(__gluOrtho2D, "gluOrtho2D")
 	DeclareArg(env, "bottom", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "top", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -793,7 +793,7 @@ Gura_DeclareFunctionAlias(__gluPartialDisk, "gluPartialDisk")
 	DeclareArg(env, "start", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "sweep", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -819,7 +819,7 @@ Gura_DeclareFunctionAlias(__gluPerspective, "gluPerspective")
 	DeclareArg(env, "zNear", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "zFar", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -843,7 +843,7 @@ Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 	DeclareArg(env, "delY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "viewport", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -873,7 +873,7 @@ Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 	DeclareArg(env, "winY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "winZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -907,7 +907,7 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 	DeclareArg(env, "stride", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -931,7 +931,7 @@ Gura_DeclareFunctionAlias(__gluQuadricCallback, "gluQuadricCallback")
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -951,7 +951,7 @@ Gura_DeclareFunctionAlias(__gluQuadricDrawStyle, "gluQuadricDrawStyle")
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "draw", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -970,7 +970,7 @@ Gura_DeclareFunctionAlias(__gluQuadricNormals, "gluQuadricNormals")
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "normal", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -989,7 +989,7 @@ Gura_DeclareFunctionAlias(__gluQuadricOrientation, "gluQuadricOrientation")
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "orientation", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1008,7 +1008,7 @@ Gura_DeclareFunctionAlias(__gluQuadricTexture, "gluQuadricTexture")
 	DeclareArg(env, "quad", VTYPE_Quadric, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_boolean, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1028,7 +1028,7 @@ Gura_DeclareFunctionAlias(__gluScaleImage, "gluScaleImage")
 	DeclareArg(env, "wOut", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hOut", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1068,7 +1068,7 @@ Gura_DeclareFunctionAlias(__gluSphere, "gluSphere")
 	DeclareArg(env, "slices", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "stacks", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1089,7 +1089,7 @@ Gura_DeclareFunctionAlias(__gluTessBeginContour, "gluTessBeginContour")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1114,7 +1114,7 @@ Gura_DeclareFunctionAlias(__gluTessBeginPolygon, "gluTessBeginPolygon")
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "polygon_data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1142,7 +1142,7 @@ Gura_DeclareFunctionAlias(__gluTessCallback, "gluTessCallback")
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1161,7 +1161,7 @@ Gura_DeclareFunctionAlias(__gluTessEndContour, "gluTessEndContour")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1178,7 +1178,7 @@ Gura_DeclareFunctionAlias(__gluTessEndPolygon, "gluTessEndPolygon")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1199,7 +1199,7 @@ Gura_DeclareFunctionAlias(__gluTessNormal, "gluTessNormal")
 	DeclareArg(env, "valueY", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "valueZ", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1221,7 +1221,7 @@ Gura_DeclareFunctionAlias(__gluTessProperty, "gluTessProperty")
 	DeclareArg(env, "which", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "data", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1242,7 +1242,7 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 	DeclareArg(env, "location", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "vertex_data", VTYPE_any, OCCUR_Once, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1276,7 +1276,7 @@ Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 	DeclareArg(env, "objY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "objZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -15,7 +15,7 @@ Gura_DeclareFunction(absname)
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an absolute path name of the given name.");
 }
 
@@ -31,7 +31,7 @@ Gura_DeclareFunction(basename)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Removes a suffix part of a path name.");
 }
 
@@ -49,7 +49,7 @@ Gura_DeclareFunction(bottom)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns the last part of a path name.");
 }
 
@@ -66,7 +66,7 @@ Gura_DeclareFunction(cutbottom)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a path name after eliminating its bottom part.");
 }
 
@@ -88,7 +88,7 @@ Gura_DeclareFunction(dir)
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that lists item names in the specified directory.\n"
 		"If pathname is omitted, the current directory shall be listed.\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -123,7 +123,7 @@ Gura_DeclareFunction(dirname)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Splits a pathname by a directory separator and returns a directory name part.");
 }
 
@@ -140,7 +140,7 @@ Gura_DeclareFunction(exists)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns true if the specified file exists in a file system.");
 }
 
@@ -158,7 +158,7 @@ Gura_DeclareFunction(extname)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Extracts a suffix part of a path name.");
 }
 
@@ -175,7 +175,7 @@ Gura_DeclareFunction(filename)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Splits a pathname by a directory separator and returns a file name part.");
 }
 
@@ -196,7 +196,7 @@ Gura_DeclareFunction(glob)
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator for item names that match with a pattern supporting\n"
 		"UNIX shell-style wild cards. In default, case of characters is distinguished.\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -224,7 +224,7 @@ Gura_DeclareFunction(join)
 	DeclareArg(env, "paths", VTYPE_string, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a path name that joins given strings with directory separators.");
 }
 
@@ -246,7 +246,7 @@ Gura_DeclareFunction(match)
 	DeclareArg(env, "pattern", VTYPE_string);
 	DeclareArg(env, "name", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns true if a name matches with a pattern that supports UNIX\n"
 		"shell-style wild cards. In default, case of characters is distinguished.");
 }
@@ -266,7 +266,7 @@ Gura_DeclareFunction(regulate)
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareAttr(Gura_Symbol(uri));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a regulated path name of the given name.");
 }
 
@@ -285,7 +285,7 @@ Gura_DeclareFunction(split)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_Symbol(bottom));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Splits a pathname by a directory separator and returns a list containing\n"
 		"a directory name as the first element and a base name as the second one.\n"
 		"This has the same result as calling path.dirname() and path.filename().");
@@ -312,7 +312,7 @@ Gura_DeclareFunction(splitext)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Splits a pathname by a dot character indicating a beginning of an extension\n"
 		"and returns a list containing a path name without an extention\n"
 		"and an extention part.");
@@ -336,7 +336,7 @@ Gura_DeclareFunction(stat)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "directory", VTYPE_directory);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a stat object associated with the specified item.");
 }
 
@@ -361,7 +361,7 @@ Gura_DeclareFunction(walk)
 	DeclareAttr(Gura_Symbol(file));
 	DeclareAttr(Gura_Symbol(dir));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that recursively lists item names under the specified\n"
 		"directory. If pathname is omitted, search starts at the current directory\n"
 		GURA_HELPTEXT_ITERATOR_en());

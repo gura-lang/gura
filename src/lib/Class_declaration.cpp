@@ -57,7 +57,7 @@ Gura_DeclareMethod(declaration, istype)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return `true` if the declaration is defined as a type that is specified in the arguments.\n"
 		"\n"
 		"The argument `type` has following formats:\n"

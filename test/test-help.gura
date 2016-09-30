@@ -7,16 +7,16 @@ PrintHelpInfo(f:function) = {
 }
 
 testcase('simple') {
-	f() = {} %% {`ja, 'markdown', ''}
+	f() = {} %% {`ja, ''}
 	PrintHelpInfo(f)
-	f() = {} %% {`ja, 'markdown', 'doc-body'}
+	f() = {} %% {`ja, 'doc-body'}
 	PrintHelpInfo(f)
-	f() = {} %% {`ja, 'markdown', '#hoge-format\ndoc-body'}
+	f() = {} %% {`ja, '#hoge-format\ndoc-body'}
 	PrintHelpInfo(f)
 }
 
 testcase('multi-language') {
-	f() = {} %% {`en, 'markdown', 'foo'} %% {`ja, 'markdown', 'hoge'}
+	f() = {} %% {`en, 'foo'} %% {`ja, 'hoge'}
 	println('`en ..', function.gethelp(f, `en).doc)
 	println('`ja ..', function.gethelp(f, `ja).doc)
 }

@@ -528,7 +528,7 @@ Gura_DeclareFunction(solid)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(solid));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses a file in STL format from `stream` and creates an instance of `model.stl.solid`\n"
 		"that contains an iterator of `model.stl.face` representing faces in the STL.\n"
 		"It can read both binary and ASCII format of STL.\n"
@@ -549,7 +549,7 @@ Gura_DeclareFunction(test)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

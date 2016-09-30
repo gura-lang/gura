@@ -150,7 +150,7 @@ Gura_DeclareFunction(memory)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_memory));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -171,7 +171,7 @@ Gura_DeclareMethodAlias(memory, array_at_##name, "array@" #name) \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map); \
 	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
+		Gura_Symbol(en), \
 		"Creates an `array@" #name "` instance that accesses the content of the target `memory` instance."); \
 } \
 \
@@ -204,7 +204,7 @@ Gura_DeclareMethod(memory, dump)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints a hexadecimal dump from the content of the `memory` to the standard output.\n"
 		"If the argument `stream` is specified, the result would be output to the stream.\n"
 		"\n"
@@ -236,7 +236,7 @@ Gura_DeclareMethod(memory, pointer)
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `pointer` instance that has an initial offset specified\n"
 		"by the argument `offset`. If the argument is omitted, it would return a `pointer`\n"
 		"instance that points to the top of the memory.\n"

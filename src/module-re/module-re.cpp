@@ -378,7 +378,7 @@ Gura_DeclareMethod(match, group)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `re.group` instance that is positioned by the specified index.\n"
 		"\n"
 		"The argument `index` is a value of `number` or `string`.\n"
@@ -422,7 +422,7 @@ Gura_DeclareMethod(match, groups)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `re.group` instances.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -538,7 +538,7 @@ Gura_DeclareFunction(pattern)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(pattern));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `re.pattern` instance from the given pattern string.\n"
 		"\n"
 		"Following attributes would customize some traits of the pattern:\n"
@@ -702,7 +702,7 @@ Gura_DeclareMethod(string, match)
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Applies a pattern matching to the given string and returns a `re.match` instance\n"
 		"if the matching successes. If not, it would return `nil`.\n"
 		"\n"
@@ -735,7 +735,7 @@ Gura_DeclareMethod(string, sub)
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Substitutes strings that matches `pattern` with the specified replacer.\n"
 		"\n"
 		"The argument `replace` takes a `string` or `function`.\n"
@@ -786,7 +786,7 @@ Gura_DeclareMethod(string, splitreg)
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that splits the source string with the specified pattern.\n"
 		"\n"
 		"The argument `count` specifies the maximum number for splitting.\n"
@@ -814,7 +814,7 @@ Gura_DeclareMethod(string, scan)
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns strings that match the specified pattern.\n"
 		"\n"
 		"The argument `pos` specifies the starting position for matching process.\n"
@@ -846,7 +846,7 @@ Gura_DeclareMethod(list, grep)
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -869,7 +869,7 @@ Gura_DeclareMethod(iterator, grep)
 	DeclareArg(env, "pattern", VTYPE_pattern);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

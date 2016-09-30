@@ -73,7 +73,7 @@ Gura_DeclareFunction(mpf)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpf));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `gmp.mpf` instance.\n"
 		"\n"
 		"If the argument `value` is specified, it would be casted to `gmp.mpf`.\n"
@@ -126,7 +126,7 @@ Gura_DeclareClassMethod(mpf, get_default_prec)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Gets the default precision for `gmp.mpf`.\n");
 }
 
@@ -142,7 +142,7 @@ Gura_DeclareClassMethod(mpf, set_default_prec)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "prec", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the default precision for `gmp.mpf`.\n");
 }
 
@@ -176,7 +176,7 @@ Gura_DeclareMethodAlias(string, cast_mpf, "cast@mpf")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "prec", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Casts the string to `gmp.mpf`.\n"
 		"\n"
 		"You can specify the precision of the number by the argument `prec`.\n"

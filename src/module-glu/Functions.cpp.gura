@@ -13,7 +13,7 @@ gluBeginCurve(nurb:GLUnurbs@):void {block?} = R'''
 		gluEndCurve(nurb);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -29,7 +29,7 @@ gluBeginPolygon(tess:Object_Tesselator@):void {block?} = R'''
 		tess->DeletePolygonPack();
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -43,7 +43,7 @@ gluBeginSurface(nurb:GLUnurbs@):void {block?} = R'''
 		gluEndSurface(nurb);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -57,7 +57,7 @@ gluBeginTrim(nurb:GLUnurbs@):void {block?} = R'''
 		gluEndTrim(nurb);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -72,7 +72,7 @@ gluBuild1DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 	GLint _rtn = gluBuild1DMipmapLevels(target,
 					internalFormat, width, format, type, level, base, max, data);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -84,7 +84,7 @@ gluBuild1DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, format:GLe
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -98,7 +98,7 @@ gluBuild1DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLi
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, data);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -114,7 +114,7 @@ gluBuild2DMipmapLevels(target:GLenum, internalFormat:GLint, level:GLint, base:GL
 	GLint _rtn = gluBuild2DMipmapLevels(target,
 					internalFormat, width, height, format, type, level, base, max, data);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -126,7 +126,7 @@ gluBuild2DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLs
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -141,59 +141,59 @@ gluBuild2DMipmapsFromImage(target:GLenum, internalFormat:GLint, image:image):GLi
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, data);
 	return Value(_rtn);
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
 /*
 gluBuild3DMipmapLevels(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, level:GLint, base:GLint, max:GLint, data:void@:const):GLint = R'''
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
 gluBuild3DMipmaps(target:GLenum, internalFormat:GLint, width:GLsizei, height:GLsizei, depth:GLsizei, format:GLenum, type:GLenum, data:void@:const):GLint = R'''
 
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 */
 
 /*
-gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `auto % {`en, 'markdown',
+gluCheckExtension(extName:GLubyte@:const, extString:GLubyte@:const):GLboolean = `auto %% {`en,
 	R'''
 	'''
 }
 */
 
-gluCylinder(quad:GLUquadric@, base:GLdouble, top:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void = `auto % {`en, 'markdown',
+gluCylinder(quad:GLUquadric@, base:GLdouble, top:GLdouble, height:GLdouble, slices:GLint, stacks:GLint):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluDeleteNurbsRenderer(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluDeleteNurbsRenderer(nurb:GLUnurbs@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluDeleteQuadric(quad:GLUquadric@):void = `auto % {`en, 'markdown',
+gluDeleteQuadric(quad:GLUquadric@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluDeleteTess(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluDeleteTess(tess:GLUtesselator@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint):void = `auto % {`en, 'markdown',
+gluDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluEndCurve(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluEndCurve(nurb:GLUnurbs@):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -202,67 +202,67 @@ gluEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluEndSurface(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluEndSurface(nurb:GLUnurbs@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluEndTrim(nurb:GLUnurbs@):void = `auto % {`en, 'markdown',
+gluEndTrim(nurb:GLUnurbs@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluErrorString(error:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+gluErrorString(error:GLenum):GLubyte@:const = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluGetNurbsProperty(nurb:GLUnurbs@, property:GLenum, data:GLfloat@):void = `auto % {`en, 'markdown',
+gluGetNurbsProperty(nurb:GLUnurbs@, property:GLenum, data:GLfloat@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluGetString(name:GLenum):GLubyte@:const = `auto % {`en, 'markdown',
+gluGetString(name:GLenum):GLubyte@:const = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluGetTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble@):void = `auto % {`en, 'markdown',
+gluGetTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluLoadSamplingMatrices(nurb:GLUnurbs@, model:GLfloat@:const, perspective:GLfloat@:const, view:GLint@:const):void = `auto % {`en, 'markdown',
+gluLoadSamplingMatrices(nurb:GLUnurbs@, model:GLfloat@:const, perspective:GLfloat@:const, view:GLint@:const):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluLookAt(eyeX:GLdouble, eyeY:GLdouble, eyeZ:GLdouble, centerX:GLdouble, centerY:GLdouble, centerZ:GLdouble, upX:GLdouble, upY:GLdouble, upZ:GLdouble):void = `auto % {`en, 'markdown',
+gluLookAt(eyeX:GLdouble, eyeY:GLdouble, eyeZ:GLdouble, centerX:GLdouble, centerY:GLdouble, centerZ:GLdouble, upX:GLdouble, upY:GLdouble, upZ:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluNewNurbsRenderer():GLUnurbs@ = `auto % {`en, 'markdown',
+gluNewNurbsRenderer():GLUnurbs@ = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluNewQuadric():GLUquadric@ = `auto % {`en, 'markdown',
+gluNewQuadric():GLUquadric@ = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluNewTess():GLUtesselator@ = `auto % {`en, 'markdown',
+gluNewTess():GLUtesselator@ = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown',
+gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -270,7 +270,7 @@ gluNextContour(tess:GLUtesselator@, type:GLenum):void = `auto % {`en, 'markdown'
 gluNurbsCallback(nurbs:Object_Nurbs@, which:GLenum, func:function) = R'''
 	nurbs->SetCallback(env, which, func);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -285,7 +285,7 @@ gluNurbsCallbackData(nurb:Object_Nurbs@, userData:any):void = R'''
 				"this function is provided in GLU 1.3 or later");
 	return Value::Nil;
 #endif
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -300,7 +300,7 @@ gluNurbsCallbackDataEXT(nurb:Object_Nurbs@, userData:any):void = R'''
 				"this function is provided in GLU 1.3 or later");
 	return Value::Nil;
 #endif
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -310,12 +310,12 @@ gluNurbsCurve(nurb:GLUnurbs@, knots:GLfloat@, stride:GLint,
 	GLint knotCount = static_cast<GLint>(_knots->GetSize());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluNurbsProperty(nurb:GLUnurbs@, property:GLenum, value:GLfloat):void = `auto % {`en, 'markdown',
+gluNurbsProperty(nurb:GLUnurbs@, property:GLenum, value:GLfloat):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -327,34 +327,34 @@ gluNurbsSurface(nurb:GLUnurbs@, sKnots:GLfloat@, tKnots:GLfloat@, sStride:GLint,
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
 					control, sOrder, tOrder, type);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluOrtho2D(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble):void = `auto % {`en, 'markdown',
+gluOrtho2D(left:GLdouble, right:GLdouble, bottom:GLdouble, top:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluPartialDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint, start:GLdouble, sweep:GLdouble):void = `auto % {`en, 'markdown',
+gluPartialDisk(quad:GLUquadric@, inner:GLdouble, outer:GLdouble, slices:GLint, loops:GLint, start:GLdouble, sweep:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluPerspective(fovy:GLdouble, aspect:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto % {`en, 'markdown',
+gluPerspective(fovy:GLdouble, aspect:GLdouble, zNear:GLdouble, zFar:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluPickMatrix(x:GLdouble, y:GLdouble, delX:GLdouble, delY:GLdouble, viewport:GLint@):void = `auto % {`en, 'markdown',
+gluPickMatrix(x:GLdouble, y:GLdouble, delX:GLdouble, delY:GLdouble, viewport:GLint@):void = `auto %% {`en,
 	R'''
 	'''
 }
 
 gluProject(objX:GLdouble, objY:GLdouble, objZ:GLdouble,
 		   model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const,
-		   winX:GLdouble@, winY:GLdouble@, winZ:GLdouble@):GLint = `auto % {`en, 'markdown',
+		   winX:GLdouble@, winY:GLdouble@, winZ:GLdouble@):GLint = `auto %% {`en,
 	R'''
 	'''
 }
@@ -363,7 +363,7 @@ gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R''
 	GLint count = static_cast<GLint>(_data->GetSize());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -371,27 +371,27 @@ gluPwlCurve(nurb:GLUnurbs@, data:GLfloat@, stride:GLint, type:GLenum):void = R''
 gluQuadricCallback(quad:Object_Quadric@, which:GLenum, func:function:nil):void = R'''
 	quad->SetCallback(env, which, func);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluQuadricDrawStyle(quad:GLUquadric@, draw:GLenum):void = `auto % {`en, 'markdown',
+gluQuadricDrawStyle(quad:GLUquadric@, draw:GLenum):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluQuadricNormals(quad:GLUquadric@, normal:GLenum):void = `auto % {`en, 'markdown',
+gluQuadricNormals(quad:GLUquadric@, normal:GLenum):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluQuadricOrientation(quad:GLUquadric@, orientation:GLenum):void = `auto % {`en, 'markdown',
+gluQuadricOrientation(quad:GLUquadric@, orientation:GLenum):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluQuadricTexture(quad:GLUquadric@, texture:GLboolean):void = `auto % {`en, 'markdown',
+gluQuadricTexture(quad:GLUquadric@, texture:GLboolean):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -417,12 +417,12 @@ gluScaleImage(imageIn:image, wOut:GLsizei, hOut:GLsizei):GLint = R'''
 		return Value::Nil;
 	}
 	return Value(new Object_image(env, imageOut.release()));
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = `auto % {`en, 'markdown',
+gluSphere(quad:GLUquadric@, radius:GLdouble, slices:GLint, stacks:GLint):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -436,7 +436,7 @@ gluTessBeginContour(tess:GLUtesselator@):void {block?} = R'''
 		gluTessEndContour(tess);
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -452,7 +452,7 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 		tess->DeletePolygonPack();
 	}
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
@@ -460,12 +460,12 @@ gluTessBeginPolygon(tess:Object_Tesselator@, polygon_data:any):void {block?} = R
 gluTessCallback(tess:Object_Tesselator@, which:GLenum, func:function):void = R'''
 	tess->SetCallback(env, which, func);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluTessEndContour(tess:GLUtesselator@):void = `auto % {`en, 'markdown',
+gluTessEndContour(tess:GLUtesselator@):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -474,17 +474,17 @@ gluTessEndPolygon(tess:Object_Tesselator@):void = R'''
 	gluTessEndPolygon(tess->GetTesselator());
 	tess->DeletePolygonPack();
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluTessNormal(tess:GLUtesselator@, valueX:GLdouble, valueY:GLdouble, valueZ:GLdouble):void = `auto % {`en, 'markdown',
+gluTessNormal(tess:GLUtesselator@, valueX:GLdouble, valueY:GLdouble, valueZ:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
 
-gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `auto % {`en, 'markdown',
+gluTessProperty(tess:GLUtesselator@, which:GLenum, data:GLdouble):void = `auto %% {`en,
 	R'''
 	'''
 }
@@ -498,18 +498,18 @@ gluTessVertex(tess:Object_Tesselator@, location:GLdouble@, vertex_data:any):void
 	VertexPack *pVertexPack = pPolygonPack->CreateVertexPack(vertex_data);
 	gluTessVertex(tess->GetTesselator(), location, pVertexPack);
 	return Value::Nil;
-''' % {`en, 'markdown',
+''' %% {`en,
 	R'''
 	'''
 }
 
-gluUnProject(winX:GLdouble, winY:GLdouble, winZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@):GLint = `auto % {`en, 'markdown',
+gluUnProject(winX:GLdouble, winY:GLdouble, winZ:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@):GLint = `auto %% {`en,
 	R'''
 	'''
 }
 
 /*
-gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, nearPlane:GLdouble, farPlane:GLdouble, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@, objW:GLdouble@):GLint = `auto % {`en, 'markdown',
+gluUnProject4(winX:GLdouble, winY:GLdouble, winZ:GLdouble, clipW:GLdouble, model:GLdouble@:const, proj:GLdouble@:const, view:GLint@:const, nearPlane:GLdouble, farPlane:GLdouble, objX:GLdouble@, objY:GLdouble@, objZ:GLdouble@, objW:GLdouble@):GLint = `auto %% {`en,
 	R'''
 	'''
 }

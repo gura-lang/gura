@@ -14,7 +14,7 @@ Gura_DeclareMethodPrimitive(number, roundoff)
 	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 											new Expr_Value(RoundOffThreshold));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

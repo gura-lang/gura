@@ -14,7 +14,7 @@ Gura_DeclareFunction(generate)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Generates a Universal Unique Identifier (UUID). In default, results are output in\n"
 		"lower-case characters. Specifying :upper would generates it in upper-case characters.");
 }

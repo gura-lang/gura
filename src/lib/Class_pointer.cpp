@@ -76,7 +76,7 @@ Gura_DeclareFunction(pointer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_pointer));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `pointer` instance that is cloned from the given instance `org`.\n"
 		"You can use this to cast a `binary` and `memory` instance to the `pointer`.\n"
 		"\n"
@@ -99,7 +99,7 @@ Gura_DeclareMethod(pointer, copyfrom)
 	DeclareArg(env, "src", VTYPE_pointer, OCCUR_Once);
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies data from `src` to the target pointer.\n"
 		"\n"
 		"If the argument `bytes` is specified, it would limit the size of data to be copied.\n"
@@ -124,7 +124,7 @@ Gura_DeclareMethod(pointer, copyto)
 	DeclareArg(env, "dst", VTYPE_pointer, OCCUR_Once);
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies data from the target pointer to `dst`.\n"
 		"\n"
 		"If the argument `bytes` is specified, it would limit the size of data to be copied.\n"
@@ -150,7 +150,7 @@ Gura_DeclareMethod(pointer, decode)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Decodes the content of the `pointer` as a sequence of string characters using `codec`\n"
 		"and returns the result in `string`.\n"
 		"\n"
@@ -186,7 +186,7 @@ Gura_DeclareMethod(pointer, dump)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints a hexadecimal dump from the content of the `pointer` to the standard output.\n"
 		"If the argument `stream` is specified, the result would be output to the stream.\n"
 		"\n"
@@ -221,7 +221,7 @@ Gura_DeclareMethod(pointer, encodeuri)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a string in which non-URIC characters are converted to percent-encoded string.\n"
 		"\n"
 		"For example, `b'\"Hello\"'.p.encodeuri()` would return `'%22Hello%22'`.\n"
@@ -247,7 +247,7 @@ Gura_DeclareMethod(pointer, forward)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "distance", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Put the pointer offset forward by `distance`.\n"
 		"If a negative number is specified for the argument, the offset would be put backward.\n"
 		"\n"
@@ -269,7 +269,7 @@ Gura_DeclareMethod(pointer, head)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Moves the pointer position to the beginning.\n"
 		"\n"
 		"This method returns a reference to the target instance itself.\n");
@@ -292,7 +292,7 @@ Gura_DeclareMethod(pointer, hex)
 	DeclareAttr(Gura_Symbol(carray));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts the binary data into a hexadecimal string.\n"
 		"\n"
 		"In default, the result string is a sequence of joined hexadecimal values without any space.\n"
@@ -350,7 +350,7 @@ Gura_DeclareMethod(pointer, pack)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(stay));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Packs `values` in the argument list according to specifiers in the `format`\n"
 		"into a binary and adds it to where the pointer points.\n"
 		"The pointer offset is automatically incremented by the added length\n"
@@ -435,7 +435,7 @@ Gura_DeclareMethod(pointer, reader)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `stream` instance with which you can read data from the memory\n"
 		"pointerd by the pointer."
 		"\n"
@@ -455,7 +455,7 @@ Gura_DeclareMethod(pointer, seek)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Moves the pointer position to the specified `offset`.\n"
 		"\n"
 		"This method returns a reference to the target instance itself.\n");
@@ -474,7 +474,7 @@ Gura_DeclareMethod(pointer, tail)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Moves the pointer position to the end.\n"
 		"\n"
 		"This method returns a reference to the target instance itself.\n");
@@ -497,7 +497,7 @@ Gura_DeclareMethod(pointer, unpack)
 	DeclareAttr(Gura_Symbol(stay));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Extracts values from data sequence pointed by the `pointer` instance according to specifiers in the `format`\n"
 		"and returns a list containing the values.\n"
 		"\n"
@@ -579,7 +579,7 @@ Gura_DeclareMethod(pointer, unpacks)
 	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an iterator that extracts values from data pointed by the `pointer` instance\n"
 		"according to specifiers in `format`.\n"
 		"\n"
@@ -602,7 +602,7 @@ Gura_DeclareMethod(pointer, writer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `stream` instance with which you can append data to the memory\n"
 		"pointed by the pointer."
 		"\n"
@@ -623,7 +623,7 @@ Gura_DeclareMethodAlias(pointer, each_##type, "each@" #type) \
 	DeclareAttr(Gura_Symbol(be)); \
 	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
+		Gura_Symbol(en), \
 		"Creates an iterator that extracts numbers in size of " #type " from the current pointer position.\n" \
 		"\n" \
 		"In default, it assumes the byte seqeuces are ordered in little-endian.\n" \
@@ -646,7 +646,7 @@ Gura_DeclareMethodAlias(pointer, get_##type, "get@" #type) \
 	DeclareAttr(Gura_Symbol(stay)); \
 	DeclareBlock(OCCUR_ZeroOrOnce); \
 	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
+		Gura_Symbol(en), \
 		"Returns an extracted number in size of " #type " from the current pointer position.\n" \
 		"\n" \
 		"In default, it assumes the byte seqeuces are ordered in little-endian.\n" \
@@ -672,7 +672,7 @@ Gura_DeclareMethodAlias(pointer, put_##type, "put@" #type) \
 	DeclareAttr(Gura_Symbol(be)); \
 	DeclareAttr(Gura_Symbol(stay)); \
 	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
+		Gura_Symbol(en), \
 		"Stores the specified number to the current pointer position in size of " #type ".\n" \
 		"\n" \
 		"In default, it stores the byte sequences in the order of little-endian.\n" \

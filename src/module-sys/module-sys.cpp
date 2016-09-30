@@ -15,7 +15,7 @@ Gura_DeclareFunction(echo)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Enables or disables echo-back functionality according to flag.");
 }
 
@@ -31,7 +31,7 @@ Gura_DeclareFunction(exit)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "status", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Terminates the program with a specified status number.");
 }
 
@@ -49,7 +49,7 @@ Gura_DeclareFunction(required_version)
 	DeclareArg(env, "minor", VTYPE_number);
 	DeclareArg(env, "patch", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Raises an error if the running interpreter doesn't satisfy the required version.");
 }
 

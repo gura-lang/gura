@@ -7,7 +7,7 @@
 Gura_DeclareMethod(expr, is##symbol) { \
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None); \
 	AddHelp( \
-		Gura_Symbol(en), Help::FMT_markdown, \
+		Gura_Symbol(en), \
 		"Returns `true` if expr is an expression of " #symbol "."); \
 } \
 Gura_ImplementMethod(expr, is##symbol) { \
@@ -309,7 +309,7 @@ Gura_DeclareFunction(expr)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_expr));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses a Gura script from the stream `src` and creates an `expr` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("expr", "expr"));
@@ -330,7 +330,7 @@ Gura_DeclareMethod(expr, eval)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Evaluates the `expr` instance.\n"
 		"\n"
 		"If the argument `env` is specified, that environment is used for evaluation.\n"
@@ -354,7 +354,7 @@ Gura_DeclareClassMethod(expr, parse)
 	DeclareArg(env, "script", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Parses a Gura script in the string `script` and creates an `expr` instance.\n"
 		"\n"
 		"If `block` is specified, it will be evaluated with block parameter\n"
@@ -377,7 +377,7 @@ Gura_DeclareMethod(expr, textize)
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Composes a script text from a content of `expr`.\n"
 		"\n"
 		"Argument `style` specifies the text style output, which takes the following symbols:\n"
@@ -418,7 +418,7 @@ Gura_DeclareMethod(expr, tofunction)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts the `expr` into a function.\n"
 		"\n"
 		"If the `expr` is a block that has a block parameter,\n"
@@ -457,7 +457,7 @@ Gura_DeclareMethod(expr, unquote)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `expr` instance that has removed quote operator from the original `expr`.");
 }
 
@@ -476,7 +476,7 @@ Gura_DeclareMethod(expr, write)
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Outputs a script that describes the expression to the specified `stream`.\n"
 		"\n"
 		"Argument `style` specifies the text style output, which takes the following symbols:\n"

@@ -215,7 +215,7 @@ Gura_DeclareFunction(function)
 	}
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `function` instance with an argument list of `args` and a procedure body\n"
 		"provided by `block`.\n"
 		"\n"
@@ -258,23 +258,20 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// function.addhelp(func:function, lang:symbol, format:string, help:string):map
+// function.addhelp(func:function, lang:symbol, help:string):map
 Gura_DeclareClassMethod(function, addhelp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol);
-	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Adds help information to a `function` instance taking the following arguments:\n"
 		"\n"
 		"- `func` .. The `function` instance to which the help is added.\n"
 		"- `lang` .. A symbol of the natural language in which the help text is written.\n"
 		"            For example, `` `en`` for English and `` `ja`` for Japanese.\n"
-		"- `format` .. A name of the syntax format in which the help text is described\n"
-		"              such as `'markdown'`.\n"
 		"- `help`.. The help text.\n"
 		"\n"
 		"You can add multiple help information with different `lang`.\n"
@@ -286,7 +283,7 @@ Gura_DeclareClassMethod(function, addhelp)
 		"        (a + b + c) / 3\n"
 		"    }\n"
 		"    \n"
-		"    function.addhelp(f, `en, 'markdown', R'''\n"
+		"    function.addhelp(f, `en, R'''\n"
 		"    Computes a mean value of the provided three numbers.\n"
 		"    ''')\n"
 		"\n"
@@ -294,7 +291,7 @@ Gura_DeclareClassMethod(function, addhelp)
 		"\n"
 		"    f(a:number, b:number, c:number) = {\n"
 		"        (a + b + c) / 3\n"
-		"    } % {`en, 'markdown', R'''\n"
+		"    } % {`en, R'''\n"
 		"    Computes a mean value of the provided three numbers.\n"
 		"    '''}\n");
 }
@@ -302,7 +299,7 @@ Gura_DeclareClassMethod(function, addhelp)
 Gura_ImplementClassMethod(function, addhelp)
 {
 	Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
-	pFunc->AddHelp(arg.GetSymbol(1), arg.GetString(2), arg.GetString(3));
+	pFunc->AddHelp(arg.GetSymbol(1), arg.GetString(2));
 	return Value::Nil;
 }
 
@@ -312,7 +309,7 @@ Gura_DeclareClassMethod(function, getdecls)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator of `declaration` instances that provide information\n"
 		"about argument declaration that the function instance `func` defines.\n"
 		"\n"
@@ -332,7 +329,7 @@ Gura_DeclareClassMethod(function, getexpr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an expression of the function instance `func`.\n"
 		"\n"
 		"It would return `nil` if the function is implemented with binary programs, not scripts.\n"
@@ -355,7 +352,7 @@ Gura_DeclareClassMethod(function, getformat)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a string showing a declared format of the function instance `func`.\n"
 		"\n"
 		"This class method returns the same information as the property `function#format`.\n");
@@ -373,7 +370,7 @@ Gura_DeclareClassMethod(function, getfullname)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a full name of the function instance `func`,\n"
 		"which is prefixed by a name of the module or the class the instance belongs to.\n"
 		"\n"
@@ -393,7 +390,7 @@ Gura_DeclareClassMethod(function, gethelp)
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `help` instance associated with the specified function instance `func`.\n"
 		"If the function instance has no help registred, this function would return `nil`.\n"
 		"\n"
@@ -418,7 +415,7 @@ Gura_DeclareClassMethod(function, getname)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a name of the function instance `func` in `string` type.\n"
 		"\n"
 		"This class method returns the same information as the property `function#name`.\n");
@@ -436,7 +433,7 @@ Gura_DeclareClassMethod(function, getsymbol)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a name of the function instance `func` in `symbol` type.\n"
 		"\n"
 		"This class method returns the same information as the property `function#symbol`.\n");
@@ -454,7 +451,7 @@ Gura_DeclareMethod(function, mathdiff)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `function` instance that computes derivation of the target function,\n"
 		"which is expected to contain only mathematical procedures.\n"
 		"An error occurs if the target function has any elements\n"

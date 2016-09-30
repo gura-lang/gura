@@ -89,7 +89,7 @@ Gura_DeclareFunction(vertex)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_vertex));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `vertex` instance that has the given coordinates `x`, `y` and `z`.\n"
 		"The argument `z` is optional and set to zero if omitted.\n"
 		"\n"
@@ -116,7 +116,7 @@ Gura_DeclareClassMethod(vertex, cross)
 	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates cross product between `v1` and `v2`\n"
 		"and returns the result as a `vertex` instance.\n");
 }
@@ -137,7 +137,7 @@ Gura_DeclareClassMethod(vertex, inner)
 	DeclareArg(env, "v2", VTYPE_vertex, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates inner product between `v1` and `v2`\n"
 		"and returns the result as a `number` instance.\n");
 }
@@ -156,7 +156,7 @@ Gura_DeclareMethod(vertex, norm)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates norm of the vertex instance.");
 }
 
@@ -176,7 +176,7 @@ Gura_DeclareClassMethod(vertex, normal)
 	DeclareAttr(Gura_Symbol(unit));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a normal vector for a face that consists of three vertices given\n"
 		"and returns it as a `vertex` instance.\n"
 		"\n"
@@ -204,7 +204,7 @@ Gura_DeclareMethodAlias(vertex, rotate_at_x, "rotate@x")
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `vertex` that is rotated from the target `vertex`\n"
 		"around X-axis by the specified `angle` in radian.\n"
 		"It would be rotated in a direction of tilting Y-axis toward Z-axis.\n"
@@ -230,7 +230,7 @@ Gura_DeclareMethodAlias(vertex, rotate_at_y, "rotate@y")
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `vertex` that is rotated from the target `vertex`\n"
 		"around Y-axis by the specified `angle` in radian.\n"
 		"It would be rotated in a direction of tilting Z-axis toward X-axis.\n"
@@ -256,7 +256,7 @@ Gura_DeclareMethodAlias(vertex, rotate_at_z, "rotate@z")
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `vertex` that is rotated from the target `vertex`\n"
 		"around Z-axis by the specified `angle` in radian.\n"
 		"It would be rotated in a direction of tilting X-axis toward Y-axis.\n"
@@ -280,7 +280,7 @@ Gura_DeclareMethod(vertex, list)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `list` that contains coordinate values `[x, y, z]` of the target `vertex`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("list", "list"));
@@ -303,7 +303,7 @@ Gura_DeclareMethod(vertex, translate)
 	DeclareArg(env, "tz", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `vertex` that is translated from the target `vertex`\n"
 		"by the specified offsets `tx`, `ty` and `tz`.\n"
 		"\n"

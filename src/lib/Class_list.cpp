@@ -539,7 +539,7 @@ Gura_DeclareFunction_CustomEnd(list_xlist)
 	text +=
 		"If a given value is a list or an iteartor, elements it contains are added to the created list.\n";
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, text.c_str());
+		Gura_Symbol(en), text.c_str());
 }
 
 Gura_ImplementFunction(list_xlist)
@@ -595,7 +595,7 @@ Gura_DeclareFunction_CustomEnd(set_xset)
 		"- `:or` .. All the elements are added. This is the default behavior.\n"
 		"- `:xor` .. Elements that exist in only one iterator are added.\n";
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		text.c_str());
 }
 
@@ -705,7 +705,7 @@ Gura_DeclareFunction(ListInit)
 	DeclareArg(env, "func", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a list from the content of `block`.\n"
 		"If `block` is not specified, an empty list will be created.\n"
 		"\n"
@@ -768,7 +768,7 @@ Gura_DeclareClassMethod(list, zip)
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator generating lists that bind given argument values.\n"
 		"When the value is a list or an iterator, each item in it would be zipped.\n"
 		"\n"
@@ -822,7 +822,7 @@ Gura_DeclareMethod(list, add)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Add specified items to the list.");
 }
 
@@ -841,7 +841,7 @@ Gura_DeclareMethod(list, append)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Adds specified items to the list. If the item is a list or an iterator,\n"
 		"each element in such an item is added to the list.");
 }
@@ -875,7 +875,7 @@ Gura_DeclareMethod(list, clear)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Clear the content of the list.");
 }
 
@@ -893,7 +893,7 @@ Gura_DeclareMethod(list, combination)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a combination manner.\n"
 		"\n"
@@ -920,7 +920,7 @@ Gura_DeclareMethod(list, erase)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Erases elements at the specified indices.");
 }
 
@@ -950,7 +950,7 @@ Gura_DeclareMethod(list, first)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a first value in the list. An error occurs when the list is empty.");
 }
 
@@ -972,7 +972,7 @@ Gura_DeclareMethod(list, get)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a value stored at the specified index in the list.\n"
 		"An error occurs when the index is out of range.");
 }
@@ -990,7 +990,7 @@ Gura_DeclareMethod(list, insert)
 	DeclareArg(env, "idx", VTYPE_number);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Insert specified items to the list from the selected index.");
 }
 
@@ -1015,7 +1015,7 @@ Gura_DeclareMethod(list, isempty)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return true if the list is empty.");
 }
 
@@ -1030,7 +1030,7 @@ Gura_DeclareMethod(list, last)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a last value in the list. An error occurs when the list is empty.");
 }
 
@@ -1053,7 +1053,7 @@ Gura_DeclareMethod(list, permutation)
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that generates lists that contain elements picked up\n"
 		"from the original list in a permutation manner.\n"
 		"\n"
@@ -1081,7 +1081,7 @@ Gura_DeclareMethod(list, put)
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Stores a value at the specified index in the list.\n"
 		"An error occurs when the index is out of range.");
 }
@@ -1098,7 +1098,7 @@ Gura_DeclareMethod(list, shuffle)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Shuffle the order of the list content based on random numbers.");
 }
 
@@ -1117,7 +1117,7 @@ Gura_DeclareMethod(list, shift)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
 		"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
 		"even when the list is empty. To raise an error for executing this method on\n"

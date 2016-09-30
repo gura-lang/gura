@@ -49,7 +49,7 @@ Gura_DeclareMethod(aliases, print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out definitions of aliases to the stream `out`.\n"
 		"If the argument is omitted, the result would be put out to the standard output.\n");
 }

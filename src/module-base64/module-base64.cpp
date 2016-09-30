@@ -15,7 +15,7 @@ Gura_DeclareFunction(decode)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads text stream that is formatted in base64 and returns the decoded result in binary.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("data", "binary"));
@@ -43,7 +43,7 @@ Gura_DeclareFunction(encode)
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Encodes content of the stream into base64 format and returns the result in binary.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("data", "binary"));
@@ -72,7 +72,7 @@ Gura_DeclareFunction(reader)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a stream instance that reads data formatted in base64 from `stream`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("s", "stream"));
@@ -93,7 +93,7 @@ Gura_DeclareFunction(writer)
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a stream instance that encodes data to base64 format and writes it to the `stream`.\n"
 		"\n"
 		"The number of characters per line is specified by an argument `linelen`.\n"
@@ -120,7 +120,7 @@ Gura_DeclareMethodAlias(stream, reader_base64, "reader@base64")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a stream instance that reads data formatted in base64 from the target stream instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("s", "stream"));
@@ -140,7 +140,7 @@ Gura_DeclareMethodAlias(stream, writer_base64, "writer@base64")
 	DeclareArg(env, "linelen", VTYPE_number, OCCUR_Once, FLAG_Nil, 0, new Expr_Value(76));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a stream instance that encodes data to base64 format and writes it to the target stream instance.\n"
 		"\n"
 		"The number of characters per line is specified by an argument `linelen`.\n"

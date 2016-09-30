@@ -10,16 +10,15 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 const String Help::FMT_markdown("markdown");
 
-Help::Help(const Symbol *pSymbolLangCode, const String &formatName, const String &doc) :
-	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
-	_formatName(formatName)
+Help::Help(const Symbol *pSymbolLangCode, const String &doc) :
+	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode)
 {
 	ExtractFormatNameAndDoc(doc);
 }
 
-Help::Help(const Symbol *pSymbolLangCode, const String &formatName, Template *pTemplateDoc) :
+Help::Help(const Symbol *pSymbolLangCode, Template *pTemplateDoc) :
 	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
-	_formatName(formatName), _pTemplateDoc(pTemplateDoc)
+	_pTemplateDoc(pTemplateDoc)
 {
 }
 
@@ -89,7 +88,7 @@ bool Help::UpdateDocument(Environment &env)
 
 Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 {
-	if (exprList.size() != 3) {
+	if (exprList.size() != 2) {
 		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
 	}
@@ -101,18 +100,17 @@ Help *Help::CreateFromExprList(Environment &env, const ExprList &exprList)
 		if (env.IsSignalled()) return nullptr;
 		valList.push_back(result);
 	}
-	if (!(valList[0].Is_symbol() && valList[1].Is_string())) {
+	if (!valList[0].Is_symbol()) {
 		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
 	}
 	const Symbol *pSymbolLangCode = valList[0].GetSymbol();
-	const char *formatName = valList[1].GetString();
 	Help *pHelp = nullptr;
-	if (valList[2].Is_string()) {
-		pHelp = new Help(pSymbolLangCode, formatName, valList[2].GetString());
-	} else if (valList[2].Is_template()) {
-		Template *pTemplate = Object_template::GetObject(valList[2])->GetTemplate();
-		pHelp = new Help(pSymbolLangCode, formatName, pTemplate->Reference());
+	if (valList[1].Is_string()) {
+		pHelp = new Help(pSymbolLangCode, valList[1].GetString());
+	} else if (valList[1].Is_template()) {
+		Template *pTemplate = Object_template::GetObject(valList[1])->GetTemplate();
+		pHelp = new Help(pSymbolLangCode, pTemplate->Reference());
 	} else {
 		env.SetError(ERR_ValueError, "invalid format of help");
 		return nullptr;
@@ -156,11 +154,6 @@ void HelpProvider::AddHelp(Help *pHelp)
 {
 	pHelp->SetHelpProvider(this);
 	_helpOwner.push_back(pHelp);
-}
-
-void HelpProvider::AddHelp(const Symbol *pSymbol, const String &formatName, const String &doc)
-{
-	AddHelp(new Help(pSymbol, formatName, doc));
 }
 
 void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)

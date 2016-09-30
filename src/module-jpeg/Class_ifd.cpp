@@ -417,7 +417,7 @@ Gura_DeclareMethod(ifd, each)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `jpeg.tag` values as elements\n"
 		"that are stored in the target `jpeg.ifd` instance.\n"
 		"\n"

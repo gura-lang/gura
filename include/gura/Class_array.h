@@ -83,7 +83,7 @@ public:
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an `array@T` instance.\n"
 				"You can call this function in the following formats:\n"
 				"\n"
@@ -128,7 +128,7 @@ public:
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_Once);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an `array@T` instance that is initialized with values described in `block`.\n"
 				"\n"
 				"The code below creates an `array@uchar` instance that has four elements.\n"
@@ -173,7 +173,7 @@ public:
 			SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an iterator that iterates each element in the array.\n"
 				"\n"
 				GURA_HELPTEXT_ITERATOR_en()
@@ -200,7 +200,7 @@ public:
 			DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 			DeclareAttr(Gura_Symbol(upper));
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Prints out a binary dump of the array's content.\n"
 			);
 		}
@@ -225,7 +225,7 @@ public:
 			SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 			DeclareArg(env, "value", VTYPE_number, OCCUR_Once);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Fills array with a specified value.\n"
 			);
 		}
@@ -247,7 +247,7 @@ public:
 			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an array that has extracted specified number of elements\n"
 				"from the beginning of the source.\n"
 				"\n"
@@ -283,7 +283,7 @@ public:
 			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an array that has extracted elements of the source\n"
 				"after skipping the first `n` elements.\n"
 				"\n"
@@ -320,7 +320,7 @@ public:
 			DeclareArg(env, "offset", VTYPE_number, OCCUR_Once);
 			DeclareArg(env, "src", valType, OCCUR_Once);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Pastes elements of `src` into the target `array` instance.\n"
 				"\n"
 				"The argument `offset` specifies the posision where elements are pasted in\n"
@@ -347,7 +347,7 @@ public:
 			DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
-				Gura_Symbol(en), Help::FMT_markdown,
+				Gura_Symbol(en),
 				"Creates an array that has extracted specified number of elements\n"
 				"from the bottom of the source.\n"
 				"\n"

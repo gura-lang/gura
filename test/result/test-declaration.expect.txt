@@ -507,7 +507,7 @@ formatter
   formatter#issharp()
   formatter#isuppercase()
 function
-  function.addhelp(func:function, lang:symbol, format:string, help:string):static:map:void
+  function.addhelp(func:function, lang:symbol, help:string):static:map:void
   function.getdecls(func:function):static:map
   function.getexpr(func:function):static:map
   function.getformat(func:function):static:map

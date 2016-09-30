@@ -64,7 +64,7 @@ Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -90,7 +90,7 @@ Gura_DeclareMethod(environment, lookup)
 	DeclareArg(env, "escalate", VTYPE_boolean,
 			   OCCUR_Once, FLAG_None, 0, new Expr_Value(Value(true)));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Looks up a specified symbol in the environment and returns the associated value.\n"
 		"In default, if the symbol is not defined in the environment, it will be searched\n"
 		"in environments outside of the current one. Set escalate flag to false\n"
@@ -114,7 +114,7 @@ Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
 	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

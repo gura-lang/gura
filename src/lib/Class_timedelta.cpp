@@ -86,7 +86,7 @@ Gura_DeclareFunction(timedelta)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_timedelta));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a timedelta instance with specified values. The instance actually\n"
 		"holds properties of days, secs and usecs.\n");
 }

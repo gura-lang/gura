@@ -55,7 +55,7 @@ Gura_DeclareMethod(formatter, getminwidth)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an expected minimum width for the field.\n"
 		"\n"
 		"For example, with `'%3d'`, this method would return `3`.\n");
@@ -72,7 +72,7 @@ Gura_DeclareMethod(formatter, getpadding)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a string containing a padding character, a space or `'0'`.\n"
 		"\n"
 		"In default, a space is used for padding.\n"
@@ -94,7 +94,7 @@ Gura_DeclareMethod(formatter, getplusmode)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a symbol that indicates an expected action when a positive number appears.\n"
 		"\n"
 		"- `` `none`` .. No character ahead of the number.\n"
@@ -118,7 +118,7 @@ Gura_DeclareMethod(formatter, getprecision)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an expected precision for the field.\n"
 		"\n"
 		"For example, with `'%.3d'`, this method would return `3`.\n");
@@ -135,7 +135,7 @@ Gura_DeclareMethod(formatter, isleftalign)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the field is expected to be aligned on left.\n"
 		"\n"
 		"For example, with `'%-3d'`, this method would return `true`.\n");
@@ -152,7 +152,7 @@ Gura_DeclareMethod(formatter, issharp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the specifier sequence includes `'#'` flag,\n"
 		"which means some literal prefixes such as `0x` are expected to be appended at the top.\n"
 		"\n"
@@ -170,7 +170,7 @@ Gura_DeclareMethod(formatter, isuppercase)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if alphabet characters are expected to be shown in upper case.\n"
 		"\n"
 		"Upper case characters are requested\n"

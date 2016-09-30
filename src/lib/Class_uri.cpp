@@ -106,7 +106,7 @@ Gura_DeclareFunction(uri)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_uri));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates `uri` instance.\n"
 		"\n"
 		"If the argument `str` is specified,\n"
@@ -133,7 +133,7 @@ Gura_DeclareMethod(uri, getfragment)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the fragment part contained in the URI path.");
 }
 
@@ -148,7 +148,7 @@ Gura_DeclareMethod(uri, getpath)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the path part contained in the URI path.");
 }
 
@@ -163,7 +163,7 @@ Gura_DeclareMethod(uri, getquery)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `dict` instance that is made from the query part in the URI path.");
 }
 
@@ -182,7 +182,7 @@ Gura_DeclareClassMethod(uri, parsequery)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "query", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This is a utility function to parse a query string\n"
 		"and return a `dict` instance that contains key-value pairs for the query.\n");
 }

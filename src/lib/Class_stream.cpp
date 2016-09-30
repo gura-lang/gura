@@ -88,7 +88,7 @@ Gura_DeclareFunction(stream)
 		SetClassToConstruct(env.LookupClass(VTYPE_stream));
 	}
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `stream` instance from the specified `pathname`.\n"
 		"\n"
 		"The argument `mode` takes one of the strings that specifies what access\n"
@@ -143,7 +143,7 @@ Gura_DeclareFunction(readlines)
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that reads text from the specified stream line by line.\n"
 		"\n"
 		"If attribute `:chop` is specified, it eliminates an end-of-line character that\n"
@@ -184,7 +184,7 @@ Gura_DeclareMethod(stream, addcr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The codec's encoder in the stream has a feature\n"
 		"to add a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with CR-LF codes in the encoded result.\n"
@@ -207,7 +207,7 @@ Gura_DeclareMethod(stream, close)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Closes the stream.");
 }
 
@@ -224,7 +224,7 @@ Gura_DeclareMethod(stream, compare)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if there's no difference between the binary sequences of\n"
 		"the target stream instance and that of `stream` in the argument.\n");
 }
@@ -250,7 +250,7 @@ Gura_DeclareClassMethod(stream, copy)
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies the content in `src` to the stream `dst`.\n"
 		"\n"
 		"The copying is done by the following process:\n"
@@ -297,7 +297,7 @@ Gura_DeclareMethod(stream, copyfrom)
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies the content in `src` to the target stream instance.\n"
 		"\n"
 		"The copying is done by the following process:\n"
@@ -345,7 +345,7 @@ Gura_DeclareMethod(stream, copyto)
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Copies the content in the target stream instance to stream `dst`.\n"
 		"\n"
 		"The copying is done by the following process:\n"
@@ -389,7 +389,7 @@ Gura_DeclareMethod(stream, delcr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The codec's decoder in the stream has a feature\n"
 		"to delete a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with LF code in the decoded result.\n"
@@ -412,7 +412,7 @@ Gura_DeclareMethod(stream, deserialize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -431,7 +431,7 @@ Gura_DeclareMethod(stream, flush)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Flushes cached data to the stream.");
 }
 
@@ -449,7 +449,7 @@ Gura_DeclareMethod(stream, peek)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads specified length of data from the stream\n"
 		"and returns a `binary` instance that contains it.\n"
 		"This doesn't move the stream's current file position.\n");
@@ -479,7 +479,7 @@ Gura_DeclareMethod(stream, prefetch)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -499,7 +499,7 @@ Gura_DeclareMethod(stream, print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` to the `stream` instance after converting them to strings.\n"
 		"\n"
 		"This function encodes character codes in the string\n"
@@ -527,7 +527,7 @@ Gura_DeclareMethod(stream, printf)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` to the `stream` instance according to formatter specifiers in `format`.\n"
 		"\n"
 		"Refer to the help of `printf()` function to see information about formatter specifiers.\n"
@@ -552,7 +552,7 @@ Gura_DeclareMethod(stream, println)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` and an end-of-line character to the `stream` instance"
 		"after converting them to strings.\n"
 		"\n"
@@ -582,7 +582,7 @@ Gura_DeclareMethod(stream, read)
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads specified length of data from the stream\n"
 		"and returns a `binary` instance that contains it.\n"
 		"If the argument `bytes` is omitted, all the data available from the stream would be read.\n"
@@ -632,7 +632,7 @@ Gura_DeclareMethod(stream, readchar)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads one character from the stream\n"
 		"and returns a `string` instance that contains it.\n"
 		"\n"
@@ -659,7 +659,7 @@ Gura_DeclareMethod(stream, readline)
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads one line from the stream\n"
 		"and returns a `string` instance that contains it.\n"
 		"\n"
@@ -703,7 +703,7 @@ Gura_DeclareMethod(stream, readlines)
 	DeclareArg(env, "nlines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that reads text from the specified stream line by line.\n"
 		"\n"
 		"The argument `nlines` specifies how many lines should be read from the stream.\n"
@@ -737,7 +737,7 @@ Gura_DeclareMethod(stream, readtext)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads the whole data in the stream as a text sequence\n"
 		"and returns a `string` instance that contains it."
 		"\n"
@@ -769,7 +769,7 @@ Gura_DeclareMethod(stream, seek)
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Seeks the current file position to the offset specified by the argument `offset`.\n"
 		"\n"
 		"The argument `origin` specifies the meaning of `offset` value as follows:\n"
@@ -806,7 +806,7 @@ Gura_DeclareMethod(stream, serialize)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -826,7 +826,7 @@ Gura_DeclareMethod(stream, setcodec)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets `codec` instance to the target stream.\n"
 		"If `nil` is specified for the argument, the current `codec` instance would be removed.\n"
 		"\n"
@@ -851,7 +851,7 @@ Gura_DeclareMethod(stream, tell)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the current file position at which read/write operation works.");
 }
 
@@ -868,7 +868,7 @@ Gura_DeclareMethod(stream, write)
 	DeclareArg(env, "ptr", VTYPE_pointer);
 	DeclareArg(env, "bytes", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes binary data pointer by `ptr` to the stream.\n"
 		"The argument `bytes` limits the number of data that is to be written to the stream.\n");
 }

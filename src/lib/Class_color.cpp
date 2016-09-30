@@ -99,7 +99,7 @@ Gura_DeclareFunction(color)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `color` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("c", "color")
@@ -163,7 +163,7 @@ Gura_DeclareMethod(color, getgray)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a gray scale from RGB elements in the `color` instance.\n"
 		"\n"
 		"This is computed by a formula: `gray = 0.299 * red + 0.587 * blue + 0.114 * blue`.\n");
@@ -180,7 +180,7 @@ Gura_DeclareMethod(color, html)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a color string in a format of `'#rrggbb'` that is used in HTML documents.");
 }
 
@@ -196,7 +196,7 @@ Gura_DeclareMethod(color, list)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(alpha));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a list of RGB elements in a form `[r, g, b]`.\n"
 		"\n"
 		"Specifying `:alpha` attribute would add the alpha element to the list.");

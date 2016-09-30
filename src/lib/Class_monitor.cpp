@@ -36,7 +36,7 @@ Gura_DeclareFunction(monitor)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_monitor));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `monitor` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("monitor", "monitor"));

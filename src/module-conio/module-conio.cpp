@@ -71,7 +71,7 @@ Gura_DeclareFunction(clear)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Clears the screen.\n"
 		"\n"
 		"In default, it clears whole the screen.\n"
@@ -96,7 +96,7 @@ Gura_DeclareFunction(getwinsize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the screen size as a list `[width, height]`.");
 }
 
@@ -116,7 +116,7 @@ Gura_DeclareFunction(setcolor)
 	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets foreground and background color of text by specifying a color symbol.\n"
 		"Available color symbols are listed below:\n"
 		"\n"
@@ -166,7 +166,7 @@ Gura_DeclareFunction(moveto)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Moves cursor to the specified position.\n"
 		"The most top-left position on the screen is represented as `0, 0`.\n"
 		"\n"
@@ -188,7 +188,7 @@ Gura_DeclareFunction(waitkey)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Waits for a keyboard input and returns a character code number associated with the key.\n"
 		"\n"
 		"If `:raise` attribute is specified, hitting `Ctrl-C` issues a terminating signal\n"
@@ -226,7 +226,7 @@ Gura_DeclareFunction(readkey)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a keyboard input and returns a character code number associated with the key\n"
 		"without blocking."
 		"\n"

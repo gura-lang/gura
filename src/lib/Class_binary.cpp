@@ -236,7 +236,7 @@ Gura_DeclareFunction(binary)
 	SetClassToConstruct(env.LookupClass(VTYPE_binary));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `binary` instance after combining `string` or `binary` specified by the arguments `buff`.\n"
 		"If no argument is specified for `buff`, an empty `binary` instance would be created.\n"
 		"\n"
@@ -271,7 +271,7 @@ Gura_DeclareClassMethod(binary, alloc)
 	DeclareArg(env, "data", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `binary` instance that has the specified size of buffer.\n"
 		"If the argument `data`, which should have a number between 0 and 255, is specified,\n"
 		"the buffer would be initialized with the value.\n"
@@ -297,7 +297,7 @@ Gura_DeclareMethod(binary, dump)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints a hexadecimal dump from the content of the `binary` to the standard output.\n"
 		"If the argument `stream` is specified, the result would be output to the stream.\n"
 		"\n"
@@ -329,7 +329,7 @@ Gura_DeclareMethod(binary, pointer)
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `pointer` instance that has an initial offset specified\n"
 		"by the argument `offset`. If the argument is omitted, it would return a `pointer`\n"
 		"instance that points to the top of the binary.\n"
@@ -351,7 +351,7 @@ Gura_DeclareMethod(binary, reader)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `stream` instance with which you can read data from the binary by `stream#read()` method."
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("s", "stream"));
@@ -371,7 +371,7 @@ Gura_DeclareMethod(binary, writer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `stream` instance with which you can append data to the binary by `stream#write()` method."
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("s", "stream"));

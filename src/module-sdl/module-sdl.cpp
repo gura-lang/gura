@@ -37,7 +37,7 @@ Gura_DeclareMethod(Cursor, FreeCursor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Frees a `sdl.Cursor` that was created using `sdl.CreateCursor`.\n");
 }
 
@@ -133,7 +133,7 @@ Gura_DeclareMethod(Timer, RemoveTimer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Removes a timer callback previously added with `sdl.AddTimer`.\n"
 		"\n"
 		"**Return Value:** Returns a boolean value indicating success.\n");
@@ -744,7 +744,7 @@ Gura_DeclareMethod(PixelFormat, MapRGB)
 	DeclareArg(env, "g", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Maps the RGB color value to the specified pixel format and returns the pixel value as a 32-bit int.\n"
 		"\n"
 		"If the format has a palette (8-bit) the index of the closest matching color in the palette will be returned.\n"
@@ -772,7 +772,7 @@ Gura_DeclareMethod(PixelFormat, MapRGBA)
 	DeclareArg(env, "b", VTYPE_number);
 	DeclareArg(env, "a", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Maps the RGBA color value to the specified pixel format and returns the pixel value as a 32-bit int.\n"
 		"\n"
 		"If the format has a palette (8-bit) the index of the closest matching color in the palette will be returned.\n"
@@ -798,7 +798,7 @@ Gura_DeclareMethod(PixelFormat, GetRGB)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Get RGB component values from a pixel stored in the specified pixel format.\n"
 		"\n"
 		"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
@@ -819,7 +819,7 @@ Gura_DeclareMethod(PixelFormat, GetRGBA)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Get RGBA component values from a pixel stored in the specified pixel format.\n"
 		"\n"
 		"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
@@ -946,7 +946,7 @@ Gura_DeclareMethod(Surface, UpdateRect)
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None, 0, new Expr_Value(0));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Makes sure the given area is updated on the given screen.\n"
 		"The rectangle must be confined within the screen boundaries (no clipping is done).\n"
 		"\n"
@@ -969,7 +969,7 @@ Gura_DeclareMethod(Surface, UpdateRects)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Makes sure the given list of rectangles is updated on the given screen.\n"
 		"The rectangles must all be confined within the screen boundaries (no clipping is done).\n"
 		"\n"
@@ -1005,7 +1005,7 @@ Gura_DeclareMethod(Surface, Flip)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"On hardware that supports double-buffering, this function sets up a flip and returns.\n"
 		"The hardware will wait for vertical retrace, and then swap video buffers before the next video surface blit or lock will return.\n"
 		"On hardware that doesn't support double-buffering, this is equivalent to calling `screen.UpdateRect(0, 0, 0, 0)`\n"
@@ -1029,7 +1029,7 @@ Gura_DeclareMethod(Surface, SetColors)
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 															new Expr_Value(0));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets a portion of the colormap for the given 8-bit surface.\n"
 		"\n"
 		"When surface is the surface associated with the current display, the display colormap will be updated with the requested colors.\n"
@@ -1075,7 +1075,7 @@ Gura_DeclareMethod(Surface, SetPalette)
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None, 0,
 															new Expr_Value(0));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets a portion of the palette for the given 8-bit surface.\n"
 		"\n"
 		"Palettized (8-bit) screen surfaces with the `sdl.HWPALETTE` flag have two palettes,\n"
@@ -1121,7 +1121,7 @@ Gura_DeclareMethod(Surface, LockSurface)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.Surface#LockSurface` sets up a surface for directly accessing the pixels.\n"
 		"Between calls to `sdl.Surface#LockSurface` and `sdl.Surface#UnlockSurface`, you can write to and read from surface.pixels, using the pixel format stored in surface.format.\n"
 		"Once you are done accessing the surface, you should use `sdl.Surface#UnlockSurface` to release it.\n"
@@ -1144,7 +1144,7 @@ Gura_DeclareMethod(Surface, UnlockSurface)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Surfaces that were previously locked using `sdl.Surface#LockSurface` must be unlocked with `sdl.Surface#UnlockSurface`.\n"
 		"Surfaces should be unlocked as soon as possible.\n"
 		"\n"
@@ -1165,7 +1165,7 @@ Gura_DeclareMethod(Surface, SaveBMP)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Saves the sdl.Surface surface as a Windows BMP file named file.\n"
 		"\n"
 		"**Return Value:** Returns 0 if successful or -1 if there was an error.\n");
@@ -1184,7 +1184,7 @@ Gura_DeclareMethod(Surface, SetColorKey)
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareArg(env, "key", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the color key (transparent pixel) in a blittable surface and enables or disables RLE blit acceleration.\n"
 		"\n"
 		"RLE acceleration can substantially speed up blitting of images with large horizontal runs of transparent pixels (i.e., pixels that match the key value).\n"
@@ -1213,7 +1213,7 @@ Gura_DeclareMethod(Surface, SetAlpha)
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1229,7 +1229,7 @@ Gura_DeclareMethod(Surface, SetClipRect)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the clipping rectangle for a surface.\n"
 		"When this surface is the destination of a blit, only the area within the clip rectangle will be drawn into.\n"
 		"\n"
@@ -1252,7 +1252,7 @@ Gura_DeclareMethod(Surface, GetClipRect)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Gets the clipping rectangle for a surface. When this surface is the destination of a blit, only the area within the clip rectangle is drawn into.\n"
 		"\n"
 		"This returns sdl.Rect instance filled with the clipping rectangle of the surface.\n");
@@ -1274,7 +1274,7 @@ Gura_DeclareMethod(Surface, ConvertSurface)
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a new surface of the specified format, and then copies and maps the given surface to it.\n"
 		"If this function fails, it returns nil.\n"
 		"\n"
@@ -1306,7 +1306,7 @@ Gura_DeclareMethod(Surface, FillRect)
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "color", VTYPE_Color);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function performs a fast fill of the given rectangle with color.\n"
 		"If dstrect is nil, the whole surface will be filled with color.\n"
 		"\n"
@@ -1336,7 +1336,7 @@ Gura_DeclareMethod(Surface, DisplayFormat)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function takes a surface and copies it to a new surface of the pixel format and colors of the video framebuffer, suitable for fast blitting onto the display surface.\n"
 		"It calls SDL_ConvertSurface.\n"
 		"\n"
@@ -1362,7 +1362,7 @@ Gura_DeclareMethod(Surface, DisplayFormatAlpha)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function takes a surface and copies it to a new surface of the pixel format and colors of the video framebuffer plus an alpha channel, suitable for fast blitting onto the display surface.\n"
 		"It calls `SDL_ConvertSurface`.\n"
 		"\n"
@@ -1451,7 +1451,7 @@ Gura_DeclareMethod(Overlay, LockYUVOverlay)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Much the same as `sdl.Surface#LockSurface`, `sdl.Overlay#LockYUVOverlay` locks the overlay for direct access to pixel data.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -1468,7 +1468,7 @@ Gura_DeclareMethod(Overlay, UnlockYUVOverlay)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The opposite to `sdl.Overlay#LockYUVOverlay`.\n"
 		"Unlocks a previously locked overlay.\n"
 		"An overlay must be unlocked before it can be displayed.\n");
@@ -1487,7 +1487,7 @@ Gura_DeclareMethod(Overlay, DisplayYUVOverlay)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Blit the overlay to the surface specified when it was created.\n"
 		"The sdl.Rect structure, dstrect, specifies the position and size of the destination.\n"
 		"If the dstrect is a larger or smaller than the overlay then the overlay will be scaled, this is optimized for 2x scaling.\n"
@@ -1612,7 +1612,7 @@ Gura_DeclareMethod(Joystick, JoystickIndex)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the index of a given `sdl.Joystick` instance.\n"
 		"\n"
 		"**Return Value:** Index number of the joystick.\n");
@@ -1629,7 +1629,7 @@ Gura_DeclareMethod(Joystick, JoystickNumAxes)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return the number of axes available from a previously opened `sdl.Joystick`.\n"
 		"\n"
 		"**Return Value:** Number of axes.\n");
@@ -1646,7 +1646,7 @@ Gura_DeclareMethod(Joystick, JoystickNumBalls)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return the number of trackballs available from a previously opened `sdl.Joystick`.\n"
 		"\n"
 		"**Return Value:** Number of trackballs.\n");
@@ -1663,7 +1663,7 @@ Gura_DeclareMethod(Joystick, JoystickNumHats)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return the number of hats available from a previously opened `sdl.Joystick`.\n"
 		"\n"
 		"**Return Value:** Number of hats.\n");
@@ -1680,7 +1680,7 @@ Gura_DeclareMethod(Joystick, JoystickNumButtons)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return the number of buttons available from a previously opened `sdl.Joystick`.\n"
 		"\n"
 		"**Return Value:** Number of buttons.\n");
@@ -1698,7 +1698,7 @@ Gura_DeclareMethod(Joystick, JoystickGetAxis)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.Joystick#JoystickGetAxis` returns the current state of the given axis on the given joystick.\n"
 		"\n"
 		"On most modern joysticks the X axis is usually represented by axis 0 and the Y axis by axis 1.\n"
@@ -1721,7 +1721,7 @@ Gura_DeclareMethod(Joystick, JoystickGetHat)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.Joystick#JoystickGetHat` returns the current state of the given hat on the given joystick.\n"
 		"\n"
 		"**Return Value:** The current state is returned as a Uint8 which is defined as an OR'd combination of one or more of the following\n\n"
@@ -1748,7 +1748,7 @@ Gura_DeclareMethod(Joystick, JoystickGetButton)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.Joystick#JoystickGetButton` returns the current state of the given button on the given joystick.\n"
 		"\n"
 		"**Return Value:** true if the button is pressed. Otherwise, false.\n");
@@ -1766,7 +1766,7 @@ Gura_DeclareMethod(Joystick, JoystickGetBall)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Get the ball axis change.\n"
 		"\n"
 		"Trackballs can only return relative motion since the last call to `sdl.Joystick#JoystickGetBall`, these motion deltas a placed into dx and dy.\n"
@@ -1789,7 +1789,7 @@ Gura_DeclareMethod(Joystick, JoystickClose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Close a joystick that was previously opened with `sdl.JoystickOpen`.\n");
 }
 
@@ -1929,7 +1929,7 @@ Gura_DeclareMethod(AudioSpec, MixAudio)
 	DeclareArg(env, "src", VTYPE_AudioSpec);
 	DeclareArg(env, "volume", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1986,7 +1986,7 @@ Gura_DeclareMethod(AudioCVT, ConvertAudio)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2110,7 +2110,7 @@ Gura_DeclareMethod(CD, CDStatus)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function returns the current status of the given drive. Status is described like so:\n"
 		"\n"
 		"- `sdl.CD_TRAYEMPTY`\n"
@@ -2133,7 +2133,7 @@ Gura_DeclareMethod(CD, CDPlay)
 	DeclareArg(env, "start", VTYPE_number);
 	DeclareArg(env, "length", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Plays the given cdrom, starting a frame start for length frames.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -2155,7 +2155,7 @@ Gura_DeclareMethod(CD, CDPlayTracks)
 	DeclareArg(env, "ntracks", VTYPE_number);
 	DeclareArg(env, "nframes", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"sdl.CD#CDPlayTracks plays the given CD starting at track `start_track`, for `ntracks` tracks.\n"
 		"\n"
 		"`start_frame` is the frame offset, from the beginning of the `start_track`, at which to start.\n"
@@ -2180,7 +2180,7 @@ Gura_DeclareMethod(CD, CDPause)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Pauses play on the given cdrom.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -2197,7 +2197,7 @@ Gura_DeclareMethod(CD, CDResume)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Resumes play on the given cdrom.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -2214,7 +2214,7 @@ Gura_DeclareMethod(CD, CDStop)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Stops play on the given cdrom.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -2231,7 +2231,7 @@ Gura_DeclareMethod(CD, CDEject)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Ejects the given cdrom.\n"
 		"\n"
 		"**Return Value:** Returns 0 on success, or -1 on an error.\n");
@@ -2248,7 +2248,7 @@ Gura_DeclareMethod(CD, CDClose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Closes the given cdrom handle.\n");
 }
 
@@ -2265,7 +2265,7 @@ Gura_DeclareMethod(CD, GetTrack)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -2306,7 +2306,7 @@ Gura_DeclareFunction(Init)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Initializes SDL. This should be called before all other SDL functions.\n"
 		"The flags parameter specifies what part(s) of SDL to initialize.\n"
 		"\n"
@@ -2335,7 +2335,7 @@ Gura_DeclareFunction(InitSubSystem)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"After SDL has been initialized with sdl.Init you may initialize uninitialized subsystems with `sdl.InitSubSystem`.\n"
 		"The flags parameter is the same as that used in `sdl.Init`.\n"
 		"\n"
@@ -2353,7 +2353,7 @@ Gura_DeclareFunction(QuitSubSystem)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.QuitSubSystem` allows you to shut down a subsystem that has been previously initialized by sdl.Init or `sdl.InitSubSystem`.\n"
 		"The flags tells `sdl.QuitSubSystem` which subsystems to shut down, it uses the same values that are passed to `sdl.Init`.\n");
 }
@@ -2369,7 +2369,7 @@ Gura_DeclareFunction(Quit)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.Quit` shuts down all SDL subsystems and frees the resources allocated to them.\n"
 		"This should always be called before you exit.\n");
 }
@@ -2386,7 +2386,7 @@ Gura_DeclareFunction(WasInit)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.WasInit` allows you to see which SDL subsytems have been initialized.\n"
 		"flags is a bitwise OR'd combination of the subsystems you wish to check (see sdl.Init for a list of subsystem flags).\n"
 		"\n"
@@ -2403,7 +2403,7 @@ Gura_DeclareFunction(GetError)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.GetError` returns a string containing information about the last internal SDL error.\n"
 		"\n"
 		"**Return Value:** `sdl.GetError` returns a string containing the last error.\n");
@@ -2424,7 +2424,7 @@ Gura_DeclareFunction(GetVideoSurface)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function returns a `sdl.Surface` instance of the current display surface.\n"
 		"If SDL is doing format conversion on the display surface, this function returns the publicly visible surface, not the real video surface.\n");
 }
@@ -2441,7 +2441,7 @@ Gura_DeclareFunction(GetVideoInfo)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function returns a `sdl.VideoInfo` instance that contains information about the video hardware.\n"
 		"If this is called before `sdl.SetVideoMode`, the vfmt member of the returned structure will contain the pixel format of the \"best\" video mode.\n");
 }
@@ -2458,7 +2458,7 @@ Gura_DeclareFunction(VideoDriverName)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a string of the name of the initialised video driver.\n"
 		"The driver name is a simple one word identifier like \"x11\" or \"windib\".\n"
 		"\n"
@@ -2480,7 +2480,7 @@ Gura_DeclareFunction(ListModes)
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Return a list of available screen dimensions for the given format and video flags, sorted largest to smallest.\n"
 		"Returns nil if there are no dimensions available for a particular format or an empty list if any dimension is okay for the given format.\n");
 }
@@ -2513,7 +2513,7 @@ Gura_DeclareFunction(VideoModeOK)
 	DeclareArg(env, "bpp", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.VideoModeOK` returns 0 if the requested mode is not supported under any bit depth,\n"
 		"or returns the bits-per-pixel of the closest available mode with the given width, height and requested surface flags (see `sdl.SetVideoMode`).\n"
 		"\n"
@@ -2539,7 +2539,7 @@ Gura_DeclareFunction(SetVideoMode)
 	DeclareArg(env, "flags", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Set up a video mode with the specified width, height and bits-per-pixel.\n"
 		"\n"
 		"If bpp is 0, it is treated as the current display bits per pixel.\n"
@@ -2584,7 +2584,7 @@ Gura_DeclareFunction(SetGamma)
 	DeclareArg(env, "greengamma", VTYPE_number);
 	DeclareArg(env, "bluegamma", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the \"gamma function\" for the display of each color component.\n"
 		"Gamma controls the brightness/contrast of colors displayed on the screen.\n"
 		"A gamma value of 1.0 is identity (i.e., no adjustment is made).\n"
@@ -2605,7 +2605,7 @@ Gura_DeclareFunction(GetGammaRamp)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Gets the gamma translation lookup tables currently used by the display. Each table is an array of 256 Uint16 values.\n"
 		"\n"
 		"Not all display hardware is able to change gamma.\n"
@@ -2659,7 +2659,7 @@ Gura_DeclareFunction(SetGammaRamp)
 	DeclareArg(env, "greentable", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "bluetable", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the gamma lookup tables for the display for each color component.\n"
 		"Each table is an array of 256 Uint16 values, representing a mapping between the input and output for that channel.\n"
 		"The input is the index into the array, and the output is the 16-bit gamma value at that index, scaled to the output color precision.\n"
@@ -2718,7 +2718,7 @@ Gura_DeclareFunction(CreateRGBSurface)
 	DeclareArg(env, "Amask", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Allocate an empty surface (must be called after `sdl.SetVideoMode`)\n"
 		"\n"
 		"If depth is 8 bits an empty palette is allocated for the surface, otherwise a 'packed-pixel' `sdl.PixelFormat` is created using the [RGBA]mask's provided (see sdl.PixelFormat).\n"
@@ -2763,7 +2763,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an `sdl.Surface` from the provided image instance."
 		"\n"
 		"Reference to the image instance is kept in the created `sdl.Surface` instance.\n"
@@ -2789,7 +2789,7 @@ Gura_DeclareFunction(LoadBMP)
 	DeclareArg(env, "file", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Loads a surface from a named Windows BMP file.\n"
 		"\n"
 		"**Return Value:** Returns the new surface, or `nil` if there was an error.\n");
@@ -2816,7 +2816,7 @@ Gura_DeclareFunction(BlitSurface)
 	DeclareArg(env, "dst",		VTYPE_Surface);
 	DeclareArg(env, "dstrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This performs a fast blit from the source surface to the destination surface.\n"
 		"\n"
 		"The width and height in srcrect determine the size of the copied rectangle.\n"
@@ -2874,7 +2874,7 @@ Gura_DeclareFunction(WarpMouse)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Set the position of the mouse cursor (generates a mouse motion event).\n");
 }
 
@@ -2896,7 +2896,7 @@ Gura_DeclareFunction(CreateCursor)
 	DeclareArg(env, "hot_x", VTYPE_number);
 	DeclareArg(env, "hot_y", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Create a cursor using the specified data and mask (in MSB format). The cursor width must be a multiple of 8 bits.\n"
 		"\n"
 		"The cursor is created in black and white according to the following:\n"
@@ -2941,7 +2941,7 @@ Gura_DeclareFunction(SetCursor)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the currently active cursor to the specified one.\n"
 		"If the cursor is currently visible, the change will be immediately represented on the display.\n");
 }
@@ -2964,7 +2964,7 @@ Gura_DeclareFunction(GetCursor)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the currently active mouse cursor.\n");
 }
 
@@ -2980,7 +2980,7 @@ Gura_DeclareFunction(ShowCursor)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "toggle", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Toggle whether or not the cursor is shown on the screen.\n"
 		"Passing `sdl.ENABLE` displays the cursor and passing `sdl.DISABLE` hides it.\n"
 		"The current state of the mouse cursor can be queried by passing `sdl.QUERY`, either `sdl.DISABLE` or `sdl.ENABLE` will be returned.\n"
@@ -3000,7 +3000,7 @@ Gura_DeclareFunction(GL_GetAttribute)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "attr", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the value of the SDL/OpenGL attribute value.\n"
 		"This is useful after a call to `sdl.SetVideoMode` to check whether your attributes have been set as you expected.\n"
 		"\n"
@@ -3023,7 +3023,7 @@ Gura_DeclareFunction(GL_SetAttribute)
 	DeclareArg(env, "attr", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the OpenGL attribute attr to value.\n"
 		"The attributes you set don't take effect until after a call to `sdl.SetVideoMode`.\n"
 		"You should use `sdl.GL_GetAttribute` to check the values after a `sdl.SetVideoMode` call.\n"
@@ -3043,7 +3043,7 @@ Gura_DeclareFunction(GL_SwapBuffers)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Swap the OpenGL buffers, if double-buffering is supported.\n");
 }
 
@@ -3062,7 +3062,7 @@ Gura_DeclareFunction(CreateYUVOverlay)
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "display", VTYPE_Surface);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"`sdl.CreateYUVOverlay` creates a YUV overlay of the specified width, height and format\n"
 		"(see `sdl.Overlay` for a list of available formats), for the provided display.\n"
 		"A sdl.Overlay structure is returned.\n"
@@ -3091,7 +3091,7 @@ Gura_DeclareFunction(WM_SetCaption)
 	DeclareArg(env, "title", VTYPE_string);
 	DeclareArg(env, "icon", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the title-bar and icon name of the display window.\n");
 }
 
@@ -3106,7 +3106,7 @@ Gura_DeclareFunction(WM_GetCaption)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a list of strings of title-bar and icon name\n");
 }
 
@@ -3127,7 +3127,7 @@ Gura_DeclareFunction(WM_SetIcon)
 	DeclareArg(env, "surface", VTYPE_Surface);
 	DeclareArg(env, "mask", VTYPE_binary, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sets the icon for the display window. Win32 icons must be 32x32.\n"
 		"\n"
 		"This function must be called before the first call to `sdl.SetVideoMode`.\n"
@@ -3155,7 +3155,7 @@ Gura_DeclareFunction(WM_IconifyWindow)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"If the application is running in a window managed environment SDL attempts to iconify/minimise it.\n"
 		"If `sdl.WM_IconifyWindow` is successful, the application will receive a `sdl.APPACTIVE` loss event.\n"
 		"\n"
@@ -3173,7 +3173,7 @@ Gura_DeclareFunction(WM_ToggleFullScreen)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Toggles the application between windowed and fullscreen mode, if supported.\n"
 		"(X11 is the only target currently supported, BeOS support is experimental).\n"
 		"\n"
@@ -3192,7 +3192,7 @@ Gura_DeclareFunction(WM_GrabInput)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Grabbing means that the mouse is confined to the application window,\n"
 		"and nearly all keyboard input is passed directly to the application, and not interpreted by a window manager, if any.\n"
 		"\n"
@@ -3220,7 +3220,7 @@ Gura_DeclareFunction(PumpEvents)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Pumps the event loop, gathering events from the input devices.\n"
 		"\n"
 		"`sdl.PumpEvents` gathers all the pending input information from devices and places it on the event queue.\n"
@@ -3244,7 +3244,7 @@ Gura_DeclareFunction(AddEvents)
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_ListVar);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This calles a function `SDL_PeepEvents` with `SDL_ADDEVENT`.\n"
 		"\n"
 		"`sdl.Event` instances, events, will be added to the back of the event queue.\n"
@@ -3274,7 +3274,7 @@ Gura_DeclareFunction(PeekEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This calles a function `SDL_PeepEvents` with `SDL_PEEKEVENT`.\n"
 		"\n"
 		"Up to numevents events at the front of the event queue, matching mask, will be returned and will not be removed from the queue.\n"
@@ -3311,7 +3311,7 @@ Gura_DeclareFunction(GetEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This calles a function `SDL_PeepEvents` with `SDL_GETEVENT`.\n"
 		"\n"
 		"Up to numevents events at the front of the event queue, matching mask, will be returned and will be removed from the queue.\n"
@@ -3346,7 +3346,7 @@ Gura_DeclareFunction(PollEvent)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Polls for currently pending events, and returns `sdl.Event` instance if there are any pending events, or nil if there are none available.\n");
 }
 
@@ -3368,7 +3368,7 @@ Gura_DeclareFunction(WaitEvent)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Waits indefinitely for the next available event, returning `sdl.Event` instance, or nil if there was an error while waiting for events.\n");
 }
 
@@ -3394,7 +3394,7 @@ Gura_DeclareFunction(PushEvent)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "event", VTYPE_Event);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The event queue can actually be used as a two way communication channel.\n"
 		"Not only can events be read from the queue, but the user can also push their own events onto it.\n"
 		"event is an instance of sdl.Event you wish to push onto the queue.\n"
@@ -3429,7 +3429,7 @@ Gura_DeclareFunction(SetEventFilter)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "filter", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function sets up a filter to process all events before they are posted to the event queue.\n"
 		"This is a very powerful and flexible feature. The filter is prototyped as:\n"
 		"\n"
@@ -3462,7 +3462,7 @@ Gura_DeclareFunction(GetEventFilter)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function retrieves a pointer to the event filter that was previously set using `sdl.SetEventFilter`.\n"
 		"A filter function is defined as:\n"
 		"\n"
@@ -3484,7 +3484,7 @@ Gura_DeclareFunction(EventState)
 	DeclareArg(env, "type", VTYPE_number);
 	DeclareArg(env, "state", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function allows you to set the state of processing certain event type's.\n"
 		"\n"
 		"If state is set to `sdl.IGNORE`, that event type will be automatically dropped from the event queue and will not be filtered.\n"
@@ -3507,7 +3507,7 @@ Gura_DeclareFunction(CheckKeyState)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Check if the specified key is being pushed down.\n"
 		"key is one of `sdl.K_*` value. It returns true if the key is down, or false otherwise.\n"
 		"\n"
@@ -3527,7 +3527,7 @@ Gura_DeclareFunction(GetModState)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the current state of the modifier keys (CTRL, ALT, etc.).\n"
 		"\n"
 		"**Return Value:** The return value can be an OR'd combination of the following value.\n"
@@ -3562,7 +3562,7 @@ Gura_DeclareFunction(SetModState)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "modstate", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The inverse of sdl.GetModState, sdl.SetModState allows you to impose modifier key states on your application.\n"
 		"\n"
 		"Simply pass your desired modifier states into modstate.\n"
@@ -3593,7 +3593,7 @@ Gura_DeclareFunction(GetKeyName)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "key", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the SDL-defined name of the key.\n");
 }
 
@@ -3608,7 +3608,7 @@ Gura_DeclareFunction(EnableUNICODE)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "enable", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Enables/Disables Unicode keyboard translation.\n"
 		"\n"
 		"To obtain the character codes corresponding to received keyboard events, Unicode translation must first be turned on using this function.\n"
@@ -3634,7 +3634,7 @@ Gura_DeclareFunction(EnableKeyRepeat)
 	DeclareArg(env, "delay", VTYPE_number);
 	DeclareArg(env, "interval", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Enables or disables the keyboard repeat rate.\n"
 		"delay specifies how long the key must be pressed before it begins repeating, it then repeats at the speed specified by interval.\n"
 		"Both delay and interval are expressed in milliseconds.\n"
@@ -3655,7 +3655,7 @@ Gura_DeclareFunction(GetMouseState)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It returns a list `[button, x, y]`.\n"
 		"`button` is a current button state as a bitmask, which can be tested using the `sdl.BUTTON(button)` function, and `x` and `y` are set to the current mouse cursor position.\n");
 }
@@ -3672,7 +3672,7 @@ Gura_DeclareFunction(GetRelativeMouseState)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"It returns a list `[button, x, y]`.\n"
 		"`button` is a current button state as a bitmask, which can be tested using the `sdl.BUTTON(button)` function,\n"
 		"and `x` and `y` are set to the change in the mouse position since the last call to `sdl.GetRelativeMouseState` or since event initialization.\n");
@@ -3690,7 +3690,7 @@ Gura_DeclareFunction(GetAppState)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function returns the current state of the application. The value returned is a bitwise combination of:\n"
 		"\n"
 		"- `sdl.APPMOUSEFOCUS` .. The application has mouse focus.\n"
@@ -3709,7 +3709,7 @@ Gura_DeclareFunction(JoystickEventState)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "state", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function is used to enable or disable joystick event processing.\n"
 		"With joystick event processing disabled you will have to update joystick states with `sdl.JoystickUpdate` and read the joystick information manually.\n"
 		"state is either `sdl.QUERY`, `sdl.ENABLE` or `sdl.IGNORE`.\n"
@@ -3732,7 +3732,7 @@ Gura_DeclareFunction(NumJoysticks)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Counts the number of joysticks attached to the system.\n"
 		"\n"
 		"**Return Value:** Returns the number of attached joysticks.\n");
@@ -3749,7 +3749,7 @@ Gura_DeclareFunction(JoystickName)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Get the implementation dependent name of joystick.\n"
 		"The index parameter refers to the N'th joystick on the system.\n"
 		"\n"
@@ -3767,7 +3767,7 @@ Gura_DeclareFunction(JoystickOpen)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Opens a joystick for use within SDL.\n"
 		"The index refers to the N'th joystick in the system.\n"
 		"A joystick must be opened before it game be used.\n"
@@ -3788,7 +3788,7 @@ Gura_DeclareFunction(JoystickOpened)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Determines whether a joystick has already been opened within the application.\n"
 		"index refers to the N'th joystick on the system.\n"
 		"\n"
@@ -3805,7 +3805,7 @@ Gura_DeclareFunction(JoystickUpdate)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Updates the state(position, buttons, etc.) of all open joysticks.\n"
 		"If joystick events have been enabled with `sdl.JoystickEventState` then this is called automatically in the event loop.\n");
 }
@@ -3825,7 +3825,7 @@ Gura_DeclareFunction(OpenAudio)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "desired", VTYPE_AudioSpec);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3850,7 +3850,7 @@ Gura_DeclareFunction(PauseAudio)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "pause_on", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3865,7 +3865,7 @@ Gura_DeclareFunction(GetAudioStatus)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3880,7 +3880,7 @@ Gura_DeclareFunction(LoadWAV)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3912,7 +3912,7 @@ Gura_DeclareFunction(BuildAudioCVT)
 	DeclareArg(env, "dst_channels", VTYPE_number);
 	DeclareArg(env, "dst_rate", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3937,7 +3937,7 @@ Gura_DeclareFunction(LockAudio)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3952,7 +3952,7 @@ Gura_DeclareFunction(UnlockAudio)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3967,7 +3967,7 @@ Gura_DeclareFunction(CloseAudio)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -3985,7 +3985,7 @@ Gura_DeclareFunction(CDNumDrives)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4000,7 +4000,7 @@ Gura_DeclareFunction(CDName)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "drive", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4015,7 +4015,7 @@ Gura_DeclareFunction(CDOpen)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "drive", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -4042,7 +4042,7 @@ Gura_DeclareFunction(GetTicks)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Get the number of milliseconds since the SDL library initialization.\n"
 		"Note that this value wraps if the program runs for more than ~49 days.\n");
 }
@@ -4058,7 +4058,7 @@ Gura_DeclareFunction(Delay)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "ms", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Wait a specified number of milliseconds before returning.\n"
 		"`sdl.Delay` will wait at least the specified time, but possible longer due to OS scheduling.\n"
 		"\n"
@@ -4080,7 +4080,7 @@ Gura_DeclareFunction(AddTimer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(thread_));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Adds a callback function to be run after the specified number of milliseconds has elapsed.\n"
 		"The callback function is passed the current timer interval and the user supplied parameter from the `sdl.AddTimer` call and returns the next timer interval.\n"
 		"If the returned value from the callback is the same as the one passed in, the periodic alarm continues, otherwise a new alarm is scheduled.\n"
@@ -4135,7 +4135,7 @@ Gura_DeclareFunction(Rect)
 	SetClassToConstruct(Gura_UserClass(Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an instance of sdl.Rect structure.");
 }
 
@@ -4159,7 +4159,7 @@ Gura_DeclareFunction(Color)
 	SetClassToConstruct(Gura_UserClass(Color));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an instance of sdl.Color structure.");
 }
 
@@ -4187,13 +4187,13 @@ Gura_DeclareFunction(AudioSpec)
 	DeclareArg(env, "samples",	VTYPE_number, OCCUR_Once, FLAG_None, 0,
 												new Expr_Value(8192));
 	DeclareArg(env, "callback",	VTYPE_function, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	AddHelp(Gura_Symbol(en), 
 	"It passes an audio object to the callback that is supposed to fill it\n"
 	"with audio data.");
 	SetClassToConstruct(Gura_UserClass(AudioSpec));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an instance of `sdl.AudioSpec` structure.");
 }
 
@@ -4227,7 +4227,7 @@ Gura_DeclareFunction(EVENTMASK)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "X", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a bit mask for an event ID.\n");
 }
 
@@ -4242,7 +4242,7 @@ Gura_DeclareFunction(BUTTON)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "X", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a bit mask to check button status. X is one of the following:\n"
 		"- `sdl.BUTTON_LEFT`\n"
 		"- `sdl.BUTTON_MIDDLE`\n"
@@ -4278,7 +4278,7 @@ Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -295,7 +295,7 @@ Gura_DeclareMethod(interp, command)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -317,7 +317,7 @@ Gura_DeclareMethod(interp, eval)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "objs", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -343,7 +343,7 @@ Gura_DeclareMethod(interp, evalscript)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "script", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -365,7 +365,7 @@ Gura_DeclareMethod(interp, timer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -384,7 +384,7 @@ Gura_DeclareMethod(interp, variable)
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "varName", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -664,7 +664,7 @@ Gura_DeclareMethod(timer, cancel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -685,7 +685,7 @@ Gura_DeclareMethod(timer, start)
 	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -720,7 +720,7 @@ Gura_DeclareMethodAlias(image, read_tcl, "read@tcl")
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads an image data from TCL image object.");
 }
 
@@ -762,7 +762,7 @@ Gura_DeclareMethodAlias(image, write_tcl, "write@tcl")
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes an image data to TCL image object.");
 }
 
@@ -806,7 +806,7 @@ Gura_DeclareFunction(interp)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(interp));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 
@@ -832,7 +832,7 @@ Gura_DeclareFunction(Tk_MainLoop)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"");
 }
 

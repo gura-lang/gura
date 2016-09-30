@@ -192,7 +192,7 @@ Gura_DeclareMethodAlias(image, read_at_jpeg, "read@jpeg")
 	DeclareAttr(Gura_UserSymbol(fast));
 	DeclareAttr(Gura_UserSymbol(rough));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a JPEG image data from the specified `stream`.\n"
 		"\n"
 		"When the argument `size` is specified, the image would be shrinked so that\n"
@@ -228,7 +228,7 @@ Gura_DeclareMethodAlias(image, write_at_jpeg, "write@jpeg")
 	DeclareArg(env, "quality", VTYPE_number, OCCUR_Once,
 			   FLAG_None, 0, new Expr_Value(75));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a JPEG image data to the specified `stream`.\n"
 		"\n"
 		"The argument `quality` takes a number between 0 and 100\n"
@@ -252,7 +252,7 @@ Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -62,7 +62,7 @@ Gura_DeclareFunction(mpq)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpq));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `gmp.mpq` instance.\n"
 		"\n"
 		"You can call this function with one of the following form.\n"
@@ -111,7 +111,7 @@ Gura_DeclareMethodAlias(mpq, cast_mpf, "cast@mpf")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Casts the value to `gmp.mpf`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpf"));
@@ -132,7 +132,7 @@ Gura_DeclareMethodAlias(string, cast_mpq, "cast@mpq")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Casts the string to `gmp.mpq`.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("num", "gmp.mpq"));

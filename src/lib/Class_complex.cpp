@@ -16,7 +16,7 @@ Gura_DeclareFunction(complex)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_complex));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `complex` instance with a real part `real` and an imaginary part `imag`.\n"
 		"\n"
 		"If the argument `imag` is omitted, the imaginary part would be set to zero.\n"
@@ -43,7 +43,7 @@ Gura_DeclareClassMethod(complex, polar)
 	DeclareAttr(Gura_Symbol(deg));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `complex` instance with an absolute number `abs`\n"
 		"and an angle `arg` in polar coords.\n"
 		"\n"
@@ -69,7 +69,7 @@ Gura_DeclareMethodPrimitive(complex, roundoff)
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a complex number with real and imaginary parts being rounded off.\n"
 		"\n"
 		"The argument `threshold` specifies the threshold value for the round-off.\n"

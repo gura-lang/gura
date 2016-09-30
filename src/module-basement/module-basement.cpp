@@ -28,7 +28,7 @@ Gura_DeclareFunction(format)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts `values` into string depending on formatter specifications\n"
 		"in `format` and returns the result in string.\n"
 		"For a detail information about formatter specications,\n"
@@ -47,7 +47,7 @@ Gura_DeclareFunction(print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` to standard output."
 	);
 }
@@ -71,7 +71,7 @@ Gura_DeclareFunction(printf)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` to standard output according to formatter specifiers in `format`.\n"
 		"The format specifier has a format of `%[flags][width][.precision]specifier`.\n"
 		"\n"
@@ -147,7 +147,7 @@ Gura_DeclareFunction(println)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out `values` and an end-of-line character to the standard output.\n");
 }
 
@@ -174,7 +174,7 @@ Gura_DeclareFunction(cross)
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Executes the `block` while evaluating all the combinations of results from `expr`\n"
 		"that has format \"`var in iteratable`\".\n"
 		"You can specify one or more such `expr`s as arguments and\n"
@@ -214,7 +214,7 @@ Gura_DeclareFunctionAlias(for_, "for")
 	DeclareArg(env, "expr", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Executes the `block` while evaulating iteration command `expr` that has a format\n"
 		"\"`var in iteratable`\".\n"
 		"For `var`, an identifier or a list of identifiers is specified.\n"
@@ -258,7 +258,7 @@ Gura_DeclareFunction(repeat)
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Executes the block for `n` times. If `n` is omitted, it repeats the block\n"
 		"execution forever.\n"
 		"\n"
@@ -286,7 +286,7 @@ Gura_DeclareFunctionAlias(while_, "while")
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Executes the block while the evaluation result of `cond` is true.\n"
 		"\n"
 		REPEATER_HELP
@@ -317,7 +317,7 @@ Gura_DeclareFunction(consts)
 	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that generates the same value specified by the argument `value`.\n"
 		"\n"
 		"The argument `num` specifies the number of elements to be generated.\n"
@@ -349,7 +349,7 @@ Gura_DeclareFunction(dim)
 	DeclareArg(env, "n", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a list that contains `n` values of `nil`.\n"
 		"If you pass multiple numbers for `n`, it would create a nested list.\n"
 		"\n"
@@ -449,7 +449,7 @@ Gura_DeclareFunction(interval)
 	DeclareAttr(Gura_Symbol(open_r));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that generates a sequence of numbers\n"
 		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
 		
@@ -501,7 +501,7 @@ Gura_DeclareFunction(range)
 	DeclareArg(env, "step",		VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that generates a sequence of integer numbers.\n"
 		"\n"
 		"This function can be called in three formats that generate following numbers:\n"
@@ -582,7 +582,7 @@ Gura_DeclareFunctionAlias(break_, "break")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Exits from an inside of a loop that is formed with repeating functions like\n"
 		"`repeat()`, `while()`, `for()` and `cross(),`\n"
 		"as well as other functions generating an iterator.\n"
@@ -609,7 +609,7 @@ Gura_DeclareFunctionAlias(continue_, "continue")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Cancels the current turn of a loop and continues on to the next.\n"
 		"This function can be used in a loop that is formed with repeating functions like\n"
 		"`repeat()`, `while()`, `for()` and `cross()`,\n"
@@ -637,7 +637,7 @@ Gura_DeclareFunctionAlias(return_, "return")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Skips the remaining procedure of the current function\n"
 		"and returns to the context that calls it.\n"
 		"\n"
@@ -671,7 +671,7 @@ Gura_DeclareStatementAlias_CustomEnd(if_, "if")
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an \"if\" block within a statement of `if-elsif-else`.\n"
 		"\n"
 		"If the evaluation result of `cond` is determined as true, the block would be executed,\n"
@@ -751,7 +751,7 @@ Gura_DeclareStatementAlias(elsif_, "elsif", FLAG_Leader | FLAG_Trailer)
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an \"elsif\" block within a statement of `if-elsif-else`.\n"
 		"\n"
 		"If the evaluation result of `cond` is determined as true, the block would be executed,\n"
@@ -790,7 +790,7 @@ Gura_DeclareStatementAlias(else_, "else", FLAG_Trailer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an \"else\" block within a statement of `if-elsif-else` or `try-catch-else-finally`.\n");
 }
 
@@ -819,7 +819,7 @@ Gura_DeclareStatement(end, FLAG_Trailer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
 	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an end of a sequence.\n"
 		"\n"
 		"This function is supposed to be used as a block terminator\n"
@@ -841,7 +841,7 @@ Gura_DeclareFunctionAlias(switch_, "switch")
 {
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Form a switch block that contains `case()` and `default()` function calls.\n"
 		"It calls these functions sequentially and exits the execution\n"
 		"when one of the conditions is evaluated as true.");
@@ -869,7 +869,7 @@ Gura_DeclareFunctionAlias(case_, "case")
 	DeclareArg(env, "cond", VTYPE_quote);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an case block within a switch block.\n"
 		"After evaluating an expr object cond, the block shall be executed\n"
 		"if it has a value of true.");
@@ -897,7 +897,7 @@ Gura_DeclareFunctionAlias(default_, "default")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify a default block within a switch block.\n"
 		"If all the preceding condition of case block are not evaluated as true,\n"
 		"this block shall be executed.\n");
@@ -924,7 +924,7 @@ Gura_DeclareStatementAlias(try_, "try", FLAG_Leader)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify a try block of a statement of try-catch-else-finally.\n"
 		"It catches signals that occur in the block and executes a corresponding\n"
 		"`catch()` or `else()` function that follow after it.");
@@ -1039,7 +1039,7 @@ Gura_DeclareStatementAlias(catch_, "catch", FLAG_Leader | FLAG_Trailer)
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Specify an catch block of a statement of try-catch-else-finally.\n"
 		"It can take multiple numbers of arguments of error objects to handle.\n"
 		"If there's no error objects specified, it handles all the errors that are\n"
@@ -1069,7 +1069,7 @@ Gura_DeclareStatementAlias(finally_, "finally", FLAG_Trailer)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1100,7 +1100,7 @@ Gura_DeclareFunction(raise)
 	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, 0, new Expr_Value(Value("error")));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Raises an error signal with a specified error object, a message string and\n"
 		"an additional value.");
 }
@@ -1122,7 +1122,7 @@ Gura_DeclareFunction(chr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "code", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a UTF-32 code into a string.\n");
 }
 
@@ -1142,7 +1142,7 @@ Gura_DeclareFunction(hex)
 	DeclareArg(env, "digits", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(upper));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a number into a hexadecimal string.\n"
 		"Argument `digits` specifies a minimum columns of the converted result\n"
 		"and fills `0` in the lacking space.\n"
@@ -1174,7 +1174,7 @@ Gura_DeclareFunctionAlias(int_, "int")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a value into an integer number like below:\n"
 		"\n"
 		"- For a number value, it would be converted into an integer number.\n"
@@ -1213,7 +1213,7 @@ Gura_DeclareFunction(ord)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts the first character of a string into a number of UTF-32 code.\n"
 		"If the string contains more than one characters, it simply neglects trailing ones.\n");
 }
@@ -1236,7 +1236,7 @@ Gura_DeclareFunction(tonumber)
 	DeclareAttr(Gura_Symbol(zero));
 	DeclareAttr(Gura_Symbol(nil));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a string value into a number by a lexical parsing.\n"
 		"If the value is not a string, it first tries to convert the value into a string.\n"
 		"\n"
@@ -1276,7 +1276,7 @@ Gura_DeclareFunction(tostring)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a value into a string.");
 }
 
@@ -1291,7 +1291,7 @@ Gura_DeclareFunction(tosymbol)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Converts a string into a symbol.");
 }
 
@@ -1310,7 +1310,7 @@ Gura_DeclareFunctionAlias(class_, "class")
 	DeclareArg(env, "superclass", VTYPE_Class, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `class` that includes methods and properties\n"
 		"described in the content of the `block`.\n"
 		"The detail information on how to describe the block content for this function\n"
@@ -1355,7 +1355,7 @@ Gura_DeclareFunction(classref)
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Looks up a class by an expression of a type name.");
 }
 
@@ -1380,7 +1380,7 @@ Gura_DeclareFunctionAlias(struct_, "struct")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(loose));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `class` for a structure that\n"
 		"contains properties specified by `args`. It can optionally take a block\n"
 		"which declares methods and properties just like `class()` function does.\n"
@@ -1434,7 +1434,7 @@ Gura_DeclareFunction(super)
 	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a reference to `obj` through which you can call methods of the super class.\n"
 		"\n"
 		"Example:\n"
@@ -1489,7 +1489,7 @@ Gura_DeclareFunctionAlias(extern_, "extern")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Declares symbols that is supposed to access variables in outer scopes.");
 }
 
@@ -1517,7 +1517,7 @@ Gura_DeclareFunction(local)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "syms", VTYPE_quote, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Declares symbols of variable that are supposed to be accessed locally in a block.");
 }
 
@@ -1545,7 +1545,7 @@ Gura_DeclareFunction(locals)
 	DeclareArg(env, "module", VTYPE_Module, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an environment object that belongs to a specified module.\n"
 		"If the argument `module` is omitted, it returns an `environment` object of the current scope.");
 }
@@ -1567,7 +1567,7 @@ Gura_DeclareFunction(outers)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns an environment object that accesses to an outer scope.");
 }
 
@@ -1584,7 +1584,7 @@ Gura_DeclareFunctionAlias(public_, "public")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Declares symbols as public ones that are accessible from outer scopes.\n"
 		"\n"
 		"If you want to make `foo` and `bar` accessible, call this function like below:\n"
@@ -1627,7 +1627,7 @@ Gura_DeclareFunction(scope)
 	DeclareArg(env, "target", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Evaluates block with a local scope.");
 }
 
@@ -1667,7 +1667,7 @@ Gura_DeclareFunction(module)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a module that contains functions and variables defined in the block\n"
 		"and returns it as a module object. This can be used to realize a namespace.");
 }
@@ -1693,7 +1693,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	DeclareAttr(Gura_Symbol(binary));
 	DeclareAttr(Gura_Symbol(mixin_type));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Imports a module and creates a variable that represents the imported module.\n"
 		"It also returns a value that is a reference to the module.\n"
 		"\n"
@@ -1776,7 +1776,7 @@ Gura_DeclareFunction(isdefined)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "identifier", VTYPE_quote);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if `identifier` is defined, and `false` otherwise.");
 }
 
@@ -1815,7 +1815,7 @@ Gura_Function(istype_)::Gura_Function(istype_)(
 	::sprintf(buff, "Returns `true` if the `value` is an instance of `%s`, and `false` otherwise.",
 		ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName().c_str());
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		buff);
 }
 
@@ -1836,7 +1836,7 @@ Gura_DeclareFunction(istype)
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if `value` is of the type of `type`, and `false` otherwise.\n");
 }
 
@@ -1860,7 +1860,7 @@ Gura_DeclareFunction(isinstance)
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if `value` is an instance of `type` or its descendant, and `false` otherwise.\n");
 }
 
@@ -1878,7 +1878,7 @@ Gura_DeclareFunctionAlias(typename_, "typename")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_quote);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a type name of the value.");
 }
 
@@ -1911,7 +1911,7 @@ Gura_DeclareFunctionAlias(undef_, "undef")
 	DeclareArg(env, "identifier", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Undefines `identifier` in the current scope.");
 }
 
@@ -1973,7 +1973,7 @@ Gura_DeclareFunction(choose)
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Picks up a value placed at `index` in the argument list `values`.\n"
 		"\n"
 		"Sample:\n"
@@ -2002,7 +2002,7 @@ Gura_DeclareFunction(cond)
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `value1` if `flag` is determined as true, and `value2` otherwise.\n"
 		"If the argument `value2` is omitted, it will return `nil` when `flag` is determined as false.\n"
 		"\n"
@@ -2037,7 +2037,7 @@ Gura_DeclareFunction(conds)
 	DeclareArg(env, "value1", VTYPE_any, OCCUR_Once);
 	DeclareArg(env, "value2", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `value1` if `flag` is determined as true, and `value2` otherwise.\n"
 		"If argument `value2` is omitted, it will return `nil` when `flag` is determined as false.\n"
 		"\n"
@@ -2070,7 +2070,7 @@ Gura_DeclareFunction(max)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the maximum value among the given arguments.");
 }
 
@@ -2094,7 +2094,7 @@ Gura_DeclareFunction(min)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the minimum value among the given arguments.");
 }
 
@@ -2122,7 +2122,7 @@ Gura_DeclareFunction(rand)
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a random number between `0` and `(range - 1)`.\n"
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).");
 }
@@ -2145,7 +2145,7 @@ Gura_DeclareFunction(rands)
 	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns random numbers between `0` and `(range - 1)`.\n"
 		"\n"
 		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
@@ -2175,7 +2175,7 @@ Gura_DeclareFunction(randseed)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "seed", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Initializes random seed with a specified number.");
 }
 
@@ -2196,7 +2196,7 @@ Gura_DeclareFunction(dir)
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a symbol list of variables and functions\n"
 		"that are assigned in the environment of `obj`.\n"
 		"\n"
@@ -2243,7 +2243,7 @@ Gura_DeclareFunction(dirtype)
 	DeclareAttr(Gura_Symbol(noesc));
 	//DeclareAttr(Gura_Symbol(nosort));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a symbol list of value types\n"
 		"that are assigned in the environment of `obj`.\n"
 		"\n"

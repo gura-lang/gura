@@ -62,7 +62,7 @@ Gura_DeclareFunction(test)
 	DeclareArg(env, "num1", VTYPE_number);
 	DeclareArg(env, "num2", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"This function adds two numbers and returns the result.\n");
 }
 

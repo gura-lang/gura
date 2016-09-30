@@ -74,7 +74,7 @@ Gura_DeclareFunction(iterator)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_iterator));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that combines iterators given in the argument.\n"
 		"\n"
 		"If an argument is not an iterator, that would be added as an element.\n"
@@ -109,7 +109,7 @@ Gura_DeclareMethod(iterator, delay)
 	DeclareArg(env, "delay", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns each element with an interval time\n"
 		"specified by the argument `delay` in seconds.\n");
 }
@@ -127,7 +127,7 @@ Gura_DeclareMethod(iterator, finite)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Marks the iterator as a finite one by clearing its infinite flag.\n"
 		"\n"
 		"This method returns the target instance itself.\n");
@@ -145,7 +145,7 @@ Gura_DeclareMethod(iterator, infinite)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Marks the iterator as an infinite one by setting its infinite flag.\n"
 		"\n"
 		"This method returns the target instance itself.\n");
@@ -163,7 +163,7 @@ Gura_DeclareMethod(iterator, isinfinite)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the iterator is infinite one.\n"
 		"\n"
 		"The trait of iterator's infinity is used to avoid an endless process\n"
@@ -183,7 +183,7 @@ Gura_DeclareMethod(iterator, next)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a next element of the iterator.\n"
 		"This operation updates the iterator's internal status.\n");
 }
@@ -201,7 +201,7 @@ Gura_DeclareMethod(iterator, repeater)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Makes the iterator behave as a \"repeater\".\n"
 		"This would allow the iterator be evaulated when it appears as an element\n"
 		"of another \"repeater\" iterator.\n"
@@ -240,7 +240,7 @@ Gura_DeclareMethod(iterator, after)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that picks up elements that appear\n"
 		"at positions after the criteria is evaluated to be `true`.\n"
 		"\n"
@@ -267,7 +267,7 @@ Gura_DeclareMethod(iterator, align)
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns the specified number of elements in the source iterator.\n"
 		"If the number is larger than the length of the source iterator,\n"
 		"the lacking part is filled with `value`.\n"
@@ -297,7 +297,7 @@ Gura_DeclareMethodAlias(iterator, and_, "and")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Calculates a logical AND result of all the values in the iterable.\n");
 }
 
@@ -317,7 +317,7 @@ Gura_DeclareMethod(iterator, average)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates an average of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of type that supports addition and division operators.\n"
@@ -351,7 +351,7 @@ Gura_DeclareMethod(iterator, before)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that extracts elements in the iterable before criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
@@ -375,7 +375,7 @@ Gura_DeclareMethod(iterator, contains)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns `true` if the specified value appears in the iterable.");
 }
 
@@ -396,7 +396,7 @@ Gura_DeclareMethod(iterator, count)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns a number of elements that matches the given criteria which is a single-argument\n"
 		"function or a value.\n"
 		"\n"
@@ -423,7 +423,7 @@ Gura_DeclareMethod(iterator, cycle)
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that iterates elements in the source iterator cyclically.\n"
 		"\n"
 		"The argument `n` specifies the number of elements the created iterator returns.\n"
@@ -457,7 +457,7 @@ Gura_DeclareMethod(iterator, each)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that iterates each element in the list.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -477,7 +477,7 @@ Gura_DeclareMethod(iterator, filter)
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterable that filters values in the source iterable by a criteria.\n"
 		"\n"
 		"A criteria can be an iterable or a function instance.\n"
@@ -526,7 +526,7 @@ Gura_DeclareMethod(iterator, find)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -551,7 +551,7 @@ Gura_DeclareMethod(iterator, flat)
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that searches items recursively if they are lists or iterators.\n"
 		"\n"
 		"Specifying an attribute could customize searching order as below:\n"
@@ -600,7 +600,7 @@ Gura_DeclareMethod(iterator, fold)
 	DeclareAttr(Gura_Symbol(neat));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that packs `n` elements of the source iterator into a list\n"
 		"and returns it as its element.\n"
 		"\n"
@@ -642,7 +642,7 @@ Gura_DeclareMethod(iterator, format)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that converts element values in the source iterable into strings\n"
 		"depending on formatter specifier in `format`.\n"
 		"\n"
@@ -664,7 +664,7 @@ Gura_DeclareMethod(iterator, head)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that takes the first `n` elements from the source iterable.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -684,7 +684,7 @@ Gura_DeclareMethod(iterator, join)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Joins all the elements in the iterable as strings while inserting\n"
 		"the specified separator `sep` and returns the result.\n"
 		"\n"
@@ -708,7 +708,7 @@ Gura_DeclareMethod(iterator, joinb)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Joins all the `binary` values in the iterable and returns the result.\n");
 }
 
@@ -727,7 +727,7 @@ Gura_DeclareMethod(iterator, len)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the length of the iterable.");
 }
 
@@ -754,7 +754,7 @@ Gura_DeclareMethod(iterator, map)
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that generates element values after applying the specfied\n"
 		"function on them. The function must take one argument.\n"
 		"\n"
@@ -778,7 +778,7 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns the maximum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the maximum value is found\n"
@@ -808,7 +808,7 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns the minimum value in the iterable.\n"
 		"\n"
 		"It would return a position index where the minimum value is found\n"
@@ -837,7 +837,7 @@ Gura_DeclareMethod(iterator, nilto)
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that converts `nil` in the source iterable to the specified value.\n");
 }
 
@@ -856,7 +856,7 @@ Gura_DeclareMethod(iterator, offset)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns skips the first `n` elements in the source iterable.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
@@ -883,7 +883,7 @@ Gura_DeclareMethodAlias(iterator, or_, "or")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Calculates a logical OR result of all the values in the iterable.\n");
 }
 
@@ -905,7 +905,7 @@ Gura_DeclareMethod(iterator, pack)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `binary` instance that has packed elements in the iterable\n"
 		"according to specifiers in the `format`.\n"
 		"\n"
@@ -985,7 +985,7 @@ Gura_DeclareMethod(iterator, pingpong)
 	DeclareAttr(Gura_Symbol(sticky_at_top));
 	DeclareAttr(Gura_Symbol(sticky_at_btm));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that iterates elements in the source iterator from top to bottom,\n"
 		"and then from bottom to top repeatedly.\n"
 		"\n"
@@ -1034,7 +1034,7 @@ Gura_DeclareMethod(iterator, print)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints elements to the specified `stream`.\n"
 		"\n"
 		"If omitted, they are printed to the standard output.\n");
@@ -1055,7 +1055,7 @@ Gura_DeclareMethod(iterator, printf)
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints items in the iterable by using the format.");
 }
 
@@ -1074,7 +1074,7 @@ Gura_DeclareMethod(iterator, println)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1091,7 +1091,7 @@ Gura_DeclareMethod(iterator, prod)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a product of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of a value type that supports multiplier operator.\n"
@@ -1124,7 +1124,7 @@ Gura_DeclareMethod(iterator, rank)
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterable of rank numbers for elements after sorting them.\n"
 		"\n"
 		"In default, they are sorted in an ascending order.\n"
@@ -1171,7 +1171,7 @@ Gura_DeclareMethod(iterator, reduce)
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Evaluates a block with a parameter format `|value, accum|` and leaves the result\n"
 		"as the next `accum` value.\n"
 		"\n"
@@ -1208,7 +1208,7 @@ Gura_DeclareMethod(iterator, replace)
 	DeclareArg(env, "replace", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that replaces the `value` in the original iterable"
 		"with the value of `replace`.\n"
 		"\n"
@@ -1229,7 +1229,7 @@ Gura_DeclareMethod(iterator, reverse)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that iterates elements in the source iterable from tail to top.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -1257,7 +1257,7 @@ Gura_DeclareMethod(iterator, roundoff)
 											new Expr_Value(RoundOffThreshold));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that replaces a number with zero\n"
 		"if it is less than the specified `threshold`.\n"
 		"\n"
@@ -1278,7 +1278,7 @@ Gura_DeclareMethod(iterator, runlength)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that counts the number of consecutive same value\n"
 		"and generates elements in a form of `[cnt, value]` where `cnt` indicates\n"
 		"how many `value` appears in a row.\n"
@@ -1305,7 +1305,7 @@ Gura_DeclareMethod(iterator, since)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that picks up each element in the iterable since criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
@@ -1330,7 +1330,7 @@ Gura_DeclareMethod(iterator, skip)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that skips `n` elements before picking up next element.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
@@ -1355,7 +1355,7 @@ Gura_DeclareMethod(iterator, skipnil)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that skips `nil` in the source iterable.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en()
@@ -1382,7 +1382,7 @@ Gura_DeclareMethod(iterator, sort)
 	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator of elements after sorting them.\n"
 		"\n"
 		"In default, they are sorted in an ascending order.\n"
@@ -1430,7 +1430,7 @@ Gura_DeclareMethod(iterator, stddev)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a standard deviation of elements in the iterable.\n");
 }
 
@@ -1451,7 +1451,7 @@ Gura_DeclareMethod(iterator, sum)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a summation of elements in the iterable.\n"
 		"\n"
 		"It can work on an iterable with elements of a value type that supports addition operator.\n"
@@ -1487,7 +1487,7 @@ Gura_DeclareMethod(iterator, tail)
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that takes the last `n` elements from the source iterable.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -1517,7 +1517,7 @@ Gura_DeclareMethod(iterator, until)
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that picks up each element in the list until criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"
@@ -1540,7 +1540,7 @@ Gura_DeclareMethod(iterator, variance)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Calculates a variance of elements in the iterable.\n");
 }
 
@@ -1564,7 +1564,7 @@ Gura_DeclareMethod(iterator, walk)
 	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that searches items recursively if they are lists or iterators.\n"
 		"\n"
 		"Specifying an attribute could customize searching order as below:\n"
@@ -1609,7 +1609,7 @@ Gura_DeclareMethodAlias(iterator, while_, "while")
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that picks up each element in the list while criteria\n"
 		"is evaluated as true. You can specify a function object, a list or an iterator\n"
 		"as the criteria.\n"

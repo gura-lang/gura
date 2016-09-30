@@ -65,7 +65,7 @@ Gura_DeclareMethod(structure, elems)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `doxygen.elem` instances of all the elements contained in the structure.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -85,7 +85,7 @@ Gura_DeclareMethod(structure, substructures)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns `doxygen.structure` instances of sub structures contained in the structure.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());

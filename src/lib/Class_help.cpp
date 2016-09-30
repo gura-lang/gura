@@ -78,7 +78,7 @@ Gura_DeclareClassMethodAlias(help, text_at_iterator, "text@iterator")
 	DeclareArg(env, "lang", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a help text for functions that return an iterator.\n"
 		"\n"
 		"The argument `lang` is a symbol that specifies the language in which the text is written,\n"
@@ -105,7 +105,7 @@ Gura_DeclareClassMethodAlias(help, text_at_block, "text@block")
 	DeclareArg(env, "typename", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a help text that for functions that take a block .\n"
 		"\n"
 		"The argument `lang` is a symbol that specifies the language in which the text is written,\n"
@@ -137,7 +137,7 @@ Gura_DeclareClassMethod(help, presenter)
 	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Registers a presentation procedure with a name specified by the argument `format`.\n"
 		"\n"
 		"The procedure is written in the block that takes block parameters:\n"
@@ -163,7 +163,7 @@ Gura_DeclareMethod(help, render)
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		""
 	);
 }
@@ -191,7 +191,7 @@ Gura_DeclareClassMethod(help, renderer)
 	DeclareArg(env, "format_out", VTYPE_string, OCCUR_Once);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Registers a procedure with a name specified by the argument `format`\n"
 		"that renders the help text in a format of `format_out`.\n"
 		"\n"

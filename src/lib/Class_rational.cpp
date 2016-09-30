@@ -17,7 +17,7 @@ Gura_DeclareFunction(rational)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_rational));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a rational value from given numerator `numer` and denominator `denom`.\n"
 		"\n"
 		"If the argument `denom` is omitted, one is set as its denominator.\n"
@@ -48,7 +48,7 @@ Gura_DeclareMethodPrimitive(rational, reduce)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reduces the rational number by dividing its numerator and denominator by their GCD.\n");
 }
 

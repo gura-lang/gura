@@ -17,7 +17,7 @@ Gura_DeclareMethodAlias(image, read_ppm, "read@ppm")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a PPM/PGM image from a stream.");
 }
 
@@ -36,7 +36,7 @@ Gura_DeclareMethodAlias(image, write_ppm, "write@ppm")
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareAttr(Gura_Symbol(gray));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a PPM/PGM image to a stream.");
 }
 

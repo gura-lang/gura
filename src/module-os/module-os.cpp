@@ -19,7 +19,7 @@ Gura_DeclareFunction(clock)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the time duration in second since the system has started.\n"
 		"\n"
 		"If `block` is specified, it would calculate how much time has been spent\n"
@@ -47,7 +47,7 @@ Gura_DeclareFunction(exec)
 	DeclareArg(env, "args", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(fork));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Executes the specified executable file.");
 }
 
@@ -83,7 +83,7 @@ Gura_DeclareFunction(fromnative)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Converts binary data that includes OS's native string into Gura's regulated string.");
 }
 
@@ -101,7 +101,7 @@ Gura_DeclareFunction(getenv)
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "default", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns the value of an environment variable.");
 }
 
@@ -120,7 +120,7 @@ Gura_DeclareFunction(putenv)
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Set the value of an environment variable.");
 }
 
@@ -139,7 +139,7 @@ Gura_DeclareFunction(redirect)
 	DeclareArg(env, "stderr", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Modifies variables `os.stdin`, `os.stdout` and `os.stderr` with values of arguments.\n"
 		"When `block` is specified, the modification only has effect within the block.");
 }
@@ -184,7 +184,7 @@ Gura_DeclareFunction(sleep)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "secs", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Sleeps for a time specified in seconds.");
 }
 
@@ -201,7 +201,7 @@ Gura_DeclareFunction(symlink)
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "tgt", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a symbol link.");
 }
 
@@ -226,7 +226,7 @@ Gura_DeclareFunction(tonative)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Converts Gura's regulated string into binary data that includes OS's native string.");
 }
 
@@ -243,7 +243,7 @@ Gura_DeclareFunction(unsetenv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Unset an environment variable.");
 }
 

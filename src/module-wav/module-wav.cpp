@@ -15,7 +15,7 @@ Gura_DeclareMethodAlias(audio, read_wav, "read@wav")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads WAV audio from a stream.");
 }
 
@@ -33,7 +33,7 @@ Gura_DeclareMethodAlias(audio, write_wav, "write@wav")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes WAV audio to a stream.");
 }
 
@@ -55,7 +55,7 @@ Gura_DeclareFunction(test)
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareArg(env, "streamOut", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -36,7 +36,7 @@ Gura_ImplementUserClass(Font)
 Gura_DeclareFunction(test)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	AddHelp(Gura_Symbol(en),
 	""
 	);
 }

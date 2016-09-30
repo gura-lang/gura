@@ -60,7 +60,7 @@ Gura_DeclareFunction(document)
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a Doxygen document from `stream` and creates an instance of `doxygen.document` class.\n"
 		"\n"
 		"The argument `aliases` is an instance that is available as a member of `doxygen.configuration` instance\n"
@@ -98,7 +98,7 @@ Gura_DeclareMethod(document, structures)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates an iterator that returns instances of `doxygen.structure`\n"
 		"contained in the `doxygen.document`.\n"
 		"\n"

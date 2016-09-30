@@ -64,7 +64,7 @@ Gura_DeclareMethod(elem, isstreakfirst)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the target element is at the first in a streak of\n"
 		"elements of the same type.\n");
 }
@@ -80,7 +80,7 @@ Gura_DeclareMethod(elem, isstreaklast)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns `true` if the target element is at the last in a streak of\n"
 		"elements of the same type.\n");
 }
@@ -98,7 +98,7 @@ Gura_DeclareMethod(elem, print)
 	DeclareArg(env, "indent", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "out", VTYPE_stream, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Prints out the content of the element to `out` with an indentation level\n"
 		"specified by `indent` that starts from zero.\n"
 		"If `out` is omitted, the result would be put out to standard output.\n");
@@ -119,7 +119,7 @@ Gura_DeclareMethod(elem, render)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_renderer, OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Renders the element content using `doxygen.renderer`.\n");
 }
 

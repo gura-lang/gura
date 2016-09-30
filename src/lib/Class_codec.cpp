@@ -44,7 +44,7 @@ Gura_DeclareFunction(codec)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_codec));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Creates a `codec` instance of the specified encoding name.\n"
 		"You can call `codecs.dir()` to get a list of available encoding names.\n"
 		"\n"
@@ -68,7 +68,7 @@ Gura_DeclareMethod(codec, addcr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The codec's encoder has a feature\n"
 		"to add a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with CR-LF codes in the encoded result.\n"
@@ -92,7 +92,7 @@ Gura_DeclareMethod(codec, decode)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Decodes a binary `buff` and returns the decoded result as `string`.\n");
 }
 
@@ -113,7 +113,7 @@ Gura_DeclareMethod(codec, delcr)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"The codec's decoder has a feature\n"
 		"to delete a CR code (`0x0d`) before a LF code (`0x0a`)\n"
 		"so that the lines are joined with LF code in the decoded result.\n"
@@ -137,7 +137,7 @@ Gura_DeclareMethod(codec, encode)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Encodes a string `str` and returns the encoded result as `binary`.\n");
 }
 

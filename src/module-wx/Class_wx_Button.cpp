@@ -73,7 +73,7 @@ Gura_DeclareFunction(Button)
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	AddHelp(Gura_Symbol(en),
 	"Constructor, creating and showing a button.\n"
 	"\n"
 	"The preferred way to create standard buttons is to use default value of label.\n"
@@ -164,7 +164,7 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	AddHelp(Gura_Symbol(en),
 	"Returns the string label for the button.\n"
 	"\n"
 	"**Return value** The button's label.\n"
@@ -184,7 +184,7 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	AddHelp(Gura_Symbol(en),
 	"Returns the default size for the buttons.\n"
 	"It is advised to make all the dialog buttons of the same size and this function allows to retrieve the\n"
 	"(platform and current font dependent size) which should be the best suited for this.\n"
@@ -218,7 +218,7 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	AddHelp(Gura_Symbol(en),
 	"Sets the string label for the button.\n"
 	"\n"
 	"**Parameters**\n"

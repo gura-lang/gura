@@ -91,7 +91,7 @@ Gura_DeclareFunction(palette)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_palette));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates a `palette` instance.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("plt", "palette")
@@ -145,7 +145,7 @@ Gura_DeclareMethod(palette, each)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an iterator that iterates each element in the palette.\n"
 		"\n"
 		GURA_HELPTEXT_ITERATOR_en());
@@ -165,7 +165,7 @@ Gura_DeclareMethod(palette, nearest)
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareAttr(Gura_Symbol(index));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a `color` instance in the palette that is the nearest with the specified color.\n"
 		"\n"
 		"If the attribute `:index` is specified, it would return an index\n"
@@ -186,7 +186,7 @@ Gura_DeclareMethod(palette, shrink)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareAttr(Gura_Symbol(align));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Shrinks the size of the palette to a number powered by two that is\n"
 		"enough to contain unique entries. The ordef of existing entries will\n"
 		"be kept intact.\n");
@@ -207,7 +207,7 @@ Gura_DeclareMethod(palette, updateby)
 	DeclareAttr(Gura_Symbol(shrink));
 	DeclareAttr(Gura_Symbol(align));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Updates palette entries according to color data in an image or a palette.\n"
 		"\n"
 		"The order of existing entries will be kept intact. If attribute shrink is\n"

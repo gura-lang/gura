@@ -17,7 +17,7 @@ Gura_DeclareMethodAlias(image, read_at_png, "read@png")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a PNG image from a stream.");
 }
 
@@ -35,7 +35,7 @@ Gura_DeclareMethodAlias(image, write_at_png, "write@png")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a PNG image to a stream.");
 }
 

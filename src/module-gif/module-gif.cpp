@@ -1141,7 +1141,7 @@ Gura_DeclareMethod(content, write)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a GIF image to a stream.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -1174,7 +1174,7 @@ Gura_DeclareMethod(content, addimage)
 	DeclareArg(env, "disposalMethod", VTYPE_symbol, OCCUR_Once,
 			   FLAG_None, 0, new Expr_Value(Gura_UserSymbol(none)));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Adds an image to GIF information.\n"
 		"\n"
 		"You can add multiple images that can be played as a motion picture.\n"
@@ -1390,7 +1390,7 @@ Gura_DeclareMethodAlias(image, read_at_gif, "read@gif")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Reads a GIF image from a stream.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -1415,7 +1415,7 @@ Gura_DeclareMethodAlias(image, write_at_gif, "write@gif")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Writes a GIF image to a stream.\n"
 		"\n"
 		"This method returns the reference to the target instance itself.\n");
@@ -1450,7 +1450,7 @@ Gura_DeclareFunction(content)
 	SetClassToConstruct(Gura_UserClass(content));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Reads a GIF data from a stream and returns an object that contains\n"
 		"GIF related information and images of a specified format. format is\n"
 		"is `rgb, `rgba or `noimage. If `noimage is specified, only the\n"

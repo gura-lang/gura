@@ -15,6 +15,6 @@ classref(`root.image).show() = {
 		}
 	}
 	tk.mainloop()
-} %% {`en, 'markdown', R'''
+} %% {`en, R'''
 Displays the content of `image` instance in a window.
 '''}

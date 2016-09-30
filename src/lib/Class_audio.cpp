@@ -99,7 +99,7 @@ Gura_DeclareFunction(audio)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_audio));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -165,7 +165,7 @@ Gura_DeclareMethod(audio, each)
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -191,7 +191,7 @@ Gura_DeclareMethod(audio, get)
 	DeclareArg(env, "channel", VTYPE_number);
 	DeclareArg(env, "offset", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -221,7 +221,7 @@ Gura_DeclareMethod(audio, put)
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_number);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -252,7 +252,7 @@ Gura_DeclareMethod(audio, sinewave)
 	DeclareArg(env, "len", VTYPE_number);
 	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -282,7 +282,7 @@ Gura_DeclareMethod(audio, store)
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "data", VTYPE_iterator);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

@@ -55,7 +55,7 @@ Gura_DeclareMethod(arg, finalize_trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Signals finalizing status to trailers after the current function.");
 }
 
@@ -73,7 +73,7 @@ Gura_DeclareMethod(arg, isset)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol, OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Returns `true` if the function is called with an attribute\n"
 		"that matches the specified symbol.\n");
 }
@@ -90,7 +90,7 @@ Gura_DeclareMethod(arg, quit_trailer)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Cancels evaluation of following trailers.\n"
 		"\n"
 		"Example:\n"

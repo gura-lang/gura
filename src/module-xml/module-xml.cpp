@@ -856,7 +856,7 @@ Gura_DeclareMethod(parser, parse)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1018,7 +1018,7 @@ Gura_DeclareMethod(element, addchild)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1035,7 +1035,7 @@ Gura_DeclareMethod(element, gettext)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1056,7 +1056,7 @@ Gura_DeclareMethod(element, textize)
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1083,7 +1083,7 @@ Gura_DeclareMethod(element, write)
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1187,7 +1187,7 @@ Gura_DeclareMethod(document, parse)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "str", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1206,7 +1206,7 @@ Gura_DeclareMethod(document, read)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1225,7 +1225,7 @@ Gura_DeclareMethod(document, textize)
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1250,7 +1250,7 @@ Gura_DeclareMethod(document, write)
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1354,7 +1354,7 @@ Gura_DeclareFunction(parser)
 	SetClassToConstruct(Gura_UserClass(parser));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1377,7 +1377,7 @@ Gura_DeclareFunction(element)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(element));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1421,7 +1421,7 @@ Gura_DeclareFunction(comment)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "comment", VTYPE_string);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 
@@ -1440,7 +1440,7 @@ Gura_DeclareFunction(document)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(document));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"");
 }
 

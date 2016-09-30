@@ -99,7 +99,7 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_operator));
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown, 
+		Gura_Symbol(en), 
 		"Creates an `operator` instance that is associated with the specified symbol.\n"
 		"\n"
 		GURA_HELPTEXT_BLOCK_en("op", "operator")
@@ -135,7 +135,7 @@ Gura_DeclareMethod(operator_, assign)
 	DeclareArg(env, "type_r", VTYPE_expr, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Associates the `operator` instance with a procedure described in `block`\n"
 		"that takes values as a block parameter and returns its operation result.\n"
 		"\n"
@@ -211,7 +211,7 @@ Gura_DeclareMethod(operator_, entries)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
-		Gura_Symbol(en), Help::FMT_markdown,
+		Gura_Symbol(en),
 		"Returns a list that contains type expressions\n"
 		"that the operator can accept as its arguments.\n"
 		"\n"
