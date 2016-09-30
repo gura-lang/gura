@@ -41,6 +41,11 @@ void Class_symbol::Prepare(Environment &env)
 	Gura_AssignValue(symbol, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_symbol::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

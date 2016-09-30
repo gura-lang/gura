@@ -126,6 +126,11 @@ void Class_semaphore::Prepare(Environment &env)
 	Gura_AssignMethod(semaphore, release);
 	Gura_AssignMethod(semaphore, session);
 	Gura_AssignMethod(semaphore, wait);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_semaphore::CreateDescendant(Environment &env, Class *pClass)

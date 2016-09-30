@@ -121,6 +121,11 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForNumber(j);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Value Class_complex::GetPropPrimitive(const Value &valueThis,

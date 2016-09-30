@@ -98,6 +98,11 @@ Class_Struct::Class_Struct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Stru
 void Class_Struct::Prepare(Environment &env)
 {
 	Gura_AssignMethod(Struct, tolist);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_Struct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

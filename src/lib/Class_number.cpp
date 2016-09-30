@@ -62,6 +62,11 @@ void Class_number::Prepare(Environment &env)
 	Gura_AssignClassValueEx("size@double", Value(8));
 	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Value Class_number::GetPropPrimitive(const Value &valueThis,

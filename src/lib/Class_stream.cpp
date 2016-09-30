@@ -920,6 +920,11 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, setcodec);
 	Gura_AssignMethod(stream, tell);
 	Gura_AssignMethod(stream, write);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_stream::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

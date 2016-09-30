@@ -200,6 +200,11 @@ void Class_formatter::Prepare(Environment &env)
 	Gura_AssignMethod(formatter, isleftalign);
 	Gura_AssignMethod(formatter, issharp);
 	Gura_AssignMethod(formatter, isuppercase);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_formatter::CreateDescendant(Environment &env, Class *pClass)

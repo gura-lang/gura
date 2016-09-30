@@ -1029,6 +1029,11 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, zentohan);
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForString($);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Value Class_string::IndexGetPrimitive(Environment &env,

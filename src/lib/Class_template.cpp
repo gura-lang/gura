@@ -591,6 +591,11 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, init_super);
 	// assignment of suffix manager
 	Gura_AssignSuffixMgrForString(T);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_template::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

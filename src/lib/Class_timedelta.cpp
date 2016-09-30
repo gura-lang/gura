@@ -109,6 +109,11 @@ Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 void Class_timedelta::Prepare(Environment &env)
 {
 	Gura_AssignFunction(timedelta);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_timedelta::CreateDescendant(Environment &env, Class *pClass)

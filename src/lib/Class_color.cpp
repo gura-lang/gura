@@ -259,6 +259,11 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignClassValue(aqua,		Value(new Object_color(env, Color::aqua)));
 	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::white)));
 	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

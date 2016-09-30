@@ -68,6 +68,11 @@ void Class_directory::Prepare(Environment &env)
 {
 	// function assignment
 	Gura_AssignFunction(directory);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_directory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

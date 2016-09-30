@@ -228,6 +228,11 @@ void Class_help::Prepare(Environment &env)
 	Gura_AssignMethod(help, presenter);
 	Gura_AssignMethod(help, render);
 	Gura_AssignMethod(help, renderer);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 }

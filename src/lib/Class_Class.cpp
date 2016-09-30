@@ -13,6 +13,11 @@ Class_Class::Class_Class(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Class)
 
 void Class_Class::Prepare(Environment &env)
 {
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_Class::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

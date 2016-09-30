@@ -616,6 +616,11 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, len);
 	Gura_AssignMethod(dict, put);
 	Gura_AssignMethod(dict, values);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_dict::Serialize(Environment &env, Stream &stream, const Value &value) const

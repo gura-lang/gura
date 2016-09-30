@@ -1214,6 +1214,11 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, setalpha);
 	Gura_AssignMethod(image, thumbnail);
 	Gura_AssignMethod(image, write);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_image::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

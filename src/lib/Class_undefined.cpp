@@ -13,6 +13,11 @@ Class_undefined::Class_undefined(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 void Class_undefined::Prepare(Environment &env)
 {
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_undefined::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

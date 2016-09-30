@@ -137,6 +137,11 @@ void Class_suffixmgr::Prepare(Environment &env)
 {
 	Gura_AssignFunction(suffixmgr);
 	Gura_AssignMethod(suffixmgr, assign);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 }

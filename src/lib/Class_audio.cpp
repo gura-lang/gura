@@ -316,6 +316,11 @@ void Class_audio::Prepare(Environment &env)
 	Gura_AssignMethod(audio, put);
 	Gura_AssignMethod(audio, sinewave);
 	Gura_AssignMethod(audio, store);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_audio::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

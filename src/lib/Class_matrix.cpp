@@ -878,6 +878,11 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, list);
 	Gura_AssignMethod(matrix, translate);
 	Gura_AssignMethod(matrix, transpose);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &value) const

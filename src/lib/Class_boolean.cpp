@@ -15,6 +15,11 @@ void Class_boolean::Prepare(Environment &env)
 {
 	// class assignment
 	Gura_AssignValue(boolean, Value(Reference()));
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_boolean::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

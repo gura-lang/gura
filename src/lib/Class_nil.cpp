@@ -13,6 +13,11 @@ Class_nil::Class_nil(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_nil)
 
 void Class_nil::Prepare(Environment &env)
 {
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_nil::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

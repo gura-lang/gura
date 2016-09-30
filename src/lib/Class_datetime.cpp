@@ -549,6 +549,11 @@ void Class_datetime::Prepare(Environment &env)
 	Gura_AssignMethod(datetime, today);
 	Gura_AssignMethod(datetime, utc);
 	Gura_AssignMethod(datetime, weekday);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_datetime::CreateDescendant(Environment &env, Class *pClass)

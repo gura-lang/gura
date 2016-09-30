@@ -63,6 +63,11 @@ Class_monitor::Class_monitor(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_mo
 void Class_monitor::Prepare(Environment &env)
 {
 	Gura_AssignFunction(monitor);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_monitor::CreateDescendant(Environment &env, Class *pClass)

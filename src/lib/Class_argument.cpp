@@ -124,6 +124,11 @@ void Class_argument::Prepare(Environment &env)
 	Gura_AssignMethod(arg, finalize_trailer);
 	Gura_AssignMethod(arg, isset);
 	Gura_AssignMethod(arg, quit_trailer);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_argument::CreateDescendant(Environment &env, Class *pClass)

@@ -1692,6 +1692,11 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, variance);
 	Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_iterator::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

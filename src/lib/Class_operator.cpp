@@ -282,6 +282,11 @@ void Class_operator::Prepare(Environment &env)
 	Gura_AssignFunction(operator_);
 	Gura_AssignMethod(operator_, assign);
 	Gura_AssignMethod(operator_, entries);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_operator::CreateDescendant(Environment &env, Class *pClass)

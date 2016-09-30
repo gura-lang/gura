@@ -400,6 +400,11 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, pointer);
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_binary::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

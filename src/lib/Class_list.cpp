@@ -2141,6 +2141,11 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, variance);
 	Gura_AssignMethod(list, walk);
 	Gura_AssignMethod(list, while_);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_list::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

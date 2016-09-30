@@ -516,6 +516,11 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignMethod(function, getname);
 	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_function::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

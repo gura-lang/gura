@@ -13,6 +13,11 @@ Class_quote::Class_quote(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_quote)
 
 void Class_quote::Prepare(Environment &env)
 {
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 bool Class_quote::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

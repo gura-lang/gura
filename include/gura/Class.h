@@ -229,6 +229,9 @@ public:
 	inline const Operator::EntryList &GetOperatorEntryList() const { return _operatorEntryList; }
 	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
 	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
+	inline void AddHelp(const Symbol *pSymbol, const String &doc) {
+		_pHelpProvider->AddHelp(new Help(pSymbol, doc));
+	}
 	bool DirProp(Environment &env, SymbolSet &symbols, bool escalateFlag);
 	virtual Value GetPropPrimitive(const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;

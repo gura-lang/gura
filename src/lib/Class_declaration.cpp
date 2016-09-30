@@ -104,6 +104,11 @@ void Class_declaration::Prepare(Environment &env)
 {
 	Gura_AssignValue(declaration, Value(Reference()));
 	Gura_AssignMethod(declaration, istype);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 //-----------------------------------------------------------------------------

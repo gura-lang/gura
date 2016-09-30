@@ -75,6 +75,11 @@ void Class_error::Prepare(Environment &env)
 {
 	Error::AssignErrorTypes(*this);
 	Gura_AssignValue(error, Value(Reference()));
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Object *Class_error::CreateDescendant(Environment &env, Class *pClass)

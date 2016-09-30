@@ -88,6 +88,11 @@ void Class_rational::Prepare(Environment &env)
 	Gura_AssignMethod(rational, reduce);		// primitive method
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForNumber(r);
+	// help document
+	AddHelp(
+		Gura_Symbol(en),
+		R"**(
+)**");
 }
 
 Value Class_rational::GetPropPrimitive(const Value &valueThis,
