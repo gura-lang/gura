@@ -48,7 +48,7 @@ class GURA_DLLDECLARE Iterator_Token : public Iterator {
 public:
 	class TokenWatcherEx : public Parser::TokenWatcher {
 	private:
-		int _iToken;
+		size_t _iToken;
 		TokenList _tokenList;
 	public:
 		inline TokenWatcherEx() : _iToken(0) {}
