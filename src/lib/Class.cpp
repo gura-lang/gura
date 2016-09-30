@@ -447,7 +447,7 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 
 Class::~Class()
 {
-	_pHelpProvider->SetHandler(nullptr);
+	_pHelpProvider->SetHolder(nullptr);
 }
 
 Object *Class::CreateDescendant(Environment &env, Class *pClass)

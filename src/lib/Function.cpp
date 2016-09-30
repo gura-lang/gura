@@ -72,7 +72,7 @@ Function::Function(Environment &envScope, const Symbol *pSymbol,
 
 Function::~Function()
 {
-	_pHelpProvider->SetHandler(nullptr);
+	_pHelpProvider->SetHolder(nullptr);
 }
 
 void Function::SetFuncAttr(ValueType valTypeResult, ResultMode resultMode, ULong flags)

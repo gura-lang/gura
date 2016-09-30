@@ -179,7 +179,7 @@ const char *GetFuncTypeName(FunctionType funcType);
 //----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Function : public HelpProvider::Handler {
+class GURA_DLLDECLARE Function : public HelpProvider::Holder {
 public:
 	enum BlockScope {
 		BLKSCOPE_Through,

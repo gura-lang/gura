@@ -60,8 +60,8 @@ bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) c
 bool Help::Present(Environment &env)
 {
 	Signal &sig = env.GetSignal();
-	if (_pHelpProvider != nullptr && _pHelpProvider->GetHandler() != nullptr) {
-		if (!HelpProvider::PresentTitle(env, _pHelpProvider->GetHandler())) return false;
+	if (_pHelpProvider != nullptr && _pHelpProvider->GetHolder() != nullptr) {
+		if (!HelpProvider::PresentTitle(env, _pHelpProvider->GetHolder())) return false;
 	}
 	if (!UpdateDocument(env)) return false;
 	if (!HasDocument()) {
@@ -183,11 +183,11 @@ void HelpProvider::CopyHelp(const HelpProvider &helpProvider)
 	}
 }
 
-bool HelpProvider::PresentTitle(Environment &env, const Handler *pHandler)
+bool HelpProvider::PresentTitle(Environment &env, const Holder *pHolder)
 {
 	Signal &sig = env.GetSignal();
 	String strSep;
-	String title = pHandler->MakeHelpTitle();
+	String title = pHolder->MakeHelpTitle();
 	for (size_t i = 0; i < title.size(); i++) strSep += '-';
 	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
 	return env.IsNoSignalled();

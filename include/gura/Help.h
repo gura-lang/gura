@@ -96,7 +96,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE HelpProvider {
 public:
-	class GURA_DLLDECLARE Handler {
+	class GURA_DLLDECLARE Holder {
 	public:
 		virtual String MakeHelpTitle() const = 0;
 	};
@@ -104,21 +104,21 @@ protected:
 	int _cntRef;
 	AutoPtr<HelpProvider> _pHelpProviderLink;
 	HelpOwner _helpOwner;
-	Handler *_pHandler;
+	Holder *_pHolder;
 public:
 	Gura_DeclareReferenceAccessor(HelpProvider);
 public:
-	inline HelpProvider(Handler *pHandler) : _cntRef(1), _pHandler(pHandler) {}
+	inline HelpProvider(Holder *pHolder) : _cntRef(1), _pHolder(pHolder) {}
 protected:
 	virtual ~HelpProvider();
 public:
 	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
 	inline bool HasHelp() const { return !_helpOwner.empty(); }
-	inline void SetHandler(Handler *pHandler) { _pHandler = pHandler; }
+	inline void SetHolder(Holder *pHolder) { _pHolder = pHolder; }
 	inline String MakeHelpTitle() const {
-		return (_pHandler == nullptr)? "" : _pHandler->MakeHelpTitle();
+		return (_pHolder == nullptr)? "" : _pHolder->MakeHelpTitle();
 	};
-	inline const Handler *GetHandler() const { return _pHandler; }
+	inline const Holder *GetHolder() const { return _pHolder; }
 	void AddHelp(Help *pHelp);
 	void LinkHelp(HelpProvider *pHelpProvider);
 	Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag);
@@ -126,7 +126,7 @@ public:
 		return const_cast<HelpProvider *>(this)->GetHelp(pSymbolLangCode, defaultFirstFlag);
 	}
 	void CopyHelp(const HelpProvider &helpProvider);
-	static bool PresentTitle(Environment &env, const Handler *pHandler);
+	static bool PresentTitle(Environment &env, const Holder *pHolder);
 	static bool PresentNoHelpDocument(Environment &env);
 };
 

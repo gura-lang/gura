@@ -178,7 +178,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class : public Fundamental, public HelpProvider::Handler {
+class GURA_DLLDECLARE Class : public Fundamental, public HelpProvider::Holder {
 protected:
 	AutoPtr<Class> _pClassSuper;
 	ValueType _valType;
