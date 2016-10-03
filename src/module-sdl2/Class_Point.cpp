@@ -74,7 +74,8 @@ Gura_DeclareFunction(Point)
 	SetClassToConstruct(Gura_UserClass(Point));
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an instance of `sdl2.Point` with the specified position `[x, y]`.\n"
+		"If  the argument `x` or `y` is omitted, they are set to zero.\n");
 }
 
 Gura_ImplementFunction(Point)

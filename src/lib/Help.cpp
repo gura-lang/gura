@@ -156,6 +156,16 @@ void HelpProvider::AddHelp(Help *pHelp)
 	_helpOwner.push_back(pHelp);
 }
 
+void HelpProvider::AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc)
+{
+	AutoPtr<Template> pTemplate(new Template());
+	if (!pTemplate->Parse(env, doc.begin(), doc.end(), true, false)) {
+		env.GetSignal().ClearSignal();
+		return;
+	}
+	AddHelp(new Help(pSymbol, pTemplate.release()));
+}
+
 void HelpProvider::LinkHelp(HelpProvider *pHelpProvider)
 {
 	_pHelpProviderLink.reset(pHelpProvider);
@@ -188,7 +198,7 @@ bool HelpProvider::PresentTitle(Environment &env, const Holder *pHolder)
 	Signal &sig = env.GetSignal();
 	String strSep;
 	String title = pHolder->MakeHelpTitle();
-	for (size_t i = 0; i < title.size(); i++) strSep += '-';
+	for (size_t i = 0; i < title.size() + 1; i++) strSep += '-';
 	env.GetConsole()->Printf(sig, "%s\n%s\n", title.c_str(), strSep.c_str());
 	return env.IsNoSignalled();
 }

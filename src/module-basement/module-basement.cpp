@@ -129,7 +129,7 @@ Gura_DeclareFunction(printf)
 		"    printf('%.3f', 1 / 3) .. prints \"0.333\"\n"
 		"    printf('%.5f', 1 / 3) .. prints \"0.33333\"\n"
 		"\n"
-		"For other specifiers, it has no effect.\n");
+		"It has no effect with other specifiers.\n");
 }
 
 Gura_ImplementFunction(printf)

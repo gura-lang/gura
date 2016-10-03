@@ -1,6 +1,8 @@
 ======== #1 simple ========
 
-<help:ja:markdown>
+"markdown", ""
+"markdown", "doc-body"
+"hoge-format", "doc-body"
 
 ======== #2 multi-language ========
 

@@ -120,6 +120,10 @@ public:
 	};
 	inline const Holder *GetHolder() const { return _pHolder; }
 	void AddHelp(Help *pHelp);
+	inline void AddHelp(const Symbol *pSymbol, const String &doc) {
+		AddHelp(new Help(pSymbol, doc));
+	}
+	void AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc);
 	void LinkHelp(HelpProvider *pHelpProvider);
 	Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag);
 	inline const Help *GetHelp(const Symbol *pSymbolLangCode, bool defaultFirstFlag) const {

@@ -35,6 +35,7 @@ set cases=%cases% gif
 set cases=%cases% gmp
 set cases=%cases% graph
 set cases=%cases% hash
+set cases=%cases% help
 set cases=%cases% image
 set cases=%cases% japanese
 set cases=%cases% jpeg

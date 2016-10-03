@@ -91,7 +91,9 @@ Gura_DeclareFunction(Rect)
 	SetClassToConstruct(Gura_UserClass(Rect));
 	AddHelp(
 		Gura_Symbol(en),
-		"");
+		"Creates an instance of `sdl2.Rect` with the specified position `[x, y]`\n"
+		"and size `[w, h]`\n"
+		"If the argument `x`, `y`, `w` or `h` is omitted, they are set to zero.\n");
 }
 
 Gura_ImplementFunction(Rect)

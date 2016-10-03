@@ -236,7 +236,10 @@ public:
 	inline HelpProvider &GetHelpProvider() { return *_pHelpProvider; }
 	inline const HelpProvider &GetHelpProvider() const { return *_pHelpProvider; }
 	inline void AddHelp(const Symbol *pSymbol, const String &doc) {
-		_pHelpProvider->AddHelp(new Help(pSymbol, doc));
+		_pHelpProvider->AddHelp(pSymbol, doc);
+	}
+	inline void AddHelpTemplate(Environment &env, const Symbol *pSymbol, const String &doc) {
+		_pHelpProvider->AddHelpTemplate(env, pSymbol, doc);
 	}
 	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
