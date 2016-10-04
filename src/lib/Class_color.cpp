@@ -241,39 +241,6 @@ Gura_DeclareFunction(color)
 
 Gura_ImplementFunction(color)
 {
-#if 0
-	Signal &sig = env.GetSignal();
-	const ValueList &valList = arg.GetList(0);
-	if (valList[0].Is_string() || valList[0].Is_symbol()) {
-		UChar a = 255;
-		if (valList.size() < 2) {
-			// nothing to do
-		} else if (valList[1].Is_number()) {
-			a = valList[1].GetUChar();
-		} else {
-			Declaration::SetError_InvalidArgument(env);
-			return Value::Nil;
-		}
-		const char *name = valList[0].Is_string()?
-			valList[0].GetString() : valList[0].GetSymbol()->GetName();
-		Color color = Color::CreateNamedColor(env, name, a);
-		if (sig.IsSignalled()) return Value::Nil;
-		return ReturnValue(env, arg, Value(new Object_color(env, color)));
-	} else if (valList[0].Is_number()) {
-		UChar r = valList[0].GetUChar();
-		if (valList.size() < 3) {
-			Declaration::SetError_InvalidArgument(env);
-			return Value::Nil;
-		}
-		UChar g = valList[1].GetUChar();
-		UChar b = valList[2].GetUChar();
-		UChar a = (valList.size() < 4)? 255 : valList[3].GetUChar();
-		return ReturnValue(env, arg,
-					Value(new Object_color(env, r, g, b, a)));
-	}
-	Declaration::SetError_InvalidArgument(env);
-	return Value::Nil;
-#endif
 	Color color = Color::CreateFromValues(env, arg.GetList(0));
 	if (env.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_color(env, color)));
@@ -400,14 +367,6 @@ bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pD
 		value = Value(new Object_color(env, color));
 		return true;
 	} else if (value.Is_list()) {
-#if 0
-		const Function *pConstructor = GetConstructor();
-		if (pConstructor == nullptr) return false;
-		AutoPtr<Argument> pArg(new Argument(pConstructor));
-		if (!pArg->StoreValues(env, value.GetList())) return false;
-		value = pConstructor->Eval(env, *pArg);
-		return !env.IsSignalled();
-#endif
 		Color color = Color::CreateFromValues(env, value.GetList());
 		if (env.IsSignalled()) return false;
 		value = Value(new Object_color(env, color));

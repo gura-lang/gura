@@ -2,7 +2,7 @@
 import(helper.test) {*}
 
 PrintHelpInfo(f:function) = {
-	h = function.gethelp(f)
+	h = help@function(f)
 	printf('"%s", "%s"\n', h.format, h.doc)
 }
 
@@ -17,6 +17,6 @@ testcase('simple') {
 
 testcase('multi-language') {
 	f() = {} %% {`en, 'foo'} %% {`ja, 'hoge'}
-	println('`en ..', function.gethelp(f, `en).doc)
-	println('`ja ..', function.gethelp(f, `ja).doc)
+	println('`en ..', help@function(f, `en).doc)
+	println('`ja ..', help@function(f, `ja).doc)
 }

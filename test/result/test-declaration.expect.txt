@@ -114,6 +114,8 @@ fs:module = <module:fs:<integrated>>
   stat:class = <class:fs.stat(pathname:string) {block?}>
 function:class = <class:function(`args*) {block}>
 help:class = <class:help>
+help@class(cls:class, lang?:symbol):map
+help@function(func:function, lang?:symbol):map
 hex(num:number, digits?:number):map:[upper]
 if (`cond):leader {block}
 image:class = <class:image(args+):map {block?}>
@@ -507,12 +509,10 @@ formatter
   formatter#issharp()
   formatter#isuppercase()
 function
-  function.addhelp(func:function, lang:symbol, help:string):static:map:void
   function.getdecls(func:function):static:map
   function.getexpr(func:function):static:map
   function.getformat(func:function):static:map
   function.getfullname(func:function):static:map
-  function.gethelp(func:function, lang?:symbol):static:map
   function.getname(func:function):static:map
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce

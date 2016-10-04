@@ -850,7 +850,7 @@ testcase("construstor's help") {
 	A = class {
 		__init__() = {} %% {`en, "help message for A's constructor"}
 	}
-	println(function.gethelp(A).doc)
+	println(help@function(A).doc)
 }
 testcase('instance method assignment') {
 	A = class {}

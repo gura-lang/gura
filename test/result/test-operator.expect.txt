@@ -36,7 +36,7 @@ func(a, b, c, d, e%, f*) = {}
 -
 [`number, `complex, `rational, `array@char, `array@uchar, `array@short, `array@ushort, `array@int, `array@uint, `array@int32, `array@uint32, `array@int64, `array@uint64, `array@float, `array@double, `matrix, `timedelta, `vertex]
 ~
-[`number, `class, `function]
+[`number, `class, `function, `help]
 !
 [`any]
 ..
