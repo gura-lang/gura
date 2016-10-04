@@ -51,8 +51,6 @@ doxygen.document.structures
 
 ${moddoc.reference(`en
 doxygen.structure.elems
-doxygen.structure.elems@command
-doxygen.structure.elems@text
 doxygen.structure.substructures
 )}
 

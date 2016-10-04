@@ -258,6 +258,7 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+#if 0
 // function.addhelp(func:function, lang:symbol, help:string):map
 Gura_DeclareClassMethod(function, addhelp)
 {
@@ -302,6 +303,7 @@ Gura_ImplementClassMethod(function, addhelp)
 	pFunc->AddHelp(arg.GetSymbol(1), arg.GetString(2));
 	return Value::Nil;
 }
+#endif
 
 // function.getdecls(func:function):static:map
 Gura_DeclareClassMethod(function, getdecls)
@@ -381,32 +383,6 @@ Gura_ImplementClassMethod(function, getfullname)
 {
 	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
 	return Value(pFunc->MakeFullName());
-}
-
-// function.gethelp(func:function, lang?:symbol):static:map
-Gura_DeclareClassMethod(function, gethelp)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "func", VTYPE_function);
-	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Returns a `help` instance associated with the specified function instance `func`.\n"
-		"If the function instance has no help registred, this function would return `nil`.\n"
-		"\n"
-		"The argument `lang` is a symbol that indicates a natural language\n"
-		"in which the help is written.\n"
-		"If this argument is omitted or the specified language doesn't exist,\n"
-		"help information that has been registered at first would be returned as a default.\n");
-}
-
-Gura_ImplementClassMethod(function, gethelp)
-{
-	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
-	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
-	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbol, true);
-	if (pHelp == nullptr) return Value::Nil;
-	return Value(new Object_help(env, pHelp->Reference()));
 }
 
 // function.getname(func:function):static:map
@@ -507,12 +483,11 @@ void Class_function::Prepare(Environment &env)
 {
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
-	Gura_AssignMethod(function, addhelp);
+	//Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, getdecls);
 	Gura_AssignMethod(function, getexpr);
 	Gura_AssignMethod(function, getformat);
 	Gura_AssignMethod(function, getfullname);
-	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, getname);
 	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);

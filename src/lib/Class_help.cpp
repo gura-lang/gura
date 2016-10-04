@@ -69,6 +69,61 @@ String Object_help::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of functions
+//-----------------------------------------------------------------------------
+// help@class(cls:class, lang?:symbol):map
+Gura_DeclareFunctionAlias(help_at_class, "help@class")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `help` instance associated with the specified class `cls`.\n"
+		"If the class has no help registred, this function would return `nil`.\n"
+		"\n"
+		"The argument `lang` is a symbol that indicates a natural language\n"
+		"in which the help document is written.\n"
+		"If this argument is omitted or the specified language doesn't exist,\n"
+		"help information that has been registered at first would be returned as a default.\n");
+}
+
+Gura_ImplementFunction(help_at_class)
+{
+	const Class *pClass = arg.GetClassItself(0);
+	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
+	const Help *pHelp = pClass->GetHelpProvider().GetHelp(pSymbol, true);
+	if (pHelp == nullptr) return Value::Nil;
+	return Value(new Object_help(env, pHelp->Reference()));
+}
+
+// help@function(func:function, lang?:symbol):map
+Gura_DeclareFunctionAlias(help_at_function, "help@function")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "func", VTYPE_function);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a `help` instance associated with the specified function instance `func`.\n"
+		"If the function instance has no help registred, this function would return `nil`.\n"
+		"\n"
+		"The argument `lang` is a symbol that indicates a natural language\n"
+		"in which the help document is written.\n"
+		"If this argument is omitted or the specified language doesn't exist,\n"
+		"help information that has been registered at first would be returned as a default.\n");
+}
+
+Gura_ImplementFunction(help_at_function)
+{
+	const Function *pFunc = Object_function::GetObject(arg, 0)->GetFunction();
+	const Symbol *pSymbol = arg.Is_symbol(1)? arg.GetSymbol(1) : env.GetLangCode();
+	const Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbol, true);
+	if (pHelp == nullptr) return Value::Nil;
+	return Value(new Object_help(env, pHelp->Reference()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // help.text@iterator(lang:symbol):static {block?}
@@ -220,9 +275,12 @@ Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
 
 void Class_help::Prepare(Environment &env)
 {
-	// class assignment
+	// assignment of class
 	Gura_AssignValue(help, Value(Reference()));
-	// methods assignment
+	// assignment of functions
+	Gura_AssignFunction(help_at_class);
+	Gura_AssignFunction(help_at_function);
+	// assignment of methods
 	Gura_AssignMethod(help, text_at_iterator);
 	Gura_AssignMethod(help, text_at_block);
 	Gura_AssignMethod(help, presenter);

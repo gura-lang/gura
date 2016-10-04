@@ -1125,12 +1125,10 @@ function
 ### Method
 
 ${moddoc.reference(`en
-function.addhelp
 function.getdecls
 function.getexpr
 function.getformat
 function.getfullname
-function.gethelp
 function.getname
 function.getsymbol
 function.mathdiff
@@ -1142,7 +1140,8 @@ function.mathdiff
 The `help` class provides measures to access help information
 associated with a `function` instance.
 
-You can get a `help` instance by calling the `function` class's method `function.gethelp()`.
+You can get a `help` instance from a `function` instance or a `class`
+by calling `help@function()` or `help@class()` respectively.
 
 ### Property
 
