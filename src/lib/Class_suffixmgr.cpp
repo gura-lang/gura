@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_suffixmgr
 //-----------------------------------------------------------------------------
@@ -138,10 +141,7 @@ void Class_suffixmgr::Prepare(Environment &env)
 	Gura_AssignFunction(suffixmgr);
 	Gura_AssignMethod(suffixmgr, assign);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 }

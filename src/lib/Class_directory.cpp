@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_directory
 //-----------------------------------------------------------------------------
@@ -69,10 +72,7 @@ void Class_directory::Prepare(Environment &env)
 	// function assignment
 	Gura_AssignFunction(directory);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_directory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -16,6 +16,9 @@ Gura_ImplementMethod(expr, is##symbol) { \
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_expr
 //-----------------------------------------------------------------------------
@@ -573,10 +576,7 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isidentifier);
 	Gura_AssignMethod(expr,	issuffixed);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_expr::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

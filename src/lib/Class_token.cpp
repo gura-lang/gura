@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_token
 //-----------------------------------------------------------------------------
@@ -84,10 +87,7 @@ void Class_token::Prepare(Environment &env)
 	Gura_AssignFunction(tokens);
 	Gura_AssignValue(token, Value(Reference()));
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_token::CreateDescendant(Environment &env, Class *pClass)

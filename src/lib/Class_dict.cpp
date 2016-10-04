@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_dict
 //-----------------------------------------------------------------------------
@@ -617,10 +620,7 @@ void Class_dict::Prepare(Environment &env)
 	Gura_AssignMethod(dict, put);
 	Gura_AssignMethod(dict, values);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_dict::Serialize(Environment &env, Stream &stream, const Value &value) const

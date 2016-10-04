@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_operator
 //-----------------------------------------------------------------------------
@@ -283,10 +286,7 @@ void Class_operator::Prepare(Environment &env)
 	Gura_AssignMethod(operator_, assign);
 	Gura_AssignMethod(operator_, entries);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_operator::CreateDescendant(Environment &env, Class *pClass)

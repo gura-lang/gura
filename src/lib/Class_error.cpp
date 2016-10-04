@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_error
 //-----------------------------------------------------------------------------
@@ -76,10 +79,7 @@ void Class_error::Prepare(Environment &env)
 	Error::AssignErrorTypes(*this);
 	Gura_AssignValue(error, Value(Reference()));
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_error::CreateDescendant(Environment &env, Class *pClass)

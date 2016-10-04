@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
@@ -63,10 +67,7 @@ void Class_number::Prepare(Environment &env)
 	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Value Class_number::GetPropPrimitive(const Value &valueThis,

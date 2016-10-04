@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_Struct
 //-----------------------------------------------------------------------------
@@ -99,10 +102,7 @@ void Class_Struct::Prepare(Environment &env)
 {
 	Gura_AssignMethod(Struct, tolist);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_Struct::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_argument
 //-----------------------------------------------------------------------------
@@ -125,10 +128,7 @@ void Class_argument::Prepare(Environment &env)
 	Gura_AssignMethod(arg, isset);
 	Gura_AssignMethod(arg, quit_trailer);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_argument::CreateDescendant(Environment &env, Class *pClass)

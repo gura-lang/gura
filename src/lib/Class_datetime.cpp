@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_datetime
 //-----------------------------------------------------------------------------
@@ -550,10 +553,7 @@ void Class_datetime::Prepare(Environment &env)
 	Gura_AssignMethod(datetime, utc);
 	Gura_AssignMethod(datetime, weekday);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_datetime::CreateDescendant(Environment &env, Class *pClass)

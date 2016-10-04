@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_image
 //-----------------------------------------------------------------------------
@@ -1215,10 +1218,7 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, thumbnail);
 	Gura_AssignMethod(image, write);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_image::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

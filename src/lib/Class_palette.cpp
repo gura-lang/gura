@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_palette
 //-----------------------------------------------------------------------------
@@ -256,10 +259,7 @@ void Class_palette::Prepare(Environment &env)
 	Gura_AssignMethod(palette, shrink);
 	Gura_AssignMethod(palette, updateby);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_palette::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_semaphore
 //-----------------------------------------------------------------------------
@@ -127,10 +130,7 @@ void Class_semaphore::Prepare(Environment &env)
 	Gura_AssignMethod(semaphore, session);
 	Gura_AssignMethod(semaphore, wait);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_semaphore::CreateDescendant(Environment &env, Class *pClass)

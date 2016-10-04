@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_formatter
 //-----------------------------------------------------------------------------
@@ -201,10 +204,7 @@ void Class_formatter::Prepare(Environment &env)
 	Gura_AssignMethod(formatter, issharp);
 	Gura_AssignMethod(formatter, isuppercase);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_formatter::CreateDescendant(Environment &env, Class *pClass)

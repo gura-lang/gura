@@ -6,6 +6,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_binary
 //-----------------------------------------------------------------------------
@@ -401,10 +404,7 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_binary::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

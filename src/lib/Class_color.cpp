@@ -5,6 +5,130 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
+
+You can create a `color` instance by calling `color()` function.
+
+There are class variables as shown below:
+
+# Predefined Variable
+
+<table>
+<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
+
+<tr><td><code>color.names</code></td><td><code>string[]</code></td>
+<td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
+
+<tr><td><code>color.zero</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 0, 0)</code></td></tr>
+
+<tr><td><code>color.black</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.maroon</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.green</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 128, 0, 255)</code></td></tr>
+
+<tr><td><code>color.olive</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 128, 0, 255)</code></td></tr>
+
+<tr><td><code>color.navy</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 128, 255)</code></td></tr>
+
+<tr><td><code>color.purple</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 0, 128, 255)</code></td></tr>
+
+<tr><td><code>color.teal</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 128, 128, 255)</code></td></tr>
+
+<tr><td><code>color.gray</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(128, 128, 128, 255)</code></td></tr>
+
+<tr><td><code>color.silver</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(192, 192, 192, 255)</code></td></tr>
+
+<tr><td><code>color.red</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 0, 0, 255)</code></td></tr>
+
+<tr><td><code>color.lime</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 255, 0, 255)</code></td></tr>
+
+<tr><td><code>color.yellow</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 255, 0, 255)</code></td></tr>
+
+<tr><td><code>color.blue</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 0, 255, 255)</code></td></tr>
+
+<tr><td><code>color.fuchsia</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 0, 255, 255)</code></td></tr>
+
+<tr><td><code>color.aqua</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(0, 255, 255, 255)</code></td></tr>
+
+<tr><td><code>color.white</code></td><td><code>color</code></td>
+<td>Color instance equivalent with <code>color(255, 255, 255, 255)</code></td></tr>
+
+</table>
+
+
+# Property
+
+A `color` instance has the following properties:
+
+<table>
+<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
+
+<tr><td><code>r</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the red element.</td></tr>
+
+<tr><td><code>g</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the green element.</td></tr>
+
+<tr><td><code>b</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the blue element.</td></tr>
+
+<tr><td><code>a</code></td><td><code>number</code></td><td>R/W</td>
+<td>Value of the alpha element.</td></tr>
+
+</table>
+
+
+# Cast Operation
+
+A function that expects a `color` instance in its argument can also take a value of
+`symbol`, `string` and `list` as below:
+
+- `symbol` .. Recognized as a color name to look up the color table.
+- `string` .. Recognized as a color name to look up the color table.
+- `list` .. Expected to contain elements in a format `[red, green, blue]` or
+  `[red, green, blue, alpha]`.
+
+With the above casting feature, you can call a function `f(c:color)`
+that takes a `color` instance in its argument as below:
+
+- ``f(color(`purple))`` .. The most explicit way.
+- ``f(`purple)`` .. Implicit casting: from `symbol` to `color`.
+- `f('purple')` .. Implicit casting: from `string` to `color`.
+- `f([128, 0, 128])` .. Implicit casting: from `list` to `color`.
+
+
+# Constructor
+
+${help@function(color).render('markdown')}
+
+
+# Method
+
+${help@function([
+color.getgray
+color.html
+color.list
+])::render('markdown').join('\n\n')}
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_color
 //-----------------------------------------------------------------------------
@@ -260,129 +384,7 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::white)));
 	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
 	// help document
-	AddHelpTemplate(
-		env, Gura_Symbol(en),
-		R"**(
-An instance of the `color` class represents a color data that consists of red, green, blue and alpha elements.
-
-You can create a `color` instance by calling `color()` function.
-
-There are class variables as shown below:
-
-# Predefined Variable
-
-<table>
-<tr><th>Variable</th><th>Type</th><th>Explanation</th></tr>
-
-<tr><td><code>color.names</code></td><td><code>string[]</code></td>
-<td>A list of color names that can be passed to <code>color()</code> function.</td></tr>
-
-<tr><td><code>color.zero</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 0, 0, 0)</code></td></tr>
-
-<tr><td><code>color.black</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 0, 0, 255)</code></td></tr>
-
-<tr><td><code>color.maroon</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(128, 0, 0, 255)</code></td></tr>
-
-<tr><td><code>color.green</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 128, 0, 255)</code></td></tr>
-
-<tr><td><code>color.olive</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(128, 128, 0, 255)</code></td></tr>
-
-<tr><td><code>color.navy</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 0, 128, 255)</code></td></tr>
-
-<tr><td><code>color.purple</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(128, 0, 128, 255)</code></td></tr>
-
-<tr><td><code>color.teal</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 128, 128, 255)</code></td></tr>
-
-<tr><td><code>color.gray</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(128, 128, 128, 255)</code></td></tr>
-
-<tr><td><code>color.silver</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(192, 192, 192, 255)</code></td></tr>
-
-<tr><td><code>color.red</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(255, 0, 0, 255)</code></td></tr>
-
-<tr><td><code>color.lime</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 255, 0, 255)</code></td></tr>
-
-<tr><td><code>color.yellow</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(255, 255, 0, 255)</code></td></tr>
-
-<tr><td><code>color.blue</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 0, 255, 255)</code></td></tr>
-
-<tr><td><code>color.fuchsia</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(255, 0, 255, 255)</code></td></tr>
-
-<tr><td><code>color.aqua</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(0, 255, 255, 255)</code></td></tr>
-
-<tr><td><code>color.white</code></td><td><code>color</code></td>
-<td>Color instance equivalent with <code>color(255, 255, 255, 255)</code></td></tr>
-
-</table>
-
-
-# Property
-
-A `color` instance has the following properties:
-
-<table>
-<tr><th>Property</th><th>Type</th><th>R/W</th><th>Explanation</th></tr>
-
-<tr><td><code>r</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the red element.</td></tr>
-
-<tr><td><code>g</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the green element.</td></tr>
-
-<tr><td><code>b</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the blue element.</td></tr>
-
-<tr><td><code>a</code></td><td><code>number</code></td><td>R/W</td>
-<td>Value of the alpha element.</td></tr>
-
-</table>
-
-# Cast Operation
-
-A function that expects a `color` instance in its argument can also take a value of
-`symbol`, `string` and `list` as below:
-
-- `symbol` .. Recognized as a color name to look up the color table.
-- `string` .. Recognized as a color name to look up the color table.
-- `list` .. Expected to contain elements in a format `[red, green, blue]` or
-  `[red, green, blue, alpha]`.
-
-With the above casting feature, you can call a function `f(c:color)`
-that takes a `color` instance in its argument as below:
-
-- ``f(color(`purple))`` .. The most explicit way.
-- ``f(`purple)`` .. Implicit casting: from `symbol` to `color`.
-- `f('purple')` .. Implicit casting: from `string` to `color`.
-- `f([128, 0, 128])` .. Implicit casting: from `list` to `color`.
-
-
-# Constructor
-
-${help@function(color).render('markdown')}
-
-# Method
-
-${help@function([
-color.getgray
-color.html
-color.list
-])::render('markdown').join('\n\n')}
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_color::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

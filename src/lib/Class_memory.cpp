@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_memory
 //-----------------------------------------------------------------------------
@@ -277,10 +280,7 @@ void Class_memory::Prepare(Environment &env)
 	Gura_AssignMethod(memory, dump);
 	Gura_AssignMethod(memory, pointer);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -14,10 +18,7 @@ Class_Class::Class_Class(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Class)
 void Class_Class::Prepare(Environment &env)
 {
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_Class::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

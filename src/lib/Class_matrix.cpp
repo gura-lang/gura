@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_matrix
 //-----------------------------------------------------------------------------
@@ -879,10 +882,7 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignMethod(matrix, translate);
 	Gura_AssignMethod(matrix, transpose);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_matrix::Serialize(Environment &env, Stream &stream, const Value &value) const

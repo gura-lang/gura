@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_iterator
 //-----------------------------------------------------------------------------
@@ -1693,10 +1696,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_iterator::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object implementation for help
 //-----------------------------------------------------------------------------
@@ -287,10 +290,7 @@ void Class_help::Prepare(Environment &env)
 	Gura_AssignMethod(help, render);
 	Gura_AssignMethod(help, renderer);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 }

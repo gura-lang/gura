@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_vertex
 //-----------------------------------------------------------------------------
@@ -340,10 +343,7 @@ void Class_vertex::Prepare(Environment &env)
 	Gura_AssignFunction(vertex);
 	Gura_AssignClassValue(zero, Value(new Object_vertex(env, Vertex::Zero)));
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_vertex::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

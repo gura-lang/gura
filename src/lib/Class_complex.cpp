@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
@@ -122,10 +126,7 @@ void Class_complex::Prepare(Environment &env)
 	// suffix manager assignment
 	Gura_AssignSuffixMgrForNumber(j);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Value Class_complex::GetPropPrimitive(const Value &valueThis,

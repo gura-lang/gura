@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_timedelta
 //-----------------------------------------------------------------------------
@@ -110,10 +113,7 @@ void Class_timedelta::Prepare(Environment &env)
 {
 	Gura_AssignFunction(timedelta);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 Object *Class_timedelta::CreateDescendant(Environment &env, Class *pClass)

@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Object_function
 //-----------------------------------------------------------------------------
@@ -492,10 +495,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignMethod(function, getsymbol);
 	Gura_AssignMethod(function, mathdiff);
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_function::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

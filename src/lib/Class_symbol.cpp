@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
@@ -42,10 +46,7 @@ void Class_symbol::Prepare(Environment &env)
 	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_symbol::CastFrom(Environment &env, Value &value, const Declaration *pDecl)

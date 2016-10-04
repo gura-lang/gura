@@ -4,6 +4,10 @@
 #include "stdafx.h"
 
 namespace Gura {
+
+static const char *helpDoc_en = R"**(
+)**";
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -16,10 +20,7 @@ void Class_boolean::Prepare(Environment &env)
 	// class assignment
 	Gura_AssignValue(boolean, Value(Reference()));
 	// help document
-	AddHelp(
-		Gura_Symbol(en),
-		R"**(
-)**");
+	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }
 
 bool Class_boolean::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
