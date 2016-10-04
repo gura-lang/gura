@@ -618,6 +618,13 @@ Gura_ImplementUnaryOperator(Inv, function)
 	return Value::Nil;
 }
 
+Gura_ImplementUnaryOperator(Inv, help)
+{
+	Help *pHelp = Object_help::GetObject(value)->GetHelp();
+	pHelp->Present(env);
+	return Value::Nil;
+}
+
 Gura_ImplementUnaryOperator(Inv, Class)
 {
 	Class *pClass = value.GetClassItself();
@@ -2161,6 +2168,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, array_at_double);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Inv, function);
+	Gura_AssignUnaryOperator(Inv, help);
 	Gura_AssignUnaryOperator(Inv, Class);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);

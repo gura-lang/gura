@@ -75,7 +75,7 @@ String Object_help::ToString(bool exprFlag)
 Gura_DeclareFunctionAlias(help_at_class, "help@class")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "func", VTYPE_function);
+	DeclareArg(env, "cls", VTYPE_Class);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
