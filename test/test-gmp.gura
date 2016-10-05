@@ -199,3 +199,10 @@ testcase('type cast') {
 	tester(`(3Lr / 2).cast@mpf())
 	tester(`(2Lr / 3).cast@mpf())
 }
+testcase('fibonacci') {
+	fib() = {
+		[a, b] = [0L, 1L]
+		repeat():iter { [a, b] = [b, a + b], a }
+	}
+	printf('%d\n', fib().offset(300).head(100))
+}
