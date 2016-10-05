@@ -106,12 +106,22 @@ bool Module::ImportBuiltIns(Environment &env)
 	if (Gura_Module(math)::Import(env) == nullptr) return false;
 	// import(lexer)
 	if (Gura_Module(lexer)::Import(env) == nullptr) return false;
+	return true;
+}
+
+bool Module::ImportDefaultExternals(Environment &env)
+{
 #if 0
 	// import(config)
 	env.ImportSeparatedModule_Script(
 		&env,
 		OAL::JoinPathName(OAL::GetModuleDir().c_str(), "config.gura").c_str(),
 		Symbol::Add("config"));
+#endif
+#if 0
+	// import(markdown)
+	env.ImportModules(env.GetSignal(), "markdown", false, false);
+	env.GetSignal().ClearSignal();
 #endif
 	return true;
 }

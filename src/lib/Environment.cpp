@@ -94,6 +94,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), argc, argv)) {
 		return false;
 	}
+	if (!Module::ImportDefaultExternals(env)) return false;
 	return true;
 }
 

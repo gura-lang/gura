@@ -117,16 +117,18 @@ that takes a `color` instance in its argument as below:
 
 # Constructor
 
-${help@function(color).render('markdown')}
+${markdown.funcentry(`en
+color
+)}
 
 
 # Method
 
-${help@function([
+${markdown.funcentry(`en
 color.getgray
 color.html
 color.list
-])::render('markdown').join('\n\n')}
+)}
 )**";
 
 //-----------------------------------------------------------------------------

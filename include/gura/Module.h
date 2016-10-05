@@ -134,6 +134,7 @@ public:
 	virtual String ToString(bool exprFlag);
 public:
 	static bool ImportBuiltIns(Environment &env);
+	static bool ImportDefaultExternals(Environment &env);
 };
 
 }
