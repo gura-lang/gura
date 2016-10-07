@@ -381,7 +381,7 @@ Gura_AssignBinaryOperator(op, number, array_at_uint64);
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Pos, *)
+// [+A] ... UnaryOperator(Pos, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Pos, number)
 {
@@ -485,7 +485,7 @@ Gura_ImplementUnaryOperator(Pos, array_at_double)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Neg, *)
+// [-A] ... UnaryOperator(Neg, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Neg, number)
 {
@@ -596,7 +596,7 @@ Gura_ImplementUnaryOperator(Neg, array_at_double)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Invert, *)
+// [~A] ... UnaryOperator(Invert, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Inv, number)
 {
@@ -645,7 +645,7 @@ Gura_ImplementUnaryOperator(Inv, Class)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Not, *)
+// [!A] ... UnaryOperator(Not, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(Not, any)
 {
@@ -654,7 +654,7 @@ Gura_ImplementUnaryOperator(Not, any)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(SeqInf, *)
+// [A..] ... UnaryOperator(SeqInf, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
 {
@@ -663,7 +663,7 @@ Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Question, *)
+// [A?] ... UnaryOperator(Question, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperatorSuffix(Question, any)
 {
@@ -672,7 +672,7 @@ Gura_ImplementUnaryOperatorSuffix(Question, any)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(Each, *)
+// [A*] ... UnaryOperator(Each, A)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperatorSuffix(Each, any)
 {
@@ -683,7 +683,7 @@ Gura_ImplementUnaryOperatorSuffix(Each, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Add, *, *)
+// [A + B] ... BinaryOperator(Add, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Add, number, number)
 {
@@ -873,7 +873,7 @@ Value Add_NumberAndArray(Environment &env,
 ImplementArrayOperators(Add)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Sub, *, *)
+// [A - B] ... BinaryOperator(Sub, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Sub, number, number)
 {
@@ -1058,7 +1058,7 @@ Value Sub_NumberAndArray(Environment &env,
 ImplementArrayOperators(Sub)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Mul, *, *)
+// [A * B] ... BinaryOperator(Mul, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mul, number, number)
 {
@@ -1271,7 +1271,7 @@ Value Mul_NumberAndArray(Environment &env,
 ImplementArrayOperators(Mul)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Div, *, *)
+// [A / B] ... BinaryOperator(Div, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Div, number, number)
 {
@@ -1434,7 +1434,7 @@ Value Div_NumberAndArray(Environment &env,
 ImplementArrayOperators(Div)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Mod, *, *)
+// [A % B] ... BinaryOperator(Mod, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mod, number, number)
 {
@@ -1501,7 +1501,7 @@ Value Mod_NumberAndArray(Environment &env,
 ImplementArrayOperators(Mod)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(ModMod, *, *)
+// [A %% B] ... BinaryOperator(ModMod, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(ModMod, function, help)
 {
@@ -1520,7 +1520,7 @@ Gura_ImplementBinaryOperator(ModMod, Class, help)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Pow, *, *)
+// [A ** B] ... BinaryOperator(Pow, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pow, number, number)
 {
@@ -1579,7 +1579,7 @@ Value Pow_NumberAndArray(Environment &env,
 ImplementArrayOperators(Pow)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Eq, *, *)
+// [A == B] ... BinaryOperator(Eq, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Eq, any, any)
 {
@@ -1590,7 +1590,7 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Ne, *, *)
+// [A != B] ... BinaryOperator(Ne, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ne, any, any)
 {
@@ -1601,7 +1601,7 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Gt, *, *)
+// [A > B] ... BinaryOperator(Gt, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Gt, any, any)
 {
@@ -1612,7 +1612,7 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Lt, *, *)
+// [A < B] ... BinaryOperator(Lt, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Lt, any, any)
 {
@@ -1623,7 +1623,7 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Ge, *, *)
+// [A >= B] ... BinaryOperator(Ge, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ge, any, any)
 {
@@ -1634,7 +1634,7 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Le, *, *)
+// [A <= B] ... BinaryOperator(Le, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Le, any, any)
 {
@@ -1645,7 +1645,7 @@ Gura_ImplementBinaryOperator(Le, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Cmp, *, *)
+// [A <=> B] BinaryOperator(Cmp, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Cmp, boolean, boolean)
 {
@@ -1742,7 +1742,7 @@ Gura_ImplementBinaryOperator(Cmp, timedelta, timedelta)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Contains, *, *)
+// [A in B] ... BinaryOperator(Contains, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Contains, any, any)
 {
@@ -1783,7 +1783,7 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(And, *, *)
+// [A & B] ... BinaryOperator(And, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(And, number, number)
 {
@@ -1839,7 +1839,7 @@ Value And_NumberAndArray(Environment &env,
 ImplementArrayBitOperators(And)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Or, *, *)
+// [A | B] ... BinaryOperator(Or, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Or, number, number)
 {
@@ -1894,7 +1894,7 @@ Value Or_NumberAndArray(Environment &env,
 ImplementArrayBitOperators(Or)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Xor, *, *)
+// [A ^ B] ... BinaryOperator(Xor, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Xor, number, number)
 {
@@ -1942,7 +1942,7 @@ Value Xor_NumberAndArray(Environment &env,
 ImplementArrayBitOperators(Xor)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Shl, *, *)
+// [A << B] ... BinaryOperator(Shl, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shl, number, number)
 {
@@ -2001,7 +2001,7 @@ Value Shl_NumberAndArray(Environment &env,
 ImplementArrayBitOperators(Shl)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Shr, *, *)
+// [A >> B] ... BinaryOperator(Shr, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Shr, number, number)
 {
@@ -2042,7 +2042,7 @@ Value Shr_NumberAndArray(Environment &env,
 ImplementArrayBitOperators(Shr)
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(OrOr, any, any)
+// [A || B] ... BinaryOperator(OrOr, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(OrOr, any, any)
 {
@@ -2051,7 +2051,7 @@ Gura_ImplementBinaryOperator(OrOr, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(AndAnd, any, any)
+// [A && B] ... BinaryOperator(AndAnd, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(AndAnd, any, any)
 {
@@ -2060,7 +2060,7 @@ Gura_ImplementBinaryOperator(AndAnd, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Seq, *, *)
+// [A .. B] ... BinaryOperator(Seq, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Seq, number, number)
 {
@@ -2071,24 +2071,18 @@ Gura_ImplementBinaryOperator(Seq, number, number)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Pair, symbol, any)
+// [A => B] ... BinaryOperator(Pair, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, symbol, any)
 {
 	return Value::CreateList(env, valueLeft, valueRight);
 }
 
-//-----------------------------------------------------------------------------
-// BinaryOperator(Pair, string, any)
-//-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, string, any)
 {
 	return Value::CreateList(env, valueLeft, valueRight);
 }
 
-//-----------------------------------------------------------------------------
-// BinaryOperator(Pair, number, any)
-//-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, number, any)
 {
 	return Value::CreateList(env, valueLeft, valueRight);
