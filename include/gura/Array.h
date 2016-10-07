@@ -1,8 +1,8 @@
 //=============================================================================
-// Array
+// ArrayT
 //=============================================================================
-#ifndef __GURA_ARRAY_H__
-#define __GURA_ARRAY_H__
+#ifndef __GURA_ARRAYT_H__
+#define __GURA_ARRAYT_H__
 
 #include "Memory.h"
 #include "Iterator.h"
@@ -11,23 +11,23 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Array
+// ArrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Array {
+class ArrayT {
 private:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
 	size_t _cnt;
 	size_t _offsetBase;
 public:
-	Gura_DeclareReferenceAccessor(Array);
+	Gura_DeclareReferenceAccessor(ArrayT);
 public:
-	inline Array(const Array &src) : _cntRef(1),
+	inline ArrayT(const ArrayT &src) : _cntRef(1),
 		_pMemory(src._pMemory->Reference()), _cnt(src._cnt), _offsetBase(src._offsetBase) {}
-	inline Array(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
+	inline ArrayT(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
-	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
+	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
@@ -50,46 +50,46 @@ public:
 	void FillZero() {
 		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
 	}
-	bool Paste(Signal &sig, size_t offset, const Array *pArraySrc) {
-		if (GetSize() < offset + pArraySrc->GetSize()) {
+	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc) {
+		if (GetSize() < offset + pArrayTSrc->GetSize()) {
 			sig.SetError(ERR_OutOfRangeError, "out of range");
 			return false;
 		}
-		::memcpy(GetPointer() + offset, pArraySrc->GetPointer(),
-				 sizeof(T_Elem) * pArraySrc->GetSize());
+		::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
+				 sizeof(T_Elem) * pArrayTSrc->GetSize());
 		return true;
 	}
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
 	}
 private:
-	inline ~Array() {}
+	inline ~ArrayT() {}
 };
 
-template<> GURA_DLLDECLARE void Array<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void Array<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+template<> GURA_DLLDECLARE void ArrayT<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 
 //-----------------------------------------------------------------------------
-// Iterator_Array
+// Iterator_ArrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Iterator_Array : public Iterator {
+class Iterator_ArrayT : public Iterator {
 private:
-	AutoPtr<Array<T_Elem> > _pArray;
+	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 	size_t _idx;
 public:
-	inline Iterator_Array(Array<T_Elem> *pArray) : Iterator(false), _pArray(pArray), _idx(0) {}
+	inline Iterator_ArrayT(ArrayT<T_Elem> *pArrayT) : Iterator(false), _pArrayT(pArrayT), _idx(0) {}
 	virtual Iterator *GetSource() { return nullptr; }
 	virtual bool DoNext(Environment &env, Value &value) {
-		if (_idx >= _pArray->GetSize()) return false;
-		value = Value(*(_pArray->GetPointer() + _idx));
+		if (_idx >= _pArrayT->GetSize()) return false;
+		value = Value(*(_pArrayT->GetPointer() + _idx));
 		_idx++;
 		return true;
 	}
@@ -106,30 +106,30 @@ public:
 // functions
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-void CopyArrayToList(const Array<T_Elem> *pArray, ValueList &valList)
+void CopyArrayTToList(const ArrayT<T_Elem> *pArrayT, ValueList &valList)
 {
-	const T_Elem *p = pArray->GetPointer();
-	for (size_t cnt = pArray->GetSize(); cnt > 0; cnt--, p++) {
+	const T_Elem *p = pArrayT->GetPointer();
+	for (size_t cnt = pArrayT->GetSize(); cnt > 0; cnt--, p++) {
 		valList.push_back(Value(*p));
 	}
 }
 
 template<typename T_Elem>
-Array<T_Elem> *CreateArrayFromList(const ValueList &valList)
+ArrayT<T_Elem> *CreateArrayTFromList(const ValueList &valList)
 {
-	AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
-	T_Elem *p = pArray->GetPointer();
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
+	T_Elem *p = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*p++ = static_cast<T_Elem>(pValue->GetNumber());
 	}
-	return pArray.release();
+	return pArrayT.release();
 }
 
 template<typename T_Elem>
-Array<T_Elem> *CreateArrayFromList(Signal &sig, const ValueList &valList)
+ArrayT<T_Elem> *CreateArrayTFromList(Signal &sig, const ValueList &valList)
 {
-	AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(valList.size()));
-	T_Elem *p = pArray->GetPointer();
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
+	T_Elem *p = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		if (!pValue->Is_number() && !pValue->Is_boolean()) {
 			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
@@ -137,7 +137,7 @@ Array<T_Elem> *CreateArrayFromList(Signal &sig, const ValueList &valList)
 		}
 		*p++ = static_cast<T_Elem>(pValue->GetNumber());
 	}
-	return pArray.release();
+	return pArrayT.release();
 }
 
 }

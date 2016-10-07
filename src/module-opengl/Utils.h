@@ -5,9 +5,9 @@
 namespace Gura {
 
 template<typename T_Elem>
-Array<T_Elem> *MakeMatrix(Environment &env, const Value &value)
+ArrayT<T_Elem> *MakeMatrix(Environment &env, const Value &value)
 {
-	AutoPtr<Array<T_Elem> > rtn(new Array<T_Elem>(16));
+	AutoPtr<ArrayT<T_Elem> > rtn(new ArrayT<T_Elem>(16));
 	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		if (valList.size() != 16) {
@@ -46,7 +46,7 @@ done:
 	return rtn.release();
 }
 
-const void *GetArrayPointer(Environment &env, GLenum type, const Value &value);
+const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value);
 	
 }
 

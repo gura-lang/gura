@@ -128,7 +128,7 @@ Gura_ImplementFunction(__gluBuild1DMipmaps)
 	GLenum format = static_cast<GLenum>(arg.GetInt(3));
 	GLenum type = static_cast<GLenum>(arg.GetInt(4));
 	Value data = arg.GetValue(5);
-	const void *p = GetArrayPointer(env, type, data);
+	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild1DMipmaps(target,
 					internalFormat, width, format, type, p);
@@ -187,7 +187,7 @@ Gura_ImplementFunction(__gluBuild2DMipmaps)
 	GLenum format = static_cast<GLenum>(arg.GetInt(4));
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
 	Value data = arg.GetValue(6);
-	const void *p = GetArrayPointer(env, type, data);
+	const void *p = GetArrayTPointer(env, type, data);
 	if (p == nullptr) return Value::Nil;
 	GLint _rtn = gluBuild2DMipmaps(target,
 					internalFormat, width, height, format, type, p);
@@ -427,7 +427,7 @@ Gura_ImplementFunction(__gluGetNurbsProperty)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
 	GLenum property = static_cast<GLenum>(arg.GetInt(1));
-	Array<float> *_data = Object_array<float>::GetObject(arg, 2)->GetArray();
+	ArrayT<float> *_data = Object_arrayT<float>::GetObject(arg, 2)->GetArrayT();
 	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	gluGetNurbsProperty(nurb, property, data);
 	return Value::Nil;
@@ -466,7 +466,7 @@ Gura_ImplementFunction(__gluGetTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(arg, 0)->GetTesselator();
 	GLenum which = static_cast<GLenum>(arg.GetInt(1));
-	Array<double> *_data = Object_array<double>::GetObject(arg, 2)->GetArray();
+	ArrayT<double> *_data = Object_arrayT<double>::GetObject(arg, 2)->GetArrayT();
 	GLdouble *data = reinterpret_cast<GLdouble *>(_data->GetPointer());
 	gluGetTessProperty(tess, which, data);
 	return Value::Nil;
@@ -488,11 +488,11 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 Gura_ImplementFunction(__gluLoadSamplingMatrices)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
-	Array<float> *_model = Object_array<float>::GetObject(arg, 1)->GetArray();
+	ArrayT<float> *_model = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *model = reinterpret_cast<GLfloat *>(_model->GetPointer());
-	Array<float> *_perspective = Object_array<float>::GetObject(arg, 2)->GetArray();
+	ArrayT<float> *_perspective = Object_arrayT<float>::GetObject(arg, 2)->GetArrayT();
 	GLfloat *perspective = reinterpret_cast<GLfloat *>(_perspective->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(arg, 3)->GetArray();
+	ArrayT<int> *_view = Object_arrayT<int>::GetObject(arg, 3)->GetArrayT();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
 	gluLoadSamplingMatrices(nurb, model, perspective, view);
 	return Value::Nil;
@@ -686,10 +686,10 @@ Gura_DeclareFunctionAlias(__gluNurbsCurve, "gluNurbsCurve")
 Gura_ImplementFunction(__gluNurbsCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
-	Array<float> *_knots = Object_array<float>::GetObject(arg, 1)->GetArray();
+	ArrayT<float> *_knots = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *knots = reinterpret_cast<GLfloat *>(_knots->GetPointer());
 	GLint stride = arg.GetInt(2);
-	Array<float> *_control = Object_array<float>::GetObject(arg, 3)->GetArray();
+	ArrayT<float> *_control = Object_arrayT<float>::GetObject(arg, 3)->GetArrayT();
 	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
 	GLint order = arg.GetInt(4);
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
@@ -740,13 +740,13 @@ Gura_DeclareFunctionAlias(__gluNurbsSurface, "gluNurbsSurface")
 Gura_ImplementFunction(__gluNurbsSurface)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
-	Array<float> *_sKnots = Object_array<float>::GetObject(arg, 1)->GetArray();
+	ArrayT<float> *_sKnots = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *sKnots = reinterpret_cast<GLfloat *>(_sKnots->GetPointer());
-	Array<float> *_tKnots = Object_array<float>::GetObject(arg, 2)->GetArray();
+	ArrayT<float> *_tKnots = Object_arrayT<float>::GetObject(arg, 2)->GetArrayT();
 	GLfloat *tKnots = reinterpret_cast<GLfloat *>(_tKnots->GetPointer());
 	GLint sStride = arg.GetInt(3);
 	GLint tStride = arg.GetInt(4);
-	Array<float> *_control = Object_array<float>::GetObject(arg, 5)->GetArray();
+	ArrayT<float> *_control = Object_arrayT<float>::GetObject(arg, 5)->GetArrayT();
 	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
 	GLint sOrder = arg.GetInt(6);
 	GLint tOrder = arg.GetInt(7);
@@ -853,7 +853,7 @@ Gura_ImplementFunction(__gluPickMatrix)
 	GLdouble y = arg.GetDouble(1);
 	GLdouble delX = arg.GetDouble(2);
 	GLdouble delY = arg.GetDouble(3);
-	Array<int> *_viewport = Object_array<int>::GetObject(arg, 4)->GetArray();
+	ArrayT<int> *_viewport = Object_arrayT<int>::GetObject(arg, 4)->GetArrayT();
 	GLint *viewport = reinterpret_cast<GLint *>(_viewport->GetPointer());
 	gluPickMatrix(x, y, delX, delY, viewport);
 	return Value::Nil;
@@ -882,17 +882,17 @@ Gura_ImplementFunction(__gluProject)
 	GLdouble objX = arg.GetDouble(0);
 	GLdouble objY = arg.GetDouble(1);
 	GLdouble objZ = arg.GetDouble(2);
-	Array<double> *_model = Object_array<double>::GetObject(arg, 3)->GetArray();
+	ArrayT<double> *_model = Object_arrayT<double>::GetObject(arg, 3)->GetArrayT();
 	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
-	Array<double> *_proj = Object_array<double>::GetObject(arg, 4)->GetArray();
+	ArrayT<double> *_proj = Object_arrayT<double>::GetObject(arg, 4)->GetArrayT();
 	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(arg, 5)->GetArray();
+	ArrayT<int> *_view = Object_arrayT<int>::GetObject(arg, 5)->GetArrayT();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
-	Array<double> *_winX = Object_array<double>::GetObject(arg, 6)->GetArray();
+	ArrayT<double> *_winX = Object_arrayT<double>::GetObject(arg, 6)->GetArrayT();
 	GLdouble *winX = reinterpret_cast<GLdouble *>(_winX->GetPointer());
-	Array<double> *_winY = Object_array<double>::GetObject(arg, 7)->GetArray();
+	ArrayT<double> *_winY = Object_arrayT<double>::GetObject(arg, 7)->GetArrayT();
 	GLdouble *winY = reinterpret_cast<GLdouble *>(_winY->GetPointer());
-	Array<double> *_winZ = Object_array<double>::GetObject(arg, 8)->GetArray();
+	ArrayT<double> *_winZ = Object_arrayT<double>::GetObject(arg, 8)->GetArrayT();
 	GLdouble *winZ = reinterpret_cast<GLdouble *>(_winZ->GetPointer());
 	GLint _rtn = gluProject(objX, objY, objZ, model, proj, view, winX, winY, winZ);
 	return ReturnValue(env, arg, Value(_rtn));
@@ -914,7 +914,7 @@ Gura_DeclareFunctionAlias(__gluPwlCurve, "gluPwlCurve")
 Gura_ImplementFunction(__gluPwlCurve)
 {
 	GLUnurbs *nurb = Object_Nurbs::GetObject(arg, 0)->GetNurbs();
-	Array<float> *_data = Object_array<float>::GetObject(arg, 1)->GetArray();
+	ArrayT<float> *_data = Object_arrayT<float>::GetObject(arg, 1)->GetArrayT();
 	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	GLint stride = arg.GetInt(2);
 	GLenum type = static_cast<GLenum>(arg.GetInt(3));
@@ -1249,7 +1249,7 @@ Gura_DeclareFunctionAlias(__gluTessVertex, "gluTessVertex")
 Gura_ImplementFunction(__gluTessVertex)
 {
 	Object_Tesselator *tess = Object_Tesselator::GetObject(arg, 0);
-	Array<double> *_location = Object_array<double>::GetObject(arg, 1)->GetArray();
+	ArrayT<double> *_location = Object_arrayT<double>::GetObject(arg, 1)->GetArrayT();
 	GLdouble *location = reinterpret_cast<GLdouble *>(_location->GetPointer());
 	Value vertex_data = arg.GetValue(2);
 	PolygonPack *pPolygonPack = tess->GetPolygonPack();
@@ -1285,17 +1285,17 @@ Gura_ImplementFunction(__gluUnProject)
 	GLdouble winX = arg.GetDouble(0);
 	GLdouble winY = arg.GetDouble(1);
 	GLdouble winZ = arg.GetDouble(2);
-	Array<double> *_model = Object_array<double>::GetObject(arg, 3)->GetArray();
+	ArrayT<double> *_model = Object_arrayT<double>::GetObject(arg, 3)->GetArrayT();
 	GLdouble *model = reinterpret_cast<GLdouble *>(_model->GetPointer());
-	Array<double> *_proj = Object_array<double>::GetObject(arg, 4)->GetArray();
+	ArrayT<double> *_proj = Object_arrayT<double>::GetObject(arg, 4)->GetArrayT();
 	GLdouble *proj = reinterpret_cast<GLdouble *>(_proj->GetPointer());
-	Array<int> *_view = Object_array<int>::GetObject(arg, 5)->GetArray();
+	ArrayT<int> *_view = Object_arrayT<int>::GetObject(arg, 5)->GetArrayT();
 	GLint *view = reinterpret_cast<GLint *>(_view->GetPointer());
-	Array<double> *_objX = Object_array<double>::GetObject(arg, 6)->GetArray();
+	ArrayT<double> *_objX = Object_arrayT<double>::GetObject(arg, 6)->GetArrayT();
 	GLdouble *objX = reinterpret_cast<GLdouble *>(_objX->GetPointer());
-	Array<double> *_objY = Object_array<double>::GetObject(arg, 7)->GetArray();
+	ArrayT<double> *_objY = Object_arrayT<double>::GetObject(arg, 7)->GetArrayT();
 	GLdouble *objY = reinterpret_cast<GLdouble *>(_objY->GetPointer());
-	Array<double> *_objZ = Object_array<double>::GetObject(arg, 8)->GetArray();
+	ArrayT<double> *_objZ = Object_arrayT<double>::GetObject(arg, 8)->GetArrayT();
 	GLdouble *objZ = reinterpret_cast<GLdouble *>(_objZ->GetPointer());
 	GLint _rtn = gluUnProject(winX, winY, winZ, model, proj, view, objX, objY, objZ);
 	return ReturnValue(env, arg, Value(_rtn));

@@ -1,29 +1,29 @@
 //=============================================================================
-// Gura class: array
+// Gura class: arrayT
 //=============================================================================
-#ifndef __GURA_CLASS_ARRAY_H__
-#define __GURA_CLASS_ARRAY_H__
+#ifndef __GURA_CLASS_ARRAYT_H__
+#define __GURA_CLASS_ARRAYT_H__
 
 #include "Class.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object_array
+// Object_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Object_array : public Object {
+class Object_arrayT : public Object {
 public:
-	Gura_DeclareObjectAccessor(array)
+	Gura_DeclareObjectAccessor(arrayT)
 private:
-	AutoPtr<Array<T_Elem> > _pArray;
+	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 public:
-	Object_array(Environment &env, ValueType valType, Array<T_Elem> *pArray) :
-				Object(env.LookupClass(valType)), _pArray(pArray) {}
-	Object_array(Class *pClass, Array<T_Elem> *pArray) :
-				Object(pClass), _pArray(pArray) {}
-	inline Array<T_Elem> *GetArray() { return _pArray.get(); }
-	inline const Array<T_Elem> *GetArray() const { return _pArray.get(); }
+	Object_arrayT(Environment &env, ValueType valType, ArrayT<T_Elem> *pArrayT) :
+				Object(env.LookupClass(valType)), _pArrayT(pArrayT) {}
+	Object_arrayT(Class *pClass, ArrayT<T_Elem> *pArrayT) :
+				Object(pClass), _pArrayT(pArrayT) {}
+	inline ArrayT<T_Elem> *GetArrayT() { return _pArrayT.get(); }
+	inline const ArrayT<T_Elem> *GetArrayT() const { return _pArrayT.get(); }
 	virtual Object *Clone() const { return nullptr; }
 	virtual String ToString(bool exprFlag) {
 		char buff[64];
@@ -31,7 +31,7 @@ public:
 		str += "<";
 		str += GetClassName();
 		str += ":";
-		::sprintf(buff, "%ldelements", _pArray->GetSize());
+		::sprintf(buff, "%ldelements", _pArrayT->GetSize());
 		str += buff;
 		str += ">";
 		return str;
@@ -43,11 +43,11 @@ public:
 			return Value::Nil;
 		}
 		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArray->GetSize()) {
+		if (idx >= _pArrayT->GetSize()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return Value::Nil;
 		}
-		return Value(_pArray->GetPointer()[idx]);
+		return Value(_pArrayT->GetPointer()[idx]);
 	}
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value) {
 		Signal &sig = GetSignal();
@@ -56,26 +56,26 @@ public:
 			return;
 		}
 		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArray->GetSize()) {
+		if (idx >= _pArrayT->GetSize()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return;
 		}
-		_pArray->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
+		_pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 	}
 };
 
 //-----------------------------------------------------------------------------
-// Class_array
+// Class_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Class_array : public Class {
+class Class_arrayT : public Class {
 public:
 	// array@T(arg) {block?}
-	class Func_array : public Function {
+	class Func_Constructor : public Function {
 	private:
 		ValueType _valType;
 	public:
-		Func_array(Environment &env, const Symbol *pSymbol, ValueType valType) :
+		Func_Constructor(Environment &env, const Symbol *pSymbol, ValueType valType) :
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareArg(env, "arg", VTYPE_any, OCCUR_Once);
@@ -98,32 +98,32 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			AutoPtr<Array<T_Elem> > pArray;
+			AutoPtr<ArrayT<T_Elem> > pArrayT;
 			if (arg.Is_number(0)) {
-				pArray.reset(new Array<T_Elem>(arg.GetSizeT(0)));
+				pArrayT.reset(new ArrayT<T_Elem>(arg.GetSizeT(0)));
 				if (arg.Is_number(1)) {
-					pArray->Fill(static_cast<T_Elem>(arg.GetNumber(1)));
+					pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(1)));
 				} else {
-					pArray->FillZero();
+					pArrayT->FillZero();
 				}
 			} else if (arg.Is_list(0)) {
 				const ValueList &valList = arg.GetList(0);
-				pArray.reset(CreateArrayFromList<T_Elem>(sig, valList));
-				if (pArray.IsNull()) return Value::Nil;
+				pArrayT.reset(CreateArrayTFromList<T_Elem>(sig, valList));
+				if (pArrayT.IsNull()) return Value::Nil;
 			} else {
 				Declaration::SetError_InvalidArgument(env);
 				return Value::Nil;
 			}
-			Value value(new Object_array<T_Elem>(env, _valType, pArray.release()));
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 			return ReturnValue(env, arg, value);
 		}
 	};
 	// @T() {block}
-	class Func_ArrayInit : public Function {
+	class Func_Initializer : public Function {
 	private:
 		ValueType _valType;
 	public:
-		Func_ArrayInit(Environment &env, const Symbol *pSymbol, ValueType valType) :
+		Func_Initializer(Environment &env, const Symbol *pSymbol, ValueType valType) :
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareBlock(OCCUR_Once);
@@ -144,8 +144,8 @@ public:
 			Signal &sig = env.GetSignal();
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
-			AutoPtr<Array<T_Elem> > pArray(new Array<T_Elem>(exprOwner.size()));
-			T_Elem *p = pArray->GetPointer();
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(exprOwner.size()));
+			T_Elem *p = pArrayT->GetPointer();
 			foreach_const (ExprOwner, ppExpr, exprOwner) {
 				const Expr *pExpr = *ppExpr;
 				if (pExpr->IsBlock()) {
@@ -159,7 +159,7 @@ public:
 				}
 				*p++ = static_cast<T_Elem>(value.GetNumber());
 			}
-			return Value(new Object_array<T_Elem>(env, _valType, pArray.release()));
+			return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 		}
 	};
 	// array@T#each() {block?}
@@ -183,8 +183,8 @@ public:
 			);
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
-			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
+			AutoPtr<Iterator> pIterator(new Iterator_ArrayT<T_Elem>(pArrayT->Reference()));
 			return ReturnIterator(env, arg, pIterator.release());
 		}
 	};
@@ -206,11 +206,11 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			bool upperFlag = arg.IsSet(Gura_Symbol(upper));
 			Stream *pStream = arg.IsValid(0)?
 				&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
-			pArray->Dump(sig, *pStream, upperFlag);
+			pArrayT->Dump(sig, *pStream, upperFlag);
 			return Value::Nil;
 		}
 	};
@@ -230,8 +230,8 @@ public:
 			);
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
-			Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
-			pArray->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
+			ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
+			pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
 			return Value::Nil;
 		}
 	};
@@ -258,16 +258,16 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArray->GetSize()) {
+			if (n > pArrayT->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
-			size_t offsetBase = pArray->GetOffsetBase();
-			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory().Reference(), n, offsetBase));
-			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
+			size_t offsetBase = pArrayT->GetOffsetBase();
+			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), n, offsetBase));
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
 	};
@@ -294,17 +294,17 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArray->GetSize()) {
+			if (n > pArrayT->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
-			size_t cnt = pArray->GetSize() - n;
-			size_t offsetBase = pArray->GetOffsetBase() + n;
-			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory().Reference(), cnt, offsetBase));
-			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
+			size_t cnt = pArrayT->GetSize() - n;
+			size_t offsetBase = pArrayT->GetOffsetBase() + n;
+			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), cnt, offsetBase));
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
 	};
@@ -328,10 +328,10 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
+			ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t offset = arg.GetSizeT(0);
-			const Array<T_Elem> *pArraySrc = Object_array<T_Elem>::GetObject(arg, 1)->GetArray();
-			pArray->Paste(sig, offset, pArraySrc);
+			const ArrayT<T_Elem> *pArrayTSrc = Object_arrayT<T_Elem>::GetObject(arg, 1)->GetArrayT();
+			pArrayT->Paste(sig, offset, pArrayTSrc);
 			return Value::Nil;
 		}
 	};
@@ -358,36 +358,36 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObjectThis(arg)->GetArray();
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArray->GetSize()) {
+			if (n > pArrayT->GetSize()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
-			size_t offsetBase = pArray->GetOffsetBase() + pArray->GetSize() - n;
-			AutoPtr<Array<T_Elem> > pArrayRtn(
-				new Array<T_Elem>(pArray->GetMemory().Reference(), n, offsetBase));
-			Value value(new Object_array<T_Elem>(env, _valType, pArrayRtn.release()));
+			size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetSize() - n;
+			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), n, offsetBase));
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
 	};
 private:
 	String _elemName;
 public:
-	Class_array(Environment *pEnvOuter, ValueType valType, const String &elemName) :
+	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName) :
 							Class(pEnvOuter, valType), _elemName(elemName) {}
 	virtual void Prepare(Environment &env) {
 		do {
 			const Symbol *pSymbol = ValueTypePool::GetInstance()->
 									Lookup(GetValueType())->GetSymbol();
-			env.AssignFunction(new Func_array(env, pSymbol, GetValueType()));
+			env.AssignFunction(new Func_Constructor(env, pSymbol, GetValueType()));
 		} while (0);
 		do {
 			String funcName;
 			funcName += "@";
 			funcName += _elemName;
 			const Symbol *pSymbol = Symbol::Add(funcName.c_str());
-			env.AssignFunction(new Func_ArrayInit(env, pSymbol, GetValueType()));
+			env.AssignFunction(new Func_Initializer(env, pSymbol, GetValueType()));
 		} while (0);
 		AssignFunction(new Func_dump(*this, GetValueType()));
 		AssignFunction(new Func_each(*this, GetValueType()));
@@ -400,25 +400,25 @@ public:
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
 		Signal &sig = GetSignal();
 		if (value.Is_list()) {
-			AutoPtr<Array<T_Elem> > pArray(CreateArrayFromList<T_Elem>(sig, value.GetList()));
-			if (pArray.IsNull()) return false;
-			value = Value(new Object_array<T_Elem>(env, GetValueType(), pArray.release()));
+			AutoPtr<ArrayT<T_Elem> > pArrayT(CreateArrayTFromList<T_Elem>(sig, value.GetList()));
+			if (pArrayT.IsNull()) return false;
+			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 			return true;
 		}
 		return false;
 	}
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl) {
 		if (decl.IsType(VTYPE_list)) {
-			AutoPtr<Array<T_Elem> > pArray(
-				Object_array<T_Elem>::GetObject(value)->GetArray()->Reference());
+			AutoPtr<ArrayT<T_Elem> > pArrayT(
+				Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 			Object_list *pObjList = value.InitAsList(env);
-			pObjList->Reserve(pArray->GetSize());
-			CopyArrayToList(pArray.get(), pObjList->GetListForModify());
+			pObjList->Reserve(pArrayT->GetSize());
+			CopyArrayTToList(pArrayT.get(), pObjList->GetListForModify());
 			pObjList->SetValueType(VTYPE_number);
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
-			const Array<T_Elem> *pArray = Object_array<T_Elem>::GetObject(value)->GetArray();
-			AutoPtr<Iterator> pIterator(new Iterator_Array<T_Elem>(pArray->Reference()));
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
+			AutoPtr<Iterator> pIterator(new Iterator_ArrayT<T_Elem>(pArrayT->Reference()));
 			value = Value(new Object_iterator(env, pIterator.release()));
 			return true;
 		}

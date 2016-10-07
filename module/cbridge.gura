@@ -524,53 +524,53 @@ typeConvDict = %{
 			''')
 	'array@char' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
-			'Array<char> *${arg.name} = Object_array<char>::GetObject(arg, ${idx})->GetArray();',
-			'Array<char> *${arg.name} = arg.IsValid(${idx})? Object_array<char>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<char> *${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<char> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@uchar' => TypeConv(
 			'array_at_uchar', 'Once', ['NoMap'],
-			'Array<UChar> *${arg.name} = Object_array<UChar>::GetObject(arg, ${idx})->GetArray();',
-			'Array<UChar> *${arg.name} = arg.IsValid(${idx})? Object_array<UChar>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<UChar> *${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<UChar> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@short' => TypeConv(
 			'array_at_short', 'Once', ['NoMap'],
-			'Array<short> *${arg.name} = Object_array<short>::GetObject(arg, ${idx})->GetArray();',
-			'Array<short> *${arg.name} = arg.IsValid(${idx})? Object_array<short>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<short> *${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<short> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@ushort' => TypeConv(
 			'array_at_ushort', 'Once', ['NoMap'],
-			'Array<UShort> *${arg.name} = Object_array<UShort>::GetObject(arg, ${idx})->GetArray();',
-			'Array<UShort> *${arg.name} = arg.IsValid(${idx})? Object_array<UShort>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<UShort> *${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<UShort> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@long' => TypeConv(
 			'array_at_long', 'Once', ['NoMap'],
-			'Array<long> *${arg.name} = Object_array<long>::GetObject(arg, ${idx})->GetArray();',
-			'Array<long> *${arg.name} = arg.IsValid(${idx})? Object_array<long>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<long> *${arg.name} = Object_arrayT<long>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<long> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<long>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@ulong' => TypeConv(
 			'array_at_ulong', 'Once', ['NoMap'],
-			'Array<ULong> *${arg.name} = Object_array<ULong>::GetObject(arg, ${idx})->GetArray();',
-			'Array<ULong> *${arg.name} = arg.IsValid(${idx})? Object_array<ULong>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<ULong> *${arg.name} = Object_arrayT<ULong>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<ULong> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<ULong>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@int' => TypeConv(
 			'array_at_int', 'Once', ['NoMap'],
-			'Array<int> *${arg.name} = Object_array<int>::GetObject(arg, ${idx})->GetArray();',
-			'Array<int> *${arg.name} = arg.IsValid(${idx})? Object_array<int>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<int> *${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<int> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@uint' => TypeConv(
 			'array_at_uint', 'Once', ['NoMap'],
-			'Array<UInt> *${arg.name} = Object_array<UInt>::GetObject(arg, ${idx})->GetArray();',
-			'Array<UInt> *${arg.name} = arg.IsValid(${idx})? Object_array<UInt>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<UInt> *${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<UInt> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@float' => TypeConv(
 			'array_at_float', 'Once', ['NoMap'],
-			'Array<float> *${arg.name} = Object_array<float>::GetObject(arg, ${idx})->GetArray();',
-			'Array<float> *${arg.name} = arg.IsValid(${idx})? Object_array<float>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<float> *${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<float> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'array@double' => TypeConv(
 			'array_at_double', 'Once', ['NoMap'],
-			'Array<double> *${arg.name} = Object_array<double>::GetObject(arg, ${idx})->GetArray();',
-			'Array<double> *${arg.name} = arg.IsValid(${idx})? Object_array<double>::GetObject(arg, ${idx})->GetArray() : nullptr;',
+			'ArrayT<double> *${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();',
+			'ArrayT<double> *${arg.name} = arg.IsValid(${idx})? Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT() : nullptr;',
 			nil)
 	'binary' => TypeConv(
 			'binary', 'Once', [],

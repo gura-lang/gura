@@ -182,9 +182,9 @@ Gura_ImplementMethod(memory, array_at_##name) \
 { \
 	Memory &memory = Object_memory::GetObjectThis(arg)->GetMemory(); \
 	size_t cnt = memory.GetSize() / sizeof(T); \
-	AutoPtr<Array<T> > pArray(new Array<T>(memory.Reference(), cnt)); \
-	return ReturnValue(env, arg, Value(new Object_array<T>( \
-										   env, VTYPE_array_at_##name, pArray.release()))); \
+	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(memory.Reference(), cnt)); \
+	return ReturnValue(env, arg, Value(new Object_arrayT<T>( \
+										   env, VTYPE_array_at_##name, pArrayT.release()))); \
 }
 
 ImplementArrayConstructor(char, Char)
@@ -286,51 +286,51 @@ void Class_memory::Prepare(Environment &env)
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_array_at_char()) {
-		Memory &memory = Object_array<Char>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<Char>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_uchar()) {
-		Memory &memory = Object_array<UChar>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<UChar>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_short()) {
-		Memory &memory = Object_array<Short>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<Short>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_ushort()) {
-		Memory &memory = Object_array<UShort>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<UShort>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_int()) {
-		Memory &memory = Object_array<Int>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<Int>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_uint()) {
-		Memory &memory = Object_array<UInt>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<UInt>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_int32()) {
-		Memory &memory = Object_array<Int32>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<Int32>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_uint32()) {
-		Memory &memory = Object_array<UInt32>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<UInt32>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_int64()) {
-		Memory &memory = Object_array<Int64>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<Int64>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_uint64()) {
-		Memory &memory = Object_array<UInt64>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<UInt64>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_float()) {
-		Memory &memory = Object_array<float>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<float>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_double()) {
-		Memory &memory = Object_array<double>::GetObject(value)->GetArray()->GetMemory();
+		Memory &memory = Object_arrayT<double>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	}

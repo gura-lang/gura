@@ -2,7 +2,7 @@
 
 namespace Gura {
 
-const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
+const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 {
 	const void *p = nullptr;
 	if (value.IsType(VTYPE_array_at_char)) {
@@ -10,7 +10,7 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<char>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<char>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_uchar)) {
 		//if (type != GL_BITMAP &&
 		//	type != GL_UNSIGNED_BYTE &&
@@ -19,13 +19,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<UChar>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<UChar>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_short)) {
 		//if (type != GL_SHORT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<short>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<short>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_ushort)) {
 		//if (type != GL_UNSIGNED_SHORT &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5 &&
@@ -37,13 +37,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<UShort>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<UShort>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_int32)) {
 		//if (type != GL_INT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<long>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<long>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_uint32)) {
 		//if (type != GL_UNSIGNED_INT &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8 &&
@@ -53,13 +53,13 @@ const void *GetArrayPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<ULong>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<ULong>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_float)) {
 		//if (type != GL_FLOAT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_array<float>::GetObject(value)->GetArray()->GetPointer();
+		p = Object_arrayT<float>::GetObject(value)->GetArrayT()->GetPointer();
 	} else {
 		env.SetError(ERR_TypeError, "invalid argument type");
 		return nullptr;
