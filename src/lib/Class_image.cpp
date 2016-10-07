@@ -570,6 +570,68 @@ Gura_ImplementMethod(image, grayscale)
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
 
+#if 0
+// image#mapcolorlevel(map@r:array@uchar, map@g?:array@uchar, map@b?:array@uchar) {block?}
+Gura_DeclareMethod(image, mapcolorlevel)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "map@r", VTYPE_array_at_uchar, OCCUR_Once);
+	DeclareArg(env, "map@g", VTYPE_array_at_uchar, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "map@b", VTYPE_array_at_uchar, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a new image that converts color levels according to the given table.\n"
+		"\n"
+		"Each of the arguments `map@r`, `map@g` and `map@b` is an instance of array@uchar\n"
+		"containing 256 numbers that range between 0 and 255\n"
+		"and corresponds to elements red, green and blue respectively.\n"
+		"An element value in the source image becomes an index of the list\n"
+		"and the indexed value will be stored as a converted element value.\n"
+		"\n"
+		"If you want to apply a mapping table to all the elements,\n"
+		"call the method with a single argument like `image#mapcolorlevel(map)`.\n"
+		"\n"
+		GURA_HELPTEXT_BLOCK_en("img", "image"));
+}
+
+Gura_ImplementMethod(image, mapcolorlevel)
+{
+	Signal &sig = env.GetSignal();
+	Object_image *pThis = Object_image::GetObjectThis(arg);
+	UChar *mapBuffR = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT()->GetPointer();
+	if (mapBuffR == nullptr) return Value::Nil;
+	UChar *mapBuffG = nullptr;
+	UChar *mapBuffB = nullptr;
+	const UChar *mapR = mapBuffR;
+	const UChar *mapG = mapBuffR;
+	const UChar *mapB = mapBuffR;
+	if (arg.IsValid(1)) {
+		mapBuffG = ValueListToMapTable(sig, arg.GetList(1));
+		if (mapBuffG == nullptr) {
+			delete[] mapBuffR;
+			return Value::Nil;
+		}
+		mapG = mapBuffG;
+		mapB = mapBuffG;
+	}
+	if (arg.IsValid(2)) {
+		mapBuffB = ValueListToMapTable(sig, arg.GetList(2));
+		if (mapBuffB == nullptr) {
+			delete[] mapBuffR;
+			delete[] mapBuffG;
+			return Value::Nil;
+		}
+		mapB = mapBuffB;
+	}
+	AutoPtr<Image> pImage(pThis->GetImage()->MapColorLevel(sig, mapR, mapG, mapB));
+	delete[] mapBuffR;
+	delete[] mapBuffG;
+	delete[] mapBuffB;
+	if (sig.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
+}
+#else
 // image#mapcolorlevel(map@r[]:number, map@g?[]:number, map@b?[]:number) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
@@ -583,7 +645,7 @@ Gura_DeclareMethod(image, mapcolorlevel)
 		"Returns a new image that converts color levels according to the given table.\n"
 		"\n"
 		"Each of the arguments `map@r`, `map@g` and `map@b` is a list\n"
-		"containing 256 numbers between 0 and 255\n"
+		"containing 256 numbers that range between 0 and 255\n"
 		"and corresponds to elements red, green and blue respectively.\n"
 		"An element value in the source image becomes an index of the list\n"
 		"and the indexed value will be stored as a converted element value.\n"
@@ -644,6 +706,7 @@ Gura_ImplementMethod(image, mapcolorlevel)
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
+#endif
 
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
 //     xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
