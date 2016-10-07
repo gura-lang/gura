@@ -140,6 +140,26 @@ ArrayT<T_Elem> *CreateArrayTFromList(Signal &sig, const ValueList &valList)
 	return pArrayT.release();
 }
 
+template<typename T_Elem>
+	ArrayT<T_Elem> *CreateArrayTFromIterator(Environment &env, Iterator *pIterator)
+{
+	Signal &sig = env.GetSignal();
+	ValueList valList;
+	Value value;
+	while (pIterator->Next(env, value)) valList.push_back(value);
+	if (sig.IsSignalled()) return nullptr;
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
+	T_Elem *p = pArrayT->GetPointer();
+	foreach_const (ValueList, pValue, valList) {
+		if (!pValue->Is_number() && !pValue->Is_boolean()) {
+			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
+			return nullptr;
+		}
+		*p++ = static_cast<T_Elem>(pValue->GetNumber());
+	}
+	return pArrayT.release();
+}
+
 }
 
 #endif

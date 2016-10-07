@@ -404,6 +404,17 @@ public:
 			if (pArrayT.IsNull()) return false;
 			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 			return true;
+		} else if (value.Is_iterator()) {
+			Iterator *pIterator = value.GetIterator();
+			if (pIterator->IsInfinite()) {
+				Iterator::SetError_InfiniteNotAllowed(sig);
+				return false;
+			}
+			AutoPtr<ArrayT<T_Elem> > pArrayT(CreateArrayTFromIterator<T_Elem>(
+												 env, pIterator->Clone()));
+			if (pArrayT.IsNull()) return false;
+			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
+			return true;
 		}
 		return false;
 	}

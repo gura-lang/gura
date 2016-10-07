@@ -54,6 +54,24 @@ testcase('cast from list') {
 	x:array@double = [0..29]
 	PrintArray('%2d', x)
 }
+testcase('cast from iterator') {
+	x:array@char = 0..29
+	PrintArray('%2d', x)
+	x:array@uchar = 0..29
+	PrintArray('%2d', x)
+	x:array@short = 0..29
+	PrintArray('%2d', x)
+	x:array@ushort = 0..29
+	PrintArray('%2d', x)
+	x:array@int32 = 0..29
+	PrintArray('%2d', x)
+	x:array@uint32 = 0..29
+	PrintArray('%2d', x)
+	x:array@float = 0..29
+	PrintArray('%2d', x)
+	x:array@double = 0..29
+	PrintArray('%2d', x)
+}
 testcase('head/tail') {
 	funcs.each {|func|
 		println(func)
@@ -225,5 +243,12 @@ testcase('cast to memory') {
 	funcs.each {|func|
 		println(func)
 		f(func([0..15]))
+	}
+}
+testcase('error for infinite iterator') {
+	try {
+		x:array@int = 0..
+	} catch {|e|
+		println('expected error occurs: ', e.text)
 	}
 }

@@ -570,7 +570,7 @@ Gura_ImplementMethod(image, grayscale)
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
 
-#if 0
+#if 1
 // image#mapcolorlevel(map@r:array@uchar, map@g?:array@uchar, map@b?:array@uchar) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
@@ -599,35 +599,12 @@ Gura_ImplementMethod(image, mapcolorlevel)
 {
 	Signal &sig = env.GetSignal();
 	Object_image *pThis = Object_image::GetObjectThis(arg);
-	UChar *mapBuffR = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT()->GetPointer();
-	if (mapBuffR == nullptr) return Value::Nil;
-	UChar *mapBuffG = nullptr;
-	UChar *mapBuffB = nullptr;
-	const UChar *mapR = mapBuffR;
-	const UChar *mapG = mapBuffR;
-	const UChar *mapB = mapBuffR;
-	if (arg.IsValid(1)) {
-		mapBuffG = ValueListToMapTable(sig, arg.GetList(1));
-		if (mapBuffG == nullptr) {
-			delete[] mapBuffR;
-			return Value::Nil;
-		}
-		mapG = mapBuffG;
-		mapB = mapBuffG;
-	}
-	if (arg.IsValid(2)) {
-		mapBuffB = ValueListToMapTable(sig, arg.GetList(2));
-		if (mapBuffB == nullptr) {
-			delete[] mapBuffR;
-			delete[] mapBuffG;
-			return Value::Nil;
-		}
-		mapB = mapBuffB;
-	}
+	const UChar *mapR = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT()->GetPointer();
+	const UChar *mapG = arg.IsValid(1)?
+		Object_arrayT<UChar>::GetObject(arg, 1)->GetArrayT()->GetPointer() : mapR;
+	const UChar *mapB = arg.IsValid(2)?
+		Object_arrayT<UChar>::GetObject(arg, 2)->GetArrayT()->GetPointer() : mapG;
 	AutoPtr<Image> pImage(pThis->GetImage()->MapColorLevel(sig, mapR, mapG, mapB));
-	delete[] mapBuffR;
-	delete[] mapBuffG;
-	delete[] mapBuffB;
 	if (sig.IsSignalled()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_image(env, pImage.release())));
 }
