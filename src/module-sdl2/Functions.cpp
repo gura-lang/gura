@@ -2246,12 +2246,12 @@ Gura_DeclareFunctionAlias(__SetWindowGammaRamp, "SetWindowGammaRamp")
 Gura_ImplementFunction(__SetWindowGammaRamp)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<Uint16> > _red(CreateArrayFromList<Uint16>(arg.GetList(1)));
-	Array<Uint16> &red = *_red;
-	AutoPtr<Array<Uint16> > _green(CreateArrayFromList<Uint16>(arg.GetList(2)));
-	Array<Uint16> &green = *_green;
-	AutoPtr<Array<Uint16> > _blue(CreateArrayFromList<Uint16>(arg.GetList(3)));
-	Array<Uint16> &blue = *_blue;
+	AutoPtr<ArrayT<Uint16> > _red(CreateArrayTFromList<Uint16>(arg.GetList(1)));
+	ArrayT<Uint16> &red = *_red;
+	AutoPtr<ArrayT<Uint16> > _green(CreateArrayTFromList<Uint16>(arg.GetList(2)));
+	ArrayT<Uint16> &green = *_green;
+	AutoPtr<ArrayT<Uint16> > _blue(CreateArrayTFromList<Uint16>(arg.GetList(3)));
+	ArrayT<Uint16> &blue = *_blue;
 	Signal &sig = env.GetSignal();
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
@@ -2525,8 +2525,8 @@ Gura_DeclareFunctionAlias(__UpdateWindowSurfaceRects, "UpdateWindowSurfaceRects"
 Gura_ImplementFunction(__UpdateWindowSurfaceRects)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Rect> > _rects(CreateArray<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	Array<SDL_Rect> &rects = *_rects;
+	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	ArrayT<SDL_Rect> &rects = *_rects;
 	int numrects = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
@@ -3194,8 +3194,8 @@ Gura_DeclareFunctionAlias(__RenderDrawLines, "RenderDrawLines")
 Gura_ImplementFunction(__RenderDrawLines)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Point> > _points(CreateArray<SDL_Point, Object_Point>(arg.GetList(1)));
-	Array<SDL_Point> &points = *_points;
+	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
+	ArrayT<SDL_Point> &points = *_points;
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
@@ -3244,8 +3244,8 @@ Gura_DeclareFunctionAlias(__RenderDrawPoints, "RenderDrawPoints")
 Gura_ImplementFunction(__RenderDrawPoints)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Point> > _points(CreateArray<SDL_Point, Object_Point>(arg.GetList(1)));
-	Array<SDL_Point> &points = *_points;
+	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
+	ArrayT<SDL_Point> &points = *_points;
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
@@ -3292,8 +3292,8 @@ Gura_DeclareFunctionAlias(__RenderDrawRects, "RenderDrawRects")
 Gura_ImplementFunction(__RenderDrawRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Rect> > _rects(CreateArray<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	Array<SDL_Rect> &rects = *_rects;
+	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	ArrayT<SDL_Rect> &rects = *_rects;
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -3340,8 +3340,8 @@ Gura_DeclareFunctionAlias(__RenderFillRects, "RenderFillRects")
 Gura_ImplementFunction(__RenderFillRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Rect> > _rects(CreateArray<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	Array<SDL_Rect> &rects = *_rects;
+	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	ArrayT<SDL_Rect> &rects = *_rects;
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -4125,8 +4125,8 @@ Gura_DeclareFunctionAlias(__SetPaletteColors, "SetPaletteColors")
 Gura_ImplementFunction(__SetPaletteColors)
 {
 	SDL_Palette *palette = Object_Palette::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Color> > _colors(CreateArray<SDL_Color, Object_Color>(arg.GetList(1)));
-	Array<SDL_Color> &colors = *_colors;
+	AutoPtr<ArrayT<SDL_Color> > _colors(CreateArrayT<SDL_Color, Object_Color>(arg.GetList(1)));
+	ArrayT<SDL_Color> &colors = *_colors;
 	int firstcolor = arg.GetInt(2);
 	int ncolors = arg.GetInt(3);
 	Signal &sig = env.GetSignal();
@@ -4180,8 +4180,8 @@ Gura_DeclareFunctionAlias(__EnclosePoints, "EnclosePoints")
 
 Gura_ImplementFunction(__EnclosePoints)
 {
-	AutoPtr<Array<SDL_Point> > _points(CreateArray<SDL_Point, Object_Point>(arg.GetList(0)));
-	Array<SDL_Point> &points = *_points;
+	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(0)));
+	ArrayT<SDL_Point> &points = *_points;
 	const SDL_Rect *clip = Object_Rect::GetObject(arg, 1)->GetEntity();
 	int count = static_cast<int>(points.GetSize());
 	SDL_Rect result;
@@ -4560,11 +4560,11 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	Uint32 Amask = arg.GetUInt32(8);
 	void *_pixels = nullptr;
 	if (pixels.IsType(VTYPE_array_at_uchar)) {
-		_pixels = Object_array<UChar>::GetObject(pixels)->GetArray()->GetPointer();
+		_pixels = Object_arrayT<UChar>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_at_ushort)) {
-		_pixels = Object_array<UShort>::GetObject(pixels)->GetArray()->GetPointer();
+		_pixels = Object_arrayT<UShort>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
-		_pixels = Object_array<UInt32>::GetObject(pixels)->GetArray()->GetPointer();
+		_pixels = Object_arrayT<UInt32>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else {
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
@@ -4638,8 +4638,8 @@ Gura_DeclareFunctionAlias(__FillRects, "FillRects")
 Gura_ImplementFunction(__FillRects)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(arg, 0)->GetEntity();
-	AutoPtr<Array<SDL_Rect> > _rects(CreateArray<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	Array<SDL_Rect> &rects = *_rects;
+	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	ArrayT<SDL_Rect> &rects = *_rects;
 	Uint32 color = arg.GetUInt32(2);
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
@@ -5493,8 +5493,8 @@ Gura_DeclareFunctionAlias(__AddEvents, "AddEvents")
 
 Gura_ImplementFunction(__AddEvents)
 {
-	AutoPtr<Array<SDL_Event> > _events(CreateArray<SDL_Event, Object_Event>(arg.GetList(0)));
-	Array<SDL_Event> &events = *_events;
+	AutoPtr<ArrayT<SDL_Event> > _events(CreateArrayT<SDL_Event, Object_Event>(arg.GetList(0)));
+	ArrayT<SDL_Event> &events = *_events;
 	int numevents = static_cast<int>(events.GetSize());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
@@ -5522,8 +5522,8 @@ Gura_ImplementFunction(__PeekEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
-	Array<SDL_Event> &events = *_events;
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
+	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -5556,8 +5556,8 @@ Gura_ImplementFunction(__GetEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<Array<SDL_Event> > _events(new Array<SDL_Event>(numevents));
-	Array<SDL_Event> &events = *_events;
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
+	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -6196,8 +6196,8 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 
 Gura_ImplementFunction(__CreateCursor)
 {
-	Array<UChar> *data = Object_array<UChar>::GetObject(arg, 0)->GetArray();
-	Array<UChar> *mask = Object_array<UChar>::GetObject(arg, 1)->GetArray();
+	ArrayT<UChar> *data = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UChar> *mask = Object_arrayT<UChar>::GetObject(arg, 1)->GetArrayT();
 	int w = arg.GetInt(2);
 	int h = arg.GetInt(3);
 	int hot_x = arg.GetInt(4);

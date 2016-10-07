@@ -30,7 +30,7 @@
 
 #include "gura/Algorithm.h"
 #include "gura/Argument.h"
-#include "gura/Array.h"
+#include "gura/ArrayT.h"
 #include "gura/Audio.h"
 #include "gura/Binary.h"
 #include "gura/Callable.h"
@@ -119,6 +119,6 @@
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
 #include "gura/Class_vertex.h"
-#include "gura/Class_array.h"		// uses template
+#include "gura/Class_arrayT.h"		// uses template
 
 #endif

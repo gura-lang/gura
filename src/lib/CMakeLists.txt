@@ -3,7 +3,7 @@
 add_library(guracore SHARED
 Algorithm.cpp
 Argument.cpp
-Array.cpp
+ArrayT.cpp
 Audio.cpp
 Binary.cpp
 Callable.cpp
@@ -13,7 +13,7 @@ Class_Module.cpp
 Class_Struct.cpp
 Class_any.cpp
 Class_argument.cpp
-Class_array.cpp
+Class_arrayT.cpp
 Class_audio.cpp
 Class_binary.cpp
 Class_boolean.cpp

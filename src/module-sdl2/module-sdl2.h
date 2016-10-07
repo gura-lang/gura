@@ -139,9 +139,9 @@ Gura_DeclareUserSymbol(y);
 Gura_DeclareUserSymbol(yrel);
 
 template<typename T_SDL, typename T_GURA>
-Array<T_SDL> *CreateArray(const ValueList &valList)
+ArrayT<T_SDL> *CreateArrayT(const ValueList &valList)
 {
-	AutoPtr<Array<T_SDL> > rtn(new Array<T_SDL>(valList.size()));
+	AutoPtr<ArrayT<T_SDL> > rtn(new ArrayT<T_SDL>(valList.size()));
 	T_SDL *p = rtn->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
 		*p++ = *T_GURA::GetObject(*pValue)->GetEntity();
