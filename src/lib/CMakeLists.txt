@@ -34,6 +34,7 @@ Class_image.cpp
 Class_iterator.cpp
 Class_list.cpp
 Class_matrix.cpp
+Class_matrixT.cpp
 Class_memory.cpp
 Class_monitor.cpp
 Class_nil.cpp
@@ -49,6 +50,7 @@ Class_string.cpp
 Class_suffixmgr.cpp
 Class_symbol.cpp
 Class_template.cpp
+Class_tensorT.cpp
 Class_timedelta.cpp
 Class_token.cpp
 Class_undefined.cpp
@@ -74,6 +76,7 @@ Image.cpp
 Iterator.cpp
 IteratorBasic.cpp
 Matrix.cpp
+MatrixT.cpp
 Memory.cpp
 MemoryPool.cpp
 Module.cpp
@@ -97,6 +100,7 @@ String.cpp
 SuffixMgr.cpp
 Symbol.cpp
 Template.cpp
+TensorT.cpp
 Token.cpp
 Unicode-CP932.cpp
 Unicode-CP936.cpp

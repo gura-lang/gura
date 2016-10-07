@@ -2,6 +2,8 @@
 // ValueType
 //=============================================================================
 #include "stdafx.h"
+#include "gura/Class_matrixT.h"
+#include "gura/Class_tensorT.h"
 
 namespace Gura {
 
@@ -58,6 +60,18 @@ ValueType VTYPE_image			= static_cast<ValueType>(0);
 ValueType VTYPE_iterator		= static_cast<ValueType>(0);
 ValueType VTYPE_list			= static_cast<ValueType>(0);
 ValueType VTYPE_matrix			= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_char	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_uchar	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_short	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_ushort= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_int	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_uint	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_int32	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_uint32= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_int64	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_uint64= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_float	= static_cast<ValueType>(0);
+ValueType VTYPE_matrix_at_double= static_cast<ValueType>(0);
 ValueType VTYPE_memory			= static_cast<ValueType>(0);
 ValueType VTYPE_monitor			= static_cast<ValueType>(0);
 ValueType VTYPE_operator		= static_cast<ValueType>(0);
@@ -67,6 +81,18 @@ ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
 ValueType VTYPE_stream			= static_cast<ValueType>(0);
 ValueType VTYPE_suffixmgr		= static_cast<ValueType>(0);
 ValueType VTYPE_template		= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_char	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_uchar	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_short	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_ushort= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_int	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_uint	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_int32	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_uint32= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_int64	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_uint64= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_float	= static_cast<ValueType>(0);
+ValueType VTYPE_tensor_at_double= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
 ValueType VTYPE_token			= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
@@ -189,6 +215,18 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(iterator);
 	Gura_RealizeVTYPE(list);
 	Gura_RealizeVTYPE(matrix);
+	Gura_RealizeVTYPEAlias(matrix_at_char,	"matrix@char");
+	Gura_RealizeVTYPEAlias(matrix_at_uchar,	"matrix@uchar");
+	Gura_RealizeVTYPEAlias(matrix_at_short,	"matrix@short");
+	Gura_RealizeVTYPEAlias(matrix_at_ushort,"matrix@ushort");
+	Gura_RealizeVTYPEAlias(matrix_at_int,	"matrix@int");
+	Gura_RealizeVTYPEAlias(matrix_at_uint,	"matrix@uint");
+	Gura_RealizeVTYPEAlias(matrix_at_int32,	"matrix@int32");
+	Gura_RealizeVTYPEAlias(matrix_at_uint32,"matrix@uint32");
+	Gura_RealizeVTYPEAlias(matrix_at_int64,	"matrix@int64");
+	Gura_RealizeVTYPEAlias(matrix_at_uint64,"matrix@uint64");
+	Gura_RealizeVTYPEAlias(matrix_at_float,	"matrix@float");
+   	Gura_RealizeVTYPEAlias(matrix_at_double,"matrix@double");
 	Gura_RealizeVTYPE(memory);
 	Gura_RealizeVTYPE(monitor);
 	Gura_RealizeVTYPE(operator);
@@ -198,6 +236,18 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(stream);
 	Gura_RealizeVTYPE(suffixmgr);
 	Gura_RealizeVTYPE(template);
+	Gura_RealizeVTYPEAlias(tensor_at_char,	"tensor@char");
+	Gura_RealizeVTYPEAlias(tensor_at_uchar,	"tensor@uchar");
+	Gura_RealizeVTYPEAlias(tensor_at_short,	"tensor@short");
+	Gura_RealizeVTYPEAlias(tensor_at_ushort,"tensor@ushort");
+	Gura_RealizeVTYPEAlias(tensor_at_int,	"tensor@int");
+	Gura_RealizeVTYPEAlias(tensor_at_uint,	"tensor@uint");
+	Gura_RealizeVTYPEAlias(tensor_at_int32,	"tensor@int32");
+	Gura_RealizeVTYPEAlias(tensor_at_uint32,"tensor@uint32");
+	Gura_RealizeVTYPEAlias(tensor_at_int64,	"tensor@int64");
+	Gura_RealizeVTYPEAlias(tensor_at_uint64,"tensor@uint64");
+	Gura_RealizeVTYPEAlias(tensor_at_float,	"tensor@float");
+   	Gura_RealizeVTYPEAlias(tensor_at_double,"tensor@double");
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(token);
 	Gura_RealizeVTYPE(uri);
@@ -231,7 +281,7 @@ void ValueTypePool::_Initialize(Environment &env)
 		new Class_arrayT<Short>(pClass, VTYPE_array_at_short, "short"));
 	Gura_VTYPEInfo(array_at_ushort)->SetClass(
 		new Class_arrayT<UShort>(pClass, VTYPE_array_at_ushort, "ushort"));
-	Gura_VTYPEInfo(array_at_int	)->SetClass(
+	Gura_VTYPEInfo(array_at_int)->SetClass(
 		new Class_arrayT<Int>(pClass, VTYPE_array_at_int, "int"));
 	Gura_VTYPEInfo(array_at_uint)->SetClass(
 		new Class_arrayT<UInt>(pClass, VTYPE_array_at_uint, "uint"));
@@ -267,6 +317,32 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(iterator		)->SetClass(new Class_iterator(pClass));
 	Gura_VTYPEInfo(list			)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix		)->SetClass(new Class_matrix(pClass));
+	Gura_VTYPEInfo(matrix_at_char)->SetClass(
+		new Class_matrixT<Char>(pClass, VTYPE_matrix_at_char, "char"));
+	Gura_VTYPEInfo(matrix_at_uchar)->SetClass(
+		new Class_matrixT<UChar>(pClass, VTYPE_matrix_at_uchar, "uchar"));
+	Gura_VTYPEInfo(matrix_at_short)->SetClass(
+		new Class_matrixT<Short>(pClass, VTYPE_matrix_at_short, "short"));
+	Gura_VTYPEInfo(matrix_at_ushort)->SetClass(
+		new Class_matrixT<UShort>(pClass, VTYPE_matrix_at_ushort, "ushort"));
+	Gura_VTYPEInfo(matrix_at_int)->SetClass(
+		new Class_matrixT<Int>(pClass, VTYPE_matrix_at_int, "int"));
+	Gura_VTYPEInfo(matrix_at_uint)->SetClass(
+		new Class_matrixT<UInt>(pClass, VTYPE_matrix_at_uint, "uint"));
+	Gura_VTYPEInfo(matrix_at_uint32)->SetClass(
+		new Class_matrixT<UInt32>(pClass, VTYPE_matrix_at_uint32, "uint32"));
+	Gura_VTYPEInfo(matrix_at_int32)->SetClass(
+		new Class_matrixT<Int32>(pClass, VTYPE_matrix_at_int32, "int32"));
+	Gura_VTYPEInfo(matrix_at_uint32)->SetClass(
+		new Class_matrixT<UInt32>(pClass, VTYPE_matrix_at_uint32, "uint32"));
+	Gura_VTYPEInfo(matrix_at_int64)->SetClass(
+		new Class_matrixT<Int64>(pClass, VTYPE_matrix_at_int64, "int64"));
+	Gura_VTYPEInfo(matrix_at_uint64)->SetClass(
+		new Class_matrixT<UInt64>(pClass, VTYPE_matrix_at_uint64, "uint64"));
+	Gura_VTYPEInfo(matrix_at_float)->SetClass(
+		new Class_matrixT<float>(pClass, VTYPE_matrix_at_float, "float"));
+	Gura_VTYPEInfo(matrix_at_double)->SetClass(
+		new Class_matrixT<double>(pClass, VTYPE_matrix_at_double, "double"));
 	Gura_VTYPEInfo(memory		)->SetClass(new Class_memory(pClass));
 	Gura_VTYPEInfo(monitor		)->SetClass(new Class_monitor(pClass));
 	Gura_VTYPEInfo(operator		)->SetClass(new Class_operator(pClass));
@@ -276,6 +352,32 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
 	Gura_VTYPEInfo(suffixmgr	)->SetClass(new Class_suffixmgr(pClass));
 	Gura_VTYPEInfo(template		)->SetClass(new Class_template(pClass));
+	Gura_VTYPEInfo(tensor_at_char)->SetClass(
+		new Class_tensorT<Char>(pClass, VTYPE_tensor_at_char, "char"));
+	Gura_VTYPEInfo(tensor_at_uchar)->SetClass(
+		new Class_tensorT<UChar>(pClass, VTYPE_tensor_at_uchar, "uchar"));
+	Gura_VTYPEInfo(tensor_at_short)->SetClass(
+		new Class_tensorT<Short>(pClass, VTYPE_tensor_at_short, "short"));
+	Gura_VTYPEInfo(tensor_at_ushort)->SetClass(
+		new Class_tensorT<UShort>(pClass, VTYPE_tensor_at_ushort, "ushort"));
+	Gura_VTYPEInfo(tensor_at_int)->SetClass(
+		new Class_tensorT<Int>(pClass, VTYPE_tensor_at_int, "int"));
+	Gura_VTYPEInfo(tensor_at_uint)->SetClass(
+		new Class_tensorT<UInt>(pClass, VTYPE_tensor_at_uint, "uint"));
+	Gura_VTYPEInfo(tensor_at_uint32)->SetClass(
+		new Class_tensorT<UInt32>(pClass, VTYPE_tensor_at_uint32, "uint32"));
+	Gura_VTYPEInfo(tensor_at_int32)->SetClass(
+		new Class_tensorT<Int32>(pClass, VTYPE_tensor_at_int32, "int32"));
+	Gura_VTYPEInfo(tensor_at_uint32)->SetClass(
+		new Class_tensorT<UInt32>(pClass, VTYPE_tensor_at_uint32, "uint32"));
+	Gura_VTYPEInfo(tensor_at_int64)->SetClass(
+		new Class_tensorT<Int64>(pClass, VTYPE_tensor_at_int64, "int64"));
+	Gura_VTYPEInfo(tensor_at_uint64)->SetClass(
+		new Class_tensorT<UInt64>(pClass, VTYPE_tensor_at_uint64, "uint64"));
+	Gura_VTYPEInfo(tensor_at_float)->SetClass(
+		new Class_tensorT<float>(pClass, VTYPE_tensor_at_float, "float"));
+	Gura_VTYPEInfo(tensor_at_double)->SetClass(
+		new Class_tensorT<double>(pClass, VTYPE_tensor_at_double, "double"));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(token		)->SetClass(new Class_token(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
@@ -334,6 +436,18 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_iterator		)->Prepare(env);
 	env.LookupClass(VTYPE_list			)->Prepare(env);
 	env.LookupClass(VTYPE_matrix		)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_char)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_uchar)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_short)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_ushort)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_int	)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_uint)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_int32)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_uint32)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_int64)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_uint64)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_float)->Prepare(env);
+	env.LookupClass(VTYPE_matrix_at_double)->Prepare(env);
 	env.LookupClass(VTYPE_memory		)->Prepare(env);
 	env.LookupClass(VTYPE_monitor		)->Prepare(env);
 	env.LookupClass(VTYPE_operator		)->Prepare(env);
@@ -343,6 +457,18 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_stream		)->Prepare(env);
 	env.LookupClass(VTYPE_suffixmgr		)->Prepare(env);
 	env.LookupClass(VTYPE_template		)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_char)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_uchar)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_short)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_ushort)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_int	)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_uint)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_int32)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_uint32)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_int64)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_uint64)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_float)->Prepare(env);
+	env.LookupClass(VTYPE_tensor_at_double)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta		)->Prepare(env);
 	env.LookupClass(VTYPE_token			)->Prepare(env);
 	env.LookupClass(VTYPE_uri			)->Prepare(env);
