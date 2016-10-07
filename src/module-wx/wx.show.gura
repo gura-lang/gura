@@ -63,7 +63,7 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	//[
 	//] = wx.NewIds()
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+	__init__(parent:wx.Window:nil) = {|parent, wx.ID_ANY,
 					'Image Viewer', size => wx.Size(App.width, App.height)|
 		menuBar = wx.MenuBar(wx.MB_DOCKABLE)
 		this.SetMenuBar(menuBar)
