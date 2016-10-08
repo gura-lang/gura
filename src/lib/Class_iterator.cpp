@@ -139,7 +139,10 @@ Gura_DeclareMethod(iterator, finite)
 Gura_ImplementMethod(iterator, finite)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	pThis->GetIterator()->SetInfiniteFlag(false);
+	Iterator *pIterator = pThis->GetIterator();
+	if (pIterator->IsInfinite()) {
+		pIterator->SetFiniteness(Iterator::Finite);
+	}
 	return arg.GetValueThis();
 }
 
@@ -157,7 +160,7 @@ Gura_DeclareMethod(iterator, infinite)
 Gura_ImplementMethod(iterator, infinite)
 {
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
-	pThis->GetIterator()->SetInfiniteFlag(true);
+	pThis->GetIterator()->SetFiniteness(Iterator::Infinite);
 	return arg.GetValueThis();
 }
 
@@ -589,7 +592,7 @@ Gura_ImplementMethod(iterator, flat)
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
 	AutoPtr<Iterator> pIterator(new Iterator_Walk(
 									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
-	pIterator->SetInfiniteFlag(false);
+	pIterator->SetFiniteness(Iterator::Finite);
 	return ReturnIterator(env, arg, pIterator.release());
 }
 

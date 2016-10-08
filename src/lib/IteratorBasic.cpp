@@ -476,7 +476,7 @@ Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment *pEnv,
 	} else {
 		_pIterator.reset(new Iterator_Constant(value));
 	}
-	SetInfiniteFlag(_pIterator->IsInfinite());
+	SetFiniteness(_pIterator->GetFiniteness());
 }
 
 Iterator_UnaryOperatorMap::~Iterator_UnaryOperatorMap()
@@ -543,7 +543,8 @@ Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment *pEnv,
 	} else {
 		_pIteratorRight.reset(new Iterator_Constant(valueRight));
 	}
-	SetInfiniteFlag(_pIteratorLeft->IsInfinite() && _pIteratorRight->IsInfinite());
+	SetFiniteness((_pIteratorLeft->IsInfinite() && _pIteratorRight->IsInfinite())?
+				  Infinite : Finite);
 }
 
 Iterator_BinaryOperatorMap::~Iterator_BinaryOperatorMap()
@@ -1747,7 +1748,7 @@ void Iterator_Concat::Add(Iterator *pIterator)
 {
 	_iterOwner.push_back(pIterator);
 	_ppIterator = _iterOwner.begin();
-	if (pIterator->IsInfinite()) _infiniteFlag = true;
+	if (pIterator->IsInfinite()) _finiteness = Infinite;
 }
 
 void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

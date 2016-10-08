@@ -17,6 +17,11 @@ class DeclarationList;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator {
 public:
+	enum Finiteness {
+		Infinite,
+		Finite,
+		FinitePredictable,
+	};
 	class GURA_DLLDECLARE Share {
 	public:
 		typedef std::vector<size_t> IndexList;
@@ -38,7 +43,7 @@ protected:
 	int _idxCur;
 	int _idxNext;
 	std::unique_ptr<Share> _pShare;
-	bool _infiniteFlag;
+	Finiteness _finiteness;
 	bool _skipInvalidFlag;
 	bool _repeaterFlag;
 	bool _listOriginFlag;
@@ -54,21 +59,22 @@ public:
 public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
 		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
-		_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
+		_finiteness(infiniteFlag? Infinite : Finite), _skipInvalidFlag(skipInvalidFlag),
 		_repeaterFlag(repeaterFlag), _listOriginFlag(false) {}
 	inline Iterator(const Iterator &iter) :
 		_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(nullptr),
-		_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
+		_finiteness(iter._finiteness), _skipInvalidFlag(iter._skipInvalidFlag),
 		_repeaterFlag(iter._repeaterFlag), _listOriginFlag(iter._listOriginFlag) {}
 	virtual ~Iterator();
 	inline int GetIndexCur() const { return _idxCur; }
 	inline int GetIndexNext() const { return _idxNext; }
 	inline bool IsVirgin() const { return _idxNext == 0 && _pShare.get() == nullptr; }
-	inline bool IsInfinite() const { return _infiniteFlag; }
+	inline bool IsInfinite() const { return _finiteness == Infinite; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
 	inline bool IsRepeater() const { return _repeaterFlag; }
 	inline bool IsListOrigin() const { return _listOriginFlag; }
-	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
+	inline Finiteness GetFiniteness() const { return _finiteness; }
+	inline void SetFiniteness(Finiteness finiteness) { _finiteness = finiteness; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
 	inline void SetListOriginFlag(bool listOriginFlag) { _listOriginFlag = listOriginFlag; }

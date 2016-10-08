@@ -1386,7 +1386,7 @@ Gura_ImplementMethod(list, flat)
 	if (sig.IsSignalled()) return Value::Nil;
 	AutoPtr<Iterator> pIterator(new Iterator_Walk(
 									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
-	pIterator->SetInfiniteFlag(false);
+	pIterator->SetFiniteness(Iterator::Finite);
 	//return pIterator->ToList(env, true, false);
 	return ReturnIterator(env, arg, pIterator.release());
 }

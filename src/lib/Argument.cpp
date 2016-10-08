@@ -473,7 +473,7 @@ void Argument::Iterator_VarLength::GatherFollower(Environment::Frame *pFrame, En
 void Argument::Iterator_VarLength::AddIterator(Iterator *pIterator)
 {
 	if (pIterator != nullptr && !_finiteFoundFlag) {
-		SetInfiniteFlag(pIterator->IsInfinite());
+		SetFiniteness(pIterator->IsInfinite()? Infinite : Finite);
 		_finiteFoundFlag = !pIterator->IsInfinite();
 	}
 	_iterOwner.push_back(pIterator);
