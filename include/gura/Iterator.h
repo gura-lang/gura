@@ -61,6 +61,10 @@ public:
 		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
 		_finiteness(infiniteFlag? Infinite : Finite), _skipInvalidFlag(skipInvalidFlag),
 		_repeaterFlag(repeaterFlag), _listOriginFlag(false) {}
+	inline Iterator(Finiteness finiteness, bool skipInvalidFlag = false, bool repeaterFlag = false) :
+		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
+		_finiteness(finiteness), _skipInvalidFlag(skipInvalidFlag),
+		_repeaterFlag(repeaterFlag), _listOriginFlag(false) {}
 	inline Iterator(const Iterator &iter) :
 		_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(nullptr),
 		_finiteness(iter._finiteness), _skipInvalidFlag(iter._skipInvalidFlag),
