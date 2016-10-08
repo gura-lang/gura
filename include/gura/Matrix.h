@@ -38,7 +38,7 @@ public:
 		bool _transposeFlag;
 	public:
 		inline IteratorEach(Matrix *pMat, bool transposeFlag) :
-							Iterator(false), _pMat(pMat),
+							Iterator(Finite), _pMat(pMat),
 							_iRow(0), _iCol(0), _transposeFlag(transposeFlag) {}
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
@@ -52,7 +52,7 @@ public:
 		size_t _iRow;
 	public:
 		inline IteratorEachRow(Matrix *pMat) :
-							Iterator(false), _pMat(pMat), _iRow(0) {}
+							Iterator(Finite), _pMat(pMat), _iRow(0) {}
 		virtual ~IteratorEachRow();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
@@ -65,7 +65,7 @@ public:
 		size_t _iCol;
 	public:
 		inline IteratorEachCol(Matrix *pMat) :
-							Iterator(false), _pMat(pMat), _iCol(0) {}
+							Iterator(Finite), _pMat(pMat), _iCol(0) {}
 		virtual ~IteratorEachCol();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);

@@ -35,7 +35,7 @@ public:
 		AutoPtr<Packer> _pPacker;
 		bool _bigEndianFlag;
 	public:
-		IteratorEach(Packer *pPacker, bool bigEndianFlag) : Iterator(false),
+		IteratorEach(Packer *pPacker, bool bigEndianFlag) : Iterator(Finite),
 							_pPacker(pPacker), _bigEndianFlag(bigEndianFlag) {
 		}
 		virtual Iterator *GetSource() {

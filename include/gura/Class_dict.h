@@ -30,8 +30,8 @@ public:
 		AutoPtr<Object_dict> _pObj;
 		bool _validFlag;
 	public:
-		IteratorEx(bool infiniteFlag, Object_dict *pObj) :
-					Iterator(infiniteFlag), _pObj(pObj), _validFlag(true) {}
+		IteratorEx(Finiteness finiteness, Object_dict *pObj) :
+					Iterator(finiteness), _pObj(pObj), _validFlag(true) {}
 		inline void Invalidate() { _validFlag = false; }
 	};
 	class IteratorKeys : public IteratorEx {

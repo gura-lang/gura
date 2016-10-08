@@ -85,7 +85,8 @@ private:
 	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 	size_t _idx;
 public:
-	inline Iterator_ArrayT(ArrayT<T_Elem> *pArrayT) : Iterator(false), _pArrayT(pArrayT), _idx(0) {}
+	inline Iterator_ArrayT(ArrayT<T_Elem> *pArrayT) :
+		Iterator(Finite), _pArrayT(pArrayT), _idx(0) {} // must be revised later
 	virtual Iterator *GetSource() { return nullptr; }
 	virtual bool DoNext(Environment &env, Value &value) {
 		if (_idx >= _pArrayT->GetSize()) return false;

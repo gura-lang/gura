@@ -33,15 +33,15 @@ public:
 		ValueList::const_iterator _pValueEnd;
 	public:
 		inline IteratorEach(Object_list *pObj) :
-			Iterator(false), _pObj(pObj),
+			Iterator(Finite), _pObj(pObj),
 			_pValue(pObj->GetList().begin()), _pValueEnd(pObj->GetList().end()) {}
 		inline IteratorEach(Object_list *pObj, size_t offset) :
-			Iterator(false), _pObj(pObj),
+			Iterator(Finite), _pObj(pObj),
 			_pValue((offset < pObj->GetList().size())?
 					pObj->GetList().begin() + offset : pObj->GetList().end()),
 			_pValueEnd(pObj->GetList().end()) {}
 		inline IteratorEach(Object_list *pObj, size_t offset, size_t cnt) :
-			Iterator(false), _pObj(pObj),
+			Iterator(Finite), _pObj(pObj),
 			_pValue((offset < pObj->GetList().size())?
 					pObj->GetList().begin() + offset : pObj->GetList().end()),
 			_pValueEnd((offset + cnt < pObj->GetList().size())?
@@ -58,7 +58,7 @@ public:
 		ValueList::const_reverse_iterator _pValue;
 	public:
 		inline IteratorReverse(Object_list *pObj) :
-			Iterator(false), _pObj(pObj), _pValue(pObj->GetList().rbegin()) {}
+			Iterator(Finite), _pObj(pObj), _pValue(pObj->GetList().rbegin()) {}
 		virtual ~IteratorReverse();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
@@ -72,7 +72,7 @@ public:
 		ValueList::const_iterator _pValue;
 	public:
 		inline IteratorCycle(Object_list *pObj, int cnt) :
-			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
+			Iterator((cnt < 0)? Infinite : Finite), _pObj(pObj), _cnt(cnt), _pValue(pObj->GetList().begin()) {}
 		virtual ~IteratorCycle();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
@@ -89,7 +89,7 @@ public:
 		ValueList::const_reverse_iterator _pValueBwd;
 	public:
 		inline IteratorPingpong(Object_list *pObj, int cnt, bool stickyFlagTop, bool stickyFlagBtm) :
-			Iterator(cnt < 0), _pObj(pObj), _cnt(cnt),
+			Iterator((cnt < 0)? Infinite : Finite), _pObj(pObj), _cnt(cnt),
 			_stickyFlagTop(stickyFlagTop), _stickyFlagBtm(stickyFlagBtm), _forwardFlag(true),
 			_pValueFwd(pObj->GetList().begin()), _pValueBwd(pObj->GetList().rbegin()) {}
 		virtual ~IteratorPingpong();

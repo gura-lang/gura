@@ -41,9 +41,9 @@ class GURA_DLLDECLARE Iterator_Constant : public Iterator {
 private:
 	Value _value;
 public:
-	inline Iterator_Constant(const Value &value) : Iterator(true), _value(value) {}
+	inline Iterator_Constant(const Value &value) : Iterator(Infinite), _value(value) {}
 	inline Iterator_Constant(const Iterator_Constant &iter) :
-										Iterator(true), _value(iter._value) {}
+										Iterator(Infinite), _value(iter._value) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -61,9 +61,9 @@ private:
 	int _idx;
 public:
 	inline Iterator_ConstantN(const Value &value, int cnt) :
-				Iterator(false), _value(value), _cnt(cnt), _idx(0) {}
+				Iterator(Finite), _value(value), _cnt(cnt), _idx(0) {}
 	inline Iterator_ConstantN(const Iterator_ConstantN &iter) :
-				Iterator(false), _value(iter._value), _cnt(iter._cnt),
+				Iterator(Finite), _value(iter._value), _cnt(iter._cnt),
 				_idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
@@ -81,9 +81,9 @@ private:
 	bool _doneFlag;
 public:
 	inline Iterator_OneShot(const Value &value) :
-				Iterator(false), _value(value), _doneFlag(false) {}
+				Iterator(Finite), _value(value), _doneFlag(false) {}
 	inline Iterator_OneShot(const Iterator_OneShot &iter) :
-				Iterator(false), _value(iter._value), _doneFlag(iter._doneFlag) {}
+				Iterator(Finite), _value(iter._value), _doneFlag(iter._doneFlag) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -101,7 +101,7 @@ private:
 	int _idx;
 public:
 	inline Iterator_Rand(int range, int cnt) :
-					Iterator(cnt < 0), _range(range), _cnt(cnt), _idx(0) {}
+		Iterator((cnt < 0)? Infinite : Finite), _range(range), _cnt(cnt), _idx(0) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -119,7 +119,7 @@ private:
 	Number _numStep;
 public:
 	inline Iterator_Range(Number numBegin, Number numEnd, Number numStep) :
-			Iterator(false), _num(numBegin),
+			Iterator(Finite), _num(numBegin),
 			_numBegin(numBegin), _numEnd(numEnd), _numStep(numStep) {}
 	inline Iterator_Range(const Iterator_Range &iter) :
 			Iterator(iter), _num(iter._num),
@@ -142,7 +142,7 @@ private:
 	Number _numStep;
 public:
 	inline Iterator_Sequence(Number numBegin, Number numEnd, Number numStep) :
-			Iterator(false), _num(numBegin),
+			Iterator(Finite), _num(numBegin),
 			_numBegin(numBegin), _numEnd(numEnd), _numStep(numStep) {}
 	inline Iterator_Sequence(const Iterator_Sequence &iter) :
 			Iterator(iter), _num(iter._num),
@@ -168,7 +168,7 @@ private:
 	Number _numStep;
 public:
 	inline Iterator_SequenceInf(Number numBegin, Number numStep = 1) :
-			Iterator(true), _num(numBegin), _numBegin(numBegin), _numStep(numStep) {}
+			Iterator(Infinite), _num(numBegin), _numBegin(numBegin), _numStep(numStep) {}
 	inline Iterator_SequenceInf(const Iterator_SequenceInf &iter) :
 			Iterator(iter), _num(iter._num), _numBegin(iter._numBegin), _numStep(iter._numStep) {}
 	virtual bool IsSequenceInf() const;
@@ -195,10 +195,10 @@ private:
 public:
 	inline Iterator_Interval(Number numBegin, Number numEnd,
 								int numSamples, Number numDenom, int iFactor) :
-		Iterator(false), _numBegin(numBegin), _numEnd(numEnd), _numSamples(numSamples), 
+		Iterator(Finite), _numBegin(numBegin), _numEnd(numEnd), _numSamples(numSamples),
 		_numDenom(numDenom), _iFactor(iFactor), _idx(0) {}
 	inline Iterator_Interval(Number numBegin, Number numEnd, int numSamples) :
-		Iterator(false), _numBegin(numBegin), _numEnd(numEnd), _numSamples(numSamples), 
+		Iterator(Finite), _numBegin(numBegin), _numEnd(numEnd), _numSamples(numSamples),
 		_numDenom(numSamples - 1), _iFactor(0), _idx(0) {}
 	inline Iterator_Interval(const Iterator_Interval &iter) :
 		Iterator(iter), _numBegin(iter._numBegin), _numEnd(iter._numEnd), _numSamples(iter._numSamples),
@@ -366,7 +366,7 @@ private:
 	Number _delay;
 public:
 	inline Iterator_Delay(Iterator *pIterator, Number delay) : 
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _delay(delay) {}
+		Iterator(pIterator->GetFiniteness()), _pIterator(pIterator), _delay(delay) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -382,7 +382,7 @@ private:
 	ValueList _valListToFind;
 public:
 	inline Iterator_Contains(Iterator *pIterator) :
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
+		Iterator(pIterator->GetFiniteness()), _pIterator(pIterator) {}
 	ValueList &GetValueListToFind() { return _valListToFind; }
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -400,7 +400,8 @@ private:
 	bool _firstFlag;
 public:
 	inline Iterator_Skip(Iterator *pIterator, int nSkip) :
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _nSkip(nSkip), _firstFlag(true) {}
+		Iterator(pIterator->IsInfinite()? Infinite : Finite), // must be revised later
+		_pIterator(pIterator), _nSkip(nSkip), _firstFlag(true) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -415,7 +416,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 public:
 	inline Iterator_SkipInvalid(Iterator *pIterator) :
-				Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
+		Iterator(pIterator->IsInfinite()? Infinite : Finite), _pIterator(pIterator) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -430,7 +431,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 public:
 	inline Iterator_SkipFalse(Iterator *pIterator) :
-				Iterator(pIterator->IsInfinite()), _pIterator(pIterator) {}
+		Iterator(pIterator->IsInfinite()? Infinite : Finite), _pIterator(pIterator) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -446,7 +447,7 @@ private:
 	Number _threshold;
 public:
 	inline Iterator_RoundOff(Iterator *pIterator, Number threshold) :
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _threshold(threshold) {}
+		Iterator(pIterator->GetFiniteness()), _pIterator(pIterator), _threshold(threshold) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -479,8 +480,8 @@ private:
 	AutoPtr<Iterator> _pIteratorCriteria;
 public:
 	inline Iterator_FilterWithIter(Iterator *pIterator, Iterator *pIteratorCriteria) :
-			Iterator(pIterator->IsInfinite() && pIteratorCriteria->IsInfinite()),
-			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
+		Iterator((pIterator->IsInfinite() && pIteratorCriteria->IsInfinite())? Infinite : Finite),
+		_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -513,7 +514,7 @@ private:
 	AutoPtr<Iterator> _pIteratorCriteria;
 public:
 	inline Iterator_WhileWithIter(Iterator *pIterator, Iterator *pIteratorCriteria) :
-			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
+			Iterator(Finite), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -549,7 +550,7 @@ private:
 public:
 	inline Iterator_UntilWithIter(Iterator *pIterator,
 								Iterator *pIteratorCriteria, bool containLastFlag) :
-			Iterator(false), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
+			Iterator(Finite), _pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
 			_containLastFlag(containLastFlag) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -586,9 +587,9 @@ private:
 public:
 	inline Iterator_SinceWithIter(Iterator *pIterator,
 								Iterator *pIteratorCriteria, bool containFirstFlag) :
-			Iterator(pIterator->IsInfinite() && pIteratorCriteria->IsInfinite()),
-			_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
-			_containFirstFlag(containFirstFlag) {}
+		Iterator((pIterator->IsInfinite() && pIteratorCriteria->IsInfinite())? Infinite : Finite),
+		_pIterator(pIterator), _pIteratorCriteria(pIteratorCriteria),
+		_containFirstFlag(containFirstFlag) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -606,7 +607,7 @@ private:
 public:
 	inline Iterator_Replace(Iterator *pIterator,
 							const Value &value, const Value &valueReplace) :
-			Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
+			Iterator(pIterator->GetFiniteness()), _pIterator(pIterator),
 			_value(value), _valueReplace(valueReplace) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -623,7 +624,7 @@ private:
 	Value _valueReplace;
 public:
 	inline Iterator_ReplaceInvalid(Iterator *pIterator, const Value &valueReplace) :
-			Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
+			Iterator(pIterator->GetFiniteness()), _pIterator(pIterator),
 			_valueReplace(valueReplace) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -640,7 +641,7 @@ private:
 	String _format;
 public:
 	inline Iterator_Format(Iterator *pIterator, const char *format) :
-			Iterator(pIterator->IsInfinite()),
+			Iterator(pIterator->GetFiniteness()),
 			_pIterator(pIterator), _format(format) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -657,7 +658,7 @@ private:
 	String _format;
 public:
 	inline Iterator_Pack(Iterator *pIterator, const char *format) :
-			Iterator(pIterator->IsInfinite()),
+			Iterator(pIterator->GetFiniteness()),
 			_pIterator(pIterator), _format(format) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -673,7 +674,8 @@ private:
 	IteratorOwner _iterOwner;
 public:
 	inline Iterator_Zipv(const IteratorOwner &iterOwner) :
-		Iterator(iterOwner.IsInfinite()), _iterOwner(iterOwner) {}
+		Iterator(iterOwner.IsInfinite()? Infinite : Finite), // must be revised later
+		_iterOwner(iterOwner) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -691,7 +693,7 @@ private:
 	Value _valuePrev;
 public:
 	inline Iterator_RunLength(Iterator *pIterator) :
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator),
+		Iterator(pIterator->IsInfinite()? Infinite : Finite), _pIterator(pIterator),
 		_cnt(0), _doneFlag(false) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
@@ -709,7 +711,7 @@ private:
 	Value _valueFill;
 public:
 	inline Iterator_Align(Iterator *pIterator, int cnt, const Value &valueFill) :
-		Iterator(false), _pIterator(pIterator), _cnt(cnt), _valueFill(valueFill) {}
+		Iterator(Finite), _pIterator(pIterator), _cnt(cnt), _valueFill(valueFill) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -725,7 +727,7 @@ private:
 	int _cnt;
 public:
 	inline Iterator_Head(Iterator *pIterator, int cnt) :
-						Iterator(false), _pIterator(pIterator), _cnt(cnt) {}
+						Iterator(Finite), _pIterator(pIterator), _cnt(cnt) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -747,9 +749,9 @@ private:
 public:
 	inline Iterator_Fold(Iterator *pIterator, size_t cnt,
 						 size_t cntStep, bool listItemFlag, bool neatFlag) :
-			Iterator(pIterator->IsInfinite()),
-			_pIterator(pIterator), _cnt(cnt), _cntStep(cntStep),
-			_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false) {}
+		Iterator(pIterator->IsInfinite()? Infinite : Finite), // must be revised later
+		_pIterator(pIterator), _cnt(cnt), _cntStep(cntStep),
+		_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;
@@ -764,7 +766,7 @@ private:
 	IteratorOwner _iterOwner;
 	IteratorOwner::iterator _ppIterator;
 public:
-	inline Iterator_Concat() : Iterator(false), _ppIterator(_iterOwner.begin()) {}
+	inline Iterator_Concat() : Iterator(Finite), _ppIterator(_iterOwner.begin()) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;

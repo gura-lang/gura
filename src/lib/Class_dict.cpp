@@ -84,7 +84,7 @@ String Object_dict::ToString(bool exprFlag)
 // Object_dict::IteratorKeys
 //-----------------------------------------------------------------------------
 Object_dict::IteratorKeys::IteratorKeys(Object_dict *pObj) :
-	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(Finite, pObj), _pCur(pObj->GetDict().begin())
 {
 	_pObj->AddIterator(this);
 }
@@ -125,7 +125,7 @@ void Object_dict::IteratorKeys::GatherFollower(Environment::Frame *pFrame, Envir
 // Object_dict::IteratorValues
 //-----------------------------------------------------------------------------
 Object_dict::IteratorValues::IteratorValues(Object_dict *pObj) :
-	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(Finite, pObj), _pCur(pObj->GetDict().begin())
 {
 	_pObj->AddIterator(this);
 }
@@ -166,7 +166,7 @@ void Object_dict::IteratorValues::GatherFollower(Environment::Frame *pFrame, Env
 // Object_dict::IteratorItems
 //-----------------------------------------------------------------------------
 Object_dict::IteratorItems::IteratorItems(Object_dict *pObj) :
-	IteratorEx(false, pObj), _pCur(pObj->GetDict().begin())
+	IteratorEx(Finite, pObj), _pCur(pObj->GetDict().begin())
 {
 	_pObj->AddIterator(this);
 }

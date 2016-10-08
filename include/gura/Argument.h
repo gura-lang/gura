@@ -38,7 +38,7 @@ public:
 		bool _finiteFoundFlag;
 	public:
 		inline Iterator_VarLength(const Declaration *pDecl, ValueList &valList) :
-			Iterator(false), _pDecl(pDecl), _valList(valList), _finiteFoundFlag(false) {}
+			Iterator(Finite), _pDecl(pDecl), _valList(valList), _finiteFoundFlag(false) {}
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;

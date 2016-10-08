@@ -196,7 +196,7 @@ public:
 	public:
 		inline IteratorScan(Image *pImage,
 				size_t x, size_t y, size_t width, size_t height, ScanDir scanDir) :
-			Iterator(false),
+			Iterator(Finite),
 			_scanner(pImage, x, y, width, height, scanDir), _doneFlag(false) {}
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);
