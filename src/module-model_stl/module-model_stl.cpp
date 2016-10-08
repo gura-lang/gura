@@ -265,7 +265,7 @@ Gura_ImplementUserClass(solid)
 // Iterator_face
 //-----------------------------------------------------------------------------
 Iterator_face::Iterator_face(Stream *pStream) :
-	Iterator(false), _binaryFlag(false), _pStream(pStream),
+	Iterator(Finite), _binaryFlag(false), _pStream(pStream),
 	_idxFace(0), _nFace(0), _stat(STAT_facet)
 {
 }

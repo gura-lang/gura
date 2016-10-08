@@ -57,10 +57,6 @@ public:
 		MemoryPool::Deallocate(pv);
 	}
 public:
-	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
-		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
-		_finiteness(infiniteFlag? Infinite : Finite), _skipInvalidFlag(skipInvalidFlag),
-		_repeaterFlag(repeaterFlag), _listOriginFlag(false) {}
 	inline Iterator(Finiteness finiteness, bool skipInvalidFlag = false, bool repeaterFlag = false) :
 		_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(nullptr),
 		_finiteness(finiteness), _skipInvalidFlag(skipInvalidFlag),
@@ -74,6 +70,7 @@ public:
 	inline int GetIndexNext() const { return _idxNext; }
 	inline bool IsVirgin() const { return _idxNext == 0 && _pShare.get() == nullptr; }
 	inline bool IsInfinite() const { return _finiteness == Infinite; }
+	inline bool IsFinitePredictable() const { return _finiteness == FinitePredictable; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
 	inline bool IsRepeater() const { return _repeaterFlag; }
 	inline bool IsListOrigin() const { return _listOriginFlag; }
@@ -123,6 +120,7 @@ public:
 	virtual Iterator *GetSource() = 0;
 	virtual bool DoNext(Environment &env, Value &value) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) = 0;
+	virtual size_t GetLength();
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

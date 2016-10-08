@@ -33,7 +33,8 @@ public:
 		int _nLines;
 	public:
 		inline IteratorLine(Object_stream *pObj, int nLinesMax, bool includeEOLFlag) :
-			Iterator(pObj->GetStream().IsInfinite()), _pObj(pObj), _nLinesMax(nLinesMax),
+			Iterator(pObj->GetStream().IsInfinite()? Infinite : Finite),
+			_pObj(pObj), _nLinesMax(nLinesMax),
 			_includeEOLFlag(includeEOLFlag), _nLines(0) {}
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);

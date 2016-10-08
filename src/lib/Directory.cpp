@@ -110,7 +110,7 @@ Directory *Directory::Open(Environment &env, Directory *pParent,
 Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
 				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
 				Directory *pDirectory, int depthMax, const StringList &patterns) :
-	Iterator(false),
+	Iterator(Finite),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
 	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(nullptr), _depthMax(0),
 	_patterns(patterns)
@@ -198,7 +198,7 @@ void Directory::Iterator_Walk::GatherFollower(Environment::Frame *pFrame, Enviro
 //-----------------------------------------------------------------------------
 Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
 							bool ignoreCaseFlag, bool fileFlag, bool dirFlag) :
-	Iterator(false),
+	Iterator(Finite),
 	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
 	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(nullptr), _depth(0)
 {

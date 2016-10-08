@@ -676,6 +676,13 @@ String Iterator::ToString() const
 	return String("");
 }
 
+size_t Iterator::GetLength()
+{
+	// This function should return a valid result when the finiteness is
+	// set to FinitePredictable.
+	return 0;
+}
+
 bool Iterator::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	return true;

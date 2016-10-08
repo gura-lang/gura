@@ -283,7 +283,7 @@ Audio::Chain *Audio::Chain::ConvertFormat(Format format) const
 // Audio::IteratorEach
 //-----------------------------------------------------------------------------
 Audio::IteratorEach::IteratorEach(Audio *pAudio, size_t iChannel, size_t offset) :
-		Iterator(false), _pAudio(pAudio), _iChannel(iChannel), _offset(offset),
+		Iterator(Finite), _pAudio(pAudio), _iChannel(iChannel), _offset(offset),
 		_pChain(nullptr), _buffp(nullptr), _cntRest(0), _doneFlag(false)
 {
 }

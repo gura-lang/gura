@@ -294,7 +294,7 @@ Object_ifd *ParseIFD_LE(Environment &env, Signal &sig, const Symbol *pSymbolOfIF
 // IteraorTag
 //-----------------------------------------------------------------------------
 IteratorTag::IteratorTag(Object_ifd *pObjIFD) :
-						Iterator(false), _pObjIFD(pObjIFD), _idx(0)
+						Iterator(Finite), _pObjIFD(pObjIFD), _idx(0)
 {
 }
 

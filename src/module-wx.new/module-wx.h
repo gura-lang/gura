@@ -118,7 +118,7 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_NewIds : public Iterator {
 public:
-	inline Iterator_NewIds() : Iterator(true) {}
+	inline Iterator_NewIds() : Iterator(Infinite) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

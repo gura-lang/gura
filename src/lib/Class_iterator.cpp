@@ -745,12 +745,16 @@ Gura_ImplementMethod(iterator, len)
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return Value::Nil;
 	}
-	Value value;
-	int cnt;
-	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	for (cnt = 0; pIterator->Next(env, value); cnt++) ;
-	if (sig.IsSignalled()) return Value::Nil;
-	return Value(static_cast<Number>(cnt));
+	size_t cnt = 0;
+	if (pThis->GetIterator()->IsFinitePredictable()) {
+		cnt = pThis->GetIterator()->GetLength();
+	} else {
+		AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
+		Value value;
+		for ( ; pIterator->Next(env, value); cnt++) ;
+		if (sig.IsSignalled()) return Value::Nil;
+	}
+	return Value(cnt);
 }
 
 // iterator#map(func:function) {block?}

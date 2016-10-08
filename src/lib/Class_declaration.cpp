@@ -115,7 +115,7 @@ void Class_declaration::Prepare(Environment &env)
 // Iterator_declaration
 //-----------------------------------------------------------------------------
 Iterator_declaration::Iterator_declaration(DeclarationOwner *pDeclarationOwner) :
-						Iterator(false), _idx(0), _pDeclarationOwner(pDeclarationOwner)
+						Iterator(Finite), _idx(0), _pDeclarationOwner(pDeclarationOwner)
 {
 }
 

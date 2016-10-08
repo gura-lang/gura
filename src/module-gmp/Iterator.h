@@ -15,7 +15,7 @@ private:
 	mpz_class _numBegin;
 public:
 	inline Iterator_GmpSeqInf(const mpz_class &numBegin) :
-					Iterator(true), _num(numBegin), _numBegin(numBegin) {}
+					Iterator(Infinite), _num(numBegin), _numBegin(numBegin) {}
 	inline Iterator_GmpSeqInf(const Iterator_GmpSeqInf &iter) :
 					Iterator(iter), _num(iter._num), _numBegin(iter._numBegin) {}
 	virtual bool IsSequenceInf() const;
@@ -37,7 +37,7 @@ private:
 	mpz_class _numStep;
 public:
 	inline Iterator_GmpSeq(const mpz_class &numBegin, const mpz_class &numEnd, const mpz_class &numStep) :
-			Iterator(false), _num(numBegin),
+			Iterator(Finite), _num(numBegin),
 			_numBegin(numBegin), _numEnd(numEnd), _numStep(numStep) {}
 	inline Iterator_GmpSeq(const Iterator_GmpSeq &iter) :
 			Iterator(iter), _num(iter._num),

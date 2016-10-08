@@ -23,7 +23,7 @@ public:
 		sqlite3_stmt *_pStmt;
 	public:
 		inline IteratorQuery(Object_db *pObj, sqlite3_stmt *pStmt) :
-							Iterator(false), _pObj(pObj), _pStmt(pStmt) {}
+							Iterator(Finite), _pObj(pObj), _pStmt(pStmt) {}
 		virtual ~IteratorQuery();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);

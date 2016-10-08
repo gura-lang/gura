@@ -1278,7 +1278,7 @@ Gura_ImplementUserClass(document)
 // Iterator_attribute
 //-----------------------------------------------------------------------------
 Iterator_attribute::Iterator_attribute(AttributeOwner *pAttributeOwner) :
-						Iterator(false), _idx(0), _pAttributeOwner(pAttributeOwner)
+						Iterator(Finite), _idx(0), _pAttributeOwner(pAttributeOwner)
 {
 }
 
@@ -1313,7 +1313,7 @@ void Iterator_attribute::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 // Iterator_element
 //-----------------------------------------------------------------------------
 Iterator_element::Iterator_element(ElementOwner *pElementOwner) :
-						Iterator(false), _idx(0), _pElementOwner(pElementOwner)
+						Iterator(Finite), _idx(0), _pElementOwner(pElementOwner)
 {
 }
 

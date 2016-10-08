@@ -74,7 +74,7 @@ private:
 	std::unique_ptr<Reader> _pReader;
 public:
 	inline Iterator_reader(Reader *pReader) :
-								Iterator(false), _pReader(pReader) {}
+								Iterator(Finite), _pReader(pReader) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
 	virtual String ToString() const;

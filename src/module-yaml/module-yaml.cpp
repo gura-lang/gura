@@ -208,7 +208,7 @@ Value Stocker_Sequence::GetValue()
 // Iterator_FromStream
 //-----------------------------------------------------------------------------
 Iterator_FromStream::Iterator_FromStream(Signal &sig, Stream *pStream) :
-			Iterator(false), _sig(sig), _pStream(pStream), _doneFlag(false)
+			Iterator(Finite), _sig(sig), _pStream(pStream), _doneFlag(false)
 {
 	::yaml_parser_initialize(&_parser);
 	::yaml_parser_set_input(&_parser, ReadHandler, this);
@@ -259,7 +259,7 @@ int Iterator_FromStream::ReadHandler(void *ext,
 // Iterator_FromString
 //-----------------------------------------------------------------------------
 Iterator_FromString::Iterator_FromString(const char *str) :
-									Iterator(false), _doneFlag(false)
+									Iterator(Finite), _doneFlag(false)
 {
 	::yaml_parser_initialize(&_parser);
 	::yaml_parser_set_input_string(&_parser,

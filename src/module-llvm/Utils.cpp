@@ -7,7 +7,7 @@ Gura_BeginModuleScope(llvm)
 //-----------------------------------------------------------------------------
 Iterator_IdentifierInMember::Iterator_IdentifierInMember(Environment *pEnv,
 									   Iterator *pIterator, const Symbol *pSymbol) :
-		Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
+		Iterator(pIterator->GetFiniteness()), _pEnv(pEnv),
 		_pIterator(pIterator), _pSymbol(pSymbol)
 {
 }
@@ -71,7 +71,7 @@ void Iterator_IdentifierInMember::GatherFollower(Environment::Frame *pFrame, Env
 Iterator_CallerInMember::Iterator_CallerInMember(
 	Environment *pEnv,
 	Iterator *pIterator, const Symbol *pSymbol, const BridgeFunctionT bridgeFunc) :
-	Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
+	Iterator(pIterator->GetFiniteness()), _pEnv(pEnv),
 	_pIterator(pIterator), _pSymbol(pSymbol), _bridgeFunc(bridgeFunc)
 {
 }

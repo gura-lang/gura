@@ -648,7 +648,7 @@ void ExprOwner::Clear()
 // ExprOwner::Iterator
 //-----------------------------------------------------------------------------
 ExprOwner::Iterator::Iterator(ExprOwner *pExprOwner) :
-	Gura::Iterator(false), _idx(0), _pExprOwner(pExprOwner)
+	Gura::Iterator(Finite), _idx(0), _pExprOwner(pExprOwner)
 {
 }
 

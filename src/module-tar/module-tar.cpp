@@ -394,7 +394,7 @@ Gura_ImplementUserClass(writer)
 // Iterator_Entry implementation
 //-----------------------------------------------------------------------------
 Iterator_Entry::Iterator_Entry(Object_reader *pObjReader) :
-			Iterator(false), _pObjReader(pObjReader), _offsetNext(InvalidSize)
+			Iterator(Finite), _pObjReader(pObjReader), _offsetNext(InvalidSize)
 {
 }
 

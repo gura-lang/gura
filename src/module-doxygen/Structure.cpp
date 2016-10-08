@@ -42,12 +42,12 @@ void StructureOwner::Clear()
 // Iterator_Structure
 //-----------------------------------------------------------------------------
 Iterator_Structure::Iterator_Structure(StructureOwner *pStructureOwner) :
-	Iterator(false), _pStructureOwner(pStructureOwner), _idx(0)
+	Iterator(Finite), _pStructureOwner(pStructureOwner), _idx(0)
 {
 }
 
 Iterator_Structure::Iterator_Structure(const Iterator_Structure &iter) :
-	Iterator(false), _pStructureOwner(iter._pStructureOwner->Reference()), _idx(iter._idx)
+	Iterator(Finite), _pStructureOwner(iter._pStructureOwner->Reference()), _idx(iter._idx)
 {
 }
 

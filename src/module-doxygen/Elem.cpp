@@ -355,12 +355,12 @@ void Elem_Text::Print(Environment &env, SimpleStream &stream, int indentLevel) c
 // Iterator_Elem
 //-----------------------------------------------------------------------------
 Iterator_Elem::Iterator_Elem(ElemOwner *pElemOwner) :
-	Iterator(false), _pElemOwner(pElemOwner), _idx(0)
+	Iterator(Finite), _pElemOwner(pElemOwner), _idx(0)
 {
 }
 
 Iterator_Elem::Iterator_Elem(const Iterator_Elem &iter) :
-	Iterator(false), _pElemOwner(iter._pElemOwner->Reference()), _idx(iter._idx)
+	Iterator(Finite), _pElemOwner(iter._pElemOwner->Reference()), _idx(iter._idx)
 {
 }
 

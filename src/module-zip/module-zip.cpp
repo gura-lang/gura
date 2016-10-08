@@ -455,7 +455,7 @@ Gura_ImplementUserClass(writer)
 // Iterator_Entry implementation
 //-----------------------------------------------------------------------------
 Iterator_Entry::Iterator_Entry(Object_reader *pObjZipR) :
-								Iterator(false), _pObjZipR(pObjZipR)
+								Iterator(Finite), _pObjZipR(pObjZipR)
 {
 	_ppHdr = pObjZipR->GetHeaderList().begin();
 }

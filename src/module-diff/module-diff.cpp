@@ -273,7 +273,7 @@ String DiffLine::Hunk::TextizeRange_Unified() const
 //-----------------------------------------------------------------------------
 DiffLine::IteratorHunk::IteratorHunk(DiffLine *pDiffLine,
 									 Format format, size_t nLinesCommon) :
-	Iterator(false), _pDiffLine(pDiffLine), _idxEdit(0),
+	Iterator(Finite), _pDiffLine(pDiffLine), _idxEdit(0),
 	_format(format), _nLinesCommon(nLinesCommon)
 {
 }
@@ -308,13 +308,13 @@ void DiffLine::IteratorHunk::GatherFollower(Environment::Frame *pFrame, Environm
 // DiffLine::IteratorEdit
 //-----------------------------------------------------------------------------
 DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine) :
-	Iterator(false), _pDiffLine(pDiffLine),
+	Iterator(Finite), _pDiffLine(pDiffLine),
 	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pDiffLine->GetEditList().size())
 {
 }
 
 DiffLine::IteratorEdit::IteratorEdit(DiffLine *pDiffLine, const DiffLine::Hunk &hunk) :
-	Iterator(false), _pDiffLine(pDiffLine),
+	Iterator(Finite), _pDiffLine(pDiffLine),
 	_idxEdit(hunk.idxEditBegin), _idxEditBegin(hunk.idxEditBegin), _idxEditEnd(hunk.idxEditEnd)
 {
 }
@@ -399,7 +399,7 @@ void DiffChar::FeedString(size_t iSeq, const char *src)
 // DiffChar::IteratorEdit
 //-----------------------------------------------------------------------------
 DiffChar::IteratorEdit::IteratorEdit(EditOwner *pEditOwner, FilterType filterType) :
-	Iterator(false), _pEditOwner(pEditOwner), _filterType(filterType),
+	Iterator(Finite), _pEditOwner(pEditOwner), _filterType(filterType),
 	_idxEdit(0), _idxEditBegin(0), _idxEditEnd(pEditOwner->size())
 {
 }
@@ -587,7 +587,7 @@ void SyncLineOwner::Clear()
 // IteratorSyncLine
 //-----------------------------------------------------------------------------
 IteratorSyncLine::IteratorSyncLine(Sync *pSync, Target target) :
-	Iterator(false), _pSync(pSync), _idxSyncLine(0), _idxSyncLineBegin(0),
+	Iterator(Finite), _pSync(pSync), _idxSyncLine(0), _idxSyncLineBegin(0),
 	_syncLines(pSync->GetSyncLines(target))
 {
 	_idxSyncLineEnd = _syncLines.size();

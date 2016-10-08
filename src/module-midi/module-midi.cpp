@@ -2028,7 +2028,7 @@ Gura_ImplementUserClass(synthesizer)
 // Iterator_track
 //-----------------------------------------------------------------------------
 Iterator_track::Iterator_track(TrackOwner *pTrackOwner) :
-						Iterator(false), _idxTrack(0), _pTrackOwner(pTrackOwner)
+						Iterator(Finite), _idxTrack(0), _pTrackOwner(pTrackOwner)
 {
 }
 
@@ -2063,7 +2063,7 @@ void Iterator_track::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 // Iterator_eventAll
 //-----------------------------------------------------------------------------
 Iterator_eventAll::Iterator_eventAll(TrackOwner *pTrackOwner) :
-		Iterator(false), _idxTrack(0), _idxEvent(0), _pTrackOwner(pTrackOwner)
+		Iterator(Finite), _idxTrack(0), _idxEvent(0), _pTrackOwner(pTrackOwner)
 {
 }
 
@@ -2102,7 +2102,7 @@ void Iterator_eventAll::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 // Iterator_event
 //-----------------------------------------------------------------------------
 Iterator_event::Iterator_event(EventOwner *pEventOwner) :
-						Iterator(false), _idxEvent(0), _pEventOwner(pEventOwner)
+						Iterator(Finite), _idxEvent(0), _pEventOwner(pEventOwner)
 {
 }
 

@@ -64,7 +64,7 @@ private:
 public:
 	inline Iterator_TreeCtrl_ItemChildren(Object_wx_TreeCtrl *pObj,
 			wxTreeItemId item, wxTreeItemId itemChild, wxTreeItemIdValue cookie) :
-		Iterator(false), _pObj(pObj),
+		Iterator(Finite), _pObj(pObj),
 		_item(item), _itemChild(itemChild), _cookie(cookie) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

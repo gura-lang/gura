@@ -49,7 +49,7 @@ public:
 		Value _value;
 	public:
 		inline IteratorEx(Object_ole *pObj, IEnumVARIANT *pEnum) :
-				Iterator(false), _pObj(pObj), _pEnum(pEnum), _validFlag(false) {}
+				Iterator(Finite), _pObj(pObj), _pEnum(pEnum), _validFlag(false) {}
 		virtual ~IteratorEx();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Value &value);

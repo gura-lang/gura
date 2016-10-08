@@ -22,7 +22,7 @@ public:
 		int _iTuple;
 	public:
 		inline IteratorTuple(Object_postgresql *pObj, PGresult *res) :
-						Iterator(false), _pObj(pObj), _res(res), _iTuple(0) {}
+						Iterator(Finite), _pObj(pObj), _res(res), _iTuple(0) {}
 		virtual ~IteratorTuple();
 		virtual bool DoNext(Environment &env, Value &value);
 		virtual String ToString() const;

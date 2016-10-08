@@ -1093,7 +1093,7 @@ Object *Class_string::CreateDescendant(Environment &env, Class *pClass)
 // Class_string::IteratorEach
 //-----------------------------------------------------------------------------
 Class_string::IteratorEach::IteratorEach(const String &str, int cntMax, Attr attr) :
-	Iterator(false), _str(str), _cnt(cntMax), _attr(attr)
+	Iterator(Finite), _str(str), _cnt(cntMax), _attr(attr)
 {
 	_pCur = _str.begin();
 }
@@ -1145,7 +1145,7 @@ void Class_string::IteratorEach::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 Class_string::IteratorLine::IteratorLine(const String &str,
 											int cntMax, bool includeEOLFlag) :
-			Iterator(false), _str(str), _cnt(cntMax),
+			Iterator(Finite), _str(str), _cnt(cntMax),
 			_includeEOLFlag(includeEOLFlag)
 {
 	_pCur = _str.begin();
@@ -1195,7 +1195,7 @@ void Class_string::IteratorLine::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 Class_string::IteratorSplit::IteratorSplit(const String &str, const char *sep,
 											int cntMax, bool ignoreCaseFlag) :
-	Iterator(false), _str(str), _sep(sep), _cnt(cntMax),
+	Iterator(Finite), _str(str), _sep(sep), _cnt(cntMax),
 	_ignoreCaseFlag(ignoreCaseFlag), _doneFlag(false)
 {
 	_pCur = _str.begin();
@@ -1251,7 +1251,7 @@ void Class_string::IteratorSplit::GatherFollower(Environment::Frame *pFrame, Env
 //-----------------------------------------------------------------------------
 Class_string::IteratorFold::IteratorFold(const String &str,
 							size_t lenPerFold, size_t lenStep, bool neatFlag) :
-	Iterator(false), _str(str), _lenPerFold(lenPerFold), _lenStep(lenStep), _neatFlag(neatFlag)
+	Iterator(Finite), _str(str), _lenPerFold(lenPerFold), _lenStep(lenStep), _neatFlag(neatFlag)
 {
 	_pCur = _str.begin();
 }
@@ -1299,7 +1299,7 @@ void Class_string::IteratorFold::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 Class_string::IteratorFoldw::IteratorFoldw(const String &str,
 							size_t widthPerFold, bool paddingFlag) :
-	Iterator(false), _str(str), _widthPerFold(widthPerFold), _paddingFlag(paddingFlag)
+	Iterator(Finite), _str(str), _widthPerFold(widthPerFold), _paddingFlag(paddingFlag)
 {
 	_pCur = _str.begin();
 }

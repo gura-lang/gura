@@ -1259,7 +1259,7 @@ Gura_ImplementUserClass(face)
 // Iterator_face
 //-----------------------------------------------------------------------------
 Iterator_face::Iterator_face(Content *pContent) :
-	Iterator(false), _pContent(pContent), _iFace(0)
+	Iterator(Finite), _pContent(pContent), _iFace(0)
 {
 }
 

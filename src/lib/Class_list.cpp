@@ -363,7 +363,7 @@ void Object_list::IteratorPingpong::GatherFollower(Environment::Frame *pFrame, E
 //-----------------------------------------------------------------------------
 Object_list::IteratorFold::IteratorFold(Object_list *pObj, size_t cntPerFold,
 										size_t cntStep, bool listItemFlag, bool neatFlag) :
-		Iterator(false), _pObj(pObj), _offset(0),
+		Iterator(Finite), _pObj(pObj), _offset(0),
 		_cntPerFold(cntPerFold), _cntStep(cntStep),
 		_listItemFlag(listItemFlag), _neatFlag(neatFlag), _doneFlag(false)
 {
@@ -410,7 +410,7 @@ void Object_list::IteratorFold::GatherFollower(Environment::Frame *pFrame, Envir
 // Object_list::IteratorPermutation
 //-----------------------------------------------------------------------------
 Object_list::IteratorPermutation::IteratorPermutation(Object_list *pObj, int cnt) :
-							Iterator(false), _pObj(pObj), _cnt(cnt), _validFlag(true)
+							Iterator(Finite), _pObj(pObj), _cnt(cnt), _validFlag(true)
 {
 	const ValueList &valList = _pObj->GetList();
 	_indexList.reserve(valList.size());
@@ -462,7 +462,7 @@ void Object_list::IteratorPermutation::GatherFollower(Environment::Frame *pFrame
 // Object_list::IteratorCombination
 //-----------------------------------------------------------------------------
 Object_list::IteratorCombination::IteratorCombination(Object_list *pObj, int cnt) :
-							Iterator(false), _pObj(pObj), _cnt(cnt), _validFlag(true)
+							Iterator(Finite), _pObj(pObj), _cnt(cnt), _validFlag(true)
 {
 	const ValueList &valList = _pObj->GetList();
 	_indexList.reserve(valList.size());

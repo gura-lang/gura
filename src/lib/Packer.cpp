@@ -602,7 +602,7 @@ bool Packer::CheckNumber(Environment &env, const ValueList &valList,
 //-----------------------------------------------------------------------------
 Packer::IteratorUnpack::IteratorUnpack(Packer *pPacker,
 				const char *format, const ValueList &valListArg) :
-		Iterator(false), _pPacker(pPacker), _format(format), _valListArg(valListArg)
+		Iterator(Finite), _pPacker(pPacker), _format(format), _valListArg(valListArg)
 {
 }
 

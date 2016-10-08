@@ -100,7 +100,7 @@ Object *Class_token::CreateDescendant(Environment &env, Class *pClass)
 // Iterator_Token
 //-----------------------------------------------------------------------------
 Iterator_Token::Iterator_Token(Stream *pStream) :
-	Iterator(false), _continueFlag(true), _pStream(pStream),
+	Iterator(Finite), _continueFlag(true), _pStream(pStream),
 	_parser(pStream->GetSignal(), pStream->GetName())
 {
 	_parser.SetTokenWatcher(&_tokenWatcher);

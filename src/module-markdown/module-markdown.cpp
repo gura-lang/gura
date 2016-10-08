@@ -2941,7 +2941,7 @@ Gura_ImplementBinaryOperator(Shl, document, string)
 // Iterator_item
 //-----------------------------------------------------------------------------
 Iterator_item::Iterator_item(ItemOwner *pItemOwner) :
-						Iterator(false), _idxItem(0), _pItemOwner(pItemOwner)
+						Iterator(Finite), _idxItem(0), _pItemOwner(pItemOwner)
 {
 }
 

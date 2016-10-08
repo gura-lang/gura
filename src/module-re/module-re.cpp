@@ -9,7 +9,7 @@ Gura_BeginModuleBody(re)
 // IteratorSplit
 //-----------------------------------------------------------------------------
 IteratorSplit::IteratorSplit(Object_pattern *pObjPattern, const String &str, int cntMax) :
-		Iterator(false), _pObjPattern(pObjPattern), _str(str),
+		Iterator(Finite), _pObjPattern(pObjPattern), _str(str),
 		_cnt(cntMax), _idx(0),
 		_len(static_cast<int>(str.size())), _doneFlag(false),
 		_pRegion(::onig_region_new())
@@ -83,7 +83,7 @@ void IteratorSplit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 // IteratorScan
 //-----------------------------------------------------------------------------
 IteratorScan::IteratorScan(Object_pattern *pObjPattern, const String &str, int pos, int posEnd) :
-		Iterator(false), _pObjPattern(pObjPattern), _str(str),
+		Iterator(Finite), _pObjPattern(pObjPattern), _str(str),
 		_len(static_cast<int>(str.size())), _pRegion(::onig_region_new())
 {
 	_idx = static_cast<int>(CalcCharOffset(str.c_str(), pos));
@@ -151,7 +151,7 @@ void IteratorScan::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 // IteratorGrep
 //-----------------------------------------------------------------------------
 IteratorGrep::IteratorGrep(Iterator *pIteratorSrc, Object_pattern *pObjPattern) :
-		Iterator(pIteratorSrc->IsInfinite()),
+		Iterator(pIteratorSrc->GetFiniteness()),
 		_pIteratorSrc(pIteratorSrc), _pObjPattern(pObjPattern)
 {
 }
@@ -196,7 +196,7 @@ void IteratorGrep::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 // IteratorGroup
 //-----------------------------------------------------------------------------
 IteratorGroup::IteratorGroup(Object_match *pObjMatch) :
-						Iterator(false), _pObjMatch(pObjMatch), _iGroup(1)
+						Iterator(Finite), _pObjMatch(pObjMatch), _iGroup(1)
 {
 }
 

@@ -26,7 +26,7 @@ private:
 	int _id;
 public:
 	inline Iterator_GenericClone(Iterator *pIterator, int id) :
-			Iterator(pIterator->IsInfinite(), pIterator->IsSkipInvalid()),
+			Iterator(pIterator->GetFiniteness(), pIterator->IsSkipInvalid()),
 			_pIterator(pIterator), _id(id) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);

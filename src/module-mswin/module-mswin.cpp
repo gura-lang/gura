@@ -899,7 +899,7 @@ Gura_ImplementUserClass(ole)
 // Iterator_RegEnumKey implementation
 //-----------------------------------------------------------------------------
 Iterator_RegEnumKey::Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDesired) :
-	Iterator(false), _pObjRegKey(pObjRegKey), _samDesired(samDesired), _dwIndex(0)
+	Iterator(Finite), _pObjRegKey(pObjRegKey), _samDesired(samDesired), _dwIndex(0)
 {
 }
 
@@ -949,7 +949,7 @@ void Iterator_RegEnumKey::GatherFollower(Environment::Frame *pFrame, Environment
 // Iterator_RegEnumValue implementation
 //-----------------------------------------------------------------------------
 Iterator_RegEnumValue::Iterator_RegEnumValue(Object_regkey *pObjRegKey) :
-	Iterator(false), _pObjRegKey(pObjRegKey), _dwIndex(0)
+	Iterator(Finite), _pObjRegKey(pObjRegKey), _dwIndex(0)
 {
 }
 
