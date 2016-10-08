@@ -2095,7 +2095,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, put);
 	Gura_AssignMethod(list, shift);
 	Gura_AssignMethod(list, shuffle);
-	// assignment of common methods with iterator
+	// assignment of instance methods that are shared with iterator
 	Gura_AssignMethod(list, after);
 	Gura_AssignMethod(list, align);
 	Gura_AssignMethod(list, and_);

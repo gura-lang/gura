@@ -1647,7 +1647,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, repeater);
-	// assignment of common methods with list
+	// assignment of instance methods that are shared with list
 	Gura_AssignMethod(iterator, after);
 	Gura_AssignMethod(iterator, align);
 	Gura_AssignMethod(iterator, and_);
