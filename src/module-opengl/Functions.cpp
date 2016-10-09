@@ -2023,7 +2023,7 @@ Gura_DeclareFunctionAlias(__glEdgeFlagv, "glEdgeFlagv")
 
 Gura_ImplementFunction(__glEdgeFlagv)
 {
-	AutoPtr<ArrayT<GLboolean> > _flag(CreateArrayTFromList<GLboolean>(arg.GetList(0)));
+	AutoPtr<ArrayT<GLboolean> > _flag(ArrayT<GLboolean>::CreateFromList(arg.GetList(0)));
 	GLboolean *flag = _flag->GetPointer();
 	if (_flag->GetSize() != 1) {
 		env.SetError(ERR_ValueError, "the list must have one element");
@@ -9768,7 +9768,7 @@ Gura_ImplementFunction(__glMultiDrawArrays)
 	GLenum mode = static_cast<GLenum>(arg.GetInt(0));
 	ArrayT<int> *_first = Object_arrayT<int>::GetObject(arg, 1)->GetArrayT();
 	GLint *first = reinterpret_cast<GLint *>(_first->GetPointer());
-	AutoPtr<ArrayT<GLsizei> > _count(CreateArrayTFromList<GLsizei>(arg.GetList(2)));
+	AutoPtr<ArrayT<GLsizei> > _count(ArrayT<GLsizei>::CreateFromList(arg.GetList(2)));
 	GLsizei *count = _count->GetPointer();
 	GLsizei primcount = _first->GetSize();
 	if (primcount != _count->GetSize()) {
@@ -10660,7 +10660,7 @@ Gura_ImplementFunction(__glDrawBuffers)
 {
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
-	AutoPtr<ArrayT<GLenum> > _bufs(CreateArrayTFromList<GLenum>(arg.GetList(0)));
+	AutoPtr<ArrayT<GLenum> > _bufs(ArrayT<GLenum>::CreateFromList(arg.GetList(0)));
 	GLenum *bufs = _bufs->GetPointer();
 	GLsizei n = _bufs->GetSize();
 	glDrawBuffers(n, bufs);
@@ -12815,7 +12815,7 @@ Gura_ImplementFunction(__glGetAttachedShaders)
 #if 0
 	GLuint program = arg.GetUInt(0);
 	GLsizei maxCount = arg.GetInt(1);
-	AutoPtr<ArrayT<GLsizei> > _count(CreateArrayTFromList<GLsizei>(arg.GetList(2)));
+	AutoPtr<ArrayT<GLsizei> > _count(ArrayT<GLsizei>::CreateFromList(arg.GetList(2)));
 	GLsizei *count = _count->GetPointer();
 	ArrayT<UInt> *_shaders = Object_arrayT<UInt>::GetObject(arg, 3)->GetArrayT();
 	GLuint *shaders = reinterpret_cast<GLuint *>(_shaders->GetPointer());

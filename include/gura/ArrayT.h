@@ -61,6 +61,50 @@ public:
 	}
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
 	}
+	void CopyToList(ValueList &valList) const {
+		if (valList.empty()) valList.reserve(_cnt);
+		const T_Elem *p = GetPointer();
+		for (size_t cnt = _cnt; cnt > 0; cnt--, p++) {
+			valList.push_back(Value(*p));
+		}
+	}
+	static ArrayT *CreateFromList(const ValueList &valList) {
+		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+		T_Elem *p = pArrayT->GetPointer();
+		foreach_const (ValueList, pValue, valList) {
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+		return pArrayT.release();
+	}
+	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList) {
+		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+		T_Elem *p = pArrayT->GetPointer();
+		foreach_const (ValueList, pValue, valList) {
+			if (!pValue->Is_number() && !pValue->Is_boolean()) {
+				sig.SetError(ERR_ValueError, "element must be a number or a boolean");
+				return nullptr;
+			}
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+		return pArrayT.release();
+	}
+	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator) {
+		Signal &sig = env.GetSignal();
+		ValueList valList;
+		Value value;
+		while (pIterator->Next(env, value)) valList.push_back(value);
+		if (sig.IsSignalled()) return nullptr;
+		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+		T_Elem *p = pArrayT->GetPointer();
+		foreach_const (ValueList, pValue, valList) {
+			if (!pValue->Is_number() && !pValue->Is_boolean()) {
+				sig.SetError(ERR_ValueError, "element must be a number or a boolean");
+				return nullptr;
+			}
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+		return pArrayT.release();
+	}
 private:
 	inline ~ArrayT() {}
 };
@@ -102,64 +146,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
 	}
 };
-
-//-----------------------------------------------------------------------------
-// functions
-//-----------------------------------------------------------------------------
-template<typename T_Elem>
-void CopyArrayTToList(const ArrayT<T_Elem> *pArrayT, ValueList &valList)
-{
-	const T_Elem *p = pArrayT->GetPointer();
-	for (size_t cnt = pArrayT->GetSize(); cnt > 0; cnt--, p++) {
-		valList.push_back(Value(*p));
-	}
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *CreateArrayTFromList(const ValueList &valList)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ValueList, pValue, valList) {
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
-	}
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem> *CreateArrayTFromList(Signal &sig, const ValueList &valList)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ValueList, pValue, valList) {
-		if (!pValue->Is_number() && !pValue->Is_boolean()) {
-			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-			return nullptr;
-		}
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
-	}
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
-	ArrayT<T_Elem> *CreateArrayTFromIterator(Environment &env, Iterator *pIterator)
-{
-	Signal &sig = env.GetSignal();
-	ValueList valList;
-	Value value;
-	while (pIterator->Next(env, value)) valList.push_back(value);
-	if (sig.IsSignalled()) return nullptr;
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ValueList, pValue, valList) {
-		if (!pValue->Is_number() && !pValue->Is_boolean()) {
-			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-			return nullptr;
-		}
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
-	}
-	return pArrayT.release();
-}
 
 }
 

@@ -2246,11 +2246,11 @@ Gura_DeclareFunctionAlias(__SetWindowGammaRamp, "SetWindowGammaRamp")
 Gura_ImplementFunction(__SetWindowGammaRamp)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<Uint16> > _red(CreateArrayTFromList<Uint16>(arg.GetList(1)));
+	AutoPtr<ArrayT<Uint16> > _red(ArrayT<Uint16>::CreateFromList(arg.GetList(1)));
 	ArrayT<Uint16> &red = *_red;
-	AutoPtr<ArrayT<Uint16> > _green(CreateArrayTFromList<Uint16>(arg.GetList(2)));
+	AutoPtr<ArrayT<Uint16> > _green(ArrayT<Uint16>::CreateFromList(arg.GetList(2)));
 	ArrayT<Uint16> &green = *_green;
-	AutoPtr<ArrayT<Uint16> > _blue(CreateArrayTFromList<Uint16>(arg.GetList(3)));
+	AutoPtr<ArrayT<Uint16> > _blue(ArrayT<Uint16>::CreateFromList(arg.GetList(3)));
 	ArrayT<Uint16> &blue = *_blue;
 	Signal &sig = env.GetSignal();
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {

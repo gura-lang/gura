@@ -108,7 +108,7 @@ public:
 				}
 			} else if (arg.Is_list(0)) {
 				const ValueList &valList = arg.GetList(0);
-				pArrayT.reset(CreateArrayTFromList<T_Elem>(sig, valList));
+				pArrayT.reset(ArrayT<T_Elem>::CreateFromList(sig, valList));
 				if (pArrayT.IsNull()) return Value::Nil;
 			} else {
 				Declaration::SetError_InvalidArgument(env);
@@ -400,7 +400,7 @@ public:
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
 		Signal &sig = GetSignal();
 		if (value.Is_list()) {
-			AutoPtr<ArrayT<T_Elem> > pArrayT(CreateArrayTFromList<T_Elem>(sig, value.GetList()));
+			AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, value.GetList()));
 			if (pArrayT.IsNull()) return false;
 			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 			return true;
@@ -410,7 +410,7 @@ public:
 				Iterator::SetError_InfiniteNotAllowed(sig);
 				return false;
 			}
-			AutoPtr<ArrayT<T_Elem> > pArrayT(CreateArrayTFromIterator<T_Elem>(
+			AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromIterator(
 												 env, pIterator->Clone()));
 			if (pArrayT.IsNull()) return false;
 			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
@@ -424,7 +424,7 @@ public:
 				Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 			Object_list *pObjList = value.InitAsList(env);
 			pObjList->Reserve(pArrayT->GetSize());
-			CopyArrayTToList(pArrayT.get(), pObjList->GetListForModify());
+			pArrayT->CopyToList(pObjList->GetListForModify());
 			pObjList->SetValueType(VTYPE_number);
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
