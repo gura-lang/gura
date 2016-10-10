@@ -511,6 +511,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(decls);
 	Gura_RealizeSymbolAlias(default_,		"default");
 	Gura_RealizeSymbol(deg);
+	Gura_RealizeSymbol(delta);
 	Gura_RealizeSymbol(denom);
 	Gura_RealizeSymbol(depth);
 	Gura_RealizeSymbol(descend);
@@ -694,6 +695,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(quote);
 	Gura_RealizeSymbol(r);
 	Gura_RealizeSymbol(raise);
+	Gura_RealizeSymbol(ramp);
 	Gura_RealizeSymbol(ratio);
 	Gura_RealizeSymbol(raw);
 	Gura_RealizeSymbol(read);
@@ -793,6 +795,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(u8);
 	Gura_RealizeSymbol(unary);
 	Gura_RealizeSymbol(unit);
+	Gura_RealizeSymbol(unitstep);
 	Gura_RealizeSymbol(unix);
 	Gura_RealizeSymbol(unixtime);
 	Gura_RealizeSymbol(unknown);

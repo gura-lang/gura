@@ -89,3 +89,8 @@ testcase {
 	f = math.least_square(x, y, 1)
 	print_func(f)
 }
+testcase('ramp, unitstep and delta') {
+	tester(`math.ramp([-5..5]))
+	tester(`math.unitstep([-5..5]))
+	tester(`math.delta([-5..5]))
+}

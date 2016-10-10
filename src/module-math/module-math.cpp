@@ -591,6 +591,23 @@ Gura_ImplementFunction(diff)
 	return ReturnValue(env, arg, Value(new Object_expr(env, pExprDiff)));
 }
 
+// math.delta(num:number):map
+Gura_DeclareFunction(delta)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluates a delta function with a given argument `num`\n"
+		"that returns `1` when `num == 0` and `0` otherwise.");
+}
+
+Gura_ImplementFunction(delta)
+{
+	const double num = arg.GetDouble(0);
+	return Value((num == 0)? 1 : 0);
+}
+
 // math.exp(num):map
 Gura_DeclareFunctionWithMathDiff(exp)
 {
@@ -1066,6 +1083,31 @@ Gura_ImplementFunction(optimize)
 	return ReturnValue(env, arg, Value(new Object_expr(env, pExprOpt)));
 }
 
+// math.ramp(num:number):map
+Gura_DeclareFunctionWithMathDiff(ramp)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluates a ramp function with a given argument `num`\n"
+		"that returns `num` when `num >= 0` and `0` otherwise.");
+}
+
+Gura_ImplementFunction(ramp)
+{
+	const double num = arg.GetDouble(0);
+	return Value((num >= 0)? num : 0);
+}
+
+Gura_ImplementMathDiff(ramp)
+{
+	// ramp(x)' = unitstep(x)
+	return Expr::CreateCaller(
+		Gura_Symbol(math), Gura_Symbol(unitstep),
+		pExprArg->Clone());
+}
+
 // math.real(num):map
 Gura_DeclareFunction(real)
 {
@@ -1274,6 +1316,31 @@ Gura_ImplementFunction(tanh)
 	return result;
 }
 
+// math.unitstep(num:number):map
+Gura_DeclareFunctionWithMathDiff(unitstep)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "num", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en),
+		"Evaluates a unit step function with a given argument `num`\n"
+		"that returns `1` when `num >= 0` and `0` otherwise.");
+}
+
+Gura_ImplementFunction(unitstep)
+{
+	const double num = arg.GetDouble(0);
+	return Value((num >= 0)? 1 : 0);
+}
+
+Gura_ImplementMathDiff(unitstep)
+{
+	// unitstep(x)' = delta(x)
+	return Expr::CreateCaller(
+		Gura_Symbol(math), Gura_Symbol(delta),
+		pExprArg->Clone());
+}
+
 //-----------------------------------------------------------------------------
 // Module Entries
 //-----------------------------------------------------------------------------
@@ -1301,6 +1368,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(cosh);
 	Gura_AssignFunction(covariance);
 	Gura_AssignFunction(cross);
+	Gura_AssignFunction(delta);
 	Gura_AssignFunction(diff);
 	Gura_AssignFunction(exp);
 	Gura_AssignFunction(fft);
@@ -1316,12 +1384,14 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(log10);
 	Gura_AssignFunction(norm);
 	Gura_AssignFunction(optimize);
+	Gura_AssignFunction(ramp);
 	Gura_AssignFunction(real);
 	Gura_AssignFunction(sin);
 	Gura_AssignFunction(sinh);
 	Gura_AssignFunction(sqrt);
 	Gura_AssignFunction(tan);
 	Gura_AssignFunction(tanh);
+	Gura_AssignFunction(unitstep);
 	return true;
 }
 

@@ -314,6 +314,7 @@ public:
 	Gura_DeclareSymbol(decls);
 	Gura_DeclareSymbol(default_);
 	Gura_DeclareSymbol(deg);
+	Gura_DeclareSymbol(delta);
 	Gura_DeclareSymbol(denom);
 	Gura_DeclareSymbol(depth);
 	Gura_DeclareSymbol(descend);
@@ -497,6 +498,7 @@ public:
 	Gura_DeclareSymbol(quote);
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(raise);
+	Gura_DeclareSymbol(ramp);
 	Gura_DeclareSymbol(ratio);
 	Gura_DeclareSymbol(raw);
 	Gura_DeclareSymbol(read);
@@ -596,6 +598,7 @@ public:
 	Gura_DeclareSymbol(u8);
 	Gura_DeclareSymbol(unary);
 	Gura_DeclareSymbol(unit);
+	Gura_DeclareSymbol(unitstep);
 	Gura_DeclareSymbol(unix);
 	Gura_DeclareSymbol(unixtime);
 	Gura_DeclareSymbol(unknown);
