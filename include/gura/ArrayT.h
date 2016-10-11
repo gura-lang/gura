@@ -89,6 +89,21 @@ public:
 		return pArrayT.release();
 	}
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator) {
+		size_t len = pIterator->GetLengthEx(env);
+		if (env.IsSignalled()) return nullptr;
+		AutoPtr<ArrayT> pArrayT(new ArrayT(len));
+		AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
+		T_Elem *p = pArrayT->GetPointer();
+		Value value;
+		while (pIteratorWork->Next(env, value)) {
+			if (!value.Is_number() && !value.Is_boolean()) {
+				env.SetError(ERR_ValueError, "element must be a number or a boolean");
+				return nullptr;
+			}
+			*p++ = static_cast<T_Elem>(value.GetNumber());
+		}
+		return pArrayT.release();
+#if 0
 		Signal &sig = env.GetSignal();
 		ValueList valList;
 		Value value;
@@ -104,6 +119,7 @@ public:
 			*p++ = static_cast<T_Elem>(pValue->GetNumber());
 		}
 		return pArrayT.release();
+#endif
 	}
 private:
 	inline ~ArrayT() {}
@@ -121,16 +137,19 @@ template<> GURA_DLLDECLARE void ArrayT<float>::Dump(Signal &sig, Stream &stream,
 template<> GURA_DLLDECLARE void ArrayT<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 
 //-----------------------------------------------------------------------------
-// Iterator_ArrayT
+// Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Iterator_ArrayT : public Iterator {
+class Iterator_ArrayT_Each : public Iterator {
 private:
 	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 	size_t _idx;
 public:
-	inline Iterator_ArrayT(ArrayT<T_Elem> *pArrayT) :
-		Iterator(Finite), _pArrayT(pArrayT), _idx(0) {} // must be revised later
+	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT) :
+		Iterator(FinitePredictable), _pArrayT(pArrayT), _idx(0) {}
+	virtual size_t GetLength() const {
+		return _pArrayT->GetSize();
+	}
 	virtual Iterator *GetSource() { return nullptr; }
 	virtual bool DoNext(Environment &env, Value &value) {
 		if (_idx >= _pArrayT->GetSize()) return false;

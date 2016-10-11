@@ -16,6 +16,13 @@ Iterator::~Iterator()
 bool Iterator::IsSequence() const { return false; }
 bool Iterator::IsSequenceInf() const { return false; }
 
+size_t Iterator::GetLength() const
+{
+	// This function should return a valid result when the finiteness is
+	// set to FinitePredictable.
+	return 0;
+}
+
 Iterator *Iterator::_Clone()
 {
 	if (_pShare.get() == nullptr) _pShare.reset(new Share());
@@ -689,13 +696,6 @@ size_t Iterator::GetLengthEx(Environment &env)
 String Iterator::ToString() const
 {
 	return String("");
-}
-
-size_t Iterator::GetLength()
-{
-	// This function should return a valid result when the finiteness is
-	// set to FinitePredictable.
-	return 0;
 }
 
 bool Iterator::DoDirProp(Environment &env, SymbolSet &symbols)

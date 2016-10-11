@@ -184,7 +184,7 @@ public:
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
-			AutoPtr<Iterator> pIterator(new Iterator_ArrayT<T_Elem>(pArrayT->Reference()));
+			AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
 			return ReturnIterator(env, arg, pIterator.release());
 		}
 	};
@@ -411,7 +411,7 @@ public:
 				return false;
 			}
 			AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromIterator(
-												 env, pIterator->Clone()));
+												 env, pIterator));
 			if (pArrayT.IsNull()) return false;
 			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 			return true;
@@ -429,7 +429,7 @@ public:
 			return true;
 		} else if (decl.IsType(VTYPE_iterator)) {
 			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-			AutoPtr<Iterator> pIterator(new Iterator_ArrayT<T_Elem>(pArrayT->Reference()));
+			AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
 			value = Value(new Object_iterator(env, pIterator.release()));
 			return true;
 		}

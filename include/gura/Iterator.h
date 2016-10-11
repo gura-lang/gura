@@ -87,6 +87,7 @@ public:
 	bool NextShared(Environment &env, int id, Value &value);
 	virtual bool IsSequence() const;
 	virtual bool IsSequenceInf() const;
+	virtual size_t GetLength() const;
 	Iterator *_Clone();
 	virtual Iterator *Clone() const;
 	bool Consume(Environment &env);
@@ -116,17 +117,16 @@ public:
 	void PrintlnEach(Environment &env, Stream *pStream);
 	size_t GetLengthEx(Environment &env);
 	virtual String ToString() const;
-	static void SetError_InvalidDataTypeOfElement(Signal &sig);
-	static void SetError_InfiniteNotAllowed(Signal &sig);
 	virtual Iterator *GetSource() = 0;
 	virtual bool DoNext(Environment &env, Value &value) = 0;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) = 0;
-	virtual size_t GetLength();
 	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
+	static void SetError_InvalidDataTypeOfElement(Signal &sig);
+	static void SetError_InfiniteNotAllowed(Signal &sig);
 private:
 	inline void operator=(const Iterator &iterator) {}
 };
