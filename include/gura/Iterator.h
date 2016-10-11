@@ -114,6 +114,7 @@ public:
 	void PrintEach(Environment &env, Stream *pStream);
 	void PrintfEach(Environment &env, Stream *pStream, const char *format);
 	void PrintlnEach(Environment &env, Stream *pStream);
+	size_t GetLengthEx(Environment &env);
 	virtual String ToString() const;
 	static void SetError_InvalidDataTypeOfElement(Signal &sig);
 	static void SetError_InfiniteNotAllowed(Signal &sig);

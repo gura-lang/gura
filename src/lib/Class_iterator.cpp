@@ -739,8 +739,11 @@ Gura_DeclareMethod(iterator, len)
 
 Gura_ImplementMethod(iterator, len)
 {
-	Signal &sig = env.GetSignal();
 	Object_iterator *pThis = Object_iterator::GetObjectThis(arg);
+	size_t len = pThis->GetIterator()->GetLengthEx(env);
+	if (env.IsSignalled()) return Value::Nil;
+	return Value(len);
+#if 0
 	if (pThis->GetIterator()->IsInfinite()) {
 		Iterator::SetError_InfiniteNotAllowed(sig);
 		return Value::Nil;
@@ -755,6 +758,7 @@ Gura_ImplementMethod(iterator, len)
 		if (sig.IsSignalled()) return Value::Nil;
 	}
 	return Value(cnt);
+#endif
 }
 
 // iterator#map(func:function) {block?}

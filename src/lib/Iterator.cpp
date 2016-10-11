@@ -671,6 +671,21 @@ void Iterator::PrintlnEach(Environment &env, Stream *pStream)
 	}
 }
 
+size_t Iterator::GetLengthEx(Environment &env)
+{
+	if (IsFinitePredictable()) return GetLength();
+	Signal &sig = env.GetSignal();
+	if (IsInfinite()) {
+		SetError_InfiniteNotAllowed(sig);
+		return 0;
+	}
+	size_t len = 0;
+	AutoPtr<Iterator> pIterator(Clone());
+	Value value;
+	for ( ; pIterator->Next(env, value); len++) ;
+	return sig.IsSignalled()? 0 : len;
+}
+
 String Iterator::ToString() const
 {
 	return String("");
