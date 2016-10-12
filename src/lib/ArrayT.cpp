@@ -31,7 +31,9 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 		if (col != 0) {
 			stream.Printf(sig, " ");
 		}
-		stream.Printf(sig, fmt, *reinterpret_cast<const T_ElemCast *>(p));
+		T_ElemCast num = *reinterpret_cast<const T_ElemCast *>(p);
+		stream.Printf(sig, "%llx", num);
+		stream.Printf(sig, fmt, num);
 		col++;
 		if (col == cols) {
 			stream.Printf(sig, "\n");
@@ -78,7 +80,7 @@ template<> void ArrayT<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag)
 
 template<> void ArrayT<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%16llX" : "%16llx", 4, GetPointer(), GetSize());
+	DumpInteger<UInt64, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetSize());
 }
 
 template<> void ArrayT<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const

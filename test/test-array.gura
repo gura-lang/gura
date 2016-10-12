@@ -16,7 +16,7 @@ funcs = [
 
 PrintArray(fmt:string, array) = println(format(fmt, array.each()).join(' '))
 
-testcase('construct') {
+testcase('constructor') {
 	funcs.each {|func|
 		println(func)
 		x = func(30)
@@ -27,6 +27,8 @@ testcase('construct') {
 		println(x[0..29].join(' '))
 		println(x.each().join(' '))
 		x.each {|n| printf('%d ', n)}, println()
+		x = func(0..29)
+		println(x[0..29].join(' '))
 	}
 }
 testcase('cast to list') {
