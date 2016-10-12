@@ -50,7 +50,7 @@ private:
 	String _doc;
 	AutoPtr<Template> _pTemplateDoc;
 public:
-	static const String FMT_markdown;
+	static const String FormatNameDefault;
 public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
