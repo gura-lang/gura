@@ -67,7 +67,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	static const Option::Info optInfoTblDef[] = {
 		{ "import-dir",		'I', Option::TYPE_Value	},
 		{ "no-local-dir",	'N', Option::TYPE_Flag	},
-		{ "safe",			'S', Option::TYPE_Flag	},
+		{ "naked",			'K', Option::TYPE_Flag	},
 	};
 	Environment &env = *this;
 	Signal &sig = GetSignal();
@@ -94,7 +94,6 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 		return false;
 	}
 	if (!opt.IsSet("no-local-dir")) OAL::PrepareLocalDir();
-	if (!opt.IsSet("safe") && !Module::ImportDefaultExternals(env)) return false;
 	String fileNameScript;
 	Module *pModule_sys = GetGlobal()->GetModule_sys();
 	if (argc >= 2) {
@@ -165,6 +164,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 		}
 		pModule_sys->AssignValue(Symbol::Add("maindir"), Value(str), EXTRA_Public);
 	} while (0);
+	if (!opt.IsSet("naked") && !Module::ImportDefaultExternals(env)) return false;
 	return true;
 }
 

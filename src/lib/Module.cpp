@@ -118,11 +118,10 @@ bool Module::ImportDefaultExternals(Environment &env)
 		OAL::JoinPathName(OAL::GetModuleDir().c_str(), "config.gura").c_str(),
 		Symbol::Add("config"));
 #endif
-#if 0
 	// import(markdown)
-	env.ImportModules(env.GetSignal(), "markdown", false, false);
-	env.GetSignal().ClearSignal();
-#endif
+	if (!env.ImportModules(env.GetSignal(), "markdown", false, false)) {
+		env.GetSignal().ClearSignal();
+	}
 	return true;
 }
 
