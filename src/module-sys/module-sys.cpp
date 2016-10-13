@@ -114,40 +114,7 @@ Gura_ModuleTerminate()
 {
 }
 
-bool IsCompositeFile(const char *pathName)
-{
-	const char *extName = PathMgr::SeekExtName(pathName);
-	return ::strcasecmp(extName, ".gurc") == 0 ||
-			::strcasecmp(extName, ".gurcw") == 0;
-}
-
 #if 0
-static bool ExpandWildCard(Environment &env, Signal &sig,
-									ValueList &valList, const char *pattern)
-{
-	bool addSepFlag = true;
-	bool statFlag = false;
-#if defined(GURA_ON_MSWIN)
-	bool ignoreCaseFlag = true;
-#else
-	bool ignoreCaseFlag = false;
-#endif
-	bool fileFlag = true;
-	bool dirFlag = true;
-	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
-					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
-	if (!pIterator->Init(env, pattern)) return false;
-	Value value;
-	bool emptyFlag = true;
-	while (pIterator->Next(env, value)) {
-		valList.push_back(value);
-		emptyFlag  = false;
-	}
-	if (emptyFlag) valList.push_back(Value(pattern));
-	return !sig.IsSignalled();
-}
-#endif
-
 bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
@@ -203,7 +170,7 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 		foreach (StringList, pStr, strList) {
 			pObjList->Add(Value(*pStr));
 		}
-		if (argc >= 2 && IsCompositeFile(fileNameScript.c_str())) {
+		if (argc >= 2 && OAL::IsCompositeFile(fileNameScript.c_str())) {
 			pObjList->Add(Value(OAL::MakeAbsPathName(
 										OAL::FileSeparator, fileNameScript.c_str())));
 		}
@@ -215,7 +182,7 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 			str = OAL::GetCurDir();
 		} else {
 			str = OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str());
-			if (!IsCompositeFile(fileNameScript.c_str())) {
+			if (!OAL::IsCompositeFile(fileNameScript.c_str())) {
 				String dirName;
 				PathMgr::SplitFileName(str.c_str(), &dirName, nullptr);
 				str = dirName;
@@ -225,6 +192,7 @@ bool SetCmdLineArgs(Module *pModule, int argc, const char *argv[])
 	} while (0);
 	return true;
 }
+#endif
 
 Gura_EndModuleBody(sys, sys)
 

@@ -65,7 +65,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 								   const Option::Info *optInfoTbl, int cntOptInfo)
 {
 	static const Option::Info optInfoTblDef[] = {
-		{ "import-dir",		'I', Option::TYPE_Value	},	// referred in sys module
+		{ "import-dir",		'I', Option::TYPE_Value	},
 		{ "no-local-dir",	'N', Option::TYPE_Flag	},
 	};
 	Environment &env = *this;
@@ -84,6 +84,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env);
+	Option &opt = env.GetOption();
 	GetOption().AddInfo(optInfoTblDef, ArraySizeOf(optInfoTblDef));
 	if (optInfoTbl != nullptr) GetOption().AddInfo(optInfoTbl, cntOptInfo);
 	String strErr;
@@ -94,10 +95,80 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	if (!GetOption().IsSet("no-local-dir")) {
 		OAL::PrepareLocalDir();
 	}
-	if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), argc, argv)) {
-		return false;
+	//if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), argc, argv)) {
+	//	return false;
+	//}
+	//if (!GetOption().IsSet("") && !Module::ImportDefaultExternals(env)) return false;
+	String fileNameScript;
+	Module *pModule_sys = GetGlobal()->GetModule_sys();
+	if (argc >= 2) {
+		fileNameScript = OAL::FromNativeString(argv[1]);
 	}
-	if (!GetOption().IsSet("") && !Module::ImportDefaultExternals(env)) return false;
+	do {
+		// assignment of sys.argv
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		if (argc >= 2 && argv != nullptr) {
+			pObjList->Reserve(argc - 1);
+			pObjList->Add(Value(OAL::MakeAbsPathName(
+										OAL::FileSeparator, fileNameScript.c_str())));
+			for (int i = 2; i < argc; i++) {
+				const char *arg = argv[i];
+				pObjList->Add(Value(OAL::FromNativeString(arg)));
+			}
+		}
+		pModule_sys->AssignValue(Symbol::Add("argv"), value, EXTRA_Public);
+	} while (0);
+	do {
+		// assignment of sys.path
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		do {
+			String dirName, fileName;
+			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);
+			if (!dirName.empty()) {
+				pObjList->Add(Value(OAL::MakeAbsPathName(
+											OAL::FileSeparator, dirName.c_str())));
+			}
+		} while (0);
+		pObjList->Add(Value("."));
+		if (opt.IsSet("import-dir")) {
+			foreach_const (StringList, pStr, opt.GetStringList("import-dir")) {
+				const String &str = *pStr;
+				if (str.size() >= 2 && str[0] == '.' && (str[1] == '/' || str[1] == '\\')) {
+					pObjList->Add(Value(str.c_str() + 2));
+				} else {
+					pObjList->Add(Value(OAL::MakeAbsPathName(
+											OAL::FileSeparator, str.c_str())));
+				}
+			}
+		}
+		StringList strList;
+		OAL::SetupModulePath(strList);
+		foreach (StringList, pStr, strList) {
+			pObjList->Add(Value(*pStr));
+		}
+		if (argc >= 2 && OAL::IsCompositeFile(fileNameScript.c_str())) {
+			pObjList->Add(Value(OAL::MakeAbsPathName(
+										OAL::FileSeparator, fileNameScript.c_str())));
+		}
+		pModule_sys->AssignValue(Symbol::Add("path"), value, EXTRA_Public);
+	} while (0);
+	do {
+		// assignment of sys.maindir
+		String str;
+		if (argc < 2) {
+			str = OAL::GetCurDir();
+		} else {
+			str = OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str());
+			if (!OAL::IsCompositeFile(fileNameScript.c_str())) {
+				String dirName;
+				PathMgr::SplitFileName(str.c_str(), &dirName, nullptr);
+				str = dirName;
+			}
+		}
+		pModule_sys->AssignValue(Symbol::Add("maindir"), Value(str), EXTRA_Public);
+	} while (0);
 	return true;
 }
 

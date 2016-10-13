@@ -69,10 +69,41 @@ void Initialize()
 }
 #endif
 
+bool IsCompositeFile(const char *pathName)
+{
+	const char *extName = PathMgr::SeekExtName(pathName);
+	return ::strcasecmp(extName, ".gurc") == 0 ||
+		::strcasecmp(extName, ".gurcw") == 0;
+}
+
+bool ExpandWildCard(Environment &env, ValueList &valList, const char *pattern)
+{
+	bool addSepFlag = true;
+	bool statFlag = false;
+#if defined(GURA_ON_MSWIN)
+	bool ignoreCaseFlag = true;
+#else
+	bool ignoreCaseFlag = false;
+#endif
+	bool fileFlag = true;
+	bool dirFlag = true;
+	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
+					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
+	if (!pIterator->Init(env, pattern)) return false;
+	Value value;
+	bool emptyFlag = true;
+	while (pIterator->Next(env, value)) {
+		valList.push_back(value);
+		emptyFlag  = false;
+	}
+	if (emptyFlag) valList.push_back(Value(pattern));
+	return !env.IsSignalled();
+}
+
 bool IsAbsPathName(const char *pathName)
 {
 	return IsFileSeparator(*pathName) ||
-						(IsAlpha(*pathName) && *(pathName + 1) == ':');
+		(IsAlpha(*pathName) && *(pathName + 1) == ':');
 }
 
 String MakeAbsPathName(char chSeparator, const char *fileName, const char *dirNameBase)
