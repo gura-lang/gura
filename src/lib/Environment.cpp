@@ -67,6 +67,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	static const Option::Info optInfoTblDef[] = {
 		{ "import-dir",		'I', Option::TYPE_Value	},
 		{ "no-local-dir",	'N', Option::TYPE_Flag	},
+		{ "safe",			'S', Option::TYPE_Flag	},
 	};
 	Environment &env = *this;
 	Signal &sig = GetSignal();
@@ -85,20 +86,15 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env);
 	Option &opt = env.GetOption();
-	GetOption().AddInfo(optInfoTblDef, ArraySizeOf(optInfoTblDef));
-	if (optInfoTbl != nullptr) GetOption().AddInfo(optInfoTbl, cntOptInfo);
+	opt.AddInfo(optInfoTblDef, ArraySizeOf(optInfoTblDef));
+	if (optInfoTbl != nullptr) opt.AddInfo(optInfoTbl, cntOptInfo);
 	String strErr;
-	if (!GetOption().Parse(argc, argv, strErr)) {
+	if (!opt.Parse(argc, argv, strErr)) {
 		sig.SetError(ERR_CommandError, "%s", strErr.c_str());
 		return false;
 	}
-	if (!GetOption().IsSet("no-local-dir")) {
-		OAL::PrepareLocalDir();
-	}
-	//if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), argc, argv)) {
-	//	return false;
-	//}
-	//if (!GetOption().IsSet("") && !Module::ImportDefaultExternals(env)) return false;
+	if (!opt.IsSet("no-local-dir")) OAL::PrepareLocalDir();
+	if (!opt.IsSet("safe") && !Module::ImportDefaultExternals(env)) return false;
 	String fileNameScript;
 	Module *pModule_sys = GetGlobal()->GetModule_sys();
 	if (argc >= 2) {
