@@ -4,16 +4,17 @@ import(helper.test) {*}
 testcase {
 	_ = function
 	funcs = [
-		math.sin
+		math.acos
+		math.asin
+		math.atan
 		math.cos
-		math.tan
 		math.exp
 		math.log
 		math.log10
-		math.asin
-		math.acos
-		math.atan
+		math.ramp
+		math.sin
 		math.sqrt
+		math.tan
 		_(x) { x ** 2 }
 		_(x) { x ** 3 }
 		_(x) { x ** 4 }
