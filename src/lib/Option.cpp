@@ -15,18 +15,29 @@ Option::~Option()
 	}
 }
 
-bool Option::Parse(int &argc, const char *argv[],
-						const Info *infoTbl, int cntInfo, String &strErr)
+Option &Option::AddInfo(const Info *infoTbl, int cntInfo)
+{
+	const Info *pInfo = infoTbl;
+	for (int i = 0; i < cntInfo; i++, pInfo++) {
+		_infoMapByKeyLong[pInfo->keyLong] = *pInfo;
+		_infoMapByKeyShort[pInfo->keyShort] = *pInfo;
+	}
+	return *this;
+}
+
+bool Option::Parse(int &argc, const char *argv[], String &strErr)
 {
 	enum { STAT_Key, STAT_Value } stat = STAT_Key;
 	const Info *pInfo = nullptr;
+	const char *arg = "";
 	for (int iArg = 1; iArg < argc; ) {
-		const char *arg = argv[iArg];
+		arg = argv[iArg];
 		if (stat == STAT_Key) {
 			if (arg[0] != '-') {
 				break;
 			} else if (arg[1] == '-') {
 				const char *keyLong = &arg[2];
+#if 0
 				pInfo = nullptr;
 				for (int i = 0; i < cntInfo; i++) {
 					if (::strcmp(infoTbl[i].keyLong, keyLong) == 0) {
@@ -34,12 +45,15 @@ bool Option::Parse(int &argc, const char *argv[],
 						break;
 					}
 				}
+#endif
+				InfoMapByKeyLong::iterator iter = _infoMapByKeyLong.find(keyLong);
+				pInfo = (iter == _infoMapByKeyLong.end())? nullptr : &iter->second;
 				if (pInfo == nullptr) {
 					strErr = "unknown option ";
 					strErr += arg;
 					return false;
 				}
-				if (pInfo->needValueFlag) {
+				if (pInfo->type == TYPE_Value) {
 					stat = STAT_Value;
 				} else {
 					_map[pInfo->keyLong] = nullptr;
@@ -50,6 +64,7 @@ bool Option::Parse(int &argc, const char *argv[],
 					strErr = "invalid argument";
 					return false;
 				}
+#if 0
 				pInfo = nullptr;
 				for (int i = 0; i < cntInfo; i++) {
 					if (infoTbl[i].keyShort == keyShort) {
@@ -57,13 +72,16 @@ bool Option::Parse(int &argc, const char *argv[],
 						break;
 					}
 				}
+#endif
+				InfoMapByKeyShort::iterator iter = _infoMapByKeyShort.find(keyShort);
+				pInfo = (iter == _infoMapByKeyShort.end())? nullptr : &iter->second;
 				if (pInfo == nullptr) {
 					strErr = "unknown option ";
 					strErr += arg;
 					return false;
 				}
 				const char *value = &arg[2];
-				if (pInfo->needValueFlag) {
+				if (pInfo->type == TYPE_Value) {
 					if (value[0] == '\0') {
 						stat = STAT_Value;
 					} else {
@@ -107,6 +125,12 @@ bool Option::Parse(int &argc, const char *argv[],
 			}
 			stat = STAT_Key;
 		}
+	}
+	if (stat == STAT_Value) {
+		strErr = "option ";
+		strErr += arg;
+		strErr += " requires a value";
+		return false;
 	}
 	return true;
 }

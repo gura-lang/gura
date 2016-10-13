@@ -42,13 +42,12 @@ private:
 int MainW(int argc, const char *argv[])
 {
 	static const Option::Info optInfoTbl[] = {
-		{ "help",			'h', false	},
-		{ "import",			'i', true	},
-		{ "import-dir",		'I', true	},	// used in sys module initialization
-		{ "command",		'c', true	},
-		{ "directory",		'C', true	},
-		{ "quiet",			'q', false	},
-		{ "version",		'v', false	},
+		{ "help",			'h', Option::TYPE_Flag	},
+		{ "import",			'i', Option::TYPE_Value	},
+		{ "command",		'c', Option::TYPE_Value	},
+		{ "directory",		'C', Option::TYPE_Value	},
+		{ "quiet",			'q', Option::TYPE_Flag	},
+		{ "version",		'v', Option::TYPE_Flag	},
 	};
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment(sig));

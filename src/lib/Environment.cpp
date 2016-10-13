@@ -64,6 +64,10 @@ Environment::Environment(const Environment &envOuter, EnvType envType) :
 bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 								   const Option::Info *optInfoTbl, int cntOptInfo)
 {
+	static const Option::Info optInfoTblDef[] = {
+		{ "import-dir",		'I', Option::TYPE_Value	},	// referred in sys module
+		{ "no-local-dir",	'N', Option::TYPE_Flag	},
+	};
 	Environment &env = *this;
 	Signal &sig = GetSignal();
 	OAL::Initialize();
@@ -80,13 +84,12 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env);
-	// set command line argument into sys module
-	if (optInfoTbl != nullptr) {
-		String strErr;
-		if (!GetOption().Parse(argc, argv, optInfoTbl, cntOptInfo, strErr)) {
-			sig.SetError(ERR_CommandError, "%s", strErr.c_str());
-			return false;
-		}
+	GetOption().AddInfo(optInfoTblDef, ArraySizeOf(optInfoTblDef));
+	if (optInfoTbl != nullptr) GetOption().AddInfo(optInfoTbl, cntOptInfo);
+	String strErr;
+	if (!GetOption().Parse(argc, argv, strErr)) {
+		sig.SetError(ERR_CommandError, "%s", strErr.c_str());
+		return false;
 	}
 	if (!GetOption().IsSet("no-local-dir")) {
 		OAL::PrepareLocalDir();
@@ -94,7 +97,7 @@ bool Environment::InitializeAsRoot(int &argc, const char *argv[],
 	if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), argc, argv)) {
 		return false;
 	}
-	if (!Module::ImportDefaultExternals(env)) return false;
+	if (!GetOption().IsSet("") && !Module::ImportDefaultExternals(env)) return false;
 	return true;
 }
 

@@ -23,20 +23,18 @@ void ReadEvalPrintLoop(Environment &env);
 int Main(int argc, const char *argv[])
 {
 	static const Option::Info optInfoTbl[] = {
-		{ "help",			'h', false	},
-		{ "interactive",	't', false	},
-		{ "import",			'i', true	},
-		{ "import-dir",		'I', true	},	// used in sys module initialization
-		{ "command",		'c', true	},
-		{ "template",		'T', true	},
-		{ "directory",		'C', true	},
-		{ "coding",			'd', true	},
-		{ "quiet",			'q', false	},
-		{ "printcmdline",	'P', false	},
-		{ "version",		'v', false	},
-		{ "llvm",			'o', true	},
-		{ "no-local-dir",	'N', false	},
-		{ "debug",			'g', false	},
+		{ "help",			'h', Option::TYPE_Flag	},
+		{ "interactive",	't', Option::TYPE_Flag	},
+		{ "import",			'i', Option::TYPE_Value	},
+		{ "command",		'c', Option::TYPE_Value	},
+		{ "template",		'T', Option::TYPE_Value	},
+		{ "directory",		'C', Option::TYPE_Value	},
+		{ "coding",			'd', Option::TYPE_Value	},
+		{ "quiet",			'q', Option::TYPE_Flag	},
+		{ "printcmdline",	'P', Option::TYPE_Flag	},
+		{ "version",		'v', Option::TYPE_Flag	},
+		{ "llvm",			'o', Option::TYPE_Value	},
+		{ "debug",			'g', Option::TYPE_Flag	},
 	};
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment(sig));

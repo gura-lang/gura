@@ -13,19 +13,27 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Option {
 public:
+	enum Type {
+		TYPE_Flag,
+		TYPE_Value,
+	};
 	struct Info {
 		const char *keyLong;
 		char keyShort;
-		bool needValueFlag;
+		Type type;
 	};
+	typedef std::map<String, Info> InfoMapByKeyLong;
+	typedef std::map<char, Info> InfoMapByKeyShort;
 	typedef std::map<String, StringList *> Map;
 private:
+	InfoMapByKeyLong _infoMapByKeyLong;
+	InfoMapByKeyShort _infoMapByKeyShort;
 	Map _map;
 public:
 	inline Option() {}
 	~Option();
-	bool Parse(int &argc, const char *argv[],
-					const Info *infoTbl, int cntInfo, String &strErr);
+	Option &AddInfo(const Info *infoTbl, int cntInfo);
+	bool Parse(int &argc, const char *argv[], String &strErr);
 	bool IsSet(const char *key);
 	const char *GetString(const char *key, const char *defValue) const;
 	const StringList &GetStringList(const char *key) const;
