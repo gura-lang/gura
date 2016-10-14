@@ -1361,8 +1361,7 @@ Gura_DeclareFunction(classref)
 
 Gura_ImplementFunction(classref)
 {
-	Signal &sig = env.GetSignal();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(0));
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	Value result(Class::Reference(pValueTypeInfo->GetClass()));
 	return ReturnValue(env, arg, result);
@@ -1842,8 +1841,7 @@ Gura_DeclareFunction(istype)
 
 Gura_ImplementFunction(istype)
 {
-	Signal &sig = env.GetSignal();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(1));
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetList(1));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = arg.GetValue(0).GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
@@ -1866,8 +1864,7 @@ Gura_DeclareFunction(isinstance)
 
 Gura_ImplementFunction(isinstance)
 {
-	Signal &sig = env.GetSignal();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(1));
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetList(1));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	return arg.GetValue(0).IsInstanceOf(pValueTypeInfo->GetValueType());
 }

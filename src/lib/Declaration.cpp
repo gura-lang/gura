@@ -132,14 +132,13 @@ Declaration *Declaration::CreateFromExpr(Environment &env, const Expr *pExpr)
 // it will not be casted if validation fails.
 bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemFlag) const
 {
-	Signal &sig = env.GetSignal();
 	if (!listElemFlag && GetFlag(FLAG_ListVar)) {
 		env.LookupClass(VTYPE_list)->CastFrom(env, value, this);
-		if (sig.IsSignalled()) return false;
+		if (env.IsSignalled()) return false;
 		if (value.Is_list()) {
 			Object_list *pObjList = value.GetObjList();
 			if (_nListElems > 0 && pObjList->Size() != _nListElems) {
-				sig.SetError(ERR_TypeError, "unmatched element size");
+				env.SetError(ERR_TypeError, "unmatched element size");
 				return false;
 			}
 			if (!pObjList->ValidateAndCast(env, this, true)) return false;
@@ -153,7 +152,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {
 		if (value.Is_iterator()) {
 			// make a clone of the iterator
-			Iterator *pIterator = value.CreateIterator(sig);
+			Iterator *pIterator = value.CreateIterator(env.GetSignal());
 			if (pIterator == nullptr) return false;
 			value = Value(new Object_iterator(env, pIterator));
 		}
@@ -162,14 +161,14 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 			Class *pClass = env.LookupClass(GetValueType());
 			for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
 				if (pClass->GetValueType() == VTYPE_undefined) {
-					sig.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
+					env.SetError(ERR_TypeError, "type '%s' is not defined", pClass->GetName());
 					return false;
 				}
 				if (pClass->CastFrom(env, value, this)) {
 					if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
 					return true;
 				}
-				if (sig.IsSignalled()) return false;
+				if (env.IsSignalled()) return false;
 			}
 			pClass = env.LookupClass(value.GetValueType());
 			for ( ; pClass != nullptr; pClass = pClass->GetClassSuper()) {
@@ -177,7 +176,7 @@ bool Declaration::ValidateAndCast(Environment &env, Value &value, bool listElemF
 					if (GetFlag(FLAG_Privileged)) value.AddFlags(VFLAG_Privileged);
 					return true;
 				}
-				if (sig.IsSignalled()) return false;
+				if (env.IsSignalled()) return false;
 			}
 		}
 		SetError_ArgumentType(env, value);

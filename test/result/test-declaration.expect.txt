@@ -31,9 +31,8 @@ array@uint32:class = <class:array@uint32(arg, init?:number) {block?}>
 array@uint64:class = <class:array@uint64(arg, init?:number) {block?}>
 array@ushort:class = <class:array@ushort(arg, init?:number) {block?}>
 audio:class = <class:audio(args+):map {block?}>
-base64:module = <module:base64:<integrated>>
+base64:module
   __name__:string = base64
-  __source__:string = <integrated>
   __symbol__:symbol = base64
   base64.decode(stream:stream:r) {block?}
   base64.encode(stream:stream:r, linelen:number:nil => 76) {block?}
@@ -48,30 +47,24 @@ chr(code:number):map
 class(superclass?:class) {block?}
 classref(type+:expr):map {block?}
 codec:class = <class:codec(encoding:string) {block?}>
-codecs:module = <module:codecs:<integrated>>
+codecs:module
   __name__:string = codecs
-  __source__:string = <integrated>
   __symbol__:symbol = codecs
-  basic:module = <module:basic:<integrated>>
+  basic:module
     __name__:string = basic
-    __source__:string = <integrated>
     __symbol__:symbol = basic
-  chinese:module = <module:chinese:<integrated>>
+  chinese:module
     __name__:string = chinese
-    __source__:string = <integrated>
     __symbol__:symbol = chinese
   codecs.dir()
-  iso8859:module = <module:iso8859:<integrated>>
+  iso8859:module
     __name__:string = iso8859
-    __source__:string = <integrated>
     __symbol__:symbol = iso8859
-  japanese:module = <module:japanese:<integrated>>
+  japanese:module
     __name__:string = japanese
-    __source__:string = <integrated>
     __symbol__:symbol = japanese
-  korean:module = <module:korean:<integrated>>
+  korean:module
     __name__:string = korean
-    __source__:string = <integrated>
     __symbol__:symbol = korean
 color:class = <class:color(args+):map {block?}>
 complex:class = <class:complex(real:number, imag?:number):map {block?}>
@@ -98,9 +91,8 @@ finally():finalizer:trailer {block}
 for (`expr+) {block}
 format(format:string, values*):map
 formatter:class = <class:formatter>
-fs:module = <module:fs:<integrated>>
+fs:module
   __name__:string = fs
-  __source__:string = <integrated>
   __symbol__:symbol = fs
   fs.chdir(pathname:string) {block?}
   fs.chmod(mode, pathname:string):map:void:[follow_link]
@@ -148,16 +140,81 @@ istimedelta(value)
 istype(value, type+:expr):map
 isuri(value)
 iterator:class = <class:iterator(value+) {block?}>
-lexer:module = <module:lexer:<integrated>>
+lexer:module
   __name__:string = lexer
-  __source__:string = <integrated>
   __symbol__:symbol = lexer
 list:class = <class:list(value+)>
 local(`syms+)
 locals(module?:module) {block?}
-math:module = <module:math:<integrated>>
+markdown:module
+  markdown.JoinText(item:markdown.item):map
+  markdown.MakeAnchorNameDef(indices[]:number)
+  Renderer@console:class = <class:markdown.Renderer@console(colorFlag:boolean => true) {block?}>
+  Renderer@html:class = <class:markdown.Renderer@html(out:stream:w, captionIndex:boolean) {block?}>
+  Renderer@rtf:class = <class:markdown.Renderer@rtf(out:stream:w) {block?}>
+  Renderer@tex:class = <class:markdown.Renderer@tex(out:stream:w, title:string, author:string, date:string) {block?}>
+  Renderer@toc:class = <class:markdown.Renderer@toc(handler:function) {block?}>
+  TableCol:class = <class:markdown.TableCol(text:string, align:symbol) {block?}>
+  TableRow:class = <class:markdown.TableRow(headerFlag:boolean, cols[]:markdown.TableCol) {block?}>
+  __name__:string = markdown
+  __symbol__:symbol = markdown
+  markdown._funcentry(lang:symbol, func:function, fullname:string, fmt:string):map
+  conio:module
+    K_BACKSPACE:number = 8
+    K_CTRL_A:number = 1
+    K_CTRL_B:number = 2
+    K_CTRL_C:number = 3
+    K_CTRL_D:number = 4
+    K_CTRL_E:number = 5
+    K_CTRL_F:number = 6
+    K_CTRL_G:number = 7
+    K_CTRL_H:number = 8
+    K_CTRL_I:number = 9
+    K_CTRL_J:number = 10
+    K_CTRL_K:number = 11
+    K_CTRL_L:number = 12
+    K_CTRL_M:number = 13
+    K_CTRL_N:number = 14
+    K_CTRL_O:number = 15
+    K_CTRL_P:number = 16
+    K_CTRL_Q:number = 17
+    K_CTRL_R:number = 18
+    K_CTRL_S:number = 19
+    K_CTRL_T:number = 20
+    K_CTRL_U:number = 21
+    K_CTRL_V:number = 22
+    K_CTRL_W:number = 23
+    K_CTRL_X:number = 24
+    K_CTRL_Y:number = 25
+    K_CTRL_Z:number = 26
+    K_DELETE:number = 137
+    K_DOWN:number = 129
+    K_END:number = 134
+    K_ESCAPE:number = 27
+    K_HOME:number = 133
+    K_INSERT:number = 132
+    K_LEFT:number = 131
+    K_PAGEDOWN:number = 136
+    K_PAGEUP:number = 135
+    K_RETURN:number = 10
+    K_RIGHT:number = 130
+    K_SPACE:number = 32
+    K_TAB:number = 9
+    K_UP:number = 128
+    __name__:string = conio
+    __symbol__:symbol = conio
+    conio.clear(region?:symbol):void
+    conio.getwinsize()
+    conio.moveto(x:number, y:number):map:void {block?}
+    conio.readkey():[raise]
+    conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
+    conio.waitkey():[raise]
+  document:class = <class:markdown.document(stream?:stream:r) {block?}>
+  markdown.funcentry(lang:symbol, funcs*:function)
+  markdown.funcentry@iterable(lang:symbol, funcs*:function)
+  item:class = <class:item>
+math:module
   __name__:string = math
-  __source__:string = <integrated>
   __symbol__:symbol = math
   math.abs(num):map
   math.acos(num):map:[deg]
@@ -210,7 +267,7 @@ object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
 operator:class = <class:operator(symbol:symbol):map {block?}>
 ord(str:string):map
-os:module = <module:os:<integrated>>
+os:module
   __name__:string = os
   __source__:string = <integrated>
   __symbol__:symbol = os
@@ -226,7 +283,7 @@ os:module = <module:os:<integrated>>
   os.unsetenv(name:string):void
 outers() {block?}
 palette:class = <class:palette(type) {block?}>
-path:module = <module:path:<integrated>>
+path:module
   __name__:string = path
   __source__:string = <integrated>
   __symbol__:symbol = path
@@ -271,7 +328,7 @@ suffixmgr:class = <class:suffixmgr(type:symbol) {block?}>
 super(obj):map {block?}
 switch() {block}
 symbol:class = <class:symbol>
-sys:module = <module:sys:<integrated>>
+sys:module
   __name__:string = sys
   __source__:string = <integrated>
   __symbol__:symbol = sys

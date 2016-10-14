@@ -10,6 +10,7 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 		'path' => ['sep_file']
 		'os' => ['stdin', 'stdout', 'stderr']
 	}
+	skipWordsDef = ['__source__'].nomap()
 	for (word in tostring(dir(m))) {
 		if (word in skipWords) { continue }
 		value = locals(m).lookup(tosymbol(word))
@@ -18,11 +19,13 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 			printf('%s\n', value)
 		} elsif (islist(value)) {
 			printf('%s = [%s]\n', word, value.join(','))
+		} elsif (ismodule(value)) {
+			printf('%s:%s\n', word, typename(value))
 		} else {
 			printf('%s:%s = %s\n', word, typename(value), value)
 		}
 		if (ismodule(value)) {
-			listSymbols(skipWordsMap.get(word, [].nomap()), indent + 1, value)
+			listSymbols(skipWordsMap.get(word, skipWordsDef), indent + 1, value)
 		}
 	}
 }
@@ -40,6 +43,8 @@ scope {
 				printf('%s\n', value)
 			} elsif (islist(value)) {
 				printf('%s = [%s]\n', word, value.join(','))
+			} elsif (ismodule(value)) {
+				printf('%s:%s\n', word, typename(value))
 			} else {
 				printf('%s:%s = %s\n', word, typename(value), value)
 			}

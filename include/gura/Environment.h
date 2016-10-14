@@ -352,8 +352,8 @@ public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);
 	ValueTypeInfo *LookupValueType(const Symbol *pSymbol);
-	ValueTypeInfo *LookupValueType(Signal &sig, const ValueList &valList);
-	ValueTypeInfo *LookupValueType(Signal &sig, const Expr *pExpr);
+	ValueTypeInfo *LookupValueType(const ValueList &valList);
+	ValueTypeInfo *LookupValueType(const Expr *pExpr);
 public:
 	void AssignIntegratedModule(Module *pModule);
 	bool ImportModules(Signal &sig, const char *moduleNames,

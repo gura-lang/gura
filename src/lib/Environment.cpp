@@ -449,43 +449,41 @@ ValueTypeInfo *Environment::LookupValueType(const Symbol *pSymbol)
 	return nullptr;
 }
 
-ValueTypeInfo *Environment::LookupValueType(Signal &sig, const ValueList &valList)
+ValueTypeInfo *Environment::LookupValueType(const ValueList &valList)
 {
 	SymbolList symbolList;
 	foreach_const_reverse (ValueList, pValue, valList) {
 		if (!pValue->Is_expr()) {
-			sig.SetError(ERR_TypeError, "expr must be specified");
+			SetError(ERR_TypeError, "expr must be specified");
 			return nullptr;
 		}
-		//if (!Parser::ParseDottedIdentifier(pValue->GetExpr(), symbolList)) {
 		if (!symbolList.AddFromExpr(pValue->GetExpr())) {
-			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
+			SetError(ERR_TypeError, "invalid element for type name: '%s'",
 					pValue->GetExpr()->ToString(Expr::SCRSTYLE_OneLine).c_str());
 			return nullptr;
 		}
 	}
 	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
 	if (pValueTypeInfo == nullptr) {
-		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
+		SetError(ERR_ValueError, "can't find type name: '%s'",
 								symbolList.Join(".").c_str());
 		return nullptr;
 	}
 	return pValueTypeInfo;
 }
 
-ValueTypeInfo *Environment::LookupValueType(Signal &sig, const Expr *pExpr)
+ValueTypeInfo *Environment::LookupValueType(const Expr *pExpr)
 {
 	SymbolList symbolList;
-	//if (!Parser::ParseDottedIdentifier(pExpr, symbolList)) {
 	if (!symbolList.AddFromExpr(pExpr)) {
-		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
-						pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
+		SetError(ERR_TypeError, "invalid element for type name: '%s'",
+				 pExpr->ToString(Expr::SCRSTYLE_OneLine).c_str());
 		return nullptr;
 	}
 	ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);
 	if (pValueTypeInfo == nullptr) {
-		sig.SetError(ERR_ValueError, "can't find type name: '%s'",
-								symbolList.Join(".").c_str());
+		SetError(ERR_ValueError, "can't find type name: '%s'",
+				 symbolList.Join(".").c_str());
 		return nullptr;
 	}
 	return pValueTypeInfo;
@@ -521,7 +519,6 @@ bool Environment::ImportModules(Signal &sig, const char *moduleNames,
 		}
 		moduleName = Strip(moduleName.c_str());
 		SymbolList symbolList;
-		//if (!Parser::ParseDottedIdentifier(moduleName.c_str(), symbolList)) {
 		if (!symbolList.AddFromString(moduleName.c_str())) {
 			sig.SetError(ERR_ImportError, "wrong format of module name");
 			return false;
@@ -547,7 +544,6 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
 		if (pSymbol->IsIdentical(Symbol::Hyphen)) {
 			// import(-foo)
-			//successFlag = Parser::ParseDottedIdentifier(pExprEx->GetChild(), symbolList);
 			successFlag = symbolList.AddFromExpr(pExprEx->GetChild());
 			assignModuleNameFlag = false;
 		} else if (pSymbol->IsIdentical(Symbol::Amp)) {
@@ -560,7 +556,6 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 					assignModuleNameFlag = false;
 					str++;
 				}
-				//successFlag = Parser::ParseDottedIdentifier(str, symbolList);
 				successFlag = symbolList.AddFromString(str);
 			} else {
 				sig.SetError(ERR_ImportError, "module name must be a string");
@@ -570,7 +565,6 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 			// nothing to do
 		}
 	} else {
-		//successFlag = Parser::ParseDottedIdentifier(pExpr, symbolList);
 		successFlag = symbolList.AddFromExpr(pExpr);
 	}
 	if (!successFlag) {

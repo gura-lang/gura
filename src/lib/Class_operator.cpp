@@ -170,7 +170,6 @@ Gura_DeclareMethod(operator_, assign)
 
 Gura_ImplementMethod(operator_, assign)
 {
-	Signal &sig = env.GetSignal();
 	Object_operator *pThis = Object_operator::GetObjectThis(arg);
 	const Function *pFuncBlock = arg.GetBlockFunc(env, GetSymbolForBlock());
 	if (pFuncBlock == nullptr) return Value::Nil;
@@ -179,13 +178,13 @@ Gura_ImplementMethod(operator_, assign)
 		// assign binary operator
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
-			sig.SetError(ERR_ValueError,
+			env.SetError(ERR_ValueError,
 				"operator '%s' is not a binary one", pThis->GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, arg.GetExpr(0));
+		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(arg.GetExpr(0));
 		if (pValueTypeInfoL == nullptr) return Value::Nil;
-		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, arg.GetExpr(1));
+		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(arg.GetExpr(1));
 		if (pValueTypeInfoR == nullptr) return Value::Nil;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(),
@@ -194,11 +193,11 @@ Gura_ImplementMethod(operator_, assign)
 		// assign unary operator
 		OpType opType = pThis->GetUnaryOpType();
 		if (opType == OPTYPE_None) {
-			sig.SetError(ERR_ValueError,
+			env.SetError(ERR_ValueError,
 				"operator '%s' is not a unary one", pThis->GetSymbol()->GetName());
 			return Value::Nil;
 		}
-		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetExpr(0));
+		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetExpr(0));
 		if (pValueTypeInfo == nullptr) return Value::Nil;
 		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfo->GetValueType(), VTYPE_undefined,

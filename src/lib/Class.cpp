@@ -240,8 +240,7 @@ Gura_DeclareMethodPrimitive(Object, istype)
 
 Gura_ImplementMethod(Object, istype)
 {
-	Signal &sig = env.GetSignal();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(0));
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	ValueType valType = arg.GetValueThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
@@ -260,8 +259,7 @@ Gura_DeclareMethodPrimitive(Object, isinstance)
 
 Gura_ImplementMethod(Object, isinstance)
 {
-	Signal &sig = env.GetSignal();
-	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, arg.GetList(0));
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(arg.GetList(0));
 	if (pValueTypeInfo == nullptr) return Value::Nil;
 	return arg.GetValueThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
