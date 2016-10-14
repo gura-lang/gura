@@ -254,10 +254,9 @@ Gura_ImplementMethod(help, render)
 		return Value::Nil;
 	} else {
 		AutoPtr<StreamMemory> pStream(new StreamMemory(env));
-		pHelp->Render(env, formatNameOut, *pStream);
+		if (!pHelp->Render(env, formatNameOut, *pStream)) return Value::Nil;
 		return Value(String(pStream->GetPointer(), pStream->GetSize()));
 	}
-	return Value::Nil;
 }
 
 // help.renderer(format:string, format_out:string):static:void {block}

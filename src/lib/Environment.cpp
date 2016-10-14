@@ -505,6 +505,7 @@ void Environment::AssignIntegratedModule(Module *pModule)
 bool Environment::ImportModules(const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag)
 {
+	if (*moduleNames == '\0') return true;
 	bool assignModuleNameFlag = true;
 	const Symbol *pSymbolAlias = nullptr;
 	const SymbolSet *pSymbolsToMixIn = nullptr;

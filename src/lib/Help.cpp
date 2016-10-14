@@ -11,21 +11,21 @@ namespace Gura {
 const String Help::FormatNameDefault("markdown");
 
 Help::Help(const Symbol *pSymbolLangCode, const String &doc) :
-	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode)
+	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
+	_formatName(FormatNameDefault)
 {
 	ExtractFormatNameAndDoc(doc);
 }
 
 Help::Help(const Symbol *pSymbolLangCode, Template *pTemplateDoc) :
 	_cntRef(1), _pHelpProvider(nullptr), _pSymbolLangCode(pSymbolLangCode),
-	_pTemplateDoc(pTemplateDoc)
+	_formatName(FormatNameDefault), _pTemplateDoc(pTemplateDoc)
 {
 }
 
 void Help::ExtractFormatNameAndDoc(const String &doc)
 {
 	if (doc[0] != '#') {
-		_formatName = FormatNameDefault;
 		_doc = doc;
 		return;
 	}
