@@ -356,15 +356,15 @@ public:
 	ValueTypeInfo *LookupValueType(const Expr *pExpr);
 public:
 	void AssignIntegratedModule(Module *pModule);
-	bool ImportModules(Signal &sig, const char *moduleNames,
-								bool binaryOnlyFlag, bool mixinTypeFlag);
-	Module *ImportModule(Signal &sig, const Expr *pExpr,
-			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
-	Module *ImportModule(Signal &sig, SymbolList::const_iterator ppSymbolOfModule,
-			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
-			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
+	bool ImportModules(const char *moduleNames, bool binaryOnlyFlag, bool mixinTypeFlag);
+	Module *ImportModule(
+		const Expr *pExpr, const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
+		bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
+	Module *ImportModule(
+		SymbolList::const_iterator ppSymbolOfModule,
+		SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
+		const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
+		bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
 public:
 	static bool IsBinaryModule(const char *pathName);
 	virtual bool IsModule() const;
@@ -390,9 +390,9 @@ public:
 	void SetError_AccessViolation(const Symbol *pSymbol) const;
 	void SetError_PropertyNotFound(const Symbol *pSymbol) const;
 public:
-	bool SearchSeparatedModuleFile(Signal &sig, String &pathName,
-			SymbolList::const_iterator ppSymbolOfModule,
-			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
+	bool SearchSeparatedModuleFile(
+		String &pathName, SymbolList::const_iterator ppSymbolOfModule,
+		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
 	Module *ImportSeparatedModule_Script(Environment *pEnvOuter,
 							const char *pathName, const Symbol *pSymbol);
 	Module *ImportSeparatedModule_Binary(Environment *pEnvOuter,

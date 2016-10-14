@@ -1139,7 +1139,7 @@ Expr_Root *Parser::ParseStream(Environment &env, const char *pathName, const cha
 		} else {
 			pathNameMod = pathName;
 		}
-		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return nullptr;
+		if (zippedFlag && !env.ImportModules("zip", false, false)) return nullptr;
 	} while (0);
 	AutoPtr<Stream> pStream(Stream::Open(env,
 									pathNameMod.c_str(), Stream::ATTR_Readable));

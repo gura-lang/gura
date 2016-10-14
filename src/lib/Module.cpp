@@ -119,7 +119,7 @@ bool Module::ImportDefaultExternals(Environment &env)
 		Symbol::Add("config"));
 #endif
 	// import(markdown)
-	if (!env.ImportModules(env.GetSignal(), "markdown", false, false)) {
+	if (!env.ImportModules("markdown", false, false)) {
 		env.GetSignal().ClearSignal();
 	}
 	return true;

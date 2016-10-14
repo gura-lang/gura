@@ -389,13 +389,12 @@ Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault,
 						EnvRefMode envRefMode, int cntSuperSkip) const
 {
-	Signal &sig = env.GetSignal();
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == nullptr) {
 		bool evaluatedFlag = false;
 		Value result = const_cast<Environment *>(this)->
 							DoGetProp(env, pSymbol, attrs, evaluatedFlag);
-		if (sig.IsSignalled()) return Value::Nil;
+		if (IsSignalled()) return Value::Nil;
 		if (evaluatedFlag) return result;
 		if (pValueDefault != nullptr) return *pValueDefault;
 		SetError_PropertyNotFound(pSymbol);
@@ -503,8 +502,8 @@ void Environment::AssignIntegratedModule(Module *pModule)
 	}
 }
 
-bool Environment::ImportModules(Signal &sig, const char *moduleNames,
-									bool binaryOnlyFlag, bool mixinTypeFlag)
+bool Environment::ImportModules(const char *moduleNames,
+								bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	bool assignModuleNameFlag = true;
 	const Symbol *pSymbolAlias = nullptr;
@@ -520,10 +519,10 @@ bool Environment::ImportModules(Signal &sig, const char *moduleNames,
 		moduleName = Strip(moduleName.c_str());
 		SymbolList symbolList;
 		if (!symbolList.AddFromString(moduleName.c_str())) {
-			sig.SetError(ERR_ImportError, "wrong format of module name");
+			SetError(ERR_ImportError, "wrong format of module name");
 			return false;
 		}
-		if (ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
+		if (ImportModule(symbolList.begin(), symbolList.end(), assignModuleNameFlag,
 					pSymbolAlias, pSymbolsToMixIn,
 					overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == nullptr) return false;
 		moduleName.clear();
@@ -532,7 +531,7 @@ bool Environment::ImportModules(Signal &sig, const char *moduleNames,
 	return true;
 }
 
-Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
+Module *Environment::ImportModule(const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
@@ -549,7 +548,7 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 		} else if (pSymbol->IsIdentical(Symbol::Amp)) {
 			// import(&foo)
 			Value rtn = pExprEx->GetChild()->Exec(*this);
-			if (sig.IsSignalled()) return nullptr;
+			if (IsSignalled()) return nullptr;
 			if (rtn.Is_string()) {
 				const char *str = rtn.GetString();
 				if (*str == '-') {
@@ -558,7 +557,7 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 				}
 				successFlag = symbolList.AddFromString(str);
 			} else {
-				sig.SetError(ERR_ImportError, "module name must be a string");
+				SetError(ERR_ImportError, "module name must be a string");
 				return nullptr;
 			}
 		} else {
@@ -568,15 +567,15 @@ Module *Environment::ImportModule(Signal &sig, const Expr *pExpr,
 		successFlag = symbolList.AddFromExpr(pExpr);
 	}
 	if (!successFlag) {
-		sig.SetError(ERR_ImportError, "wrong format of module name");
+		SetError(ERR_ImportError, "wrong format of module name");
 		return nullptr;
 	}
-	return ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
+	return ImportModule(symbolList.begin(), symbolList.end(), assignModuleNameFlag,
 						pSymbolAlias, pSymbolsToMixIn,
 						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymbolOfModule,
+Module *Environment::ImportModule(SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
@@ -589,7 +588,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 	Module *pModule = GetGlobal()->LookupIntegratedModule(pSymbolOfModule->GetName());
 	if (pModule == nullptr) {
 		String pathName;
-		if (!SearchSeparatedModuleFile(sig, pathName,
+		if (!SearchSeparatedModuleFile(pathName,
 				ppSymbolOfModule, ppSymbolOfModuleEnd, binaryOnlyFlag)) return nullptr;
 		pModule = GetGlobal()->LookupSeparatedModule(pathName.c_str());
 		if (pModule != nullptr) {
@@ -613,7 +612,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
 				if (pValue == nullptr) {
-					Module *pModuleParent = ImportModule(sig, ppSymbolOfModule,
+					Module *pModuleParent = ImportModule(ppSymbolOfModule,
 								ppSymbol + 1, assignModuleNameFlag, nullptr, nullptr,
 								overwriteFlag, false, false);
 					if (pModuleParent == nullptr) return nullptr;
@@ -621,7 +620,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 				} else if (pValue->IsModule()) {
 					pEnvDst = pValue->GetModule();
 				} else {
-					sig.SetError(ERR_ImportError,
+					SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
 					return nullptr;
@@ -633,7 +632,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 			} else {
 				Value valueOfModule(Module::Reference(pModule));
 				if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, overwriteFlag)) {
-					sig.SetError(ERR_ImportError,
+					SetError(ERR_ImportError,
 							 "module symbol conflicts with an existing variable '%s'",
 							 SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
 					return nullptr;
@@ -643,7 +642,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 			// import(foo, bar)
 			Value valueOfModule(Module::Reference(pModule));
 			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, overwriteFlag)) {
-				sig.SetError(ERR_ImportError,
+				SetError(ERR_ImportError,
 					"module symbol conflicts with an existing variable '%s'",
 					pSymbolAlias->GetName());
 				return nullptr;
@@ -658,7 +657,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 			if (pSymbol->IsPrivateName()) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, valueEx, valueEx.GetExtra(), overwriteFlag)) {
-				sig.SetError(ERR_ImportError,
+				SetError(ERR_ImportError,
 					"imported variable name conflicts with an existing one '%s'",
 					pSymbol->GetName());
 				return nullptr;
@@ -672,7 +671,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 			if (pValueEx == nullptr) {
 				// nothing to do
 			} else if (!ImportValue(pSymbol, *pValueEx, pValueEx->GetExtra(), overwriteFlag)) {
-				sig.SetError(ERR_ImportError,
+				SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 												pSymbol->GetName());
 				return nullptr;
@@ -688,7 +687,7 @@ Module *Environment::ImportModule(Signal &sig, SymbolList::const_iterator ppSymb
 	return pModule;
 }
 
-bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
+bool Environment::SearchSeparatedModuleFile(String &pathName,
 		SymbolList::const_iterator ppSymbolOfModule,
 		SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag)
 {
@@ -696,10 +695,10 @@ bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 	const Value *pValDirNameList = GetGlobal()->GetModule_sys()->
 							LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
 	if (pValDirNameList == nullptr) {
-		sig.SetError(ERR_ImportError, "variable path is not specified");
+		SetError(ERR_ImportError, "variable path is not specified");
 		return false;
 	} else if (!pValDirNameList->Is_list()) {
-		sig.SetError(ERR_ImportError, "variable path must be a list");
+		SetError(ERR_ImportError, "variable path must be a list");
 		return false;
 	}
 	StringList extNameList;
@@ -710,7 +709,7 @@ bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 	String baseName = SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.'); //OAL::FileSeparator
 	foreach_const (ValueList, pValue, pValDirNameList->GetList()) {
 		if (!pValue->Is_string()) {
-			sig.SetError(ERR_ImportError, "elements of variable path must be strings");
+			SetError(ERR_ImportError, "elements of variable path must be strings");
 			return false;
 		}
 		do {
@@ -721,11 +720,11 @@ bool Environment::SearchSeparatedModuleFile(Signal &sig, String &pathName,
 			foreach_const (StringList, pExtName, extNameList) {
 				pathName = pathNameBase + *pExtName;
 				if (PathMgr::DoesExist(env, pathName.c_str())) return true;
-				if (sig.IsSignalled()) return false;
+				if (IsSignalled()) return false;
 			}
 		} while (0);
 	}
-	sig.SetError(ERR_ImportError, "can't find a module named '%s'",
+	SetError(ERR_ImportError, "can't find a module named '%s'",
 		SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
 	return false;
 }
@@ -737,7 +736,7 @@ Module *Environment::ImportSeparatedModule_Script(Environment *pEnvOuter,
 	AutoPtr<Stream> pStream(Stream::Open(env, pathName, Stream::ATTR_Readable));
 	if (_sig.IsError()) return nullptr;
 	AutoPtr<Expr_Root> pExprRoot(Parser(_sig, pStream->GetName()).ParseStream(*pEnvOuter, *pStream));
-	if (_sig.IsSignalled()) return nullptr;
+	if (IsSignalled()) return nullptr;
 	Module *pModule = new Module(pEnvOuter, pSymbol,
 							pathName, Expr::Reference(pExprRoot.get()), nullptr);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
@@ -745,7 +744,7 @@ Module *Environment::ImportSeparatedModule_Script(Environment *pEnvOuter,
 	pModule->GetGlobal()->SetEchoFlag(false);
 	pExprRoot->Exec(*pModule);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
-	if (_sig.IsSignalled()) {
+	if (IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return nullptr;
@@ -767,11 +766,11 @@ Module *Environment::ImportSeparatedModule_Binary(Environment *pEnvOuter,
 	ModuleTerminateType moduleTerminate =
 		(ModuleTerminateType)dynamicLibrary.GetEntry(_sig, "GuraModuleTerminate");
 	if (moduleValidate == nullptr || moduleEntry == nullptr || moduleTerminate == nullptr) {
-		_sig.SetError(ERR_ImportError, "can't find necessary entry functions");
+		SetError(ERR_ImportError, "can't find necessary entry functions");
 		return nullptr;
 	}
 	if (!(*moduleValidate)()) {
-		_sig.SetError(ERR_VersionError, "unacceptable version of module");
+		SetError(ERR_VersionError, "unacceptable version of module");
 		return nullptr;
 	}
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, nullptr, moduleTerminate);

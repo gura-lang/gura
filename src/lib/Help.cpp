@@ -45,21 +45,19 @@ String Help::MakeHelpTitle() const
 
 bool Help::Render(Environment &env, const char *formatNameOut, Stream &stream) const
 {
-	Signal &sig = env.GetSignal();
 	const HelpRenderer *pHelpRenderer =
 		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
-	if (!env.ImportModules(sig, _formatName.c_str(), false, false)) return false;
+	if (!env.ImportModules(_formatName.c_str(), false, false)) return false;
 	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), formatNameOut);
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Render(env, this, stream);
-	sig.SetError(ERR_FormatError, "can't render %s document in %s format",
+	env.SetError(ERR_FormatError, "can't render %s document in %s format",
 				 _formatName.c_str(), formatNameOut);
 	return false;
 }
 
 bool Help::Present(Environment &env)
 {
-	Signal &sig = env.GetSignal();
 	if (_pHelpProvider != nullptr && _pHelpProvider->GetHolder() != nullptr) {
 		if (!HelpProvider::PresentTitle(env, _pHelpProvider->GetHolder())) return false;
 	}
@@ -70,10 +68,10 @@ bool Help::Present(Environment &env)
 	const HelpRenderer *pHelpRenderer =
 		env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
-	if (!env.ImportModules(sig, _formatName.c_str(), false, false)) return false;
+	if (!env.ImportModules(_formatName.c_str(), false, false)) return false;
 	pHelpRenderer = env.GetGlobal()->GetHelpRendererOwner().Find(_formatName.c_str(), "");
 	if (pHelpRenderer != nullptr) return pHelpRenderer->Present(env, this);
-	sig.SetError(ERR_FormatError, "unsupported format of help documdent: %s", _formatName.c_str());
+	env.SetError(ERR_FormatError, "unsupported format of help documdent: %s", _formatName.c_str());
 	return false;
 }
 

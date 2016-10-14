@@ -74,7 +74,7 @@ int MainW(int argc, const char *argv[])
 	bool interactiveFlag = true;
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
-			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
+			if (!env.ImportModules(pModuleNames->c_str(), false, false)) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}

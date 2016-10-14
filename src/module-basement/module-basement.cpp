@@ -1760,7 +1760,7 @@ Gura_ImplementFunction(import_)
 	bool overwriteFlag = arg.IsSet(Gura_Symbol(overwrite));
 	bool binaryOnlyFlag = arg.IsSet(Gura_Symbol(binary));
 	bool mixinTypeFlag = arg.IsSet(Gura_Symbol(mixin_type));
-	Module *pModule = env.ImportModule(sig, arg.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
+	Module *pModule = env.ImportModule(arg.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
 									   overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 	if (pModule == nullptr) return Value::Nil;
 	return Value(Module::Reference(pModule));
