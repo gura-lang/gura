@@ -669,8 +669,12 @@ Renderer@console = class {
 				print(item.text.escapehtml())
 			}
 		} elsif (item.type == `tag) {
-			if (item.text.lower() == 'table') {
+			text = item.text.lower()
+			if (text == 'table') {
 				this.RenderTable(item)
+			} elsif (text == 'funcentry') {
+				println(item.attrs)
+				println('---------------')
 			} else {
 				item.children && this.RenderItem(item.children)
 			}
