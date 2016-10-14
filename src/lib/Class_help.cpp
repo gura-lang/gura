@@ -188,6 +188,24 @@ Gura_ImplementClassMethod(help, text_at_block)
 	return ReturnValue(env, arg, Value(buff));
 }
 
+// help.present():void
+Gura_DeclareMethod(help, present)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+	);
+}
+
+Gura_ImplementMethod(help, present)
+{
+	Help *pHelp = Object_help::GetObjectThis(arg)->GetHelp();
+	pHelp->Present(env);
+	return Value::Nil;
+}
+
 // help.presenter(format:string):static:void {block}
 Gura_DeclareClassMethod(help, presenter)
 {
@@ -239,6 +257,7 @@ Gura_ImplementMethod(help, render)
 		pHelp->Render(env, formatNameOut, *pStream);
 		return Value(String(pStream->GetPointer(), pStream->GetSize()));
 	}
+	return Value::Nil;
 }
 
 // help.renderer(format:string, format_out:string):static:void {block}
@@ -270,6 +289,67 @@ Gura_ImplementClassMethod(help, renderer)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of operators
+//-----------------------------------------------------------------------------
+// [A %% B] ... BinaryOperator(ModMod, A, B)
+Gura_ImplementBinaryOperator(ModMod, function, help)
+{
+	Function *pFunc = Object_function::GetObject(valueLeft)->GetFunction();
+	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
+	pFunc->GetHelpProvider().AddHelp(pHelp->Reference());
+	return valueLeft;
+}
+
+Gura_ImplementBinaryOperator(ModMod, Class, help)
+{
+	Class *pClass = valueLeft.GetClassItself();
+	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
+	pClass->GetHelpProvider().AddHelp(pHelp->Reference());
+	return valueLeft;
+}
+
+// [~A] ... UnaryOperator(Invert, A)
+Gura_ImplementUnaryOperator(Inv, function)
+{
+	Function *pFunc = Object_function::GetObject(value)->GetFunction();
+	const Symbol *pSymbolLangCode = env.GetLangCode();
+	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
+	if (pHelp == nullptr) {
+		HelpProvider::PresentTitle(env, pFunc);
+		HelpProvider::PresentNoHelpDocument(env);
+	} else {
+		pHelp->Present(env);
+	}
+	return Value::Nil;
+}
+
+Gura_ImplementUnaryOperator(Inv, help)
+{
+	Help *pHelp = Object_help::GetObject(value)->GetHelp();
+	pHelp->Present(env);
+	return Value::Nil;
+}
+
+Gura_ImplementUnaryOperator(Inv, Class)
+{
+	Class *pClass = value.GetClassItself();
+	const Symbol *pSymbolLangCode = env.GetLangCode();
+	Function *pFunc = pClass->GetConstructor();
+	if (pFunc == nullptr) {
+		env.SetError(ERR_ValueError, "the class does not have a constructor");
+		return Value::Nil;
+	}
+	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
+	if (pHelp == nullptr) {
+		HelpProvider::PresentTitle(env, pFunc);
+		HelpProvider::PresentNoHelpDocument(env);
+	} else {
+		pHelp->Present(env);
+	}
+	return Value::Nil;
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_help::Class_help(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_help)
@@ -286,9 +366,16 @@ void Class_help::Prepare(Environment &env)
 	// assignment of methods
 	Gura_AssignMethod(help, text_at_iterator);
 	Gura_AssignMethod(help, text_at_block);
+	Gura_AssignMethod(help, present);
 	Gura_AssignMethod(help, presenter);
 	Gura_AssignMethod(help, render);
 	Gura_AssignMethod(help, renderer);
+	// assignment of operators
+	Gura_AssignBinaryOperator(ModMod, function, help);
+	Gura_AssignBinaryOperator(ModMod, Class, help);
+	Gura_AssignUnaryOperator(Inv, function);
+	Gura_AssignUnaryOperator(Inv, help);
+	Gura_AssignUnaryOperator(Inv, Class);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
 }

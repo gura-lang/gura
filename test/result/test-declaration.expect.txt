@@ -577,6 +577,7 @@ function
   function.getsymbol(func:function):static:map
   function#mathdiff(var?:symbol):reduce
 help
+  help#present():void {block?}
   help.presenter(format:string):static:void {block}
   help#render(format:string, out?:stream) {block?}
   help.renderer(format:string, format_out:string):static:void {block}

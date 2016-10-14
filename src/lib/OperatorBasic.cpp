@@ -604,46 +604,6 @@ Gura_ImplementUnaryOperator(Inv, number)
 	return Value(static_cast<Number>(num));
 }
 
-Gura_ImplementUnaryOperator(Inv, function)
-{
-	Function *pFunc = Object_function::GetObject(value)->GetFunction();
-	const Symbol *pSymbolLangCode = env.GetLangCode();
-	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
-	if (pHelp == nullptr) {
-		HelpProvider::PresentTitle(env, pFunc);
-		HelpProvider::PresentNoHelpDocument(env);
-	} else {
-		pHelp->Present(env);
-	}
-	return Value::Nil;
-}
-
-Gura_ImplementUnaryOperator(Inv, help)
-{
-	Help *pHelp = Object_help::GetObject(value)->GetHelp();
-	pHelp->Present(env);
-	return Value::Nil;
-}
-
-Gura_ImplementUnaryOperator(Inv, Class)
-{
-	Class *pClass = value.GetClassItself();
-	const Symbol *pSymbolLangCode = env.GetLangCode();
-	Function *pFunc = pClass->GetConstructor();
-	if (pFunc == nullptr) {
-		env.SetError(ERR_ValueError, "the class does not have a constructor");
-		return Value::Nil;
-	}
-	Help *pHelp = pFunc->GetHelpProvider().GetHelp(pSymbolLangCode, true);
-	if (pHelp == nullptr) {
-		HelpProvider::PresentTitle(env, pFunc);
-		HelpProvider::PresentNoHelpDocument(env);
-	} else {
-		pHelp->Present(env);
-	}
-	return Value::Nil;
-}
-
 //-----------------------------------------------------------------------------
 // [!A] ... UnaryOperator(Not, A)
 //-----------------------------------------------------------------------------
@@ -1503,21 +1463,6 @@ ImplementArrayTOperators(Mod)
 //-----------------------------------------------------------------------------
 // [A %% B] ... BinaryOperator(ModMod, A, B)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(ModMod, function, help)
-{
-	Function *pFunc = Object_function::GetObject(valueLeft)->GetFunction();
-	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
-	pFunc->GetHelpProvider().AddHelp(pHelp->Reference());
-	return valueLeft;
-}
-
-Gura_ImplementBinaryOperator(ModMod, Class, help)
-{
-	Class *pClass = valueLeft.GetClassItself();
-	Help *pHelp = Object_help::GetObject(valueRight)->GetHelp();
-	pClass->GetHelpProvider().AddHelp(pHelp->Reference());
-	return valueLeft;
-}
 
 //-----------------------------------------------------------------------------
 // [A ** B] ... BinaryOperator(Pow, A, B)
@@ -2161,9 +2106,6 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, array_at_float);
 	Gura_AssignUnaryOperator(Neg, array_at_double);
 	Gura_AssignUnaryOperator(Inv, number);
-	Gura_AssignUnaryOperator(Inv, function);
-	Gura_AssignUnaryOperator(Inv, help);
-	Gura_AssignUnaryOperator(Inv, Class);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
 	Gura_AssignUnaryOperatorSuffix(Question, any);
@@ -2238,8 +2180,6 @@ void Operator::AssignBasicOperators(Environment &env)
 	AssignArrayTOperators(Div);
 	Gura_AssignBinaryOperator(Mod, number, number);
 	AssignArrayTOperators(Mod);
-	Gura_AssignBinaryOperator(ModMod, function, help);
-	Gura_AssignBinaryOperator(ModMod, Class, help);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);
