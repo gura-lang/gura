@@ -163,6 +163,7 @@ class Object_list;
 class Callable;
 class Iterator;
 class IteratorOwner;
+class FunctionOwner;
 
 //-----------------------------------------------------------------------------
 // FunctionType
@@ -337,6 +338,36 @@ private:
 public:
 	// inherited from HelpProvider
 	virtual String MakeHelpTitle() const;
+};
+
+//-----------------------------------------------------------------------------
+// FunctionList
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE FunctionList : public std::vector<Function *, Allocator<Function *> > {
+public:
+	static const FunctionList Empty;
+public:
+	inline FunctionList() {}
+	~FunctionList();
+};
+
+//-----------------------------------------------------------------------------
+// FunctionOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE FunctionOwner : public FunctionList {
+private:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(FunctionOwner)
+public:
+	inline FunctionOwner() : _cntRef(1) {}
+private:
+	inline FunctionOwner(const FunctionOwner &declOwner) {}
+	inline void operator=(const FunctionOwner &declOwner) {}
+private:
+	~FunctionOwner();
+public:
+	void Clear();
 };
 
 //----------------------------------------------------------------------------

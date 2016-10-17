@@ -537,6 +537,31 @@ String Function::MakeHelpTitle() const
 }
 
 //-----------------------------------------------------------------------------
+// FunctionList
+//-----------------------------------------------------------------------------
+const FunctionList FunctionList::Empty;
+
+FunctionList::~FunctionList()
+{
+}
+
+//-----------------------------------------------------------------------------
+// FunctionOwner
+//-----------------------------------------------------------------------------
+FunctionOwner::~FunctionOwner()
+{
+	Clear();
+}
+
+void FunctionOwner::Clear()
+{
+	foreach (FunctionOwner, ppFunc, *this) {
+		Function::Delete(*ppFunc);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // ResultComposer
 // this function's behaviour is affected by the following attributes.
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
