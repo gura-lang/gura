@@ -651,7 +651,7 @@ Value Matrix::AddSub(Environment &env, OpType opType,
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
+Value Matrix::InnerProduct(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 {
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat1->GetRows(), nCols = pMat2->GetCols();
@@ -724,7 +724,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2)
 	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
-Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList)
+Value Matrix::InnerProduct(Environment &env, const Matrix *pMat, const ValueList &valList)
 {
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -783,47 +783,7 @@ Value Matrix::Mul(Environment &env, const Matrix *pMat, const ValueList &valList
 	return result;
 }
 
-Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
-{
-	Signal &sig = env.GetSignal();
-	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
-	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
-	Elements &elementsResult = pMatRtn->GetElements();
-	ValueType valType1 = CheckValueType(*pMat);
-	ValueType valType2 = value.GetValueType();
-	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
-		Number num = value.GetNumber();
-		for (size_t iRow = 0; iRow < nRows; iRow++) {
-			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
-			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				elementsResult.push_back(Value(pValueElem->GetNumber() * num));
-			}
-		}
-	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
-				(valType2 == VTYPE_complex || valType2 == VTYPE_number)) {
-		Complex num = value.GetComplex();
-		for (size_t iRow = 0; iRow < nRows; iRow++) {
-			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
-			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				elementsResult.push_back(Value(pValueElem->GetComplex() * num));
-			}
-		}
-	} else {
-		const Operator *pOperator = env.GetOperator(OPTYPE_Mul);
-		for (size_t iRow = 0; iRow < nRows; iRow++) {
-			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
-			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
-				if (sig.IsSignalled()) return Value::Nil;
-				elementsResult.push_back(resultElem);
-			}
-		}
-	}
-	if (elementsResult.size() == 1) return elementsResult.front();
-	return Value(new Object_matrix(env, pMatRtn.release()));
-}
-
-Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat)
+Value Matrix::InnerProduct(Environment &env, const ValueList &valList, const Matrix *pMat)
 {
 	Signal &sig = env.GetSignal();
 	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
@@ -884,6 +844,46 @@ Value Matrix::Mul(Environment &env, const ValueList &valList, const Matrix *pMat
 	}
 	if (pObjListResult->Size() == 1) return pObjListResult->GetList().front();
 	return result;
+}
+
+Value Matrix::Mul(Environment &env, const Matrix *pMat, const Value &value)
+{
+	Signal &sig = env.GetSignal();
+	size_t nRows = pMat->GetRows(), nCols = pMat->GetCols();
+	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
+	Elements &elementsResult = pMatRtn->GetElements();
+	ValueType valType1 = CheckValueType(*pMat);
+	ValueType valType2 = value.GetValueType();
+	if (valType1 == VTYPE_number && valType2 == VTYPE_number) {
+		Number num = value.GetNumber();
+		for (size_t iRow = 0; iRow < nRows; iRow++) {
+			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
+			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
+				elementsResult.push_back(Value(pValueElem->GetNumber() * num));
+			}
+		}
+	} else if ((valType1 == VTYPE_complex || valType1 == VTYPE_number) &&
+				(valType2 == VTYPE_complex || valType2 == VTYPE_number)) {
+		Complex num = value.GetComplex();
+		for (size_t iRow = 0; iRow < nRows; iRow++) {
+			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
+			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
+				elementsResult.push_back(Value(pValueElem->GetComplex() * num));
+			}
+		}
+	} else {
+		const Operator *pOperator = env.GetOperator(OPTYPE_Mul);
+		for (size_t iRow = 0; iRow < nRows; iRow++) {
+			Elements::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
+			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
+				Value resultElem = pOperator->EvalBinary(env, *pValueElem, value);
+				if (sig.IsSignalled()) return Value::Nil;
+				elementsResult.push_back(resultElem);
+			}
+		}
+	}
+	if (elementsResult.size() == 1) return elementsResult.front();
+	return Value(new Object_matrix(env, pMatRtn.release()));
 }
 
 Value Matrix::Mul(Environment &env, const Value &value, const Matrix *pMat)

@@ -730,6 +730,7 @@ list
 matrix
   matrix#col(col:number):map
   matrix#colsize()
+  matrix.dot(a, b):static {block?}
   matrix#each():[transpose]
   matrix#eachcol()
   matrix#eachrow()

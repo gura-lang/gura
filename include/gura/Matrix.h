@@ -148,10 +148,10 @@ public:
 	Value Invert(Environment &env);
 	static Value Neg(Environment &env, const Matrix *pMat);
 	static Value AddSub(Environment &env, OpType opType, const Matrix *pMat1, const Matrix *pMat2);
-	static Value Mul(Environment &env, const Matrix *pMat1, const Matrix *pMat2);
-	static Value Mul(Environment &env, const Matrix *pMat, const ValueList &valList);
+	static Value InnerProduct(Environment &env, const Matrix *pMat1, const Matrix *pMat2);
+	static Value InnerProduct(Environment &env, const Matrix *pMat, const ValueList &valList);
+	static Value InnerProduct(Environment &env, const ValueList &valList, const Matrix *pMat);
 	static Value Mul(Environment &env, const Matrix *pMat, const Value &value);
-	static Value Mul(Environment &env, const ValueList &valList, const Matrix *pMat);
 	static Value Mul(Environment &env, const Value &value, const Matrix *pMat);
 	static Value Div(Environment &env, const Matrix *pMat, const Value &value);
 	static void SetError_MatrixSizeMismatch(Signal &sig);

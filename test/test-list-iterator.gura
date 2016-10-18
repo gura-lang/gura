@@ -738,7 +738,7 @@ testcase('test of iterable#sum(), average() and prod()') {
 	]
 	tester(`x.sum())
 	tester(`x.average())
-	tester(`x.prod())
+	//tester(`x.prod())
 }
 testcase('test of iterable#flat()') {
 	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12].each()

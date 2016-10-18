@@ -275,6 +275,40 @@ Gura_ImplementMethod(matrix, colsize)
 	return Value(static_cast<UInt>(pThis->GetMatrix()->GetCols()));
 }
 
+// matrix.dot(a, b):static {block?}
+Gura_DeclareClassMethod(matrix, dot)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "a", VTYPE_any);
+	DeclareArg(env, "b", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"");
+}
+
+Gura_ImplementClassMethod(matrix, dot)
+{
+	if (arg.Is_matrix(0) && arg.Is_matrix(1)) {
+		return Matrix::InnerProduct(
+			env,
+			Object_matrix::GetObject(arg, 0)->GetMatrix(),
+			Object_matrix::GetObject(arg, 1)->GetMatrix());
+	} else if (arg.Is_matrix(0) && arg.Is_list(1)) {
+		return Matrix::InnerProduct(
+			env,
+			Object_matrix::GetObject(arg, 0)->GetMatrix(),
+			arg.GetList(1));
+	} else if (arg.Is_list(0) && arg.Is_matrix(1)) {
+		return Matrix::InnerProduct(
+			env,
+			arg.GetList(0),
+			Object_matrix::GetObject(arg, 1)->GetMatrix());
+	}
+	Declaration::SetError_InvalidArgument(env);
+	return Value::Nil;
+}
+
 // matrix#each():[transpose]
 Gura_DeclareMethod(matrix, each)
 {
@@ -860,6 +894,7 @@ void Class_matrix::Prepare(Environment &env)
 	Gura_AssignFunctionEx(MatrixInit, "@@");
 	Gura_AssignMethod(matrix, col);
 	Gura_AssignMethod(matrix, colsize);
+	Gura_AssignMethod(matrix, dot);
 	Gura_AssignMethod(matrix, each);
 	Gura_AssignMethod(matrix, eachcol);
 	Gura_AssignMethod(matrix, eachrow);
