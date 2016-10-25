@@ -13,6 +13,11 @@ Memory::~Memory()
 	// virtual destructor
 }
 
+Memory *Memory::Clone() const
+{
+	return nullptr;
+}
+
 //-----------------------------------------------------------------------------
 // MemoryOwner
 //-----------------------------------------------------------------------------
@@ -44,6 +49,14 @@ MemoryHeap::MemoryHeap(size_t bytes)
 MemoryHeap::~MemoryHeap()
 {
 	::LocalFree(_buff);
+}
+
+Memory *MemoryHeap::Clone() const
+{
+	void *buff = ::LocalAlloc(LMEM_FIXED, _bytes);
+	if (buff == nullptr) return nullptr;
+	::memcpy(buff, _buff, _bytes);
+	return new MemoryHeap(_bytes, buff);
 }
 
 //-----------------------------------------------------------------------------
@@ -81,6 +94,11 @@ bool MemoryDIB::AllocBuffer(size_t width, size_t height, size_t bitsPerPixel)
 	return _hBitmap != nullptr && _buff != nullptr;
 }
 
+Memory *MemoryDIB::Clone() const
+{
+	return nullptr;
+}
+
 #else
 
 //-----------------------------------------------------------------------------
@@ -95,6 +113,14 @@ MemoryHeap::MemoryHeap(size_t bytes)
 MemoryHeap::~MemoryHeap()
 {
 	::free(_buff);
+}
+
+Memory *MemoryHeap::Clone() const
+{
+	void *buff = ::malloc(_bytes);
+	if (buff == nullptr) return nullptr;
+	::memcpy(buff, _buff, _bytes);
+	return new MemoryHeap(_bytes, buff);
 }
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef __STDAFX_H__
 #define __STDAFX_H__
 #include <gura.h>
+#include <gura/Class_arrayT.h>
 #define LPCTSTR LPCWSTR
 #define LPFINDREPLACE LPFINDREPLACEW
 #include <wx/wx.h>

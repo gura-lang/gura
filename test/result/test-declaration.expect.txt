@@ -752,18 +752,6 @@ matrix
   matrix#submat(row:number, col:number, nrows:number, ncols:number):map
   matrix.translate(tx:number, ty:number, tz?:number):static:map:[deg] {block?}
   matrix#transpose()
-matrix@char
-matrix@double
-matrix@float
-matrix@int
-matrix@int32
-matrix@int64
-matrix@short
-matrix@uchar
-matrix@uint
-matrix@uint32
-matrix@uint64
-matrix@ushort
 memory
   memory#array@char():map {block?}
   memory#array@double():map {block?}
@@ -970,18 +958,6 @@ template
   template#read(src:stream:r):void:[lasteol,noindent]
   template#render(dst?:stream:w)
   template#super(symbol:symbol):void
-tensor@char
-tensor@double
-tensor@float
-tensor@int
-tensor@int32
-tensor@int64
-tensor@short
-tensor@uchar
-tensor@uint
-tensor@uint32
-tensor@uint64
-tensor@ushort
 timedelta
 token
 undefined

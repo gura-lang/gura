@@ -30,6 +30,7 @@ public:
 	inline char *GetPointer(size_t offset) { return _buff + offset; }
 	inline const char *GetPointer() const { return _buff; }
 	inline const char *GetPointer(size_t offset) const { return _buff + offset; }
+	virtual Memory *Clone() const;
 private:
 	inline Memory(const Memory &memory) {}
 };
@@ -55,6 +56,10 @@ public:
 class GURA_DLLDECLARE MemoryHeap : public Memory {
 public:
 	MemoryHeap(size_t bytes);
+private:
+	inline MemoryHeap(size_t bytes, void *buff) : Memory(bytes, buff) {}
+public:
+	virtual Memory *Clone() const;
 protected:
 	virtual ~MemoryHeap();
 };
@@ -73,6 +78,7 @@ protected:
 public:
 	inline HBITMAP GetHBITMAP() { return _hBitmap; }
 	bool AllocBuffer(size_t width, size_t height, size_t bitsPerPixel);
+	virtual Memory *Clone() const;
 };
 #endif
 

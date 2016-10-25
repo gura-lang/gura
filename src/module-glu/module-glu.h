@@ -5,6 +5,7 @@
 #ifndef __GURA_MODULE_GLU_H__
 #define __GURA_MODULE_GLU_H__
 #include <gura.h>
+#include <gura/Class_arrayT.h>
 #if defined(GURA_ON_DARWIN)
 #include <OpenGL/glu.h>
 #else
