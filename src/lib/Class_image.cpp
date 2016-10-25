@@ -2,6 +2,7 @@
 // Gura class: image
 //=============================================================================
 #include "stdafx.h"
+#include "gura/Class_arrayT.h"
 
 namespace Gura {
 

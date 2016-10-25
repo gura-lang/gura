@@ -2,6 +2,7 @@
 // ArrayT
 //=============================================================================
 #include "stdafx.h"
+#include "gura/ArrayT.h"
 
 namespace Gura {
 

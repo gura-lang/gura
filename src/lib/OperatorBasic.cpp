@@ -2,6 +2,7 @@
 // OperatorBasic
 //=============================================================================
 #include "stdafx.h"
+#include "gura/Class_arrayT.h"
 #include <math.h>
 
 #define LoopOn_ArrayT() \

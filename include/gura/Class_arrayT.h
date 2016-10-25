@@ -5,6 +5,7 @@
 #define __GURA_CLASS_ARRAYT_H__
 
 #include "Class.h"
+#include "ArrayT.h"
 
 namespace Gura {
 
