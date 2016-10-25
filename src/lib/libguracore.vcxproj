@@ -218,7 +218,6 @@
     <ClCompile Include="Class_iterator.cpp" />
     <ClCompile Include="Class_list.cpp" />
     <ClCompile Include="Class_matrix.cpp" />
-    <ClCompile Include="Class_matrixT.cpp" />
     <ClCompile Include="Class_memory.cpp" />
     <ClCompile Include="Class_monitor.cpp" />
     <ClCompile Include="Class_nil.cpp" />
@@ -234,7 +233,6 @@
     <ClCompile Include="Class_suffixmgr.cpp" />
     <ClCompile Include="Class_symbol.cpp" />
     <ClCompile Include="Class_template.cpp" />
-    <ClCompile Include="Class_tensorT.cpp" />
     <ClCompile Include="Class_timedelta.cpp" />
     <ClCompile Include="Class_token.cpp" />
     <ClCompile Include="Class_undefined.cpp" />
@@ -261,7 +259,6 @@
     <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="IteratorBasic.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="MatrixT.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="Module.cpp" />
@@ -285,7 +282,6 @@
     <ClCompile Include="SuffixMgr.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="Template.cpp" />
-    <ClCompile Include="TensorT.cpp" />
     <ClCompile Include="Token.cpp" />
     <ClCompile Include="Unicode-CP932.cpp" />
     <ClCompile Include="Unicode-CP936.cpp" />
@@ -355,7 +351,6 @@
     <ClInclude Include="..\..\include\gura\Class_iterator.h" />
     <ClInclude Include="..\..\include\gura\Class_list.h" />
     <ClInclude Include="..\..\include\gura\Class_matrix.h" />
-    <ClInclude Include="..\..\include\gura\Class_matrixT.h" />
     <ClInclude Include="..\..\include\gura\Class_memory.h" />
     <ClInclude Include="..\..\include\gura\Class_monitor.h" />
     <ClInclude Include="..\..\include\gura\Class_nil.h" />
@@ -371,7 +366,6 @@
     <ClInclude Include="..\..\include\gura\Class_suffixmgr.h" />
     <ClInclude Include="..\..\include\gura\Class_symbol.h" />
     <ClInclude Include="..\..\include\gura\Class_template.h" />
-    <ClInclude Include="..\..\include\gura\Class_tensorT.h" />
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Class_token.h" />
     <ClInclude Include="..\..\include\gura\Class_undefined.h" />
@@ -395,7 +389,6 @@
     <ClInclude Include="..\..\include\gura\Iterator.h" />
     <ClInclude Include="..\..\include\gura\IteratorBasic.h" />
     <ClInclude Include="..\..\include\gura\Matrix.h" />
-    <ClInclude Include="..\..\include\gura\MatrixT.h" />
     <ClInclude Include="..\..\include\gura\Memory.h" />
     <ClInclude Include="..\..\include\gura\MemoryPool.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
@@ -419,7 +412,6 @@
     <ClInclude Include="..\..\include\gura\SuffixMgr.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
     <ClInclude Include="..\..\include\gura\Template.h" />
-    <ClInclude Include="..\..\include\gura\TensorT.h" />
     <ClInclude Include="..\..\include\gura\Token.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP932.h" />
     <ClInclude Include="..\..\include\gura\Unicode-CP936.h" />
