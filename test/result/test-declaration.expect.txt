@@ -311,7 +311,9 @@ println(values*):map:void
 public():void {block}
 raise(error:error, msg:string => 'error', value?)
 rand(range?:number) {block?}
+rand@normal(mu?:number, sigma?:number) {block?}
 rands(range?:number, num?:number) {block?}
+rands@normal(mu?:number, sigma?:number, num?:number) {block?}
 randseed(seed:number):void
 range(num:number, num_end?:number, step?:number):map {block?}
 rational:class = <class:rational(numer:number, denom?:number):map {block?}>

@@ -302,3 +302,22 @@ testcase('operators applying arguments - 2') {
 	tester(`(f * [1, 2, 3, 4]))
 	tester(`(f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]]))
 }
+testcase('boolean with "+", "-" and "*" operators') {
+	cross (x in [false, true], y in [false, true]) {
+		printf('%s + %s .. %d\n', x, y, x + y)
+		printf('%s - %s .. %d\n', x, y, x - y)
+		printf('%s * %s .. %d\n', x, y, x * y)
+	}
+	for (x in [false, true]) {
+		y = 5
+		printf('%s + %s .. %d\n', x, y, x + y)
+		printf('%s - %s .. %d\n', x, y, x - y)
+		printf('%s * %s .. %d\n', x, y, x * y)
+	}
+	for (y in [false, true]) {
+		x = 5
+		printf('%s + %s .. %d\n', x, y, x + y)
+		printf('%s - %s .. %d\n', x, y, x - y)
+		printf('%s * %s .. %d\n', x, y, x * y)
+	}
+}

@@ -651,6 +651,21 @@ Gura_ImplementBinaryOperator(Add, number, number)
 	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
 }
 
+Gura_ImplementBinaryOperator(Add, boolean, boolean)
+{
+	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Add, number, boolean)
+{
+	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Add, boolean, number)
+{
+	return Value(valueLeft.GetNumber() + valueRight.GetNumber());
+}
+
 Gura_ImplementBinaryOperator(Add, complex, complex)
 {
 	return Value(valueLeft.GetComplex() + valueRight.GetComplex());
@@ -841,6 +856,21 @@ Gura_ImplementBinaryOperator(Sub, number, number)
 	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
 }
 
+Gura_ImplementBinaryOperator(Sub, boolean, boolean)
+{
+	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Sub, number, boolean)
+{
+	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Sub, boolean, number)
+{
+	return Value(valueLeft.GetNumber() - valueRight.GetNumber());
+}
+
 Gura_ImplementBinaryOperator(Sub, complex, complex)
 {
 	return Value(valueLeft.GetComplex() - valueRight.GetComplex());
@@ -1022,6 +1052,21 @@ ImplementArrayTOperators(Sub)
 // [A * B] ... BinaryOperator(Mul, A, B)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mul, number, number)
+{
+	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Mul, boolean, boolean)
+{
+	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Mul, number, boolean)
+{
+	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
+}
+
+Gura_ImplementBinaryOperator(Mul, boolean, number)
 {
 	return Value(valueLeft.GetNumber() * valueRight.GetNumber());
 }
@@ -2114,6 +2159,9 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperatorSuffix(Question, any);
 	Gura_AssignUnaryOperatorSuffix(Each, any);
 	Gura_AssignBinaryOperator(Add, number, number);
+	Gura_AssignBinaryOperator(Add, boolean, boolean);
+	Gura_AssignBinaryOperator(Add, number, boolean);
+	Gura_AssignBinaryOperator(Add, boolean, number);
 	Gura_AssignBinaryOperator(Add, number, complex);
 	Gura_AssignBinaryOperator(Add, number, rational);
 	Gura_AssignBinaryOperator(Add, complex, number);
@@ -2134,6 +2182,9 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Add, vertex, vertex);
 	AssignArrayTOperators(Add);
 	Gura_AssignBinaryOperator(Sub, number, number);
+	Gura_AssignBinaryOperator(Sub, boolean, boolean);
+	Gura_AssignBinaryOperator(Sub, number, boolean);
+	Gura_AssignBinaryOperator(Sub, boolean, number);
 	Gura_AssignBinaryOperator(Sub, number, complex);
 	Gura_AssignBinaryOperator(Sub, number, rational);
 	Gura_AssignBinaryOperator(Sub, complex, number);
@@ -2150,6 +2201,9 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Sub, vertex, vertex);
 	AssignArrayTOperators(Sub);
 	Gura_AssignBinaryOperator(Mul, number, number);
+	Gura_AssignBinaryOperator(Mul, boolean, boolean);
+	Gura_AssignBinaryOperator(Mul, number, boolean);
+	Gura_AssignBinaryOperator(Mul, boolean, number);
 	Gura_AssignBinaryOperator(Mul, number, complex);
 	Gura_AssignBinaryOperator(Mul, number, rational);
 	Gura_AssignBinaryOperator(Mul, complex, number);
