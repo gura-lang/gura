@@ -147,8 +147,8 @@ bool Iterator_Rand::DoNext(Environment &env, Value &value)
 		_idx++;
 	}
 	value = Value((_range > 0)?
-		static_cast<Number>(static_cast<int>(Random::Real2() * _range)) :
-		static_cast<Number>(Random::Real2()));
+		static_cast<Number>(static_cast<int>(Random::Uniform_CloseOpen() * _range)) :
+		static_cast<Number>(Random::Uniform_CloseOpen()));
 	return true;
 }
 
@@ -171,6 +171,44 @@ String Iterator_Rand::ToString() const
 }
 
 void Iterator_Rand::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_Randn
+//-----------------------------------------------------------------------------
+Iterator *Iterator_Randn::GetSource()
+{
+	return nullptr;
+}
+
+bool Iterator_Randn::DoNext(Environment &env, Value &value)
+{
+	if (_cnt >= 0) {
+		if (_idx >= _cnt) return false;
+		_idx++;
+	}
+	value = Value(_mu + Random::Normal() * _sigma);
+	return true;
+}
+
+String Iterator_Randn::ToString() const
+{
+	String rtn = "rands@normal(";
+	rtn += NumberToString(_mu);
+	rtn += ",";
+	rtn += NumberToString(_sigma);
+	rtn += ",";
+	if (_cnt >= 0) {
+		rtn += NumberToString(_cnt);
+	} else {
+		rtn += "nil";
+	}
+	rtn += ")";
+	return rtn;
+}
+
+void Iterator_Randn::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

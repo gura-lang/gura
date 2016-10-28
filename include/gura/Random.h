@@ -12,7 +12,10 @@ namespace Gura {
 class GURA_DLLDECLARE Random {
 public:
 	static void Initialize(ULong seed);
-	static double Real2();
+	static double Uniform_OpenOpen();	// (0, 1)
+	static double Uniform_CloseOpen();	// [0, 1)
+	static double Uniform_OpenClose();	// (0, 1]
+	static double Normal();
 	int operator()(int n);
 };
 

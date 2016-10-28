@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(helper.test) {*}
 
-testcase {
+testcase('hanoi solver') {
 	hanoi(n:number, from:string, to:string, via:string) = {
 		if (n == 1) {
 			printf('%s => %s\n', from, to)
@@ -13,7 +13,7 @@ testcase {
 	}
 	hanoi(3, 'a', 'b', 'c')
 }
-testcase {
+testcase('fizz-buzz') {
 	x = 1..100
 	printf('[%d,%s%s]', x,
 			cond(x % 3 == 0, 'Fizz', ''), cond(x % 5 == 0, 'Buzz', ''))
@@ -35,7 +35,7 @@ testcase {
 		wdayAccum = (wdayAccum + datetime.monthdays(year, 12)) % 7
 	}
 }
-testcase {
+testcase('calendar') {
 	import(calendar)
 	(1..4).each {|ncols|
 		println(calendar.calendar(2010, ncols => ncols))
@@ -43,6 +43,7 @@ testcase {
 }
 function(nRange:number, nTrial:number) {
 	println('-- Histogram of regular distribution --')
+	randseed(0)
 	item = struct(num:number, mark:string):map
 	printbar(numList+:number):map = {
 		itemList = item(numList, ['*', '+', '#', '-', '&'])
@@ -58,7 +59,11 @@ function(nRange:number, nTrial:number) {
 	regular_distrib(nSamples:number) = {
 		hist = repeat(nRange):list { 0 }
 		repeat (nTrial) {
-			x = (dim(nSamples) {rand(nRange)}).average()
+			//x = (dim(nSamples) {rand(nRange)}).average()
+			repeat {
+				x = rand@normal(nRange / 2, 3)
+				(0 <= x && x < nRange) && break
+			}
 			hist[int(x)] += 1
 		}
 		hist
@@ -69,7 +74,7 @@ function(nRange:number, nTrial:number) {
 	hist_50 = regular_distrib(50)
 	printbar(hist_5, hist_10, hist_30, hist_50)
 }(30, 300)
-testcase {
+testcase('fibonacci series') {
 	fib(n:number) = {
 		[a, b] = [0, 1]
 		while (b < n):list { [a, b] = [b, a + b], a }
@@ -81,7 +86,7 @@ testcase {
 	foo(x) = if (x <= 0) { [] } else { [x, foo(x - 1)] }
 	println(foo(3).tostring())
 }
-testcase {
+testcase('prime numbers') {
 	primes(n:number) = for (i in 2..n):xlist {
 		for (j in 2..i-1) {
 			if (i % j == 0) { break } else { i }
@@ -91,7 +96,7 @@ testcase {
 	printf('prime numbers up to %d: ', n)
 	println(format('%d', primes(n)).join(', '))
 }
-testcase {
+testcase('ackermann') {
 	Ackermann(m:number, n:number) = {
 		if (m == 0) {
 			n + 1
@@ -106,7 +111,7 @@ testcase {
 	print(Ackermann(2, 3), ' ... should be 9\n')
 	//print(Ackermann(3, 4), ' ... should be 125\n')
 }
-testcase {
+testcase('quick sort') {
 	quicksort(seq[]) = {
 		if (seq.len() < 1) {
 			return(seq)
@@ -119,11 +124,12 @@ testcase {
 			list(left, [pivot], right)
 		}
 	}
+	randseed(0)
 	repeat (10) {
 		println(quicksort(dim(20) {rand(10)})):nomap
 	}
 }
-testcase {
+testcase('') {
 	// http://konohaotoshi.blog69.fc2.com/blog-category-22.html
 	birth_number(str:string) = {
 		if (str.len() <= 1) {
@@ -136,7 +142,7 @@ testcase {
 	tester(`birth_number('19900101'))
 	tester(`format('0x%04x', [0..99] ** 2).join(', '))
 }
-testcase {
+testcase('number plate solver') {
 	convToNumber(str:string):map = if (str == ' ') { nil } else { str.tonumber():raise }
 	makeBoard(boardRaw:string) = boardRaw.split('\n').each():list {|line|
 		convToNumber(line.split()):list

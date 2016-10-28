@@ -109,6 +109,24 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Iterator_Randn
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_Randn : public Iterator {
+private:
+	double _mu;
+	double _sigma;
+	int _cnt;
+	int _idx;
+public:
+	inline Iterator_Randn(double mu, double sigma, int cnt) :
+		Iterator((cnt < 0)? Infinite : Finite), _mu(mu), _sigma(sigma), _cnt(cnt), _idx(0) {}
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_Range
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Range : public Iterator {

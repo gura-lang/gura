@@ -2128,10 +2128,30 @@ Gura_ImplementFunction(rand)
 {
 	if (arg.Is_number(0)) {
 		ULong num = arg.GetULong(0);
-		Number result = static_cast<ULong>(Random::Real2() * num);
+		Number result = static_cast<ULong>(Random::Uniform_CloseOpen() * num);
 		return Value(result);
 	}
-	return ReturnValue(env, arg, Value(Random::Real2()));
+	return ReturnValue(env, arg, Value(Random::Uniform_CloseOpen()));
+}
+
+// rand@normal(mu?:number, sigma?:number) {block?}
+Gura_DeclareFunctionAlias(rand_at_normal, "rand@normal")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a normal distribution random number with a mean value of `mu` and a standard deviation of `sigma`.\n"
+		"The default values for `mu` and `sigma` are `0` and `1` respectively.");
+}
+
+Gura_ImplementFunction(rand_at_normal)
+{
+	double mu = arg.Is_number(0)? arg.GetDouble(0) : 0;
+	double sigma = arg.Is_number(1)? arg.GetDouble(1) : 1;
+	return ReturnValue(env, arg, Value(mu + Random::Normal() * sigma));
 }
 
 // rands(range?:number, num?:number) {block?}
@@ -2163,6 +2183,42 @@ Gura_ImplementFunction(rands)
 	Iterator *pIterator = new Iterator_Rand(
 				arg.Is_number(0)? arg.GetInt(0) : 0,
 				arg.Is_number(1)? arg.GetInt(1) : -1);
+	return ReturnIterator(env, arg, pIterator);
+}
+
+// rands@normal(mu?:number, sigma?:number, num?:number) {block?}
+Gura_DeclareFunctionAlias(rands_at_normal, "rands@normal")
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an iterator that returns normal distribution random numbers\n"
+		"with a mean value of `mu` and a standard deviation of `sigma`.\n"
+		"The default values for `mu` and `sigma` are `0` and `1` respectively.\n"
+		"\n"
+		"If argument `range` is not specified, it generates random numbers in a range of [0, 1).\n"
+		"\n"
+		"In default, the created iterator infinitely generates random numbers.\n"
+		"The argument `num` specifies how many elements should be generated.\n"
+		"\n"
+		GURA_HELPTEXT_ITERATOR_en()
+		"\n"
+		"Below is an example to create a create that generates random numbers:\n"
+		"\n"
+		"    x = randns(100)\n"
+		"    // x is an infinite iterator to generates random numbers between 0 and 99\n");
+}
+
+Gura_ImplementFunction(rands_at_normal)
+{
+	Iterator *pIterator = new Iterator_Randn(
+				arg.Is_number(0)? arg.GetInt(0) : 0,
+				arg.Is_number(1)? arg.GetInt(1) : 1,
+				arg.Is_number(2)? arg.GetInt(2) : -1);
 	return ReturnIterator(env, arg, pIterator);
 }
 
@@ -2389,7 +2445,9 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(min);
 	// Random
 	Gura_AssignFunction(rand);
+	Gura_AssignFunction(rand_at_normal);
 	Gura_AssignFunction(rands);
+	Gura_AssignFunction(rands_at_normal);
 	Gura_AssignFunction(randseed);
 	// Property Listing
 	Gura_AssignFunction(dir);
