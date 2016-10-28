@@ -94,3 +94,21 @@ testcase('ramp, unitstep and delta') {
 	tester(`math.unitstep([-5..5]))
 	tester(`math.delta([-5..5]))
 }
+testcase('random') {
+	randseed(0)
+	tester(`rand())
+	randseed(0)
+	tester(`rand(100))
+	randseed(0)
+	tester(`rand@normal())
+	randseed(0)
+	tester(`rand@normal(50, 30))
+	randseed(0)
+	tester(`rands(num => 10):list)
+	randseed(0)
+	tester(`rands(100, num => 10):list)
+	randseed(0)
+	tester(`rands@normal(num => 10):list)
+	randseed(0)
+	tester(`rands@normal(50, 30, num => 10):list)
+}
