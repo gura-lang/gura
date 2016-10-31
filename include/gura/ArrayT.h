@@ -103,23 +103,6 @@ public:
 			*p++ = static_cast<T_Elem>(value.GetNumber());
 		}
 		return pArrayT.release();
-#if 0
-		Signal &sig = env.GetSignal();
-		ValueList valList;
-		Value value;
-		while (pIterator->Next(env, value)) valList.push_back(value);
-		if (sig.IsSignalled()) return nullptr;
-		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
-		T_Elem *p = pArrayT->GetPointer();
-		foreach_const (ValueList, pValue, valList) {
-			if (!pValue->Is_number() && !pValue->Is_boolean()) {
-				sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-				return nullptr;
-			}
-			*p++ = static_cast<T_Elem>(pValue->GetNumber());
-		}
-		return pArrayT.release();
-#endif
 	}
 private:
 	inline ~ArrayT() {}
