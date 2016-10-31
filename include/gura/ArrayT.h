@@ -36,15 +36,12 @@ public:
 	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
 #endif
-	inline Memory &GetMemory() { return *_pMemory; }
-	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
 	inline const T_Elem *GetPointer() const {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
-	inline size_t GetOffsetBase() const { return _offsetBase; }
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
 	void Fill(const T_Elem &num) {

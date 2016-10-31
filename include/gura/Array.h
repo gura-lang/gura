@@ -40,7 +40,10 @@ public:
 	}
 	inline Array(Memory *pMemory, const Dimensions &dims, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _dims(dims), _offsetBase(offsetBase) {}
+	inline Memory &GetMemory() { return *_pMemory; }
+	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline size_t GetSize() const { return _dims[0].GetCount(); }
+	inline size_t GetOffsetBase() const { return _offsetBase; }
 };
 	
 }
