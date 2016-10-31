@@ -95,6 +95,13 @@ testcase('ramp, unitstep and delta') {
 	tester(`math.delta([-5..5]))
 }
 testcase('random') {
+	PrintHist(samples:iterator) = {
+		samples = int(samples):list
+		[sampleMin, sampleMax] = [samples.min(), samples.max()]
+		hists = dim(sampleMax - sampleMin + 1) {0}
+		samples.each {|sample| hists[sample - sampleMin] += 1}
+		printf('%3d:%s\n', sampleMin.., hists * '*')
+	}
 	randseed(0)
 	tester(`rand())
 	randseed(0)
@@ -111,4 +118,13 @@ testcase('random') {
 	tester(`rands@normal(num => 10):list)
 	randseed(0)
 	tester(`rands@normal(50, 30, num => 10):list)
+	randseed(0)
+	println('sigma = 3, number of samples = 300')
+	PrintHist(rands@normal(0, 3, 300))
+	randseed(0)
+	println('sigma = 5, number of samples = 300')
+	PrintHist(rands@normal(0, 5, 300))
+	randseed(0)
+	println('sigma = 7, number of samples = 300')
+	PrintHist(rands@normal(0, 7, 300))
 }
