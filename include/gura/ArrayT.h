@@ -4,9 +4,7 @@
 #ifndef __GURA_ARRAYT_H__
 #define __GURA_ARRAYT_H__
 
-#include "Memory.h"
-#include "Iterator.h"
-#include "Stream.h"
+#include "Array.h"
 
 namespace Gura {
 

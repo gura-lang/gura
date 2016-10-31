@@ -187,6 +187,7 @@
     </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Argument.cpp" />
+    <ClCompile Include="Array.cpp" />
     <ClCompile Include="ArrayT.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
     <ClInclude Include="..\..\include\gura\Argument.h" />
+    <ClInclude Include="..\..\include\gura\Array.h" />
     <ClInclude Include="..\..\include\gura\ArrayT.h" />
     <ClInclude Include="..\..\include\gura\Audio.h" />
     <ClInclude Include="..\..\include\gura\Binary.h" />
