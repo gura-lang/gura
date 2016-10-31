@@ -12,21 +12,30 @@ namespace Gura {
 // ArrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class ArrayT {
+class ArrayT : public Array {
+#if 0
 private:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
 	size_t _cnt;
 	size_t _offsetBase;
+#endif
 public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
+	inline ArrayT(const ArrayT &src) : Array(src) {}
+	inline ArrayT(size_t cnt, size_t offsetBase = 0) :
+		Array(new MemoryHeap(sizeof(T_Elem) * cnt), cnt, offsetBase) {}
+	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) :
+		Array(pMemory, cnt, offsetBase) {}
+#if 0
 	inline ArrayT(const ArrayT &src) : _cntRef(1),
 		_pMemory(src._pMemory->Reference()), _cnt(src._cnt), _offsetBase(src._offsetBase) {}
 	inline ArrayT(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
 	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
 		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
+#endif
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline T_Elem *GetPointer() {
@@ -35,13 +44,12 @@ public:
 	inline const T_Elem *GetPointer() const {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
-	inline size_t GetSize() const { return _cnt; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
 	void Fill(const T_Elem &num) {
 		T_Elem *p = GetPointer();
-		for (size_t i = 0; i < _cnt; i++, p++) {
+		for (size_t i = 0; i < GetSize(); i++, p++) {
 			*p = num;
 		}
 	}
@@ -60,9 +68,9 @@ public:
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
 	}
 	void CopyToList(ValueList &valList) const {
-		if (valList.empty()) valList.reserve(_cnt);
+		if (valList.empty()) valList.reserve(GetSize());
 		const T_Elem *p = GetPointer();
-		for (size_t cnt = _cnt; cnt > 0; cnt--, p++) {
+		for (size_t cnt = GetSize(); cnt > 0; cnt--, p++) {
 			valList.push_back(Value(*p));
 		}
 	}
