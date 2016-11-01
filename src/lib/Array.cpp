@@ -14,7 +14,7 @@ bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)
 	if (Dimensions::IsSameShape(arrayA.GetDimensions(), arrayB.GetDimensions())) {
 		return true;
 	}
-	
+	sig.SetError(ERR_ValueError, "different dimension of arrays");
 	return false;
 }
 
