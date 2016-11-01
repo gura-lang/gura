@@ -117,7 +117,7 @@ bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
 	const T_ElemR *pElemR = arrayR.GetPointer();
 	size_t cnt = arrayL.GetSize();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
-		*pResult = *pElemL + *pElemR;
+		*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
 	}
 	return true;
 }
@@ -131,7 +131,7 @@ bool Sub(Signal &sig, ArrayT<T_ElemResult> &result,
 	const T_ElemR *pElemR = arrayR.GetPointer();
 	size_t cnt = arrayL.GetSize();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
-		*pResult = *pElemL - *pElemR;
+		*pResult = static_cast<T_ElemResult>(*pElemL - *pElemR);
 	}
 	return true;
 }

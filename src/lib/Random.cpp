@@ -39,7 +39,7 @@ double Random::Uniform_OpenClose()
 // normal distribution random numbers
 double Random::Normal()
 {
-	return ::sqrt(-2.0 * ::log(Uniform_OpenOpen())) * ::sin(2.0 * M_PI * Uniform_OpenOpen());
+	return ::sqrt(-2.0 * ::log(Uniform_OpenOpen())) * ::sin(2.0 * Math_PI * Uniform_OpenOpen());
 }
 
 int Random::operator()(int n)
