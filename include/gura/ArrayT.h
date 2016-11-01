@@ -136,6 +136,38 @@ bool Sub(Signal &sig, ArrayT<T_ElemResult> &result,
 	return true;
 }
 
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+bool Mul(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayL.GetSize();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
+		*pResult = static_cast<T_ElemResult>(*pElemL * *pElemR);
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+bool Div(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayL.GetSize();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
+		if (*pElemR == 0) {
+			sig.SetError(ERR_ZeroDivisionError, "divided by zero");
+			return false;
+		}
+		*pResult = static_cast<T_ElemResult>(*pElemL / *pElemR);
+	}
+	return true;
+}
+
 template<> GURA_DLLDECLARE void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void ArrayT<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;

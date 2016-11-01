@@ -1,4 +1,4 @@
-#!/usr/bin/env gura
+#!/usr/bin/env gura --naked
 import(argopt)
 
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
