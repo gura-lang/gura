@@ -13,13 +13,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 class ArrayT : public Array {
-#if 0
-private:
-	int _cntRef;
-	AutoPtr<Memory> _pMemory;
-	size_t _cnt;
-	size_t _offsetBase;
-#endif
 public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
@@ -28,14 +21,6 @@ public:
 		Array(new MemoryHeap(sizeof(T_Elem) * cnt), cnt, offsetBase) {}
 	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) :
 		Array(pMemory, cnt, offsetBase) {}
-#if 0
-	inline ArrayT(const ArrayT &src) : _cntRef(1),
-		_pMemory(src._pMemory->Reference()), _cnt(src._cnt), _offsetBase(src._offsetBase) {}
-	inline ArrayT(size_t cnt, size_t offsetBase = 0) : _cntRef(1),
-		_pMemory(new MemoryHeap(sizeof(T_Elem) * cnt)), _cnt(cnt), _offsetBase(offsetBase) {}
-	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) : _cntRef(1),
-		_pMemory(pMemory), _cnt(cnt), _offsetBase(offsetBase) {}
-#endif
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
 	}
@@ -110,6 +95,46 @@ public:
 private:
 	inline ~ArrayT() {}
 };
+
+template<typename T_ElemResult, typename T_Elem>
+bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_Elem *pElem = array.GetPointer();
+	size_t cnt = array.GetSize();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+		*pResult = -*pElem;
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayL.GetSize();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
+		*pResult = *pElemL + *pElemR;
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+bool Sub(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayL.GetSize();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
+		*pResult = *pElemL - *pElemR;
+	}
+	return true;
+}
 
 template<> GURA_DLLDECLARE void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;

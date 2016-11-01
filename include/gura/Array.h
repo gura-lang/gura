@@ -24,7 +24,10 @@ public:
 		inline size_t GetCount() const { return _cnt; }
 		inline size_t GetStride() const { return _stride; }
 	};
-	typedef std::vector<Dimension> Dimensions;
+	class Dimensions : public std::vector<Dimension> {
+	public:
+		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
+	};
 protected:
 	int _cntRef;
 	AutoPtr<Memory> _pMemory;
@@ -42,8 +45,11 @@ public:
 		_pMemory(pMemory), _dims(dims), _offsetBase(offsetBase) {}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
+	inline const Dimensions &GetDimensions() const { return _dims; }
 	inline size_t GetSize() const { return _dims[0].GetCount(); }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
+public:
+	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
 };
 	
 }
