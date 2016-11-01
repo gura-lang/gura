@@ -14,30 +14,30 @@ T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pElem++, pResult++)
 
 #define LoopOn_ArrayTAndArrayT() \
-ArrayT<T_ElemLeft> *pArrayTLeft = Object_arrayT<T_ElemLeft>::GetObject(valueLeft)->GetArrayT(); \
-ArrayT<T_ElemRight> *pArrayTRight = Object_arrayT<T_ElemRight>::GetObject(valueRight)->GetArrayT(); \
+ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT(); \
+ArrayT<T_ElemR> *pArrayTRight = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT(); \
 size_t cnt = ChooseMin(pArrayTLeft->GetSize(), pArrayTRight->GetSize()); \
 AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
-T_ElemLeft *pLeft = pArrayTLeft->GetPointer(); \
-T_ElemRight *pRight = pArrayTRight->GetPointer(); \
+T_ElemL *pLeft = pArrayTLeft->GetPointer(); \
+T_ElemR *pRight = pArrayTRight->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++)
 
 #define LoopOn_ArrayTAndNumber() \
-ArrayT<T_ElemLeft> *pArrayTLeft = Object_arrayT<T_ElemLeft>::GetObject(valueLeft)->GetArrayT(); \
+ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT(); \
 Number numRight = valueRight.GetNumber(); \
 size_t cnt = pArrayTLeft->GetSize(); \
 AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
-T_ElemLeft *pLeft = pArrayTLeft->GetPointer(); \
+T_ElemL *pLeft = pArrayTLeft->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pLeft++, pResult++)
 
 #define LoopOn_NumberAndArrayT() \
 Number numLeft = valueLeft.GetNumber(); \
-ArrayT<T_ElemRight> *pArrayTRight = Object_arrayT<T_ElemRight>::GetObject(valueRight)->GetArrayT(); \
+ArrayT<T_ElemR> *pArrayTRight = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT(); \
 size_t cnt = pArrayTRight->GetSize(); \
 AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
-T_ElemRight *pRight = pArrayTRight->GetPointer(); \
+T_ElemR *pRight = pArrayTRight->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pRight++, pResult++)
 
@@ -828,22 +828,22 @@ Value Add_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Add_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft + static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft + static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Add_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) + *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) + *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1018,7 +1018,7 @@ Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 									   vertexL.z - vertexR.z)));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Sub_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1028,22 +1028,22 @@ Value Sub_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Sub_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft - static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft - static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Sub_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) - *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) - *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1248,7 +1248,7 @@ Gura_ImplementBinaryOperator(Mul, vertex, number)
 									   vertex.z * num)));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Mul_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1258,22 +1258,22 @@ Value Mul_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Mul_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft * static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft * static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Mul_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) * *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) * *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1390,7 +1390,7 @@ Gura_ImplementBinaryOperator(Div, vertex, number)
 									   vertex.z / numRight)));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Div_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1405,12 +1405,12 @@ Value Div_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Div_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	Signal &sig = env.GetSignal();
-	ArrayT<T_ElemLeft> *pArrayTLeft = Object_arrayT<T_ElemLeft>::GetObject(valueLeft)->GetArrayT();
+	ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1418,15 +1418,15 @@ Value Div_ArrayTAndNumber(Environment &env,
 	}
 	size_t cnt = pArrayTLeft->GetSize();
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayTLeft->GetPointer();
+	T_ElemL *pLeft = pArrayTLeft->GetPointer();
 	T_ElemResult *pResult = pArrayTResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
-		*pResult = *pLeft / static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft / static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Div_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1436,7 +1436,7 @@ Value Div_NumberAndArrayT(Environment &env,
 			Operator::SetError_DivideByZero(sig);
 			return Value::Nil;
 		}
-		*pResult = static_cast<T_ElemRight>(numLeft) / *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) / *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1457,7 +1457,7 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 	return Value(::fmod(valueLeft.GetNumber(), numRight));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Mod_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1472,12 +1472,12 @@ Value Mod_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Mod_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	Signal &sig = env.GetSignal();
-	ArrayT<T_ElemLeft> *pArrayTLeft = Object_arrayT<T_ElemLeft>::GetObject(valueLeft)->GetArrayT();
+	ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	Number numRight = valueRight.GetNumber();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
@@ -1485,7 +1485,7 @@ Value Mod_ArrayTAndNumber(Environment &env,
 	}
 	size_t cnt = pArrayTLeft->GetSize();
 	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
-	T_ElemLeft *pLeft = pArrayTLeft->GetPointer();
+	T_ElemL *pLeft = pArrayTLeft->GetPointer();
 	T_ElemResult *pResult = pArrayTResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
 		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(numRight)));
@@ -1493,7 +1493,7 @@ Value Mod_ArrayTAndNumber(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Mod_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1541,7 +1541,7 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Pow_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1551,7 +1551,7 @@ Value Pow_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Pow_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1561,7 +1561,7 @@ Value Pow_ArrayTAndNumber(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Pow_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1801,7 +1801,7 @@ Gura_ImplementBinaryOperator(And, any, nil)
 	return Value::Nil;	// any & nil -> nil
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value And_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1811,22 +1811,22 @@ Value And_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value And_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft & static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft & static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value And_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) & *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) & *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1856,7 +1856,7 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 	return valueLeft;	// any | nil -> any
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Or_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1866,22 +1866,22 @@ Value Or_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Or_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft | static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft | static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Or_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) | *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) | *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1904,7 +1904,7 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 	return Value((flagLeft && !flagRight) || (!flagLeft && flagRight));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Xor_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1914,22 +1914,22 @@ Value Xor_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Xor_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft ^ static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft ^ static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Xor_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) ^ *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) ^ *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -1963,7 +1963,7 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 	return valueLeft;
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Shl_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -1973,22 +1973,22 @@ Value Shl_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Shl_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft << static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft << static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Shl_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) << *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) << *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
@@ -2004,7 +2004,7 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 							static_cast<ULong>(valueRight.GetNumber()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Shr_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -2014,22 +2014,22 @@ Value Shr_ArrayTAndArrayT(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemLeft>
+template<typename T_ElemResult, typename T_ElemL>
 Value Shr_ArrayTAndNumber(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_ArrayTAndNumber() {
-		*pResult = *pLeft >> static_cast<T_ElemLeft>(numRight);
+		*pResult = *pLeft >> static_cast<T_ElemL>(numRight);
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
 
-template<typename T_ElemResult, typename T_ElemRight>
+template<typename T_ElemResult, typename T_ElemR>
 Value Shr_NumberAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	LoopOn_NumberAndArrayT() {
-		*pResult = static_cast<T_ElemRight>(numLeft) >> *pRight;
+		*pResult = static_cast<T_ElemR>(numLeft) >> *pRight;
 	}
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
 }
