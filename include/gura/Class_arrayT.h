@@ -434,7 +434,7 @@ public:
 			AutoPtr<ArrayT<T_Elem> > pArrayT(
 				Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 			Object_list *pObjList = value.InitAsList(env);
-			pObjList->Reserve(pArrayT->GetSize());
+			//pObjList->Reserve(pArrayT->GetSize());
 			pArrayT->CopyToList(pObjList->GetListForModify());
 			pObjList->SetValueType(VTYPE_number);
 			return true;

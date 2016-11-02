@@ -22,10 +22,10 @@ public:
 	inline ArrayT(Memory *pMemory, size_t cnt, size_t offsetBase = 0) :
 		Array(pMemory, cnt, offsetBase) {}
 	inline T_Elem *GetPointer() {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
 	}
 	inline const T_Elem *GetPointer() const {
-		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + _offsetBase;
+		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
 	}
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
