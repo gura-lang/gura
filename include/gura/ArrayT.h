@@ -115,9 +115,32 @@ bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayL.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
-		*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
+	size_t cntL = arrayL.GetCountTotal();
+	size_t cntR = arrayR.GetCountTotal();
+	if (cntL == cntR) {
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
+		}
+	} else if (cntL < cntR) {
+		size_t j = 0;
+		const T_ElemL *pElemLOrg = pElemL;
+		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
+			if (++j >= cntL) {
+				pElemL = pElemLOrg;
+				j = 0;
+			}
+		}
+	} else { // cntL > cntR
+		size_t j = 0;
+		const T_ElemR *pElemROrg = pElemR;
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
+			if (++j >= cntR) {
+				pElemR = pElemROrg;
+				j = 0;
+			}
+		}
 	}
 	return true;
 }
