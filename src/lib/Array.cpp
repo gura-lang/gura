@@ -9,6 +9,15 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------
+void Array::UpdateMetrics()
+{
+	size_t stride = 1;
+	foreach_reverse (Dimensions, pDim, _dims) {
+		pDim->SetStride(stride);
+		stride *= pDim->GetCount();
+	}
+}
+
 bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)
 {
 	if (Dimensions::IsSameShape(arrayA.GetDimensions(), arrayB.GetDimensions())) {
