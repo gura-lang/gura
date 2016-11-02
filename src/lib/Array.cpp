@@ -16,6 +16,7 @@ void Array::UpdateMetrics()
 		pDim->SetStride(stride);
 		stride *= pDim->GetCount();
 	}
+	_cntTotal = stride;
 }
 
 bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)

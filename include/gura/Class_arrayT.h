@@ -32,7 +32,7 @@ public:
 		str += "<";
 		str += GetClassName();
 		str += ":";
-		::sprintf(buff, "%ldelements", _pArrayT->GetCount());
+		::sprintf(buff, "%ldelements", _pArrayT->GetCountTotal());
 		str += buff;
 		str += ">";
 		return str;
@@ -44,7 +44,7 @@ public:
 			return Value::Nil;
 		}
 		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArrayT->GetCount()) {
+		if (idx >= _pArrayT->GetCountTotal()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return Value::Nil;
 		}
@@ -57,7 +57,7 @@ public:
 			return;
 		}
 		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArrayT->GetCount()) {
+		if (idx >= _pArrayT->GetCountTotal()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return;
 		}
@@ -271,7 +271,7 @@ public:
 			Signal &sig = env.GetSignal();
 			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArrayT->GetCount()) {
+			if (n > pArrayT->GetCountTotal()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
@@ -307,11 +307,11 @@ public:
 			Signal &sig = env.GetSignal();
 			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArrayT->GetCount()) {
+			if (n > pArrayT->GetCountTotal()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
-			size_t cnt = pArrayT->GetCount() - n;
+			size_t cnt = pArrayT->GetCountTotal() - n;
 			size_t offsetBase = pArrayT->GetOffsetBase() + n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), cnt, offsetBase));
@@ -371,11 +371,11 @@ public:
 			Signal &sig = env.GetSignal();
 			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 			size_t n = arg.GetSizeT(0);
-			if (n > pArrayT->GetCount()) {
+			if (n > pArrayT->GetCountTotal()) {
 				sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 				return Value::Nil;
 			}
-			size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetCount() - n;
+			size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetCountTotal() - n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), n, offsetBase));
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
@@ -434,7 +434,7 @@ public:
 			AutoPtr<ArrayT<T_Elem> > pArrayT(
 				Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 			Object_list *pObjList = value.InitAsList(env);
-			//pObjList->Reserve(pArrayT->GetCount());
+			//pObjList->Reserve(pArrayT->GetCountTotal());
 			pArrayT->CopyToList(pObjList->GetListForModify());
 			pObjList->SetValueType(VTYPE_number);
 			return true;

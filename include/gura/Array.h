@@ -34,6 +34,7 @@ protected:
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
+	size_t _cntTotal;
 public:
 	inline Array(const Array &src) : _cntRef(1),
 		_pMemory(src._pMemory->Reference()), _dims(src._dims), _offsetBase(src._offsetBase) {}
@@ -41,13 +42,14 @@ public:
 					_cntRef(1), _pMemory(pMemory), _offsetBase(offsetBase) {
 		_dims.reserve(1);
 		_dims.push_back(Dimension(cnt));
+		UpdateMetrics();
 	}
 	inline Array(Memory *pMemory, const Dimensions &dims) :
 									_cntRef(1), _pMemory(pMemory), _dims(dims) {}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
-	inline size_t GetCount() const { return _dims[0].GetCount(); }
+	inline size_t GetCountTotal() const { return _cntTotal; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	void UpdateMetrics();
 public:
