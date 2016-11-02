@@ -48,7 +48,7 @@ public:
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
-	inline size_t GetSize() const { return _dims[0].GetCount(); }
+	inline size_t GetCount() const { return _dims[0].GetCount(); }
 	inline size_t GetOffsetBase() const { return _dims[0].GetOffsetBase(); }
 public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);

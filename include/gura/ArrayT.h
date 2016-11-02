@@ -31,28 +31,28 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	void Fill(const T_Elem &num) {
 		T_Elem *p = GetPointer();
-		for (size_t i = 0; i < GetSize(); i++, p++) {
+		for (size_t i = 0; i < GetCount(); i++, p++) {
 			*p = num;
 		}
 	}
 	void FillZero() {
-		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetSize());
+		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetCount());
 	}
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc) {
-		if (GetSize() < offset + pArrayTSrc->GetSize()) {
+		if (GetCount() < offset + pArrayTSrc->GetCount()) {
 			sig.SetError(ERR_OutOfRangeError, "out of range");
 			return false;
 		}
 		::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
-				 sizeof(T_Elem) * pArrayTSrc->GetSize());
+				 sizeof(T_Elem) * pArrayTSrc->GetCount());
 		return true;
 	}
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
 	}
 	void CopyToList(ValueList &valList) const {
-		if (valList.empty()) valList.reserve(GetSize());
+		if (valList.empty()) valList.reserve(GetCount());
 		const T_Elem *p = GetPointer();
-		for (size_t cnt = GetSize(); cnt > 0; cnt--, p++) {
+		for (size_t cnt = GetCount(); cnt > 0; cnt--, p++) {
 			valList.push_back(Value(*p));
 		}
 	}
@@ -101,7 +101,7 @@ bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_Elem *pElem = array.GetPointer();
-	size_t cnt = array.GetSize();
+	size_t cnt = array.GetCount();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
 		*pResult = -*pElem;
 	}
@@ -115,7 +115,7 @@ bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayL.GetSize();
+	size_t cnt = arrayL.GetCount();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
 		*pResult = static_cast<T_ElemResult>(*pElemL + *pElemR);
 	}
@@ -129,7 +129,7 @@ bool Sub(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayL.GetSize();
+	size_t cnt = arrayL.GetCount();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
 		*pResult = static_cast<T_ElemResult>(*pElemL - *pElemR);
 	}
@@ -143,7 +143,7 @@ bool Mul(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayL.GetSize();
+	size_t cnt = arrayL.GetCount();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
 		*pResult = static_cast<T_ElemResult>(*pElemL * *pElemR);
 	}
@@ -157,7 +157,7 @@ bool Div(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayL.GetSize();
+	size_t cnt = arrayL.GetCount();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++, pElemR++) {
 		if (*pElemR == 0) {
 			sig.SetError(ERR_ZeroDivisionError, "divided by zero");
@@ -191,11 +191,11 @@ public:
 	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT) :
 		Iterator(FinitePredictable), _pArrayT(pArrayT), _idx(0) {}
 	virtual size_t GetLength() const {
-		return _pArrayT->GetSize();
+		return _pArrayT->GetCount();
 	}
 	virtual Iterator *GetSource() { return nullptr; }
 	virtual bool DoNext(Environment &env, Value &value) {
-		if (_idx >= _pArrayT->GetSize()) return false;
+		if (_idx >= _pArrayT->GetCount()) return false;
 		value = Value(*(_pArrayT->GetPointer() + _idx));
 		_idx++;
 		return true;
