@@ -46,12 +46,20 @@ public:
 			sig.SetError(ERR_ValueError, "index must be a number");
 			return Value::Nil;
 		}
+		const Array::Dimensions &dims = _pArrayT->GetDimensions();
+		Array::Dimensions::const_iterator pDim = dims.begin();
 		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArrayT->GetCountTotal()) {
+		if (idx >= pDim->GetCount()) {
 			sig.SetError(ERR_OutOfRangeError, "index is out of range");
 			return Value::Nil;
 		}
-		return Value(_pArrayT->GetPointer()[idx]);
+		if (pDim + 1 == dims.end()) {
+			return Value(_pArrayT->GetPointer()[idx]);
+		}
+		AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
+		pArrayRtn->SetCount(pDim + 1, dims.end());
+		pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
+		return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
 	}
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value) {
 		Signal &sig = GetSignal();
@@ -74,7 +82,7 @@ public:
 template<typename T_Elem>
 class Class_arrayT : public Class {
 public:
-	// array@T(arg) {block?}
+	// array@T(src) {block?}
 	class Func_Constructor : public Function {
 	private:
 		ValueType _valType;
@@ -82,7 +90,7 @@ public:
 		Func_Constructor(Environment &env, const Symbol *pSymbol, ValueType valType) :
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
-			DeclareArg(env, "arg", VTYPE_any, OCCUR_Once);
+			DeclareArg(env, "src", VTYPE_any, OCCUR_Once);
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(

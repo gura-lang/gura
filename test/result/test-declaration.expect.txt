@@ -18,18 +18,18 @@
 @ushort() {block}
 __name__:string = __main__
 argument:class = <class:argument>
-array@char:class = <class:array@char(arg, init?:number) {block?}>
-array@double:class = <class:array@double(arg, init?:number) {block?}>
-array@float:class = <class:array@float(arg, init?:number) {block?}>
-array@int:class = <class:array@int(arg, init?:number) {block?}>
-array@int32:class = <class:array@int32(arg, init?:number) {block?}>
-array@int64:class = <class:array@int64(arg, init?:number) {block?}>
-array@short:class = <class:array@short(arg, init?:number) {block?}>
-array@uchar:class = <class:array@uchar(arg, init?:number) {block?}>
-array@uint:class = <class:array@uint(arg, init?:number) {block?}>
-array@uint32:class = <class:array@uint32(arg, init?:number) {block?}>
-array@uint64:class = <class:array@uint64(arg, init?:number) {block?}>
-array@ushort:class = <class:array@ushort(arg, init?:number) {block?}>
+array@char:class = <class:array@char(src) {block?}>
+array@double:class = <class:array@double(src) {block?}>
+array@float:class = <class:array@float(src) {block?}>
+array@int:class = <class:array@int(src) {block?}>
+array@int32:class = <class:array@int32(src) {block?}>
+array@int64:class = <class:array@int64(src) {block?}>
+array@short:class = <class:array@short(src) {block?}>
+array@uchar:class = <class:array@uchar(src) {block?}>
+array@uint:class = <class:array@uint(src) {block?}>
+array@uint32:class = <class:array@uint32(src) {block?}>
+array@uint64:class = <class:array@uint64(src) {block?}>
+array@ushort:class = <class:array@ushort(src) {block?}>
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64
@@ -366,96 +366,120 @@ array@char
   array@char#fill(value:number):map:void
   array@char#head(n:number):map {block?}
   array@char#offset(n:number):map {block?}
+  array@char.ones(dim+:number):static:map {block?}
   array@char#paste(offset:number, src:array@char):map
   array@char#tail(n:number):map {block?}
+  array@char.zeros(dim+:number):static:map {block?}
 array@double
   array@double#dump(stream?:stream):void:[upper]
   array@double#each() {block?}
   array@double#fill(value:number):map:void
   array@double#head(n:number):map {block?}
   array@double#offset(n:number):map {block?}
+  array@double.ones(dim+:number):static:map {block?}
   array@double#paste(offset:number, src:array@double):map
   array@double#tail(n:number):map {block?}
+  array@double.zeros(dim+:number):static:map {block?}
 array@float
   array@float#dump(stream?:stream):void:[upper]
   array@float#each() {block?}
   array@float#fill(value:number):map:void
   array@float#head(n:number):map {block?}
   array@float#offset(n:number):map {block?}
+  array@float.ones(dim+:number):static:map {block?}
   array@float#paste(offset:number, src:array@float):map
   array@float#tail(n:number):map {block?}
+  array@float.zeros(dim+:number):static:map {block?}
 array@int
   array@int#dump(stream?:stream):void:[upper]
   array@int#each() {block?}
   array@int#fill(value:number):map:void
   array@int#head(n:number):map {block?}
   array@int#offset(n:number):map {block?}
+  array@int.ones(dim+:number):static:map {block?}
   array@int#paste(offset:number, src:array@int):map
   array@int#tail(n:number):map {block?}
+  array@int.zeros(dim+:number):static:map {block?}
 array@int32
   array@int32#dump(stream?:stream):void:[upper]
   array@int32#each() {block?}
   array@int32#fill(value:number):map:void
   array@int32#head(n:number):map {block?}
   array@int32#offset(n:number):map {block?}
+  array@int32.ones(dim+:number):static:map {block?}
   array@int32#paste(offset:number, src:array@int32):map
   array@int32#tail(n:number):map {block?}
+  array@int32.zeros(dim+:number):static:map {block?}
 array@int64
   array@int64#dump(stream?:stream):void:[upper]
   array@int64#each() {block?}
   array@int64#fill(value:number):map:void
   array@int64#head(n:number):map {block?}
   array@int64#offset(n:number):map {block?}
+  array@int64.ones(dim+:number):static:map {block?}
   array@int64#paste(offset:number, src:array@int64):map
   array@int64#tail(n:number):map {block?}
+  array@int64.zeros(dim+:number):static:map {block?}
 array@short
   array@short#dump(stream?:stream):void:[upper]
   array@short#each() {block?}
   array@short#fill(value:number):map:void
   array@short#head(n:number):map {block?}
   array@short#offset(n:number):map {block?}
+  array@short.ones(dim+:number):static:map {block?}
   array@short#paste(offset:number, src:array@short):map
   array@short#tail(n:number):map {block?}
+  array@short.zeros(dim+:number):static:map {block?}
 array@uchar
   array@uchar#dump(stream?:stream):void:[upper]
   array@uchar#each() {block?}
   array@uchar#fill(value:number):map:void
   array@uchar#head(n:number):map {block?}
   array@uchar#offset(n:number):map {block?}
+  array@uchar.ones(dim+:number):static:map {block?}
   array@uchar#paste(offset:number, src:array@uchar):map
   array@uchar#tail(n:number):map {block?}
+  array@uchar.zeros(dim+:number):static:map {block?}
 array@uint
   array@uint#dump(stream?:stream):void:[upper]
   array@uint#each() {block?}
   array@uint#fill(value:number):map:void
   array@uint#head(n:number):map {block?}
   array@uint#offset(n:number):map {block?}
+  array@uint.ones(dim+:number):static:map {block?}
   array@uint#paste(offset:number, src:array@uint):map
   array@uint#tail(n:number):map {block?}
+  array@uint.zeros(dim+:number):static:map {block?}
 array@uint32
   array@uint32#dump(stream?:stream):void:[upper]
   array@uint32#each() {block?}
   array@uint32#fill(value:number):map:void
   array@uint32#head(n:number):map {block?}
   array@uint32#offset(n:number):map {block?}
+  array@uint32.ones(dim+:number):static:map {block?}
   array@uint32#paste(offset:number, src:array@uint32):map
   array@uint32#tail(n:number):map {block?}
+  array@uint32.zeros(dim+:number):static:map {block?}
 array@uint64
   array@uint64#dump(stream?:stream):void:[upper]
   array@uint64#each() {block?}
   array@uint64#fill(value:number):map:void
   array@uint64#head(n:number):map {block?}
   array@uint64#offset(n:number):map {block?}
+  array@uint64.ones(dim+:number):static:map {block?}
   array@uint64#paste(offset:number, src:array@uint64):map
   array@uint64#tail(n:number):map {block?}
+  array@uint64.zeros(dim+:number):static:map {block?}
 array@ushort
   array@ushort#dump(stream?:stream):void:[upper]
   array@ushort#each() {block?}
   array@ushort#fill(value:number):map:void
   array@ushort#head(n:number):map {block?}
   array@ushort#offset(n:number):map {block?}
+  array@ushort.ones(dim+:number):static:map {block?}
   array@ushort#paste(offset:number, src:array@ushort):map
   array@ushort#tail(n:number):map {block?}
+  array@ushort.zeros(dim+:number):static:map {block?}
 audio
   audio#each(channel:number, offset?:number):map {block?}
   audio#get(channel:number, offset:number):map
