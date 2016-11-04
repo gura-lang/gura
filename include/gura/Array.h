@@ -36,20 +36,28 @@ protected:
 	size_t _offsetBase;
 	size_t _cntTotal;
 public:
+	inline Array() : _cntRef(1), _offsetBase(0), _cntTotal(0) {}
 	inline Array(const Array &src) : _cntRef(1),
-		_pMemory(src._pMemory->Reference()), _dims(src._dims), _offsetBase(src._offsetBase) {}
-	inline Array(Memory *pMemory, size_t cnt, size_t offsetBase = 0) :
-					_cntRef(1), _pMemory(pMemory), _offsetBase(offsetBase) {
+		_pMemory(src._pMemory->Reference()), _dims(src._dims),
+		_offsetBase(src._offsetBase), _cntTotal(src._cntTotal) {}
+	inline Array(Memory *pMemory) : _cntRef(1),
+		_pMemory(pMemory), _offsetBase(0), _cntTotal(0) {}
+	//	_dims.reserve(1);
+	//	_dims.push_back(Dimension(cnt));
+	//	UpdateMetrics();
+	//}
+	//inline Array(Memory *pMemory, const Dimensions &dims) :
+	//								_cntRef(1), _pMemory(pMemory), _dims(dims) {}
+	inline void SetCount1D(size_t cnt) {
 		_dims.reserve(1);
 		_dims.push_back(Dimension(cnt));
 		UpdateMetrics();
 	}
-	inline Array(Memory *pMemory, const Dimensions &dims) :
-									_cntRef(1), _pMemory(pMemory), _dims(dims) {}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
 	inline size_t GetCountTotal() const { return _cntTotal; }
+	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	void UpdateMetrics();
 public:

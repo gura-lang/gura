@@ -183,7 +183,8 @@ Gura_ImplementMethod(memory, array_at_##name) \
 { \
 	Memory &memory = Object_memory::GetObjectThis(arg)->GetMemory(); \
 	size_t cnt = memory.GetSize() / sizeof(T); \
-	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(memory.Reference(), cnt)); \
+	AutoPtr<ArrayT<T> > pArrayT(new ArrayT<T>(memory.Reference())); \
+	pArrayT->SetCount1D(cnt); \
 	return ReturnValue(env, arg, Value(new Object_arrayT<T>( \
 										   env, VTYPE_array_at_##name, pArrayT.release()))); \
 }

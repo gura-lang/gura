@@ -8,7 +8,8 @@
 #define LoopOn_ArrayT() \
 ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT(); \
 size_t cnt = pArrayT->GetCountTotal(); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
+AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>()); \
+pArrayTResult->AllocMemory1D(cnt); \
 T_Elem *pElem = pArrayT->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pElem++, pResult++)
@@ -17,7 +18,8 @@ for (size_t i = 0; i < cnt; i++, pElem++, pResult++)
 ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT(); \
 ArrayT<T_ElemR> *pArrayTRight = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT(); \
 size_t cnt = ChooseMin(pArrayTLeft->GetCountTotal(), pArrayTRight->GetCountTotal()); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
+AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>()); \
+pArrayTResult->AllocMemory1D(cnt); \
 T_ElemL *pLeft = pArrayTLeft->GetPointer(); \
 T_ElemR *pRight = pArrayTRight->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
@@ -27,7 +29,8 @@ for (size_t i = 0; i < cnt; i++, pLeft++, pRight++, pResult++)
 ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT(); \
 Number numRight = valueRight.GetNumber(); \
 size_t cnt = pArrayTLeft->GetCountTotal(); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
+AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>()); \
+pArrayTResult->AllocMemory1D(cnt); \
 T_ElemL *pLeft = pArrayTLeft->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pLeft++, pResult++)
@@ -36,7 +39,8 @@ for (size_t i = 0; i < cnt; i++, pLeft++, pResult++)
 Number numLeft = valueLeft.GetNumber(); \
 ArrayT<T_ElemR> *pArrayTRight = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT(); \
 size_t cnt = pArrayTRight->GetCountTotal(); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
+AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>()); \
+pArrayTResult->AllocMemory1D(cnt); \
 T_ElemR *pRight = pArrayTRight->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pRight++, pResult++)
@@ -824,7 +828,8 @@ Value Op_ArrayAndArray(Environment &env,
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
 	size_t cnt = ChooseMin(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>());
+	pArrayResult->AllocMemory1D(cnt);
 	if (!op(env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
@@ -1433,7 +1438,8 @@ Value Div_ArrayTAndNumber(Environment &env,
 		return Value::Nil;
 	}
 	size_t cnt = pArrayTLeft->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
+	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>());
+	pArrayTResult->AllocMemory1D(cnt);
 	T_ElemL *pLeft = pArrayTLeft->GetPointer();
 	T_ElemResult *pResult = pArrayTResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
@@ -1500,7 +1506,8 @@ Value Mod_ArrayTAndNumber(Environment &env,
 		return Value::Nil;
 	}
 	size_t cnt = pArrayTLeft->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
+	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>());
+	pArrayTResult->AllocMemory1D(cnt);
 	T_ElemL *pLeft = pArrayTLeft->GetPointer();
 	T_ElemResult *pResult = pArrayTResult->GetPointer();
 	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {

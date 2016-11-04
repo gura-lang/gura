@@ -31,10 +31,13 @@ public:
 		String str;
 		str += "<";
 		str += GetClassName();
-		str += ":";
-		::sprintf(buff, "%ldelements", _pArrayT->GetCountTotal());
-		str += buff;
-		str += ">";
+		str += ":(";
+		const Array::Dimensions &dims = _pArrayT->GetDimensions();
+		foreach_const (Array::Dimensions, pDim, dims) {
+			::sprintf(buff, "%ld,", pDim->GetCount());
+			str += buff;
+		}
+		str += ")>";
 		return str;
 	}
 	virtual Value IndexGet(Environment &env, const Value &valueIdx) {
@@ -103,7 +106,8 @@ public:
 			Signal &sig = env.GetSignal();
 			AutoPtr<ArrayT<T_Elem> > pArrayT;
 			if (arg.Is_number(0)) {
-				pArrayT.reset(new ArrayT<T_Elem>(arg.GetSizeT(0)));
+				pArrayT.reset(new ArrayT<T_Elem>());
+				pArrayT->AllocMemory1D(arg.GetSizeT(0));
 				if (arg.Is_number(1)) {
 					pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(1)));
 				} else {
@@ -155,7 +159,8 @@ public:
 			Signal &sig = env.GetSignal();
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
-			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(exprOwner.size()));
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+			pArrayT->AllocMemory1D(exprOwner.size());
 			T_Elem *p = pArrayT->GetPointer();
 			foreach_const (ExprOwner, ppExpr, exprOwner) {
 				const Expr *pExpr = *ppExpr;
@@ -276,8 +281,9 @@ public:
 				return Value::Nil;
 			}
 			size_t offsetBase = pArrayT->GetOffsetBase();
-			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), n, offsetBase));
+			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+			pArrayTRtn->SetCount1D(n);
+			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
@@ -314,7 +320,9 @@ public:
 			size_t cnt = pArrayT->GetCountTotal() - n;
 			size_t offsetBase = pArrayT->GetOffsetBase() + n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), cnt, offsetBase));
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+			pArrayTRtn->SetCount1D(cnt);
+			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
 		}
@@ -377,8 +385,34 @@ public:
 			}
 			size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetCountTotal() - n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference(), n, offsetBase));
+				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+			pArrayTRtn->SetCount1D(n);
+			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
+			return ReturnValue(env, arg, value);
+		}
+	};
+	// array@T.zero(dim+:number):static:map {block?}
+	class Func_zero : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_zero(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("zero"), FUNCTYPE_Class, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en),
+				"Creates an array with the specified dimensions, which elements are initialized by zero.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Argument &arg) const {
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3));
+			pArrayT->UpdateMetrics();
+			pArrayT->FillZero();
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 			return ReturnValue(env, arg, value);
 		}
 	};
