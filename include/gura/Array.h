@@ -55,6 +55,7 @@ public:
 	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
+	inline Dimensions &GetDimensions() { return _dims; }
 	inline const Dimensions &GetDimensions() const { return _dims; }
 	inline size_t GetCountTotal() const { return _cntTotal; }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }

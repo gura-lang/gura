@@ -34,7 +34,7 @@ public:
 		str += ":(";
 		const Array::Dimensions &dims = _pArrayT->GetDimensions();
 		foreach_const (Array::Dimensions, pDim, dims) {
-			::sprintf(buff, "%ld,", pDim->GetCount());
+			::sprintf(buff, (pDim == dims.begin())? "%ld" : ",%ld", pDim->GetCount());
 			str += buff;
 		}
 		str += ")>";
@@ -409,8 +409,15 @@ public:
 			);
 		}
 		virtual Value DoEval(Environment &env, Argument &arg) const {
-			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(3));
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+			Array::Dimensions &dims = pArrayT->GetDimensions();
+			const ValueList &valList = arg.GetList(0);
+			dims.reserve(dims.size());
+			foreach_const (ValueList, pValue, valList) {
+				dims.push_back(pValue->GetSizeT());
+			}
 			pArrayT->UpdateMetrics();
+			pArrayT->AllocMemory();
 			pArrayT->FillZero();
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 			return ReturnValue(env, arg, value);
@@ -441,6 +448,7 @@ public:
 		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_paste(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
+		AssignFunction(new Func_zero(*this, GetValueType()));
 	}
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
 		Signal &sig = GetSignal();

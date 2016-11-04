@@ -19,8 +19,9 @@ public:
 	inline ArrayT() {}
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	inline ArrayT(Memory *pMemory) : Array(pMemory) {}
-	//inline ArrayT(size_t cnt, size_t offsetBase = 0) :
-	//	Array(new MemoryHeap(sizeof(T_Elem) * cnt), cnt, offsetBase) {}
+	void AllocMemory() {
+		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
+	}
 	void AllocMemory1D(size_t cnt) {
 		SetCount1D(cnt);
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
