@@ -19,9 +19,9 @@ PrintArray(fmt:string, array) = println(format(fmt, array.each()).join(' '))
 testcase('constructor') {
 	funcs.each {|func|
 		println(func)
-		x = func(30)
+		x = func.zeros(30)
 		println(x[0..29].join(' '))
-		x = func(30, 12)
+		x = func.ones(30)
 		println(x[0..29].join(' '))
 		x = func([0..29])
 		println(x[0..29].join(' '))

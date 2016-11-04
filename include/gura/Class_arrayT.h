@@ -83,7 +83,6 @@ public:
 				Function(env, pSymbol, FUNCTYPE_Function, FLAG_None), _valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_None);
 			DeclareArg(env, "arg", VTYPE_any, OCCUR_Once);
-			DeclareArg(env, "init", VTYPE_number, OCCUR_ZeroOrOnce);
 			SetClassToConstruct(env.LookupClass(valType));
 			DeclareBlock(OCCUR_ZeroOrOnce);
 			AddHelp(
@@ -91,9 +90,6 @@ public:
 				"Creates an `array@T` instance.\n"
 				"You can call this function in the following formats:\n"
 				"\n"
-				"- `array@T(len:number, init?:number)` .. Creates an `array@T` instance that has\n"
-				"  specified length of buffer. If the argument `init` is specified, the buffer would be\n"
-				"  initialized with the value.\n"
 				"- `array@T(list:list)` .. Creates an `array@T` instance initialized with\n"
 				"  numbers contained in the `list`.\n"
 				"- `array@T(iter:iterator)` .. Creates an `array@T` instance initialized with\n"
@@ -105,15 +101,7 @@ public:
 		virtual Value DoEval(Environment &env, Argument &arg) const {
 			Signal &sig = env.GetSignal();
 			AutoPtr<ArrayT<T_Elem> > pArrayT;
-			if (arg.Is_number(0)) {
-				pArrayT.reset(new ArrayT<T_Elem>());
-				pArrayT->AllocMemory1D(arg.GetSizeT(0));
-				if (arg.Is_number(1)) {
-					pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(1)));
-				} else {
-					pArrayT->FillZero();
-				}
-			} else if (arg.Is_list(0)) {
+			if (arg.Is_list(0)) {
 				const ValueList &valList = arg.GetList(0);
 				pArrayT.reset(ArrayT<T_Elem>::CreateFromList(sig, valList));
 				if (pArrayT.IsNull()) return Value::Nil;
@@ -327,6 +315,37 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	// array@T.ones(dim+:number):static:map {block?}
+	class Func_ones : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_ones(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("ones"), FUNCTYPE_Class, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en),
+				"Creates an array with the specified dimensions, which elements are initialized by one.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Argument &arg) const {
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+			Array::Dimensions &dims = pArrayT->GetDimensions();
+			const ValueList &valList = arg.GetList(0);
+			dims.reserve(dims.size());
+			foreach_const (ValueList, pValue, valList) {
+				dims.push_back(pValue->GetSizeT());
+			}
+			pArrayT->UpdateMetrics();
+			pArrayT->AllocMemory();
+			pArrayT->Fill(1);
+			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+			return ReturnValue(env, arg, value);
+		}
+	};
 	// array@T#paste(offset:number, src:array):map:void
 	class Func_paste : public Function {
 	private:
@@ -392,13 +411,13 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
-	// array@T.zero(dim+:number):static:map {block?}
-	class Func_zero : public Function {
+	// array@T.zeros(dim+:number):static:map {block?}
+	class Func_zeros : public Function {
 	private:
 		ValueType _valType;
 	public:
-		Func_zero(Environment &env, ValueType valType) :
-				Function(env, Symbol::Add("zero"), FUNCTYPE_Class, FLAG_None),
+		Func_zeros(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("zeros"), FUNCTYPE_Class, FLAG_None),
 				_valType(valType) {
 			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
 			DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
@@ -446,9 +465,10 @@ public:
 		AssignFunction(new Func_fill(*this, GetValueType()));
 		AssignFunction(new Func_head(*this, GetValueType()));
 		AssignFunction(new Func_offset(*this, GetValueType()));
+		AssignFunction(new Func_ones(*this, GetValueType()));
 		AssignFunction(new Func_paste(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
-		AssignFunction(new Func_zero(*this, GetValueType()));
+		AssignFunction(new Func_zeros(*this, GetValueType()));
 	}
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
 		Signal &sig = GetSignal();
