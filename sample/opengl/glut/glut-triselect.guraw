@@ -54,8 +54,8 @@ POINT = 3
 
 windW = 300, windH = 300;
 
-selectBuf = array@uint(MAXSELECT)
-feedBuf = array@float(MAXFEED)
+selectBuf = array@uint.zeros(MAXSELECT)
+feedBuf = array@float.zeros(MAXFEED)
 vp = dim(4) {0}
 zRotation = 90.0;
 zoom = 1.0;

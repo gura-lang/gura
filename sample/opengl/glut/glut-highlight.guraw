@@ -60,7 +60,7 @@ TORUS		= 1
 TETRAHEDRON	= 2
 ICOSAHEDRON	= 3
 
-selectBuf = array@uint(BUFSIZE)
+selectBuf = array@uint.zeros(BUFSIZE)
 
 W = 500, H = 500;
 x = 0, y = 0;

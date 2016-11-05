@@ -112,7 +112,7 @@ circles = @{
 };
 
 makeFloorTexture() = {
-	floorTexture= array@uchar(16 * 16 * 3)
+	floorTexture= array@uchar.zeros(16 * 16 * 3)
 
   /* Setup RGB image for the texture. */
 	i = 0
