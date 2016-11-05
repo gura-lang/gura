@@ -801,7 +801,7 @@ SDL_SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr = `auto %% {`en
 
 SDL_SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):void = R'''
 	Signal &sig = env.GetSignal();
-	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
+	if (red.GetCountTotal() != 256 || green.GetCountTotal() != 256 || blue.GetCountTotal() != 256) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
 		return Value::Nil;
 	}
@@ -877,7 +877,7 @@ SDL_UpdateWindowSurface(window:SDL_Window@):negerr = `auto %% {`en,
 }
 
 SDL_UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect):void = R'''
-	int numrects = static_cast<int>(rects.GetSize());
+	int numrects = static_cast<int>(rects.GetCountTotal());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1124,7 +1124,7 @@ SDL_RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):neger
 }
 
 SDL_RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
-	int count = static_cast<int>(points.GetSize());
+	int count = static_cast<int>(points.GetCountTotal());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1142,7 +1142,7 @@ SDL_RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr = `auto %% {`en
 }
 
 SDL_RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point):void = R'''
-	int count = static_cast<int>(points.GetSize());
+	int count = static_cast<int>(points.GetCountTotal());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1160,7 +1160,7 @@ SDL_RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `a
 }
 
 SDL_RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
-	int count = static_cast<int>(rects.GetSize());
+	int count = static_cast<int>(rects.GetCountTotal());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1178,7 +1178,7 @@ SDL_RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr = `a
 }
 
 SDL_RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect):void = R'''
-	int count = static_cast<int>(rects.GetSize());
+	int count = static_cast<int>(rects.GetCountTotal());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1433,7 +1433,7 @@ SDL_PixelFormatEnumToMasks(format:Uint32) {block?} = R'''
 
 SDL_SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolors:int):void = R'''
 	Signal &sig = env.GetSignal();
-	int nmax = static_cast<int>(colors.GetSize());
+	int nmax = static_cast<int>(colors.GetCountTotal());
 	if (firstcolor + ncolors > nmax) {
 		sig.SetError(ERR_IndexError, "out of range");
 		return Value::Nil;
@@ -1458,7 +1458,7 @@ SDL_SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr 
 // Video - Rectangle Functions
 
 SDL_EnclosePoints(points[]:SDL_Point, clip:SDL_Rect@:const) {block?} = R'''
-	int count = static_cast<int>(points.GetSize());
+	int count = static_cast<int>(points.GetCountTotal());
 	SDL_Rect result;
 	SDL_bool _rtn = SDL_EnclosePoints(points, count, clip, &result);
 	Value _rtnVal;
@@ -1592,7 +1592,7 @@ SDL_FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const:nil, color:Uint32):negerr = 
 }
 
 SDL_FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32):void = R'''
-	int count = static_cast<int>(rects.GetSize());
+	int count = static_cast<int>(rects.GetCountTotal());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1883,7 +1883,7 @@ SDL_LoadDollarTemplates(touchId:SDL_TouchID, src:stream) {block?} = R'''
 }
 
 SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
-	int numevents = static_cast<int>(events.GetSize());
+	int numevents = static_cast<int>(events.GetCountTotal());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -1896,7 +1896,8 @@ SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 }
 
 SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
+	_events->AllocMemory1D(numevents);
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -1916,7 +1917,8 @@ SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 }
 
 SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
+	_events->AllocMemory1D(numevents);
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -2172,11 +2174,11 @@ SDL_CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@ {b
 SDL_CreateCursor(data:array@uchar, mask:array@uchar, w:int, h:int, hot_x:int, hot_y:int) {block?} = R'''
 	Signal &sig = env.GetSignal();
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (data->GetSize() < bytesLeast) {
+	if (data->GetCountTotal() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Nil;
 	}
-	if (mask->GetSize() < bytesLeast) {
+	if (mask->GetCountTotal() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Nil;
 	}

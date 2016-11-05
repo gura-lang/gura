@@ -57,7 +57,7 @@ public:
 			return Value(_pArrayT->GetPointer()[idx]);
 		}
 		AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
-		pArrayRtn->SetCount(pDim + 1, dims.end());
+		pArrayRtn->SetSize(pDim + 1, dims.end());
 		pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
 		return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
 	}
@@ -278,7 +278,7 @@ public:
 			}
 			size_t offsetBase = pArrayT->GetOffsetBase();
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-			pArrayTRtn->SetCount1D(n);
+			pArrayTRtn->SetSize1D(n);
 			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
@@ -317,7 +317,7 @@ public:
 			size_t offsetBase = pArrayT->GetOffsetBase() + n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-			pArrayTRtn->SetCount1D(cnt);
+			pArrayTRtn->SetSize1D(cnt);
 			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);
@@ -413,7 +413,7 @@ public:
 			size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetCountTotal() - n;
 			AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 				new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-			pArrayTRtn->SetCount1D(n);
+			pArrayTRtn->SetSize1D(n);
 			pArrayTRtn->SetOffsetBase(offsetBase);
 			Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 			return ReturnValue(env, arg, value);

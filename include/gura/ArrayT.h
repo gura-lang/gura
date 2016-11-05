@@ -23,7 +23,7 @@ public:
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
 	}
 	void AllocMemory1D(size_t cnt) {
-		SetCount1D(cnt);
+		SetSize1D(cnt);
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
 	}
 	inline T_Elem *GetPointer() {
@@ -62,7 +62,8 @@ public:
 		}
 	}
 	static ArrayT *CreateFromList(const ValueList &valList) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+		AutoPtr<ArrayT> pArrayT(new ArrayT());
+		pArrayT->AllocMemory1D(valList.size());
 		T_Elem *p = pArrayT->GetPointer();
 		foreach_const (ValueList, pValue, valList) {
 			*p++ = static_cast<T_Elem>(pValue->GetNumber());

@@ -42,12 +42,12 @@ public:
 		_offsetBase(src._offsetBase), _cntTotal(src._cntTotal) {}
 	inline Array(Memory *pMemory) : _cntRef(1),
 		_pMemory(pMemory), _offsetBase(0), _cntTotal(0) {}
-	inline void SetCount1D(size_t cnt) {
+	inline void SetSize1D(size_t cnt) {
 		_dims.reserve(1);
 		_dims.push_back(Dimension(cnt));
 		UpdateMetrics();
 	}
-	inline void SetCount(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
+	inline void SetSize(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
 		_dims.reserve(std::distance(pDim, pDimEnd));
 		std::copy(pDim, pDimEnd, std::back_inserter(_dims));
 		UpdateMetrics();
