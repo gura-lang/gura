@@ -693,7 +693,7 @@ Gura_ImplementFunction(__gluNurbsCurve)
 	GLfloat *control = reinterpret_cast<GLfloat *>(_control->GetPointer());
 	GLint order = arg.GetInt(4);
 	GLenum type = static_cast<GLenum>(arg.GetInt(5));
-	GLint knotCount = static_cast<GLint>(_knots->GetSize());
+	GLint knotCount = static_cast<GLint>(_knots->GetCountTotal());
 	gluNurbsCurve(nurb, knotCount, knots, stride, control, order, type);
 	return Value::Nil;
 }
@@ -751,8 +751,8 @@ Gura_ImplementFunction(__gluNurbsSurface)
 	GLint sOrder = arg.GetInt(6);
 	GLint tOrder = arg.GetInt(7);
 	GLenum type = static_cast<GLenum>(arg.GetInt(8));
-	GLint sKnotCount = static_cast<GLint>(_sKnots->GetSize());
-	GLint tKnotCount = static_cast<GLint>(_tKnots->GetSize());
+	GLint sKnotCount = static_cast<GLint>(_sKnots->GetCountTotal());
+	GLint tKnotCount = static_cast<GLint>(_tKnots->GetCountTotal());
 	gluNurbsSurface(nurb, sKnotCount, sKnots, tKnotCount, tKnots, sStride, tStride,
 	control, sOrder, tOrder, type);
 	return Value::Nil;
@@ -918,7 +918,7 @@ Gura_ImplementFunction(__gluPwlCurve)
 	GLfloat *data = reinterpret_cast<GLfloat *>(_data->GetPointer());
 	GLint stride = arg.GetInt(2);
 	GLenum type = static_cast<GLenum>(arg.GetInt(3));
-	GLint count = static_cast<GLint>(_data->GetSize());
+	GLint count = static_cast<GLint>(_data->GetCountTotal());
 	gluPwlCurve(nurb, count, data, stride, type);
 	return Value::Nil;
 }

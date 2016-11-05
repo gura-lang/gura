@@ -155,8 +155,7 @@ public:
 			Signal &sig = env.GetSignal();
 			const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
 			const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
-			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
-			pArrayT->AllocMemory1D(exprOwner.size());
+			AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(exprOwner.size()));
 			T_Elem *p = pArrayT->GetPointer();
 			foreach_const (ExprOwner, ppExpr, exprOwner) {
 				const Expr *pExpr = *ppExpr;

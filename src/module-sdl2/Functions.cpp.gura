@@ -1896,8 +1896,7 @@ SDL_AddEvents(events[]:SDL_Event) {block?} = R'''
 }
 
 SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
-	_events->AllocMemory1D(numevents);
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -1917,8 +1916,7 @@ SDL_PeekEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
 }
 
 SDL_GetEvents(numevents:int, minType:Uint32, maxType:Uint32) {block?} = R'''
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
-	_events->AllocMemory1D(numevents);
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {

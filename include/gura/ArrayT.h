@@ -19,13 +19,17 @@ public:
 	inline ArrayT() {}
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	inline ArrayT(Memory *pMemory) : Array(pMemory) {}
-	void AllocMemory() {
-		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
-	}
-	void AllocMemory1D(size_t cnt) {
+	inline ArrayT(size_t cnt) {
 		SetSize1D(cnt);
+		AllocMemory();
+	}
+	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
 	}
+	//void AllocMemory1D(size_t cnt) {
+	//	SetSize1D(cnt);
+	//	_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
+	//}
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
 	}
@@ -62,8 +66,7 @@ public:
 		}
 	}
 	static ArrayT *CreateFromList(const ValueList &valList) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT());
-		pArrayT->AllocMemory1D(valList.size());
+		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
 		T_Elem *p = pArrayT->GetPointer();
 		foreach_const (ValueList, pValue, valList) {
 			*p++ = static_cast<T_Elem>(pValue->GetNumber());
@@ -71,8 +74,7 @@ public:
 		return pArrayT.release();
 	}
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT());
-		pArrayT->AllocMemory1D(valList.size());
+		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
 		T_Elem *p = pArrayT->GetPointer();
 		foreach_const (ValueList, pValue, valList) {
 			if (!pValue->Is_number() && !pValue->Is_boolean()) {
@@ -86,8 +88,7 @@ public:
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator) {
 		size_t len = pIterator->GetLengthEx(env);
 		if (env.IsSignalled()) return nullptr;
-		AutoPtr<ArrayT> pArrayT(new ArrayT());
-		pArrayT->AllocMemory1D(len);
+		AutoPtr<ArrayT> pArrayT(new ArrayT(len));
 		AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
 		T_Elem *p = pArrayT->GetPointer();
 		Value value;

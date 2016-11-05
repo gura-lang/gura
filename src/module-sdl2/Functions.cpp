@@ -5522,8 +5522,7 @@ Gura_ImplementFunction(__PeekEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
-	_events->AllocMemory1D(numevents);
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -5557,8 +5556,7 @@ Gura_ImplementFunction(__GetEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>());
-	_events->AllocMemory1D(numevents);
+	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
 	ArrayT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
