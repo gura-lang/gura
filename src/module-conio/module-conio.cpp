@@ -3,6 +3,18 @@
 //=============================================================================
 #include "stdafx.h"
 
+#undef black
+#undef blue
+#undef green
+#undef aqua
+#undef cyan
+#undef red
+#undef purple
+#undef magenta
+#undef yellow
+#undef white
+#undef gray
+
 #define Gura_AssignValueOf(v) Gura_AssignValue(v, v)
 
 Gura_BeginModuleBody(conio)
