@@ -517,6 +517,23 @@ public:
 	}
 };
 
+//-----------------------------------------------------------------------------
+// Operator Functions
+//-----------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+		 T_ElemL (*op)(T_ElemL, T_ElemR)>
+Value Op_ArrayAndArray(Environment &env,
+		const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
+	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
+	size_t cnt = ChooseMin(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Op_ArrayAndArray<T_ElemResult, T_ElemL, T_ElemR, op>(
+			env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
+	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
 }
 
 #endif

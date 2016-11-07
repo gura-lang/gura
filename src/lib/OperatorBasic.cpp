@@ -816,19 +816,6 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 									   vertexL.z + vertexR.z)));
 }
 
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
-		 bool (*op)(Signal&, ArrayT<T_ElemResult>&, const ArrayT<T_ElemL>&, const ArrayT<T_ElemR>&)>
-Value Op_ArrayAndArray(Environment &env,
-						const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
-	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = ChooseMin(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
-	if (!op(env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
-}
-
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Add_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)

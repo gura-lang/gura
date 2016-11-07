@@ -117,6 +117,51 @@ bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
 	return true;
 }
 
+//-----------------------------------------------------------------------------
+// Operator Functions
+//-----------------------------------------------------------------------------
+template<typename T_ElemL, typename T_ElemR>
+inline T_ElemL Add(T_ElemL elemL, T_ElemR elemR) { return elemL + elemR; }
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	T_ElemL (*op)(T_ElemL, T_ElemR)>
+bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cntL = arrayL.GetCountTotal();
+	size_t cntR = arrayR.GetCountTotal();
+	if (cntL == cntR) {
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(op(*pElemL, *pElemR));
+		}
+	} else if (cntL < cntR) {
+		size_t j = 0;
+		const T_ElemL *pElemLOrg = pElemL;
+		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(op(*pElemL, *pElemR));
+			if (++j >= cntL) {
+				pElemL = pElemLOrg;
+				j = 0;
+			}
+		}
+	} else { // cntL > cntR
+		size_t j = 0;
+		const T_ElemR *pElemROrg = pElemR;
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			*pResult = static_cast<T_ElemResult>(op(*pElemL, *pElemR));
+			if (++j >= cntR) {
+				pElemR = pElemROrg;
+				j = 0;
+			}
+		}
+	}
+	return true;
+}
+
+#if 0
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
 		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
@@ -153,6 +198,7 @@ bool Add(Signal &sig, ArrayT<T_ElemResult> &result,
 	}
 	return true;
 }
+#endif
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 bool Sub(Signal &sig, ArrayT<T_ElemResult> &result,
