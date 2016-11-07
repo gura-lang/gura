@@ -20,6 +20,7 @@ public:
 		size_t _cnt;
 		size_t _stride;
 	public:
+		inline Dimension() : _cnt(0), _stride(0) {}
 		inline Dimension(size_t cnt) : _cnt(cnt), _stride(0) {}
 		inline size_t GetCount() const { return _cnt; }
 		inline size_t GetStride() const { return _stride; }
@@ -27,7 +28,6 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
-		inline Dimensions() {}
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
 protected:
