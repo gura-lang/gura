@@ -18,6 +18,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <iterator>
 #include <complex>
 #include <vector>
 #include <deque>
