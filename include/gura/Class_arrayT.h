@@ -521,7 +521,7 @@ public:
 // Operator Functions
 //-----------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
-		 T_ElemL (*op)(T_ElemL, T_ElemR)>
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndArray(Environment &env,
 		const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {

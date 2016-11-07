@@ -41,10 +41,11 @@ T_ElemR *pRight = pArrayTRight->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pRight++, pResult++)
 
+//return op##_ArrayTAndArrayT<Char, Char, Char>(env, valueLeft, valueRight, VTYPE_array_at_char); 
 #define ImplementArrayTOperators(op) \
 Gura_ImplementBinaryOperator(op, array_at_char, array_at_char) \
 { \
-	return op##_ArrayTAndArrayT<Char, Char, Char>(env, valueLeft, valueRight, VTYPE_array_at_char); \
+	return Op_ArrayAndArray<Char, Char, Char, op>(env, valueLeft, valueRight, VTYPE_array_at_char); \
 } \
 Gura_ImplementBinaryOperator(op, array_at_uchar, array_at_uchar) \
 { \
@@ -820,14 +821,6 @@ template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 Value Add_ArrayTAndArrayT(Environment &env,
 			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
-#if 0
-	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
-	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = ChooseMin(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
-	if (!Add(env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
-#endif
 	return Op_ArrayAndArray<T_ElemResult, T_ElemL, T_ElemR, Add>(env, valueLeft, valueRight, valTypeResult);
 }
 
