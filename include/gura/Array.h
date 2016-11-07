@@ -13,9 +13,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Array
 //-----------------------------------------------------------------------------
-class Array {
+class GURA_DLLDECLARE Array {
 public:
-	class Dimension {
+	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _cnt;
 		size_t _stride;
@@ -25,7 +25,7 @@ public:
 		inline size_t GetStride() const { return _stride; }
 		inline void SetStride(size_t stride) { _stride = stride; }
 	};
-	class Dimensions : public std::vector<Dimension> {
+	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
