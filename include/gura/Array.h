@@ -27,6 +27,7 @@ public:
 	};
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
+		inline Dimensions() {}
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
 protected:
