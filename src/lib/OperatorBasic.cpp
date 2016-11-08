@@ -5,14 +5,6 @@
 #include "gura/Class_arrayT.h"
 #include <math.h>
 
-#define LoopOn_ArrayT() \
-ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT(); \
-size_t cnt = pArrayT->GetCountTotal(); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
-T_Elem *pElem = pArrayT->GetPointer(); \
-T_ElemResult *pResult = pArrayTResult->GetPointer();	\
-for (size_t i = 0; i < cnt; i++, pElem++, pResult++)
-
 #define Gura_ImplementBinaryOperators_Array(op) \
 Gura_ImplementBinaryOperator(op, array_at_char, array_at_char) \
 { \
@@ -234,73 +226,64 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 	return value;
 }
 
-template<typename T_ElemResult, typename T_Elem>
-Value Pos_ArrayT(Environment &env, const Value &value, ValueType valTypeResult)
-{
-	LoopOn_ArrayT() {
-		*pResult = static_cast<T_ElemResult>(*pElem);
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-
 Gura_ImplementUnaryOperator(Pos, array_at_char)
 {
-	return Pos_ArrayT<Char, Char>(env, value, VTYPE_array_at_char);
+	return Op_Array<Char, Char, Pos>(env, value, VTYPE_array_at_char);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_uchar)
 {
-	return Pos_ArrayT<UChar, UChar>(env, value, VTYPE_array_at_uchar);
+	return Op_Array<UChar, UChar, Pos>(env, value, VTYPE_array_at_uchar);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_short)
 {
-	return Pos_ArrayT<Short, Short>(env, value, VTYPE_array_at_short);
+	return Op_Array<Short, Short, Pos>(env, value, VTYPE_array_at_short);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_ushort)
 {
-	return Pos_ArrayT<UShort, UShort>(env, value, VTYPE_array_at_ushort);
+	return Op_Array<UShort, UShort, Pos>(env, value, VTYPE_array_at_ushort);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_int)
 {
-	return Pos_ArrayT<Int, Int>(env, value, VTYPE_array_at_int);
+	return Op_Array<Int, Int, Pos>(env, value, VTYPE_array_at_int);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_uint)
 {
-	return Pos_ArrayT<UInt, UInt>(env, value, VTYPE_array_at_uint);
+	return Op_Array<UInt, UInt, Pos>(env, value, VTYPE_array_at_uint);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_int32)
 {
-	return Pos_ArrayT<Int32, Int32>(env, value, VTYPE_array_at_int32);
+	return Op_Array<Int32, Int32, Pos>(env, value, VTYPE_array_at_int32);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_uint32)
 {
-	return Pos_ArrayT<UInt32, UInt32>(env, value, VTYPE_array_at_uint32);
+	return Op_Array<UInt32, UInt32, Pos>(env, value, VTYPE_array_at_uint32);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_int64)
 {
-	return Pos_ArrayT<Int64, Int64>(env, value, VTYPE_array_at_int64);
+	return Op_Array<Int64, Int64, Pos>(env, value, VTYPE_array_at_int64);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_uint64)
 {
-	return Pos_ArrayT<UInt64, UInt64>(env, value, VTYPE_array_at_uint64);
+	return Op_Array<UInt64, UInt64, Pos>(env, value, VTYPE_array_at_uint64);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_float)
 {
-	return Pos_ArrayT<float, float>(env, value, VTYPE_array_at_float);
+	return Op_Array<float, float, Pos>(env, value, VTYPE_array_at_float);
 }
 
 Gura_ImplementUnaryOperator(Pos, array_at_double)
 {
-	return Pos_ArrayT<double, double>(env, value, VTYPE_array_at_double);
+	return Op_Array<double, double, Pos>(env, value, VTYPE_array_at_double);
 }
 
 //-----------------------------------------------------------------------------
@@ -345,73 +328,64 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
 }
 
-template<typename T_ElemResult, typename T_Elem>
-Value Neg_ArrayT(Environment &env, const Value &value, ValueType valTypeResult)
-{
-	LoopOn_ArrayT() {
-		*pResult = -static_cast<T_ElemResult>(*pElem);
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-
 Gura_ImplementUnaryOperator(Neg, array_at_char)
 {
-	return Neg_ArrayT<Char, Char>(env, value, VTYPE_array_at_char);
+	return Op_Array<Char, Char, Neg>(env, value, VTYPE_array_at_char);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_uchar)
 {
-	return Neg_ArrayT<Char, UChar>(env, value, VTYPE_array_at_char);
+	return Op_Array<Char, UChar, Neg>(env, value, VTYPE_array_at_char);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_short)
 {
-	return Neg_ArrayT<Short, Short>(env, value, VTYPE_array_at_short);
+	return Op_Array<Short, Short, Neg>(env, value, VTYPE_array_at_short);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_ushort)
 {
-	return Neg_ArrayT<Short, UShort>(env, value, VTYPE_array_at_short);
+	return Op_Array<Short, UShort, Neg>(env, value, VTYPE_array_at_short);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_int)
 {
-	return Neg_ArrayT<Int, Int>(env, value, VTYPE_array_at_int);
+	return Op_Array<Int, Int, Neg>(env, value, VTYPE_array_at_int);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_uint)
 {
-	return Neg_ArrayT<Int, UInt>(env, value, VTYPE_array_at_int);
+	return Op_Array<Int, UInt, Neg>(env, value, VTYPE_array_at_int);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_int32)
 {
-	return Neg_ArrayT<Int32, Int32>(env, value, VTYPE_array_at_int32);
+	return Op_Array<Int32, Int32, Neg>(env, value, VTYPE_array_at_int32);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_uint32)
 {
-	return Neg_ArrayT<Int32, UInt32>(env, value, VTYPE_array_at_int32);
+	return Op_Array<Int32, UInt32, Neg>(env, value, VTYPE_array_at_int32);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_int64)
 {
-	return Neg_ArrayT<Int64, Int64>(env, value, VTYPE_array_at_int64);
+	return Op_Array<Int64, Int64, Neg>(env, value, VTYPE_array_at_int64);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_uint64)
 {
-	return Neg_ArrayT<Int64, UInt64>(env, value, VTYPE_array_at_int64);
+	return Op_Array<Int64, UInt64, Neg>(env, value, VTYPE_array_at_int64);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_float)
 {
-	return Neg_ArrayT<float, float>(env, value, VTYPE_array_at_float);
+	return Op_Array<float, float, Neg>(env, value, VTYPE_array_at_float);
 }
 
 Gura_ImplementUnaryOperator(Neg, array_at_double)
 {
-	return Neg_ArrayT<double, double>(env, value, VTYPE_array_at_double);
+	return Op_Array<double, double, Neg>(env, value, VTYPE_array_at_double);
 }
 
 //-----------------------------------------------------------------------------
