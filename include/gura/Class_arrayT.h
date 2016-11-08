@@ -523,7 +523,7 @@ public:
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndArray(Environment &env,
-		const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+					   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
@@ -537,7 +537,7 @@ Value Op_ArrayAndArray(Environment &env,
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndNumber(Environment &env,
-		const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+						const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	Number numR = valueRight.GetNumber();
@@ -545,6 +545,20 @@ Value Op_ArrayAndNumber(Environment &env,
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
 	if (!Op_ArrayAndNumber<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
+	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+Value Op_NumberAndArray(Environment &env,
+						const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	Number numL = valueLeft.GetNumber();
+	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
+	size_t cnt = pArrayR->GetCountTotal();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Op_ArrayAndNumber<T_ElemResult, T_ElemL, T_ElemR, op>(
+			env.GetSignal(), *pArrayResult, numL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 

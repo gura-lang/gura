@@ -240,6 +240,21 @@ bool Op_ArrayAndNumber(Signal &sig, ArrayT<T_ElemResult> &result,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_NumberAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
+					   Number numL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayR.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+		op(*pResult, numLCasted, *pElemR);
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
 bool Op_ArrayAndArray_Signal(Signal &sig, ArrayT<T_ElemResult> &result,
 							 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)

@@ -13,15 +13,6 @@ T_Elem *pElem = pArrayT->GetPointer(); \
 T_ElemResult *pResult = pArrayTResult->GetPointer();	\
 for (size_t i = 0; i < cnt; i++, pElem++, pResult++)
 
-#define LoopOn_ArrayTAndNumber() \
-ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT(); \
-Number numRight = valueRight.GetNumber(); \
-size_t cnt = pArrayTLeft->GetCountTotal(); \
-AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt)); \
-T_ElemL *pLeft = pArrayTLeft->GetPointer(); \
-T_ElemResult *pResult = pArrayTResult->GetPointer();	\
-for (size_t i = 0; i < cnt; i++, pLeft++, pResult++)
-
 #define LoopOn_NumberAndArrayT() \
 Number numLeft = valueLeft.GetNumber(); \
 ArrayT<T_ElemR> *pArrayTRight = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT(); \
