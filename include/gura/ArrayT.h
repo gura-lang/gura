@@ -26,10 +26,6 @@ public:
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
 	}
-	//void AllocMemory1D(size_t cnt) {
-	//	SetSize1D(cnt);
-	//	_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
-	//}
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();
 	}
@@ -64,6 +60,12 @@ public:
 		for (size_t cnt = GetCountTotal(); cnt > 0; cnt--, p++) {
 			valList.push_back(Value(*p));
 		}
+	}
+	static ArrayT *CreateLike(const Array::Dimensions &dims) {
+		AutoPtr<ArrayT> pArrayT(new ArrayT());
+		pArrayT->SetSize(dims);
+		pArrayT->AllocMemory();
+		return pArrayT.release();
 	}
 	static ArrayT *CreateFromList(const ValueList &valList) {
 		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));

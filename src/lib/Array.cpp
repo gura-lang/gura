@@ -28,6 +28,16 @@ bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)
 	return false;
 }
 
+bool Array::CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB)
+{
+	if (Dimensions::IsElemwiseCalculatable(
+			arrayA.GetDimensions(), arrayB.GetDimensions())) {
+		return true;
+	}
+	sig.SetError(ERR_ValueError, "dimensions mismatch for the operation");
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Array::Dimension
 //-----------------------------------------------------------------------------
@@ -42,6 +52,16 @@ bool Array::Dimensions::IsSameShape(const Dimensions &dimsA, const Dimensions &d
 	Dimensions::const_iterator pDimB = dimsB.begin();
 	for ( ; pDimA != dimsA.end(); pDimA++, pDimB++) {
 		if (pDimA->GetCount() != pDimB->GetCount()) return false;
+	}
+	return true;
+}
+
+bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
+{
+	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
+	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
+	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
+		if (pA->GetCount() != pB->GetCount()) return false;
 	}
 	return true;
 }

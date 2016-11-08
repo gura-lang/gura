@@ -29,6 +29,7 @@ public:
 	class GURA_DLLDECLARE Dimensions : public std::vector<Dimension> {
 	public:
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
 protected:
 	int _cntRef;
@@ -53,6 +54,10 @@ public:
 		std::copy(pDim, pDimEnd, std::back_inserter(_dims));
 		UpdateMetrics();
 	}
+	inline void SetSize(const Dimensions &dims) {
+		_dims = dims;
+		UpdateMetrics();
+	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline Dimensions &GetDimensions() { return _dims; }
@@ -63,6 +68,7 @@ public:
 	void UpdateMetrics();
 public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
+	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 };
 	
 }

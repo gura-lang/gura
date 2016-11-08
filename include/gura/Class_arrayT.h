@@ -536,12 +536,18 @@ template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 Value Op_ArrayAndArray_NoSig(Environment &env,
 					   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
+	Signal &sig = env.GetSignal();
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = ChooseMax(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Array::CheckElemwiseCalculatable(sig, *pArrayL, *pArrayR)) return false;
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
+	if (pArrayL->GetDimensions().size() >= pArrayR->GetDimensions().size()) {
+		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(pArrayL->GetDimensions()));
+	} else {
+		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(pArrayR->GetDimensions()));
+	}
 	if (!Op_ArrayAndArray_NoSig<T_ElemResult, T_ElemL, T_ElemR, op>(
-			env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
+			sig, *pArrayResult, *pArrayL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
@@ -589,12 +595,18 @@ template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 Value Op_ArrayAndArray_Sig(Environment &env,
 					   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
+	Signal &sig = env.GetSignal();
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = ChooseMax(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Array::CheckElemwiseCalculatable(sig, *pArrayL, *pArrayR)) return false;
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
+	if (pArrayL->GetDimensions().size() >= pArrayR->GetDimensions().size()) {
+		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(pArrayL->GetDimensions()));
+	} else {
+		pArrayResult.reset(ArrayT<T_ElemResult>::CreateLike(pArrayR->GetDimensions()));
+	}
 	if (!Op_ArrayAndArray_Sig<T_ElemResult, T_ElemL, T_ElemR, op>(
-			env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
+			sig, *pArrayResult, *pArrayL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
