@@ -1663,7 +1663,7 @@ Gura_ImplementBinaryOperator(And, any, nil)
 	return Value::Nil;	// any & nil -> nil
 }
 
-Gura_ImplementBinaryOperators_ArrayBit(And)
+Gura_ImplementBinaryOperators_Array(And)
 
 //-----------------------------------------------------------------------------
 // [A | B] ... BinaryOperator(Or, A, B)
@@ -1981,7 +1981,7 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(And, boolean, boolean);
 	Gura_AssignBinaryOperator(And, nil, any);
 	Gura_AssignBinaryOperator(And, any, nil);
-	Gura_AssignBinaryOperators_ArrayBit(And);
+	Gura_AssignBinaryOperators_Array(And);
 	Gura_AssignBinaryOperator(Or, number, number);
 	Gura_AssignBinaryOperator(Or, boolean, boolean);
 	Gura_AssignBinaryOperator(Or, nil, any);

@@ -166,6 +166,16 @@ inline void And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) & elemR;
 }
 
+template<>
+inline void And<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
+}
+
+template<>
+inline void And<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) | elemR;
