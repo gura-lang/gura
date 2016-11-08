@@ -159,128 +159,6 @@ Gura_ImplementBinaryOperator(op, number, array_at_double)	\
 	return Op_NumberAndArray<double, double, double, op>(env, valueLeft, valueRight, VTYPE_array_at_double); \
 }
 
-#define Gura_ImplementBinaryOperators_ArrayBit(op) \
-Gura_ImplementBinaryOperator(op, array_at_char, array_at_char) \
-{ \
-	return Op_ArrayAndArray<Char, Char, Char, op>(env, valueLeft, valueRight, VTYPE_array_at_char); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uchar, array_at_uchar) \
-{ \
-	return Op_ArrayAndArray<UChar, UChar, UChar, op>(env, valueLeft, valueRight, VTYPE_array_at_uchar); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_short, array_at_short) \
-{ \
-	return Op_ArrayAndArray<Short, Short, Short, op>(env, valueLeft, valueRight, VTYPE_array_at_short); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_ushort, array_at_ushort) \
-{ \
-	return Op_ArrayAndArray<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int, array_at_int) \
-{ \
-	return Op_ArrayAndArray<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint, array_at_uint) \
-{ \
-	return Op_ArrayAndArray<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int32, array_at_int32) \
-{ \
-	return Op_ArrayAndArray<Int32, Int32, Int32, op>(env, valueLeft, valueRight, VTYPE_array_at_int32); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint32, array_at_uint32) \
-{ \
-	return Op_ArrayAndArray<UInt32, UInt32, UInt32, op>(env, valueLeft, valueRight, VTYPE_array_at_uint32); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int64, array_at_int64) \
-{ \
-	return Op_ArrayAndArray<Int64, Int64, Int64, op>(env, valueLeft, valueRight, VTYPE_array_at_int64); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint64, array_at_uint64) \
-{ \
-	return Op_ArrayAndArray<UInt64, UInt64, UInt64, op>(env, valueLeft, valueRight, VTYPE_array_at_uint64); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_char, number) \
-{ \
-	return Op_ArrayAndNumber<Char, Char, Char, op>(env, valueLeft, valueRight, VTYPE_array_at_char); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uchar, number) \
-{ \
-	return Op_ArrayAndNumber<UChar, UChar, UChar, op>(env, valueLeft, valueRight, VTYPE_array_at_uchar); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_short, number) \
-{ \
-	return Op_ArrayAndNumber<Short, Short, Short, op>(env, valueLeft, valueRight, VTYPE_array_at_short); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_ushort, number)	\
-{ \
-	return Op_ArrayAndNumber<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int, number) \
-{ \
-	return Op_ArrayAndNumber<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint, number) \
-{ \
-	return Op_ArrayAndNumber<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int32, number) \
-{ \
-	return Op_ArrayAndNumber<Int32, Int32, Int32, op>(env, valueLeft, valueRight, VTYPE_array_at_int32); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint32, number) \
-{ \
-	return Op_ArrayAndNumber<UInt32, UInt32, UInt32, op>(env, valueLeft, valueRight, VTYPE_array_at_uint32); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int64, number) \
-{ \
-	return Op_ArrayAndNumber<Int64, Int64, Int64, op>(env, valueLeft, valueRight, VTYPE_array_at_int64); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint64, number) \
-{ \
-	return Op_ArrayAndNumber<UInt64, UInt64, UInt64, op>(env, valueLeft, valueRight, VTYPE_array_at_uint64); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_char) \
-{ \
-	return Op_NumberAndArray<Char, Char, Char, op>(env, valueLeft, valueRight, VTYPE_array_at_char); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_uchar)	\
-{ \
-	return Op_NumberAndArray<UChar, UChar, UChar, op>(env, valueLeft, valueRight, VTYPE_array_at_uchar); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_short)	\
-{ \
-	return Op_NumberAndArray<Short, Short, Short, op>(env, valueLeft, valueRight, VTYPE_array_at_short); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_ushort)	\
-{ \
-	return Op_NumberAndArray<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_int) \
-{ \
-	return Op_NumberAndArray<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_uint)	\
-{ \
-	return Op_NumberAndArray<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_int32) \
-{ \
-	return Op_NumberAndArray<Int32, Int32, Int32, op>(env, valueLeft, valueRight, VTYPE_array_at_int32); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_uint32)	\
-{ \
-	return Op_NumberAndArray<UInt32, UInt32, UInt32, op>(env, valueLeft, valueRight, VTYPE_array_at_uint32); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_int64)	\
-{ \
-	return Op_NumberAndArray<Int64, Int64, Int64, op>(env, valueLeft, valueRight, VTYPE_array_at_int64); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_uint64) \
-{ \
-	return Op_NumberAndArray<UInt64, UInt64, UInt64, op>(env, valueLeft, valueRight, VTYPE_array_at_uint64); \
-}
-
 #define Gura_AssignBinaryOperators_Array(op) \
 Gura_AssignBinaryOperator(op, array_at_char, array_at_char); \
 Gura_AssignBinaryOperator(op, array_at_uchar, array_at_uchar); \
@@ -318,38 +196,6 @@ Gura_AssignBinaryOperator(op, number, array_at_int64); \
 Gura_AssignBinaryOperator(op, number, array_at_uint64); \
 Gura_AssignBinaryOperator(op, number, array_at_float); \
 Gura_AssignBinaryOperator(op, number, array_at_double);
-
-#define Gura_AssignBinaryOperators_ArrayBit(op) \
-Gura_AssignBinaryOperator(op, array_at_char, array_at_char); \
-Gura_AssignBinaryOperator(op, array_at_uchar, array_at_uchar); \
-Gura_AssignBinaryOperator(op, array_at_short, array_at_short); \
-Gura_AssignBinaryOperator(op, array_at_ushort, array_at_ushort); \
-Gura_AssignBinaryOperator(op, array_at_int, array_at_int); \
-Gura_AssignBinaryOperator(op, array_at_uint, array_at_uint); \
-Gura_AssignBinaryOperator(op, array_at_int32, array_at_int32); \
-Gura_AssignBinaryOperator(op, array_at_uint32, array_at_uint32); \
-Gura_AssignBinaryOperator(op, array_at_int64, array_at_int64); \
-Gura_AssignBinaryOperator(op, array_at_uint64, array_at_uint64); \
-Gura_AssignBinaryOperator(op, array_at_char, number); \
-Gura_AssignBinaryOperator(op, array_at_uchar, number); \
-Gura_AssignBinaryOperator(op, array_at_short, number); \
-Gura_AssignBinaryOperator(op, array_at_ushort, number); \
-Gura_AssignBinaryOperator(op, array_at_int, number); \
-Gura_AssignBinaryOperator(op, array_at_uint, number); \
-Gura_AssignBinaryOperator(op, array_at_int32, number); \
-Gura_AssignBinaryOperator(op, array_at_uint32, number); \
-Gura_AssignBinaryOperator(op, array_at_int64, number); \
-Gura_AssignBinaryOperator(op, array_at_uint64, number); \
-Gura_AssignBinaryOperator(op, number, array_at_char);	\
-Gura_AssignBinaryOperator(op, number, array_at_uchar); \
-Gura_AssignBinaryOperator(op, number, array_at_short); \
-Gura_AssignBinaryOperator(op, number, array_at_ushort); \
-Gura_AssignBinaryOperator(op, number, array_at_int); \
-Gura_AssignBinaryOperator(op, number, array_at_uint); \
-Gura_AssignBinaryOperator(op, number, array_at_int32); \
-Gura_AssignBinaryOperator(op, number, array_at_uint32); \
-Gura_AssignBinaryOperator(op, number, array_at_int64); \
-Gura_AssignBinaryOperator(op, number, array_at_uint64);
 
 namespace Gura {
 
@@ -1688,7 +1534,7 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 	return valueLeft;	// any | nil -> any
 }
 
-Gura_ImplementBinaryOperators_ArrayBit(Or)
+Gura_ImplementBinaryOperators_Array(Or)
 
 //-----------------------------------------------------------------------------
 // [A ^ B] ... BinaryOperator(Xor, A, B)
@@ -1706,7 +1552,7 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 	return Value((flagLeft && !flagRight) || (!flagLeft && flagRight));
 }
 
-Gura_ImplementBinaryOperators_ArrayBit(Xor)
+Gura_ImplementBinaryOperators_Array(Xor)
 
 //-----------------------------------------------------------------------------
 // [A << B] ... BinaryOperator(Shl, A, B)
@@ -1735,7 +1581,7 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 	return valueLeft;
 }
 
-Gura_ImplementBinaryOperators_ArrayBit(Shl)
+Gura_ImplementBinaryOperators_Array(Shl)
 
 //-----------------------------------------------------------------------------
 // [A >> B] ... BinaryOperator(Shr, A, B)
@@ -1746,7 +1592,7 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 							static_cast<ULong>(valueRight.GetNumber()));
 }
 
-Gura_ImplementBinaryOperators_ArrayBit(Shr)
+Gura_ImplementBinaryOperators_Array(Shr)
 
 //-----------------------------------------------------------------------------
 // [A || B] ... BinaryOperator(OrOr, A, B)
@@ -1986,15 +1832,15 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Or, boolean, boolean);
 	Gura_AssignBinaryOperator(Or, nil, any);
 	Gura_AssignBinaryOperator(Or, any, nil);
-	Gura_AssignBinaryOperators_ArrayBit(Or);
+	Gura_AssignBinaryOperators_Array(Or);
 	Gura_AssignBinaryOperator(Xor, number, number);
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
-	Gura_AssignBinaryOperators_ArrayBit(Xor);
+	Gura_AssignBinaryOperators_Array(Xor);
 	Gura_AssignBinaryOperator(Shl, number, number);
 	Gura_AssignBinaryOperator(Shl, stream, any);
-	Gura_AssignBinaryOperators_ArrayBit(Shl);
+	Gura_AssignBinaryOperators_Array(Shl);
 	Gura_AssignBinaryOperator(Shr, number, number);
-	Gura_AssignBinaryOperators_ArrayBit(Shr);
+	Gura_AssignBinaryOperators_Array(Shr);
 	Gura_AssignBinaryOperator(OrOr, any, any);
 	Gura_AssignBinaryOperator(AndAnd, any, any);
 	Gura_AssignBinaryOperator(Seq, number, number);
