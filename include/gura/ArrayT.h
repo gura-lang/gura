@@ -230,7 +230,7 @@ bool Op_ArrayAndNumber(Signal &sig, ArrayT<T_ElemResult> &result,
 					   const ArrayT<T_ElemL> &arrayL, Number numR)
 {
 	T_ElemResult *pResult = result.GetPointer();
-	T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
 	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
 	size_t cnt = arrayL.GetCountTotal();
 	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
