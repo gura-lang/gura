@@ -573,6 +573,17 @@ Value Op_NumberAndArray_NoSig(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
+Value Op_Array_Sig(Environment &env, const Value &value, ValueType valTypeResult)
+{
+	ArrayT<T_Elem> *pArray = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
+	size_t cnt = pArray->GetCountTotal();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Op_Array_Sig<T_ElemResult, T_Elem, op>(
+			env.GetSignal(), *pArrayResult, *pArray)) return false;
+	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndArray_Sig(Environment &env,

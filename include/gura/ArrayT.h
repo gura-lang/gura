@@ -105,18 +105,6 @@ private:
 	inline ~ArrayT() {}
 };
 
-template<typename T_ElemResult, typename T_Elem>
-bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
-{
-	T_ElemResult *pResult = result.GetPointer();
-	const T_Elem *pElem = array.GetPointer();
-	size_t cnt = array.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
-		*pResult = -*pElem;
-	}
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Operator Functions
 //-----------------------------------------------------------------------------
@@ -346,6 +334,18 @@ bool Op_NumberAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 	return true;
 }
 
+template<typename T_ElemResult, typename T_Elem, bool (*op)(Signal &sig, T_ElemResult &, T_Elem)>
+bool Op_Array_Sig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_Elem *pElem = array.GetPointer();
+	size_t cnt = array.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+		if (!op(sig, *pResult, *pElem)) return false;
+	}
+	return true;
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
 bool Op_ArrayAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
@@ -414,6 +414,9 @@ bool Op_NumberAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 	return true;
 }
 
+//-----------------------------------------------------------------------------
+// ArrayT<T>::Dump()
+//-----------------------------------------------------------------------------
 template<> GURA_DLLDECLARE void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 template<> GURA_DLLDECLARE void ArrayT<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
