@@ -161,6 +161,31 @@ inline void Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 		std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
 }
 
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) & elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) | elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) ^ elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) << elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) >> elemR;
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
@@ -190,6 +215,44 @@ bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
 		const T_ElemR *pElemROrg = pElemR;
 		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
 			op(*pResult, *pElemL, *pElemR);
+			if (++j >= cntR) {
+				pElemR = pElemROrg;
+				j = 0;
+			}
+		}
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndArray_Signal(Signal &sig, ArrayT<T_ElemResult> &result,
+		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cntL = arrayL.GetCountTotal();
+	size_t cntR = arrayR.GetCountTotal();
+	if (cntL == cntR) {
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
+		}
+	} else if (cntL < cntR) {
+		size_t j = 0;
+		const T_ElemL *pElemLOrg = pElemL;
+		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
+			if (++j >= cntL) {
+				pElemL = pElemLOrg;
+				j = 0;
+			}
+		}
+	} else { // cntL > cntR
+		size_t j = 0;
+		const T_ElemR *pElemROrg = pElemR;
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
 			if (++j >= cntR) {
 				pElemR = pElemROrg;
 				j = 0;
