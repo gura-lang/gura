@@ -145,6 +145,16 @@ inline void Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) % elemR;
 }
 
+template<>
+inline void Mod<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = ::fmodf(elemL, elemR);
+}
+
+template<>
+inline void Mod<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = ::fmod(elemL, elemR);
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(
