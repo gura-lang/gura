@@ -254,3 +254,13 @@ testcase('error for infinite iterator') {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase('divide by zero') {
+	funcs.each {|func|
+		x = func([1, 2, 3])
+		y = func([1, 0, 3])
+		println(func)
+		tester(`(x / y))
+		tester(`(x / 0))
+		tester(`(2 / y))
+	}
+}

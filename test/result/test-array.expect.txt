@@ -383,7 +383,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 
 <class:array@uchar(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
--a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
+-a = 254 253 252 251 250 249 248 247 246 245
 a + b =  3  5  7  9 11 13 15 17 19 21
 a - b =  1  1  1  1  1  1  1  1  1  1
 a * b =  2  6 12 20 30 42 56 72 90 110
@@ -445,7 +445,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 
 <class:array@ushort(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
--a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
+-a = 65534 65533 65532 65531 65530 65529 65528 65527 65526 65525
 a + b =  3  5  7  9 11 13 15 17 19 21
 a - b =  1  1  1  1  1  1  1  1  1  1
 a * b =  2  6 12 20 30 42 56 72 90 110
@@ -507,7 +507,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 
 <class:array@uint32(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
--a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
+-a = 4294967294 4294967293 4294967292 4294967291 4294967290 4294967289 4294967288 4294967287 4294967286 4294967285
 a + b =  3  5  7  9 11 13 15 17 19 21
 a - b =  1  1  1  1  1  1  1  1  1  1
 a * b =  2  6 12 20 30 42 56 72 90 110
@@ -569,7 +569,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 
 <class:array@uint64(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
--a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
+-a = -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808 -9223372036854775808
 a + b =  3  5  7  9 11 13 15 17 19 21
 a - b =  1  1  1  1  1  1  1  1  1  1
 a * b =  2  6 12 20 30 42 56 72 90 110
@@ -720,3 +720,46 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 ======== #11 error for infinite iterator ========
 
 expected error occurs: IteratorError: cannot evaluate infinite iterator
+
+======== #12 divide by zero ========
+
+<class:array@char(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@uchar(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@short(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@ushort(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@int32(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@uint32(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@int64(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@uint64(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@float(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero
+<class:array@double(src) {block?}>
+x / y .. ZeroDivisionError: divide by zero
+x / 0 .. ZeroDivisionError: divide by zero
+2 / y .. ZeroDivisionError: divide by zero

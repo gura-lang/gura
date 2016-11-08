@@ -122,12 +122,12 @@ bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
 //-----------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_Elem>
 inline void Pos(T_ElemResult &elemResult, T_Elem elem) {
-	elemResult = +static_cast<T_ElemResult>(elem);
+	elemResult = static_cast<T_ElemResult>(+elem);
 }
 
 template<typename T_ElemResult, typename T_Elem>
 inline void Neg(T_ElemResult &elemResult, T_Elem elem) {
-	elemResult = -static_cast<T_ElemResult>(elem);
+	elemResult = static_cast<T_ElemResult>(-elem);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
@@ -146,23 +146,43 @@ inline void Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Div(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline bool Div(Signal &sig, T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
 	elemResult = static_cast<T_ElemResult>(elemL) / elemR;
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline bool Mod(Signal &sig, T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
 	elemResult = static_cast<T_ElemResult>(elemL) % elemR;
+	return true;
 }
 
 template<>
-inline void Mod<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline bool Mod<float, float, float>(Signal &sig, float &elemResult, float elemL, float elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
 	elemResult = ::fmodf(elemL, elemR);
+	return true;
 }
 
 template<>
-inline void Mod<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline bool Mod<double, double, double>(Signal &sig, double &elemResult, double elemL, double elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
 	elemResult = ::fmod(elemL, elemR);
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
@@ -247,7 +267,7 @@ inline void Shr<double, double, double>(double &elemResult, double elemL, double
 }
 
 template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
-bool Op_Array(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+bool Op_Array_NoSig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_Elem *pElem = array.GetPointer();
@@ -260,7 +280,7 @@ bool Op_Array(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &a
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
-bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
+bool Op_ArrayAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 					  const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
 {
 	T_ElemResult *pResult = result.GetPointer();
@@ -298,7 +318,7 @@ bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
-bool Op_ArrayAndNumber(Signal &sig, ArrayT<T_ElemResult> &result,
+bool Op_ArrayAndNumber_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 					   const ArrayT<T_ElemL> &arrayL, Number numR)
 {
 	T_ElemResult *pResult = result.GetPointer();
@@ -313,7 +333,7 @@ bool Op_ArrayAndNumber(Signal &sig, ArrayT<T_ElemResult> &result,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
-bool Op_NumberAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
+bool Op_NumberAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 					   Number numL, const ArrayT<T_ElemR> &arrayR)
 {
 	T_ElemResult *pResult = result.GetPointer();
@@ -328,7 +348,7 @@ bool Op_NumberAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
-bool Op_ArrayAndArray_Signal(Signal &sig, ArrayT<T_ElemResult> &result,
+bool Op_ArrayAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 							 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
 {
 	T_ElemResult *pResult = result.GetPointer();
@@ -360,6 +380,36 @@ bool Op_ArrayAndArray_Signal(Signal &sig, ArrayT<T_ElemResult> &result,
 				j = 0;
 			}
 		}
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndNumber_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   const ArrayT<T_ElemL> &arrayL, Number numR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
+	size_t cnt = arrayL.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+		if (!op(sig, *pResult, *pElemL, numRCasted)) return false;
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_NumberAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   Number numL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayR.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+		if (!op(sig, *pResult, numLCasted, *pElemR)) return false;
 	}
 	return true;
 }

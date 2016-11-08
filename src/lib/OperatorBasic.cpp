@@ -42,7 +42,7 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 	return value;
 }
 
-Gura_ImplementUnaryOperators_Array(Pos)
+Gura_ImplementUnaryOperators_Array(Pos, NoSig)
 
 //-----------------------------------------------------------------------------
 // [-A] ... UnaryOperator(Neg, A)
@@ -86,7 +86,7 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
 }
 
-Gura_ImplementUnaryOperators_Array(Neg)
+Gura_ImplementUnaryOperators_Array(Neg, NoSig)
 
 //-----------------------------------------------------------------------------
 // [~A] ... UnaryOperator(Invert, A)
@@ -308,7 +308,7 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 									   vertexL.z + vertexR.z)));
 }
 
-Gura_ImplementBinaryOperators_Array(Add)
+Gura_ImplementBinaryOperators_Array(Add, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A - B] ... BinaryOperator(Sub, A, B)
@@ -478,7 +478,7 @@ Gura_ImplementBinaryOperator(Sub, vertex, vertex)
 									   vertexL.z - vertexR.z)));
 }
 
-Gura_ImplementBinaryOperators_Array(Sub)
+Gura_ImplementBinaryOperators_Array(Sub, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A * B] ... BinaryOperator(Mul, A, B)
@@ -678,7 +678,7 @@ Gura_ImplementBinaryOperator(Mul, vertex, number)
 									   vertex.z * num)));
 }
 
-Gura_ImplementBinaryOperators_Array(Mul)
+Gura_ImplementBinaryOperators_Array(Mul, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A / B] ... BinaryOperator(Div, A, B)
@@ -847,7 +847,7 @@ Value Div_NumberAndArrayT(Environment &env,
 }
 #endif
 
-Gura_ImplementBinaryOperators_Array(Div)
+Gura_ImplementBinaryOperators_Array(Div, Sig)
 
 //-----------------------------------------------------------------------------
 // [A % B] ... BinaryOperator(Mod, A, B)
@@ -920,7 +920,7 @@ Value Mod_NumberAndArrayT(Environment &env,
 }
 #endif
 
-Gura_ImplementBinaryOperators_Array(Mod)
+Gura_ImplementBinaryOperators_Array(Mod, Sig)
 
 //-----------------------------------------------------------------------------
 // [A %% B] ... BinaryOperator(ModMod, A, B)
@@ -953,7 +953,7 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 	return Value(std::pow(valueLeft.GetComplex(), valueRight.GetNumber()));
 }
 
-Gura_ImplementBinaryOperators_Array(Pow)
+Gura_ImplementBinaryOperators_Array(Pow, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A == B] ... BinaryOperator(Eq, A, B)
@@ -1183,7 +1183,7 @@ Gura_ImplementBinaryOperator(And, any, nil)
 	return Value::Nil;	// any & nil -> nil
 }
 
-Gura_ImplementBinaryOperators_Array(And)
+Gura_ImplementBinaryOperators_Array(And, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A | B] ... BinaryOperator(Or, A, B)
@@ -1208,7 +1208,7 @@ Gura_ImplementBinaryOperator(Or, any, nil)
 	return valueLeft;	// any | nil -> any
 }
 
-Gura_ImplementBinaryOperators_Array(Or)
+Gura_ImplementBinaryOperators_Array(Or, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A ^ B] ... BinaryOperator(Xor, A, B)
@@ -1226,7 +1226,7 @@ Gura_ImplementBinaryOperator(Xor, boolean, boolean)
 	return Value((flagLeft && !flagRight) || (!flagLeft && flagRight));
 }
 
-Gura_ImplementBinaryOperators_Array(Xor)
+Gura_ImplementBinaryOperators_Array(Xor, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A << B] ... BinaryOperator(Shl, A, B)
@@ -1255,7 +1255,7 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 	return valueLeft;
 }
 
-Gura_ImplementBinaryOperators_Array(Shl)
+Gura_ImplementBinaryOperators_Array(Shl, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A >> B] ... BinaryOperator(Shr, A, B)
@@ -1266,7 +1266,7 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 							static_cast<ULong>(valueRight.GetNumber()));
 }
 
-Gura_ImplementBinaryOperators_Array(Shr)
+Gura_ImplementBinaryOperators_Array(Shr, NoSig)
 
 //-----------------------------------------------------------------------------
 // [A || B] ... BinaryOperator(OrOr, A, B)
