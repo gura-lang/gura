@@ -120,6 +120,16 @@ bool Neg(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
 //-----------------------------------------------------------------------------
 // Operator Functions
 //-----------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem>
+inline void Pos(T_ElemResult &elemResult, T_Elem elem) {
+	elemResult = +static_cast<T_ElemResult>(elem);
+}
+
+template<typename T_ElemResult, typename T_Elem>
+inline void Neg(T_ElemResult &elemResult, T_Elem elem) {
+	elemResult = -static_cast<T_ElemResult>(elem);
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) + elemR;
@@ -234,6 +244,18 @@ inline void Shr<float, float, float>(float &elemResult, float elemL, float elemR
 template<>
 inline void Shr<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
+bool Op_Array(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_Elem *pElem = array.GetPointer();
+	size_t cnt = array.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+		op(*pResult, *pElem);
+	}
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
