@@ -576,6 +576,56 @@ Value Op_NumberAndArray(Environment &env,
 //-----------------------------------------------------------------------------
 // Macros to implement/assign binary operators for array
 //-----------------------------------------------------------------------------
+#define Gura_ImplementUnaryOperators_Array(op) \
+Gura_ImplementUnaryOperator(op, array_at_char) \
+{ \
+	return Op_Array<Char, Char, op>(env, value, VTYPE_array_at_char); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_uchar) \
+{ \
+	return Op_Array<UChar, UChar, op>(env, value, VTYPE_array_at_uchar); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_short) \
+{ \
+	return Op_Array<Short, Short, op>(env, value, VTYPE_array_at_short); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_ushort) \
+{ \
+	return Op_Array<UShort, UShort, op>(env, value, VTYPE_array_at_ushort); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_int) \
+{ \
+	return Op_Array<Int, Int, op>(env, value, VTYPE_array_at_int); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_uint) \
+{ \
+	return Op_Array<UInt, UInt, op>(env, value, VTYPE_array_at_uint); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_int32) \
+{ \
+	return Op_Array<Int32, Int32, op>(env, value, VTYPE_array_at_int32); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_uint32) \
+{ \
+	return Op_Array<UInt32, UInt32, op>(env, value, VTYPE_array_at_uint32); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_int64) \
+{ \
+	return Op_Array<Int64, Int64, op>(env, value, VTYPE_array_at_int64); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_uint64) \
+{ \
+	return Op_Array<UInt64, UInt64, op>(env, value, VTYPE_array_at_uint64); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_float) \
+{ \
+	return Op_Array<float, float, op>(env, value, VTYPE_array_at_float); \
+} \
+Gura_ImplementUnaryOperator(op, array_at_double) \
+{ \
+	return Op_Array<double, double, op>(env, value, VTYPE_array_at_double); \
+}
+
 #define Gura_ImplementBinaryOperators_Array(op) \
 Gura_ImplementBinaryOperator(op, array_at_char, array_at_char) \
 { \
@@ -759,6 +809,20 @@ Gura_AssignBinaryOperator(op, number, array_at_int64); \
 Gura_AssignBinaryOperator(op, number, array_at_uint64); \
 Gura_AssignBinaryOperator(op, number, array_at_float); \
 Gura_AssignBinaryOperator(op, number, array_at_double);
+
+#define Gura_AssignUnaryOperators_Array(op) \
+Gura_AssignUnaryOperator(op, array_at_char); \
+Gura_AssignUnaryOperator(op, array_at_uchar); \
+Gura_AssignUnaryOperator(op, array_at_short); \
+Gura_AssignUnaryOperator(op, array_at_ushort); \
+Gura_AssignUnaryOperator(op, array_at_int); \
+Gura_AssignUnaryOperator(op, array_at_uint); \
+Gura_AssignUnaryOperator(op, array_at_int32); \
+Gura_AssignUnaryOperator(op, array_at_uint32); \
+Gura_AssignUnaryOperator(op, array_at_int64); \
+Gura_AssignUnaryOperator(op, array_at_uint64); \
+Gura_AssignUnaryOperator(op, array_at_float); \
+Gura_AssignUnaryOperator(op, array_at_double);
 
 }
 

@@ -42,65 +42,7 @@ Gura_ImplementUnaryOperator(Pos, timedelta)
 	return value;
 }
 
-Gura_ImplementUnaryOperator(Pos, array_at_char)
-{
-	return Op_Array<Char, Char, Pos>(env, value, VTYPE_array_at_char);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_uchar)
-{
-	return Op_Array<UChar, UChar, Pos>(env, value, VTYPE_array_at_uchar);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_short)
-{
-	return Op_Array<Short, Short, Pos>(env, value, VTYPE_array_at_short);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_ushort)
-{
-	return Op_Array<UShort, UShort, Pos>(env, value, VTYPE_array_at_ushort);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_int)
-{
-	return Op_Array<Int, Int, Pos>(env, value, VTYPE_array_at_int);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_uint)
-{
-	return Op_Array<UInt, UInt, Pos>(env, value, VTYPE_array_at_uint);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_int32)
-{
-	return Op_Array<Int32, Int32, Pos>(env, value, VTYPE_array_at_int32);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_uint32)
-{
-	return Op_Array<UInt32, UInt32, Pos>(env, value, VTYPE_array_at_uint32);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_int64)
-{
-	return Op_Array<Int64, Int64, Pos>(env, value, VTYPE_array_at_int64);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_uint64)
-{
-	return Op_Array<UInt64, UInt64, Pos>(env, value, VTYPE_array_at_uint64);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_float)
-{
-	return Op_Array<float, float, Pos>(env, value, VTYPE_array_at_float);
-}
-
-Gura_ImplementUnaryOperator(Pos, array_at_double)
-{
-	return Op_Array<double, double, Pos>(env, value, VTYPE_array_at_double);
-}
+Gura_ImplementUnaryOperators_Array(Pos)
 
 //-----------------------------------------------------------------------------
 // [-A] ... UnaryOperator(Neg, A)
@@ -144,65 +86,7 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
 }
 
-Gura_ImplementUnaryOperator(Neg, array_at_char)
-{
-	return Op_Array<Char, Char, Neg>(env, value, VTYPE_array_at_char);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_uchar)
-{
-	return Op_Array<Char, UChar, Neg>(env, value, VTYPE_array_at_char);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_short)
-{
-	return Op_Array<Short, Short, Neg>(env, value, VTYPE_array_at_short);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_ushort)
-{
-	return Op_Array<Short, UShort, Neg>(env, value, VTYPE_array_at_short);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_int)
-{
-	return Op_Array<Int, Int, Neg>(env, value, VTYPE_array_at_int);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_uint)
-{
-	return Op_Array<Int, UInt, Neg>(env, value, VTYPE_array_at_int);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_int32)
-{
-	return Op_Array<Int32, Int32, Neg>(env, value, VTYPE_array_at_int32);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_uint32)
-{
-	return Op_Array<Int32, UInt32, Neg>(env, value, VTYPE_array_at_int32);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_int64)
-{
-	return Op_Array<Int64, Int64, Neg>(env, value, VTYPE_array_at_int64);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_uint64)
-{
-	return Op_Array<Int64, UInt64, Neg>(env, value, VTYPE_array_at_int64);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_float)
-{
-	return Op_Array<float, float, Neg>(env, value, VTYPE_array_at_float);
-}
-
-Gura_ImplementUnaryOperator(Neg, array_at_double)
-{
-	return Op_Array<double, double, Neg>(env, value, VTYPE_array_at_double);
-}
+Gura_ImplementUnaryOperators_Array(Neg)
 
 //-----------------------------------------------------------------------------
 // [~A] ... UnaryOperator(Invert, A)
@@ -1473,36 +1357,14 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignUnaryOperator(Pos, rational);
 	Gura_AssignUnaryOperator(Pos, matrix);
 	Gura_AssignUnaryOperator(Pos, timedelta);
-	Gura_AssignUnaryOperator(Pos, array_at_char);
-	Gura_AssignUnaryOperator(Pos, array_at_uchar);
-	Gura_AssignUnaryOperator(Pos, array_at_short);
-	Gura_AssignUnaryOperator(Pos, array_at_ushort);
-	Gura_AssignUnaryOperator(Pos, array_at_int);
-	Gura_AssignUnaryOperator(Pos, array_at_uint);
-	Gura_AssignUnaryOperator(Pos, array_at_int32);
-	Gura_AssignUnaryOperator(Pos, array_at_uint32);
-	Gura_AssignUnaryOperator(Pos, array_at_int64);
-	Gura_AssignUnaryOperator(Pos, array_at_uint64);
-	Gura_AssignUnaryOperator(Pos, array_at_float);
-	Gura_AssignUnaryOperator(Pos, array_at_double);
+	Gura_AssignUnaryOperators_Array(Pos);
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, rational);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Neg, vertex);
-	Gura_AssignUnaryOperator(Neg, array_at_char);
-	Gura_AssignUnaryOperator(Neg, array_at_uchar);
-	Gura_AssignUnaryOperator(Neg, array_at_short);
-	Gura_AssignUnaryOperator(Neg, array_at_ushort);
-	Gura_AssignUnaryOperator(Neg, array_at_int);
-	Gura_AssignUnaryOperator(Neg, array_at_uint);
-	Gura_AssignUnaryOperator(Neg, array_at_int32);
-	Gura_AssignUnaryOperator(Neg, array_at_uint32);
-	Gura_AssignUnaryOperator(Neg, array_at_int64);
-	Gura_AssignUnaryOperator(Neg, array_at_uint64);
-	Gura_AssignUnaryOperator(Neg, array_at_float);
-	Gura_AssignUnaryOperator(Neg, array_at_double);
+	Gura_AssignUnaryOperators_Array(Neg);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
