@@ -527,10 +527,24 @@ Value Op_ArrayAndArray(Environment &env,
 {
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = ChooseMin(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
+	size_t cnt = ChooseMax(pArrayL->GetCountTotal(), pArrayR->GetCountTotal());
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
 	if (!Op_ArrayAndArray<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, *pArrayR)) return false;
+	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+Value Op_ArrayAndNumber(Environment &env,
+		const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
+{
+	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
+	Number numR = valueRight.GetNumber();
+	size_t cnt = pArrayL->GetCountTotal();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	if (!Op_ArrayAndNumber<T_ElemResult, T_ElemL, T_ElemR, op>(
+			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 

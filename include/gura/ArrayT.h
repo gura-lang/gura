@@ -189,7 +189,7 @@ inline void Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
-		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+					  const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
@@ -225,9 +225,24 @@ bool Op_ArrayAndArray(Signal &sig, ArrayT<T_ElemResult> &result,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndNumber(Signal &sig, ArrayT<T_ElemResult> &result,
+					   const ArrayT<T_ElemL> &arrayL, Number numR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	T_ElemL *pElemL = arrayL.GetPointer();
+	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
+	size_t cnt = arrayL.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+		op(*pResult, *pElemL, numRCasted);
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
 bool Op_ArrayAndArray_Signal(Signal &sig, ArrayT<T_ElemResult> &result,
-		 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+							 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
