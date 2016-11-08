@@ -557,7 +557,7 @@ Value Op_NumberAndArray(Environment &env,
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
 	size_t cnt = pArrayR->GetCountTotal();
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
-	if (!Op_ArrayAndNumber<T_ElemResult, T_ElemL, T_ElemR, op>(
+	if (!Op_NumberAndArray<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, numL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
