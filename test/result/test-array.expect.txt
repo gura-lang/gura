@@ -763,3 +763,36 @@ x / 0 .. ZeroDivisionError: divide by zero
 x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
+
+======== #13 sum/average ========
+
+<class:array@char(src) {block?}>
+sum = 55
+avg = 5
+<class:array@uchar(src) {block?}>
+sum = 55
+avg = 5
+<class:array@short(src) {block?}>
+sum = 55
+avg = 5
+<class:array@ushort(src) {block?}>
+sum = 55
+avg = 5
+<class:array@int32(src) {block?}>
+sum = 55
+avg = 5
+<class:array@uint32(src) {block?}>
+sum = 55
+avg = 5
+<class:array@int64(src) {block?}>
+sum = 55
+avg = 5
+<class:array@uint64(src) {block?}>
+sum = 55
+avg = 5
+<class:array@float(src) {block?}>
+sum = 55
+avg = 5.5
+<class:array@double(src) {block?}>
+sum = 55
+avg = 5.5

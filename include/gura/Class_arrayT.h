@@ -82,6 +82,7 @@ public:
 template<typename T_Elem>
 class Class_arrayT : public Class {
 public:
+	//-------------------------------------------------------------------------
 	// array@T(src) {block?}
 	class Func_Constructor : public Function {
 	private:
@@ -129,6 +130,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	//-------------------------------------------------------------------------
 	// @T() {block}
 	class Func_Initializer : public Function {
 	private:
@@ -173,6 +175,29 @@ public:
 			return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 		}
 	};
+	//-------------------------------------------------------------------------
+	// array@T#average() {block?}
+	class Func_average : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_average(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("average"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en),
+				"Calculates an average value of elements in the array.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Argument &arg) const {
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
+			size_t cnt = pArrayT->GetCountTotal();
+			return ReturnValue(env, arg, Value((cnt == 0)? 0 : pArrayT->Sum() / cnt));
+		}
+	};
+	//-------------------------------------------------------------------------
 	// array@T#each() {block?}
 	class Func_each : public Function {
 	private:
@@ -199,6 +224,7 @@ public:
 			return ReturnIterator(env, arg, pIterator.release());
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T#dump():void
 	class Func_dump : public Function {
 	private:
@@ -225,6 +251,7 @@ public:
 			return Value::Nil;
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T#fill(value:number):void
 	class Func_fill : public Function {
 	private:
@@ -246,6 +273,7 @@ public:
 			return Value::Nil;
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T#head(n:number):map {block?}
 	class Func_head : public Function {
 	private:
@@ -283,6 +311,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T#offset(n:number):map {block?}
 	class Func_offset : public Function {
 	private:
@@ -322,6 +351,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T.ones(dim+:number):static:map {block?}
 	class Func_ones : public Function {
 	private:
@@ -353,6 +383,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T#paste(offset:number, src:array):map:void
 	class Func_paste : public Function {
 	private:
@@ -380,6 +411,28 @@ public:
 			return Value::Nil;
 		}
 	};
+	//-------------------------------------------------------------------------
+	// array@T#sum() {block?}
+	class Func_sum : public Function {
+	private:
+		ValueType _valType;
+	public:
+		Func_sum(Environment &env, ValueType valType) :
+				Function(env, Symbol::Add("sum"), FUNCTYPE_Instance, FLAG_None),
+				_valType(valType) {
+			SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+			DeclareBlock(OCCUR_ZeroOrOnce);
+			AddHelp(
+				Gura_Symbol(en),
+				"Calculates a summation value of elements in the array.\n"
+			);
+		}
+		virtual Value DoEval(Environment &env, Argument &arg) const {
+			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
+			return ReturnValue(env, arg, Value(pArrayT->Sum()));
+		}
+	};
+	//-------------------------------------------------------------------------
 	// array@T#tail(n:number):map {block?}
 	class Func_tail : public Function {
 	private:
@@ -418,6 +471,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+	//-------------------------------------------------------------------------
 	// array@T.zeros(dim+:number):static:map {block?}
 	class Func_zeros : public Function {
 	private:
@@ -467,6 +521,7 @@ public:
 			const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 			env.AssignFunction(new Func_Initializer(env, pSymbol, GetValueType()));
 		} while (0);
+		AssignFunction(new Func_average(*this, GetValueType()));
 		AssignFunction(new Func_dump(*this, GetValueType()));
 		AssignFunction(new Func_each(*this, GetValueType()));
 		AssignFunction(new Func_fill(*this, GetValueType()));
@@ -474,6 +529,7 @@ public:
 		AssignFunction(new Func_offset(*this, GetValueType()));
 		AssignFunction(new Func_ones(*this, GetValueType()));
 		AssignFunction(new Func_paste(*this, GetValueType()));
+		AssignFunction(new Func_sum(*this, GetValueType()));
 		AssignFunction(new Func_tail(*this, GetValueType()));
 		AssignFunction(new Func_zeros(*this, GetValueType()));
 	}

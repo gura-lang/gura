@@ -61,6 +61,19 @@ public:
 			valList.push_back(Value(*p));
 		}
 	}
+	T_Elem Sum() const {
+		T_Elem rtn = 0;
+		const T_Elem *p = GetPointer();
+		for (size_t i = 0; i < GetCountTotal(); i++, p++) {
+			rtn += *p;
+		}
+		return rtn;
+	}
+	T_Elem Average() const {
+		if (GetCountTotal() == 0) return 0;
+		return Sum() / GetCountTotal();
+	}
+	// functions to create an ArrayT instance
 	static ArrayT *CreateLike(const Array::Dimensions &dims) {
 		AutoPtr<ArrayT> pArrayT(new ArrayT());
 		pArrayT->SetSize(dims);

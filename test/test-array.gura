@@ -264,3 +264,11 @@ testcase('divide by zero') {
 		tester(`(2 / y))
 	}
 }
+testcase('sum/average') {
+	funcs.each {|func|
+		println(func)
+		x = func([1..10])
+		println('sum = ', x.sum())
+		println('avg = ', x.average())
+	}	
+}
