@@ -1290,6 +1290,8 @@ void Operator::Initialize(Environment &env)
 	env.SetOperator(OPTYPE_AndAnd,		Operator::AndAnd	= new Operator_AndAnd());
 	env.SetOperator(OPTYPE_Seq,			Operator::Seq		= new Operator_Seq());
 	env.SetOperator(OPTYPE_Pair,		Operator::Pair		= new Operator_Pair());
+	AssignOperatorBasic(env);
+	AssignOperator_array(env);
 }
 
 }

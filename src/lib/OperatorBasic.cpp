@@ -1223,7 +1223,7 @@ Value OperatorEntryDerived::DoEval(Environment &env,
 //-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
-void Operator::AssignBasicOperators(Environment &env)
+void Operator::AssignOperatorBasic(Environment &env)
 {
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
@@ -1372,6 +1372,10 @@ void Operator::AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Pair, symbol, any);
 	Gura_AssignBinaryOperator(Pair, string, any);
 	Gura_AssignBinaryOperator(Pair, number, any);
+}
+
+void Operator::AssignOperator_array(Environment &env)
+{
 }
 
 }
