@@ -443,19 +443,6 @@ Gura_ImplementBinaryOperator(Sub, pointer, number)
 
 Gura_ImplementBinaryOperator(Sub, pointer, pointer)
 {
-#if 0
-	Signal &sig = env.GetSignal();
-	const Object_pointer *pObj1 = Object_pointer::GetObject(valueLeft);
-	const Object_pointer *pObj2 = Object_pointer::GetObject(valueRight);
-	if (&pObj1->GetBinary() != &pObj2->GetBinary()) {
-		sig.SetError(ERR_ValueError,
-			"cannot calculate difference between pointers of different binaries");
-		return Value::Nil;
-	}
-	int offset1 = static_cast<int>(pObj1->GetOffset());
-	int offset2 = static_cast<int>(pObj2->GetOffset());
-	return Value(static_cast<Number>(offset1 - offset2));
-#endif
 	const Pointer *pPtr1 = Object_pointer::GetObject(valueLeft)->GetPointer();
 	const Pointer *pPtr2 = Object_pointer::GetObject(valueRight)->GetPointer();
 	if (pPtr1->GetTarget() != pPtr2->GetTarget()) {
@@ -790,63 +777,6 @@ Gura_ImplementBinaryOperator(Div, vertex, number)
 									   vertex.z / numRight)));
 }
 
-#if 0
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-Value Div_ArrayTAndArrayT(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	LoopOn_ArrayTAndArrayT() {
-		if (*pRight == 0) {
-			Operator::SetError_DivideByZero(sig);
-			return Value::Nil;
-		}
-		*pResult = *pLeft / *pRight;
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
-
-#if 0
-template<typename T_ElemResult, typename T_ElemL>
-Value Div_ArrayTAndNumber(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
-	Number numRight = valueRight.GetNumber();
-	if (numRight == 0) {
-		Operator::SetError_DivideByZero(sig);
-		return Value::Nil;
-	}
-	size_t cnt = pArrayTLeft->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
-	T_ElemL *pLeft = pArrayTLeft->GetPointer();
-	T_ElemResult *pResult = pArrayTResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
-		*pResult = *pLeft / static_cast<T_ElemL>(numRight);
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
-
-#if 0
-template<typename T_ElemResult, typename T_ElemR>
-Value Div_NumberAndArrayT(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	LoopOn_NumberAndArrayT() {
-		if (*pRight == 0) {
-			Operator::SetError_DivideByZero(sig);
-			return Value::Nil;
-		}
-		*pResult = static_cast<T_ElemR>(numLeft) / *pRight;
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
-
 Gura_ImplementBinaryOperators_Array(Div, Sig)
 
 //-----------------------------------------------------------------------------
@@ -862,63 +792,6 @@ Gura_ImplementBinaryOperator(Mod, number, number)
 	}
 	return Value(::fmod(valueLeft.GetNumber(), numRight));
 }
-
-#if 0
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-Value Mod_ArrayTAndArrayT(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	LoopOn_ArrayTAndArrayT() {
-		if (*pRight == 0) {
-			Operator::SetError_DivideByZero(sig);
-			return Value::Nil;
-		}
-		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(*pRight)));
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
-
-#if 0
-template<typename T_ElemResult, typename T_ElemL>
-Value Mod_ArrayTAndNumber(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	ArrayT<T_ElemL> *pArrayTLeft = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
-	Number numRight = valueRight.GetNumber();
-	if (numRight == 0) {
-		Operator::SetError_DivideByZero(sig);
-		return Value::Nil;
-	}
-	size_t cnt = pArrayTLeft->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayTResult(new ArrayT<T_ElemResult>(cnt));
-	T_ElemL *pLeft = pArrayTLeft->GetPointer();
-	T_ElemResult *pResult = pArrayTResult->GetPointer();
-	for (size_t i = 0; i < cnt; i++, pLeft++, pResult++) {
-		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(*pLeft), static_cast<double>(numRight)));
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
-
-#if 0
-template<typename T_ElemResult, typename T_ElemR>
-Value Mod_NumberAndArrayT(Environment &env,
-			   const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
-{
-	Signal &sig = env.GetSignal();
-	LoopOn_NumberAndArrayT() {
-		if (*pRight == 0) {
-			Operator::SetError_DivideByZero(sig);
-			return Value::Nil;
-		}
-		*pResult = static_cast<T_ElemResult>(::fmod(static_cast<double>(numLeft), static_cast<double>(*pRight)));
-	}
-	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayTResult.release()));
-}
-#endif
 
 Gura_ImplementBinaryOperators_Array(Mod, Sig)
 

@@ -430,20 +430,6 @@ bool Op_NumberAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 }
 
 //-----------------------------------------------------------------------------
-// ArrayT<T>::Dump()
-//-----------------------------------------------------------------------------
-template<> GURA_DLLDECLARE void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<UInt32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<Int64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<UInt64>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<float>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-template<> GURA_DLLDECLARE void ArrayT<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const;
-
-//-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------
 template<typename T_Elem>

@@ -6,6 +6,9 @@
 
 namespace Gura {
 
+//------------------------------------------------------------------------------
+// ArrayT::Dump()
+//------------------------------------------------------------------------------
 template<typename T_Elem, typename T_ElemCast>
 void DumpInteger(Signal &sig, Stream &stream, const char *fmt, size_t cols, const T_Elem *p, size_t n)
 {
