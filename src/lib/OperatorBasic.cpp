@@ -1374,8 +1374,4 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Pair, number, any);
 }
 
-void Operator::AssignOperator_array(Environment &env)
-{
-}
-
 }
