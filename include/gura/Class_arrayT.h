@@ -19,61 +19,16 @@ public:
 private:
 	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 public:
-	Object_arrayT(Environment &env, ValueType valType, ArrayT<T_Elem> *pArrayT) :
+	inline Object_arrayT(Environment &env, ValueType valType, ArrayT<T_Elem> *pArrayT) :
 				Object(env.LookupClass(valType)), _pArrayT(pArrayT) {}
-	Object_arrayT(Class *pClass, ArrayT<T_Elem> *pArrayT) :
+	inline Object_arrayT(Class *pClass, ArrayT<T_Elem> *pArrayT) :
 				Object(pClass), _pArrayT(pArrayT) {}
 	inline ArrayT<T_Elem> *GetArrayT() { return _pArrayT.get(); }
 	inline const ArrayT<T_Elem> *GetArrayT() const { return _pArrayT.get(); }
-	virtual Object *Clone() const { return nullptr; }
-	virtual String ToString(bool exprFlag) {
-		char buff[64];
-		String str;
-		str += "<";
-		str += GetClassName();
-		str += ":(";
-		const Array::Dimensions &dims = _pArrayT->GetDimensions();
-		foreach_const (Array::Dimensions, pDim, dims) {
-			::sprintf(buff, (pDim == dims.begin())? "%ld" : ",%ld", pDim->GetCount());
-			str += buff;
-		}
-		str += ")>";
-		return str;
-	}
-	virtual Value IndexGet(Environment &env, const Value &valueIdx) {
-		Signal &sig = GetSignal();
-		if (!valueIdx.Is_number()) {
-			sig.SetError(ERR_ValueError, "index must be a number");
-			return Value::Nil;
-		}
-		const Array::Dimensions &dims = _pArrayT->GetDimensions();
-		Array::Dimensions::const_iterator pDim = dims.begin();
-		size_t idx = valueIdx.GetSizeT();
-		if (idx >= pDim->GetCount()) {
-			sig.SetError(ERR_OutOfRangeError, "index is out of range");
-			return Value::Nil;
-		}
-		if (pDim + 1 == dims.end()) {
-			return Value(_pArrayT->GetPointer()[idx]);
-		}
-		AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
-		pArrayRtn->SetSize(pDim + 1, dims.end());
-		pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
-		return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
-	}
-	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value) {
-		Signal &sig = GetSignal();
-		if (!valueIdx.Is_number()) {
-			sig.SetError(ERR_ValueError, "index must be a number");
-			return;
-		}
-		size_t idx = valueIdx.GetSizeT();
-		if (idx >= _pArrayT->GetCountTotal()) {
-			sig.SetError(ERR_OutOfRangeError, "index is out of range");
-			return;
-		}
-		_pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
-	}
+	virtual Object *Clone() const;
+	virtual String ToString(bool exprFlag);
+	virtual Value IndexGet(Environment &env, const Value &valueIdx);
+	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 };
 
 //-----------------------------------------------------------------------------
