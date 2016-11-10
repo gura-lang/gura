@@ -461,71 +461,11 @@ public:
 private:
 	String _elemName;
 public:
-	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName) :
+	inline Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName) :
 							Class(pEnvOuter, valType), _elemName(elemName) {}
-	virtual void Prepare(Environment &env) {
-		do {
-			const Symbol *pSymbol = ValueTypePool::GetInstance()->
-									Lookup(GetValueType())->GetSymbol();
-			env.AssignFunction(new Func_Constructor(env, pSymbol, GetValueType()));
-		} while (0);
-		do {
-			String funcName;
-			funcName += "@";
-			funcName += _elemName;
-			const Symbol *pSymbol = Symbol::Add(funcName.c_str());
-			env.AssignFunction(new Func_Initializer(env, pSymbol, GetValueType()));
-		} while (0);
-		AssignFunction(new Func_average(*this, GetValueType()));
-		AssignFunction(new Func_dump(*this, GetValueType()));
-		AssignFunction(new Func_each(*this, GetValueType()));
-		AssignFunction(new Func_fill(*this, GetValueType()));
-		AssignFunction(new Func_head(*this, GetValueType()));
-		AssignFunction(new Func_offset(*this, GetValueType()));
-		AssignFunction(new Func_ones(*this, GetValueType()));
-		AssignFunction(new Func_paste(*this, GetValueType()));
-		AssignFunction(new Func_sum(*this, GetValueType()));
-		AssignFunction(new Func_tail(*this, GetValueType()));
-		AssignFunction(new Func_zeros(*this, GetValueType()));
-	}
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl) {
-		Signal &sig = GetSignal();
-		if (value.Is_list()) {
-			AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, value.GetList()));
-			if (pArrayT.IsNull()) return false;
-			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
-			return true;
-		} else if (value.Is_iterator()) {
-			Iterator *pIterator = value.GetIterator();
-			if (pIterator->IsInfinite()) {
-				Iterator::SetError_InfiniteNotAllowed(sig);
-				return false;
-			}
-			AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromIterator(
-												 env, pIterator));
-			if (pArrayT.IsNull()) return false;
-			value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
-			return true;
-		}
-		return false;
-	}
-	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl) {
-		if (decl.IsType(VTYPE_list)) {
-			AutoPtr<ArrayT<T_Elem> > pArrayT(
-				Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
-			Object_list *pObjList = value.InitAsList(env);
-			//pObjList->Reserve(pArrayT->GetCountTotal());
-			pArrayT->CopyToList(pObjList->GetListForModify());
-			pObjList->SetValueType(VTYPE_number);
-			return true;
-		} else if (decl.IsType(VTYPE_iterator)) {
-			const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-			AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
-			value = Value(new Object_iterator(env, pIterator.release()));
-			return true;
-		}
-		return false;
-	}
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 };
 
 }
