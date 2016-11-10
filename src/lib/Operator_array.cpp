@@ -258,6 +258,167 @@ Gura_AssignUnaryOperator(op, array_at_double);
 
 namespace Gura {
 
+//-----------------------------------------------------------------------------
+// Operator Functions
+//-----------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_Elem>
+inline void Pos(T_ElemResult &elemResult, T_Elem elem) {
+	elemResult = static_cast<T_ElemResult>(+elem);
+}
+
+template<typename T_ElemResult, typename T_Elem>
+inline void Neg(T_ElemResult &elemResult, T_Elem elem) {
+	elemResult = static_cast<T_ElemResult>(-elem);
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) + elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Sub(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) - elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) * elemR;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline bool Div(Signal &sig, T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
+	elemResult = static_cast<T_ElemResult>(elemL) / elemR;
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline bool Mod(Signal &sig, T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
+	elemResult = static_cast<T_ElemResult>(elemL) % elemR;
+	return true;
+}
+
+template<>
+inline bool Mod<float, float, float>(Signal &sig, float &elemResult, float elemL, float elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
+	elemResult = ::fmodf(elemL, elemR);
+	return true;
+}
+
+template<>
+inline bool Mod<double, double, double>(Signal &sig, double &elemResult, double elemL, double elemR) {
+	if (elemR == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return false;
+	}
+	elemResult = ::fmod(elemL, elemR);
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(
+		std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) & elemR;
+}
+
+template<>
+inline void And<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
+}
+
+template<>
+inline void And<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) | elemR;
+}
+
+template<>
+inline void Or<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
+}
+
+template<>
+inline void Or<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) ^ elemR;
+}
+
+template<>
+inline void Xor<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
+}
+
+template<>
+inline void Xor<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) << elemR;
+}
+
+template<>
+inline void Shl<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
+}
+
+template<>
+inline void Shl<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+inline void Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+	elemResult = static_cast<T_ElemResult>(elemL) >> elemR;
+}
+
+template<>
+inline void Shr<float, float, float>(float &elemResult, float elemL, float elemR) {
+	elemResult = static_cast<float>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
+}
+
+template<>
+inline void Shr<double, double, double>(double &elemResult, double elemL, double elemR) {
+	elemResult = static_cast<double>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
+}
+
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
+bool Op_Array_NoSig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_Elem *pElem = array.GetPointer();
+	size_t cnt = array.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+		op(*pResult, *pElem);
+	}
+	return true;
+}
+
 template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
 Value Op_Array_NoSig(Environment &env, const Value &value, ValueType valTypeResult)
 {
@@ -267,6 +428,44 @@ Value Op_Array_NoSig(Environment &env, const Value &value, ValueType valTypeResu
 	if (!Op_Array_NoSig<T_ElemResult, T_Elem, op>(
 			env.GetSignal(), *pArrayResult, *pArray)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
+					  const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cntL = arrayL.GetCountTotal();
+	size_t cntR = arrayR.GetCountTotal();
+	if (cntL == cntR) {
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			op(*pResult, *pElemL, *pElemR);
+		}
+	} else if (cntL < cntR) {
+		size_t j = 0;
+		const T_ElemL *pElemLOrg = pElemL;
+		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+			op(*pResult, *pElemL, *pElemR);
+			if (++j >= cntL) {
+				pElemL = pElemLOrg;
+				j = 0;
+			}
+		}
+	} else { // cntL > cntR
+		size_t j = 0;
+		const T_ElemR *pElemROrg = pElemR;
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			op(*pResult, *pElemL, *pElemR);
+			if (++j >= cntR) {
+				pElemR = pElemROrg;
+				j = 0;
+			}
+		}
+	}
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
@@ -291,6 +490,21 @@ Value Op_ArrayAndArray_NoSig(Environment &env,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndNumber_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   const ArrayT<T_ElemL> &arrayL, Number numR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
+	size_t cnt = arrayL.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+		op(*pResult, *pElemL, numRCasted);
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndNumber_NoSig(Environment &env,
 						const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -301,6 +515,21 @@ Value Op_ArrayAndNumber_NoSig(Environment &env,
 	if (!Op_ArrayAndNumber_NoSig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_NumberAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   Number numL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayR.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+		op(*pResult, numLCasted, *pElemR);
+	}
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
@@ -317,6 +546,18 @@ Value Op_NumberAndArray_NoSig(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
+template<typename T_ElemResult, typename T_Elem, bool (*op)(Signal &sig, T_ElemResult &, T_Elem)>
+bool Op_Array_Sig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem> &array)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_Elem *pElem = array.GetPointer();
+	size_t cnt = array.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+		if (!op(sig, *pResult, *pElem)) return false;
+	}
+	return true;
+}
+
 template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
 Value Op_Array_Sig(Environment &env, const Value &value, ValueType valTypeResult)
 {
@@ -326,6 +567,44 @@ Value Op_Array_Sig(Environment &env, const Value &value, ValueType valTypeResult
 	if (!Op_Array_Sig<T_ElemResult, T_Elem, op>(
 			env.GetSignal(), *pArrayResult, *pArray)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
+							 const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cntL = arrayL.GetCountTotal();
+	size_t cntR = arrayR.GetCountTotal();
+	if (cntL == cntR) {
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
+		}
+	} else if (cntL < cntR) {
+		size_t j = 0;
+		const T_ElemL *pElemLOrg = pElemL;
+		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
+			if (++j >= cntL) {
+				pElemL = pElemLOrg;
+				j = 0;
+			}
+		}
+	} else { // cntL > cntR
+		size_t j = 0;
+		const T_ElemR *pElemROrg = pElemR;
+		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
+			if (++j >= cntR) {
+				pElemR = pElemROrg;
+				j = 0;
+			}
+		}
+	}
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
@@ -350,6 +629,21 @@ Value Op_ArrayAndArray_Sig(Environment &env,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_ArrayAndNumber_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   const ArrayT<T_ElemL> &arrayL, Number numR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
+	size_t cnt = arrayL.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+		if (!op(sig, *pResult, *pElemL, numRCasted)) return false;
+	}
+	return true;
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
 Value Op_ArrayAndNumber_Sig(Environment &env,
 						const Value &valueLeft, const Value &valueRight, ValueType valTypeResult)
 {
@@ -360,6 +654,21 @@ Value Op_ArrayAndNumber_Sig(Environment &env,
 	if (!Op_ArrayAndNumber_Sig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
+	bool (*op)(Signal &sig, T_ElemResult &, T_ElemL, T_ElemR)>
+bool Op_NumberAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
+					   Number numL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pResult = result.GetPointer();
+	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	size_t cnt = arrayR.GetCountTotal();
+	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+		if (!op(sig, *pResult, numLCasted, *pElemR)) return false;
+	}
+	return true;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
@@ -376,6 +685,9 @@ Value Op_NumberAndArray_Sig(Environment &env,
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of operator
+//-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperators_Array(Pos, NoSig)
 Gura_ImplementUnaryOperators_Array(Neg, NoSig)
 Gura_ImplementBinaryOperators_Array(Add, NoSig)
@@ -390,6 +702,9 @@ Gura_ImplementBinaryOperators_Array(Xor, NoSig)
 Gura_ImplementBinaryOperators_Array(Shl, NoSig)
 Gura_ImplementBinaryOperators_Array(Shr, NoSig)
 
+//-----------------------------------------------------------------------------
+// Assignment of operator
+//-----------------------------------------------------------------------------
 void Operator::AssignOperator_array(Environment &env)
 {
 	Gura_AssignUnaryOperators_Array(Pos);
