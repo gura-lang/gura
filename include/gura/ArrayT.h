@@ -34,88 +34,18 @@ public:
 	}
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
-	void Fill(const T_Elem &num) {
-		T_Elem *p = GetPointer();
-		for (size_t i = 0; i < GetCountTotal(); i++, p++) {
-			*p = num;
-		}
-	}
-	void FillZero() {
-		::memset(GetPointer(), 0x00, sizeof(T_Elem) * GetCountTotal());
-	}
-	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc) {
-		if (GetCountTotal() < offset + pArrayTSrc->GetCountTotal()) {
-			sig.SetError(ERR_OutOfRangeError, "out of range");
-			return false;
-		}
-		::memcpy(GetPointer() + offset, pArrayTSrc->GetPointer(),
-				 sizeof(T_Elem) * pArrayTSrc->GetCountTotal());
-		return true;
-	}
-	void Dump(Signal &sig, Stream &stream, bool upperFlag) const {
-	}
-	void CopyToList(ValueList &valList) const {
-		if (valList.empty()) valList.reserve(GetCountTotal());
-		const T_Elem *p = GetPointer();
-		for (size_t cnt = GetCountTotal(); cnt > 0; cnt--, p++) {
-			valList.push_back(Value(*p));
-		}
-	}
-	T_Elem Sum() const {
-		T_Elem rtn = 0;
-		const T_Elem *p = GetPointer();
-		for (size_t i = 0; i < GetCountTotal(); i++, p++) {
-			rtn += *p;
-		}
-		return rtn;
-	}
-	T_Elem Average() const {
-		if (GetCountTotal() == 0) return 0;
-		return Sum() / GetCountTotal();
-	}
+	void Fill(const T_Elem &num);
+	void FillZero();
+	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
+	void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
+	void CopyToList(ValueList &valList) const;
+	T_Elem Sum() const;
+	T_Elem Average() const;
 	// functions to create an ArrayT instance
-	static ArrayT *CreateLike(const Array::Dimensions &dims) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT());
-		pArrayT->SetSize(dims);
-		pArrayT->AllocMemory();
-		return pArrayT.release();
-	}
-	static ArrayT *CreateFromList(const ValueList &valList) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
-		T_Elem *p = pArrayT->GetPointer();
-		foreach_const (ValueList, pValue, valList) {
-			*p++ = static_cast<T_Elem>(pValue->GetNumber());
-		}
-		return pArrayT.release();
-	}
-	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList) {
-		AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
-		T_Elem *p = pArrayT->GetPointer();
-		foreach_const (ValueList, pValue, valList) {
-			if (!pValue->Is_number() && !pValue->Is_boolean()) {
-				sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-				return nullptr;
-			}
-			*p++ = static_cast<T_Elem>(pValue->GetNumber());
-		}
-		return pArrayT.release();
-	}
-	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator) {
-		size_t len = pIterator->GetLengthEx(env);
-		if (env.IsSignalled()) return nullptr;
-		AutoPtr<ArrayT> pArrayT(new ArrayT(len));
-		AutoPtr<Iterator> pIteratorWork(pIterator->Clone());
-		T_Elem *p = pArrayT->GetPointer();
-		Value value;
-		while (pIteratorWork->Next(env, value)) {
-			if (!value.Is_number() && !value.Is_boolean()) {
-				env.SetError(ERR_ValueError, "element must be a number or a boolean");
-				return nullptr;
-			}
-			*p++ = static_cast<T_Elem>(value.GetNumber());
-		}
-		return pArrayT.release();
-	}
+	static ArrayT *CreateLike(const Array::Dimensions &dims);
+	static ArrayT *CreateFromList(const ValueList &valList);
+	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);
+	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
 private:
 	inline ~ArrayT() {}
 };
@@ -131,23 +61,11 @@ private:
 public:
 	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT) :
 		Iterator(FinitePredictable), _pArrayT(pArrayT), _idx(0) {}
-	virtual size_t GetLength() const {
-		return _pArrayT->GetCountTotal();
-	}
-	virtual Iterator *GetSource() { return nullptr; }
-	virtual bool DoNext(Environment &env, Value &value) {
-		if (_idx >= _pArrayT->GetCountTotal()) return false;
-		value = Value(*(_pArrayT->GetPointer() + _idx));
-		_idx++;
-		return true;
-	}
-	virtual String ToString() const {
-		String rtn;
-		rtn = "array";
-		return rtn;
-	}
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet) {
-	}
+	virtual size_t GetLength() const;
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 }
