@@ -461,8 +461,7 @@ public:
 private:
 	String _elemName;
 public:
-	inline Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName) :
-							Class(pEnvOuter, valType), _elemName(elemName) {}
+	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName);
 	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);

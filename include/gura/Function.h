@@ -133,8 +133,7 @@ Value Func_##name::DoEval(Environment &env, Argument &arg) const
 #define Gura_ImplementMethod(className, name) \
 Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
 
-#define Gura_ImplementClassMethod(className, name) \
-Value Func_##className##__##name::DoEval(Environment &env, Argument &arg) const
+#define Gura_ImplementClassMethod(className, name) Gura_ImplementMethod(className, name)
 
 #define Gura_ImplementMathDiff(name) \
 Expr *Func_##name::MathDiff(Environment &env, const Expr *pExprArg, const Symbol *pSymbol) const

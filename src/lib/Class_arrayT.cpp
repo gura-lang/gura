@@ -4,6 +4,43 @@
 #include "stdafx.h"
 #include "gura/Class_arrayT.h"
 
+#define Gura_DeclareMethodAlias_arrayT(name, nameAlias) \
+template<typename T_Elem> class Func_arrayT__##name : public Function { \
+private: \
+	ValueType _valType; \
+public: \
+	Func_arrayT__##name(Environment &env, ValueType valType); \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
+}; \
+template<typename T_Elem> \
+Func_arrayT__##name<T_Elem>::Func_arrayT__##name(Environment &env, ValueType valType) : \
+	Function(env, Symbol::Add(nameAlias), FUNCTYPE_Instance, FLAG_None), _valType(valType)
+
+#define Gura_DeclareMethod_arrayT(name) Gura_DeclareMethodAlias_arrayT(name, #name)
+
+#define Gura_DeclareClassMethodAlias_arrayT(name, nameAlias) \
+template<typename T_Elem> class Func_arrayT__##name : public Function { \
+private: \
+	ValueType _valType; \
+public: \
+	Func_arrayT__##name(Environment &env, ValueType valType); \
+	virtual Value DoEval(Environment &env, Argument &arg) const; \
+}; \
+template<typename T_Elem> \
+Func_arrayT__##name<T_Elem>::Func_arrayT__##name(Environment &env, ValueType valType) : \
+	Function(env, Symbol::Add(nameAlias), FUNCTYPE_Class, FLAG_None), _valType(valType)
+
+#define Gura_DeclareClassMethod_arrayT(name) Gura_DeclareClassMethodAlias_arrayT(name, #name)
+
+#define Gura_ImplementMethod_arrayT(name) \
+template<typename T_Elem> \
+Value Func_arrayT__##name<T_Elem>::DoEval(Environment &env, Argument &arg) const
+
+#define Gura_ImplementClassMethod_arrayT(name) Gura_ImplementMethod_arrayT(name)
+
+#define Gura_AssignMethod_arrayT(name) \
+AssignFunction(new Func_arrayT__##name<T_Elem>(*this, GetValueType()))
+
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -73,8 +110,36 @@ void Object_arrayT<T_Elem>::IndexSet(Environment &env, const Value &valueIdx, co
 }
 
 //-----------------------------------------------------------------------------
-// Class_arrayT
+// Implementation of methods
 //-----------------------------------------------------------------------------
+Gura_DeclareMethod_arrayT(average2)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Calculates an average value of elements in the array.\n"
+		);
+}
+
+Gura_ImplementMethod_arrayT(average2)
+{
+	const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
+	size_t cnt = pArrayT->GetCountTotal();
+	return ReturnValue(env, arg, Value((cnt == 0)? 0 : pArrayT->Sum() / cnt));
+}
+
+
+//-----------------------------------------------------------------------------
+// Implementation of class
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+Class_arrayT<T_Elem>::Class_arrayT(
+	Environment *pEnvOuter, ValueType valType, const String &elemName) :
+	Class(pEnvOuter, valType), _elemName(elemName)
+{
+}
+
 template<typename T_Elem>
 void Class_arrayT<T_Elem>::Prepare(Environment &env)
 {
@@ -90,6 +155,8 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 		env.AssignFunction(new Func_Initializer(env, pSymbol, GetValueType()));
 	} while (0);
+	Gura_AssignMethod_arrayT(average2);
+
 	AssignFunction(new Func_average(*this, GetValueType()));
 	AssignFunction(new Func_dump(*this, GetValueType()));
 	AssignFunction(new Func_each(*this, GetValueType()));
