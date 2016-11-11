@@ -2,7 +2,6 @@
 // Gura class: arrayT
 //=============================================================================
 #include "stdafx.h"
-#include "gura/Class_arrayT.h"
 
 #define Gura_DeclareMethodAlias_arrayT(name, nameAlias) \
 template<typename T_Elem> class Func_arrayT__##name : public Function { \

@@ -31,7 +31,7 @@
 
 #include "gura/Algorithm.h"
 #include "gura/Argument.h"
-//#include "gura/ArrayT.h"
+#include "gura/ArrayT.h"
 #include "gura/Audio.h"
 #include "gura/Binary.h"
 #include "gura/Callable.h"
@@ -80,6 +80,7 @@
 #include "gura/Class_Struct.h"
 #include "gura/Class_any.h"
 #include "gura/Class_argument.h"
+#include "gura/Class_arrayT.h"
 #include "gura/Class_audio.h"
 #include "gura/Class_binary.h"
 #include "gura/Class_boolean.h"
@@ -120,6 +121,5 @@
 #include "gura/Class_undefined.h"
 #include "gura/Class_uri.h"
 #include "gura/Class_vertex.h"
-//#include "gura/Class_arrayT.h"		// uses template
 
 #endif
