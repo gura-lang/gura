@@ -5,7 +5,6 @@
 #define __GURA_MODULE_SDL2_H__
 #include <SDL.h>
 #include <gura.h>
-#include <gura/Class_arrayT.h>
 #include "Class_Window.h"
 #include "Class_Renderer.h"
 #include "Class_Texture.h"
