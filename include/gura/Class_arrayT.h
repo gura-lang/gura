@@ -130,6 +130,7 @@ public:
 			return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 		}
 	};
+#if 0
 	//-------------------------------------------------------------------------
 	// array@T#average() {block?}
 	class Func_average : public Function {
@@ -458,6 +459,7 @@ public:
 			return ReturnValue(env, arg, value);
 		}
 	};
+#endif
 private:
 	String _elemName;
 public:

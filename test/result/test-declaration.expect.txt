@@ -361,6 +361,7 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array@char
+  array@char#average():map {block?}
   array@char#dump(stream?:stream):void:[upper]
   array@char#each() {block?}
   array@char#fill(value:number):map:void
@@ -368,9 +369,11 @@ array@char
   array@char#offset(n:number):map {block?}
   array@char.ones(dim+:number):static:map {block?}
   array@char#paste(offset:number, src:array@char):map
+  array@char#sum():map {block?}
   array@char#tail(n:number):map {block?}
   array@char.zeros(dim+:number):static:map {block?}
 array@double
+  array@double#average():map {block?}
   array@double#dump(stream?:stream):void:[upper]
   array@double#each() {block?}
   array@double#fill(value:number):map:void
@@ -378,9 +381,11 @@ array@double
   array@double#offset(n:number):map {block?}
   array@double.ones(dim+:number):static:map {block?}
   array@double#paste(offset:number, src:array@double):map
+  array@double#sum():map {block?}
   array@double#tail(n:number):map {block?}
   array@double.zeros(dim+:number):static:map {block?}
 array@float
+  array@float#average():map {block?}
   array@float#dump(stream?:stream):void:[upper]
   array@float#each() {block?}
   array@float#fill(value:number):map:void
@@ -388,9 +393,11 @@ array@float
   array@float#offset(n:number):map {block?}
   array@float.ones(dim+:number):static:map {block?}
   array@float#paste(offset:number, src:array@float):map
+  array@float#sum():map {block?}
   array@float#tail(n:number):map {block?}
   array@float.zeros(dim+:number):static:map {block?}
 array@int
+  array@int#average():map {block?}
   array@int#dump(stream?:stream):void:[upper]
   array@int#each() {block?}
   array@int#fill(value:number):map:void
@@ -398,9 +405,11 @@ array@int
   array@int#offset(n:number):map {block?}
   array@int.ones(dim+:number):static:map {block?}
   array@int#paste(offset:number, src:array@int):map
+  array@int#sum():map {block?}
   array@int#tail(n:number):map {block?}
   array@int.zeros(dim+:number):static:map {block?}
 array@int32
+  array@int32#average():map {block?}
   array@int32#dump(stream?:stream):void:[upper]
   array@int32#each() {block?}
   array@int32#fill(value:number):map:void
@@ -408,9 +417,11 @@ array@int32
   array@int32#offset(n:number):map {block?}
   array@int32.ones(dim+:number):static:map {block?}
   array@int32#paste(offset:number, src:array@int32):map
+  array@int32#sum():map {block?}
   array@int32#tail(n:number):map {block?}
   array@int32.zeros(dim+:number):static:map {block?}
 array@int64
+  array@int64#average():map {block?}
   array@int64#dump(stream?:stream):void:[upper]
   array@int64#each() {block?}
   array@int64#fill(value:number):map:void
@@ -418,9 +429,11 @@ array@int64
   array@int64#offset(n:number):map {block?}
   array@int64.ones(dim+:number):static:map {block?}
   array@int64#paste(offset:number, src:array@int64):map
+  array@int64#sum():map {block?}
   array@int64#tail(n:number):map {block?}
   array@int64.zeros(dim+:number):static:map {block?}
 array@short
+  array@short#average():map {block?}
   array@short#dump(stream?:stream):void:[upper]
   array@short#each() {block?}
   array@short#fill(value:number):map:void
@@ -428,9 +441,11 @@ array@short
   array@short#offset(n:number):map {block?}
   array@short.ones(dim+:number):static:map {block?}
   array@short#paste(offset:number, src:array@short):map
+  array@short#sum():map {block?}
   array@short#tail(n:number):map {block?}
   array@short.zeros(dim+:number):static:map {block?}
 array@uchar
+  array@uchar#average():map {block?}
   array@uchar#dump(stream?:stream):void:[upper]
   array@uchar#each() {block?}
   array@uchar#fill(value:number):map:void
@@ -438,9 +453,11 @@ array@uchar
   array@uchar#offset(n:number):map {block?}
   array@uchar.ones(dim+:number):static:map {block?}
   array@uchar#paste(offset:number, src:array@uchar):map
+  array@uchar#sum():map {block?}
   array@uchar#tail(n:number):map {block?}
   array@uchar.zeros(dim+:number):static:map {block?}
 array@uint
+  array@uint#average():map {block?}
   array@uint#dump(stream?:stream):void:[upper]
   array@uint#each() {block?}
   array@uint#fill(value:number):map:void
@@ -448,9 +465,11 @@ array@uint
   array@uint#offset(n:number):map {block?}
   array@uint.ones(dim+:number):static:map {block?}
   array@uint#paste(offset:number, src:array@uint):map
+  array@uint#sum():map {block?}
   array@uint#tail(n:number):map {block?}
   array@uint.zeros(dim+:number):static:map {block?}
 array@uint32
+  array@uint32#average():map {block?}
   array@uint32#dump(stream?:stream):void:[upper]
   array@uint32#each() {block?}
   array@uint32#fill(value:number):map:void
@@ -458,9 +477,11 @@ array@uint32
   array@uint32#offset(n:number):map {block?}
   array@uint32.ones(dim+:number):static:map {block?}
   array@uint32#paste(offset:number, src:array@uint32):map
+  array@uint32#sum():map {block?}
   array@uint32#tail(n:number):map {block?}
   array@uint32.zeros(dim+:number):static:map {block?}
 array@uint64
+  array@uint64#average():map {block?}
   array@uint64#dump(stream?:stream):void:[upper]
   array@uint64#each() {block?}
   array@uint64#fill(value:number):map:void
@@ -468,9 +489,11 @@ array@uint64
   array@uint64#offset(n:number):map {block?}
   array@uint64.ones(dim+:number):static:map {block?}
   array@uint64#paste(offset:number, src:array@uint64):map
+  array@uint64#sum():map {block?}
   array@uint64#tail(n:number):map {block?}
   array@uint64.zeros(dim+:number):static:map {block?}
 array@ushort
+  array@ushort#average():map {block?}
   array@ushort#dump(stream?:stream):void:[upper]
   array@ushort#each() {block?}
   array@ushort#fill(value:number):map:void
@@ -478,6 +501,7 @@ array@ushort
   array@ushort#offset(n:number):map {block?}
   array@ushort.ones(dim+:number):static:map {block?}
   array@ushort#paste(offset:number, src:array@ushort):map
+  array@ushort#sum():map {block?}
   array@ushort#tail(n:number):map {block?}
   array@ushort.zeros(dim+:number):static:map {block?}
 audio
