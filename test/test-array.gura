@@ -272,3 +272,16 @@ testcase('sum/average') {
 		println('avg = ', x.average())
 	}	
 }
+testcase('identity') {
+	funcs.each {|func|
+		println(func)
+		x = func.identity(1)
+		println(x.each().fold(1):*join(' '))
+		x = func.identity(2)
+		println(x.each().fold(2):*join(' '))
+		x = func.identity(3)
+		println(x.each().fold(3):*join(' '))
+		x = func.identity(5)
+		println(x.each().fold(5):*join(' '))
+	}
+}

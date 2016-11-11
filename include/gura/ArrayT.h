@@ -23,6 +23,10 @@ public:
 		SetSize1D(cnt);
 		AllocMemory();
 	}
+	inline ArrayT(size_t n, size_t m) {
+		SetSize2D(n, m);
+		AllocMemory();
+	}
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
 	}
@@ -46,6 +50,7 @@ public:
 	static ArrayT *CreateFromList(const ValueList &valList);
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
+	static ArrayT *CreateIdentity(size_t n);
 private:
 	inline ~ArrayT() {}
 };

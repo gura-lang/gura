@@ -49,6 +49,12 @@ public:
 		_dims.push_back(Dimension(cnt));
 		UpdateMetrics();
 	}
+	inline void SetSize2D(size_t n, size_t m) {
+		_dims.reserve(2);
+		_dims.push_back(Dimension(n));
+		_dims.push_back(Dimension(m));
+		UpdateMetrics();
+	}
 	inline void SetSize(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
 		_dims.reserve(std::distance(pDim, pDimEnd));
 		std::copy(pDim, pDimEnd, std::back_inserter(_dims));

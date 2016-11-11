@@ -218,6 +218,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromIterator(Environment &env, Iterator *p
 	return pArrayT.release();
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateIdentity(size_t n)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(n, n));
+	pArrayT->FillZero();
+	T_Elem *p = pArrayT->GetPointer();
+	size_t stride = n + 1;
+	for (size_t i = 0; i < n; i++, p += stride) *p = 1;
+	return pArrayT.release();
+}
+
 //-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------

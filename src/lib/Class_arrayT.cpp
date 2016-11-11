@@ -341,6 +341,25 @@ Gura_ImplementMethod_arrayT(head)
 	return ReturnValue(env, arg, value);
 }
 
+// array@T.identity(n:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(identity)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that represents a identity matrix with specified size.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(identity)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
 // array@T#offset(n:number):map {block?}
 Gura_DeclareMethod_arrayT(offset)
 {
@@ -539,6 +558,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	Gura_AssignMethod_arrayT(each);
 	Gura_AssignMethod_arrayT(fill);
 	Gura_AssignMethod_arrayT(head);
+	Gura_AssignMethod_arrayT(identity);
 	Gura_AssignMethod_arrayT(offset);
 	Gura_AssignMethod_arrayT(ones);
 	Gura_AssignMethod_arrayT(paste);
@@ -578,7 +598,6 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 		AutoPtr<ArrayT<T_Elem> > pArrayT(
 			Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
 		Object_list *pObjList = value.InitAsList(env);
-		//pObjList->Reserve(pArrayT->GetCountTotal());
 		pArrayT->CopyToList(pObjList->GetListForModify());
 		pObjList->SetValueType(VTYPE_number);
 		return true;
