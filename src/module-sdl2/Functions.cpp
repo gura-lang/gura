@@ -2253,7 +2253,7 @@ Gura_ImplementFunction(__SetWindowGammaRamp)
 	AutoPtr<ArrayT<Uint16> > _blue(ArrayT<Uint16>::CreateFromList(arg.GetList(3)));
 	ArrayT<Uint16> &blue = *_blue;
 	Signal &sig = env.GetSignal();
-	if (red.GetCountTotal() != 256 || green.GetCountTotal() != 256 || blue.GetCountTotal() != 256) {
+	if (!red.HasShape(256) || !green.HasShape(256) || !blue.HasShape(256)) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
 		return Value::Nil;
 	}
@@ -2527,7 +2527,7 @@ Gura_ImplementFunction(__UpdateWindowSurfaceRects)
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
 	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
 	ArrayT<SDL_Rect> &rects = *_rects;
-	int numrects = static_cast<int>(rects.GetCountTotal());
+	int numrects = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -3196,7 +3196,7 @@ Gura_ImplementFunction(__RenderDrawLines)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
 	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
 	ArrayT<SDL_Point> &points = *_points;
-	int count = static_cast<int>(points.GetCountTotal());
+	int count = static_cast<int>(points.GetElemNum());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -3246,7 +3246,7 @@ Gura_ImplementFunction(__RenderDrawPoints)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
 	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
 	ArrayT<SDL_Point> &points = *_points;
-	int count = static_cast<int>(points.GetCountTotal());
+	int count = static_cast<int>(points.GetElemNum());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -3294,7 +3294,7 @@ Gura_ImplementFunction(__RenderDrawRects)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
 	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
 	ArrayT<SDL_Rect> &rects = *_rects;
-	int count = static_cast<int>(rects.GetCountTotal());
+	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -3342,7 +3342,7 @@ Gura_ImplementFunction(__RenderFillRects)
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
 	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
 	ArrayT<SDL_Rect> &rects = *_rects;
-	int count = static_cast<int>(rects.GetCountTotal());
+	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -4130,7 +4130,7 @@ Gura_ImplementFunction(__SetPaletteColors)
 	int firstcolor = arg.GetInt(2);
 	int ncolors = arg.GetInt(3);
 	Signal &sig = env.GetSignal();
-	int nmax = static_cast<int>(colors.GetCountTotal());
+	int nmax = static_cast<int>(colors.GetElemNum());
 	if (firstcolor + ncolors > nmax) {
 		sig.SetError(ERR_IndexError, "out of range");
 		return Value::Nil;
@@ -4183,7 +4183,7 @@ Gura_ImplementFunction(__EnclosePoints)
 	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(0)));
 	ArrayT<SDL_Point> &points = *_points;
 	const SDL_Rect *clip = Object_Rect::GetObject(arg, 1)->GetEntity();
-	int count = static_cast<int>(points.GetCountTotal());
+	int count = static_cast<int>(points.GetElemNum());
 	SDL_Rect result;
 	SDL_bool _rtn = SDL_EnclosePoints(points, count, clip, &result);
 	Value _rtnVal;
@@ -4641,7 +4641,7 @@ Gura_ImplementFunction(__FillRects)
 	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
 	ArrayT<SDL_Rect> &rects = *_rects;
 	Uint32 color = arg.GetUInt32(2);
-	int count = static_cast<int>(rects.GetCountTotal());
+	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -5495,7 +5495,7 @@ Gura_ImplementFunction(__AddEvents)
 {
 	AutoPtr<ArrayT<SDL_Event> > _events(CreateArrayT<SDL_Event, Object_Event>(arg.GetList(0)));
 	ArrayT<SDL_Event> &events = *_events;
-	int numevents = static_cast<int>(events.GetCountTotal());
+	int numevents = static_cast<int>(events.GetElemNum());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -6204,11 +6204,11 @@ Gura_ImplementFunction(__CreateCursor)
 	int hot_y = arg.GetInt(5);
 	Signal &sig = env.GetSignal();
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (data->GetCountTotal() < bytesLeast) {
+	if (data->GetElemNum() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Nil;
 	}
-	if (mask->GetCountTotal() < bytesLeast) {
+	if (mask->GetElemNum() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Nil;
 	}
