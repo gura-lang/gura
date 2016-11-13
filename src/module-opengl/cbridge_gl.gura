@@ -235,9 +235,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -307,9 +305,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -371,9 +367,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, ${arg.name}.GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -421,9 +415,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -493,9 +485,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -559,9 +549,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -640,9 +628,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<float> *_${arg.name} = Object_arrayT<float>::GetObject(arg, ${idx})->GetArrayT();
 			GLfloat *${arg.name} = reinterpret_cast<GLfloat *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,
@@ -740,9 +726,7 @@ cbridge.AddTypeConvs {
 			R'''
 			ArrayT<double> *_${arg.name} = Object_arrayT<double>::GetObject(arg, ${idx})->GetArrayT();
 			GLdouble *${arg.name} = reinterpret_cast<GLdouble *>(_${arg.name}->GetPointer());
-			if (!CheckParamCount(pname, _${arg.name}->GetCountTotal())) {
-				env.SetError(ERR_ValueError,
-						"the list must have %d elements", GetParamCount(pname));
+			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
 			}''',
 			nil,

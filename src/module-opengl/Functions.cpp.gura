@@ -27,7 +27,7 @@ glAlphaFunc(func:GLenum, ref:GLclampf):void:map = `auto %% {`en,
 }
 
 glAreTexturesResident(textures:GLuint@:const):GLboolean:map {block?} = R'''
-	GLsizei n = _textures->GetCountTotal();
+	GLsizei n = _textures->GetElemNum();
 	AutoPtr<ArrayT<GLboolean> > _residences(new ArrayT<GLboolean>(n));
 	GLboolean *residences = _residences->GetPointer();
 	GLboolean _rtn = glAreTexturesResident(n, textures, residences);
@@ -73,7 +73,7 @@ glBindTexture(target:GLenum, texture:GLuint):void:map = `auto %% {`en,
 glBitmap(width:GLsizei, height:GLsizei, xorig:GLfloat, yorig:GLfloat, xmove:GLfloat, ymove:GLfloat, bitmap:GLubyte@:const:nil):void:map = R'''
 	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
-		if (_bitmap->GetCountTotal() < bytesReq) {
+		if (_bitmap->GetElemNum() < bytesReq) {
 			env.SetError(ERR_ValueError, "array doesn\'t contain enough data");
 			return Value::Nil;
 		}
@@ -616,7 +616,7 @@ glDeleteLists(list:GLuint, range:GLsizei):void:map = `auto %% {`en,
 }
 
 glDeleteTextures(textures:GLuint@:const):void:map = R'''
-	GLsizei n = _textures->GetCountTotal();
+	GLsizei n = _textures->GetElemNum();
 	glDeleteTextures(n, textures);
 	return Value::Nil;
 ''' %% {`en,
@@ -784,7 +784,7 @@ glFeedbackBuffer(type:GLenum, buffer:array@float:nil):void = R'''
 	if (buffer == nullptr) {
 		glFeedbackBuffer(0, type, nullptr);
 	} else {
-		glFeedbackBuffer(buffer->GetCountTotal(), type, buffer->GetPointer());
+		glFeedbackBuffer(buffer->GetElemNum(), type, buffer->GetPointer());
 	}
 	return Value::Nil;
 ''' %% {`en,
@@ -1677,7 +1677,7 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto %% {`en,
 }
 
 glPolygonStipple(mask:array@uchar):void:map = R'''
-	if (mask->GetCountTotal() != 32 * 4) {
+	if (mask->GetElemNum() != 32 * 4) {
 		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
 	}
@@ -1709,8 +1709,8 @@ glPopName():void = `auto %% {`en,
 }
 
 glPrioritizeTextures(textures:GLuint@:const, priorities:GLclampf@:const):void:map = R'''
-	GLsizei n = _textures->GetCountTotal();
-	if (n != _priorities->GetCountTotal()) {
+	GLsizei n = _textures->GetElemNum();
+	if (n != _priorities->GetElemNum()) {
 		env.SetError(ERR_ValueError, "textures and priorities must have the same number of elements");
 		return Value::Nil;
 	}
@@ -2020,7 +2020,7 @@ glSelectBuffer(buffer:array@uint:nil):void = R'''
 	if (buffer == nullptr) {
 		glSelectBuffer(0, nullptr);
 	} else {
-		glSelectBuffer(buffer->GetCountTotal(), buffer->GetPointer());
+		glSelectBuffer(buffer->GetElemNum(), buffer->GetPointer());
 	}
 	return Value::Nil;
 ''' %% {`en,
@@ -3425,8 +3425,8 @@ glBlendFuncSeparate(srcRGB:GLenum, dstRGB:GLenum, srcAlpha:GLenum, dstAlpha:GLen
 glMultiDrawArrays(mode:GLenum, first:GLint@:const, count:GLsizei@:const):void:map = R'''
 ^#if defined(GL_VERSION_1_4)
 ^	ImplementGLExtension();
-	GLsizei primcount = _first->GetCountTotal();
-	if (primcount != _count->GetCountTotal()) {
+	GLsizei primcount = _first->GetElemNum();
+	if (primcount != _count->GetElemNum()) {
 		env.SetError(ERR_ValueError, "first and count must have the same number of elements");
 		return Value::Nil;
 	}
@@ -3686,7 +3686,7 @@ glGenQueries(n:GLsizei):map {block?} = R'''
 glDeleteQueries(ids:GLuint@:const):void:map = R'''
 ^#if defined(GL_VERSION_1_5)
 ^	ImplementGLExtension();
-	GLsizei n = _ids->GetCountTotal();
+	GLsizei n = _ids->GetElemNum();
 	glDeleteQueries(n, ids);
 	return Value::Nil;
 #else
@@ -3814,7 +3814,7 @@ glBindBuffer(target:GLenum, buffer:GLuint):void:map = R'''
 glDeleteBuffers(buffers:GLuint@:const):void:map = R'''
 ^#if defined(GL_VERSION_1_5)
 ^	ImplementGLExtension();
-	GLsizei n = _buffers->GetCountTotal();
+	GLsizei n = _buffers->GetElemNum();
 	glDeleteBuffers(n, buffers);
 	return Value::Nil;
 #else
@@ -3930,7 +3930,7 @@ glGetBufferParameteriv(target:GLenum, pname:GLenum):map {block?} = R'''
 glDrawBuffers(bufs:GLenum@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei n = _bufs->GetCountTotal();
+	GLsizei n = _bufs->GetElemNum();
 	glDrawBuffers(n, bufs);
 	return Value::Nil;
 #else
@@ -4821,7 +4821,7 @@ glUniform4i(location:GLint, v0:GLint, v1:GLint, v2:GLint, v3:GLint):void:map = R
 glUniform1fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal();
+	GLsizei count = _value->GetElemNum();
 	glUniform1fv(location, count, value);
 	return Value::Nil;
 #else
@@ -4836,7 +4836,7 @@ glUniform1fv(location:GLint, value:GLfloat@:const):void:map = R'''
 glUniform2fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 2;
+	GLsizei count = _value->GetElemNum() / 2;
 	glUniform2fv(location, count, value);
 	return Value::Nil;
 #else
@@ -4851,7 +4851,7 @@ glUniform2fv(location:GLint, value:GLfloat@:const):void:map = R'''
 glUniform3fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 3;
+	GLsizei count = _value->GetElemNum() / 3;
 	glUniform3fv(location, count, value);
 	return Value::Nil;
 #else
@@ -4866,7 +4866,7 @@ glUniform3fv(location:GLint, value:GLfloat@:const):void:map = R'''
 glUniform4fv(location:GLint, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 4;
+	GLsizei count = _value->GetElemNum() / 4;
 	glUniform4fv(location, count, value);
 	return Value::Nil;
 #else
@@ -4881,7 +4881,7 @@ glUniform4fv(location:GLint, value:GLfloat@:const):void:map = R'''
 glUniform1iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal();
+	GLsizei count = _value->GetElemNum();
 	glUniform1iv(location, count, value);
 	return Value::Nil;
 #else
@@ -4896,7 +4896,7 @@ glUniform1iv(location:GLint, value:GLint@:const):void:map = R'''
 glUniform2iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 2;
+	GLsizei count = _value->GetElemNum() / 2;
 	glUniform2iv(location, count, value);
 	return Value::Nil;
 #else
@@ -4911,7 +4911,7 @@ glUniform2iv(location:GLint, value:GLint@:const):void:map = R'''
 glUniform3iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 3;
+	GLsizei count = _value->GetElemNum() / 3;
 	glUniform3iv(location, count, value);
 	return Value::Nil;
 #else
@@ -4926,7 +4926,7 @@ glUniform3iv(location:GLint, value:GLint@:const):void:map = R'''
 glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / 4;
+	GLsizei count = _value->GetElemNum() / 4;
 	glUniform4iv(location, count, value);
 	return Value::Nil;
 #else
@@ -4941,7 +4941,7 @@ glUniform4iv(location:GLint, value:GLint@:const):void:map = R'''
 glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / (2 * 2);
+	GLsizei count = _value->GetElemNum() / (2 * 2);
 	glUniformMatrix2fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -4956,7 +4956,7 @@ glUniformMatrix2fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / (3 * 3);
+	GLsizei count = _value->GetElemNum() / (3 * 3);
 	glUniformMatrix3fv(location, count, transpose, value);
 	return Value::Nil;
 #else
@@ -4971,7 +4971,7 @@ glUniformMatrix3fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):vo
 glUniformMatrix4fv(location:GLint, transpose:GLboolean, value:GLfloat@:const):void:map = R'''
 ^#if defined(GL_VERSION_2_0)
 ^	ImplementGLExtension();
-	GLsizei count = _value->GetCountTotal() / (4 * 4);
+	GLsizei count = _value->GetElemNum() / (4 * 4);
 	glUniformMatrix4fv(location, count, transpose, value);
 	return Value::Nil;
 #else

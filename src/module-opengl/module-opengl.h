@@ -36,7 +36,7 @@ Value CreateValueFromParams(Environment &env, const T params[], size_t n)
 }
 
 size_t GetParamCount(GLenum pname);
-bool CheckParamCount(GLenum pname, size_t n);
+bool CheckArray(Signal &sig, GLenum pname, const Array *pArray);
 
 GLenum GetImageFormat(Environment &env, const Image *pImage);
 void SetError_NotImpFunction(Environment &env, const char *funcName);

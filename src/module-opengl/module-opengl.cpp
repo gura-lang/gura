@@ -23,11 +23,13 @@ size_t GetParamCount(GLenum pname)
 	return iter->second;
 }
 
-bool CheckParamCount(GLenum pname, size_t n)
+bool CheckArray(Signal &sig, GLenum pname, const Array *pArray)
 {
 	ParamInfoDict::iterator iter = _pParamInfoDict->find(pname);
 	if (iter == _pParamInfoDict->end()) return true;
-	return n == iter->second;
+	if (pArray->HasShape(iter->second)) return true;
+	sig.SetError(ERR_ValueError, "the array must contain %d elements", iter->second);
+	return false;
 }
 
 void PrepareParamInfoDict()
