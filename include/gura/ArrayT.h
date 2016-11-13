@@ -19,16 +19,16 @@ public:
 	inline ArrayT() {}
 	inline ArrayT(const ArrayT &src) : Array(src) {}
 	inline ArrayT(Memory *pMemory) : Array(pMemory) {}
-	inline ArrayT(size_t cnt) {
-		SetSize1D(cnt);
+	inline ArrayT(size_t size) {
+		SetDimension(Dimension(size));
 		AllocMemory();
 	}
-	inline ArrayT(size_t n, size_t m) {
-		SetSize2D(n, m);
+	inline ArrayT(size_t sizeRow, size_t sizeCol) {
+		SetDimension(Dimension(sizeRow), Dimension(sizeCol));
 		AllocMemory();
 	}
 	inline void AllocMemory() {
-		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetCountTotal()));
+		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}
 	inline T_Elem *GetPointer() {
 		return reinterpret_cast<T_Elem *>(_pMemory->GetPointer()) + GetOffsetBase();

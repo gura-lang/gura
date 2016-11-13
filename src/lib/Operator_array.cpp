@@ -411,8 +411,8 @@ bool Op_Array_NoSig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_El
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_Elem *pElem = array.GetPointer();
-	size_t cnt = array.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+	size_t nElems = array.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElem++) {
 		op(*pResult, *pElem);
 	}
 	return true;
@@ -422,8 +422,8 @@ template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_El
 Value Op_Array_NoSig(Environment &env, const Value &value, ValueType valTypeResult)
 {
 	ArrayT<T_Elem> *pArray = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-	size_t cnt = pArray->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArray->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_Array_NoSig<T_ElemResult, T_Elem, op>(
 			env.GetSignal(), *pArrayResult, *pArray)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
@@ -437,28 +437,28 @@ bool Op_ArrayAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cntL = arrayL.GetCountTotal();
-	size_t cntR = arrayR.GetCountTotal();
-	if (cntL == cntR) {
-		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+	size_t nElemsL = arrayL.GetElemNum();
+	size_t nElemsR = arrayR.GetElemNum();
+	if (nElemsL == nElemsR) {
+		for (size_t i = 0; i < nElemsL; i++, pResult++, pElemL++, pElemR++) {
 			op(*pResult, *pElemL, *pElemR);
 		}
-	} else if (cntL < cntR) {
+	} else if (nElemsL < nElemsR) {
 		size_t j = 0;
 		const T_ElemL *pElemLOrg = pElemL;
-		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+		for (size_t i = 0; i < nElemsR; i++, pResult++, pElemL++, pElemR++) {
 			op(*pResult, *pElemL, *pElemR);
-			if (++j >= cntL) {
+			if (++j >= nElemsL) {
 				pElemL = pElemLOrg;
 				j = 0;
 			}
 		}
-	} else { // cntL > cntR
+	} else { // nElemsL > nElemsR
 		size_t j = 0;
 		const T_ElemR *pElemROrg = pElemR;
-		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+		for (size_t i = 0; i < nElemsL; i++, pResult++, pElemL++, pElemR++) {
 			op(*pResult, *pElemL, *pElemR);
-			if (++j >= cntR) {
+			if (++j >= nElemsR) {
 				pElemR = pElemROrg;
 				j = 0;
 			}
@@ -495,8 +495,8 @@ bool Op_ArrayAndNumber_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
-	size_t cnt = arrayL.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+	size_t nElems = arrayL.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElemL++) {
 		op(*pResult, *pElemL, numRCasted);
 	}
 	return true;
@@ -509,8 +509,8 @@ Value Op_ArrayAndNumber_NoSig(Environment &env,
 {
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	Number numR = valueRight.GetNumber();
-	size_t cnt = pArrayL->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArrayL->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_ArrayAndNumber_NoSig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
@@ -524,8 +524,8 @@ bool Op_NumberAndArray_NoSig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayR.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+	size_t nElems = arrayR.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElemR++) {
 		op(*pResult, numLCasted, *pElemR);
 	}
 	return true;
@@ -538,8 +538,8 @@ Value Op_NumberAndArray_NoSig(Environment &env,
 {
 	Number numL = valueLeft.GetNumber();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = pArrayR->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_NumberAndArray_NoSig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, numL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
@@ -550,8 +550,8 @@ bool Op_Array_Sig(Signal &sig, ArrayT<T_ElemResult> &result, const ArrayT<T_Elem
 {
 	T_ElemResult *pResult = result.GetPointer();
 	const T_Elem *pElem = array.GetPointer();
-	size_t cnt = array.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElem++) {
+	size_t nElems = array.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElem++) {
 		if (!op(sig, *pResult, *pElem)) return false;
 	}
 	return true;
@@ -561,8 +561,8 @@ template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_El
 Value Op_Array_Sig(Environment &env, const Value &value, ValueType valTypeResult)
 {
 	ArrayT<T_Elem> *pArray = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-	size_t cnt = pArray->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArray->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_Array_Sig<T_ElemResult, T_Elem, op>(
 			env.GetSignal(), *pArrayResult, *pArray)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
@@ -576,28 +576,28 @@ bool Op_ArrayAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cntL = arrayL.GetCountTotal();
-	size_t cntR = arrayR.GetCountTotal();
-	if (cntL == cntR) {
-		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+	size_t nElemsL = arrayL.GetElemNum();
+	size_t nElemsR = arrayR.GetElemNum();
+	if (nElemsL == nElemsR) {
+		for (size_t i = 0; i < nElemsL; i++, pResult++, pElemL++, pElemR++) {
 			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
 		}
-	} else if (cntL < cntR) {
+	} else if (nElemsL < nElemsR) {
 		size_t j = 0;
 		const T_ElemL *pElemLOrg = pElemL;
-		for (size_t i = 0; i < cntR; i++, pResult++, pElemL++, pElemR++) {
+		for (size_t i = 0; i < nElemsR; i++, pResult++, pElemL++, pElemR++) {
 			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
-			if (++j >= cntL) {
+			if (++j >= nElemsL) {
 				pElemL = pElemLOrg;
 				j = 0;
 			}
 		}
-	} else { // cntL > cntR
+	} else { // nElemsL > nElemsR
 		size_t j = 0;
 		const T_ElemR *pElemROrg = pElemR;
-		for (size_t i = 0; i < cntL; i++, pResult++, pElemL++, pElemR++) {
+		for (size_t i = 0; i < nElemsL; i++, pResult++, pElemL++, pElemR++) {
 			if (!op(sig, *pResult, *pElemL, *pElemR)) return false;
-			if (++j >= cntR) {
+			if (++j >= nElemsR) {
 				pElemR = pElemROrg;
 				j = 0;
 			}
@@ -634,8 +634,8 @@ bool Op_ArrayAndNumber_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	const T_ElemL *pElemL = arrayL.GetPointer();
 	T_ElemR numRCasted = static_cast<T_ElemR>(numR);
-	size_t cnt = arrayL.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElemL++) {
+	size_t nElems = arrayL.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElemL++) {
 		if (!op(sig, *pResult, *pElemL, numRCasted)) return false;
 	}
 	return true;
@@ -648,8 +648,8 @@ Value Op_ArrayAndNumber_Sig(Environment &env,
 {
 	ArrayT<T_ElemL> *pArrayL = Object_arrayT<T_ElemL>::GetObject(valueLeft)->GetArrayT();
 	Number numR = valueRight.GetNumber();
-	size_t cnt = pArrayL->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArrayL->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_ArrayAndNumber_Sig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, *pArrayL, numR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));
@@ -663,8 +663,8 @@ bool Op_NumberAndArray_Sig(Signal &sig, ArrayT<T_ElemResult> &result,
 	T_ElemResult *pResult = result.GetPointer();
 	T_ElemL numLCasted = static_cast<T_ElemL>(numL);
 	const T_ElemR *pElemR = arrayR.GetPointer();
-	size_t cnt = arrayR.GetCountTotal();
-	for (size_t i = 0; i < cnt; i++, pResult++, pElemR++) {
+	size_t nElems = arrayR.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElemR++) {
 		if (!op(sig, *pResult, numLCasted, *pElemR)) return false;
 	}
 	return true;
@@ -677,8 +677,8 @@ Value Op_NumberAndArray_Sig(Environment &env,
 {
 	Number numL = valueLeft.GetNumber();
 	ArrayT<T_ElemR> *pArrayR = Object_arrayT<T_ElemR>::GetObject(valueRight)->GetArrayT();
-	size_t cnt = pArrayR->GetCountTotal();
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(cnt));
+	size_t nElems = pArrayR->GetElemNum();
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(new ArrayT<T_ElemResult>(nElems));
 	if (!Op_NumberAndArray_Sig<T_ElemResult, T_ElemL, T_ElemR, op>(
 			env.GetSignal(), *pArrayResult, numL, *pArrayR)) return false;
 	return Value(new Object_arrayT<T_ElemResult>(env, valTypeResult, pArrayResult.release()));

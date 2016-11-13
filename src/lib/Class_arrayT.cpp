@@ -61,7 +61,7 @@ String Object_arrayT<T_Elem>::ToString(bool exprFlag)
 	str += ":(";
 	const Array::Dimensions &dims = _pArrayT->GetDimensions();
 	foreach_const (Array::Dimensions, pDim, dims) {
-		::sprintf(buff, (pDim == dims.begin())? "%ld" : ",%ld", pDim->GetCount());
+		::sprintf(buff, (pDim == dims.begin())? "%ld" : ",%ld", pDim->GetSize());
 		str += buff;
 	}
 	str += ")>";
@@ -79,7 +79,7 @@ Value Object_arrayT<T_Elem>::IndexGet(Environment &env, const Value &valueIdx)
 	const Array::Dimensions &dims = _pArrayT->GetDimensions();
 	Array::Dimensions::const_iterator pDim = dims.begin();
 	size_t idx = valueIdx.GetSizeT();
-	if (idx >= pDim->GetCount()) {
+	if (idx >= pDim->GetSize()) {
 		sig.SetError(ERR_OutOfRangeError, "index is out of range");
 		return Value::Nil;
 	}
@@ -87,7 +87,7 @@ Value Object_arrayT<T_Elem>::IndexGet(Environment &env, const Value &valueIdx)
 		return Value(_pArrayT->GetPointer()[idx]);
 	}
 	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
-	pArrayRtn->SetSize(pDim + 1, dims.end());
+	pArrayRtn->SetDimension(pDim + 1, dims.end());
 	pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
 	return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
 }
@@ -101,7 +101,7 @@ void Object_arrayT<T_Elem>::IndexSet(Environment &env, const Value &valueIdx, co
 		return;
 	}
 	size_t idx = valueIdx.GetSizeT();
-	if (idx >= _pArrayT->GetCountTotal()) {
+	if (idx >= _pArrayT->GetElemNum()) {
 		sig.SetError(ERR_OutOfRangeError, "index is out of range");
 		return;
 	}
@@ -239,8 +239,8 @@ Gura_DeclareMethod_arrayT(average)
 Gura_ImplementMethod_arrayT(average)
 {
 	const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
-	size_t cnt = pArrayT->GetCountTotal();
-	return ReturnValue(env, arg, Value((cnt == 0)? 0 : pArrayT->Sum() / cnt));
+	size_t n = pArrayT->GetElemNum();
+	return ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
 }
 
 // array@T#each() {block?}
@@ -329,13 +329,13 @@ Gura_ImplementMethod_arrayT(head)
 	Signal &sig = env.GetSignal();
 	const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetCountTotal()) {
+	if (n > pArrayT->GetElemNum()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 		return Value::Nil;
 	}
 	size_t offsetBase = pArrayT->GetOffsetBase();
 	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetSize1D(n);
+	pArrayTRtn->SetDimension(Array::Dimension(n));
 	pArrayTRtn->SetOffsetBase(offsetBase);
 	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 	return ReturnValue(env, arg, value);
@@ -382,15 +382,15 @@ Gura_ImplementMethod_arrayT(offset)
 	Signal &sig = env.GetSignal();
 	const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetCountTotal()) {
+	if (n > pArrayT->GetElemNum()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 		return Value::Nil;
 		}
-	size_t cnt = pArrayT->GetCountTotal() - n;
+	size_t nElems = pArrayT->GetElemNum() - n;
 	size_t offsetBase = pArrayT->GetOffsetBase() + n;
 	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetSize1D(cnt);
+	pArrayTRtn->SetDimension(Array::Dimension(nElems));
 	pArrayTRtn->SetOffsetBase(offsetBase);
 	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 	return ReturnValue(env, arg, value);
@@ -487,14 +487,14 @@ Gura_ImplementMethod_arrayT(tail)
 	Signal &sig = env.GetSignal();
 	const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetCountTotal()) {
+	if (n > pArrayT->GetElemNum()) {
 		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
 		return Value::Nil;
 	}
-	size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetCountTotal() - n;
+	size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetElemNum() - n;
 	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
 		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetSize1D(n);
+	pArrayTRtn->SetDimension(Array::Dimension(n));
 	pArrayTRtn->SetOffsetBase(offsetBase);
 	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 	return ReturnValue(env, arg, value);
