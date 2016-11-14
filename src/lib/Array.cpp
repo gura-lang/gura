@@ -52,6 +52,16 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Ar
 	return false;
 }
 
+bool Array::CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB)
+{
+	if (Dimensions::IsDotProductCalculatable(
+			arrayA.GetDimensions(), arrayB.GetDimensions())) {
+		return true;
+	}
+	sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Array::Dimension
 //-----------------------------------------------------------------------------
@@ -74,6 +84,19 @@ bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Di
 {
 	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
 	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
+	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
+		if (pA->GetSize() != pB->GetSize()) return false;
+	}
+	return true;
+}
+
+bool Array::Dimensions::IsDotProductCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
+{
+	if (dimsA.size() < 2 || dimsB.size() < 2) return false;
+	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
+	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
+	if (pA->GetSize() != (pB + 1)->GetSize()) return false;
+	pA += 2, pB += 2;
 	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
 		if (pA->GetSize() != pB->GetSize()) return false;
 	}

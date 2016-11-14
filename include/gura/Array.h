@@ -30,6 +30,7 @@ public:
 	public:
 		static bool IsSameShape(const Dimensions &dimsA, const Dimensions &dimsB);
 		static bool IsElemwiseCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
+		static bool IsDotProductCalculatable(const Dimensions &dimsA, const Dimensions &dimsB);
 	};
 protected:
 	int _cntRef;
@@ -82,6 +83,7 @@ public:
 public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
+	static bool CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 };
 	
 }
