@@ -80,6 +80,7 @@
 #include "gura/Class_Struct.h"
 #include "gura/Class_any.h"
 #include "gura/Class_argument.h"
+#include "gura/Class_array.h"
 #include "gura/Class_arrayT.h"
 #include "gura/Class_audio.h"
 #include "gura/Class_binary.h"

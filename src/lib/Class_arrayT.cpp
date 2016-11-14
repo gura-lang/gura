@@ -42,6 +42,62 @@ AssignFunction(new Func_arrayT__##name<T_Elem>(*this, GetValueType()))
 
 namespace Gura {
 
+//------------------------------------------------------------------------------
+// Utility functions
+//------------------------------------------------------------------------------
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void CalcDotProduct(T_ElemResult *pElemResult, const T_ElemL *pElemL, const T_ElemR *pElemR,
+				size_t rowL, size_t colL_rowR, size_t colR)
+{
+	const T_ElemL *pElemBaseL = pElemL;
+	for (size_t iRow = 0; iRow < rowL; iRow++, pElemBaseL += colL_rowR) {
+		const T_ElemR *pElemBaseR = pElemR;
+		for (size_t iCol = 0; iCol < colR; iCol++, pElemBaseR++) {
+			const T_ElemL *pElemWorkL = pElemBaseL;
+			const T_ElemR *pElemWorkR = pElemBaseR;
+			T_ElemResult elemResult = 0;
+			for (size_t i = 0; i < colL_rowR; i++, pElemWorkL++, pElemWorkR += colR) {
+				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * pElemWorkR;
+			}
+			*pElemResult++ = elemResult;
+		}
+	}
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void CalcDotProduct(ArrayT<T_ElemResult> &arrayResult,
+					const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
+{
+	T_ElemResult *pElemResult = arrayResult.GetPointer();
+	const T_ElemL *pElemL = arrayL.GetPointer();
+	const T_ElemR *pElemR = arrayR.GetPointer();
+	const Array::Dimensions &dimsL = arrayL.GetDimensions();
+	const Array::Dimensions &dimsR = arrayR.GetDimensions();
+	size_t rowL = dimsL[0].GetSize();
+	size_t colL_rowR = dimsL[1].GetSize();
+	size_t colR = dimsR[1].GetSize();
+	size_t elemNumResult = arrayResult.GetElemNum();
+	size_t elemNumL = arrayL.GetElemNum();
+	size_t elemNumR = arrayR.GetElemNum();
+	if (dimsL.size() == dimsR.size()) {
+		CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
+	} else if (dimsL.size() < dimsR.size()) {
+		size_t elemNumMatR = colL_rowR * colR;
+		for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
+			CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
+			pElemResult += elemNumResult;
+			pElemR += elemNumR;
+		}
+	} else { // dimsL.size() > dimsR.size()
+		size_t elemNumMatL = rowL * colL_rowR;
+		for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
+			CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
+			pElemResult += elemNumResult;
+			pElemL += elemNumL;
+		}
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Object_arrayT
 //-----------------------------------------------------------------------------
@@ -243,6 +299,27 @@ Gura_ImplementMethod_arrayT(average)
 	return ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
 }
 
+#if 0
+// array@T.dot(a:n:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(dot)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that represents a identity matrix with specified size.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(identity)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+#endif
+
 // array@T#each() {block?}
 Gura_DeclareMethod_arrayT(each)
 {
@@ -304,6 +381,22 @@ Gura_ImplementMethod_arrayT(fill)
 {
 	ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 	pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
+	return Value::Nil;
+}
+
+// array@T#flat()
+Gura_DeclareMethod_arrayT(flat)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	AddHelp(
+		Gura_Symbol(en),
+		"Flatten elements in the array.\n"
+		);
+}
+
+Gura_ImplementMethod_arrayT(flat)
+{
+	//ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
 	return Value::Nil;
 }
 
@@ -557,6 +650,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	Gura_AssignMethod_arrayT(dump);
 	Gura_AssignMethod_arrayT(each);
 	Gura_AssignMethod_arrayT(fill);
+	Gura_AssignMethod_arrayT(flat);
 	Gura_AssignMethod_arrayT(head);
 	Gura_AssignMethod_arrayT(identity);
 	Gura_AssignMethod_arrayT(offset);

@@ -38,12 +38,17 @@ protected:
 	size_t _offsetBase;
 	size_t _elemNum;
 public:
+	Gura_DeclareReferenceAccessor(Array);
+public:
 	inline Array() : _cntRef(1), _offsetBase(0), _elemNum(0) {}
 	inline Array(const Array &src) : _cntRef(1),
 		_pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
 	inline Array(Memory *pMemory) : _cntRef(1),
 		_pMemory(pMemory), _offsetBase(0), _elemNum(0) {}
+protected:
+	virtual ~Array();
+public:
 	inline void SetDimension(const Dimension &dim) {
 		_dims.reserve(1);
 		_dims.push_back(dim);

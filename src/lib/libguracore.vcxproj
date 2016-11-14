@@ -198,6 +198,7 @@
     <ClCompile Include="Class_Struct.cpp" />
     <ClCompile Include="Class_any.cpp" />
     <ClCompile Include="Class_argument.cpp" />
+    <ClCompile Include="Class_array.cpp" />
     <ClCompile Include="Class_arrayT.cpp" />
     <ClCompile Include="Class_audio.cpp" />
     <ClCompile Include="Class_binary.cpp" />
@@ -333,6 +334,7 @@
     <ClInclude Include="..\..\include\gura\Class_Struct.h" />
     <ClInclude Include="..\..\include\gura\Class_any.h" />
     <ClInclude Include="..\..\include\gura\Class_argument.h" />
+    <ClInclude Include="..\..\include\gura\Class_array.h" />
     <ClInclude Include="..\..\include\gura\Class_arrayT.h" />
     <ClInclude Include="..\..\include\gura\Class_audio.h" />
     <ClInclude Include="..\..\include\gura\Class_binary.h" />

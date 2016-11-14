@@ -18,6 +18,7 @@
 @ushort() {block}
 __name__:string = __main__
 argument:class = <class:argument>
+array:class = <class:array>
 array@char:class = <class:array@char(src) {block?}>
 array@double:class = <class:array@double(src) {block?}>
 array@float:class = <class:array@float(src) {block?}>
@@ -360,12 +361,15 @@ argument
   argument#finalize_trailer():void
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
+array
 array@char
   array@char#average():map {block?}
   array@char#dump(stream?:stream):void:[upper]
   array@char#each() {block?}
   array@char#fill(value:number):map:void
+  array@char#flat()
   array@char#head(n:number):map {block?}
+  array@char.identity(n:number):static:map {block?}
   array@char#offset(n:number):map {block?}
   array@char.ones(dim+:number):static:map {block?}
   array@char#paste(offset:number, src:array@char):map
@@ -377,7 +381,9 @@ array@double
   array@double#dump(stream?:stream):void:[upper]
   array@double#each() {block?}
   array@double#fill(value:number):map:void
+  array@double#flat()
   array@double#head(n:number):map {block?}
+  array@double.identity(n:number):static:map {block?}
   array@double#offset(n:number):map {block?}
   array@double.ones(dim+:number):static:map {block?}
   array@double#paste(offset:number, src:array@double):map
@@ -389,7 +395,9 @@ array@float
   array@float#dump(stream?:stream):void:[upper]
   array@float#each() {block?}
   array@float#fill(value:number):map:void
+  array@float#flat()
   array@float#head(n:number):map {block?}
+  array@float.identity(n:number):static:map {block?}
   array@float#offset(n:number):map {block?}
   array@float.ones(dim+:number):static:map {block?}
   array@float#paste(offset:number, src:array@float):map
@@ -401,7 +409,9 @@ array@int
   array@int#dump(stream?:stream):void:[upper]
   array@int#each() {block?}
   array@int#fill(value:number):map:void
+  array@int#flat()
   array@int#head(n:number):map {block?}
+  array@int.identity(n:number):static:map {block?}
   array@int#offset(n:number):map {block?}
   array@int.ones(dim+:number):static:map {block?}
   array@int#paste(offset:number, src:array@int):map
@@ -413,7 +423,9 @@ array@int32
   array@int32#dump(stream?:stream):void:[upper]
   array@int32#each() {block?}
   array@int32#fill(value:number):map:void
+  array@int32#flat()
   array@int32#head(n:number):map {block?}
+  array@int32.identity(n:number):static:map {block?}
   array@int32#offset(n:number):map {block?}
   array@int32.ones(dim+:number):static:map {block?}
   array@int32#paste(offset:number, src:array@int32):map
@@ -425,7 +437,9 @@ array@int64
   array@int64#dump(stream?:stream):void:[upper]
   array@int64#each() {block?}
   array@int64#fill(value:number):map:void
+  array@int64#flat()
   array@int64#head(n:number):map {block?}
+  array@int64.identity(n:number):static:map {block?}
   array@int64#offset(n:number):map {block?}
   array@int64.ones(dim+:number):static:map {block?}
   array@int64#paste(offset:number, src:array@int64):map
@@ -437,7 +451,9 @@ array@short
   array@short#dump(stream?:stream):void:[upper]
   array@short#each() {block?}
   array@short#fill(value:number):map:void
+  array@short#flat()
   array@short#head(n:number):map {block?}
+  array@short.identity(n:number):static:map {block?}
   array@short#offset(n:number):map {block?}
   array@short.ones(dim+:number):static:map {block?}
   array@short#paste(offset:number, src:array@short):map
@@ -449,7 +465,9 @@ array@uchar
   array@uchar#dump(stream?:stream):void:[upper]
   array@uchar#each() {block?}
   array@uchar#fill(value:number):map:void
+  array@uchar#flat()
   array@uchar#head(n:number):map {block?}
+  array@uchar.identity(n:number):static:map {block?}
   array@uchar#offset(n:number):map {block?}
   array@uchar.ones(dim+:number):static:map {block?}
   array@uchar#paste(offset:number, src:array@uchar):map
@@ -461,7 +479,9 @@ array@uint
   array@uint#dump(stream?:stream):void:[upper]
   array@uint#each() {block?}
   array@uint#fill(value:number):map:void
+  array@uint#flat()
   array@uint#head(n:number):map {block?}
+  array@uint.identity(n:number):static:map {block?}
   array@uint#offset(n:number):map {block?}
   array@uint.ones(dim+:number):static:map {block?}
   array@uint#paste(offset:number, src:array@uint):map
@@ -473,7 +493,9 @@ array@uint32
   array@uint32#dump(stream?:stream):void:[upper]
   array@uint32#each() {block?}
   array@uint32#fill(value:number):map:void
+  array@uint32#flat()
   array@uint32#head(n:number):map {block?}
+  array@uint32.identity(n:number):static:map {block?}
   array@uint32#offset(n:number):map {block?}
   array@uint32.ones(dim+:number):static:map {block?}
   array@uint32#paste(offset:number, src:array@uint32):map
@@ -485,7 +507,9 @@ array@uint64
   array@uint64#dump(stream?:stream):void:[upper]
   array@uint64#each() {block?}
   array@uint64#fill(value:number):map:void
+  array@uint64#flat()
   array@uint64#head(n:number):map {block?}
+  array@uint64.identity(n:number):static:map {block?}
   array@uint64#offset(n:number):map {block?}
   array@uint64.ones(dim+:number):static:map {block?}
   array@uint64#paste(offset:number, src:array@uint64):map
@@ -497,7 +521,9 @@ array@ushort
   array@ushort#dump(stream?:stream):void:[upper]
   array@ushort#each() {block?}
   array@ushort#fill(value:number):map:void
+  array@ushort#flat()
   array@ushort#head(n:number):map {block?}
+  array@ushort.identity(n:number):static:map {block?}
   array@ushort#offset(n:number):map {block?}
   array@ushort.ones(dim+:number):static:map {block?}
   array@ushort#paste(offset:number, src:array@ushort):map

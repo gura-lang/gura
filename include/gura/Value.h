@@ -206,6 +206,7 @@ public:
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);					}
 	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);					}
 	inline bool Is_argument() const			{ return IsType(VTYPE_argument);				}
+	inline bool Is_array() const			{ return IsType(VTYPE_array);					}
 	inline bool Is_array_at_char() const	{ return IsType(VTYPE_array_at_char);			}
 	inline bool Is_array_at_uchar() const	{ return IsType(VTYPE_array_at_uchar);			}
 	inline bool Is_array_at_short() const	{ return IsType(VTYPE_array_at_short);			}
@@ -285,6 +286,8 @@ public:
 								{ return MustBe(sig, IsStruct(), 		"struct");			}
 	inline bool MustBe_argument(Signal &sig) const
 								{ return MustBe(sig, Is_argument(), 	"argument");		}
+	inline bool MustBe_array(Signal &sig) const
+								{ return MustBe(sig, Is_array(),		"array");			}
 	inline bool MustBe_array_at_char(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_char(), "array@char");		}
 	inline bool MustBe_array_at_uchar(Signal &sig) const

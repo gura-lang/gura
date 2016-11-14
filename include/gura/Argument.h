@@ -217,6 +217,7 @@ public:
 	inline bool IsGenericObject(size_t idxArg) const	{ return GetValue(idxArg).IsGenericObject();	}
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
 	inline bool Is_argument(size_t idxArg) const		{ return GetValue(idxArg).Is_argument();		}
+	inline bool Is_array(size_t idxArg) const			{ return GetValue(idxArg).Is_array();			}
 	inline bool Is_array_at_char(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_char();	}
 	inline bool Is_array_at_uchar(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uchar();	}
 	inline bool Is_array_at_short(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_short();	}

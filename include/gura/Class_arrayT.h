@@ -36,7 +36,6 @@ public:
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 class Class_arrayT : public Class {
-public:
 private:
 	String _elemName;
 public:
