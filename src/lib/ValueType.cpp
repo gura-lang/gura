@@ -249,9 +249,9 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(array_at_uint64)->SetClass(
 		new Class_arrayT<UInt64>(pClass, VTYPE_array_at_uint64, "uint64"));
 	Gura_VTYPEInfo(array_at_float)->SetClass(
-		new Class_arrayT<float>(pClass, VTYPE_array_at_float, "float"));
+		new Class_arrayT<Float>(pClass, VTYPE_array_at_float, "float"));
 	Gura_VTYPEInfo(array_at_double)->SetClass(
-		new Class_arrayT<double>(pClass, VTYPE_array_at_double, "double"));
+		new Class_arrayT<Double>(pClass, VTYPE_array_at_double, "double"));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));

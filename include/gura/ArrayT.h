@@ -16,17 +16,11 @@ class ArrayT : public Array {
 public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
-	inline ArrayT() {}
-	inline ArrayT(const ArrayT &src) : Array(src) {}
-	inline ArrayT(Memory *pMemory) : Array(pMemory) {}
-	inline ArrayT(size_t size) {
-		SetDimension(Dimension(size));
-		AllocMemory();
-	}
-	inline ArrayT(size_t sizeRow, size_t sizeCol) {
-		SetDimension(Dimension(sizeRow), Dimension(sizeCol));
-		AllocMemory();
-	}
+	ArrayT();
+	ArrayT(const ArrayT &src);
+	ArrayT(Memory *pMemory);
+	ArrayT(size_t size);
+	ArrayT(size_t sizeRow, size_t sizeCol);
 	inline void AllocMemory() {
 		_pMemory.reset(new MemoryHeap(sizeof(T_Elem) * GetElemNum()));
 	}

@@ -50,6 +50,32 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
+ArrayT<T_Elem>::ArrayT() : Array()
+{}
+
+template<typename T_Elem>
+ArrayT<T_Elem>::ArrayT(const ArrayT &src) : Array(src)
+{}
+
+template<typename T_Elem>
+ArrayT<T_Elem>::ArrayT(Memory *pMemory) : Array(pMemory)
+{}
+
+template<typename T_Elem>
+ArrayT<T_Elem>::ArrayT(size_t size) : Array()
+{
+	SetDimension(Dimension(size));
+	AllocMemory();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array()
+{
+	SetDimension(Dimension(sizeRow), Dimension(sizeCol));
+	AllocMemory();
+}
+
+template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
 {
 	T_Elem *p = GetPointer();
@@ -278,8 +304,8 @@ template class ArrayT<Int32>;
 template class ArrayT<UInt32>;
 template class ArrayT<Int64>;
 template class ArrayT<UInt64>;
-template class ArrayT<float>;
-template class ArrayT<double>;
+template class ArrayT<Float>;
+template class ArrayT<Double>;
 
 //------------------------------------------------------------------------------
 // Instantiation of Iterator_ArrayT_Each
@@ -292,7 +318,7 @@ template class Iterator_ArrayT_Each<Int32>;
 template class Iterator_ArrayT_Each<UInt32>;
 template class Iterator_ArrayT_Each<Int64>;
 template class Iterator_ArrayT_Each<UInt64>;
-template class Iterator_ArrayT_Each<float>;
-template class Iterator_ArrayT_Each<double>;
+template class Iterator_ArrayT_Each<Float>;
+template class Iterator_ArrayT_Each<Double>;
 
 }

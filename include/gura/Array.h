@@ -15,6 +15,20 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Array {
 public:
+	enum ElemType {
+		ETYPE_Char,
+		ETYPE_UChar,
+		ETYPE_Short,
+		ETYPE_UShort,
+		ETYPE_Int32,
+		ETYPE_UInt32,
+		ETYPE_Int64,
+		ETYPE_UInt64,
+		ETYPE_Float,
+		ETYPE_Double,
+		ETYPE_Complex,
+	};
+public:
 	class GURA_DLLDECLARE Dimension {
 	private:
 		size_t _size;

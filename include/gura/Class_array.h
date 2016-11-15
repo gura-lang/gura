@@ -19,9 +19,9 @@ private:
 	AutoPtr<Array> _pArray;
 public:
 	inline Object_array(Environment &env, Array *pArray) :
-				Object(env.LookupClass(VTYPE_array)), _pArray(pArray) {}
+		Object(env.LookupClass(VTYPE_array)), _pArray(pArray) {}
 	inline Object_array(Class *pClass, Array *pArray) :
-				Object(pClass), _pArray(pArray) {}
+		Object(pClass), _pArray(pArray) {}
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
