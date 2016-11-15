@@ -27,6 +27,7 @@ public:
 		ETYPE_Float,
 		ETYPE_Double,
 		ETYPE_Complex,
+		ETYPE_max,
 	};
 public:
 	class GURA_DLLDECLARE Dimension {
@@ -48,6 +49,7 @@ public:
 	};
 protected:
 	int _cntRef;
+	ElemType _elemType;
 	AutoPtr<Memory> _pMemory;
 	Dimensions _dims;
 	size_t _offsetBase;
@@ -55,15 +57,17 @@ protected:
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
-	inline Array() : _cntRef(1), _offsetBase(0), _elemNum(0) {}
-	inline Array(const Array &src) : _cntRef(1),
-		_pMemory(src._pMemory->Reference()), _dims(src._dims),
+	inline Array(ElemType elemType) : _cntRef(1),
+		_elemType(elemType), _offsetBase(0), _elemNum(0) {}
+	inline Array(ElemType elemType, const Array &src) : _cntRef(1),
+		_elemType(elemType), _pMemory(src._pMemory->Reference()), _dims(src._dims),
 		_offsetBase(src._offsetBase), _elemNum(src._elemNum) {}
-	inline Array(Memory *pMemory) : _cntRef(1),
-		_pMemory(pMemory), _offsetBase(0), _elemNum(0) {}
+	inline Array(ElemType elemType, Memory *pMemory) : _cntRef(1),
+		_elemType(elemType), _pMemory(pMemory), _offsetBase(0), _elemNum(0) {}
 protected:
 	virtual ~Array();
 public:
+	inline ElemType GetElemType() const { return _elemType; }
 	inline void SetDimension(const Dimension &dim) {
 		_dims.reserve(1);
 		_dims.push_back(dim);

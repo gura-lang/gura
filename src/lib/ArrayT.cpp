@@ -3,6 +3,33 @@
 //=============================================================================
 #include "stdafx.h"
 
+//------------------------------------------------------------------------------
+// Macros
+//------------------------------------------------------------------------------
+#define ImplementArrayT(T_Elem) \
+template<> \
+ArrayT<T_Elem>::ArrayT() : Array(ETYPE_##T_Elem) \
+{} \
+template<> \
+ArrayT<T_Elem>::ArrayT(const ArrayT &src) : Array(ETYPE_##T_Elem, src) \
+{} \
+template<> \
+ArrayT<T_Elem>::ArrayT(Memory *pMemory) : Array(ETYPE_##T_Elem, pMemory) \
+{} \
+template<> \
+ArrayT<T_Elem>::ArrayT(size_t size) : Array(ETYPE_##T_Elem) \
+{ \
+	SetDimension(Dimension(size)); \
+	AllocMemory(); \
+} \
+template<> \
+ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
+{ \
+	SetDimension(Dimension(sizeRow), Dimension(sizeCol)); \
+	AllocMemory(); \
+} \
+template class ArrayT<T_Elem>;
+
 namespace Gura {
 
 //------------------------------------------------------------------------------
@@ -49,32 +76,6 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 //------------------------------------------------------------------------------
 // ArrayT
 //------------------------------------------------------------------------------
-template<typename T_Elem>
-ArrayT<T_Elem>::ArrayT() : Array()
-{}
-
-template<typename T_Elem>
-ArrayT<T_Elem>::ArrayT(const ArrayT &src) : Array(src)
-{}
-
-template<typename T_Elem>
-ArrayT<T_Elem>::ArrayT(Memory *pMemory) : Array(pMemory)
-{}
-
-template<typename T_Elem>
-ArrayT<T_Elem>::ArrayT(size_t size) : Array()
-{
-	SetDimension(Dimension(size));
-	AllocMemory();
-}
-
-template<typename T_Elem>
-ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array()
-{
-	SetDimension(Dimension(sizeRow), Dimension(sizeCol));
-	AllocMemory();
-}
-
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
 {
@@ -294,21 +295,21 @@ void Iterator_ArrayT_Each<T_Elem>::GatherFollower(
 }
 
 //------------------------------------------------------------------------------
-// Instantiation of ArrayT
+// Implementation of ArrayT
 //------------------------------------------------------------------------------
-template class ArrayT<Char>;
-template class ArrayT<UChar>;
-template class ArrayT<Short>;
-template class ArrayT<UShort>;
-template class ArrayT<Int32>;
-template class ArrayT<UInt32>;
-template class ArrayT<Int64>;
-template class ArrayT<UInt64>;
-template class ArrayT<Float>;
-template class ArrayT<Double>;
+ImplementArrayT(Char)
+ImplementArrayT(UChar)
+ImplementArrayT(Short)
+ImplementArrayT(UShort)
+ImplementArrayT(Int32)
+ImplementArrayT(UInt32)
+ImplementArrayT(Int64)
+ImplementArrayT(UInt64)
+ImplementArrayT(Float)
+ImplementArrayT(Double)
 
 //------------------------------------------------------------------------------
-// Instantiation of Iterator_ArrayT_Each
+// Implementation of Iterator_ArrayT_Each
 //------------------------------------------------------------------------------
 template class Iterator_ArrayT_Each<Char>;
 template class Iterator_ArrayT_Each<UChar>;

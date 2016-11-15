@@ -42,62 +42,6 @@ AssignFunction(new Func_arrayT__##name<T_Elem>(*this, GetValueType()))
 
 namespace Gura {
 
-//------------------------------------------------------------------------------
-// Utility functions
-//------------------------------------------------------------------------------
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void CalcDotProduct(T_ElemResult *pElemResult, const T_ElemL *pElemL, const T_ElemR *pElemR,
-				size_t rowL, size_t colL_rowR, size_t colR)
-{
-	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRow = 0; iRow < rowL; iRow++, pElemBaseL += colL_rowR) {
-		const T_ElemR *pElemBaseR = pElemR;
-		for (size_t iCol = 0; iCol < colR; iCol++, pElemBaseR++) {
-			const T_ElemL *pElemWorkL = pElemBaseL;
-			const T_ElemR *pElemWorkR = pElemBaseR;
-			T_ElemResult elemResult = 0;
-			for (size_t i = 0; i < colL_rowR; i++, pElemWorkL++, pElemWorkR += colR) {
-				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * pElemWorkR;
-			}
-			*pElemResult++ = elemResult;
-		}
-	}
-}
-
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void CalcDotProduct(ArrayT<T_ElemResult> &arrayResult,
-					const ArrayT<T_ElemL> &arrayL, const ArrayT<T_ElemR> &arrayR)
-{
-	T_ElemResult *pElemResult = arrayResult.GetPointer();
-	const T_ElemL *pElemL = arrayL.GetPointer();
-	const T_ElemR *pElemR = arrayR.GetPointer();
-	const Array::Dimensions &dimsL = arrayL.GetDimensions();
-	const Array::Dimensions &dimsR = arrayR.GetDimensions();
-	size_t rowL = dimsL[0].GetSize();
-	size_t colL_rowR = dimsL[1].GetSize();
-	size_t colR = dimsR[1].GetSize();
-	size_t elemNumResult = arrayResult.GetElemNum();
-	size_t elemNumL = arrayL.GetElemNum();
-	size_t elemNumR = arrayR.GetElemNum();
-	if (dimsL.size() == dimsR.size()) {
-		CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
-	} else if (dimsL.size() < dimsR.size()) {
-		size_t elemNumMatR = colL_rowR * colR;
-		for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
-			CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
-			pElemResult += elemNumResult;
-			pElemR += elemNumR;
-		}
-	} else { // dimsL.size() > dimsR.size()
-		size_t elemNumMatL = rowL * colL_rowR;
-		for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
-			CalcDotProduct(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
-			pElemResult += elemNumResult;
-			pElemL += elemNumL;
-		}
-	}
-}
-
 //-----------------------------------------------------------------------------
 // Object_arrayT
 //-----------------------------------------------------------------------------
@@ -298,27 +242,6 @@ Gura_ImplementMethod_arrayT(average)
 	size_t n = pArrayT->GetElemNum();
 	return ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
 }
-
-#if 0
-// array@T.dot(a:n:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(dot)
-{
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array that represents a identity matrix with specified size.\n"
-		);
-}
-
-Gura_ImplementClassMethod_arrayT(identity)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
-	return ReturnValue(env, arg, value);
-}
-#endif
 
 // array@T#each() {block?}
 Gura_DeclareMethod_arrayT(each)
@@ -699,6 +622,11 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
 		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
 		value = Value(new Object_iterator(env, pIterator.release()));
+		return true;
+	} else if (decl.IsType(VTYPE_array)) {
+		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
+		AutoPtr<Array> pArray(pArrayT->Reference());
+		value = Value(new Object_array(env, pArray.release()));
 		return true;
 	}
 	return false;

@@ -22,6 +22,8 @@ public:
 		Object(env.LookupClass(VTYPE_array)), _pArray(pArray) {}
 	inline Object_array(Class *pClass, Array *pArray) :
 		Object(pClass), _pArray(pArray) {}
+	inline Array *GetArray() { return _pArray.get(); }
+	inline const Array *GetArray() const { return _pArray.get(); }
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
