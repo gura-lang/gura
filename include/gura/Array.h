@@ -59,6 +59,17 @@ protected:
 	size_t _offsetBase;
 	size_t _elemNum;
 protected:
+	static BinaryFunc _binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Sub[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Mul[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Div[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Mod[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Pow[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_And[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Or[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Xor[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Shl[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc _binaryFuncTbl_Shr[ETYPE_Max][ETYPE_Max];
 	static BinaryFunc _binaryFuncTbl_Dot[ETYPE_Max][ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
@@ -115,6 +126,9 @@ public:
 	static Array *ApplyBinaryFunc(Signal &sig, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
 								  const Array *pArrayL, const Array *pArrayR, const char *name);
 public:
+	inline static Array *Add(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
+		return ApplyBinaryFunc(sig, _binaryFuncTbl_Add, pArrayL, pArrayR, "add");
+	}
 	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
 		return ApplyBinaryFunc(sig, _binaryFuncTbl_Dot, pArrayL, pArrayR, "dot");
 	}
