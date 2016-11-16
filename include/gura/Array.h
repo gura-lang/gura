@@ -16,6 +16,7 @@ namespace Gura {
 class GURA_DLLDECLARE Array {
 public:
 	enum ElemType {
+		ETYPE_None,
 		ETYPE_Char,
 		ETYPE_UChar,
 		ETYPE_Short,
@@ -27,8 +28,11 @@ public:
 		ETYPE_Float,
 		ETYPE_Double,
 		ETYPE_Complex,
-		ETYPE_max,
+		ETYPE_Max,
 	};
+public:
+	typedef Array *(*UnaryFunc)(Signal &sig, const Array &array);
+	typedef Array *(*BinaryFunc)(Signal &sig, const Array &arrayL, const Array &arrayR);
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -54,6 +58,8 @@ protected:
 	Dimensions _dims;
 	size_t _offsetBase;
 	size_t _elemNum;
+protected:
+	static BinaryFunc _binaryFuncTbl_Dot[ETYPE_Max][ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -66,6 +72,8 @@ public:
 		_elemType(elemType), _pMemory(pMemory), _offsetBase(0), _elemNum(0) {}
 protected:
 	virtual ~Array();
+public:
+	void Initialize();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
 	inline void SetDimension(const Dimension &dim) {
@@ -102,6 +110,14 @@ public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
+	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFunc unaryFuncTbl[],
+								 const Array *pArray, const char *name);
+	static Array *ApplyBinaryFunc(Signal &sig, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
+								  const Array *pArrayL, const Array *pArrayR, const char *name);
+public:
+	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
+		return ApplyBinaryFunc(sig, _binaryFuncTbl_Dot, pArrayL, pArrayR, "dot");
+	}
 };
 	
 }
