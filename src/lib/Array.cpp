@@ -129,27 +129,27 @@ bool Array::Dimensions::IsDotProductCalculatable(const Dimensions &dimsA, const 
 // Calculations
 //------------------------------------------------------------------------------
 template<typename T_ElemResult, typename T_Elem>
-inline void Pos(T_ElemResult &elemResult, T_Elem elem) {
+inline void _Pos(T_ElemResult &elemResult, T_Elem elem) {
 	elemResult = static_cast<T_ElemResult>(+elem);
 }
 
 template<typename T_ElemResult, typename T_Elem>
-inline void Neg(T_ElemResult &elemResult, T_Elem elem) {
+inline void _Neg(T_ElemResult &elemResult, T_Elem elem) {
 	elemResult = static_cast<T_ElemResult>(-elem);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) + elemR;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Sub(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Sub(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) - elemR;
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) * elemR;
 }
 
@@ -178,89 +178,85 @@ inline bool Mod<double, double, double>(double &elemResult, double elemL, double
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(
 		std::pow(static_cast<double>(elemL), static_cast<double>(elemR)));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) & elemR;
 }
 
 template<>
-inline void And<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _And<float, float, float>(float &elemResult, float elemL, float elemR) {
 	elemResult = static_cast<float>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
 }
 
 template<>
-inline void And<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _And<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) | elemR;
 }
 
 template<>
-inline void Or<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _Or<float, float, float>(float &elemResult, float elemL, float elemR) {
 	elemResult = static_cast<float>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
 }
 
 template<>
-inline void Or<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _Or<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) ^ elemR;
 }
 
 template<>
-inline void Xor<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _Xor<float, float, float>(float &elemResult, float elemL, float elemR) {
 	elemResult = static_cast<float>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
 }
 
 template<>
-inline void Xor<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _Xor<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) << elemR;
 }
 
 template<>
-inline void Shl<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _Shl<float, float, float>(float &elemResult, float elemL, float elemR) {
 	elemResult = static_cast<float>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
 }
 
 template<>
-inline void Shl<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _Shl<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-inline void Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
+inline void _Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) >> elemR;
 }
 
 template<>
-inline void Shr<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _Shr<float, float, float>(float &elemResult, float elemL, float elemR) {
 	elemResult = static_cast<float>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
 }
 
 template<>
-inline void Shr<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _Shr<double, double, double>(double &elemResult, double elemL, double elemR) {
 	elemResult = static_cast<double>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
 }
-
-//template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-//inline void op(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-//}
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
@@ -365,161 +361,149 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	}, {
 		nullptr,
-		//&BinaryFunc_ElemWise<Char,		Char,		Char,		&Add<Char, Char, Char> >,
-	}
-};
-
-#if 0
-Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
-	{
-		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		&BinaryFunc_ElemWise<Char,		Char,		Char,		_Add>,
+		&BinaryFunc_ElemWise<UChar,		Char,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Short,		Char,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	Char,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Char,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Char,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Char,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Char,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Char,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Char,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Char,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Char,		Char,		Add>,
-		&BinaryFunc_ElemWise<Char,		Char,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Char,		Short,		Add>,
-		&BinaryFunc_ElemWise<Short,		Char,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Char,		Int32,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Char,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Char,		Int64,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Char,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Char,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Char,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	UChar,		Complex,	Add>,
+		&BinaryFunc_ElemWise<UChar,		UChar,		Char,		_Add>,
+		&BinaryFunc_ElemWise<UChar,		UChar,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Short,		UChar,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	UChar,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		UChar,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UChar,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		UChar,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UChar,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		UChar,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	UChar,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	UChar,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		UChar,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		UChar,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		UChar,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	UChar,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		UChar,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	UChar,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		UChar,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	UChar,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		UChar,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	UChar,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	UChar,		Complex,	Add>,
+		&BinaryFunc_ElemWise<Short,		Short,		Char,		_Add>,
+		&BinaryFunc_ElemWise<Short,		Short,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Short,		Short,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	Short,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Short,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	Short,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Short,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	Short,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Short,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Short,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Short,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Short,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		Short,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Short,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	Short,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Short,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	Short,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Short,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	Short,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Short,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Short,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Short,		Complex,	Add>,
+		&BinaryFunc_ElemWise<UShort,	UShort,		Char,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	UShort,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	UShort,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UShort,	UShort,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		UShort,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UShort,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		UShort,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UShort,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		UShort,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	UShort,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	UShort,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		UShort,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		UShort,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		UShort,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	UShort,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		UShort,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	UShort,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		UShort,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	UShort,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		UShort,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	UShort,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	UShort,		Complex,	Add>,
+		&BinaryFunc_ElemWise<Int32,		Int32,		Char,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Int32,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Int32,		Short,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Int32,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int32,		Int32,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	Int32,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int32,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	Int32,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Int32,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Int32,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Int32,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Int32,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		Int32,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Int32,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	Int32,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Int32,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	Int32,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Int32,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	Int32,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Int32,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Int32,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Int32,		Complex,	Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		Char,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt32,	UInt32,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		UInt32,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt32,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		UInt32,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	UInt32,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	UInt32,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		UInt32,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		UInt32,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		UInt32,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	UInt32,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		UInt32,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	UInt32,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		UInt32,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	UInt32,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		UInt32,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	UInt32,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	UInt32,		Complex,	Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		Char,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		Short,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Int64,		Int64,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	Int64,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Int64,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Int64,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Int64,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Int64,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		Int64,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Int64,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	Int64,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Int64,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	Int64,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Int64,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	Int64,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Int64,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Int64,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Int64,		Complex,	Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		Char,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		Short,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<UInt64,	UInt64,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		UInt64,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	UInt64,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	UInt64,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		UInt64,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		UInt64,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		UInt64,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	UInt64,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		UInt64,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	UInt64,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		UInt64,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	UInt64,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		UInt64,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	UInt64,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	UInt64,		Complex,	Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		Char,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		Short,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Float,		Float,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Float,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Float,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Float,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		Float,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Float,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	Float,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Float,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	Float,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Float,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	Float,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Float,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Float,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Float,		Complex,	Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Char,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		UChar,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Short,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		UShort,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Int32,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		UInt32,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Int64,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		UInt64,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Float,		_Add>,
+		&BinaryFunc_ElemWise<Double,	Double,		Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Double,		Complex,	_Add>,
 	}, {
 		nullptr,
-		&BinaryFunc_ElemWise<Char,		Double,		Char,		Add>,
-		&BinaryFunc_ElemWise<UChar,		Double,		UChar,		Add>,
-		&BinaryFunc_ElemWise<Short,		Double,		Short,		Add>,
-		&BinaryFunc_ElemWise<UShort,	Double,		UShort,		Add>,
-		&BinaryFunc_ElemWise<Int32,		Double,		Int32,		Add>,
-		&BinaryFunc_ElemWise<UInt32,	Double,		UInt32,		Add>,
-		&BinaryFunc_ElemWise<Int64,		Double,		Int64,		Add>,
-		&BinaryFunc_ElemWise<UInt64,	Double,		UInt64,		Add>,
-		&BinaryFunc_ElemWise<Float,		Double,		Float,		Add>,
-		&BinaryFunc_ElemWise<Double,	Double,		Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Double,		Complex,	Add>,
-	}, {
-		nullptr,
-		//&BinaryFunc_ElemWise<Char,	Complex,	Char,		Add>,
-		//&BinaryFunc_ElemWise<UChar,	Complex,	UChar,		Add>,
-		//&BinaryFunc_ElemWise<Short,	Complex,	Short,		Add>,
-		//&BinaryFunc_ElemWise<UShort	Complex,	UShort,		Add>,
-		//&BinaryFunc_ElemWise<Int32,	Complex,	Int32,		Add>,
-		//&BinaryFunc_ElemWise<UInt32	Complex,	UInt32,		Add>,
-		//&BinaryFunc_ElemWise<Int64,	Complex,	Int64,		Add>,
-		//&BinaryFunc_ElemWise<UInt64	Complex,	UInt64,		Add>,
-		//&BinaryFunc_ElemWise<Float,	Complex,	Float,		Add>,
-		//&BinaryFunc_ElemWise<Double	Complex,	Double,		Add>,
-		//&BinaryFunc_ElemWise<Complex,	Complex,	Complex,	Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Char,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	UChar,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Short,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	UShort,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Int32,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	UInt32,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Int64,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	UInt64,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Float,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Double,		_Add>,
+//		&BinaryFunc_ElemWise<Complex,	Complex,	Complex,	_Add>,
 	},
 };
-#endif
 
 Array::BinaryFunc Array::_binaryFuncTbl_Sub[ETYPE_Max][ETYPE_Max] = {
 };

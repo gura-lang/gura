@@ -190,6 +190,13 @@ T_Elem ArrayT<T_Elem>::Average() const
 	return Sum() / GetElemNum();
 }
 
+template<>
+Complex ArrayT<Complex>::Average() const
+{
+	if (GetElemNum() == 0) return 0;
+	return Sum() / static_cast<double>(GetElemNum());
+}
+
 // functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
@@ -307,6 +314,7 @@ ImplementArrayT(Int64)
 ImplementArrayT(UInt64)
 ImplementArrayT(Float)
 ImplementArrayT(Double)
+ImplementArrayT(Complex)
 
 //------------------------------------------------------------------------------
 // Implementation of Iterator_ArrayT_Each
