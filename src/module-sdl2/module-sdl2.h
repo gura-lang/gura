@@ -138,15 +138,26 @@ Gura_DeclareUserSymbol(xrel);
 Gura_DeclareUserSymbol(y);
 Gura_DeclareUserSymbol(yrel);
 
-template<typename T_SDL, typename T_GURA>
-ArrayT<T_SDL> *CreateArrayT(const ValueList &valList)
+template<typename T_Elem>
+class BufferT : public MemoryHeap {
+public:
+	inline BufferT(size_t elemNum) : MemoryHeap(sizeof(T_Elem) * elemNum) {}
+	inline T_Elem *GetPointerT() { return reinterpret_cast<T_Elem *>(GetPointer()); }
+	inline const T_Elem *GetPointerT() const { return reinterpret_cast<T_Elem *>(GetPointer()); }
+	inline size_t GetElemNum() const { return GetSize() / sizeof(T_Elem); }
+	inline operator T_Elem *() { return GetPointerT(); }
+	inline operator const T_Elem *() const { return GetPointerT(); }
+};
+
+template<typename T_Elem, typename T_Object>
+BufferT<T_Elem> *CreateBufferT(const ValueList &valList)
 {
-	AutoPtr<ArrayT<T_SDL> > rtn(new ArrayT<T_SDL>(valList.size()));
-	T_SDL *p = rtn->GetPointer();
+	AutoPtr<BufferT<T_Elem> > pBufferT(new BufferT<T_Elem>(valList.size()));
+	T_Elem *p = pBufferT->GetPointerT();
 	foreach_const (ValueList, pValue, valList) {
-		*p++ = *T_GURA::GetObject(*pValue)->GetEntity();
+		*p++ = *T_Object::GetObject(*pValue)->GetEntity();
 	}
-	return rtn.release();
+	return pBufferT.release();
 }
 
 void SetError_SDL(Signal &sig);

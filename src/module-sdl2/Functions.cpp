@@ -2525,8 +2525,8 @@ Gura_DeclareFunctionAlias(__UpdateWindowSurfaceRects, "UpdateWindowSurfaceRects"
 Gura_ImplementFunction(__UpdateWindowSurfaceRects)
 {
 	SDL_Window *window = Object_Window::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	ArrayT<SDL_Rect> &rects = *_rects;
+	AutoPtr<BufferT<SDL_Rect> > _rects(CreateBufferT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	BufferT<SDL_Rect> &rects = *_rects;
 	int numrects = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
@@ -3194,8 +3194,8 @@ Gura_DeclareFunctionAlias(__RenderDrawLines, "RenderDrawLines")
 Gura_ImplementFunction(__RenderDrawLines)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
-	ArrayT<SDL_Point> &points = *_points;
+	AutoPtr<BufferT<SDL_Point> > _points(CreateBufferT<SDL_Point, Object_Point>(arg.GetList(1)));
+	BufferT<SDL_Point> &points = *_points;
 	int count = static_cast<int>(points.GetElemNum());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
@@ -3244,8 +3244,8 @@ Gura_DeclareFunctionAlias(__RenderDrawPoints, "RenderDrawPoints")
 Gura_ImplementFunction(__RenderDrawPoints)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(1)));
-	ArrayT<SDL_Point> &points = *_points;
+	AutoPtr<BufferT<SDL_Point> > _points(CreateBufferT<SDL_Point, Object_Point>(arg.GetList(1)));
+	BufferT<SDL_Point> &points = *_points;
 	int count = static_cast<int>(points.GetElemNum());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
@@ -3292,8 +3292,8 @@ Gura_DeclareFunctionAlias(__RenderDrawRects, "RenderDrawRects")
 Gura_ImplementFunction(__RenderDrawRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	ArrayT<SDL_Rect> &rects = *_rects;
+	AutoPtr<BufferT<SDL_Rect> > _rects(CreateBufferT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	BufferT<SDL_Rect> &rects = *_rects;
 	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -3340,8 +3340,8 @@ Gura_DeclareFunctionAlias(__RenderFillRects, "RenderFillRects")
 Gura_ImplementFunction(__RenderFillRects)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	ArrayT<SDL_Rect> &rects = *_rects;
+	AutoPtr<BufferT<SDL_Rect> > _rects(CreateBufferT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	BufferT<SDL_Rect> &rects = *_rects;
 	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -4125,8 +4125,8 @@ Gura_DeclareFunctionAlias(__SetPaletteColors, "SetPaletteColors")
 Gura_ImplementFunction(__SetPaletteColors)
 {
 	SDL_Palette *palette = Object_Palette::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Color> > _colors(CreateArrayT<SDL_Color, Object_Color>(arg.GetList(1)));
-	ArrayT<SDL_Color> &colors = *_colors;
+	AutoPtr<BufferT<SDL_Color> > _colors(CreateBufferT<SDL_Color, Object_Color>(arg.GetList(1)));
+	BufferT<SDL_Color> &colors = *_colors;
 	int firstcolor = arg.GetInt(2);
 	int ncolors = arg.GetInt(3);
 	Signal &sig = env.GetSignal();
@@ -4180,8 +4180,8 @@ Gura_DeclareFunctionAlias(__EnclosePoints, "EnclosePoints")
 
 Gura_ImplementFunction(__EnclosePoints)
 {
-	AutoPtr<ArrayT<SDL_Point> > _points(CreateArrayT<SDL_Point, Object_Point>(arg.GetList(0)));
-	ArrayT<SDL_Point> &points = *_points;
+	AutoPtr<BufferT<SDL_Point> > _points(CreateBufferT<SDL_Point, Object_Point>(arg.GetList(0)));
+	BufferT<SDL_Point> &points = *_points;
 	const SDL_Rect *clip = Object_Rect::GetObject(arg, 1)->GetEntity();
 	int count = static_cast<int>(points.GetElemNum());
 	SDL_Rect result;
@@ -4638,8 +4638,8 @@ Gura_DeclareFunctionAlias(__FillRects, "FillRects")
 Gura_ImplementFunction(__FillRects)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(arg, 0)->GetEntity();
-	AutoPtr<ArrayT<SDL_Rect> > _rects(CreateArrayT<SDL_Rect, Object_Rect>(arg.GetList(1)));
-	ArrayT<SDL_Rect> &rects = *_rects;
+	AutoPtr<BufferT<SDL_Rect> > _rects(CreateBufferT<SDL_Rect, Object_Rect>(arg.GetList(1)));
+	BufferT<SDL_Rect> &rects = *_rects;
 	Uint32 color = arg.GetUInt32(2);
 	int count = static_cast<int>(rects.GetElemNum());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
@@ -5493,8 +5493,8 @@ Gura_DeclareFunctionAlias(__AddEvents, "AddEvents")
 
 Gura_ImplementFunction(__AddEvents)
 {
-	AutoPtr<ArrayT<SDL_Event> > _events(CreateArrayT<SDL_Event, Object_Event>(arg.GetList(0)));
-	ArrayT<SDL_Event> &events = *_events;
+	AutoPtr<BufferT<SDL_Event> > _events(CreateBufferT<SDL_Event, Object_Event>(arg.GetList(0)));
+	BufferT<SDL_Event> &events = *_events;
 	int numevents = static_cast<int>(events.GetElemNum());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
@@ -5522,8 +5522,8 @@ Gura_ImplementFunction(__PeekEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
-	ArrayT<SDL_Event> &events = *_events;
+	AutoPtr<BufferT<SDL_Event> > _events(new BufferT<SDL_Event>(numevents));
+	BufferT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(env);
@@ -5556,8 +5556,8 @@ Gura_ImplementFunction(__GetEvents)
 	int numevents = arg.GetInt(0);
 	Uint32 minType = arg.GetUInt32(1);
 	Uint32 maxType = arg.GetUInt32(2);
-	AutoPtr<ArrayT<SDL_Event> > _events(new ArrayT<SDL_Event>(numevents));
-	ArrayT<SDL_Event> &events = *_events;
+	AutoPtr<BufferT<SDL_Event> > _events(new BufferT<SDL_Event>(numevents));
+	BufferT<SDL_Event> &events = *_events;
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(env);
