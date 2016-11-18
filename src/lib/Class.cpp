@@ -675,6 +675,7 @@ void Class::AddOperatorEntry(OperatorEntry *pOperatorEntry)
 
 void Class::DeriveOperators()
 {
+	if (_pClassSuper.IsNull()) return;
 	Environment &env = *this;
 	ValueType valTypeSuper = _pClassSuper->GetValueType();
 	Operator::EntryList operatorEntryList;
