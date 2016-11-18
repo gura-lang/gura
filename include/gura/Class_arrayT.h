@@ -13,18 +13,20 @@ namespace Gura {
 // Object_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Object_arrayT : public Object {
+class Object_arrayT : public Object_array {
 public:
 	Gura_DeclareObjectAccessor(arrayT)
-private:
-	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 public:
-	inline Object_arrayT(Environment &env, ValueType valType, ArrayT<T_Elem> *pArrayT) :
-				Object(env.LookupClass(valType)), _pArrayT(pArrayT) {}
-	inline Object_arrayT(Class *pClass, ArrayT<T_Elem> *pArrayT) :
-				Object(pClass), _pArrayT(pArrayT) {}
-	inline ArrayT<T_Elem> *GetArrayT() { return _pArrayT.get(); }
-	inline const ArrayT<T_Elem> *GetArrayT() const { return _pArrayT.get(); }
+	inline Object_arrayT(Environment &env, ValueType valType, Array *pArray) :
+		Object_array(env.LookupClass(valType), pArray) {}
+	inline Object_arrayT(Class *pClass, Array *pArray) :
+		Object_array(pClass, pArray) {}
+	inline ArrayT<T_Elem> *GetArrayT() {
+		return dynamic_cast<ArrayT<T_Elem> *>(_pArray.get());
+	}
+	inline const ArrayT<T_Elem> *GetArrayT() const {
+		return dynamic_cast<ArrayT<T_Elem> *>(_pArray.get());
+	}
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);

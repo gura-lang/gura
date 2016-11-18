@@ -125,7 +125,12 @@ public:
 								 const Array *pArray, const char *name);
 	static Array *ApplyBinaryFunc(Signal &sig, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
 								  const Array *pArrayL, const Array *pArrayR, const char *name);
+	static Value ApplyBinaryFunc(Environment &env, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
+								  const Value &valueL, const Value &valueR, const char *name);
 public:
+	inline static Value Add(Environment &env, const Value &valueL, const Value &valueR) {
+		return ApplyBinaryFunc(env, _binaryFuncTbl_Add, valueL, valueR, "add");
+	}
 	inline static Array *Add(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
 		return ApplyBinaryFunc(sig, _binaryFuncTbl_Add, pArrayL, pArrayR, "add");
 	}

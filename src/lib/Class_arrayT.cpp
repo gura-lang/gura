@@ -59,7 +59,7 @@ String Object_arrayT<T_Elem>::ToString(bool exprFlag)
 	str += "<";
 	str += GetClassName();
 	str += ":(";
-	const Array::Dimensions &dims = _pArrayT->GetDimensions();
+	const Array::Dimensions &dims = _pArray->GetDimensions();
 	foreach_const (Array::Dimensions, pDim, dims) {
 		::sprintf(buff, (pDim == dims.begin())? "%ld" : ",%ld", pDim->GetSize());
 		str += buff;
@@ -76,7 +76,7 @@ Value Object_arrayT<T_Elem>::IndexGet(Environment &env, const Value &valueIdx)
 		sig.SetError(ERR_ValueError, "index must be a number");
 		return Value::Nil;
 	}
-	const Array::Dimensions &dims = _pArrayT->GetDimensions();
+	const Array::Dimensions &dims = _pArray->GetDimensions();
 	Array::Dimensions::const_iterator pDim = dims.begin();
 	size_t idx = valueIdx.GetSizeT();
 	if (idx >= pDim->GetSize()) {
@@ -84,11 +84,11 @@ Value Object_arrayT<T_Elem>::IndexGet(Environment &env, const Value &valueIdx)
 		return Value::Nil;
 	}
 	if (pDim + 1 == dims.end()) {
-		return Value(_pArrayT->GetPointer()[idx]);
+		return Value(GetArrayT()->GetPointer()[idx]);
 	}
-	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
+	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArray->GetMemory().Reference()));
 	pArrayRtn->SetDimension(pDim + 1, dims.end());
-	pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
+	pArrayRtn->SetOffsetBase(_pArray->GetOffsetBase() + pDim->GetStride() * idx);
 	return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
 }
 
@@ -101,11 +101,11 @@ void Object_arrayT<T_Elem>::IndexSet(Environment &env, const Value &valueIdx, co
 		return;
 	}
 	size_t idx = valueIdx.GetSizeT();
-	if (idx >= _pArrayT->GetElemNum()) {
+	if (idx >= _pArray->GetElemNum()) {
 		sig.SetError(ERR_OutOfRangeError, "index is out of range");
 		return;
 	}
-	_pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
+	GetArrayT()->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 }
 
 //-----------------------------------------------------------------------------

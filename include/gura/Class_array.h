@@ -15,7 +15,7 @@ namespace Gura {
 class Object_array : public Object {
 public:
 	Gura_DeclareObjectAccessor(array)
-private:
+protected:
 	AutoPtr<Array> _pArray;
 public:
 	inline Object_array(Environment &env, Array *pArray) :
