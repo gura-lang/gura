@@ -53,8 +53,9 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 template<typename T_Elem>
 Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	size_t n = pArrayT->GetElemNum();
+	return pFunc->ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
 }
 
 Gura_DeclareMethod(array, average)
@@ -113,7 +114,12 @@ Gura_ImplementClassMethod(array, dot)
 template<typename T_Elem>
 Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	bool upperFlag = arg.IsSet(Gura_Symbol(upper));
+	Stream *pStream = arg.IsValid(0)?
+		&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
+	pArrayT->Dump(sig, *pStream, upperFlag);
 	return Value::Nil;
 }
 
@@ -194,7 +200,8 @@ Gura_ImplementMethod(array, each)
 template<typename T_Elem>
 Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
 	return Value::Nil;
 }
 
@@ -267,8 +274,20 @@ Gura_ImplementMethod(array, flat)
 template<typename T_Elem>
 Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t n = arg.GetSizeT(0);
+	if (n > pArrayT->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return Value::Nil;
+	}
+	size_t offsetBase = pArrayT->GetOffsetBase();
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	pArrayTRtn->SetDimension(Array::Dimension(n));
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
+										  pArrayTRtn.release()));
+	return pFunc->ReturnValue(env, arg, value);
 }
 
 Gura_DeclareMethod(array, head)
@@ -310,8 +329,22 @@ Gura_ImplementMethod(array, head)
 template<typename T_Elem>
 Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t n = arg.GetSizeT(0);
+	if (n > pArrayT->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return Value::Nil;
+		}
+	size_t nElems = pArrayT->GetElemNum() - n;
+	size_t offsetBase = pArrayT->GetOffsetBase() + n;
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	pArrayTRtn->SetDimension(Array::Dimension(nElems));
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
+										  pArrayTRtn.release()));
+	return pFunc->ReturnValue(env, arg, value);
 }
 
 Gura_DeclareMethod(array, offset)
@@ -353,7 +386,11 @@ Gura_ImplementMethod(array, offset)
 template<typename T_Elem>
 Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t offset = arg.GetSizeT(0);
+	const ArrayT<T_Elem> *pArrayTSrc = Object_arrayT<T_Elem>::GetObject(arg, 1)->GetArrayT();
+	pArrayT->Paste(sig, offset, pArrayTSrc);
 	return Value::Nil;
 }
 
@@ -393,8 +430,8 @@ Gura_ImplementMethod(array, paste)
 template<typename T_Elem>
 Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return pFunc->ReturnValue(env, arg, Value(pArrayT->Sum()));
 }
 
 Gura_DeclareMethod(array, sum)
@@ -430,8 +467,21 @@ Gura_ImplementMethod(array, sum)
 template<typename T_Elem>
 Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t n = arg.GetSizeT(0);
+	if (n > pArrayT->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return Value::Nil;
+	}
+	size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetElemNum() - n;
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
+		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	pArrayTRtn->SetDimension(Array::Dimension(n));
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
+										  pArrayTRtn.release()));
+	return pFunc->ReturnValue(env, arg, value);
 }
 
 Gura_DeclareMethod(array, tail)

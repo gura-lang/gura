@@ -225,6 +225,82 @@ Value Func_atT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// array@T.identity(n:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(identity)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that represents a identity matrix with specified size.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(identity)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.ones(dim+:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(ones)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array with the specified dimensions, which elements are initialized by one.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(ones)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	Array::Dimensions &dims = pArrayT->GetDimensions();
+	const ValueList &valList = arg.GetList(0);
+	dims.reserve(dims.size());
+	foreach_const (ValueList, pValue, valList) {
+		dims.push_back(pValue->GetSizeT());
+	}
+	pArrayT->UpdateMetrics();
+	pArrayT->AllocMemory();
+	pArrayT->Fill(1);
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.zeros(dim+:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(zeros)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array with the specified dimensions, which elements are initialized by zero.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(zeros)
+{
+	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
+	Array::Dimensions &dims = pArrayT->GetDimensions();
+	const ValueList &valList = arg.GetList(0);
+	dims.reserve(dims.size());
+	foreach_const (ValueList, pValue, valList) {
+		dims.push_back(pValue->GetSizeT());
+	}
+	pArrayT->UpdateMetrics();
+	pArrayT->AllocMemory();
+	pArrayT->FillZero();
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
+#if 0
 // array@T#average() {block?}
 Gura_DeclareMethod_arrayT(average)
 {
@@ -266,7 +342,6 @@ Gura_ImplementMethod_arrayT(each)
 	return ReturnIterator(env, arg, pIterator.release());
 }
 
-// array@T#dump():void
 Gura_DeclareMethod_arrayT(dump)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -357,25 +432,6 @@ Gura_ImplementMethod_arrayT(head)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.identity(n:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(identity)
-{
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array that represents a identity matrix with specified size.\n"
-		);
-}
-
-Gura_ImplementClassMethod_arrayT(identity)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
-	return ReturnValue(env, arg, value);
-}
-
 // array@T#offset(n:number):map {block?}
 Gura_DeclareMethod_arrayT(offset)
 {
@@ -409,34 +465,6 @@ Gura_ImplementMethod_arrayT(offset)
 	pArrayTRtn->SetDimension(Array::Dimension(nElems));
 	pArrayTRtn->SetOffsetBase(offsetBase);
 	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
-	return ReturnValue(env, arg, value);
-}
-
-// array@T.ones(dim+:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(ones)
-{
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array with the specified dimensions, which elements are initialized by one.\n"
-		);
-}
-
-Gura_ImplementClassMethod_arrayT(ones)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
-	Array::Dimensions &dims = pArrayT->GetDimensions();
-	const ValueList &valList = arg.GetList(0);
-	dims.reserve(dims.size());
-	foreach_const (ValueList, pValue, valList) {
-		dims.push_back(pValue->GetSizeT());
-	}
-	pArrayT->UpdateMetrics();
-	pArrayT->AllocMemory();
-	pArrayT->Fill(1);
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -515,34 +543,7 @@ Gura_ImplementMethod_arrayT(tail)
 	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayTRtn.release()));
 	return ReturnValue(env, arg, value);
 }
-
-// array@T.zeros(dim+:number):static:map {block?}
-Gura_DeclareClassMethod_arrayT(zeros)
-{
-	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array with the specified dimensions, which elements are initialized by zero.\n"
-		);
-}
-
-Gura_ImplementClassMethod_arrayT(zeros)
-{
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
-	Array::Dimensions &dims = pArrayT->GetDimensions();
-	const ValueList &valList = arg.GetList(0);
-	dims.reserve(dims.size());
-	foreach_const (ValueList, pValue, valList) {
-		dims.push_back(pValue->GetSizeT());
-	}
-	pArrayT->UpdateMetrics();
-	pArrayT->AllocMemory();
-	pArrayT->FillZero();
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
-	return ReturnValue(env, arg, value);
-}
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -569,19 +570,19 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
-	Gura_AssignMethod_arrayT(average);
-	Gura_AssignMethod_arrayT(dump);
-	Gura_AssignMethod_arrayT(each);
-	Gura_AssignMethod_arrayT(fill);
-	Gura_AssignMethod_arrayT(flat);
-	Gura_AssignMethod_arrayT(head);
 	Gura_AssignMethod_arrayT(identity);
-	Gura_AssignMethod_arrayT(offset);
 	Gura_AssignMethod_arrayT(ones);
-	Gura_AssignMethod_arrayT(paste);
-	Gura_AssignMethod_arrayT(sum);
-	Gura_AssignMethod_arrayT(tail);
 	Gura_AssignMethod_arrayT(zeros);
+	//Gura_AssignMethod_arrayT(average);
+	//Gura_AssignMethod_arrayT(dump);
+	//Gura_AssignMethod_arrayT(each);
+	//Gura_AssignMethod_arrayT(fill);
+	//Gura_AssignMethod_arrayT(flat);
+	//Gura_AssignMethod_arrayT(head);
+	//Gura_AssignMethod_arrayT(offset);
+	//Gura_AssignMethod_arrayT(paste);
+	//Gura_AssignMethod_arrayT(sum);
+	//Gura_AssignMethod_arrayT(tail);
 }
 
 template<typename T_Elem>

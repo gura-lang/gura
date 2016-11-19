@@ -10,6 +10,20 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
+// Class_arrayT
+//-----------------------------------------------------------------------------
+template<typename T_Elem>
+class Class_arrayT : public Class {
+private:
+	String _elemName;
+public:
+	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
+	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
+};
+
+//-----------------------------------------------------------------------------
 // Object_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
@@ -31,20 +45,6 @@ public:
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
-};
-
-//-----------------------------------------------------------------------------
-// Class_arrayT
-//-----------------------------------------------------------------------------
-template<typename T_Elem>
-class Class_arrayT : public Class {
-private:
-	String _elemName;
-public:
-	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName);
-	virtual void Prepare(Environment &env);
-	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
-	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);
 };
 
 }
