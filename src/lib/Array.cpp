@@ -87,7 +87,6 @@ Array *Array::ApplyBinaryFunc(Signal &sig, const BinaryFunc binaryFuncTbl[][ETYP
 Value Array::ApplyBinaryFunc(Environment &env, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
 							  const Value &valueL, const Value &valueR, const char *name)
 {
-	::printf("ApplyBinaryFunc\n");
 	Array *pArray = ApplyBinaryFunc(env.GetSignal(), binaryFuncTbl,
 									Object_array::GetObject(valueL)->GetArray(),
 									Object_array::GetObject(valueR)->GetArray(), name);
