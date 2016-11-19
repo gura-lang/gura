@@ -5,8 +5,24 @@
 
 namespace Gura {
 
+typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
+
 static const char *helpDoc_en = R"**(
 )**";
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+Value CallMethod(Environment &env, Argument &arg, const MethodT methods[],
+				 const Function *pFunc, Array *pArraySelf)
+{
+	MethodT pMethod = methods[pArraySelf->GetElemType()];
+	if (pMethod == nullptr) {
+		env.SetError(ERR_TypeError, "no methods implemented");
+		return Value::Nil;
+	}
+	return (*pMethod)(env, arg, pFunc, pArraySelf);
+}
 
 //-----------------------------------------------------------------------------
 // Object_array
@@ -34,6 +50,13 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // array#average() {block?}
+template<typename T_Elem>
+Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, average)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -46,7 +69,21 @@ Gura_DeclareMethod(array, average)
 
 Gura_ImplementMethod(array, average)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_average<Char>,
+		&Method_average<UChar>,
+		&Method_average<Short>,
+		&Method_average<UShort>,
+		&Method_average<Int32>,
+		&Method_average<UInt32>,
+		&Method_average<Int64>,
+		&Method_average<UInt64>,
+		&Method_average<Float>,
+		&Method_average<Double>,
+		//&Method_average<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array.dot(a:array, b:array):static:map {block?}
@@ -67,14 +104,19 @@ Gura_ImplementClassMethod(array, dot)
 	Signal &sig = env.GetSignal();
 	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
 	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	//BinaryOpType binaryOp = _binaryOps_Dot[pArrayA->GetElemType()][pArrayB->GetElemType()];
-	//AutoPtr<Array> pArrayResult((*binaryOp)(sig, *pArrayA, *pArrayB));
 	AutoPtr<Array> pArrayResult(Array::Dot(sig, pArrayL, pArrayR));
 	if (pArrayResult.IsNull()) return Value::Nil;
 	return ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
 }
 
 // array#dump():void
+template<typename T_Elem>
+Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, dump)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
@@ -88,10 +130,32 @@ Gura_DeclareMethod(array, dump)
 
 Gura_ImplementMethod(array, dump)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_dump<Char>,
+		&Method_dump<UChar>,
+		&Method_dump<Short>,
+		&Method_dump<UShort>,
+		&Method_dump<Int32>,
+		&Method_dump<UInt32>,
+		&Method_dump<Int64>,
+		&Method_dump<UInt64>,
+		&Method_dump<Float>,
+		&Method_dump<Double>,
+		//&Method_dump<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // arrayT#each() {block?}
+template<typename T_Elem>
+Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
+	return pFunc->ReturnIterator(env, arg, pIterator.release());
+}
+
 Gura_DeclareMethod(array, each)
 {
 	SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
@@ -109,10 +173,31 @@ Gura_DeclareMethod(array, each)
 
 Gura_ImplementMethod(array, each)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_each<Char>,
+		&Method_each<UChar>,
+		&Method_each<Short>,
+		&Method_each<UShort>,
+		&Method_each<Int32>,
+		&Method_each<UInt32>,
+		&Method_each<Int64>,
+		&Method_each<UInt64>,
+		&Method_each<Float>,
+		&Method_each<Double>,
+		//&Method_each<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#fill(value:number):void
+template<typename T_Elem>
+Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, fill)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
@@ -125,10 +210,31 @@ Gura_DeclareMethod(array, fill)
 
 Gura_ImplementMethod(array, fill)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_fill<Char>,
+		&Method_fill<UChar>,
+		&Method_fill<Short>,
+		&Method_fill<UShort>,
+		&Method_fill<Int32>,
+		&Method_fill<UInt32>,
+		&Method_fill<Int64>,
+		&Method_fill<UInt64>,
+		&Method_fill<Float>,
+		&Method_fill<Double>,
+		//&Method_fill<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#flat()
+template<typename T_Elem>
+Value Method_flat(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, flat)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
@@ -140,11 +246,31 @@ Gura_DeclareMethod(array, flat)
 
 Gura_ImplementMethod(array, flat)
 {
-	//ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObjectThis(arg)->GetArrayT();
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_flat<Char>,
+		&Method_flat<UChar>,
+		&Method_flat<Short>,
+		&Method_flat<UShort>,
+		&Method_flat<Int32>,
+		&Method_flat<UInt32>,
+		&Method_flat<Int64>,
+		&Method_flat<UInt64>,
+		&Method_flat<Float>,
+		&Method_flat<Double>,
+		//&Method_flat<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#head(n:number):map {block?}
+template<typename T_Elem>
+Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, head)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -163,10 +289,31 @@ Gura_DeclareMethod(array, head)
 
 Gura_ImplementMethod(array, head)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_head<Char>,
+		&Method_head<UChar>,
+		&Method_head<Short>,
+		&Method_head<UShort>,
+		&Method_head<Int32>,
+		&Method_head<UInt32>,
+		&Method_head<Int64>,
+		&Method_head<UInt64>,
+		&Method_head<Float>,
+		&Method_head<Double>,
+		//&Method_head<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#offset(n:number):map {block?}
+template<typename T_Elem>
+Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, offset)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -185,10 +332,31 @@ Gura_DeclareMethod(array, offset)
 
 Gura_ImplementMethod(array, offset)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_offset<Char>,
+		&Method_offset<UChar>,
+		&Method_offset<Short>,
+		&Method_offset<UShort>,
+		&Method_offset<Int32>,
+		&Method_offset<UInt32>,
+		&Method_offset<Int64>,
+		&Method_offset<UInt64>,
+		&Method_offset<Float>,
+		&Method_offset<Double>,
+		//&Method_offset<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#paste(offset:number, src:array):map:void
+template<typename T_Elem>
+Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, paste)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -204,10 +372,31 @@ Gura_DeclareMethod(array, paste)
 
 Gura_ImplementMethod(array, paste)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_paste<Char>,
+		&Method_paste<UChar>,
+		&Method_paste<Short>,
+		&Method_paste<UShort>,
+		&Method_paste<Int32>,
+		&Method_paste<UInt32>,
+		&Method_paste<Int64>,
+		&Method_paste<UInt64>,
+		&Method_paste<Float>,
+		&Method_paste<Double>,
+		//&Method_paste<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#sum() {block?}
+template<typename T_Elem>
+Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, sum)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -220,10 +409,31 @@ Gura_DeclareMethod(array, sum)
 
 Gura_ImplementMethod(array, sum)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_sum<Char>,
+		&Method_sum<UChar>,
+		&Method_sum<Short>,
+		&Method_sum<UShort>,
+		&Method_sum<Int32>,
+		&Method_sum<UInt32>,
+		&Method_sum<Int64>,
+		&Method_sum<UInt64>,
+		&Method_sum<Float>,
+		&Method_sum<Double>,
+		//&Method_sum<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#tail(n:number):map {block?}
+template<typename T_Elem>
+Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return Value::Nil;
+}
+
 Gura_DeclareMethod(array, tail)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -242,7 +452,21 @@ Gura_DeclareMethod(array, tail)
 
 Gura_ImplementMethod(array, tail)
 {
-	return Value::Nil;
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_tail<Char>,
+		&Method_tail<UChar>,
+		&Method_tail<Short>,
+		&Method_tail<UShort>,
+		&Method_tail<Int32>,
+		&Method_tail<UInt32>,
+		&Method_tail<Int64>,
+		&Method_tail<UInt64>,
+		&Method_tail<Float>,
+		&Method_tail<Double>,
+		//&Method_tail<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 //-----------------------------------------------------------------------------

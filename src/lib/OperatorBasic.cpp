@@ -1241,7 +1241,7 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
 	Gura_AssignBinaryOperator(Add, vertex, vertex);
-	Gura_AssignBinaryOperator(Add, array, array);
+	//Gura_AssignBinaryOperator(Add, array, array);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, boolean, boolean);
 	Gura_AssignBinaryOperator(Sub, number, boolean);

@@ -362,6 +362,17 @@ argument
   argument#isset(symbol:symbol)
   argument#quit_trailer():void
 array
+  array#average():map {block?}
+  array.dot(a:array, b:array):static:map {block?}
+  array#dump(stream?:stream):void:[upper]
+  array#each() {block?}
+  array#fill(value:number):map:void
+  array#flat()
+  array#head(n:number):map {block?}
+  array#offset(n:number):map {block?}
+  array#paste(offset:number, src:array):map
+  array#sum():map {block?}
+  array#tail(n:number):map {block?}
 array@char
   array@char#average():map {block?}
   array@char#dump(stream?:stream):void:[upper]

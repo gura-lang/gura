@@ -327,7 +327,7 @@ public:
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-protected:
+public:
 	Value ReturnValue(Environment &env, Argument &arg, const Value &result) const;
 	Value ReturnValues(Environment &env, Argument &arg, const ValueList &valListArg) const;
 	Value ReturnIterator(Environment &env, Argument &arg, Iterator *pIterator) const;
