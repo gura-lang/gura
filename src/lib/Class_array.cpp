@@ -42,7 +42,26 @@ String Object_array::ToString(bool exprFlag)
 template<typename T_Elem>
 Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 {
-	return Value::Nil;
+	Signal &sig = env.GetSignal();
+	if (!valueIdx.Is_number()) {
+		sig.SetError(ERR_ValueError, "index must be a number");
+		return Value::Nil;
+	}
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	const Array::Dimensions &dims = pArrayT->GetDimensions();
+	Array::Dimensions::const_iterator pDim = dims.begin();
+	size_t idx = valueIdx.GetSizeT();
+	if (idx >= pDim->GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+		return Value::Nil;
+	}
+	if (pDim + 1 == dims.end()) {
+		return Value(pArrayT->GetPointer()[idx]);
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	pArrayRtn->SetDimension(pDim + 1, dims.end());
+	pArrayRtn->SetOffsetBase(pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
+	return Value(new Object_arrayT<T_Elem>(pObj->GetClass(), pArrayRtn.release()));
 }
 
 Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
@@ -62,33 +81,23 @@ Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
 		//&IndexGetTmpl<Complex>,
 	};
 	return (*indexGets[GetArray()->GetElemType()])(env, valueIdx, this);
-#if 0
-	Signal &sig = GetSignal();
-	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_ValueError, "index must be a number");
-		return Value::Nil;
-	}
-	const Array::Dimensions &dims = _pArray->GetDimensions();
-	Array::Dimensions::const_iterator pDim = dims.begin();
-	size_t idx = valueIdx.GetSizeT();
-	if (idx >= pDim->GetSize()) {
-		sig.SetError(ERR_OutOfRangeError, "index is out of range");
-		return Value::Nil;
-	}
-	if (pDim + 1 == dims.end()) {
-		return Value(GetArrayT()->GetPointer()[idx]);
-	}
-	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArray->GetMemory().Reference()));
-	pArrayRtn->SetDimension(pDim + 1, dims.end());
-	pArrayRtn->SetOffsetBase(_pArray->GetOffsetBase() + pDim->GetStride() * idx);
-	return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
-#endif
-	return Value::Nil;
 }
 
 template<typename T_Elem>
 void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj)
 {
+	Signal &sig = env.GetSignal();
+	if (!valueIdx.Is_number()) {
+		sig.SetError(ERR_ValueError, "index must be a number");
+		return;
+	}
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+	size_t idx = valueIdx.GetSizeT();
+	if (idx >= pArrayT->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+		return;
+	}
+	pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 }
 
 void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
@@ -108,19 +117,6 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 		//&IndexSetTmpl<Complex>,
 	};
 	(*indexSets[GetArray()->GetElemType()])(env, valueIdx, value, this);
-#if 0
-	Signal &sig = GetSignal();
-	if (!valueIdx.Is_number()) {
-		sig.SetError(ERR_ValueError, "index must be a number");
-		return;
-	}
-	size_t idx = valueIdx.GetSizeT();
-	if (idx >= _pArray->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "index is out of range");
-		return;
-	}
-	GetArrayT()->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
-#endif
 }
 
 //-----------------------------------------------------------------------------
