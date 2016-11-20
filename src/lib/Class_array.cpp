@@ -5,6 +5,8 @@
 
 namespace Gura {
 
+typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
+typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
 
 static const char *helpDoc_en = R"**(
@@ -37,13 +39,88 @@ String Object_array::ToString(bool exprFlag)
 	return "<array>";
 }
 
-Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
+template<typename T_Elem>
+Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 {
 	return Value::Nil;
 }
 
+Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
+{
+	static const IndexGetT indexGets[] = {
+		nullptr,
+		&IndexGetTmpl<Char>,
+		&IndexGetTmpl<UChar>,
+		&IndexGetTmpl<Short>,
+		&IndexGetTmpl<UShort>,
+		&IndexGetTmpl<Int32>,
+		&IndexGetTmpl<UInt32>,
+		&IndexGetTmpl<Int64>,
+		&IndexGetTmpl<UInt64>,
+		&IndexGetTmpl<Float>,
+		&IndexGetTmpl<Double>,
+		//&IndexGetTmpl<Complex>,
+	};
+	return (*indexGets[GetArray()->GetElemType()])(env, valueIdx, this);
+#if 0
+	Signal &sig = GetSignal();
+	if (!valueIdx.Is_number()) {
+		sig.SetError(ERR_ValueError, "index must be a number");
+		return Value::Nil;
+	}
+	const Array::Dimensions &dims = _pArray->GetDimensions();
+	Array::Dimensions::const_iterator pDim = dims.begin();
+	size_t idx = valueIdx.GetSizeT();
+	if (idx >= pDim->GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+		return Value::Nil;
+	}
+	if (pDim + 1 == dims.end()) {
+		return Value(GetArrayT()->GetPointer()[idx]);
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArray->GetMemory().Reference()));
+	pArrayRtn->SetDimension(pDim + 1, dims.end());
+	pArrayRtn->SetOffsetBase(_pArray->GetOffsetBase() + pDim->GetStride() * idx);
+	return Value(new Object_arrayT(GetClass(), pArrayRtn.release()));
+#endif
+	return Value::Nil;
+}
+
+template<typename T_Elem>
+void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj)
+{
+}
+
 void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value &value)
 {
+	static const IndexSetT indexSets[] = {
+		nullptr,
+		&IndexSetTmpl<Char>,
+		&IndexSetTmpl<UChar>,
+		&IndexSetTmpl<Short>,
+		&IndexSetTmpl<UShort>,
+		&IndexSetTmpl<Int32>,
+		&IndexSetTmpl<UInt32>,
+		&IndexSetTmpl<Int64>,
+		&IndexSetTmpl<UInt64>,
+		&IndexSetTmpl<Float>,
+		&IndexSetTmpl<Double>,
+		//&IndexSetTmpl<Complex>,
+	};
+	(*indexSets[GetArray()->GetElemType()])(env, valueIdx, value, this);
+#if 0
+	Signal &sig = GetSignal();
+	if (!valueIdx.Is_number()) {
+		sig.SetError(ERR_ValueError, "index must be a number");
+		return;
+	}
+	size_t idx = valueIdx.GetSizeT();
+	if (idx >= _pArray->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "index is out of range");
+		return;
+	}
+	GetArrayT()->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
+#endif
 }
 
 //-----------------------------------------------------------------------------
