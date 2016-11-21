@@ -150,27 +150,27 @@ inline void _Neg(T_ElemResult &elemResult, T_Elem elem) {
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Add(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) + elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) + static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Sub(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) - elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) - static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Mul(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) * elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) * static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Div(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) / elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) / static_cast<T_ElemResult>(elemR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) % elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
 }
 
 template<>
@@ -191,7 +191,7 @@ inline void _Pow(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) & elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
 }
 
 template<>
@@ -206,7 +206,7 @@ inline void _And<double, double, double>(double &elemResult, double elemL, doubl
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) | elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
 }
 
 template<>
@@ -221,7 +221,7 @@ inline void _Or<double, double, double>(double &elemResult, double elemL, double
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) ^ elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
 }
 
 template<>
@@ -236,7 +236,7 @@ inline void _Xor<double, double, double>(double &elemResult, double elemL, doubl
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) << elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
 }
 
 template<>
@@ -251,7 +251,7 @@ inline void _Shl<double, double, double>(double &elemResult, double elemL, doubl
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
-	elemResult = static_cast<T_ElemResult>(elemL) >> elemR;
+	elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
 }
 
 template<>

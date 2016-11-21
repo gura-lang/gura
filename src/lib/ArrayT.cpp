@@ -187,7 +187,7 @@ template<typename T_Elem>
 T_Elem ArrayT<T_Elem>::Average() const
 {
 	if (GetElemNum() == 0) return 0;
-	return Sum() / GetElemNum();
+	return static_cast<T_Elem>(Sum() / GetElemNum());
 }
 
 template<>
