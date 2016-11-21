@@ -162,6 +162,12 @@ void ArrayT<double>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 	DumpFloat<double, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum());
 }
 
+template<>
+void ArrayT<Complex>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+{
+	DumpFloat<Complex, UInt64>(sig, stream, upperFlag? "%016llX" : "%016llx", 4, GetPointer(), GetElemNum() * 2);
+}
+
 template<typename T_Elem>
 void ArrayT<T_Elem>::CopyToList(ValueList &valList) const
 {

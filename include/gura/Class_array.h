@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_array
 //-----------------------------------------------------------------------------
-class Object_array : public Object {
+class GURA_DLLDECLARE Object_array : public Object {
 public:
 	Gura_DeclareObjectAccessor(array)
 protected:
@@ -33,7 +33,7 @@ public:
 //-----------------------------------------------------------------------------
 // Class_array
 //-----------------------------------------------------------------------------
-class Class_array : public Class {
+class GURA_DLLDECLARE Class_array : public Class {
 public:
 	Class_array(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);

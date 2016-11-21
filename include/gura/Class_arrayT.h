@@ -13,7 +13,7 @@ namespace Gura {
 // Class_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Class_arrayT : public Class {
+class GURA_DLLDECLARE Class_arrayT : public Class {
 private:
 	String _elemName;
 public:
@@ -27,7 +27,7 @@ public:
 // Object_arrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Object_arrayT : public Object_array {
+class GURA_DLLDECLARE Object_arrayT : public Object_array {
 public:
 	Gura_DeclareObjectAccessor(arrayT)
 public:
