@@ -12,7 +12,7 @@ namespace Gura {
 // ArrayT
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class ArrayT : public Array {
+class GURA_DLLDECLARE ArrayT : public Array {
 public:
 	Gura_DeclareReferenceAccessor(ArrayT);
 public:
@@ -53,7 +53,7 @@ private:
 // Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-class Iterator_ArrayT_Each : public Iterator {
+class GURA_DLLDECLARE Iterator_ArrayT_Each : public Iterator {
 private:
 	AutoPtr<ArrayT<T_Elem> > _pArrayT;
 	size_t _idx;
