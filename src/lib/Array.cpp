@@ -377,7 +377,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<Int64,		Char,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		Char,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Char,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Char,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Char,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<UChar,		UChar,		Char,		_Add>,
@@ -390,7 +390,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	UChar,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		UChar,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	UChar,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	UChar,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	UChar,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<Short,		Short,		Char,		_Add>,
@@ -403,7 +403,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	Short,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		Short,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Short,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Short,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Short,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<UShort,	UShort,		Char,		_Add>,
@@ -416,7 +416,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	UShort,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		UShort,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	UShort,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	UShort,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	UShort,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<Int32,		Int32,		Char,		_Add>,
@@ -429,7 +429,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	Int32,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		Int32,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Int32,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Int32,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Int32,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<UInt32,	UInt32,		Char,		_Add>,
@@ -442,7 +442,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	UInt32,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		UInt32,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	UInt32,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	UInt32,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	UInt32,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<Int64,		Int64,		Char,		_Add>,
@@ -455,7 +455,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	Int64,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		Int64,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Int64,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Int64,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Int64,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<UInt64,	UInt64,		Char,		_Add>,
@@ -468,7 +468,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<UInt64,	UInt64,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		UInt64,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	UInt64,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	UInt64,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	UInt64,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<Float,		Float,		Char,		_Add>,
@@ -481,7 +481,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<Float,		Float,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Float,		Float,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Float,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Float,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Float,		Complex,	_Add>,
 	}, {
 		nullptr,
 		&BinaryFunc_ElemWise<Double,	Double,		Char,		_Add>,
@@ -494,7 +494,7 @@ Array::BinaryFunc Array::_binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max] = {
 		&BinaryFunc_ElemWise<Double,	Double,		UInt64,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Double,		Float,		_Add>,
 		&BinaryFunc_ElemWise<Double,	Double,		Double,		_Add>,
-//		&BinaryFunc_ElemWise<Complex,	Double,		Complex,	_Add>,
+		&BinaryFunc_ElemWise<Complex,	Double,		Complex,	_Add>,
 	}, {
 		nullptr,
 //		&BinaryFunc_ElemWise<Complex,	Complex,	Char,		_Add>,
