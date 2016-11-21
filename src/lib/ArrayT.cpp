@@ -127,6 +127,19 @@ void ArrayT<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 	DumpInteger<UShort, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
 }
 
+#if defined(GURA_ON_MSWIN)
+template<>
+void ArrayT<Int>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+{
+	DumpInteger<Int, UInt>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetElemNum());
+}
+
+template<> void ArrayT<UInt>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+{
+	DumpInteger<UInt, UInt>(sig, stream, upperFlag? "%08X" : "%08x", 8, GetPointer(), GetElemNum());
+}
+#endif
+
 template<>
 void ArrayT<Int32>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
@@ -314,6 +327,10 @@ ImplementArrayT(Char)
 ImplementArrayT(UChar)
 ImplementArrayT(Short)
 ImplementArrayT(UShort)
+#if defined(GURA_ON_MSWIN)
+ImplementArrayT(Int)
+ImplementArrayT(UInt)
+#endif
 ImplementArrayT(Int32)
 ImplementArrayT(UInt32)
 ImplementArrayT(Int64)
@@ -329,6 +346,10 @@ template class Iterator_ArrayT_Each<Char>;
 template class Iterator_ArrayT_Each<UChar>;
 template class Iterator_ArrayT_Each<Short>;
 template class Iterator_ArrayT_Each<UShort>;
+#if defined(GURA_ON_MSWIN)
+template class Iterator_ArrayT_Each<Int>;
+template class Iterator_ArrayT_Each<UInt>;
+#endif
 template class Iterator_ArrayT_Each<Int32>;
 template class Iterator_ArrayT_Each<UInt32>;
 template class Iterator_ArrayT_Each<Int64>;
