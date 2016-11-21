@@ -640,10 +640,6 @@ template class Object_arrayT<Char>;
 template class Object_arrayT<UChar>;
 template class Object_arrayT<Short>;
 template class Object_arrayT<UShort>;
-#if defined(GURA_ON_MSWIN)
-template class Object_arrayT<Int>;
-template class Object_arrayT<UInt>;
-#endif
 template class Object_arrayT<Int32>;
 template class Object_arrayT<UInt32>;
 template class Object_arrayT<Int64>;
@@ -658,10 +654,6 @@ template class Class_arrayT<Char>;
 template class Class_arrayT<UChar>;
 template class Class_arrayT<Short>;
 template class Class_arrayT<UShort>;
-#if defined(GURA_ON_MSWIN)
-template class Class_arrayT<Int>;
-template class Class_arrayT<UInt>;
-#endif
 template class Class_arrayT<Int32>;
 template class Class_arrayT<UInt32>;
 template class Class_arrayT<Int64>;
