@@ -10,7 +10,7 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<char>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<Char>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_uchar)) {
 		//if (type != GL_BITMAP &&
 		//	type != GL_UNSIGNED_BYTE &&
@@ -25,7 +25,7 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<short>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<Short>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_ushort)) {
 		//if (type != GL_UNSIGNED_SHORT &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5 &&
@@ -43,7 +43,7 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<long>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<Int32>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_uint32)) {
 		//if (type != GL_UNSIGNED_INT &&
 		//	type != GL_UNSIGNED_INT_8_8_8_8 &&
@@ -53,13 +53,13 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<ULong>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<UInt32>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_float)) {
 		//if (type != GL_FLOAT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<float>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<Float>::GetObject(value)->GetArrayT()->GetPointer();
 	} else {
 		env.SetError(ERR_TypeError, "invalid argument type");
 		return nullptr;

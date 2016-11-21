@@ -203,7 +203,7 @@ cbridge.AddTypeConvs {
 	'GLbyte@:const' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			''',
 			nil,
@@ -211,7 +211,7 @@ cbridge.AddTypeConvs {
 	'GLbyte@3:const' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -222,7 +222,7 @@ cbridge.AddTypeConvs {
 	'GLbyte@4:const' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -233,7 +233,7 @@ cbridge.AddTypeConvs {
 	'GLbyte@pname:const' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
@@ -243,7 +243,7 @@ cbridge.AddTypeConvs {
 	'GLchar@' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
 			''',
 			nil,
@@ -251,7 +251,7 @@ cbridge.AddTypeConvs {
 	'GLchar@:const' => TypeConv(
 			'array_at_char', 'Once', ['NoMap'],
 			R'''
-			ArrayT<char> *_${arg.name} = Object_arrayT<char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
 			''',
 			nil,

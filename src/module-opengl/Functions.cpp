@@ -554,7 +554,7 @@ Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 
 Gura_ImplementFunction(__glColor3bv)
 {
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -900,7 +900,7 @@ Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 
 Gura_ImplementFunction(__glColor4bv)
 {
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -4495,7 +4495,7 @@ Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 
 Gura_ImplementFunction(__glNormal3bv)
 {
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9171,7 +9171,7 @@ Gura_ImplementFunction(__glSecondaryColor3bv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11158,7 +11158,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nbv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11369,7 +11369,7 @@ Gura_ImplementFunction(__glVertexAttrib4bv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<char> *_v = Object_arrayT<char>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
