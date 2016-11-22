@@ -21,8 +21,6 @@ public:
 		ETYPE_UChar,
 		ETYPE_Short,
 		ETYPE_UShort,
-		ETYPE_Int,
-		ETYPE_UInt,
 		ETYPE_Int32,
 		ETYPE_UInt32,
 		ETYPE_Int64,
