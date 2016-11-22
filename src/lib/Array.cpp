@@ -366,6 +366,34 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, const Array &arrayL, const Array 
 	return pArrayResult.release();
 }
 
+template<typename T_ElemL, void (*op)(Double &, T_ElemL, Double)>
+Array *BinaryFuncTmpl_array_number(Signal &sig, const Array &arrayL, Double numberR)
+{
+	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+	size_t nElemsL = arrayL.GetElemNum();
+	AutoPtr<ArrayT<Double> > pArrayResult;
+	pArrayResult.reset(ArrayT<Double>::CreateLike(arrayL.GetDimensions()));
+	Double *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
+		op(*pElemResult, *pElemL, numberR);
+	}
+	return pArrayResult.release();
+}
+
+template<typename T_ElemR, void (*op)(Double &, Double, T_ElemR)>
+Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array &arrayR)
+{
+	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+	size_t nElemsR = arrayR.GetElemNum();
+	AutoPtr<ArrayT<Double> > pArrayResult;
+	pArrayResult.reset(ArrayT<Double>::CreateLike(arrayR.GetDimensions()));
+	Double *pElemResult = pArrayResult->GetPointer();
+	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
+		op(*pElemResult, numberL, *pElemR);
+	}
+	return pArrayResult.release();
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void CalcDotProduct(T_ElemResult *pElemResult, const T_ElemL *pElemL, const T_ElemR *pElemR,
 				size_t rowL, size_t colL_rowR, size_t colR)
@@ -601,6 +629,18 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Shr[ETYPE_Max][ETYP
 };
 
 Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Add[ETYPE_Max] = {
+	nullptr,
+	&BinaryFuncTmpl_array_number<Char,		_Add>,
+	&BinaryFuncTmpl_array_number<UChar,		_Add>,
+	&BinaryFuncTmpl_array_number<Short,		_Add>,
+	&BinaryFuncTmpl_array_number<UShort,	_Add>,
+	&BinaryFuncTmpl_array_number<Int32,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt32,	_Add>,
+	&BinaryFuncTmpl_array_number<Int64,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt64,	_Add>,
+	&BinaryFuncTmpl_array_number<Float,		_Add>,
+	&BinaryFuncTmpl_array_number<Double,	_Add>,
+//	&BinaryFuncTmpl_array_number<Complex,	_Add>,
 };
 
 Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Sub[ETYPE_Max] = {
@@ -634,6 +674,18 @@ Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Shr[ETYPE_Max] = 
 };
 
 Array::BinaryFunc_number_array Array::binaryFuncs_number_array_Add[ETYPE_Max] = {
+	nullptr,
+	&BinaryFuncTmpl_number_array<Char,		_Add>,
+	&BinaryFuncTmpl_number_array<UChar,		_Add>,
+	&BinaryFuncTmpl_number_array<Short,		_Add>,
+	&BinaryFuncTmpl_number_array<UShort,	_Add>,
+	&BinaryFuncTmpl_number_array<Int32,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt32,	_Add>,
+	&BinaryFuncTmpl_number_array<Int64,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt64,	_Add>,
+	&BinaryFuncTmpl_number_array<Float,		_Add>,
+	&BinaryFuncTmpl_number_array<Double,	_Add>,
+//	&BinaryFuncTmpl_number_array<Complex,	_Add>,
 };
 
 Array::BinaryFunc_number_array Array::binaryFuncs_number_array_Sub[ETYPE_Max] = {
