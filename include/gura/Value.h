@@ -211,8 +211,6 @@ public:
 	inline bool Is_array_at_uchar() const	{ return IsType(VTYPE_array_at_uchar);			}
 	inline bool Is_array_at_short() const	{ return IsType(VTYPE_array_at_short);			}
 	inline bool Is_array_at_ushort() const	{ return IsType(VTYPE_array_at_ushort);			}
-	inline bool Is_array_at_int() const		{ return IsType(VTYPE_array_at_int);			}
-	inline bool Is_array_at_uint() const	{ return IsType(VTYPE_array_at_uint);			}
 	inline bool Is_array_at_int32() const	{ return IsType(VTYPE_array_at_int32);			}
 	inline bool Is_array_at_uint32() const	{ return IsType(VTYPE_array_at_uint32);			}
 	inline bool Is_array_at_int64() const	{ return IsType(VTYPE_array_at_int64);			}
@@ -296,10 +294,6 @@ public:
 								{ return MustBe(sig, Is_array_at_short(), "array@short");	}
 	inline bool MustBe_array_at_ushort(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_ushort(), "array@ushort");	}
-	inline bool MustBe_array_at_int(Signal &sig) const
-								{ return MustBe(sig, Is_array_at_int(), "array@int");		}
-	inline bool MustBe_array_at_uint(Signal &sig) const
-								{ return MustBe(sig, Is_array_at_uint(), "array@uint");		}
 	inline bool MustBe_array_at_int32(Signal &sig) const
 								{ return MustBe(sig, Is_array_at_int32(), "array@int32");	}
 	inline bool MustBe_array_at_uint32(Signal &sig) const

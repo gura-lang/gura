@@ -33,8 +33,8 @@ ValueType VTYPE_array_at_char	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uchar	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_short	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_ushort	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_int	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uint	= static_cast<ValueType>(0);
+//ValueType VTYPE_array_at_int	= static_cast<ValueType>(0);
+//ValueType VTYPE_array_at_uint	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uint32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int64	= static_cast<ValueType>(0);
@@ -165,8 +165,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEAlias(array_at_uchar,	"array@uchar");
 	Gura_RealizeVTYPEAlias(array_at_short,	"array@short");
 	Gura_RealizeVTYPEAlias(array_at_ushort,	"array@ushort");
-	Gura_RealizeVTYPEAlias(array_at_int,	"array@int");
-	Gura_RealizeVTYPEAlias(array_at_uint,	"array@uint");
+	//Gura_RealizeVTYPEAlias(array_at_int,	"array@int");
+	//Gura_RealizeVTYPEAlias(array_at_uint,	"array@uint");
 	Gura_RealizeVTYPEAlias(array_at_int32,	"array@int32");
 	Gura_RealizeVTYPEAlias(array_at_uint32,	"array@uint32");
 	Gura_RealizeVTYPEAlias(array_at_int64,	"array@int64");
@@ -228,31 +228,27 @@ void ValueTypePool::_Initialize(Environment &env)
 	Class *pClass_array = nullptr;
 	Gura_VTYPEInfo(array		)->SetClass(pClass_array = new Class_array(pClass));
 	Gura_VTYPEInfo(array_at_char)->SetClass(
-		new Class_arrayT<Char>(pClass_array, VTYPE_array_at_char, "char"));
+		new Class_arrayT<Char>(pClass_array, VTYPE_array_at_char));
 	Gura_VTYPEInfo(array_at_uchar)->SetClass(
-		new Class_arrayT<UChar>(pClass_array, VTYPE_array_at_uchar, "uchar"));
+		new Class_arrayT<UChar>(pClass_array, VTYPE_array_at_uchar));
 	Gura_VTYPEInfo(array_at_short)->SetClass(
-		new Class_arrayT<Short>(pClass_array, VTYPE_array_at_short, "short"));
+		new Class_arrayT<Short>(pClass_array, VTYPE_array_at_short));
 	Gura_VTYPEInfo(array_at_ushort)->SetClass(
-		new Class_arrayT<UShort>(pClass_array, VTYPE_array_at_ushort, "ushort"));
-	Gura_VTYPEInfo(array_at_int)->SetClass(
-		new Class_arrayT<Int>(pClass_array, VTYPE_array_at_int, "int"));
-	Gura_VTYPEInfo(array_at_uint)->SetClass(
-		new Class_arrayT<UInt>(pClass_array, VTYPE_array_at_uint, "uint"));
+		new Class_arrayT<UShort>(pClass_array, VTYPE_array_at_ushort));
 	Gura_VTYPEInfo(array_at_uint32)->SetClass(
-		new Class_arrayT<UInt32>(pClass_array, VTYPE_array_at_uint32, "uint32"));
+		new Class_arrayT<UInt32>(pClass_array, VTYPE_array_at_uint32));
 	Gura_VTYPEInfo(array_at_int32)->SetClass(
-		new Class_arrayT<Int32>(pClass_array, VTYPE_array_at_int32, "int32"));
+		new Class_arrayT<Int32>(pClass_array, VTYPE_array_at_int32));
 	Gura_VTYPEInfo(array_at_uint32)->SetClass(
-		new Class_arrayT<UInt32>(pClass_array, VTYPE_array_at_uint32, "uint32"));
+		new Class_arrayT<UInt32>(pClass_array, VTYPE_array_at_uint32));
 	Gura_VTYPEInfo(array_at_int64)->SetClass(
-		new Class_arrayT<Int64>(pClass_array, VTYPE_array_at_int64, "int64"));
+		new Class_arrayT<Int64>(pClass_array, VTYPE_array_at_int64));
 	Gura_VTYPEInfo(array_at_uint64)->SetClass(
-		new Class_arrayT<UInt64>(pClass_array, VTYPE_array_at_uint64, "uint64"));
+		new Class_arrayT<UInt64>(pClass_array, VTYPE_array_at_uint64));
 	Gura_VTYPEInfo(array_at_float)->SetClass(
-		new Class_arrayT<Float>(pClass_array, VTYPE_array_at_float, "float"));
+		new Class_arrayT<Float>(pClass_array, VTYPE_array_at_float));
 	Gura_VTYPEInfo(array_at_double)->SetClass(
-		new Class_arrayT<Double>(pClass_array, VTYPE_array_at_double, "double"));
+		new Class_arrayT<Double>(pClass_array, VTYPE_array_at_double));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
 	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
@@ -313,8 +309,8 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_array_at_uchar)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_short)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_ushort)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_int	)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uint	)->Prepare(env);
+	//env.LookupClass(VTYPE_array_at_int	)->Prepare(env);
+	//env.LookupClass(VTYPE_array_at_uint	)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int32)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_uint32)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int64)->Prepare(env);

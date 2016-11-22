@@ -14,10 +14,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
 class GURA_DLLDECLARE Class_arrayT : public Class {
-private:
-	String _elemName;
 public:
-	Class_arrayT(Environment *pEnvOuter, ValueType valType, const String &elemName);
+	Class_arrayT(Environment *pEnvOuter, ValueType valType);
 	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Value &value, const Declaration &decl);

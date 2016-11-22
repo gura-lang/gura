@@ -551,9 +551,8 @@ Gura_ImplementMethod_arrayT(tail)
 // Implementation of class
 //-----------------------------------------------------------------------------
 template<typename T_Elem>
-Class_arrayT<T_Elem>::Class_arrayT(
-	Environment *pEnvOuter, ValueType valType, const String &elemName) :
-	Class(pEnvOuter, valType), _elemName(elemName)
+Class_arrayT<T_Elem>::Class_arrayT(Environment *pEnvOuter, ValueType valType) :
+	Class(pEnvOuter, valType)
 {
 }
 
@@ -568,7 +567,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	do {
 		String funcName;
 		funcName += "@";
-		funcName += _elemName;
+		funcName += ArrayT<T_Elem>::GetElemName();
 		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);

@@ -73,14 +73,65 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 	if (col != 0) stream.Printf(sig, "\n");
 }
 
+template<typename T_Elem> void FormatElem(char *buff, T_Elem x);
+
+template<> void FormatElem(char *buff, Char x) { ::sprintf(buff, "%d", x); }
+template<> void FormatElem(char *buff, UChar x) { ::sprintf(buff, "%u", x); }
+template<> void FormatElem(char *buff, Short x) { ::sprintf(buff, "%d", x); }
+template<> void FormatElem(char *buff, UShort x) { ::sprintf(buff, "%u", x); }
+template<> void FormatElem(char *buff, Int32 x) { ::sprintf(buff, "%d", x); }
+template<> void FormatElem(char *buff, UInt32 x) { ::sprintf(buff, "%u", x); }
+template<> void FormatElem(char *buff, Int64 x) { ::sprintf(buff, "%lld", x); }
+template<> void FormatElem(char *buff, UInt64 x) { ::sprintf(buff, "%llu", x); }
+template<> void FormatElem(char *buff, Float x) { ::sprintf(buff, "%g", x); }
+template<> void FormatElem(char *buff, Double x) { ::sprintf(buff, "%g", x); }
+template<> void FormatElem(char *buff, Complex x) { ::sprintf(buff, "%g,%g", x.real(), x.imag()); }
+
 //------------------------------------------------------------------------------
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
 String ArrayT<T_Elem>::ToString() const
 {
-	return "";
+	typedef std::vector<size_t> SizeTList;
+	char buff[80];
+	const T_Elem *p = GetPointer();
+	String rtn;
+	rtn += GetConstructorName();
+	rtn += "(";
+	//SizeTList cnts;
+	//cnts.reserve(_dims.size());
+	//foreach_const (Dimensions, pDim, _dims) { cnts.push_back(pDim->GetSize()); }
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		FormatElem(buff, *p);
+		rtn += buff;
+	}
+	rtn += ")";
+	return rtn;
 }
+
+template<> const char *ArrayT<Char>::GetElemName() { return "char"; }
+template<> const char *ArrayT<UChar>::GetElemName() { return "uchar"; }
+template<> const char *ArrayT<Short>::GetElemName() { return "short"; }
+template<> const char *ArrayT<UShort>::GetElemName() { return "ushort"; }
+template<> const char *ArrayT<Int32>::GetElemName() { return "int32"; }
+template<> const char *ArrayT<UInt32>::GetElemName() { return "uint32"; }
+template<> const char *ArrayT<Int64>::GetElemName() { return "int64"; }
+template<> const char *ArrayT<UInt64>::GetElemName() { return "uint64"; }
+template<> const char *ArrayT<Float>::GetElemName() { return "float"; }
+template<> const char *ArrayT<Double>::GetElemName() { return "double"; }
+
+template<> const char *ArrayT<Char>::GetConstructorName() { return "array@char"; }
+template<> const char *ArrayT<UChar>::GetConstructorName() { return "array@uchar"; }
+template<> const char *ArrayT<Short>::GetConstructorName() { return "array@short"; }
+template<> const char *ArrayT<UShort>::GetConstructorName() { return "array@ushort"; }
+template<> const char *ArrayT<Int32>::GetConstructorName() { return "array@int32"; }
+template<> const char *ArrayT<UInt32>::GetConstructorName() { return "array@uint32"; }
+template<> const char *ArrayT<Int64>::GetConstructorName() { return "array@int64"; }
+template<> const char *ArrayT<UInt64>::GetConstructorName() { return "array@uint64"; }
+template<> const char *ArrayT<Float>::GetConstructorName() { return "array@float"; }
+template<> const char *ArrayT<Double>::GetConstructorName() { return "array@double"; }
+template<> const char *ArrayT<Complex>::GetConstructorName() { return "array@complex"; }
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)

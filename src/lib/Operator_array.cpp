@@ -24,14 +24,6 @@ Gura_ImplementUnaryOperator(op, array_at_ushort) \
 { \
 	return Op_Array_##sigAttr<UShort, UShort, op>(env, value, VTYPE_array_at_ushort); \
 } \
-Gura_ImplementUnaryOperator(op, array_at_int) \
-{ \
-	return Op_Array_##sigAttr<Int, Int, op>(env, value, VTYPE_array_at_int); \
-} \
-Gura_ImplementUnaryOperator(op, array_at_uint) \
-{ \
-	return Op_Array_##sigAttr<UInt, UInt, op>(env, value, VTYPE_array_at_uint); \
-} \
 Gura_ImplementUnaryOperator(op, array_at_int32) \
 { \
 	return Op_Array_##sigAttr<Int32, Int32, op>(env, value, VTYPE_array_at_int32); \
@@ -74,14 +66,6 @@ Gura_ImplementBinaryOperator(op, array_at_ushort, array_at_ushort) \
 { \
 	return Op_ArrayAndArray_##sigAttr<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
 } \
-Gura_ImplementBinaryOperator(op, array_at_int, array_at_int) \
-{ \
-	return Op_ArrayAndArray_##sigAttr<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint, array_at_uint) \
-{ \
-	return Op_ArrayAndArray_##sigAttr<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
-} \
 Gura_ImplementBinaryOperator(op, array_at_int32, array_at_int32) \
 { \
 	return Op_ArrayAndArray_##sigAttr<Int32, Int32, Int32, op>(env, valueLeft, valueRight, VTYPE_array_at_int32); \
@@ -121,14 +105,6 @@ Gura_ImplementBinaryOperator(op, array_at_short, number) \
 Gura_ImplementBinaryOperator(op, array_at_ushort, number)	\
 { \
 	return Op_ArrayAndNumber_##sigAttr<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_int, number) \
-{ \
-	return Op_ArrayAndNumber_##sigAttr<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, array_at_uint, number) \
-{ \
-	return Op_ArrayAndNumber_##sigAttr<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
 } \
 Gura_ImplementBinaryOperator(op, array_at_int32, number) \
 { \
@@ -170,14 +146,6 @@ Gura_ImplementBinaryOperator(op, number, array_at_ushort)	\
 { \
 	return Op_NumberAndArray_##sigAttr<UShort, UShort, UShort, op>(env, valueLeft, valueRight, VTYPE_array_at_ushort); \
 } \
-Gura_ImplementBinaryOperator(op, number, array_at_int) \
-{ \
-	return Op_NumberAndArray_##sigAttr<Int, Int, Int, op>(env, valueLeft, valueRight, VTYPE_array_at_int); \
-} \
-Gura_ImplementBinaryOperator(op, number, array_at_uint)	\
-{ \
-	return Op_NumberAndArray_##sigAttr<UInt, UInt, UInt, op>(env, valueLeft, valueRight, VTYPE_array_at_uint); \
-} \
 Gura_ImplementBinaryOperator(op, number, array_at_int32) \
 { \
 	return Op_NumberAndArray_##sigAttr<Int32, Int32, Int32, op>(env, valueLeft, valueRight, VTYPE_array_at_int32); \
@@ -208,8 +176,6 @@ Gura_AssignBinaryOperator(op, array_at_char, array_at_char); \
 Gura_AssignBinaryOperator(op, array_at_uchar, array_at_uchar); \
 Gura_AssignBinaryOperator(op, array_at_short, array_at_short); \
 Gura_AssignBinaryOperator(op, array_at_ushort, array_at_ushort); \
-Gura_AssignBinaryOperator(op, array_at_int, array_at_int);	   \
-Gura_AssignBinaryOperator(op, array_at_uint, array_at_uint); \
 Gura_AssignBinaryOperator(op, array_at_int32, array_at_int32); \
 Gura_AssignBinaryOperator(op, array_at_uint32, array_at_uint32); \
 Gura_AssignBinaryOperator(op, array_at_int64, array_at_int64); \
@@ -220,8 +186,6 @@ Gura_AssignBinaryOperator(op, array_at_char, number); \
 Gura_AssignBinaryOperator(op, array_at_uchar, number); \
 Gura_AssignBinaryOperator(op, array_at_short, number); \
 Gura_AssignBinaryOperator(op, array_at_ushort, number); \
-Gura_AssignBinaryOperator(op, array_at_int, number); \
-Gura_AssignBinaryOperator(op, array_at_uint, number); \
 Gura_AssignBinaryOperator(op, array_at_int32, number); \
 Gura_AssignBinaryOperator(op, array_at_uint32, number); \
 Gura_AssignBinaryOperator(op, array_at_int64, number); \
@@ -232,8 +196,6 @@ Gura_AssignBinaryOperator(op, number, array_at_char);	\
 Gura_AssignBinaryOperator(op, number, array_at_uchar); \
 Gura_AssignBinaryOperator(op, number, array_at_short); \
 Gura_AssignBinaryOperator(op, number, array_at_ushort); \
-Gura_AssignBinaryOperator(op, number, array_at_int); \
-Gura_AssignBinaryOperator(op, number, array_at_uint); \
 Gura_AssignBinaryOperator(op, number, array_at_int32); \
 Gura_AssignBinaryOperator(op, number, array_at_uint32); \
 Gura_AssignBinaryOperator(op, number, array_at_int64); \
@@ -246,8 +208,6 @@ Gura_AssignUnaryOperator(op, array_at_char); \
 Gura_AssignUnaryOperator(op, array_at_uchar); \
 Gura_AssignUnaryOperator(op, array_at_short); \
 Gura_AssignUnaryOperator(op, array_at_ushort); \
-Gura_AssignUnaryOperator(op, array_at_int); \
-Gura_AssignUnaryOperator(op, array_at_uint); \
 Gura_AssignUnaryOperator(op, array_at_int32); \
 Gura_AssignUnaryOperator(op, array_at_uint32); \
 Gura_AssignUnaryOperator(op, array_at_int64); \

@@ -222,8 +222,6 @@ public:
 	inline bool Is_array_at_uchar(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uchar();	}
 	inline bool Is_array_at_short(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_short();	}
 	inline bool Is_array_at_ushort(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_ushort();	}
-	inline bool Is_array_at_int(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int();	}
-	inline bool Is_array_at_uint(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint();	}
 	inline bool Is_array_at_int32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int32();	}
 	inline bool Is_array_at_uint32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint32();	}
 	inline bool Is_array_at_int64(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int64();	}

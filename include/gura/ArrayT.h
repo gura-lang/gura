@@ -33,6 +33,8 @@ public:
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual String ToString() const;
+	static const char *GetElemName();
+	static const char *GetConstructorName();
 	void Fill(const T_Elem &num);
 	void FillZero();
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);

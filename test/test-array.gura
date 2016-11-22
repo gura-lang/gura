@@ -249,7 +249,7 @@ testcase('cast to memory') {
 }
 testcase('error for infinite iterator') {
 	try {
-		x:array@int = 0..
+		x:array@int32 = 0..
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}

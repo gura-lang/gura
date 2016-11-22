@@ -192,8 +192,6 @@ ImplementArrayConstructor(char, Char)
 ImplementArrayConstructor(uchar, UChar)
 ImplementArrayConstructor(short, Short)
 ImplementArrayConstructor(ushort, UShort)
-ImplementArrayConstructor(int, Int)
-ImplementArrayConstructor(uint, UInt)
 ImplementArrayConstructor(int32, Int32)
 ImplementArrayConstructor(uint32, UInt32)
 ImplementArrayConstructor(int64, Int64)
@@ -270,8 +268,6 @@ void Class_memory::Prepare(Environment &env)
 	Gura_AssignMethod(memory, array_at_uchar);
 	Gura_AssignMethod(memory, array_at_short);
 	Gura_AssignMethod(memory, array_at_ushort);
-	Gura_AssignMethod(memory, array_at_int);
-	Gura_AssignMethod(memory, array_at_uint);
 	Gura_AssignMethod(memory, array_at_int32);
 	Gura_AssignMethod(memory, array_at_uint32);
 	Gura_AssignMethod(memory, array_at_int64);
@@ -300,14 +296,6 @@ bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *p
 		return true;
 	} else if (value.Is_array_at_ushort()) {
 		Memory &memory = Object_arrayT<UShort>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_int()) {
-		Memory &memory = Object_arrayT<Int>::GetObject(value)->GetArrayT()->GetMemory();
-		value = Value(new Object_memory(env, memory.Reference()));
-		return true;
-	} else if (value.Is_array_at_uint()) {
-		Memory &memory = Object_arrayT<UInt>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_int32()) {
