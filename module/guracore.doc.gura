@@ -23,8 +23,6 @@ text@en = R'''
 <tr><td><code>+array@uchar</code></td><td></td></tr>
 <tr><td><code>+array@short</code></td><td></td></tr>
 <tr><td><code>+array@ushort</code></td><td></td></tr>
-<tr><td><code>+array@int</code></td><td></td></tr>
-<tr><td><code>+array@uint</code></td><td></td></tr>
 <tr><td><code>+array@int32</code></td><td></td></tr>
 <tr><td><code>+array@uint32</code></td><td></td></tr>
 <tr><td><code>+array@int64</code></td><td></td></tr>
@@ -40,8 +38,6 @@ text@en = R'''
 <tr><td><code>-array@uchar</code></td><td></td></tr>
 <tr><td><code>-array@short</code></td><td></td></tr>
 <tr><td><code>-array@ushort</code></td><td></td></tr>
-<tr><td><code>-array@int</code></td><td></td></tr>
-<tr><td><code>-array@uint</code></td><td></td></tr>
 <tr><td><code>-array@int32</code></td><td></td></tr>
 <tr><td><code>-array@uint32</code></td><td></td></tr>
 <tr><td><code>-array@int64</code></td><td></td></tr>
@@ -144,8 +140,6 @@ There are several `array` classes for each element type as shown below:
 <tr><td><code>array@uchar</code></td><td><code>unsigned char</code></td></tr>
 <tr><td><code>array@short</code></td><td><code>short</code></td></tr>
 <tr><td><code>array@ushort</code></td><td><code>unsigned short</code></td></tr>
-<tr><td><code>array@int</code></td><td><code>int</code></td></tr>
-<tr><td><code>array@uint</code></td><td><code>unsigned int</code></td></tr>
 <tr><td><code>array@int32</code></td><td><code>int32_t</code></td></tr>
 <tr><td><code>array@uint32</code></td><td><code>uint32_t</code></td></tr>
 <tr><td><code>array@int64</code></td><td><code>int64_t</code></td></tr>
@@ -1480,8 +1474,6 @@ memory.array@char
 memory.array@uchar
 memory.array@short
 memory.array@ushort
-memory.array@int
-memory.array@uint
 memory.array@int32
 memory.array@uint32
 memory.array@int64

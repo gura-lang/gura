@@ -479,7 +479,7 @@ Gura_DeclareFunctionAlias(__gluLoadSamplingMatrices, "gluLoadSamplingMatrices")
 	DeclareArg(env, "nurb", VTYPE_Nurbs, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "model", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "perspective", VTYPE_array_at_float, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int32, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -841,7 +841,7 @@ Gura_DeclareFunctionAlias(__gluPickMatrix, "gluPickMatrix")
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delX", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "delY", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "viewport", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "viewport", VTYPE_array_at_int32, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -868,7 +868,7 @@ Gura_DeclareFunctionAlias(__gluProject, "gluProject")
 	DeclareArg(env, "objZ", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "model", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "proj", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int32, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "winX", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "winY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "winZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
@@ -1271,7 +1271,7 @@ Gura_DeclareFunctionAlias(__gluUnProject, "gluUnProject")
 	DeclareArg(env, "winZ", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "model", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "proj", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "view", VTYPE_array_at_int, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "view", VTYPE_array_at_int32, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "objX", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "objY", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "objZ", VTYPE_array_at_double, OCCUR_Once, FLAG_NoMap);

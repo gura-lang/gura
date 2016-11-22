@@ -2016,7 +2016,7 @@ glScissor(x:GLint, y:GLint, width:GLsizei, height:GLsizei):void:map = `auto %% {
 	'''
 }
 
-glSelectBuffer(buffer:array@uint:nil):void = R'''
+glSelectBuffer(buffer:array@uint32:nil):void = R'''
 	if (buffer == nullptr) {
 		glSelectBuffer(0, nullptr);
 	} else {

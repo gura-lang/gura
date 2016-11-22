@@ -421,7 +421,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -429,7 +429,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -437,7 +437,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@1:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -448,7 +448,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@2:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -459,7 +459,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@3:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -470,7 +470,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@4:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -481,7 +481,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLint@pname:const' => TypeConv(
-			'array_at_int', 'Once', ['NoMap'],
+			'array_at_int32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<int> *_${arg.name} = Object_arrayT<int>::GetObject(arg, ${idx})->GetArrayT();
 			GLint *${arg.name} = reinterpret_cast<GLint *>(_${arg.name}->GetPointer());
@@ -507,7 +507,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@' => TypeConv(
-			'array_at_uint', 'Once', ['NoMap'],
+			'array_at_uint32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -515,7 +515,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@:const' => TypeConv(
-			'array_at_uint', 'Once', ['NoMap'],
+			'array_at_uint32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -523,7 +523,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@3:const' => TypeConv(
-			'array_at_uint', 'Once', ['NoMap'],
+			'array_at_uint32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -534,7 +534,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@4:const' => TypeConv(
-			'array_at_uint', 'Once', ['NoMap'],
+			'array_at_uint32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
@@ -545,7 +545,7 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLuint@pname:const' => TypeConv(
-			'array_at_uint', 'Once', ['NoMap'],
+			'array_at_uint32', 'Once', ['NoMap'],
 			R'''
 			ArrayT<UInt> *_${arg.name} = Object_arrayT<UInt>::GetObject(arg, ${idx})->GetArrayT();
 			GLuint *${arg.name} = reinterpret_cast<GLuint *>(_${arg.name}->GetPointer());
