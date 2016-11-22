@@ -51,6 +51,7 @@ Object *Object_arrayT<T_Elem>::Clone() const
 	return nullptr;
 }
 
+#if 0
 template<typename T_Elem>
 String Object_arrayT<T_Elem>::ToString(bool exprFlag)
 {
@@ -107,6 +108,7 @@ void Object_arrayT<T_Elem>::IndexSet(Environment &env, const Value &valueIdx, co
 	}
 	GetArrayT()->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of functions

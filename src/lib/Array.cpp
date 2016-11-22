@@ -13,6 +13,11 @@ Array::~Array()
 {
 }
 
+String Array::ToString() const
+{
+	return "";
+}
+
 void Array::UpdateMetrics()
 {
 	size_t stride = 1;

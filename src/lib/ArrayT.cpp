@@ -77,6 +77,12 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
+String ArrayT<T_Elem>::ToString() const
+{
+	return "";
+}
+
+template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
 {
 	T_Elem *p = GetPointer();

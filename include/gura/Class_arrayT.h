@@ -42,9 +42,11 @@ public:
 		return dynamic_cast<ArrayT<T_Elem> *>(_pArray.get());
 	}
 	virtual Object *Clone() const;
+#if 0
 	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
+#endif
 };
 
 }

@@ -36,7 +36,7 @@ Object *Object_array::Clone() const
 
 String Object_array::ToString(bool exprFlag)
 {
-	return "<array>";
+	return _pArray->ToString();
 }
 
 template<typename T_Elem>
