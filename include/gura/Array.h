@@ -34,7 +34,9 @@ public:
 	};
 public:
 	typedef Array *(*UnaryFunc)(Signal &sig, const Array &array);
-	typedef Array *(*BinaryFunc)(Signal &sig, const Array &arrayL, const Array &arrayR);
+	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array &arrayL, const Array &arrayR);
+	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array &arrayL, Number numberR);
+	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array &arrayR);
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -60,19 +62,43 @@ protected:
 	Dimensions _dims;
 	size_t _offsetBase;
 	size_t _elemNum;
-protected:
-	static BinaryFunc _binaryFuncTbl_Add[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Sub[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Mul[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Div[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Mod[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Pow[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_And[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Or[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Xor[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Shl[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Shr[ETYPE_Max][ETYPE_Max];
-	static BinaryFunc _binaryFuncTbl_Dot[ETYPE_Max][ETYPE_Max];
+public:
+	static UnaryFunc unaryFuncTbl_Pos[ETYPE_Max];
+	static UnaryFunc unaryFuncTbl_Neg[ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Add[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Sub[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Mul[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Div[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Mod[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Pow[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_And[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Or[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Xor[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Shl[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Shr[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_array binaryFuncs_array_array_Dot[ETYPE_Max][ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Add[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Sub[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Mul[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Div[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Mod[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Pow[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_And[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Or[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Xor[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Shl[ETYPE_Max];
+	static BinaryFunc_array_number binaryFuncs_array_number_Shr[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Add[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Sub[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Mul[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Div[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Mod[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Pow[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_And[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Or[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Xor[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Shl[ETYPE_Max];
+	static BinaryFunc_number_array binaryFuncs_number_array_Shr[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -126,19 +152,15 @@ public:
 	static bool CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFunc unaryFuncTbl[],
 								 const Array *pArray, const char *name);
-	static Array *ApplyBinaryFunc(Signal &sig, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
-								  const Array *pArrayL, const Array *pArrayR, const char *name);
-	static Value ApplyBinaryFunc(Environment &env, const BinaryFunc binaryFuncTbl[][ETYPE_Max],
-								  const Value &valueL, const Value &valueR, const char *name);
+	static Array *ApplyBinaryFunc_array_array(
+		Signal &sig, const BinaryFunc_array_array binaryFuncs_array_array[][ETYPE_Max],
+		const Array *pArrayL, const Array *pArrayR, const char *name);
+	static Value ApplyBinaryFunc_array_array(
+		Environment &env, const BinaryFunc_array_array binaryFuncs_array_array[][ETYPE_Max],
+		const Value &valueL, const Value &valueR, const char *name);
 public:
-	inline static Value Add(Environment &env, const Value &valueL, const Value &valueR) {
-		return ApplyBinaryFunc(env, _binaryFuncTbl_Add, valueL, valueR, "add");
-	}
-	inline static Array *Add(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
-		return ApplyBinaryFunc(sig, _binaryFuncTbl_Add, pArrayL, pArrayR, "add");
-	}
 	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
-		return ApplyBinaryFunc(sig, _binaryFuncTbl_Dot, pArrayL, pArrayR, "dot");
+		return ApplyBinaryFunc_array_array(sig, binaryFuncs_array_array_Dot, pArrayL, pArrayR, "dot");
 	}
 };
 	

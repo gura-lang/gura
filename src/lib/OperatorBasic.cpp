@@ -305,7 +305,8 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 
 Gura_ImplementBinaryOperator(Add, array, array)
 {
-	return Array::Add(env, valueLeft, valueRight);
+	return Array::ApplyBinaryFunc_array_array(
+		env, Array::binaryFuncs_array_array_Add, valueLeft, valueRight, "add");
 }
 
 //-----------------------------------------------------------------------------
