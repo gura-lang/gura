@@ -156,6 +156,18 @@ public:
 	static Value ApplyBinaryFunc_array_array(
 		Environment &env, const BinaryFunc_array_array binaryFuncs_array_array[][ETYPE_Max],
 		const Value &valueL, const Value &valueR, const char *name);
+	static Array *ApplyBinaryFunc_array_number(
+		Signal &sig, const BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max],
+		const Array *pArrayL, Number numberR, const char *name);
+	static Value ApplyBinaryFunc_array_number(
+		Environment &env, const BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max],
+		const Value &valueL, const Value &valueR, const char *name);
+	static Array *ApplyBinaryFunc_number_array(
+		Signal &sig, const BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max],
+		Number numberL, const Array *pArrayR, const char *name);
+	static Value ApplyBinaryFunc_number_array(
+		Environment &env, const BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max],
+		const Value &valueL, const Value &valueR, const char *name);
 public:
 	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
 		return ApplyBinaryFunc_array_array(sig, binaryFuncs_array_array_Dot, pArrayL, pArrayR, "dot");

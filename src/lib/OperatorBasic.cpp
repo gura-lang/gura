@@ -309,6 +309,18 @@ Gura_ImplementBinaryOperator(Add, array, array)
 		env, Array::binaryFuncs_array_array_Add, valueLeft, valueRight, "add");
 }
 
+Gura_ImplementBinaryOperator(Add, array, number)
+{
+	return Array::ApplyBinaryFunc_array_number(
+		env, Array::binaryFuncs_array_number_Add, valueLeft, valueRight, "add");
+}
+
+Gura_ImplementBinaryOperator(Add, number, array)
+{
+	return Array::ApplyBinaryFunc_number_array(
+		env, Array::binaryFuncs_number_array_Add, valueLeft, valueRight, "add");
+}
+
 //-----------------------------------------------------------------------------
 // [A - B] ... BinaryOperator(Sub, A, B)
 //-----------------------------------------------------------------------------
@@ -1242,7 +1254,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Add, string, any);
 	Gura_AssignBinaryOperator(Add, any, string);
 	Gura_AssignBinaryOperator(Add, vertex, vertex);
-	//Gura_AssignBinaryOperator(Add, array, array);
+	Gura_AssignBinaryOperator(Add, array, array);
+	Gura_AssignBinaryOperator(Add, array, number);
+	Gura_AssignBinaryOperator(Add, number, array);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, boolean, boolean);
 	Gura_AssignBinaryOperator(Sub, number, boolean);
