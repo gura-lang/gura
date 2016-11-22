@@ -6,13 +6,11 @@
 @char() {block}
 @double() {block}
 @float() {block}
-@int() {block}
 @int32() {block}
 @int64() {block}
 @rem:nil = nil
 @short() {block}
 @uchar() {block}
-@uint() {block}
 @uint32() {block}
 @uint64() {block}
 @ushort() {block}
@@ -22,12 +20,10 @@ array:class = <class:array>
 array@char:class = <class:array@char(src) {block?}>
 array@double:class = <class:array@double(src) {block?}>
 array@float:class = <class:array@float(src) {block?}>
-array@int:class = <class:array@int(src) {block?}>
 array@int32:class = <class:array@int32(src) {block?}>
 array@int64:class = <class:array@int64(src) {block?}>
 array@short:class = <class:array@short(src) {block?}>
 array@uchar:class = <class:array@uchar(src) {block?}>
-array@uint:class = <class:array@uint(src) {block?}>
 array@uint32:class = <class:array@uint32(src) {block?}>
 array@uint64:class = <class:array@uint64(src) {block?}>
 array@ushort:class = <class:array@ushort(src) {block?}>
@@ -385,10 +381,6 @@ array@float
   array@float.identity(n:number):static:map {block?}
   array@float.ones(dim+:number):static:map {block?}
   array@float.zeros(dim+:number):static:map {block?}
-array@int
-  array@int.identity(n:number):static:map {block?}
-  array@int.ones(dim+:number):static:map {block?}
-  array@int.zeros(dim+:number):static:map {block?}
 array@int32
   array@int32.identity(n:number):static:map {block?}
   array@int32.ones(dim+:number):static:map {block?}
@@ -405,10 +397,6 @@ array@uchar
   array@uchar.identity(n:number):static:map {block?}
   array@uchar.ones(dim+:number):static:map {block?}
   array@uchar.zeros(dim+:number):static:map {block?}
-array@uint
-  array@uint.identity(n:number):static:map {block?}
-  array@uint.ones(dim+:number):static:map {block?}
-  array@uint.zeros(dim+:number):static:map {block?}
 array@uint32
   array@uint32.identity(n:number):static:map {block?}
   array@uint32.ones(dim+:number):static:map {block?}
@@ -723,12 +711,10 @@ memory
   memory#array@char():map {block?}
   memory#array@double():map {block?}
   memory#array@float():map {block?}
-  memory#array@int():map {block?}
   memory#array@int32():map {block?}
   memory#array@int64():map {block?}
   memory#array@short():map {block?}
   memory#array@uchar():map {block?}
-  memory#array@uint():map {block?}
   memory#array@uint32():map {block?}
   memory#array@uint64():map {block?}
   memory#array@ushort():map {block?}
