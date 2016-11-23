@@ -1,27 +1,27 @@
 ======== #1 constructor ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
@@ -73,13 +73,13 @@
 
 ======== #2 cast to list ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 <class:array@int32(src) {block?}>
 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
@@ -118,7 +118,7 @@
 
 ======== #5 head/tail ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -126,7 +126,7 @@
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -134,7 +134,7 @@ expected error occurs: OutOfRange: offset is out of range
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -142,7 +142,7 @@ expected error occurs: OutOfRange: offset is out of range
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 expected error occurs: OutOfRange: offset is out of range
 expected error occurs: OutOfRange: offset is out of range
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  0  1  2  3  4  5  6  7  8  9 10 11
 18 19 20 21 22 23 24 25 26 27 28 29
@@ -201,28 +201,28 @@ expected error occurs: OutOfRange: offset is out of range
 
 ======== #6 offset ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
 29
 
 expected error occurs: OutOfRange: offset is out of range
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 27 28 29
@@ -274,25 +274,25 @@ expected error occurs: OutOfRange: offset is out of range
 
 ======== #7 paste ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
 expected error occurs: OutOfRange: out of range
 90 91 92 93 94 95 96 97 98 99 10 11 93 94 95 96 97 98 99 19 90 91 92 93 94 95 96 97 98 99
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29
 90 91 92 93 94 95 96 97 98 99 10 11 12 13 14 15 16 17 18 19 90 91 92 93 94 95 96 97 98 99
@@ -337,10 +337,10 @@ expected error occurs: OutOfRange: out of range
 
 ======== #8 initializer ========
 
-@char: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
-@uchar: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
-@short: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
-@ushort: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+@int8: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+@uint8: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+@int16: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+@uint16: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
 @int32: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
 @uint32: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
 @int64: 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
@@ -350,7 +350,7 @@ expected error occurs: OutOfRange: out of range
 
 ======== #9 operator ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -381,7 +381,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = 254 253 252 251 250 249 248 247 246 245
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -412,7 +412,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = -2 -3 -4 -5 -6 -7 -8 -9 -10 -11
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -443,7 +443,7 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 3 | b =  3  3  3  7  7  7  7 11 11 11
 3 ^ b =  2  1  0  7  6  5  4 11 10  9
 
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 +a =  2  3  4  5  6  7  8  9 10 11
 -a = 65534 65533 65532 65531 65530 65529 65528 65527 65526 65525
 a + b =  3  5  7  9 11 13 15 17 19 21
@@ -663,17 +663,17 @@ a ^ 3 =  1  0  7  6  5  4 11 10  9  8
 
 ======== #10 cast to memory ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 16bytes
 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 16bytes
 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 32bytes
 00 00 01 00 02 00 03 00 04 00 05 00 06 00 07 00 08 00 09 00 0a 00 0b 00
 0c 00 0d 00 0e 00 0f 00
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 32bytes
 00 00 01 00 02 00 03 00 04 00 05 00 06 00 07 00 08 00 09 00 0a 00 0b 00
 0c 00 0d 00 0e 00 0f 00
@@ -723,19 +723,19 @@ expected error occurs: IteratorError: cannot evaluate infinite iterator
 
 ======== #12 divide by zero ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 x / y .. ZeroDivisionError: divide by zero
 x / 0 .. ZeroDivisionError: divide by zero
 2 / y .. ZeroDivisionError: divide by zero
@@ -766,16 +766,16 @@ x / 0 .. ZeroDivisionError: divide by zero
 
 ======== #13 sum/average ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 sum = 55
 avg = 5
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 sum = 55
 avg = 5
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 sum = 55
 avg = 5
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 sum = 55
 avg = 5
 <class:array@int32(src) {block?}>
@@ -799,7 +799,7 @@ avg = 5.5
 
 ======== #14 identity ========
 
-<class:array@char(src) {block?}>
+<class:array@int8(src) {block?}>
 1
 1 0
 0 1
@@ -811,7 +811,7 @@ avg = 5.5
 0 0 1 0 0
 0 0 0 1 0
 0 0 0 0 1
-<class:array@uchar(src) {block?}>
+<class:array@uint8(src) {block?}>
 1
 1 0
 0 1
@@ -823,7 +823,7 @@ avg = 5.5
 0 0 1 0 0
 0 0 0 1 0
 0 0 0 0 1
-<class:array@short(src) {block?}>
+<class:array@int16(src) {block?}>
 1
 1 0
 0 1
@@ -835,7 +835,7 @@ avg = 5.5
 0 0 1 0 0
 0 0 0 1 0
 0 0 0 0 1
-<class:array@ushort(src) {block?}>
+<class:array@uint16(src) {block?}>
 1
 1 0
 0 1

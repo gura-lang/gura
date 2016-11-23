@@ -116,28 +116,28 @@ String ArrayT<T_Elem>::ToString() const
 	return rtn;
 }
 
-template<> const char *ArrayT<Int8>::GetElemName()		{ return "char"; }
-template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uchar"; }
-template<> const char *ArrayT<Int16>::GetElemName()		{ return "short"; }
-template<> const char *ArrayT<UInt16>::GetElemName()	{ return "ushort"; }
-template<> const char *ArrayT<Int32>::GetElemName()		{ return "int32"; }
-template<> const char *ArrayT<UInt32>::GetElemName()	{ return "uint32"; }
-template<> const char *ArrayT<Int64>::GetElemName()		{ return "int64"; }
-template<> const char *ArrayT<UInt64>::GetElemName()	{ return "uint64"; }
-template<> const char *ArrayT<Float>::GetElemName()		{ return "float"; }
-template<> const char *ArrayT<Double>::GetElemName()	{ return "double"; }
+template<> const char *ArrayT<Int8>::GetElemName()		{ return "int8";	}
+template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uint8";	}
+template<> const char *ArrayT<Int16>::GetElemName()		{ return "int16";	}
+template<> const char *ArrayT<UInt16>::GetElemName()	{ return "uint16";	}
+template<> const char *ArrayT<Int32>::GetElemName()		{ return "int32";	}
+template<> const char *ArrayT<UInt32>::GetElemName()	{ return "uint32";	}
+template<> const char *ArrayT<Int64>::GetElemName()		{ return "int64";	}
+template<> const char *ArrayT<UInt64>::GetElemName()	{ return "uint64";	}
+template<> const char *ArrayT<Float>::GetElemName()		{ return "float";	}
+template<> const char *ArrayT<Double>::GetElemName()	{ return "double";	}
 
-template<> const char *ArrayT<Int8>::GetConstructorName()	{ return "array@char"; }
-template<> const char *ArrayT<UInt8>::GetConstructorName()	{ return "array@uchar"; }
-template<> const char *ArrayT<Int16>::GetConstructorName()	{ return "array@short"; }
-template<> const char *ArrayT<UInt16>::GetConstructorName()	{ return "array@ushort"; }
-template<> const char *ArrayT<Int32>::GetConstructorName()	{ return "array@int32"; }
-template<> const char *ArrayT<UInt32>::GetConstructorName()	{ return "array@uint32"; }
-template<> const char *ArrayT<Int64>::GetConstructorName()	{ return "array@int64"; }
-template<> const char *ArrayT<UInt64>::GetConstructorName()	{ return "array@uint64"; }
-template<> const char *ArrayT<Float>::GetConstructorName()	{ return "array@float"; }
-template<> const char *ArrayT<Double>::GetConstructorName()	{ return "array@double"; }
-template<> const char *ArrayT<Complex>::GetConstructorName() { return "array@complex"; }
+template<> const char *ArrayT<Int8>::GetConstructorName()	{ return "array@int8";		}
+template<> const char *ArrayT<UInt8>::GetConstructorName()	{ return "array@uint8";		}
+template<> const char *ArrayT<Int16>::GetConstructorName()	{ return "array@int16";		}
+template<> const char *ArrayT<UInt16>::GetConstructorName()	{ return "array@uint16";	}
+template<> const char *ArrayT<Int32>::GetConstructorName()	{ return "array@int32";		}
+template<> const char *ArrayT<UInt32>::GetConstructorName()	{ return "array@uint32";	}
+template<> const char *ArrayT<Int64>::GetConstructorName()	{ return "array@int64";		}
+template<> const char *ArrayT<UInt64>::GetConstructorName()	{ return "array@uint64";	}
+template<> const char *ArrayT<Float>::GetConstructorName()	{ return "array@float";		}
+template<> const char *ArrayT<Double>::GetConstructorName()	{ return "array@double";	}
+template<> const char *ArrayT<Complex>::GetConstructorName() { return "array@complex";	}
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)

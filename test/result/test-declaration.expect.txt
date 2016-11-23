@@ -3,30 +3,30 @@
 -:nil = nil
 @(func?:function) {block?}
 @@() {block}
-@char() {block}
 @double() {block}
 @float() {block}
+@int16() {block}
 @int32() {block}
 @int64() {block}
+@int8() {block}
 @rem:nil = nil
-@short() {block}
-@uchar() {block}
+@uint16() {block}
 @uint32() {block}
 @uint64() {block}
-@ushort() {block}
+@uint8() {block}
 __name__:string = __main__
 argument:class = <class:argument>
 array:class = <class:array>
-array@char:class = <class:array@char(src) {block?}>
 array@double:class = <class:array@double(src) {block?}>
 array@float:class = <class:array@float(src) {block?}>
+array@int16:class = <class:array@int16(src) {block?}>
 array@int32:class = <class:array@int32(src) {block?}>
 array@int64:class = <class:array@int64(src) {block?}>
-array@short:class = <class:array@short(src) {block?}>
-array@uchar:class = <class:array@uchar(src) {block?}>
+array@int8:class = <class:array@int8(src) {block?}>
+array@uint16:class = <class:array@uint16(src) {block?}>
 array@uint32:class = <class:array@uint32(src) {block?}>
 array@uint64:class = <class:array@uint64(src) {block?}>
-array@ushort:class = <class:array@ushort(src) {block?}>
+array@uint8:class = <class:array@uint8(src) {block?}>
 audio:class = <class:audio(args+):map {block?}>
 base64:module
   __name__:string = base64
@@ -369,10 +369,6 @@ array
   array#paste(offset:number, src:array):map
   array#sum():map {block?}
   array#tail(n:number):map {block?}
-array@char
-  array@char.identity(n:number):static:map {block?}
-  array@char.ones(dim+:number):static:map {block?}
-  array@char.zeros(dim+:number):static:map {block?}
 array@double
   array@double.identity(n:number):static:map {block?}
   array@double.ones(dim+:number):static:map {block?}
@@ -381,6 +377,10 @@ array@float
   array@float.identity(n:number):static:map {block?}
   array@float.ones(dim+:number):static:map {block?}
   array@float.zeros(dim+:number):static:map {block?}
+array@int16
+  array@int16.identity(n:number):static:map {block?}
+  array@int16.ones(dim+:number):static:map {block?}
+  array@int16.zeros(dim+:number):static:map {block?}
 array@int32
   array@int32.identity(n:number):static:map {block?}
   array@int32.ones(dim+:number):static:map {block?}
@@ -389,14 +389,14 @@ array@int64
   array@int64.identity(n:number):static:map {block?}
   array@int64.ones(dim+:number):static:map {block?}
   array@int64.zeros(dim+:number):static:map {block?}
-array@short
-  array@short.identity(n:number):static:map {block?}
-  array@short.ones(dim+:number):static:map {block?}
-  array@short.zeros(dim+:number):static:map {block?}
-array@uchar
-  array@uchar.identity(n:number):static:map {block?}
-  array@uchar.ones(dim+:number):static:map {block?}
-  array@uchar.zeros(dim+:number):static:map {block?}
+array@int8
+  array@int8.identity(n:number):static:map {block?}
+  array@int8.ones(dim+:number):static:map {block?}
+  array@int8.zeros(dim+:number):static:map {block?}
+array@uint16
+  array@uint16.identity(n:number):static:map {block?}
+  array@uint16.ones(dim+:number):static:map {block?}
+  array@uint16.zeros(dim+:number):static:map {block?}
 array@uint32
   array@uint32.identity(n:number):static:map {block?}
   array@uint32.ones(dim+:number):static:map {block?}
@@ -405,10 +405,10 @@ array@uint64
   array@uint64.identity(n:number):static:map {block?}
   array@uint64.ones(dim+:number):static:map {block?}
   array@uint64.zeros(dim+:number):static:map {block?}
-array@ushort
-  array@ushort.identity(n:number):static:map {block?}
-  array@ushort.ones(dim+:number):static:map {block?}
-  array@ushort.zeros(dim+:number):static:map {block?}
+array@uint8
+  array@uint8.identity(n:number):static:map {block?}
+  array@uint8.ones(dim+:number):static:map {block?}
+  array@uint8.zeros(dim+:number):static:map {block?}
 audio
   audio#each(channel:number, offset?:number):map {block?}
   audio#get(channel:number, offset:number):map
@@ -551,7 +551,7 @@ image
   image#flip(orient:symbol):map {block?}
   image#getpixel(x:number, y:number):map {block?}
   image#grayscale() {block?}
-  image#mapcolorlevel(map@r:array@uchar, map@g?:array@uchar, map@b?:array@uchar) {block?}
+  image#mapcolorlevel(map@r:array@uint8, map@g?:array@uint8, map@b?:array@uint8) {block?}
   image#paste(x:number, y:number, src:image, width?:number, height?:number, xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
   image#putpixel(x:number, y:number, color:color):map:reduce
   image#read(stream:stream:r, imagetype?:string):map:reduce
@@ -708,16 +708,16 @@ matrix
   matrix.translate(tx:number, ty:number, tz?:number):static:map:[deg] {block?}
   matrix#transpose()
 memory
-  memory#array@char():map {block?}
   memory#array@double():map {block?}
   memory#array@float():map {block?}
+  memory#array@int16():map {block?}
   memory#array@int32():map {block?}
   memory#array@int64():map {block?}
-  memory#array@short():map {block?}
-  memory#array@uchar():map {block?}
+  memory#array@int8():map {block?}
+  memory#array@uint16():map {block?}
   memory#array@uint32():map {block?}
   memory#array@uint64():map {block?}
-  memory#array@ushort():map {block?}
+  memory#array@uint8():map {block?}
   memory#dump(stream?:stream:w):void:[upper]
   memory#pointer(offset?:number) {block?}
 monitor

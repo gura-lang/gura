@@ -2,10 +2,10 @@
 import(helper.test) {*}
 
 funcs = [
-	array@char
-	array@uchar
-	array@short
-	array@ushort
+	array@int8
+	array@uint8
+	array@int16
+	array@uint16
 	array@int32
 	array@uint32
 	array@int64
@@ -39,13 +39,13 @@ testcase('cast to list') {
 	}
 }
 testcase('cast from list') {
-	x:array@char = [0..29]
+	x:array@int8 = [0..29]
 	PrintArray('%2d', x)
-	x:array@uchar = [0..29]
+	x:array@uint8 = [0..29]
 	PrintArray('%2d', x)
-	x:array@short = [0..29]
+	x:array@int16 = [0..29]
 	PrintArray('%2d', x)
-	x:array@ushort = [0..29]
+	x:array@uint16 = [0..29]
 	PrintArray('%2d', x)
 	x:array@int32 = [0..29]
 	PrintArray('%2d', x)
@@ -57,13 +57,13 @@ testcase('cast from list') {
 	PrintArray('%2d', x)
 }
 testcase('cast from iterator') {
-	x:array@char = 0..29
+	x:array@int8 = 0..29
 	PrintArray('%2d', x)
-	x:array@uchar = 0..29
+	x:array@uint8 = 0..29
 	PrintArray('%2d', x)
-	x:array@short = 0..29
+	x:array@int16 = 0..29
 	PrintArray('%2d', x)
-	x:array@ushort = 0..29
+	x:array@uint16 = 0..29
 	PrintArray('%2d', x)
 	x:array@int32 = 0..29
 	PrintArray('%2d', x)
@@ -132,10 +132,10 @@ testcase('paste') {
 }
 testcase('initializer') {
 	funcs = [
-		@char
-		@uchar
-		@short
-		@ushort
+		@int8
+		@uint8
+		@int16
+		@uint16
 		@int32
 		@uint32
 		@int64
@@ -240,7 +240,7 @@ testcase('operator') {
 testcase('cast to memory') {
 	f(m:memory) = {
 		printf('%dbytes\n', m.size)
-		m.array@uchar().dump()
+		m.array@uint8().dump()
 	}
 	funcs.each {|func|
 		println(func)
