@@ -36,7 +36,6 @@ class Signal;
 //-----------------------------------------------------------------------------
 // Simple type declarations
 //-----------------------------------------------------------------------------
-typedef double Number;
 
 GURA_DLLDECLARE extern const char *EXTNAME_Script;
 GURA_DLLDECLARE extern const char *EXTNAME_ScriptWin;
@@ -60,40 +59,63 @@ typedef int					Int;		// signed native bits
 typedef long				Long;		// long
 typedef int8_t				Char;		// signed 8bit
 typedef int16_t				Short;		// signed 16bit
+typedef int8_t				Int8;		// signed 8bit
+typedef int16_t				Int16;		// signed 16bit
 typedef int32_t				Int32;		// signed 32bit
 typedef int64_t				Int64;		// signed 64bit
 typedef unsigned int		UInt;		// unsigned native bits
 typedef unsigned long		ULong;		// unsigned long
 typedef uint8_t				UChar;		// unsigned 8bit
 typedef uint16_t			UShort;		// unsigned 16bit
+typedef uint8_t				UInt8;		// unsigned 8bit
+typedef uint16_t			UInt16;		// unsigned 16bit
 typedef uint32_t			UInt32;		// unsigned 32bit
 typedef uint64_t			UInt64;		// unsigned 64bit
 typedef float				Float;
 typedef double				Double;
+typedef double				Number;
 
-typedef std::vector<char, Allocator<char> >		CharList;
-typedef std::vector<short, Allocator<short> >	ShortList;
-typedef std::vector<int, Allocator<int> >		IntList;
-typedef std::vector<long, Allocator<long> >		LongList;
-typedef std::vector<float, Allocator<float> >	FloatList;
-typedef std::vector<double, Allocator<double> >	DoubleList;
-typedef std::vector<UChar, Allocator<UChar> >	UCharList;
-typedef std::vector<UShort, Allocator<UShort> >	UShortList;
-typedef std::vector<UInt, Allocator<UInt> >		UIntList;
-typedef std::vector<ULong, Allocator<ULong> >	ULongList;
-typedef std::vector<Number, Allocator<Number> >	NumberList;
+typedef std::vector<Int,	Allocator<Int> >	IntList;
+typedef std::vector<Long,	Allocator<Long> >	LongList;
+typedef std::vector<Char,	Allocator<Char> >	CharList;
+typedef std::vector<Short,	Allocator<Short> >	ShortList;
+typedef std::vector<Int8,	Allocator<Int8> >	Int8List;
+typedef std::vector<Int16,	Allocator<Int16> >	Int16List;
+typedef std::vector<Int32,	Allocator<Int32> >	Int32List;
+typedef std::vector<Int64,	Allocator<Int64> >	Int64List;
+typedef std::vector<UInt,	Allocator<UInt> >	UIntList;
+typedef std::vector<ULong,	Allocator<ULong> >	ULongList;
+typedef std::vector<UChar,	Allocator<UChar> >	UCharList;
+typedef std::vector<UShort,	Allocator<UShort> >	UShortList;
+typedef std::vector<UInt8,	Allocator<UInt8> >	UInt8List;
+typedef std::vector<UInt16,	Allocator<UInt16> >	UInt16List;
+typedef std::vector<UInt32,	Allocator<UInt32> >	UInt32List;
+typedef std::vector<UInt64,	Allocator<UInt64> >	UInt64List;
+typedef std::vector<Float,	Allocator<Float> >	FloatList;
+typedef std::vector<Double,	Allocator<Double> >	DoubleList;
+typedef std::vector<Number,	Allocator<Number> >	NumberList;
+typedef std::vector<size_t,	Allocator<size_t> >	SizeTList;
 
-typedef std::deque<char, Allocator<char> >		CharDeque;
-typedef std::deque<short, Allocator<short> >	ShortDeque;
-typedef std::deque<int, Allocator<int> >		IntDeque;
-typedef std::deque<long, Allocator<long> >		LongDeque;
-typedef std::deque<float, Allocator<float> >	FloatDeque;
-typedef std::deque<double, Allocator<double> >	DoubleDeque;
-typedef std::deque<UChar, Allocator<UChar> >	UCharDeque;
-typedef std::deque<UShort, Allocator<UShort> >	UShortDeque;
-typedef std::deque<UInt, Allocator<UInt> >		UIntDeque;
-typedef std::deque<ULong, Allocator<ULong> >	ULongDeque;
-typedef std::deque<Number, Allocator<Number> >	NumberDeque;
+typedef std::deque<Int,		Allocator<Int> >	IntDeque;
+typedef std::deque<Long,	Allocator<Long> >	LongDeque;
+typedef std::deque<Char,	Allocator<Char> >	CharDeque;
+typedef std::deque<Short,	Allocator<Short> >	ShortDeque;
+typedef std::deque<Int8,	Allocator<Int8> >	Int8Deque;
+typedef std::deque<Int16,	Allocator<Int16> >	Int16Deque;
+typedef std::deque<Int32,	Allocator<Int32> >	Int32Deque;
+typedef std::deque<Int64,	Allocator<Int64> >	Int64Deque;
+typedef std::deque<UInt,	Allocator<UInt> >	UIntDeque;
+typedef std::deque<ULong,	Allocator<ULong> >	ULongDeque;
+typedef std::deque<UChar,	Allocator<UChar> >	UCharDeque;
+typedef std::deque<UShort,	Allocator<UShort> >	UShortDeque;
+typedef std::deque<UInt8,	Allocator<UInt8> >	UInt8Deque;
+typedef std::deque<UInt16,	Allocator<UInt16> >	UInt16Deque;
+typedef std::deque<UInt32,	Allocator<UInt32> >	UInt32Deque;
+typedef std::deque<UInt64,	Allocator<UInt64> >	UInt64Deque;
+typedef std::deque<Float,	Allocator<Float> >	FloatDeque;
+typedef std::deque<Double,	Allocator<Double> >	DoubleDeque;
+typedef std::deque<Number,	Allocator<Number> >	NumberDeque;
+typedef std::deque<size_t,	Allocator<size_t> >	SizeTDeque;
 
 //-----------------------------------------------------------------------------
 // Flag
