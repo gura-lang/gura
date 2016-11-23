@@ -1,13 +1,13 @@
 ======== #1 number.min@T, number.max@T ========
 
-min@char .. -128
-max@char .. 127
-min@uchar .. 0
-max@uchar .. 255
-min@short .. -32768
-max@short .. 32767
-min@ushort .. 0
-max@ushort .. 65535
+min@int8 .. -128
+max@int8 .. 127
+min@uint8 .. 0
+max@uint8 .. 255
+min@int16 .. -32768
+max@int16 .. 32767
+min@uint16 .. 0
+max@uint16 .. 65535
 min@int32 .. -2147483648
 max@int32 .. 2147483647
 min@uint32 .. 0
@@ -15,10 +15,10 @@ max@uint32 .. 4294967295
 
 ======== #2 number.size@T ========
 
-size@char .. 1
-size@uchar .. 1
-size@short .. 2
-size@ushort .. 2
+size@int8 .. 1
+size@uint8 .. 1
+size@int16 .. 2
+size@uint16 .. 2
 size@int32 .. 4
 size@uint32 .. 4
 size@int64 .. 8
