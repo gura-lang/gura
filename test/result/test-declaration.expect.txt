@@ -723,29 +723,29 @@ memory
 monitor
 nil
 number
-  max@char:number = 127
+  max@int16:number = 32767
   max@int32:number = 2147483647
-  max@short:number = 32767
-  max@uchar:number = 255
+  max@int8:number = 127
+  max@uint16:number = 65535
   max@uint32:number = 4294967295
-  max@ushort:number = 65535
-  min@char:number = -128
+  max@uint8:number = 255
+  min@int16:number = -32768
   min@int32:number = -2.14748e+09
-  min@short:number = -32768
-  min@uchar:number = 0
+  min@int8:number = -128
+  min@uint16:number = 0
   min@uint32:number = 0
-  min@ushort:number = 0
+  min@uint8:number = 0
   number.roundoff(threshold:number => 1e-10)
-  size@char:number = 1
   size@double:number = 8
   size@float:number = 4
+  size@int16:number = 2
   size@int32:number = 4
   size@int64:number = 8
-  size@short:number = 2
-  size@uchar:number = 1
+  size@int8:number = 1
+  size@uint16:number = 2
   size@uint32:number = 4
   size@uint64:number = 8
-  size@ushort:number = 2
+  size@uint8:number = 1
 object
   object#__call__(symbol:symbol, `args*):map:nonamed {block?}
   object#__iter__()
