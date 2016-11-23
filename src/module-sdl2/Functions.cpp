@@ -4559,10 +4559,10 @@ Gura_ImplementFunction(__CreateRGBSurfaceFrom)
 	Uint32 Bmask = arg.GetUInt32(7);
 	Uint32 Amask = arg.GetUInt32(8);
 	void *_pixels = nullptr;
-	if (pixels.IsType(VTYPE_array_at_uchar)) {
-		_pixels = Object_arrayT<UChar>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_ushort)) {
-		_pixels = Object_arrayT<UShort>::GetObject(pixels)->GetArrayT()->GetPointer();
+	if (pixels.IsType(VTYPE_array_at_uint8)) {
+		_pixels = Object_arrayT<UInt8>::GetObject(pixels)->GetArrayT()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_at_uint16)) {
+		_pixels = Object_arrayT<UInt16>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
 		_pixels = Object_arrayT<UInt32>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else {
@@ -6183,8 +6183,8 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "data", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "mask", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "data", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "mask", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6196,8 +6196,8 @@ Gura_DeclareFunctionAlias(__CreateCursor, "CreateCursor")
 
 Gura_ImplementFunction(__CreateCursor)
 {
-	ArrayT<UChar> *data = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
-	ArrayT<UChar> *mask = Object_arrayT<UChar>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt8> *data = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *mask = Object_arrayT<UInt8>::GetObject(arg, 1)->GetArrayT();
 	int w = arg.GetInt(2);
 	int h = arg.GetInt(3);
 	int hot_x = arg.GetInt(4);

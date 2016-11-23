@@ -1135,9 +1135,9 @@ glGetPixelMapusv(map:GLenum, values:GLushort@):void:map = `unsupport %% {`en,
 //glGetPointerv(pname:GLenum, params:GLvoid@@):void:map = `unsupport
 
 glGetPolygonStipple():map = R'''
-	AutoPtr<ArrayT<UChar> > pArrayT(new ArrayT<UChar>(32 * 4));
+	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(32 * 4));
 	glGetPolygonStipple(pArrayT->GetPointer());
-	return Value(new Object_arrayT<UChar>(env, VTYPE_array_at_uchar, pArrayT.release()));
+	return Value(new Object_arrayT<UInt8>(env, VTYPE_array_at_uint8, pArrayT.release()));
 ''' %% {`en,
 	R'''
 	'''
@@ -1676,7 +1676,7 @@ glPolygonOffset(factor:GLfloat, units:GLfloat):void:map = `auto %% {`en,
 	'''
 }
 
-glPolygonStipple(mask:array@uchar):void:map = R'''
+glPolygonStipple(mask:array@uint8):void:map = R'''
 	if (mask->GetElemNum() != 32 * 4) {
 		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;

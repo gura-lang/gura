@@ -201,17 +201,17 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@:const' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLbyte@3:const' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -220,9 +220,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@4:const' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -231,9 +231,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLbyte@pname:const' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLbyte *${arg.name} = reinterpret_cast<GLbyte *>(_${arg.name}->GetPointer());
 			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
@@ -241,29 +241,29 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLchar@' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLchar@:const' => TypeConv(
-			'array_at_char', 'Once', ['NoMap'],
+			'array_at_int8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<Char> *_${arg.name} = Object_arrayT<Char>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int8> *_${arg.name} = Object_arrayT<Int8>::GetObject(arg, ${idx})->GetArrayT();
 			GLchar *${arg.name} = reinterpret_cast<GLchar *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLubyte@:const' => TypeConv(
-			'array_at_uchar', 'Once', ['NoMap'],
+			'array_at_uint8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			''',
 			R'''
-			ArrayT<UChar> *_${arg.name} = arg.IsValid(${idx})? Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT() : nullptr;
+			ArrayT<UInt8> *_${arg.name} = arg.IsValid(${idx})? Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT() : nullptr;
 			GLubyte *${arg.name} = (_${arg.name} == nullptr)? nullptr : reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			''',
 			R'''
@@ -271,17 +271,17 @@ cbridge.AddTypeConvs {
 			return ReturnValue(env, arg, Value(reinterpret_cast<const char *>(_rtn)));
 			''')
 	'GLubyte@' => TypeConv(
-			'array_at_uchar', 'Once', ['NoMap'],
+			'array_at_uint8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLubyte@3:const' => TypeConv(
-			'array_at_uchar', 'Once', ['NoMap'],
+			'array_at_uint8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -290,9 +290,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@4:const' => TypeConv(
-			'array_at_uchar', 'Once', ['NoMap'],
+			'array_at_uint8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -301,9 +301,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLubyte@pname:const' => TypeConv(
-			'array_at_uchar', 'Once', ['NoMap'],
+			'array_at_uint8', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UChar> *_${arg.name} = Object_arrayT<UChar>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt8> *_${arg.name} = Object_arrayT<UInt8>::GetObject(arg, ${idx})->GetArrayT();
 			GLubyte *${arg.name} = reinterpret_cast<GLubyte *>(_${arg.name}->GetPointer());
 			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
@@ -311,17 +311,17 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLshort@1:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(1)) {
 				env.SetError(ERR_ValueError, "the list must have one element");
@@ -330,9 +330,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@2:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(2)) {
 				env.SetError(ERR_ValueError, "the list must have two elements");
@@ -341,9 +341,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@3:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -352,9 +352,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@4:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -363,9 +363,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLshort@pname:const' => TypeConv(
-			'array_at_short', 'Once', ['NoMap'],
+			'array_at_int16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<short> *_${arg.name} = Object_arrayT<short>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<Int16> *_${arg.name} = Object_arrayT<Int16>::GetObject(arg, ${idx})->GetArrayT();
 			GLshort *${arg.name} = reinterpret_cast<GLshort *>(_${arg.name}->GetPointer());
 			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;
@@ -373,25 +373,25 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@' => TypeConv(
-			'array_at_ushort', 'Once', ['NoMap'],
+			'array_at_uint16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLushort@:const' => TypeConv(
-			'array_at_ushort', 'Once', ['NoMap'],
+			'array_at_uint16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			''',
 			nil,
 			nil)
 	'GLushort@3:const' => TypeConv(
-			'array_at_ushort', 'Once', ['NoMap'],
+			'array_at_uint16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(3)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -400,9 +400,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@4:const' => TypeConv(
-			'array_at_ushort', 'Once', ['NoMap'],
+			'array_at_uint16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (!_${arg.name}->HasShape(4)) {
 				env.SetError(ERR_ValueError, "the list must have three elements");
@@ -411,9 +411,9 @@ cbridge.AddTypeConvs {
 			nil,
 			nil)
 	'GLushort@pname:const' => TypeConv(
-			'array_at_ushort', 'Once', ['NoMap'],
+			'array_at_uint16', 'Once', ['NoMap'],
 			R'''
-			ArrayT<UShort> *_${arg.name} = Object_arrayT<UShort>::GetObject(arg, ${idx})->GetArrayT();
+			ArrayT<UInt16> *_${arg.name} = Object_arrayT<UInt16>::GetObject(arg, ${idx})->GetArrayT();
 			GLushort *${arg.name} = reinterpret_cast<GLushort *>(_${arg.name}->GetPointer());
 			if (!CheckArray(env.GetSignal(), pname, _${arg.name})) {
 				return Value::Nil;

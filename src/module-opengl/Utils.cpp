@@ -5,13 +5,13 @@ namespace Gura {
 const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 {
 	const void *p = nullptr;
-	if (value.IsType(VTYPE_array_at_char)) {
+	if (value.IsType(VTYPE_array_at_int8)) {
 		//if (type != GL_BYTE) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<Char>::GetObject(value)->GetArrayT()->GetPointer();
-	} else if (value.IsType(VTYPE_array_at_uchar)) {
+		p = Object_arrayT<Int8>::GetObject(value)->GetArrayT()->GetPointer();
+	} else if (value.IsType(VTYPE_array_at_uint8)) {
 		//if (type != GL_BITMAP &&
 		//	type != GL_UNSIGNED_BYTE &&
 		//	type != GL_UNSIGNED_BYTE_3_3_2 && 
@@ -19,14 +19,14 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<UChar>::GetObject(value)->GetArrayT()->GetPointer();
-	} else if (value.IsType(VTYPE_array_at_short)) {
+		p = Object_arrayT<UInt8>::GetObject(value)->GetArrayT()->GetPointer();
+	} else if (value.IsType(VTYPE_array_at_int16)) {
 		//if (type != GL_SHORT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<Short>::GetObject(value)->GetArrayT()->GetPointer();
-	} else if (value.IsType(VTYPE_array_at_ushort)) {
+		p = Object_arrayT<Int16>::GetObject(value)->GetArrayT()->GetPointer();
+	} else if (value.IsType(VTYPE_array_at_uint16)) {
 		//if (type != GL_UNSIGNED_SHORT &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5 &&
 		//	type != GL_UNSIGNED_SHORT_5_6_5_REV &&
@@ -37,7 +37,7 @@ const void *GetArrayTPointer(Environment &env, GLenum type, const Value &value)
 		//	env.SetError(ERR_TypeError, "invalid argument type");
 		//	return nullptr;
 		//}
-		p = Object_arrayT<UShort>::GetObject(value)->GetArrayT()->GetPointer();
+		p = Object_arrayT<UInt16>::GetObject(value)->GetArrayT()->GetPointer();
 	} else if (value.IsType(VTYPE_array_at_int32)) {
 		//if (type != GL_INT) {
 		//	env.SetError(ERR_TypeError, "invalid argument type");

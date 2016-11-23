@@ -1554,10 +1554,10 @@ SDL_CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint3
 
 SDL_CreateRGBSurfaceFrom(pixels:any, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) {block?} = R'''
 	void *_pixels = nullptr;
-	if (pixels.IsType(VTYPE_array_at_uchar)) {
-		_pixels = Object_arrayT<UChar>::GetObject(pixels)->GetArrayT()->GetPointer();
-	} else if (pixels.IsType(VTYPE_array_at_ushort)) {
-		_pixels = Object_arrayT<UShort>::GetObject(pixels)->GetArrayT()->GetPointer();
+	if (pixels.IsType(VTYPE_array_at_uint8)) {
+		_pixels = Object_arrayT<UInt8>::GetObject(pixels)->GetArrayT()->GetPointer();
+	} else if (pixels.IsType(VTYPE_array_at_uint16)) {
+		_pixels = Object_arrayT<UInt16>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else if (pixels.IsType(VTYPE_array_at_uint32)) {
 		_pixels = Object_arrayT<UInt32>::GetObject(pixels)->GetArrayT()->GetPointer();
 	} else {
@@ -2169,7 +2169,7 @@ SDL_CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@ {b
 	'''
 }
 
-SDL_CreateCursor(data:array@uchar, mask:array@uchar, w:int, h:int, hot_x:int, hot_y:int) {block?} = R'''
+SDL_CreateCursor(data:array@uint8, mask:array@uint8, w:int, h:int, hot_x:int, hot_y:int) {block?} = R'''
 	Signal &sig = env.GetSignal();
 	size_t bytesLeast = int((w + 7) / 8) * h;
 	if (data->GetElemNum() < bytesLeast) {

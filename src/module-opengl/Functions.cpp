@@ -160,7 +160,7 @@ Gura_DeclareFunctionAlias(__glBitmap, "glBitmap")
 	DeclareArg(env, "yorig", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "xmove", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ymove", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "bitmap", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
+	DeclareArg(env, "bitmap", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap | FLAG_Nil);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -174,7 +174,7 @@ Gura_ImplementFunction(__glBitmap)
 	GLfloat yorig = arg.GetFloat(3);
 	GLfloat xmove = arg.GetFloat(4);
 	GLfloat ymove = arg.GetFloat(5);
-	ArrayT<UChar> *_bitmap = arg.IsValid(6)? Object_arrayT<UChar>::GetObject(arg, 6)->GetArrayT() : nullptr;
+	ArrayT<UInt8> *_bitmap = arg.IsValid(6)? Object_arrayT<UInt8>::GetObject(arg, 6)->GetArrayT() : nullptr;
 	GLubyte *bitmap = (_bitmap == nullptr)? nullptr : reinterpret_cast<GLubyte *>(_bitmap->GetPointer());
 	if (_bitmap != nullptr) {
 		size_t bytesReq = ((width + 7) / 8) * height;
@@ -546,7 +546,7 @@ Gura_ImplementFunction(__glColor3b)
 Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -554,7 +554,7 @@ Gura_DeclareFunctionAlias(__glColor3bv, "glColor3bv")
 
 Gura_ImplementFunction(__glColor3bv)
 {
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -718,7 +718,7 @@ Gura_ImplementFunction(__glColor3s)
 Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -726,7 +726,7 @@ Gura_DeclareFunctionAlias(__glColor3sv, "glColor3sv")
 
 Gura_ImplementFunction(__glColor3sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -761,7 +761,7 @@ Gura_ImplementFunction(__glColor3ub)
 Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -769,7 +769,7 @@ Gura_DeclareFunctionAlias(__glColor3ubv, "glColor3ubv")
 
 Gura_ImplementFunction(__glColor3ubv)
 {
-	ArrayT<UChar> *_v = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -847,7 +847,7 @@ Gura_ImplementFunction(__glColor3us)
 Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -855,7 +855,7 @@ Gura_DeclareFunctionAlias(__glColor3usv, "glColor3usv")
 
 Gura_ImplementFunction(__glColor3usv)
 {
-	ArrayT<UShort> *_v = Object_arrayT<UShort>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -892,7 +892,7 @@ Gura_ImplementFunction(__glColor4b)
 Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -900,7 +900,7 @@ Gura_DeclareFunctionAlias(__glColor4bv, "glColor4bv")
 
 Gura_ImplementFunction(__glColor4bv)
 {
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -1072,7 +1072,7 @@ Gura_ImplementFunction(__glColor4s)
 Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -1080,7 +1080,7 @@ Gura_DeclareFunctionAlias(__glColor4sv, "glColor4sv")
 
 Gura_ImplementFunction(__glColor4sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -1117,7 +1117,7 @@ Gura_ImplementFunction(__glColor4ub)
 Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -1125,7 +1125,7 @@ Gura_DeclareFunctionAlias(__glColor4ubv, "glColor4ubv")
 
 Gura_ImplementFunction(__glColor4ubv)
 {
-	ArrayT<UChar> *_v = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -1207,7 +1207,7 @@ Gura_ImplementFunction(__glColor4us)
 Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -1215,7 +1215,7 @@ Gura_DeclareFunctionAlias(__glColor4usv, "glColor4usv")
 
 Gura_ImplementFunction(__glColor4usv)
 {
-	ArrayT<UShort> *_v = Object_arrayT<UShort>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -3132,7 +3132,7 @@ Gura_DeclareFunctionAlias(__glGetPixelMapusv, "glGetPixelMapusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -3142,7 +3142,7 @@ Gura_ImplementFunction(__glGetPixelMapusv)
 {
 #if 0
 	GLenum map = static_cast<GLenum>(arg.GetInt(0));
-	ArrayT<UShort> *_values = Object_arrayT<UShort>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt16> *_values = Object_arrayT<UInt16>::GetObject(arg, 1)->GetArrayT();
 	GLushort *values = reinterpret_cast<GLushort *>(_values->GetPointer());
 	glGetPixelMapusv(map, values);
 	return Value::Nil;
@@ -3162,9 +3162,9 @@ Gura_DeclareFunctionAlias(__glGetPolygonStipple, "glGetPolygonStipple")
 
 Gura_ImplementFunction(__glGetPolygonStipple)
 {
-	AutoPtr<ArrayT<UChar> > pArrayT(new ArrayT<UChar>(32 * 4));
+	AutoPtr<ArrayT<UInt8> > pArrayT(new ArrayT<UInt8>(32 * 4));
 	glGetPolygonStipple(pArrayT->GetPointer());
-	return Value(new Object_arrayT<UChar>(env, VTYPE_array_at_uchar, pArrayT.release()));
+	return Value(new Object_arrayT<UInt8>(env, VTYPE_array_at_uint8, pArrayT.release()));
 }
 
 // opengl.glGetString
@@ -3591,7 +3591,7 @@ Gura_ImplementFunction(__glIndexs)
 Gura_DeclareFunctionAlias(__glIndexsv, "glIndexsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -3599,7 +3599,7 @@ Gura_DeclareFunctionAlias(__glIndexsv, "glIndexsv")
 
 Gura_ImplementFunction(__glIndexsv)
 {
-	ArrayT<short> *_c = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_c = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *c = reinterpret_cast<GLshort *>(_c->GetPointer());
 	glIndexsv(c);
 	return Value::Nil;
@@ -3626,7 +3626,7 @@ Gura_ImplementFunction(__glIndexub)
 Gura_DeclareFunctionAlias(__glIndexubv, "glIndexubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "c", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "c", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -3634,7 +3634,7 @@ Gura_DeclareFunctionAlias(__glIndexubv, "glIndexubv")
 
 Gura_ImplementFunction(__glIndexubv)
 {
-	ArrayT<UChar> *_c = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *_c = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *c = reinterpret_cast<GLubyte *>(_c->GetPointer());
 	glIndexubv(c);
 	return Value::Nil;
@@ -4487,7 +4487,7 @@ Gura_ImplementFunction(__glNormal3b)
 Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -4495,7 +4495,7 @@ Gura_DeclareFunctionAlias(__glNormal3bv, "glNormal3bv")
 
 Gura_ImplementFunction(__glNormal3bv)
 {
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -4659,7 +4659,7 @@ Gura_ImplementFunction(__glNormal3s)
 Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -4667,7 +4667,7 @@ Gura_DeclareFunctionAlias(__glNormal3sv, "glNormal3sv")
 
 Gura_ImplementFunction(__glNormal3sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -4771,7 +4771,7 @@ Gura_DeclareFunctionAlias(__glPixelMapusv, "glPixelMapusv")
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "map", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mapsize", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "values", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "values", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -4781,7 +4781,7 @@ Gura_ImplementFunction(__glPixelMapusv)
 {
 	GLenum map = static_cast<GLenum>(arg.GetInt(0));
 	GLint mapsize = arg.GetInt(1);
-	ArrayT<UShort> *_values = Object_arrayT<UShort>::GetObject(arg, 2)->GetArrayT();
+	ArrayT<UInt16> *_values = Object_arrayT<UInt16>::GetObject(arg, 2)->GetArrayT();
 	GLushort *values = reinterpret_cast<GLushort *>(_values->GetPointer());
 	glPixelMapusv(map, mapsize, values);
 	return Value::Nil;
@@ -4941,7 +4941,7 @@ Gura_ImplementFunction(__glPolygonOffset)
 Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "mask", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "mask", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -4949,7 +4949,7 @@ Gura_DeclareFunctionAlias(__glPolygonStipple, "glPolygonStipple")
 
 Gura_ImplementFunction(__glPolygonStipple)
 {
-	ArrayT<UChar> *mask = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *mask = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	if (mask->GetElemNum() != 32 * 4) {
 		env.SetError(ERR_ValueError, "mask must contain 32 * 4 elements");
 		return Value::Nil;
@@ -5284,7 +5284,7 @@ Gura_ImplementFunction(__glRasterPos2s)
 Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -5292,7 +5292,7 @@ Gura_DeclareFunctionAlias(__glRasterPos2sv, "glRasterPos2sv")
 
 Gura_ImplementFunction(__glRasterPos2sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -5456,7 +5456,7 @@ Gura_ImplementFunction(__glRasterPos3s)
 Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -5464,7 +5464,7 @@ Gura_DeclareFunctionAlias(__glRasterPos3sv, "glRasterPos3sv")
 
 Gura_ImplementFunction(__glRasterPos3sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -5636,7 +5636,7 @@ Gura_ImplementFunction(__glRasterPos4s)
 Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -5644,7 +5644,7 @@ Gura_DeclareFunctionAlias(__glRasterPos4sv, "glRasterPos4sv")
 
 Gura_ImplementFunction(__glRasterPos4sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -5888,8 +5888,8 @@ Gura_ImplementFunction(__glRects)
 Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v1", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
-	DeclareArg(env, "v2", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v1", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v2", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -5897,13 +5897,13 @@ Gura_DeclareFunctionAlias(__glRectsv, "glRectsv")
 
 Gura_ImplementFunction(__glRectsv)
 {
-	ArrayT<short> *_v1 = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v1 = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v1 = reinterpret_cast<GLshort *>(_v1->GetPointer());
 	if (!_v1->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
 		return Value::Nil;
 	}
-	ArrayT<short> *_v2 = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v2 = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v2 = reinterpret_cast<GLshort *>(_v2->GetPointer());
 	if (!_v2->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -6323,7 +6323,7 @@ Gura_ImplementFunction(__glTexCoord1s)
 Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -6331,7 +6331,7 @@ Gura_DeclareFunctionAlias(__glTexCoord1sv, "glTexCoord1sv")
 
 Gura_ImplementFunction(__glTexCoord1sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
@@ -6487,7 +6487,7 @@ Gura_ImplementFunction(__glTexCoord2s)
 Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -6495,7 +6495,7 @@ Gura_DeclareFunctionAlias(__glTexCoord2sv, "glTexCoord2sv")
 
 Gura_ImplementFunction(__glTexCoord2sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -6659,7 +6659,7 @@ Gura_ImplementFunction(__glTexCoord3s)
 Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -6667,7 +6667,7 @@ Gura_DeclareFunctionAlias(__glTexCoord3sv, "glTexCoord3sv")
 
 Gura_ImplementFunction(__glTexCoord3sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -6839,7 +6839,7 @@ Gura_ImplementFunction(__glTexCoord4s)
 Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -6847,7 +6847,7 @@ Gura_DeclareFunctionAlias(__glTexCoord4sv, "glTexCoord4sv")
 
 Gura_ImplementFunction(__glTexCoord4sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -7661,7 +7661,7 @@ Gura_ImplementFunction(__glVertex2s)
 Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7669,7 +7669,7 @@ Gura_DeclareFunctionAlias(__glVertex2sv, "glVertex2sv")
 
 Gura_ImplementFunction(__glVertex2sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -7833,7 +7833,7 @@ Gura_ImplementFunction(__glVertex3s)
 Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -7841,7 +7841,7 @@ Gura_DeclareFunctionAlias(__glVertex3sv, "glVertex3sv")
 
 Gura_ImplementFunction(__glVertex3sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -8013,7 +8013,7 @@ Gura_ImplementFunction(__glVertex4s)
 Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -8021,7 +8021,7 @@ Gura_DeclareFunctionAlias(__glVertex4sv, "glVertex4sv")
 
 Gura_ImplementFunction(__glVertex4sv)
 {
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -8295,7 +8295,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord1sv, "glMultiTexCoord1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -8306,7 +8306,7 @@ Gura_ImplementFunction(__glMultiTexCoord1sv)
 #if defined(GL_VERSION_1_3)
 	ImplementGLExtension();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
@@ -8523,7 +8523,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord2sv, "glMultiTexCoord2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -8534,7 +8534,7 @@ Gura_ImplementFunction(__glMultiTexCoord2sv)
 #if defined(GL_VERSION_1_3)
 	ImplementGLExtension();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -8759,7 +8759,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord3sv, "glMultiTexCoord3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -8770,7 +8770,7 @@ Gura_ImplementFunction(__glMultiTexCoord3sv)
 #if defined(GL_VERSION_1_3)
 	ImplementGLExtension();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9003,7 +9003,7 @@ Gura_DeclareFunctionAlias(__glMultiTexCoord4sv, "glMultiTexCoord4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "target", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9014,7 +9014,7 @@ Gura_ImplementFunction(__glMultiTexCoord4sv)
 #if defined(GL_VERSION_1_3)
 	ImplementGLExtension();
 	GLenum target = static_cast<GLenum>(arg.GetInt(0));
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9161,7 +9161,7 @@ Gura_ImplementFunction(__glSecondaryColor3b)
 Gura_DeclareFunctionAlias(__glSecondaryColor3bv, "glSecondaryColor3bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9171,7 +9171,7 @@ Gura_ImplementFunction(__glSecondaryColor3bv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 0)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9381,7 +9381,7 @@ Gura_ImplementFunction(__glSecondaryColor3s)
 Gura_DeclareFunctionAlias(__glSecondaryColor3sv, "glSecondaryColor3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9391,7 +9391,7 @@ Gura_ImplementFunction(__glSecondaryColor3sv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9436,7 +9436,7 @@ Gura_ImplementFunction(__glSecondaryColor3ub)
 Gura_DeclareFunctionAlias(__glSecondaryColor3ubv, "glSecondaryColor3ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9446,7 +9446,7 @@ Gura_ImplementFunction(__glSecondaryColor3ubv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<UChar> *_v = Object_arrayT<UChar>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 0)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9546,7 +9546,7 @@ Gura_ImplementFunction(__glSecondaryColor3us)
 Gura_DeclareFunctionAlias(__glSecondaryColor3usv, "glSecondaryColor3usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9556,7 +9556,7 @@ Gura_ImplementFunction(__glSecondaryColor3usv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<UShort> *_v = Object_arrayT<UShort>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 0)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -9929,7 +9929,7 @@ Gura_ImplementFunction(__glWindowPos2s)
 Gura_DeclareFunctionAlias(__glWindowPos2sv, "glWindowPos2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -9939,7 +9939,7 @@ Gura_ImplementFunction(__glWindowPos2sv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -10149,7 +10149,7 @@ Gura_ImplementFunction(__glWindowPos3s)
 Gura_DeclareFunctionAlias(__glWindowPos3sv, "glWindowPos3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -10159,7 +10159,7 @@ Gura_ImplementFunction(__glWindowPos3sv)
 {
 #if defined(GL_VERSION_1_4)
 	ImplementGLExtension();
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 0)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 0)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -10769,7 +10769,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib1sv, "glVertexAttrib1sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -10780,7 +10780,7 @@ Gura_ImplementFunction(__glVertexAttrib1sv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(1)) {
 		env.SetError(ERR_ValueError, "the list must have one element");
@@ -10940,7 +10940,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib2sv, "glVertexAttrib2sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -10951,7 +10951,7 @@ Gura_ImplementFunction(__glVertexAttrib2sv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(2)) {
 		env.SetError(ERR_ValueError, "the list must have two elements");
@@ -11117,7 +11117,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib3sv, "glVertexAttrib3sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11128,7 +11128,7 @@ Gura_ImplementFunction(__glVertexAttrib3sv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(3)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11147,7 +11147,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nbv, "glVertexAttrib4Nbv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11158,7 +11158,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nbv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11207,7 +11207,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nsv, "glVertexAttrib4Nsv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11218,7 +11218,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nsv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11268,7 +11268,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nubv, "glVertexAttrib4Nubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11279,7 +11279,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nubv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<UChar> *_v = Object_arrayT<UChar>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 1)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11328,7 +11328,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4Nusv, "glVertexAttrib4Nusv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11339,7 +11339,7 @@ Gura_ImplementFunction(__glVertexAttrib4Nusv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<UShort> *_v = Object_arrayT<UShort>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 1)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11358,7 +11358,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4bv, "glVertexAttrib4bv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_char, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11369,7 +11369,7 @@ Gura_ImplementFunction(__glVertexAttrib4bv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<Char> *_v = Object_arrayT<Char>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int8> *_v = Object_arrayT<Int8>::GetObject(arg, 1)->GetArrayT();
 	GLbyte *v = reinterpret_cast<GLbyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11571,7 +11571,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4sv, "glVertexAttrib4sv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_short, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_int16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11582,7 +11582,7 @@ Gura_ImplementFunction(__glVertexAttrib4sv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<short> *_v = Object_arrayT<short>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<Int16> *_v = Object_arrayT<Int16>::GetObject(arg, 1)->GetArrayT();
 	GLshort *v = reinterpret_cast<GLshort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11601,7 +11601,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4ubv, "glVertexAttrib4ubv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_uchar, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint8, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11612,7 +11612,7 @@ Gura_ImplementFunction(__glVertexAttrib4ubv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<UChar> *_v = Object_arrayT<UChar>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt8> *_v = Object_arrayT<UInt8>::GetObject(arg, 1)->GetArrayT();
 	GLubyte *v = reinterpret_cast<GLubyte *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
@@ -11661,7 +11661,7 @@ Gura_DeclareFunctionAlias(__glVertexAttrib4usv, "glVertexAttrib4usv")
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "v", VTYPE_array_at_ushort, OCCUR_Once, FLAG_NoMap);
+	DeclareArg(env, "v", VTYPE_array_at_uint16, OCCUR_Once, FLAG_NoMap);
 	AddHelp(
 		Gura_Symbol(en),
 		"");
@@ -11672,7 +11672,7 @@ Gura_ImplementFunction(__glVertexAttrib4usv)
 #if defined(GL_VERSION_2_0)
 	ImplementGLExtension();
 	GLuint index = arg.GetUInt(0);
-	ArrayT<UShort> *_v = Object_arrayT<UShort>::GetObject(arg, 1)->GetArrayT();
+	ArrayT<UInt16> *_v = Object_arrayT<UInt16>::GetObject(arg, 1)->GetArrayT();
 	GLushort *v = reinterpret_cast<GLushort *>(_v->GetPointer());
 	if (!_v->HasShape(4)) {
 		env.SetError(ERR_ValueError, "the list must have three elements");
