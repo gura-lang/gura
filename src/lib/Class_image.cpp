@@ -571,13 +571,13 @@ Gura_ImplementMethod(image, grayscale)
 }
 
 #if 1
-// image#mapcolorlevel(map@r:array@uchar, map@g?:array@uchar, map@b?:array@uchar) {block?}
+// image#mapcolorlevel(map@r:array@uint8, map@g?:array@uint8, map@b?:array@uint8) {block?}
 Gura_DeclareMethod(image, mapcolorlevel)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "map@r", VTYPE_array_at_uchar, OCCUR_Once);
-	DeclareArg(env, "map@g", VTYPE_array_at_uchar, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "map@b", VTYPE_array_at_uchar, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "map@r", VTYPE_array_at_uint8, OCCUR_Once);
+	DeclareArg(env, "map@g", VTYPE_array_at_uint8, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "map@b", VTYPE_array_at_uint8, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),

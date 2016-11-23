@@ -190,13 +190,13 @@ Func_atT<T_Elem>::Func_atT(Environment &env, const Symbol *pSymbol, ValueType va
 		Gura_Symbol(en),
 		"Creates an `array@T` instance that is initialized with values described in `block`.\n"
 		"\n"
-		"The code below creates an `array@uchar` instance that has four elements.\n"
+		"The code below creates an `array@uint8` instance that has four elements.\n"
 		"\n"
-		"    @uchar { 0x01, 0x23, 0x45, 0x67 }\n"
+		"    @uint8 { 0x01, 0x23, 0x45, 0x67 }\n"
 		"\n"
-		"The code below creates an `array@ushort` instance that has three elements.\n"
+		"The code below creates an `array@uint16` instance that has three elements.\n"
 		"\n"
-		"    @ushort { 0x0123, 0x4567, 0x89ab }\n"
+		"    @uint16 { 0x0123, 0x4567, 0x89ab }\n"
 		);
 }
 
@@ -637,10 +637,10 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 //------------------------------------------------------------------------------
 // Instantiation of Object_arrayT
 //------------------------------------------------------------------------------
-template class Object_arrayT<Char>;
-template class Object_arrayT<UChar>;
-template class Object_arrayT<Short>;
-template class Object_arrayT<UShort>;
+template class Object_arrayT<Int8>;
+template class Object_arrayT<UInt8>;
+template class Object_arrayT<Int16>;
+template class Object_arrayT<UInt16>;
 template class Object_arrayT<Int32>;
 template class Object_arrayT<UInt32>;
 template class Object_arrayT<Int64>;
@@ -651,10 +651,10 @@ template class Object_arrayT<double>;
 //------------------------------------------------------------------------------
 // Instantiation of Class_arrayT
 //------------------------------------------------------------------------------
-template class Class_arrayT<Char>;
-template class Class_arrayT<UChar>;
-template class Class_arrayT<Short>;
-template class Class_arrayT<UShort>;
+template class Class_arrayT<Int8>;
+template class Class_arrayT<UInt8>;
+template class Class_arrayT<Int16>;
+template class Class_arrayT<UInt16>;
 template class Class_arrayT<Int32>;
 template class Class_arrayT<UInt32>;
 template class Class_arrayT<Int64>;

@@ -188,10 +188,10 @@ Gura_ImplementMethod(memory, array_at_##name) \
 										   env, VTYPE_array_at_##name, pArrayT.release()))); \
 }
 
-ImplementArrayConstructor(char, Char)
-ImplementArrayConstructor(uchar, UChar)
-ImplementArrayConstructor(short, Short)
-ImplementArrayConstructor(ushort, UShort)
+ImplementArrayConstructor(int8, Int8)
+ImplementArrayConstructor(uint8, UInt8)
+ImplementArrayConstructor(int16, UInt16)
+ImplementArrayConstructor(uint16, UInt16)
 ImplementArrayConstructor(int32, Int32)
 ImplementArrayConstructor(uint32, UInt32)
 ImplementArrayConstructor(int64, Int64)
@@ -264,10 +264,10 @@ Class_memory::Class_memory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_memo
 void Class_memory::Prepare(Environment &env)
 {
 	Gura_AssignFunction(memory);
-	Gura_AssignMethod(memory, array_at_char);
-	Gura_AssignMethod(memory, array_at_uchar);
-	Gura_AssignMethod(memory, array_at_short);
-	Gura_AssignMethod(memory, array_at_ushort);
+	Gura_AssignMethod(memory, array_at_int8);
+	Gura_AssignMethod(memory, array_at_uint8);
+	Gura_AssignMethod(memory, array_at_int16);
+	Gura_AssignMethod(memory, array_at_uint16);
 	Gura_AssignMethod(memory, array_at_int32);
 	Gura_AssignMethod(memory, array_at_uint32);
 	Gura_AssignMethod(memory, array_at_int64);
@@ -282,20 +282,20 @@ void Class_memory::Prepare(Environment &env)
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
-	if (value.Is_array_at_char()) {
-		Memory &memory = Object_arrayT<Char>::GetObject(value)->GetArrayT()->GetMemory();
+	if (value.Is_array_at_int8()) {
+		Memory &memory = Object_arrayT<Int8>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_at_uchar()) {
-		Memory &memory = Object_arrayT<UChar>::GetObject(value)->GetArrayT()->GetMemory();
+	} else if (value.Is_array_at_uint8()) {
+		Memory &memory = Object_arrayT<UInt8>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_at_short()) {
-		Memory &memory = Object_arrayT<Short>::GetObject(value)->GetArrayT()->GetMemory();
+	} else if (value.Is_array_at_int16()) {
+		Memory &memory = Object_arrayT<Int16>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
-	} else if (value.Is_array_at_ushort()) {
-		Memory &memory = Object_arrayT<UShort>::GetObject(value)->GetArrayT()->GetMemory();
+	} else if (value.Is_array_at_uint16()) {
+		Memory &memory = Object_arrayT<UInt16>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	} else if (value.Is_array_at_int32()) {

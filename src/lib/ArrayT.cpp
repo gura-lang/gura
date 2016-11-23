@@ -75,10 +75,10 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 
 template<typename T_Elem> void FormatElem(char *buff, T_Elem x);
 
-template<> void FormatElem(char *buff, Char x)		{ ::sprintf(buff, "%d", x); }
-template<> void FormatElem(char *buff, UChar x)		{ ::sprintf(buff, "%u", x); }
-template<> void FormatElem(char *buff, Short x)		{ ::sprintf(buff, "%d", x); }
-template<> void FormatElem(char *buff, UShort x)	{ ::sprintf(buff, "%u", x); }
+template<> void FormatElem(char *buff, Int8 x)		{ ::sprintf(buff, "%d", x); }
+template<> void FormatElem(char *buff, UInt8 x)		{ ::sprintf(buff, "%u", x); }
+template<> void FormatElem(char *buff, Int16 x)		{ ::sprintf(buff, "%d", x); }
+template<> void FormatElem(char *buff, UInt16 x)	{ ::sprintf(buff, "%u", x); }
 template<> void FormatElem(char *buff, Int32 x)		{ ::sprintf(buff, "%d", x); }
 template<> void FormatElem(char *buff, UInt32 x)	{ ::sprintf(buff, "%u", x); }
 template<> void FormatElem(char *buff, Int64 x)		{ ::sprintf(buff, "%lld", x); }
@@ -116,10 +116,10 @@ String ArrayT<T_Elem>::ToString() const
 	return rtn;
 }
 
-template<> const char *ArrayT<Char>::GetElemName()		{ return "char"; }
-template<> const char *ArrayT<UChar>::GetElemName()		{ return "uchar"; }
-template<> const char *ArrayT<Short>::GetElemName()		{ return "short"; }
-template<> const char *ArrayT<UShort>::GetElemName()	{ return "ushort"; }
+template<> const char *ArrayT<Int8>::GetElemName()		{ return "char"; }
+template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uchar"; }
+template<> const char *ArrayT<Int16>::GetElemName()		{ return "short"; }
+template<> const char *ArrayT<UInt16>::GetElemName()	{ return "ushort"; }
 template<> const char *ArrayT<Int32>::GetElemName()		{ return "int32"; }
 template<> const char *ArrayT<UInt32>::GetElemName()	{ return "uint32"; }
 template<> const char *ArrayT<Int64>::GetElemName()		{ return "int64"; }
@@ -127,10 +127,10 @@ template<> const char *ArrayT<UInt64>::GetElemName()	{ return "uint64"; }
 template<> const char *ArrayT<Float>::GetElemName()		{ return "float"; }
 template<> const char *ArrayT<Double>::GetElemName()	{ return "double"; }
 
-template<> const char *ArrayT<Char>::GetConstructorName()	{ return "array@char"; }
-template<> const char *ArrayT<UChar>::GetConstructorName()	{ return "array@uchar"; }
-template<> const char *ArrayT<Short>::GetConstructorName()	{ return "array@short"; }
-template<> const char *ArrayT<UShort>::GetConstructorName()	{ return "array@ushort"; }
+template<> const char *ArrayT<Int8>::GetConstructorName()	{ return "array@char"; }
+template<> const char *ArrayT<UInt8>::GetConstructorName()	{ return "array@uchar"; }
+template<> const char *ArrayT<Int16>::GetConstructorName()	{ return "array@short"; }
+template<> const char *ArrayT<UInt16>::GetConstructorName()	{ return "array@ushort"; }
 template<> const char *ArrayT<Int32>::GetConstructorName()	{ return "array@int32"; }
 template<> const char *ArrayT<UInt32>::GetConstructorName()	{ return "array@uint32"; }
 template<> const char *ArrayT<Int64>::GetConstructorName()	{ return "array@int64"; }
@@ -167,27 +167,27 @@ bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 }
 
 template<>
-void ArrayT<Char>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+void ArrayT<Int8>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<Char, UChar>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
+	DumpInteger<Int8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
 }
 
 template<>
-void ArrayT<UChar>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+void ArrayT<UInt8>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<UChar, UChar>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
+	DumpInteger<UInt8, UInt8>(sig, stream, upperFlag? "%02X" : "%02x", 24, GetPointer(), GetElemNum());
 }
 
 template<>
-void ArrayT<Short>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+void ArrayT<Int16>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<Short, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
+	DumpInteger<Int16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
 }
 
 template<>
-void ArrayT<UShort>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
+void ArrayT<UInt16>::Dump(Signal &sig, Stream &stream, bool upperFlag) const
 {
-	DumpInteger<UShort, UShort>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
+	DumpInteger<UInt16, UInt16>(sig, stream, upperFlag? "%04X" : "%04x", 16, GetPointer(), GetElemNum());
 }
 
 template<>
@@ -373,10 +373,10 @@ void Iterator_ArrayT_Each<T_Elem>::GatherFollower(
 //------------------------------------------------------------------------------
 // Implementation of ArrayT
 //------------------------------------------------------------------------------
-ImplementArrayT(Char)
-ImplementArrayT(UChar)
-ImplementArrayT(Short)
-ImplementArrayT(UShort)
+ImplementArrayT(Int8)
+ImplementArrayT(UInt8)
+ImplementArrayT(Int16)
+ImplementArrayT(UInt16)
 ImplementArrayT(Int32)
 ImplementArrayT(UInt32)
 ImplementArrayT(Int64)
@@ -388,10 +388,10 @@ ImplementArrayT(Complex)
 //------------------------------------------------------------------------------
 // Implementation of Iterator_ArrayT_Each
 //------------------------------------------------------------------------------
-template class Iterator_ArrayT_Each<Char>;
-template class Iterator_ArrayT_Each<UChar>;
-template class Iterator_ArrayT_Each<Short>;
-template class Iterator_ArrayT_Each<UShort>;
+template class Iterator_ArrayT_Each<Int8>;
+template class Iterator_ArrayT_Each<UInt8>;
+template class Iterator_ArrayT_Each<Int16>;
+template class Iterator_ArrayT_Each<UInt16>;
 template class Iterator_ArrayT_Each<Int32>;
 template class Iterator_ArrayT_Each<UInt32>;
 template class Iterator_ArrayT_Each<Int64>;

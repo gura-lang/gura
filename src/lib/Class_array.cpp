@@ -68,10 +68,10 @@ Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
 {
 	static const IndexGetT indexGets[] = {
 		nullptr,
-		&IndexGetTmpl<Char>,
-		&IndexGetTmpl<UChar>,
-		&IndexGetTmpl<Short>,
-		&IndexGetTmpl<UShort>,
+		&IndexGetTmpl<Int8>,
+		&IndexGetTmpl<UInt8>,
+		&IndexGetTmpl<Int16>,
+		&IndexGetTmpl<UInt16>,
 		&IndexGetTmpl<Int32>,
 		&IndexGetTmpl<UInt32>,
 		&IndexGetTmpl<Int64>,
@@ -104,10 +104,10 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 {
 	static const IndexSetT indexSets[] = {
 		nullptr,
-		&IndexSetTmpl<Char>,
-		&IndexSetTmpl<UChar>,
-		&IndexSetTmpl<Short>,
-		&IndexSetTmpl<UShort>,
+		&IndexSetTmpl<Int8>,
+		&IndexSetTmpl<UInt8>,
+		&IndexSetTmpl<Int16>,
+		&IndexSetTmpl<UInt16>,
 		&IndexSetTmpl<Int32>,
 		&IndexSetTmpl<UInt32>,
 		&IndexSetTmpl<Int64>,
@@ -145,10 +145,10 @@ Gura_ImplementMethod(array, average)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_average<Char>,
-		&Method_average<UChar>,
-		&Method_average<Short>,
-		&Method_average<UShort>,
+		&Method_average<Int8>,
+		&Method_average<UInt8>,
+		&Method_average<Int16>,
+		&Method_average<UInt16>,
 		&Method_average<Int32>,
 		&Method_average<UInt32>,
 		&Method_average<Int64>,
@@ -211,10 +211,10 @@ Gura_ImplementMethod(array, dump)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_dump<Char>,
-		&Method_dump<UChar>,
-		&Method_dump<Short>,
-		&Method_dump<UShort>,
+		&Method_dump<Int8>,
+		&Method_dump<UInt8>,
+		&Method_dump<Int16>,
+		&Method_dump<UInt16>,
 		&Method_dump<Int32>,
 		&Method_dump<UInt32>,
 		&Method_dump<Int64>,
@@ -254,10 +254,10 @@ Gura_ImplementMethod(array, each)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_each<Char>,
-		&Method_each<UChar>,
-		&Method_each<Short>,
-		&Method_each<UShort>,
+		&Method_each<Int8>,
+		&Method_each<UInt8>,
+		&Method_each<Int16>,
+		&Method_each<UInt16>,
 		&Method_each<Int32>,
 		&Method_each<UInt32>,
 		&Method_each<Int64>,
@@ -292,10 +292,10 @@ Gura_ImplementMethod(array, fill)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_fill<Char>,
-		&Method_fill<UChar>,
-		&Method_fill<Short>,
-		&Method_fill<UShort>,
+		&Method_fill<Int8>,
+		&Method_fill<UInt8>,
+		&Method_fill<Int16>,
+		&Method_fill<UInt16>,
 		&Method_fill<Int32>,
 		&Method_fill<UInt32>,
 		&Method_fill<Int64>,
@@ -328,10 +328,10 @@ Gura_ImplementMethod(array, flat)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_flat<Char>,
-		&Method_flat<UChar>,
-		&Method_flat<Short>,
-		&Method_flat<UShort>,
+		&Method_flat<Int8>,
+		&Method_flat<UInt8>,
+		&Method_flat<Int16>,
+		&Method_flat<UInt16>,
 		&Method_flat<Int32>,
 		&Method_flat<UInt32>,
 		&Method_flat<Int64>,
@@ -383,10 +383,10 @@ Gura_ImplementMethod(array, head)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_head<Char>,
-		&Method_head<UChar>,
-		&Method_head<Short>,
-		&Method_head<UShort>,
+		&Method_head<Int8>,
+		&Method_head<UInt8>,
+		&Method_head<Int16>,
+		&Method_head<UInt16>,
 		&Method_head<Int32>,
 		&Method_head<UInt32>,
 		&Method_head<Int64>,
@@ -440,10 +440,10 @@ Gura_ImplementMethod(array, offset)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_offset<Char>,
-		&Method_offset<UChar>,
-		&Method_offset<Short>,
-		&Method_offset<UShort>,
+		&Method_offset<Int8>,
+		&Method_offset<UInt8>,
+		&Method_offset<Int16>,
+		&Method_offset<UInt16>,
 		&Method_offset<Int32>,
 		&Method_offset<UInt32>,
 		&Method_offset<Int64>,
@@ -484,10 +484,10 @@ Gura_ImplementMethod(array, paste)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_paste<Char>,
-		&Method_paste<UChar>,
-		&Method_paste<Short>,
-		&Method_paste<UShort>,
+		&Method_paste<Int8>,
+		&Method_paste<UInt8>,
+		&Method_paste<Int16>,
+		&Method_paste<UInt16>,
 		&Method_paste<Int32>,
 		&Method_paste<UInt32>,
 		&Method_paste<Int64>,
@@ -521,10 +521,10 @@ Gura_ImplementMethod(array, sum)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_sum<Char>,
-		&Method_sum<UChar>,
-		&Method_sum<Short>,
-		&Method_sum<UShort>,
+		&Method_sum<Int8>,
+		&Method_sum<UInt8>,
+		&Method_sum<Int16>,
+		&Method_sum<UInt16>,
 		&Method_sum<Int32>,
 		&Method_sum<UInt32>,
 		&Method_sum<Int64>,
@@ -577,10 +577,10 @@ Gura_ImplementMethod(array, tail)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_tail<Char>,
-		&Method_tail<UChar>,
-		&Method_tail<Short>,
-		&Method_tail<UShort>,
+		&Method_tail<Int8>,
+		&Method_tail<UInt8>,
+		&Method_tail<Int16>,
+		&Method_tail<UInt16>,
 		&Method_tail<Int32>,
 		&Method_tail<UInt32>,
 		&Method_tail<Int64>,

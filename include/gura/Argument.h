@@ -218,10 +218,10 @@ public:
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
 	inline bool Is_argument(size_t idxArg) const		{ return GetValue(idxArg).Is_argument();		}
 	inline bool Is_array(size_t idxArg) const			{ return GetValue(idxArg).Is_array();			}
-	inline bool Is_array_at_char(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_char();	}
-	inline bool Is_array_at_uchar(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uchar();	}
-	inline bool Is_array_at_short(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_short();	}
-	inline bool Is_array_at_ushort(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_ushort();	}
+	inline bool Is_array_at_int8(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int8();	}
+	inline bool Is_array_at_uint8(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint8();	}
+	inline bool Is_array_at_int16(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int16();	}
+	inline bool Is_array_at_uint16(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint16();	}
 	inline bool Is_array_at_int32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int32();	}
 	inline bool Is_array_at_uint32(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_uint32();	}
 	inline bool Is_array_at_int64(size_t idxArg) const	{ return GetValue(idxArg).Is_array_at_int64();	}

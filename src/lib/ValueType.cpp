@@ -29,12 +29,10 @@ ValueType VTYPE_Struct			= static_cast<ValueType>(0);
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_argument		= static_cast<ValueType>(0);
 ValueType VTYPE_array			= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_char	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_uchar	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_short	= static_cast<ValueType>(0);
-ValueType VTYPE_array_at_ushort	= static_cast<ValueType>(0);
-//ValueType VTYPE_array_at_int	= static_cast<ValueType>(0);
-//ValueType VTYPE_array_at_uint	= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int8	= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint8	= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_int16	= static_cast<ValueType>(0);
+ValueType VTYPE_array_at_uint16	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_uint32	= static_cast<ValueType>(0);
 ValueType VTYPE_array_at_int64	= static_cast<ValueType>(0);
@@ -161,12 +159,10 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEAlias(Struct,			"struct");
 	Gura_RealizeVTYPE(argument);
 	Gura_RealizeVTYPE(array);
-	Gura_RealizeVTYPEAlias(array_at_char,	"array@char");
-	Gura_RealizeVTYPEAlias(array_at_uchar,	"array@uchar");
-	Gura_RealizeVTYPEAlias(array_at_short,	"array@short");
-	Gura_RealizeVTYPEAlias(array_at_ushort,	"array@ushort");
-	//Gura_RealizeVTYPEAlias(array_at_int,	"array@int");
-	//Gura_RealizeVTYPEAlias(array_at_uint,	"array@uint");
+	Gura_RealizeVTYPEAlias(array_at_int8,	"array@int8");
+	Gura_RealizeVTYPEAlias(array_at_uint8,	"array@uint8");
+	Gura_RealizeVTYPEAlias(array_at_int16,	"array@int16");
+	Gura_RealizeVTYPEAlias(array_at_uint16,	"array@uint16");
 	Gura_RealizeVTYPEAlias(array_at_int32,	"array@int32");
 	Gura_RealizeVTYPEAlias(array_at_uint32,	"array@uint32");
 	Gura_RealizeVTYPEAlias(array_at_int64,	"array@int64");
@@ -227,14 +223,14 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(argument		)->SetClass(new Class_argument(pClass));
 	Class *pClass_array = nullptr;
 	Gura_VTYPEInfo(array		)->SetClass(pClass_array = new Class_array(pClass));
-	Gura_VTYPEInfo(array_at_char)->SetClass(
-		new Class_arrayT<Char>(pClass_array, VTYPE_array_at_char));
-	Gura_VTYPEInfo(array_at_uchar)->SetClass(
-		new Class_arrayT<UChar>(pClass_array, VTYPE_array_at_uchar));
-	Gura_VTYPEInfo(array_at_short)->SetClass(
-		new Class_arrayT<Short>(pClass_array, VTYPE_array_at_short));
-	Gura_VTYPEInfo(array_at_ushort)->SetClass(
-		new Class_arrayT<UShort>(pClass_array, VTYPE_array_at_ushort));
+	Gura_VTYPEInfo(array_at_int8)->SetClass(
+		new Class_arrayT<Int8>(pClass_array, VTYPE_array_at_int8));
+	Gura_VTYPEInfo(array_at_uint8)->SetClass(
+		new Class_arrayT<UInt8>(pClass_array, VTYPE_array_at_uint8));
+	Gura_VTYPEInfo(array_at_int16)->SetClass(
+		new Class_arrayT<Int16>(pClass_array, VTYPE_array_at_int16));
+	Gura_VTYPEInfo(array_at_uint16)->SetClass(
+		new Class_arrayT<UInt16>(pClass_array, VTYPE_array_at_uint16));
 	Gura_VTYPEInfo(array_at_uint32)->SetClass(
 		new Class_arrayT<UInt32>(pClass_array, VTYPE_array_at_uint32));
 	Gura_VTYPEInfo(array_at_int32)->SetClass(
@@ -305,12 +301,10 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	// object types
 	env.LookupClass(VTYPE_argument		)->Prepare(env);
 	env.LookupClass(VTYPE_array			)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_char	)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_uchar)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_short)->Prepare(env);
-	env.LookupClass(VTYPE_array_at_ushort)->Prepare(env);
-	//env.LookupClass(VTYPE_array_at_int	)->Prepare(env);
-	//env.LookupClass(VTYPE_array_at_uint	)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int8	)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint8)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_int16)->Prepare(env);
+	env.LookupClass(VTYPE_array_at_uint16)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int32)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_uint32)->Prepare(env);
 	env.LookupClass(VTYPE_array_at_int64)->Prepare(env);
