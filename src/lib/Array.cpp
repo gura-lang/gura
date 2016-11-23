@@ -366,28 +366,26 @@ Array *BinaryFuncTmpl_array_array(Signal &sig, const Array &arrayL, const Array 
 	return pArrayResult.release();
 }
 
-template<typename T_ElemL, void (*op)(Double &, T_ElemL, Double)>
+template<typename T_ElemL, void (*op)(T_ElemL &, T_ElemL, Double)>
 Array *BinaryFuncTmpl_array_number(Signal &sig, const Array &arrayL, Double numberR)
 {
 	const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 	size_t nElemsL = arrayL.GetElemNum();
-	AutoPtr<ArrayT<Double> > pArrayResult;
-	pArrayResult.reset(ArrayT<Double>::CreateLike(arrayL.GetDimensions()));
-	Double *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemL> > pArrayResult(ArrayT<T_ElemL>::CreateLike(arrayL.GetDimensions()));
+	T_ElemL *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsL; i++, pElemResult++, pElemL++) {
 		op(*pElemResult, *pElemL, numberR);
 	}
 	return pArrayResult.release();
 }
 
-template<typename T_ElemR, void (*op)(Double &, Double, T_ElemR)>
+template<typename T_ElemR, void (*op)(T_ElemR &, Double, T_ElemR)>
 Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array &arrayR)
 {
 	const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
 	size_t nElemsR = arrayR.GetElemNum();
-	AutoPtr<ArrayT<Double> > pArrayResult;
-	pArrayResult.reset(ArrayT<Double>::CreateLike(arrayR.GetDimensions()));
-	Double *pElemResult = pArrayResult->GetPointer();
+	AutoPtr<ArrayT<T_ElemR> > pArrayResult(ArrayT<T_ElemR>::CreateLike(arrayR.GetDimensions()));
+	T_ElemR *pElemResult = pArrayResult->GetPointer();
 	for (size_t i = 0; i < nElemsR; i++, pElemResult++, pElemR++) {
 		op(*pElemResult, numberL, *pElemR);
 	}
