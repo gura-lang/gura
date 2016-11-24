@@ -93,25 +93,54 @@ template<> void FormatElem(char *buff, Complex x)	{ ::sprintf(buff, "%g,%g", x.r
 template<typename T_Elem>
 String ArrayT<T_Elem>::ToString() const
 {
-	typedef std::vector<size_t> SizeTList;
 	char buff[80];
-	const T_Elem *p = GetPointer();
 	String rtn;
 	rtn += GetConstructorName();
 	rtn += "(";
-	SizeTList cnts;
-	cnts.reserve(_dims.size());
-	foreach_const (Dimensions, pDim, _dims) { cnts.push_back(pDim->GetSize()); }
 	size_t lenMax = 0;
+	const T_Elem *p = GetPointer();
 	for (size_t i = 0; i < GetElemNum(); i++, p++) {
 		FormatElem(buff, *p);
 		size_t len = ::strlen(buff);
 		if (lenMax < len) lenMax = len;
 	}
+	p = GetPointer();
 	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		if (i > 0) rtn += ", ";
 		FormatElem(buff, *p);
 		rtn += buff;
 	}
+#if 0
+	SizeTList cnts;
+	cnts.reserve(_dims.size());
+	foreach_const (Dimensions, pDim, _dims) { cnts.push_back(pDim->GetSize()); }
+	p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		size_t iCnt = cnts.size() - 1;
+		for (size_t j = 0; j < cnts.size(); j++, iCnt--) {
+			if (cnts[iCnt] > 0) {
+				if (cnts[iCnt] == _dims[iCnt].GetSize()) {
+					rtn += "[";
+				} else {
+					rtn += ", ";
+				}
+				break;
+			}
+		}
+		FormatElem(buff, *p);
+		rtn += buff;
+		for (size_t j = 0; j < cnts.size(); j++, iCnt--) {
+			if (cnts[iCnt] > 0) {
+				cnts[iCnt]--;
+				if (cnts[iCnt] == 0) {
+					rtn += "]";
+				}
+				break;
+			}
+			cnts[iCnt] = _dims[iCnt].GetSize();
+		}
+	}
+#endif
 	rtn += ")";
 	return rtn;
 }
