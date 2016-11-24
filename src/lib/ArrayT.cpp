@@ -306,6 +306,35 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
 }
 
 template<typename T_Elem>
+bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
+						Array::Dimensions::const_iterator pDim,
+						T_Elem *&p, const ValueList &valList)
+{
+	if (pDim->GetSize() != valList.size()) {
+		sig.SetError(ERR_ValueError, "incorrect number of elements");
+		return false;
+	}
+	if (pDim + 1 == dims.end()) {
+		if (valList.GetValueTypeOfElements() != VTYPE_number) {
+			sig.SetError(ERR_ValueError, "invalid format of array initializer");
+			return false;
+		}
+		foreach_const (ValueList, pValue, valList) {
+			*p++ = static_cast<T_Elem>(pValue->GetNumber());
+		}
+	} else {
+		if (valList.GetValueTypeOfElements() != VTYPE_list) {
+			sig.SetError(ERR_ValueError, "invalid format of array initializer");
+			return false;
+		}
+		foreach_const (ValueList, pValue, valList) {
+			if (!CreateFromList_Sub(sig, dims, pDim + 1, p, pValue->GetList())) return false;
+		}
+	}
+	return true;
+}
+
+template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
@@ -319,6 +348,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &valList)
 {
+	Array::Dimensions dims;
+	for (const ValueList *pValList = &valList; ; ) {
+		dims.push_back(Array::Dimension(pValList->size()));
+		if (!pValList->front().Is_list()) break;
+		pValList = &pValList->front().GetList();
+	}
+	AutoPtr<ArrayT> pArrayT(ArrayT::CreateLike(dims));
+	T_Elem *p = pArrayT->GetPointer();
+	if (!CreateFromList_Sub(sig, dims, dims.begin(), p, valList)) return nullptr;
+	return pArrayT.release();
+#if 0
 	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
 	T_Elem *p = pArrayT->GetPointer();
 	foreach_const (ValueList, pValue, valList) {
@@ -329,6 +369,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 		*p++ = static_cast<T_Elem>(pValue->GetNumber());
 	}
 	return pArrayT.release();
+#endif
 }
 
 template<typename T_Elem>
