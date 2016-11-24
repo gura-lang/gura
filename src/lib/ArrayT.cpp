@@ -91,6 +91,42 @@ template<> void FormatElem(char *buff, Complex x)	{ ::sprintf(buff, "%g,%g", x.r
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
+void ToString_Sub(String &rtn, const Array::Dimensions &dims,
+				  Array::Dimensions::const_iterator pDim, const T_Elem *&p)
+{
+	char buff[128];
+	if (pDim + 1 == dims.end()) {
+		rtn += "[";
+		for (size_t i = 0; i < pDim->GetSize(); i++, p++) {
+			if (i > 0) rtn += ", ";
+			FormatElem(buff, *p);
+			rtn += buff;
+		}
+		rtn += "]";
+	} else {
+		rtn += "[";
+		for (size_t i = 0; i < pDim->GetSize(); i++) {
+			if (i > 0) rtn += ", ";
+			ToString_Sub(rtn, dims, pDim + 1, p);
+		}
+		rtn += "]";
+	}
+}
+
+template<typename T_Elem>
+String ArrayT<T_Elem>::ToString() const
+{
+	String rtn;
+	rtn += GetConstructorName();
+	rtn += "(";
+	const T_Elem *p = GetPointer();
+	ToString_Sub(rtn, _dims, _dims.begin(), p);
+	rtn += ")";
+	return rtn;
+}
+
+#if 0
+template<typename T_Elem>
 String ArrayT<T_Elem>::ToString() const
 {
 	char buff[80];
@@ -144,6 +180,7 @@ String ArrayT<T_Elem>::ToString() const
 	rtn += ")";
 	return rtn;
 }
+#endif
 
 template<> const char *ArrayT<Int8>::GetElemName()		{ return "int8";	}
 template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uint8";	}
