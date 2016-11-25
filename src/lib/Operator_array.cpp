@@ -649,7 +649,7 @@ Value Op_NumberAndArray_Sig(Environment &env,
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperators_Array(Pos, NoSig)
 Gura_ImplementUnaryOperators_Array(Neg, NoSig)
-//Gura_ImplementBinaryOperators_Array(Add, NoSig)
+Gura_ImplementBinaryOperators_Array(Add, NoSig)
 Gura_ImplementBinaryOperators_Array(Sub, NoSig)
 Gura_ImplementBinaryOperators_Array(Mul, NoSig)
 Gura_ImplementBinaryOperators_Array(Div, Sig)
@@ -671,7 +671,7 @@ void Operator::AssignOperator_array(Environment &env)
 	//Gura_AssignBinaryOperators_Array(Add);
 	//Gura_AssignBinaryOperators_Array(Sub);
 	//Gura_AssignBinaryOperators_Array(Mul);
-	Gura_AssignBinaryOperators_Array(Div);
+	//Gura_AssignBinaryOperators_Array(Div);
 	Gura_AssignBinaryOperators_Array(Mod);
 	//Gura_AssignBinaryOperators_Array(Pow);
 	//Gura_AssignBinaryOperators_Array(And);

@@ -380,14 +380,14 @@ Array *BinaryFuncTmpl_number_array(Signal &sig, Double numberL, const Array &arr
 	return pArrayResult.release();
 }
 
-template<typename T_ElemL, void (*op)(T_ElemL &, T_ElemL, Double)>
+template<typename T_ElemR, void (*op)(T_ElemR &, Double, T_ElemR)>
 Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array &arrayR)
 {
 	if (arrayR.DoesContainZero()) {
 		Operator::SetError_DivideByZero(sig);
 		return nullptr;
 	}
-	return BinaryFuncTmpl_number_array<T_ElemL, op>(sig, numberL, arrayR);
+	return BinaryFuncTmpl_number_array<T_ElemR, op>(sig, numberL, arrayR);
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
@@ -490,132 +490,132 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, { \
 			nullptr, \
 			&funcPrefix##_array_array<Int8,		Int8,		Int8,		_##op>, \
-			&funcPrefix##_array_array<UInt8,		Int8,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Int16,		Int8,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		Int8,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int8,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		Int8,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int8,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		Int8,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Int8,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Int8,		Double,		_##op>, \
+			&funcPrefix##_array_array<UInt8,	Int8,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Int16,	Int8,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	Int8,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int8,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	Int8,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int8,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	Int8,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Int8,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Int8,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<UInt8,		UInt8,		Int8,		_##op>, \
-			&funcPrefix##_array_array<UInt8,		UInt8,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Int16,		UInt8,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		UInt8,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		UInt8,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt8,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		UInt8,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt8,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		UInt8,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		UInt8,		Double,		_##op>, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		Int8,		_##op>, \
+			&funcPrefix##_array_array<UInt8,	UInt8,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Int16,	UInt8,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	UInt8,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	UInt8,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt8,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	UInt8,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt8,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	UInt8,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	UInt8,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int16,		Int16,		Int8,		_##op>, \
-			&funcPrefix##_array_array<Int16,		Int16,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Int16,		Int16,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		Int16,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int16,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		Int16,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int16,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		Int16,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Int16,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Int16,		Double,		_##op>, \
+			&funcPrefix##_array_array<Int16,	Int16,		Int8,		_##op>, \
+			&funcPrefix##_array_array<Int16,	Int16,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Int16,	Int16,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	Int16,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int16,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	Int16,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int16,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	Int16,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Int16,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Int16,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<UInt16,		UInt16,		Int8,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		UInt16,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		UInt16,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt16,		UInt16,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		UInt16,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt16,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		UInt16,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt16,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		UInt16,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		UInt16,		Double,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Int8,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt16,	UInt16,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	UInt16,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt16,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	UInt16,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt16,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	UInt16,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	UInt16,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int32,		Int32,		Int8,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int32,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int32,		Int16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int32,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int32,		Int32,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		Int32,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int32,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		Int32,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Int32,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Int32,		Double,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int8,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int32,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int32,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int32,	Int32,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	Int32,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int32,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	Int32,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Int32,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Int32,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		Int8,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt32,		UInt32,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		UInt32,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt32,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		UInt32,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		UInt32,		Double,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int8,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt32,	UInt32,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	UInt32,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt32,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	UInt32,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	UInt32,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Int64,		Int64,		Int8,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		Int16,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		Int32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Int64,		Int64,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		Int64,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Int64,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Int64,		Double,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int8,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int16,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Int64,	Int64,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	Int64,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Int64,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Int64,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		Int8,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		Int16,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		Int32,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		Int64,		_##op>, \
-			&funcPrefix##_array_array<UInt64,		UInt64,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		UInt64,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		UInt64,		Double,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int8,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int16,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int32,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		Int64,		_##op>, \
+			&funcPrefix##_array_array<UInt64,	UInt64,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	UInt64,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	UInt64,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Float,		Float,		Int8,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		Int16,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		Int32,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		Int64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Float,		Float,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Float,		Double,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		Int8,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		Int16,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		Int32,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		Int64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Float,	Float,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Float,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, \
-			&funcPrefix##_array_array<Double,		Double,		Int8,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		UInt8,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		Int16,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		UInt16,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		Int32,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		UInt32,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		Int64,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		UInt64,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		Float,		_##op>, \
-			&funcPrefix##_array_array<Double,		Double,		Double,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Int8,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt8,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Int16,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt16,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Int32,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt32,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Int64,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		UInt64,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Float,		_##op>, \
+			&funcPrefix##_array_array<Double,	Double,		Double,		_##op>, \
 			nullptr, \
 		}, { \
 			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
@@ -623,29 +623,29 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 		}, \
 	}, { \
 		nullptr, \
-		&BinaryFuncTmpl_array_number<Int8,		_##op>, \
-		&BinaryFuncTmpl_array_number<UInt8,		_##op>, \
-		&BinaryFuncTmpl_array_number<Int16,		_##op>, \
-		&BinaryFuncTmpl_array_number<UInt16,	_##op>, \
-		&BinaryFuncTmpl_array_number<Int32,		_##op>, \
-		&BinaryFuncTmpl_array_number<UInt32,	_##op>, \
-		&BinaryFuncTmpl_array_number<Int64,		_##op>, \
-		&BinaryFuncTmpl_array_number<UInt64,	_##op>, \
-		&BinaryFuncTmpl_array_number<Float,		_##op>, \
-		&BinaryFuncTmpl_array_number<Double,	_##op>, \
+		&funcPrefix##_array_number<Int8,	_##op>, \
+		&funcPrefix##_array_number<UInt8,	_##op>, \
+		&funcPrefix##_array_number<Int16,	_##op>, \
+		&funcPrefix##_array_number<UInt16,	_##op>, \
+		&funcPrefix##_array_number<Int32,	_##op>, \
+		&funcPrefix##_array_number<UInt32,	_##op>, \
+		&funcPrefix##_array_number<Int64,	_##op>, \
+		&funcPrefix##_array_number<UInt64,	_##op>, \
+		&funcPrefix##_array_number<Float,	_##op>, \
+		&funcPrefix##_array_number<Double,	_##op>, \
 		nullptr, \
 	}, { \
 		nullptr, \
-		&BinaryFuncTmpl_number_array<Int8,		_##op>, \
-		&BinaryFuncTmpl_number_array<UInt8,		_##op>, \
-		&BinaryFuncTmpl_number_array<Int16,		_##op>, \
-		&BinaryFuncTmpl_number_array<UInt16,	_##op>, \
-		&BinaryFuncTmpl_number_array<Int32,		_##op>, \
-		&BinaryFuncTmpl_number_array<UInt32,	_##op>, \
-		&BinaryFuncTmpl_number_array<Int64,		_##op>, \
-		&BinaryFuncTmpl_number_array<UInt64,	_##op>, \
-		&BinaryFuncTmpl_number_array<Float,		_##op>, \
-		&BinaryFuncTmpl_number_array<Double,	_##op>, \
+		&funcPrefix##_number_array<Int8,	_##op>, \
+		&funcPrefix##_number_array<UInt8,	_##op>, \
+		&funcPrefix##_number_array<Int16,	_##op>, \
+		&funcPrefix##_number_array<UInt16,	_##op>, \
+		&funcPrefix##_number_array<Int32,	_##op>, \
+		&funcPrefix##_number_array<UInt32,	_##op>, \
+		&funcPrefix##_number_array<Int64,	_##op>, \
+		&funcPrefix##_number_array<UInt64,	_##op>, \
+		&funcPrefix##_number_array<Float,	_##op>, \
+		&funcPrefix##_number_array<Double,	_##op>, \
 		nullptr, \
 	} \
 }
@@ -800,17 +800,18 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
-ImplementBinaryFuncPack(BinaryFuncTmpl, Add, "add");
-ImplementBinaryFuncPack(BinaryFuncTmpl, Sub, "sub");
-ImplementBinaryFuncPack(BinaryFuncTmpl, Mul, "mul");
-ImplementBinaryFuncPack(BinaryFuncTmpl_Div, Div, "div");
+ImplementBinaryFuncPack(BinaryFuncTmpl,		Add, "add");
+ImplementBinaryFuncPack(BinaryFuncTmpl,		Sub, "sub");
+ImplementBinaryFuncPack(BinaryFuncTmpl,		Mul, "mul");
+ImplementBinaryFuncPack(BinaryFuncTmpl_Div,	Div, "div");
 //ImplementBinaryFuncPack(BinaryFuncTmpl_Div, Mod, "mod");
-ImplementBinaryFuncPack(BinaryFuncTmpl, Pow, "pow");
-ImplementBinaryFuncPack_BitOp(And, "and");
-ImplementBinaryFuncPack_BitOp(Or, "or");
-ImplementBinaryFuncPack_BitOp(Xor, "xor");
-ImplementBinaryFuncPack_BitOp(Shl, "shl");
-ImplementBinaryFuncPack_BitOp(Shr, "Shr");
+ImplementBinaryFuncPack(BinaryFuncTmpl,		Pow, "pow");
+
+ImplementBinaryFuncPack_BitOp(And,	"and");
+ImplementBinaryFuncPack_BitOp(Or,	"or");
+ImplementBinaryFuncPack_BitOp(Xor,	"xor");
+ImplementBinaryFuncPack_BitOp(Shl,	"shl");
+ImplementBinaryFuncPack_BitOp(Shr,	"Shr");
 
 Array::BinaryFuncPack Array::binaryFuncPack_Mod = {
 };
