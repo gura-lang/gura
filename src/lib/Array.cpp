@@ -79,11 +79,11 @@ Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFunc unaryFuncTbl[],
 }
 
 Array *Array::ApplyBinaryFunc_array_array(
-	Signal &sig, const BinaryFunc_array_array binaryFuncs_array_array[][ETYPE_Max],
+	Signal &sig, const BinaryFuncPack &pack,
 	const Array *pArrayL, const Array *pArrayR, const char *name)
 {
 	BinaryFunc_array_array binaryFunc_array_array =
-		binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
+		pack.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
 		return nullptr;
@@ -92,11 +92,11 @@ Array *Array::ApplyBinaryFunc_array_array(
 }
 
 Value Array::ApplyBinaryFunc_array_array(
-	Environment &env, const BinaryFunc_array_array binaryFuncs_array_array[][ETYPE_Max],
+	Environment &env, const BinaryFuncPack &pack,
 	const Value &valueL, const Value &valueR, const char *name)
 {
 	Array *pArray = ApplyBinaryFunc_array_array(
-		env.GetSignal(), binaryFuncs_array_array,
+		env.GetSignal(), pack,
 		Object_array::GetObject(valueL)->GetArray(),
 		Object_array::GetObject(valueR)->GetArray(), name);
 	if (pArray == nullptr) return Value::Nil;
@@ -104,11 +104,11 @@ Value Array::ApplyBinaryFunc_array_array(
 }
 
 Array *Array::ApplyBinaryFunc_array_number(
-	Signal &sig, const BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max],
+	Signal &sig, const BinaryFuncPack &pack,
 	const Array *pArrayL, Number numberR, const char *name)
 {
 	BinaryFunc_array_number binaryFunc_array_number =
-		binaryFuncs_array_number[pArrayL->GetElemType()];
+		pack.binaryFuncs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
 		return nullptr;
@@ -117,11 +117,11 @@ Array *Array::ApplyBinaryFunc_array_number(
 }
 
 Value Array::ApplyBinaryFunc_array_number(
-	Environment &env, const BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max],
+	Environment &env, const BinaryFuncPack &pack,
 	const Value &valueL, const Value &valueR, const char *name)
 {
 	Array *pArray = ApplyBinaryFunc_array_number(
-		env.GetSignal(), binaryFuncs_array_number,
+		env.GetSignal(), pack,
 		Object_array::GetObject(valueL)->GetArray(),
 		valueR.GetNumber(), name);
 	if (pArray == nullptr) return Value::Nil;
@@ -129,11 +129,11 @@ Value Array::ApplyBinaryFunc_array_number(
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max],
+	Signal &sig, const BinaryFuncPack &pack,
 	Number numberL, const Array *pArrayR, const char *name)
 {
 	BinaryFunc_number_array binaryFunc_number_array =
-		binaryFuncs_number_array[pArrayR->GetElemType()];
+		pack.binaryFuncs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
 		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
 		return nullptr;
@@ -142,11 +142,11 @@ Array *Array::ApplyBinaryFunc_number_array(
 }
 
 Value Array::ApplyBinaryFunc_number_array(
-	Environment &env, const BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max],
+	Environment &env, const BinaryFuncPack &pack,
 	const Value &valueL, const Value &valueR, const char *name)
 {
 	Array *pArray = ApplyBinaryFunc_number_array(
-		env.GetSignal(), binaryFuncs_number_array,
+		env.GetSignal(), pack,
 		valueL.GetNumber(),
 		Object_array::GetObject(valueR)->GetArray(), name);
 	if (pArray == nullptr) return Value::Nil;
@@ -458,8 +458,171 @@ Array::UnaryFuncPack Array::unaryFuncPack_Neg = {
 
 Array::BinaryFuncPack Array::binaryFuncPack_Add = {
 	"",
-	{},
-	{},
+	{
+		{
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Int8,		Int8,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt8,		Int8,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int16,		Int8,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		Int8,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Int8,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Int8,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int16,		UInt8,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		UInt8,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		UInt8,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt8,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		UInt8,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt8,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		UInt8,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		UInt8,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		Int16,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int16,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		Int16,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int16,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		Int16,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Int16,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Int16,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		UInt16,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt16,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		UInt16,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt16,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		UInt16,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		UInt16,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		Int32,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int32,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		Int32,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Int32,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Int32,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		UInt32,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt32,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		UInt32,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		UInt32,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		Int64,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Int64,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Int64,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		UInt64,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		UInt64,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Float,		Float,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Float,		Float,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Float,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Int8,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		UInt8,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Int16,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		UInt16,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Int32,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		UInt32,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Int64,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		UInt64,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Float,		_Add>,
+			&BinaryFuncTmpl_array_array<Double,		Double,		Double,		_Add>,
+			nullptr,
+		}, {
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		},
+	}, {
+		nullptr,
+		&BinaryFuncTmpl_array_number<Int8,		_Add>,
+		&BinaryFuncTmpl_array_number<UInt8,		_Add>,
+		&BinaryFuncTmpl_array_number<Int16,		_Add>,
+		&BinaryFuncTmpl_array_number<UInt16,	_Add>,
+		&BinaryFuncTmpl_array_number<Int32,		_Add>,
+		&BinaryFuncTmpl_array_number<UInt32,	_Add>,
+		&BinaryFuncTmpl_array_number<Int64,		_Add>,
+		&BinaryFuncTmpl_array_number<UInt64,	_Add>,
+		&BinaryFuncTmpl_array_number<Float,		_Add>,
+		&BinaryFuncTmpl_array_number<Double,	_Add>,
+		nullptr,
+	}, {
+		nullptr,
+		&BinaryFuncTmpl_number_array<Int8,		_Add>,
+		&BinaryFuncTmpl_number_array<UInt8,		_Add>,
+		&BinaryFuncTmpl_number_array<Int16,		_Add>,
+		&BinaryFuncTmpl_number_array<UInt16,	_Add>,
+		&BinaryFuncTmpl_number_array<Int32,		_Add>,
+		&BinaryFuncTmpl_number_array<UInt32,	_Add>,
+		&BinaryFuncTmpl_number_array<Int64,		_Add>,
+		&BinaryFuncTmpl_number_array<UInt64,	_Add>,
+		&BinaryFuncTmpl_number_array<Float,		_Add>,
+		&BinaryFuncTmpl_number_array<Double,	_Add>,
+		nullptr,
+	}
 };
 
 Array::BinaryFuncPack Array::binaryFuncPack_Sub = {
@@ -520,6 +683,161 @@ Array::BinaryFuncPack Array::binaryFuncPack_Shr = {
 	"",
 	{},
 	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Dot = {
+	"",
+	{
+		{
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Int8,		Int8,		Int8	>,
+			&BinaryFunc_Dot<UInt8,		Int8,		UInt8	>,
+			&BinaryFunc_Dot<Int16,		Int8,		Int16	>,
+			&BinaryFunc_Dot<UInt16,		Int8,		UInt16	>,
+			&BinaryFunc_Dot<Int32,		Int8,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		Int8,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		Int8,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		Int8,		UInt64	>,
+			&BinaryFunc_Dot<Float,		Int8,		Float	>,
+			&BinaryFunc_Dot<Double,		Int8,		Double	>,
+			//&BinaryFunc_Dot<Complex,	UInt8,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<UInt8,		UInt8,		Int8	>,
+			&BinaryFunc_Dot<UInt8,		UInt8,		UInt8	>,
+			&BinaryFunc_Dot<Int16,		UInt8,		Int16	>,
+			&BinaryFunc_Dot<UInt16,		UInt8,		UInt16	>,
+			&BinaryFunc_Dot<Int32,		UInt8,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		UInt8,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		UInt8,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		UInt8,		UInt64	>,
+			&BinaryFunc_Dot<Float,		UInt8,		Float	>,
+			&BinaryFunc_Dot<Double,		UInt8,		Double	>,
+			//&BinaryFunc_Dot<Complex,	UInt8,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Int16,		Int16,		Int8	>,
+			&BinaryFunc_Dot<Int16,		Int16,		UInt8	>,
+			&BinaryFunc_Dot<Int16,		Int16,		Int16	>,
+			&BinaryFunc_Dot<UInt16,		Int16,		UInt16	>,
+			&BinaryFunc_Dot<Int32,		Int16,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		Int16,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		Int16,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		Int16,		UInt64	>,
+			&BinaryFunc_Dot<Float,		Int16,		Float	>,
+			&BinaryFunc_Dot<Double,		Int16,		Double	>,
+			//&BinaryFunc_Dot<Complex,	Int16,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<UInt16,		UInt16,		Int8	>,
+			&BinaryFunc_Dot<UInt16,		UInt16,		UInt8	>,
+			&BinaryFunc_Dot<UInt16,		UInt16,		Int16	>,
+			&BinaryFunc_Dot<UInt16,		UInt16,		UInt16	>,
+			&BinaryFunc_Dot<Int32,		UInt16,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		UInt16,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		UInt16,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		UInt16,		UInt64	>,
+			&BinaryFunc_Dot<Float,		UInt16,		Float	>,
+			&BinaryFunc_Dot<Double,		UInt16,		Double	>,
+			//&BinaryFunc_Dot<Complex,	UInt16,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Int32,		Int32,		Int8	>,
+			&BinaryFunc_Dot<Int32,		Int32,		UInt8	>,
+			&BinaryFunc_Dot<Int32,		Int32,		Int16	>,
+			&BinaryFunc_Dot<Int32,		Int32,		UInt16	>,
+			&BinaryFunc_Dot<Int32,		Int32,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		Int32,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		Int32,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		Int32,		UInt64	>,
+			&BinaryFunc_Dot<Float,		Int32,		Float	>,
+			&BinaryFunc_Dot<Double,		Int32,		Double	>,
+			//&BinaryFunc_Dot<Complex,	Int32,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<UInt32,		UInt32,		Int8	>,
+			&BinaryFunc_Dot<UInt32,		UInt32,		UInt8	>,
+			&BinaryFunc_Dot<UInt32,		UInt32,		Int16	>,
+			&BinaryFunc_Dot<UInt32,		UInt32,		UInt16	>,
+			&BinaryFunc_Dot<UInt32,		UInt32,		Int32	>,
+			&BinaryFunc_Dot<UInt32,		UInt32,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		UInt32,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		UInt32,		UInt64	>,
+			&BinaryFunc_Dot<Float,		UInt32,		Float	>,
+			&BinaryFunc_Dot<Double,		UInt32,		Double	>,
+			//&BinaryFunc_Dot<Complex,	UInt32,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Int64,		Int64,		Int8	>,
+			&BinaryFunc_Dot<Int64,		Int64,		UInt8	>,
+			&BinaryFunc_Dot<Int64,		Int64,		Int16	>,
+			&BinaryFunc_Dot<Int64,		Int64,		UInt16	>,
+			&BinaryFunc_Dot<Int64,		Int64,		Int32	>,
+			&BinaryFunc_Dot<Int64,		Int64,		UInt32	>,
+			&BinaryFunc_Dot<Int64,		Int64,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		Int64,		UInt64	>,
+			&BinaryFunc_Dot<Float,		Int64,		Float	>,
+			&BinaryFunc_Dot<Double,		Int64,		Double	>,
+			//&BinaryFunc_Dot<Complex,	Int64,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<UInt64,		UInt64,		Int8	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		UInt8	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		Int16	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		UInt16	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		Int32	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		UInt32	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		Int64	>,
+			&BinaryFunc_Dot<UInt64,		UInt64,		UInt64	>,
+			&BinaryFunc_Dot<Float,		UInt64,		Float	>,
+			&BinaryFunc_Dot<Double,		UInt64,		Double	>,
+			//&BinaryFunc_Dot<Complex,	UInt64,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Float,		Float,		Int8	>,
+			&BinaryFunc_Dot<Float,		Float,		UInt8	>,
+			&BinaryFunc_Dot<Float,		Float,		Int16	>,
+			&BinaryFunc_Dot<Float,		Float,		UInt16	>,
+			&BinaryFunc_Dot<Float,		Float,		Int32	>,
+			&BinaryFunc_Dot<Float,		Float,		UInt32	>,
+			&BinaryFunc_Dot<Float,		Float,		Int64	>,
+			&BinaryFunc_Dot<Float,		Float,		UInt64	>,
+			&BinaryFunc_Dot<Float,		Float,		Float	>,
+			&BinaryFunc_Dot<Double,		Float,		Double	>,
+			//&BinaryFunc_Dot<Complex,	Float,		Complex	>,
+		}, {
+			nullptr,
+			&BinaryFunc_Dot<Double,		Double,		Int8	>,
+			&BinaryFunc_Dot<Double,		Double,		UInt8	>,
+			&BinaryFunc_Dot<Double,		Double,		Int16	>,
+			&BinaryFunc_Dot<Double,		Double,		UInt16	>,
+			&BinaryFunc_Dot<Double,		Double,		Int32	>,
+			&BinaryFunc_Dot<Double,		Double,		UInt32	>,
+			&BinaryFunc_Dot<Double,		Double,		Int64	>,
+			&BinaryFunc_Dot<Double,		Double,		UInt64	>,
+			&BinaryFunc_Dot<Double,		Double,		Float	>,
+			&BinaryFunc_Dot<Double,		Double,		Double	>,
+			//&BinaryFunc_Dot<Complex,	Double,		Complex	>,
+		}, {
+			nullptr,
+			//&BinaryFunc_Dot<Complex,	Complex,	Int8	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	UInt8	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Int16	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	UInt16	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Int32	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	UInt32	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Int64	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	UInt64	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Float	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Double	>,
+			//&BinaryFunc_Dot<Complex,	Complex,	Complex	>,
+		},
+	}, {
+	}, {
+	}
 };
 
 Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYPE_Max] = {

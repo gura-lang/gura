@@ -306,19 +306,19 @@ Gura_ImplementBinaryOperator(Add, vertex, vertex)
 Gura_ImplementBinaryOperator(Add, array, array)
 {
 	return Array::ApplyBinaryFunc_array_array(
-		env, Array::binaryFuncs_array_array_Add, valueLeft, valueRight, "add");
+		env, Array::binaryFuncPack_Add, valueLeft, valueRight, "add");
 }
 
 Gura_ImplementBinaryOperator(Add, array, number)
 {
 	return Array::ApplyBinaryFunc_array_number(
-		env, Array::binaryFuncs_array_number_Add, valueLeft, valueRight, "add");
+		env, Array::binaryFuncPack_Add, valueLeft, valueRight, "add");
 }
 
 Gura_ImplementBinaryOperator(Add, number, array)
 {
 	return Array::ApplyBinaryFunc_number_array(
-		env, Array::binaryFuncs_number_array_Add, valueLeft, valueRight, "add");
+		env, Array::binaryFuncPack_Add, valueLeft, valueRight, "add");
 }
 
 //-----------------------------------------------------------------------------
