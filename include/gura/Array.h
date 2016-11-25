@@ -35,6 +35,16 @@ public:
 	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array &arrayL, const Array &arrayR);
 	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array &arrayL, Number numberR);
 	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array &arrayR);
+	struct UnaryFuncPack {
+		const char *name;
+		UnaryFunc unaryFuncs[ETYPE_Max];
+	};
+	struct BinaryFuncPack {
+		const char *name;
+		BinaryFunc_array_array binaryFuncs_array_array[ETYPE_Max][ETYPE_Max];
+		BinaryFunc_array_number binaryFuncs_array_number[ETYPE_Max];
+		BinaryFunc_number_array binaryFuncs_number_array[ETYPE_Max];
+	};
 public:
 	class GURA_DLLDECLARE Dimension {
 	private:
@@ -61,6 +71,19 @@ protected:
 	size_t _offsetBase;
 	size_t _elemNum;
 public:
+	static UnaryFuncPack unaryFuncPack_Pos;
+	static UnaryFuncPack unaryFuncPack_Neg;
+	static BinaryFuncPack binaryFuncPack_Add;
+	static BinaryFuncPack binaryFuncPack_Sub;
+	static BinaryFuncPack binaryFuncPack_Mul;
+	static BinaryFuncPack binaryFuncPack_Div;
+	static BinaryFuncPack binaryFuncPack_Mod;
+	static BinaryFuncPack binaryFuncPack_Pow;
+	static BinaryFuncPack binaryFuncPack_And;
+	static BinaryFuncPack binaryFuncPack_Or;
+	static BinaryFuncPack binaryFuncPack_Xor;
+	static BinaryFuncPack binaryFuncPack_Shl;
+	static BinaryFuncPack binaryFuncPack_Shr;
 	static UnaryFunc unaryFuncTbl_Pos[ETYPE_Max];
 	static UnaryFunc unaryFuncTbl_Neg[ETYPE_Max];
 	static BinaryFunc_array_array binaryFuncs_array_array_Add[ETYPE_Max][ETYPE_Max];

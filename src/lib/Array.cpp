@@ -446,6 +446,82 @@ Array *BinaryFunc_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 	return pArrayResult.release();
 }
 
+Array::UnaryFuncPack Array::unaryFuncPack_Pos = {
+	"",
+	{},
+};
+
+Array::UnaryFuncPack Array::unaryFuncPack_Neg = {
+	"",
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Add = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Sub = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Mul = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Div = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Mod = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Pow = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_And = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Or = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Xor = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Shl = {
+	"",
+	{},
+	{},
+};
+
+Array::BinaryFuncPack Array::binaryFuncPack_Shr = {
+	"",
+	{},
+	{},
+};
+
 Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYPE_Max] = {
 	{
 		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
