@@ -139,6 +139,7 @@ public:
 	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
+	static Value ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value);
 	static Array *ApplyBinaryFunc_array_array(
 		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR);
 	static Value ApplyBinaryFunc_array_array(

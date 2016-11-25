@@ -669,16 +669,16 @@ void Operator::AssignOperator_array(Environment &env)
 	Gura_AssignUnaryOperators_Array(Pos);
 	Gura_AssignUnaryOperators_Array(Neg);
 	//Gura_AssignBinaryOperators_Array(Add);
-	Gura_AssignBinaryOperators_Array(Sub);
-	Gura_AssignBinaryOperators_Array(Mul);
+	//Gura_AssignBinaryOperators_Array(Sub);
+	//Gura_AssignBinaryOperators_Array(Mul);
 	Gura_AssignBinaryOperators_Array(Div);
 	Gura_AssignBinaryOperators_Array(Mod);
-	Gura_AssignBinaryOperators_Array(Pow);
-	Gura_AssignBinaryOperators_Array(And);
-	Gura_AssignBinaryOperators_Array(Or);
-	Gura_AssignBinaryOperators_Array(Xor);
-	Gura_AssignBinaryOperators_Array(Shl);
-	Gura_AssignBinaryOperators_Array(Shr);
+	//Gura_AssignBinaryOperators_Array(Pow);
+	//Gura_AssignBinaryOperators_Array(And);
+	//Gura_AssignBinaryOperators_Array(Or);
+	//Gura_AssignBinaryOperators_Array(Xor);
+	//Gura_AssignBinaryOperators_Array(Shl);
+	//Gura_AssignBinaryOperators_Array(Shr);
 }
 
 }

@@ -77,6 +77,14 @@ Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array
 	return (*unaryFunc)(sig, *pArray);
 }
 
+Value Array::ApplyUnaryFunc(Environment &env, const UnaryFuncPack &pack, const Value &value)
+{
+	Array *pArray = ApplyUnaryFunc(
+		env.GetSignal(), pack, Object_array::GetObject(value)->GetArray());
+	if (pArray == nullptr) return Value::Nil;
+	return Value(new Object_array(env, pArray));
+}
+
 Array *Array::ApplyBinaryFunc_array_array(
 	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR)
 {
@@ -244,29 +252,9 @@ inline void _And(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) & static_cast<T_ElemResult>(elemR);
 }
 
-template<>
-inline void _And<float, float, float>(float &elemResult, float elemL, float elemR) {
-	elemResult = static_cast<float>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
-}
-
-template<>
-inline void _And<double, double, double>(double &elemResult, double elemL, double elemR) {
-	elemResult = static_cast<double>(static_cast<UInt32>(elemL) & static_cast<UInt32>(elemR));
-}
-
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Or(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) | static_cast<T_ElemResult>(elemR);
-}
-
-template<>
-inline void _Or<float, float, float>(float &elemResult, float elemL, float elemR) {
-	elemResult = static_cast<float>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
-}
-
-template<>
-inline void _Or<double, double, double>(double &elemResult, double elemL, double elemR) {
-	elemResult = static_cast<double>(static_cast<UInt32>(elemL) | static_cast<UInt32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
@@ -274,44 +262,14 @@ inline void _Xor(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) ^ static_cast<T_ElemResult>(elemR);
 }
 
-template<>
-inline void _Xor<float, float, float>(float &elemResult, float elemL, float elemR) {
-	elemResult = static_cast<float>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
-}
-
-template<>
-inline void _Xor<double, double, double>(double &elemResult, double elemL, double elemR) {
-	elemResult = static_cast<double>(static_cast<UInt32>(elemL) ^ static_cast<UInt32>(elemR));
-}
-
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Shl(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) << static_cast<T_ElemResult>(elemR);
 }
 
-template<>
-inline void _Shl<float, float, float>(float &elemResult, float elemL, float elemR) {
-	elemResult = static_cast<float>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
-}
-
-template<>
-inline void _Shl<double, double, double>(double &elemResult, double elemL, double elemR) {
-	elemResult = static_cast<double>(static_cast<UInt32>(elemL) << static_cast<Int32>(elemR));
-}
-
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 inline void _Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
-}
-
-template<>
-inline void _Shr<float, float, float>(float &elemResult, float elemL, float elemR) {
-	elemResult = static_cast<float>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
-}
-
-template<>
-inline void _Shr<double, double, double>(double &elemResult, double elemL, double elemR) {
-	elemResult = static_cast<double>(static_cast<UInt32>(elemL) >> static_cast<Int32>(elemR));
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
@@ -617,66 +575,169 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 	} \
 }
 
+#define ImplementBinaryFuncPack_BitOp(op, name) \
+Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
+	name, \
+	{ \
+		{ \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int8,		Int8,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt8,		Int8,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int8,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Int8,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int8,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt8,		UInt8,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int16,		UInt8,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt8,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		UInt8,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt8,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt8,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt8,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int16,		Int16,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		Int16,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int16,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		Int16,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int16,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int16,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt16,		UInt16,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		UInt16,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt16,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt16,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt16,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int32,		Int32,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		Int32,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int32,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int32,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		UInt32,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		UInt32,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt32,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<Int64,		Int64,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int64,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt8,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt16,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt64,		_##op>, \
+			nullptr, \
+			nullptr, \
+			nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, { \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+		}, \
+	}, { \
+		nullptr, \
+		&BinaryFuncTmpl_array_number<Int8,		_##op>, \
+		&BinaryFuncTmpl_array_number<UInt8,		_##op>, \
+		&BinaryFuncTmpl_array_number<Int16,		_##op>, \
+		&BinaryFuncTmpl_array_number<UInt16,	_##op>, \
+		&BinaryFuncTmpl_array_number<Int32,		_##op>, \
+		&BinaryFuncTmpl_array_number<UInt32,	_##op>, \
+		&BinaryFuncTmpl_array_number<Int64,		_##op>, \
+		&BinaryFuncTmpl_array_number<UInt64,	_##op>, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+	}, { \
+		nullptr, \
+		&BinaryFuncTmpl_number_array<Int8,		_##op>, \
+		&BinaryFuncTmpl_number_array<UInt8,		_##op>, \
+		&BinaryFuncTmpl_number_array<Int16,		_##op>, \
+		&BinaryFuncTmpl_number_array<UInt16,	_##op>, \
+		&BinaryFuncTmpl_number_array<Int32,		_##op>, \
+		&BinaryFuncTmpl_number_array<UInt32,	_##op>, \
+		&BinaryFuncTmpl_number_array<Int64,		_##op>, \
+		&BinaryFuncTmpl_number_array<UInt64,	_##op>, \
+		nullptr, \
+		nullptr, \
+		nullptr, \
+	} \
+}
+
 ImplementBinaryFuncPack(Add, "add");
-
-Array::BinaryFuncPack Array::binaryFuncPack_Sub = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Mul = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Div = {
-	"",
-	{},
-	{},
-};
+ImplementBinaryFuncPack(Sub, "sub");
+ImplementBinaryFuncPack(Mul, "mul");
+ImplementBinaryFuncPack(Div, "div");
+//ImplementBinaryFuncPack(Mod, "mod");
+ImplementBinaryFuncPack(Pow, "pow");
+ImplementBinaryFuncPack_BitOp(And, "and");
+ImplementBinaryFuncPack_BitOp(Or, "or");
+ImplementBinaryFuncPack_BitOp(Xor, "xor");
+ImplementBinaryFuncPack_BitOp(Shl, "shl");
+ImplementBinaryFuncPack_BitOp(Shr, "Shr");
 
 Array::BinaryFuncPack Array::binaryFuncPack_Mod = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Pow = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_And = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Or = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Xor = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Shl = {
-	"",
-	{},
-	{},
-};
-
-Array::BinaryFuncPack Array::binaryFuncPack_Shr = {
-	"",
-	{},
-	{},
 };
 
 Array::BinaryFuncPack Array::binaryFuncPack_Dot = {
