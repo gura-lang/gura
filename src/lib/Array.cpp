@@ -239,21 +239,21 @@ inline void _Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 #define ImplementMod_Float(T_Other) \
 template<> \
 inline void _Mod<Float, T_Other, Float>(Float &elemResult, T_Other elemL, Float elemR) { \
-	elemResult = ::fmodf(elemL, elemR); \
+	elemResult = ::fmodf(static_cast<Float>(elemL), elemR);				\
 } \
 template<> \
 inline void _Mod<Float, Float, T_Other>(Float &elemResult, Float elemL, T_Other elemR) { \
-	elemResult = ::fmodf(elemL, elemR); \
+	elemResult = ::fmodf(elemL, static_cast<Float>(elemR));				\
 }
 
 #define ImplementMod_Double(T_Other) \
 template<> \
 inline void _Mod<Double, T_Other, Double>(Double &elemResult, T_Other elemL, Double elemR) { \
-	elemResult = ::fmod(elemL, elemR); \
+	elemResult = ::fmod(static_cast<Double>(elemL), elemR);				\
 } \
 template<> \
 inline void _Mod<Double, Double, T_Other>(Double &elemResult, Double elemL, T_Other elemR) { \
-	elemResult = ::fmod(elemL, elemR); \
+	elemResult = ::fmod(elemL, static_cast<Double>(elemR));				\
 }
 
 ImplementMod_Float(Int8)
