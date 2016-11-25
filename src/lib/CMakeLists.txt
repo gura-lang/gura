@@ -84,7 +84,6 @@ MonitorBasic.cpp
 OAL.cpp
 Operator.cpp
 OperatorBasic.cpp
-Operator_array.cpp
 Option.cpp
 Packer.cpp
 Palette.cpp

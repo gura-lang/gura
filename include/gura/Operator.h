@@ -208,7 +208,7 @@ public:
 	static void Initialize(Environment &env);
 private:
 	static void AssignOperatorBasic(Environment &env);
-	static void AssignOperator_array(Environment &env);
+	//static void AssignOperator_array(Environment &env);
 };
 
 //-----------------------------------------------------------------------------

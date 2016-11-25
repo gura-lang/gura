@@ -1507,9 +1507,9 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignBinaryOperator(Div, array, number);
 	Gura_AssignBinaryOperator(Div, number, array);
 	Gura_AssignBinaryOperator(Mod, number, number);
-	//Gura_AssignBinaryOperator(Mod, array, array);
-	//Gura_AssignBinaryOperator(Mod, array, number);
-	//Gura_AssignBinaryOperator(Mod, number, array);
+	Gura_AssignBinaryOperator(Mod, array, array);
+	Gura_AssignBinaryOperator(Mod, array, number);
+	Gura_AssignBinaryOperator(Mod, number, array);
 	Gura_AssignBinaryOperator(Pow, number, number);
 	Gura_AssignBinaryOperator(Pow, complex, complex);
 	Gura_AssignBinaryOperator(Pow, number, complex);

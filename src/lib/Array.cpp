@@ -236,13 +236,53 @@ inline void _Mod(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) % static_cast<T_ElemResult>(elemR);
 }
 
+#define ImplementMod_Float(T_Other) \
+template<> \
+inline void _Mod<Float, T_Other, Float>(Float &elemResult, T_Other elemL, Float elemR) { \
+	elemResult = ::fmodf(elemL, elemR); \
+} \
+template<> \
+inline void _Mod<Float, Float, T_Other>(Float &elemResult, Float elemL, T_Other elemR) { \
+	elemResult = ::fmodf(elemL, elemR); \
+}
+
+#define ImplementMod_Double(T_Other) \
+template<> \
+inline void _Mod<Double, T_Other, Double>(Double &elemResult, T_Other elemL, Double elemR) { \
+	elemResult = ::fmod(elemL, elemR); \
+} \
+template<> \
+inline void _Mod<Double, Double, T_Other>(Double &elemResult, Double elemL, T_Other elemR) { \
+	elemResult = ::fmod(elemL, elemR); \
+}
+
+ImplementMod_Float(Int8)
+ImplementMod_Float(UInt8)
+ImplementMod_Float(Int16)
+ImplementMod_Float(UInt16)
+ImplementMod_Float(Int32)
+ImplementMod_Float(UInt32)
+ImplementMod_Float(Int64)
+ImplementMod_Float(UInt64)
+ImplementMod_Float(Double)
+
 template<>
-inline void _Mod<float, float, float>(float &elemResult, float elemL, float elemR) {
+inline void _Mod<Float, Float, Float>(Float &elemResult, Float elemL, Float elemR) {
 	elemResult = ::fmodf(elemL, elemR);
 }
 
+ImplementMod_Double(Int8)
+ImplementMod_Double(UInt8)
+ImplementMod_Double(Int16)
+ImplementMod_Double(UInt16)
+ImplementMod_Double(Int32)
+ImplementMod_Double(UInt32)
+ImplementMod_Double(Int64)
+ImplementMod_Double(UInt64)
+ImplementMod_Double(Float)
+
 template<>
-inline void _Mod<double, double, double>(double &elemResult, double elemL, double elemR) {
+inline void _Mod<Double, Double, Double>(Double &elemResult, Double elemL, Double elemR) {
 	elemResult = ::fmod(elemL, elemR);
 }
 
@@ -804,7 +844,7 @@ ImplementBinaryFuncPack(BinaryFuncTmpl,		Add, "add");
 ImplementBinaryFuncPack(BinaryFuncTmpl,		Sub, "sub");
 ImplementBinaryFuncPack(BinaryFuncTmpl,		Mul, "mul");
 ImplementBinaryFuncPack(BinaryFuncTmpl_Div,	Div, "div");
-//ImplementBinaryFuncPack(BinaryFuncTmpl_Div, Mod, "mod");
+ImplementBinaryFuncPack(BinaryFuncTmpl_Div, Mod, "mod");
 ImplementBinaryFuncPack(BinaryFuncTmpl,		Pow, "pow");
 
 ImplementBinaryFuncPack_BitOp(And,	"and");
@@ -812,9 +852,6 @@ ImplementBinaryFuncPack_BitOp(Or,	"or");
 ImplementBinaryFuncPack_BitOp(Xor,	"xor");
 ImplementBinaryFuncPack_BitOp(Shl,	"shl");
 ImplementBinaryFuncPack_BitOp(Shr,	"Shr");
-
-Array::BinaryFuncPack Array::binaryFuncPack_Mod = {
-};
 
 Array::BinaryFuncPack Array::binaryFuncPack_Dot = {
 	"",

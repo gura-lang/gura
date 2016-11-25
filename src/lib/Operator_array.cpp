@@ -661,6 +661,7 @@ Gura_ImplementBinaryOperators_Array(Xor, NoSig)
 Gura_ImplementBinaryOperators_Array(Shl, NoSig)
 Gura_ImplementBinaryOperators_Array(Shr, NoSig)
 
+#if 0
 //-----------------------------------------------------------------------------
 // Assignment of operator
 //-----------------------------------------------------------------------------
@@ -672,7 +673,7 @@ void Operator::AssignOperator_array(Environment &env)
 	//Gura_AssignBinaryOperators_Array(Sub);
 	//Gura_AssignBinaryOperators_Array(Mul);
 	//Gura_AssignBinaryOperators_Array(Div);
-	Gura_AssignBinaryOperators_Array(Mod);
+	//Gura_AssignBinaryOperators_Array(Mod);
 	//Gura_AssignBinaryOperators_Array(Pow);
 	//Gura_AssignBinaryOperators_Array(And);
 	//Gura_AssignBinaryOperators_Array(Or);
@@ -680,5 +681,6 @@ void Operator::AssignOperator_array(Environment &env)
 	//Gura_AssignBinaryOperators_Array(Shl);
 	//Gura_AssignBinaryOperators_Array(Shr);
 }
+#endif
 
 }

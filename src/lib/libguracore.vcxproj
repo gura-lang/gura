@@ -269,7 +269,6 @@
     <ClCompile Include="OAL.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="OperatorBasic.cpp" />
-    <ClCompile Include="Operator_array.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Packer.cpp" />
     <ClCompile Include="Palette.cpp" />
