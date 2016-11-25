@@ -32,9 +32,9 @@ func(a, b, c, d, e%, f*) = {}
 ======== #2 acceptable value types ========
 
 +
-[`number, `complex, `rational, `array@int8, `array@uint8, `array@int16, `array@uint16, `array@int32, `array@uint32, `array@int64, `array@uint64, `array@float, `array@double, `matrix, `timedelta]
+[`number, `complex, `rational, `array, `array@int8, `array@uint8, `array@int16, `array@uint16, `array@int32, `array@uint32, `array@int64, `array@uint64, `array@float, `array@double, `matrix, `timedelta]
 -
-[`number, `complex, `rational, `array@int8, `array@uint8, `array@int16, `array@uint16, `array@int32, `array@uint32, `array@int64, `array@uint64, `array@float, `array@double, `matrix, `timedelta, `vertex]
+[`number, `complex, `rational, `array, `array@int8, `array@uint8, `array@int16, `array@uint16, `array@int32, `array@uint32, `array@int64, `array@uint64, `array@float, `array@double, `matrix, `timedelta, `vertex]
 ~
 [`number, `class, `function, `help]
 !

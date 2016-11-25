@@ -131,6 +131,7 @@ public:
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	virtual String ToString() const;
+	virtual bool DoesContainZero() const;
 	void UpdateMetrics();
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;

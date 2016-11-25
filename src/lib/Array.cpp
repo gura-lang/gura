@@ -18,6 +18,11 @@ String Array::ToString() const
 	return "";
 }
 
+bool Array::DoesContainZero() const
+{
+	return false;
+}
+
 void Array::UpdateMetrics()
 {
 	size_t stride = 1;

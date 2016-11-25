@@ -125,6 +125,26 @@ String ArrayT<T_Elem>::ToString() const
 	return rtn;
 }
 
+template<typename T_Elem>
+bool ArrayT<T_Elem>::DoesContainZero() const
+{
+	const T_Elem *p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		if (*p == 0) return true;
+	}
+	return false;
+}
+
+template<>
+bool ArrayT<Complex>::DoesContainZero() const
+{
+	const Complex *p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		if (p->real() == 0 && p->imag() == 0) return true;
+	}
+	return false;
+}
+
 template<> const char *ArrayT<Int8>::GetElemName()		{ return "int8";	}
 template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uint8";	}
 template<> const char *ArrayT<Int16>::GetElemName()		{ return "int16";	}
@@ -135,6 +155,7 @@ template<> const char *ArrayT<Int64>::GetElemName()		{ return "int64";	}
 template<> const char *ArrayT<UInt64>::GetElemName()	{ return "uint64";	}
 template<> const char *ArrayT<Float>::GetElemName()		{ return "float";	}
 template<> const char *ArrayT<Double>::GetElemName()	{ return "double";	}
+template<> const char *ArrayT<Complex>::GetElemName()	{ return "complex";	}
 
 template<> const char *ArrayT<Int8>::GetConstructorName()	{ return "array@int8";		}
 template<> const char *ArrayT<UInt8>::GetConstructorName()	{ return "array@uint8";		}
