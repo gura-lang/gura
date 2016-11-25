@@ -39,6 +39,32 @@ String Object_array::ToString(bool exprFlag)
 	return _pArray->ToString();
 }
 
+bool Object_array::DoDirProp(Environment &env, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, symbols)) return false;
+	symbols.insert(Gura_Symbol(size));
+	return true;
+}
+
+Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
+							  const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+		Value value;
+		Object_list *pObjList = value.InitAsList(env);
+		Array::Dimensions &dims = _pArray->GetDimensions();
+		pObjList->Reserve(dims.size());
+		foreach_const (Array::Dimensions, pDim, dims) {
+			pObjList->AddFast(Value(pDim->GetSize()));
+		}
+		pObjList->SetValueType(VTYPE_number);
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
+}
+
 template<typename T_Elem>
 Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 {

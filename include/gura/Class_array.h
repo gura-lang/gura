@@ -26,6 +26,9 @@ public:
 	inline const Array *GetArray() const { return _pArray.get(); }
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
+	virtual bool DoDirProp(Environment &env, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, const Value &valueIdx, const Value &value);
 };
