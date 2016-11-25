@@ -88,6 +88,11 @@ Gura_ImplementUnaryOperator(Neg, vertex)
 	return Value(new Object_vertex(env, Vertex(-vertex.x, -vertex.y, -vertex.z)));
 }
 
+Gura_ImplementUnaryOperator(Neg, array)
+{
+	return Array::ApplyUnaryFunc(env, Array::unaryFuncPack_Neg, value);
+}
+
 //-----------------------------------------------------------------------------
 // [~A] ... UnaryOperator(Invert, A)
 //-----------------------------------------------------------------------------
@@ -1406,12 +1411,14 @@ void Operator::AssignOperatorBasic(Environment &env)
 	Gura_AssignUnaryOperator(Pos, rational);
 	Gura_AssignUnaryOperator(Pos, matrix);
 	Gura_AssignUnaryOperator(Pos, timedelta);
+	Gura_AssignUnaryOperator(Pos, array);
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
 	Gura_AssignUnaryOperator(Neg, rational);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Neg, vertex);
+	Gura_AssignUnaryOperator(Neg, array);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);

@@ -666,8 +666,8 @@ Gura_ImplementBinaryOperators_Array(Shr, NoSig)
 //-----------------------------------------------------------------------------
 void Operator::AssignOperator_array(Environment &env)
 {
-	Gura_AssignUnaryOperators_Array(Pos);
-	Gura_AssignUnaryOperators_Array(Neg);
+	//Gura_AssignUnaryOperators_Array(Pos);
+	//Gura_AssignUnaryOperators_Array(Neg);
 	//Gura_AssignBinaryOperators_Array(Add);
 	//Gura_AssignBinaryOperators_Array(Sub);
 	//Gura_AssignBinaryOperators_Array(Mul);

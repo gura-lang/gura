@@ -272,6 +272,19 @@ inline void _Shr(T_ElemResult &elemResult, T_ElemL elemL, T_ElemR elemR) {
 	elemResult = static_cast<T_ElemResult>(elemL) >> static_cast<T_ElemResult>(elemR);
 }
 
+template<typename T_ElemResult, typename T_Elem, void (*op)(T_ElemResult &, T_Elem)>
+Array *UnaryFuncTmpl(Signal &sig, const Array &array)
+{
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult(ArrayT<T_ElemResult>::CreateLike(array.GetDimensions()));
+	T_ElemResult *pResult = pArrayResult->GetPointer();
+	const T_Elem *pElem = dynamic_cast<const ArrayT<T_Elem> *>(&array)->GetPointer();
+	size_t nElems = array.GetElemNum();
+	for (size_t i = 0; i < nElems; i++, pResult++, pElem++) {
+		op(*pResult, *pElem);
+	}
+	return pArrayResult.release();
+}
+
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR,
 		 void (*op)(T_ElemResult &, T_ElemL, T_ElemR)>
 Array *BinaryFuncTmpl_array_array(Signal &sig, const Array &arrayL, const Array &arrayR)
@@ -396,13 +409,39 @@ Array *BinaryFunc_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 }
 
 Array::UnaryFuncPack Array::unaryFuncPack_Pos = {
-	"",
-	{},
+	"pos",
+	{
+		nullptr,
+		&UnaryFuncTmpl<Int8,	Int8,	_Pos>,
+		&UnaryFuncTmpl<UInt8,	UInt8,	_Pos>,
+		&UnaryFuncTmpl<Int16,	Int16,	_Pos>,
+		&UnaryFuncTmpl<UInt16,	UInt16,	_Pos>,
+		&UnaryFuncTmpl<Int32,	Int32,	_Pos>,
+		&UnaryFuncTmpl<UInt32,	UInt32,	_Pos>,
+		&UnaryFuncTmpl<Int64,	Int64,	_Pos>,
+		&UnaryFuncTmpl<UInt64,	UInt64,	_Pos>,
+		&UnaryFuncTmpl<Float,	Float,	_Pos>,
+		&UnaryFuncTmpl<Double,	Double,	_Pos>,
+		nullptr,
+	},
 };
 
 Array::UnaryFuncPack Array::unaryFuncPack_Neg = {
-	"",
-	{},
+	"neg",
+	{
+		nullptr,
+		&UnaryFuncTmpl<Int8,	Int8,	_Neg>,
+		&UnaryFuncTmpl<UInt8,	UInt8,	_Neg>,
+		&UnaryFuncTmpl<Int16,	Int16,	_Neg>,
+		&UnaryFuncTmpl<UInt16,	UInt16,	_Neg>,
+		&UnaryFuncTmpl<Int32,	Int32,	_Neg>,
+		&UnaryFuncTmpl<UInt32,	UInt32,	_Neg>,
+		&UnaryFuncTmpl<Int64,	Int64,	_Neg>,
+		&UnaryFuncTmpl<UInt64,	UInt64,	_Neg>,
+		&UnaryFuncTmpl<Float,	Float,	_Neg>,
+		&UnaryFuncTmpl<Double,	Double,	_Neg>,
+		nullptr,
+	},
 };
 
 #define ImplementBinaryFuncPack(op, name) \
@@ -419,9 +458,9 @@ Array::BinaryFuncPack Array::binaryFuncPack_##op = { \
 			&BinaryFuncTmpl_array_array<Int16,		Int8,		Int16,		_##op>, \
 			&BinaryFuncTmpl_array_array<UInt16,		Int8,		UInt16,		_##op>, \
 			&BinaryFuncTmpl_array_array<Int32,		Int8,		Int32,		_##op>, \
-			&BinaryFuncTmpl_array_array<Int32,		Int8,		UInt32,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt32,		Int8,		UInt32,		_##op>, \
 			&BinaryFuncTmpl_array_array<Int64,		Int8,		Int64,		_##op>, \
-			&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		_##op>, \
+			&BinaryFuncTmpl_array_array<UInt64,		Int8,		UInt64,		_##op>, \
 			&BinaryFuncTmpl_array_array<Float,		Int8,		Float,		_##op>, \
 			&BinaryFuncTmpl_array_array<Double,		Int8,		Double,		_##op>, \
 			nullptr, \
