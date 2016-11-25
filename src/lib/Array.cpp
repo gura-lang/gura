@@ -462,7 +462,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<Int64,		Int8,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		Int8,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Int8,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Int8,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<UInt8,		UInt8,		Int8,		_Add>,
@@ -475,7 +475,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		UInt8,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		UInt8,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		UInt8,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	UInt8,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<Int16,		Int16,		Int8,		_Add>,
@@ -488,7 +488,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		Int16,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		Int16,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Int16,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Int16,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<UInt16,		UInt16,		Int8,		_Add>,
@@ -501,7 +501,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		UInt16,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		UInt16,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		UInt16,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	UInt16,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<Int32,		Int32,		Int8,		_Add>,
@@ -514,7 +514,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		Int32,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		Int32,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Int32,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Int32,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<UInt32,		UInt32,		Int8,		_Add>,
@@ -527,7 +527,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		UInt32,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		UInt32,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		UInt32,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	UInt32,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<Int64,		Int64,		Int8,		_Add>,
@@ -540,7 +540,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		Int64,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		Int64,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Int64,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Int64,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<UInt64,		UInt64,		Int8,		_Add>,
@@ -553,7 +553,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<UInt64,		UInt64,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		UInt64,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		UInt64,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	UInt64,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<Float,		Float,		Int8,		_Add>,
@@ -566,7 +566,7 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<Float,		Float,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Float,		Float,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Float,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Float,		Complex,	_Add>,
+		nullptr,
 	}, {
 		nullptr,
 		&BinaryFuncTmpl_array_array<Double,		Double,		Int8,		_Add>,
@@ -579,21 +579,41 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Add[ETYPE_Max][ETYP
 		&BinaryFuncTmpl_array_array<Double,		Double,		UInt64,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Double,		Float,		_Add>,
 		&BinaryFuncTmpl_array_array<Double,		Double,		Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Double,		Complex,	_Add>,
-	}, {
 		nullptr,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Int8,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	UInt8,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Int16,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	UInt16,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Int32,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	UInt32,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Int64,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	UInt64,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Float,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Double,		_Add>,
-//		&BinaryFuncTmpl_array_array<Complex,	Complex,	Complex,	_Add>,
+	}, {
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	},
+};
+
+Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Add[ETYPE_Max] = {
+	nullptr,
+	&BinaryFuncTmpl_array_number<Int8,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt8,		_Add>,
+	&BinaryFuncTmpl_array_number<Int16,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt16,	_Add>,
+	&BinaryFuncTmpl_array_number<Int32,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt32,	_Add>,
+	&BinaryFuncTmpl_array_number<Int64,		_Add>,
+	&BinaryFuncTmpl_array_number<UInt64,	_Add>,
+	&BinaryFuncTmpl_array_number<Float,		_Add>,
+	&BinaryFuncTmpl_array_number<Double,	_Add>,
+	nullptr,
+};
+
+Array::BinaryFunc_number_array Array::binaryFuncs_number_array_Add[ETYPE_Max] = {
+	nullptr,
+	&BinaryFuncTmpl_number_array<Int8,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt8,		_Add>,
+	&BinaryFuncTmpl_number_array<Int16,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt16,	_Add>,
+	&BinaryFuncTmpl_number_array<Int32,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt32,	_Add>,
+	&BinaryFuncTmpl_number_array<Int64,		_Add>,
+	&BinaryFuncTmpl_number_array<UInt64,	_Add>,
+	&BinaryFuncTmpl_number_array<Float,		_Add>,
+	&BinaryFuncTmpl_number_array<Double,	_Add>,
+	nullptr,
 };
 
 Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Sub[ETYPE_Max][ETYPE_Max] = {
@@ -626,21 +646,6 @@ Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Shl[ETYPE_Max][ETYP
 Array::BinaryFunc_array_array Array::binaryFuncs_array_array_Shr[ETYPE_Max][ETYPE_Max] = {
 };
 
-Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Add[ETYPE_Max] = {
-	nullptr,
-	&BinaryFuncTmpl_array_number<Int8,		_Add>,
-	&BinaryFuncTmpl_array_number<UInt8,		_Add>,
-	&BinaryFuncTmpl_array_number<Int16,		_Add>,
-	&BinaryFuncTmpl_array_number<UInt16,	_Add>,
-	&BinaryFuncTmpl_array_number<Int32,		_Add>,
-	&BinaryFuncTmpl_array_number<UInt32,	_Add>,
-	&BinaryFuncTmpl_array_number<Int64,		_Add>,
-	&BinaryFuncTmpl_array_number<UInt64,	_Add>,
-	&BinaryFuncTmpl_array_number<Float,		_Add>,
-	&BinaryFuncTmpl_array_number<Double,	_Add>,
-//	&BinaryFuncTmpl_array_number<Complex,	_Add>,
-};
-
 Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Sub[ETYPE_Max] = {
 };
 
@@ -669,21 +674,6 @@ Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Shl[ETYPE_Max] = 
 };
 
 Array::BinaryFunc_array_number Array::binaryFuncs_array_number_Shr[ETYPE_Max] = {
-};
-
-Array::BinaryFunc_number_array Array::binaryFuncs_number_array_Add[ETYPE_Max] = {
-	nullptr,
-	&BinaryFuncTmpl_number_array<Int8,		_Add>,
-	&BinaryFuncTmpl_number_array<UInt8,		_Add>,
-	&BinaryFuncTmpl_number_array<Int16,		_Add>,
-	&BinaryFuncTmpl_number_array<UInt16,	_Add>,
-	&BinaryFuncTmpl_number_array<Int32,		_Add>,
-	&BinaryFuncTmpl_number_array<UInt32,	_Add>,
-	&BinaryFuncTmpl_number_array<Int64,		_Add>,
-	&BinaryFuncTmpl_number_array<UInt64,	_Add>,
-	&BinaryFuncTmpl_number_array<Float,		_Add>,
-	&BinaryFuncTmpl_number_array<Double,	_Add>,
-//	&BinaryFuncTmpl_number_array<Complex,	_Add>,
 };
 
 Array::BinaryFunc_number_array Array::binaryFuncs_number_array_Sub[ETYPE_Max] = {
