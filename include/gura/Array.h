@@ -172,29 +172,22 @@ public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);
-	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFunc unaryFuncTbl[],
-								 const Array *pArray, const char *name);
+	static Array *ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray);
 	static Array *ApplyBinaryFunc_array_array(
-		Signal &sig, const BinaryFuncPack &pack,
-		const Array *pArrayL, const Array *pArrayR, const char *name);
+		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR);
 	static Value ApplyBinaryFunc_array_array(
-		Environment &env, const BinaryFuncPack &pack,
-		const Value &valueL, const Value &valueR, const char *name);
+		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_array_number(
-		Signal &sig, const BinaryFuncPack &pack,
-		const Array *pArrayL, Number numberR, const char *name);
+		Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Number numberR);
 	static Value ApplyBinaryFunc_array_number(
-		Environment &env, const BinaryFuncPack &pack,
-		const Value &valueL, const Value &valueR, const char *name);
+		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 	static Array *ApplyBinaryFunc_number_array(
-		Signal &sig, const BinaryFuncPack &pack,
-		Number numberL, const Array *pArrayR, const char *name);
+		Signal &sig, const BinaryFuncPack &pack, Number numberL, const Array *pArrayR);
 	static Value ApplyBinaryFunc_number_array(
-		Environment &env, const BinaryFuncPack &pack,
-		const Value &valueL, const Value &valueR, const char *name);
+		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 public:
 	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
-		return ApplyBinaryFunc_array_array(sig, binaryFuncPack_Dot, pArrayL, pArrayR, "dot");
+		return ApplyBinaryFunc_array_array(sig, binaryFuncPack_Dot, pArrayL, pArrayR);
 	}
 };
 	

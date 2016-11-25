@@ -67,88 +67,79 @@ bool Array::CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const 
 	return false;
 }
 
-Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFunc unaryFuncTbl[],
-							 const Array *pArray, const char *name)
+Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
 {
-	UnaryFunc unaryFunc = unaryFuncTbl[pArray->GetElemType()];
+	UnaryFunc unaryFunc = pack.unaryFuncs[pArray->GetElemType()];
 	if (unaryFunc == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
 	return (*unaryFunc)(sig, *pArray);
 }
 
 Array *Array::ApplyBinaryFunc_array_array(
-	Signal &sig, const BinaryFuncPack &pack,
-	const Array *pArrayL, const Array *pArrayR, const char *name)
+	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, const Array *pArrayR)
 {
 	BinaryFunc_array_array binaryFunc_array_array =
 		pack.binaryFuncs_array_array[pArrayL->GetElemType()][pArrayR->GetElemType()];
 	if (binaryFunc_array_array == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
 	return (*binaryFunc_array_array)(sig, *pArrayL, *pArrayR);
 }
 
 Value Array::ApplyBinaryFunc_array_array(
-	Environment &env, const BinaryFuncPack &pack,
-	const Value &valueL, const Value &valueR, const char *name)
+	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_array(
 		env.GetSignal(), pack,
 		Object_array::GetObject(valueL)->GetArray(),
-		Object_array::GetObject(valueR)->GetArray(), name);
+		Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_array_number(
-	Signal &sig, const BinaryFuncPack &pack,
-	const Array *pArrayL, Number numberR, const char *name)
+	Signal &sig, const BinaryFuncPack &pack, const Array *pArrayL, Number numberR)
 {
 	BinaryFunc_array_number binaryFunc_array_number =
 		pack.binaryFuncs_array_number[pArrayL->GetElemType()];
 	if (binaryFunc_array_number == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
 	return (*binaryFunc_array_number)(sig, *pArrayL, numberR);
 }
 
 Value Array::ApplyBinaryFunc_array_number(
-	Environment &env, const BinaryFuncPack &pack,
-	const Value &valueL, const Value &valueR, const char *name)
+	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_array_number(
 		env.GetSignal(), pack,
-		Object_array::GetObject(valueL)->GetArray(),
-		valueR.GetNumber(), name);
+		Object_array::GetObject(valueL)->GetArray(), valueR.GetNumber());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
 
 Array *Array::ApplyBinaryFunc_number_array(
-	Signal &sig, const BinaryFuncPack &pack,
-	Number numberL, const Array *pArrayR, const char *name)
+	Signal &sig, const BinaryFuncPack &pack, Number numberL, const Array *pArrayR)
 {
 	BinaryFunc_number_array binaryFunc_number_array =
 		pack.binaryFuncs_number_array[pArrayR->GetElemType()];
 	if (binaryFunc_number_array == nullptr) {
-		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", name);
+		sig.SetError(ERR_TypeError, "can't apply %s function on these arrays", pack.name);
 		return nullptr;
 	}
 	return (*binaryFunc_number_array)(sig, numberL, *pArrayR);
 }
 
 Value Array::ApplyBinaryFunc_number_array(
-	Environment &env, const BinaryFuncPack &pack,
-	const Value &valueL, const Value &valueR, const char *name)
+	Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR)
 {
 	Array *pArray = ApplyBinaryFunc_number_array(
 		env.GetSignal(), pack,
-		valueL.GetNumber(),
-		Object_array::GetObject(valueR)->GetArray(), name);
+		valueL.GetNumber(), Object_array::GetObject(valueR)->GetArray());
 	if (pArray == nullptr) return Value::Nil;
 	return Value(new Object_array(env, pArray));
 }
