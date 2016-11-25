@@ -118,18 +118,18 @@ public:
 		_dims.push_back(dim);
 		UpdateMetrics();
 	}
-	inline void SetDimension(const Dimension &dimRow, const Dimension &dimCol) {
+	inline void SetDimensions(const Dimension &dimRow, const Dimension &dimCol) {
 		_dims.reserve(2);
 		_dims.push_back(dimRow);
 		_dims.push_back(dimCol);
 		UpdateMetrics();
 	}
-	inline void SetDimension(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
+	inline void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
 		_dims.reserve(std::distance(pDim, pDimEnd));
 		std::copy(pDim, pDimEnd, std::back_inserter(_dims));
 		UpdateMetrics();
 	}
-	inline void SetDimension(const Dimensions &dims) {
+	inline void SetDimensions(const Dimensions &dims) {
 		_dims = dims;
 		UpdateMetrics();
 	}

@@ -85,7 +85,7 @@ Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 		return Value(pArrayT->GetPointer()[idx]);
 	}
 	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayRtn->SetDimension(pDim + 1, dims.end());
+	pArrayRtn->SetDimensions(pDim + 1, dims.end());
 	pArrayRtn->SetOffsetBase(pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
 	return Value(new Object_arrayT<T_Elem>(pObj->GetClass(), pArrayRtn.release()));
 }

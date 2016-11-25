@@ -25,7 +25,7 @@ ArrayT<T_Elem>::ArrayT(size_t size) : Array(ETYPE_##T_Elem) \
 template<> \
 ArrayT<T_Elem>::ArrayT(size_t sizeRow, size_t sizeCol) : Array(ETYPE_##T_Elem) \
 { \
-	SetDimension(Dimension(sizeRow), Dimension(sizeCol)); \
+	SetDimensions(Dimension(sizeRow), Dimension(sizeCol)); \
 	AllocMemory(); \
 } \
 template class ArrayT<T_Elem>;
@@ -280,7 +280,7 @@ template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
 {
 	AutoPtr<ArrayT> pArrayT(new ArrayT());
-	pArrayT->SetDimension(dims);
+	pArrayT->SetDimensions(dims);
 	pArrayT->AllocMemory();
 	return pArrayT.release();
 }
