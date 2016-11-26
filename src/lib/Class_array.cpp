@@ -42,7 +42,8 @@ String Object_array::ToString(bool exprFlag)
 bool Object_array::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
-	symbols.insert(Gura_Symbol(size));
+	symbols.insert(Gura_Symbol(elemtype));
+	symbols.insert(Gura_Symbol(shape));
 	return true;
 }
 
@@ -50,7 +51,9 @@ Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(size))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(elemtype))) {
+		
+	} else if (pSymbol->IsIdentical(Gura_Symbol(shape))) {
 		Value value;
 		Object_list *pObjList = value.InitAsList(env);
 		Array::Dimensions &dims = _pArray->GetDimensions();

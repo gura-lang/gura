@@ -49,6 +49,8 @@ public:
 	static ArrayT *CreateFromList(Signal &sig, const ValueList &valList);
 	static ArrayT *CreateFromIterator(Environment &env, Iterator *pIterator);
 	static ArrayT *CreateIdentity(size_t n);
+	static ArrayT *CreateInterval(
+		Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor);
 private:
 	inline ~ArrayT() {}
 };

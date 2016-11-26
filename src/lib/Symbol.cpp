@@ -521,9 +521,11 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(directory);
 	Gura_RealizeSymbol(doc);
 	Gura_RealizeSymbol(document);
+	Gura_RealizeSymbol(double_);
 	Gura_RealizeSymbol(down);
 	Gura_RealizeSymbol(dynamic_scope);
 	Gura_RealizeSymbol(e);
+	Gura_RealizeSymbol(elemtype);
 	Gura_RealizeSymbolAlias(else_,			"else");
 	Gura_RealizeSymbol(elsif);
 	Gura_RealizeSymbol(en);
@@ -546,6 +548,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(finally);
 	Gura_RealizeSymbol(firsteol);
 	Gura_RealizeSymbol(flat);
+	Gura_RealizeSymbolAlias(float_,			"float");
 	Gura_RealizeSymbolAlias(for_,			"for");
 	Gura_RealizeSymbol(force);
 	Gura_RealizeSymbol(fork);
@@ -563,6 +566,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(gray);
 	Gura_RealizeSymbol(green);
 	Gura_RealizeSymbol(h);
+	Gura_RealizeSymbol(half);
 	Gura_RealizeSymbol(height);
 	Gura_RealizeSymbol(help);
 	Gura_RealizeSymbol(horz);
@@ -580,6 +584,11 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(index);
 	Gura_RealizeSymbol(indices);
 	Gura_RealizeSymbol(inside_scope);
+	Gura_RealizeSymbolAlias(int_,			"int");
+	Gura_RealizeSymbol(int8);
+	Gura_RealizeSymbol(int16);
+	Gura_RealizeSymbol(int32);
+	Gura_RealizeSymbol(int64);
 	Gura_RealizeSymbol(iter);
 	Gura_RealizeSymbol(iterator);
 	Gura_RealizeSymbol(iteritem);
@@ -637,6 +646,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(multi);
 	Gura_RealizeSymbol(n);
 	Gura_RealizeSymbol(name);
+	Gura_RealizeSymbol(ndim);
 	Gura_RealizeSymbol(neat);
 	Gura_RealizeSymbol(next);
 	Gura_RealizeSymbol(nil);
@@ -733,6 +743,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(secs);
 	Gura_RealizeSymbol(semaphore);
 	Gura_RealizeSymbol(set);
+	Gura_RealizeSymbol(shape);
 	Gura_RealizeSymbol(shrink);
 	Gura_RealizeSymbol(shrinkable);
 	Gura_RealizeSymbol(sibling);

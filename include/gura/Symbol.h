@@ -324,9 +324,11 @@ public:
 	Gura_DeclareSymbol(directory);
 	Gura_DeclareSymbol(doc);
 	Gura_DeclareSymbol(document);
+	Gura_DeclareSymbol(double_);
 	Gura_DeclareSymbol(down);
 	Gura_DeclareSymbol(dynamic_scope);
 	Gura_DeclareSymbol(e);
+	Gura_DeclareSymbol(elemtype);
 	Gura_DeclareSymbol(else_);
 	Gura_DeclareSymbol(elsif);
 	Gura_DeclareSymbol(en);
@@ -349,6 +351,7 @@ public:
 	Gura_DeclareSymbol(finally);
 	Gura_DeclareSymbol(firsteol);
 	Gura_DeclareSymbol(flat);
+	Gura_DeclareSymbol(float_);
 	Gura_DeclareSymbol(for_);
 	Gura_DeclareSymbol(force);
 	Gura_DeclareSymbol(fork);
@@ -366,6 +369,7 @@ public:
 	Gura_DeclareSymbol(gray);
 	Gura_DeclareSymbol(green);
 	Gura_DeclareSymbol(h);
+	Gura_DeclareSymbol(half);
 	Gura_DeclareSymbol(height);
 	Gura_DeclareSymbol(help);
 	Gura_DeclareSymbol(horz);
@@ -383,6 +387,11 @@ public:
 	Gura_DeclareSymbol(index);
 	Gura_DeclareSymbol(indices);
 	Gura_DeclareSymbol(inside_scope);
+	Gura_DeclareSymbol(int_);
+	Gura_DeclareSymbol(int8);
+	Gura_DeclareSymbol(int16);
+	Gura_DeclareSymbol(int32);
+	Gura_DeclareSymbol(int64);
 	Gura_DeclareSymbol(iter);
 	Gura_DeclareSymbol(iterator);
 	Gura_DeclareSymbol(iteritem);
@@ -440,6 +449,7 @@ public:
 	Gura_DeclareSymbol(multi);
 	Gura_DeclareSymbol(n);
 	Gura_DeclareSymbol(name);
+	Gura_DeclareSymbol(ndim);
 	Gura_DeclareSymbol(neat);
 	Gura_DeclareSymbol(next);
 	Gura_DeclareSymbol(nil);
@@ -536,6 +546,7 @@ public:
 	Gura_DeclareSymbol(secs);
 	Gura_DeclareSymbol(semaphore);
 	Gura_DeclareSymbol(set);
+	Gura_DeclareSymbol(shape);
 	Gura_DeclareSymbol(shrink);
 	Gura_DeclareSymbol(shrinkable);
 	Gura_DeclareSymbol(sibling);

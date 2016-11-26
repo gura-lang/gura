@@ -187,6 +187,60 @@ Gura_ImplementClassMethod_arrayT(identity)
 	return ReturnValue(env, arg, value);
 }
 
+// array@T.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
+Gura_DeclareClassMethod_arrayT(interval)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "begin", VTYPE_number);
+	DeclareArg(env, "end", VTYPE_number);
+	DeclareArg(env, "samples", VTYPE_number);
+	DeclareAttr(Gura_Symbol(open));
+	DeclareAttr(Gura_Symbol(open_l));
+	DeclareAttr(Gura_Symbol(open_r));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that contains a sequence of numbers\n"
+		"by specifying the beginning and ending numbers, and the number of samples between them.\n"
+		"\n"
+		"In default, it creates a sequence that contains the beginning and ending numbers.\n"
+		"Following attributes would generate the following numbers:\n"
+		"\n"
+		"- `:open` .. Numbers in range of `(begin, end)` that doesn't contain either `begin` or `end`.\n"
+		"- `:open_l` .. Numbers in range of `(begin, end]` that doesn't contain `begin`.\n"
+		"- `:open_r` .. Numbers in range of `[begin, end)` that doesn't contain `end`.\n");
+}
+
+Gura_ImplementClassMethod_arrayT(interval)
+{
+	Number numBegin = arg.GetNumber(0);
+	Number numEnd = arg.GetNumber(1);
+	int numSamples = arg.GetInt(2);
+	if (numSamples <= 1) {
+		env.SetError(ERR_ValueError, "samples must be more than one");
+		return Value::Nil;
+	}
+	bool openFlag = arg.IsSet(Gura_Symbol(open));
+	bool openLeftFlag = arg.IsSet(Gura_Symbol(open_l));
+	bool openRightFlag = arg.IsSet(Gura_Symbol(open_r));
+	int iFactor = 0;
+	Number numDenom = numSamples - 1;
+	if (openFlag || (openLeftFlag && openRightFlag)) {
+		numDenom = numSamples + 1;
+		iFactor = 1;
+	} else if (openLeftFlag) {
+		numDenom = numSamples;
+		iFactor = 1;
+	} else if (openRightFlag) {
+		numDenom = numSamples;
+		iFactor = 0;
+	}
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateInterval(
+										 numBegin, numEnd, numSamples, numDenom, iFactor));
+	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return ReturnValue(env, arg, value);
+}
+
 // array@T.ones(dim+:number):static:map {block?}
 Gura_DeclareClassMethod_arrayT(ones)
 {
@@ -268,6 +322,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
 	Gura_AssignMethod_arrayT(identity);
+	Gura_AssignMethod_arrayT(interval);
 	Gura_AssignMethod_arrayT(ones);
 	Gura_AssignMethod_arrayT(zeros);
 }

@@ -403,6 +403,18 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateIdentity(size_t n)
 	return pArrayT.release();
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateInterval(
+	Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(numSamples));
+	T_Elem *p = pArrayT->GetPointer();
+	for (int i = 0; i < numSamples; i++, iFactor++) {
+		p[i] = static_cast<T_Elem>((numEnd - numBegin) * iFactor / numDenom + numBegin);
+	}
+	return pArrayT.release();
+}
+
 //-----------------------------------------------------------------------------
 // Iterator_ArrayT_Each
 //-----------------------------------------------------------------------------
