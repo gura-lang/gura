@@ -361,7 +361,7 @@ array
   array#average():map {block?}
   array.dot(a:array, b:array):static:map {block?}
   array#dump(stream?:stream):void:[upper]
-  array#each() {block?}
+  array#each():[flat] {block?}
   array#fill(value:number):map:void
   array#flat()
   array#head(n:number):map {block?}
@@ -371,42 +371,52 @@ array
   array#tail(n:number):map {block?}
 array@double
   array@double.identity(n:number):static:map {block?}
+  array@double.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@double.ones(dim+:number):static:map {block?}
   array@double.zeros(dim+:number):static:map {block?}
 array@float
   array@float.identity(n:number):static:map {block?}
+  array@float.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@float.ones(dim+:number):static:map {block?}
   array@float.zeros(dim+:number):static:map {block?}
 array@int16
   array@int16.identity(n:number):static:map {block?}
+  array@int16.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@int16.ones(dim+:number):static:map {block?}
   array@int16.zeros(dim+:number):static:map {block?}
 array@int32
   array@int32.identity(n:number):static:map {block?}
+  array@int32.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@int32.ones(dim+:number):static:map {block?}
   array@int32.zeros(dim+:number):static:map {block?}
 array@int64
   array@int64.identity(n:number):static:map {block?}
+  array@int64.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@int64.ones(dim+:number):static:map {block?}
   array@int64.zeros(dim+:number):static:map {block?}
 array@int8
   array@int8.identity(n:number):static:map {block?}
+  array@int8.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@int8.ones(dim+:number):static:map {block?}
   array@int8.zeros(dim+:number):static:map {block?}
 array@uint16
   array@uint16.identity(n:number):static:map {block?}
+  array@uint16.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@uint16.ones(dim+:number):static:map {block?}
   array@uint16.zeros(dim+:number):static:map {block?}
 array@uint32
   array@uint32.identity(n:number):static:map {block?}
+  array@uint32.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@uint32.ones(dim+:number):static:map {block?}
   array@uint32.zeros(dim+:number):static:map {block?}
 array@uint64
   array@uint64.identity(n:number):static:map {block?}
+  array@uint64.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@uint64.ones(dim+:number):static:map {block?}
   array@uint64.zeros(dim+:number):static:map {block?}
 array@uint8
   array@uint8.identity(n:number):static:map {block?}
+  array@uint8.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}
   array@uint8.ones(dim+:number):static:map {block?}
   array@uint8.zeros(dim+:number):static:map {block?}
 audio

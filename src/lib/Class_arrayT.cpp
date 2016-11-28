@@ -146,23 +146,14 @@ Value Func_atT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 {
 	Signal &sig = env.GetSignal();
 	const Expr_Block *pExprBlock = arg.GetBlockCooked(env);
-	const ExprOwner &exprOwner = pExprBlock->GetExprOwner();
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>(exprOwner.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ExprOwner, ppExpr, exprOwner) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsBlock()) {
-			sig.SetError(ERR_ValueError, "invalid element for array initialization");
-			return Value::Nil;
-		}
-		Value value = pExpr->Exec(env);
-		if (!value.Is_number() && !value.Is_boolean()) {
-			sig.SetError(ERR_ValueError, "invalid element for array initialization");
-			return Value::Nil;
-		}
-		*p++ = static_cast<T_Elem>(value.GetNumber());
-	}
-	return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	AutoPtr<Environment> pEnvLister(env.Derive(ENVTYPE_lister));
+	Value result = pExprBlock->Exec(*pEnvLister, nullptr);
+	if (!result.Is_list()) return Value::Nil;
+	const ValueList &valList = result.GetList();
+	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateFromList(sig, valList));
+	if (pArrayT.IsNull()) return Value::Nil;
+	//return Value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	return Value(new Object_array(env, pArrayT.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -317,7 +308,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	do {
 		String funcName;
 		funcName += "@";
-		funcName += ArrayT<T_Elem>::GetElemName();
+		funcName += ArrayT<T_Elem>::LookupElemTypeName();
 		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
@@ -347,6 +338,14 @@ bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, const Declar
 		if (pArrayT.IsNull()) return false;
 		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArrayT.release()));
 		return true;
+	} else if (value.Is_array()) {
+		AutoPtr<Array> pArray(Object_array::GetObject(value)->GetArray()->Reference());
+		if (pArray->GetElemType() != ArrayT<T_Elem>::LookupElemType()) {
+			sig.SetError(ERR_TypeError, "incompatible array type");
+			return false;
+		}
+		value = Value(new Object_arrayT<T_Elem>(env, GetValueType(), pArray.release()));
+		return true;
 	}
 	return false;
 }
@@ -363,7 +362,7 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
 		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
+		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), false));
 		value = Value(new Object_iterator(env, pIterator.release()));
 		return true;
 	} else if (decl.IsType(VTYPE_array)) {

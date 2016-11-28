@@ -117,7 +117,7 @@ template<typename T_Elem>
 String ArrayT<T_Elem>::ToString() const
 {
 	String rtn;
-	rtn += GetConstructorName();
+	rtn += LookupConstructorName();
 	rtn += "(";
 	const T_Elem *p = GetPointer();
 	ToString_Sub(rtn, _dims, _dims.begin(), p);
@@ -145,29 +145,41 @@ bool ArrayT<Complex>::DoesContainZero() const
 	return false;
 }
 
-template<> const char *ArrayT<Int8>::GetElemName()		{ return "int8";	}
-template<> const char *ArrayT<UInt8>::GetElemName()		{ return "uint8";	}
-template<> const char *ArrayT<Int16>::GetElemName()		{ return "int16";	}
-template<> const char *ArrayT<UInt16>::GetElemName()	{ return "uint16";	}
-template<> const char *ArrayT<Int32>::GetElemName()		{ return "int32";	}
-template<> const char *ArrayT<UInt32>::GetElemName()	{ return "uint32";	}
-template<> const char *ArrayT<Int64>::GetElemName()		{ return "int64";	}
-template<> const char *ArrayT<UInt64>::GetElemName()	{ return "uint64";	}
-template<> const char *ArrayT<Float>::GetElemName()		{ return "float";	}
-template<> const char *ArrayT<Double>::GetElemName()	{ return "double";	}
-template<> const char *ArrayT<Complex>::GetElemName()	{ return "complex";	}
+template<> Array::ElemType ArrayT<Int8>::LookupElemType()		{ return ETYPE_Int8;	}
+template<> Array::ElemType ArrayT<UInt8>::LookupElemType()		{ return ETYPE_UInt8;	}
+template<> Array::ElemType ArrayT<Int16>::LookupElemType()		{ return ETYPE_Int16;	}
+template<> Array::ElemType ArrayT<UInt16>::LookupElemType()		{ return ETYPE_UInt16;	}
+template<> Array::ElemType ArrayT<Int32>::LookupElemType()		{ return ETYPE_Int32;	}
+template<> Array::ElemType ArrayT<UInt32>::LookupElemType()		{ return ETYPE_UInt32;	}
+template<> Array::ElemType ArrayT<Int64>::LookupElemType()		{ return ETYPE_Int64;	}
+template<> Array::ElemType ArrayT<UInt64>::LookupElemType()		{ return ETYPE_UInt64;	}
+template<> Array::ElemType ArrayT<Float>::LookupElemType()		{ return ETYPE_Float;	}
+template<> Array::ElemType ArrayT<Double>::LookupElemType()		{ return ETYPE_Double;	}
+template<> Array::ElemType ArrayT<Complex>::LookupElemType()	{ return ETYPE_Complex;	}
 
-template<> const char *ArrayT<Int8>::GetConstructorName()	{ return "array@int8";		}
-template<> const char *ArrayT<UInt8>::GetConstructorName()	{ return "array@uint8";		}
-template<> const char *ArrayT<Int16>::GetConstructorName()	{ return "array@int16";		}
-template<> const char *ArrayT<UInt16>::GetConstructorName()	{ return "array@uint16";	}
-template<> const char *ArrayT<Int32>::GetConstructorName()	{ return "array@int32";		}
-template<> const char *ArrayT<UInt32>::GetConstructorName()	{ return "array@uint32";	}
-template<> const char *ArrayT<Int64>::GetConstructorName()	{ return "array@int64";		}
-template<> const char *ArrayT<UInt64>::GetConstructorName()	{ return "array@uint64";	}
-template<> const char *ArrayT<Float>::GetConstructorName()	{ return "array@float";		}
-template<> const char *ArrayT<Double>::GetConstructorName()	{ return "array@double";	}
-template<> const char *ArrayT<Complex>::GetConstructorName() { return "array@complex";	}
+template<> const char *ArrayT<Int8>::LookupElemTypeName()		{ return "int8";	}
+template<> const char *ArrayT<UInt8>::LookupElemTypeName()		{ return "uint8";	}
+template<> const char *ArrayT<Int16>::LookupElemTypeName()		{ return "int16";	}
+template<> const char *ArrayT<UInt16>::LookupElemTypeName()		{ return "uint16";	}
+template<> const char *ArrayT<Int32>::LookupElemTypeName()		{ return "int32";	}
+template<> const char *ArrayT<UInt32>::LookupElemTypeName()		{ return "uint32";	}
+template<> const char *ArrayT<Int64>::LookupElemTypeName()		{ return "int64";	}
+template<> const char *ArrayT<UInt64>::LookupElemTypeName()		{ return "uint64";	}
+template<> const char *ArrayT<Float>::LookupElemTypeName()		{ return "float";	}
+template<> const char *ArrayT<Double>::LookupElemTypeName()		{ return "double";	}
+template<> const char *ArrayT<Complex>::LookupElemTypeName()	{ return "complex";	}
+
+template<> const char *ArrayT<Int8>::LookupConstructorName()	{ return "array@int8";		}
+template<> const char *ArrayT<UInt8>::LookupConstructorName()	{ return "array@uint8";		}
+template<> const char *ArrayT<Int16>::LookupConstructorName()	{ return "array@int16";		}
+template<> const char *ArrayT<UInt16>::LookupConstructorName()	{ return "array@uint16";	}
+template<> const char *ArrayT<Int32>::LookupConstructorName()	{ return "array@int32";		}
+template<> const char *ArrayT<UInt32>::LookupConstructorName()	{ return "array@uint32";	}
+template<> const char *ArrayT<Int64>::LookupConstructorName()	{ return "array@int64";		}
+template<> const char *ArrayT<UInt64>::LookupConstructorName()	{ return "array@uint64";	}
+template<> const char *ArrayT<Float>::LookupConstructorName()	{ return "array@float";		}
+template<> const char *ArrayT<Double>::LookupConstructorName()	{ return "array@double";	}
+template<> const char *ArrayT<Complex>::LookupConstructorName() { return "array@complex";	}
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)
@@ -307,6 +319,17 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
 }
 
 template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
+	T_Elem *p = pArrayT->GetPointer();
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = static_cast<T_Elem>(pValue->GetNumber());
+	}
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
 bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 						Array::Dimensions::const_iterator pDim,
 						T_Elem *&p, const ValueList &valList)
@@ -336,17 +359,6 @@ bool CreateFromList_Sub(Signal &sig, Array::Dimensions &dims,
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(const ValueList &valList)
-{
-	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ValueList, pValue, valList) {
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
-	}
-	return pArrayT.release();
-}
-
-template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &valList)
 {
 	Array::Dimensions dims;
@@ -359,18 +371,6 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateFromList(Signal &sig, const ValueList &val
 	T_Elem *p = pArrayT->GetPointer();
 	if (!CreateFromList_Sub(sig, dims, dims.begin(), p, valList)) return nullptr;
 	return pArrayT.release();
-#if 0
-	AutoPtr<ArrayT> pArrayT(new ArrayT(valList.size()));
-	T_Elem *p = pArrayT->GetPointer();
-	foreach_const (ValueList, pValue, valList) {
-		if (!pValue->Is_number() && !pValue->Is_boolean()) {
-			sig.SetError(ERR_ValueError, "element must be a number or a boolean");
-			return nullptr;
-		}
-		*p++ = static_cast<T_Elem>(pValue->GetNumber());
-	}
-	return pArrayT.release();
-#endif
 }
 
 template<typename T_Elem>
@@ -421,7 +421,7 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateInterval(
 template<typename T_Elem>
 size_t Iterator_ArrayT_Each<T_Elem>::GetLength() const
 {
-	return _pArrayT->GetElemNum();
+	return _flatFlag? _pArrayT->GetElemNum() : _pArrayT->GetDimensions().front().GetSize();
 }
 
 template<typename T_Elem>
@@ -433,8 +433,22 @@ Iterator *Iterator_ArrayT_Each<T_Elem>::GetSource()
 template<typename T_Elem>
 bool Iterator_ArrayT_Each<T_Elem>::DoNext(Environment &env, Value &value)
 {
-	if (_idx >= _pArrayT->GetElemNum()) return false;
-	value = Value(*(_pArrayT->GetPointer() + _idx));
+	if (_flatFlag) {
+		if (_idx >= _pArrayT->GetElemNum()) return false;
+		value = Value(_pArrayT->GetPointer()[_idx]);
+	} else {
+		const Array::Dimensions &dims = _pArrayT->GetDimensions();
+		Array::Dimensions::const_iterator pDim = dims.begin();
+		if (_idx >= pDim->GetSize()) return false;
+		if (pDim + 1 == dims.end()) {
+			value = Value(_pArrayT->GetPointer()[_idx]);
+		} else {
+			AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(_pArrayT->GetMemory().Reference()));
+			pArrayRtn->SetDimensions(pDim + 1, dims.end());
+			pArrayRtn->SetOffsetBase(_pArrayT->GetOffsetBase() + pDim->GetStride() * _idx);
+			value = Value(new Object_array(env, pArrayRtn.release()));
+		}
+	}
 	_idx++;
 	return true;
 }

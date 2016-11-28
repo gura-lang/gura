@@ -53,6 +53,8 @@ Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(elemtype))) {
 		
+	} else if (pSymbol->IsIdentical(Gura_Symbol(ndim))) {
+		return Value(_pArray->GetDimensions().size());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(shape))) {
 		Value value;
 		Object_list *pObjList = value.InitAsList(env);
@@ -255,12 +257,13 @@ Gura_ImplementMethod(array, dump)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// arrayT#each() {block?}
+// arrayT#each():[flat] {block?}
 template<typename T_Elem>
 Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference()));
+	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(
+									pArrayT->Reference(), arg.IsSet(Gura_Symbol(flat))));
 	return pFunc->ReturnIterator(env, arg, pIterator.release());
 }
 
@@ -268,6 +271,7 @@ Gura_DeclareMethod(array, each)
 {
 	SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(flat));
 	AddHelp(
 		Gura_Symbol(en),
 		"Creates an iterator that iterates each element in the array.\n"

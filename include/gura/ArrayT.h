@@ -34,8 +34,9 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual String ToString() const;
 	virtual bool DoesContainZero() const;
-	static const char *GetElemName();
-	static const char *GetConstructorName();
+	static ElemType LookupElemType();
+	static const char *LookupElemTypeName();
+	static const char *LookupConstructorName();
 	void Fill(const T_Elem &num);
 	void FillZero();
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
@@ -62,10 +63,11 @@ template<typename T_Elem>
 class GURA_DLLDECLARE Iterator_ArrayT_Each : public Iterator {
 private:
 	AutoPtr<ArrayT<T_Elem> > _pArrayT;
+	bool _flatFlag;
 	size_t _idx;
 public:
-	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT) :
-		Iterator(FinitePredictable), _pArrayT(pArrayT), _idx(0) {}
+	inline Iterator_ArrayT_Each(ArrayT<T_Elem> *pArrayT, bool flatFlag) :
+		Iterator(FinitePredictable), _pArrayT(pArrayT), _flatFlag(flatFlag), _idx(0) {}
 	virtual size_t GetLength() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Value &value);
