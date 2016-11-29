@@ -363,12 +363,13 @@ array
   array#dump(stream?:stream):void:[upper]
   array#each():[flat] {block?}
   array#fill(value:number):map:void
-  array#flat()
+  array#flatten() {block?}
   array#head(n:number):map {block?}
   array#offset(n:number):map {block?}
   array#paste(offset:number, src:array):map
   array#sum():map {block?}
   array#tail(n:number):map {block?}
+  array#transpose(idx+:number) {block?}
 array@double
   array@double.identity(n:number):static:map {block?}
   array@double.interval(begin:number, end:number, samples:number):static:map:[open,open_l,open_r] {block?}

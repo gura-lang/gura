@@ -8,6 +8,7 @@ namespace Gura {
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
+typedef bool (*CastToT)(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf);
 
 static const char *helpDoc_en = R"**(
 )**";
@@ -510,8 +511,14 @@ Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t offset = arg.GetSizeT(0);
-	const ArrayT<T_Elem> *pArrayTSrc = Object_arrayT<T_Elem>::GetObject(arg, 1)->GetArrayT();
-	if (!pArrayT->PrepareModification(env.GetSignal())) return Value::Nil;
+	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
+	if (pArraySrc->GetElemType() != ArrayT<T_Elem>::LookupElemType()) {
+		sig.SetError(ERR_TypeError,
+					 "source and destination array must cosist of elements of the same type");
+		return Value::Nil;
+	}
+	const ArrayT<T_Elem> *pArrayTSrc = dynamic_cast<const ArrayT<T_Elem> *>(pArraySrc);
+	if (!pArrayT->PrepareModification(sig)) return Value::Nil;
 	pArrayT->Paste(sig, offset, pArrayTSrc);
 	return Value::Nil;
 }
@@ -700,29 +707,47 @@ bool Class_array::CastFrom(Environment &env, Value &value, const Declaration *pD
 	return false;
 }
 
-bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl)
+template<typename T_Elem>
+bool CastToTmpl(Environment &env, Value &value, const Declaration &decl, const Array *pArraySelf)
 {
-#if 0
 	if (decl.IsType(VTYPE_list)) {
 		AutoPtr<ArrayT<T_Elem> > pArrayT(
-			Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
+			dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf)->Reference());
 		Object_list *pObjList = value.InitAsList(env);
 		pArrayT->CopyToList(pObjList->GetListForModify());
 		pObjList->SetValueType(VTYPE_number);
 		return true;
 	} else if (decl.IsType(VTYPE_iterator)) {
-		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), false));
+		AutoPtr<ArrayT<T_Elem> > pArrayT(
+			dynamic_cast<const ArrayT<T_Elem> *>(pArraySelf)->Reference());
+		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT.release(), false));
 		value = Value(new Object_iterator(env, pIterator.release()));
 		return true;
-	} else if (decl.IsType(VTYPE_array)) {
-		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
-		AutoPtr<Array> pArray(pArrayT->Reference());
-		value = Value(new Object_array(env, pArray.release()));
+	} else if (decl.IsType(VTYPE_memory)) {
+		value = Value(new Object_memory(env, pArraySelf->GetMemory().Reference()));
 		return true;
 	}
-#endif
 	return false;
+}
+
+bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl)
+{
+	const Array *pArray = Object_array::GetObject(value)->GetArray();
+	static const CastToT castTos[] = {
+		nullptr,
+		&CastToTmpl<Int8>,
+		&CastToTmpl<UInt8>,
+		&CastToTmpl<Int16>,
+		&CastToTmpl<UInt16>,
+		&CastToTmpl<Int32>,
+		&CastToTmpl<UInt32>,
+		&CastToTmpl<Int64>,
+		&CastToTmpl<UInt64>,
+		&CastToTmpl<Float>,
+		&CastToTmpl<Double>,
+		//&CastToTmpl<Complex>,
+	};
+	return (*castTos[pArray->GetElemType()])(env, value, decl, pArray);
 }
 
 }

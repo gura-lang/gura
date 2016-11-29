@@ -282,6 +282,7 @@ void Class_memory::Prepare(Environment &env)
 
 bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
 {
+#if 0
 	if (value.Is_array_at_int8()) {
 		Memory &memory = Object_arrayT<Int8>::GetObject(value)->GetArrayT()->GetMemory();
 		value = Value(new Object_memory(env, memory.Reference()));
@@ -323,6 +324,7 @@ bool Class_memory::CastFrom(Environment &env, Value &value, const Declaration *p
 		value = Value(new Object_memory(env, memory.Reference()));
 		return true;
 	}
+#endif
 	return false;
 }
 
