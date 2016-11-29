@@ -73,41 +73,58 @@ void DumpFloat(Signal &sig, Stream &stream, const char *fmt, size_t cols, const 
 	if (col != 0) stream.Printf(sig, "\n");
 }
 
-template<typename T_Elem> void FormatElem(char *buff, T_Elem x);
+template<typename T_Elem> void FormatElem(char *buff, int wdPad, T_Elem x);
 
-template<> void FormatElem(char *buff, Int8 x)		{ ::sprintf(buff, "%d", x); }
-template<> void FormatElem(char *buff, UInt8 x)		{ ::sprintf(buff, "%u", x); }
-template<> void FormatElem(char *buff, Int16 x)		{ ::sprintf(buff, "%d", x); }
-template<> void FormatElem(char *buff, UInt16 x)	{ ::sprintf(buff, "%u", x); }
-template<> void FormatElem(char *buff, Int32 x)		{ ::sprintf(buff, "%d", x); }
-template<> void FormatElem(char *buff, UInt32 x)	{ ::sprintf(buff, "%u", x); }
-template<> void FormatElem(char *buff, Int64 x)		{ ::sprintf(buff, "%lld", x); }
-template<> void FormatElem(char *buff, UInt64 x)	{ ::sprintf(buff, "%llu", x); }
-template<> void FormatElem(char *buff, Float x)		{ ::sprintf(buff, "%g", x); }
-template<> void FormatElem(char *buff, Double x)	{ ::sprintf(buff, "%g", x); }
-template<> void FormatElem(char *buff, Complex x)	{ ::sprintf(buff, "%g,%g", x.real(), x.imag()); }
+template<> void FormatElem(char *buff, int wdPad, Int8 x)
+{ ::sprintf(buff, "%*d", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, UInt8 x)
+{ ::sprintf(buff, "%*u", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Int16 x)
+{ ::sprintf(buff, "%*d", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, UInt16 x)
+{ ::sprintf(buff, "%*u", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Int32 x)
+{ ::sprintf(buff, "%*d", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, UInt32 x)
+{ ::sprintf(buff, "%*u", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Int64 x)
+{ ::sprintf(buff, "%*lld", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, UInt64 x)
+{ ::sprintf(buff, "%*llu", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Float x)
+{ ::sprintf(buff, "%*g", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Double x)
+{ ::sprintf(buff, "%*g", wdPad, x); }
+template<> void FormatElem(char *buff, int wdPad, Complex x)
+{ ::sprintf(buff, "%g,%g", x.real(), x.imag()); }
 
 //------------------------------------------------------------------------------
 // ArrayT
 //------------------------------------------------------------------------------
 template<typename T_Elem>
-void ToString_Sub(String &rtn, const Array::Dimensions &dims,
+void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions &dims,
 				  Array::Dimensions::const_iterator pDim, const T_Elem *&p)
 {
 	char buff[128];
+	size_t nestLevel = std::distance(dims.begin(), pDim);
 	if (pDim + 1 == dims.end()) {
 		rtn += "[";
 		for (size_t i = 0; i < pDim->GetSize(); i++, p++) {
 			if (i > 0) rtn += ", ";
-			FormatElem(buff, *p);
+			FormatElem(buff, wdPad, *p);
 			rtn += buff;
 		}
 		rtn += "]";
 	} else {
 		rtn += "[";
 		for (size_t i = 0; i < pDim->GetSize(); i++) {
-			if (i > 0) rtn += ", ";
-			ToString_Sub(rtn, dims, pDim + 1, p);
+			if (i > 0) {
+				rtn += ',';
+				rtn += '\n';
+				for (size_t j = 0; j < dims.size() - nestLevel - 2; j++) rtn += '\n';
+				for (size_t j = 0; j < nestLevel + colTop + 1; j++) rtn += ' ';
+			}
+			ToString_Sub(rtn, colTop, wdPad, dims, pDim + 1, p);
 		}
 		rtn += "]";
 	}
@@ -116,11 +133,19 @@ void ToString_Sub(String &rtn, const Array::Dimensions &dims,
 template<typename T_Elem>
 String ArrayT<T_Elem>::ToString() const
 {
+	char buff[128];
 	String rtn;
 	rtn += LookupConstructorName();
 	rtn += "(";
 	const T_Elem *p = GetPointer();
-	ToString_Sub(rtn, _dims, _dims.begin(), p);
+	int wdPad = 0;
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		FormatElem(buff, wdPad, *p);
+		int wdElem = ::strlen(buff);
+		if (wdPad < wdElem) wdPad = wdElem;
+	}
+	p = GetPointer();
+	ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
 	rtn += ")";
 	return rtn;
 }
