@@ -86,7 +86,8 @@ inline static void Delete(T *p) { \
 	if (p == nullptr) return; \
 	p->_cntRef--; \
 	if (p->_cntRef <= 0) delete p; \
-}
+} \
+inline int GetCntRef() const { return _cntRef; }
 
 #define Gura_BeginPushbackRegion() \
 bool __pushbackFlag = false; \

@@ -44,6 +44,7 @@ public:
 	void CopyToList(ValueList &valList) const;
 	T_Elem Sum() const;
 	T_Elem Average() const;
+	ArrayT *Flatten() const;
 	// functions to create an ArrayT instance
 	static ArrayT *CreateLike(const Array::Dimensions &dims);
 	static ArrayT *CreateFromList(const ValueList &valList);

@@ -107,7 +107,7 @@ Value Func_arrayT<T_Elem>::DoEval(Environment &env, Argument &arg) const
 		Declaration::SetError_InvalidArgument(env);
 		return Value::Nil;
 	}
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -174,7 +174,7 @@ Gura_DeclareClassMethod_arrayT(identity)
 Gura_ImplementClassMethod_arrayT(identity)
 {
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateIdentity(arg.GetSizeT(0)));
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -228,7 +228,7 @@ Gura_ImplementClassMethod_arrayT(interval)
 	}
 	AutoPtr<ArrayT<T_Elem> > pArrayT(ArrayT<T_Elem>::CreateInterval(
 										 numBegin, numEnd, numSamples, numDenom, iFactor));
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -256,7 +256,7 @@ Gura_ImplementClassMethod_arrayT(ones)
 	pArrayT->UpdateMetrics();
 	pArrayT->AllocMemory();
 	pArrayT->Fill(1);
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 
@@ -284,7 +284,7 @@ Gura_ImplementClassMethod_arrayT(zeros)
 	pArrayT->UpdateMetrics();
 	pArrayT->AllocMemory();
 	pArrayT->FillZero();
-	Value value(new Object_arrayT<T_Elem>(env, _valType, pArrayT.release()));
+	Value value(new Object_array(env, pArrayT.release()));
 	return ReturnValue(env, arg, value);
 }
 

@@ -92,7 +92,7 @@ Value IndexGetTmpl(Environment &env, const Value &valueIdx, Object_array *pObj)
 	AutoPtr<ArrayT<T_Elem> > pArrayRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
 	pArrayRtn->SetDimensions(pDim + 1, dims.end());
 	pArrayRtn->SetOffsetBase(pArrayT->GetOffsetBase() + pDim->GetStride() * idx);
-	return Value(new Object_arrayT<T_Elem>(pObj->GetClass(), pArrayRtn.release()));
+	return Value(new Object_array(env, pArrayRtn.release()));
 }
 
 Value Object_array::IndexGet(Environment &env, const Value &valueIdx)
@@ -128,6 +128,7 @@ void IndexSetTmpl(Environment &env, const Value &valueIdx, const Value &value, O
 		sig.SetError(ERR_OutOfRangeError, "index is out of range");
 		return;
 	}
+	if (!pArrayT->PrepareModification(sig)) return;
 	pArrayT->GetPointer()[idx] = static_cast<T_Elem>(value.GetNumber());
 }
 
@@ -154,14 +155,6 @@ void Object_array::IndexSet(Environment &env, const Value &valueIdx, const Value
 // Implementation of methods
 //-----------------------------------------------------------------------------
 // array#average() {block?}
-template<typename T_Elem>
-Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	size_t n = pArrayT->GetElemNum();
-	return pFunc->ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
-}
-
 Gura_DeclareMethod(array, average)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -170,6 +163,14 @@ Gura_DeclareMethod(array, average)
 		Gura_Symbol(en),
 		"Calculates an average value of elements in the array.\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_average(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	size_t n = pArrayT->GetElemNum();
+	return pFunc->ReturnValue(env, arg, Value((n == 0)? 0 : pArrayT->Sum() / n));
 }
 
 Gura_ImplementMethod(array, average)
@@ -215,6 +216,17 @@ Gura_ImplementClassMethod(array, dot)
 }
 
 // array#dump():void
+Gura_DeclareMethod(array, dump)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(upper));
+	AddHelp(
+		Gura_Symbol(en),
+		"Prints out a binary dump of the array's content.\n"
+		);
+}
+
 template<typename T_Elem>
 Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -225,17 +237,6 @@ Value Method_dump(Environment &env, Argument &arg, const Function *pFunc, Array 
 		&Object_stream::GetObject(arg, 0)->GetStream() : env.GetConsole();
 	pArrayT->Dump(sig, *pStream, upperFlag);
 	return Value::Nil;
-}
-
-Gura_DeclareMethod(array, dump)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(upper));
-	AddHelp(
-		Gura_Symbol(en),
-		"Prints out a binary dump of the array's content.\n"
-		);
 }
 
 Gura_ImplementMethod(array, dump)
@@ -258,15 +259,6 @@ Gura_ImplementMethod(array, dump)
 }
 
 // arrayT#each():[flat] {block?}
-template<typename T_Elem>
-Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(
-									pArrayT->Reference(), arg.IsSet(Gura_Symbol(flat))));
-	return pFunc->ReturnIterator(env, arg, pIterator.release());
-}
-
 Gura_DeclareMethod(array, each)
 {
 	SetFuncAttr(VTYPE_iterator, RSLTMODE_Normal, FLAG_None);
@@ -281,6 +273,15 @@ Gura_DeclareMethod(array, each)
 		"The block parameter is `|elem:number, idx:number|`\n"
 		"where `elem` is the element value.\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_each(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(
+									pArrayT->Reference(), arg.IsSet(Gura_Symbol(flat))));
+	return pFunc->ReturnIterator(env, arg, pIterator.release());
 }
 
 Gura_ImplementMethod(array, each)
@@ -303,14 +304,6 @@ Gura_ImplementMethod(array, each)
 }
 
 // array#fill(value:number):void
-template<typename T_Elem>
-Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(array, fill)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
@@ -319,6 +312,15 @@ Gura_DeclareMethod(array, fill)
 		Gura_Symbol(en),
 		"Fills array with a specified value.\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_fill(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	if (!pArrayT->PrepareModification(env.GetSignal())) return Value::Nil;
+	pArrayT->Fill(static_cast<T_Elem>(arg.GetNumber(0)));
+	return Value::Nil;
 }
 
 Gura_ImplementMethod(array, fill)
@@ -340,62 +342,45 @@ Gura_ImplementMethod(array, fill)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#flat()
-template<typename T_Elem>
-Value Method_flat(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	//const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return Value::Nil;
-}
-
-Gura_DeclareMethod(array, flat)
+// array#flatten() {block?}
+Gura_DeclareMethod(array, flatten)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
 		"Flatten elements in the array.\n"
 		);
 }
 
-Gura_ImplementMethod(array, flat)
+template<typename T_Elem>
+Value Method_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Array> pArrayResult(pArrayT->Flatten());
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
+}
+
+Gura_ImplementMethod(array, flatten)
 {
 	static const MethodT methods[] = {
 		nullptr,
-		&Method_flat<Int8>,
-		&Method_flat<UInt8>,
-		&Method_flat<Int16>,
-		&Method_flat<UInt16>,
-		&Method_flat<Int32>,
-		&Method_flat<UInt32>,
-		&Method_flat<Int64>,
-		&Method_flat<UInt64>,
-		&Method_flat<Float>,
-		&Method_flat<Double>,
-		//&Method_flat<Complex>,
+		&Method_flatten<Int8>,
+		&Method_flatten<UInt8>,
+		&Method_flatten<Int16>,
+		&Method_flatten<UInt16>,
+		&Method_flatten<Int32>,
+		&Method_flatten<UInt32>,
+		&Method_flatten<Int64>,
+		&Method_flatten<UInt64>,
+		&Method_flatten<Float>,
+		&Method_flatten<Double>,
+		//&Method_flatten<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
 // array#head(n:number):map {block?}
-template<typename T_Elem>
-Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return Value::Nil;
-	}
-	size_t offsetBase = pArrayT->GetOffsetBase();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetDimension(Array::Dimension(n));
-	pArrayTRtn->SetOffsetBase(offsetBase);
-	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
-										  pArrayTRtn.release()));
-	return pFunc->ReturnValue(env, arg, value);
-}
-
 Gura_DeclareMethod(array, head)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -410,6 +395,24 @@ Gura_DeclareMethod(array, head)
 		"`|array:array@T|`, where `array` is the created instance.\n"
 		"In this case, the block's result would become the function's returned value.\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t n = arg.GetSizeT(0);
+	if (n > pArrayT->GetElemNum()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return Value::Nil;
+	}
+	size_t offsetBase = pArrayT->GetOffsetBase();
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
+	pArrayTRtn->SetDimension(Array::Dimension(n));
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	Value value(new Object_array(env, pArrayTRtn.release()));
+	return pFunc->ReturnValue(env, arg, value);
 }
 
 Gura_ImplementMethod(array, head)
@@ -432,6 +435,22 @@ Gura_ImplementMethod(array, head)
 }
 
 // array#offset(n:number):map {block?}
+Gura_DeclareMethod(array, offset)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that has extracted elements of the source\n"
+		"after skipping the first `n` elements.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter\n"
+		"`|array:array@T|`, where `array` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n"
+		);
+}
+
 template<typename T_Elem>
 Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -448,25 +467,8 @@ Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Arra
 		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
 	pArrayTRtn->SetDimension(Array::Dimension(nElems));
 	pArrayTRtn->SetOffsetBase(offsetBase);
-	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
-										  pArrayTRtn.release()));
+	Value value(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
-}
-
-Gura_DeclareMethod(array, offset)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array that has extracted elements of the source\n"
-		"after skipping the first `n` elements.\n"
-		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter\n"
-		"`|array:array@T|`, where `array` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
-		);
 }
 
 Gura_ImplementMethod(array, offset)
@@ -489,17 +491,6 @@ Gura_ImplementMethod(array, offset)
 }
 
 // array#paste(offset:number, src:array):map:void
-template<typename T_Elem>
-Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	Signal &sig = env.GetSignal();
-	size_t offset = arg.GetSizeT(0);
-	const ArrayT<T_Elem> *pArrayTSrc = Object_arrayT<T_Elem>::GetObject(arg, 1)->GetArrayT();
-	pArrayT->Paste(sig, offset, pArrayTSrc);
-	return Value::Nil;
-}
-
 Gura_DeclareMethod(array, paste)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -511,6 +502,18 @@ Gura_DeclareMethod(array, paste)
 		"\n"
 		"The argument `offset` specifies the posision where elements are pasted in\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	size_t offset = arg.GetSizeT(0);
+	const ArrayT<T_Elem> *pArrayTSrc = Object_arrayT<T_Elem>::GetObject(arg, 1)->GetArrayT();
+	if (!pArrayT->PrepareModification(env.GetSignal())) return Value::Nil;
+	pArrayT->Paste(sig, offset, pArrayTSrc);
+	return Value::Nil;
 }
 
 Gura_ImplementMethod(array, paste)
@@ -533,13 +536,6 @@ Gura_ImplementMethod(array, paste)
 }
 
 // array#sum() {block?}
-template<typename T_Elem>
-Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
-{
-	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	return pFunc->ReturnValue(env, arg, Value(pArrayT->Sum()));
-}
-
 Gura_DeclareMethod(array, sum)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
@@ -548,6 +544,13 @@ Gura_DeclareMethod(array, sum)
 		Gura_Symbol(en),
 		"Calculates a summation value of elements in the array.\n"
 		);
+}
+
+template<typename T_Elem>
+Value Method_sum(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	return pFunc->ReturnValue(env, arg, Value(pArrayT->Sum()));
 }
 
 Gura_ImplementMethod(array, sum)
@@ -570,6 +573,22 @@ Gura_ImplementMethod(array, sum)
 }
 
 // array#tail(n:number):map {block?}
+Gura_DeclareMethod(array, tail)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array that has extracted specified number of elements\n"
+		"from the bottom of the source.\n"
+		"\n"
+		"If `block` is specified, it would be evaluated with a block parameter\n"
+		"`|array:array@T|`, where `array` is the created instance.\n"
+		"In this case, the block's result would become the function's returned value.\n"
+		);
+}
+
 template<typename T_Elem>
 Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
@@ -585,25 +604,8 @@ Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array 
 		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
 	pArrayTRtn->SetDimension(Array::Dimension(n));
 	pArrayTRtn->SetOffsetBase(offsetBase);
-	Value value(new Object_arrayT<T_Elem>(env, arg.GetValueThis().GetValueType(),
-										  pArrayTRtn.release()));
+	Value value(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
-}
-
-Gura_DeclareMethod(array, tail)
-{
-	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(
-		Gura_Symbol(en),
-		"Creates an array that has extracted specified number of elements\n"
-		"from the bottom of the source.\n"
-		"\n"
-		"If `block` is specified, it would be evaluated with a block parameter\n"
-		"`|array:array@T|`, where `array` is the created instance.\n"
-		"In this case, the block's result would become the function's returned value.\n"
-		);
 }
 
 Gura_ImplementMethod(array, tail)
@@ -625,6 +627,46 @@ Gura_ImplementMethod(array, tail)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#transpose(idx+:number) {block?}
+Gura_DeclareMethod(array, transpose)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "idx", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Transpose elements in the array.\n"
+		);
+}
+
+template<typename T_Elem>
+Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	//ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	//AutoPtr<Array> pArrayResult(pArrayT->Transpose(dims));
+	//return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
+	return Value::Nil;
+}
+
+Gura_ImplementMethod(array, transpose)
+{
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_transpose<Int8>,
+		&Method_transpose<UInt8>,
+		&Method_transpose<Int16>,
+		&Method_transpose<UInt16>,
+		&Method_transpose<Int32>,
+		&Method_transpose<UInt32>,
+		&Method_transpose<Int64>,
+		&Method_transpose<UInt64>,
+		&Method_transpose<Float>,
+		&Method_transpose<Double>,
+		//&Method_transpose<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -642,14 +684,45 @@ void Class_array::Prepare(Environment &env)
 	Gura_AssignMethod(array, dump);
 	Gura_AssignMethod(array, each);
 	Gura_AssignMethod(array, fill);
-	Gura_AssignMethod(array, flat);
+	Gura_AssignMethod(array, flatten);
 	Gura_AssignMethod(array, head);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);
 	Gura_AssignMethod(array, sum);
 	Gura_AssignMethod(array, tail);
+	Gura_AssignMethod(array, transpose);
 	// help document
 	AddHelpTemplate(env, Gura_Symbol(en), helpDoc_en + 1);
+}
+
+bool Class_array::CastFrom(Environment &env, Value &value, const Declaration *pDecl)
+{
+	return false;
+}
+
+bool Class_array::CastTo(Environment &env, Value &value, const Declaration &decl)
+{
+#if 0
+	if (decl.IsType(VTYPE_list)) {
+		AutoPtr<ArrayT<T_Elem> > pArrayT(
+			Object_arrayT<T_Elem>::GetObject(value)->GetArrayT()->Reference());
+		Object_list *pObjList = value.InitAsList(env);
+		pArrayT->CopyToList(pObjList->GetListForModify());
+		pObjList->SetValueType(VTYPE_number);
+		return true;
+	} else if (decl.IsType(VTYPE_iterator)) {
+		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
+		AutoPtr<Iterator> pIterator(new Iterator_ArrayT_Each<T_Elem>(pArrayT->Reference(), false));
+		value = Value(new Object_iterator(env, pIterator.release()));
+		return true;
+	} else if (decl.IsType(VTYPE_array)) {
+		const ArrayT<T_Elem> *pArrayT = Object_arrayT<T_Elem>::GetObject(value)->GetArrayT();
+		AutoPtr<Array> pArray(pArrayT->Reference());
+		value = Value(new Object_array(env, pArray.release()));
+		return true;
+	}
+#endif
+	return false;
 }
 
 }

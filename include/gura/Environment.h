@@ -199,7 +199,7 @@ public:
 			return pFrameCasted;
 		}
 		inline int DecRef() { if (_cntRef > 0) _cntRef--; return _cntRef; }
-		inline int GetRefCnt() const { return _cntRef; }
+		inline int GetCntRef() const { return _cntRef; }
 		static void Delete(Frame *pFrame);
 		inline Frame *Clone() const { return new Frame(*this); }
 		inline EnvType GetEnvType() const { return _envType; }

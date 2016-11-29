@@ -308,6 +308,15 @@ Complex ArrayT<Complex>::Average() const
 	return Sum() / static_cast<double>(GetElemNum());
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
+{
+	AutoPtr<ArrayT> pArrayRtn(new ArrayT(_pMemory->Reference()));
+	pArrayRtn->SetOffsetBase(_offsetBase);
+	pArrayRtn->SetDimension(Dimension(_elemNum));
+	return pArrayRtn.release();
+}
+
 // functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)

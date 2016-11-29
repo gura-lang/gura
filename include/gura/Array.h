@@ -103,26 +103,6 @@ public:
 	void Initialize();
 public:
 	inline ElemType GetElemType() const { return _elemType; }
-	inline void SetDimension(const Dimension &dim) {
-		_dims.reserve(1);
-		_dims.push_back(dim);
-		UpdateMetrics();
-	}
-	inline void SetDimensions(const Dimension &dimRow, const Dimension &dimCol) {
-		_dims.reserve(2);
-		_dims.push_back(dimRow);
-		_dims.push_back(dimCol);
-		UpdateMetrics();
-	}
-	inline void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd) {
-		_dims.reserve(std::distance(pDim, pDimEnd));
-		std::copy(pDim, pDimEnd, std::back_inserter(_dims));
-		UpdateMetrics();
-	}
-	inline void SetDimensions(const Dimensions &dims) {
-		_dims = dims;
-		UpdateMetrics();
-	}
 	inline Memory &GetMemory() { return *_pMemory; }
 	inline const Memory &GetMemory() const { return *_pMemory; }
 	inline Dimensions &GetDimensions() { return _dims; }
@@ -132,9 +112,14 @@ public:
 	inline size_t GetOffsetBase() const { return _offsetBase; }
 	virtual String ToString() const;
 	virtual bool DoesContainZero() const;
+	void SetDimension(const Dimension &dim);
+	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
+	void SetDimensions(const Dimensions &dims);
 	void UpdateMetrics();
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
+	bool PrepareModification(Signal &sig);
 public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);
 	static bool CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB);

@@ -308,3 +308,18 @@ testcase('identity') {
 		println((x.each():flat).fold(5):*join(' '))
 	}
 }
+testcase('modification on referenced instance') {
+	x = array@int32([[1, 2], [3, 4], [5, 6]])
+	println(x)
+	x.flatten {|xref|
+		println(xref)
+		xref[3] = 3333
+		println(xref)
+	}
+	println(x)
+}
+testcase('array#flatten()') {
+	tester(`array@int32([[1, 2], [3, 4], [5, 6]]).flatten())
+	tester(`array@int32([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]]).flatten())
+	tester(`array@int32([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]])[1].flatten())
+}

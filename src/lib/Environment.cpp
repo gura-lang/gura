@@ -981,7 +981,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 			}
 		}
 		int cntFollower = static_cast<int>(envSet.size());
-		if (pFrame->GetRefCnt() <= cntFollower + 1) {
+		if (pFrame->GetCntRef() <= cntFollower + 1) {
 			foreach (EnvironmentSet, ppEnv, envSet) {
 				(*ppEnv)->GetFrameOwner().remove(pFrame);
 			}

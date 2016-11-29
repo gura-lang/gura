@@ -23,6 +23,34 @@ bool Array::DoesContainZero() const
 	return false;
 }
 
+void Array::SetDimension(const Dimension &dim)
+{
+	_dims.reserve(1);
+	_dims.push_back(dim);
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(const Dimension &dimRow, const Dimension &dimCol)
+{
+	_dims.reserve(2);
+	_dims.push_back(dimRow);
+	_dims.push_back(dimCol);
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+{
+	_dims.reserve(std::distance(pDim, pDimEnd));
+	std::copy(pDim, pDimEnd, std::back_inserter(_dims));
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(const Dimensions &dims)
+{
+	_dims = dims;
+	UpdateMetrics();
+}
+
 void Array::UpdateMetrics()
 {
 	size_t stride = 1;
@@ -41,6 +69,18 @@ bool Array::HasShape(size_t size) const
 bool Array::HasShape(size_t sizeRow, size_t sizeCol) const
 {
 	return (_dims.size() == 2) && _dims[0].GetSize() == sizeRow && _dims[1].GetSize() == sizeCol;
+}
+
+bool Array::PrepareModification(Signal &sig)
+{
+	if (_pMemory->GetCntRef() > 1) {
+		_pMemory.reset(_pMemory->Clone());
+		if (_pMemory.IsNull()) {
+			sig.SetError(ERR_MemoryError, "failed to allocate memory for array");
+			return false;
+		}
+	}
+	return true;
 }
 
 bool Array::CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB)
