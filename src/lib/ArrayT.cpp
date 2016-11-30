@@ -361,13 +361,67 @@ Complex ArrayT<Complex>::Average() const
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::Flatten() const
 {
-	AutoPtr<ArrayT> pArrayRtn(new ArrayT(_pMemory->Reference()));
-	pArrayRtn->SetOffsetBase(_offsetBase);
-	pArrayRtn->SetDimension(Dimension(_elemNum));
+	AutoPtr<ArrayT> pArrayRtn(new ArrayT(GetMemory().Reference()));
+	pArrayRtn->SetOffsetBase(GetOffsetBase());
+	pArrayRtn->SetDimension(Dimension(GetElemNum()));
 	return pArrayRtn.release();
 }
 
-// functions to create an ArrayT instance
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const Value &valList) const
+{
+	return nullptr;
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Head(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
+		return nullptr;
+	}
+	size_t offsetBase = GetOffsetBase();
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	pArrayTRtn->SetDimensions(Dimension(n), GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	return pArrayTRtn.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Tail(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "specified size is out of range");
+		return nullptr;
+	}
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * (dimFirst.GetSize() - n);
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	pArrayTRtn->SetDimensions(Dimension(n),
+							  GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	return pArrayTRtn.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
+{
+	const Dimension &dimFirst = GetDimensions().front();
+	if (n > dimFirst.GetSize()) {
+		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
+		return nullptr;
+	}
+	size_t nElems = dimFirst.GetSize() - n;
+	size_t offsetBase = GetOffsetBase() + dimFirst.GetStride() * n;
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT(GetMemory().Reference()));
+	pArrayTRtn->SetDimensions(Dimension(nElems),
+							  GetDimensions().begin() + 1, GetDimensions().end());
+	pArrayTRtn->SetOffsetBase(offsetBase);
+	return pArrayTRtn.release();
+}
+
+/// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)
 {

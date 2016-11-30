@@ -211,9 +211,9 @@ Gura_ImplementClassMethod(array, dot)
 	Signal &sig = env.GetSignal();
 	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
 	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	AutoPtr<Array> pArrayResult(Array::Dot(sig, pArrayL, pArrayR));
-	if (pArrayResult.IsNull()) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
+	AutoPtr<Array> pArrayTRtn(Array::Dot(sig, pArrayL, pArrayR));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 }
 
 // array#dump():void
@@ -358,8 +358,8 @@ template<typename T_Elem>
 Value Method_flatten(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayResult(pArrayT->Flatten());
-	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
+	AutoPtr<Array> pArrayTRtn(pArrayT->Flatten());
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 }
 
 Gura_ImplementMethod(array, flatten)
@@ -404,14 +404,8 @@ Value Method_head(Environment &env, Argument &arg, const Function *pFunc, Array 
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return Value::Nil;
-	}
-	size_t offsetBase = pArrayT->GetOffsetBase();
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetDimension(Array::Dimension(n));
-	pArrayTRtn->SetOffsetBase(offsetBase);
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Head(sig, n));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
 	Value value(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
@@ -458,16 +452,8 @@ Value Method_offset(Environment &env, Argument &arg, const Function *pFunc, Arra
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return Value::Nil;
-		}
-	size_t nElems = pArrayT->GetElemNum() - n;
-	size_t offsetBase = pArrayT->GetOffsetBase() + n;
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetDimension(Array::Dimension(nElems));
-	pArrayTRtn->SetOffsetBase(offsetBase);
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Offset(sig, n));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
 	Value value(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
@@ -602,15 +588,8 @@ Value Method_tail(Environment &env, Argument &arg, const Function *pFunc, Array 
 	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
 	Signal &sig = env.GetSignal();
 	size_t n = arg.GetSizeT(0);
-	if (n > pArrayT->GetElemNum()) {
-		sig.SetError(ERR_OutOfRangeError, "offset is out of range");
-		return Value::Nil;
-	}
-	size_t offsetBase = pArrayT->GetOffsetBase() + pArrayT->GetElemNum() - n;
-	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(
-		new ArrayT<T_Elem>(pArrayT->GetMemory().Reference()));
-	pArrayTRtn->SetDimension(Array::Dimension(n));
-	pArrayTRtn->SetOffsetBase(offsetBase);
+	AutoPtr<ArrayT<T_Elem> > pArrayTRtn(pArrayT->Tail(sig, n));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
 	Value value(new Object_array(env, pArrayTRtn.release()));
 	return pFunc->ReturnValue(env, arg, value);
 }
@@ -650,8 +629,8 @@ template<typename T_Elem>
 Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	//ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	//AutoPtr<Array> pArrayResult(pArrayT->Transpose(dims));
-	//return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayResult.release())));
+	//AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(dims));
+	//return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 	return Value::Nil;
 }
 

@@ -45,6 +45,24 @@ void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_ite
 	UpdateMetrics();
 }
 
+void Array::SetDimensions(const Dimension &dim,
+						  Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd)
+{
+	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
+	_dims.push_back(dim);
+	_dims.insert(_dims.end(), pDim, pDimEnd);
+	UpdateMetrics();
+}
+
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+						  const Dimension &dim)
+{
+	_dims.reserve(std::distance(pDim, pDimEnd) + 1);
+	_dims.insert(_dims.end(), pDim, pDimEnd);
+	_dims.push_back(dim);
+	UpdateMetrics();
+}
+
 void Array::SetDimensions(const Dimensions &dims)
 {
 	_dims = dims;

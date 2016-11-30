@@ -48,6 +48,9 @@ public:
 	T_Elem Average() const;
 	ArrayT *Flatten() const;
 	ArrayT *Transpose(const Value &valList) const;
+	ArrayT *Head(Signal &sig, size_t n) const;
+	ArrayT *Tail(Signal &sig, size_t n) const;
+	ArrayT *Offset(Signal &sig, size_t n) const;
 	// functions to create an ArrayT instance
 	static ArrayT *CreateLike(const Array::Dimensions &dims);
 	static ArrayT *CreateFromList(const ValueList &valList);
