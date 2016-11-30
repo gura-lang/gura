@@ -27,9 +27,9 @@ PrintArray(fmt:string, array:array) = println(FormatArray(fmt, array))
 testcase('constructor') {
 	funcs.each {|func|
 		println(func)
-		x = func.zeros(30)
+		x = func.zeros([30])
 		println(x[0..29].join(' '))
-		x = func.ones(30)
+		x = func.ones([30])
 		println(x[0..29].join(' '))
 		x = func([0..29])
 		println(x[0..29].join(' '))
@@ -37,6 +37,20 @@ testcase('constructor') {
 		x.each {|n| printf('%d ', n)}, println()
 		x = func(0..29)
 		println(x[0..29].join(' '))
+		println(func.zeros([3, 4]))
+		println(func.zeros([2, 3, 4]))
+		println(func.ones([3, 4]))
+		println(func.ones([2, 3, 4]))
+		randseed(0), println(func.rands([3, 4]))
+		randseed(0), println(func.rands([2, 3, 4]))
+		randseed(0), println(func.rands([3, 4], 100))
+		randseed(0), println(func.rands([2, 3, 4], 100))
+		randseed(0), println(func.rands@normal([3, 4]))
+		randseed(0), println(func.rands@normal([2, 3, 4]))
+		randseed(0), println(func.rands@normal([3, 4], 10))
+		randseed(0), println(func.rands@normal([2, 3, 4], 10))
+		randseed(0), println(func.rands@normal([3, 4], 10, 6))
+		randseed(0), println(func.rands@normal([2, 3, 4], 10, 6))
 	}
 }
 testcase('cast to list') {

@@ -116,9 +116,11 @@ public:
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);
 	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd);
 	void SetDimensions(const Dimensions &dims);
+	void SetDimensions(const ValueList &valList);
 	void UpdateMetrics();
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;
+	bool HasShape(const Value &valList) const;
 	bool PrepareModification(Signal &sig);
 public:
 	static bool CheckShape(Signal &sig, const Array &arrayA, const Array &arrayB);

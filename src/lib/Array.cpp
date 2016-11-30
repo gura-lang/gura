@@ -51,6 +51,15 @@ void Array::SetDimensions(const Dimensions &dims)
 	UpdateMetrics();
 }
 
+void Array::SetDimensions(const ValueList &valList)
+{
+	_dims.reserve(valList.size());
+	foreach_const (ValueList, pValue, valList) {
+		_dims.push_back(pValue->GetSizeT());
+	}
+	UpdateMetrics();
+}
+
 void Array::UpdateMetrics()
 {
 	size_t stride = 1;

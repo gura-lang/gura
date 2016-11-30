@@ -222,6 +222,31 @@ void ArrayT<T_Elem>::FillZero()
 }
 
 template<typename T_Elem>
+void ArrayT<T_Elem>::FillRand(UInt range)
+{
+	T_Elem *p = GetPointer();
+	if (range == 0) {
+		for (size_t i = 0; i < GetElemNum(); i++, p++) {
+			*p = static_cast<T_Elem>(Random::Uniform_CloseOpen());
+		}
+	} else {
+		for (size_t i = 0; i < GetElemNum(); i++, p++) {
+			*p = static_cast<T_Elem>(static_cast<UInt>(
+										 Random::Uniform_CloseOpen() * range));
+		}
+	}
+}
+
+template<typename T_Elem>
+void ArrayT<T_Elem>::FillRandNormal(double mu, double sigma)
+{
+	T_Elem *p = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, p++) {
+		*p = static_cast<T_Elem>(mu + Random::Normal() * sigma);
+	}
+}
+
+template<typename T_Elem>
 bool ArrayT<T_Elem>::Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc)
 {
 	if (GetElemNum() < offset + pArrayTSrc->GetElemNum()) {
@@ -446,6 +471,46 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::CreateInterval(
 	for (int i = 0; i < numSamples; i++, iFactor++) {
 		p[i] = static_cast<T_Elem>((numEnd - numBegin) * iFactor / numDenom + numBegin);
 	}
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateOnes(const ValueList &valList)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(valList);
+	pArrayT->AllocMemory();
+	pArrayT->Fill(1);
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateZeros(const ValueList &valList)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(valList);
+	pArrayT->AllocMemory();
+	pArrayT->FillZero();
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRands(const ValueList &valList, UInt range)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(valList);
+	pArrayT->AllocMemory();
+	pArrayT->FillRand(range);
+	return pArrayT.release();
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::CreateRandsNormal(const ValueList &valList, double mu, double sigma)
+{
+	AutoPtr<ArrayT> pArrayT(new ArrayT());
+	pArrayT->SetDimensions(valList);
+	pArrayT->AllocMemory();
+	pArrayT->FillRandNormal(mu, sigma);
 	return pArrayT.release();
 }
 

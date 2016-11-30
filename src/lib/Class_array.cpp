@@ -634,11 +634,11 @@ Gura_ImplementMethod(array, tail)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#transpose(idx+:number) {block?}
+// array#transpose(dim+:number) {block?}
 Gura_DeclareMethod(array, transpose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "idx", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),

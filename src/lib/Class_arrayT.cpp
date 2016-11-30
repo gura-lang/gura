@@ -232,11 +232,11 @@ Gura_ImplementClassMethod_arrayT(interval)
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.ones(dim+:number):static:map {block?}
+// array@T.ones(dims[]:number):static:map {block?}
 Gura_DeclareClassMethod_arrayT(ones)
 {
 	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -246,25 +246,59 @@ Gura_DeclareClassMethod_arrayT(ones)
 
 Gura_ImplementClassMethod_arrayT(ones)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
-	Array::Dimensions &dims = pArrayT->GetDimensions();
-	const ValueList &valList = arg.GetList(0);
-	dims.reserve(dims.size());
-	foreach_const (ValueList, pValue, valList) {
-		dims.push_back(pValue->GetSizeT());
-	}
-	pArrayT->UpdateMetrics();
-	pArrayT->AllocMemory();
-	pArrayT->Fill(1);
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, ArrayT<T_Elem>::CreateOnes(arg.GetList(0))));
 	return ReturnValue(env, arg, value);
 }
 
-// array@T.zeros(dim+:number):static:map {block?}
+// array@T.rands(dims[]:number, range?:number):static:map {block?}
+Gura_DeclareClassMethod_arrayT(rands)
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array with the specified dimensions, which contains random numbers.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(rands)
+{
+	UInt range = arg.IsValid(1)? arg.GetUInt(1) : 0;
+	Value value(new Object_array(env, ArrayT<T_Elem>::CreateRands(arg.GetList(0), range)));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.rands@normal(dims[]:number, mu?:number, sigma?:number):static:map {block?}
+Gura_DeclareClassMethodAlias_arrayT(rands_at_normal, "rands@normal")
+{
+	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
+	DeclareArg(env, "mu", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Creates an array with the specified dimensions,\n"
+		"which contains normal distribution random numbers.\n"
+		);
+}
+
+Gura_ImplementClassMethod_arrayT(rands_at_normal)
+{
+	double mu = arg.IsValid(1)? arg.GetDouble(1) : 0;
+	double sigma = arg.IsValid(2)? arg.GetDouble(2) : 1;
+	Value value(new Object_array(env, ArrayT<T_Elem>::CreateRandsNormal(
+									 arg.GetList(0), mu, sigma)));
+	return ReturnValue(env, arg, value);
+}
+
+// array@T.zeros(dims[]:number):static:map {block?}
 Gura_DeclareClassMethod_arrayT(zeros)
 {
 	SetFuncAttr(valType, RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -274,17 +308,7 @@ Gura_DeclareClassMethod_arrayT(zeros)
 
 Gura_ImplementClassMethod_arrayT(zeros)
 {
-	AutoPtr<ArrayT<T_Elem> > pArrayT(new ArrayT<T_Elem>());
-	Array::Dimensions &dims = pArrayT->GetDimensions();
-	const ValueList &valList = arg.GetList(0);
-	dims.reserve(dims.size());
-	foreach_const (ValueList, pValue, valList) {
-		dims.push_back(pValue->GetSizeT());
-	}
-	pArrayT->UpdateMetrics();
-	pArrayT->AllocMemory();
-	pArrayT->FillZero();
-	Value value(new Object_array(env, pArrayT.release()));
+	Value value(new Object_array(env, ArrayT<T_Elem>::CreateZeros(arg.GetList(0))));
 	return ReturnValue(env, arg, value);
 }
 
@@ -315,6 +339,8 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	Gura_AssignMethod_arrayT(identity);
 	Gura_AssignMethod_arrayT(interval);
 	Gura_AssignMethod_arrayT(ones);
+	Gura_AssignMethod_arrayT(rands);
+	Gura_AssignMethod_arrayT(rands_at_normal);
 	Gura_AssignMethod_arrayT(zeros);
 }
 

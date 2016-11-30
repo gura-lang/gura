@@ -39,12 +39,15 @@ public:
 	static const char *LookupConstructorName();
 	void Fill(const T_Elem &num);
 	void FillZero();
+	void FillRand(UInt range);
+	void FillRandNormal(double mu, double sigma);
 	bool Paste(Signal &sig, size_t offset, const ArrayT *pArrayTSrc);
 	void Dump(Signal &sig, Stream &stream, bool upperFlag) const;
 	void CopyToList(ValueList &valList) const;
 	T_Elem Sum() const;
 	T_Elem Average() const;
 	ArrayT *Flatten() const;
+	ArrayT *Transpose(const Value &valList) const;
 	// functions to create an ArrayT instance
 	static ArrayT *CreateLike(const Array::Dimensions &dims);
 	static ArrayT *CreateFromList(const ValueList &valList);
@@ -53,6 +56,10 @@ public:
 	static ArrayT *CreateIdentity(size_t n);
 	static ArrayT *CreateInterval(
 		Double numBegin, Double numEnd, int numSamples, Double numDenom, int iFactor);
+	static ArrayT *CreateOnes(const ValueList &valList);
+	static ArrayT *CreateZeros(const ValueList &valList);
+	static ArrayT *CreateRands(const ValueList &valList, UInt range);
+	static ArrayT *CreateRandsNormal(const ValueList &valList, double mu, double sigma);
 private:
 	inline ~ArrayT() {}
 };
