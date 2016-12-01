@@ -528,6 +528,47 @@ Gura_ImplementMethod(array, paste)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#reshape(dims[]:number:nil) {block?}
+Gura_DeclareMethod(array, reshape)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "dims", VTYPE_number, OCCUR_Once, FLAG_ListVar | FLAG_Nil);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Modifies the shape of the array.\n"
+		);
+}
+
+template<typename T_Elem>
+Value Method_reshape(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	Signal &sig = env.GetSignal();
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Array> pArrayTRtn(pArrayT->Reshape(sig, arg.GetList(0)));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
+}
+
+Gura_ImplementMethod(array, reshape)
+{
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_reshape<Int8>,
+		&Method_reshape<UInt8>,
+		&Method_reshape<Int16>,
+		&Method_reshape<UInt16>,
+		&Method_reshape<Int32>,
+		&Method_reshape<UInt32>,
+		&Method_reshape<Int64>,
+		&Method_reshape<UInt64>,
+		&Method_reshape<Float>,
+		&Method_reshape<Double>,
+		//&Method_reshape<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 // array#sum() {block?}
 Gura_DeclareMethod(array, sum)
 {
@@ -628,10 +669,9 @@ Gura_DeclareMethod(array, transpose)
 template<typename T_Elem>
 Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
-	//ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	//AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(dims));
-	//return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
-	return Value::Nil;
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(arg.GetList(0)));
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 }
 
 Gura_ImplementMethod(array, transpose)
@@ -674,6 +714,7 @@ void Class_array::Prepare(Environment &env)
 	Gura_AssignMethod(array, head);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);
+	Gura_AssignMethod(array, reshape);
 	Gura_AssignMethod(array, sum);
 	Gura_AssignMethod(array, tail);
 	Gura_AssignMethod(array, transpose);

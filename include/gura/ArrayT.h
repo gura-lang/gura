@@ -47,7 +47,8 @@ public:
 	T_Elem Sum() const;
 	T_Elem Average() const;
 	ArrayT *Flatten() const;
-	ArrayT *Transpose(const Value &valList) const;
+	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
+	ArrayT *Transpose(const ValueList &valList) const;
 	ArrayT *Head(Signal &sig, size_t n) const;
 	ArrayT *Tail(Signal &sig, size_t n) const;
 	ArrayT *Offset(Signal &sig, size_t n) const;

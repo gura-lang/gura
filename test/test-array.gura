@@ -349,3 +349,18 @@ testcase('array#flatten()') {
 	tester(`array@int32([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]]).flatten())
 	tester(`array@int32([[[1, 2], [3, 4], [5, 6]], [[7, 8], [9, 10], [11, 12]]])[1].flatten())
 }
+testcase('array#reshape()') {
+	x = array@int32([0..23])
+	println(x)
+	tester(`x.reshape([24]))
+	tester(`x.reshape([1, 24]))
+	tester(`x.reshape([8, 3]))
+	tester(`x.reshape([4, 2, 3]))
+	tester(`x.reshape([8, nil]))
+	tester(`x.reshape([nil, 3]))
+	tester(`x.reshape([nil, 2, 3]))
+	tester(`x.reshape([4, nil, 3]))
+	tester(`x.reshape([4, 2, nil]))
+	tester(`x.reshape([4, nil, nil]))
+	tester(`x.reshape([4, 2, 4]))
+}
