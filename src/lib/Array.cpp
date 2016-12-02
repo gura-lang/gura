@@ -129,16 +129,6 @@ bool Array::CheckElemwiseCalculatable(Signal &sig, const Array &arrayA, const Ar
 	return false;
 }
 
-bool Array::CheckDotProductCalculatable(Signal &sig, const Array &arrayA, const Array &arrayB)
-{
-	if (Dimensions::IsDotProductCalculatable(
-			arrayA.GetDimensions(), arrayB.GetDimensions())) {
-		return true;
-	}
-	sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
-	return false;
-}
-
 Array *Array::ApplyUnaryFunc(Signal &sig, const UnaryFuncPack &pack, const Array *pArray)
 {
 	UnaryFunc unaryFunc = pack.unaryFuncs[pArray->GetElemType()];
@@ -246,19 +236,6 @@ bool Array::Dimensions::IsElemwiseCalculatable(const Dimensions &dimsA, const Di
 {
 	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
 	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
-	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
-		if (pA->GetSize() != pB->GetSize()) return false;
-	}
-	return true;
-}
-
-bool Array::Dimensions::IsDotProductCalculatable(const Dimensions &dimsA, const Dimensions &dimsB)
-{
-	if (dimsA.size() < 2 || dimsB.size() < 2) return false;
-	Dimensions::const_reverse_iterator pA = dimsA.rbegin();
-	Dimensions::const_reverse_iterator pB = dimsB.rbegin();
-	if (pA->GetSize() != (pB + 1)->GetSize()) return false;
-	pA += 2, pB += 2;
 	for ( ; pA != dimsA.rend() && pB != dimsB.rend(); pA++, pB++) {
 		if (pA->GetSize() != pB->GetSize()) return false;
 	}
@@ -529,7 +506,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 		size_t rowR = (dimsR.rbegin() + 1)->GetSize();
 		size_t colR = dimsR.rbegin()->GetSize();
 		if (colL_rowR != rowR) {
-			sig.SetError(ERR_ValueError, "can't calcuate dot product");
+			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return nullptr;
 		}
 		pArrayResult.reset(new ArrayT<T_ElemResult>(rowL, colR));
