@@ -34,9 +34,9 @@ public:
 	inline operator const T_Elem *() const { return GetPointer(); }
 	virtual String ToString() const;
 	virtual bool DoesContainZero() const;
-	static ElemType LookupElemType();
-	static const char *LookupElemTypeName();
-	static const char *LookupConstructorName();
+	static ElemType ElemTypeThis;
+	static const char *ElemTypeName;
+	static const char *ConstructorName;
 	void Fill(const T_Elem &num);
 	void FillZero();
 	void FillRand(UInt range);

@@ -135,7 +135,7 @@ String ArrayT<T_Elem>::ToString() const
 {
 	char buff[128];
 	String rtn;
-	rtn += LookupConstructorName();
+	rtn += ConstructorName;
 	rtn += "(";
 	const T_Elem *p = GetPointer();
 	int wdPad = 0;
@@ -170,41 +170,41 @@ bool ArrayT<Complex>::DoesContainZero() const
 	return false;
 }
 
-template<> Array::ElemType ArrayT<Int8>::LookupElemType()		{ return ETYPE_Int8;	}
-template<> Array::ElemType ArrayT<UInt8>::LookupElemType()		{ return ETYPE_UInt8;	}
-template<> Array::ElemType ArrayT<Int16>::LookupElemType()		{ return ETYPE_Int16;	}
-template<> Array::ElemType ArrayT<UInt16>::LookupElemType()		{ return ETYPE_UInt16;	}
-template<> Array::ElemType ArrayT<Int32>::LookupElemType()		{ return ETYPE_Int32;	}
-template<> Array::ElemType ArrayT<UInt32>::LookupElemType()		{ return ETYPE_UInt32;	}
-template<> Array::ElemType ArrayT<Int64>::LookupElemType()		{ return ETYPE_Int64;	}
-template<> Array::ElemType ArrayT<UInt64>::LookupElemType()		{ return ETYPE_UInt64;	}
-template<> Array::ElemType ArrayT<Float>::LookupElemType()		{ return ETYPE_Float;	}
-template<> Array::ElemType ArrayT<Double>::LookupElemType()		{ return ETYPE_Double;	}
-template<> Array::ElemType ArrayT<Complex>::LookupElemType()	{ return ETYPE_Complex;	}
+template<> Array::ElemType ArrayT<Int8>::ElemTypeThis		= ETYPE_Int8;
+template<> Array::ElemType ArrayT<UInt8>::ElemTypeThis		= ETYPE_UInt8;
+template<> Array::ElemType ArrayT<Int16>::ElemTypeThis		= ETYPE_Int16;
+template<> Array::ElemType ArrayT<UInt16>::ElemTypeThis		= ETYPE_UInt16;
+template<> Array::ElemType ArrayT<Int32>::ElemTypeThis		= ETYPE_Int32;
+template<> Array::ElemType ArrayT<UInt32>::ElemTypeThis		= ETYPE_UInt32;
+template<> Array::ElemType ArrayT<Int64>::ElemTypeThis		= ETYPE_Int64;
+template<> Array::ElemType ArrayT<UInt64>::ElemTypeThis		= ETYPE_UInt64;
+template<> Array::ElemType ArrayT<Float>::ElemTypeThis		= ETYPE_Float;
+template<> Array::ElemType ArrayT<Double>::ElemTypeThis		= ETYPE_Double;
+template<> Array::ElemType ArrayT<Complex>::ElemTypeThis	= ETYPE_Complex;
 
-template<> const char *ArrayT<Int8>::LookupElemTypeName()		{ return "int8";	}
-template<> const char *ArrayT<UInt8>::LookupElemTypeName()		{ return "uint8";	}
-template<> const char *ArrayT<Int16>::LookupElemTypeName()		{ return "int16";	}
-template<> const char *ArrayT<UInt16>::LookupElemTypeName()		{ return "uint16";	}
-template<> const char *ArrayT<Int32>::LookupElemTypeName()		{ return "int32";	}
-template<> const char *ArrayT<UInt32>::LookupElemTypeName()		{ return "uint32";	}
-template<> const char *ArrayT<Int64>::LookupElemTypeName()		{ return "int64";	}
-template<> const char *ArrayT<UInt64>::LookupElemTypeName()		{ return "uint64";	}
-template<> const char *ArrayT<Float>::LookupElemTypeName()		{ return "float";	}
-template<> const char *ArrayT<Double>::LookupElemTypeName()		{ return "double";	}
-template<> const char *ArrayT<Complex>::LookupElemTypeName()	{ return "complex";	}
+template<> const char *ArrayT<Int8>::ElemTypeName			= "int8";
+template<> const char *ArrayT<UInt8>::ElemTypeName			= "uint8";
+template<> const char *ArrayT<Int16>::ElemTypeName			= "int16";
+template<> const char *ArrayT<UInt16>::ElemTypeName			= "uint16";
+template<> const char *ArrayT<Int32>::ElemTypeName			= "int32";
+template<> const char *ArrayT<UInt32>::ElemTypeName			= "uint32";
+template<> const char *ArrayT<Int64>::ElemTypeName			= "int64";
+template<> const char *ArrayT<UInt64>::ElemTypeName			= "uint64";
+template<> const char *ArrayT<Float>::ElemTypeName			= "float";
+template<> const char *ArrayT<Double>::ElemTypeName			= "double";
+template<> const char *ArrayT<Complex>::ElemTypeName		= "complex";
 
-template<> const char *ArrayT<Int8>::LookupConstructorName()	{ return "array@int8";		}
-template<> const char *ArrayT<UInt8>::LookupConstructorName()	{ return "array@uint8";		}
-template<> const char *ArrayT<Int16>::LookupConstructorName()	{ return "array@int16";		}
-template<> const char *ArrayT<UInt16>::LookupConstructorName()	{ return "array@uint16";	}
-template<> const char *ArrayT<Int32>::LookupConstructorName()	{ return "array@int32";		}
-template<> const char *ArrayT<UInt32>::LookupConstructorName()	{ return "array@uint32";	}
-template<> const char *ArrayT<Int64>::LookupConstructorName()	{ return "array@int64";		}
-template<> const char *ArrayT<UInt64>::LookupConstructorName()	{ return "array@uint64";	}
-template<> const char *ArrayT<Float>::LookupConstructorName()	{ return "array@float";		}
-template<> const char *ArrayT<Double>::LookupConstructorName()	{ return "array@double";	}
-template<> const char *ArrayT<Complex>::LookupConstructorName() { return "array@complex";	}
+template<> const char *ArrayT<Int8>::ConstructorName		= "array@int8";
+template<> const char *ArrayT<UInt8>::ConstructorName		= "array@uint8";
+template<> const char *ArrayT<Int16>::ConstructorName		= "array@int16";
+template<> const char *ArrayT<UInt16>::ConstructorName		= "array@uint16";
+template<> const char *ArrayT<Int32>::ConstructorName		= "array@int32";
+template<> const char *ArrayT<UInt32>::ConstructorName		= "array@uint32";
+template<> const char *ArrayT<Int64>::ConstructorName		= "array@int64";
+template<> const char *ArrayT<UInt64>::ConstructorName		= "array@uint64";
+template<> const char *ArrayT<Float>::ConstructorName		= "array@float";
+template<> const char *ArrayT<Double>::ConstructorName		= "array@double";
+template<> const char *ArrayT<Complex>::ConstructorName 	= "array@complex";
 
 template<typename T_Elem>
 void ArrayT<T_Elem>::Fill(const T_Elem &num)

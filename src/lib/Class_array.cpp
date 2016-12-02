@@ -543,7 +543,7 @@ Value Method_paste(Environment &env, Argument &arg, const Function *pFunc, Array
 	Signal &sig = env.GetSignal();
 	size_t offset = arg.GetSizeT(0);
 	const Array *pArraySrc = Object_array::GetObject(arg, 1)->GetArray();
-	if (pArraySrc->GetElemType() != ArrayT<T_Elem>::LookupElemType()) {
+	if (pArraySrc->GetElemType() != ArrayT<T_Elem>::ElemTypeThis) {
 		sig.SetError(ERR_TypeError,
 					 "source and destination array must cosist of elements of the same type");
 		return Value::Nil;

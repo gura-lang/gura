@@ -332,7 +332,7 @@ void Class_arrayT<T_Elem>::Prepare(Environment &env)
 	do {
 		String funcName;
 		funcName += "@";
-		funcName += ArrayT<T_Elem>::LookupElemTypeName();
+		funcName += ArrayT<T_Elem>::ElemTypeName;
 		const Symbol *pSymbol = Symbol::Add(funcName.c_str());
 		env.AssignFunction(new Func_atT<T_Elem>(env, pSymbol, GetValueType()));
 	} while (0);
@@ -366,7 +366,7 @@ bool Class_arrayT<T_Elem>::CastFrom(Environment &env, Value &value, const Declar
 		return true;
 	} else if (value.Is_array()) {
 		AutoPtr<Array> pArray(Object_array::GetObject(value)->GetArray()->Reference());
-		if (pArray->GetElemType() != ArrayT<T_Elem>::LookupElemType()) {
+		if (pArray->GetElemType() != ArrayT<T_Elem>::ElemTypeThis) {
 			sig.SetError(ERR_TypeError, "incompatible array type");
 			return false;
 		}
