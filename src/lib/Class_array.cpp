@@ -211,9 +211,9 @@ Gura_ImplementClassMethod(array, dot)
 	Signal &sig = env.GetSignal();
 	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
 	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	AutoPtr<Array> pArrayTRtn(Array::Dot(sig, pArrayL, pArrayR));
-	if (pArrayTRtn.IsNull()) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
+	AutoPtr<Array> pArrayRtn(Array::Dot(sig, pArrayL, pArrayR));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
 }
 
 // array#dump():void
@@ -654,11 +654,11 @@ Gura_ImplementMethod(array, tail)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
-// array#transpose(dim+:number) {block?}
+// array#transpose(axes[]:number) {block?}
 Gura_DeclareMethod(array, transpose)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "dim", VTYPE_number, OCCUR_OnceOrMore);
+	DeclareArg(env, "axes", VTYPE_number, OCCUR_Once, FLAG_ListVar);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(
 		Gura_Symbol(en),
@@ -670,7 +670,9 @@ template<typename T_Elem>
 Value Method_transpose(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
 {
 	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
-	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(arg.GetList(0)));
+	Signal &sig = env.GetSignal();
+	AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(sig, arg.GetList(0)));
+	if (pArrayTRtn.IsNull()) return Value::Nil;
 	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
 }
 

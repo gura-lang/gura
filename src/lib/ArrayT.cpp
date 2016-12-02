@@ -397,13 +397,62 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Reshape(Signal &sig, const ValueList &valList) c
 			dims.push_back(Dimension(GetElemNum() / nElems));
 		}
 	}	
+	pArrayTRtn->UpdateMetrics();
 	return pArrayTRtn.release();
 }
 
 template<typename T_Elem>
-ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const ValueList &valList) const
+void TransposeSub(T_Elem *&pDst, const T_Elem *pSrc, const Array::Dimensions &dimsSrc,
+				  SizeTList::const_iterator pAxis, SizeTList::const_iterator pAxisEnd)
 {
-	return nullptr;
+	const Array::Dimension &dimSrc = dimsSrc[*pAxis];
+	if (pAxis + 1 == pAxisEnd) {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride(), pDst++) {
+			//::printf("  %p %p\n", pSrc, pDst);
+			*pDst = *pSrc;
+		}
+	} else {
+		for (size_t i = 0; i < dimSrc.GetSize(); i++, pSrc += dimSrc.GetStride()) {
+			//::printf("%p %p\n", pSrc, pDst);
+			TransposeSub(pDst, pSrc, dimsSrc, pAxis + 1, pAxisEnd);
+		}
+	}
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList) const
+{
+	if (GetDimensions().size() != valList.size()) {
+		sig.SetError(ERR_ValueError, "mismatched number of axes to transpose");
+		return nullptr;
+	}
+	SizeTList axes;
+	foreach_const (ValueList, pValue, valList) {
+		size_t axis = pValue->GetSizeT();
+		if (std::find(axes.begin(), axes.end(), axis) != axes.end()) {
+			sig.SetError(ERR_ValueError, "duplicated axis is specified");
+			return nullptr;
+		}
+		if (axis >= GetDimensions().size()) {
+			sig.SetError(ERR_ValueError, "specified axis is out of range");
+			return nullptr;
+		}
+		axes.push_back(axis);
+	}
+	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
+	do {
+		Dimensions &dimsDst = pArrayTRtn->GetDimensions();
+		dimsDst.reserve(GetDimensions().size());
+		foreach_const (SizeTList, pAxis, axes) {
+			const Dimension &dimSrc = GetDimensions()[*pAxis];
+			dimsDst.push_back(Dimension(dimSrc.GetSize()));
+		}
+		pArrayTRtn->UpdateMetrics();
+		pArrayTRtn->AllocMemory();
+	} while (0);
+	T_Elem *pDst = pArrayTRtn->GetPointer();
+	TransposeSub(pDst, GetPointer(), GetDimensions(), axes.begin(), axes.end());
+	return pArrayTRtn.release();
 }
 
 template<typename T_Elem>
