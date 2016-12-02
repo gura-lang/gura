@@ -2911,3 +2911,14 @@ ValueError: mismatched number of axes to transpose
 ValueError: mismatched number of axes to transpose
 ValueError: mismatched number of axes to transpose
 ValueError: duplicated axis is specified
+
+======== #19 array#T ========
+
+array@int32([[ 1,  2,  3,  4],
+             [ 5,  6,  7,  8],
+             [ 9, 10, 11, 12]])
+[4, 3]
+array@int32([[ 1,  5,  9],
+             [ 2,  6, 10],
+             [ 3,  7, 11],
+             [ 4,  8, 12]])

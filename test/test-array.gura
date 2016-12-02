@@ -385,3 +385,17 @@ testcase('array#transpose()') {
 	axesTbl = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [0, 1, 3], [], [0], [0, 1], [0, 1, 1]]
 	func(src, axesTbl)
 }
+testcase('array#T') {
+	func(src:array) = {
+		println(src)
+		try {
+			result = src.T
+			println(result.shape):nomap
+			println(result)
+		} catch {|e|
+			println(e.text)
+		}
+	}
+	src = array@int32([1..12]).reshape([3, 4])
+	func(src)
+}

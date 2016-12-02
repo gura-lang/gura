@@ -439,6 +439,12 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(Signal &sig, const ValueList &valList)
 		}
 		axes.push_back(axis);
 	}
+	return Transpose(axes);
+}
+
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::Transpose(const SizeTList &axes) const
+{
 	AutoPtr<ArrayT> pArrayTRtn(new ArrayT());
 	do {
 		Dimensions &dimsDst = pArrayTRtn->GetDimensions();

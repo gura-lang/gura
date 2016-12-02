@@ -49,6 +49,7 @@ public:
 	ArrayT *Flatten() const;
 	ArrayT *Reshape(Signal &sig, const ValueList &valList) const;
 	ArrayT *Transpose(Signal &sig, const ValueList &valList) const;
+	ArrayT *Transpose(const SizeTList &axes) const;
 	ArrayT *Head(Signal &sig, size_t n) const;
 	ArrayT *Tail(Signal &sig, size_t n) const;
 	ArrayT *Offset(Signal &sig, size_t n) const;

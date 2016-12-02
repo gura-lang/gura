@@ -5,6 +5,8 @@
 
 namespace Gura {
 
+typedef Value (*DoGetPropT)(Environment &env, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag, Object_array *pObj);
 typedef Value (*IndexGetT)(Environment &env, const Value &valueIdx, Object_array *pObj);
 typedef void (*IndexSetT)(Environment &env, const Value &valueIdx, const Value &value, Object_array *pObj);
 typedef Value (*MethodT)(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf);
@@ -44,8 +46,37 @@ bool Object_array::DoDirProp(Environment &env, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, symbols)) return false;
 	symbols.insert(Gura_Symbol(elemtype));
+	symbols.insert(Gura_Symbol(ndim));
 	symbols.insert(Gura_Symbol(shape));
+	symbols.insert(Gura_Symbol(T));
 	return true;
+}
+
+template<typename T_Elem>
+Value DoGetPropTmpl(Environment &env, const Symbol *pSymbol,
+					const SymbolSet &attrs, bool &evaluatedFlag, Object_array *pObj)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(T))) {
+		ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pObj->GetArray());
+		size_t nAxes = pArrayT->GetDimensions().size();
+		if (nAxes == 1) {
+			env.SetError(ERR_NotImplementedError, "not implemented yet");
+			return Value::Nil;
+		} else if (nAxes == 2) {
+			SizeTList axes;
+			axes.reserve(2);
+			axes.push_back(1), axes.push_back(0);
+			AutoPtr<Array> pArrayTRtn(pArrayT->Transpose(axes));
+			return Value(new Object_array(env, pArrayTRtn.release()));
+		} else {
+			env.SetError(ERR_ValueError,
+						 "property T is only available with an array of 1D or 2D");
+			return Value::Nil;
+		}
+	}
+	evaluatedFlag = false;
+	return Value::Nil;
 }
 
 Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
@@ -68,7 +99,21 @@ Value Object_array::DoGetProp(Environment &env, const Symbol *pSymbol,
 		return value;
 	}
 	evaluatedFlag = false;
-	return Value::Nil;
+	static const DoGetPropT doGetProps[] = {
+		nullptr,
+		&DoGetPropTmpl<Int8>,
+		&DoGetPropTmpl<UInt8>,
+		&DoGetPropTmpl<Int16>,
+		&DoGetPropTmpl<UInt16>,
+		&DoGetPropTmpl<Int32>,
+		&DoGetPropTmpl<UInt32>,
+		&DoGetPropTmpl<Int64>,
+		&DoGetPropTmpl<UInt64>,
+		&DoGetPropTmpl<Float>,
+		&DoGetPropTmpl<Double>,
+		//&DoGetPropTmpl<Complex>,
+	};
+	return (*doGetProps[GetArray()->GetElemType()])(env, pSymbol, attrs, evaluatedFlag, this);
 }
 
 template<typename T_Elem>
