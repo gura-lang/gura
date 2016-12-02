@@ -495,6 +495,23 @@ void BinaryFuncTmpl_Dot_2d_2d(T_ElemResult *pElemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void BinaryFuncTmpl_Dot_1d_2d(T_ElemResult *pElemResult,
+							  const T_ElemL *pElemL, const T_ElemR *pElemR,
+							  size_t nRow, size_t nCol)
+{
+	const T_ElemR *pElemBaseR = pElemR;
+	for (size_t iCol = 0; iCol < nCol; iCol++, pElemBaseR++) {
+		const T_ElemL *pElemWorkL = pElemL;
+		const T_ElemR *pElemWorkR = pElemBaseR;
+		T_ElemResult elemResult = 0;
+		for (size_t iRow = 0; iRow < nRow; iRow++, pElemWorkL++, pElemWorkR += nCol) {
+				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * *pElemWorkR;
+		}
+		*pElemResult++ = elemResult;
+	}
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void BinaryFuncTmpl_Dot_1d_1d(T_ElemResult &elemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR, size_t n)
 {
@@ -510,7 +527,22 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
 	const Array::Dimensions &dimsL = arrayL.GetDimensions();
 	const Array::Dimensions &dimsR = arrayR.GetDimensions();
-	if (dimsL.size() >= 2 && dimsR.size() >= 2) {
+	if (dimsL.size() == 2 && dimsR.size() == 2) {
+		size_t nRowL = dimsL[0].GetSize();
+		size_t nColL_nRowR = dimsL[1].GetSize();
+		size_t nRowR = dimsR[0].GetSize();
+		size_t nColR = dimsR[1].GetSize();
+		if (nColL_nRowR != nRowR) {
+			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return nullptr;
+		}
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
+	} else if (dimsL.size() >= 2 && dimsR.size() >= 2) {
+#if 0
 		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
 		size_t nColL_nRowR = dimsL.rbegin()->GetSize();
 		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
@@ -519,30 +551,47 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return nullptr;
 		}
-		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
-		size_t elemNumResult = pArrayResult->GetElemNum();
-		size_t elemNumL = arrayL.GetElemNum();
-		size_t elemNumR = arrayR.GetElemNum();
-		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		//size_t elemNumL = arrayL.GetElemNum();
+		//size_t elemNumR = arrayR.GetElemNum();
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
 		if (dimsL.size() < dimsR.size()) {
+			pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
+			size_t elemNumResult = pArrayResult->GetElemNum();
 			size_t elemNumMatR = nColL_nRowR * nColR;
+			T_ElemResult *pElemResult = pArrayResult->GetPointer();
 			for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
 				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
-				pElemR += elemNumR;
+				pElemR += elemNumMatR;
 			}
 		} else { // dimsL.size() >= dimsR.size()
+			pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
+			size_t elemNumResult = pArrayResult->GetElemNum();
 			size_t elemNumMatL = nRowL * nColL_nRowR;
+			T_ElemResult *pElemResult = pArrayResult->GetPointer();
 			for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
 				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
-				pElemL += elemNumL;
+				pElemL += elemNumMatL;
 			}
 		}
+#endif
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-		
+#if 0
+		size_t nRow = (dimsL.rbegin() + 1)->GetSize();
+		size_t nCol = dimsL.rbegin()->GetSize();
+		size_t elemNum = arrayR.GetElemNum();
+		size_t elemNumMat = nRow * nCol;
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		for (size_t cnt = elemNum / elemNumMat; cnt > 0; cnt--) {
+			BinaryFuncTmpl_Dot_1d_2d(pElemResult, pElemL, pElemR, nRow, nCol);
+			pElemResult += elemNumResult;
+			pElemR += elemNumMat;
+		}		
+#endif
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
 		
 	} else { // dimsL.size() == 1 && dimsR.size() == 1
