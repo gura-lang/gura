@@ -401,7 +401,7 @@ bool Class_arrayT<T_Elem>::CastTo(Environment &env, Value &value, const Declarat
 }
 
 //------------------------------------------------------------------------------
-// Instantiation of Object_arrayT
+// Realization of Object_arrayT
 //------------------------------------------------------------------------------
 template class Object_arrayT<Int8>;
 template class Object_arrayT<UInt8>;
@@ -415,7 +415,7 @@ template class Object_arrayT<Float>;
 template class Object_arrayT<Double>;
 
 //------------------------------------------------------------------------------
-// Instantiation of Class_arrayT
+// Realization of Class_arrayT
 //------------------------------------------------------------------------------
 template class Class_arrayT<Int8>;
 template class Class_arrayT<UInt8>;

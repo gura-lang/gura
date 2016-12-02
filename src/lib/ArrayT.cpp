@@ -709,7 +709,7 @@ void Iterator_ArrayT_Each<T_Elem>::GatherFollower(
 }
 
 //------------------------------------------------------------------------------
-// Implementation of ArrayT
+// Realization of ArrayT
 //------------------------------------------------------------------------------
 ImplementArrayT(Int8)
 ImplementArrayT(UInt8)
@@ -724,7 +724,7 @@ ImplementArrayT(Double)
 ImplementArrayT(Complex)
 
 //------------------------------------------------------------------------------
-// Implementation of Iterator_ArrayT_Each
+// Realization of Iterator_ArrayT_Each
 //------------------------------------------------------------------------------
 template class Iterator_ArrayT_Each<Int8>;
 template class Iterator_ArrayT_Each<UInt8>;
