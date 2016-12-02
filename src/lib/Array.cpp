@@ -477,20 +477,30 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void BinaryFuncTmpl_Dot_2d_2d(T_ElemResult *pElemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR,
-							  size_t rowL, size_t colL_rowR, size_t colR)
+							  size_t nRowL, size_t nColL_nRowR, size_t nColR)
 {
 	const T_ElemL *pElemBaseL = pElemL;
-	for (size_t iRow = 0; iRow < rowL; iRow++, pElemBaseL += colL_rowR) {
+	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += nColL_nRowR) {
 		const T_ElemR *pElemBaseR = pElemR;
-		for (size_t iCol = 0; iCol < colR; iCol++, pElemBaseR++) {
+		for (size_t iCol = 0; iCol < nColR; iCol++, pElemBaseR++) {
 			const T_ElemL *pElemWorkL = pElemBaseL;
 			const T_ElemR *pElemWorkR = pElemBaseR;
 			T_ElemResult elemResult = 0;
-			for (size_t i = 0; i < colL_rowR; i++, pElemWorkL++, pElemWorkR += colR) {
+			for (size_t i = 0; i < nColL_nRowR; i++, pElemWorkL++, pElemWorkR += nColR) {
 				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * *pElemWorkR;
 			}
 			*pElemResult++ = elemResult;
 		}
+	}
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void BinaryFuncTmpl_Dot_1d_1d(T_ElemResult &elemResult,
+							  const T_ElemL *pElemL, const T_ElemR *pElemR, size_t n)
+{
+	elemResult = 0;
+	for (size_t i = 0; i < n; i++, pElemL++, pElemR++) {
+		elemResult += static_cast<T_ElemResult>(*pElemL) * *pElemR;
 	}
 }
 
@@ -501,15 +511,15 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 	const Array::Dimensions &dimsL = arrayL.GetDimensions();
 	const Array::Dimensions &dimsR = arrayR.GetDimensions();
 	if (dimsL.size() >= 2 && dimsR.size() >= 2) {
-		size_t rowL = (dimsL.rbegin() + 1)->GetSize();
-		size_t colL_rowR = dimsL.rbegin()->GetSize();
-		size_t rowR = (dimsR.rbegin() + 1)->GetSize();
-		size_t colR = dimsR.rbegin()->GetSize();
-		if (colL_rowR != rowR) {
+		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
+		size_t nColL_nRowR = dimsL.rbegin()->GetSize();
+		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
+		size_t nColR = dimsR.rbegin()->GetSize();
+		if (nColL_nRowR != nRowR) {
 			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return nullptr;
 		}
-		pArrayResult.reset(new ArrayT<T_ElemResult>(rowL, colR));
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
 		size_t elemNumResult = pArrayResult->GetElemNum();
 		size_t elemNumL = arrayL.GetElemNum();
 		size_t elemNumR = arrayR.GetElemNum();
@@ -517,16 +527,16 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
 		if (dimsL.size() < dimsR.size()) {
-			size_t elemNumMatR = colL_rowR * colR;
+			size_t elemNumMatR = nColL_nRowR * nColR;
 			for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
-				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
+				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
 				pElemR += elemNumR;
 			}
 		} else { // dimsL.size() >= dimsR.size()
-			size_t elemNumMatL = rowL * colL_rowR;
+			size_t elemNumMatL = nRowL * nColL_nRowR;
 			for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
-				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, rowL, colL_rowR, colR);
+				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
 				pElemL += elemNumL;
 			}
@@ -536,7 +546,13 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
 		
 	} else { // dimsL.size() == 1 && dimsR.size() == 1
-		
+#if 0
+		size_t nL = dimsL[0].GetSize();
+		size_t nR = dimsR[0].GetSize();
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		BinaryFuncTmpl_Dot_1d_1d(elemResult, pElemL, pElemR, size_t nL);
+#endif		
 	}
 	return pArrayResult.release();
 }
