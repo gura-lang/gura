@@ -12,6 +12,7 @@
 #include "SuffixMgr.h"
 #include "PathMgr.h"
 #include "Callable.h"
+#include "PropHandler.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -181,6 +182,7 @@ public:
 		Argument *_pArgWeak;
 		ValueEx _valueEx_arg;
 		ValueEx _valueEx_this;
+		PropHandlerMap _propHandlerMap;
 	public:
 		inline static void *operator new(size_t size) {
 			return MemoryPool::Allocate(size, "Frame");
