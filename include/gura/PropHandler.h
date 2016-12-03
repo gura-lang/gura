@@ -11,8 +11,8 @@ namespace Gura {
 class GURA_DLLDECLARE PropHandler {
 public:
 	virtual ~PropHandler();
-	virtual Value DoSetProp(Environment &env, const Value &value) = 0;
-	virtual Value DoGetProp(Environment &env) = 0;
+	virtual Value DoSetProp(Object *pObj, const Value &value) = 0;
+	virtual Value DoGetProp(Object *pObj) = 0;
 };
 
 class GURA_DLLDECLARE PropHandlerMap :
