@@ -35,6 +35,7 @@ public:
 	typedef Array *(*BinaryFunc_array_array)(Signal &sig, const Array &arrayL, const Array &arrayR);
 	typedef Array *(*BinaryFunc_array_number)(Signal &sig, const Array &arrayL, Number numberR);
 	typedef Array *(*BinaryFunc_number_array)(Signal &sig, Number numberL, const Array &arrayR);
+	typedef Value (*DotFunc)(Environment &env, const Array &arrayL, const Array &arrayR);
 	struct UnaryFuncPack {
 		const char *name;
 		UnaryFunc unaryFuncs[ETYPE_Max];
@@ -83,9 +84,10 @@ public:
 	static BinaryFuncPack binaryFuncPack_Xor;
 	static BinaryFuncPack binaryFuncPack_Shl;
 	static BinaryFuncPack binaryFuncPack_Shr;
-	static BinaryFuncPack binaryFuncPack_Dot;
-	static UnaryFunc unaryFuncTbl_Pos[ETYPE_Max];
-	static UnaryFunc unaryFuncTbl_Neg[ETYPE_Max];
+	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
+	//static BinaryFuncPack binaryFuncPack_Dot;
+	//static UnaryFunc unaryFuncTbl_Pos[ETYPE_Max];
+	//static UnaryFunc unaryFuncTbl_Neg[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -143,9 +145,7 @@ public:
 	static Value ApplyBinaryFunc_number_array(
 		Environment &env, const BinaryFuncPack &pack, const Value &valueL, const Value &valueR);
 public:
-	inline static Array *Dot(Signal &sig, const Array *pArrayL, const Array *pArrayR) {
-		return ApplyBinaryFunc_array_array(sig, binaryFuncPack_Dot, pArrayL, pArrayR);
-	}
+	static Value Dot(Environment &env, const Array *pArrayL, const Array *pArrayR);
 };
 	
 }

@@ -253,12 +253,11 @@ Gura_DeclareClassMethod(array, dot)
 
 Gura_ImplementClassMethod(array, dot)
 {
-	Signal &sig = env.GetSignal();
 	const Array *pArrayL = Object_array::GetObject(arg, 0)->GetArray();
 	const Array *pArrayR = Object_array::GetObject(arg, 1)->GetArray();
-	AutoPtr<Array> pArrayRtn(Array::Dot(sig, pArrayL, pArrayR));
-	if (pArrayRtn.IsNull()) return Value::Nil;
-	return ReturnValue(env, arg, Value(new Object_array(env, pArrayRtn.release())));
+	Value valResult = Array::Dot(env, pArrayL, pArrayR);
+	if (env.IsSignalled()) return Value::Nil;
+	return ReturnValue(env, arg, valResult);
 }
 
 // array#dump():void

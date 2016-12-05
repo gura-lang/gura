@@ -214,6 +214,16 @@ Value Array::ApplyBinaryFunc_number_array(
 	return Value(new Object_array(env, pArray));
 }
 
+Value Array::Dot(Environment &env, const Array *pArrayL, const Array *pArrayR)
+{
+	DotFunc dotFunc = dotFuncs[pArrayL->GetElemType()][pArrayR->GetElemType()];
+	if (dotFunc == nullptr) {
+		env.SetError(ERR_TypeError, "can't apply dot function on these arrays");
+		return Value::Nil;
+	}
+	return (*dotFunc)(env, *pArrayL, *pArrayR);
+}
+
 //-----------------------------------------------------------------------------
 // Array::Dimension
 //-----------------------------------------------------------------------------
@@ -475,7 +485,7 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array 
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void BinaryFuncTmpl_Dot_2d_2d(T_ElemResult *pElemResult,
+void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR,
 							  size_t nRowL, size_t nColL_nRowR, size_t nColR)
 {
@@ -495,7 +505,7 @@ void BinaryFuncTmpl_Dot_2d_2d(T_ElemResult *pElemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void BinaryFuncTmpl_Dot_1d_2d(T_ElemResult *pElemResult,
+void DotFuncTmpl_1d_2d(T_ElemResult *pElemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR,
 							  size_t nRow, size_t nCol)
 {
@@ -512,7 +522,7 @@ void BinaryFuncTmpl_Dot_1d_2d(T_ElemResult *pElemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void BinaryFuncTmpl_Dot_1d_1d(T_ElemResult &elemResult,
+void DotFuncTmpl_1d_1d(T_ElemResult &elemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR, size_t n)
 {
 	elemResult = 0;
@@ -522,25 +532,38 @@ void BinaryFuncTmpl_Dot_1d_1d(T_ElemResult &elemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
+Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 {
-	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
 	const Array::Dimensions &dimsL = arrayL.GetDimensions();
 	const Array::Dimensions &dimsR = arrayR.GetDimensions();
+	if (dimsL.size() == 1 && dimsR.size() == 1) {
+		T_ElemResult elemResult = 0;
+		size_t nL = dimsL[0].GetSize();
+		size_t nR = dimsR[0].GetSize();
+		if (nL != nR) {
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
+		}
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		DotFuncTmpl_1d_1d(elemResult, pElemL, pElemR, nL);
+		return Value(elemResult);
+	}
+	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
 	if (dimsL.size() == 2 && dimsR.size() == 2) {
 		size_t nRowL = dimsL[0].GetSize();
 		size_t nColL_nRowR = dimsL[1].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		size_t nColR = dimsR[1].GetSize();
 		if (nColL_nRowR != nRowR) {
-			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
-			return nullptr;
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
 		}
 		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
+		DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 	} else if (dimsL.size() >= 2 && dimsR.size() >= 2) {
 #if 0
 		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
@@ -548,8 +571,8 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
 		size_t nColR = dimsR.rbegin()->GetSize();
 		if (nColL_nRowR != nRowR) {
-			sig.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
-			return nullptr;
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
 		}
 		//size_t elemNumL = arrayL.GetElemNum();
 		//size_t elemNumR = arrayR.GetElemNum();
@@ -561,7 +584,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 			size_t elemNumMatR = nColL_nRowR * nColR;
 			T_ElemResult *pElemResult = pArrayResult->GetPointer();
 			for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
-				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
+				DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
 				pElemR += elemNumMatR;
 			}
@@ -571,7 +594,7 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 			size_t elemNumMatL = nRowL * nColL_nRowR;
 			T_ElemResult *pElemResult = pArrayResult->GetPointer();
 			for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
-				BinaryFuncTmpl_Dot_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
+				DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
 				pElemResult += elemNumResult;
 				pElemL += elemNumMatL;
 			}
@@ -587,23 +610,15 @@ Array *BinaryFuncTmpl_Dot(Signal &sig, const Array &arrayL, const Array &arrayR)
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
 		for (size_t cnt = elemNum / elemNumMat; cnt > 0; cnt--) {
-			BinaryFuncTmpl_Dot_1d_2d(pElemResult, pElemL, pElemR, nRow, nCol);
+			DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR, nRow, nCol);
 			pElemResult += elemNumResult;
 			pElemR += elemNumMat;
 		}		
 #endif
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
 		
-	} else { // dimsL.size() == 1 && dimsR.size() == 1
-#if 0
-		size_t nL = dimsL[0].GetSize();
-		size_t nR = dimsR[0].GetSize();
-		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
-		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		BinaryFuncTmpl_Dot_1d_1d(elemResult, pElemL, pElemR, size_t nL);
-#endif		
 	}
-	return pArrayResult.release();
+	return Value(new Object_array(env, pArrayResult.release()));
 }
 
 Array::UnaryFuncPack Array::unaryFuncPack_Pos = {
@@ -975,159 +990,154 @@ ImplementBinaryFuncPack_BitOp(Xor,	"xor");
 ImplementBinaryFuncPack_BitOp(Shl,	"shl");
 ImplementBinaryFuncPack_BitOp(Shr,	"Shr");
 
-Array::BinaryFuncPack Array::binaryFuncPack_Dot = {
-	"",
+Array::DotFunc Array::dotFuncs[ETYPE_Max][ETYPE_Max] = {
 	{
-		{
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-			nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Int8,		Int8,		Int8	>,
-			&BinaryFuncTmpl_Dot<UInt8,		Int8,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Int16,		Int8,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt16,		Int8,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int8,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		Int8,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int8,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		Int8,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		Int8,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Int8,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	UInt8,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<UInt8,		UInt8,		Int8	>,
-			&BinaryFuncTmpl_Dot<UInt8,		UInt8,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Int16,		UInt8,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt16,		UInt8,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int32,		UInt8,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt8,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		UInt8,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt8,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		UInt8,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		UInt8,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	UInt8,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Int16,		Int16,		Int8	>,
-			&BinaryFuncTmpl_Dot<Int16,		Int16,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Int16,		Int16,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt16,		Int16,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int16,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		Int16,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int16,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		Int16,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		Int16,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Int16,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Int16,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		Int8	>,
-			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		UInt8	>,
-			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt16,		UInt16,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int32,		UInt16,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt16,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		UInt16,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt16,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		UInt16,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		UInt16,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	UInt16,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Int32,		Int32,		Int8	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int32,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int32,		Int16	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int32,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int32,		Int32,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		Int32,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int32,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		Int32,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		Int32,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Int32,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Int32,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		Int8	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		UInt8	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		UInt16	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt32,		UInt32,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		UInt32,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt32,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		UInt32,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		UInt32,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	UInt32,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		Int8	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		Int16	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		Int32	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Int64,		Int64,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		Int64,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		Int64,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Int64,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Int64,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Int8	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		UInt8	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Int16	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		UInt16	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Int32	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		UInt32	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		Int64	>,
-			&BinaryFuncTmpl_Dot<UInt64,		UInt64,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		UInt64,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		UInt64,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	UInt64,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Float,		Float,		Int8	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		Int16	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		Int32	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		Int64	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Float,		Float,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Float,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Float,		Complex	>,
-		}, {
-			nullptr,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Int8	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		UInt8	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Int16	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		UInt16	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Int32	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		UInt32	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Int64	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		UInt64	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Float	>,
-			&BinaryFuncTmpl_Dot<Double,		Double,		Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Double,		Complex	>,
-		}, {
-			nullptr,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Int8	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	UInt8	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Int16	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	UInt16	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Int32	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	UInt32	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Int64	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	UInt64	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Float	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Double	>,
-			//&BinaryFuncTmpl_Dot<Complex,	Complex,	Complex	>,
-		},
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+		nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
 	}, {
+		nullptr,
+		&DotFuncTmpl<Int8,		Int8,		Int8	>,
+		&DotFuncTmpl<UInt8,		Int8,		UInt8	>,
+		&DotFuncTmpl<Int16,		Int8,		Int16	>,
+		&DotFuncTmpl<UInt16,	Int8,		UInt16	>,
+		&DotFuncTmpl<Int32,		Int8,		Int32	>,
+		&DotFuncTmpl<UInt32,	Int8,		UInt32	>,
+		&DotFuncTmpl<Int64,		Int8,		Int64	>,
+		&DotFuncTmpl<UInt64,	Int8,		UInt64	>,
+		&DotFuncTmpl<Float,		Int8,		Float	>,
+		&DotFuncTmpl<Double,	Int8,		Double	>,
+		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
 	}, {
-	}
+		nullptr,
+		&DotFuncTmpl<UInt8,		UInt8,		Int8	>,
+		&DotFuncTmpl<UInt8,		UInt8,		UInt8	>,
+		&DotFuncTmpl<Int16,		UInt8,		Int16	>,
+		&DotFuncTmpl<UInt16,	UInt8,		UInt16	>,
+		&DotFuncTmpl<Int32,		UInt8,		Int32	>,
+		&DotFuncTmpl<UInt32,	UInt8,		UInt32	>,
+		&DotFuncTmpl<Int64,		UInt8,		Int64	>,
+		&DotFuncTmpl<UInt64,	UInt8,		UInt64	>,
+		&DotFuncTmpl<Float,		UInt8,		Float	>,
+		&DotFuncTmpl<Double,	UInt8,		Double	>,
+		//&DotFuncTmpl<Complex,	UInt8,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Int16,		Int16,		Int8	>,
+		&DotFuncTmpl<Int16,		Int16,		UInt8	>,
+		&DotFuncTmpl<Int16,		Int16,		Int16	>,
+		&DotFuncTmpl<UInt16,	Int16,		UInt16	>,
+		&DotFuncTmpl<Int32,		Int16,		Int32	>,
+		&DotFuncTmpl<UInt32,	Int16,		UInt32	>,
+		&DotFuncTmpl<Int64,		Int16,		Int64	>,
+		&DotFuncTmpl<UInt64,	Int16,		UInt64	>,
+		&DotFuncTmpl<Float,		Int16,		Float	>,
+		&DotFuncTmpl<Double,	Int16,		Double	>,
+		//&DotFuncTmpl<Complex,	Int16,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<UInt16,	UInt16,		Int8	>,
+		&DotFuncTmpl<UInt16,	UInt16,		UInt8	>,
+		&DotFuncTmpl<UInt16,	UInt16,		Int16	>,
+		&DotFuncTmpl<UInt16,	UInt16,		UInt16	>,
+		&DotFuncTmpl<Int32,		UInt16,		Int32	>,
+		&DotFuncTmpl<UInt32,	UInt16,		UInt32	>,
+		&DotFuncTmpl<Int64,		UInt16,		Int64	>,
+		&DotFuncTmpl<UInt64,	UInt16,		UInt64	>,
+		&DotFuncTmpl<Float,		UInt16,		Float	>,
+		&DotFuncTmpl<Double,	UInt16,		Double	>,
+		//&DotFuncTmpl<Complex,	UInt16,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Int32,		Int32,		Int8	>,
+		&DotFuncTmpl<Int32,		Int32,		UInt8	>,
+		&DotFuncTmpl<Int32,		Int32,		Int16	>,
+		&DotFuncTmpl<Int32,		Int32,		UInt16	>,
+		&DotFuncTmpl<Int32,		Int32,		Int32	>,
+		&DotFuncTmpl<UInt32,	Int32,		UInt32	>,
+		&DotFuncTmpl<Int64,		Int32,		Int64	>,
+		&DotFuncTmpl<UInt64,	Int32,		UInt64	>,
+		&DotFuncTmpl<Float,		Int32,		Float	>,
+		&DotFuncTmpl<Double,	Int32,		Double	>,
+		//&DotFuncTmpl<Complex,	Int32,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<UInt32,	UInt32,		Int8	>,
+		&DotFuncTmpl<UInt32,	UInt32,		UInt8	>,
+		&DotFuncTmpl<UInt32,	UInt32,		Int16	>,
+		&DotFuncTmpl<UInt32,	UInt32,		UInt16	>,
+		&DotFuncTmpl<UInt32,	UInt32,		Int32	>,
+		&DotFuncTmpl<UInt32,	UInt32,		UInt32	>,
+		&DotFuncTmpl<Int64,		UInt32,		Int64	>,
+		&DotFuncTmpl<UInt64,	UInt32,		UInt64	>,
+		&DotFuncTmpl<Float,		UInt32,		Float	>,
+		&DotFuncTmpl<Double,	UInt32,		Double	>,
+		//&DotFuncTmpl<Complex,	UInt32,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Int64,		Int64,		Int8	>,
+		&DotFuncTmpl<Int64,		Int64,		UInt8	>,
+		&DotFuncTmpl<Int64,		Int64,		Int16	>,
+		&DotFuncTmpl<Int64,		Int64,		UInt16	>,
+		&DotFuncTmpl<Int64,		Int64,		Int32	>,
+		&DotFuncTmpl<Int64,		Int64,		UInt32	>,
+		&DotFuncTmpl<Int64,		Int64,		Int64	>,
+		&DotFuncTmpl<UInt64,	Int64,		UInt64	>,
+		&DotFuncTmpl<Float,		Int64,		Float	>,
+		&DotFuncTmpl<Double,	Int64,		Double	>,
+		//&DotFuncTmpl<Complex,	Int64,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<UInt64,	UInt64,		Int8	>,
+		&DotFuncTmpl<UInt64,	UInt64,		UInt8	>,
+		&DotFuncTmpl<UInt64,	UInt64,		Int16	>,
+		&DotFuncTmpl<UInt64,	UInt64,		UInt16	>,
+		&DotFuncTmpl<UInt64,	UInt64,		Int32	>,
+		&DotFuncTmpl<UInt64,	UInt64,		UInt32	>,
+		&DotFuncTmpl<UInt64,	UInt64,		Int64	>,
+		&DotFuncTmpl<UInt64,	UInt64,		UInt64	>,
+		&DotFuncTmpl<Float,		UInt64,		Float	>,
+		&DotFuncTmpl<Double,	UInt64,		Double	>,
+		//&DotFuncTmpl<Complex,	UInt64,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Float,		Float,		Int8	>,
+		&DotFuncTmpl<Float,		Float,		UInt8	>,
+		&DotFuncTmpl<Float,		Float,		Int16	>,
+		&DotFuncTmpl<Float,		Float,		UInt16	>,
+		&DotFuncTmpl<Float,		Float,		Int32	>,
+		&DotFuncTmpl<Float,		Float,		UInt32	>,
+		&DotFuncTmpl<Float,		Float,		Int64	>,
+		&DotFuncTmpl<Float,		Float,		UInt64	>,
+		&DotFuncTmpl<Float,		Float,		Float	>,
+		&DotFuncTmpl<Double,	Float,		Double	>,
+		//&DotFuncTmpl<Complex,	Float,		Complex	>,
+	}, {
+		nullptr,
+		&DotFuncTmpl<Double,	Double,		Int8	>,
+		&DotFuncTmpl<Double,	Double,		UInt8	>,
+		&DotFuncTmpl<Double,	Double,		Int16	>,
+		&DotFuncTmpl<Double,	Double,		UInt16	>,
+		&DotFuncTmpl<Double,	Double,		Int32	>,
+		&DotFuncTmpl<Double,	Double,		UInt32	>,
+		&DotFuncTmpl<Double,	Double,		Int64	>,
+		&DotFuncTmpl<Double,	Double,		UInt64	>,
+		&DotFuncTmpl<Double,	Double,		Float	>,
+		&DotFuncTmpl<Double,	Double,		Double	>,
+		//&DotFuncTmpl<Complex,	Double,		Complex	>,
+	}, {
+		nullptr,
+		//&DotFuncTmpl<Complex,	Complex,	Int8	>,
+		//&DotFuncTmpl<Complex,	Complex,	UInt8	>,
+		//&DotFuncTmpl<Complex,	Complex,	Int16	>,
+		//&DotFuncTmpl<Complex,	Complex,	UInt16	>,
+		//&DotFuncTmpl<Complex,	Complex,	Int32	>,
+		//&DotFuncTmpl<Complex,	Complex,	UInt32	>,
+		//&DotFuncTmpl<Complex,	Complex,	Int64	>,
+		//&DotFuncTmpl<Complex,	Complex,	UInt64	>,
+		//&DotFuncTmpl<Complex,	Complex,	Float	>,
+		//&DotFuncTmpl<Complex,	Complex,	Double	>,
+		//&DotFuncTmpl<Complex,	Complex,	Complex	>,
+	},
 };
 
 }
