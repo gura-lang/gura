@@ -85,9 +85,6 @@ public:
 	static BinaryFuncPack binaryFuncPack_Shl;
 	static BinaryFuncPack binaryFuncPack_Shr;
 	static DotFunc dotFuncs[ETYPE_Max][ETYPE_Max];
-	//static BinaryFuncPack binaryFuncPack_Dot;
-	//static UnaryFunc unaryFuncTbl_Pos[ETYPE_Max];
-	//static UnaryFunc unaryFuncTbl_Neg[ETYPE_Max];
 public:
 	Gura_DeclareReferenceAccessor(Array);
 public:
@@ -122,6 +119,8 @@ public:
 					   const Dimension &dim);
 	void SetDimensions(const Dimensions &dims);
 	void SetDimensions(const ValueList &valList);
+	void SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+					   const Dimension &dimRow, const Dimension &dimCol);
 	void UpdateMetrics();
 	bool HasShape(size_t size) const;
 	bool HasShape(size_t sizeRow, size_t sizeCol) const;

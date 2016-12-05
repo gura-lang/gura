@@ -78,6 +78,16 @@ void Array::SetDimensions(const ValueList &valList)
 	UpdateMetrics();
 }
 
+void Array::SetDimensions(Dimensions::const_iterator pDim, Dimensions::const_iterator pDimEnd,
+						  const Dimension &dimRow, const Dimension &dimCol)
+{
+	_dims.reserve(std::distance(pDim, pDimEnd) + 2);
+	_dims.insert(_dims.end(), pDim, pDimEnd);
+	_dims.push_back(dimRow);
+	_dims.push_back(dimCol);
+	UpdateMetrics();
+}
+
 void Array::UpdateMetrics()
 {
 	size_t stride = 1;
@@ -552,10 +562,10 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
 	if (dimsL.size() == 2 && dimsR.size() == 2) {
 		size_t nRowL = dimsL[0].GetSize();
-		size_t nColL_nRowR = dimsL[1].GetSize();
+		size_t nColL = dimsL[1].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
 		size_t nColR = dimsR[1].GetSize();
-		if (nColL_nRowR != nRowR) {
+		if (nColL != nRowR) {
 			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return Value::Nil;
 		}
@@ -563,43 +573,53 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
+		DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL, nColR);
 	} else if (dimsL.size() >= 2 && dimsR.size() >= 2) {
-#if 0
 		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
-		size_t nColL_nRowR = dimsL.rbegin()->GetSize();
+		size_t nColL = dimsL.rbegin()->GetSize();
 		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
 		size_t nColR = dimsR.rbegin()->GetSize();
-		if (nColL_nRowR != nRowR) {
+		if (nColL != nRowR) {
 			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return Value::Nil;
 		}
-		//size_t elemNumL = arrayL.GetElemNum();
-		//size_t elemNumR = arrayR.GetElemNum();
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		size_t elemNumL = arrayL.GetElemNum();
+		size_t elemNumR = arrayL.GetElemNum();
+		size_t elemNumMatResult = nRowL * nColR;
+		size_t elemNumMatL = nRowL * nColL;
+		size_t elemNumMatR = nRowR * nColR;
+		size_t offsetL = 0, offsetR = 0;
 		if (dimsL.size() < dimsR.size()) {
-			pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
-			size_t elemNumResult = pArrayResult->GetElemNum();
-			size_t elemNumMatR = nColL_nRowR * nColR;
+			pArrayResult.reset(new ArrayT<T_ElemResult>());
+			pArrayResult->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+										Array::Dimension(nRowL), Array::Dimension(nColR));
+			pArrayResult->AllocMemory();
 			T_ElemResult *pElemResult = pArrayResult->GetPointer();
-			for (size_t cnt = elemNumR / elemNumMatR; cnt > 0; cnt--) {
-				DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
-				pElemResult += elemNumResult;
-				pElemR += elemNumMatR;
+			while (offsetR < elemNumR) {
+				DotFuncTmpl_2d_2d(pElemResult, pElemL + offsetL, pElemR + offsetR,
+								  nRowL, nColL, nColR);
+				pElemResult += elemNumMatResult;
+				offsetL += elemNumMatL;
+				offsetR += elemNumMatR;
+				if (offsetL >= elemNumL) offsetL = 0;
 			}
 		} else { // dimsL.size() >= dimsR.size()
-			pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
-			size_t elemNumResult = pArrayResult->GetElemNum();
-			size_t elemNumMatL = nRowL * nColL_nRowR;
+			pArrayResult.reset(new ArrayT<T_ElemResult>());
+			pArrayResult->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+										Array::Dimension(nRowL), Array::Dimension(nColR));
+			pArrayResult->AllocMemory();
 			T_ElemResult *pElemResult = pArrayResult->GetPointer();
-			for (size_t cnt = elemNumL / elemNumMatL; cnt > 0; cnt--) {
-				DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL_nRowR, nColR);
-				pElemResult += elemNumResult;
-				pElemL += elemNumMatL;
+			while (offsetL < elemNumL) {
+				DotFuncTmpl_2d_2d(pElemResult, pElemL + offsetL, pElemR + offsetR,
+								  nRowL, nColL, nColR);
+				pElemResult += elemNumMatResult;
+				offsetL += elemNumMatL;
+				offsetR += elemNumMatR;
+				if (offsetR >= elemNumR) offsetR = 0;
 			}
 		}
-#endif
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
 #if 0
 		size_t nRow = (dimsL.rbegin() + 1)->GetSize();
