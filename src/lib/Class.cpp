@@ -341,7 +341,7 @@ Gura_ImplementMethod(Object, __call__)
 	Value valueToCall;
 	const Value *pValue = pThis->LookupValue(pSymbol, ENVREF_Escalate);
 	if (pValue == nullptr) {
-		valueToCall = pThis->GetProp(env, pSymbol, SymbolSet::Empty);
+		valueToCall = pThis->GetProp(pSymbol, SymbolSet::Empty);
 		if (sig.IsSignalled()) return Value::Nil;
 	} else {
 		valueToCall = *pValue;
@@ -407,9 +407,9 @@ Gura_ImplementClassMethod(Object, getprop_X)
 	const SymbolSet &attrs = SymbolSet::Empty;
 	if (arg.IsDefined(1)) {
 		Value value = arg.GetValue(1);
-		return pThis->GetProp(env, arg.GetSymbol(0), attrs, &value);
+		return pThis->GetProp(arg.GetSymbol(0), attrs, &value);
 	} else {
-		return pThis->GetProp(env, arg.GetSymbol(0), attrs);
+		return pThis->GetProp(arg.GetSymbol(0), attrs);
 	}
 }
 

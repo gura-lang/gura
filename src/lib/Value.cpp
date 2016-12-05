@@ -298,7 +298,7 @@ Value Value::GetProp(const Symbol *pSymbol, const SymbolSet &attrs) const
 		!(pFund->IsClass() || pFund->IsObject())? ENVREF_Escalate :
 		IsPrivileged()? ENVREF_Escalate : ENVREF_Restricted;
 	int cntSuperSkip = GetSuperSkipCount();
-	Value rtn = pFund->GetProp(*pFund, pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
+	Value rtn = pFund->GetProp(pSymbol, attrs, nullptr, envRefMode, cntSuperSkip);
 	return rtn;
 }
 

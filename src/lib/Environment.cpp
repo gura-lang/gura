@@ -384,15 +384,14 @@ Callable *Environment::GetCallable(const Symbol *pSymbol)
 	return nullptr;
 }
 
-Value Environment::GetProp(Environment &env, const Symbol *pSymbol,
-						const SymbolSet &attrs, const Value *pValueDefault,
-						EnvRefMode envRefMode, int cntSuperSkip) const
+Value Environment::GetProp(const Symbol *pSymbol,
+						   const SymbolSet &attrs, const Value *pValueDefault,
+						   EnvRefMode envRefMode, int cntSuperSkip)
 {
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == nullptr) {
 		bool evaluatedFlag = false;
-		Value result = const_cast<Environment *>(this)->
-							DoGetProp(env, pSymbol, attrs, evaluatedFlag);
+		Value result = DoGetProp(*this, pSymbol, attrs, evaluatedFlag);
 		if (IsSignalled()) return Value::Nil;
 		if (evaluatedFlag) return result;
 		if (pValueDefault != nullptr) return *pValueDefault;

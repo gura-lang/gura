@@ -182,7 +182,6 @@ public:
 		Argument *_pArgWeak;
 		ValueEx _valueEx_arg;
 		ValueEx _valueEx_this;
-		PropHandlerMap _propHandlerMap;
 	public:
 		inline static void *operator new(size_t size) {
 			return MemoryPool::Allocate(size, "Frame");
@@ -347,9 +346,9 @@ public:
 	virtual Value DoSetProp(Environment &env, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(const Symbol *pSymbol);
-	Value GetProp(Environment &env, const Symbol *pSymbol,
-					const SymbolSet &attrs, const Value *pValueDefault = nullptr,
-					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
+	Value GetProp(const Symbol *pSymbol,
+				  const SymbolSet &attrs, const Value *pValueDefault = nullptr,
+				  EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0);
 public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	ValueTypeInfo *LookupValueType(const SymbolList &symbolList);

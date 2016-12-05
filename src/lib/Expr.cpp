@@ -1009,7 +1009,7 @@ Expr *Expr_Identifier::Clone() const
 Callable *Expr_Identifier::LookupCallable(Environment &env) const
 {
 	Signal &sig = env.GetSignal();
-	Value rtn = env.GetProp(env, GetSymbol(), GetAttrs());
+	Value rtn = env.GetProp(GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return nullptr;
@@ -1021,7 +1021,7 @@ Value Expr_Identifier::DoExec(Environment &env) const
 {
 	if (!Monitor::NotifyExprPre(env, this)) return Value::Nil;
 	Signal &sig = env.GetSignal();
-	Value result = env.GetProp(env, GetSymbol(), GetAttrs());
+	Value result = env.GetProp(GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Nil;
 	if (!Monitor::NotifyExprPost(env, this, result)) return Value::Nil;
 	return result;
