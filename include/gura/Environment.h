@@ -260,6 +260,7 @@ protected:
 	Signal &_sig;	// this must be placed at top.
 	FrameOwner _frameOwner;
 	AutoPtr<FrameCache> _pFrameCache;
+	PropHandlerMap _propHandlerMap;
 public:
 	Gura_DeclareReferenceAccessor(Environment)
 public:

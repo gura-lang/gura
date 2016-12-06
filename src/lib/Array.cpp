@@ -495,6 +495,44 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array 
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void DotFuncTmpl_1d_2d(T_ElemResult *pElemResult,
+							  const T_ElemL *pElemL, const T_ElemR *pElemR,
+							  size_t nRowR, size_t nColR)
+{
+	const T_ElemR *pElemBaseR = pElemR;
+	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR++) {
+		const T_ElemL *pElemWorkL = pElemL;
+		const T_ElemR *pElemWorkR = pElemBaseR;
+		T_ElemResult elemResult = 0;
+		for (size_t iRowR = 0; iRowR < nRowR; iRowR++, pElemWorkL++, pElemWorkR += nColR) {
+			elemResult +=
+				static_cast<T_ElemResult>(*pElemWorkL) *
+				static_cast<T_ElemResult>(*pElemWorkR);
+		}
+		*pElemResult++ = elemResult;
+	}
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
+void DotFuncTmpl_2d_1d(T_ElemResult *pElemResult,
+							  const T_ElemL *pElemL, const T_ElemR *pElemR,
+							  size_t nRowL, size_t nColL)
+{
+	const T_ElemL *pElemBaseL = pElemL;
+	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += nColL) {
+		const T_ElemL *pElemWorkL = pElemBaseL;
+		const T_ElemR *pElemWorkR = pElemR;
+		T_ElemResult elemResult = 0;
+		for (size_t iColL = 0; iColL < nColL; iColL++, pElemWorkL++, pElemWorkR++) {
+			elemResult +=
+				static_cast<T_ElemResult>(*pElemWorkL) *
+				static_cast<T_ElemResult>(*pElemWorkR);
+		}
+		*pElemResult++ = elemResult;
+	}
+}
+
+template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
 							  const T_ElemL *pElemL, const T_ElemR *pElemR,
 							  size_t nRowL, size_t nColL_nRowR, size_t nColR)
@@ -507,7 +545,9 @@ void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
 			const T_ElemR *pElemWorkR = pElemBaseR;
 			T_ElemResult elemResult = 0;
 			for (size_t i = 0; i < nColL_nRowR; i++, pElemWorkL++, pElemWorkR += nColR) {
-				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * *pElemWorkR;
+				elemResult +=
+					static_cast<T_ElemResult>(*pElemWorkL) *
+					static_cast<T_ElemResult>(*pElemWorkR);
 			}
 			*pElemResult++ = elemResult;
 		}
@@ -515,29 +555,14 @@ void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
 }
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
-void DotFuncTmpl_1d_2d(T_ElemResult *pElemResult,
-							  const T_ElemL *pElemL, const T_ElemR *pElemR,
-							  size_t nRow, size_t nCol)
-{
-	const T_ElemR *pElemBaseR = pElemR;
-	for (size_t iCol = 0; iCol < nCol; iCol++, pElemBaseR++) {
-		const T_ElemL *pElemWorkL = pElemL;
-		const T_ElemR *pElemWorkR = pElemBaseR;
-		T_ElemResult elemResult = 0;
-		for (size_t iRow = 0; iRow < nRow; iRow++, pElemWorkL++, pElemWorkR += nCol) {
-				elemResult += static_cast<T_ElemResult>(*pElemWorkL) * *pElemWorkR;
-		}
-		*pElemResult++ = elemResult;
-	}
-}
-
-template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_1d_1d(T_ElemResult &elemResult,
-							  const T_ElemL *pElemL, const T_ElemR *pElemR, size_t n)
+					   const T_ElemL *pElemL, const T_ElemR *pElemR, size_t nColL)
 {
 	elemResult = 0;
-	for (size_t i = 0; i < n; i++, pElemL++, pElemR++) {
-		elemResult += static_cast<T_ElemResult>(*pElemL) * *pElemR;
+	for (size_t iColL = 0; iColL < nColL; iColL++, pElemL++, pElemR++) {
+		elemResult +=
+			static_cast<T_ElemResult>(*pElemL) *
+			static_cast<T_ElemResult>(*pElemR);
 	}
 }
 
@@ -548,19 +573,45 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 	const Array::Dimensions &dimsR = arrayR.GetDimensions();
 	if (dimsL.size() == 1 && dimsR.size() == 1) {
 		T_ElemResult elemResult = 0;
-		size_t nL = dimsL[0].GetSize();
-		size_t nR = dimsR[0].GetSize();
-		if (nL != nR) {
+		size_t nColL = dimsL[0].GetSize();
+		size_t nRowR = dimsR[0].GetSize();
+		if (nColL != nRowR) {
 			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return Value::Nil;
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		DotFuncTmpl_1d_1d(elemResult, pElemL, pElemR, nL);
+		DotFuncTmpl_1d_1d(elemResult, pElemL, pElemR, nColL);
 		return Value(elemResult);
 	}
 	AutoPtr<ArrayT<T_ElemResult> > pArrayResult;
-	if (dimsL.size() == 2 && dimsR.size() == 2) {
+	if (dimsL.size() == 1 && dimsR.size() == 2) {
+		size_t nColL = dimsL[0].GetSize();
+		size_t nRowR = dimsR[0].GetSize();
+		size_t nColR = dimsR[1].GetSize();
+		if (nColL != nRowR) {
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
+		}
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nColL));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR, nRowR, nColR);
+	} else if (dimsL.size() == 2 && dimsR.size() == 1) {
+		size_t nRowL = dimsL[0].GetSize();
+		size_t nColL = dimsL[1].GetSize();
+		size_t nRowR = dimsR[0].GetSize();
+		if (nColL != nRowR) {
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
+		}
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowR));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		DotFuncTmpl_2d_1d(pElemResult, pElemL, pElemR, nRowL, nColL);
+	} else if (dimsL.size() == 2 && dimsR.size() == 2) {
 		size_t nRowL = dimsL[0].GetSize();
 		size_t nColL = dimsL[1].GetSize();
 		size_t nRowR = dimsR[0].GetSize();
@@ -569,10 +620,10 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
 			return Value::Nil;
 		}
-		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
-		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL, nColR));
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		DotFuncTmpl_2d_2d(pElemResult, pElemL, pElemR, nRowL, nColL, nColR);
 	} else if (dimsL.size() >= 2 && dimsR.size() >= 2) {
 		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
@@ -621,22 +672,51 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 			}
 		}
 	} else if (dimsL.size() == 1 && dimsR.size() >= 2) {
-#if 0
-		size_t nRow = (dimsL.rbegin() + 1)->GetSize();
-		size_t nCol = dimsL.rbegin()->GetSize();
-		size_t elemNum = arrayR.GetElemNum();
-		size_t elemNumMat = nRow * nCol;
-		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		size_t nColL = dimsL[0].GetSize();
+		size_t nRowR = (dimsR.rbegin() + 1)->GetSize();
+		size_t nColR = dimsR.rbegin()->GetSize();
+		if (nColL != nRowR) {
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
+		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		for (size_t cnt = elemNum / elemNumMat; cnt > 0; cnt--) {
-			DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR, nRow, nCol);
-			pElemResult += elemNumResult;
-			pElemR += elemNumMat;
-		}		
-#endif
+		size_t elemNumR = arrayR.GetElemNum();
+		size_t elemNumMatR = nRowR * nColR;
+		size_t offsetR = 0;
+		pArrayResult.reset(new ArrayT<T_ElemResult>());
+		pArrayResult->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
+									Array::Dimension(nColL));
+		pArrayResult->AllocMemory();
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		while (offsetR < elemNumR) {
+			DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR + offsetR, nRowR, nColR);
+			pElemResult += nColL;
+			offsetR += elemNumMatR;
+		}
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
-		
+		size_t nRowL = (dimsL.rbegin() + 1)->GetSize();
+		size_t nColL = dimsL.rbegin()->GetSize();
+		size_t nRowR = dimsR[0].GetSize();
+		if (nColL != nRowR) {
+			env.SetError(ERR_ValueError, "dimensions mismatch for the dot product");
+			return Value::Nil;
+		}
+		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
+		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
+		size_t elemNumL = arrayL.GetElemNum();
+		size_t elemNumMatL = nRowL * nColL;
+		size_t offsetL = 0;
+		pArrayResult.reset(new ArrayT<T_ElemResult>());
+		pArrayResult->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
+									Array::Dimension(nRowR));
+		pArrayResult->AllocMemory();
+		T_ElemResult *pElemResult = pArrayResult->GetPointer();
+		while (offsetL < elemNumL) {
+			DotFuncTmpl_2d_1d(pElemResult, pElemL + offsetL, pElemR, nRowL, nColL);
+			pElemResult += nRowR;
+			offsetL += elemNumMatL;
+		}
 	}
 	return Value(new Object_array(env, pArrayResult.release()));
 }
