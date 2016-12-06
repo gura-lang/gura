@@ -496,8 +496,8 @@ Array *BinaryFuncTmpl_Div_number_array(Signal &sig, Double numberL, const Array 
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_1d_2d(T_ElemResult *pElemResult,
-							  const T_ElemL *pElemL, const T_ElemR *pElemR,
-							  size_t nRowR, size_t nColR)
+					   const T_ElemL *pElemL, const T_ElemR *pElemR,
+					   size_t nRowR, size_t nColR)
 {
 	const T_ElemR *pElemBaseR = pElemR;
 	for (size_t iColR = 0; iColR < nColR; iColR++, pElemBaseR++) {
@@ -515,8 +515,8 @@ void DotFuncTmpl_1d_2d(T_ElemResult *pElemResult,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_2d_1d(T_ElemResult *pElemResult,
-							  const T_ElemL *pElemL, const T_ElemR *pElemR,
-							  size_t nRowL, size_t nColL)
+					   const T_ElemL *pElemL, const T_ElemR *pElemR,
+					   size_t nRowL, size_t nColL)
 {
 	const T_ElemL *pElemBaseL = pElemL;
 	for (size_t iRowL = 0; iRowL < nRowL; iRowL++, pElemBaseL += nColL) {
@@ -534,8 +534,8 @@ void DotFuncTmpl_2d_1d(T_ElemResult *pElemResult,
 
 template<typename T_ElemResult, typename T_ElemL, typename T_ElemR>
 void DotFuncTmpl_2d_2d(T_ElemResult *pElemResult,
-							  const T_ElemL *pElemL, const T_ElemR *pElemR,
-							  size_t nRowL, size_t nColL_nRowR, size_t nColR)
+					   const T_ElemL *pElemL, const T_ElemR *pElemR,
+					   size_t nRowL, size_t nColL_nRowR, size_t nColR)
 {
 	const T_ElemL *pElemBaseL = pElemL;
 	for (size_t iRow = 0; iRow < nRowL; iRow++, pElemBaseL += nColL_nRowR) {
@@ -595,7 +595,7 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		pArrayResult.reset(new ArrayT<T_ElemResult>(nColL));
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nColR));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR, nRowR, nColR);
 	} else if (dimsL.size() == 2 && dimsR.size() == 1) {
@@ -608,7 +608,7 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		}
 		const T_ElemL *pElemL = dynamic_cast<const ArrayT<T_ElemL> *>(&arrayL)->GetPointer();
 		const T_ElemR *pElemR = dynamic_cast<const ArrayT<T_ElemR> *>(&arrayR)->GetPointer();
-		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowR));
+		pArrayResult.reset(new ArrayT<T_ElemResult>(nRowL));
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		DotFuncTmpl_2d_1d(pElemResult, pElemL, pElemR, nRowL, nColL);
 	} else if (dimsL.size() == 2 && dimsR.size() == 2) {
@@ -686,12 +686,12 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		size_t offsetR = 0;
 		pArrayResult.reset(new ArrayT<T_ElemResult>());
 		pArrayResult->SetDimensions(dimsR.begin(), dimsR.begin() + dimsR.size() - 2,
-									Array::Dimension(nColL));
+									Array::Dimension(nColR));
 		pArrayResult->AllocMemory();
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		while (offsetR < elemNumR) {
 			DotFuncTmpl_1d_2d(pElemResult, pElemL, pElemR + offsetR, nRowR, nColR);
-			pElemResult += nColL;
+			pElemResult += nColR;
 			offsetR += elemNumMatR;
 		}
 	} else if (dimsL.size() >= 2 && dimsR.size() == 1) {
@@ -709,7 +709,7 @@ Value DotFuncTmpl(Environment &env, const Array &arrayL, const Array &arrayR)
 		size_t offsetL = 0;
 		pArrayResult.reset(new ArrayT<T_ElemResult>());
 		pArrayResult->SetDimensions(dimsL.begin(), dimsL.begin() + dimsL.size() - 2,
-									Array::Dimension(nRowR));
+									Array::Dimension(nRowL));
 		pArrayResult->AllocMemory();
 		T_ElemResult *pElemResult = pArrayResult->GetPointer();
 		while (offsetL < elemNumL) {
