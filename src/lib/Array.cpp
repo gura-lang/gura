@@ -812,16 +812,18 @@ Array *InvertFuncTmpl(Signal &sig, const Array *pArray)
 	size_t bytesPerRow = nCols * sizeof(T_Elem);
 	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
 		::memcpy(pDst, pSrc, bytesPerRow);
+		*(pDst + nCols + iRow) = 1;
 	}
 	T_Elem det = 0;
 	if (!InvertFuncTmpl_Sub(pArrayWork->GetPointer(), nRows, det)) {
 		sig.SetError(ERR_ValueError, "failed to calculate inverted matrix");
 		return nullptr;
 	}
+
 	AutoPtr<ArrayT<T_Elem> > pArrayResult(new ArrayT<T_Elem>(nRows, nCols));
 	pSrc = pArrayWork->GetPointer() + nCols;
 	pDst = pArrayResult->GetPointer();
-	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols2, pSrc += nCols) {
+	for (size_t iRow = 0; iRow < nRows; iRow++, pDst += nCols, pSrc += nCols2) {
 		::memcpy(pDst, pSrc, bytesPerRow);
 	}
 	return pArrayResult.release();

@@ -513,6 +513,31 @@ ArrayT<T_Elem> *ArrayT<T_Elem>::Offset(Signal &sig, size_t n) const
 	return pArrayTRtn.release();
 }
 
+template<typename T_Elem>
+ArrayT<T_Elem> *ArrayT<T_Elem>::RoundOff(double threshold) const
+{
+	AutoPtr<ArrayT> pArrayResult(ArrayT::CreateLike(GetDimensions()));
+	T_Elem *pDst = pArrayResult->GetPointer();
+	const T_Elem *pSrc = GetPointer();
+	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
+		*pDst = (*pSrc > threshold)? *pSrc : 0;
+	}
+	return pArrayResult.release();
+}
+
+template<>
+ArrayT<Complex> *ArrayT<Complex>::RoundOff(double threshold) const
+{
+	AutoPtr<ArrayT> pArrayResult(ArrayT::CreateLike(GetDimensions()));
+	Complex *pDst = pArrayResult->GetPointer();
+	const Complex *pSrc = GetPointer();
+	double threshold2 = threshold * threshold;
+	for (size_t i = 0; i < GetElemNum(); i++, pSrc++, pDst++) {
+		*pDst = (std::norm(*pSrc) > threshold2)? *pSrc : 0;
+	}
+	return pArrayResult.release();
+}
+
 /// functions to create an ArrayT instance
 template<typename T_Elem>
 ArrayT<T_Elem> *ArrayT<T_Elem>::CreateLike(const Array::Dimensions &dims)

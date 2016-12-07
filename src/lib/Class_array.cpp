@@ -473,6 +473,47 @@ Gura_ImplementMethod(array, head)
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
 
+// array#invert() {block?}
+Gura_DeclareMethod(array, invert)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		""
+		);
+}
+
+template<typename T_Elem>
+Value Method_invert(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	const ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	Signal &sig = env.GetSignal();
+	AutoPtr<Array> pArrayRtn(Array::Invert(sig, pArrayT));
+	if (pArrayRtn.IsNull()) return Value::Nil;
+	Value value(new Object_array(env, pArrayRtn.release()));
+	return pFunc->ReturnValue(env, arg, value);
+}
+
+Gura_ImplementMethod(array, invert)
+{
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_invert<Int8>,
+		&Method_invert<UInt8>,
+		&Method_invert<Int16>,
+		&Method_invert<UInt16>,
+		&Method_invert<Int32>,
+		&Method_invert<UInt32>,
+		&Method_invert<Int64>,
+		&Method_invert<UInt64>,
+		&Method_invert<Float>,
+		&Method_invert<Double>,
+		//&Method_invert<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
 // array#offset(n:number):map {block?}
 Gura_DeclareMethod(array, offset)
 {
@@ -609,6 +650,46 @@ Gura_ImplementMethod(array, reshape)
 		&Method_reshape<Float>,
 		&Method_reshape<Double>,
 		//&Method_reshape<Complex>,
+	};
+	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
+}
+
+// array#roundoff(threshold?:number) {block?}
+Gura_DeclareMethod(array, roundoff)
+{
+	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en),
+		"Returns a matrix with element values being rounded off.\n"
+		);
+}
+
+template<typename T_Elem>
+Value Method_roundoff(Environment &env, Argument &arg, const Function *pFunc, Array *pArraySelf)
+{
+	double threshold = arg.IsValid(0)? arg.GetDouble(0) : 1.e-6;
+	ArrayT<T_Elem> *pArrayT = dynamic_cast<ArrayT<T_Elem> *>(pArraySelf);
+	AutoPtr<Array> pArrayTRtn(pArrayT->RoundOff(threshold));
+	return pFunc->ReturnValue(env, arg, Value(new Object_array(env, pArrayTRtn.release())));
+}
+
+Gura_ImplementMethod(array, roundoff)
+{
+	static const MethodT methods[] = {
+		nullptr,
+		&Method_roundoff<Int8>,
+		&Method_roundoff<UInt8>,
+		&Method_roundoff<Int16>,
+		&Method_roundoff<UInt16>,
+		&Method_roundoff<Int32>,
+		&Method_roundoff<UInt32>,
+		&Method_roundoff<Int64>,
+		&Method_roundoff<UInt64>,
+		&Method_roundoff<Float>,
+		&Method_roundoff<Double>,
+		//&Method_roundoff<Complex>,
 	};
 	return CallMethod(env, arg, methods, this, Object_array::GetObjectThis(arg)->GetArray());
 }
@@ -758,9 +839,11 @@ void Class_array::Prepare(Environment &env)
 	Gura_AssignMethod(array, fill);
 	Gura_AssignMethod(array, flatten);
 	Gura_AssignMethod(array, head);
+	Gura_AssignMethod(array, invert);
 	Gura_AssignMethod(array, offset);
 	Gura_AssignMethod(array, paste);
 	Gura_AssignMethod(array, reshape);
+	Gura_AssignMethod(array, roundoff);
 	Gura_AssignMethod(array, sum);
 	Gura_AssignMethod(array, tail);
 	Gura_AssignMethod(array, transpose);
