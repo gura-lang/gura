@@ -39,7 +39,7 @@ Object *Object_array::Clone() const
 
 String Object_array::ToString(bool exprFlag)
 {
-	return _pArray->ToString();
+	return _pArray->ToString(exprFlag);
 }
 
 bool Object_array::DoDirProp(Environment &env, SymbolSet &symbols)

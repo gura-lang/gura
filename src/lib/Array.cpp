@@ -13,7 +13,7 @@ Array::~Array()
 {
 }
 
-String Array::ToString() const
+String Array::ToString(bool exprFlag) const
 {
 	return "";
 }

@@ -131,12 +131,9 @@ void ToString_Sub(String &rtn, size_t colTop, int wdPad, const Array::Dimensions
 }
 
 template<typename T_Elem>
-String ArrayT<T_Elem>::ToString() const
+String ArrayT<T_Elem>::ToString(bool exprFlag) const
 {
 	char buff[128];
-	String rtn;
-	rtn += ConstructorName;
-	rtn += "(";
 	const T_Elem *p = GetPointer();
 	int wdPad = 0;
 	for (size_t i = 0; i < GetElemNum(); i++, p++) {
@@ -145,8 +142,15 @@ String ArrayT<T_Elem>::ToString() const
 		if (wdPad < wdElem) wdPad = wdElem;
 	}
 	p = GetPointer();
-	ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
-	rtn += ")";
+	String rtn;
+	if (exprFlag) {
+		rtn += ConstructorName;
+		rtn += "(";
+		ToString_Sub(rtn, rtn.size(), wdPad, _dims, _dims.begin(), p);
+		rtn += ")";
+	} else {
+		ToString_Sub(rtn, 0, wdPad, _dims, _dims.begin(), p);
+	}
 	return rtn;
 }
 

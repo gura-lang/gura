@@ -108,7 +108,7 @@ public:
 	inline size_t GetElemNum() const { return _elemNum; }
 	inline void SetOffsetBase(size_t offsetBase) { _offsetBase = offsetBase; }
 	inline size_t GetOffsetBase() const { return _offsetBase; }
-	virtual String ToString() const;
+	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
 	void SetDimension(const Dimension &dim);
 	void SetDimensions(const Dimension &dimRow, const Dimension &dimCol);

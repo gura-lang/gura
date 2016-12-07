@@ -32,7 +32,7 @@ public:
 	}
 	inline operator T_Elem *() { return GetPointer(); }
 	inline operator const T_Elem *() const { return GetPointer(); }
-	virtual String ToString() const;
+	virtual String ToString(bool exprFlag) const;
 	virtual bool DoesContainZero() const;
 	static ElemType ElemTypeThis;
 	static const char *ElemTypeName;
